@@ -24,12 +24,12 @@ public:
 
 wx_AppConsole::~wx_AppConsole()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AppConsole::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_AppConsole::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_AppConsole::~Object_wx_AppConsole()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AppConsole::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AppConsole::ToString(bool exprFlag)
 {
 	String rtn("<wx.AppConsole:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_AppConsole)
 
 Gura_ImplementDescendantCreator(wx_AppConsole)
 {
-	return new Object_wx_AppConsole((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AppConsole((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

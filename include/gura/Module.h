@@ -32,8 +32,8 @@ GURA_DLLEXPORT void Terminate(Module *pModule) \
 GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 { \
 	Module *pModule = new Module(&env, Symbol::Add(#nameBase), \
-								 "<integrated>", NULL, Terminate); \
-	if (!MixIn(*pModule, sig)) return NULL; \
+								 "<integrated>", nullptr, Terminate); \
+	if (!MixIn(*pModule, sig)) return nullptr; \
 	env.AssignIntegratedModule(pModule); \
 	return pModule; \
 } \
@@ -85,7 +85,7 @@ class GURA_DLLDECLARE Module : public Fundamental {
 protected:
 	const Symbol *_pSymbol;
 	String _sourceName;
-	AutoPtr<Expr> _pExprScript;		// this is set to NULL in binary modules
+	AutoPtr<Expr> _pExprScript;		// this is set to nullptr in binary modules
 	ModuleTerminateType _moduleTerminate;
 public:
 	Gura_DeclareReferenceAccessor(Module);

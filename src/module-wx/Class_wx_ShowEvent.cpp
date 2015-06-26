@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ShowEvent *_pObj;
 public:
-	inline wx_ShowEvent(int winid, bool show) : wxShowEvent(winid, show), _sig(NULL), _pObj(NULL) {}
+	inline wx_ShowEvent(int winid, bool show) : wxShowEvent(winid, show), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ShowEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ShowEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ShowEvent::~wx_ShowEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ShowEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(ShowEvent)
 	if (args.IsValid(1)) show = args.GetBoolean(1);
 	wx_ShowEvent *pEntity = new wx_ShowEvent(winid, show);
 	Object_wx_ShowEvent *pObj = Object_wx_ShowEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ShowEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -117,13 +117,13 @@ Object_wx_ShowEvent::~Object_wx_ShowEvent()
 
 Object *Object_wx_ShowEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ShowEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ShowEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -146,7 +146,7 @@ Gura_ImplementUserInheritableClass(wx_ShowEvent)
 
 Gura_ImplementDescendantCreator(wx_ShowEvent)
 {
-	return new Object_wx_ShowEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ShowEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

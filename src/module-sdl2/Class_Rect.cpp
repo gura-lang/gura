@@ -11,7 +11,7 @@ Object_Rect::~Object_Rect()
 
 Object *Object_Rect::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Rect::ToString(bool exprFlag)

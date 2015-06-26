@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ToggleButton *_pObj;
 public:
-	inline wx_ToggleButton() : wxToggleButton(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ToggleButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxToggleButton(parent, id, label, pos, size, style, val, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ToggleButton() : wxToggleButton(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ToggleButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxToggleButton(parent, id, label, pos, size, style, val, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ToggleButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToggleButton *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_ToggleButton::~wx_ToggleButton()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ToggleButton::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(ToggleButtonEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ToggleButton *pEntity = new wx_ToggleButton();
 	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementFunction(ToggleButton)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_ToggleButton *pEntity = new wx_ToggleButton(parent, id, label, *pos, *size, style, *val, name);
 	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -175,13 +175,13 @@ Object_wx_ToggleButton::~Object_wx_ToggleButton()
 
 Object *Object_wx_ToggleButton::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ToggleButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.ToggleButton:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -205,7 +205,7 @@ Gura_ImplementUserInheritableClass(wx_ToggleButton)
 
 Gura_ImplementDescendantCreator(wx_ToggleButton)
 {
-	return new Object_wx_ToggleButton((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ToggleButton((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_EncodingConverter *_pObj;
 public:
-	inline wx_EncodingConverter() : wxEncodingConverter(), _sig(NULL), _pObj(NULL) {}
+	inline wx_EncodingConverter() : wxEncodingConverter(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_EncodingConverter();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_EncodingConverter *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_EncodingConverter::~wx_EncodingConverter()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_EncodingConverter::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(EncodingConverterEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_EncodingConverter *pEntity = new wx_EncodingConverter();
 	Object_wx_EncodingConverter *pObj = Object_wx_EncodingConverter::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_EncodingConverter(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -266,7 +266,7 @@ Gura_ImplementClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 	int platform = wxPLATFORM_CURRENT;
 	if (args.IsValid(1)) platform = args.GetInt(1);
 	wxFontEncodingArray rtn = wxEncodingConverter::GetPlatformEquivalents(enc, platform);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -287,7 +287,7 @@ Gura_ImplementClassMethod(wx_EncodingConverter, GetAllEquivalents)
 #if 0
 	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFontEncodingArray rtn = wxEncodingConverter::GetAllEquivalents(enc);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -302,13 +302,13 @@ Object_wx_EncodingConverter::~Object_wx_EncodingConverter()
 
 Object *Object_wx_EncodingConverter::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_EncodingConverter::ToString(bool exprFlag)
 {
 	String rtn("<wx.EncodingConverter:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -339,7 +339,7 @@ Gura_ImplementUserInheritableClass(wx_EncodingConverter)
 
 Gura_ImplementDescendantCreator(wx_EncodingConverter)
 {
-	return new Object_wx_EncodingConverter((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_EncodingConverter((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

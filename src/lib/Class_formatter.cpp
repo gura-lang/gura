@@ -205,7 +205,7 @@ void Class_formatter::Prepare(Environment &env)
 Object *Class_formatter::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

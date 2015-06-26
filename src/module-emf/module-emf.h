@@ -78,7 +78,7 @@ protected:
 	char *_buff;
 public:
 	inline EMR_basement(ULong iType, size_t dwordsParms) :
-					_iType(iType), _dwordsParms(dwordsParms), _buff(NULL) {
+					_iType(iType), _dwordsParms(dwordsParms), _buff(nullptr) {
 		size_t bytes = _dwordsParms * 4;
 		if (bytes > 0) {
 			_buff = new char [bytes];

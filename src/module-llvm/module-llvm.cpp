@@ -23,7 +23,7 @@ Gura_ImplementFunction(test)
 	llvm::Module *pModule = new llvm::Module("test", context);
 	llvm::Value *pValue_1 = llvm::ConstantInt::get(llvm::Type::getInt32Ty(context), 1);
 	llvm::Value *pValue_10 =llvm::ConstantInt::get(llvm::Type::getInt32Ty(context), 10);
-	llvm::Function *pFunction_add1 = NULL, *pFunction_foo = NULL;
+	llvm::Function *pFunction_add1 = nullptr, *pFunction_foo = nullptr;
 	llvm::IRBuilder<> builder(context);
 	do {
 		pFunction_add1 = llvm::cast<llvm::Function>(pModule->getOrInsertFunction("add1",
@@ -90,14 +90,14 @@ static llvm::Function *CreateFibFunction(llvm::Module *pModule, llvm::LLVMContex
 	} while (0);
 	do {
 		builder.SetInsertPoint(pBasicBlock_recurse);
-		llvm::CallInst *pCallInst_fibx1 = NULL;
+		llvm::CallInst *pCallInst_fibx1 = nullptr;
 		do {
 			// fib(x - 1)
 			llvm::Value *pValue = builder.CreateSub(pArgument, pValue_1, "arg");
 			pCallInst_fibx1 = builder.CreateCall(pFunction, pValue, "fibx1");
 			pCallInst_fibx1->setTailCall();
 		} while (0);
-		llvm::CallInst *pCallInst_fibx2 = NULL;
+		llvm::CallInst *pCallInst_fibx2 = nullptr;
 		do {
 			// fib(x - 2)
 			llvm::Value *pValue = builder.CreateSub(pArgument, pValue_2, "arg");
@@ -128,7 +128,7 @@ Gura_ImplementFunction(fibonacci)
 	llvm::Function *pFunction_fib = CreateFibFunction(pModule.get(), context);
 	std::string errStr;
 	llvm::ExecutionEngine *pExecutionEngine = llvm::EngineBuilder(pModule.get()).setErrorStr(&errStr).setEngineKind(llvm::EngineKind::JIT).create();
-	if (pExecutionEngine == NULL) {
+	if (pExecutionEngine == nullptr) {
 		llvm::errs() << "Failed to construct ExecutionEngine: " << errStr << "\n";
 		return Value::Null;
 	}

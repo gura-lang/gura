@@ -24,12 +24,12 @@ public:
 
 wx_RichTextParagraphLayoutBox::~wx_RichTextParagraphLayoutBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextParagraphLayoutBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_RichTextParagraphLayoutBox::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_RichTextParagraphLayoutBox::~Object_wx_RichTextParagraphLayoutBox()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RichTextParagraphLayoutBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextParagraphLayoutBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextParagraphLayoutBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextParagraphLayoutBox)
 
 Gura_ImplementDescendantCreator(wx_RichTextParagraphLayoutBox)
 {
-	return new Object_wx_RichTextParagraphLayoutBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextParagraphLayoutBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -68,7 +68,7 @@ Gura_ImplementFunction(iterator)
 {
 	Iterator_Concat *pIterator = new Iterator_Concat();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		Iterator *pIteratorArg = NULL;
+		Iterator *pIteratorArg = nullptr;
 		if (pValue->Is_iterator()) {
 			pIteratorArg = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(iterator, rank)
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
-	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0), NULL,
+	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0), nullptr,
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -1116,7 +1116,7 @@ Gura_ImplementMethod(iterator, reduce)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) {
+	if (pFuncBlock == nullptr) {
 		return Value::Null;
 	}
 	Value result = pIterator->Reduce(env, sig, args.GetValue(0), pFuncBlock);
@@ -1337,7 +1337,7 @@ Gura_ImplementMethod(iterator, sort)
 	if (value.IsInvalid()) return args.GetThis();
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0),
-						args.Is_list(1)? &args.GetList(1) : NULL,
+						args.Is_list(1)? &args.GetList(1) : nullptr,
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -1607,7 +1607,7 @@ void Class_iterator::Prepare(Environment &env)
 bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	Iterator *pIterator = value.CreateIterator(sig);
-	if (pIterator != NULL) {
+	if (pIterator != nullptr) {
 		value = Value(new Object_iterator(env, pIterator));
 		return true;
 	}
@@ -1617,7 +1617,7 @@ bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const 
 Object *Class_iterator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

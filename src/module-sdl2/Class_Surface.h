@@ -15,7 +15,7 @@ private:
 public:
 	Gura_DeclareObjectAccessor(Surface)
 public:
-	inline Object_Surface(SDL_Surface *pSurface, Image *pImage = NULL) :
+	inline Object_Surface(SDL_Surface *pSurface, Image *pImage = nullptr) :
 		Object(Gura_UserClass(Surface)), _pSurface(pSurface), _pImage(pImage) {}
 	virtual ~Object_Surface();
 	virtual Object *Clone() const;

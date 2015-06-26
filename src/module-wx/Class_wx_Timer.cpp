@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Timer *_pObj;
 public:
-	inline wx_Timer() : wxTimer(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Timer(wxEvtHandler * owner, int id) : wxTimer(owner, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_Timer() : wxTimer(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Timer(wxEvtHandler * owner, int id) : wxTimer(owner, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Timer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Timer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Timer::~wx_Timer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Timer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(TimerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Timer *pEntity = new wx_Timer();
 	Object_wx_Timer *pObj = Object_wx_Timer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Timer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(Timer)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_Timer *pEntity = new wx_Timer(owner, id);
 	Object_wx_Timer *pObj = Object_wx_Timer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Timer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -201,13 +201,13 @@ Object_wx_Timer::~Object_wx_Timer()
 
 Object *Object_wx_Timer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Timer::ToString(bool exprFlag)
 {
 	String rtn("<wx.Timer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -235,7 +235,7 @@ Gura_ImplementUserInheritableClass(wx_Timer)
 
 Gura_ImplementDescendantCreator(wx_Timer)
 {
-	return new Object_wx_Timer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Timer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

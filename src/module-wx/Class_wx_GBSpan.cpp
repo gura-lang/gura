@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GBSpan *_pObj;
 public:
-	inline wx_GBSpan() : wxGBSpan(), _sig(NULL), _pObj(NULL) {}
-	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _sig(NULL), _pObj(NULL) {}
+	inline wx_GBSpan() : wxGBSpan(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GBSpan();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBSpan *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GBSpan::~wx_GBSpan()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GBSpan::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(GBSpanEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBSpan *pEntity = new wx_GBSpan();
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(GBSpan)
 	int colspan = args.GetInt(1);
 	wx_GBSpan *pEntity = new wx_GBSpan(rowspan, colspan);
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -148,20 +148,20 @@ Gura_ImplementMethod(wx_GBSpan, SetRowspan)
 //----------------------------------------------------------------------------
 Object_wx_GBSpan::~Object_wx_GBSpan()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_GBSpan::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GBSpan::ToString(bool exprFlag)
 {
 	String rtn("<wx.GBSpan:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -186,7 +186,7 @@ Gura_ImplementUserInheritableClass(wx_GBSpan)
 
 Gura_ImplementDescendantCreator(wx_GBSpan)
 {
-	return new Object_wx_GBSpan((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GBSpan((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

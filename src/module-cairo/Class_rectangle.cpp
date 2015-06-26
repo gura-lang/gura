@@ -11,7 +11,7 @@ Object_rectangle::~Object_rectangle()
 
 Object *Object_rectangle::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_rectangle::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

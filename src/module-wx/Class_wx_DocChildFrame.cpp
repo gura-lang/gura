@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DocChildFrame *_pObj;
 public:
-	inline wx_DocChildFrame(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_DocChildFrame(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DocChildFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocChildFrame *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DocChildFrame::~wx_DocChildFrame()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DocChildFrame::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Gura_ImplementFunction(DocChildFrame)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_DocChildFrame *pEntity = new wx_DocChildFrame(doc, view, parent, id, title, *pos, *size, style, name);
 	Object_wx_DocChildFrame *pObj = Object_wx_DocChildFrame::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DocChildFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_DocChildFrame, GetDocument)
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->GetDocument();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocChildFrame, GetView)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_DocChildFrame, GetView)
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxView *rtn = (wxView *)pThis->GetEntity()->GetView();
-	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
 }
 
 #if 0
@@ -181,13 +181,13 @@ Object_wx_DocChildFrame::~Object_wx_DocChildFrame()
 
 Object *Object_wx_DocChildFrame::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DocChildFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocChildFrame:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -213,7 +213,7 @@ Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 
 Gura_ImplementDescendantCreator(wx_DocChildFrame)
 {
-	return new Object_wx_DocChildFrame((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DocChildFrame((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

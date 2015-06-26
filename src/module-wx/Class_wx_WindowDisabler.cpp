@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WindowDisabler *_pObj;
 public:
-	inline wx_WindowDisabler(wxWindow * winToSkip) : wxWindowDisabler(winToSkip), _sig(NULL), _pObj(NULL) {}
+	inline wx_WindowDisabler(wxWindow * winToSkip) : wxWindowDisabler(winToSkip), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WindowDisabler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WindowDisabler *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WindowDisabler::~wx_WindowDisabler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WindowDisabler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,12 +47,12 @@ Gura_DeclareFunction(WindowDisabler)
 Gura_ImplementFunction(WindowDisabler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *winToSkip = (wxWindow *)(NULL);
+	wxWindow *winToSkip = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) winToSkip = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDisabler windowDisabler(winToSkip);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	SeqPostHandler *pSeqPostHandler = NULL;
+	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	return rtn;
 }
@@ -62,20 +62,20 @@ Gura_ImplementFunction(WindowDisabler)
 //----------------------------------------------------------------------------
 Object_wx_WindowDisabler::~Object_wx_WindowDisabler()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_WindowDisabler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WindowDisabler::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowDisabler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -95,7 +95,7 @@ Gura_ImplementUserInheritableClass(wx_WindowDisabler)
 
 Gura_ImplementDescendantCreator(wx_WindowDisabler)
 {
-	return new Object_wx_WindowDisabler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WindowDisabler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -42,8 +42,8 @@ void Parser::InitStack()
 
 Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 {
-	if (ch == '\r') return NULL;
-	Expr *pExpr = NULL;
+	if (ch == '\r') return nullptr;
+	Expr *pExpr = nullptr;
 	if (_lineHeadFlag) {
 		if (IsWhite(ch)) {
 			_strIndent.push_back(ch);
@@ -979,21 +979,21 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 		if (sig.IsSignalled()) {
 			SetError(sig, ERR_CodecError, "stream can not be recognized as %s encoded string",
 										stream.GetCodec()->GetEncoding());
-			return NULL;
+			return nullptr;
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
 		Expr *pExpr = ParseChar(env, sig, ch);
 		if (sig.IsSignalled()) {
-			if (!sig.IsDetectEncoding()) return NULL;
+			if (!sig.IsDetectEncoding()) return nullptr;
 			sig.ClearSignal();
 			Value value = sig.GetValue();
 			if (value.Is_string()) {
 				const char *encoding = value.GetString();
 				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
-				if (sig.IsSignalled()) return NULL;
+				if (sig.IsSignalled()) return nullptr;
 				stream.SetCodec(pCodec.release());
 			}
-		} else if (pExpr != NULL) {
+		} else if (pExpr != nullptr) {
 			pExprRoot->AddExpr(pExpr);
 		}
 		if (chRaw < 0) break;
@@ -1007,7 +1007,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 	do {
 		bool zippedFlag = false;
 		String fileName;
-		PathMgr::SplitFileName(pathName, NULL, &fileName);
+		PathMgr::SplitFileName(pathName, nullptr, &fileName);
 		const char *extName = PathMgr::SeekExtName(fileName.c_str());
 		std::string baseName = std::string(fileName.c_str(), extName);
 		if (::strcasecmp(extName, EXTNAME_Compound) == 0) {
@@ -1021,13 +1021,13 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 		} else {
 			pathNameMod = pathName;
 		}
-		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return NULL;
+		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return nullptr;
 	} while (0);
 	AutoPtr<Stream> pStream(Stream::Open(env, sig,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	pStream->SetCodec(pCodec.release());
 	return ParseStream(env, sig, *pStream);
 }
@@ -1045,7 +1045,7 @@ bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 			} else {
 				return false;
 			}
-		} else if (pExpr != NULL) {
+		} else if (pExpr != nullptr) {
 			exprOwner.push_back(pExpr);
 		}
 		if (len == 0) break;
@@ -1070,9 +1070,9 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 				sig.ClearSignal();
 				Reset();
 			}
-		} else if (pExpr != NULL) {
+		} else if (pExpr != nullptr) {
 			pExprRoot->AddExpr(pExpr);
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			bool evalSymFuncFlag = true;
 			Value result = pExpr->Exec2(env, sig, pSeqPostHandler, evalSymFuncFlag);
 			if (sig.IsSignalled()) {
@@ -1166,7 +1166,7 @@ Parser::Precedence Parser::LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRi
 {
 	const ElemTypeInfo *pInfoLeft = LookupElemTypeInfo(elemTypeLeft);
 	const ElemTypeInfo *pInfoRight = LookupElemTypeInfo(elemTypeRight);
-	if (pInfoLeft == NULL || pInfoRight == NULL) return PREC_Error;
+	if (pInfoLeft == nullptr || pInfoRight == nullptr) return PREC_Error;
 	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
 }
 
@@ -1174,7 +1174,7 @@ int Parser::CompareOpTypePrec(OpType opType1, OpType opType2)
 {
 	const ElemTypeInfo *pInfo1 = LookupElemTypeInfoByOpType(opType1);
 	const ElemTypeInfo *pInfo2 = LookupElemTypeInfoByOpType(opType2);
-	if (pInfo1 == NULL || pInfo2 == NULL) return 0;
+	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
 	return pInfo1->index - pInfo2->index;
 }
 
@@ -1219,7 +1219,7 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
 {
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
-	Expr *pExpr = NULL;
+	Expr *pExpr = nullptr;
 	for (;;) {
 		ElementStack::reverse_iterator pElemTop =
 								_elemStack.SeekTerminal(_elemStack.rbegin());
@@ -1354,7 +1354,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
 			Expr_Iterer *pExprIterer =
 						dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
-			if (pExprIterer == NULL) {
+			if (pExprIterer == nullptr) {
 				pExprIterer = new Expr_Iterer();
 			}
 			pExpr = pExprIterer;
@@ -1372,7 +1372,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '[' ']'\n"));
 			Expr_Lister *pExprLister =
 						dynamic_cast<Expr_Lister *>(elem1.GetExpr());
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = pExprLister;
@@ -1390,7 +1390,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '{' '}'\n"));
 			Expr_Block *pExprBlock =
 						dynamic_cast<Expr_Block *>(elem1.GetExpr());
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			pExpr = pExprBlock;
@@ -1409,7 +1409,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
 			Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
-			if (pExprBlockParam == NULL) {
+			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 			}
 			_elemStack.pop_back();
@@ -1418,7 +1418,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			if (elemPrev.IsType(ETYPE_LBrace)) {
 				Expr_Block *pExprBlock =
 							dynamic_cast<Expr_Block *>(elemPrev.GetExpr());
-				if (pExprBlock == NULL) {
+				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 					elemPrev.SetExpr(pExprBlock);
 				}
@@ -1471,7 +1471,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				// %{..}
 				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_Mod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
+				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
 			}
@@ -1481,7 +1481,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				// %%{..}
 				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_ModMod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
+				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
@@ -1492,7 +1492,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				// &{..}
 				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_And));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
+				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), elem2.GetExpr(), false);
 			}
@@ -1545,7 +1545,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
-			if (pExprIterer == NULL) {
+			if (pExprIterer == nullptr) {
 				pExpr = elem2.GetExpr();	// treat expr as non-list
 			} else {
 				pExprIterer->AddExpr(elem2.GetExpr());
@@ -1554,7 +1554,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
-			if (pExprIterer == NULL) {
+			if (pExprIterer == nullptr) {
 				pExprIterer = new Expr_Iterer();
 				elem1.SetExpr(pExprIterer);
 			}
@@ -1570,7 +1570,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> '[' Expr ']'\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExprLister->AddExpr(elem2.GetExpr());
@@ -1578,7 +1578,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '[' -> '[' Expr ','\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 				elem1.SetExpr(pExprLister);
 			}
@@ -1594,11 +1594,11 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		if (elem3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' ')'\n"));
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			Expr_Caller *pExprCaller = 
-						new Expr_Caller(elem1.GetExpr(), pExprLister, NULL);
+						new Expr_Caller(elem1.GetExpr(), pExprLister, nullptr);
 			pExpr = pExprCaller;
 		} else if (elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -1616,17 +1616,17 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			if (elem1.GetExpr()->IsCaller()) {
 				Expr_Caller *pExprCaller =
 								dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-				if (pExprBlock == NULL) {
+				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 				}
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 				pExpr = pExprCaller;
 			} else {
-				if (pExprBlock == NULL) {
+				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 				}
 				Expr_Caller *pExprCaller =
-							new Expr_Caller(elem1.GetExpr(), NULL, pExprBlock);
+							new Expr_Caller(elem1.GetExpr(), nullptr, pExprBlock);
 				pExpr = pExprCaller;
 			}
 		} else if (elem3.IsType(ETYPE_EOL)) {
@@ -1643,7 +1643,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' ']'\n"));
 			Expr *pExprTgt = elem1.GetExpr();
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
@@ -1660,7 +1660,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> '{' Expr '}'\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			pExprBlock->AddExpr(elem2.GetExpr());
@@ -1669,7 +1669,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					elem3.IsType(ETYPE_Semicolon) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '{' -> '{' Expr ','\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 				elem1.SetExpr(pExprBlock);
 			}
@@ -1687,7 +1687,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' Expr '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
-			if (pExprBlockParam == NULL) {
+			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 			}
 			pExprBlockParam->AddExpr(elem2.GetExpr());
@@ -1698,7 +1698,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			if (elemPrev.IsType(ETYPE_LBrace)) {
 				Expr_Block *pExprBlock =
 							dynamic_cast<Expr_Block *>(elemPrev.GetExpr());
-				if (pExprBlock == NULL) {
+				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 					elemPrev.SetExpr(pExprBlock);
 				}
@@ -1714,7 +1714,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					elem3.IsType(ETYPE_Semicolon) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' Expr ','\n"));
-			if (pExprBlockParam == NULL) {
+			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 				elem1.SetExpr(pExprBlockParam);
 			}
@@ -1773,7 +1773,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Contains), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Assign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr = Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, NULL);
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, nullptr);
 		} else if (elem2.IsType(ETYPE_AssignAdd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr += Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Add));
@@ -1822,7 +1822,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			if (pExprRight->IsIdentifier()) {
 				const Symbol *pSymbol =
 						dynamic_cast<Expr_Identifier *>(pExprRight)->GetSymbol();
-				SymbolList *pAttrFront = NULL;
+				SymbolList *pAttrFront = nullptr;
 				if (pExprDst->IsIdentifier()) {
 					Expr_Identifier *pExprIdentifier =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
@@ -1844,9 +1844,9 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsMember()) {
 				Expr_Member *pExprMember = dynamic_cast<Expr_Member *>(pExprRight);
-				SymbolSet *pAttrs = NULL;
-				SymbolSet *pAttrsOpt = NULL;
-				SymbolList *pAttrFront = NULL;
+				SymbolSet *pAttrs = nullptr;
+				SymbolSet *pAttrsOpt = nullptr;
+				SymbolList *pAttrFront = nullptr;
 				if (pExprDst->IsIdentifier()) {
 					Expr_Identifier *pExprIdentifier =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
@@ -1978,11 +1978,11 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		if (elem4.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' ')'\n"));
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			Expr_Caller *pExprCaller = 
-						new Expr_Caller(elem2.GetExpr(), pExprLister, NULL);
+						new Expr_Caller(elem2.GetExpr(), pExprLister, nullptr);
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
@@ -2005,7 +2005,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		if (elem4.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' '}'\n"));
 			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem3.GetExpr());
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			Expr_Caller *pExprCaller;
@@ -2013,7 +2013,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
-				pExprCaller = new Expr_Caller(elem2.GetExpr(), NULL, pExprBlock);
+				pExprCaller = new Expr_Caller(elem2.GetExpr(), nullptr, pExprBlock);
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
@@ -2037,17 +2037,17 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
 		if (elem4.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' Expr ')'\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExprLister->AddExpr(elem3.GetExpr());
 			Expr_Caller *pExprCaller =
-						new Expr_Caller(elem1.GetExpr(), pExprLister, NULL);
+						new Expr_Caller(elem1.GetExpr(), pExprLister, nullptr);
 			pExpr = pExprCaller;
 		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '(' -> Expr '(' Expr ','\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 				elem2.SetExpr(pExprLister);
 			}
@@ -2064,7 +2064,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 		if (elem4.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' Expr '}'\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			pExprBlock->AddExpr(elem3.GetExpr());
@@ -2075,14 +2075,14 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 				pExpr = pExprCaller;
 			} else {
 				Expr_Caller *pExprCaller =
-							new Expr_Caller(elem1.GetExpr(), NULL, pExprBlock);
+							new Expr_Caller(elem1.GetExpr(), nullptr, pExprBlock);
 				pExpr = pExprCaller;
 			}
 		} else if (elem4.IsType(ETYPE_Comma) ||
 					elem4.IsType(ETYPE_Semicolon) || elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '{' -> Expr '{' Expr ','\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 				elem2.SetExpr(pExprBlock);
 			}
@@ -2100,7 +2100,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		if (elem4.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' Expr ']'\n"));
 			Expr *pExprTgt = elem1.GetExpr();
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExprLister->AddExpr(elem3.GetExpr());
@@ -2108,7 +2108,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '[' -> Expr '[' Expr ','\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 				elem2.SetExpr(pExprLister);
 			}
@@ -2147,12 +2147,12 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
 		if (elem5.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' Expr ')'\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExprLister->AddExpr(elem4.GetExpr());
 			Expr_Caller *pExprCaller =
-						new Expr_Caller(elem2.GetExpr(), pExprLister, NULL);
+						new Expr_Caller(elem2.GetExpr(), pExprLister, nullptr);
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
@@ -2164,7 +2164,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' Expr ','\n"));
-			if (pExprLister == NULL) {
+			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 				elem3.SetExpr(pExprLister);
 			}
@@ -2181,7 +2181,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem3.GetExpr());
 		if (elem5.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' Expr '}'\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			pExprBlock->AddExpr(elem4.GetExpr());
@@ -2190,7 +2190,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
-				pExprCaller = new Expr_Caller(elem2.GetExpr(), NULL, pExprBlock);
+				pExprCaller = new Expr_Caller(elem2.GetExpr(), nullptr, pExprBlock);
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
@@ -2204,7 +2204,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 					elem5.IsType(ETYPE_Semicolon) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' Expr ','\n"));
-			if (pExprBlock == NULL) {
+			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 				elem3.SetExpr(pExprBlock);
 			}
@@ -2281,7 +2281,7 @@ void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 	String textPre;
 	if (!_pSourceName->GetStringSTL().empty()) {
 		String fileName;
-		PathMgr::SplitFileName(_pSourceName->GetString(), NULL, &fileName);
+		PathMgr::SplitFileName(_pSourceName->GetString(), nullptr, &fileName);
 		textPre += fileName;
 	}
 	do {
@@ -2312,7 +2312,7 @@ const Parser::ElemTypeInfo *Parser::LookupElemTypeInfo(ElemType elemType)
 										p->elemType != ETYPE_Unknown; p++) {
 		if (p->elemType == elemType) return p;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const Parser::ElemTypeInfo *Parser::LookupElemTypeInfoByOpType(OpType opType)
@@ -2321,7 +2321,7 @@ const Parser::ElemTypeInfo *Parser::LookupElemTypeInfoByOpType(OpType opType)
 										p->elemType != ETYPE_Unknown; p++) {
 		if (p->opType == opType) return p;
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -2366,7 +2366,7 @@ Parser::Element::~Element()
 const char *Parser::Element::GetTypeSymbol() const
 {
 	const ElemTypeInfo *p = LookupElemTypeInfo(_elemType);
-	return (p == NULL)? "[unk]" : p->symbol;
+	return (p == nullptr)? "[unk]" : p->symbol;
 }
 
 //-----------------------------------------------------------------------------

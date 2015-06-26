@@ -21,7 +21,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CustomDataObject *_pObj;
 public:
-	inline wx_CustomDataObject(const wxDataFormat& format) : wxCustomDataObject(format), _sig(NULL), _pObj(NULL) {}
+	inline wx_CustomDataObject(const wxDataFormat& format) : wxCustomDataObject(format), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void * Alloc(size_t size);
 	//virtual void Free();
 	//virtual size_t GetSize();
@@ -38,12 +38,12 @@ public:
 
 wx_CustomDataObject::~wx_CustomDataObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CustomDataObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(CustomDataObject)
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_CustomDataObject *pEntity = new wx_CustomDataObject(*format);
 	Object_wx_CustomDataObject *pObj = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CustomDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -184,13 +184,13 @@ Object_wx_CustomDataObject::~Object_wx_CustomDataObject()
 
 Object *Object_wx_CustomDataObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CustomDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.CustomDataObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -222,7 +222,7 @@ Gura_ImplementUserInheritableClass(wx_CustomDataObject)
 
 Gura_ImplementDescendantCreator(wx_CustomDataObject)
 {
-	return new Object_wx_CustomDataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CustomDataObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

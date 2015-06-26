@@ -18,7 +18,7 @@ Value Object_dict::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	const Value *pValue = GetDict().Find(sig, valueIdx);
 	if (sig.IsSignalled()) {
 		return Value::Null;
-	} else if (pValue == NULL) {
+	} else if (pValue == nullptr) {
 		SetError_KeyNotFound(sig, valueIdx);
 		return Value::Null;
 	}
@@ -79,7 +79,7 @@ Object_dict::IteratorKeys::IteratorKeys(Object_dict *pObj) :
 
 Iterator *Object_dict::IteratorKeys::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal sig, Value &value)
@@ -109,7 +109,7 @@ Object_dict::IteratorValues::IteratorValues(Object_dict *pObj) :
 
 Iterator *Object_dict::IteratorValues::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_dict::IteratorValues::DoNext(Environment &env, Signal sig, Value &value)
@@ -139,7 +139,7 @@ Object_dict::IteratorItems::IteratorItems(Object_dict *pObj) :
 
 Iterator *Object_dict::IteratorItems::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_dict::IteratorItems::DoNext(Environment &env, Signal sig, Value &value)
@@ -173,7 +173,7 @@ Object_dict::IteratorGet::IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
 
 Iterator *Object_dict::IteratorGet::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value)
@@ -181,7 +181,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value
 	Value valueIdx;
 	if (!_pIteratorKey->Next(env, sig, valueIdx)) return false;
 	const Value *pValue = _pObj->GetDict().Find(sig, valueIdx);
-	if (pValue != NULL) {
+	if (pValue != nullptr) {
 		value = *pValue;
 	} else if (_raiseFlag) {
 		Object_dict::SetError_KeyNotFound(sig, valueIdx);
@@ -273,7 +273,7 @@ Gura_ImplementFunction(dict)
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
@@ -337,7 +337,7 @@ Gura_ImplementMethod(dict, append)
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
@@ -420,7 +420,7 @@ Gura_ImplementMethod(dict, get)
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
 	const Value *pValue = valDict.Find(sig, valueIdx);
-	if (pValue != NULL) {
+	if (pValue != nullptr) {
 		return *pValue;
 	} else if (raiseFlag) {
 		Object_dict::SetError_KeyNotFound(sig, valueIdx);
@@ -446,7 +446,7 @@ Gura_ImplementMethod(dict, haskey)
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	const Value *pValue = valDict.Find(sig, valueIdx);
-	return Value(pValue != NULL);
+	return Value(pValue != nullptr);
 }
 
 // dict#items() {block?}
@@ -604,7 +604,7 @@ bool Class_dict::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 
 Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new Object_dict((pClass == NULL)? this : pClass, new ValueDict());
+	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict());
 }
 
 }

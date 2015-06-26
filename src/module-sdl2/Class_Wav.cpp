@@ -11,7 +11,7 @@ Object_Wav::~Object_Wav()
 
 Object *Object_Wav::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Wav::ToString(bool exprFlag)

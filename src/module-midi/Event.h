@@ -657,7 +657,7 @@ public:
 	inline MetaEvent_EndOfTrack(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
 	inline static bool CheckEvent(const Event *pEvent) {
-		return pEvent != NULL && pEvent->IsMetaEvent() &&
+		return pEvent != nullptr && pEvent->IsMetaEvent() &&
 			dynamic_cast<const MetaEvent *>(pEvent)->GetEventType() == EventType;
 	}
 	virtual const Symbol *GetSymbol() const;

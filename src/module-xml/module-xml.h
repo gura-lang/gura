@@ -166,7 +166,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
-	Element(Type type, const String &str, const char **atts = NULL);
+	Element(Type type, const String &str, const char **atts = nullptr);
 	bool Write(Signal sig, SimpleStream &stream, bool fancyFlag,
 							int indentLevel, const char *indentUnit) const;
 	String GatherText() const;

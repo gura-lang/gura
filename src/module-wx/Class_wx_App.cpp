@@ -20,7 +20,7 @@ Gura_DeclarePrivUserSymbol(OnUnhandledException);
 Gura_DeclarePrivUserSymbol(Pending);
 Gura_DeclarePrivUserSymbol(HandleEvent);
 
-static Environment *_pEnv = NULL;
+static Environment *_pEnv = nullptr;
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -30,7 +30,7 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_App> _pObj;
 public:
-	inline wx_App() : wxApp(), _sig(NULL), _pObj(NULL) {}
+	inline wx_App() : wxApp(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxLog* CreateLogTarget();
 	//virtual wxAppTraits * CreateTraits();
 	//virtual void Dispatch();
@@ -72,7 +72,7 @@ bool wx_App::OnInit()
 	SetWxReadyFlag(true);
 	InitializeObjects(*_pEnv);
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnInit);
-	if (pFunc == NULL) return wxApp::OnInit();
+	if (pFunc == nullptr) return wxApp::OnInit();
 	Environment &env = *_pObj;
 	ValueList valList;
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
@@ -83,7 +83,7 @@ bool wx_App::OnInit()
 int wx_App::OnExit()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnExit);
-	if (pFunc == NULL) return wxApp::OnExit();
+	if (pFunc == nullptr) return wxApp::OnExit();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
@@ -92,7 +92,7 @@ int wx_App::OnExit()
 void wx_App::OnUnhandledException()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnUnhandledException);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxApp::OnUnhandledException();
 		return;
 	}
@@ -123,7 +123,7 @@ Gura_ImplementFunction(App)
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_App *pEntity = new wx_App();
 	Object_wx_App *pObj = Object_wx_App::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_App(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_App, CreateLogTarget)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)pThis->GetEntity()->CreateLogTarget();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_App, CreateTraits)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAppTraits *rtn = (wxAppTraits *)pThis->GetEntity()->CreateTraits();
-	return ReturnValue(env, sig, args, Value(new Object_wx_AppTraits(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_AppTraits(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -264,10 +264,10 @@ Gura_ImplementClassMethod(wx_App, GetInstance)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxAppConsole *rtn = (wxAppConsole *)wxApp::GetInstance();
 	wxApp *rtnEx = wxDynamicCast(rtn, wxApp);
-	if (rtnEx != NULL) {
-		return ReturnValue(env, sig, args, Value(new Object_wx_App(rtnEx, NULL, OwnerFalse)));
+	if (rtnEx != nullptr) {
+		return ReturnValue(env, sig, args, Value(new Object_wx_App(rtnEx, nullptr, OwnerFalse)));
 	}
-	return ReturnValue(env, sig, args, Value(new Object_wx_AppConsole(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_AppConsole(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_App, GetTopWindow)
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_App, GetTopWindow)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetTopWindow();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_App, GetTraits)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAppTraits *rtn = (wxAppTraits *)pThis->GetEntity()->GetTraits();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_AppTraits(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_AppTraits(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_App, MainLoop)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxApp::SetInstance(pThis->GetEntity());
 	int argc = 0;
-	char *argv[1] = { NULL };
+	char *argv[1] = { nullptr };
 	::wxEntry(argc, argv);
 	return Value::Null;
 }
@@ -839,13 +839,13 @@ Object_wx_App::~Object_wx_App()
 
 Object *Object_wx_App::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_App::ToString(bool exprFlag)
 {
 	String rtn("<wx.App:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -922,7 +922,7 @@ Gura_ImplementUserInheritableClass(wx_App)
 
 Gura_ImplementDescendantCreator(wx_App)
 {
-	return new Object_wx_App((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_App((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

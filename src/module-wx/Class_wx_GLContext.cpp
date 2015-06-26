@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GLContext *_pObj;
 public:
-	inline wx_GLContext(wxGLCanvas* win, const wxGLContext* other) : wxGLContext(win, other), _sig(NULL), _pObj(NULL) {}
+	inline wx_GLContext(wxGLCanvas* win, const wxGLContext* other) : wxGLContext(win, other), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GLContext();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GLContext *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GLContext::~wx_GLContext()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GLContext::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,11 +49,11 @@ Gura_ImplementFunction(GLContext)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxGLCanvas *win = Object_wx_GLCanvas::GetObject(args, 0)->GetEntity();
-	wxGLContext *other = (wxGLContext *)(NULL);
+	wxGLContext *other = (wxGLContext *)(nullptr);
 	if (args.IsValid(1)) other = Object_wx_GLContext::GetObject(args, 1)->GetEntity();
 	wx_GLContext *pEntity = new wx_GLContext(win, other);
 	Object_wx_GLContext *pObj = Object_wx_GLContext::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GLContext(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,13 +87,13 @@ Object_wx_GLContext::~Object_wx_GLContext()
 
 Object *Object_wx_GLContext::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GLContext::ToString(bool exprFlag)
 {
 	String rtn("<wx.GLContext:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -114,7 +114,7 @@ Gura_ImplementUserInheritableClass(wx_GLContext)
 
 Gura_ImplementDescendantCreator(wx_GLContext)
 {
-	return new Object_wx_GLContext((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GLContext((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

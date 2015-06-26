@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RadioButton *_pObj;
 public:
-	inline wx_RadioButton() : wxRadioButton(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxRadioButton(parent, id, label, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_RadioButton() : wxRadioButton(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxRadioButton(parent, id, label, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RadioButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RadioButton *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_RadioButton::~wx_RadioButton()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RadioButton::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(RadioButtonEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RadioButton *pEntity = new wx_RadioButton();
 	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementFunction(RadioButton)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_RadioButton *pEntity = new wx_RadioButton(parent, id, label, *pos, *size, style, *validator, name);
 	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -175,13 +175,13 @@ Object_wx_RadioButton::~Object_wx_RadioButton()
 
 Object *Object_wx_RadioButton::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RadioButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.RadioButton:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -206,7 +206,7 @@ Gura_ImplementUserInheritableClass(wx_RadioButton)
 
 Gura_ImplementDescendantCreator(wx_RadioButton)
 {
-	return new Object_wx_RadioButton((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RadioButton((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

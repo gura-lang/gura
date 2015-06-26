@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_VListBox *_pObj;
 public:
-	//inline wx_VListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVListBox(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_VListBox() : wxVListBox(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_VListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVListBox(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_VListBox() : wxVListBox(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_VListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VListBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_VListBox::~wx_VListBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_VListBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Gura_ImplementFunction(VListBox)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_VListBox *pEntity = new wx_VListBox(parent, id, *pos, *size, style, name);
 	Object_wx_VListBox *pObj = Object_wx_VListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -97,7 +97,7 @@ Gura_ImplementFunction(VListBoxEmpty)
 #if 0
 	wx_VListBox *pEntity = new wx_VListBox();
 	Object_wx_VListBox *pObj = Object_wx_VListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_VListBox, GetMargins)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMargins();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetNextSelected)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelectionBackground)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetSelectionBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_VListBox, HasMultipleSelection)
@@ -565,13 +565,13 @@ Object_wx_VListBox::~Object_wx_VListBox()
 
 Object *Object_wx_VListBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_VListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.VListBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -619,7 +619,7 @@ Gura_ImplementUserInheritableClass(wx_VListBox)
 
 Gura_ImplementDescendantCreator(wx_VListBox)
 {
-	return new Object_wx_VListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_VListBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

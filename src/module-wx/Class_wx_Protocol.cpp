@@ -24,12 +24,12 @@ public:
 
 wx_Protocol::~wx_Protocol()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Protocol::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_Protocol, GetInputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Protocol, Abort)
@@ -146,13 +146,13 @@ Object_wx_Protocol::~Object_wx_Protocol()
 
 Object *Object_wx_Protocol::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Protocol::ToString(bool exprFlag)
 {
 	String rtn("<wx.Protocol:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -178,7 +178,7 @@ Gura_ImplementUserInheritableClass(wx_Protocol)
 
 Gura_ImplementDescendantCreator(wx_Protocol)
 {
-	return new Object_wx_Protocol((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Protocol((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

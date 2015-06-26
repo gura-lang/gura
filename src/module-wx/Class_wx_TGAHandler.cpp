@@ -23,12 +23,12 @@ public:
 
 wx_TGAHandler::~wx_TGAHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TGAHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementFunction(TGAHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TGAHandler *pEntity = new wx_TGAHandler();
 	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TGAHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -61,20 +61,20 @@ Gura_ImplementFunction(TGAHandler)
 //----------------------------------------------------------------------------
 Object_wx_TGAHandler::~Object_wx_TGAHandler()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TGAHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TGAHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.TGAHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -94,7 +94,7 @@ Gura_ImplementUserInheritableClass(wx_TGAHandler)
 
 Gura_ImplementDescendantCreator(wx_TGAHandler)
 {
-	return new Object_wx_TGAHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TGAHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

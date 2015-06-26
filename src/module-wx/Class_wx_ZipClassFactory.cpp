@@ -24,12 +24,12 @@ public:
 
 wx_ZipClassFactory::~wx_ZipClassFactory()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ZipClassFactory::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_ZipClassFactory::~Object_wx_ZipClassFactory()
 
 Object *Object_wx_ZipClassFactory::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ZipClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipClassFactory:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_ZipClassFactory)
 
 Gura_ImplementDescendantCreator(wx_ZipClassFactory)
 {
-	return new Object_wx_ZipClassFactory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ZipClassFactory((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

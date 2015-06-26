@@ -11,7 +11,7 @@ void AssignFunctions(Environment &env);
 
 typedef std::map<GLenum, size_t> ParamInfoDict;
 
-static ParamInfoDict *_pParamInfoDict = NULL;
+static ParamInfoDict *_pParamInfoDict = nullptr;
 
 //-----------------------------------------------------------------------------
 // helper
@@ -1449,7 +1449,7 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 		static_cast<BYTE>(pImage->GetBitsPerPixel()), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		32, 0, 0, PFD_MAIN_PLANE, 0, 0, 0, 0
 	}; 
-	HDC hdc = ::CreateCompatibleDC(NULL);
+	HDC hdc = ::CreateCompatibleDC(nullptr);
 	HBITMAP hBmp = pImage->GetHBITMAP();
 	HBITMAP hBmpOld = reinterpret_cast<HBITMAP>(::SelectObject(hdc, hBmp));
 	int iPixelFormat = ::ChoosePixelFormat(hdc, &pfd);
@@ -1458,10 +1458,10 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	::wglMakeCurrent(hdc, hglrc);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (!sig.IsSignalled()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	}
-	::wglMakeCurrent(NULL, NULL);
+	::wglMakeCurrent(nullptr, nullptr);
 	::wglDeleteContext(hglrc);
 	::SelectObject(hdc, hBmpOld);
 	::DeleteDC(hdc);
@@ -1474,7 +1474,7 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
     CGLError errCode = kCGLNoError;
 	GLuint texOut = 0;
-	CGLContextObj ctx = NULL;
+	CGLContextObj ctx = nullptr;
 	CGLContextObj ctxOrg = CGLGetCurrentContext();
 	CGLPixelFormatAttribute attributes[4] = {
 		kCGLPFAAccelerated,
@@ -1482,14 +1482,14 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 		(CGLPixelFormatAttribute)kCGLOGLPVersion_3_2_Core,
 		(CGLPixelFormatAttribute)0
 	};
-	CGLPixelFormatObj pixelFormat = NULL;
+	CGLPixelFormatObj pixelFormat = nullptr;
 	GLint numPixelFormats = 0;
 	errCode = CGLChoosePixelFormat(attributes, &pixelFormat, &numPixelFormats);
-	errCode = CGLCreateContext(pixelFormat, NULL, &ctx);
+	errCode = CGLCreateContext(pixelFormat, nullptr, &ctx);
 	errCode = CGLSetCurrentContext(ctx);
 	glGenTextures(1, &texOut);
 	glBindTexture(GL_TEXTURE_2D, texOut);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, nullptr);
 	GLuint frameBuffer = 0;
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
@@ -1498,7 +1498,7 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	if (status == GL_FRAMEBUFFER_COMPLETE) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (!sig.IsSignalled()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		}
 	}
@@ -1518,10 +1518,10 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	int width = static_cast<int>(pImage->GetWidth());
 	int height = static_cast<int>(pImage->GetHeight());
 	GLXFBConfig config;
-	Pixmap pixmap = ::XCreatePixmap(NULL, d, width, height, 32);
-	GLXPixmap xid = ::glXCreatePixmap(NULL, config, pixmap, NULL);
+	Pixmap pixmap = ::XCreatePixmap(nullptr, d, width, height, 32);
+	GLXPixmap xid = ::glXCreatePixmap(nullptr, config, pixmap, nullptr);
 	GLXContext ctx;
-	::glXMakeCurrent(NULL, xid, ctx);
+	::glXMakeCurrent(nullptr, xid, ctx);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (!sig.IsSignalled()) {
 		pExprBlock->Exec2(env, sig);

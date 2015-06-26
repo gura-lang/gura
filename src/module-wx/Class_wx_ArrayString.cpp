@@ -14,10 +14,10 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ArrayString *_pObj;
 public:
-	inline wx_ArrayString() : wxArrayString(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ArrayString(const wxArrayString& array) : wxArrayString(array), _sig(NULL), _pObj(NULL) {}
-	inline wx_ArrayString(size_t sz, const wxChar** arr) : wxArrayString(sz, arr), _sig(NULL), _pObj(NULL) {}
-	inline wx_ArrayString(size_t sz, const wxString* arr) : wxArrayString(sz, arr), _sig(NULL), _pObj(NULL) {}
+	inline wx_ArrayString() : wxArrayString(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(const wxArrayString& array) : wxArrayString(array), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(size_t sz, const wxChar** arr) : wxArrayString(sz, arr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(size_t sz, const wxString* arr) : wxArrayString(sz, arr), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ArrayString();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ArrayString *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_ArrayString::~wx_ArrayString()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArrayString::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(ArrayStringEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ArrayString *pEntity = new wx_ArrayString();
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(ArrayString)
 	std::unique_ptr<wxArrayString> array(CreateArrayString(args.GetList(0)));
 	wx_ArrayString *pEntity = new wx_ArrayString(*array);
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(ArrayString_1)
 	wxChar arr = static_cast<wxChar>(args.GetInt(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,7 +127,7 @@ Gura_ImplementFunction(ArrayString_2)
 	wxString arr = wxString::FromUTF8(args.GetString(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -395,13 +395,13 @@ Object_wx_ArrayString::~Object_wx_ArrayString()
 
 Object *Object_wx_ArrayString::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArrayString::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArrayString:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -440,7 +440,7 @@ Gura_ImplementUserInheritableClass(wx_ArrayString)
 
 Gura_ImplementDescendantCreator(wx_ArrayString)
 {
-	return new Object_wx_ArrayString((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArrayString((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

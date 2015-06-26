@@ -24,12 +24,12 @@ public:
 
 wx_ArchiveNotifier::~wx_ArchiveNotifier()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArchiveNotifier::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_ArchiveNotifier::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_ArchiveNotifier::~Object_wx_ArchiveNotifier()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ArchiveNotifier::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArchiveNotifier::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveNotifier:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_ArchiveNotifier)
 
 Gura_ImplementDescendantCreator(wx_ArchiveNotifier)
 {
-	return new Object_wx_ArchiveNotifier((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArchiveNotifier((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

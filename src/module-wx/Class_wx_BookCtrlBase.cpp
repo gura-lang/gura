@@ -24,12 +24,12 @@ public:
 
 wx_BookCtrlBase::~wx_BookCtrlBase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BookCtrlBase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetCurrentPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCurrentPage();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetImageList)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_ImageList(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPage)
 	size_t page = args.GetSizeT(0);
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPage(page);
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetImageList)
 {
 	Object_wx_BookCtrlBase *pThis = Object_wx_BookCtrlBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = NULL;
+	wxImageList *imageList = nullptr;
 	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetImageList(imageList);
 	return Value::Null;
@@ -423,20 +423,20 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetSelection)
 //----------------------------------------------------------------------------
 Object_wx_BookCtrlBase::~Object_wx_BookCtrlBase()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_BookCtrlBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BookCtrlBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.BookCtrlBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -477,7 +477,7 @@ Gura_ImplementUserInheritableClass(wx_BookCtrlBase)
 
 Gura_ImplementDescendantCreator(wx_BookCtrlBase)
 {
-	return new Object_wx_BookCtrlBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BookCtrlBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

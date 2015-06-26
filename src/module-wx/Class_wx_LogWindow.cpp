@@ -18,7 +18,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_LogWindow *_pObj;
 public:
-	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _sig(NULL), _pObj(NULL) {}
+	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void OnFrameCreate(wxFrame *frame);
 	//virtual bool OnFrameClose(wxFrame *frame);
 	//virtual void OnFrameDelete(wxFrame *frame);
@@ -32,12 +32,12 @@ public:
 
 wx_LogWindow::~wx_LogWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LogWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ Gura_ImplementFunction(LogWindow)
 	if (args.IsValid(3)) passToOld = args.GetBoolean(3);
 	wx_LogWindow *pEntity = new wx_LogWindow(**parent, *title, show, passToOld);
 	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_LogWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_LogWindow, GetFrame)
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrame();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_LogWindow, OnFrameCreate)
@@ -190,13 +190,13 @@ Object_wx_LogWindow::~Object_wx_LogWindow()
 
 Object *Object_wx_LogWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_LogWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -224,7 +224,7 @@ Gura_ImplementUserInheritableClass(wx_LogWindow)
 
 Gura_ImplementDescendantCreator(wx_LogWindow)
 {
-	return new Object_wx_LogWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LogWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

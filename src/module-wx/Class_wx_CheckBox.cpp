@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CheckBox *_pObj;
 public:
-	inline wx_CheckBox() : wxCheckBox(), _sig(NULL), _pObj(NULL) {}
-	inline wx_CheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxCheckBox(parent, id, label, pos, size, style, val, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_CheckBox() : wxCheckBox(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxCheckBox(parent, id, label, pos, size, style, val, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CheckBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CheckBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_CheckBox::~wx_CheckBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CheckBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(CheckBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CheckBox *pEntity = new wx_CheckBox();
 	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementFunction(CheckBox)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_CheckBox *pEntity = new wx_CheckBox(parent, id, label, *pos, *size, style, *val, name);
 	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -246,13 +246,13 @@ Object_wx_CheckBox::~Object_wx_CheckBox()
 
 Object *Object_wx_CheckBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CheckBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.CheckBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -282,7 +282,7 @@ Gura_ImplementUserInheritableClass(wx_CheckBox)
 
 Gura_ImplementDescendantCreator(wx_CheckBox)
 {
-	return new Object_wx_CheckBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CheckBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

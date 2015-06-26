@@ -196,7 +196,7 @@ Gura_ImplementFunction(test)
 {
 	CURLcode code;
 	CURL *curl = ::curl_easy_init();
-	if (curl == NULL) return Value::Null;
+	if (curl == nullptr) return Value::Null;
 	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
@@ -711,12 +711,12 @@ Directory_cURL::~Directory_cURL()
 
 Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
 {
-	if (_pFileinfoOwner.get() == NULL) {
+	if (_pFileinfoOwner.get() == nullptr) {
 		_pFileinfoOwner.reset(DoBrowse(sig));
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		_ppFileinfo = _pFileinfoOwner->begin();
 	}
-	if (_ppFileinfo == _pFileinfoOwner->end()) return NULL;
+	if (_ppFileinfo == _pFileinfoOwner->end()) return nullptr;
 	Fileinfo *pFileinfo = *_ppFileinfo++;
 	Type type = (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY)?
 												TYPE_Container : TYPE_Item;
@@ -738,8 +738,8 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 {
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
-	if (curl == NULL) return NULL;
-	String url = OAL::JoinPathName('/', MakePathName(false, NULL).c_str(), "*");
+	if (curl == nullptr) return nullptr;
+	String url = OAL::JoinPathName('/', MakePathName(false, nullptr).c_str(), "*");
 	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
 	std::unique_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
@@ -751,7 +751,7 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 		SetError_Curl(sig, code);
 		::curl_easy_cleanup(curl);
 		::curl_global_cleanup();
-		return NULL;
+		return nullptr;
 	}
 	::curl_easy_cleanup(curl);
 	::curl_global_cleanup();
@@ -761,7 +761,7 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 void Directory_cURL::Thread::Run()
 {
 	CURL *curl = ::curl_easy_init();
-	if (curl == NULL) return;
+	if (curl == nullptr) return;
 	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
 	::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 	std::unique_ptr<Writer> pWriter(new Writer(_sig, Stream::Reference(_pStreamFIFO.get())));
@@ -779,7 +779,7 @@ void Directory_cURL::Thread::Run()
 bool PathMgr_cURL::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
-	return pParent == NULL && (
+	return pParent == nullptr && (
 			StartsWith(pathName, "http:", 0, false) ||
 			StartsWith(pathName, "https:", 0, false) ||
 			StartsWith(pathName, "ftp:", 0, false) ||
@@ -805,14 +805,14 @@ Directory *PathMgr_cURL::DoOpenDirectory(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 Object_easy_handle::~Object_easy_handle()
 {
-	if (_curl != NULL) {
+	if (_curl != nullptr) {
 		//::curl_easy_cleanup(_curl);
 	}
 }
 
 Object *Object_easy_handle::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_easy_handle::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -839,7 +839,7 @@ String Object_easy_handle::ToString(bool exprFlag)
 {
 	String str;
 	str += "<curl.easy_handle:";
-	if (_curl == NULL) {
+	if (_curl == nullptr) {
 		str += "invalid";
 	}
 	str += ">";
@@ -886,7 +886,7 @@ Gura_ImplementMethod(easy_handle, getinfo)
 	CURLINFO info = static_cast<CURLINFO>(args.GetInt(0));
 	int infoType = args.GetInt(0) & CURLINFO_TYPEMASK;
 	if (infoType == CURLINFO_STRING) {
-		const char *rtn = NULL;
+		const char *rtn = nullptr;
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
 		if (code != CURLE_OK) {
 			SetError_Curl(sig, code);

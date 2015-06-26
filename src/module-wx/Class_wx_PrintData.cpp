@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PrintData *_pObj;
 public:
-	inline wx_PrintData() : wxPrintData(), _sig(NULL), _pObj(NULL) {}
-	inline wx_PrintData(const wxPrintData& data) : wxPrintData(data), _sig(NULL), _pObj(NULL) {}
+	inline wx_PrintData() : wxPrintData(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintData(const wxPrintData& data) : wxPrintData(data), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PrintData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrintData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_PrintData::~wx_PrintData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PrintData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(PrintDataEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PrintData *pEntity = new wx_PrintData();
 	Object_wx_PrintData *pObj = Object_wx_PrintData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(PrintData)
 	wxPrintData *data = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrintData *pEntity = new wx_PrintData(*data);
 	Object_wx_PrintData *pObj = Object_wx_PrintData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -367,13 +367,13 @@ Object_wx_PrintData::~Object_wx_PrintData()
 
 Object *Object_wx_PrintData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PrintData::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrintData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -413,7 +413,7 @@ Gura_ImplementUserInheritableClass(wx_PrintData)
 
 Gura_ImplementDescendantCreator(wx_PrintData)
 {
-	return new Object_wx_PrintData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PrintData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

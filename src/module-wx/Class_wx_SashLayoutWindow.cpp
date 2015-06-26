@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SashLayoutWindow *_pObj;
 public:
-	inline wx_SashLayoutWindow() : wxSashLayoutWindow(), _sig(NULL), _pObj(NULL) {}
-	inline wx_SashLayoutWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSashLayoutWindow(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_SashLayoutWindow() : wxSashLayoutWindow(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SashLayoutWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSashLayoutWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SashLayoutWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SashLayoutWindow *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_SashLayoutWindow::~wx_SashLayoutWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SashLayoutWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SashLayoutWindowEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SashLayoutWindow *pEntity = new wx_SashLayoutWindow();
 	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SashLayoutWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(SashLayoutWindow)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_SashLayoutWindow *pEntity = new wx_SashLayoutWindow(parent, id, *pos, *size, style, name);
 	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SashLayoutWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -239,13 +239,13 @@ Object_wx_SashLayoutWindow::~Object_wx_SashLayoutWindow()
 
 Object *Object_wx_SashLayoutWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SashLayoutWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.SashLayoutWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -274,7 +274,7 @@ Gura_ImplementUserInheritableClass(wx_SashLayoutWindow)
 
 Gura_ImplementDescendantCreator(wx_SashLayoutWindow)
 {
-	return new Object_wx_SashLayoutWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SashLayoutWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

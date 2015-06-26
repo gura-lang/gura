@@ -309,9 +309,9 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 {
 	const int nCharsPerPixel = 2;
 	const int xHotspot = 0, yHotspot = 0;
-	static char *convTbl = NULL;
+	static char *convTbl = nullptr;
 	static int nEntries = 0;
-	if (convTbl == NULL) {
+	if (convTbl == nullptr) {
 		const int nEntriesMax = 96 * 96;
 		convTbl = new char [nEntriesMax * nCharsPerPixel];
 		::memset(convTbl, 0x00, nEntriesMax * nCharsPerPixel);
@@ -332,7 +332,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 	String varName = "noname";
 	do {
 		String baseName;
-		PathMgr::SplitFileName(stream.GetName(), NULL, &baseName);
+		PathMgr::SplitFileName(stream.GetName(), nullptr, &baseName);
 		String str;
 		foreach (String, p, baseName) {
 			char ch = *p;

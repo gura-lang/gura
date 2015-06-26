@@ -48,7 +48,7 @@ Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(static_cast<UInt>(GetImage()->GetHeight()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		const Palette *pPalette = GetImage()->GetPalette();
-		if (pPalette == NULL) return Value::Null;
+		if (pPalette == nullptr) return Value::Null;
 		return Value(new Object_palette(env, Palette::Reference(pPalette)));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
 		return Value(static_cast<UInt>(GetImage()->GetWidth()));
@@ -65,7 +65,7 @@ Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 			GetImage()->SetPalette(Palette::Reference(Object_palette::GetObject(value)->GetPalette()));
 			return value;
 		} else if (value.IsInvalid()) {
-			GetImage()->SetPalette(NULL);
+			GetImage()->SetPalette(nullptr);
 			return Value::Null;
 		} else {
 			sig.SetError(ERR_ValueError, "palette object must be specified");
@@ -162,7 +162,7 @@ Gura_ImplementFunction(image)
 			}
 		}
 	} else {
-		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL));
+		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
 		pDecl->ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
@@ -175,7 +175,7 @@ Gura_ImplementFunction(image)
 			if (sig.IsSignalled()) return Value::Null;
 		}
 		pImage.reset(new Image(format));
-		const char *imageType = NULL;
+		const char *imageType = nullptr;
 		if (valList.size() >= 3) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(imagetype), VTYPE_string));
 			pDecl->ValidateAndCast(env, sig, valList[2]);
@@ -319,7 +319,7 @@ Gura_DeclareMethod(image, delpalette)
 Gura_ImplementMethod(image, delpalette)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	pThis->GetImage()->SetPalette(NULL);
+	pThis->GetImage()->SetPalette(nullptr);
 	return args.GetThis();
 }
 
@@ -540,7 +540,7 @@ UChar *ValueListToMapTable(Signal sig, const ValueList &valList)
 {
 	if (valList.size() != 256) {
 		sig.SetError(ERR_ValueError, "the list of map table must contain %d elements");
-		return NULL;
+		return nullptr;
 	}
 	UChar *mapBuff = new UChar[256];
 	UChar *p = mapBuff;
@@ -554,15 +554,15 @@ Gura_ImplementMethod(image, mapcolorlevel)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	UChar *mapBuffR = ValueListToMapTable(sig, args.GetList(0));
-	if (mapBuffR == NULL) return Value::Null;
-	UChar *mapBuffG = NULL;
-	UChar *mapBuffB = NULL;
+	if (mapBuffR == nullptr) return Value::Null;
+	UChar *mapBuffG = nullptr;
+	UChar *mapBuffB = nullptr;
 	const UChar *mapR = mapBuffR;
 	const UChar *mapG = mapBuffR;
 	const UChar *mapB = mapBuffR;
 	if (args.IsValid(1)) {
 		mapBuffG = ValueListToMapTable(sig, args.GetList(1));
-		if (mapBuffG == NULL) {
+		if (mapBuffG == nullptr) {
 			delete[] mapBuffR;
 			return Value::Null;
 		}
@@ -571,7 +571,7 @@ Gura_ImplementMethod(image, mapcolorlevel)
 	}
 	if (args.IsValid(2)) {
 		mapBuffB = ValueListToMapTable(sig, args.GetList(2));
-		if (mapBuffB == NULL) {
+		if (mapBuffB == nullptr) {
 			delete[] mapBuffR;
 			delete[] mapBuffG;
 			return Value::Null;
@@ -687,7 +687,7 @@ Gura_ImplementMethod(image, read)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
-			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
+			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -715,7 +715,7 @@ Gura_ImplementMethod(image, reducecolor)
 	const Palette *pPalette = pThis->GetImage()->GetPalette();
 	if (args.Is_palette(0)) {
 		pPalette = Object_palette::GetObject(args, 0)->GetPalette();
-	} else if (pPalette == NULL) {
+	} else if (pPalette == nullptr) {
 		sig.SetError(ERR_ValueError, "palette must be specified");
 		return Value::Null;
 	}
@@ -1020,7 +1020,7 @@ Gura_ImplementMethod(image, thumbnail)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
-	Object_image *pObj = NULL;
+	Object_image *pObj = nullptr;
 	if (!args.Is_number(0) && !args.Is_number(1)) {
 		sig.SetError(ERR_ValueError, "width or height must be specified");
 		return Value::Null;
@@ -1097,7 +1097,7 @@ Gura_ImplementMethod(image, write)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Write(env, sig, args.GetStream(0),
-			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
+			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -1143,7 +1143,7 @@ bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));
-		pImage->Read(env, sig, value.GetStream(), NULL);
+		pImage->Read(env, sig, value.GetStream(), nullptr);
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_image(env, pImage.release()));

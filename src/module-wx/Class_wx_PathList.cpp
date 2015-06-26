@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PathList *_pObj;
 public:
-	inline wx_PathList() : wxPathList(), _sig(NULL), _pObj(NULL) {}
-	inline wx_PathList(const wxArrayString& arr) : wxPathList(arr), _sig(NULL), _pObj(NULL) {}
+	inline wx_PathList() : wxPathList(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PathList(const wxArrayString& arr) : wxPathList(arr), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PathList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PathList *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_PathList::~wx_PathList()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PathList::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(PathListEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PathList *pEntity = new wx_PathList();
 	Object_wx_PathList *pObj = Object_wx_PathList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(PathList)
 	std::unique_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
 	wx_PathList *pEntity = new wx_PathList(*arr);
 	Object_wx_PathList *pObj = Object_wx_PathList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -186,13 +186,13 @@ Object_wx_PathList::~Object_wx_PathList()
 
 Object *Object_wx_PathList::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PathList::ToString(bool exprFlag)
 {
 	String rtn("<wx.PathList:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -219,7 +219,7 @@ Gura_ImplementUserInheritableClass(wx_PathList)
 
 Gura_ImplementDescendantCreator(wx_PathList)
 {
-	return new Object_wx_PathList((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PathList((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

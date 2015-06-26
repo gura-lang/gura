@@ -19,7 +19,7 @@ bool Option::Parse(int &argc, const char *argv[],
 						const Info *infoTbl, int cntInfo, String &strErr)
 {
 	enum { STAT_Key, STAT_Value } stat = STAT_Key;
-	const Info *pInfo = NULL;
+	const Info *pInfo = nullptr;
 	for (int iArg = 1; iArg < argc; ) {
 		const char *arg = argv[iArg];
 		if (stat == STAT_Key) {
@@ -27,14 +27,14 @@ bool Option::Parse(int &argc, const char *argv[],
 				break;
 			} else if (arg[1] == '-') {
 				const char *keyLong = &arg[2];
-				pInfo = NULL;
+				pInfo = nullptr;
 				for (int i = 0; i < cntInfo; i++) {
 					if (::strcmp(infoTbl[i].keyLong, keyLong) == 0) {
 						pInfo = &infoTbl[i];
 						break;
 					}
 				}
-				if (pInfo == NULL) {
+				if (pInfo == nullptr) {
 					strErr = "unknown option ";
 					strErr += arg;
 					return false;
@@ -42,7 +42,7 @@ bool Option::Parse(int &argc, const char *argv[],
 				if (pInfo->needValueFlag) {
 					stat = STAT_Value;
 				} else {
-					_map[pInfo->keyLong] = NULL;
+					_map[pInfo->keyLong] = nullptr;
 				}
 			} else {
 				char keyShort = arg[1];
@@ -50,14 +50,14 @@ bool Option::Parse(int &argc, const char *argv[],
 					strErr = "invalid argument";
 					return false;
 				}
-				pInfo = NULL;
+				pInfo = nullptr;
 				for (int i = 0; i < cntInfo; i++) {
 					if (infoTbl[i].keyShort == keyShort) {
 						pInfo = &infoTbl[i];
 						break;
 					}
 				}
-				if (pInfo == NULL) {
+				if (pInfo == nullptr) {
 					strErr = "unknown option ";
 					strErr += arg;
 					return false;
@@ -68,7 +68,7 @@ bool Option::Parse(int &argc, const char *argv[],
 						stat = STAT_Value;
 					} else {
 						Map::iterator iter = _map.find(pInfo->keyLong);
-						StringList *pStrList = NULL;
+						StringList *pStrList = nullptr;
 						if (iter == _map.end()) {
 							pStrList = new StringList();
 							_map[pInfo->keyLong] = pStrList;
@@ -83,7 +83,7 @@ bool Option::Parse(int &argc, const char *argv[],
 						strErr += arg;
 						return false;
 					}
-					_map[pInfo->keyLong] = NULL;
+					_map[pInfo->keyLong] = nullptr;
 				}
 			}
 			argc--;
@@ -93,7 +93,7 @@ bool Option::Parse(int &argc, const char *argv[],
 		} else if (stat == STAT_Value) {
 			const char *value = arg;
 			Map::iterator iter = _map.find(pInfo->keyLong);
-			StringList *pStrList = NULL;
+			StringList *pStrList = nullptr;
 			if (iter == _map.end()) {
 				pStrList = new StringList();
 				_map[pInfo->keyLong] = pStrList;
@@ -119,7 +119,7 @@ bool Option::IsSet(const char *key)
 const char *Option::GetString(const char *key, const char *defValue) const
 {
 	const char *valStr = _GetString(key);
-	return (valStr == NULL)? defValue : valStr;
+	return (valStr == nullptr)? defValue : valStr;
 }
 
 const StringList &Option::GetStringList(const char *key) const
@@ -132,13 +132,13 @@ const StringList &Option::GetStringList(const char *key) const
 long Option::GetLong(const char *key, long defValue) const
 {
 	const char *valStr = _GetString(key);
-	return (valStr == NULL)? defValue : ::strtol(valStr, NULL, 0);
+	return (valStr == nullptr)? defValue : ::strtol(valStr, nullptr, 0);
 }
 
 const char *Option::_GetString(const char *key) const
 {
 	Map::const_iterator iter = _map.find(key);
-	return (iter == _map.end())? NULL : iter->second->front().c_str();
+	return (iter == _map.end())? nullptr : iter->second->front().c_str();
 }
 
 }

@@ -20,7 +20,7 @@ Object_suffixmgr::Object_suffixmgr(Class *pClass, SuffixMgr &suffixMgr) :
 
 Object *Object_suffixmgr::Clone() const
 {
-	return NULL; //new Object_suffixmgr(*this);
+	return nullptr; //new Object_suffixmgr(*this);
 }
 
 bool Object_suffixmgr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -111,9 +111,9 @@ Gura_ImplementMethod(suffixmgr, assign)
 {
 	SuffixMgr &suffixMgr = Object_suffixmgr::GetThisObj(args)->GetSuffixMgr();
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(0);
-	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != NULL) {
+	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != nullptr) {
 		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
 		return Value::Null;
 	}

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ToolTip *_pObj;
 public:
-	inline wx_ToolTip(const wxString& tip) : wxToolTip(tip), _sig(NULL), _pObj(NULL) {}
+	inline wx_ToolTip(const wxString& tip) : wxToolTip(tip), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ToolTip();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToolTip *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ToolTip::~wx_ToolTip()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ToolTip::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ Gura_ImplementFunction(ToolTip)
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wx_ToolTip *pEntity = new wx_ToolTip(tip);
 	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolTip(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_ToolTip, GetWindow)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -140,13 +140,13 @@ Object_wx_ToolTip::~Object_wx_ToolTip()
 
 Object *Object_wx_ToolTip::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ToolTip::ToString(bool exprFlag)
 {
 	String rtn("<wx.ToolTip:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -171,7 +171,7 @@ Gura_ImplementUserInheritableClass(wx_ToolTip)
 
 Gura_ImplementDescendantCreator(wx_ToolTip)
 {
-	return new Object_wx_ToolTip((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ToolTip((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,8 +24,8 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_HtmlWindow> _pObj;
 public:
-	inline wx_HtmlWindow() : wxHtmlWindow(), _sig(NULL), _pObj(NULL) {}
-	inline wx_HtmlWindow(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlWindow(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlWindow() : wxHtmlWindow(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlWindow(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool LoadFile(const wxFileName& filename);
 	//virtual bool LoadPage(const wxString& location);
 	virtual bool OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const wxMouseEvent& event);
@@ -71,14 +71,14 @@ void wx_HtmlWindow::GuraObjectDeleted()
 bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const wxMouseEvent& event)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnCellClicked);
-	if (pFunc == NULL) return wxHtmlWindow::OnCellClicked(cell, x, y, event);
+	if (pFunc == nullptr) return wxHtmlWindow::OnCellClicked(cell, x, y, event);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(4);
-	valList.push_back(Value(new Object_wx_HtmlCell(cell, NULL, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_HtmlCell(cell, nullptr, OwnerFalse)));
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	valList.push_back(Value(new Object_wx_MouseEvent(const_cast<wxMouseEvent *>(&event), NULL, OwnerTrue)));
+	valList.push_back(Value(new Object_wx_MouseEvent(const_cast<wxMouseEvent *>(&event), nullptr, OwnerTrue)));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -87,14 +87,14 @@ bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const 
 void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnCellMouseHover);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxHtmlWindow::OnCellMouseHover(cell, x, y);
 		return;
 	}
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(3);
-	valList.push_back(Value(new Object_wx_HtmlCell(cell, NULL, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_HtmlCell(cell, nullptr, OwnerFalse)));
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
@@ -104,14 +104,14 @@ void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnLinkClicked);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxHtmlWindow::OnLinkClicked(link);
 		return;
 	}
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(new Object_wx_HtmlLinkInfo(const_cast<wxHtmlLinkInfo *>(&link), NULL, OwnerTrue)));
+	valList.push_back(Value(new Object_wx_HtmlLinkInfo(const_cast<wxHtmlLinkInfo *>(&link), nullptr, OwnerTrue)));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	CheckMethodResult(_sig);
 }
@@ -119,7 +119,7 @@ void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxString& url, wxString * redirect)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnOpeningURL);
-	if (pFunc == NULL) return wxHtmlWindow::OnOpeningURL(type, url, redirect);
+	if (pFunc == nullptr) return wxHtmlWindow::OnOpeningURL(type, url, redirect);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(2);
@@ -143,7 +143,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 void wx_HtmlWindow::OnSetTitle(const wxString& title)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnSetTitle);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxHtmlWindow::OnSetTitle(title);
 		return;
 	}
@@ -170,7 +170,7 @@ Gura_ImplementFunction(HtmlWindowEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlWindow *pEntity = new wx_HtmlWindow();
 	Object_wx_HtmlWindow *pObj = Object_wx_HtmlWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -209,7 +209,7 @@ Gura_ImplementFunction(HtmlWindow)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_HtmlWindow *pEntity = new wx_HtmlWindow(parent, id, *pos, *size, style, name);
 	Object_wx_HtmlWindow *pObj = Object_wx_HtmlWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetInternalRepresentation)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->GetInternalRepresentation();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlContainerCell(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlContainerCell(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedAnchor)
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetRelatedFrame)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetRelatedFrame();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, HistoryBack)
@@ -615,7 +615,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetFonts)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
-	int *sizes = NULL;
+	int *sizes = nullptr;
 	int sizesBuff[7] = { 0, 0, 0, 0, 0, 0, 0 };
 	if (args.IsValid(2)) {
 		if (args.GetList(2).size() != 7) {
@@ -722,13 +722,13 @@ Object_wx_HtmlWindow::~Object_wx_HtmlWindow()
 
 Object *Object_wx_HtmlWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -789,7 +789,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlWindow)
 
 Gura_ImplementDescendantCreator(wx_HtmlWindow)
 {
-	return new Object_wx_HtmlWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

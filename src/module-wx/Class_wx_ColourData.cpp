@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ColourData *_pObj;
 public:
-	inline wx_ColourData() : wxColourData(), _sig(NULL), _pObj(NULL) {}
+	inline wx_ColourData() : wxColourData(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ColourData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ColourData::~wx_ColourData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ColourData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ColourData)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ColourData *pEntity = new wx_ColourData();
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ColourData, GetColour)
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour &rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourData, GetCustomColour)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
 	const wxColour &rtn = pThis->GetEntity()->GetCustomColour(i);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourData, SetChooseFull)
@@ -158,13 +158,13 @@ Object_wx_ColourData::~Object_wx_ColourData()
 
 Object *Object_wx_ColourData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ColourData::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -190,7 +190,7 @@ Gura_ImplementUserInheritableClass(wx_ColourData)
 
 Gura_ImplementDescendantCreator(wx_ColourData)
 {
-	return new Object_wx_ColourData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ColourData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

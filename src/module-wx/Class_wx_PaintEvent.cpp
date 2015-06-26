@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PaintEvent *_pObj;
 public:
-	inline wx_PaintEvent(int id) : wxPaintEvent(id), _sig(NULL), _pObj(NULL) {}
+	inline wx_PaintEvent(int id) : wxPaintEvent(id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PaintEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PaintEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PaintEvent::~wx_PaintEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PaintEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(PaintEvent)
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_PaintEvent *pEntity = new wx_PaintEvent(id);
 	Object_wx_PaintEvent *pObj = Object_wx_PaintEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PaintEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_PaintEvent::~Object_wx_PaintEvent()
 
 Object *Object_wx_PaintEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PaintEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.PaintEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_PaintEvent)
 
 Gura_ImplementDescendantCreator(wx_PaintEvent)
 {
-	return new Object_wx_PaintEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PaintEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

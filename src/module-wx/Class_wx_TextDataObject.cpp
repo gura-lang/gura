@@ -18,7 +18,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextDataObject *_pObj;
 public:
-	inline wx_TextDataObject(const wxString& text) : wxTextDataObject(text), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextDataObject(const wxString& text) : wxTextDataObject(text), _sig(nullptr), _pObj(nullptr) {}
 	//virtual size_t GetTextLength();
 	//virtual wxString GetText();
 	//virtual void SetText(const wxString& strText);
@@ -32,12 +32,12 @@ public:
 
 wx_TextDataObject::~wx_TextDataObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextDataObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(TextDataObject)
 	if (args.IsValid(0)) text = wxString::FromUTF8(args.GetString(0));
 	wx_TextDataObject *pEntity = new wx_TextDataObject(text);
 	Object_wx_TextDataObject *pObj = Object_wx_TextDataObject::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -120,13 +120,13 @@ Object_wx_TextDataObject::~Object_wx_TextDataObject()
 
 Object *Object_wx_TextDataObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextDataObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -152,7 +152,7 @@ Gura_ImplementUserInheritableClass(wx_TextDataObject)
 
 Gura_ImplementDescendantCreator(wx_TextDataObject)
 {
-	return new Object_wx_TextDataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextDataObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

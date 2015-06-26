@@ -20,7 +20,7 @@ Object_template::Object_template(Class *pClass, Template *pTemplate) :
 
 Object *Object_template::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_template::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -109,7 +109,7 @@ Gura_ImplementMethod(template_, parse)
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	//SimpleStream_CStringReader streamSrc(args.GetString(0));
 	//pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
-	pTemplate->Parse(env, sig, args.GetString(0), NULL, autoIndentFlag, appendLastEOLFlag);
+	pTemplate->Parse(env, sig, args.GetString(0), nullptr, autoIndentFlag, appendLastEOLFlag);
 	return Value::Null;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(template_, block)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue != NULL && pValue->Is_function()) {
+	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(args.GetThis());
 		pValue->GetFunction()->Eval(env, sig, *pArgs);
@@ -260,7 +260,7 @@ Gura_ImplementMethod(template_, call)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL || !pValue->Is_function()) {
+	if (pValue == nullptr || !pValue->Is_function()) {
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgs(new Args());
@@ -416,9 +416,9 @@ Gura_ImplementMethod(template_, super)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
-	if (pTemplateSuper == NULL) return Value::Null;
+	if (pTemplateSuper == nullptr) return Value::Null;
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
-	if (pValue != NULL && pValue->Is_function()) {
+	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(args.GetThis());
 		pValue->GetFunction()->Eval(env, sig, *pArgs);
@@ -597,7 +597,7 @@ bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const 
 Object *Class_template::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextParagraphStyleDefinition *_pObj;
 public:
-	inline wx_RichTextParagraphStyleDefinition(const wxString& name) : wxRichTextParagraphStyleDefinition(name), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextParagraphStyleDefinition(const wxString& name) : wxRichTextParagraphStyleDefinition(name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextParagraphStyleDefinition();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextParagraphStyleDefinition *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextParagraphStyleDefinition::~wx_RichTextParagraphStyleDefinition()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextParagraphStyleDefinition::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(RichTextParagraphStyleDefinition)
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextParagraphStyleDefinition *pEntity = new wx_RichTextParagraphStyleDefinition(name);
 	Object_wx_RichTextParagraphStyleDefinition *pObj = Object_wx_RichTextParagraphStyleDefinition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextParagraphStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -99,13 +99,13 @@ Object_wx_RichTextParagraphStyleDefinition::~Object_wx_RichTextParagraphStyleDef
 
 Object *Object_wx_RichTextParagraphStyleDefinition::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextParagraphStyleDefinition:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -127,7 +127,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextParagraphStyleDefinition)
 
 Gura_ImplementDescendantCreator(wx_RichTextParagraphStyleDefinition)
 {
-	return new Object_wx_RichTextParagraphStyleDefinition((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextParagraphStyleDefinition((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -86,7 +86,7 @@ private:
 	size_t _idx;
 public:
 	inline Iterator_Array(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
-	virtual Iterator *GetSource() { return NULL; }
+	virtual Iterator *GetSource() { return nullptr; }
 	virtual bool DoNext(Environment &env, Signal sig, Value &value) {
 		if (_idx >= _pArray->GetSize()) return false;
 		value = Value(*(_pArray->GetPointer() + _idx));
@@ -133,7 +133,7 @@ Array<T_Elem> *CreateArrayFromList(Signal sig, const ValueList &valList)
 	foreach_const (ValueList, pValue, valList) {
 		if (!pValue->Is_number() && !pValue->Is_boolean()) {
 			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-			return NULL;
+			return nullptr;
 		}
 		*p++ = static_cast<T_Elem>(pValue->GetNumber());
 	}

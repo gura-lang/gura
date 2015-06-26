@@ -223,7 +223,7 @@ bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Decla
 Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

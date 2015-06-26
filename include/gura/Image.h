@@ -380,7 +380,7 @@ public:
 private:
 	void InitMetrics();
 	Image *CreateDerivation(Signal sig,
-				size_t width, size_t height, Palette *pPalette = NULL);
+				size_t width, size_t height, Palette *pPalette = nullptr);
 };
 
 //-----------------------------------------------------------------------------

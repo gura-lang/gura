@@ -11,7 +11,7 @@ Object_Keysym::~Object_Keysym()
 
 Object *Object_Keysym::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Keysym::ToString(bool exprFlag)

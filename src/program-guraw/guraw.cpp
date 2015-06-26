@@ -5,7 +5,7 @@
 #include <gura.h>
 #include <WindowsX.h>
 
-static HINSTANCE g_hInst = NULL;
+static HINSTANCE g_hInst = nullptr;
 
 namespace Gura {
 
@@ -27,7 +27,7 @@ private:
 	HWND _hwndBtnOK;
 public:
 	inline UsageWindow() {}
-	LRESULT Show(const char *strErr = NULL);
+	LRESULT Show(const char *strErr = nullptr);
 private:
 	LRESULT WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK WndProcStub(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
@@ -67,7 +67,7 @@ int MainW(int argc, const char *argv[])
 		return 0;
 	}
 	if (opt.IsSet("directory") && !OAL::ChangeCurDir(opt.GetString("directory", ""))) {
-		::MessageBox(NULL,
+		::MessageBox(nullptr,
 			"failed to change the current directory",
 			g_szTitle, MB_ICONERROR);
 		return 1;
@@ -146,22 +146,22 @@ LRESULT UsageWindow::Show(const char *strErr)
 	wc.cbClsExtra		= 0;
 	wc.cbWndExtra		= 32;
 	wc.hInstance		= g_hInst;
-	wc.hIcon			= ::LoadIcon(NULL, IDI_APPLICATION);
-	wc.hCursor			= ::LoadCursor(NULL, IDC_ARROW);
+	wc.hIcon			= ::LoadIcon(nullptr, IDI_APPLICATION);
+	wc.hCursor			= ::LoadCursor(nullptr, IDC_ARROW);
 	wc.hbrBackground	= reinterpret_cast<HBRUSH>(COLOR_3DFACE + 1);
-	wc.lpszMenuName		= NULL;
+	wc.lpszMenuName		= nullptr;
 	wc.lpszClassName	= lpClassName;
-	wc.hIconSm			= ::LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIconSm			= ::LoadIcon(nullptr, IDI_APPLICATION);
 	::RegisterClassEx(&wc);
 	HWND hwnd = ::CreateWindow(lpClassName, g_szTitle,
 				WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-				540, 300, NULL, NULL, g_hInst, NULL);
+				540, 300, nullptr, nullptr, g_hInst, nullptr);
 	::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG>(this));
 	do {
 		_hwndLabel = ::CreateWindow("static", Version::GetBanner(),
 				WS_CHILD | WS_VISIBLE,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-				hwnd, reinterpret_cast<HMENU>(IDC_Label), g_hInst, NULL);
+				hwnd, reinterpret_cast<HMENU>(IDC_Label), g_hInst, nullptr);
 		SetWindowFont(_hwndLabel, GetStockFont(DEFAULT_GUI_FONT), FALSE);
 	} while (0);
 	do {
@@ -175,7 +175,7 @@ LRESULT UsageWindow::Show(const char *strErr)
 			"-C dir         change directory before executing scripts\n"
 			"-v             print version string\n";
 		String msg;
-		if (strErr != NULL) {
+		if (strErr != nullptr) {
 			msg += strErr;
 			msg += "\n";
 			msg += "\n";
@@ -184,20 +184,20 @@ LRESULT UsageWindow::Show(const char *strErr)
 		_hwndUsage = ::CreateWindow("static", msg.c_str(),
 				WS_CHILD | WS_VISIBLE | SS_SUNKEN,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-				hwnd, reinterpret_cast<HMENU>(IDC_Usage), g_hInst, NULL);
+				hwnd, reinterpret_cast<HMENU>(IDC_Usage), g_hInst, nullptr);
 		SetWindowFont(_hwndUsage, GetStockFont(ANSI_FIXED_FONT), FALSE);
 	} while (0);
 	do {
 		_hwndBtnOK = ::CreateWindow("button", "OK",
 				WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,
 				CW_USEDEFAULT, CW_USEDEFAULT, 80, 20,
-				hwnd, reinterpret_cast<HMENU>(IDOK), g_hInst, NULL);
+				hwnd, reinterpret_cast<HMENU>(IDOK), g_hInst, nullptr);
 		SetWindowFont(_hwndBtnOK, GetStockFont(DEFAULT_GUI_FONT), FALSE);
 	} while (0);
 	::ShowWindow(hwnd, SW_SHOW);
 	::UpdateWindow(hwnd);
 	MSG msg;
-	while (::GetMessage(&msg, NULL, 0, 0)) {
+	while (::GetMessage(&msg, nullptr, 0, 0)) {
 		::TranslateMessage(&msg);
 		::DispatchMessage(&msg);
 	}
@@ -234,19 +234,19 @@ void UsageWindow::OnSize(HWND hwnd, UINT state, int cx, int cy)
 		int x = 0;
 		int cx = rcClient.right - rcClient.left;
 		int cy = 20;
-		::SetWindowPos(_hwndLabel, NULL, x, y, cx, cy, SWP_NOZORDER);
+		::SetWindowPos(_hwndLabel, nullptr, x, y, cx, cy, SWP_NOZORDER);
 		y += cy;
 	} while (0);
 	do {
 		int x = 0;
 		int cx = rcClient.right - rcClient.left;
 		int cy = rcClient.bottom - ((rcBtnOK.bottom - rcBtnOK.top) + htMgn + htMgnBottom + y);
-		::SetWindowPos(_hwndUsage, NULL, x, y, cx, cy, SWP_NOZORDER);
+		::SetWindowPos(_hwndUsage, nullptr, x, y, cx, cy, SWP_NOZORDER);
 		y += cy + htMgn;
 	} while (0);
 	do {
 		int x = ((rcClient.right - rcClient.left) - (rcBtnOK.right - rcBtnOK.left)) / 2;
-		::SetWindowPos(_hwndBtnOK, NULL, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+		::SetWindowPos(_hwndBtnOK, nullptr, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 		y += cy;
 	} while (0);
 }

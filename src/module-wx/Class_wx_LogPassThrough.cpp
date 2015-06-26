@@ -24,12 +24,12 @@ public:
 
 wx_LogPassThrough::~wx_LogPassThrough()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LogPassThrough::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_LogPassThrough::~Object_wx_LogPassThrough()
 
 Object *Object_wx_LogPassThrough::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_LogPassThrough::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogPassThrough:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_LogPassThrough)
 
 Gura_ImplementDescendantCreator(wx_LogPassThrough)
 {
-	return new Object_wx_LogPassThrough((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LogPassThrough((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

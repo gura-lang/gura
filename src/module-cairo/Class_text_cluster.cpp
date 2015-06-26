@@ -12,7 +12,7 @@ Object_text_cluster::~Object_text_cluster()
 
 Object *Object_text_cluster::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_text_cluster::ToString(bool exprFlag)

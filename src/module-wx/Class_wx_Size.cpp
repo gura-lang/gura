@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Size *_pObj;
 public:
-	inline wx_Size() : wxSize(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Size(int width, int height) : wxSize(width, height), _sig(NULL), _pObj(NULL) {}
+	inline wx_Size() : wxSize(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Size(int width, int height) : wxSize(width, height), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Size();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Size *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Size::~wx_Size()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Size::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SizeEmpty)
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_Size *pEntity = new wx_Size();
 	Object_wx_Size *pObj = Object_wx_Size::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Size(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(Size)
 	int height = args.GetInt(1);
 	wx_Size *pEntity = new wx_Size(width, height);
 	Object_wx_Size *pObj = Object_wx_Size::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Size(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Size, Scale)
 	float xscale = args.GetFloat(0);
 	float yscale = args.GetFloat(1);
 	wxSize &rtn = pThis->GetEntity()->Scale(xscale, yscale);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Size, Set)
@@ -353,7 +353,7 @@ Gura_ImplementBinaryOperator(Add, wx_Size, wx_Size)
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	wxSize rtn = *item1 + *item2;
-	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue));
 }
 
 // operator -
@@ -362,7 +362,7 @@ Gura_ImplementBinaryOperator(Sub, wx_Size, wx_Size)
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	wxSize rtn = *item1 - *item2;
-	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue));
 }
 
 // operator *
@@ -371,7 +371,7 @@ Gura_ImplementBinaryOperator(Mul, wx_Size, number)
 	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	int factor = valueRight.GetInt();
 	wxSize rtn = *item * factor;
-	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue));
 }
 
 // operator /
@@ -380,7 +380,7 @@ Gura_ImplementBinaryOperator(Div, wx_Size, number)
 	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	int factor = valueRight.GetInt();
 	wxSize rtn = *item / factor;
-	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue));
 }
 
 //----------------------------------------------------------------------------
@@ -388,14 +388,14 @@ Gura_ImplementBinaryOperator(Div, wx_Size, number)
 //----------------------------------------------------------------------------
 Object_wx_Size::~Object_wx_Size()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Size::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_wx_Size::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -437,7 +437,7 @@ Value Object_wx_Size::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 String Object_wx_Size::ToString(bool exprFlag)
 {
 	String rtn("<wx.Size:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -480,7 +480,7 @@ Gura_ImplementUserInheritableClass(wx_Size)
 
 Gura_ImplementDescendantCreator(wx_Size)
 {
-	return new Object_wx_Size((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Size((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

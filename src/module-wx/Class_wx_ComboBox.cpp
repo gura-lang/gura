@@ -16,9 +16,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ComboBox *_pObj;
 public:
-	inline wx_ComboBox() : wxComboBox(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ComboBox() : wxComboBox(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxTextPos GetLastPosition();
 	~wx_ComboBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboBox *pObj) {
@@ -30,12 +30,12 @@ public:
 
 wx_ComboBox::~wx_ComboBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ComboBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(ComboBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ComboBox *pEntity = new wx_ComboBox();
 	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,7 +104,7 @@ Gura_ImplementFunction(ComboBox)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_ComboBox *pEntity = new wx_ComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
 	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -558,8 +558,8 @@ Gura_ImplementMethod(wx_ComboBox, GetClientObject)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
 	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject(n));
-	if (rtn == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
+	if (rtn == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetCount)
@@ -764,13 +764,13 @@ Object_wx_ComboBox::~Object_wx_ComboBox()
 
 Object *Object_wx_ComboBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ComboBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.ComboBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -834,7 +834,7 @@ Gura_ImplementUserInheritableClass(wx_ComboBox)
 
 Gura_ImplementDescendantCreator(wx_ComboBox)
 {
-	return new Object_wx_ComboBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ComboBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,12 +24,12 @@ public:
 
 wx_SimpleHelpProvider::~wx_SimpleHelpProvider()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SimpleHelpProvider::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Gura_ImplementFunction(SimpleHelpProvider)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SimpleHelpProvider *pEntity = new wx_SimpleHelpProvider();
 	Object_wx_SimpleHelpProvider *pObj = Object_wx_SimpleHelpProvider::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SimpleHelpProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -66,13 +66,13 @@ Object_wx_SimpleHelpProvider::~Object_wx_SimpleHelpProvider()
 
 Object *Object_wx_SimpleHelpProvider::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SimpleHelpProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.SimpleHelpProvider:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -92,7 +92,7 @@ Gura_ImplementUserInheritableClass(wx_SimpleHelpProvider)
 
 Gura_ImplementDescendantCreator(wx_SimpleHelpProvider)
 {
-	return new Object_wx_SimpleHelpProvider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SimpleHelpProvider((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

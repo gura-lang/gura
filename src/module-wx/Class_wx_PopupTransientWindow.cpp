@@ -21,7 +21,7 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_PopupTransientWindow> _pObj;
 public:
-	inline wx_PopupTransientWindow(wxWindow* parent, long style) : wxPopupTransientWindow(parent, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_PopupTransientWindow(wxWindow* parent, long style) : wxPopupTransientWindow(parent, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PopupTransientWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PopupTransientWindow *pObj) {
 		_sig = sig, _pObj.reset(Object_wx_PopupTransientWindow::Reference(pObj));
@@ -53,13 +53,13 @@ void wx_PopupTransientWindow::GuraObjectDeleted()
 void wx_PopupTransientWindow::Popup(wxWindow *focus)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, Popup);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxPopupTransientWindow::Popup(focus);
 		return;
 	}
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(new Object_wx_Window(focus, NULL, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_Window(focus, nullptr, OwnerFalse)));
 	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	CheckMethodResult(_sig);
 }
@@ -67,7 +67,7 @@ void wx_PopupTransientWindow::Popup(wxWindow *focus)
 void wx_PopupTransientWindow::Dismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, Dismiss);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxPopupTransientWindow::Dismiss();
 		return;
 	}
@@ -78,7 +78,7 @@ void wx_PopupTransientWindow::Dismiss()
 bool wx_PopupTransientWindow::CanDismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanDismiss);
-	if (pFunc == NULL) return wxPopupTransientWindow::CanDismiss();
+	if (pFunc == nullptr) return wxPopupTransientWindow::CanDismiss();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -87,10 +87,10 @@ bool wx_PopupTransientWindow::CanDismiss()
 bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, ProcessLeftDown);
-	if (pFunc == NULL) return wxPopupTransientWindow::ProcessLeftDown(event);
+	if (pFunc == nullptr) return wxPopupTransientWindow::ProcessLeftDown(event);
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(new Object_wx_MouseEvent(new wxMouseEvent(event), NULL, OwnerTrue)));
+	valList.push_back(Value(new Object_wx_MouseEvent(new wxMouseEvent(event), nullptr, OwnerTrue)));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -99,7 +99,7 @@ bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 bool wx_PopupTransientWindow::Show(bool show)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, Show);
-	if (pFunc == NULL) return wxPopupTransientWindow::Show(show);
+	if (pFunc == nullptr) return wxPopupTransientWindow::Show(show);
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(show));
@@ -111,7 +111,7 @@ bool wx_PopupTransientWindow::Show(bool show)
 void wx_PopupTransientWindow::OnDismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDismiss);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxPopupTransientWindow::OnDismiss();
 		return;
 	}
@@ -139,7 +139,7 @@ Gura_ImplementFunction(PopupTransientWindow)
 	if (args.IsValid(1)) style = args.GetLong(1);
 	wx_PopupTransientWindow *pEntity = new wx_PopupTransientWindow(parent, style);
 	Object_wx_PopupTransientWindow *pObj = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PopupTransientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -241,20 +241,20 @@ Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
 //----------------------------------------------------------------------------
 Object_wx_PopupTransientWindow::~Object_wx_PopupTransientWindow()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_PopupTransientWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PopupTransientWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.PopupTransientWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -286,7 +286,7 @@ Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)
 
 Gura_ImplementDescendantCreator(wx_PopupTransientWindow)
 {
-	return new Object_wx_PopupTransientWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PopupTransientWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

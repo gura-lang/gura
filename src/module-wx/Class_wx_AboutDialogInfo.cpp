@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AboutDialogInfo *_pObj;
 public:
-	inline wx_AboutDialogInfo() : wxAboutDialogInfo(), _sig(NULL), _pObj(NULL) {}
+	inline wx_AboutDialogInfo() : wxAboutDialogInfo(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AboutDialogInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AboutDialogInfo *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_AboutDialogInfo::~wx_AboutDialogInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AboutDialogInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(AboutDialogInfo)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AboutDialogInfo *pEntity = new wx_AboutDialogInfo();
 	Object_wx_AboutDialogInfo *pObj = Object_wx_AboutDialogInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AboutDialogInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -306,20 +306,20 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetWebSite)
 //----------------------------------------------------------------------------
 Object_wx_AboutDialogInfo::~Object_wx_AboutDialogInfo()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AboutDialogInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.AboutDialogInfo:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -355,7 +355,7 @@ Gura_ImplementUserInheritableClass(wx_AboutDialogInfo)
 
 Gura_ImplementDescendantCreator(wx_AboutDialogInfo)
 {
-	return new Object_wx_AboutDialogInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AboutDialogInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

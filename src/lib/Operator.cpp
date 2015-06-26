@@ -51,7 +51,7 @@ const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 	if (iter != _entryDict.end()) return iter->second;
 	iter = _entryDict.find(CalcKey(VTYPE_any, suffixFlag));
 	if (iter != _entryDict.end()) return iter->second;
-	return NULL;
+	return nullptr;
 }
 
 const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRight) const
@@ -64,21 +64,21 @@ const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRi
 	if (iter != _entryDict.end()) return iter->second;
 	iter = _entryDict.find(CalcKey(VTYPE_any, VTYPE_any));
 	if (iter != _entryDict.end()) return iter->second;
-	return NULL;
+	return nullptr;
 }
 
 Expr *Operator::MathDiffUnary(Environment &env, Signal sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
-	return NULL;
+	return nullptr;
 }
 
 Expr *Operator::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
-	return NULL;
+	return nullptr;
 }
 
 Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
@@ -87,7 +87,7 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
 	Value value = pExprChild->GetValue();
 	Expr::Delete(pExprChild);
 	Value result = EvalUnary(env, sig, value, suffixFlag);
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return new Expr_Value(result);
 }
 
@@ -99,27 +99,27 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
 	Expr::Delete(pExprLeft);
 	Expr::Delete(pExprRight);
 	Value result = EvalBinary(env, sig, valueLeft, valueRight);
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return new Expr_Value(result);
 }
 
 Expr *Operator::MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const
 {
 	SetError_MathOptimizeError(sig);
-	return NULL;
+	return nullptr;
 }
 
 Expr *Operator::MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprLeft, Expr *pExprRight) const
 {
 	SetError_MathOptimizeError(sig);
-	return NULL;
+	return nullptr;
 }
 
 Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
 {
 	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
-	if (pOperatorEntry == NULL) {
+	if (pOperatorEntry == nullptr) {
 		SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
 		return Value::Null;
 	}
@@ -130,7 +130,7 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 {
 	const OperatorEntry *pOperatorEntry =
 					Lookup(valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperatorEntry == NULL) {
+	if (pOperatorEntry == nullptr) {
 		SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
 		return Value::Null;
 	}
@@ -236,7 +236,7 @@ Expr *Operator_Pos::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
-		return NULL;
+		return nullptr;
 	}
 	return pExprChild;
 }
@@ -245,7 +245,7 @@ Expr *Operator_Pos::MathDiffUnary(Environment &env, Signal sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return Operator_Pos::MathOptimize(env, sig, pExprDiff.release());
 }
 
@@ -261,7 +261,7 @@ Expr *Operator_Neg::MathDiffUnary(Environment &env, Signal sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return Operator_Neg::MathOptimize(env, sig, pExprDiff.release());
 }
 
@@ -274,7 +274,7 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprChild->IsValue()) {
 		bool suffixFlag = false;
@@ -318,9 +318,9 @@ Expr *Operator_Add::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	// (f(x) + g(x))' = f'(x) + g'(x)
 	return Operator_Add::MathOptimize(
 		env, sig, pExprDiff1.release(), pExprDiff2.release());
@@ -337,7 +337,7 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v + v = v
@@ -438,9 +438,9 @@ Expr *Operator_Sub::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	// (f(x) - g(x))' = f'(x) - g'(x)
 	return Operator_Sub::MathOptimize(
 		env, sig, pExprDiff1.release(), pExprDiff2.release());
@@ -457,7 +457,7 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v - v = v
@@ -607,9 +607,9 @@ Expr *Operator_Mul::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	// (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
 	return Operator_Add::MathOptimize(
 		env, sig,
@@ -630,7 +630,7 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v * v = v
@@ -777,9 +777,9 @@ Expr *Operator_Div::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	// (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / {g(x)}^2
 	return Operator_Div::MathOptimize(
 		env, sig,
@@ -804,7 +804,7 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprLeft->IsConstNumber(0)) {
 		// 0 / m = 0
@@ -983,9 +983,9 @@ Expr *Operator_Pow::MathDiffBinary(Environment &env, Signal sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	// (f(x) ** g(x))' = f'(x)g(x)(f(x) ** (g(x) - 1)) + g'(x)log(f(x))(f(x) ** g(x))
 	return Operator_Add::MathOptimize(
 		env, sig,
@@ -1020,7 +1020,7 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return NULL;
+		return nullptr;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v ** v = v

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StopWatch *_pObj;
 public:
-	inline wx_StopWatch() : wxStopWatch(), _sig(NULL), _pObj(NULL) {}
+	inline wx_StopWatch() : wxStopWatch(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StopWatch();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StopWatch *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_StopWatch::~wx_StopWatch()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StopWatch::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(StopWatch)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StopWatch *pEntity = new wx_StopWatch();
 	Object_wx_StopWatch *pObj = Object_wx_StopWatch::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StopWatch(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -119,20 +119,20 @@ Gura_ImplementMethod(wx_StopWatch, Time)
 //----------------------------------------------------------------------------
 Object_wx_StopWatch::~Object_wx_StopWatch()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_StopWatch::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StopWatch::ToString(bool exprFlag)
 {
 	String rtn("<wx.StopWatch:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -156,7 +156,7 @@ Gura_ImplementUserInheritableClass(wx_StopWatch)
 
 Gura_ImplementDescendantCreator(wx_StopWatch)
 {
-	return new Object_wx_StopWatch((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StopWatch((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

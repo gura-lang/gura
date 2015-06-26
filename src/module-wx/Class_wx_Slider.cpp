@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Slider *_pObj;
 public:
-	inline wx_Slider() : wxSlider(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Slider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& point, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSlider(parent, id, value, minValue, maxValue, point, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Slider() : wxSlider(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Slider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& point, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSlider(parent, id, value, minValue, maxValue, point, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Slider();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Slider *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Slider::~wx_Slider()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Slider::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SliderEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Slider *pEntity = new wx_Slider();
 	Object_wx_Slider *pObj = Object_wx_Slider::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Slider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,7 +96,7 @@ Gura_ImplementFunction(Slider)
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	wx_Slider *pEntity = new wx_Slider(parent, id, value, minValue, maxValue, *point, *size, style, *validator, name);
 	Object_wx_Slider *pObj = Object_wx_Slider::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Slider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -432,13 +432,13 @@ Object_wx_Slider::~Object_wx_Slider()
 
 Object *Object_wx_Slider::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Slider::ToString(bool exprFlag)
 {
 	String rtn("<wx.Slider:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -479,7 +479,7 @@ Gura_ImplementUserInheritableClass(wx_Slider)
 
 Gura_ImplementDescendantCreator(wx_Slider)
 {
-	return new Object_wx_Slider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Slider((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

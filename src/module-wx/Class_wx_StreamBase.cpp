@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StreamBase *_pObj;
 public:
-	//inline wx_StreamBase() : wxStreamBase(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_StreamBase() : wxStreamBase(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool IsOk();
 	~wx_StreamBase();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StreamBase *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_StreamBase::~wx_StreamBase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StreamBase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(StreamBaseEmpty)
 #if 0
 	wx_StreamBase *pEntity = new wx_StreamBase();
 	Object_wx_StreamBase *pObj = Object_wx_StreamBase::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_StreamBase, GetLastError)
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamError rtn = pThis->GetEntity()->GetLastError();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StreamError(new wxStreamError(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StreamError(new wxStreamError(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -236,20 +236,20 @@ Gura_ImplementMethod(wx_StreamBase, OnSysWrite)
 //----------------------------------------------------------------------------
 Object_wx_StreamBase::~Object_wx_StreamBase()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_StreamBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StreamBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.StreamBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -279,7 +279,7 @@ Gura_ImplementUserInheritableClass(wx_StreamBase)
 
 Gura_ImplementDescendantCreator(wx_StreamBase)
 {
-	return new Object_wx_StreamBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StreamBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

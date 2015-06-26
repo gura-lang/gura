@@ -83,7 +83,7 @@ enum {
 };
 
 enum {
-	TAG_invalid						= -1,
+	TAG_invalid						= 0xffff,
 };
 
 // 4.6.3 Exif-specific IFD

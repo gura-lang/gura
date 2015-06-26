@@ -30,7 +30,7 @@ void Object_tag::Print(int indentLevel) const
 	} else {
 		::printf("%*s%s [%04x], %s [%04x], %s\n", indentLevel * 2, "",
 			GetSymbol()->GetName(), _tagId,
-			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
+			(pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name, _type,
 			_value.ToString().c_str());
 	}
 }
@@ -61,7 +61,7 @@ Value Object_tag::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		return Value(_type);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typename))) {
 		const TypeInfo *pTypeInfo = TypeToInfo(_type);
-		return Value((pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name);
+		return Value((pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
 		if (attrs.IsSet(Gura_UserSymbol(cooked))) {
 			return _valueCooked;
@@ -99,7 +99,7 @@ Object_tag *TagList::FindById(unsigned short tagId)
 		Object_tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetId() == tagId) return pObjTag;
 	}
-	return NULL;
+	return nullptr;
 }
 
 Object_tag *TagList::FindBySymbol(const Symbol *pSymbol)
@@ -108,7 +108,7 @@ Object_tag *TagList::FindBySymbol(const Symbol *pSymbol)
 		Object_tag *pObjTag = *ppObjTag;
 			if (pObjTag->GetSymbol() == pSymbol) return pObjTag;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void TagList::Print(int indentLevel) const

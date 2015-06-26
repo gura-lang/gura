@@ -55,17 +55,17 @@ void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 bool HelpPresenter::Present(Environment &env, Signal sig,
 										const char *title, const Help *pHelp)
 {
-	const char *formatName = (pHelp == NULL)?
+	const char *formatName = (pHelp == nullptr)?
 						Help::FMT_markdown.c_str() : pHelp->GetFormatName();
 	const HelpPresenter *pHelpPresenter = env.GetGlobal()->
 						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != NULL) {
+	if (pHelpPresenter != nullptr) {
 		return pHelpPresenter->DoPresent(env, sig, title, pHelp);
 	}
 	if (!env.ImportModules(sig, formatName, false, false)) return false;
 	pHelpPresenter = env.GetGlobal()->
 						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != NULL) {
+	if (pHelpPresenter != nullptr) {
 		return pHelpPresenter->DoPresent(env, sig, title, pHelp);
 	}
 	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
@@ -83,7 +83,7 @@ const HelpPresenter *HelpPresenterList::FindByFormatName(const char *formatName)
 			return pHelpPresenter;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------

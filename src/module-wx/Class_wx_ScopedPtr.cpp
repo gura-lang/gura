@@ -24,12 +24,12 @@ public:
 
 wx_ScopedPtr::~wx_ScopedPtr()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScopedPtr::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -105,20 +105,20 @@ Gura_ImplementMethod(wx_ScopedPtr, swap)
 //----------------------------------------------------------------------------
 Object_wx_ScopedPtr::~Object_wx_ScopedPtr()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ScopedPtr::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScopedPtr::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScopedPtr:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -142,7 +142,7 @@ Gura_ImplementUserInheritableClass(wx_ScopedPtr)
 
 Gura_ImplementDescendantCreator(wx_ScopedPtr)
 {
-	return new Object_wx_ScopedPtr((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScopedPtr((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,12 +24,12 @@ public:
 
 wx_TarClassFactory::~wx_TarClassFactory()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TarClassFactory::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_TarClassFactory::~Object_wx_TarClassFactory()
 
 Object *Object_wx_TarClassFactory::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TarClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarClassFactory:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_TarClassFactory)
 
 Gura_ImplementDescendantCreator(wx_TarClassFactory)
 {
-	return new Object_wx_TarClassFactory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TarClassFactory((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

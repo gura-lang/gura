@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 wx_TreeItemData::~wx_TreeItemData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TreeItemData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ Gura_ImplementFunction(TreeItemData)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TreeItemData *pEntity = new wx_TreeItemData(args.GetValue(0));
 	Object_wx_TreeItemData *pObj = Object_wx_TreeItemData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeItemData(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_TreeItemData, GetId)
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxTreeItemId &rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeItemData, SetId)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_TreeItemData, GetData)
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity());
-	if (pEntity == NULL) return Value::Null;
+	if (pEntity == nullptr) return Value::Null;
 	return pEntity->GetValue();
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_TreeItemData, SetData)
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity());
-	if (pEntity == NULL) return Value::Null;
+	if (pEntity == nullptr) return Value::Null;
 	pEntity->SetValue(args.GetValue(0));
 	return Value::Null;
 }
@@ -114,13 +114,13 @@ Object_wx_TreeItemData::~Object_wx_TreeItemData()
 
 Object *Object_wx_TreeItemData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TreeItemData::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreeItemData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -144,7 +144,7 @@ Gura_ImplementUserInheritableClass(wx_TreeItemData)
 
 Gura_ImplementDescendantCreator(wx_TreeItemData)
 {
-	return new Object_wx_TreeItemData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TreeItemData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

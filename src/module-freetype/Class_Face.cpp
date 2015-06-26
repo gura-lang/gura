@@ -12,7 +12,7 @@ Object_Face::~Object_Face()
 
 Object *Object_Face::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Face::ToString(bool exprFlag)
@@ -21,7 +21,7 @@ String Object_Face::ToString(bool exprFlag)
 	str = "<freetype.Face";
 	str += ":";
 	str += _face->family_name;
-	if (_face->style_name != NULL) {
+	if (_face->style_name != nullptr) {
 		str += ":";
 		str += _face->style_name;
 	}
@@ -72,10 +72,10 @@ Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_glyphs))) {
 		return Value(_face->num_glyphs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
-		if (_face->family_name == NULL) return Value::Null;
+		if (_face->family_name == nullptr) return Value::Null;
 		return Value(_face->family_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
-		if (_face->style_name == NULL) return Value::Null;
+		if (_face->style_name == nullptr) return Value::Null;
 		return Value(_face->style_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
 		return Value(_face->num_fixed_sizes);
@@ -289,7 +289,7 @@ Gura_ImplementMethod(Face, Get_Postscript_Name)
 {
 	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
 	const char *rtn = ::FT_Get_Postscript_Name(face);
-	if (rtn == NULL) return Value::Null;
+	if (rtn == nullptr) return Value::Null;
 	return Value(rtn);
 }
 

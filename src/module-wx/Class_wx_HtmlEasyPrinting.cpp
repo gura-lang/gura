@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlEasyPrinting *_pObj;
 public:
-	inline wx_HtmlEasyPrinting(const wxString& name, wxWindow* parentWindow) : wxHtmlEasyPrinting(name, parentWindow), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlEasyPrinting(const wxString& name, wxWindow* parentWindow) : wxHtmlEasyPrinting(name, parentWindow), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlEasyPrinting();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlEasyPrinting *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlEasyPrinting::~wx_HtmlEasyPrinting()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlEasyPrinting::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,11 +50,11 @@ Gura_ImplementFunction(HtmlEasyPrinting)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxT("Printing");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
-	wxWindow *parentWindow = (wxWindow *)(NULL);
+	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parentWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_HtmlEasyPrinting *pEntity = new wx_HtmlEasyPrinting(name, parentWindow);
 	Object_wx_HtmlEasyPrinting *pObj = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlEasyPrinting(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetParentWindow)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPrintData)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPrintData)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintData *rtn = (wxPrintData *)pThis->GetEntity()->GetPrintData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPageSetupData)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPageSetupData)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPageSetupDialogData *rtn = (wxPageSetupDialogData *)pThis->GetEntity()->GetPageSetupData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, PreviewFile)
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
-	int *sizes = NULL;
+	int *sizes = nullptr;
 	int sizesBuff[7] = { 0, 0, 0, 0, 0, 0, 0 };
 	if (args.IsValid(2)) {
 		if (args.GetList(2).size() != 7) {
@@ -281,13 +281,13 @@ Object_wx_HtmlEasyPrinting::~Object_wx_HtmlEasyPrinting()
 
 Object *Object_wx_HtmlEasyPrinting::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlEasyPrinting:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -319,7 +319,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlEasyPrinting)
 
 Gura_ImplementDescendantCreator(wx_HtmlEasyPrinting)
 {
-	return new Object_wx_HtmlEasyPrinting((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlEasyPrinting((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

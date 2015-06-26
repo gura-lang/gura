@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellFloatEditor *_pObj;
 public:
-	inline wx_GridCellFloatEditor(int width, int precision) : wxGridCellFloatEditor(width, precision), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellFloatEditor(int width, int precision) : wxGridCellFloatEditor(width, precision), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellFloatEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellFloatEditor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GridCellFloatEditor::~wx_GridCellFloatEditor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellFloatEditor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(GridCellFloatEditor)
 	if (args.IsValid(1)) precision = args.GetInt(1);
 	wx_GridCellFloatEditor *pEntity = new wx_GridCellFloatEditor(width, precision);
 	Object_wx_GridCellFloatEditor *pObj = Object_wx_GridCellFloatEditor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellFloatEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -88,13 +88,13 @@ Object_wx_GridCellFloatEditor::~Object_wx_GridCellFloatEditor()
 
 Object *Object_wx_GridCellFloatEditor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellFloatEditor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -115,7 +115,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)
 
 Gura_ImplementDescendantCreator(wx_GridCellFloatEditor)
 {
-	return new Object_wx_GridCellFloatEditor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellFloatEditor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

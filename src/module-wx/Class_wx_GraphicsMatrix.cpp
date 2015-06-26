@@ -24,12 +24,12 @@ public:
 
 wx_GraphicsMatrix::~wx_GraphicsMatrix()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GraphicsMatrix::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -80,17 +80,17 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Get)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxDouble *a = (wxDouble *)(NULL);
+	wxDouble *a = (wxDouble *)(nullptr);
 	if (args.IsValid(0)) a = Object_wx_Double::GetObject(args, 0)->GetEntity();
-	wxDouble *b = (wxDouble *)(NULL);
+	wxDouble *b = (wxDouble *)(nullptr);
 	if (args.IsValid(1)) b = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	wxDouble *c = (wxDouble *)(NULL);
+	wxDouble *c = (wxDouble *)(nullptr);
 	if (args.IsValid(2)) c = Object_wx_Double::GetObject(args, 2)->GetEntity();
-	wxDouble *d = (wxDouble *)(NULL);
+	wxDouble *d = (wxDouble *)(nullptr);
 	if (args.IsValid(3)) d = Object_wx_Double::GetObject(args, 3)->GetEntity();
-	wxDouble *tx = (wxDouble *)(NULL);
+	wxDouble *tx = (wxDouble *)(nullptr);
 	if (args.IsValid(4)) tx = Object_wx_Double::GetObject(args, 4)->GetEntity();
-	wxDouble *ty = (wxDouble *)(NULL);
+	wxDouble *ty = (wxDouble *)(nullptr);
 	if (args.IsValid(5)) ty = Object_wx_Double::GetObject(args, 5)->GetEntity();
 	pThis->GetEntity()->Get(a, b, c, d, tx, ty);
 	return Value::Null;
@@ -275,13 +275,13 @@ Object_wx_GraphicsMatrix::~Object_wx_GraphicsMatrix()
 
 Object *Object_wx_GraphicsMatrix::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GraphicsMatrix::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsMatrix:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -313,7 +313,7 @@ Gura_ImplementUserInheritableClass(wx_GraphicsMatrix)
 
 Gura_ImplementDescendantCreator(wx_GraphicsMatrix)
 {
-	return new Object_wx_GraphicsMatrix((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GraphicsMatrix((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

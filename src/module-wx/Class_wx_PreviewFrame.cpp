@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PreviewFrame *_pObj;
 public:
-	inline wx_PreviewFrame(wxPrintPreview* preview, wxWindow* parent, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewFrame(preview, parent, title, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_PreviewFrame(wxPrintPreview* preview, wxWindow* parent, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewFrame(preview, parent, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PreviewFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PreviewFrame *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PreviewFrame::~wx_PreviewFrame()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PreviewFrame::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ Gura_ImplementFunction(PreviewFrame)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_PreviewFrame *pEntity = new wx_PreviewFrame(preview, parent, title, *pos, *size, style, name);
 	Object_wx_PreviewFrame *pObj = Object_wx_PreviewFrame::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -139,13 +139,13 @@ Object_wx_PreviewFrame::~Object_wx_PreviewFrame()
 
 Object *Object_wx_PreviewFrame::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PreviewFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.PreviewFrame:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -169,7 +169,7 @@ Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 
 Gura_ImplementDescendantCreator(wx_PreviewFrame)
 {
-	return new Object_wx_PreviewFrame((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PreviewFrame((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -28,9 +28,9 @@ bool Handler::OpenFace(Signal sig, int index, FT_Face *aface)
 	_pStreamRec->descriptor.pointer = this;
 	_pStreamRec->size = 0x7fffffffL;
 	_pStreamRec->pos = 0;
-	_pStreamRec->base = NULL;
+	_pStreamRec->base = nullptr;
 	_pStreamRec->read = ReadStub;
-	_pStreamRec->close = NULL;
+	_pStreamRec->close = nullptr;
 	FT_Open_Args ftargs;
 	::memset(&ftargs, 0x00, sizeof(ftargs));
 	ftargs.flags = FT_OPEN_STREAM;
@@ -81,10 +81,10 @@ Gura_ImplementMethod(image, drawtext)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	const Function *pFuncDeco = NULL;
+	const Function *pFuncDeco = nullptr;
 	if (args.IsBlockSpecified()) {
 		pFuncDeco = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-		if (pFuncDeco == NULL) return Value::Null;
+		if (pFuncDeco == nullptr) return Value::Null;
 	}
 	if (pObjFont->DrawOnImage(env, sig, pObjImage->GetImage(),
 								x, y, str, pFuncDeco)) return Value::Null;
@@ -114,9 +114,9 @@ Gura_ImplementFunction(test)
 	streamFT->descriptor.pointer = &handler;
 	streamFT->size = 0x7fffffffL;
 	streamFT->pos = 0;
-	streamFT->base = NULL;
+	streamFT->base = nullptr;
 	streamFT->read = Handler::ReadStub;
-	streamFT->close = NULL;
+	streamFT->close = nullptr;
 	FT_Open_Args ftargs;
 	::memset(&ftargs, 0x00, sizeof(ftargs));
 	ftargs.flags = FT_OPEN_STREAM;
@@ -130,8 +130,8 @@ Gura_ImplementFunction(test)
 	String pathName = GetSysFontPathName();
 	Directory *pDirectoryParent = Directory::OpenDirectory(
 						env, sig, pathName.c_str(), Directory::NF_Signal);
-	Directory *pDirectory = NULL;
-	while ((pDirectory = pDirectoryParent->Next(env, sig)) != NULL) {
+	Directory *pDirectory = nullptr;
+	while ((pDirectory = pDirectoryParent->Next(env, sig)) != nullptr) {
 		if (pDirectory->IsMatchName("*.ttf", true) ||
 								pDirectory->IsMatchName("*.ttc", true)) {
 			FT_Face face;
@@ -607,7 +607,7 @@ Gura_ModuleTerminate()
 String GetSysFontPathName()
 {
 	char pathName[MAX_PATH];
-	if (SUCCEEDED(::SHGetFolderPath(NULL, CSIDL_FONTS, NULL, 0, pathName))) {
+	if (SUCCEEDED(::SHGetFolderPath(nullptr, CSIDL_FONTS, nullptr, 0, pathName))) {
 		return String(pathName);
 	}
 	return String("");

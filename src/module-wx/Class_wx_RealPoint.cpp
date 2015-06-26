@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RealPoint *_pObj;
 public:
-	inline wx_RealPoint() : wxRealPoint(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RealPoint(double x, double y) : wxRealPoint(x, y), _sig(NULL), _pObj(NULL) {}
+	inline wx_RealPoint() : wxRealPoint(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RealPoint(double x, double y) : wxRealPoint(x, y), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RealPoint();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RealPoint *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_RealPoint::~wx_RealPoint()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RealPoint::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(RealPointEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RealPoint *pEntity = new wx_RealPoint();
 	Object_wx_RealPoint *pObj = Object_wx_RealPoint::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RealPoint(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(RealPoint)
 	double y = args.GetDouble(1);
 	wx_RealPoint *pEntity = new wx_RealPoint(x, y);
 	Object_wx_RealPoint *pObj = Object_wx_RealPoint::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RealPoint(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -90,20 +90,20 @@ Gura_ImplementFunction(RealPoint)
 //----------------------------------------------------------------------------
 Object_wx_RealPoint::~Object_wx_RealPoint()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RealPoint::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RealPoint::ToString(bool exprFlag)
 {
 	String rtn("<wx.RealPoint:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -124,7 +124,7 @@ Gura_ImplementUserInheritableClass(wx_RealPoint)
 
 Gura_ImplementDescendantCreator(wx_RealPoint)
 {
-	return new Object_wx_RealPoint((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RealPoint((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

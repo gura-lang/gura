@@ -12,7 +12,7 @@ Object_scaled_font::~Object_scaled_font()
 
 Object *Object_scaled_font::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_scaled_font::ToString(bool exprFlag)

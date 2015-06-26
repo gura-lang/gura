@@ -24,12 +24,12 @@ public:
 
 wx_ArtClient::~wx_ArtClient()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArtClient::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_ArtClient::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_ArtClient::~Object_wx_ArtClient()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ArtClient::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArtClient::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArtClient:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_ArtClient)
 
 Gura_ImplementDescendantCreator(wx_ArtClient)
 {
-	return new Object_wx_ArtClient((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArtClient((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

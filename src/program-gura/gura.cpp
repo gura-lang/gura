@@ -212,9 +212,9 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);
-	char *lineBuff = NULL;
+	char *lineBuff = nullptr;
 	Stream *pConsole = env.GetConsole();
-	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != NULL) {
+	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != nullptr) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
 			parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);

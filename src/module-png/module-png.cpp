@@ -105,7 +105,7 @@ bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	png_uint_32 width, height;
 	int bit_depth, color_type, interlace_type;
 	::png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth,
-							&color_type, &interlace_type, NULL, NULL);
+							&color_type, &interlace_type, nullptr, nullptr);
 	if (bit_depth == 16 ) {
 		::png_set_strip_16(png_ptr); // 16-bit RGB is converted into 8-bit.
 	}
@@ -155,7 +155,7 @@ bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	::png_set_packing(png_ptr);
 	::png_read_update_info(png_ptr, info_ptr);
 	::png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth,
-							&color_type, &interlace_type, NULL, NULL);
+							&color_type, &interlace_type, nullptr, nullptr);
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
 		::png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return false;

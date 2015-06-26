@@ -19,9 +19,9 @@ private:
 	Object_wx_ClientData *_pObj;
 public:
 	inline wx_ClientData(const Value &value) : wxClientData(),
-						_value(value), _sig(NULL), _pObj(NULL) {}
+						_value(value), _sig(nullptr), _pObj(nullptr) {}
 	inline wx_ClientData(const wx_ClientData &clientData) : wxClientData(clientData),
-						_value(clientData._value), _sig(clientData._sig), _pObj(NULL) {}
+						_value(clientData._value), _sig(clientData._sig), _pObj(nullptr) {}
 	~wx_ClientData();
 	inline const Value &GetValue() { return _value; }
 	inline void SetValue(const Value &value) { _value = value; }
@@ -67,7 +67,7 @@ public:
 		_pObserver = pObserver;
 		_ownerFlag = ownerFlag;
 	}
-	inline void InvalidateEntity() { _pEntity = NULL, _pObserver = NULL, _ownerFlag = false; }
+	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
 	inline wx_ClientData *GetEntity() { return _pEntity; }
 	inline wx_ClientData *ReleaseEntity() {
 		wx_ClientData *pEntity = GetEntity();
@@ -75,10 +75,10 @@ public:
 		return pEntity;
 	}
 	inline void NotifyGuraObjectDeleted() {
-		if (_pObserver != NULL) _pObserver->GuraObjectDeleted();
+		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
 	inline bool IsInvalid(Signal sig) const {
-		if (_pEntity != NULL) return false;
+		if (_pEntity != nullptr) return false;
 		SetError_InvalidWxObject(sig, "wxClientData");
 		return true;
 	}

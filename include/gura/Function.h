@@ -320,10 +320,10 @@ public:
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-			Expr *pExprDefault = NULL);
+			Expr *pExprDefault = nullptr);
 	inline Declaration *DeclareArg(Environment &env, const char *name, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-			Expr *pExprDefault = NULL) {
+			Expr *pExprDefault = nullptr) {
 		return DeclareArg(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
 	inline void DeclareDictArg(const Symbol *pSymbol) { GetDeclOwner().SetSymbolDict(pSymbol); }
@@ -336,7 +336,7 @@ public:
 	}
 	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
-	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
+	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);
 	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);

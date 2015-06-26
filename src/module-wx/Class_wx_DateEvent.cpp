@@ -24,12 +24,12 @@ public:
 
 wx_DateEvent::~wx_DateEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DateEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_DateEvent, GetDate)
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDateTime &rtn = pThis->GetEntity()->GetDate();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateEvent, SetDate)
@@ -73,13 +73,13 @@ Object_wx_DateEvent::~Object_wx_DateEvent()
 
 Object *Object_wx_DateEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DateEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -100,7 +100,7 @@ Gura_ImplementUserInheritableClass(wx_DateEvent)
 
 Gura_ImplementDescendantCreator(wx_DateEvent)
 {
-	return new Object_wx_DateEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DateEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

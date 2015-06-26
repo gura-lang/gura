@@ -24,12 +24,12 @@ public:
 
 wx_HtmlEntitiesParser::~wx_HtmlEntitiesParser()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlEntitiesParser::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_HtmlEntitiesParser::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_HtmlEntitiesParser::~Object_wx_HtmlEntitiesParser()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HtmlEntitiesParser::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlEntitiesParser::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlEntitiesParser:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlEntitiesParser)
 
 Gura_ImplementDescendantCreator(wx_HtmlEntitiesParser)
 {
-	return new Object_wx_HtmlEntitiesParser((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlEntitiesParser((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

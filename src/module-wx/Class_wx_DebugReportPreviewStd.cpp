@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DebugReportPreviewStd *_pObj;
 public:
-	inline wx_DebugReportPreviewStd() : wxDebugReportPreviewStd(), _sig(NULL), _pObj(NULL) {}
+	inline wx_DebugReportPreviewStd() : wxDebugReportPreviewStd(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DebugReportPreviewStd();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReportPreviewStd *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DebugReportPreviewStd::~wx_DebugReportPreviewStd()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DebugReportPreviewStd::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(DebugReportPreviewStdEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReportPreviewStd *pEntity = new wx_DebugReportPreviewStd();
 	Object_wx_DebugReportPreviewStd *pObj = Object_wx_DebugReportPreviewStd::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportPreviewStd(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,13 +83,13 @@ Object_wx_DebugReportPreviewStd::~Object_wx_DebugReportPreviewStd()
 
 Object *Object_wx_DebugReportPreviewStd::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DebugReportPreviewStd::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportPreviewStd:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -110,7 +110,7 @@ Gura_ImplementUserInheritableClass(wx_DebugReportPreviewStd)
 
 Gura_ImplementDescendantCreator(wx_DebugReportPreviewStd)
 {
-	return new Object_wx_DebugReportPreviewStd((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DebugReportPreviewStd((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -35,8 +35,8 @@ int CalcLCM(int a, int b)
 //-----------------------------------------------------------------------------
 void CRC32::Update(const void *buff, size_t bytes)
 {
-	static ULong *tbl = NULL;
-	if (tbl == NULL) {
+	static ULong *tbl = nullptr;
+	if (tbl == nullptr) {
 		const ULong CRC32_POLY = 0xedb88320; // CRC-32-IEEE 802.3
 		tbl = new ULong [256];
 		for (ULong i = 0; i < 256; i++){

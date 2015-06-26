@@ -24,12 +24,12 @@ public:
 
 wx_DynamicLibraryDetails::~wx_DynamicLibraryDetails()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DynamicLibraryDetails::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -106,20 +106,20 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
 //----------------------------------------------------------------------------
 Object_wx_DynamicLibraryDetails::~Object_wx_DynamicLibraryDetails()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DynamicLibraryDetails::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DynamicLibraryDetails::ToString(bool exprFlag)
 {
 	String rtn("<wx.DynamicLibraryDetails:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -142,7 +142,7 @@ Gura_ImplementUserInheritableClass(wx_DynamicLibraryDetails)
 
 Gura_ImplementDescendantCreator(wx_DynamicLibraryDetails)
 {
-	return new Object_wx_DynamicLibraryDetails((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DynamicLibraryDetails((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

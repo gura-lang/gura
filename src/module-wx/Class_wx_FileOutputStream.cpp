@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileOutputStream *_pObj;
 public:
-	inline wx_FileOutputStream(const wxString& ofileName) : wxFileOutputStream(ofileName), _sig(NULL), _pObj(NULL) {}
-	inline wx_FileOutputStream(wxFile& file) : wxFileOutputStream(file), _sig(NULL), _pObj(NULL) {}
-	inline wx_FileOutputStream(int fd) : wxFileOutputStream(fd), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileOutputStream(const wxString& ofileName) : wxFileOutputStream(ofileName), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileOutputStream(wxFile& file) : wxFileOutputStream(file), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileOutputStream(int fd) : wxFileOutputStream(fd), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_FileOutputStream::~wx_FileOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(FileOutputStream)
 	wxString ofileName = wxString::FromUTF8(args.GetString(0));
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(ofileName);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(FileOutputStream_1)
 	wxFile *file = Object_wx_File::GetObject(args, 0)->GetEntity();
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(*file);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementFunction(FileOutputStream_2)
 	int fd = args.GetInt(0);
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(fd);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -133,13 +133,13 @@ Object_wx_FileOutputStream::~Object_wx_FileOutputStream()
 
 Object *Object_wx_FileOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -162,7 +162,7 @@ Gura_ImplementUserInheritableClass(wx_FileOutputStream)
 
 Gura_ImplementDescendantCreator(wx_FileOutputStream)
 {
-	return new Object_wx_FileOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,12 +24,12 @@ public:
 
 wx_MBConvUTF16::~wx_MBConvUTF16()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MBConvUTF16::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -96,13 +96,13 @@ Object_wx_MBConvUTF16::~Object_wx_MBConvUTF16()
 
 Object *Object_wx_MBConvUTF16::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MBConvUTF16::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConvUTF16:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -123,7 +123,7 @@ Gura_ImplementUserInheritableClass(wx_MBConvUTF16)
 
 Gura_ImplementDescendantCreator(wx_MBConvUTF16)
 {
-	return new Object_wx_MBConvUTF16((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MBConvUTF16((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

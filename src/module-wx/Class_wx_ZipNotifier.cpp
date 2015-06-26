@@ -24,12 +24,12 @@ public:
 
 wx_ZipNotifier::~wx_ZipNotifier()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ZipNotifier::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,20 +55,20 @@ Gura_ImplementMethod(wx_ZipNotifier, OnEntryUpdated)
 //----------------------------------------------------------------------------
 Object_wx_ZipNotifier::~Object_wx_ZipNotifier()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ZipNotifier::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ZipNotifier::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipNotifier:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -88,7 +88,7 @@ Gura_ImplementUserInheritableClass(wx_ZipNotifier)
 
 Gura_ImplementDescendantCreator(wx_ZipNotifier)
 {
-	return new Object_wx_ZipNotifier((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ZipNotifier((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

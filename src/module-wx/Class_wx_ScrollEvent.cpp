@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ScrollEvent *_pObj;
 public:
-	inline wx_ScrollEvent(WXTYPE commandType, int id, int pos, int orientation) : wxScrollEvent(commandType, id, pos, orientation), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScrollEvent(WXTYPE commandType, int id, int pos, int orientation) : wxScrollEvent(commandType, id, pos, orientation), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ScrollEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrollEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ScrollEvent::~wx_ScrollEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScrollEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ScrollEvent)
 	if (args.IsValid(3)) orientation = args.GetInt(3);
 	wx_ScrollEvent *pEntity = new wx_ScrollEvent(commandType, id, pos, orientation);
 	Object_wx_ScrollEvent *pObj = Object_wx_ScrollEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -107,13 +107,13 @@ Object_wx_ScrollEvent::~Object_wx_ScrollEvent()
 
 Object *Object_wx_ScrollEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScrollEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -135,7 +135,7 @@ Gura_ImplementUserInheritableClass(wx_ScrollEvent)
 
 Gura_ImplementDescendantCreator(wx_ScrollEvent)
 {
-	return new Object_wx_ScrollEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScrollEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

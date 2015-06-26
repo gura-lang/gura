@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlHelpData *_pObj;
 public:
-	inline wx_HtmlHelpData() : wxHtmlHelpData(), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlHelpData() : wxHtmlHelpData(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlHelpData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlHelpData::~wx_HtmlHelpData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlHelpData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(HtmlHelpDataEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlHelpData *pEntity = new wx_HtmlHelpData();
 	Object_wx_HtmlHelpData *pObj = Object_wx_HtmlHelpData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlBookRecArray &rtn = pThis->GetEntity()->GetBookRecArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlBookRecArray(new wxHtmlBookRecArray(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlBookRecArray(new wxHtmlBookRecArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlHelpDataItems &rtn = pThis->GetEntity()->GetContentsArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlHelpDataItems &rtn = pThis->GetEntity()->GetIndexArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -184,13 +184,13 @@ Object_wx_HtmlHelpData::~Object_wx_HtmlHelpData()
 
 Object *Object_wx_HtmlHelpData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -217,7 +217,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlHelpData)
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpData)
 {
-	return new Object_wx_HtmlHelpData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlHelpData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

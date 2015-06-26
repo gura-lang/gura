@@ -24,12 +24,12 @@ public:
 
 wx_RichTextImageBlock::~wx_RichTextImageBlock()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextImageBlock::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_RichTextImageBlock::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_RichTextImageBlock::~Object_wx_RichTextImageBlock()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RichTextImageBlock::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextImageBlock:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)
 
 Gura_ImplementDescendantCreator(wx_RichTextImageBlock)
 {
-	return new Object_wx_RichTextImageBlock((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextImageBlock((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

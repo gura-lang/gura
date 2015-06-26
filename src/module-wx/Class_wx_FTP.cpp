@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FTP *_pObj;
 public:
-	inline wx_FTP() : wxFTP(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FTP() : wxFTP(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FTP();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FTP *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FTP::~wx_FTP()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FTP::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(FTPEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FTP *pEntity = new wx_FTP();
 	Object_wx_FTP *pObj = Object_wx_FTP::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FTP(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_FTP, GetOutputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	wxOutputStream *rtn = (wxOutputStream *)pThis->GetEntity()->GetOutputStream(file);
-	return ReturnValue(env, sig, args, Value(new Object_wx_OutputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_OutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FTP, GetInputStream)
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_FTP, GetInputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -420,13 +420,13 @@ Object_wx_FTP::~Object_wx_FTP()
 
 Object *Object_wx_FTP::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FTP::ToString(bool exprFlag)
 {
 	String rtn("<wx.FTP:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -468,7 +468,7 @@ Gura_ImplementUserInheritableClass(wx_FTP)
 
 Gura_ImplementDescendantCreator(wx_FTP)
 {
-	return new Object_wx_FTP((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FTP((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

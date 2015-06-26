@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_GridCellBoolRenderer> _pObj;
 public:
-	inline wx_GridCellBoolRenderer() : wxGridCellBoolRenderer(), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellBoolRenderer() : wxGridCellBoolRenderer(), _sig(nullptr), _pObj(nullptr) {}
 	inline wx_GridCellBoolRenderer(const wx_GridCellBoolRenderer &renderer) :
 		wxGridCellBoolRenderer(), _sig(renderer._sig),
 		_pObj(Object_wx_GridCellBoolRenderer::Reference(renderer._pObj.get())) {}
@@ -71,7 +71,7 @@ Gura_ImplementFunction(GridCellBoolRenderer)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellBoolRenderer *pEntity = new wx_GridCellBoolRenderer();
 	Object_wx_GridCellBoolRenderer *pObj = Object_wx_GridCellBoolRenderer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellBoolRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -118,13 +118,13 @@ Object_wx_GridCellBoolRenderer::~Object_wx_GridCellBoolRenderer()
 
 Object *Object_wx_GridCellBoolRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellBoolRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellBoolRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -145,7 +145,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellBoolRenderer)
 
 Gura_ImplementDescendantCreator(wx_GridCellBoolRenderer)
 {
-	return new Object_wx_GridCellBoolRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellBoolRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

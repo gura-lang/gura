@@ -23,12 +23,12 @@ public:
 
 wx_BMPHandler::~wx_BMPHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BMPHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementFunction(BMPHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BMPHandler *pEntity = new wx_BMPHandler();
 	Object_wx_BMPHandler *pObj = Object_wx_BMPHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BMPHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -61,20 +61,20 @@ Gura_ImplementFunction(BMPHandler)
 //----------------------------------------------------------------------------
 Object_wx_BMPHandler::~Object_wx_BMPHandler()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_BMPHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BMPHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.BMPHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -94,7 +94,7 @@ Gura_ImplementUserInheritableClass(wx_BMPHandler)
 
 Gura_ImplementDescendantCreator(wx_BMPHandler)
 {
-	return new Object_wx_BMPHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BMPHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

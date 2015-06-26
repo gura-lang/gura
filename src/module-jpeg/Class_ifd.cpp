@@ -43,16 +43,16 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 {
 	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
-		return NULL;
+		return nullptr;
 	}
 	IFDHeader_T *pIFDHeader = reinterpret_cast<IFDHeader_T *>(buff + offset);
 	size_t nTags = Gura_UnpackUShort(pIFDHeader->TagCount);
 	offset += SIZE_IFDHeader;
 	if (offset + nTags * SIZE_TagRaw >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
-		return NULL;
+		return nullptr;
 	}
-	if (pOffsetNext == NULL) {
+	if (pOffsetNext == nullptr) {
 		// nothing to do
 	} else if (offset + nTags * SIZE_TagRaw + UNITSIZE_LONG <= bytesAPP1) {
 		LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset + nTags * SIZE_TagRaw);
@@ -72,12 +72,12 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 		do {
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
 			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
-					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tagId,
-					(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
+					(pTagInfo == nullptr)? "(unknown)" : pTagInfo->name, tagId,
+					(pTypeInfo == nullptr)? "(unknown)" : pTypeInfo->name, type,
 					count, Gura_UnpackULong(pValueRaw->LONG.num));
 		} while (0);
 #endif
-		if (pTagInfo != NULL && pTagInfo->nameForIFD != NULL) {
+		if (pTagInfo != nullptr && pTagInfo->nameForIFD != nullptr) {
 			size_t offsetSub = Gura_UnpackULong(pValueRaw->LONG.num);
 			size_t offsetNext = 0;
 			const Symbol *pSymbolOfIFDSub = Symbol::Add(pTagInfo->nameForIFD);
@@ -85,7 +85,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					ValueRaw_T, SHORT_T,
 					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, pSymbolOfIFDSub,
 									buff, bytesAPP1, offsetSub, &offsetNext));
-			if (pObjIFDSub.IsNull()) return NULL;
+			if (pObjIFDSub.IsNull()) return nullptr;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
 			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, pObjIFDSub.release()));
 		} else {
@@ -97,7 +97,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					p = buff + offset;
 				}
@@ -111,7 +111,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					p = buff + offset;
 				}
@@ -128,7 +128,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					unsigned short num = Gura_UnpackUShort(pValueRaw->SHORT.num);
 					const Symbol *pSymbol = g_symbolAssocOwner.NumToSymbol(tagId, num);
 					value = Value(num);
-					if (pSymbol == NULL) {
+					if (pSymbol == nullptr) {
 						valueCooked = value;
 					} else {
 						valueCooked = Value(pSymbol);
@@ -145,7 +145,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SHORT) {
 						SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset);
@@ -164,7 +164,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_LONG) {
 						LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset);
@@ -178,24 +178,24 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 				if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
 					SetError_InvalidFormat(sig);
-					return NULL;
+					return nullptr;
 				}
 				if (count == 1) {
 					RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
 					value = RationalToValue(sig, *pRational);
-					if (value.IsInvalid()) return NULL;
+					if (value.IsInvalid()) return nullptr;
 				} else {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_RATIONAL) {
 						RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
 						Value valueItem = RationalToValue(sig, *pRational);
-						if (valueItem.IsInvalid()) return NULL;
+						if (valueItem.IsInvalid()) return nullptr;
 						valList.push_back(valueItem);
 					}
 				}
@@ -208,7 +208,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					p = buff + offset;
 				}
@@ -225,7 +225,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					size_t offset = Gura_UnpackLong(pValueRaw->SLONG.num);
 					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SLONG) {
 						SLONG_T *pLong = reinterpret_cast<SLONG_T *>(buff + offset);
@@ -239,24 +239,24 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 				if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
 					SetError_InvalidFormat(sig);
-					return NULL;
+					return nullptr;
 				}
 				if (count == 1) {
 					SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
 					value = SRationalToValue(sig, *pRational);
-					if (value.IsInvalid()) return NULL;
+					if (value.IsInvalid()) return nullptr;
 				} else {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
-						return NULL;
+						return nullptr;
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SRATIONAL) {
 						SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
 						Value valueItem = SRationalToValue(sig, *pRational);
-						if (valueItem.IsInvalid()) return NULL;
+						if (valueItem.IsInvalid()) return nullptr;
 						valList.push_back(valueItem);
 					}
 				}
@@ -268,7 +268,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				break;
 			}
 			}
-			const Symbol *pSymbol = (pTagInfo == NULL)?
+			const Symbol *pSymbol = (pTagInfo == nullptr)?
 					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
 			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, value, valueCooked));
 		}
@@ -300,7 +300,7 @@ IteratorTag::IteratorTag(Object_ifd *pObjIFD) :
 
 Iterator *IteratorTag::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
@@ -335,7 +335,7 @@ Object_ifd::~Object_ifd()
 
 Object *Object_ifd::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
@@ -343,7 +343,7 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	if (valueIdx.Is_number()) {
 		unsigned short tagId = valueIdx.GetUShort();
 		Object_tag *pObjTag = GetTagOwner().FindById(tagId);
-		if (pObjTag == NULL) {
+		if (pObjTag == nullptr) {
 			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", tagId);
 			return Value::Null;
 		}
@@ -351,7 +351,7 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	} else if (valueIdx.Is_symbol()) {
 		const Symbol *pSymbol = valueIdx.GetSymbol();
 		Object_tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
-		if (pObjTag == NULL) {
+		if (pObjTag == nullptr) {
 			sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
 			return Value::Null;
 		}

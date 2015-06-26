@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_Matrix::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Matrix::ToString(bool exprFlag)

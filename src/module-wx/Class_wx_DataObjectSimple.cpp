@@ -18,7 +18,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataObjectSimple *_pObj;
 public:
-	inline wx_DataObjectSimple(const wxDataFormat& format) : wxDataObjectSimple(format), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataObjectSimple(const wxDataFormat& format) : wxDataObjectSimple(format), _sig(nullptr), _pObj(nullptr) {}
 	//virtual size_t GetDataSize();
 	//virtual bool GetDataHere(void *buf);
 	//virtual bool SetData(size_t len, const void *buf);
@@ -32,12 +32,12 @@ public:
 
 wx_DataObjectSimple::~wx_DataObjectSimple()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataObjectSimple::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(DataObjectSimple)
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_DataObjectSimple *pEntity = new wx_DataObjectSimple(*format);
 	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDataFormat &rtn = pThis->GetEntity()->GetFormat();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
@@ -166,13 +166,13 @@ Object_wx_DataObjectSimple::~Object_wx_DataObjectSimple()
 
 Object *Object_wx_DataObjectSimple::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataObjectSimple:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -200,7 +200,7 @@ Gura_ImplementUserInheritableClass(wx_DataObjectSimple)
 
 Gura_ImplementDescendantCreator(wx_DataObjectSimple)
 {
-	return new Object_wx_DataObjectSimple((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataObjectSimple((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

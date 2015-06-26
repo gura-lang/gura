@@ -24,12 +24,12 @@ public:
 
 wx_DateTimeHolidayAuthority::~wx_DateTimeHolidayAuthority()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DateTimeHolidayAuthority::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_DateTimeHolidayAuthority::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_DateTimeHolidayAuthority::~Object_wx_DateTimeHolidayAuthority()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DateTimeHolidayAuthority::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DateTimeHolidayAuthority::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateTimeHolidayAuthority:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_DateTimeHolidayAuthority)
 
 Gura_ImplementDescendantCreator(wx_DateTimeHolidayAuthority)
 {
-	return new Object_wx_DateTimeHolidayAuthority((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DateTimeHolidayAuthority((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

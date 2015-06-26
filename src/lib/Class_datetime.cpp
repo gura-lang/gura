@@ -68,8 +68,8 @@ Value Object_datetime::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 			(wday == 3)? Gura_Symbol(wednesday) :
 			(wday == 4)? Gura_Symbol(thursday) :
 			(wday == 5)? Gura_Symbol(friday) :
-			(wday == 6)? Gura_Symbol(saturday) : NULL;
-		if (pSymbol == NULL) return Value::Null; // this must not happen
+			(wday == 6)? Gura_Symbol(saturday) : nullptr;
+		if (pSymbol == nullptr) return Value::Null; // this must not happen
 		return Value(pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(yday))) {
 		return Value(static_cast<Number>(_dateTime.GetDayOfYear() + 1));
@@ -550,7 +550,7 @@ void Class_datetime::Prepare(Environment &env)
 Object *Class_datetime::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

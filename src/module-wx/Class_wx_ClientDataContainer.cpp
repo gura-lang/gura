@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ClientDataContainer *_pObj;
 public:
-	inline wx_ClientDataContainer() : wxClientDataContainer(), _sig(NULL), _pObj(NULL) {}
+	inline wx_ClientDataContainer() : wxClientDataContainer(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ClientDataContainer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ClientDataContainer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ClientDataContainer::~wx_ClientDataContainer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ClientDataContainer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ClientDataContainer *pEntity = new wx_ClientDataContainer();
 	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ClientDataContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClientData *rtn = (wxClientData *)pThis->GetEntity()->GetClientObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -130,20 +130,20 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
 //----------------------------------------------------------------------------
 Object_wx_ClientDataContainer::~Object_wx_ClientDataContainer()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ClientDataContainer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClientDataContainer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -167,7 +167,7 @@ Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 
 Gura_ImplementDescendantCreator(wx_ClientDataContainer)
 {
-	return new Object_wx_ClientDataContainer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ClientDataContainer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

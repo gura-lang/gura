@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_LayoutAlgorithm *_pObj;
 public:
-	inline wx_LayoutAlgorithm() : wxLayoutAlgorithm(), _sig(NULL), _pObj(NULL) {}
+	inline wx_LayoutAlgorithm() : wxLayoutAlgorithm(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_LayoutAlgorithm();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LayoutAlgorithm *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_LayoutAlgorithm::~wx_LayoutAlgorithm()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LayoutAlgorithm::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(LayoutAlgorithm)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LayoutAlgorithm *pEntity = new wx_LayoutAlgorithm();
 	Object_wx_LayoutAlgorithm *pObj = Object_wx_LayoutAlgorithm::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_LayoutAlgorithm(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
-	wxWindow *mainWindow = (wxWindow *)(NULL);
+	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutFrame(frame, mainWindow);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIParentFrame *frame = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
-	wxRect *rect = (wxRect *)(NULL);
+	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(1)) rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutMDIFrame(frame, rect);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -111,8 +111,8 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	// When the application runs on MacOS and is about to be closed, it sometimes happen
 	// that parent has been destoyed before this function is called.
-	if (parent == NULL) return Value::Null;
-	wxWindow *mainWindow = (wxWindow *)(NULL);
+	if (parent == nullptr) return Value::Null;
+	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutWindow(parent, mainWindow);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -127,13 +127,13 @@ Object_wx_LayoutAlgorithm::~Object_wx_LayoutAlgorithm()
 
 Object *Object_wx_LayoutAlgorithm::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 {
 	String rtn("<wx.LayoutAlgorithm:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -156,7 +156,7 @@ Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 
 Gura_ImplementDescendantCreator(wx_LayoutAlgorithm)
 {
-	return new Object_wx_LayoutAlgorithm((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LayoutAlgorithm((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

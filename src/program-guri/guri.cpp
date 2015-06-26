@@ -34,11 +34,11 @@ bool Main(int argc, const char *argv[])
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
 	unsigned long addrNum = htonl(INADDR_ANY);
 	saddrServer.sin_family = AF_INET;
-	if (addr != NULL) {
+	if (addr != nullptr) {
 		addrNum = ::inet_addr(addr);
 		if (addrNum == 0xffffffff) {
 			hostent *pHostEnt = ::gethostbyname(addr);
-			if (pHostEnt == NULL) {
+			if (pHostEnt == nullptr) {
 				::fprintf(stderr, "binding address not found: %s\n", addr);
 				return false;
 			}
@@ -67,7 +67,7 @@ bool Main(int argc, const char *argv[])
 			FD_SET(static_cast<unsigned int>(sockClient), &fdsRead);
 			if (sockMax < sockClient) sockMax = sockClient;
 		}
-		::select(sockMax + 1, &fdsRead, NULL, NULL, NULL);
+		::select(sockMax + 1, &fdsRead, nullptr, nullptr, nullptr);
 		if (FD_ISSET(sockListen, &fdsRead)) {
 			FD_CLR(static_cast<unsigned int>(sockListen), &fdsRead);
 			sockaddr_in saddrClient;
@@ -78,7 +78,7 @@ bool Main(int argc, const char *argv[])
 			String remoteHost(remoteIP);
 			const hostent *pHostEnt = ::gethostbyaddr(
 					reinterpret_cast<char *>(&saddrClient.sin_addr), 4, AF_INET);
-			if (pHostEnt != NULL) remoteHost = pHostEnt->h_name;
+			if (pHostEnt != nullptr) remoteHost = pHostEnt->h_name;
 			::printf("connected with %s\n", remoteHost.c_str());
 		} else if (sockClient >= 0 && FD_ISSET(sockClient, &fdsRead)) {
 			char buff[512];

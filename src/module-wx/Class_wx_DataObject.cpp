@@ -21,7 +21,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataObject *_pObj;
 public:
-	//inline wx_DataObject() : wxDataObject(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DataObject() : wxDataObject(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void GetAllFormats(wxDataFormat * formats, Direction dir);
 	//virtual bool GetDataHere(const wxDataFormat& format, void *buf);
 	//virtual size_t GetDataSize(const wxDataFormat& format);
@@ -38,12 +38,12 @@ public:
 
 wx_DataObject::~wx_DataObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(DataObject)
 #if 0
 	wx_DataObject *pEntity = new wx_DataObject();
 	Object_wx_DataObject *pObj = Object_wx_DataObject::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_DataObject, GetAllFormats)
 	ValueList &valList = rtn.InitAsList(env);
 	valList.reserve(n);
 	for (size_t i = 0; i < n; i++) {
-		valList.push_back(Value(new Object_wx_DataFormat(new wxDataFormat(formats[i]), NULL, OwnerTrue)));
+		valList.push_back(Value(new Object_wx_DataFormat(new wxDataFormat(formats[i]), nullptr, OwnerTrue)));
 	}
 	delete[] formats;
 	return rtn;
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_DataObject, GetPreferredFormat)
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat rtn = pThis->GetEntity()->GetPreferredFormat();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DataObject, SetData)
@@ -202,20 +202,20 @@ Gura_ImplementMethod(wx_DataObject, SetData)
 //----------------------------------------------------------------------------
 Object_wx_DataObject::~Object_wx_DataObject()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DataObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -249,7 +249,7 @@ Gura_ImplementUserInheritableClass(wx_DataObject)
 
 Gura_ImplementDescendantCreator(wx_DataObject)
 {
-	return new Object_wx_DataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ClassInfo *_pObj;
 public:
-	//inline wx_ClassInfo(const wxChar * className, const wxClassInfo * baseClass1, const wxClassInfo * baseClass2, int size, wxObjectConstructorFn fn) : wxClassInfo(className, baseClass1, baseClass2, size, fn), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ClassInfo(const wxChar * className, const wxClassInfo * baseClass1, const wxClassInfo * baseClass2, int size, wxObjectConstructorFn fn) : wxClassInfo(className, baseClass1, baseClass2, size, fn), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ClassInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ClassInfo *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ClassInfo::~wx_ClassInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ClassInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ClassInfo)
 	wxObjectConstructorFn *fn = Object_wx_ObjectConstructorFn::GetObject(args, 4)->GetEntity();
 	wx_ClassInfo *pEntity = new wx_ClassInfo(className, baseClass1, baseClass2, size, *fn);
 	Object_wx_ClassInfo *pObj = Object_wx_ClassInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ClassInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_ClassInfo, CreateObject)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->CreateObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_ClassInfo, FindClass)
@@ -100,7 +100,7 @@ Gura_ImplementClassMethod(wx_ClassInfo, FindClass)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxClassInfo *rtn = (wxClassInfo *)wxClassInfo::FindClass(name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ClassInfo, GetBaseClassName1)
@@ -222,20 +222,20 @@ Gura_ImplementMethod(wx_ClassInfo, IsKindOf)
 //----------------------------------------------------------------------------
 Object_wx_ClassInfo::~Object_wx_ClassInfo()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ClassInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ClassInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClassInfo:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -264,7 +264,7 @@ Gura_ImplementUserInheritableClass(wx_ClassInfo)
 
 Gura_ImplementDescendantCreator(wx_ClassInfo)
 {
-	return new Object_wx_ClassInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ClassInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

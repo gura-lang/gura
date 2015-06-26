@@ -20,7 +20,7 @@ Object_audio::Object_audio(Class *pClass, Audio *pAudio) :
 
 Object *Object_audio::Clone() const
 {
-	return NULL; //new Object_audio(*this);
+	return nullptr; //new Object_audio(*this);
 }
 
 bool Object_audio::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -134,12 +134,12 @@ Gura_ImplementFunction(audio)
 		}
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 	} else {
-		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL));
+		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
 		pDecl->ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
 		pAudio.reset(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
-		const char *audioType = NULL;
+		const char *audioType = nullptr;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(audiotype), VTYPE_string));
 			pDecl->ValidateAndCast(env, sig, valList[1]);
@@ -318,7 +318,7 @@ bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
-		pAudio->Read(env, sig, value.GetStream(), NULL);
+		pAudio->Read(env, sig, value.GetStream(), nullptr);
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_audio(env, pAudio.release()));

@@ -24,12 +24,12 @@ public:
 
 wx_CalendarEvent::~wx_CalendarEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CalendarEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -73,13 +73,13 @@ Object_wx_CalendarEvent::~Object_wx_CalendarEvent()
 
 Object *Object_wx_CalendarEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CalendarEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalendarEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -100,7 +100,7 @@ Gura_ImplementUserInheritableClass(wx_CalendarEvent)
 
 Gura_ImplementDescendantCreator(wx_CalendarEvent)
 {
-	return new Object_wx_CalendarEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CalendarEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -12,7 +12,7 @@ Object_Texture::~Object_Texture()
 
 Object *Object_Texture::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Texture::ToString(bool exprFlag)

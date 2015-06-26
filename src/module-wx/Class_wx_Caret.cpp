@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Caret *_pObj;
 public:
-	inline wx_Caret() : wxCaret(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _sig(NULL), _pObj(NULL) {}
-	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _sig(NULL), _pObj(NULL) {}
+	inline wx_Caret() : wxCaret(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Caret();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Caret *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_Caret::~wx_Caret()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Caret::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(CaretEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Caret *pEntity = new wx_Caret();
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -78,7 +78,7 @@ Gura_ImplementFunction(Caret)
 	int height = args.GetInt(2);
 	wx_Caret *pEntity = new wx_Caret(window, width, height);
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,7 +104,7 @@ Gura_ImplementFunction(Caret_1)
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wx_Caret *pEntity = new wx_Caret(window, *size);
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Caret, GetPosition_1)
 	Object_wx_Caret *pThis = Object_wx_Caret::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Caret, GetSize)
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_Caret, GetSize_1)
 	Object_wx_Caret *pThis = Object_wx_Caret::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Caret, GetWindow)
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Caret, GetWindow)
 	Object_wx_Caret *pThis = Object_wx_Caret::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Caret, Hide)
@@ -393,20 +393,20 @@ Gura_ImplementMethod(wx_Caret, Show)
 //----------------------------------------------------------------------------
 Object_wx_Caret::~Object_wx_Caret()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Caret::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Caret::ToString(bool exprFlag)
 {
 	String rtn("<wx.Caret:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -446,7 +446,7 @@ Gura_ImplementUserInheritableClass(wx_Caret)
 
 Gura_ImplementDescendantCreator(wx_Caret)
 {
-	return new Object_wx_Caret((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Caret((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

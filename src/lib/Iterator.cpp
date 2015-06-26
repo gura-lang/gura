@@ -18,7 +18,7 @@ bool Iterator::IsSequenceInf() const { return false; }
 
 Iterator *Iterator::_Clone()
 {
-	if (_pShare.get() == NULL) _pShare.reset(new Share());
+	if (_pShare.get() == nullptr) _pShare.reset(new Share());
 	int id = _pShare->Register();
 	return new Iterator_GenericClone(Reference(this), id);
 }
@@ -30,7 +30,7 @@ Iterator *Iterator::Clone() const
 
 bool Iterator::NextShared(Environment &env, Signal sig, int id, Value &value)
 {
-	if (_pShare.get() == NULL) {
+	if (_pShare.get() == nullptr) {
 		for (;;) {
 			if (!DoNext(env, sig, value)) return false;
 			if (!IsSkipInvalid() || value.IsValid()) break;
@@ -71,24 +71,24 @@ Value Iterator::ToList(Environment &env, Signal sig,
 		return Value::Null;
 	}
 	Value result;
-	ValueList *pValList = NULL;
+	ValueList *pValList = nullptr;
 	size_t cnt = 0;
 	Value value;
 	if (alwaysListFlag) {
 		pValList = &result.InitAsList(env);
 	}
 	while (Next(env, sig, value)) {
-		if (pValList == NULL && !value.IsUndefined()) {
+		if (pValList == nullptr && !value.IsUndefined()) {
 			pValList = &result.InitAsList(env, cnt, Value::Null);
 		}
 		if (value.IsValid()) {
-			if (pValList == NULL) {
+			if (pValList == nullptr) {
 				pValList = &result.InitAsList(env, cnt, Value::Null);
 			}
 			pValList->push_back(value);
 		} else if (excludeNilFlag) {
 			// nothing to do
-		} else if (pValList != NULL) {
+		} else if (pValList != nullptr) {
 			pValList->push_back(value);
 		}
 		cnt++;
@@ -526,11 +526,11 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 		return new Iterator_FilterWithFunc(new Environment(env), this, pFuncObjCriteria);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		return new Iterator_FilterWithIter(this, pIteratorCriteria);
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type of criteria for filter");
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -542,11 +542,11 @@ Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 		return new Iterator_WhileWithFunc(new Environment(env), this, pFuncObjCriteria);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		return new Iterator_WhileWithIter(this, pIteratorCriteria);
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type of criteria for while");
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -559,11 +559,11 @@ Iterator *Iterator::Since(Environment &env, Signal sig,
 		return new Iterator_SinceWithFunc(new Environment(env), this, pFuncObjCriteria, containFirstFlag);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		return new Iterator_SinceWithIter(this, pIteratorCriteria, containFirstFlag);
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type of criteria for since");
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -576,11 +576,11 @@ Iterator *Iterator::Until(Environment &env, Signal sig,
 		return new Iterator_UntilWithFunc(new Environment(env), this, pFuncObjCriteria, containLastFlag);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		return new Iterator_UntilWithIter(this, pIteratorCriteria, containLastFlag);
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type of criteria for since");
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -762,10 +762,10 @@ bool IteratorOwner::PrepareForMap(Signal sig,
 	DeclarationList::const_iterator ppDecl = declList.begin();
 	for ( ; pValue != valListArg.end() && ppDecl != declList.end(); pValue++) {
 		const Declaration *pDecl = *ppDecl;
-		Iterator *pIterator = NULL;
+		Iterator *pIterator = nullptr;
 		if (pDecl->ShouldImplicitMap(*pValue)) {
 			pIterator = pValue->CreateIterator(sig);
-			if (pIterator == NULL) return false;
+			if (pIterator == nullptr) return false;
 		} else {
 			pIterator = new Iterator_Constant(*pValue);
 		}

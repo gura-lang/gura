@@ -172,7 +172,7 @@ void Class_pointer::Prepare(Environment &env)
 
 Object *Class_pointer::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return NULL;
+	return nullptr;
 }
 
 }

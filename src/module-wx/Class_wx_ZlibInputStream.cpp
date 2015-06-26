@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ZlibInputStream *_pObj;
 public:
-	inline wx_ZlibInputStream(wxInputStream* stream, int flags) : wxZlibInputStream(stream, flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_ZlibInputStream(wxInputStream* stream, int flags) : wxZlibInputStream(stream, flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ZlibInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZlibInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ZlibInputStream::~wx_ZlibInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ZlibInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(ZlibInputStream)
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_ZlibInputStream *pEntity = new wx_ZlibInputStream(stream, flags);
 	Object_wx_ZlibInputStream *pObj = Object_wx_ZlibInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,13 +85,13 @@ Object_wx_ZlibInputStream::~Object_wx_ZlibInputStream()
 
 Object *Object_wx_ZlibInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ZlibInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZlibInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -112,7 +112,7 @@ Gura_ImplementUserInheritableClass(wx_ZlibInputStream)
 
 Gura_ImplementDescendantCreator(wx_ZlibInputStream)
 {
-	return new Object_wx_ZlibInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ZlibInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

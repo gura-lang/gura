@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ListView *_pObj;
 public:
-	inline wx_ListView(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListView(parent, id, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ListView(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListView(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ListView();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListView *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ListView::~wx_ListView()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ListView::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -67,7 +67,7 @@ Gura_ImplementFunction(ListView)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_ListView *pEntity = new wx_ListView(parent, id, *pos, *size, style, *validator, name);
 	Object_wx_ListView *pObj = Object_wx_ListView::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListView(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -209,13 +209,13 @@ Object_wx_ListView::~Object_wx_ListView()
 
 Object *Object_wx_ListView::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ListView::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListView:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -243,7 +243,7 @@ Gura_ImplementUserInheritableClass(wx_ListView)
 
 Gura_ImplementDescendantCreator(wx_ListView)
 {
-	return new Object_wx_ListView((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ListView((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

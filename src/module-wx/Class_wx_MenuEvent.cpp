@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MenuEvent *_pObj;
 public:
-	inline wx_MenuEvent(WXTYPE type, int id, wxMenu* menu) : wxMenuEvent(type, id, menu), _sig(NULL), _pObj(NULL) {}
+	inline wx_MenuEvent(WXTYPE type, int id, wxMenu* menu) : wxMenuEvent(type, id, menu), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MenuEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MenuEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MenuEvent::~wx_MenuEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MenuEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MenuEvent)
 	if (args.IsValid(0)) type = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
-	wxMenu *menu = (wxMenu *)(NULL);
+	wxMenu *menu = (wxMenu *)(nullptr);
 	if (args.IsValid(2)) menu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
 	wx_MenuEvent *pEntity = new wx_MenuEvent(type, id, menu);
 	Object_wx_MenuEvent *pObj = Object_wx_MenuEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_MenuEvent, GetMenu)
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MenuEvent, GetMenuId)
@@ -118,13 +118,13 @@ Object_wx_MenuEvent::~Object_wx_MenuEvent()
 
 Object *Object_wx_MenuEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MenuEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MenuEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -147,7 +147,7 @@ Gura_ImplementUserInheritableClass(wx_MenuEvent)
 
 Gura_ImplementDescendantCreator(wx_MenuEvent)
 {
-	return new Object_wx_MenuEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MenuEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

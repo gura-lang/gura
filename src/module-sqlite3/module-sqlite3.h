@@ -37,7 +37,7 @@ public:
 	Gura_DeclareObjectAccessor(db)
 public:
 	inline Object_db(Environment &env) :
-							Object(Gura_UserClass(db)), _db(NULL) {}
+							Object(Gura_UserClass(db)), _db(nullptr) {}
 	virtual ~Object_db();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

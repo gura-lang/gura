@@ -39,7 +39,7 @@ String ObjectOfStruct::ToString(bool exprFlag)
 		str += pDecl->GetSymbol()->GetName();
 		str += " => ";
 		const Value *pValue = LookupValue(pDecl->GetSymbol(), ENVREF_NoEscalate);
-		if (pValue == NULL) {
+		if (pValue == nullptr) {
 			str += "nil";
 		} else {
 			str += pValue->ToString(true);
@@ -52,10 +52,10 @@ String ObjectOfStruct::ToString(bool exprFlag)
 const DeclarationList &ObjectOfStruct::GetDeclList() const
 {
 	const Class *pClass = _pClass.get();
-	for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
+	for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
 		if (pClass->GetConstructor()->IsConstructorOfStruct()) break;
 	}
-	if (pClass == NULL) pClass = _pClass.get();
+	if (pClass == nullptr) pClass = _pClass.get();
 	return pClass->GetConstructor()->GetDeclOwner();
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(Struct, tolist)
 	const DeclarationList &declList = pThis->GetDeclList();
 	foreach_const (DeclarationList, ppDecl, declList) {
 		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), ENVREF_NoEscalate);
-		if (pValue == NULL) {
+		if (pValue == nullptr) {
 			valList.push_back(Value::Null);
 		} else {
 			valList.push_back(*pValue);
@@ -104,9 +104,9 @@ bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const D
 {
 	if (value.Is_list()) {
 		Class *pClass = env.LookupClass(pDecl->GetValueType());
-		if (pClass == NULL) return false;
+		if (pClass == nullptr) return false;
 		const Function *pConstructor = pClass->GetConstructor();
-		if (pConstructor == NULL) return false;
+		if (pConstructor == nullptr) return false;
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetValueListArg(value.GetList());
 		value = pConstructor->Eval(env, sig, *pArgs);
@@ -117,7 +117,7 @@ bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const D
 
 Object *ClassOfStruct::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new ObjectOfStruct((pClass == NULL)? this : pClass);
+	return new ObjectOfStruct((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ ClassOfStruct::Constructor::Constructor(Environment &env) :
 
 Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Object *pObjThis = NULL;
+	Object *pObjThis = nullptr;
 	Value valueRtn(args.GetThis());
 	if (valueRtn.IsObject()) {
 		pObjThis = valueRtn.GetObject();

@@ -14,10 +14,10 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Colour *_pObj;
 public:
-	inline wx_Colour() : wxColour(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _sig(NULL), _pObj(NULL) {}
-	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _sig(NULL), _pObj(NULL) {}
-	inline wx_Colour(const wxColour& colour) : wxColour(colour), _sig(NULL), _pObj(NULL) {}
+	inline wx_Colour() : wxColour(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(const wxColour& colour) : wxColour(colour), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Colour();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Colour *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_Colour::~wx_Colour()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Colour::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(ColourEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Colour *pEntity = new wx_Colour();
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -82,7 +82,7 @@ Gura_ImplementFunction(Colour)
 	if (args.IsValid(3)) alpha = args.GetInt(3);
 	wx_Colour *pEntity = new wx_Colour(red, green, blue, alpha);
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -106,7 +106,7 @@ Gura_ImplementFunction(NamedColour)
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wx_Colour *pEntity = new wx_Colour(colourName);
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -296,13 +296,13 @@ Object_wx_Colour::~Object_wx_Colour()
 
 Object *Object_wx_Colour::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Colour::ToString(bool exprFlag)
 {
 	String rtn("<wx.Colour:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -363,7 +363,7 @@ Gura_ImplementCastTo(wx_Colour)
 
 Gura_ImplementDescendantCreator(wx_Colour)
 {
-	return new Object_wx_Colour((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Colour((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

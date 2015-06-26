@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlHelpWindow *_pObj;
 public:
-	inline wx_HtmlHelpWindow(wxHtmlHelpData* data) : wxHtmlHelpWindow(data), _sig(NULL), _pObj(NULL) {}
-	inline wx_HtmlHelpWindow(wxWindow* parent, int wxWindowID, const wxPoint& pos, const wxSize& size, int style, int helpStyle, wxHtmlHelpData* data) : wxHtmlHelpWindow(parent, wxWindowID, pos, size, style, helpStyle, data), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlHelpWindow(wxHtmlHelpData* data) : wxHtmlHelpWindow(data), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpWindow(wxWindow* parent, int wxWindowID, const wxPoint& pos, const wxSize& size, int style, int helpStyle, wxHtmlHelpData* data) : wxHtmlHelpWindow(parent, wxWindowID, pos, size, style, helpStyle, data), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpWindow *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_HtmlHelpWindow::~wx_HtmlHelpWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlHelpWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,11 +51,11 @@ Gura_DeclareFunction(HtmlHelpWindow)
 Gura_ImplementFunction(HtmlHelpWindow)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
+	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wx_HtmlHelpWindow *pEntity = new wx_HtmlHelpWindow(data);
 	Object_wx_HtmlHelpWindow *pObj = Object_wx_HtmlHelpWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,11 +92,11 @@ Gura_ImplementFunction(HtmlHelpWindow_1)
 	if (args.IsValid(4)) style = args.GetInt(4);
 	int helpStyle = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(5)) helpStyle = args.GetInt(5);
-	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
+	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(6)) data = Object_wx_HtmlHelpData::GetObject(args, 6)->GetEntity();
 	wx_HtmlHelpWindow *pEntity = new wx_HtmlHelpWindow(parent, wxWindowID, *pos, *size, style, helpStyle, data);
 	Object_wx_HtmlHelpWindow *pObj = Object_wx_HtmlHelpWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, Create)
 	if (args.IsValid(4)) style = args.GetInt(4);
 	int helpStyle = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(5)) helpStyle = args.GetInt(5);
-	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
+	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(6)) data = Object_wx_HtmlHelpData::GetObject(args, 6)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, helpStyle, data);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, GetData)
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *rtn = (wxHtmlHelpData *)pThis->GetEntity()->GetData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpWindow, KeywordSearch)
@@ -403,13 +403,13 @@ Object_wx_HtmlHelpWindow::~Object_wx_HtmlHelpWindow()
 
 Object *Object_wx_HtmlHelpWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlHelpWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -447,7 +447,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlHelpWindow)
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpWindow)
 {
-	return new Object_wx_HtmlHelpWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlHelpWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

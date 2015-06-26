@@ -98,7 +98,7 @@ public:
 	inline int DecRef() { _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
 	inline static void Delete(Device *pDevice) {
-		if (pDevice != NULL && pDevice->DecRef() <= 0) delete pDevice;
+		if (pDevice != nullptr && pDevice->DecRef() <= 0) delete pDevice;
 	}
 	virtual ~Device();
 	Value Initialize(Environment &env, Signal sig, const Function *pFuncBlock);

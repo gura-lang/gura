@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Codec
 //-----------------------------------------------------------------------------
-CodecFactory *Codec::_pFactory_None = NULL;
+CodecFactory *Codec::_pFactory_None = nullptr;
 
 // Byte Order Mark of Unicode
 const char *Codec::BOM_UTF8 = "\xef\xbb\xbf";
@@ -35,11 +35,11 @@ Codec *Codec::CreateCodecNone(bool delcrFlag, bool addcrFlag)
 
 Codec *Codec::CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag)
 {
-	if (encoding == NULL) encoding = "none";
+	if (encoding == nullptr) encoding = "none";
 	CodecFactory *pFactory = CodecFactory::Lookup(encoding);
-	if (pFactory == NULL) {
+	if (pFactory == nullptr) {
 		sig.SetError(ERR_CodecError, "unsupported encoding %s", encoding);
-		return NULL;
+		return nullptr;
 	}
 	return pFactory->CreateCodec(delcrFlag, addcrFlag);
 }
@@ -69,7 +69,7 @@ UShort Codec::DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDB
 UShort Codec::UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap)
 {
 	Map *pMap = *ppMap;
-	if (*ppMap == NULL) {
+	if (*ppMap == nullptr) {
 		*ppMap = new Map();
 		pMap = *ppMap;
 		const CodeRow *pCodeRow = codeRows;
@@ -125,7 +125,7 @@ Codec::Result Codec::DecEncBase::Flush(char &chConv)
 //-----------------------------------------------------------------------------
 // CodecFactory
 //-----------------------------------------------------------------------------
-CodecFactory::List *CodecFactory::_pList = NULL;
+CodecFactory::List *CodecFactory::_pList = nullptr;
 
 CodecFactory::CodecFactory(const char *encoding) : _encoding(encoding)
 {
@@ -133,7 +133,7 @@ CodecFactory::CodecFactory(const char *encoding) : _encoding(encoding)
 
 void CodecFactory::Register(CodecFactory *pFactory)
 {
-	if (_pList == NULL) {
+	if (_pList == nullptr) {
 		_pList = new List();
 	}
 	_pList->push_back(pFactory);
@@ -141,14 +141,14 @@ void CodecFactory::Register(CodecFactory *pFactory)
 
 CodecFactory *CodecFactory::Lookup(const char *encoding)
 {
-	if (encoding == NULL || _pList == NULL) return NULL;
+	if (encoding == nullptr || _pList == nullptr) return nullptr;
 	foreach (List, ppFactory, *_pList) {
 		CodecFactory *pFactory = *ppFactory;
 		if (::strcasecmp(pFactory->GetEncoding(), encoding) == 0) {
 			return pFactory;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -306,7 +306,7 @@ Codec::Result Codec_SBCS::Decoder::FeedChar(char ch, char &chConv)
 
 Codec::Result Codec_SBCS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
-	if (_pMap == NULL) {
+	if (_pMap == nullptr) {
 		_pMap = new Map();
 		for (int codeSBCS = 0; codeSBCS < 256; codeSBCS++) {
 			UShort codeUTF16 = _codeTbl[codeSBCS];

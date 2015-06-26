@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataObjectComposite *_pObj;
 public:
-	inline wx_DataObjectComposite() : wxDataObjectComposite(), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataObjectComposite() : wxDataObjectComposite(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataObjectComposite();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataObjectComposite *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataObjectComposite::~wx_DataObjectComposite()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataObjectComposite::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataObjectComposite *pEntity = new wx_DataObjectComposite();
 	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectComposite(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat rtn = pThis->GetEntity()->GetReceivedFormat();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------
@@ -105,13 +105,13 @@ Object_wx_DataObjectComposite::~Object_wx_DataObjectComposite()
 
 Object *Object_wx_DataObjectComposite::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataObjectComposite:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -133,7 +133,7 @@ Gura_ImplementUserInheritableClass(wx_DataObjectComposite)
 
 Gura_ImplementDescendantCreator(wx_DataObjectComposite)
 {
-	return new Object_wx_DataObjectComposite((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataObjectComposite((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

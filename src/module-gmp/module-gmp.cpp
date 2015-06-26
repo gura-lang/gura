@@ -92,7 +92,7 @@ Gura_ImplementFunction(sqrt)
 //-----------------------------------------------------------------------------
 Gura_ImplementSuffixMgrForNumber(L)
 {
-	if (::strchr(body, '.') != NULL || ::strchr(body, 'e') != NULL || ::strchr(body, 'E') != NULL) {
+	if (::strchr(body, '.') != nullptr || ::strchr(body, 'e') != nullptr || ::strchr(body, 'E') != nullptr) {
 		mpf_t numf;
 		::mpf_init(numf);
 		if (::mpf_set_str(numf, body, 0) == 0) return Value(new Object_mpf(numf));
@@ -179,7 +179,7 @@ mpf_class MpfFromMpq(Signal sig, const mpq_class &num)
 bool _Format_d(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Zd").c_str(), num.get_mpz_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -189,7 +189,7 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 bool _Format_u(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Zu").c_str(), num.get_mpz_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -199,7 +199,7 @@ bool _Format_u(Signal sig, Formatter *pFormatter,
 bool _Format_b(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Zb").c_str(), num.get_mpz_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -209,7 +209,7 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 bool _Format_o(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Zo").c_str(), num.get_mpz_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -219,7 +219,7 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 bool _Format_x(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags,
 				flags.upperCaseFlag? "ZX" : "Zx").c_str(), num.get_mpz_t());
 	bool rtn = pFormatter->PutString(sig, str);
@@ -230,7 +230,7 @@ bool _Format_x(Signal sig, Formatter *pFormatter,
 bool _Format_e(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags,
 				flags.upperCaseFlag? "FE" : "Fe").c_str(), num.get_mpf_t());
 	bool rtn = pFormatter->PutString(sig, str);
@@ -241,7 +241,7 @@ bool _Format_e(Signal sig, Formatter *pFormatter,
 bool _Format_f(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Ff").c_str(), num.get_mpf_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -251,7 +251,7 @@ bool _Format_f(Signal sig, Formatter *pFormatter,
 bool _Format_g(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags,
 				flags.upperCaseFlag? "FG" : "Fg").c_str(), num.get_mpf_t());
 	bool rtn = pFormatter->PutString(sig, str);
@@ -262,7 +262,7 @@ bool _Format_g(Signal sig, Formatter *pFormatter,
 bool _Format_d(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Qd").c_str(), num.get_mpq_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -272,7 +272,7 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 bool _Format_b(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Qb").c_str(), num.get_mpq_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -282,7 +282,7 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 bool _Format_o(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags, "Qo").c_str(), num.get_mpq_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
@@ -292,7 +292,7 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 bool _Format_x(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
-	char *str = NULL;
+	char *str = nullptr;
 	::gmp_asprintf(&str, Formatter::ComposeFlags(flags,
 				flags.upperCaseFlag? "QX" : "Qx").c_str(), num.get_mpq_t());
 	bool rtn = pFormatter->PutString(sig, str);

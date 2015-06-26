@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_NotebookEvent *_pObj;
 public:
-	inline wx_NotebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxNotebookEvent(eventType, id, sel, oldSel), _sig(NULL), _pObj(NULL) {}
+	inline wx_NotebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxNotebookEvent(eventType, id, sel, oldSel), _sig(nullptr), _pObj(nullptr) {}
 	~wx_NotebookEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_NotebookEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_NotebookEvent::~wx_NotebookEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_NotebookEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(NotebookEvent)
 	if (args.IsValid(3)) oldSel = args.GetInt(3);
 	wx_NotebookEvent *pEntity = new wx_NotebookEvent(eventType, id, sel, oldSel);
 	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_NotebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -137,13 +137,13 @@ Object_wx_NotebookEvent::~Object_wx_NotebookEvent()
 
 Object *Object_wx_NotebookEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_NotebookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.NotebookEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -167,7 +167,7 @@ Gura_ImplementUserInheritableClass(wx_NotebookEvent)
 
 Gura_ImplementDescendantCreator(wx_NotebookEvent)
 {
-	return new Object_wx_NotebookEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_NotebookEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

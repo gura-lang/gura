@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileHistory *_pObj;
 public:
-	inline wx_FileHistory(size_t maxFiles, wxWindowID idBase) : wxFileHistory(maxFiles, idBase), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileHistory(size_t maxFiles, wxWindowID idBase) : wxFileHistory(maxFiles, idBase), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileHistory();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileHistory *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FileHistory::~wx_FileHistory()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileHistory::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(FileHistory)
 	if (args.IsValid(1)) idBase = static_cast<wxWindowID>(args.GetInt(1));
 	wx_FileHistory *pEntity = new wx_FileHistory(maxFiles, idBase);
 	Object_wx_FileHistory *pObj = Object_wx_FileHistory::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileHistory(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_FileHistory, GetMenus)
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxList &rtn = pThis->GetEntity()->GetMenus();
-	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -282,13 +282,13 @@ Object_wx_FileHistory::~Object_wx_FileHistory()
 
 Object *Object_wx_FileHistory::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileHistory::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileHistory:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -322,7 +322,7 @@ Gura_ImplementUserInheritableClass(wx_FileHistory)
 
 Gura_ImplementDescendantCreator(wx_FileHistory)
 {
-	return new Object_wx_FileHistory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileHistory((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

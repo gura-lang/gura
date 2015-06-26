@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ListEvent *_pObj;
 public:
-	inline wx_ListEvent(WXTYPE commandType, int id) : wxListEvent(commandType, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_ListEvent(WXTYPE commandType, int id) : wxListEvent(commandType, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ListEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ListEvent::~wx_ListEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ListEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(ListEvent)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_ListEvent *pEntity = new wx_ListEvent(commandType, id);
 	Object_wx_ListEvent *pObj = Object_wx_ListEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_ListEvent, GetPoint)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetLabel)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ListEvent, GetItem)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxListItem &rtn = pThis->GetEntity()->GetItem();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ListItem(new wxListItem(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ListItem(new wxListItem(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
@@ -255,13 +255,13 @@ Object_wx_ListEvent::~Object_wx_ListEvent()
 
 Object *Object_wx_ListEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ListEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -294,7 +294,7 @@ Gura_ImplementUserInheritableClass(wx_ListEvent)
 
 Gura_ImplementDescendantCreator(wx_ListEvent)
 {
-	return new Object_wx_ListEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ListEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

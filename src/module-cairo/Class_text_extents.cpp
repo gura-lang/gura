@@ -11,7 +11,7 @@ Object_text_extents::~Object_text_extents()
 
 Object *Object_text_extents::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_text_extents::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

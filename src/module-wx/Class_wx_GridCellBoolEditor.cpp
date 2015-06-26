@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellBoolEditor *_pObj;
 public:
-	inline wx_GridCellBoolEditor() : wxGridCellBoolEditor(), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellBoolEditor() : wxGridCellBoolEditor(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellBoolEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellBoolEditor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GridCellBoolEditor::~wx_GridCellBoolEditor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellBoolEditor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(GridCellBoolEditor)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellBoolEditor *pEntity = new wx_GridCellBoolEditor();
 	Object_wx_GridCellBoolEditor *pObj = Object_wx_GridCellBoolEditor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellBoolEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,13 +100,13 @@ Object_wx_GridCellBoolEditor::~Object_wx_GridCellBoolEditor()
 
 Object *Object_wx_GridCellBoolEditor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellBoolEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellBoolEditor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -128,7 +128,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellBoolEditor)
 
 Gura_ImplementDescendantCreator(wx_GridCellBoolEditor)
 {
-	return new Object_wx_GridCellBoolEditor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellBoolEditor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlCellEvent *_pObj;
 public:
-	//inline wx_HtmlCellEvent(wxEventType commandType, int id, wxHtmlCell * cell, const wxPoint & point) : wxHtmlCellEvent(commandType, id, cell, point), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlCellEvent(wxEventType commandType, int id, wxHtmlCell * cell, const wxPoint & point) : wxHtmlCellEvent(commandType, id, cell, point), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlCellEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlCellEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlCellEvent::~wx_HtmlCellEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlCellEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ Gura_ImplementFunction(HtmlCellEvent)
 	wxPoint *point = Object_wx_Point::GetObject(args, 3)->GetEntity();
 	wx_HtmlCellEvent *pEntity = new wx_HtmlCellEvent(commandType, id, cell, *point);
 	Object_wx_HtmlCellEvent *pObj = Object_wx_HtmlCellEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlCellEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetCell();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
@@ -145,13 +145,13 @@ Object_wx_HtmlCellEvent::~Object_wx_HtmlCellEvent()
 
 Object *Object_wx_HtmlCellEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlCellEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -175,7 +175,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)
 
 Gura_ImplementDescendantCreator(wx_HtmlCellEvent)
 {
-	return new Object_wx_HtmlCellEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlCellEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

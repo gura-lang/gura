@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BitmapHandler *_pObj;
 public:
-	inline wx_BitmapHandler() : wxBitmapHandler(), _sig(NULL), _pObj(NULL) {}
+	inline wx_BitmapHandler() : wxBitmapHandler(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool Create(wxBitmap* bitmap, const void* data, int type, int width, int height, int depth);
 	~wx_BitmapHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BitmapHandler *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_BitmapHandler::~wx_BitmapHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BitmapHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(BitmapHandlerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapHandler *pEntity = new wx_BitmapHandler();
 	Object_wx_BitmapHandler *pObj = Object_wx_BitmapHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(2));
-	wxPalette *palette = (wxPalette *)(NULL);
+	wxPalette *palette = (wxPalette *)(nullptr);
 	if (args.IsValid(3)) palette = Object_wx_Palette::GetObject(args, 3)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(bitmap, name, type, palette);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -239,13 +239,13 @@ Object_wx_BitmapHandler::~Object_wx_BitmapHandler()
 
 Object *Object_wx_BitmapHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BitmapHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -275,7 +275,7 @@ Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 
 Gura_ImplementDescendantCreator(wx_BitmapHandler)
 {
-	return new Object_wx_BitmapHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BitmapHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

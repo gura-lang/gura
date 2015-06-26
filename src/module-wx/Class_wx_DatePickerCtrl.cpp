@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DatePickerCtrl *_pObj;
 public:
-	inline wx_DatePickerCtrl(wxWindow * parent, wxWindowID id, const wxDateTime& dt, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDatePickerCtrl(parent, id, dt, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_DatePickerCtrl(wxWindow * parent, wxWindowID id, const wxDateTime& dt, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDatePickerCtrl(parent, id, dt, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DatePickerCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DatePickerCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DatePickerCtrl::~wx_DatePickerCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DatePickerCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Gura_ImplementFunction(DatePickerCtrl)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_DatePickerCtrl *pEntity = new wx_DatePickerCtrl(parent, id, *dt, *pos, *size, style, *validator, name);
 	Object_wx_DatePickerCtrl *pObj = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DatePickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, GetValue)
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetFormat)
@@ -216,13 +216,13 @@ Object_wx_DatePickerCtrl::~Object_wx_DatePickerCtrl()
 
 Object *Object_wx_DatePickerCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DatePickerCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -248,7 +248,7 @@ Gura_ImplementUserInheritableClass(wx_DatePickerCtrl)
 
 Gura_ImplementDescendantCreator(wx_DatePickerCtrl)
 {
-	return new Object_wx_DatePickerCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DatePickerCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

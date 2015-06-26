@@ -24,12 +24,12 @@ public:
 
 wx_DllLoader::~wx_DllLoader()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DllLoader::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_DllLoader, GetProgramHandle)
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDllType rtn = pThis->GetEntity()->GetProgramHandle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DllLoader, GetSymbol)
@@ -92,10 +92,10 @@ Gura_ImplementMethod(wx_DllLoader, LoadLibrary)
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString libname = wxString::FromUTF8(args.GetString(0));
-	bool success = NULL;
+	bool success = nullptr;
 	if (args.IsValid(1)) success = args.GetBoolean(1);
 	wxDllType rtn = pThis->GetEntity()->LoadLibrary(libname, success);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DllLoader, UnloadLibrary)
@@ -118,20 +118,20 @@ Gura_ImplementMethod(wx_DllLoader, UnloadLibrary)
 //----------------------------------------------------------------------------
 Object_wx_DllLoader::~Object_wx_DllLoader()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DllLoader::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DllLoader::ToString(bool exprFlag)
 {
 	String rtn("<wx.DllLoader:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -155,7 +155,7 @@ Gura_ImplementUserInheritableClass(wx_DllLoader)
 
 Gura_ImplementDescendantCreator(wx_DllLoader)
 {
-	return new Object_wx_DllLoader((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DllLoader((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

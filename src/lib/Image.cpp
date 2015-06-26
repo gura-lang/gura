@@ -9,7 +9,7 @@ namespace Gura {
 // Image
 //-----------------------------------------------------------------------------
 Image::Image(Format format) : _cntRef(1),
-			_format(format), _width(0), _height(0), _pPalette(NULL)
+			_format(format), _width(0), _height(0), _pPalette(nullptr)
 {
 	InitMetrics();
 }
@@ -64,7 +64,7 @@ bool Image::AllocBuffer(Signal sig,
 
 void Image::FreeBuffer()
 {
-	_pMemory.reset(NULL);
+	_pMemory.reset(nullptr);
 	_width = 0, _height = 0;
 }
 
@@ -162,8 +162,8 @@ Image *Image::CreateDerivation(Signal sig,
 						size_t width, size_t height, Palette *pPalette)
 {
 	AutoPtr<Image> pImage(new Image(_format));
-	if (!pImage->AllocBuffer(sig, width, height, 0x00)) return NULL;
-	if (pPalette != NULL) {
+	if (!pImage->AllocBuffer(sig, width, height, 0x00)) return nullptr;
+	if (pPalette != nullptr) {
 		pImage->_pPalette.reset(pPalette);
 	} else if (!_pPalette.IsNull()) {
 		pImage->_pPalette.reset(Palette::Reference(_pPalette.get()));
@@ -418,7 +418,7 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height,
 										Palette::Reference(pPalette)));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
@@ -439,7 +439,7 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 Image *Image::GrayScale(Signal sig)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
@@ -459,7 +459,7 @@ Image *Image::GrayScale(Signal sig)
 Image *Image::MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, const UChar *mapB)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
@@ -484,7 +484,7 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 {
 	int diameter = radius * 2 + 1;
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	int nKernels = diameter * diameter;
 	Number *kernel = new Number[nKernels];
 	Number factor = 2 * sigma * sigma;
@@ -567,7 +567,7 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	if (horzFlag) {
 		std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
 		std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner(
@@ -598,7 +598,7 @@ Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
 {
 	size_t width = _height, height = _width;
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	std::unique_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::unique_ptr<Scanner> pScannerDst(pImage->CreateScanner(
 			clockwiseFlag? SCAN_RightTopVert : SCAN_LeftBottomVert));
@@ -653,7 +653,7 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 		yCenterNew = height / 2;
 	} while (0);
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
@@ -682,7 +682,7 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	const UChar *pLineSrc = GetPointer(x, y);
 	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerLineSrc = GetBytesPerLine();
@@ -698,7 +698,7 @@ Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 Image *Image::Resize(Signal sig, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	const UChar *pLineSrc = GetPointer(0);
 	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerPixel = GetBytesPerPixel();
@@ -891,10 +891,10 @@ void Image::SetPalette(Palette *pPalette)
 
 bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imageType)
 {
-	ImageStreamer *pImageStreamer = NULL;
+	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
-	if (pImageStreamer == NULL) {
+	if (pImageStreamer == nullptr) {
 		sig.SetError(ERR_FormatError, "unsupported image type");
 		return false;
 	}
@@ -903,10 +903,10 @@ bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *image
 
 bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imageType)
 {
-	ImageStreamer *pImageStreamer = NULL;
+	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
-	if (pImageStreamer == NULL) {
+	if (pImageStreamer == nullptr) {
 		sig.SetError(ERR_FormatError, "unsupported image type");
 		return false;
 	}
@@ -915,7 +915,7 @@ bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imag
 
 int Image::CalcDIBBitCount() const
 {
-	if (GetPalette() == NULL) return static_cast<int>(GetBitsPerPixel());
+	if (GetPalette() == nullptr) return static_cast<int>(GetBitsPerPixel());
 	size_t nEntries = GetPalette()->CountEntries();
 	size_t nBits = 1;
 	for ( ; nEntries > static_cast<size_t>(1 << nBits); nBits++) ;
@@ -1389,7 +1389,7 @@ Image::Scanner::~Scanner()
 //-----------------------------------------------------------------------------
 Iterator *Image::IteratorScan::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Image::IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
@@ -1417,35 +1417,35 @@ void Image::IteratorScan::GatherFollower(Environment::Frame *pFrame, Environment
 //-----------------------------------------------------------------------------
 // ImageStreamer
 //-----------------------------------------------------------------------------
-ImageStreamer::List *ImageStreamer::_pList = NULL;
+ImageStreamer::List *ImageStreamer::_pList = nullptr;
 void ImageStreamer::Register(ImageStreamer *pImageStreamer)
 {
-	if (_pList == NULL) _pList = new List();
+	if (_pList == nullptr) _pList = new List();
 	_pList->push_back(pImageStreamer);
 }
 
 ImageStreamer *ImageStreamer::FindResponsible(Signal sig, Stream &stream, const char *imageType)
 {
-	if (_pList == NULL) return NULL;
-	if (imageType != NULL) return FindByImageType(imageType);
+	if (_pList == nullptr) return nullptr;
+	if (imageType != nullptr) return FindByImageType(imageType);
 	foreach (List, ppImageStreamer, *_pList) {
 		ImageStreamer *pImageStreamer = *ppImageStreamer;
 		if (pImageStreamer->IsResponsible(sig, stream)) return pImageStreamer;
 		if (sig.IsSignalled()) break;
 	}
-	return NULL;
+	return nullptr;
 }
 
 ImageStreamer *ImageStreamer::FindByImageType(const char *imageType)
 {
-	if (_pList == NULL) return NULL;
+	if (_pList == nullptr) return nullptr;
 	foreach (List, ppImageStreamer, *_pList) {
 		ImageStreamer *pImageStreamer = *ppImageStreamer;
 		if (::strcasecmp(pImageStreamer->GetImageType(), imageType) == 0) {
 			return pImageStreamer;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 }

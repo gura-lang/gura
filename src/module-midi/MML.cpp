@@ -35,7 +35,7 @@ void MML::Reset()
 	_timeStampTail		= 0;
 	_chOctaveUp			= '<';
 	_chOctaveDown		= '>';
-	_pMIDIEventLast		= NULL;
+	_pMIDIEventLast		= nullptr;
 }
 
 void MML::UpdateTimeStamp(Track *pTrack)
@@ -51,7 +51,7 @@ bool MML::ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream)
 	bool rtn = true;
 	TrackOwner &trackOwner = sequence.GetTrackOwner();
 	for (size_t iTrack = 0; ; iTrack++) {
-		Track *pTrack = NULL;
+		Track *pTrack = nullptr;
 		if (iTrack < trackOwner.size()) {
 			pTrack = trackOwner[iTrack];
 		} else {
@@ -455,7 +455,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		ULong timeStampTail = _timeStampHead + deltaTime;
 		ULong timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
 		bool joinedFlag = false;
-		if (_joinFlag && _pMIDIEventLast != NULL) {
+		if (_joinFlag && _pMIDIEventLast != nullptr) {
 			if (_pMIDIEventLast->GetNote() == note) {
 				joinedFlag = true;
 				_pMIDIEventLast->SetTimeStamp(timeStampGate);

@@ -33,7 +33,7 @@ Object_interp::~Object_interp()
 
 Object *Object_interp::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_interp::ToString(bool exprFlag)
@@ -83,7 +83,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 		Object *pObj = value.GetObject();
 		const Function *pFunc =
 					pObj->LookupFunction(Gura_UserSymbol(__tclname__), ENVREF_Escalate);
-		if (pFunc != NULL) {
+		if (pFunc != nullptr) {
 			Value valueThis(pObj, VFLAG_NoOwner); // reference to self
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetThis(valueThis);
@@ -100,7 +100,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 Value Object_interp::ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *objPtr)
 {
 	Tcl_ObjType *typePtr = objPtr->typePtr;
-	if (typePtr == NULL) {
+	if (typePtr == nullptr) {
 		return Value(objPtr->bytes, objPtr->length);
 	} else if (typePtr == ObjType_boolean) {
 		int value;
@@ -149,7 +149,7 @@ Tcl_Obj **Object_interp::CreateTclObjArray(Environment &env, Signal sig,
 		objv[i++] = ConvToTclObj(env, sig, *pValue);
 		if (sig.IsSignalled()) {
 			DeleteTclObjArray(i - 1, objv);
-			return NULL;
+			return nullptr;
 		}
 	}
 	return objv;
@@ -176,7 +176,7 @@ Value Object_interp::TclEval(Environment &env, Signal sig, const ValueList &valL
 	}
 	delete[] objv;
 	Tcl_Obj *obj = ::Tcl_GetObjResult(_interp);
-	if (obj == NULL) return Value::Null;
+	if (obj == nullptr) return Value::Null;
 	Value result = ConvFromTclObj(env, sig, obj);
 	return result;
 }
@@ -200,7 +200,7 @@ String Object_interp::NewVariableName()
 void Object_interp::ExitMainLoop()
 {
 	//Tk_Window tkwin = ::Tk_MainWindow(_interp);
-	//if (tkwin != NULL) ::Tk_DestroyWindow(tkwin);
+	//if (tkwin != nullptr) ::Tk_DestroyWindow(tkwin);
 	::longjmp(g_jmpenv, 1);
 }
 
@@ -243,7 +243,7 @@ int Object_interp::TclThreadProc(Tcl_Event *ev, int flags)
 	pEventPack->objRtn = ::Tcl_GetObjResult(pEventPack->interp);
 	Tcl_IncrRefCount(pEventPack->objRtn);
 	Object_interp::DeleteTclObjArray(pEventPack->objc, pEventPack->objv);
-	pEventPack->objv = NULL;
+	pEventPack->objv = nullptr;
 	// wake up calling thread
 	Tcl_MutexLock(&g_mutex);
 	Tcl_ConditionNotify(pEventPack->pCond);
@@ -254,7 +254,7 @@ int Object_interp::TclThreadProc(Tcl_Event *ev, int flags)
 Value Object_interp::InvokeTclThread(Environment &env, Signal sig,
 												const ValueList &valListArg)
 {
-	Tcl_Condition cond = NULL;
+	Tcl_Condition cond = nullptr;
 	EventPack *pEventPack =
 			reinterpret_cast<EventPack *>(::ckalloc(sizeof(EventPack)));
 	pEventPack->ev.proc = TclThreadProc;
@@ -262,14 +262,14 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal sig,
 	pEventPack->objv = CreateTclObjArray(env, sig, valListArg, &pEventPack->objc);
 	if (sig.IsSignalled()) return Value::Null;
 	pEventPack->rtn = TCL_OK;
-	pEventPack->objRtn = NULL;
+	pEventPack->objRtn = nullptr;
 	pEventPack->pCond = &cond;
 	do {
 		Tcl_MutexLock(g_mutex);
 		::Tcl_ThreadQueueEvent(_thread_id,
 					reinterpret_cast<Tcl_Event *>(pEventPack), TCL_QUEUE_TAIL);
 		::Tcl_ThreadAlert(_thread_id);
-		Tcl_ConditionWait(&cond, g_mutex, NULL);
+		Tcl_ConditionWait(&cond, g_mutex, nullptr);
 		Tcl_MutexUnlock(g_mutex);
 	} while (0);
 	Tcl_ConditionFinalize(&cond);
@@ -591,7 +591,7 @@ Object_timer::~Object_timer()
 
 Object *Object_timer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_timer::ToString(bool exprFlag)
@@ -722,7 +722,7 @@ Gura_ImplementMethod(image, read_tcl)
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
 	Tk_PhotoHandle handle = ::Tk_FindPhoto(interp, imageName);
-	if (handle == NULL) {
+	if (handle == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
 		return Value::Null;
 	}
@@ -763,7 +763,7 @@ Gura_ImplementMethod(image, write_tcl)
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
 	Tk_PhotoHandle handle = ::Tk_FindPhoto(interp, imageName);
-	if (handle == NULL) {
+	if (handle == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
 		return Value::Null;
 	}

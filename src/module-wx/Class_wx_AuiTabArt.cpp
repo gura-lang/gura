@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AuiTabArt *_pObj;
 public:
-	//inline wx_AuiTabArt() : wxAuiTabArt(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_AuiTabArt() : wxAuiTabArt(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AuiTabArt();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiTabArt *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_AuiTabArt::~wx_AuiTabArt()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AuiTabArt::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(AuiTabArtEmpty)
 #if 0
 	wx_AuiTabArt *pEntity = new wx_AuiTabArt();
 	Object_wx_AuiTabArt *pObj = Object_wx_AuiTabArt::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiTabArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_AuiTabArt, Clone)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiTabArt *rtn = (wxAuiTabArt *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_AuiTabArt(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AuiTabArt, DrawBackground)
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetTabSize)
 	int close_button_state = args.GetInt(5);
 	int x_extent = args.GetInt(6);
 	wxSize rtn = pThis->GetEntity()->GetTabSize(*dc, wnd, caption, *bitmap, active, close_button_state, x_extent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -351,20 +351,20 @@ Gura_ImplementMethod(wx_AuiTabArt, ShowWindowList)
 //----------------------------------------------------------------------------
 Object_wx_AuiTabArt::~Object_wx_AuiTabArt()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AuiTabArt::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AuiTabArt::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiTabArt:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -397,7 +397,7 @@ Gura_ImplementUserInheritableClass(wx_AuiTabArt)
 
 Gura_ImplementDescendantCreator(wx_AuiTabArt)
 {
-	return new Object_wx_AuiTabArt((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AuiTabArt((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

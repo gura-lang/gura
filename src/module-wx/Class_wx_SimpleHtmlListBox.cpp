@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SimpleHtmlListBox *_pObj;
 public:
-	inline wx_SimpleHtmlListBox() : wxSimpleHtmlListBox(), _sig(NULL), _pObj(NULL) {}
+	inline wx_SimpleHtmlListBox() : wxSimpleHtmlListBox(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SimpleHtmlListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SimpleHtmlListBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SimpleHtmlListBox::~wx_SimpleHtmlListBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SimpleHtmlListBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
 	int n = 0;
 	if (args.IsValid(4)) n = args.GetInt(4);
-	wxString choices[] = NULL;
+	wxString choices[] = nullptr;
 	if (args.IsValid(5)) choices[] = wxString::FromUTF8(args.GetString(5));
 	long style = wxHLB_DEFAULT_STYLE;
 	if (args.IsValid(6)) style = args.GetLong(6);
@@ -130,7 +130,7 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SimpleHtmlListBox *pEntity = new wx_SimpleHtmlListBox();
 	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SimpleHtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
 	int n = args.GetInt(4);
-	wxString choices[] = NULL;
+	wxString choices[] = nullptr;
 	if (args.IsValid(5)) choices[] = wxString::FromUTF8(args.GetString(5));
 	long style = wxHLB_DEFAULT_STYLE;
 	if (args.IsValid(6)) style = args.GetLong(6);
@@ -226,13 +226,13 @@ Object_wx_SimpleHtmlListBox::~Object_wx_SimpleHtmlListBox()
 
 Object *Object_wx_SimpleHtmlListBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.SimpleHtmlListBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -256,7 +256,7 @@ Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 
 Gura_ImplementDescendantCreator(wx_SimpleHtmlListBox)
 {
-	return new Object_wx_SimpleHtmlListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SimpleHtmlListBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

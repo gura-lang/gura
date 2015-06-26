@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WindowDestroyEvent *_pObj;
 public:
-	inline wx_WindowDestroyEvent(wxWindow* win) : wxWindowDestroyEvent(win), _sig(NULL), _pObj(NULL) {}
+	inline wx_WindowDestroyEvent(wxWindow* win) : wxWindowDestroyEvent(win), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WindowDestroyEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WindowDestroyEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WindowDestroyEvent::~wx_WindowDestroyEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WindowDestroyEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,11 +47,11 @@ Gura_DeclareFunction(WindowDestroyEvent)
 Gura_ImplementFunction(WindowDestroyEvent)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *win = (wxWindow *)(NULL);
+	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDestroyEvent *pEntity = new wx_WindowDestroyEvent(win);
 	Object_wx_WindowDestroyEvent *pObj = Object_wx_WindowDestroyEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowDestroyEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_WindowDestroyEvent::~Object_wx_WindowDestroyEvent()
 
 Object *Object_wx_WindowDestroyEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WindowDestroyEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowDestroyEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_WindowDestroyEvent)
 
 Gura_ImplementDescendantCreator(wx_WindowDestroyEvent)
 {
-	return new Object_wx_WindowDestroyEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WindowDestroyEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

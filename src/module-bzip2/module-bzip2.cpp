@@ -144,7 +144,7 @@ Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream
 	int small = 0;
 	AutoPtr<BZLib::Stream_Decompressor> pStream(
 		new BZLib::Stream_Decompressor(env, sig, stream.Reference(), InvalidSize));
-	if (!pStream->Initialize(sig, verbosity, small)) return NULL;
+	if (!pStream->Initialize(sig, verbosity, small)) return nullptr;
 	return new Object_stream(env, pStream.release());
 }
 
@@ -154,7 +154,7 @@ Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream, 
 	int workFactor = 0;
 	AutoPtr<BZLib::Stream_Compressor> pStream(
 		new BZLib::Stream_Compressor(env, sig, stream.Reference()));
-	if (!pStream->Initialize(sig, blockSize100k, verbosity, workFactor)) return NULL;
+	if (!pStream->Initialize(sig, blockSize100k, verbosity, workFactor)) return nullptr;
 	return new Object_stream(env, pStream.release());
 }
 

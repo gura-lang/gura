@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ComboPopup *_pObj;
 public:
-	//inline wx_ComboPopup() : wxComboPopup(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ComboPopup() : wxComboPopup(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ComboPopup();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboPopup *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ComboPopup::~wx_ComboPopup()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ComboPopup::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_ComboPopup, GetAdjustedSize)
 	int prefHeight = args.GetInt(1);
 	int maxHeight = args.GetInt(2);
 	wxSize rtn = pThis->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ComboPopup, GetControl)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ComboPopup, GetControl)
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetControl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ComboPopup, GetStringValue)
@@ -245,20 +245,20 @@ Gura_ImplementMethod(wx_ComboPopup, SetStringValue)
 //----------------------------------------------------------------------------
 Object_wx_ComboPopup::~Object_wx_ComboPopup()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ComboPopup::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ComboPopup::ToString(bool exprFlag)
 {
 	String rtn("<wx.ComboPopup:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -291,7 +291,7 @@ Gura_ImplementUserInheritableClass(wx_ComboPopup)
 
 Gura_ImplementDescendantCreator(wx_ComboPopup)
 {
-	return new Object_wx_ComboPopup((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ComboPopup((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

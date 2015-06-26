@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Mutex *_pObj;
 public:
-	inline wx_Mutex(wxMutexType type) : wxMutex(type), _sig(NULL), _pObj(NULL) {}
+	inline wx_Mutex(wxMutexType type) : wxMutex(type), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Mutex();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Mutex *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Mutex::~wx_Mutex()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Mutex::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(Mutex)
 	if (args.IsValid(0)) type = static_cast<wxMutexType>(args.GetInt(0));
 	wx_Mutex *pEntity = new wx_Mutex(type);
 	Object_wx_Mutex *pObj = Object_wx_Mutex::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Mutex(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -108,20 +108,20 @@ Gura_ImplementMethod(wx_Mutex, Unlock)
 //----------------------------------------------------------------------------
 Object_wx_Mutex::~Object_wx_Mutex()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Mutex::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Mutex::ToString(bool exprFlag)
 {
 	String rtn("<wx.Mutex:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -144,7 +144,7 @@ Gura_ImplementUserInheritableClass(wx_Mutex)
 
 Gura_ImplementDescendantCreator(wx_Mutex)
 {
-	return new Object_wx_Mutex((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Mutex((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

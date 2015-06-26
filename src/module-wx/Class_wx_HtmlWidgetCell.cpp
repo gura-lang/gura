@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlWidgetCell *_pObj;
 public:
-	inline wx_HtmlWidgetCell(wxWindow* wnd, int w) : wxHtmlWidgetCell(wnd, w), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlWidgetCell(wxWindow* wnd, int w) : wxHtmlWidgetCell(wnd, w), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlWidgetCell();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlWidgetCell *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlWidgetCell::~wx_HtmlWidgetCell()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlWidgetCell::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(HtmlWidgetCell)
 	if (args.IsValid(1)) w = args.GetInt(1);
 	wx_HtmlWidgetCell *pEntity = new wx_HtmlWidgetCell(wnd, w);
 	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWidgetCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -72,13 +72,13 @@ Object_wx_HtmlWidgetCell::~Object_wx_HtmlWidgetCell()
 
 Object *Object_wx_HtmlWidgetCell::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlWidgetCell::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWidgetCell:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -98,7 +98,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlWidgetCell)
 
 Gura_ImplementDescendantCreator(wx_HtmlWidgetCell)
 {
-	return new Object_wx_HtmlWidgetCell((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlWidgetCell((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

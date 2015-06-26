@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Printer *_pObj;
 public:
-	inline wx_Printer(wxPrintDialogData* data) : wxPrinter(data), _sig(NULL), _pObj(NULL) {}
+	inline wx_Printer(wxPrintDialogData* data) : wxPrinter(data), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Printer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Printer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Printer::~wx_Printer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Printer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,11 +47,11 @@ Gura_DeclareFunction(Printer)
 Gura_ImplementFunction(Printer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxPrintDialogData *data = (wxPrintDialogData *)(NULL);
+	wxPrintDialogData *data = (wxPrintDialogData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_PrintDialogData::GetObject(args, 0)->GetEntity();
 	wx_Printer *pEntity = new wx_Printer(data);
 	Object_wx_Printer *pObj = Object_wx_Printer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Printer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintDialogData &rtn = pThis->GetEntity()->GetPrintDialogData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printer, Print)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Printer, PrintDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->PrintDialog(parent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Printer, ReportError)
@@ -200,13 +200,13 @@ Object_wx_Printer::~Object_wx_Printer()
 
 Object *Object_wx_Printer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Printer::ToString(bool exprFlag)
 {
 	String rtn("<wx.Printer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -234,7 +234,7 @@ Gura_ImplementUserInheritableClass(wx_Printer)
 
 Gura_ImplementDescendantCreator(wx_Printer)
 {
-	return new Object_wx_Printer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Printer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

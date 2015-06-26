@@ -24,12 +24,12 @@ public:
 
 wx_HtmlLinkEvent::~wx_HtmlLinkEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlLinkEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_HtmlLinkEvent, GetLinkInfo)
 	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlLinkInfo &rtn = pThis->GetEntity()->GetLinkInfo();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------
@@ -81,13 +81,13 @@ Object_wx_HtmlLinkEvent::~Object_wx_HtmlLinkEvent()
 
 Object *Object_wx_HtmlLinkEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlLinkEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlLinkEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -108,7 +108,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlLinkEvent)
 
 Gura_ImplementDescendantCreator(wx_HtmlLinkEvent)
 {
-	return new Object_wx_HtmlLinkEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlLinkEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

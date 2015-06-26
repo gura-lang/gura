@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextXMLHandler *_pObj;
 public:
-	inline wx_RichTextXMLHandler(const wxString& name, const wxString& ext, int type) : wxRichTextXMLHandler(name, ext, type), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextXMLHandler(const wxString& name, const wxString& ext, int type) : wxRichTextXMLHandler(name, ext, type), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextXMLHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextXMLHandler *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextXMLHandler::~wx_RichTextXMLHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextXMLHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(RichTextXMLHandler)
 	if (args.IsValid(2)) type = args.GetInt(2);
 	wx_RichTextXMLHandler *pEntity = new wx_RichTextXMLHandler(name, ext, type);
 	Object_wx_RichTextXMLHandler *pObj = Object_wx_RichTextXMLHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextXMLHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamNode)
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxString::FromUTF8(args.GetString(1));
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetParamNode(node, param);
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
 #endif
 
@@ -338,13 +338,13 @@ Object_wx_RichTextXMLHandler::~Object_wx_RichTextXMLHandler()
 
 Object *Object_wx_RichTextXMLHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextXMLHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextXMLHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -377,7 +377,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextXMLHandler)
 
 Gura_ImplementDescendantCreator(wx_RichTextXMLHandler)
 {
-	return new Object_wx_RichTextXMLHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextXMLHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

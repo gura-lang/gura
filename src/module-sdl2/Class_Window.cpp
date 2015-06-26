@@ -29,7 +29,7 @@ Object_Window::~Object_Window()
 
 Object *Object_Window::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Window::ToString(bool exprFlag)

@@ -49,13 +49,13 @@ MemoryHeap::~MemoryHeap()
 //-----------------------------------------------------------------------------
 // MemoryDIB
 //-----------------------------------------------------------------------------
-MemoryDIB::MemoryDIB() : _hBitmap(NULL)
+MemoryDIB::MemoryDIB() : _hBitmap(nullptr)
 {
 }
 
 MemoryDIB::~MemoryDIB()
 {
-	if (_hBitmap != NULL) ::DeleteObject(_hBitmap);
+	if (_hBitmap != nullptr) ::DeleteObject(_hBitmap);
 }
 
 bool MemoryDIB::AllocBuffer(size_t width, size_t height, size_t bitsPerPixel)
@@ -74,11 +74,11 @@ bool MemoryDIB::AllocBuffer(size_t width, size_t height, size_t bitsPerPixel)
 	hdr.biYPelsPerMeter = 0;
 	hdr.biClrUsed = 0;
 	hdr.biClrImportant = 0;
-	void *buff = NULL;
-	_hBitmap = ::CreateDIBSection(NULL, &bmi, DIB_RGB_COLORS, &buff, NULL, 0);
+	void *buff = nullptr;
+	_hBitmap = ::CreateDIBSection(nullptr, &bmi, DIB_RGB_COLORS, &buff, nullptr, 0);
 	_buff = reinterpret_cast<char *>(buff);
 	_bytes = ((bitsPerPixel + 7) / 8 * width + 3) / 4 * 4;
-	return _hBitmap != NULL && _buff != NULL;
+	return _hBitmap != nullptr && _buff != nullptr;
 }
 
 #else

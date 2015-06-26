@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ChildFocusEvent *_pObj;
 public:
-	inline wx_ChildFocusEvent(wxWindow * win) : wxChildFocusEvent(win), _sig(NULL), _pObj(NULL) {}
+	inline wx_ChildFocusEvent(wxWindow * win) : wxChildFocusEvent(win), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ChildFocusEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ChildFocusEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ChildFocusEvent::~wx_ChildFocusEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ChildFocusEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,11 +47,11 @@ Gura_DeclareFunction(ChildFocusEvent)
 Gura_ImplementFunction(ChildFocusEvent)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *win = (wxWindow *)(NULL);
+	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ChildFocusEvent *pEntity = new wx_ChildFocusEvent(win);
 	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ChildFocusEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_ChildFocusEvent::~Object_wx_ChildFocusEvent()
 
 Object *Object_wx_ChildFocusEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ChildFocusEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ChildFocusEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_ChildFocusEvent)
 
 Gura_ImplementDescendantCreator(wx_ChildFocusEvent)
 {
-	return new Object_wx_ChildFocusEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ChildFocusEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

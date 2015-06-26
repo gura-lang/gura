@@ -18,8 +18,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_VScrolledWindow *_pObj;
 public:
-	//inline wx_VScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVScrolledWindow(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_VScrolledWindow() : wxVScrolledWindow(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_VScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVScrolledWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_VScrolledWindow() : wxVScrolledWindow(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxCoord EstimateTotalHeight();
 	//virtual wxCoord OnGetLineHeight(size_t n);
 	//virtual void OnGetLinesHint(size_t lineMin, size_t lineMax);
@@ -33,12 +33,12 @@ public:
 
 wx_VScrolledWindow::~wx_VScrolledWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_VScrolledWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ Gura_ImplementFunction(VScrolledWindow)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_VScrolledWindow *pEntity = new wx_VScrolledWindow(parent, id, *pos, *size, style, name);
 	Object_wx_VScrolledWindow *pObj = Object_wx_VScrolledWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,7 +104,7 @@ Gura_ImplementFunction(VScrolledWindowEmpty)
 #if 0
 	wx_VScrolledWindow *pEntity = new wx_VScrolledWindow();
 	Object_wx_VScrolledWindow *pObj = Object_wx_VScrolledWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -452,13 +452,13 @@ Object_wx_VScrolledWindow::~Object_wx_VScrolledWindow()
 
 Object *Object_wx_VScrolledWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.VScrolledWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -501,7 +501,7 @@ Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 
 Gura_ImplementDescendantCreator(wx_VScrolledWindow)
 {
-	return new Object_wx_VScrolledWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_VScrolledWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

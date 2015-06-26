@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Choice *_pObj;
 public:
-	inline wx_Choice() : wxChoice(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, n, choices[], style, validator, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, choices, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Choice() : wxChoice(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Choice();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Choice *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_Choice::~wx_Choice()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Choice::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(ChoiceEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Choice *pEntity = new wx_Choice();
 	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,7 +98,7 @@ Gura_ImplementFunction(Choice)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Choice *pEntity = new wx_Choice(parent, id, *pos, *size, *choices, style, *validator, name);
 	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -194,13 +194,13 @@ Object_wx_Choice::~Object_wx_Choice()
 
 Object *Object_wx_Choice::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Choice::ToString(bool exprFlag)
 {
 	String rtn("<wx.Choice:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -226,7 +226,7 @@ Gura_ImplementUserInheritableClass(wx_Choice)
 
 Gura_ImplementDescendantCreator(wx_Choice)
 {
-	return new Object_wx_Choice((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Choice((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

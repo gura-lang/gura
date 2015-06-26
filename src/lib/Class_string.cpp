@@ -120,7 +120,7 @@ Gura_ImplementMethod(string, chop)
 	foreach_const (ValueList, pValue, valList) {
 		const char *p1 = rtn.c_str();
 		const char *p2 = EndsWith(p1, pValue->GetString(), args.IsSet(Gura_Symbol(icase)));
-		if (p2 != NULL) return Value(String(p1, p2));
+		if (p2 != nullptr) return Value(String(p1, p2));
 	}
 	return Value(rtn);
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(string, embed)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), NULL,
+	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
@@ -289,10 +289,10 @@ Gura_ImplementMethod(string, endswith)
 		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
 		EndsWith(str, args.GetString(0), ignoreCaseFlag);
 	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == NULL) return Value::Null;
+		if (rtn == nullptr) return Value::Null;
 		return Value(str, rtn - str);
 	}
-	return rtn != NULL;
+	return rtn != nullptr;
 }
 
 // string#escapehtml():[quote]
@@ -726,7 +726,7 @@ Gura_DeclareMethod(string, split)
 Gura_ImplementMethod(string, split)
 {
 	int maxSplit = args.Is_number(1)? args.GetInt(1) : -1;
-	Iterator *pIterator = NULL;
+	Iterator *pIterator = nullptr;
 	if (args.Is_string(0) && *args.GetString(0) != '\0') {
 		const char *sep = args.GetString(0);
 		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
@@ -763,10 +763,10 @@ Gura_ImplementMethod(string, startswith)
 	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
 					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
 	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == NULL) return Value::Null;
+		if (rtn == nullptr) return Value::Null;
 		return Value(rtn);
 	}
-	return rtn != NULL;
+	return rtn != nullptr;
 }
 
 // string#strip():[both,left,right]
@@ -811,7 +811,7 @@ Gura_ImplementMethod(string, template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), NULL,
+	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	//String strSrc = args.GetThis().GetStringSTL();
 	//SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
@@ -854,7 +854,7 @@ Gura_ImplementClassMethod(string, translator)
 {
 	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Null;
 	const Symbol *pSymbol = Gura_Symbol(Char_Dollar);
 	SuffixMgrEntryCustom *pSuffixMgrEntry =
 					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
@@ -1023,7 +1023,7 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -1041,7 +1041,7 @@ Class_string::IteratorEach::~IteratorEach()
 
 Iterator *Class_string::IteratorEach::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
@@ -1094,7 +1094,7 @@ Class_string::IteratorLine::~IteratorLine()
 
 Iterator *Class_string::IteratorLine::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
@@ -1144,7 +1144,7 @@ Class_string::IteratorSplit::~IteratorSplit()
 
 Iterator *Class_string::IteratorSplit::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
@@ -1199,7 +1199,7 @@ Class_string::IteratorFold::~IteratorFold()
 
 Iterator *Class_string::IteratorFold::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
@@ -1247,7 +1247,7 @@ Class_string::IteratorFoldw::~IteratorFoldw()
 
 Iterator *Class_string::IteratorFoldw::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal sig, Value &value)

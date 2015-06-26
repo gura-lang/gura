@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WizardEvent *_pObj;
 public:
-	inline wx_WizardEvent(wxEventType type, int id, bool direction) : wxWizardEvent(type, id, direction), _sig(NULL), _pObj(NULL) {}
+	inline wx_WizardEvent(wxEventType type, int id, bool direction) : wxWizardEvent(type, id, direction), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WizardEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WizardEvent::~wx_WizardEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WizardEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(WizardEvent)
 	if (args.IsValid(2)) direction = args.GetBoolean(2);
 	wx_WizardEvent *pEntity = new wx_WizardEvent(type, id, direction);
 	Object_wx_WizardEvent *pObj = Object_wx_WizardEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_WizardEvent, GetPage)
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetPage();
-	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -104,13 +104,13 @@ Object_wx_WizardEvent::~Object_wx_WizardEvent()
 
 Object *Object_wx_WizardEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WizardEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.WizardEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -132,7 +132,7 @@ Gura_ImplementUserInheritableClass(wx_WizardEvent)
 
 Gura_ImplementDescendantCreator(wx_WizardEvent)
 {
-	return new Object_wx_WizardEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WizardEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -106,7 +106,7 @@ bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	size_t bytes = 0;
 	UChar buff[8];
-	if (!IsEnabledRunningStatus() || pEventPrev == NULL || !pEventPrev->IsMIDIEvent() ||
+	if (!IsEnabledRunningStatus() || pEventPrev == nullptr || !pEventPrev->IsMIDIEvent() ||
 			dynamic_cast<const MIDIEvent *>(pEventPrev)->GetStatusByte() != GetStatusByte()) {
 		buff[bytes++] = GetStatusByte();
 	}
@@ -329,7 +329,7 @@ String MIDIEvent_ControlChange::GetArgsName() const
 	char str[128];
 	const ControllerInfo *pControllerInfo = ControllerInfoById(GetController());
 	::sprintf(str, "channel:%d controller:%s(%d) value:%d",
-		GetChannel(), (pControllerInfo == NULL)? "unknown" : pControllerInfo->name,
+		GetChannel(), (pControllerInfo == nullptr)? "unknown" : pControllerInfo->name,
 		GetController(), GetValue());
 	return String(str);
 }
@@ -354,7 +354,7 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 	if (pSymbol->IsIdentical(Gura_UserSymbol(controller))) {
 		if (attrs.IsSet(Gura_Symbol(symbol))) {
 			const ControllerInfo *pControllerInfo = ControllerInfoById(GetController());
-			if (pControllerInfo == NULL) {
+			if (pControllerInfo == nullptr) {
 				return Value::Null;
 			} else {
 				return Value(pControllerInfo->pSymbol);
@@ -399,7 +399,7 @@ String MIDIEvent_ProgramChange::GetArgsName() const
 	char str[128];
 	const ProgramInfo *pProgramInfo = ProgramInfoById(GetProgram());
 	::sprintf(str, "channel:%d program:%s(%d)", GetChannel(),
-		(pProgramInfo == NULL)? "unknown" : pProgramInfo->name, GetProgram());
+		(pProgramInfo == nullptr)? "unknown" : pProgramInfo->name, GetProgram());
 	return String(str);
 }
 
@@ -621,7 +621,7 @@ UChar MetaEvent::GetStatusCode() const
 bool MetaEvent::Add(Signal sig, Track *pTrack, bool enableRunningStatus,
 		ULong timeStamp, UChar eventType, const Binary &binary)
 {
-	MetaEvent *pEvent = NULL;
+	MetaEvent *pEvent = nullptr;
 	if (eventType == MetaEvent_SequenceNumber::EventType) {
 		pEvent = new MetaEvent_SequenceNumber(timeStamp);
 	} else if (eventType == MetaEvent_TextEvent::EventType) {
@@ -668,7 +668,7 @@ bool MetaEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	size_t bytes = 0;
 	UChar buff[2];
-	if (!IsEnabledRunningStatus() || pEventPrev == NULL || !pEventPrev->IsMetaEvent()) {
+	if (!IsEnabledRunningStatus() || pEventPrev == nullptr || !pEventPrev->IsMetaEvent()) {
 		buff[bytes++] = Status;
 	}
 	buff[bytes++] = _eventType;

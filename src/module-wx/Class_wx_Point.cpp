@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Point *_pObj;
 public:
-	inline wx_Point() : wxPoint(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Point(int x, int y) : wxPoint(x, y), _sig(NULL), _pObj(NULL) {}
+	inline wx_Point() : wxPoint(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Point(int x, int y) : wxPoint(x, y), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Point();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Point *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Point::~wx_Point()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Point::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(PointEmpty)
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_Point *pEntity = new wx_Point();
 	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -77,7 +77,7 @@ Gura_ImplementFunction(Point)
 	if (args.IsValid(1)) y = args.GetInt(1);
 	wx_Point *pEntity = new wx_Point(x, y);
 	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -118,7 +118,7 @@ Gura_ImplementBinaryOperator(Add, wx_Point, any)
 		SetError_InvalidValueType(sig, valueLeft, valueRight);
 		return Value::Null;
 	}
-	return Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue));
 }
 
 // operator -
@@ -136,7 +136,7 @@ Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 		SetError_InvalidValueType(sig, valueLeft, valueRight);
 		return Value::Null;
 	}
-	return Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue));
+	return Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue));
 }
 
 //----------------------------------------------------------------------------
@@ -144,14 +144,14 @@ Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 //----------------------------------------------------------------------------
 Object_wx_Point::~Object_wx_Point()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Point::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_wx_Point::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -193,7 +193,7 @@ Value Object_wx_Point::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 String Object_wx_Point::ToString(bool exprFlag)
 {
 	String rtn("<wx.Point:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -218,7 +218,7 @@ Gura_ImplementUserInheritableClass(wx_Point)
 
 Gura_ImplementDescendantCreator(wx_Point)
 {
-	return new Object_wx_Point((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Point((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_FTC_SBitCache::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_FTC_SBitCache::ToString(bool exprFlag)

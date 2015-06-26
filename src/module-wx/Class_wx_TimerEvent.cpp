@@ -24,12 +24,12 @@ public:
 
 wx_TimerEvent::~wx_TimerEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TimerEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,13 +58,13 @@ Object_wx_TimerEvent::~Object_wx_TimerEvent()
 
 Object *Object_wx_TimerEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TimerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.TimerEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -84,7 +84,7 @@ Gura_ImplementUserInheritableClass(wx_TimerEvent)
 
 Gura_ImplementDescendantCreator(wx_TimerEvent)
 {
-	return new Object_wx_TimerEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TimerEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

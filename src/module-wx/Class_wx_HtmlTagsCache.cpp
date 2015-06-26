@@ -24,12 +24,12 @@ public:
 
 wx_HtmlTagsCache::~wx_HtmlTagsCache()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlTagsCache::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_HtmlTagsCache::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_HtmlTagsCache::~Object_wx_HtmlTagsCache()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HtmlTagsCache::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlTagsCache::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlTagsCache:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlTagsCache)
 
 Gura_ImplementDescendantCreator(wx_HtmlTagsCache)
 {
-	return new Object_wx_HtmlTagsCache((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlTagsCache((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

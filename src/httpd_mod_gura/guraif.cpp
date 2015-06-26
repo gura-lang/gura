@@ -57,13 +57,13 @@ void *gura_create_server_config(apr_pool_t *p, server_rec *s)
 static const char *handler_GuraPath(cmd_parms *cmd, void *cfgv, const char *arg)
 {
 	gura_dir_config *cfg = reinterpret_cast<gura_dir_config *>(cfgv);
-    return NULL;
+    return nullptr;
 }
 
 command_rec gura_cmds[] = {
-	AP_INIT_TAKE1("GuraPath", (cmd_func)handler_GuraPath, NULL, OR_ALL,
+	AP_INIT_TAKE1("GuraPath", (cmd_func)handler_GuraPath, nullptr, OR_ALL,
 				"Set a directory in which Gura searches modules"),
-	{ NULL }
+	{ nullptr }
 };
 
 //-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ Context::Context() : _pEnv(new Gura::Environment())
 bool Context::Initialize()
 {
 	int argc = 0;
-	return _pEnv->InitializeAsRoot(_sig, argc, NULL, 0, NULL);
+	return _pEnv->InitializeAsRoot(_sig, argc, nullptr, 0, nullptr);
 }
 
 namespace Gura {
@@ -110,7 +110,7 @@ const char *StreamAPR::GetName() const
 
 const char *StreamAPR::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 size_t StreamAPR::DoRead(Signal sig, void *buff, size_t len)
@@ -183,7 +183,7 @@ int Handler(request_rec *r)
 	Signal &sig = pContext->GetSignal();
 	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(env, sig, r))), false);
 	const char *fileName = "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura";
-	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, fileName, NULL));
+	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, fileName, nullptr));
 	if (pExprRoot.IsNull()) {
 		OutputErrorMessage(r, sig);
 		sig.ClearSignal();

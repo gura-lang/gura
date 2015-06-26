@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PrintDialogData *_pObj;
 public:
-	inline wx_PrintDialogData() : wxPrintDialogData(), _sig(NULL), _pObj(NULL) {}
-	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _sig(NULL), _pObj(NULL) {}
-	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _sig(NULL), _pObj(NULL) {}
+	inline wx_PrintDialogData() : wxPrintDialogData(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PrintDialogData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrintDialogData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_PrintDialogData::~wx_PrintDialogData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PrintDialogData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(PrintDialogDataEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData();
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,7 +74,7 @@ Gura_ImplementFunction(PrintDialogData)
 	wxPrintDialogData *dialogData = Object_wx_PrintDialogData::GetObject(args, 0)->GetEntity();
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData(*dialogData);
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,7 +98,7 @@ Gura_ImplementFunction(PrintDialogData_1)
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData(*printData);
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetPrintData)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintData &rtn = pThis->GetEntity()->GetPrintData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetPrintToFile)
@@ -487,13 +487,13 @@ Object_wx_PrintDialogData::~Object_wx_PrintDialogData()
 
 Object *Object_wx_PrintDialogData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PrintDialogData::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrintDialogData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -540,7 +540,7 @@ Gura_ImplementUserInheritableClass(wx_PrintDialogData)
 
 Gura_ImplementDescendantCreator(wx_PrintDialogData)
 {
-	return new Object_wx_PrintDialogData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PrintDialogData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

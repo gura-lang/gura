@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CountingOutputStream *_pObj;
 public:
-	inline wx_CountingOutputStream() : wxCountingOutputStream(), _sig(NULL), _pObj(NULL) {}
+	inline wx_CountingOutputStream() : wxCountingOutputStream(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CountingOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CountingOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_CountingOutputStream::~wx_CountingOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CountingOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(CountingOutputStreamEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CountingOutputStream *pEntity = new wx_CountingOutputStream();
 	Object_wx_CountingOutputStream *pObj = Object_wx_CountingOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CountingOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -81,13 +81,13 @@ Object_wx_CountingOutputStream::~Object_wx_CountingOutputStream()
 
 Object *Object_wx_CountingOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CountingOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.CountingOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -108,7 +108,7 @@ Gura_ImplementUserInheritableClass(wx_CountingOutputStream)
 
 Gura_ImplementDescendantCreator(wx_CountingOutputStream)
 {
-	return new Object_wx_CountingOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CountingOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

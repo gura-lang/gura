@@ -8,7 +8,7 @@ template<typename T_Elem>
 class ListTemplate : public std::vector<T_Elem *> {
 public:
 	T_Elem *Get(size_t idx) {
-		return (idx < this->size())? (*this)[idx] : NULL;
+		return (idx < this->size())? (*this)[idx] : nullptr;
 	}
 	void Print(int indentLevel) const {
 		for (typename ListTemplate::const_iterator ppElem = this->begin();
@@ -419,8 +419,8 @@ public:
 	public:
 		inline bool IsMatched(UChar key, UChar velocity) const {
 			return
-				(_pKeyRange.get() == NULL || _pKeyRange->IsMatched(key)) &&
-				(_pVelRange.get() == NULL || _pVelRange->IsMatched(velocity));
+				(_pKeyRange.get() == nullptr || _pKeyRange->IsMatched(key)) &&
+				(_pVelRange.get() == nullptr || _pVelRange->IsMatched(velocity));
 		}
 		inline sfGenOwner &GetInstGenOwner() { return *_pInstGenOwner; }
 		inline sfModOwner &GetInstModOwner() { return *_pInstModOwner; }

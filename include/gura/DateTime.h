@@ -67,7 +67,7 @@ public:
 		_tz = dt._tz;
 		return *this;
 	}
-	bool Parse(const char *str, const char **next = NULL);
+	bool Parse(const char *str, const char **next = nullptr);
 	String ToString(const char *format) const;
 	inline void Invalidate()			{ _month = 0; }
 	inline bool IsValid() const			{ return _month != 0; }

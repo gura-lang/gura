@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileDialog *_pObj;
 public:
-	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FileDialog::~wx_FileDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(FileDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxT("Choose a file");
 	if (args.IsValid(1)) message = wxString::FromUTF8(args.GetString(1));
 	wxString defaultDir = wxT("");
@@ -75,7 +75,7 @@ Gura_ImplementFunction(FileDialog)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_FileDialog *pEntity = new wx_FileDialog(parent, message, defaultDir, defaultFile, wildcard, style, *pos, *sz, name);
 	Object_wx_FileDialog *pObj = Object_wx_FileDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -312,13 +312,13 @@ Object_wx_FileDialog::~Object_wx_FileDialog()
 
 Object *Object_wx_FileDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -353,7 +353,7 @@ Gura_ImplementUserInheritableClass(wx_FileDialog)
 
 Gura_ImplementDescendantCreator(wx_FileDialog)
 {
-	return new Object_wx_FileDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

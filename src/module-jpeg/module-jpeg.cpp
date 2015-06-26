@@ -9,160 +9,160 @@ Gura_BeginModuleBody(jpeg)
 // 4.6.4 TIFF Rev.6.0 Attribute Information
 static const TagInfo g_tagInfoTbl[] = {
 	// A. Tags relating to image data structure
-	{ TAG_ImageWidth,					"ImageWidth",					TYPE_LONG,		NULL,				},
-	{ TAG_ImageLength,					"ImageLength",					TYPE_LONG,		NULL,				},
-	{ TAG_BitsPerSample,				"BitsPerSample",				TYPE_SHORT,		NULL,				},
-	{ TAG_Compression,					"Compression",					TYPE_SHORT,		NULL,				},
-	{ TAG_PhotometricInterpretation,	"PhotometricInterpretation",	TYPE_SHORT,		NULL,				},
-	{ TAG_Orientation,					"Orientation",					TYPE_SHORT,		NULL,				},
-	{ TAG_SamplesPerPixel,				"SamplesPerPixel",				TYPE_SHORT,		NULL,				},
-	{ TAG_PlanarConfiguration,			"PlanarConfiguration",			TYPE_SHORT,		NULL,				},
-	{ TAG_YCbCrSubSampling,				"YCbCrSubSampling",				TYPE_SHORT,		NULL,				},
-	{ TAG_YCbCrPositioning,				"YCbCrPositioning",				TYPE_SHORT,		NULL,				},
-	{ TAG_XResolution,					"XResolution",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_YResolution,					"YResolution",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_ResolutionUnit,				"ResolutionUnit",				TYPE_SHORT,		NULL,				},
+	{ TAG_ImageWidth,					"ImageWidth",					TYPE_LONG,		nullptr,				},
+	{ TAG_ImageLength,					"ImageLength",					TYPE_LONG,		nullptr,				},
+	{ TAG_BitsPerSample,				"BitsPerSample",				TYPE_SHORT,		nullptr,				},
+	{ TAG_Compression,					"Compression",					TYPE_SHORT,		nullptr,				},
+	{ TAG_PhotometricInterpretation,	"PhotometricInterpretation",	TYPE_SHORT,		nullptr,				},
+	{ TAG_Orientation,					"Orientation",					TYPE_SHORT,		nullptr,				},
+	{ TAG_SamplesPerPixel,				"SamplesPerPixel",				TYPE_SHORT,		nullptr,				},
+	{ TAG_PlanarConfiguration,			"PlanarConfiguration",			TYPE_SHORT,		nullptr,				},
+	{ TAG_YCbCrSubSampling,				"YCbCrSubSampling",				TYPE_SHORT,		nullptr,				},
+	{ TAG_YCbCrPositioning,				"YCbCrPositioning",				TYPE_SHORT,		nullptr,				},
+	{ TAG_XResolution,					"XResolution",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_YResolution,					"YResolution",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_ResolutionUnit,				"ResolutionUnit",				TYPE_SHORT,		nullptr,				},
 	// B. Tags relating to recording offset
-	{ TAG_StripOffsets,					"StripOffsets",					TYPE_LONG,		NULL,				},
-	{ TAG_RowsPerStrip,					"RowsPerStrip",					TYPE_LONG,		NULL,				},
-	{ TAG_StripByteCounts,				"StripByteCounts",				TYPE_LONG,		NULL,				},
-	{ TAG_JPEGInterchangeFormat,		"JPEGInterchangeFormat",		TYPE_LONG,		NULL,				},
-	{ TAG_JPEGInterchangeFormatLength,	"JPEGInterchangeFormatLength",	TYPE_LONG,		NULL,				},
+	{ TAG_StripOffsets,					"StripOffsets",					TYPE_LONG,		nullptr,				},
+	{ TAG_RowsPerStrip,					"RowsPerStrip",					TYPE_LONG,		nullptr,				},
+	{ TAG_StripByteCounts,				"StripByteCounts",				TYPE_LONG,		nullptr,				},
+	{ TAG_JPEGInterchangeFormat,		"JPEGInterchangeFormat",		TYPE_LONG,		nullptr,				},
+	{ TAG_JPEGInterchangeFormatLength,	"JPEGInterchangeFormatLength",	TYPE_LONG,		nullptr,				},
 	// C. Tags relating to image data characteristics
-	{ TAG_TransferFunction,				"TransferFunction",				TYPE_SHORT,		NULL,				},
-	{ TAG_WhitePoint,					"WhitePoint",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_PrimaryChromaticities,		"PrimaryChromaticities",		TYPE_RATIONAL,	NULL,				},
-	{ TAG_YCbCrCoefficients,			"YCbCrCoefficients",			TYPE_RATIONAL,	NULL,				},
-	{ TAG_ReferenceBlackWhite,			"ReferenceBlackWhite",			TYPE_RATIONAL,	NULL,				},
+	{ TAG_TransferFunction,				"TransferFunction",				TYPE_SHORT,		nullptr,				},
+	{ TAG_WhitePoint,					"WhitePoint",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_PrimaryChromaticities,		"PrimaryChromaticities",		TYPE_RATIONAL,	nullptr,				},
+	{ TAG_YCbCrCoefficients,			"YCbCrCoefficients",			TYPE_RATIONAL,	nullptr,				},
+	{ TAG_ReferenceBlackWhite,			"ReferenceBlackWhite",			TYPE_RATIONAL,	nullptr,				},
 	// D. Other tags
-	{ TAG_DateTime,						"DateTime",						TYPE_ASCII,		NULL,				},
-	{ TAG_ImageDescription,				"ImageDescription",				TYPE_ASCII,		NULL,				},
-	{ TAG_Make,							"Make",							TYPE_ASCII,		NULL,				},
-	{ TAG_Model,						"Model",						TYPE_ASCII,		NULL,				},
-	{ TAG_Software,						"Software",						TYPE_ASCII,		NULL,				},
-	{ TAG_Artist,						"Artist",						TYPE_ASCII,		NULL,				},
-	{ TAG_Copyright,					"Copyright",					TYPE_ASCII,		NULL,				},
+	{ TAG_DateTime,						"DateTime",						TYPE_ASCII,		nullptr,				},
+	{ TAG_ImageDescription,				"ImageDescription",				TYPE_ASCII,		nullptr,				},
+	{ TAG_Make,							"Make",							TYPE_ASCII,		nullptr,				},
+	{ TAG_Model,						"Model",						TYPE_ASCII,		nullptr,				},
+	{ TAG_Software,						"Software",						TYPE_ASCII,		nullptr,				},
+	{ TAG_Artist,						"Artist",						TYPE_ASCII,		nullptr,				},
+	{ TAG_Copyright,					"Copyright",					TYPE_ASCII,		nullptr,				},
 	// Pointers
 	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_LONG,		"Exif",				},
 	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_LONG,		"GPSInfo",			},
-	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+	{ TAG_invalid,						nullptr,							TYPE_UNDEFINED,	nullptr,				},
 };
 
 // 4.6.5 Exif IFD Attribute Information
 static const TagInfo g_tagInfoTbl_Exif[] = {
 	// A. Tags Relating to Version
-	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	nullptr,				},
 	// B. Tag Relating to Image Data Characteristics
-	{ TAG_ColorSpace,					"ColorSpace",					TYPE_SHORT,		NULL,				},
+	{ TAG_ColorSpace,					"ColorSpace",					TYPE_SHORT,		nullptr,				},
 	// C. Tags Relating to Image Configuration
-	{ TAG_ComponentsConfiguration,		"ComponentsConfiguration",		TYPE_UNDEFINED,	NULL,				},
-	{ TAG_CompressedBitsPerPixel,		"CompressedBitsPerPixel",		TYPE_RATIONAL,	NULL,				},
-	{ TAG_PixelXDimension,				"PixelXDimension",				TYPE_LONG,		NULL,				},
-	{ TAG_PixelYDimension,				"PixelYDimension",				TYPE_LONG,		NULL,				},
+	{ TAG_ComponentsConfiguration,		"ComponentsConfiguration",		TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_CompressedBitsPerPixel,		"CompressedBitsPerPixel",		TYPE_RATIONAL,	nullptr,				},
+	{ TAG_PixelXDimension,				"PixelXDimension",				TYPE_LONG,		nullptr,				},
+	{ TAG_PixelYDimension,				"PixelYDimension",				TYPE_LONG,		nullptr,				},
 	// D. Tags Relating to User Information
-	{ TAG_MakerNote,					"MakerNote",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_UserComment,					"UserComment",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_MakerNote,					"MakerNote",					TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_UserComment,					"UserComment",					TYPE_UNDEFINED,	nullptr,				},
 	// E. Tags Relating to Related File Information
-	{ TAG_RelatedSoundFile,				"RelatedSoundFile",				TYPE_ASCII,		NULL,				},
+	{ TAG_RelatedSoundFile,				"RelatedSoundFile",				TYPE_ASCII,		nullptr,				},
 	// F. Tags Relating to Date and Time
-	{ TAG_DateTimeOriginal,				"DateTimeOriginal",				TYPE_ASCII,		NULL,				},
-	{ TAG_DateTimeDigitized,			"DateTimeDigitized",			TYPE_ASCII,		NULL,				},
-	{ TAG_SubSecTime,					"SubSecTime",					TYPE_ASCII,		NULL,				},
-	{ TAG_SubSecTimeOriginal,			"SubSecTimeOriginal",			TYPE_ASCII,		NULL,				},
-	{ TAG_SubSecTimeDigitized,			"SubSecTimeDigitized",			TYPE_ASCII,		NULL,				},
+	{ TAG_DateTimeOriginal,				"DateTimeOriginal",				TYPE_ASCII,		nullptr,				},
+	{ TAG_DateTimeDigitized,			"DateTimeDigitized",			TYPE_ASCII,		nullptr,				},
+	{ TAG_SubSecTime,					"SubSecTime",					TYPE_ASCII,		nullptr,				},
+	{ TAG_SubSecTimeOriginal,			"SubSecTimeOriginal",			TYPE_ASCII,		nullptr,				},
+	{ TAG_SubSecTimeDigitized,			"SubSecTimeDigitized",			TYPE_ASCII,		nullptr,				},
 	// G. Tags Relating to Picture-Taking Conditions
-	{ TAG_ExposureTime,					"ExposureTime",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_FNumber,						"FNumber",						TYPE_RATIONAL,	NULL,				},
-	{ TAG_ExposureProgram,				"ExposureProgram",				TYPE_SHORT,		NULL,				},
-	{ TAG_SpectralSensitivity,			"SpectralSensitivity",			TYPE_ASCII,		NULL,				},
-	{ TAG_ISOSpeedRatings,				"ISOSpeedRatings",				TYPE_SHORT,		NULL,				},
-	{ TAG_OECF,							"OECF",							TYPE_UNDEFINED,	NULL,				},
-	{ TAG_ShutterSpeedValue,			"ShutterSpeedValue",			TYPE_SRATIONAL,	NULL,				},
-	{ TAG_ApertureValue,				"ApertureValue",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_BrightnessValue,				"BrightnessValue",				TYPE_SRATIONAL,	NULL,				},
-	{ TAG_ExposureBiasValue,			"ExposureBiasValue",			TYPE_SRATIONAL,	NULL,				},
-	{ TAG_MaxApertureValue,				"MaxApertureValue",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_SubjectDistance,				"SubjectDistance",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_MeteringMode,					"MeteringMode",					TYPE_SHORT,		NULL,				},
-	{ TAG_LightSource,					"LightSource",					TYPE_SHORT,		NULL,				},
-	{ TAG_Flash,						"Flash",						TYPE_SHORT,		NULL,				},
-	{ TAG_FocalLength,					"FocalLength",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_SubjectArea,					"SubjectArea",					TYPE_SHORT,		NULL,				},
-	{ TAG_FlashEnergy,					"FlashEnergy",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_SpatialFrequencyResponse,		"SpatialFrequencyResponse",		TYPE_UNDEFINED,	NULL,				},
-	{ TAG_FocalPlaneXResolution,		"FocalPlaneXResolution",		TYPE_RATIONAL,	NULL,				},
-	{ TAG_FocalPlaneYResolution,		"FocalPlaneYResolution",		TYPE_RATIONAL,	NULL,				},
-	{ TAG_FocalPlaneResolutionUnit,		"FocalPlaneResolutionUnit",		TYPE_SHORT,		NULL,				},
-	{ TAG_SubjectLocation,				"SubjectLocation",				TYPE_SHORT,		NULL,				},
-	{ TAG_ExposureIndex,				"ExposureIndex",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_SensingMethod,				"SensingMethod",				TYPE_SHORT,		NULL,				},
-	{ TAG_FileSource,					"FileSource",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_CustomRendered,				"CustomRendered",				TYPE_SHORT,		NULL,				},
-	{ TAG_ExposureMode,					"ExposureMode",					TYPE_SHORT,		NULL,				},
-	{ TAG_WhiteBalance,					"WhiteBalance",					TYPE_SHORT,		NULL,				},
-	{ TAG_DigitalZoomRatio,				"DigitalZoomRatio",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_FocalLengthIn35mmFilm,		"FocalLengthIn35mmFilm",		TYPE_SHORT,		NULL,				},
-	{ TAG_SceneCaptureType,				"SceneCaptureType",				TYPE_SHORT,		NULL,				},
-	{ TAG_GainControl,					"GainControl",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_Contrast,						"Contrast",						TYPE_SHORT,		NULL,				},
-	{ TAG_Saturation,					"Saturation",					TYPE_SHORT,		NULL,				},
-	{ TAG_Sharpness,					"Sharpness",					TYPE_SHORT,		NULL,				},
-	{ TAG_DeviceSettingDescription,		"DeviceSettingDescription",		TYPE_UNDEFINED,	NULL,				},
-	{ TAG_SubjectDistanceRange,			"SubjectDistanceRange",			TYPE_SHORT,		NULL,				},
+	{ TAG_ExposureTime,					"ExposureTime",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_FNumber,						"FNumber",						TYPE_RATIONAL,	nullptr,				},
+	{ TAG_ExposureProgram,				"ExposureProgram",				TYPE_SHORT,		nullptr,				},
+	{ TAG_SpectralSensitivity,			"SpectralSensitivity",			TYPE_ASCII,		nullptr,				},
+	{ TAG_ISOSpeedRatings,				"ISOSpeedRatings",				TYPE_SHORT,		nullptr,				},
+	{ TAG_OECF,							"OECF",							TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_ShutterSpeedValue,			"ShutterSpeedValue",			TYPE_SRATIONAL,	nullptr,				},
+	{ TAG_ApertureValue,				"ApertureValue",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_BrightnessValue,				"BrightnessValue",				TYPE_SRATIONAL,	nullptr,				},
+	{ TAG_ExposureBiasValue,			"ExposureBiasValue",			TYPE_SRATIONAL,	nullptr,				},
+	{ TAG_MaxApertureValue,				"MaxApertureValue",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_SubjectDistance,				"SubjectDistance",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_MeteringMode,					"MeteringMode",					TYPE_SHORT,		nullptr,				},
+	{ TAG_LightSource,					"LightSource",					TYPE_SHORT,		nullptr,				},
+	{ TAG_Flash,						"Flash",						TYPE_SHORT,		nullptr,				},
+	{ TAG_FocalLength,					"FocalLength",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_SubjectArea,					"SubjectArea",					TYPE_SHORT,		nullptr,				},
+	{ TAG_FlashEnergy,					"FlashEnergy",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_SpatialFrequencyResponse,		"SpatialFrequencyResponse",		TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_FocalPlaneXResolution,		"FocalPlaneXResolution",		TYPE_RATIONAL,	nullptr,				},
+	{ TAG_FocalPlaneYResolution,		"FocalPlaneYResolution",		TYPE_RATIONAL,	nullptr,				},
+	{ TAG_FocalPlaneResolutionUnit,		"FocalPlaneResolutionUnit",		TYPE_SHORT,		nullptr,				},
+	{ TAG_SubjectLocation,				"SubjectLocation",				TYPE_SHORT,		nullptr,				},
+	{ TAG_ExposureIndex,				"ExposureIndex",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_SensingMethod,				"SensingMethod",				TYPE_SHORT,		nullptr,				},
+	{ TAG_FileSource,					"FileSource",					TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_CustomRendered,				"CustomRendered",				TYPE_SHORT,		nullptr,				},
+	{ TAG_ExposureMode,					"ExposureMode",					TYPE_SHORT,		nullptr,				},
+	{ TAG_WhiteBalance,					"WhiteBalance",					TYPE_SHORT,		nullptr,				},
+	{ TAG_DigitalZoomRatio,				"DigitalZoomRatio",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_FocalLengthIn35mmFilm,		"FocalLengthIn35mmFilm",		TYPE_SHORT,		nullptr,				},
+	{ TAG_SceneCaptureType,				"SceneCaptureType",				TYPE_SHORT,		nullptr,				},
+	{ TAG_GainControl,					"GainControl",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_Contrast,						"Contrast",						TYPE_SHORT,		nullptr,				},
+	{ TAG_Saturation,					"Saturation",					TYPE_SHORT,		nullptr,				},
+	{ TAG_Sharpness,					"Sharpness",					TYPE_SHORT,		nullptr,				},
+	{ TAG_DeviceSettingDescription,		"DeviceSettingDescription",		TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_SubjectDistanceRange,			"SubjectDistanceRange",			TYPE_SHORT,		nullptr,				},
 	// H. Other Tags
-	{ TAG_ImageUniqueID,				"ImageUniqueID",				TYPE_ASCII,		NULL,				},
+	{ TAG_ImageUniqueID,				"ImageUniqueID",				TYPE_ASCII,		nullptr,				},
 	// Pointers
 	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_LONG,		"Interoperability"	},
-	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+	{ TAG_invalid,						nullptr,							TYPE_UNDEFINED,	nullptr,				},
 };
 
 // 4.6.6 GPS Attribute Information
 static const TagInfo g_tagInfoTbl_GPSInfo[] = {
 	// A. Tags Relating to GPS
-	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_BYTE,		NULL,				},
-	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_ASCII,		NULL,				},
-	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSLongitudeRef,				"GPSLongitudeRef",				TYPE_ASCII,		NULL,				},
-	{ TAG_GPSLongitude,					"GPSLongitude",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSAltitudeRef,				"GPSAltitudeRef",				TYPE_BYTE,		NULL,				},
-	{ TAG_GPSAltitude,					"GPSAltitude",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSTimeStamp,					"GPSTimeStamp",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSSatellites,				"GPSSatellites",				TYPE_ASCII,		NULL,				},
-	{ TAG_GPSStatus,					"GPSStatus",					TYPE_ASCII,		NULL,				},
-	{ TAG_GPSMeasureMode,				"GPSMeasureMode",				TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDOP,						"GPSDOP",						TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSSpeedRef,					"GPSSpeedRef",					TYPE_ASCII,		NULL,				},
-	{ TAG_GPSSpeed,						"GPSSpeed",						TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSTrackRef,					"GPSTrackRef",					TYPE_ASCII,		NULL,				},
-	{ TAG_GPSTrack,						"GPSTrack",						TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSImgDirectionRef,			"GPSImgDirectionRef",			TYPE_ASCII,		NULL,				},
-	{ TAG_GPSImgDirection,				"GPSImgDirection",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSMapDatum,					"GPSMapDatum",					TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDestLatitudeRef,			"GPSDestLatitudeRef",			TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDestLatitude,				"GPSDestLatitude",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSDestLongitudeRef,			"GPSDestLongitudeRef",			TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDestLongitude,				"GPSDestLongitude",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSBearingRef,				"GPSBearingRef",				TYPE_ASCII,		NULL,				},
-	{ TAG_GPSBearing,					"GPSBearing",					TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_RATIONAL,	NULL,				},
-	{ TAG_GPSProcessingMethod,			"GPSProcessingMethod",			TYPE_UNDEFINED,	NULL,				},
-	{ TAG_GPSAreaInformation,			"GPSAreaInformation",			TYPE_UNDEFINED,	NULL,				},
-	{ TAG_GPSDateStamp,					"GPSDateStamp",					TYPE_ASCII,		NULL,				},
-	{ TAG_GPSDifferential,				"GPSDifferential",				TYPE_SHORT,		NULL,				},
-	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_BYTE,		nullptr,				},
+	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSLongitudeRef,				"GPSLongitudeRef",				TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSLongitude,					"GPSLongitude",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSAltitudeRef,				"GPSAltitudeRef",				TYPE_BYTE,		nullptr,				},
+	{ TAG_GPSAltitude,					"GPSAltitude",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSTimeStamp,					"GPSTimeStamp",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSSatellites,				"GPSSatellites",				TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSStatus,					"GPSStatus",					TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSMeasureMode,				"GPSMeasureMode",				TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDOP,						"GPSDOP",						TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSSpeedRef,					"GPSSpeedRef",					TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSSpeed,						"GPSSpeed",						TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSTrackRef,					"GPSTrackRef",					TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSTrack,						"GPSTrack",						TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSImgDirectionRef,			"GPSImgDirectionRef",			TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSImgDirection,				"GPSImgDirection",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSMapDatum,					"GPSMapDatum",					TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDestLatitudeRef,			"GPSDestLatitudeRef",			TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDestLatitude,				"GPSDestLatitude",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSDestLongitudeRef,			"GPSDestLongitudeRef",			TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDestLongitude,				"GPSDestLongitude",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSBearingRef,				"GPSBearingRef",				TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSBearing,					"GPSBearing",					TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_RATIONAL,	nullptr,				},
+	{ TAG_GPSProcessingMethod,			"GPSProcessingMethod",			TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_GPSAreaInformation,			"GPSAreaInformation",			TYPE_UNDEFINED,	nullptr,				},
+	{ TAG_GPSDateStamp,					"GPSDateStamp",					TYPE_ASCII,		nullptr,				},
+	{ TAG_GPSDifferential,				"GPSDifferential",				TYPE_SHORT,		nullptr,				},
+	{ TAG_invalid,						nullptr,							TYPE_UNDEFINED,	nullptr,				},
 };
 
 // 4.6.7 Interoperability IFD Attribute Information
 static const TagInfo g_tagInfoTbl_Interoperability[] = {
-	{ TAG_InteroperabilityIndex,		"InteroperabilityIndex",		TYPE_ASCII,		NULL,				},
-	{ TAG_InteroperabilityVersion,		"InteroperabilityVersion",		TYPE_BYTE,		NULL,				},
-	{ TAG_RelatedImageWidth,			"RelatedImageWidth",			TYPE_SHORT,		NULL,				},
-	{ TAG_RelatedImageHeight,			"RelatedImageHeight",			TYPE_SHORT,		NULL,				},
-	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+	{ TAG_InteroperabilityIndex,		"InteroperabilityIndex",		TYPE_ASCII,		nullptr,				},
+	{ TAG_InteroperabilityVersion,		"InteroperabilityVersion",		TYPE_BYTE,		nullptr,				},
+	{ TAG_RelatedImageWidth,			"RelatedImageWidth",			TYPE_SHORT,		nullptr,				},
+	{ TAG_RelatedImageHeight,			"RelatedImageHeight",			TYPE_SHORT,		nullptr,				},
+	{ TAG_invalid,						nullptr,							TYPE_UNDEFINED,	nullptr,				},
 };
 
 
@@ -278,99 +278,99 @@ Gura_ModuleEntry()
 	do {
 		const UShort tagId = TAG_Compression;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"uncompressed",					NULL,	},
-			{ 6,		"JPEG",							NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"uncompressed",					nullptr,	},
+			{ 6,		"JPEG",							nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_PhotometricInterpretation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"RGB",							NULL,	},
-			{ 6,		"YCbCr",						NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 2,		"RGB",							nullptr,	},
+			{ 6,		"YCbCr",						nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_Orientation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"LeftTopHorz",					NULL,	},
-			{ 2,		"RightTopHorz",					NULL,	},
-			{ 3,		"RightBottomHorz",				NULL,	},
-			{ 4,		"LeftBottomHorz",				NULL,	},
-			{ 5,		"LeftTopVert",					NULL,	},
-			{ 6,		"LeftBottomVert",				NULL,	},
-			{ 7,		"RightBottomVert",				NULL,	},
-			{ 8,		"RightTopVert",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"LeftTopHorz",					nullptr,	},
+			{ 2,		"RightTopHorz",					nullptr,	},
+			{ 3,		"RightBottomHorz",				nullptr,	},
+			{ 4,		"LeftBottomHorz",				nullptr,	},
+			{ 5,		"LeftTopVert",					nullptr,	},
+			{ 6,		"LeftBottomVert",				nullptr,	},
+			{ 7,		"RightBottomVert",				nullptr,	},
+			{ 8,		"RightTopVert",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_PlanarConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"chunky",						NULL,	},
-			{ 2,		"planar",						NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"chunky",						nullptr,	},
+			{ 2,		"planar",						nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_YCbCrPositioning;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"centered",						NULL,	},
-			{ 2,		"cosited",						NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"centered",						nullptr,	},
+			{ 2,		"cosited",						nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_ResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"inches",						NULL,	},
-			{ 3,		"centimeters",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 2,		"inches",						nullptr,	},
+			{ 3,		"centimeters",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_ColorSpace;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"sRGB",							NULL,	},
-			{ 0xffff,	"uncalibrated",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"sRGB",							nullptr,	},
+			{ 0xffff,	"uncalibrated",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_ComponentsConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"not_exist",					NULL,	},
-			{ 1,		"Y",							NULL,	},
-			{ 2,		"Cb",							NULL,	},
-			{ 3,		"Cr",							NULL,	},
-			{ 4,		"R",							NULL,	},
-			{ 5,		"G",							NULL,	},
-			{ 6,		"B",							NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"not_exist",					nullptr,	},
+			{ 1,		"Y",							nullptr,	},
+			{ 2,		"Cb",							nullptr,	},
+			{ 3,		"Cr",							nullptr,	},
+			{ 4,		"R",							nullptr,	},
+			{ 5,		"G",							nullptr,	},
+			{ 6,		"B",							nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_ExposureProgram;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"NotDefined",					NULL,	},
-			{ 1,		"Manual",						NULL,	},
-			{ 2,		"NormalProgram",				NULL,	},
-			{ 3,		"AperturePriority",				NULL,	},
-			{ 4,		"ShutterPriority",				NULL,	},
-			{ 5,		"CreativeProgram",				NULL,	},
-			{ 6,		"ActionProgram",				NULL,	},
-			{ 7,		"PortraitMode",					NULL,	},
-			{ 8,		"LandscapeMode",				NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"NotDefined",					nullptr,	},
+			{ 1,		"Manual",						nullptr,	},
+			{ 2,		"NormalProgram",				nullptr,	},
+			{ 3,		"AperturePriority",				nullptr,	},
+			{ 4,		"ShutterPriority",				nullptr,	},
+			{ 5,		"CreativeProgram",				nullptr,	},
+			{ 6,		"ActionProgram",				nullptr,	},
+			{ 7,		"PortraitMode",					nullptr,	},
+			{ 8,		"LandscapeMode",				nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
@@ -378,212 +378,212 @@ Gura_ModuleEntry()
 	do {
 		const UShort tagId = TAG_MeteringMode;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"unknown",						NULL,	},
-			{ 1,		"Average",						NULL,	},
-			{ 2,		"CenterWeightedAverage",		NULL,	},
-			{ 3,		"Spot",							NULL,	},
-			{ 4,		"MultiSpot",					NULL,	},
-			{ 5,		"Pattern",						NULL,	},
-			{ 6,		"Partial",						NULL,	},
-			{ 255,		"other",						NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"unknown",						nullptr,	},
+			{ 1,		"Average",						nullptr,	},
+			{ 2,		"CenterWeightedAverage",		nullptr,	},
+			{ 3,		"Spot",							nullptr,	},
+			{ 4,		"MultiSpot",					nullptr,	},
+			{ 5,		"Pattern",						nullptr,	},
+			{ 6,		"Partial",						nullptr,	},
+			{ 255,		"other",						nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_LightSource;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"unknown",						NULL,	},
-			{ 1,		"Daylight",						NULL,	},
-			{ 2,		"Fluorescent",					NULL,	},
-			{ 3,		"Tungsten",						NULL,	},
-			{ 4,		"Flash",						NULL,	},
-			{ 9,		"FineWeather",					NULL,	},
-			{ 10,		"CloudyWeather",				NULL,	},
-			{ 11,		"Shade",						NULL,	},
-			{ 12,		"DaylightFluorescent",			NULL,	},
-			{ 13,		"DayWhiteFluorescent",			NULL,	},
-			{ 14,		"CoolWhiteFluorescent",			NULL,	},
-			{ 15,		"WhiteFluorescent",				NULL,	},
-			{ 17,		"StandardLightA",				NULL,	},
-			{ 18,		"StandardLightB",				NULL,	},
-			{ 19,		"StandardLightC",				NULL,	},
-			{ 20,		"D55",							NULL,	},
-			{ 21,		"D65",							NULL,	},
-			{ 22,		"D75",							NULL,	},
-			{ 23,		"D50",							NULL,	},
-			{ 24,		"ISOStudioTungsten",			NULL,	},
-			{ 255,		"OtherLightSource",				NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"unknown",						nullptr,	},
+			{ 1,		"Daylight",						nullptr,	},
+			{ 2,		"Fluorescent",					nullptr,	},
+			{ 3,		"Tungsten",						nullptr,	},
+			{ 4,		"Flash",						nullptr,	},
+			{ 9,		"FineWeather",					nullptr,	},
+			{ 10,		"CloudyWeather",				nullptr,	},
+			{ 11,		"Shade",						nullptr,	},
+			{ 12,		"DaylightFluorescent",			nullptr,	},
+			{ 13,		"DayWhiteFluorescent",			nullptr,	},
+			{ 14,		"CoolWhiteFluorescent",			nullptr,	},
+			{ 15,		"WhiteFluorescent",				nullptr,	},
+			{ 17,		"StandardLightA",				nullptr,	},
+			{ 18,		"StandardLightB",				nullptr,	},
+			{ 19,		"StandardLightC",				nullptr,	},
+			{ 20,		"D55",							nullptr,	},
+			{ 21,		"D65",							nullptr,	},
+			{ 22,		"D75",							nullptr,	},
+			{ 23,		"D50",							nullptr,	},
+			{ 24,		"ISOStudioTungsten",			nullptr,	},
+			{ 255,		"OtherLightSource",				nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_Flash;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0x0000,	"FlashDidNotFire",																NULL,	},
-			{ 0x0001,	"FlashFired",																	NULL,	},
-			{ 0x0005,	"StrobeReturnLightNotDetected",													NULL,	},
-			{ 0x0007,	"StrobeReturnLightDetected",													NULL,	},
-			{ 0x0009,	"FlashFired_CompulsoryFlashMode",												NULL,	},
-			{ 0x000d,	"FlashFired_CompulsoryFlashMode_ReturnLightNotDetected",						NULL,	},
-			{ 0x000f,	"FlashFired_CompulsoryFlashMode_ReturnLightDetected",							NULL,	},
-			{ 0x0010,	"FlashDidNotFire_CompulsoryFlashMode",											NULL,	},
-			{ 0x0018,	"FlashDidNotFire_AutoMode",														NULL,	},
-			{ 0x0019,	"FlashFired_AutoMode",															NULL,	},
-			{ 0x001d,	"FlashFired_AutoMode_ReturnLightNotDetected",									NULL,	},
-			{ 0x001f,	"FlashFired_AutoMode_ReturnLightDetected",										NULL,	},
-			{ 0x0020,	"NoFlashFunction",																NULL,	},
-			{ 0x0041,	"FlashFired_RedEyeReductionMode",												NULL,	},
-			{ 0x0045,	"FlashFired_RedEyeReductionMode_ReturnLightNotDetected",						NULL,	},
-			{ 0x0047,	"FlashFired_RedEyeReductionMode_ReturnLightDetected",							NULL,	},
-			{ 0x0049,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode",							NULL,	},
-			{ 0x004d,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode_ReturnLightNotDetected",	NULL,	},
-			{ 0x004f,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode_ReturnLightDetected",		NULL,	},
-			{ 0x0059,	"FlashFired_AutoMode_RedEyeReductionMode",										NULL,	},
-			{ 0x005d,	"FlashFired_AutoMode_ReturnLightNotDetected_RedEyeReductionMode",				NULL,	},
-			{ 0x005f,	"FlashFired_AutoMode_ReturnLightDetected_RedEyeReductionMode",					NULL,	},
-			{ 0,		NULL,																			NULL,	},
+			{ 0x0000,	"FlashDidNotFire",																nullptr,	},
+			{ 0x0001,	"FlashFired",																	nullptr,	},
+			{ 0x0005,	"StrobeReturnLightNotDetected",													nullptr,	},
+			{ 0x0007,	"StrobeReturnLightDetected",													nullptr,	},
+			{ 0x0009,	"FlashFired_CompulsoryFlashMode",												nullptr,	},
+			{ 0x000d,	"FlashFired_CompulsoryFlashMode_ReturnLightNotDetected",						nullptr,	},
+			{ 0x000f,	"FlashFired_CompulsoryFlashMode_ReturnLightDetected",							nullptr,	},
+			{ 0x0010,	"FlashDidNotFire_CompulsoryFlashMode",											nullptr,	},
+			{ 0x0018,	"FlashDidNotFire_AutoMode",														nullptr,	},
+			{ 0x0019,	"FlashFired_AutoMode",															nullptr,	},
+			{ 0x001d,	"FlashFired_AutoMode_ReturnLightNotDetected",									nullptr,	},
+			{ 0x001f,	"FlashFired_AutoMode_ReturnLightDetected",										nullptr,	},
+			{ 0x0020,	"NoFlashFunction",																nullptr,	},
+			{ 0x0041,	"FlashFired_RedEyeReductionMode",												nullptr,	},
+			{ 0x0045,	"FlashFired_RedEyeReductionMode_ReturnLightNotDetected",						nullptr,	},
+			{ 0x0047,	"FlashFired_RedEyeReductionMode_ReturnLightDetected",							nullptr,	},
+			{ 0x0049,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode",							nullptr,	},
+			{ 0x004d,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode_ReturnLightNotDetected",	nullptr,	},
+			{ 0x004f,	"FlashFired_CompulsoryFlashMode_RedEyeReductionMode_ReturnLightDetected",		nullptr,	},
+			{ 0x0059,	"FlashFired_AutoMode_RedEyeReductionMode",										nullptr,	},
+			{ 0x005d,	"FlashFired_AutoMode_ReturnLightNotDetected_RedEyeReductionMode",				nullptr,	},
+			{ 0x005f,	"FlashFired_AutoMode_ReturnLightDetected_RedEyeReductionMode",					nullptr,	},
+			{ 0,		nullptr,																			nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_FocalPlaneResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"inches",						NULL,	},
-			{ 3,		"centimeters",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 2,		"inches",						nullptr,	},
+			{ 3,		"centimeters",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_SensingMethod;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"NotDefined",					NULL,	},
-			{ 2,		"OneChipColorAreaSensor",		NULL,	},
-			{ 3,		"TwoChipColorAreaSensor",		NULL,	},
-			{ 4,		"ThreeChipColorAreaSensor",		NULL,	},
-			{ 5,		"ColorSequentialAreaSensor",	NULL,	},
-			{ 7,		"TrilinearSensor",				NULL,	},
-			{ 8,		"ColorSequentialLinearSensor",	NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"NotDefined",					nullptr,	},
+			{ 2,		"OneChipColorAreaSensor",		nullptr,	},
+			{ 3,		"TwoChipColorAreaSensor",		nullptr,	},
+			{ 4,		"ThreeChipColorAreaSensor",		nullptr,	},
+			{ 5,		"ColorSequentialAreaSensor",	nullptr,	},
+			{ 7,		"TrilinearSensor",				nullptr,	},
+			{ 8,		"ColorSequentialLinearSensor",	nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_FileSource;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 3,		"DSC",							NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 3,		"DSC",							nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_SceneType;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"DirectlyPhotographedImage",	NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 1,		"DirectlyPhotographedImage",	nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_CustomRendered;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"NormalProces",					NULL,	},
-			{ 1,		"CustomProcess",				NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"NormalProces",					nullptr,	},
+			{ 1,		"CustomProcess",				nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_ExposureMode;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"AutoExposure",					NULL,	},
-			{ 1,		"ManualExposure",				NULL,	},
-			{ 2,		"AutoBracket",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"AutoExposure",					nullptr,	},
+			{ 1,		"ManualExposure",				nullptr,	},
+			{ 2,		"AutoBracket",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_WhiteBalance;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"AutoWhiteBalance",				NULL,	},
-			{ 1,		"ManualWhiteBalance",			NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"AutoWhiteBalance",				nullptr,	},
+			{ 1,		"ManualWhiteBalance",			nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_SceneCaptureType;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"Standard",						NULL,	},
-			{ 1,		"Landscape",					NULL,	},
-			{ 2,		"Portrait",						NULL,	},
-			{ 3,		"NightScene",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"Standard",						nullptr,	},
+			{ 1,		"Landscape",					nullptr,	},
+			{ 2,		"Portrait",						nullptr,	},
+			{ 3,		"NightScene",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_GainControl;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"None",							NULL,	},
-			{ 1,		"LowGainUp",					NULL,	},
-			{ 2,		"HighGainUp",					NULL,	},
-			{ 3,		"LowGainDown",					NULL,	},
-			{ 4,		"HighGainDown",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"None",							nullptr,	},
+			{ 1,		"LowGainUp",					nullptr,	},
+			{ 2,		"HighGainUp",					nullptr,	},
+			{ 3,		"LowGainDown",					nullptr,	},
+			{ 4,		"HighGainDown",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_Contrast;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"Normal",						NULL,	},
-			{ 1,		"Soft",							NULL,	},
-			{ 2,		"Hard",							NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"Normal",						nullptr,	},
+			{ 1,		"Soft",							nullptr,	},
+			{ 2,		"Hard",							nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_Saturation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"Normal",						NULL,	},
-			{ 1,		"LowSaturation",				NULL,	},
-			{ 2,		"HighSaturation",				NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"Normal",						nullptr,	},
+			{ 1,		"LowSaturation",				nullptr,	},
+			{ 2,		"HighSaturation",				nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_Sharpness;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"Normal",						NULL,	},
-			{ 1,		"Soft",							NULL,	},
-			{ 2,		"Hard",							NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"Normal",						nullptr,	},
+			{ 1,		"Soft",							nullptr,	},
+			{ 2,		"Hard",							nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_SubjectDistanceRange;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"unknown",						NULL,	},
-			{ 1,		"Macro",						NULL,	},
-			{ 2,		"CloseView",					NULL,	},
-			{ 3,		"DistantView",					NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"unknown",						nullptr,	},
+			{ 1,		"Macro",						nullptr,	},
+			{ 2,		"CloseView",					nullptr,	},
+			{ 3,		"DistantView",					nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const UShort tagId = TAG_GPSAltitudeRef;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"SeaLevel",						NULL,	},
-			{ 1,		"SeaLavelReference",			NULL,	},
-			{ 0,		NULL,							NULL,	},
+			{ 0,		"SeaLevel",						nullptr,	},
+			{ 1,		"SeaLavelReference",			nullptr,	},
+			{ 0,		nullptr,							nullptr,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
@@ -721,7 +721,7 @@ void ErrorMgr::error_exit(j_common_ptr cinfo)
 //-----------------------------------------------------------------------------
 void SourceMgr::Setup(j_decompress_ptr cinfo, Signal *pSig, Stream *pStream)
 {
-	if (cinfo->src == NULL) {
+	if (cinfo->src == nullptr) {
 		cinfo->src = reinterpret_cast<jpeg_source_mgr *>((*cinfo->mem->alloc_small)(
 			reinterpret_cast<j_common_ptr>(cinfo), JPOOL_PERMANENT, sizeof(SourceMgr)));
 		SourceMgr *pSrcMgr = reinterpret_cast<SourceMgr *>(cinfo->src);
@@ -735,7 +735,7 @@ void SourceMgr::Setup(j_decompress_ptr cinfo, Signal *pSig, Stream *pStream)
 	pSrcMgr->pub.resync_to_restart	= jpeg_resync_to_restart; // use default method
 	pSrcMgr->pub.term_source		= term_source;
 	pSrcMgr->pub.bytes_in_buffer	= 0;	// forces fill_input_buffer on first read
-	pSrcMgr->pub.next_input_byte	= NULL;	// until buffer loaded
+	pSrcMgr->pub.next_input_byte	= nullptr;	// until buffer loaded
 	pSrcMgr->pSig = pSig;
 	pSrcMgr->pStream = pStream;
 }
@@ -788,7 +788,7 @@ void SourceMgr::term_source(j_decompress_ptr cinfo)
 //-----------------------------------------------------------------------------
 void DestinationMgr::Setup(j_compress_ptr cinfo, Signal *pSig, Stream *pStream)
 {
-	if (cinfo->dest == NULL) {
+	if (cinfo->dest == nullptr) {
 		cinfo->dest = reinterpret_cast<jpeg_destination_mgr *>((*cinfo->mem->alloc_small)(
 			reinterpret_cast<j_common_ptr>(cinfo), JPOOL_PERMANENT, sizeof(DestinationMgr)));
 	}
@@ -838,17 +838,17 @@ void DestinationMgr::term_destination(j_compress_ptr cinfo)
 SymbolAssoc::SymbolAssoc(UShort tagId, Entry *entryTbl) :
 									_tagId(tagId), _entryTbl(entryTbl)
 {
-	for (Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
+	for (Entry *pEntry = _entryTbl; pEntry->name != nullptr; pEntry++) {
 		pEntry->pSymbol = Symbol::Add(pEntry->name);
 	}
 }
 
 const Symbol *SymbolAssoc::NumToSymbol(UShort num) const
 {
-	for (const Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
+	for (const Entry *pEntry = _entryTbl; pEntry->name != nullptr; pEntry++) {
 		if (pEntry->num == num) return pEntry->pSymbol;
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -860,13 +860,13 @@ const SymbolAssoc *SymbolAssocList::FindByTagId(UShort tagId) const
 		const SymbolAssoc *pSymbolAssoc = *ppSymbolAssoc;
 		if (pSymbolAssoc->GetTagId() == tagId) return pSymbolAssoc;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const Symbol *SymbolAssocList::NumToSymbol(UShort tagId, UShort num) const
 {
 	const SymbolAssoc *pSymbolAssoc = FindByTagId(tagId);
-	return (pSymbolAssoc == NULL)? NULL : pSymbolAssoc->NumToSymbol(num);
+	return (pSymbolAssoc == nullptr)? nullptr : pSymbolAssoc->NumToSymbol(num);
 }
 
 //-----------------------------------------------------------------------------
@@ -911,11 +911,11 @@ const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UShort id)
 		(pSymbolOfIFD == Gura_UserSymbol(Interoperability))? g_tagInfoTbl_Interoperability :
 		(pSymbolOfIFD == Gura_UserSymbol(GPSInfo))? g_tagInfoTbl_GPSInfo :
 		g_tagInfoTbl;
-	if (pTagInfo == NULL) return NULL;
-	for (int i = 0; pTagInfo->name != NULL; i++, pTagInfo++) {
+	if (pTagInfo == nullptr) return nullptr;
+	for (int i = 0; pTagInfo->name != nullptr; i++, pTagInfo++) {
 		if (pTagInfo->id == id) return pTagInfo;
 	}
-	return NULL;
+	return nullptr;
 }
 
 const TypeInfo *TypeToInfo(UShort type)
@@ -924,7 +924,7 @@ const TypeInfo *TypeToInfo(UShort type)
 	for (int i = 0; i < ArraySizeOf(g_typeInfoTbl); i++, pTypeInfo++) {
 		if (pTypeInfo->type == type) return pTypeInfo;
 	}
-	return NULL;
+	return nullptr;
 }
 
 Gura_EndModuleBody(jpeg, jpeg)

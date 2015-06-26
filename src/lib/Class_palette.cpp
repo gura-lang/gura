@@ -56,7 +56,7 @@ void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueId
 		_pPalette->SetColor(idx, Object_color::GetObject(value)->GetColor());
 	} else {
 		Value valueCasted = value;
-		if (!env.LookupClass(VTYPE_color)->CastFrom(env, sig, valueCasted, NULL)) {
+		if (!env.LookupClass(VTYPE_color)->CastFrom(env, sig, valueCasted, nullptr)) {
 			sig.SetError(ERR_ValueError, "color must be specified");
 			return;
 		}
@@ -267,7 +267,7 @@ bool Class_palette::CastFrom(Environment &env, Signal sig, Value &value, const D
 Object *Class_palette::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

@@ -24,12 +24,12 @@ public:
 
 wx_ArchiveInputStream::~wx_ArchiveInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArchiveInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->GetNextEntry();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
@@ -88,13 +88,13 @@ Object_wx_ArchiveInputStream::~Object_wx_ArchiveInputStream()
 
 Object *Object_wx_ArchiveInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArchiveInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -116,7 +116,7 @@ Gura_ImplementUserInheritableClass(wx_ArchiveInputStream)
 
 Gura_ImplementDescendantCreator(wx_ArchiveInputStream)
 {
-	return new Object_wx_ArchiveInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArchiveInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

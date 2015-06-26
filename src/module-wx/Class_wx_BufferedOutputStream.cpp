@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BufferedOutputStream *_pObj;
 public:
-	inline wx_BufferedOutputStream(wxOutputStream& parent) : wxBufferedOutputStream(parent), _sig(NULL), _pObj(NULL) {}
+	inline wx_BufferedOutputStream(wxOutputStream& parent) : wxBufferedOutputStream(parent), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BufferedOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BufferedOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_BufferedOutputStream::~wx_BufferedOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BufferedOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(BufferedOutputStream)
 	wxOutputStream *parent = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_BufferedOutputStream *pEntity = new wx_BufferedOutputStream(*parent);
 	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,13 +100,13 @@ Object_wx_BufferedOutputStream::~Object_wx_BufferedOutputStream()
 
 Object *Object_wx_BufferedOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BufferedOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.BufferedOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -128,7 +128,7 @@ Gura_ImplementUserInheritableClass(wx_BufferedOutputStream)
 
 Gura_ImplementDescendantCreator(wx_BufferedOutputStream)
 {
-	return new Object_wx_BufferedOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BufferedOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

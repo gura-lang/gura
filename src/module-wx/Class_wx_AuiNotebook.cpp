@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AuiNotebook *_pObj;
 public:
-	inline wx_AuiNotebook() : wxAuiNotebook(), _sig(NULL), _pObj(NULL) {}
-	inline wx_AuiNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxAuiNotebook(parent, id, pos, size, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_AuiNotebook() : wxAuiNotebook(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxAuiNotebook(parent, id, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AuiNotebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiNotebook *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_AuiNotebook::~wx_AuiNotebook()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AuiNotebook::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(AuiNotebookEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AuiNotebook *pEntity = new wx_AuiNotebook();
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiNotebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,7 +85,7 @@ Gura_ImplementFunction(AuiNotebook)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wx_AuiNotebook *pEntity = new wx_AuiNotebook(parent, id, *pos, *size, style);
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiNotebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetArtProvider)
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiTabArt *rtn = (wxAuiTabArt *)pThis->GetEntity()->GetArtProvider();
-	return ReturnValue(env, sig, args, Value(new Object_wx_AuiTabArt(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, GetHeightForPageHeight)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page_idx = args.GetSizeT(0);
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPage(page_idx);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageBitmap)
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageBitmap)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	wxBitmap rtn = pThis->GetEntity()->GetPageBitmap(page);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, GetPageCount)
@@ -555,13 +555,13 @@ Object_wx_AuiNotebook::~Object_wx_AuiNotebook()
 
 Object *Object_wx_AuiNotebook::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AuiNotebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiNotebook:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -609,7 +609,7 @@ Gura_ImplementUserInheritableClass(wx_AuiNotebook)
 
 Gura_ImplementDescendantCreator(wx_AuiNotebook)
 {
-	return new Object_wx_AuiNotebook((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AuiNotebook((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,12 +24,12 @@ public:
 
 wx_PopupWindow::~wx_PopupWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PopupWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -71,20 +71,20 @@ Gura_ImplementMethod(wx_PopupWindow, IsTopLevel)
 //----------------------------------------------------------------------------
 Object_wx_PopupWindow::~Object_wx_PopupWindow()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_PopupWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PopupWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.PopupWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -105,7 +105,7 @@ Gura_ImplementUserInheritableClass(wx_PopupWindow)
 
 Gura_ImplementDescendantCreator(wx_PopupWindow)
 {
-	return new Object_wx_PopupWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PopupWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

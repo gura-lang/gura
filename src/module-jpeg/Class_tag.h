@@ -18,7 +18,7 @@ private:
 	const Symbol *_pSymbol;
 	Value _value;
 	Value _valueCooked;
-	AutoPtr<Object_ifd> _pObjIFD;	// this may be NULL
+	AutoPtr<Object_ifd> _pObjIFD;	// this may be nullptr
 public:
 	Gura_DeclareObjectAccessor(tag)
 public:
@@ -34,7 +34,7 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Value &GetValue() const { return _value; }
 	inline const Value &GetValueCooked() const { return _valueCooked; }
-	inline bool IsIFDPointer() const { return _pObjIFD.get() != NULL; }
+	inline bool IsIFDPointer() const { return _pObjIFD.get() != nullptr; }
 	inline Object_ifd *GetObjectIFD() { return _pObjIFD.get(); }
 	inline const Object_ifd *GetObjectIFD() const { return _pObjIFD.get(); }
 	void Print(int indentLevel = 0) const;

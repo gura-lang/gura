@@ -53,7 +53,7 @@ UShort GetCType(char ch)
 Number ToNumber(const char *str, bool *pSuccessFlag)
 {
 	Number num;
-	char *next = NULL;
+	char *next = nullptr;
 	if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X' || IsOctDigit(str[1]))) {
 		num = ::strtoul(str, &next, 0);
 	} else if (str[0] == '0' && (str[1] == 'b' || str[1] == 'B')) {
@@ -61,7 +61,7 @@ Number ToNumber(const char *str, bool *pSuccessFlag)
 	} else {
 		num = ::strtod(str, &next);
 	}
-	if (pSuccessFlag != NULL) *pSuccessFlag = (*next == '\0');
+	if (pSuccessFlag != nullptr) *pSuccessFlag = (*next == '\0');
 	return num;
 }
 
@@ -92,7 +92,7 @@ String ZenToHan(const char *str)
 {
 	String rtn;
 	while (*str != '\0') {
-		const char *next = NULL;
+		const char *next = nullptr;
 		char ch = ZenToHanChar(str, &next);
 		if (ch == '\0') {
 			for ( ; str != next; str++) rtn += *str;
@@ -226,7 +226,7 @@ char ZenToHanChar(const char *str, const char **next)
 	for (int i = 0; i < ArraySizeOf(convTbl); i++) {
 		const Convert &conv = convTbl[i];
 		if (::strncmp(str, conv.zenkaku, conv.len) == 0) {
-			if (next != NULL) *next = str + conv.len;
+			if (next != nullptr) *next = str + conv.len;
 			return conv.hankaku;
 		}
 	}
@@ -236,7 +236,7 @@ char ZenToHanChar(const char *str, const char **next)
 	} else if (*str != '\0') {
 		str++;
 	}
-	if (next != NULL) *next = str;
+	if (next != nullptr) *next = str;
 	return '\0';
 }
 
@@ -244,7 +244,7 @@ String MakeQuotedString(const char *str)
 {
 	String strDst;
 	char chQuote = '\'';
-	if (::strchr(str, '\'') != NULL && ::strchr(str, '"') == NULL) {
+	if (::strchr(str, '\'') != nullptr && ::strchr(str, '"') == nullptr) {
 		chQuote = '"';
 	}
 	strDst += chQuote;
@@ -456,7 +456,7 @@ const char *FindString(const char *str, const char *sub, bool ignoreCaseFlag)
 		}
 		if (*p2 == '\0') return str;
 	}
-	return NULL;
+	return nullptr;
 }
 
 String::const_iterator FindString(String::const_iterator str,
@@ -478,7 +478,7 @@ const char *StartsWith(const char *str, const char *prefix, size_t pos, bool ign
 	str = Forward(str, pos);
 	const char *p1 = str, *p2 = prefix;
 	for ( ; *p2 != '\0'; p1++, p2++) {
-		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return NULL;
+		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return nullptr;
 	}
 	return p1;
 }
@@ -487,10 +487,10 @@ const char *EndsWith(const char *str, const char *suffix, bool ignoreCaseFlag)
 {
 	size_t len = ::strlen(suffix);
 	const char *p = str + ::strlen(str);
-	if (str + len > p) return NULL;
+	if (str + len > p) return nullptr;
 	const char *p1 = p - len, *p2 = suffix;
 	for ( ; *p2 != '\0'; p1++, p2++) {
-		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return NULL;
+		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return nullptr;
 	}
 	return p - len;
 }
@@ -499,10 +499,10 @@ const char *EndsWith(const char *str, const char *suffix, size_t posEnd, bool ig
 {
 	size_t len = ::strlen(suffix);
 	const char *p = Forward(str, posEnd);
-	if (str + len > p) return NULL;
+	if (str + len > p) return nullptr;
 	const char *p1 = p - len, *p2 = suffix;
 	for ( ; *p2 != '\0'; p1++, p2++) {
-		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return NULL;
+		if (CompareChar(*p1, *p2, ignoreCaseFlag) != 0) return nullptr;
 	}
 	return p - len;
 }
@@ -923,7 +923,7 @@ const char *Forward(const char *str, size_t len, size_t *pLenForward)
 			while (IsUTF8Follower(*str)) str++;
 		}
 	}
-	if (pLenForward != NULL) *pLenForward = lenForward;
+	if (pLenForward != nullptr) *pLenForward = lenForward;
 	return str;
 }
 
@@ -938,7 +938,7 @@ String::const_iterator Forward(String::const_iterator str,
 			while (IsUTF8Follower(*str)) str++;
 		}
 	}
-	if (pLenForward != NULL) *pLenForward = lenForward;
+	if (pLenForward != nullptr) *pLenForward = lenForward;
 	return str;
 }
 
@@ -1029,7 +1029,7 @@ Value FindString(Environment &env, Signal sig,
 		const char *p = FindString(str + start, sub, ignoreCaseFlag);
 		if (attrs.IsSet(Gura_Symbol(list))) {
 			ValueList valListOrg;
-			for ( ; p != NULL; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
 				valListOrg.push_back(Value(static_cast<Number>(p - str)));
 			}
 			Value result;
@@ -1039,11 +1039,11 @@ Value FindString(Environment &env, Signal sig,
 			}
 			return result;
 		} else {
-			const char *pLast = NULL;
-			for ( ; p != NULL; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+			const char *pLast = nullptr;
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
 				pLast = p;
 			}
-			return (pLast == NULL)? Value::Null :
+			return (pLast == nullptr)? Value::Null :
 							Value(static_cast<Number>(pLast - str));
 		}
 	} else {
@@ -1051,12 +1051,12 @@ Value FindString(Environment &env, Signal sig,
 		if (attrs.IsSet(Gura_Symbol(list))) {
 			Value result;
 			ValueList &valList = result.InitAsList(env);
-			for ( ; p != NULL; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
 				valList.push_back(Value(static_cast<Number>(p - str)));
 			}
 			return result;
 		} else {
-			return (p == NULL)? Value::Null :
+			return (p == nullptr)? Value::Null :
 							Value(static_cast<Number>(p - str));
 		}
 	}
@@ -1082,7 +1082,7 @@ String Replace(const char *str, const char *sub, const char *replace,
 	} else {
 		const char *pLeft = str;
 		const char *pRight = FindString(pLeft, sub, ignoreCaseFlag);
-		for ( ; pRight != NULL && nMaxReplace != 0;
+		for ( ; pRight != nullptr && nMaxReplace != 0;
 					pRight = FindString(pLeft, sub, ignoreCaseFlag), nMaxReplace--) {
 			result.append(pLeft, pRight - pLeft);
 			result += replace;
@@ -1197,7 +1197,7 @@ void CharConverter::Put(char ch)
 		_readyFlag = true;
 	} else if (ch > 0) {
 		char chConv = '\0';
-		if (_idxPut > 0 && (chConv = ZenToHanChar(_buff, NULL)) != '\0') {
+		if (_idxPut > 0 && (chConv = ZenToHanChar(_buff, nullptr)) != '\0') {
 			_idxGet = _idxPut - 1;
 			_buff[_idxGet] = chConv;
 		}
@@ -1205,7 +1205,7 @@ void CharConverter::Put(char ch)
 		_readyFlag = true;
 	} else if (_idxPut > 0 && IsUTF8First(ch)) {
 		char chConv = '\0';
-		if ((chConv = ZenToHanChar(_buff, NULL)) != '\0') {
+		if ((chConv = ZenToHanChar(_buff, nullptr)) != '\0') {
 			_idxGet = _idxPut - 1;
 			_buff[_idxGet] = chConv;
 		}

@@ -24,12 +24,12 @@ public:
 
 wx_PowerEvent::~wx_PowerEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PowerEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,13 +57,13 @@ Object_wx_PowerEvent::~Object_wx_PowerEvent()
 
 Object *Object_wx_PowerEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PowerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.PowerEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -83,7 +83,7 @@ Gura_ImplementUserInheritableClass(wx_PowerEvent)
 
 Gura_ImplementDescendantCreator(wx_PowerEvent)
 {
-	return new Object_wx_PowerEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PowerEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

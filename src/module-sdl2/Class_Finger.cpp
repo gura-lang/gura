@@ -12,7 +12,7 @@ Object_Finger::~Object_Finger()
 
 Object *Object_Finger::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Finger::ToString(bool exprFlag)

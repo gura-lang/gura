@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HashMap *_pObj;
 public:
-	inline wx_HashMap(size_type size) : wxHashMap(size), _sig(NULL), _pObj(NULL) {}
-	inline wx_HashMap(const wxHashMap& map) : wxHashMap(map), _sig(NULL), _pObj(NULL) {}
+	inline wx_HashMap(size_type size) : wxHashMap(size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HashMap(const wxHashMap& map) : wxHashMap(map), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HashMap();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HashMap *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_HashMap::~wx_HashMap()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HashMap::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(HashMap)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashMap *pEntity = new wx_HashMap();
 	Object_wx_HashMap *pObj = Object_wx_HashMap::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HashMap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(HashMap_1)
 	wxHashMap *map = Object_wx_HashMap::GetObject(args, 0)->GetEntity();
 	wx_HashMap *pEntity = new wx_HashMap(*map);
 	Object_wx_HashMap *pObj = Object_wx_HashMap::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HashMap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -261,20 +261,20 @@ Gura_ImplementMethod(wx_HashMap, size)
 //----------------------------------------------------------------------------
 Object_wx_HashMap::~Object_wx_HashMap()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HashMap::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HashMap::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashMap:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -309,7 +309,7 @@ Gura_ImplementUserInheritableClass(wx_HashMap)
 
 Gura_ImplementDescendantCreator(wx_HashMap)
 {
-	return new Object_wx_HashMap((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HashMap((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

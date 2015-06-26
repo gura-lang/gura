@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlTag *_pObj;
 public:
-	//inline wx_HtmlTag(wxHtmlTag * parent, const wxString& source, int pos, int end_pos, wxHtmlTagsCache* cache, wxHtmlEntitiesParser * entParser) : wxHtmlTag(parent, source, pos, end_pos, cache, entParser), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlTag(wxHtmlTag * parent, const wxString& source, int pos, int end_pos, wxHtmlTagsCache* cache, wxHtmlEntitiesParser * entParser) : wxHtmlTag(parent, source, pos, end_pos, cache, entParser), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlTag();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlTag *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlTag::~wx_HtmlTag()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlTag::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ Gura_ImplementFunction(HtmlTag)
 	wxHtmlEntitiesParser *entParser = Object_wx_HtmlEntitiesParser::GetObject(args, 5)->GetEntity();
 	wx_HtmlTag *pEntity = new wx_HtmlTag(parent, source, pos, end_pos, cache, entParser);
 	Object_wx_HtmlTag *pObj = Object_wx_HtmlTag::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTag(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -272,13 +272,13 @@ Object_wx_HtmlTag::~Object_wx_HtmlTag()
 
 Object *Object_wx_HtmlTag::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlTag::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlTag:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -309,7 +309,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlTag)
 
 Gura_ImplementDescendantCreator(wx_HtmlTag)
 {
-	return new Object_wx_HtmlTag((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlTag((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

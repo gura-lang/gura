@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WindowCreateEvent *_pObj;
 public:
-	inline wx_WindowCreateEvent(wxWindow* win) : wxWindowCreateEvent(win), _sig(NULL), _pObj(NULL) {}
+	inline wx_WindowCreateEvent(wxWindow* win) : wxWindowCreateEvent(win), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WindowCreateEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WindowCreateEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WindowCreateEvent::~wx_WindowCreateEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WindowCreateEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,11 +47,11 @@ Gura_DeclareFunction(WindowCreateEvent)
 Gura_ImplementFunction(WindowCreateEvent)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *win = (wxWindow *)(NULL);
+	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowCreateEvent *pEntity = new wx_WindowCreateEvent(win);
 	Object_wx_WindowCreateEvent *pObj = Object_wx_WindowCreateEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowCreateEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_WindowCreateEvent::~Object_wx_WindowCreateEvent()
 
 Object *Object_wx_WindowCreateEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WindowCreateEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowCreateEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_WindowCreateEvent)
 
 Gura_ImplementDescendantCreator(wx_WindowCreateEvent)
 {
-	return new Object_wx_WindowCreateEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WindowCreateEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

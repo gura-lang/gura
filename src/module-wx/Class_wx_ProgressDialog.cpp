@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ProgressDialog *_pObj;
 public:
-	inline wx_ProgressDialog(const wxString& title, const wxString& message, int maximum, wxWindow * parent, int style) : wxProgressDialog(title, message, maximum, parent, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_ProgressDialog(const wxString& title, const wxString& message, int maximum, wxWindow * parent, int style) : wxProgressDialog(title, message, maximum, parent, style), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool Update(int value, const wxString& newmsg, bool * skip);
 	//virtual bool Pulse(const wxString& newmsg, bool * skip);
 	~wx_ProgressDialog();
@@ -30,12 +30,12 @@ public:
 
 wx_ProgressDialog::~wx_ProgressDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ProgressDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,13 +60,13 @@ Gura_ImplementFunction(ProgressDialog)
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	int maximum = 100;
 	if (args.IsValid(2)) maximum = args.GetInt(2);
-	wxWindow *parent = (wxWindow *)(NULL);
+	wxWindow *parent = (wxWindow *)(nullptr);
 	if (args.IsValid(3)) parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
 	int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL;
 	if (args.IsValid(4)) style = args.GetInt(4);
 	wx_ProgressDialog *pEntity = new wx_ProgressDialog(title, message, maximum, parent, style);
 	Object_wx_ProgressDialog *pObj = Object_wx_ProgressDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ProgressDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -136,13 +136,13 @@ Object_wx_ProgressDialog::~Object_wx_ProgressDialog()
 
 Object *Object_wx_ProgressDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ProgressDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.ProgressDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -167,7 +167,7 @@ Gura_ImplementUserInheritableClass(wx_ProgressDialog)
 
 Gura_ImplementDescendantCreator(wx_ProgressDialog)
 {
-	return new Object_wx_ProgressDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ProgressDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

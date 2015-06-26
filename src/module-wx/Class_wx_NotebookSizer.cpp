@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_NotebookSizer *_pObj;
 public:
-	inline wx_NotebookSizer(wxNotebook* notebook) : wxNotebookSizer(notebook), _sig(NULL), _pObj(NULL) {}
+	inline wx_NotebookSizer(wxNotebook* notebook) : wxNotebookSizer(notebook), _sig(nullptr), _pObj(nullptr) {}
 	~wx_NotebookSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_NotebookSizer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_NotebookSizer::~wx_NotebookSizer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_NotebookSizer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(NotebookSizer)
 	wxNotebook *notebook = Object_wx_Notebook::GetObject(args, 0)->GetEntity();
 	wx_NotebookSizer *pEntity = new wx_NotebookSizer(notebook);
 	Object_wx_NotebookSizer *pObj = Object_wx_NotebookSizer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_NotebookSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_NotebookSizer, GetNotebook)
 	Object_wx_NotebookSizer *pThis = Object_wx_NotebookSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxNotebook *rtn = (wxNotebook *)pThis->GetEntity()->GetNotebook();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Notebook(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Notebook(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -83,13 +83,13 @@ Object_wx_NotebookSizer::~Object_wx_NotebookSizer()
 
 Object *Object_wx_NotebookSizer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_NotebookSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.NotebookSizer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -110,7 +110,7 @@ Gura_ImplementUserInheritableClass(wx_NotebookSizer)
 
 Gura_ImplementDescendantCreator(wx_NotebookSizer)
 {
-	return new Object_wx_NotebookSizer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_NotebookSizer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

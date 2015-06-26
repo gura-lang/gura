@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_XmlProperty *_pObj;
 public:
-	inline wx_XmlProperty() : wxXmlProperty(), _sig(NULL), _pObj(NULL) {}
-	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _sig(NULL), _pObj(NULL) {}
+	inline wx_XmlProperty() : wxXmlProperty(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _sig(nullptr), _pObj(nullptr) {}
 	~wx_XmlProperty();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlProperty *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_XmlProperty::~wx_XmlProperty()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_XmlProperty::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(XmlPropertyEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XmlProperty *pEntity = new wx_XmlProperty();
 	Object_wx_XmlProperty *pObj = Object_wx_XmlProperty::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,11 +74,11 @@ Gura_ImplementFunction(XmlProperty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
-	wxXmlProperty *next = (wxXmlProperty *)(NULL);
+	wxXmlProperty *next = (wxXmlProperty *)(nullptr);
 	if (args.IsValid(2)) next = Object_wx_XmlProperty::GetObject(args, 2)->GetEntity();
 	wx_XmlProperty *pEntity = new wx_XmlProperty(name, value, next);
 	Object_wx_XmlProperty *pObj = Object_wx_XmlProperty::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetNext)
 	Object_wx_XmlProperty *pThis = Object_wx_XmlProperty::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlProperty *rtn = (wxXmlProperty *)pThis->GetEntity()->GetNext();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlProperty(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_XmlProperty(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlProperty, GetValue)
@@ -180,20 +180,20 @@ Gura_ImplementMethod(wx_XmlProperty, SetValue)
 //----------------------------------------------------------------------------
 Object_wx_XmlProperty::~Object_wx_XmlProperty()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_XmlProperty::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_XmlProperty::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlProperty:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -220,7 +220,7 @@ Gura_ImplementUserInheritableClass(wx_XmlProperty)
 
 Gura_ImplementDescendantCreator(wx_XmlProperty)
 {
-	return new Object_wx_XmlProperty((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_XmlProperty((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

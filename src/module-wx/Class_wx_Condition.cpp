@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Condition *_pObj;
 public:
-	inline wx_Condition(wxMutex& mutex) : wxCondition(mutex), _sig(NULL), _pObj(NULL) {}
+	inline wx_Condition(wxMutex& mutex) : wxCondition(mutex), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Condition();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Condition *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Condition::~wx_Condition()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Condition::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(Condition)
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_Condition *pEntity = new wx_Condition(*mutex);
 	Object_wx_Condition *pObj = Object_wx_Condition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Condition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -135,20 +135,20 @@ Gura_ImplementMethod(wx_Condition, WaitTimeout)
 //----------------------------------------------------------------------------
 Object_wx_Condition::~Object_wx_Condition()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Condition::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Condition::ToString(bool exprFlag)
 {
 	String rtn("<wx.Condition:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -173,7 +173,7 @@ Gura_ImplementUserInheritableClass(wx_Condition)
 
 Gura_ImplementDescendantCreator(wx_Condition)
 {
-	return new Object_wx_Condition((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Condition((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

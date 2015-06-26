@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ImageList *_pObj;
 public:
-	inline wx_ImageList() : wxImageList(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ImageList(int width, int height, bool mask, int initialCount) : wxImageList(width, height, mask, initialCount), _sig(NULL), _pObj(NULL) {}
+	inline wx_ImageList() : wxImageList(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ImageList(int width, int height, bool mask, int initialCount) : wxImageList(width, height, mask, initialCount), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ImageList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ImageList *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_ImageList::~wx_ImageList()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ImageList::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(ImageListEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ImageList *pEntity = new wx_ImageList();
 	Object_wx_ImageList *pObj = Object_wx_ImageList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ImageList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -81,7 +81,7 @@ Gura_ImplementFunction(ImageList)
 	if (args.IsValid(3)) initialCount = args.GetInt(3);
 	wx_ImageList *pEntity = new wx_ImageList(width, height, mask, initialCount);
 	Object_wx_ImageList *pObj = Object_wx_ImageList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ImageList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_ImageList, GetBitmap)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int index = args.GetInt(0);
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap(index);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ImageList, GetIcon)
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_ImageList, GetIcon)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int index = args.GetInt(0);
 	wxIcon rtn = pThis->GetEntity()->GetIcon(index);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ImageList, GetImageCount)
@@ -340,13 +340,13 @@ Object_wx_ImageList::~Object_wx_ImageList()
 
 Object *Object_wx_ImageList::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ImageList::ToString(bool exprFlag)
 {
 	String rtn("<wx.ImageList:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -380,7 +380,7 @@ Gura_ImplementUserInheritableClass(wx_ImageList)
 
 Gura_ImplementDescendantCreator(wx_ImageList)
 {
-	return new Object_wx_ImageList((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ImageList((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_QueryLayoutInfoEvent *_pObj;
 public:
-	inline wx_QueryLayoutInfoEvent(wxWindowID id) : wxQueryLayoutInfoEvent(id), _sig(NULL), _pObj(NULL) {}
+	inline wx_QueryLayoutInfoEvent(wxWindowID id) : wxQueryLayoutInfoEvent(id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_QueryLayoutInfoEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_QueryLayoutInfoEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_QueryLayoutInfoEvent::~wx_QueryLayoutInfoEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_QueryLayoutInfoEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(QueryLayoutInfoEvent)
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
 	wx_QueryLayoutInfoEvent *pEntity = new wx_QueryLayoutInfoEvent(id);
 	Object_wx_QueryLayoutInfoEvent *pObj = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_QueryLayoutInfoEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetSize)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetAlignment)
@@ -214,13 +214,13 @@ Object_wx_QueryLayoutInfoEvent::~Object_wx_QueryLayoutInfoEvent()
 
 Object *Object_wx_QueryLayoutInfoEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_QueryLayoutInfoEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.QueryLayoutInfoEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -250,7 +250,7 @@ Gura_ImplementUserInheritableClass(wx_QueryLayoutInfoEvent)
 
 Gura_ImplementDescendantCreator(wx_QueryLayoutInfoEvent)
 {
-	return new Object_wx_QueryLayoutInfoEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_QueryLayoutInfoEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

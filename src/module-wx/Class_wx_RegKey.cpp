@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RegKey *_pObj;
 public:
-	inline wx_RegKey() : wxRegKey(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RegKey(const wxString& strKey) : wxRegKey(strKey), _sig(NULL), _pObj(NULL) {}
-	inline wx_RegKey(const wxRegKey& keyParent, const wxString& strKey) : wxRegKey(keyParent, strKey), _sig(NULL), _pObj(NULL) {}
+	inline wx_RegKey() : wxRegKey(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegKey(const wxString& strKey) : wxRegKey(strKey), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegKey(const wxRegKey& keyParent, const wxString& strKey) : wxRegKey(keyParent, strKey), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RegKey();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegKey *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_RegKey::~wx_RegKey()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RegKey::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(RegKeyEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegKey *pEntity = new wx_RegKey();
 	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,7 +74,7 @@ Gura_ImplementFunction(RegKey)
 	wxString strKey = wxString::FromUTF8(args.GetString(0));
 	wx_RegKey *pEntity = new wx_RegKey(strKey);
 	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementFunction(RegKey_1)
 	wxString strKey = wxString::FromUTF8(args.GetString(1));
 	wx_RegKey *pEntity = new wx_RegKey(*keyParent, strKey);
 	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -565,20 +565,20 @@ Gura_ImplementMethod(wx_RegKey, SetValue_2)
 //----------------------------------------------------------------------------
 Object_wx_RegKey::~Object_wx_RegKey()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RegKey::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RegKey::ToString(bool exprFlag)
 {
 	String rtn("<wx.RegKey:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -626,7 +626,7 @@ Gura_ImplementUserInheritableClass(wx_RegKey)
 
 Gura_ImplementDescendantCreator(wx_RegKey)
 {
-	return new Object_wx_RegKey((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RegKey((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

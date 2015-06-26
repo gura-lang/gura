@@ -64,7 +64,7 @@ Gura_ImplementClassMethod(image_surface, create_from_png)
 										args.GetStream(0).Reference()));
 	cairo_surface_t *surface = ::cairo_image_surface_create_from_png_stream(
 										Reader_Stream::read_func, pReader.get());
-	Object_image_surface *pObjSurface = new Object_image_surface(surface, NULL);
+	Object_image_surface *pObjSurface = new Object_image_surface(surface, nullptr);
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 

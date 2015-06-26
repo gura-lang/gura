@@ -26,12 +26,12 @@ public:
 
 wx_HyperlinkCtrl::~wx_HyperlinkCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HyperlinkCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ Gura_ImplementFunction(HyperlinkCtrl)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_HyperlinkCtrl *pEntity = new wx_HyperlinkCtrl(parent, id, label, url, *pos, *size, style, name);
 	Object_wx_HyperlinkCtrl *pObj = Object_wx_HyperlinkCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HyperlinkCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetHoverColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetHoverColour)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetNormalColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetNormalColour)
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetVisitedColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisitedColour)
@@ -267,13 +267,13 @@ Object_wx_HyperlinkCtrl::~Object_wx_HyperlinkCtrl()
 
 Object *Object_wx_HyperlinkCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.HyperlinkCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -304,7 +304,7 @@ Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)
 
 Gura_ImplementDescendantCreator(wx_HyperlinkCtrl)
 {
-	return new Object_wx_HyperlinkCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HyperlinkCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

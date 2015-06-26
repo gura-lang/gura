@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DatagramSocket *_pObj;
 public:
-	//inline wx_DatagramSocket(wxSocketFlags flags) : wxDatagramSocket(flags), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DatagramSocket(wxSocketFlags flags) : wxDatagramSocket(flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DatagramSocket();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DatagramSocket *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DatagramSocket::~wx_DatagramSocket()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DatagramSocket::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DatagramSocket)
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
 	wx_DatagramSocket *pEntity = new wx_DatagramSocket(flags);
 	Object_wx_DatagramSocket *pObj = Object_wx_DatagramSocket::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DatagramSocket(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->ReceiveFrom(*address, buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->SendTo(*address, buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -128,13 +128,13 @@ Object_wx_DatagramSocket::~Object_wx_DatagramSocket()
 
 Object *Object_wx_DatagramSocket::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DatagramSocket::ToString(bool exprFlag)
 {
 	String rtn("<wx.DatagramSocket:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -156,7 +156,7 @@ Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 
 Gura_ImplementDescendantCreator(wx_DatagramSocket)
 {
-	return new Object_wx_DatagramSocket((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DatagramSocket((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

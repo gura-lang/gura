@@ -23,12 +23,12 @@ public:
 
 wx_PCXHandler::~wx_PCXHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PCXHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementFunction(PCXHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PCXHandler *pEntity = new wx_PCXHandler();
 	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PCXHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -61,20 +61,20 @@ Gura_ImplementFunction(PCXHandler)
 //----------------------------------------------------------------------------
 Object_wx_PCXHandler::~Object_wx_PCXHandler()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_PCXHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PCXHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.PCXHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -94,7 +94,7 @@ Gura_ImplementUserInheritableClass(wx_PCXHandler)
 
 Gura_ImplementDescendantCreator(wx_PCXHandler)
 {
-	return new Object_wx_PCXHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PCXHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

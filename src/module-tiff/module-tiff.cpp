@@ -144,7 +144,7 @@ bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage,
 	TIFF *tiff = ::TIFFClientOpen("Gura", "rm",
 		reinterpret_cast<thandle_t>(&handler),
 		Handler::TiffRead, Handler::TiffWrite, Handler::TiffSeek,
-		Handler::TiffClose, Handler::TiffSize, NULL, NULL);
+		Handler::TiffClose, Handler::TiffSize, nullptr, nullptr);
 	uint32 width, height;
 	::TIFFGetField(tiff, TIFFTAG_IMAGEWIDTH, &width);
 	::TIFFGetField(tiff, TIFFTAG_IMAGELENGTH, &height);

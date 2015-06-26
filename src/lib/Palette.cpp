@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Palette
 //-----------------------------------------------------------------------------
-Palette::Palette() : _cntRef(1), _nEntries(0), _buff(NULL)
+Palette::Palette() : _cntRef(1), _nEntries(0), _buff(nullptr)
 {
 }
 
@@ -26,7 +26,7 @@ Palette::~Palette()
 
 void Palette::AllocBuff(size_t nEntries)
 {
-	_buff = NULL;
+	_buff = nullptr;
 	_nEntries = nEntries;
 	if (_nEntries > 0) {
 		_pMemory.reset(new MemoryHeap(GetBuffSize()));
@@ -56,7 +56,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 bool Palette::Prepare(Signal sig, const Symbol *pSymbol)
 {
 	size_t nEntries = 0;
-	const UChar *rgb = NULL;
+	const UChar *rgb = nullptr;
 	if (pSymbol->IsIdentical(Gura_Symbol(mono))) {
 		nEntries = 2, rgb = _rgb_Mono;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(basic))) {
@@ -747,7 +747,7 @@ const UChar Palette::_rgb_WebSafe[] = {
 //-----------------------------------------------------------------------------
 Iterator *Palette::IteratorEach::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Palette::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DirPickerCtrl *_pObj;
 public:
-	inline wx_DirPickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDirPickerCtrl(parent, id, path, message, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_DirPickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDirPickerCtrl(parent, id, path, message, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DirPickerCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DirPickerCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DirPickerCtrl::~wx_DirPickerCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DirPickerCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ Gura_ImplementFunction(DirPickerCtrl)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_DirPickerCtrl *pEntity = new wx_DirPickerCtrl(parent, id, path, message, *pos, *size, style, *validator, name);
 	Object_wx_DirPickerCtrl *pObj = Object_wx_DirPickerCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DirPickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -160,13 +160,13 @@ Object_wx_DirPickerCtrl::~Object_wx_DirPickerCtrl()
 
 Object *Object_wx_DirPickerCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DirPickerCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -189,7 +189,7 @@ Gura_ImplementUserInheritableClass(wx_DirPickerCtrl)
 
 Gura_ImplementDescendantCreator(wx_DirPickerCtrl)
 {
-	return new Object_wx_DirPickerCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DirPickerCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

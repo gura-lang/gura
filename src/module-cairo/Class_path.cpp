@@ -12,7 +12,7 @@ Object_path::~Object_path()
 
 Object *Object_path::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_path::ToString(bool exprFlag)

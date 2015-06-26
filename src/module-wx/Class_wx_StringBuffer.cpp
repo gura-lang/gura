@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StringBuffer *_pObj;
 public:
-	inline wx_StringBuffer(wxString& str, size_t len) : wxStringBuffer(str, len), _sig(NULL), _pObj(NULL) {}
+	inline wx_StringBuffer(wxString& str, size_t len) : wxStringBuffer(str, len), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StringBuffer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StringBuffer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_StringBuffer::~wx_StringBuffer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StringBuffer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(StringBuffer)
 	size_t len = args.GetSizeT(1);
 	wx_StringBuffer *pEntity = new wx_StringBuffer(str, len);
 	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StringBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -67,20 +67,20 @@ Gura_ImplementFunction(StringBuffer)
 //----------------------------------------------------------------------------
 Object_wx_StringBuffer::~Object_wx_StringBuffer()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_StringBuffer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StringBuffer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringBuffer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -100,7 +100,7 @@ Gura_ImplementUserInheritableClass(wx_StringBuffer)
 
 Gura_ImplementDescendantCreator(wx_StringBuffer)
 {
-	return new Object_wx_StringBuffer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StringBuffer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

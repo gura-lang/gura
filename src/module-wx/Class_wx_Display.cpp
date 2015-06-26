@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Display *_pObj;
 public:
-	inline wx_Display(unsigned index) : wxDisplay(index), _sig(NULL), _pObj(NULL) {}
+	inline wx_Display(unsigned index) : wxDisplay(index), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Display();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Display *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Display::~wx_Display()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Display::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(Display)
 	if (args.IsValid(0)) index = args.GetInt(0);
 	wx_Display *pEntity = new wx_Display(index);
 	Object_wx_Display *pObj = Object_wx_Display::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Display(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_Display, GetClientArea)
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetClientArea();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Display, GetCurrentMode)
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVideoMode rtn = pThis->GetEntity()->GetCurrentMode();
-	return ReturnValue(env, sig, args, Value(new Object_wx_VideoMode(new wxVideoMode(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_VideoMode(new wxVideoMode(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_Display, GetGeometry)
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetGeometry();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Display, GetModes)
 	wxVideoMode *mode = (wxVideoMode *)(&wxDefaultVideoMode);
 	if (args.IsValid(0)) mode = Object_wx_VideoMode::GetObject(args, 0)->GetEntity();
 	wxArrayVideoModes rtn = pThis->GetEntity()->GetModes(*mode);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArrayVideoModes(new wxArrayVideoModes(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArrayVideoModes(new wxArrayVideoModes(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -279,20 +279,20 @@ Gura_ImplementMethod(wx_Display, IsPrimary)
 //----------------------------------------------------------------------------
 Object_wx_Display::~Object_wx_Display()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Display::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Display::ToString(bool exprFlag)
 {
 	String rtn("<wx.Display:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -323,7 +323,7 @@ Gura_ImplementUserInheritableClass(wx_Display)
 
 Gura_ImplementDescendantCreator(wx_Display)
 {
-	return new Object_wx_Display((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Display((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

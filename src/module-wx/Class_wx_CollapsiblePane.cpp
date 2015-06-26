@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CollapsiblePane *_pObj;
 public:
-	inline wx_CollapsiblePane(wxWindow * parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxCollapsiblePane(parent, id, label, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_CollapsiblePane(wxWindow * parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxCollapsiblePane(parent, id, label, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CollapsiblePane();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CollapsiblePane *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_CollapsiblePane::~wx_CollapsiblePane()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CollapsiblePane::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Gura_ImplementFunction(CollapsiblePane)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_CollapsiblePane *pEntity = new wx_CollapsiblePane(parent, id, label, *pos, *size, style, *validator, name);
 	Object_wx_CollapsiblePane *pObj = Object_wx_CollapsiblePane::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CollapsiblePane(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, GetPane)
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPane();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -194,13 +194,13 @@ Object_wx_CollapsiblePane::~Object_wx_CollapsiblePane()
 
 Object *Object_wx_CollapsiblePane::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 {
 	String rtn("<wx.CollapsiblePane:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -226,7 +226,7 @@ Gura_ImplementUserInheritableClass(wx_CollapsiblePane)
 
 Gura_ImplementDescendantCreator(wx_CollapsiblePane)
 {
-	return new Object_wx_CollapsiblePane((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CollapsiblePane((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

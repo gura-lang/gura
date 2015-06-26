@@ -27,7 +27,7 @@ void SimpleStream_CStringReader::PutChar(Signal sig, char ch)
 
 size_t SimpleStream_CStringReader::Read(Signal sig, void *buff, size_t len)
 {
-	size_t lenRest = (_pEnd == NULL)? ::strlen(_pStr) : _pEnd - _pStr;
+	size_t lenRest = (_pEnd == nullptr)? ::strlen(_pStr) : _pEnd - _pStr;
 	size_t lenToCopy = ChooseMin(lenRest, len);
 	::memcpy(buff, _pStr, lenToCopy);
 	_pStr += lenToCopy;
@@ -179,7 +179,7 @@ const char *StreamFIFO::GetName() const
 
 const char *StreamFIFO::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool StreamFIFO::GetAttribute(Attribute &attr)
@@ -316,7 +316,7 @@ const char *StreamMemory::GetName() const
 
 const char *StreamMemory::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool StreamMemory::GetAttribute(Attribute &attr)
@@ -381,7 +381,7 @@ const char *StreamMemReader::GetName() const
 
 const char *StreamMemReader::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool StreamMemReader::GetAttribute(Attribute &attr)
@@ -796,7 +796,7 @@ size_t Stream_Base64Writer::DoGetSize()
 // Stream_CRC32
 //-----------------------------------------------------------------------------
 Stream_CRC32::Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst) :
-		Stream(env, sig, (pStreamDst == NULL)? ATTR_Writable : pStreamDst->GetAttr()),
+		Stream(env, sig, (pStreamDst == nullptr)? ATTR_Writable : pStreamDst->GetAttr()),
 		_pStreamDst(pStreamDst)
 {
 	CopyCodec(pStreamDst);
@@ -809,7 +809,7 @@ const char *Stream_CRC32::GetName() const
 
 const char *Stream_CRC32::GetIdentifier() const
 {
-	return _pStreamDst.IsNull()? NULL : _pStreamDst->GetIdentifier();
+	return _pStreamDst.IsNull()? nullptr : _pStreamDst->GetIdentifier();
 }
 
 size_t Stream_CRC32::DoRead(Signal sig, void *buff, size_t len)
@@ -863,7 +863,7 @@ const char *Stream_StringReader::GetName() const
 
 const char *Stream_StringReader::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 size_t Stream_StringReader::DoRead(Signal sig, void *buff, size_t len)

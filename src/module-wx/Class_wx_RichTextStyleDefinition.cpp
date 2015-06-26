@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextStyleDefinition *_pObj;
 public:
-	//inline wx_RichTextStyleDefinition(const wxString& name) : wxRichTextStyleDefinition(name), _sig(NULL), _pObj(NULL) {}
+	//inline wx_RichTextStyleDefinition(const wxString& name) : wxRichTextStyleDefinition(name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextStyleDefinition();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleDefinition *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextStyleDefinition::~wx_RichTextStyleDefinition()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextStyleDefinition::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(RichTextStyleDefinition)
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextStyleDefinition *pEntity = new wx_RichTextStyleDefinition(name);
 	Object_wx_RichTextStyleDefinition *pObj = Object_wx_RichTextStyleDefinition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyle)
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextAttr &rtn = pThis->GetEntity()->GetStyle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleDefinition, GetStyle_1)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyle_1)
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxRichTextAttr &rtn = pThis->GetEntity()->GetStyle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleDefinition, GetStyleMergedWithBase)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyleMergedWithBase)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
 	wxRichTextAttr rtn = pThis->GetEntity()->GetStyleMergedWithBase(sheet);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleDefinition, SetBaseStyle)
@@ -222,13 +222,13 @@ Object_wx_RichTextStyleDefinition::~Object_wx_RichTextStyleDefinition()
 
 Object *Object_wx_RichTextStyleDefinition::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleDefinition:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -258,7 +258,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleDefinition)
 {
-	return new Object_wx_RichTextStyleDefinition((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextStyleDefinition((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

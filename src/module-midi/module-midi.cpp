@@ -12,281 +12,281 @@ Value ActivatePlayer(Environment &env, Signal sig, Args &args,
 // information table
 //-----------------------------------------------------------------------------
 static ControllerInfo g_controllerInfos[] = {
-	{ "bank_select",					NULL }, // 0
-	{ "modulation_wheel",				NULL }, // 1
-	{ "breath_controller",				NULL }, // 2
-	{ NULL,								NULL }, // 3
-	{ "foot_pedal",						NULL }, // 4
-	{ "portamento_time",				NULL }, // 5
-	{ "data_entry",						NULL }, // 6
-	{ "volume",							NULL }, // 7
-	{ "balance",						NULL }, // 8
-	{ NULL,								NULL }, // 9
-	{ "pan_position",					NULL }, // 10
-	{ "expression",						NULL }, // 11
-	{ "effect_control_1",				NULL }, // 12
-	{ "effect_control_2",				NULL }, // 13
-	{ NULL,								NULL }, // 14
-	{ NULL,								NULL }, // 15
-	{ "general_purpose_slider_1",		NULL }, // 16
-	{ "general_purpose_slider_2",		NULL }, // 17
-	{ "general_purpose_slider_3",		NULL }, // 18
-	{ "general_purpose_slider_4",		NULL }, // 19
-	{ NULL,								NULL }, // 20
-	{ NULL,								NULL }, // 21
-	{ NULL,								NULL }, // 22
-	{ NULL,								NULL }, // 23
-	{ NULL,								NULL }, // 24
-	{ NULL,								NULL }, // 25
-	{ NULL,								NULL }, // 26
-	{ NULL,								NULL }, // 27
-	{ NULL,								NULL }, // 28
-	{ NULL,								NULL }, // 29
-	{ NULL,								NULL }, // 30
-	{ NULL,								NULL }, // 31
-	{ "bank_select_fine",				NULL }, // 32
-	{ "modulation_wheel_fine",			NULL }, // 33
-	{ "breath_controller_fine",			NULL }, // 34
-	{ NULL,								NULL }, // 35
-	{ "foot_pedal_fine",				NULL }, // 36
-	{ "portamento_time_fine",			NULL }, // 37
-	{ "data_entry_fine",				NULL }, // 38
-	{ "volume_fine",					NULL }, // 39
-	{ "balance_fine",					NULL }, // 40
-	{ NULL,								NULL }, // 41
-	{ "pan_position_fine",				NULL }, // 42
-	{ "expression_fine",				NULL }, // 43
-	{ "effect_control_1_fine",			NULL }, // 44
-	{ "effect_control_2_fine",			NULL }, // 45
-	{ NULL,								NULL }, // 46
-	{ NULL,								NULL }, // 47
-	{ NULL,								NULL }, // 48
-	{ NULL,								NULL }, // 49
-	{ NULL,								NULL }, // 50
-	{ NULL,								NULL }, // 51
-	{ NULL,								NULL }, // 52
-	{ NULL,								NULL }, // 53
-	{ NULL,								NULL }, // 54
-	{ NULL,								NULL }, // 55
-	{ NULL,								NULL }, // 56
-	{ NULL,								NULL }, // 57
-	{ NULL,								NULL }, // 58
-	{ NULL,								NULL }, // 59
-	{ NULL,								NULL }, // 60
-	{ NULL,								NULL }, // 61
-	{ NULL,								NULL }, // 62
-	{ NULL,								NULL }, // 63
-	{ "hold_pedal",						NULL }, // 64
-	{ "portamento",						NULL }, // 65
-	{ "sustenuto_pedal",				NULL }, // 66
-	{ "soft_pedal",						NULL }, // 67
-	{ "legato_pedal",					NULL }, // 68
-	{ "hold_2_pedal",					NULL }, // 69
-	{ "sound_variation",				NULL }, // 70
-	{ "sound_timbre",					NULL }, // 71
-	{ "sound_release_time",				NULL }, // 72
-	{ "sound_attack_time",				NULL }, // 73
-	{ "sound_brightness",				NULL }, // 74
-	{ "sound_control_6",				NULL }, // 75
-	{ "sound_control_7",				NULL }, // 76
-	{ "sound_control_8",				NULL }, // 77
-	{ "sound_control_9",				NULL }, // 78
-	{ "sound_control_10",				NULL }, // 79
-	{ "general_purpose_button_1",		NULL }, // 80
-	{ "general_purpose_button_2",		NULL }, // 81
-	{ "general_purpose_button_3",		NULL }, // 82
-	{ "general_purpose_button_4",		NULL }, // 83
-	{ NULL,								NULL }, // 84
-	{ NULL,								NULL }, // 85
-	{ NULL,								NULL }, // 86
-	{ NULL,								NULL }, // 87
-	{ NULL,								NULL }, // 88
-	{ NULL,								NULL }, // 89
-	{ NULL,								NULL }, // 90
-	{ "effects_level",					NULL }, // 91
-	{ "tremulo_level",					NULL }, // 92
-	{ "chorus_level",					NULL }, // 93
-	{ "celeste_level",					NULL }, // 94
-	{ "phaser_level",					NULL }, // 95
-	{ "data_button_increment",			NULL }, // 96
-	{ "data_button_decrement",			NULL }, // 97
-	{ "non_registered_parameter_fine",	NULL }, // 98
-	{ "non_registered_parameter",		NULL }, // 99
-	{ "registered_parameter_fine",		NULL }, // 100
-	{ "registered_parameter",			NULL }, // 101
-	{ NULL,								NULL }, // 102
-	{ NULL,								NULL }, // 103
-	{ NULL,								NULL }, // 104
-	{ NULL,								NULL }, // 105
-	{ NULL,								NULL }, // 106
-	{ NULL,								NULL }, // 107
-	{ NULL,								NULL }, // 108
-	{ NULL,								NULL }, // 109
-	{ NULL,								NULL }, // 110
-	{ NULL,								NULL }, // 111
-	{ NULL,								NULL }, // 112
-	{ NULL,								NULL }, // 113
-	{ NULL,								NULL }, // 114
-	{ NULL,								NULL }, // 115
-	{ NULL,								NULL }, // 116
-	{ NULL,								NULL }, // 117
-	{ NULL,								NULL }, // 118
-	{ NULL,								NULL }, // 119
-	{ "all_sound_off",					NULL }, // 120
-	{ "all_controllers_off",			NULL }, // 121
-	{ "local_keyboard",					NULL }, // 122
-	{ "all_notes_off",					NULL }, // 123
-	{ "omni_mode_off",					NULL }, // 124
-	{ "omni_mode_on",					NULL }, // 125
-	{ "mono_operation",					NULL }, // 126
-	{ "poly_operation",					NULL }, // 127
+	{ "bank_select",					nullptr }, // 0
+	{ "modulation_wheel",				nullptr }, // 1
+	{ "breath_controller",				nullptr }, // 2
+	{ nullptr,								nullptr }, // 3
+	{ "foot_pedal",						nullptr }, // 4
+	{ "portamento_time",				nullptr }, // 5
+	{ "data_entry",						nullptr }, // 6
+	{ "volume",							nullptr }, // 7
+	{ "balance",						nullptr }, // 8
+	{ nullptr,								nullptr }, // 9
+	{ "pan_position",					nullptr }, // 10
+	{ "expression",						nullptr }, // 11
+	{ "effect_control_1",				nullptr }, // 12
+	{ "effect_control_2",				nullptr }, // 13
+	{ nullptr,								nullptr }, // 14
+	{ nullptr,								nullptr }, // 15
+	{ "general_purpose_slider_1",		nullptr }, // 16
+	{ "general_purpose_slider_2",		nullptr }, // 17
+	{ "general_purpose_slider_3",		nullptr }, // 18
+	{ "general_purpose_slider_4",		nullptr }, // 19
+	{ nullptr,								nullptr }, // 20
+	{ nullptr,								nullptr }, // 21
+	{ nullptr,								nullptr }, // 22
+	{ nullptr,								nullptr }, // 23
+	{ nullptr,								nullptr }, // 24
+	{ nullptr,								nullptr }, // 25
+	{ nullptr,								nullptr }, // 26
+	{ nullptr,								nullptr }, // 27
+	{ nullptr,								nullptr }, // 28
+	{ nullptr,								nullptr }, // 29
+	{ nullptr,								nullptr }, // 30
+	{ nullptr,								nullptr }, // 31
+	{ "bank_select_fine",				nullptr }, // 32
+	{ "modulation_wheel_fine",			nullptr }, // 33
+	{ "breath_controller_fine",			nullptr }, // 34
+	{ nullptr,								nullptr }, // 35
+	{ "foot_pedal_fine",				nullptr }, // 36
+	{ "portamento_time_fine",			nullptr }, // 37
+	{ "data_entry_fine",				nullptr }, // 38
+	{ "volume_fine",					nullptr }, // 39
+	{ "balance_fine",					nullptr }, // 40
+	{ nullptr,								nullptr }, // 41
+	{ "pan_position_fine",				nullptr }, // 42
+	{ "expression_fine",				nullptr }, // 43
+	{ "effect_control_1_fine",			nullptr }, // 44
+	{ "effect_control_2_fine",			nullptr }, // 45
+	{ nullptr,								nullptr }, // 46
+	{ nullptr,								nullptr }, // 47
+	{ nullptr,								nullptr }, // 48
+	{ nullptr,								nullptr }, // 49
+	{ nullptr,								nullptr }, // 50
+	{ nullptr,								nullptr }, // 51
+	{ nullptr,								nullptr }, // 52
+	{ nullptr,								nullptr }, // 53
+	{ nullptr,								nullptr }, // 54
+	{ nullptr,								nullptr }, // 55
+	{ nullptr,								nullptr }, // 56
+	{ nullptr,								nullptr }, // 57
+	{ nullptr,								nullptr }, // 58
+	{ nullptr,								nullptr }, // 59
+	{ nullptr,								nullptr }, // 60
+	{ nullptr,								nullptr }, // 61
+	{ nullptr,								nullptr }, // 62
+	{ nullptr,								nullptr }, // 63
+	{ "hold_pedal",						nullptr }, // 64
+	{ "portamento",						nullptr }, // 65
+	{ "sustenuto_pedal",				nullptr }, // 66
+	{ "soft_pedal",						nullptr }, // 67
+	{ "legato_pedal",					nullptr }, // 68
+	{ "hold_2_pedal",					nullptr }, // 69
+	{ "sound_variation",				nullptr }, // 70
+	{ "sound_timbre",					nullptr }, // 71
+	{ "sound_release_time",				nullptr }, // 72
+	{ "sound_attack_time",				nullptr }, // 73
+	{ "sound_brightness",				nullptr }, // 74
+	{ "sound_control_6",				nullptr }, // 75
+	{ "sound_control_7",				nullptr }, // 76
+	{ "sound_control_8",				nullptr }, // 77
+	{ "sound_control_9",				nullptr }, // 78
+	{ "sound_control_10",				nullptr }, // 79
+	{ "general_purpose_button_1",		nullptr }, // 80
+	{ "general_purpose_button_2",		nullptr }, // 81
+	{ "general_purpose_button_3",		nullptr }, // 82
+	{ "general_purpose_button_4",		nullptr }, // 83
+	{ nullptr,								nullptr }, // 84
+	{ nullptr,								nullptr }, // 85
+	{ nullptr,								nullptr }, // 86
+	{ nullptr,								nullptr }, // 87
+	{ nullptr,								nullptr }, // 88
+	{ nullptr,								nullptr }, // 89
+	{ nullptr,								nullptr }, // 90
+	{ "effects_level",					nullptr }, // 91
+	{ "tremulo_level",					nullptr }, // 92
+	{ "chorus_level",					nullptr }, // 93
+	{ "celeste_level",					nullptr }, // 94
+	{ "phaser_level",					nullptr }, // 95
+	{ "data_button_increment",			nullptr }, // 96
+	{ "data_button_decrement",			nullptr }, // 97
+	{ "non_registered_parameter_fine",	nullptr }, // 98
+	{ "non_registered_parameter",		nullptr }, // 99
+	{ "registered_parameter_fine",		nullptr }, // 100
+	{ "registered_parameter",			nullptr }, // 101
+	{ nullptr,								nullptr }, // 102
+	{ nullptr,								nullptr }, // 103
+	{ nullptr,								nullptr }, // 104
+	{ nullptr,								nullptr }, // 105
+	{ nullptr,								nullptr }, // 106
+	{ nullptr,								nullptr }, // 107
+	{ nullptr,								nullptr }, // 108
+	{ nullptr,								nullptr }, // 109
+	{ nullptr,								nullptr }, // 110
+	{ nullptr,								nullptr }, // 111
+	{ nullptr,								nullptr }, // 112
+	{ nullptr,								nullptr }, // 113
+	{ nullptr,								nullptr }, // 114
+	{ nullptr,								nullptr }, // 115
+	{ nullptr,								nullptr }, // 116
+	{ nullptr,								nullptr }, // 117
+	{ nullptr,								nullptr }, // 118
+	{ nullptr,								nullptr }, // 119
+	{ "all_sound_off",					nullptr }, // 120
+	{ "all_controllers_off",			nullptr }, // 121
+	{ "local_keyboard",					nullptr }, // 122
+	{ "all_notes_off",					nullptr }, // 123
+	{ "omni_mode_off",					nullptr }, // 124
+	{ "omni_mode_on",					nullptr }, // 125
+	{ "mono_operation",					nullptr }, // 126
+	{ "poly_operation",					nullptr }, // 127
 };
 
 static ProgramInfo g_programInfos[] = {
 	// Piano
-	{ "acoustic_piano",				"Acoustic Piano",			NULL }, // 0
-	{ "bright_piano",				"Bright Piano",				NULL }, // 1
-	{ "electric_grand_piano",		"Electric Grand Piano",		NULL }, // 2
-	{ "honky_tonk_piano",			"Honky-tonk Piano",			NULL }, // 3
-	{ "electric_piano",				"Electric Piano",			NULL }, // 4
-	{ "electric_piano_2",			"Electric Piano 2",			NULL }, // 5
-	{ "harpsichord",				"Harpsichord",				NULL }, // 6
-	{ "clavi",						"Clavi",					NULL }, // 7
+	{ "acoustic_piano",				"Acoustic Piano",			nullptr }, // 0
+	{ "bright_piano",				"Bright Piano",				nullptr }, // 1
+	{ "electric_grand_piano",		"Electric Grand Piano",		nullptr }, // 2
+	{ "honky_tonk_piano",			"Honky-tonk Piano",			nullptr }, // 3
+	{ "electric_piano",				"Electric Piano",			nullptr }, // 4
+	{ "electric_piano_2",			"Electric Piano 2",			nullptr }, // 5
+	{ "harpsichord",				"Harpsichord",				nullptr }, // 6
+	{ "clavi",						"Clavi",					nullptr }, // 7
 	// Chromatic Percussion
-	{ "celesta",					"Celesta",					NULL }, // 8
-	{ "glockenspiel",				"Glockenspiel",				NULL }, // 9
-	{ "musical_box",				"Musical box",				NULL }, // 10
-	{ "vibraphone",					"Vibraphone",				NULL }, // 11
-	{ "marimba",					"Marimba",					NULL }, // 12
-	{ "xylophone",					"Xylophone",				NULL }, // 13
-	{ "tubular_bell",				"Tubular Bell",				NULL }, // 14
-	{ "dulcimer",					"Dulcimer",					NULL }, // 15
+	{ "celesta",					"Celesta",					nullptr }, // 8
+	{ "glockenspiel",				"Glockenspiel",				nullptr }, // 9
+	{ "musical_box",				"Musical box",				nullptr }, // 10
+	{ "vibraphone",					"Vibraphone",				nullptr }, // 11
+	{ "marimba",					"Marimba",					nullptr }, // 12
+	{ "xylophone",					"Xylophone",				nullptr }, // 13
+	{ "tubular_bell",				"Tubular Bell",				nullptr }, // 14
+	{ "dulcimer",					"Dulcimer",					nullptr }, // 15
 	// Organ
-	{ "drawbar_organ",				"Drawbar Organ",			NULL }, // 16
-	{ "percussive_organ",			"Percussive Organ",			NULL }, // 17
-	{ "rock_organ",					"Rock Organ",				NULL }, // 18
-	{ "church_organ",				"Church organ",				NULL }, // 19
-	{ "reed_organ",					"Reed organ",				NULL }, // 20
-	{ "accordion",					"Accordion",				NULL }, // 21
-	{ "harmonica",					"Harmonica",				NULL }, // 22
-	{ "tango_accordion",			"Tango Accordion",			NULL }, // 23
+	{ "drawbar_organ",				"Drawbar Organ",			nullptr }, // 16
+	{ "percussive_organ",			"Percussive Organ",			nullptr }, // 17
+	{ "rock_organ",					"Rock Organ",				nullptr }, // 18
+	{ "church_organ",				"Church organ",				nullptr }, // 19
+	{ "reed_organ",					"Reed organ",				nullptr }, // 20
+	{ "accordion",					"Accordion",				nullptr }, // 21
+	{ "harmonica",					"Harmonica",				nullptr }, // 22
+	{ "tango_accordion",			"Tango Accordion",			nullptr }, // 23
 	// Guitar
-	{ "acoustic_guitar_nylon",		"Acoustic Guitar (nylon)",	NULL }, // 24
-	{ "acoustic_guitar_steel",		"Acoustic Guitar (steel)",	NULL }, // 25
-	{ "electric_guitar_jazz",		"Electric Guitar (jazz)",	NULL }, // 26
-	{ "electric_guitar_clean",		"Electric Guitar (clean)",	NULL }, // 27
-	{ "electric_guitar_muted",		"Electric Guitar (muted)",	NULL }, // 28
-	{ "overdriven_guitar",			"Overdriven Guitar",		NULL }, // 29
-	{ "distortion_guitar",			"Distortion Guitar",		NULL }, // 30
-	{ "guitar_harmonics",			"Guitar harmonics",			NULL }, // 31
+	{ "acoustic_guitar_nylon",		"Acoustic Guitar (nylon)",	nullptr }, // 24
+	{ "acoustic_guitar_steel",		"Acoustic Guitar (steel)",	nullptr }, // 25
+	{ "electric_guitar_jazz",		"Electric Guitar (jazz)",	nullptr }, // 26
+	{ "electric_guitar_clean",		"Electric Guitar (clean)",	nullptr }, // 27
+	{ "electric_guitar_muted",		"Electric Guitar (muted)",	nullptr }, // 28
+	{ "overdriven_guitar",			"Overdriven Guitar",		nullptr }, // 29
+	{ "distortion_guitar",			"Distortion Guitar",		nullptr }, // 30
+	{ "guitar_harmonics",			"Guitar harmonics",			nullptr }, // 31
 	// Bass
-	{ "acoustic_bass",				"Acoustic Bass",			NULL }, // 32
-	{ "electric_bass_finger",		"Electric Bass (finger)",	NULL }, // 33
-	{ "electric_bass_pick",			"Electric Bass (pick)",		NULL }, // 34
-	{ "fretless_bass",				"Fretless Bass",			NULL }, // 35
-	{ "slap_bass_1",				"Slap Bass 1",				NULL }, // 36
-	{ "slap_bass_2",				"Slap Bass 2",				NULL }, // 37
-	{ "synth_bass_1",				"Synth Bass 1",				NULL }, // 38
-	{ "synth_bass_2",				"Synth Bass 2",				NULL }, // 39
+	{ "acoustic_bass",				"Acoustic Bass",			nullptr }, // 32
+	{ "electric_bass_finger",		"Electric Bass (finger)",	nullptr }, // 33
+	{ "electric_bass_pick",			"Electric Bass (pick)",		nullptr }, // 34
+	{ "fretless_bass",				"Fretless Bass",			nullptr }, // 35
+	{ "slap_bass_1",				"Slap Bass 1",				nullptr }, // 36
+	{ "slap_bass_2",				"Slap Bass 2",				nullptr }, // 37
+	{ "synth_bass_1",				"Synth Bass 1",				nullptr }, // 38
+	{ "synth_bass_2",				"Synth Bass 2",				nullptr }, // 39
 	// Strings
-	{ "violin",						"Violin",					NULL }, // 40
-	{ "viola",						"Viola",					NULL }, // 41
-	{ "cello",						"Cello",					NULL }, // 42
-	{ "double_bass",				"Double bass",				NULL }, // 43
-	{ "tremolo_strings",			"Tremolo Strings",			NULL }, // 44
-	{ "pizzicato_strings",			"Pizzicato Strings",		NULL }, // 45
-	{ "orchestral_harp",			"Orchestral Harp",			NULL }, // 46
-	{ "timpani",					"Timpani",					NULL }, // 47
+	{ "violin",						"Violin",					nullptr }, // 40
+	{ "viola",						"Viola",					nullptr }, // 41
+	{ "cello",						"Cello",					nullptr }, // 42
+	{ "double_bass",				"Double bass",				nullptr }, // 43
+	{ "tremolo_strings",			"Tremolo Strings",			nullptr }, // 44
+	{ "pizzicato_strings",			"Pizzicato Strings",		nullptr }, // 45
+	{ "orchestral_harp",			"Orchestral Harp",			nullptr }, // 46
+	{ "timpani",					"Timpani",					nullptr }, // 47
 	// Ensemble
-	{ "string_ensemble_1",			"String Ensemble 1",		NULL }, // 48
-	{ "string_ensemble_2",			"String Ensemble 2",		NULL }, // 49
-	{ "synth_strings_1",			"Synth Strings 1",			NULL }, // 50
-	{ "synth_strings_2",			"Synth Strings 2",			NULL }, // 51
-	{ "voice_aahs",					"Voice Aahs",				NULL }, // 52
-	{ "voice_oohs",					"Voice Oohs",				NULL }, // 53
-	{ "synth_voice",				"Synth Voice",				NULL }, // 54
-	{ "orchestra_hit",				"Orchestra Hit",			NULL }, // 55
+	{ "string_ensemble_1",			"String Ensemble 1",		nullptr }, // 48
+	{ "string_ensemble_2",			"String Ensemble 2",		nullptr }, // 49
+	{ "synth_strings_1",			"Synth Strings 1",			nullptr }, // 50
+	{ "synth_strings_2",			"Synth Strings 2",			nullptr }, // 51
+	{ "voice_aahs",					"Voice Aahs",				nullptr }, // 52
+	{ "voice_oohs",					"Voice Oohs",				nullptr }, // 53
+	{ "synth_voice",				"Synth Voice",				nullptr }, // 54
+	{ "orchestra_hit",				"Orchestra Hit",			nullptr }, // 55
 	// Brass
-	{ "trumpet",					"Trumpet",					NULL }, // 56
-	{ "trombone",					"Trombone",					NULL }, // 57
-	{ "tuba",						"Tuba",						NULL }, // 58
-	{ "muted_trumpet",				"Muted Trumpet",			NULL }, // 59
-	{ "french_horn",				"French horn",				NULL }, // 60
-	{ "brass_section",				"Brass Section",			NULL }, // 61
-	{ "synth_brass_1",				"Synth Brass 1",			NULL }, // 62
-	{ "synth_brass_2",				"Synth Brass 2",			NULL }, // 63
+	{ "trumpet",					"Trumpet",					nullptr }, // 56
+	{ "trombone",					"Trombone",					nullptr }, // 57
+	{ "tuba",						"Tuba",						nullptr }, // 58
+	{ "muted_trumpet",				"Muted Trumpet",			nullptr }, // 59
+	{ "french_horn",				"French horn",				nullptr }, // 60
+	{ "brass_section",				"Brass Section",			nullptr }, // 61
+	{ "synth_brass_1",				"Synth Brass 1",			nullptr }, // 62
+	{ "synth_brass_2",				"Synth Brass 2",			nullptr }, // 63
 	// Reed
-	{ "soprano_sax",				"Soprano Sax",				NULL }, // 64
-	{ "alto_sax",					"Alto Sax",					NULL }, // 65
-	{ "tenor_sax",					"Tenor Sax",				NULL }, // 66
-	{ "baritone_sax",				"Baritone Sax",				NULL }, // 67
-	{ "oboe",						"Oboe",						NULL }, // 68
-	{ "english_horn",				"English Horn",				NULL }, // 69
-	{ "bassoon",					"Bassoon",					NULL }, // 70
-	{ "clarinet",					"Clarinet",					NULL }, // 71
+	{ "soprano_sax",				"Soprano Sax",				nullptr }, // 64
+	{ "alto_sax",					"Alto Sax",					nullptr }, // 65
+	{ "tenor_sax",					"Tenor Sax",				nullptr }, // 66
+	{ "baritone_sax",				"Baritone Sax",				nullptr }, // 67
+	{ "oboe",						"Oboe",						nullptr }, // 68
+	{ "english_horn",				"English Horn",				nullptr }, // 69
+	{ "bassoon",					"Bassoon",					nullptr }, // 70
+	{ "clarinet",					"Clarinet",					nullptr }, // 71
 	// Pipe
-	{ "piccolo",					"Piccolo",					NULL }, // 72
-	{ "flute",						"Flute",					NULL }, // 73
-	{ "recorder",					"Recorder",					NULL }, // 74
-	{ "pan_flute",					"Pan Flute",				NULL }, // 75
-	{ "blown_bottle",				"Blown Bottle",				NULL }, // 76
-	{ "shakuhachi",					"Shakuhachi",				NULL }, // 77
-	{ "whistle",					"Whistle",					NULL }, // 78
-	{ "ocarina",					"Ocarina",					NULL }, // 79
+	{ "piccolo",					"Piccolo",					nullptr }, // 72
+	{ "flute",						"Flute",					nullptr }, // 73
+	{ "recorder",					"Recorder",					nullptr }, // 74
+	{ "pan_flute",					"Pan Flute",				nullptr }, // 75
+	{ "blown_bottle",				"Blown Bottle",				nullptr }, // 76
+	{ "shakuhachi",					"Shakuhachi",				nullptr }, // 77
+	{ "whistle",					"Whistle",					nullptr }, // 78
+	{ "ocarina",					"Ocarina",					nullptr }, // 79
 	// Synth Lead
-	{ "lead_1_square",				"Lead 1 (square)",			NULL }, // 80
-	{ "lead_2_sawtooth",			"Lead 2 (sawtooth)",		NULL }, // 81
-	{ "lead_3_calliope",			"Lead 3 (calliope)",		NULL }, // 82
-	{ "lead_4_chiff",				"Lead 4 (chiff)",			NULL }, // 83
-	{ "lead_5_charang",				"Lead 5 (charang)",			NULL }, // 84
-	{ "lead_6_voice",				"Lead 6 (voice)",			NULL }, // 85
-	{ "lead_7_fifths",				"Lead 7 (fifths)",			NULL }, // 86
-	{ "lead_8_bass_lead",			"Lead 8 (bass + lead)",		NULL }, // 87
+	{ "lead_1_square",				"Lead 1 (square)",			nullptr }, // 80
+	{ "lead_2_sawtooth",			"Lead 2 (sawtooth)",		nullptr }, // 81
+	{ "lead_3_calliope",			"Lead 3 (calliope)",		nullptr }, // 82
+	{ "lead_4_chiff",				"Lead 4 (chiff)",			nullptr }, // 83
+	{ "lead_5_charang",				"Lead 5 (charang)",			nullptr }, // 84
+	{ "lead_6_voice",				"Lead 6 (voice)",			nullptr }, // 85
+	{ "lead_7_fifths",				"Lead 7 (fifths)",			nullptr }, // 86
+	{ "lead_8_bass_lead",			"Lead 8 (bass + lead)",		nullptr }, // 87
 	// Synth Pad
-	{ "pad_1_fantasia",				"Pad 1 (Fantasia)",			NULL }, // 88
-	{ "pad_2_warm",					"Pad 2 (warm)",				NULL }, // 89
-	{ "pad_3_polysynth",			"Pad 3 (polysynth)",		NULL }, // 90
-	{ "pad_4_choir",				"Pad 4 (choir)",			NULL }, // 91
-	{ "pad_5_bowed",				"Pad 5 (bowed)",			NULL }, // 92
-	{ "pad_6_metallic",				"Pad 6 (metallic)",			NULL }, // 93
-	{ "pad_7_halo",					"Pad 7 (halo)",				NULL }, // 94
-	{ "pad_8_sweep",				"Pad 8 (sweep)",			NULL }, // 95
+	{ "pad_1_fantasia",				"Pad 1 (Fantasia)",			nullptr }, // 88
+	{ "pad_2_warm",					"Pad 2 (warm)",				nullptr }, // 89
+	{ "pad_3_polysynth",			"Pad 3 (polysynth)",		nullptr }, // 90
+	{ "pad_4_choir",				"Pad 4 (choir)",			nullptr }, // 91
+	{ "pad_5_bowed",				"Pad 5 (bowed)",			nullptr }, // 92
+	{ "pad_6_metallic",				"Pad 6 (metallic)",			nullptr }, // 93
+	{ "pad_7_halo",					"Pad 7 (halo)",				nullptr }, // 94
+	{ "pad_8_sweep",				"Pad 8 (sweep)",			nullptr }, // 95
 	// Synth Effects
-	{ "fx_1_rain",					"FX 1 (rain)",				NULL }, // 96
-	{ "fx_2_soundtrack",			"FX 2 (soundtrack)",		NULL }, // 97
-	{ "fx_3_crystal",				"FX 3 (crystal)",			NULL }, // 98
-	{ "fx_4_atmosphere",			"FX 4 (atmosphere)",		NULL }, // 99
-	{ "fx_5_brightness",			"FX 5 (brightness)",		NULL }, // 100
-	{ "fx_6_goblins",				"FX 6 (goblins)",			NULL }, // 101
-	{ "fx_7_echoes",				"FX 7 (echoes)",			NULL }, // 102
-	{ "fx_8_sci_fi",				"FX 8 (sci-fi)",			NULL }, // 103
+	{ "fx_1_rain",					"FX 1 (rain)",				nullptr }, // 96
+	{ "fx_2_soundtrack",			"FX 2 (soundtrack)",		nullptr }, // 97
+	{ "fx_3_crystal",				"FX 3 (crystal)",			nullptr }, // 98
+	{ "fx_4_atmosphere",			"FX 4 (atmosphere)",		nullptr }, // 99
+	{ "fx_5_brightness",			"FX 5 (brightness)",		nullptr }, // 100
+	{ "fx_6_goblins",				"FX 6 (goblins)",			nullptr }, // 101
+	{ "fx_7_echoes",				"FX 7 (echoes)",			nullptr }, // 102
+	{ "fx_8_sci_fi",				"FX 8 (sci-fi)",			nullptr }, // 103
 	// Ethnic
-	{ "sitar",						"Sitar",					NULL }, // 104
-	{ "banjo",						"Banjo",					NULL }, // 105
-	{ "shamisen",					"Shamisen",					NULL }, // 106
-	{ "koto",						"Koto",						NULL }, // 107
-	{ "kalimba",					"Kalimba",					NULL }, // 108
-	{ "bagpipe",					"Bagpipe",					NULL }, // 109
-	{ "fiddle",						"Fiddle",					NULL }, // 110
-	{ "shanai",						"Shanai",					NULL }, // 111
+	{ "sitar",						"Sitar",					nullptr }, // 104
+	{ "banjo",						"Banjo",					nullptr }, // 105
+	{ "shamisen",					"Shamisen",					nullptr }, // 106
+	{ "koto",						"Koto",						nullptr }, // 107
+	{ "kalimba",					"Kalimba",					nullptr }, // 108
+	{ "bagpipe",					"Bagpipe",					nullptr }, // 109
+	{ "fiddle",						"Fiddle",					nullptr }, // 110
+	{ "shanai",						"Shanai",					nullptr }, // 111
 	// Percussive
-	{ "tinkle_bell",				"Tinkle Bell",				NULL }, // 112
-	{ "agogo",						"Agogo",					NULL }, // 113
-	{ "steel_drums",				"Steel Drums",				NULL }, // 114
-	{ "woodblock",					"Woodblock",				NULL }, // 115
-	{ "taiko_drum",					"Taiko Drum",				NULL }, // 116
-	{ "melodic_tom",				"Melodic Tom",				NULL }, // 117
-	{ "synth_drum",					"Synth Drum",				NULL }, // 118
-	{ "reverse_cymbal",				"Reverse Cymbal",			NULL }, // 119
+	{ "tinkle_bell",				"Tinkle Bell",				nullptr }, // 112
+	{ "agogo",						"Agogo",					nullptr }, // 113
+	{ "steel_drums",				"Steel Drums",				nullptr }, // 114
+	{ "woodblock",					"Woodblock",				nullptr }, // 115
+	{ "taiko_drum",					"Taiko Drum",				nullptr }, // 116
+	{ "melodic_tom",				"Melodic Tom",				nullptr }, // 117
+	{ "synth_drum",					"Synth Drum",				nullptr }, // 118
+	{ "reverse_cymbal",				"Reverse Cymbal",			nullptr }, // 119
 	// Sound effects
-	{ "guitar_fret_noise",			"Guitar Fret Noise",		NULL }, // 120
-	{ "breath_noise",				"Breath Noise",				NULL }, // 121
-	{ "seashore",					"Seashore",					NULL }, // 122
-	{ "bird_tweet",					"Bird Tweet",				NULL }, // 123
-	{ "telephone_ring",				"Telephone Ring",			NULL }, // 124
-	{ "helicopter",					"Helicopter",				NULL }, // 125
-	{ "applause",					"Applause",					NULL }, // 126
-	{ "gunshot",					"Gunshot",					NULL }, // 127
+	{ "guitar_fret_noise",			"Guitar Fret Noise",		nullptr }, // 120
+	{ "breath_noise",				"Breath Noise",				nullptr }, // 121
+	{ "seashore",					"Seashore",					nullptr }, // 122
+	{ "bird_tweet",					"Bird Tweet",				nullptr }, // 123
+	{ "telephone_ring",				"Telephone Ring",			nullptr }, // 124
+	{ "helicopter",					"Helicopter",				nullptr }, // 125
+	{ "applause",					"Applause",					nullptr }, // 126
+	{ "gunshot",					"Gunshot",					nullptr }, // 127
 };
 
 //-----------------------------------------------------------------------------
@@ -294,7 +294,7 @@ static ProgramInfo g_programInfos[] = {
 //-----------------------------------------------------------------------------
 Object *Object_event::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -379,7 +379,7 @@ Gura_ImplementUserClass(event)
 //-----------------------------------------------------------------------------
 Object *Object_track::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_track::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1063,7 +1063,7 @@ Gura_ImplementUserClass(track)
 //-----------------------------------------------------------------------------
 Object *Object_sequence::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_sequence::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1301,7 +1301,7 @@ Gura_ImplementCastTo(sequence)
 //-----------------------------------------------------------------------------
 Object *Object_portinfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_portinfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1348,7 +1348,7 @@ Gura_ImplementUserClass(portinfo)
 //-----------------------------------------------------------------------------
 Object *Object_port::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_port::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1681,7 +1681,7 @@ Gura_ImplementCastTo(port)
 //-----------------------------------------------------------------------------
 Object *Object_player::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_player::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1753,7 +1753,7 @@ Gura_ImplementUserClass(player)
 //-----------------------------------------------------------------------------
 Object *Object_controller::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_controller::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1802,7 +1802,7 @@ Gura_ImplementUserClass(controller)
 //-----------------------------------------------------------------------------
 Object *Object_program::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_program::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1854,7 +1854,7 @@ Gura_ImplementUserClass(program)
 //-----------------------------------------------------------------------------
 Object *Object_soundfont::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_soundfont::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1919,7 +1919,7 @@ Gura_ImplementMethod(soundfont, synthesizer)
 	UChar velocity = args.GetUChar(3);
 	SoundFont::Synthesizer *pSynthesizer =
 				soundFont.CreateSynthesizer(sig, wPreset, wBank, key, velocity);
-	if (pSynthesizer == NULL) return Value::Null;
+	if (pSynthesizer == nullptr) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_synthesizer(env, pSynthesizer)));
 }
 
@@ -1953,7 +1953,7 @@ Gura_ImplementUserClass(soundfont)
 //-----------------------------------------------------------------------------
 Object *Object_synthesizer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_synthesizer::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -2004,7 +2004,7 @@ Iterator_track::Iterator_track(TrackOwner *pTrackOwner) :
 
 Iterator *Iterator_track::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_track::DoNext(Environment &env, Signal sig, Value &value)
@@ -2039,7 +2039,7 @@ Iterator_eventAll::Iterator_eventAll(TrackOwner *pTrackOwner) :
 
 Iterator *Iterator_eventAll::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_eventAll::DoNext(Environment &env, Signal sig, Value &value)
@@ -2078,7 +2078,7 @@ Iterator_event::Iterator_event(EventOwner *pEventOwner) :
 
 Iterator *Iterator_event::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_event::DoNext(Environment &env, Signal sig, Value &value)
@@ -2338,7 +2338,7 @@ Gura_ModuleEntry()
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
 			UChar controller = static_cast<UChar>(i);
 			ControllerInfo &controllerInfo = g_controllerInfos[i];
-			if (controllerInfo.name == NULL) continue;
+			if (controllerInfo.name == nullptr) continue;
 			controllerInfo.pSymbol = Symbol::Add(controllerInfo.name);
 			Value value(new Object_controller(env, controller));
 			valList.push_back(value);
@@ -2386,7 +2386,7 @@ Gura_ModuleTerminate()
 int ControllerIdBySymbol(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-		if (g_controllerInfos[i].pSymbol != NULL &&
+		if (g_controllerInfos[i].pSymbol != nullptr &&
 					g_controllerInfos[i].pSymbol->IsIdentical(pSymbol)) {
 			return i;
 		}
@@ -2409,13 +2409,13 @@ const ControllerInfo *ControllerInfoById(int controller)
 	if (0 <= controller && controller < ArraySizeOf(g_controllerInfos)) {
 		return &g_controllerInfos[controller];
 	}
-	return NULL;
+	return nullptr;
 }
 
 int ProgramIdBySymbol(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_programInfos); i++) {
-		if (g_programInfos[i].pSymbol != NULL &&
+		if (g_programInfos[i].pSymbol != nullptr &&
 					g_programInfos[i].pSymbol->IsIdentical(pSymbol)) {
 			return i;
 		}
@@ -2438,7 +2438,7 @@ const ProgramInfo *ProgramInfoById(int program)
 	if (0 <= program && program < ArraySizeOf(g_programInfos)) {
 		return &g_programInfos[program];
 	}
-	return NULL;
+	return nullptr;
 }
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,

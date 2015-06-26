@@ -29,8 +29,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewCtrl *_pObj;
 public:
-	inline wx_DataViewCtrl() : wxDataViewCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewCtrl() : wxDataViewCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool AppendColumn(wxDataViewColumn* col);
 	//virtual bool AssociateModel(wxDataViewListModel* model);
 	//virtual bool ClearColumns();
@@ -55,12 +55,12 @@ public:
 
 wx_DataViewCtrl::~wx_DataViewCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ Gura_ImplementFunction(DataViewCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewCtrl *pEntity = new wx_DataViewCtrl();
 	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -116,7 +116,7 @@ Gura_ImplementFunction(DataViewCtrl)
 	if (args.IsValid(5)) validator = Object_wx_Validator::GetObject(args, 5)->GetEntity();
 	wx_DataViewCtrl *pEntity = new wx_DataViewCtrl(parent, id, *pos, *size, style, *validator);
 	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -484,7 +484,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetColumn)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned pos = args.GetInt(0);
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetColumn(pos);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetModel)
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetModel)
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModel *rtn = (wxDataViewListModel *)pThis->GetEntity()->GetModel();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetNumberOfColumns)
@@ -632,13 +632,13 @@ Object_wx_DataViewCtrl::~Object_wx_DataViewCtrl()
 
 Object *Object_wx_DataViewCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -699,7 +699,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewCtrl)
 
 Gura_ImplementDescendantCreator(wx_DataViewCtrl)
 {
-	return new Object_wx_DataViewCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

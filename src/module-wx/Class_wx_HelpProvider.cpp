@@ -37,12 +37,12 @@ public:
 
 wx_HelpProvider::~wx_HelpProvider()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HelpProvider::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Get)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, GetHelp)
@@ -150,7 +150,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Set)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *helpProvider = Object_wx_HelpProvider::GetObject(args, 0)->GetEntity();
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Set(helpProvider);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, ShowHelpAtPoint)
@@ -200,20 +200,20 @@ Gura_ImplementMethod(wx_HelpProvider, ShowHelp)
 //----------------------------------------------------------------------------
 Object_wx_HelpProvider::~Object_wx_HelpProvider()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HelpProvider::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HelpProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpProvider:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -247,7 +247,7 @@ Gura_ImplementUserInheritableClass(wx_HelpProvider)
 
 Gura_ImplementDescendantCreator(wx_HelpProvider)
 {
-	return new Object_wx_HelpProvider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HelpProvider((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

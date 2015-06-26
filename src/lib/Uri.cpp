@@ -218,7 +218,7 @@ void Uri::ExtractQuery(const char *urlPath, ValueDict &valDict, bool skipPathFla
 String Uri::ExtractFragment(const char *urlPath)
 {
 	const char *p = ::strchr(urlPath, '#');
-	return (p == NULL)? "" : p + 1;
+	return (p == nullptr)? "" : p + 1;
 }
 
 }

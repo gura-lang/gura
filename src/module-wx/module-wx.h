@@ -20,10 +20,10 @@ Gura_AssignValue(name, Value(static_cast<double>(wx##name)))
 Gura_AssignValue(name, Value(wxString(wx##name).ToUTF8()))
 
 #define Gura_AssignWxObject(name, className) \
-Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(wx##name), NULL, false)));
+Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(wx##name), nullptr, false)));
 
 #define Gura_AssignWxObjectEx(name, className, value) \
-Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(value), NULL, false)));
+Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(value), nullptr, false)));
 
 #define Gura_AssignMacroValue(name) \
 Gura_AssignValue(name, Value(name))

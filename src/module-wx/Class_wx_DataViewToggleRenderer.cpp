@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewToggleRenderer *_pObj;
 public:
-	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewToggleRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewToggleRenderer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataViewToggleRenderer::~wx_DataViewToggleRenderer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewToggleRenderer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DataViewToggleRenderer)
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewToggleRenderer *pEntity = new wx_DataViewToggleRenderer(varianttype, mode);
 	Object_wx_DataViewToggleRenderer *pObj = Object_wx_DataViewToggleRenderer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewToggleRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,13 +73,13 @@ Object_wx_DataViewToggleRenderer::~Object_wx_DataViewToggleRenderer()
 
 Object *Object_wx_DataViewToggleRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewToggleRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewToggleRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -99,7 +99,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewToggleRenderer)
 
 Gura_ImplementDescendantCreator(wx_DataViewToggleRenderer)
 {
-	return new Object_wx_DataViewToggleRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewToggleRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -12,7 +12,7 @@ Object_GLContext::~Object_GLContext()
 
 Object *Object_GLContext::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_GLContext::ToString(bool exprFlag)

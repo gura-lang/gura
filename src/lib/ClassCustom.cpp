@@ -31,10 +31,10 @@ ClassCustom::~ClassCustom()
 Object *ClassCustom::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	Object *pObj = _pClassSuper->CreateDescendant(env, sig, pClass);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		sig.SetError(ERR_ValueError,
 					"not an inheritable class %s", _pClassSuper->GetName());
-		return NULL;
+		return nullptr;
 	}
 	return pObj;
 }
@@ -44,26 +44,26 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, sig, valueThis, _pExprContent.get())) {
-		return NULL;
+		return nullptr;
 	}
 	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__init__), ENVREF_NoEscalate));
-	if (GetConstructor() == NULL) {
+	if (GetConstructor() == nullptr) {
 		// nothing to do
-	} else if (pFuncInit == NULL) {
+	} else if (pFuncInit == nullptr) {
 		Function *pFunc = GetConstructor();
 		if (pFunc->IsAnonymous()) pFunc->SetSymbol(_pSymbol);
 		return pFunc;
 	} else {
 		sig.SetError(ERR_DeclarationError, "struct can't have constructor");
-		return NULL;
+		return nullptr;
 	}
 	AutoPtr<Constructor> pFunc;
-	if (pFuncInit != NULL) {
+	if (pFuncInit != nullptr) {
 		pFunc.reset(new Constructor(pFuncInit->GetEnvScope(), Gura_Symbol(_anonymous_),
 						Expr::Reference(pFuncInit->GetExprBody()), FUNCTYPE_Function));
 		pFunc->CopyDeclare(*pFuncInit);
-	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != NULL) {
+	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != nullptr) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();
 		Expr_Block *pExprBlock = new Expr_Block();
 		ExprOwner *pExprOwnerParam = new ExprOwner();
@@ -80,7 +80,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
 		AutoPtr<Args> pArgsSub(new Args());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return NULL;
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return nullptr;
 	}
 	pFunc->SetSymbol(_pSymbol);
 	pFunc->SetClassToConstruct(this); // constructor is registered in this class
@@ -92,7 +92,7 @@ bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
@@ -107,7 +107,7 @@ bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Decla
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(value);
@@ -121,7 +121,7 @@ bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) cons
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__serialize__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 
 	return false;
 }
@@ -130,7 +130,7 @@ bool ClassCustom::Deserialize(Signal sig, Stream &stream, Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__deserialize__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 
 	return false;
 }
@@ -140,7 +140,7 @@ bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_d__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_d(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_d(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -149,7 +149,7 @@ bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_u__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_u(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_u(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -158,7 +158,7 @@ bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_b__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_b(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_b(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -167,7 +167,7 @@ bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_o__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_o(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_o(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -176,7 +176,7 @@ bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_x__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_x(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_x(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -185,7 +185,7 @@ bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_e__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_e(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_e(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -194,7 +194,7 @@ bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_f__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_f(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_f(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -203,7 +203,7 @@ bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_g__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_g(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_g(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -212,7 +212,7 @@ bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_s__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_s(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_s(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -221,7 +221,7 @@ bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_c__), ENVREF_NoEscalate));
-	if (pFunc == NULL) return Class::Format_c(sig, pFormatter, flags, value);
+	if (pFunc == nullptr) return Class::Format_c(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -260,10 +260,10 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args)
 	}
 	Class *pClassSuper = _pClassToConstruct->GetClassSuper();
 	Function *pConstructorSuper =
-				(pClassSuper == NULL)? NULL : pClassSuper->GetConstructor();
-	if (pConstructorSuper != NULL) {
+				(pClassSuper == nullptr)? nullptr : pClassSuper->GetConstructor();
+	if (pConstructorSuper != nullptr) {
 		const Expr *pExpr = GetExprBody();
-		ExprOwner *pExprOwner = NULL;
+		ExprOwner *pExprOwner = nullptr;
 		if (pExpr->IsBlock()) {
 			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
 			pExprOwner = ExprOwner::Reference(pExprBlock->GetExprOwnerParam());
@@ -275,7 +275,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args)
 		pConstructorSuper->Call(*pEnvSuper, sig, *pArgsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	SeqPostHandler *pSeqPostHandler = NULL;
+	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value valueThis(valueRtn);
 	valueThis.AddFlags(VFLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);

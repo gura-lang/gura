@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextDropTarget *_pObj;
 public:
-	inline wx_TextDropTarget() : wxTextDropTarget(), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextDropTarget() : wxTextDropTarget(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TextDropTarget();
 	virtual bool OnDrop(wxCoord x, wxCoord y);
 	virtual bool OnDropText(wxCoord x, wxCoord y, const wxString& data);
@@ -30,18 +30,18 @@ public:
 
 wx_TextDropTarget::~wx_TextDropTarget()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextDropTarget::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 bool wx_TextDropTarget::OnDrop(wxCoord x, wxCoord y)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDrop);
-	if (pFunc == NULL) return wxTextDropTarget::OnDrop(x, y);
+	if (pFunc == nullptr) return wxTextDropTarget::OnDrop(x, y);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -54,7 +54,7 @@ bool wx_TextDropTarget::OnDrop(wxCoord x, wxCoord y)
 bool wx_TextDropTarget::OnDropText(wxCoord x, wxCoord y, const wxString& data)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDropText);
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(TextDropTarget)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
 	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -147,13 +147,13 @@ Object_wx_TextDropTarget::~Object_wx_TextDropTarget()
 
 Object *Object_wx_TextDropTarget::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextDropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextDropTarget:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -177,7 +177,7 @@ Gura_ImplementUserInheritableClass(wx_TextDropTarget)
 
 Gura_ImplementDescendantCreator(wx_TextDropTarget)
 {
-	return new Object_wx_TextDropTarget((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextDropTarget((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

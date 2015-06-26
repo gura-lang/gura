@@ -10,7 +10,7 @@ Gura_DeclareUserClass(image_surface);
 
 class Object_image_surface : public Object_surface {
 private:
-	AutoPtr<Image> _pImage;	// maybe NULL
+	AutoPtr<Image> _pImage;	// maybe nullptr
 public:
 	Gura_DeclareObjectAccessor(image_surface)
 public:

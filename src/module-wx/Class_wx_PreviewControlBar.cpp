@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PreviewControlBar *_pObj;
 public:
-	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PreviewControlBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PreviewControlBar *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PreviewControlBar::~wx_PreviewControlBar()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PreviewControlBar::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ Gura_ImplementFunction(PreviewControlBar)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_PreviewControlBar *pEntity = new wx_PreviewControlBar(preview, buttons, parent, *pos, *size, style, name);
 	Object_wx_PreviewControlBar *pObj = Object_wx_PreviewControlBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewControlBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintPreview *rtn = (wxPrintPreview *)pThis->GetEntity()->GetPrintPreview();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintPreview(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PrintPreview(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PreviewControlBar, GetZoomControl)
@@ -141,13 +141,13 @@ Object_wx_PreviewControlBar::~Object_wx_PreviewControlBar()
 
 Object *Object_wx_PreviewControlBar::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.PreviewControlBar:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -171,7 +171,7 @@ Gura_ImplementUserInheritableClass(wx_PreviewControlBar)
 
 Gura_ImplementDescendantCreator(wx_PreviewControlBar)
 {
-	return new Object_wx_PreviewControlBar((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PreviewControlBar((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -7,15 +7,15 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 Object_surface::~Object_surface()
 {
-	if (_surface != NULL) {
+	if (_surface != nullptr) {
 		::cairo_surface_destroy(_surface);
-		_surface = NULL;
+		_surface = nullptr;
 	}
 }
 
 Object *Object_surface::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(surface, get_device)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_device_t *device = ::cairo_surface_get_device(surface);
-	if (Is_error(sig, surface) || device == NULL) return Value::Null;
+	if (Is_error(sig, surface) || device == nullptr) return Value::Null;
 	Object_device *pObjDevice = new Object_device(::cairo_device_reference(device));
 	return Value(pObjDevice);
 }

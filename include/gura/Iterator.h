@@ -56,7 +56,7 @@ public:
 	virtual ~Iterator();
 	inline int GetIndexCur() const { return _idxCur; }
 	inline int GetIndexNext() const { return _idxNext; }
-	inline bool IsVirgin() const { return _idxNext == 0 && _pShare.get() == NULL; }
+	inline bool IsVirgin() const { return _idxNext == 0 && _pShare.get() == nullptr; }
 	inline bool IsInfinite() const { return _infiniteFlag; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
 	inline bool IsRepeater() const { return _repeaterFlag; }

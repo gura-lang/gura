@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Toolbook *_pObj;
 public:
-	inline wx_Toolbook() : wxToolbook(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Toolbook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxToolbook(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Toolbook() : wxToolbook(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Toolbook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxToolbook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Toolbook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Toolbook *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Toolbook::~wx_Toolbook()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Toolbook::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Gura_ImplementFunction(Toolbook)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Toolbook *pEntity = new wx_Toolbook(parent, id, *pos, *size, style, name);
 	Object_wx_Toolbook *pObj = Object_wx_Toolbook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Toolbook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,13 +84,13 @@ Object_wx_Toolbook::~Object_wx_Toolbook()
 
 Object *Object_wx_Toolbook::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Toolbook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Toolbook:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -110,7 +110,7 @@ Gura_ImplementUserInheritableClass(wx_Toolbook)
 
 Gura_ImplementDescendantCreator(wx_Toolbook)
 {
-	return new Object_wx_Toolbook((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Toolbook((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

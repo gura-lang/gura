@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DocTemplate *_pObj;
 public:
-	inline wx_DocTemplate(wxDocManager* manager, const wxString& descr, const wxString& filter, const wxString& dir, const wxString& ext, const wxString& docTypeName, const wxString& viewTypeName, wxClassInfo* docClassInfo, wxClassInfo* viewClassInfo, long flags) : wxDocTemplate(manager, descr, filter, dir, ext, docTypeName, viewTypeName, docClassInfo, viewClassInfo, flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_DocTemplate(wxDocManager* manager, const wxString& descr, const wxString& filter, const wxString& dir, const wxString& ext, const wxString& docTypeName, const wxString& viewTypeName, wxClassInfo* docClassInfo, wxClassInfo* viewClassInfo, long flags) : wxDocTemplate(manager, descr, filter, dir, ext, docTypeName, viewTypeName, docClassInfo, viewClassInfo, flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DocTemplate();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocTemplate *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DocTemplate::~wx_DocTemplate()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DocTemplate::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -63,15 +63,15 @@ Gura_ImplementFunction(DocTemplate)
 	wxString ext = wxString::FromUTF8(args.GetString(4));
 	wxString docTypeName = wxString::FromUTF8(args.GetString(5));
 	wxString viewTypeName = wxString::FromUTF8(args.GetString(6));
-	wxClassInfo *docClassInfo = (wxClassInfo *)(NULL);
+	wxClassInfo *docClassInfo = (wxClassInfo *)(nullptr);
 	if (args.IsValid(7)) docClassInfo = Object_wx_ClassInfo::GetObject(args, 7)->GetEntity();
-	wxClassInfo *viewClassInfo = (wxClassInfo *)(NULL);
+	wxClassInfo *viewClassInfo = (wxClassInfo *)(nullptr);
 	if (args.IsValid(8)) viewClassInfo = Object_wx_ClassInfo::GetObject(args, 8)->GetEntity();
 	long flags = wxDEFAULT_TEMPLATE_FLAGS;
 	if (args.IsValid(9)) flags = args.GetLong(9);
 	wx_DocTemplate *pEntity = new wx_DocTemplate(manager, descr, filter, dir, ext, docTypeName, viewTypeName, docClassInfo, viewClassInfo, flags);
 	Object_wx_DocTemplate *pObj = Object_wx_DocTemplate::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DocTemplate(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_DocTemplate, CreateDocument)
 	long flags = 0;
 	if (args.IsValid(1)) flags = args.GetLong(1);
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->CreateDocument(path, flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, CreateView)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_DocTemplate, CreateView)
 	long flags = 0;
 	if (args.IsValid(1)) flags = args.GetLong(1);
 	wxView *rtn = (wxView *)pThis->GetEntity()->CreateView(doc, flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDefaultExtension)
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_DocTemplate, GetDocumentManager)
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DocManager(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDocumentName)
@@ -365,13 +365,13 @@ Object_wx_DocTemplate::~Object_wx_DocTemplate()
 
 Object *Object_wx_DocTemplate::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DocTemplate::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocTemplate:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -409,7 +409,7 @@ Gura_ImplementUserInheritableClass(wx_DocTemplate)
 
 Gura_ImplementDescendantCreator(wx_DocTemplate)
 {
-	return new Object_wx_DocTemplate((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DocTemplate((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

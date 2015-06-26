@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ToolbookEvent *_pObj;
 public:
-	inline wx_ToolbookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxToolbookEvent(eventType, id, sel, oldSel), _sig(NULL), _pObj(NULL) {}
+	inline wx_ToolbookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxToolbookEvent(eventType, id, sel, oldSel), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ToolbookEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToolbookEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ToolbookEvent::~wx_ToolbookEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ToolbookEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,13 +46,13 @@ Object_wx_ToolbookEvent::~Object_wx_ToolbookEvent()
 
 Object *Object_wx_ToolbookEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ToolbookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ToolbookEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -71,7 +71,7 @@ Gura_ImplementUserInheritableClass(wx_ToolbookEvent)
 
 Gura_ImplementDescendantCreator(wx_ToolbookEvent)
 {
-	return new Object_wx_ToolbookEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ToolbookEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

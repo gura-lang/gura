@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FontDialog *_pObj;
 public:
-	inline wx_FontDialog() : wxFontDialog(), _sig(NULL), _pObj(NULL) {}
-	inline wx_FontDialog(wxWindow* parent) : wxFontDialog(parent), _sig(NULL), _pObj(NULL) {}
-	inline wx_FontDialog(wxWindow* parent, const wxFontData& data) : wxFontDialog(parent, data), _sig(NULL), _pObj(NULL) {}
+	inline wx_FontDialog() : wxFontDialog(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FontDialog(wxWindow* parent) : wxFontDialog(parent), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FontDialog(wxWindow* parent, const wxFontData& data) : wxFontDialog(parent, data), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FontDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_FontDialog::~wx_FontDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FontDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(FontDialogEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontDialog *pEntity = new wx_FontDialog();
 	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,8 +73,8 @@ Gura_ImplementFunction(FontDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
-	wx_FontDialog *pEntity = NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
+	wx_FontDialog *pEntity = nullptr;
 	if (args.IsValid(1)) {
 		wxFontData *data = Object_wx_FontData::GetObject(args, 1)->GetEntity();
 		pEntity = new wx_FontDialog(parent, *data);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(FontDialog)
 		pEntity = new wx_FontDialog(parent);
 	}
 	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_FontDialog, Create)
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	bool rtn = false;
 	if (args.IsValid(1)) {
 		wxFontData *data = Object_wx_FontData::GetObject(args, 1)->GetEntity();
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_FontDialog, GetFontData)
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFontData &rtn = pThis->GetEntity()->GetFontData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontData(new wxFontData(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontData(new wxFontData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontDialog, ShowModal)
@@ -153,13 +153,13 @@ Object_wx_FontDialog::~Object_wx_FontDialog()
 
 Object *Object_wx_FontDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FontDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -183,7 +183,7 @@ Gura_ImplementUserInheritableClass(wx_FontDialog)
 
 Gura_ImplementDescendantCreator(wx_FontDialog)
 {
-	return new Object_wx_FontDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FontDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

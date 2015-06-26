@@ -17,8 +17,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Panel *_pObj;
 public:
-	inline wx_Panel() : wxPanel(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Panel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPanel(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Panel() : wxPanel(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Panel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPanel(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void SetFocus();
 	//virtual void SetFocusIgnoringChildren();
 	~wx_Panel();
@@ -31,12 +31,12 @@ public:
 
 wx_Panel::~wx_Panel()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Panel::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(PanelEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Panel *pEntity = new wx_Panel();
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Panel)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Panel *pEntity = new wx_Panel(parent, id, *pos, *size, style, name);
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -197,13 +197,13 @@ Object_wx_Panel::~Object_wx_Panel()
 
 Object *Object_wx_Panel::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Panel::ToString(bool exprFlag)
 {
 	String rtn("<wx.Panel:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -232,7 +232,7 @@ Gura_ImplementUserInheritableClass(wx_Panel)
 
 Gura_ImplementDescendantCreator(wx_Panel)
 {
-	return new Object_wx_Panel((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Panel((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

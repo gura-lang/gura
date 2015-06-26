@@ -14,10 +14,10 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StreamBuffer *_pObj;
 public:
-	inline wx_StreamBuffer(wxStreamBase& stream, BufMode mode) : wxStreamBuffer(stream, mode), _sig(NULL), _pObj(NULL) {}
-	inline wx_StreamBuffer(BufMode mode) : wxStreamBuffer(mode), _sig(NULL), _pObj(NULL) {}
-	inline wx_StreamBuffer(const wxStreamBuffer& buffer) : wxStreamBuffer(buffer), _sig(NULL), _pObj(NULL) {}
-	//inline wx_StreamBuffer() : wxStreamBuffer(), _sig(NULL), _pObj(NULL) {}
+	inline wx_StreamBuffer(wxStreamBase& stream, BufMode mode) : wxStreamBuffer(stream, mode), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamBuffer(BufMode mode) : wxStreamBuffer(mode), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamBuffer(const wxStreamBuffer& buffer) : wxStreamBuffer(buffer), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_StreamBuffer() : wxStreamBuffer(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StreamBuffer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StreamBuffer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_StreamBuffer::~wx_StreamBuffer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StreamBuffer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Gura_ImplementFunction(StreamBuffer)
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(1));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*stream, mode);
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -79,7 +79,7 @@ Gura_ImplementFunction(StreamBuffer_1)
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(0));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(mode);
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -103,7 +103,7 @@ Gura_ImplementFunction(StreamBuffer_2)
 	wxStreamBuffer *buffer = Object_wx_StreamBuffer::GetObject(args, 0)->GetEntity();
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*buffer);
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -128,7 +128,7 @@ Gura_ImplementFunction(StreamBufferEmpty)
 #if 0
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer();
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -499,7 +499,7 @@ Gura_ImplementMethod(wx_StreamBuffer, Stream)
 	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBase *rtn = (wxStreamBase *)pThis->GetEntity()->Stream();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBase(rtn, nullptr, OwnerFalse)));
 }
 #endif
 
@@ -508,20 +508,20 @@ Gura_ImplementMethod(wx_StreamBuffer, Stream)
 //----------------------------------------------------------------------------
 Object_wx_StreamBuffer::~Object_wx_StreamBuffer()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_StreamBuffer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StreamBuffer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StreamBuffer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -567,7 +567,7 @@ Gura_ImplementUserInheritableClass(wx_StreamBuffer)
 
 Gura_ImplementDescendantCreator(wx_StreamBuffer)
 {
-	return new Object_wx_StreamBuffer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StreamBuffer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

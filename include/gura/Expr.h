@@ -530,7 +530,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Block : public Expr_Collector {
 protected:
-	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
+	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be nullptr
 public:
 	Expr_Block();
 	Expr_Block(ExprOwner *pExprOwner, ExprOwner *pExprOwnerParam);
@@ -672,8 +672,8 @@ public:
 		virtual String ToString() const;
 	};
 protected:
-	AutoPtr<Expr_Block> _pExprBlock;		// this may be NULL
-	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be NULL
+	AutoPtr<Expr_Block> _pExprBlock;		// this may be nullptr
+	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be nullptr
 	SymbolSet _attrs;
 	SymbolSet _attrsOpt;
 	SymbolList _attrFront;
@@ -698,8 +698,8 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-							   Expr *pExprArg1 = NULL, Expr *pExprArg2 = NULL,
-							   Expr *pExprArg3 = NULL, Expr *pExprArg4 = NULL);
+							   Expr *pExprArg1 = nullptr, Expr *pExprArg2 = nullptr,
+							   Expr *pExprArg3 = nullptr, Expr *pExprArg4 = nullptr);
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
@@ -838,7 +838,7 @@ public:
 		virtual String ToString() const;
 	};
 private:
-	const Operator *_pOperatorToApply;	// this may be NULL
+	const Operator *_pOperatorToApply;	// this may be nullptr
 public:
 	inline Expr_Assign(Expr *pExprLeft, Expr *pExprRight, const Operator *pOperatorToApply) :
 				Expr_Binary(EXPRTYPE_Assign, pExprLeft, pExprRight), _pOperatorToApply(pOperatorToApply) {}

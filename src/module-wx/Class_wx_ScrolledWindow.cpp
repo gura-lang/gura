@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_ScrolledWindow> _pObj;
 public:
-	inline wx_ScrolledWindow() : wxScrolledWindow(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxScrolledWindow(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScrolledWindow() : wxScrolledWindow(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxScrolledWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	virtual void OnDraw(wxDC& dc);
 	~wx_ScrolledWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrolledWindow *pObj) {
@@ -38,12 +38,12 @@ void wx_ScrolledWindow::GuraObjectDeleted()
 void wx_ScrolledWindow::OnDraw(wxDC& dc)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDraw);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxScrolledWindow::OnDraw(dc);
 		return;
 	}
 	ValueList valList;
-	valList.push_back(Value(new Object_wx_DC(&dc, NULL, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_DC(&dc, nullptr, OwnerFalse)));
 	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	CheckMethodResult(_sig);
 }
@@ -63,7 +63,7 @@ Gura_ImplementFunction(ScrolledWindowEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScrolledWindow *pEntity = new wx_ScrolledWindow();
 	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -102,7 +102,7 @@ Gura_ImplementFunction(ScrolledWindow)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_ScrolledWindow *pEntity = new wx_ScrolledWindow(parent, id, *pos, *size, style, name);
 	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -395,13 +395,13 @@ Object_wx_ScrolledWindow::~Object_wx_ScrolledWindow()
 
 Object *Object_wx_ScrolledWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScrolledWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrolledWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -438,7 +438,7 @@ Gura_ImplementUserInheritableClass(wx_ScrolledWindow)
 
 Gura_ImplementDescendantCreator(wx_ScrolledWindow)
 {
-	return new Object_wx_ScrolledWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScrolledWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

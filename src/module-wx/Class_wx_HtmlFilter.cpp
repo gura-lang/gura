@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlFilter *_pObj;
 public:
-	//inline wx_HtmlFilter() : wxHtmlFilter(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlFilter() : wxHtmlFilter(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlFilter();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlFilter *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlFilter::~wx_HtmlFilter()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlFilter::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(HtmlFilterEmpty)
 #if 0
 	wx_HtmlFilter *pEntity = new wx_HtmlFilter();
 	Object_wx_HtmlFilter *pObj = Object_wx_HtmlFilter::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlFilter(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -105,13 +105,13 @@ Object_wx_HtmlFilter::~Object_wx_HtmlFilter()
 
 Object *Object_wx_HtmlFilter::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlFilter::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlFilter:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -133,7 +133,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlFilter)
 
 Gura_ImplementDescendantCreator(wx_HtmlFilter)
 {
-	return new Object_wx_HtmlFilter((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlFilter((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

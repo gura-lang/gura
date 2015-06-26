@@ -13,11 +13,11 @@ class wx_Font: public wxFont, public GuraObjectObserver {
 private:
 	Object_wx_Font *_pObj;
 public:
-	inline wx_Font() : wxFont(), _pObj(NULL) {}
-	inline wx_Font(const wxFont& font) : wxFont(font), _pObj(NULL) {}
-	inline wx_Font(int pointSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pointSize, family, style, weight, underline, faceName, encoding), _pObj(NULL) {}
+	inline wx_Font() : wxFont(), _pObj(nullptr) {}
+	inline wx_Font(const wxFont& font) : wxFont(font), _pObj(nullptr) {}
+	inline wx_Font(int pointSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pointSize, family, style, weight, underline, faceName, encoding), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_Font(const wxSize& pixelSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pixelSize, family, style, weight, underline, faceName, encoding), _pObj(NULL) {}
+	inline wx_Font(const wxSize& pixelSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pixelSize, family, style, weight, underline, faceName, encoding), _pObj(nullptr) {}
 #endif
 	~wx_Font();
 	inline void AssocWithGura(Object_wx_Font *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_Font::~wx_Font()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Font::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(FontEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Font *pEntity = new wx_Font();
 	Object_wx_Font *pObj = Object_wx_Font::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Font(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Font)
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
 	wx_Font *pEntity = new wx_Font(pointSize, family, style, weight, underline, faceName, encoding);
 	Object_wx_Font *pObj = Object_wx_Font::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Font(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -131,7 +131,7 @@ Gura_ImplementFunction(FontEx)
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
 	wx_Font *pEntity = new wx_Font(*pixelSize, family, style, weight, underline, faceName, encoding);
 	Object_wx_Font *pObj = Object_wx_Font::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Font(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -240,8 +240,8 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfo)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxNativeFontInfo *rtn = pThis->GetEntity()->GetNativeFontInfo();
 	Value value;
-	if (rtn != NULL) {
-		value = Value(new Object_wx_NativeFontInfo(new wxNativeFontInfo(*rtn), NULL, OwnerTrue));
+	if (rtn != nullptr) {
+		value = Value(new Object_wx_NativeFontInfo(new wxNativeFontInfo(*rtn), nullptr, OwnerTrue));
 	}
 	return ReturnValue(env, sig, args, value);
 }
@@ -385,7 +385,7 @@ Gura_ImplementClassMethod(wx_Font, New)
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
 	wxFont *rtn = (wxFont *)wxFont::New(pointSize, family, style, weight, underline, faceName, encoding);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Font, New_1)
@@ -411,7 +411,7 @@ Gura_ImplementClassMethod(wx_Font, New_1)
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(4)) encoding = static_cast<wxFontEncoding>(args.GetInt(4));
 	wxFont *rtn = (wxFont *)wxFont::New(pointSize, family, flags, faceName, encoding);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Font, New_2)
@@ -441,7 +441,7 @@ Gura_ImplementClassMethod(wx_Font, New_2)
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
 	wxFont *rtn = (wxFont *)wxFont::New(*pixelSize, family, style, weight, underline, faceName, encoding);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Font, New_3)
@@ -467,7 +467,7 @@ Gura_ImplementClassMethod(wx_Font, New_3)
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(4)) encoding = static_cast<wxFontEncoding>(args.GetInt(4));
 	wxFont *rtn = (wxFont *)wxFont::New(*pixelSize, family, flags, faceName, encoding);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Font, IsOk)
@@ -670,7 +670,7 @@ Object *Object_wx_Font::Clone() const
 String Object_wx_Font::ToString(bool exprFlag)
 {
 	String rtn("<wx.Font:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -725,7 +725,7 @@ Gura_ImplementUserInheritableClass(wx_Font)
 
 Gura_ImplementDescendantCreator(wx_Font)
 {
-	return new Object_wx_Font((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Font((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

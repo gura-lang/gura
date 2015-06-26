@@ -17,12 +17,12 @@ Object_Vector::Object_Vector(Object *pObjHolder, FT_Vector *pVector) :
 
 Object_Vector::~Object_Vector()
 {
-	if (_pObjHolder.get() == NULL) delete _pVector;
+	if (_pObjHolder.get() == nullptr) delete _pVector;
 }
 
 Object *Object_Vector::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Vector::ToString(bool exprFlag)

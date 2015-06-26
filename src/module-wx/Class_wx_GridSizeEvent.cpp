@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridSizeEvent *_pObj;
 public:
-	inline wx_GridSizeEvent() : wxGridSizeEvent(), _sig(NULL), _pObj(NULL) {}
-	inline wx_GridSizeEvent(int id, wxEventType type, wxObject* obj, int rowOrCol, int x, int y, bool control, bool shift, bool alt, bool meta) : wxGridSizeEvent(id, type, obj, rowOrCol, x, y, control, shift, alt, meta), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridSizeEvent() : wxGridSizeEvent(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridSizeEvent(int id, wxEventType type, wxObject* obj, int rowOrCol, int x, int y, bool control, bool shift, bool alt, bool meta) : wxGridSizeEvent(id, type, obj, rowOrCol, x, y, control, shift, alt, meta), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridSizeEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridSizeEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GridSizeEvent::~wx_GridSizeEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridSizeEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(GridSizeEventEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent();
 	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,7 +98,7 @@ Gura_ImplementFunction(GridSizeEvent)
 	if (args.IsValid(9)) meta = args.GetBoolean(9);
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent(id, type, obj, rowOrCol, x, y, control, shift, alt, meta);
 	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_GridSizeEvent, GetPosition)
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
@@ -201,13 +201,13 @@ Object_wx_GridSizeEvent::~Object_wx_GridSizeEvent()
 
 Object *Object_wx_GridSizeEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridSizeEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridSizeEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -234,7 +234,7 @@ Gura_ImplementUserInheritableClass(wx_GridSizeEvent)
 
 Gura_ImplementDescendantCreator(wx_GridSizeEvent)
 {
-	return new Object_wx_GridSizeEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridSizeEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

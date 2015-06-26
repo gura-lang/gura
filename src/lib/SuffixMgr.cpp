@@ -46,7 +46,7 @@ void SuffixMgr::Assign(const Symbol *pSymbolSuffix, SuffixMgrEntry *pSuffixMgrEn
 SuffixMgrEntry *SuffixMgr::Lookup(const Symbol *pSymbolSuffix)
 {
 	Map::iterator iter = _map.find(pSymbolSuffix);
-	return (iter == _map.end())? NULL : iter->second;
+	return (iter == _map.end())? nullptr : iter->second;
 }
 
 SuffixMgrEntry *SuffixMgr::LookupForString(Environment &env, const Symbol *pSymbolSuffix)

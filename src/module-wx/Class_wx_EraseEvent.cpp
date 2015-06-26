@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_EraseEvent *_pObj;
 public:
-	inline wx_EraseEvent(int id, wxDC* dc) : wxEraseEvent(id, dc), _sig(NULL), _pObj(NULL) {}
+	inline wx_EraseEvent(int id, wxDC* dc) : wxEraseEvent(id, dc), _sig(nullptr), _pObj(nullptr) {}
 	~wx_EraseEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_EraseEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_EraseEvent::~wx_EraseEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_EraseEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,11 +50,11 @@ Gura_ImplementFunction(EraseEvent)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
-	wxDC *dc = (wxDC *)(NULL);
+	wxDC *dc = (wxDC *)(nullptr);
 	if (args.IsValid(1)) dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wx_EraseEvent *pEntity = new wx_EraseEvent(id, dc);
 	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_EraseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_EraseEvent, GetDC)
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -87,13 +87,13 @@ Object_wx_EraseEvent::~Object_wx_EraseEvent()
 
 Object *Object_wx_EraseEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_EraseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.EraseEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -114,7 +114,7 @@ Gura_ImplementUserInheritableClass(wx_EraseEvent)
 
 Gura_ImplementDescendantCreator(wx_EraseEvent)
 {
-	return new Object_wx_EraseEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_EraseEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

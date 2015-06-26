@@ -16,7 +16,7 @@ Object_regkey::~Object_regkey()
 
 Object *Object_regkey::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_regkey::ToString(bool exprFlag)
@@ -51,7 +51,7 @@ Gura_ImplementMethod(regkey, createkey)
 	HKEY hKeyResult;
 	DWORD dwDisposition;
 	DWORD dwErrCode = ::RegCreateKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
-			0, NULL, dwOptions, samDesired, NULL, &hKeyResult, &dwDisposition);
+			0, nullptr, dwOptions, samDesired, nullptr, &hKeyResult, &dwDisposition);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
 		return Value::Null;
@@ -156,7 +156,7 @@ Gura_ImplementMethod(regkey, setvalue)
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.GetString(0);
 	DWORD dwType = 0;
-	BYTE *lpData = NULL;
+	BYTE *lpData = nullptr;
 	DWORD cbData = 0;
 	if (!ValueToRegData(env, sig, args.GetValue(1), &dwType, &lpData, &cbData)) {
 		return Value::Null;
@@ -208,20 +208,20 @@ Gura_ImplementMethod(regkey, queryvalue)
 {
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
-	const char *lpValueName = args.Is_string(0)? args.GetString(0) : NULL;
+	const char *lpValueName = args.Is_string(0)? args.GetString(0) : nullptr;
 	DWORD dwType;
 	DWORD cbData;
 	DWORD dwErrCode = ::RegQueryValueEx(hKey,
-		(lpValueName == NULL)? NULL : OAL::ToNativeString(lpValueName).c_str(),
-		NULL, &dwType, NULL, &cbData);
+		(lpValueName == nullptr)? nullptr : OAL::ToNativeString(lpValueName).c_str(),
+		nullptr, &dwType, nullptr, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
 		return Value::Null;
 	}
 	LPBYTE lpData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, cbData));
 	dwErrCode = ::RegQueryValueEx(hKey,
-		(lpValueName == NULL)? NULL : OAL::ToNativeString(lpValueName).c_str(),
-		NULL, &dwType, lpData, &cbData);
+		(lpValueName == nullptr)? nullptr : OAL::ToNativeString(lpValueName).c_str(),
+		nullptr, &dwType, lpData, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		::LocalFree(lpData);
 		SetError(sig, dwErrCode);
@@ -270,14 +270,14 @@ Gura_ImplementUserClass(regkey)
 //-----------------------------------------------------------------------------
 Object_ole::~Object_ole()
 {
-	if (_pDispatch != NULL) {
+	if (_pDispatch != nullptr) {
 		_pDispatch->Release();
 	}
 }
 
 Object *Object_ole::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_ole::Create(Signal sig, const char *progID)
@@ -290,7 +290,7 @@ bool Object_ole::Create(Signal sig, const char *progID)
 		::SysFreeString(progID_W);
 	} while (0);
 	hr = ::CoCreateInstance(clsid,
-					NULL, CLSCTX_INPROC_SERVER | CLSCTX_LOCAL_SERVER,
+					nullptr, CLSCTX_INPROC_SERVER | CLSCTX_LOCAL_SERVER,
 					IID_IDispatch, reinterpret_cast<LPVOID *>(&_pDispatch));
 	if (FAILED(hr)) {
 		SetError(sig, hr);
@@ -308,7 +308,7 @@ bool Object_ole::Connect(Signal sig, const char *progID)
 		::CLSIDFromProgID(progID_W, &clsid);
 		::SysFreeString(progID_W);
 	} while (0);
-	IUnknown *pUnknown = NULL;
+	IUnknown *pUnknown = nullptr;
 	hr = ::GetActiveObject(clsid, 0, &pUnknown);
 	if (FAILED(hr)) {
 		SetError(sig, hr);
@@ -329,9 +329,9 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 {
 	HRESULT hr;
 	//hr = _pDispatch->GetTypeInfoCount(&cnt); // 0 or 1
-	ITypeLib *pTypeLib = NULL;
+	ITypeLib *pTypeLib = nullptr;
 	do {
-		ITypeInfo *pTypeInfo = NULL;
+		ITypeInfo *pTypeInfo = nullptr;
 		do {
 			hr = _pDispatch->GetTypeInfo(0, LOCALE_SYSTEM_DEFAULT, &pTypeInfo);
 			if (FAILED(hr)) {
@@ -352,7 +352,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 	} while (0);
 	long cntTypeInfo = pTypeLib->GetTypeInfoCount();
 	for (long iTypeInfo = 0; iTypeInfo < cntTypeInfo; iTypeInfo++) {
-		ITypeInfo *pTypeInfo = NULL;
+		ITypeInfo *pTypeInfo = nullptr;
 		do {
 			hr = pTypeLib->GetTypeInfo(iTypeInfo, &pTypeInfo);
 			if (FAILED(hr)) {
@@ -363,7 +363,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 		} while (0);
 		int cVars = 0;
 		do {
-			TYPEATTR *pTypeAttr = NULL;
+			TYPEATTR *pTypeAttr = nullptr;
 			hr = pTypeInfo->GetTypeAttr(&pTypeAttr);
 			if (FAILED(hr)) {
 				SetError(sig, hr);
@@ -375,14 +375,14 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 			pTypeInfo->ReleaseTypeAttr(pTypeAttr);
 		} while (0);
 		for (int iVar = 0; iVar < cVars; iVar++) {
-			VARDESC *pVarDesc = NULL;
+			VARDESC *pVarDesc = nullptr;
 			hr = pTypeInfo->GetVarDesc(iVar, &pVarDesc);
 			if (FAILED(hr)) continue;
 			if (pVarDesc->varkind != VAR_CONST) {
 				pTypeInfo->ReleaseVarDesc(pVarDesc);
 				continue;
 			}
-			const Symbol *pSymbol = NULL;
+			const Symbol *pSymbol = nullptr;
 			do {
 				OLECHAR *nameOle;
 				unsigned int len;
@@ -391,7 +391,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 				pSymbol = Symbol::Add(BSTRToString(nameOle).c_str());
 				::SysFreeString(nameOle);
 			} while (0);
-			if (pSymbol != NULL) {
+			if (pSymbol != nullptr) {
 				Value value;
 				if (!VariantToValue(*this, sig, value, *pVarDesc->lpvarValue)) return false;
 				env.AssignValue(pSymbol, value, EXTRA_Public);
@@ -407,7 +407,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 HRESULT Object_ole::GetDispID(const char *name, DISPID &dispid)
 {
 	OLECHAR *wszName = StringToBSTR(name);
-	HRESULT hr = _pDispatch->GetIDsOfNames(IID_NULL,
+	HRESULT hr = _pDispatch->GetIDsOfNames(IID_nullptr,
 							&wszName, 1, LOCALE_USER_DEFAULT, &dispid);
 	::SysFreeString(wszName);
 	return hr;
@@ -421,7 +421,7 @@ HRESULT Object_ole::GetDispIDOfNamedArg(
 	DISPID dispids[2];
 	wszNames[0] = StringToBSTR(nameMethod);
 	wszNames[1] = StringToBSTR(nameArg);
-	HRESULT hr = _pDispatch->GetIDsOfNames(IID_NULL,
+	HRESULT hr = _pDispatch->GetIDsOfNames(IID_nullptr,
 							wszNames, 2, LOCALE_USER_DEFAULT, dispids);
 	::SysFreeString(wszNames[0]);
 	::SysFreeString(wszNames[1]);
@@ -435,19 +435,19 @@ Iterator *Object_ole::CreateIterator(Signal sig)
 	HRESULT hr;
 	::VariantInit(&var);
 	do {
-		DISPPARAMS dispParams = { NULL, NULL, 0, 0 };
+		DISPPARAMS dispParams = { nullptr, nullptr, 0, 0 };
 	    EXCEPINFO exceptInfo;
 		unsigned int argErr;
 		::memset(&exceptInfo, 0, sizeof(exceptInfo));
-		hr = _pDispatch->Invoke(DISPID_NEWENUM, IID_NULL, LOCALE_USER_DEFAULT,
+		hr = _pDispatch->Invoke(DISPID_NEWENUM, IID_nullptr, LOCALE_USER_DEFAULT,
 					DISPATCH_METHOD | DISPATCH_PROPERTYGET,
 					&dispParams, &var, &exceptInfo, &argErr);
 		if (FAILED(hr)) {
 			sig.SetError(ERR_RuntimeError, "OLE object is not iteratable");
-			return NULL;
+			return nullptr;
 		}
 	} while (0);
-	IEnumVARIANT *pEnum = NULL;
+	IEnumVARIANT *pEnum = nullptr;
 	VARTYPE type = var.vt & VT_TYPEMASK;
 	if (type == VT_UNKNOWN) {
 		IUnknown *pUnknown = (var.vt & VT_BYREF)? *var.ppunkVal : var.punkVal;
@@ -459,12 +459,12 @@ Iterator *Object_ole::CreateIterator(Signal sig)
 										reinterpret_cast<LPVOID *>(&pEnum));
 	} else {
 		sig.SetError(ERR_RuntimeError, "unexpected return value");
-		return NULL;
+		return nullptr;
 	}
 	::VariantClear(&var);
 	if (FAILED(hr)) {
 		SetError(sig, hr);
-		return NULL;
+		return nullptr;
 	}
 	Iterator *pIterator = new IteratorEx(Object_ole::Reference(this), pEnum);
 	return pIterator;
@@ -475,9 +475,9 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	HRESULT hr;
 	//hr = _pDispatch->GetTypeInfoCount(&cnt); // 0 or 1
-	ITypeLib *pTypeLib = NULL;
+	ITypeLib *pTypeLib = nullptr;
 	do {
-		ITypeInfo *pTypeInfo = NULL;
+		ITypeInfo *pTypeInfo = nullptr;
 		do {
 			hr = _pDispatch->GetTypeInfo(0, LOCALE_SYSTEM_DEFAULT, &pTypeInfo);
 			if (FAILED(hr)) {
@@ -498,7 +498,7 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	} while (0);
 	long cntTypeInfo = pTypeLib->GetTypeInfoCount();
 	for (long iTypeInfo = 0; iTypeInfo < cntTypeInfo; iTypeInfo++) {
-		ITypeInfo *pTypeInfo = NULL;
+		ITypeInfo *pTypeInfo = nullptr;
 		do {
 			hr = pTypeLib->GetTypeInfo(iTypeInfo, &pTypeInfo);
 			if (FAILED(hr)) {
@@ -510,7 +510,7 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 		int cFuncs = 0;
 		int cVars = 0;
 		do {
-			TYPEATTR *pTypeAttr = NULL;
+			TYPEATTR *pTypeAttr = nullptr;
 			hr = pTypeInfo->GetTypeAttr(&pTypeAttr);
 			if (FAILED(hr)) {
 				SetError(sig, hr);
@@ -523,10 +523,10 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 			pTypeInfo->ReleaseTypeAttr(pTypeAttr);
 		} while (0);
 		for (int iFunc = 0; iFunc < cFuncs; iFunc++) {
-			FUNCDESC *pFuncDesc = NULL;
+			FUNCDESC *pFuncDesc = nullptr;
 			hr = pTypeInfo->GetFuncDesc(iFunc, &pFuncDesc);
 			if (FAILED(hr)) continue;
-			const Symbol *pSymbol = NULL;
+			const Symbol *pSymbol = nullptr;
 			do {
 				OLECHAR *nameOle;
 				unsigned int len;
@@ -535,15 +535,15 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 				pSymbol = Symbol::Add(BSTRToString(nameOle).c_str());
 				::SysFreeString(nameOle);
 			} while (0);
-			if (pSymbol != NULL) symbols.insert(pSymbol);
+			if (pSymbol != nullptr) symbols.insert(pSymbol);
 			pTypeInfo->ReleaseFuncDesc(pFuncDesc);
 		}
 #if 0
 		for (int iVar = 0; iVar < cVars; iVar++) {
-			VARDESC *pVarDesc = NULL;
+			VARDESC *pVarDesc = nullptr;
 			hr = pTypeInfo->GetVarDesc(iVar, &pVarDesc);
 			if (FAILED(hr)) continue;
-			const Symbol *pSymbol = NULL;
+			const Symbol *pSymbol = nullptr;
 			do {
 				OLECHAR *nameOle;
 				unsigned int len;
@@ -552,7 +552,7 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 				pSymbol = Symbol::Add(BSTRToString(nameOle).c_str());
 				::SysFreeString(nameOle);
 			} while (0);
-			if (pSymbol != NULL) symbols.insert(pSymbol);
+			if (pSymbol != nullptr) symbols.insert(pSymbol);
 			pTypeInfo->ReleaseVarDesc(pVarDesc);
 		}
 #endif
@@ -576,9 +576,9 @@ Value Object_ole::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	VARIANT var;
 	do {
-		DISPPARAMS dispParams = { NULL, NULL, 0, 0 };
-		HRESULT hr = _pDispatch->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT,
-						DISPATCH_PROPERTYGET, &dispParams, &var, NULL, NULL);
+		DISPPARAMS dispParams = { nullptr, nullptr, 0, 0 };
+		HRESULT hr = _pDispatch->Invoke(dispid, IID_nullptr, LOCALE_USER_DEFAULT,
+						DISPATCH_PROPERTYGET, &dispParams, &var, nullptr, nullptr);
 		if (FAILED(hr)) {
 			SetError(sig, hr);
 			return Value::Null;
@@ -611,8 +611,8 @@ Value Object_ole::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		dispParams.rgdispidNamedArgs = dispidNamedArgs;
 		dispParams.cArgs = 1;
 		dispParams.cNamedArgs = 1;
-		HRESULT hr = _pDispatch->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT,
-							DISPATCH_PROPERTYPUT, &dispParams, NULL, NULL, NULL);
+		HRESULT hr = _pDispatch->Invoke(dispid, IID_nullptr, LOCALE_USER_DEFAULT,
+							DISPATCH_PROPERTYPUT, &dispParams, nullptr, nullptr, nullptr);
 		::VariantClear(&varArgs[0]);
 		if (FAILED(hr)) {
 			sig.SetError(ERR_RuntimeError, "can't change OLE property %s", pSymbol->GetName());
@@ -632,7 +632,7 @@ Callable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
 	HRESULT hr = GetDispID(pSymbol->GetName(), dispid);
 	if (FAILED(hr)) {
 		Object_ole::SetError(sig, hr);
-		return NULL;
+		return nullptr;
 	}
 	CallableOLE *pCallableOLE = new CallableOLE(this, pSymbol, dispid);
 	_callableOLEOwner.push_back(pCallableOLE);
@@ -645,7 +645,7 @@ String Object_ole::ToString(bool exprFlag)
 	rtn += "<mswin.ole:";
 	do {
 		HRESULT hr;
-		ITypeInfo *pTypeInfo = NULL;
+		ITypeInfo *pTypeInfo = nullptr;
 		do {
 			hr = _pDispatch->GetTypeInfo(0, LOCALE_SYSTEM_DEFAULT, &pTypeInfo);
 			if (FAILED(hr)) {
@@ -655,7 +655,7 @@ String Object_ole::ToString(bool exprFlag)
 		} while (0);
 		TYPEKIND typekind;
 		do {
-			TYPEATTR *pTypeAttr = NULL;
+			TYPEATTR *pTypeAttr = nullptr;
 			hr = pTypeInfo->GetTypeAttr(&pTypeAttr);
 			if (FAILED(hr)) {
 				rtn += "*error*>";
@@ -694,18 +694,18 @@ String Object_ole::ToString(bool exprFlag)
 
 void Object_ole::SetError(Signal sig, HRESULT hr)
 {
-	LPWSTR errMsg = NULL;
+	LPWSTR errMsg = nullptr;
 	::FormatMessageW(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL, hr, LOCALE_SYSTEM_DEFAULT, reinterpret_cast<LPWSTR>(&errMsg), 0, NULL);
-	if (errMsg == NULL) {
+		nullptr, hr, LOCALE_SYSTEM_DEFAULT, reinterpret_cast<LPWSTR>(&errMsg), 0, nullptr);
+	if (errMsg == nullptr) {
 		sig.SetError(ERR_RuntimeError, "COM error [%08x]", hr);
 	} else {
 		int len = static_cast<int>(::wcslen(errMsg));
 		if (len > 0 && errMsg[len - 1] == '\n') len--;
-		int bytes = ::WideCharToMultiByte(CP_UTF8, 0, errMsg, len, NULL, 0, NULL, NULL);
+		int bytes = ::WideCharToMultiByte(CP_UTF8, 0, errMsg, len, nullptr, 0, nullptr, nullptr);
 		char *pszErrMsg = new char [bytes];
-		::WideCharToMultiByte(CP_UTF8, 0, errMsg, len, pszErrMsg, bytes, NULL, NULL);
+		::WideCharToMultiByte(CP_UTF8, 0, errMsg, len, pszErrMsg, bytes, nullptr, nullptr);
 		pszErrMsg[bytes] = '\0';
 		sig.SetError(ERR_RuntimeError, "COM error [%08x] %s", hr, pszErrMsg);
 		::LocalFree(errMsg);
@@ -720,8 +720,8 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	Value result;
 	HRESULT hr;
 	const ExprList &exprListArg = argsExpr.GetExprListArg();
-	VARIANTARG *varArgs = NULL;
-	DISPID *dispidNamedArgs = NULL;
+	VARIANTARG *varArgs = nullptr;
+	DISPID *dispidNamedArgs = nullptr;
 	ValueList valueArgs;
 	ValueList valueArgsNamed;
 	StringList argNames;
@@ -743,12 +743,12 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 						"a key for named argument of OLE must be a string or an identifier");
 				goto error_done;
 			}
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value value = pExprBinaryOp->GetRight()->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
 		} else {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgs.push_back(value);
@@ -793,10 +793,10 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	dispParams.rgdispidNamedArgs = dispidNamedArgs;
 	dispParams.cNamedArgs = static_cast<UINT>(argNames.size());
 	VARIANT varResult;
-	hr = _pObj->GetDispatch()->Invoke(_dispid, IID_NULL, LOCALE_USER_DEFAULT,
+	hr = _pObj->GetDispatch()->Invoke(_dispid, IID_nullptr, LOCALE_USER_DEFAULT,
 					DISPATCH_METHOD | DISPATCH_PROPERTYGET,
-					&dispParams, &varResult, NULL, NULL);
-	if (varArgs != NULL) {
+					&dispParams, &varResult, nullptr, nullptr);
+	if (varArgs != nullptr) {
 		for (size_t iArg = 0; iArg < cArgs; iArg++) {
 			::VariantClear(&varArgs[iArg]);
 		}
@@ -812,7 +812,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	::VariantClear(&varResult);
 	return result;
 error_done:
-	if (varArgs != NULL) {
+	if (varArgs != nullptr) {
 		for (size_t iArg = 0; iArg < cArgs; iArg++) {
 			::VariantClear(&varArgs[iArg]);
 		}
@@ -849,14 +849,14 @@ Object_ole::IteratorEx::~IteratorEx()
 
 Iterator *Object_ole::IteratorEx::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_ole::IteratorEx::DoNext(Environment &env, Signal sig, Value &value)
 {
 	VARIANT var;
 	::VariantInit(&var);
-	if (_pEnum->Next(1, &var, NULL) != S_OK) return false;
+	if (_pEnum->Next(1, &var, nullptr) != S_OK) return false;
 	VariantToValue(*_pObj, sig, value, var);
 	::VariantClear(&var);
 	return true;
@@ -892,7 +892,7 @@ Iterator_RegEnumKey::Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDe
 
 Iterator *Iterator_RegEnumKey::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
@@ -902,7 +902,7 @@ bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
 	HKEY hKey = _pObjRegKey->GetKey();
 	DWORD pcName = ArraySizeOf(name);
 	DWORD dwErrCode = ::RegEnumKeyEx(hKey, _dwIndex, name, &pcName,
-										NULL, NULL, NULL, &ftLastWriteTime);
+										nullptr, nullptr, nullptr, &ftLastWriteTime);
 	if (dwErrCode != ERROR_SUCCESS) {
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
 		return false;
@@ -941,7 +941,7 @@ Iterator_RegEnumValue::Iterator_RegEnumValue(Object_regkey *pObjRegKey) :
 
 Iterator *Iterator_RegEnumValue::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
@@ -952,7 +952,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 	DWORD dwType;
 	DWORD cbData;
 	DWORD dwErrCode = ::RegEnumValue(hKey, _dwIndex, 
-						valueName, &cValueName, NULL, &dwType, NULL, &cbData);
+						valueName, &cValueName, nullptr, &dwType, nullptr, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
 		return false;
@@ -960,7 +960,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 	cValueName = ArraySizeOf(valueName);
 	LPBYTE lpData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, cbData));
 	dwErrCode = ::RegEnumValue(hKey, _dwIndex, 
-						valueName, &cValueName, NULL, &dwType, lpData, &cbData);
+						valueName, &cValueName, nullptr, &dwType, lpData, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		::LocalFree(lpData);
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
@@ -1106,8 +1106,8 @@ void SetError(Signal &sig, DWORD dwErrCode)
 {
 	LPVOID lpMsgBuf;
 	::FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-		FORMAT_MESSAGE_IGNORE_INSERTS, NULL, dwErrCode,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&lpMsgBuf, 0, NULL);
+		FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, dwErrCode,
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&lpMsgBuf, 0, nullptr);
 	sig.SetError(ERR_SystemError, "Error: %s",
 			BSTRToString(reinterpret_cast<OLECHAR *>(lpMsgBuf)).c_str());
 	::LocalFree(lpMsgBuf);
@@ -1116,8 +1116,8 @@ void SetError(Signal &sig, DWORD dwErrCode)
 OLECHAR *StringToBSTR(const char *psz)
 {
 	// cnt includes null-terminater
-	int cnt = ::MultiByteToWideChar(CP_UTF8, 0, psz, -1, NULL, 0);
-	OLECHAR *bstr = ::SysAllocStringByteLen(NULL, (cnt + 1) * sizeof(OLECHAR));
+	int cnt = ::MultiByteToWideChar(CP_UTF8, 0, psz, -1, nullptr, 0);
+	OLECHAR *bstr = ::SysAllocStringByteLen(nullptr, (cnt + 1) * sizeof(OLECHAR));
 	::MultiByteToWideChar(CP_UTF8, 0, psz, -1, bstr, cnt);
 	bstr[cnt] = 0;
 	return bstr;
@@ -1126,9 +1126,9 @@ OLECHAR *StringToBSTR(const char *psz)
 String BSTRToString(const OLECHAR *bstr)
 {
 	// cnt includes null-terminater
-	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, NULL, 0, NULL, NULL);
+	int cnt = ::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, nullptr, 0, nullptr, nullptr);
 	char *psz = new char [cnt + 1];
-	::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, psz, cnt, NULL, NULL);
+	::WideCharToMultiByte(CP_UTF8, 0, bstr, -1, psz, cnt, nullptr, nullptr);
 	psz[cnt] = '\0';
 	return String(psz);
 }

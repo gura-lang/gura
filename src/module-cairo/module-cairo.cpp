@@ -64,7 +64,7 @@ Gura_DeclareFunction(pdf_get_versions)
 
 Gura_ImplementFunction(pdf_get_versions)
 {
-	cairo_pdf_version_t const *versions = NULL;
+	cairo_pdf_version_t const *versions = nullptr;
 	int num_versions = 0;
 	::cairo_pdf_get_versions(&versions, &num_versions);
 	Value rtn;
@@ -88,7 +88,7 @@ Gura_DeclareFunction(ps_get_levels)
 
 Gura_ImplementFunction(ps_get_levels)
 {
-	cairo_ps_level_t const *levels = NULL;
+	cairo_ps_level_t const *levels = nullptr;
 	int num_levels = 0;
 	::cairo_ps_get_levels(&levels, &num_levels);
 	Value rtn;
@@ -113,7 +113,7 @@ Gura_ImplementFunction(ps_level_to_string)
 {
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	const char *rtn = ::cairo_ps_level_to_string(level);
-	if (rtn == NULL) return Value::Null;
+	if (rtn == nullptr) return Value::Null;
 	return Value(rtn);
 }
 #endif
@@ -126,7 +126,7 @@ Gura_DeclareFunction(svg_get_versions)
 
 Gura_ImplementFunction(svg_get_versions)
 {
-	cairo_svg_version_t const *versions = NULL;
+	cairo_svg_version_t const *versions = nullptr;
 	int num_versions = 0;
 	::cairo_svg_get_versions(&versions, &num_versions);
 	Value rtn;
@@ -151,7 +151,7 @@ Gura_ImplementFunction(pdf_version_to_string)
 {
 	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_pdf_version_to_string(version);
-	if (rtn == NULL) return Value::Null;
+	if (rtn == nullptr) return Value::Null;
 	return Value(rtn);
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementFunction(svg_version_to_string)
 {
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_svg_version_to_string(version);
-	if (rtn == NULL) return Value::Null;
+	if (rtn == nullptr) return Value::Null;
 	return Value(rtn);
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementFunction(status_to_string)
 {
 	cairo_status_t status = static_cast<cairo_status_t>(args.GetInt(0));
 	const char *rtn = ::cairo_status_to_string(status);
-	if (rtn == NULL) return Value::Null;
+	if (rtn == nullptr) return Value::Null;
 	return Value(rtn);
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementFunction(test)
 		::printf("failed to get a default printer");
 		return Value::Null;
 	}
-	if (!(hdc = ::CreateDC(NULL, printerName, NULL , NULL))) {
+	if (!(hdc = ::CreateDC(nullptr, printerName, nullptr , nullptr))) {
 		::printf("error in CreateDC()\n");
 		return Value::Null;
 	}
@@ -607,7 +607,7 @@ Writer_EnhMetaFile::~Writer_EnhMetaFile()
 
 Stream *Writer_EnhMetaFile::GetStream()
 {
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -621,7 +621,7 @@ Writer_WindowsDC::~Writer_WindowsDC()
 
 Stream *Writer_WindowsDC::GetStream()
 {
-	return NULL;
+	return nullptr;
 }
 #endif
 
@@ -630,7 +630,7 @@ Stream *Writer_WindowsDC::GetStream()
 //-----------------------------------------------------------------------------
 bool IsInvalid(Signal sig, cairo_t *cr)
 {
-	if (cr == NULL) {
+	if (cr == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid context");
 		return true;
 	}
@@ -858,10 +858,10 @@ Value CreateValueList(Environment &env,
 
 cairo_surface_t *CreateSurfaceFromImage(Signal sig, Image *pImage)
 {
-	if (!pImage->CheckValid(sig)) return NULL;
+	if (!pImage->CheckValid(sig)) return nullptr;
 	if (pImage->GetFormat() != Image::FORMAT_RGBA) {
 		sig.SetError(ERR_FormatError, "cairo can only be applied to image in `rgba format");
-		return NULL;
+		return nullptr;
 	}
 	size_t width = pImage->GetWidth();
 	size_t height = pImage->GetHeight();

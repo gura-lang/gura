@@ -179,11 +179,11 @@ Gura_ImplementFunction(clear)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : nullptr;
 	COORD coordStart = { 0, 0 };
 	COORD coordHome = { 0, 0 };
 	DWORD dwConSize = 0;
-	if (pSymbol == NULL) {
+	if (pSymbol == nullptr) {
 		dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
 	} else if (pSymbol == Gura_Symbol(line_)) {
 		int width = csbi.dwSize.X;
@@ -253,7 +253,7 @@ Gura_ImplementFunction(setcolor)
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -272,7 +272,7 @@ Gura_ImplementFunction(moveto)
 	COORD pos = { x, y };
 	::SetConsoleCursorPosition(hConsole, pos);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -348,8 +348,8 @@ Gura_ImplementFunction(waitkey)
 
 Gura_ImplementFunction(clear)
 {
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
-	if (pSymbol == NULL) {
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : nullptr;
+	if (pSymbol == nullptr) {
 		::printf("\033[2J");
 		::printf("\033[H");
 	} else if (pSymbol == Gura_Symbol(line_)) {
@@ -410,7 +410,7 @@ Gura_ImplementFunction(setcolor)
 		::printf("\033[%sm", str.c_str());
 	}
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		g_attrStack.push_back(str);
@@ -433,7 +433,7 @@ Gura_ImplementFunction(moveto)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);

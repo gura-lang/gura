@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ScrollBar *_pObj;
 public:
-	inline wx_ScrollBar() : wxScrollBar(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxScrollBar(parent, id, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScrollBar() : wxScrollBar(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxScrollBar(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void SetScrollbar(int position, int thumbSize, int range, int pageSize, const bool refresh);
 	~wx_ScrollBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrollBar *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_ScrollBar::~wx_ScrollBar()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScrollBar::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(ScrollBarEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScrollBar *pEntity = new wx_ScrollBar();
 	Object_wx_ScrollBar *pObj = Object_wx_ScrollBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementFunction(ScrollBar)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_ScrollBar *pEntity = new wx_ScrollBar(parent, id, *pos, *size, style, *validator, name);
 	Object_wx_ScrollBar *pObj = Object_wx_ScrollBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -297,13 +297,13 @@ Object_wx_ScrollBar::~Object_wx_ScrollBar()
 
 Object *Object_wx_ScrollBar::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScrollBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollBar:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -335,7 +335,7 @@ Gura_ImplementUserInheritableClass(wx_ScrollBar)
 
 Gura_ImplementDescendantCreator(wx_ScrollBar)
 {
-	return new Object_wx_ScrollBar((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScrollBar((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

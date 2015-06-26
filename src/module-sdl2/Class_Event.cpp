@@ -14,7 +14,7 @@ Object_Event::~Object_Event()
 
 Object *Object_Event::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Event::ToString(bool exprFlag)

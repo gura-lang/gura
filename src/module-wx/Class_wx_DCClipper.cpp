@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DCClipper *_pObj;
 public:
-	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _sig(NULL), _pObj(NULL) {}
-	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _sig(NULL), _pObj(NULL) {}
-	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _sig(NULL), _pObj(NULL) {}
+	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DCClipper();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DCClipper *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_DCClipper::~wx_DCClipper()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DCClipper::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DCClipper)
 	wxRegion *r = Object_wx_Region::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *r);
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(DCClipper_1)
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *rect);
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -112,7 +112,7 @@ Gura_ImplementFunction(DCClipper_2)
 	int h = args.GetInt(4);
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, x, y, w, h);
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,20 +127,20 @@ Gura_ImplementFunction(DCClipper_2)
 //----------------------------------------------------------------------------
 Object_wx_DCClipper::~Object_wx_DCClipper()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DCClipper::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DCClipper::ToString(bool exprFlag)
 {
 	String rtn("<wx.DCClipper:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -162,7 +162,7 @@ Gura_ImplementUserInheritableClass(wx_DCClipper)
 
 Gura_ImplementDescendantCreator(wx_DCClipper)
 {
-	return new Object_wx_DCClipper((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DCClipper((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

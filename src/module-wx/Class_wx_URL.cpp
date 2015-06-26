@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_URL *_pObj;
 public:
-	inline wx_URL(const wxString& url) : wxURL(url), _sig(NULL), _pObj(NULL) {}
+	inline wx_URL(const wxString& url) : wxURL(url), _sig(nullptr), _pObj(nullptr) {}
 	~wx_URL();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_URL *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_URL::~wx_URL()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_URL::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(URL)
 	if (args.IsValid(0)) url = wxString::FromUTF8(args.GetString(0));
 	wx_URL *pEntity = new wx_URL(url);
 	Object_wx_URL *pObj = Object_wx_URL::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_URL(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_URL, GetProtocol)
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxProtocol &rtn = pThis->GetEntity()->GetProtocol();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Protocol(new wxProtocol(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Protocol(new wxProtocol(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_URL, GetInputStream)
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream();
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_URL, IsOk)
@@ -175,13 +175,13 @@ Object_wx_URL::~Object_wx_URL()
 
 Object *Object_wx_URL::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_URL::ToString(bool exprFlag)
 {
 	String rtn("<wx.URL:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -208,7 +208,7 @@ Gura_ImplementUserInheritableClass(wx_URL)
 
 Gura_ImplementDescendantCreator(wx_URL)
 {
-	return new Object_wx_URL((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_URL((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

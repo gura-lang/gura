@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SystemSettings *_pObj;
 public:
-	inline wx_SystemSettings() : wxSystemSettings(), _sig(NULL), _pObj(NULL) {}
+	inline wx_SystemSettings() : wxSystemSettings(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SystemSettings();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SystemSettings *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SystemSettings::~wx_SystemSettings()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SystemSettings::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(SystemSettings)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SystemSettings *pEntity = new wx_SystemSettings();
 	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SystemSettings(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,7 +70,7 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetColour)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSystemColour index = static_cast<wxSystemColour>(args.GetInt(0));
 	wxColour rtn = wxSystemSettings::GetColour(index);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetFont)
@@ -85,7 +85,7 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetFont)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSystemFont index = static_cast<wxSystemFont>(args.GetInt(0));
 	wxFont rtn = wxSystemSettings::GetFont(index);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetMetric)
@@ -100,7 +100,7 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetMetric)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSystemMetric index = static_cast<wxSystemMetric>(args.GetInt(0));
-	wxWindow *win = (wxWindow *)(NULL);
+	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) win = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	int rtn = wxSystemSettings::GetMetric(index, win);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -124,20 +124,20 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetScreenType)
 //----------------------------------------------------------------------------
 Object_wx_SystemSettings::~Object_wx_SystemSettings()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_SystemSettings::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SystemSettings::ToString(bool exprFlag)
 {
 	String rtn("<wx.SystemSettings:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -161,7 +161,7 @@ Gura_ImplementUserInheritableClass(wx_SystemSettings)
 
 Gura_ImplementDescendantCreator(wx_SystemSettings)
 {
-	return new Object_wx_SystemSettings((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SystemSettings((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

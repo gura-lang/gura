@@ -19,7 +19,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FontEnumerator *_pObj;
 public:
-	inline wx_FontEnumerator() : wxFontEnumerator(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FontEnumerator() : wxFontEnumerator(), _sig(nullptr), _pObj(nullptr) {}
 	virtual bool EnumerateFacenames(wxFontEncoding encoding, bool fixedWidthOnly);
 	virtual bool EnumerateEncodings(const wxString& font);
 	virtual bool OnFacename(const wxString& font);
@@ -34,18 +34,18 @@ public:
 
 wx_FontEnumerator::~wx_FontEnumerator()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FontEnumerator::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWidthOnly)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, EnumerateFacenames);
-	if (pFunc == NULL) return wxFontEnumerator::EnumerateFacenames(encoding, fixedWidthOnly);
+	if (pFunc == nullptr) return wxFontEnumerator::EnumerateFacenames(encoding, fixedWidthOnly);
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(static_cast<int>(encoding)));
@@ -58,7 +58,7 @@ bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWi
 bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, EnumerateEncodings);
-	if (pFunc == NULL) return wxFontEnumerator::EnumerateEncodings(font);
+	if (pFunc == nullptr) return wxFontEnumerator::EnumerateEncodings(font);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
@@ -71,7 +71,7 @@ bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 bool wx_FontEnumerator::OnFacename(const wxString& font)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnFacename);
-	if (pFunc == NULL) return wxFontEnumerator::OnFacename(font);
+	if (pFunc == nullptr) return wxFontEnumerator::OnFacename(font);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
@@ -84,7 +84,7 @@ bool wx_FontEnumerator::OnFacename(const wxString& font)
 bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& encoding)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnFontEncoding);
-	if (pFunc == NULL) return wxFontEnumerator::EnumerateEncodings(font);
+	if (pFunc == nullptr) return wxFontEnumerator::EnumerateEncodings(font);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(2);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(FontEnumerator)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontEnumerator *pEntity = new wx_FontEnumerator();
 	Object_wx_FontEnumerator *pObj = Object_wx_FontEnumerator::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FontEnumerator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -246,20 +246,20 @@ Gura_ImplementMethod(wx_FontEnumerator, OnFontEncoding)
 //----------------------------------------------------------------------------
 Object_wx_FontEnumerator::~Object_wx_FontEnumerator()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_FontEnumerator::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FontEnumerator::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontEnumerator:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -290,7 +290,7 @@ Gura_ImplementUserInheritableClass(wx_FontEnumerator)
 
 Gura_ImplementDescendantCreator(wx_FontEnumerator)
 {
-	return new Object_wx_FontEnumerator((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FontEnumerator((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

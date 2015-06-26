@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AutomationObject *_pObj;
 public:
-	inline wx_AutomationObject() : _sig(NULL), _pObj(NULL) {}
-	inline wx_AutomationObject(WXIDISPATCH* dispatchPtr) : wxAutomationObject(dispatchPtr), _sig(NULL), _pObj(NULL) {}
+	inline wx_AutomationObject() : _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AutomationObject(WXIDISPATCH* dispatchPtr) : wxAutomationObject(dispatchPtr), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AutomationObject();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AutomationObject *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_AutomationObject::~wx_AutomationObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AutomationObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(AutomationObject)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AutomationObject *pEntity = new wx_AutomationObject();
 	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AutomationObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 	int noArgs = args.GetInt(1);
 	wxVariant *args[] = Object_wx_Variant::GetObject(args, 2)->GetEntity();
 	wxVariant rtn = pThis->GetEntity()->CallMethod(method, noArgs, *args[]);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString method = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->CallMethod(method, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetObject)
 	wxString property = wxString::FromUTF8(args.GetString(1));
 	int noArgs = 0;
 	if (args.IsValid(2)) noArgs = args.GetInt(2);
-	wxVariant *args[] = (wxVariant *)(&NULL);
+	wxVariant *args[] = (wxVariant *)(&nullptr);
 	if (args.IsValid(3)) args[] = Object_wx_Variant::GetObject(args, 3)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetObject(*obj, property, noArgs, *args[]);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 	int noArgs = args.GetInt(1);
 	wxVariant *args[] = Object_wx_Variant::GetObject(args, 2)->GetEntity();
 	wxVariant rtn = pThis->GetEntity()->GetProperty(property, noArgs, *args[]);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->GetProperty(property, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -354,13 +354,13 @@ Object_wx_AutomationObject::~Object_wx_AutomationObject()
 
 Object *Object_wx_AutomationObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AutomationObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.AutomationObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -392,7 +392,7 @@ Gura_ImplementUserInheritableClass(wx_AutomationObject)
 
 Gura_ImplementDescendantCreator(wx_AutomationObject)
 {
-	return new Object_wx_AutomationObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AutomationObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

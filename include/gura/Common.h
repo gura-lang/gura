@@ -79,14 +79,14 @@ for (T::const_reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
 
 #define Gura_DeclareReferenceAccessor(T) \
 inline static T *Reference(const T *p) { \
-	if (p == NULL) return NULL; \
+	if (p == nullptr) return nullptr; \
 	T *pCasted = const_cast<T *>(p); \
 	pCasted->_cntRef++; \
 	return pCasted; \
 } \
 inline T *Reference() const { return Reference(this); } \
 inline static void Delete(T *p) { \
-	if (p == NULL) return; \
+	if (p == nullptr) return; \
 	p->_cntRef--; \
 	if (p->_cntRef <= 0) delete p; \
 }
@@ -273,7 +273,7 @@ template<typename T> class AutoPtr {
 private:
 	T *_p;
 public:
-	inline AutoPtr(T *p = NULL) : _p(p) {}
+	inline AutoPtr(T *p = nullptr) : _p(p) {}
 	inline ~AutoPtr() { T::Delete(_p); }
 	inline T &operator*() { return *_p; }
 	inline T &operator*() const { return *_p; }
@@ -282,8 +282,8 @@ public:
 	inline void reset(T *p) { T::Delete(_p); _p = p; }
 	inline T *get() { return _p; }
 	inline T *get() const { return _p; }
-	inline T *release() { T *p = _p; _p = NULL; return p; }
-	inline bool IsNull() const { return _p == NULL; }
+	inline T *release() { T *p = _p; _p = nullptr; return p; }
+	inline bool IsNull() const { return _p == nullptr; }
 	inline T *Reference() const { return T::Reference(_p); }
 private:
 	inline void operator=(const T *p) {}

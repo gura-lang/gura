@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SpinButton *_pObj;
 public:
-	inline wx_SpinButton() : wxSpinButton(), _sig(NULL), _pObj(NULL) {}
-	inline wx_SpinButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSpinButton(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_SpinButton() : wxSpinButton(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SpinButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSpinButton(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SpinButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SpinButton *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_SpinButton::~wx_SpinButton()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SpinButton::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SpinButtonEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SpinButton *pEntity = new wx_SpinButton();
 	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(SpinButton)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_SpinButton *pEntity = new wx_SpinButton(parent, id, *pos, *size, style, name);
 	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -210,13 +210,13 @@ Object_wx_SpinButton::~Object_wx_SpinButton()
 
 Object *Object_wx_SpinButton::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SpinButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.SpinButton:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -244,7 +244,7 @@ Gura_ImplementUserInheritableClass(wx_SpinButton)
 
 Gura_ImplementDescendantCreator(wx_SpinButton)
 {
-	return new Object_wx_SpinButton((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SpinButton((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

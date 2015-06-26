@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BufferedPaintDC *_pObj;
 public:
-	inline wx_BufferedPaintDC(wxWindow * window, wxBitmap& buffer, int style) : wxBufferedPaintDC(window, buffer, style), _sig(NULL), _pObj(NULL) {}
-	inline wx_BufferedPaintDC(wxWindow * window, int style) : wxBufferedPaintDC(window, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_BufferedPaintDC(wxWindow * window, wxBitmap& buffer, int style) : wxBufferedPaintDC(window, buffer, style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BufferedPaintDC(wxWindow * window, int style) : wxBufferedPaintDC(window, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BufferedPaintDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BufferedPaintDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_BufferedPaintDC::~wx_BufferedPaintDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BufferedPaintDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(BufferedPaintDC)
 	if (args.IsValid(2)) style = args.GetInt(2);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, *buffer, style);
 	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,7 +83,7 @@ Gura_ImplementFunction(BufferedPaintDC_1)
 	if (args.IsValid(1)) style = args.GetInt(1);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, style);
 	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -102,13 +102,13 @@ Object_wx_BufferedPaintDC::~Object_wx_BufferedPaintDC()
 
 Object *Object_wx_BufferedPaintDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BufferedPaintDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.BufferedPaintDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -129,7 +129,7 @@ Gura_ImplementUserInheritableClass(wx_BufferedPaintDC)
 
 Gura_ImplementDescendantCreator(wx_BufferedPaintDC)
 {
-	return new Object_wx_BufferedPaintDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BufferedPaintDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

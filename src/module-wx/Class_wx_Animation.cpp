@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Animation *_pObj;
 public:
-	inline wx_Animation() : wxAnimation(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _sig(NULL), _pObj(NULL) {}
-	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _sig(NULL), _pObj(NULL) {}
+	inline wx_Animation() : wxAnimation(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Animation();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Animation *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_Animation::~wx_Animation()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Animation::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(AnimationEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Animation *pEntity = new wx_Animation();
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,7 +74,7 @@ Gura_ImplementFunction(Animation)
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
 	wx_Animation *pEntity = new wx_Animation(*anim);
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(Animation_1)
 	if (args.IsValid(1)) type = static_cast<wxAnimationType>(args.GetInt(1));
 	wx_Animation *pEntity = new wx_Animation(name, type);
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Animation, GetFrame)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned i = args.GetInt(0);
 	wxImage rtn = pThis->GetEntity()->GetFrame(i);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Animation, GetSize)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Animation, GetSize)
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Animation, IsOk)
@@ -232,13 +232,13 @@ Object_wx_Animation::~Object_wx_Animation()
 
 Object *Object_wx_Animation::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Animation::ToString(bool exprFlag)
 {
 	String rtn("<wx.Animation:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -267,7 +267,7 @@ Gura_ImplementUserInheritableClass(wx_Animation)
 
 Gura_ImplementDescendantCreator(wx_Animation)
 {
-	return new Object_wx_Animation((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Animation((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

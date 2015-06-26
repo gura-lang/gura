@@ -24,12 +24,12 @@ public:
 
 wx_FilterClassFactory::~wx_FilterClassFactory()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FilterClassFactory::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Gura_ImplementClassMethod(wx_FilterClassFactory, Find)
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(1)) type = static_cast<wxStreamProtocolType>(args.GetInt(1));
 	wxFilterClassFactory *rtn = (wxFilterClassFactory *)wxFilterClassFactory::Find(protocol, type);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_FilterClassFactory, GetFirst)
@@ -82,7 +82,7 @@ Gura_ImplementClassMethod(wx_FilterClassFactory, GetFirst)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFilterClassFactory *rtn = (wxFilterClassFactory *)wxFilterClassFactory::GetFirst();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, GetNext)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetNext)
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFilterClassFactory *rtn = (wxFilterClassFactory *)pThis->GetEntity()->GetNext();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, GetProtocol)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxFilterInputStream *rtn = (wxFilterInputStream *)pThis->GetEntity()->NewStream(*stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterInputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterInputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_1)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxFilterOutputStream *rtn = (wxFilterOutputStream *)pThis->GetEntity()->NewStream(*stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterOutputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterOutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_2)
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_2)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxFilterInputStream *rtn = (wxFilterInputStream *)pThis->GetEntity()->NewStream(stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterInputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterInputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, NewStream_3)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_3)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxFilterOutputStream *rtn = (wxFilterOutputStream *)pThis->GetEntity()->NewStream(stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FilterOutputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FilterOutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FilterClassFactory, PopExtension)
@@ -251,13 +251,13 @@ Object_wx_FilterClassFactory::~Object_wx_FilterClassFactory()
 
 Object *Object_wx_FilterClassFactory::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FilterClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.FilterClassFactory:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -289,7 +289,7 @@ Gura_ImplementUserInheritableClass(wx_FilterClassFactory)
 
 Gura_ImplementDescendantCreator(wx_FilterClassFactory)
 {
-	return new Object_wx_FilterClassFactory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FilterClassFactory((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

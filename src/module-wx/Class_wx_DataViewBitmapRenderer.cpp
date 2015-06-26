@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewBitmapRenderer *_pObj;
 public:
-	inline wx_DataViewBitmapRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewBitmapRenderer(varianttype, mode), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewBitmapRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewBitmapRenderer(varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewBitmapRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewBitmapRenderer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataViewBitmapRenderer::~wx_DataViewBitmapRenderer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewBitmapRenderer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DataViewBitmapRenderer)
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewBitmapRenderer *pEntity = new wx_DataViewBitmapRenderer(varianttype, mode);
 	Object_wx_DataViewBitmapRenderer *pObj = Object_wx_DataViewBitmapRenderer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewBitmapRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,13 +73,13 @@ Object_wx_DataViewBitmapRenderer::~Object_wx_DataViewBitmapRenderer()
 
 Object *Object_wx_DataViewBitmapRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewBitmapRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -99,7 +99,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)
 
 Gura_ImplementDescendantCreator(wx_DataViewBitmapRenderer)
 {
-	return new Object_wx_DataViewBitmapRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewBitmapRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

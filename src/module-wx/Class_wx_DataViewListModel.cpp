@@ -27,7 +27,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewListModel *_pObj;
 public:
-	inline wx_DataViewListModel() : wxDataViewListModel(), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewListModel() : wxDataViewListModel(), _sig(nullptr), _pObj(nullptr) {}
 	virtual wxString GetColType(unsigned int col);
 	virtual unsigned int GetNumberOfCols();
 	virtual unsigned int GetNumberOfRows();
@@ -50,19 +50,19 @@ public:
 
 wx_DataViewListModel::~wx_DataViewListModel()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewListModel::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 // pure virtual function
 wxString wx_DataViewListModel::GetColType(unsigned int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetColType);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetColType method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return wxEmptyString;
@@ -79,7 +79,7 @@ wxString wx_DataViewListModel::GetColType(unsigned int col)
 unsigned int wx_DataViewListModel::GetNumberOfCols()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberOfCols);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetNumberOfCols method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
@@ -93,7 +93,7 @@ unsigned int wx_DataViewListModel::GetNumberOfCols()
 unsigned int wx_DataViewListModel::GetNumberOfRows()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberOfRows);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetNumberOfRows method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
@@ -107,7 +107,7 @@ unsigned int wx_DataViewListModel::GetNumberOfRows()
 void wx_DataViewListModel::GetValue(wxVariant& variant, unsigned int col, unsigned int row)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetValue method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return;
@@ -124,7 +124,7 @@ void wx_DataViewListModel::GetValue(wxVariant& variant, unsigned int col, unsign
 bool wx_DataViewListModel::RowAppended()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowAppended);
-	if (pFunc == NULL) return wxDataViewListModel::RowAppended();
+	if (pFunc == nullptr) return wxDataViewListModel::RowAppended();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -133,7 +133,7 @@ bool wx_DataViewListModel::RowAppended()
 bool wx_DataViewListModel::RowChanged(unsigned int row)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowChanged);
-	if (pFunc == NULL) return wxDataViewListModel::RowChanged(row);
+	if (pFunc == nullptr) return wxDataViewListModel::RowChanged(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
@@ -145,7 +145,7 @@ bool wx_DataViewListModel::RowChanged(unsigned int row)
 bool wx_DataViewListModel::RowDeleted(unsigned int row)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowDeleted);
-	if (pFunc == NULL) return wxDataViewListModel::RowDeleted(row);
+	if (pFunc == nullptr) return wxDataViewListModel::RowDeleted(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
@@ -157,7 +157,7 @@ bool wx_DataViewListModel::RowDeleted(unsigned int row)
 bool wx_DataViewListModel::RowInserted(unsigned int before)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowInserted);
-	if (pFunc == NULL) return wxDataViewListModel::RowInserted(before);
+	if (pFunc == nullptr) return wxDataViewListModel::RowInserted(before);
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(before));
@@ -169,7 +169,7 @@ bool wx_DataViewListModel::RowInserted(unsigned int before)
 bool wx_DataViewListModel::RowPrepended()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowPrepended);
-	if (pFunc == NULL) return wxDataViewListModel::RowPrepended();
+	if (pFunc == nullptr) return wxDataViewListModel::RowPrepended();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -179,7 +179,7 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 {
 	Environment &env = *_pObj;
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowsReordered);
-	if (pFunc == NULL) return wxDataViewListModel::RowsReordered(new_order);
+	if (pFunc == nullptr) return wxDataViewListModel::RowsReordered(new_order);
 	size_t nRows = GetNumberOfRows();
 	if (_sig.IsSignalled()) return false;
 	Value v;
@@ -200,14 +200,14 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 bool wx_DataViewListModel::SetValue(wxVariant& variant, unsigned int col, unsigned int row)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValue);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#SetValue method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}
 	ValueList valListArg;
 	valListArg.reserve(3);
-	valListArg.push_back(Value(new Object_wx_Variant(new wxVariant(variant), NULL, OwnerTrue)));
+	valListArg.push_back(Value(new Object_wx_Variant(new wxVariant(variant), nullptr, OwnerTrue)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
@@ -218,7 +218,7 @@ bool wx_DataViewListModel::SetValue(wxVariant& variant, unsigned int col, unsign
 bool wx_DataViewListModel::ValueChanged(unsigned int col, unsigned int row)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, ValueChanged);
-	if (pFunc == NULL) return wxDataViewListModel::ValueChanged(col, row);
+	if (pFunc == nullptr) return wxDataViewListModel::ValueChanged(col, row);
 	ValueList valListArg;
 	valListArg.reserve(2);
 	valListArg.push_back(Value(col));
@@ -243,7 +243,7 @@ Gura_ImplementFunction(DataViewListModel)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewListModel *pEntity = new wx_DataViewListModel();
 	Object_wx_DataViewListModel *pObj = Object_wx_DataViewListModel::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewListModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -449,13 +449,13 @@ Object_wx_DataViewListModel::~Object_wx_DataViewListModel()
 
 Object *Object_wx_DataViewListModel::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewListModel::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewListModel:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -499,7 +499,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewListModel)
 
 Gura_ImplementDescendantCreator(wx_DataViewListModel)
 {
-	return new Object_wx_DataViewListModel((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewListModel((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

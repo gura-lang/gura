@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RecursionGuard *_pObj;
 public:
-	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _sig(NULL), _pObj(NULL) {}
+	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RecursionGuard();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RecursionGuard *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RecursionGuard::~wx_RecursionGuard()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RecursionGuard::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(RecursionGuard)
 	wxRecursionGuardFlag *flag = Object_wx_RecursionGuardFlag::GetObject(args, 0)->GetEntity();
 	wx_RecursionGuard *pEntity = new wx_RecursionGuard(*flag);
 	Object_wx_RecursionGuard *pObj = Object_wx_RecursionGuard::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RecursionGuard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,20 +85,20 @@ Gura_ImplementMethod(wx_RecursionGuard, IsInside)
 //----------------------------------------------------------------------------
 Object_wx_RecursionGuard::~Object_wx_RecursionGuard()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RecursionGuard::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RecursionGuard::ToString(bool exprFlag)
 {
 	String rtn("<wx.RecursionGuard:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -119,7 +119,7 @@ Gura_ImplementUserInheritableClass(wx_RecursionGuard)
 
 Gura_ImplementDescendantCreator(wx_RecursionGuard)
 {
-	return new Object_wx_RecursionGuard((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RecursionGuard((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

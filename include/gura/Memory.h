@@ -18,7 +18,7 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(Memory);
 public:
-	inline Memory() : _cntRef(1), _bytes(0), _buff(NULL) {}
+	inline Memory() : _cntRef(1), _bytes(0), _buff(nullptr) {}
 protected:
 	virtual ~Memory();
 public:

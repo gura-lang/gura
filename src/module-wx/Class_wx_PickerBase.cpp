@@ -24,12 +24,12 @@ public:
 
 wx_PickerBase::~wx_PickerBase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PickerBase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_PickerBase, GetTextCtrl)
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextCtrl *rtn = (wxTextCtrl *)pThis->GetEntity()->GetTextCtrl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrl(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PickerBase, IsTextCtrlGrowable)
@@ -219,13 +219,13 @@ Object_wx_PickerBase::~Object_wx_PickerBase()
 
 Object *Object_wx_PickerBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PickerBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.PickerBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -256,7 +256,7 @@ Gura_ImplementUserInheritableClass(wx_PickerBase)
 
 Gura_ImplementDescendantCreator(wx_PickerBase)
 {
-	return new Object_wx_PickerBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PickerBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

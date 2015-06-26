@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ProcessEvent *_pObj;
 public:
-	inline wx_ProcessEvent(int id, int pid, int exitcode) : wxProcessEvent(id, pid, exitcode), _sig(NULL), _pObj(NULL) {}
+	inline wx_ProcessEvent(int id, int pid, int exitcode) : wxProcessEvent(id, pid, exitcode), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ProcessEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ProcessEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ProcessEvent::~wx_ProcessEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ProcessEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ProcessEvent)
 	if (args.IsValid(2)) exitcode = args.GetInt(2);
 	wx_ProcessEvent *pEntity = new wx_ProcessEvent(id, pid, exitcode);
 	Object_wx_ProcessEvent *pObj = Object_wx_ProcessEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ProcessEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,13 +104,13 @@ Object_wx_ProcessEvent::~Object_wx_ProcessEvent()
 
 Object *Object_wx_ProcessEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ProcessEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ProcessEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -132,7 +132,7 @@ Gura_ImplementUserInheritableClass(wx_ProcessEvent)
 
 Gura_ImplementDescendantCreator(wx_ProcessEvent)
 {
-	return new Object_wx_ProcessEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ProcessEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

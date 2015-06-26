@@ -90,7 +90,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 	typedef std::map<const Value *, const Value *> ValuePtrMap;
 	Environment &env = *this;
 	enum { MODE_Ascend, MODE_Descend, MODE_Custom } mode = MODE_Ascend;
-	const Function *pFunc = NULL;
+	const Function *pFunc = nullptr;
 	const ValueList &valList = GetList();
 	if (valDirective.IsInvalid()) {
 		// nothing to do
@@ -103,7 +103,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 		} else {
 			sig.SetError(ERR_ValueError,
 				"invalid symbol '%s'", pSymbol->GetName());
-			return NULL;
+			return nullptr;
 		}
 	} else if (valDirective.Is_function()) {
 		mode = MODE_Custom;
@@ -111,15 +111,15 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 		if (pFunc->GetDeclOwner().size() != 2) {
 			sig.SetError(ERR_TypeError,
 				"only a binary function can be specified");
-			return NULL;
+			return nullptr;
 		}
 	} else {
 		sig.SetError(ERR_TypeError, "invalid argument");
-		return NULL;
+		return nullptr;
 	}
 	ValuePtrList valPtrList;
 	ValuePtrMap valuePtrMap;
-	if (rankFlag || pValListKey == NULL) {
+	if (rankFlag || pValListKey == nullptr) {
 		foreach_const (ValueList, pValue, valList) {
 			valPtrList.push_back(&(*pValue));
 		}
@@ -158,18 +158,18 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 			ValuePtrList::iterator ppValue = valPtrList.begin();
 			for ( ; ppValue != valPtrList.end(); ppValue++) {
 				int rtn = Value::Compare(env, sig, *pValue, **ppValue);
-				if (sig.IsSignalled()) return NULL;
+				if (sig.IsSignalled()) return nullptr;
 				if (rtn == 0) break;
 			}
 			if (ppValue == valPtrList.end()) {
 				sig.SetError(ERR_SystemError, "fatal error in rank() operation");
-				return NULL;
+				return nullptr;
 			} else {
 				int idx = static_cast<int>(ppValue - valPtrList.begin());
 				valListResult.push_back(Value(idx));
 			}
 		}
-	} else if (pValListKey == NULL) {
+	} else if (pValListKey == nullptr) {
 		foreach_const (ValuePtrList, ppValue, valPtrList) {
 			valListResult.push_back(**ppValue);
 		}
@@ -207,7 +207,7 @@ Object_list::IteratorEach::~IteratorEach()
 
 Iterator *Object_list::IteratorEach::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
@@ -237,7 +237,7 @@ Object_list::IteratorReverse::~IteratorReverse()
 
 Iterator *Object_list::IteratorReverse::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorReverse::DoNext(Environment &env, Signal sig, Value &value)
@@ -267,7 +267,7 @@ Object_list::IteratorCycle::~IteratorCycle()
 
 Iterator *Object_list::IteratorCycle::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorCycle::DoNext(Environment &env, Signal sig, Value &value)
@@ -299,7 +299,7 @@ Object_list::IteratorPingpong::~IteratorPingpong()
 
 Iterator *Object_list::IteratorPingpong::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &value)
@@ -355,7 +355,7 @@ Object_list::IteratorFold::~IteratorFold()
 
 Iterator *Object_list::IteratorFold::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
@@ -405,7 +405,7 @@ Object_list::IteratorPermutation::~IteratorPermutation()
 
 Iterator *Object_list::IteratorPermutation::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal sig, Value &value)
@@ -457,7 +457,7 @@ Object_list::IteratorCombination::~IteratorCombination()
 
 Iterator *Object_list::IteratorCombination::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_list::IteratorCombination::DoNext(Environment &env, Signal sig, Value &value)
@@ -698,7 +698,7 @@ Gura_ImplementFunction(ListInit)
 	if (sig.IsSignalled()) return Value::Null;
 	const Value &valueFunc = args.GetValue(0);
 	Value result;
-	if (pExprBlock == NULL) {
+	if (pExprBlock == nullptr) {
 		result.InitAsList(env);
 	} else if (valueFunc.Is_function()) {
 		const Function *pFunc = valueFunc.GetFunction();
@@ -710,7 +710,7 @@ Gura_ImplementFunction(ListInit)
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
@@ -728,7 +728,7 @@ Gura_ImplementFunction(ListInit)
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		result = pExprBlock->Exec(*pEnvLister, sig, NULL);
+		result = pExprBlock->Exec(*pEnvLister, sig, nullptr);
 	}
 	return result;
 }
@@ -772,7 +772,7 @@ Gura_ImplementClassMethod(list, zip)
 		return ReturnValue(env, sig, args, result);
 	}
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		Iterator *pIteratorArg = NULL;
+		Iterator *pIteratorArg = nullptr;
 		if (pValue->Is_list() || pValue->Is_iterator()) {
 			pIteratorArg = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
@@ -1691,7 +1691,7 @@ Gura_DeclareMethod(list, rank)
 Gura_ImplementMethod(list, rank)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0), NULL,
+	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0), nullptr,
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -1715,7 +1715,7 @@ Gura_ImplementMethod(list, reduce)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) {
+	if (pFuncBlock == nullptr) {
 		return Value::Null;
 	}
 	return pIterator->Reduce(env, sig, args.GetValue(0), pFuncBlock);
@@ -1862,7 +1862,7 @@ Gura_ImplementMethod(list, sort)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0),
-						args.Is_list(1)? &args.GetList(1) : NULL,
+						args.Is_list(1)? &args.GetList(1) : nullptr,
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -2125,7 +2125,7 @@ bool Class_list::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 
 Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return (pClass == NULL)? new Object_list(env) : new Object_list(pClass);
+	return (pClass == nullptr)? new Object_list(env) : new Object_list(pClass);
 }
 
 }

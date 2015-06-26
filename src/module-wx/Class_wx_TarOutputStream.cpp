@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TarOutputStream *_pObj;
 public:
-	inline wx_TarOutputStream(wxOutputStream& stream, wxTarFormat format, wxMBConv& conv) : wxTarOutputStream(stream, format, conv), _sig(NULL), _pObj(NULL) {}
-	inline wx_TarOutputStream(wxOutputStream* stream, wxTarFormat format, wxMBConv& conv) : wxTarOutputStream(stream, format, conv), _sig(NULL), _pObj(NULL) {}
+	inline wx_TarOutputStream(wxOutputStream& stream, wxTarFormat format, wxMBConv& conv) : wxTarOutputStream(stream, format, conv), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TarOutputStream(wxOutputStream* stream, wxTarFormat format, wxMBConv& conv) : wxTarOutputStream(stream, format, conv), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TarOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TarOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_TarOutputStream::~wx_TarOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TarOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(TarOutputStream)
 	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wx_TarOutputStream *pEntity = new wx_TarOutputStream(*stream, format, *conv);
 	Object_wx_TarOutputStream *pObj = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TarOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(TarOutputStream_1)
 	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wx_TarOutputStream *pEntity = new wx_TarOutputStream(stream, format, *conv);
 	Object_wx_TarOutputStream *pObj = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TarOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -254,13 +254,13 @@ Object_wx_TarOutputStream::~Object_wx_TarOutputStream()
 
 Object *Object_wx_TarOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TarOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -290,7 +290,7 @@ Gura_ImplementUserInheritableClass(wx_TarOutputStream)
 
 Gura_ImplementDescendantCreator(wx_TarOutputStream)
 {
-	return new Object_wx_TarOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TarOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

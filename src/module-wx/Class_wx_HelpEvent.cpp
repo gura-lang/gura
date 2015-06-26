@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HelpEvent *_pObj;
 public:
-	inline wx_HelpEvent(WXTYPE eventType, wxWindowID id, const wxPoint& point) : wxHelpEvent(eventType, id, point), _sig(NULL), _pObj(NULL) {}
+	inline wx_HelpEvent(WXTYPE eventType, wxWindowID id, const wxPoint& point) : wxHelpEvent(eventType, id, point), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HelpEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HelpEvent::~wx_HelpEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HelpEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(HelpEvent)
 	if (args.IsValid(2)) point = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_HelpEvent *pEntity = new wx_HelpEvent(eventType, id, point);
 	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HelpEvent, SetOrigin)
@@ -138,13 +138,13 @@ Object_wx_HelpEvent::~Object_wx_HelpEvent()
 
 Object *Object_wx_HelpEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HelpEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -168,7 +168,7 @@ Gura_ImplementUserInheritableClass(wx_HelpEvent)
 
 Gura_ImplementDescendantCreator(wx_HelpEvent)
 {
-	return new Object_wx_HelpEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HelpEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

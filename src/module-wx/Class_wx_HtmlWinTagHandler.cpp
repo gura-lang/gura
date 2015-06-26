@@ -24,12 +24,12 @@ public:
 
 wx_HtmlWinTagHandler::~wx_HtmlWinTagHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlWinTagHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_HtmlWinTagHandler::~Object_wx_HtmlWinTagHandler()
 
 Object *Object_wx_HtmlWinTagHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWinTagHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlWinTagHandler)
 
 Gura_ImplementDescendantCreator(wx_HtmlWinTagHandler)
 {
-	return new Object_wx_HtmlWinTagHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlWinTagHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

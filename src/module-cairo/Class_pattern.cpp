@@ -12,7 +12,7 @@ Object_pattern::~Object_pattern()
 
 Object *Object_pattern::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_pattern::ToString(bool exprFlag)
@@ -338,14 +338,14 @@ Gura_ImplementMethod(pattern, get_surface)
 {
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
-	cairo_surface_t *surface = NULL;
+	cairo_surface_t *surface = nullptr;
 	cairo_status_t status = ::cairo_pattern_get_surface(pattern, &surface);
 	if (Is_error(sig, status)) return Value::Null;
 	cairo_surface_t *surface_ref = ::cairo_surface_reference(surface);
 	cairo_surface_type_t surface_type = ::cairo_surface_get_type(surface);
-	Object_surface *pObjSurface = NULL;
+	Object_surface *pObjSurface = nullptr;
 	if (surface_type == CAIRO_SURFACE_TYPE_IMAGE) {
-		pObjSurface = new Object_image_surface(surface_ref, NULL);
+		pObjSurface = new Object_image_surface(surface_ref, nullptr);
 	} else if (surface_type == CAIRO_SURFACE_TYPE_PDF) {
 		pObjSurface = new Object_surface(surface_ref);
 	} else if (surface_type == CAIRO_SURFACE_TYPE_PS) {

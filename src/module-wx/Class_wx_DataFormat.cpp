@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataFormat *_pObj;
 public:
-	inline wx_DataFormat(NativeFormat format) : wxDataFormat(format), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DataFormat(const wxChar *format) : wxDataFormat(*format), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataFormat(NativeFormat format) : wxDataFormat(format), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DataFormat(const wxChar *format) : wxDataFormat(*format), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataFormat();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataFormat *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_DataFormat::~wx_DataFormat()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataFormat::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(DataFormat)
 	if (args.IsValid(0)) format = static_cast<wxDataFormat::NativeFormat>(args.GetInt(0));
 	wx_DataFormat *pEntity = new wx_DataFormat(format);
 	Object_wx_DataFormat *pObj = Object_wx_DataFormat::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(DataFormat_1)
 	wxChar *format = static_cast<wxChar>(args.GetInt(0));
 	wx_DataFormat *pEntity = new wx_DataFormat(*format);
 	Object_wx_DataFormat *pObj = Object_wx_DataFormat::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -171,20 +171,20 @@ Gura_ImplementMethod(wx_DataFormat, SetType)
 //----------------------------------------------------------------------------
 Object_wx_DataFormat::~Object_wx_DataFormat()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DataFormat::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataFormat::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataFormat:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -209,7 +209,7 @@ Gura_ImplementUserInheritableClass(wx_DataFormat)
 
 Gura_ImplementDescendantCreator(wx_DataFormat)
 {
-	return new Object_wx_DataFormat((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataFormat((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

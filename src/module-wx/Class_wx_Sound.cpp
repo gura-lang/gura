@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Sound *_pObj;
 public:
-	inline wx_Sound() : wxSound(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _sig(NULL), _pObj(NULL) {}
+	inline wx_Sound() : wxSound(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Sound();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Sound *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Sound::~wx_Sound()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Sound::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SoundEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Sound *pEntity = new wx_Sound();
 	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(Sound)
 	if (args.IsValid(1)) isResource = args.GetBoolean(1);
 	wx_Sound *pEntity = new wx_Sound(fileName, isResource);
 	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -192,13 +192,13 @@ Object_wx_Sound::~Object_wx_Sound()
 
 Object *Object_wx_Sound::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Sound::ToString(bool exprFlag)
 {
 	String rtn("<wx.Sound:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -225,7 +225,7 @@ Gura_ImplementUserInheritableClass(wx_Sound)
 
 Gura_ImplementDescendantCreator(wx_Sound)
 {
-	return new Object_wx_Sound((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Sound((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

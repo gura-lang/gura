@@ -24,12 +24,12 @@ public:
 
 wx_DebugContext::~wx_DebugContext()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DebugContext::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -287,20 +287,20 @@ Gura_ImplementMethod(wx_DebugContext, SetStream)
 //----------------------------------------------------------------------------
 Object_wx_DebugContext::~Object_wx_DebugContext()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DebugContext::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DebugContext::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugContext:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -336,7 +336,7 @@ Gura_ImplementUserInheritableClass(wx_DebugContext)
 
 Gura_ImplementDescendantCreator(wx_DebugContext)
 {
-	return new Object_wx_DebugContext((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DebugContext((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

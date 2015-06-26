@@ -108,7 +108,7 @@ bool Wave::Write(Signal sig, Stream &stream)
 		Gura_PackULong(chunkHdr.ckSize, static_cast<ULong>(bytesData));
 		if (stream.Write(sig, &chunkHdr, ChunkHdr::Size) != ChunkHdr::Size) return false;
 		for (Audio::Chain *pChain = _pAudio->GetChainTop();
-							pChain != NULL; pChain = pChain->GetNext()) {
+							pChain != nullptr; pChain = pChain->GetNext()) {
 			if (stream.Write(sig, pChain->GetPointer(),
 						pChain->GetBytes()) != pChain->GetBytes()) return false;
 		}
@@ -150,7 +150,7 @@ bool Wave::ReadSubChunk(Signal sig, Stream &stream, size_t bytes)
 				return false;
 			}
 			_pAudio.reset(_pFormat->ReadAudio(sig, stream, ckSize));
-			if (_pAudio.get() == NULL) return false;
+			if (_pAudio.get() == nullptr) return false;
 			break;
 		}
 		default: {
@@ -264,7 +264,7 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 {
 	if (_nChannels != 1 && _nChannels != 2) {
 		sig.SetError(ERR_FormatError, "nChannels must be one or two");
-		return NULL;
+		return nullptr;
 	}
 	Audio::Format format = Audio::FORMAT_None;
 	size_t nSamples = 0;
@@ -279,14 +279,14 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 		bytesToRead = nSamples * _nChannels * 2;
 	} else {
 		sig.SetError(ERR_FormatError, "wBitsPerSample must be 8 or 16");
-		return NULL;
+		return nullptr;
 	}
 	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
 	Audio::Chain *pChain = pAudio->AllocChain(nSamples);
-	if (pChain == NULL) return NULL;
-	if (stream.Read(sig, pChain->GetPointer(), bytesToRead) == 0) return NULL;
+	if (pChain == nullptr) return nullptr;
+	if (stream.Read(sig, pChain->GetPointer(), bytesToRead) == 0) return nullptr;
 	if (bytesToRead < ckSize) {
-		if (!stream.Seek(sig, ckSize - bytesToRead, Stream::SeekCur)) return NULL;
+		if (!stream.Seek(sig, ckSize - bytesToRead, Stream::SeekCur)) return nullptr;
 	}
 	return pAudio.release();
 }

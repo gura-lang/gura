@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_Outline::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Outline::ToString(bool exprFlag)

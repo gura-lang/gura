@@ -29,12 +29,12 @@ public:
 
 wx_DC::~wx_DC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_DC, DrawLabel)
 	if (args.IsValid(3)) alignment = args.GetInt(3);
 	int indexAccel = -1;
 	if (args.IsValid(4)) indexAccel = args.GetInt(4);
-	wxRect *rectBounding = (wxRect *)(NULL);
+	wxRect *rectBounding = (wxRect *)(nullptr);
 	if (args.IsValid(5)) rectBounding = Object_wx_Rect::GetObject(args, 5)->GetEntity();
 	pThis->GetEntity()->DrawLabel(text, *image, *rect, alignment, indexAccel, rectBounding);
 	return Value::Null;
@@ -898,7 +898,7 @@ Gura_ImplementMethod(wx_DC, GetBackground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBrush &rtn = pThis->GetEntity()->GetBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetBackgroundMode)
@@ -926,7 +926,7 @@ Gura_ImplementMethod(wx_DC, GetBrush)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBrush &rtn = pThis->GetEntity()->GetBrush();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetCharHeight)
@@ -986,7 +986,7 @@ Gura_ImplementMethod(wx_DC, GetFont)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetLayoutDirection)
@@ -1044,7 +1044,7 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	wxFont *font = (wxFont *)(NULL);
+	wxFont *font = (wxFont *)(nullptr);
 	if (args.IsValid(4)) font = Object_wx_Font::GetObject(args, 4)->GetEntity();
 	wxCoord w;
 	wxCoord h;
@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(wx_DC, GetPen)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxPen &rtn = pThis->GetEntity()->GetPen();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetPixel)
@@ -1116,7 +1116,7 @@ Gura_ImplementMethod(wx_DC, GetPPI)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetPPI();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeAsList)
@@ -1146,7 +1146,7 @@ Gura_ImplementMethod(wx_DC, GetSize)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeMMAsList)
@@ -1176,7 +1176,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMM)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSizeMM();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextBackground)
@@ -1190,7 +1190,7 @@ Gura_ImplementMethod(wx_DC, GetTextBackground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextExtent)
@@ -1206,7 +1206,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	wxFont *font = (wxFont *)(NULL);
+	wxFont *font = (wxFont *)(nullptr);
 	if (args.IsValid(1)) font = Object_wx_Font::GetObject(args, 1)->GetEntity();
 	wxCoord w;
 	wxCoord h;
@@ -1229,7 +1229,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
 	wxSize rtn = pThis->GetEntity()->GetTextExtent(string);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextForeground)
@@ -1243,7 +1243,7 @@ Gura_ImplementMethod(wx_DC, GetTextForeground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextForeground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetUserScale)
@@ -1808,13 +1808,13 @@ Object_wx_DC::~Object_wx_DC()
 
 Object *Object_wx_DC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DC::ToString(bool exprFlag)
 {
 	String rtn("<wx.DC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -1934,7 +1934,7 @@ Gura_ImplementUserInheritableClass(wx_DC)
 
 Gura_ImplementDescendantCreator(wx_DC)
 {
-	return new Object_wx_DC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

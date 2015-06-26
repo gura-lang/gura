@@ -24,12 +24,12 @@ public:
 
 wx_ActiveXEvent::~wx_ActiveXEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ActiveXEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -104,13 +104,13 @@ Object_wx_ActiveXEvent::~Object_wx_ActiveXEvent()
 
 Object *Object_wx_ActiveXEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ActiveXEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ActiveXEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -133,7 +133,7 @@ Gura_ImplementUserInheritableClass(wx_ActiveXEvent)
 
 Gura_ImplementDescendantCreator(wx_ActiveXEvent)
 {
-	return new Object_wx_ActiveXEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ActiveXEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -40,8 +40,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextCtrl *_pObj;
 public:
-	inline wx_TextCtrl() : wxTextCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextCtrl() : wxTextCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool CanCopy();
 	//virtual bool CanCut();
 	//virtual bool CanPaste();
@@ -77,12 +77,12 @@ public:
 
 wx_TextCtrl::~wx_TextCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ Gura_ImplementFunction(TextCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextCtrl *pEntity = new wx_TextCtrl();
 	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -144,7 +144,7 @@ Gura_ImplementFunction(TextCtrl)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_TextCtrl *pEntity = new wx_TextCtrl(parent, id, value, *pos, *size, style, *validator, name);
 	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetDefaultStyle)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxTextAttr &rtn = pThis->GetEntity()->GetDefaultStyle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetInsertionPoint)
@@ -987,13 +987,13 @@ Object_wx_TextCtrl::~Object_wx_TextCtrl()
 
 Object *Object_wx_TextCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -1093,7 +1093,7 @@ Gura_ImplementUserInheritableClass(wx_TextCtrl)
 
 Gura_ImplementDescendantCreator(wx_TextCtrl)
 {
-	return new Object_wx_TextCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -10,7 +10,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Audio::Audio(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
 	_format(format), _nChannels(nChannels), _nSamplesPerSec(nSamplesPerSec),
-	_pChainLast(NULL)
+	_pChainLast(nullptr)
 {
 }
 
@@ -21,7 +21,7 @@ Audio::~Audio()
 
 void Audio::AddChain(Chain *pChain)
 {
-	if (_pChainLast == NULL) {
+	if (_pChainLast == nullptr) {
 		_pChainTop.reset(pChain);
 	} else {
 		_pChainLast->SetNext(pChain);
@@ -39,14 +39,14 @@ Audio::Chain *Audio::AllocChain(size_t nSamples)
 
 void Audio::FreeChain()
 {
-	_pChainTop.reset(NULL);
-	_pChainLast = NULL;
+	_pChainTop.reset(nullptr);
+	_pChainLast = nullptr;
 }
 
 size_t Audio::GetSamples() const
 {
 	size_t nSamples = 0;
-	for (const Chain *pChain = GetChainTop(); pChain != NULL; pChain = pChain->GetNext()) {
+	for (const Chain *pChain = GetChainTop(); pChain != nullptr; pChain = pChain->GetNext()) {
 		nSamples += pChain->GetSamples();
 	}
 	return nSamples;
@@ -55,7 +55,7 @@ size_t Audio::GetSamples() const
 size_t Audio::GetBytes() const
 {
 	size_t bytes = 0;
-	for (const Chain *pChain = GetChainTop(); pChain != NULL; pChain = pChain->GetNext()) {
+	for (const Chain *pChain = GetChainTop(); pChain != nullptr; pChain = pChain->GetNext()) {
 		bytes += pChain->GetBytes();
 	}
 	return bytes;
@@ -65,7 +65,7 @@ bool Audio::PutData(size_t iChannel, size_t offset, int data)
 {
 	size_t bytes = offset * GetBytesPerSample() * GetChannels();
 	for (Chain *pChain = GetChainTop();
-						pChain != NULL; pChain = pChain->GetNext()) {
+						pChain != nullptr; pChain = pChain->GetNext()) {
 		if (bytes < pChain->GetBytes()) {
 			UChar *buffp = pChain->GetPointer() +
 								GetBytesPerSample() * iChannel + bytes;
@@ -81,7 +81,7 @@ bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
 {
 	size_t bytes = offset * GetBytesPerSample() * GetChannels();
 	for (const Chain *pChain = GetChainTop();
-						pChain != NULL; pChain = pChain->GetNext()) {
+						pChain != nullptr; pChain = pChain->GetNext()) {
 		if (bytes < pChain->GetBytes()) {
 			const UChar *buffp = pChain->GetPointer() +
 								GetBytesPerSample() * iChannel + bytes;
@@ -98,11 +98,11 @@ bool Audio::StoreData(Environment &env, Signal sig,
 {
 	size_t bytes = offset * GetBytesPerSample() * GetChannels();
 	Chain *pChain = GetChainTop();
-	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+	for ( ; pChain != nullptr; pChain = pChain->GetNext()) {
 		if (bytes < pChain->GetBytes()) break;
 		bytes -= pChain->GetBytes();
 	}
-	if (pChain == NULL) {
+	if (pChain == nullptr) {
 		sig.SetError(ERR_IndexError, "offset is out of range");
 		return false;
 	}
@@ -118,7 +118,7 @@ bool Audio::StoreData(Environment &env, Signal sig,
 		if (cntRest == 0) {
 			do {
 				pChain = pChain->GetNext();
-				if (pChain == NULL) {
+				if (pChain == nullptr) {
 					sig.SetError(ERR_IndexError, "no enough space to store data");
 					return false;
 				}
@@ -135,10 +135,10 @@ bool Audio::StoreData(Environment &env, Signal sig,
 
 bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
 {
-	AudioStreamer *pAudioStreamer = NULL;
+	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
 	if (sig.IsSignalled()) return false;
-	if (pAudioStreamer == NULL) {
+	if (pAudioStreamer == nullptr) {
 		sig.SetError(ERR_FormatError, "unsupported audio type");
 		return false;
 	}
@@ -147,10 +147,10 @@ bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audio
 
 bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audioType)
 {
-	AudioStreamer *pAudioStreamer = NULL;
+	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
 	if (sig.IsSignalled()) return false;
-	if (pAudioStreamer == NULL) {
+	if (pAudioStreamer == nullptr) {
 		sig.SetError(ERR_FormatError, "unsupported audio type");
 		return false;
 	}
@@ -186,7 +186,7 @@ bool Audio::AddSineWave(Signal sig, size_t iChannel,
 Audio *Audio::ConvertFormat(Format format) const
 {
 	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
-	for (const Chain *pChain = GetChainTop(); pChain != NULL;
+	for (const Chain *pChain = GetChainTop(); pChain != nullptr;
 												pChain = pChain->GetNext()) {
 		pAudio->AddChain(pChain->ConvertFormat(format));
 	}
@@ -282,13 +282,13 @@ Audio::Chain *Audio::Chain::ConvertFormat(Format format) const
 //-----------------------------------------------------------------------------
 Audio::IteratorEach::IteratorEach(Audio *pAudio, size_t iChannel, size_t offset) :
 		Iterator(false), _pAudio(pAudio), _iChannel(iChannel), _offset(offset),
-		_pChain(NULL), _buffp(NULL), _cntRest(0), _doneFlag(false)
+		_pChain(nullptr), _buffp(nullptr), _cntRest(0), _doneFlag(false)
 {
 }
 
 Iterator *Audio::IteratorEach::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
@@ -297,11 +297,11 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	if (_pChain.IsNull()) {
 		size_t bytes = _offset * _pAudio->GetBytesPerSample() * _pAudio->GetChannels();
 		Chain *pChain = _pAudio->GetChainTop();
-		for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+		for ( ; pChain != nullptr; pChain = pChain->GetNext()) {
 			if (bytes < pChain->GetBytes()) break;
 			bytes -= pChain->GetBytes();
 		}
-		if (pChain == NULL) {
+		if (pChain == nullptr) {
 			sig.SetError(ERR_IndexError, "offset is out of range");
 			return false;
 		}
@@ -313,7 +313,7 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 		Chain *pChain = _pChain.get();
 		do {
 			pChain = pChain->GetNext();
-			if (pChain == NULL) {
+			if (pChain == nullptr) {
 				_doneFlag = true;
 				return false;
 			}
@@ -342,35 +342,35 @@ void Audio::IteratorEach::GatherFollower(Environment::Frame *pFrame, Environment
 //-----------------------------------------------------------------------------
 // AudioStreamer
 //-----------------------------------------------------------------------------
-AudioStreamer::List *AudioStreamer::_pList = NULL;
+AudioStreamer::List *AudioStreamer::_pList = nullptr;
 void AudioStreamer::Register(AudioStreamer *pAudioStreamer)
 {
-	if (_pList == NULL) _pList = new List();
+	if (_pList == nullptr) _pList = new List();
 	_pList->push_back(pAudioStreamer);
 }
 
 AudioStreamer *AudioStreamer::FindResponsible(Signal sig, Stream &stream, const char *audioType)
 {
-	if (_pList == NULL) return NULL;
-	if (audioType != NULL) return FindByAudioType(audioType);
+	if (_pList == nullptr) return nullptr;
+	if (audioType != nullptr) return FindByAudioType(audioType);
 	foreach (List, ppAudioStreamer, *_pList) {
 		AudioStreamer *pAudioStreamer = *ppAudioStreamer;
 		if (pAudioStreamer->IsResponsible(sig, stream)) return pAudioStreamer;
 		if (sig.IsSignalled()) break;
 	}
-	return NULL;
+	return nullptr;
 }
 
 AudioStreamer *AudioStreamer::FindByAudioType(const char *audioType)
 {
-	if (_pList == NULL) return NULL;
+	if (_pList == nullptr) return nullptr;
 	foreach (List, ppAudioStreamer, *_pList) {
 		AudioStreamer *pAudioStreamer = *ppAudioStreamer;
 		if (::strcasecmp(pAudioStreamer->GetAudioType(), audioType) == 0) {
 			return pAudioStreamer;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 }

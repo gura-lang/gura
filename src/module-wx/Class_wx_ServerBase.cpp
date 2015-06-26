@@ -24,12 +24,12 @@ public:
 
 wx_ServerBase::~wx_ServerBase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ServerBase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_ServerBase::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_ServerBase::~Object_wx_ServerBase()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ServerBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ServerBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ServerBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_ServerBase)
 
 Gura_ImplementDescendantCreator(wx_ServerBase)
 {
-	return new Object_wx_ServerBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ServerBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

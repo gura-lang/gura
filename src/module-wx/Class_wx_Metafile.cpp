@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Metafile *_pObj;
 public:
-	inline wx_Metafile(const wxString& filename) : wxMetafile(filename), _sig(NULL), _pObj(NULL) {}
+	inline wx_Metafile(const wxString& filename) : wxMetafile(filename), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Metafile();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Metafile *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Metafile::~wx_Metafile()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Metafile::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(Metafile)
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
 	wx_Metafile *pEntity = new wx_Metafile(filename);
 	Object_wx_Metafile *pObj = Object_wx_Metafile::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Metafile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -120,13 +120,13 @@ Object_wx_Metafile::~Object_wx_Metafile()
 
 Object *Object_wx_Metafile::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Metafile::ToString(bool exprFlag)
 {
 	String rtn("<wx.Metafile:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -149,7 +149,7 @@ Gura_ImplementUserInheritableClass(wx_Metafile)
 
 Gura_ImplementDescendantCreator(wx_Metafile)
 {
-	return new Object_wx_Metafile((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Metafile((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

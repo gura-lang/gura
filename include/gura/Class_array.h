@@ -24,7 +24,7 @@ public:
 				Object(pClass), _pArray(pArray) {}
 	inline Array<T_Elem> *GetArray() { return _pArray.get(); }
 	inline const Array<T_Elem> *GetArray() const { return _pArray.get(); }
-	virtual Object *Clone() const { return NULL; }
+	virtual Object *Clone() const { return nullptr; }
 	virtual String ToString(bool exprFlag) {
 		char buff[64];
 		String str;
@@ -113,7 +113,7 @@ public:
 			DeclareBlock(OCCUR_Once);
 		}
 		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
 			AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(exprOwner.size()));

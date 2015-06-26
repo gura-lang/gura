@@ -17,7 +17,7 @@ Object_function::~Object_function()
 bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	Class *pClass = GetFunction()->GetClassToConstruct();
-	if (pClass != NULL) return pClass->DoDirProp(env, sig, symbols);
+	if (pClass != nullptr) return pClass->DoDirProp(env, sig, symbols);
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(decls));
 	symbols.insert(Gura_Symbol(expr));
@@ -170,8 +170,8 @@ Gura_ImplementFunction(function)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
-	ExprOwner *pExprOwnerArg = NULL;
-	if (pExprOwnerParam == NULL) {
+	ExprOwner *pExprOwnerArg = nullptr;
+	if (pExprOwnerParam == nullptr) {
 		pExprOwnerArg = new ExprOwner();
 		foreach_const (ValueList, pValue, args.GetList(0)) {
 			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
@@ -347,7 +347,7 @@ Gura_ImplementClassMethod(function, gethelp)
 	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
 	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
-	if (pHelp == NULL) return Value::Null;
+	if (pHelp == nullptr) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
 }
 
@@ -419,7 +419,7 @@ Gura_ImplementMethod(function, mathdiff)
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
-	const Symbol *pSymbol = NULL;
+	const Symbol *pSymbol = nullptr;
 	if (args.Is_symbol(0)) {
 		pSymbol = args.GetSymbol(0);
 	} else if (declOwner.empty()) {
@@ -499,7 +499,7 @@ bool Class_function::Deserialize(Environment &env, Signal sig, Stream &stream, V
 Object *Class_function::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

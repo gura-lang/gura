@@ -15,9 +15,9 @@ class Object_exif : public Object {
 private:
 	bool _bigendianFlag;
 	AutoPtr<Object_ifd> _pObj0thIFD;
-	AutoPtr<Object_ifd> _pObj1stIFD;				// this may be NULL
-	AutoPtr<Object_binary> _pObjBinaryThumbnail;	// this may be NULL
-	AutoPtr<Object_image> _pObjImageThumbnail;		// this may be NULL
+	AutoPtr<Object_ifd> _pObj1stIFD;				// this may be nullptr
+	AutoPtr<Object_binary> _pObjBinaryThumbnail;	// this may be nullptr
+	AutoPtr<Object_image> _pObjImageThumbnail;		// this may be nullptr
 	struct {
 		bool validFlag;
 		size_t width, height;

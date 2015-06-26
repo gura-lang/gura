@@ -106,7 +106,7 @@ private:
 	const Module *_pModule;
 public:
 	inline ValueTypeInfo(ValueType valType, const Symbol *pSymbol, Class *pClass) :
-			_valType(valType), _pSymbol(pSymbol), _pClass(pClass), _pModule(NULL) {}
+			_valType(valType), _pSymbol(pSymbol), _pClass(pClass), _pModule(nullptr) {}
 	~ValueTypeInfo();
 	inline static void Delete(ValueTypeInfo *pValTypeInfo) { delete pValTypeInfo; }
 	inline void SetModule(const Module *pModule) { _pModule = pModule; }

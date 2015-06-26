@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Quantize *_pObj;
 public:
-	inline wx_Quantize() : wxQuantize(), _sig(NULL), _pObj(NULL) {}
+	inline wx_Quantize() : wxQuantize(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Quantize();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Quantize *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Quantize::~wx_Quantize()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Quantize::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(QuantizeEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Quantize *pEntity = new wx_Quantize();
 	Object_wx_Quantize *pObj = Object_wx_Quantize::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Quantize(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -166,13 +166,13 @@ Object_wx_Quantize::~Object_wx_Quantize()
 
 Object *Object_wx_Quantize::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Quantize::ToString(bool exprFlag)
 {
 	String rtn("<wx.Quantize:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -195,7 +195,7 @@ Gura_ImplementUserInheritableClass(wx_Quantize)
 
 Gura_ImplementDescendantCreator(wx_Quantize)
 {
-	return new Object_wx_Quantize((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Quantize((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

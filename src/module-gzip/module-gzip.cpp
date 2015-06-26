@@ -126,7 +126,7 @@ Object_stream *GenerateDecompressor(Environment &env, Signal sig,
 {
 	AutoPtr<ZLib::Stream_Inflater> pStream(
 		new ZLib::Stream_Inflater(env, sig, pStreamSrc, InvalidSize));
-	if (!pStream->Initialize(sig, windowBits)) return NULL;
+	if (!pStream->Initialize(sig, windowBits)) return nullptr;
 	return new Object_stream(env, pStream.release());
 }
 
@@ -136,7 +136,7 @@ Object_stream *GenerateCompressor(Environment &env, Signal sig,
 	AutoPtr<ZLib::Stream_Deflater> pStream(
 		new ZLib::Stream_Deflater(env, sig, pStreamDst));
 	if (!pStream->Initialize(sig, level,
-					windowBits, 8, Z_DEFAULT_STRATEGY)) return NULL;
+					windowBits, 8, Z_DEFAULT_STRATEGY)) return nullptr;
 	return new Object_stream(env, pStream.release());
 }
 

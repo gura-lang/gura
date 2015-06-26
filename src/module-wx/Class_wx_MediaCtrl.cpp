@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MediaCtrl *_pObj;
 public:
-	inline wx_MediaCtrl() : wxMediaCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_MediaCtrl(wxWindow* parent, wxWindowID id, const wxString& fileName, const wxPoint& pos, const wxSize& size, long style, const wxString& szBackend, const wxValidator& validator, const wxString& name) : wxMediaCtrl(parent, id, fileName, pos, size, style, szBackend, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_MediaCtrl() : wxMediaCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MediaCtrl(wxWindow* parent, wxWindowID id, const wxString& fileName, const wxPoint& pos, const wxSize& size, long style, const wxString& szBackend, const wxValidator& validator, const wxString& name) : wxMediaCtrl(parent, id, fileName, pos, size, style, szBackend, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MediaCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MediaCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_MediaCtrl::~wx_MediaCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MediaCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(MediaCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MediaCtrl *pEntity = new wx_MediaCtrl();
 	Object_wx_MediaCtrl *pObj = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MediaCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,7 +96,7 @@ Gura_ImplementFunction(MediaCtrl)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_MediaCtrl *pEntity = new wx_MediaCtrl(parent, id, fileName, *pos, *size, style, szBackend, *validator, name);
 	Object_wx_MediaCtrl *pObj = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MediaCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetBestSize)
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetBestSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MediaCtrl, GetPlaybackRate)
@@ -431,13 +431,13 @@ Object_wx_MediaCtrl::~Object_wx_MediaCtrl()
 
 Object *Object_wx_MediaCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MediaCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.MediaCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -477,7 +477,7 @@ Gura_ImplementUserInheritableClass(wx_MediaCtrl)
 
 Gura_ImplementDescendantCreator(wx_MediaCtrl)
 {
-	return new Object_wx_MediaCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MediaCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

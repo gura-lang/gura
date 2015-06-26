@@ -435,7 +435,7 @@ Value Matrix::Invert(Environment &env, Signal sig)
 bool Matrix::GetElemIndex(Environment &env, Signal sig,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems)
 {
-	SeqPostHandler *pSeqPostHandler = NULL;
+	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value valueIdx = pExprIdx->Exec2(env, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return false;
 	if (valueIdx.Is_number()) {
@@ -912,7 +912,7 @@ Matrix::IteratorEach::~IteratorEach()
 
 Iterator *Matrix::IteratorEach::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Matrix::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
@@ -953,7 +953,7 @@ Matrix::IteratorEachRow::~IteratorEachRow()
 
 Iterator *Matrix::IteratorEachRow::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Matrix::IteratorEachRow::DoNext(Environment &env, Signal sig, Value &value)
@@ -982,7 +982,7 @@ Matrix::IteratorEachCol::~IteratorEachCol()
 
 Iterator *Matrix::IteratorEachCol::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Matrix::IteratorEachCol::DoNext(Environment &env, Signal sig, Value &value)

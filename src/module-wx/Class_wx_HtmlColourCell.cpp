@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlColourCell *_pObj;
 public:
-	inline wx_HtmlColourCell(wxColour clr, int flags) : wxHtmlColourCell(clr, flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlColourCell(wxColour clr, int flags) : wxHtmlColourCell(clr, flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlColourCell();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlColourCell *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlColourCell::~wx_HtmlColourCell()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlColourCell::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(HtmlColourCell)
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_HtmlColourCell *pEntity = new wx_HtmlColourCell(*clr, flags);
 	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlColourCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -72,13 +72,13 @@ Object_wx_HtmlColourCell::~Object_wx_HtmlColourCell()
 
 Object *Object_wx_HtmlColourCell::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlColourCell::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlColourCell:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -98,7 +98,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlColourCell)
 
 Gura_ImplementDescendantCreator(wx_HtmlColourCell)
 {
-	return new Object_wx_HtmlColourCell((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlColourCell((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

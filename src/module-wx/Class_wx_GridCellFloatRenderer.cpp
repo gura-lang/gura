@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellFloatRenderer *_pObj;
 public:
-	inline wx_GridCellFloatRenderer(int width, int precision) : wxGridCellFloatRenderer(width, precision), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellFloatRenderer(int width, int precision) : wxGridCellFloatRenderer(width, precision), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellFloatRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellFloatRenderer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GridCellFloatRenderer::~wx_GridCellFloatRenderer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellFloatRenderer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(GridCellFloatRenderer)
 	if (args.IsValid(1)) precision = args.GetInt(1);
 	wx_GridCellFloatRenderer *pEntity = new wx_GridCellFloatRenderer(width, precision);
 	Object_wx_GridCellFloatRenderer *pObj = Object_wx_GridCellFloatRenderer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellFloatRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -146,13 +146,13 @@ Object_wx_GridCellFloatRenderer::~Object_wx_GridCellFloatRenderer()
 
 Object *Object_wx_GridCellFloatRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellFloatRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellFloatRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -177,7 +177,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellFloatRenderer)
 
 Gura_ImplementDescendantCreator(wx_GridCellFloatRenderer)
 {
-	return new Object_wx_GridCellFloatRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellFloatRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

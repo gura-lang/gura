@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DynamicLibrary *_pObj;
 public:
-	//inline wx_DynamicLibrary() : wxDynamicLibrary(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DynamicLibrary(const wxString& name, int flags) : wxDynamicLibrary(name, flags), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DynamicLibrary() : wxDynamicLibrary(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DynamicLibrary(const wxString& name, int flags) : wxDynamicLibrary(name, flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DynamicLibrary();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DynamicLibrary *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_DynamicLibrary::~wx_DynamicLibrary()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DynamicLibrary::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(DynamicLibraryEmpty)
 #if 0
 	wx_DynamicLibrary *pEntity = new wx_DynamicLibrary();
 	Object_wx_DynamicLibrary *pObj = Object_wx_DynamicLibrary::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,7 +85,7 @@ Gura_ImplementFunction(DynamicLibrary)
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_DynamicLibrary *pEntity = new wx_DynamicLibrary(name, flags);
 	Object_wx_DynamicLibrary *pObj = Object_wx_DynamicLibrary::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Detach)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDllType rtn = pThis->GetEntity()->Detach();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -210,7 +210,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, GetProgramHandle)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType rtn = wxDynamicLibrary::GetProgramHandle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -257,7 +257,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, ListLoaded)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDynamicLibraryDetailsArray rtn = wxDynamicLibrary::ListLoaded();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DynamicLibraryDetailsArray(new wxDynamicLibraryDetailsArray(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DynamicLibraryDetailsArray(new wxDynamicLibraryDetailsArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -330,20 +330,20 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, Unload_1)
 //----------------------------------------------------------------------------
 Object_wx_DynamicLibrary::~Object_wx_DynamicLibrary()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DynamicLibrary::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DynamicLibrary::ToString(bool exprFlag)
 {
 	String rtn("<wx.DynamicLibrary:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -376,7 +376,7 @@ Gura_ImplementUserInheritableClass(wx_DynamicLibrary)
 
 Gura_ImplementDescendantCreator(wx_DynamicLibrary)
 {
-	return new Object_wx_DynamicLibrary((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DynamicLibrary((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

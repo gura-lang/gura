@@ -37,7 +37,7 @@ public:
 		_pObserver = pObserver;
 		_ownerFlag = ownerFlag;
 	}
-	inline void InvalidateEntity() { _pEntity = NULL, _pObserver = NULL, _ownerFlag = false; }
+	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
 	inline wxRendererNative *GetEntity() { return _pEntity; }
 	inline wxRendererNative *ReleaseEntity() {
 		wxRendererNative *pEntity = GetEntity();
@@ -45,10 +45,10 @@ public:
 		return pEntity;
 	}
 	inline void NotifyGuraObjectDeleted() {
-		if (_pObserver != NULL) _pObserver->GuraObjectDeleted();
+		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
 	inline bool IsInvalid(Signal sig) const {
-		if (_pEntity != NULL) return false;
+		if (_pEntity != nullptr) return false;
 		SetError_InvalidWxObject(sig, "wxRendererNative");
 		return true;
 	}

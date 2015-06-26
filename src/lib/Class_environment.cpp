@@ -32,7 +32,7 @@ Value Object_environment::DoGetProp(Environment &env, Signal sig, const Symbol *
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Value *pValue = GetEnv().LookupValue(pSymbol, ENVREF_Escalate);
-	if (pValue == NULL) return Value::Null;
+	if (pValue == nullptr) return Value::Null;
 	evaluatedFlag = true;
 	return *pValue;
 }
@@ -73,7 +73,7 @@ Gura_ImplementMethod(environment, getprop_X)
 	Object_environment *pThis = Object_environment::GetThisObj(args);
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, ENVREF_NoEscalate);
-	if (pValue == NULL) {
+	if (pValue == nullptr) {
 		sig.SetError(ERR_ValueError,
 			"environment doesn't have a property named '%s'", pSymbol->GetName());
 		return Value::Null;
@@ -102,7 +102,7 @@ Gura_ImplementMethod(environment, lookup)
 	Object_environment *pThis = Object_environment::GetThisObj(args);
 	EnvRefMode envRefMode = args.GetBoolean(1)? ENVREF_Escalate : ENVREF_NoEscalate;
 	const Value *pValue = pThis->GetEnv().LookupValue(args.GetSymbol(0), envRefMode, 0);
-	if (pValue == NULL) return Value::Null;
+	if (pValue == nullptr) return Value::Null;
 	return *pValue;
 }
 
@@ -142,7 +142,7 @@ void Class_environment::Prepare(Environment &env)
 Object *Class_environment::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

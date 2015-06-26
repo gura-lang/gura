@@ -207,7 +207,7 @@ Gura_ImplementFunction(MatrixInit)
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(*ppExpr);
@@ -843,7 +843,7 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 
 Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return NULL;
+	return nullptr;
 }
 
 }

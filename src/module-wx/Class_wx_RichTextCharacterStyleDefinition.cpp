@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextCharacterStyleDefinition *_pObj;
 public:
-	inline wx_RichTextCharacterStyleDefinition(const wxString& name) : wxRichTextCharacterStyleDefinition(name), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextCharacterStyleDefinition(const wxString& name) : wxRichTextCharacterStyleDefinition(name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextCharacterStyleDefinition();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextCharacterStyleDefinition *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextCharacterStyleDefinition::~wx_RichTextCharacterStyleDefinition()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextCharacterStyleDefinition::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(RichTextCharacterStyleDefinition)
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextCharacterStyleDefinition *pEntity = new wx_RichTextCharacterStyleDefinition(name);
 	Object_wx_RichTextCharacterStyleDefinition *pObj = Object_wx_RichTextCharacterStyleDefinition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextCharacterStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_RichTextCharacterStyleDefinition::~Object_wx_RichTextCharacterStyleDef
 
 Object *Object_wx_RichTextCharacterStyleDefinition::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextCharacterStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextCharacterStyleDefinition:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextCharacterStyleDefinition)
 
 Gura_ImplementDescendantCreator(wx_RichTextCharacterStyleDefinition)
 {
-	return new Object_wx_RichTextCharacterStyleDefinition((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextCharacterStyleDefinition((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

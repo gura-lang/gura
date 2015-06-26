@@ -12,7 +12,7 @@ Object_region::~Object_region()
 
 Object *Object_region::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_region::ToString(bool exprFlag)

@@ -86,7 +86,7 @@ void ValueTypeInfo::SetClass(Class *pClass)
 String ValueTypeInfo::MakeFullName() const
 {
 	String rtn;
-	if (_pModule != NULL) {
+	if (_pModule != nullptr) {
 		rtn += _pModule->GetName();
 		rtn += ".";
 	}
@@ -96,7 +96,7 @@ String ValueTypeInfo::MakeFullName() const
 
 Expr *ValueTypeInfo::MakeExpr() const
 {
-	if (_pModule == NULL) {
+	if (_pModule == nullptr) {
 		return new Expr_Identifier(_pSymbol);
 	}
 	return new Expr_Member(_pModule->MakeExpr(), new Expr_Identifier(_pSymbol));
@@ -110,7 +110,7 @@ const ValueTypeMap ValueTypeMap::Null;
 //-----------------------------------------------------------------------------
 // ValueTypePool
 //-----------------------------------------------------------------------------
-ValueTypePool *ValueTypePool::_pInst = NULL;
+ValueTypePool *ValueTypePool::_pInst = nullptr;
 
 ValueTypePool::~ValueTypePool()
 {
@@ -121,7 +121,7 @@ ValueTypePool::~ValueTypePool()
 
 void ValueTypePool::Initialize(Environment &env)
 {
-	if (_pInst == NULL) {
+	if (_pInst == nullptr) {
 		_pInst = new ValueTypePool();
 		_pInst->_Initialize(env);
 	}
@@ -322,7 +322,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)
 {
 	ValueType valType = static_cast<ValueType>(_valueTypeList.size());
-	ValueTypeInfo *pValTypeInfo = new ValueTypeInfo(valType, pSymbol, NULL);
+	ValueTypeInfo *pValTypeInfo = new ValueTypeInfo(valType, pSymbol, nullptr);
 	_valueTypeList.push_back(pValTypeInfo);
 	return pValTypeInfo;
 }
@@ -334,7 +334,7 @@ ValueTypeInfo *ValueTypePool::Lookup(ValueType valType)
 
 ValueTypeInfo *ValueTypePool::LookupWithCheck(ValueType valType)
 {
-	if (valType >= _valueTypeList.size()) return NULL;
+	if (valType >= _valueTypeList.size()) return nullptr;
 	return _valueTypeList[valType];
 }
 

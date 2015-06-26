@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Semaphore *_pObj;
 public:
-	inline wx_Semaphore(int initialcount, int maxcount) : wxSemaphore(initialcount, maxcount), _sig(NULL), _pObj(NULL) {}
+	inline wx_Semaphore(int initialcount, int maxcount) : wxSemaphore(initialcount, maxcount), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Semaphore();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Semaphore *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Semaphore::~wx_Semaphore()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Semaphore::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(Semaphore)
 	if (args.IsValid(1)) maxcount = args.GetInt(1);
 	wx_Semaphore *pEntity = new wx_Semaphore(initialcount, maxcount);
 	Object_wx_Semaphore *pObj = Object_wx_Semaphore::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Semaphore(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,20 +127,20 @@ Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 //----------------------------------------------------------------------------
 Object_wx_Semaphore::~Object_wx_Semaphore()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Semaphore::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Semaphore::ToString(bool exprFlag)
 {
 	String rtn("<wx.Semaphore:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -164,7 +164,7 @@ Gura_ImplementUserInheritableClass(wx_Semaphore)
 
 Gura_ImplementDescendantCreator(wx_Semaphore)
 {
-	return new Object_wx_Semaphore((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Semaphore((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

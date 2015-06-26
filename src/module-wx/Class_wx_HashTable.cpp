@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HashTable *_pObj;
 public:
-	//inline wx_HashTable(unsigned int key_type, int size) : wxHashTable(key_type, size), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HashTable(unsigned int key_type, int size) : wxHashTable(key_type, size), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HashTable();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HashTable *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HashTable::~wx_HashTable()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HashTable::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(HashTable)
 	if (args.IsValid(1)) size = args.GetInt(1);
 	wx_HashTable *pEntity = new wx_HashTable(key_type, size);
 	Object_wx_HashTable *pObj = Object_wx_HashTable::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HashTable(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HashTable, Delete)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long key = args.GetLong(0);
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Delete(key);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HashTable, Delete_1)
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HashTable, Delete_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Delete(key);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HashTable, DeleteContents)
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_HashTable, Get)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long key = args.GetLong(0);
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Get(key);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HashTable, Get_1)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_HashTable, Get_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char key = args.GetChar(0);
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Get(key);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HashTable, MakeKey)
@@ -259,13 +259,13 @@ Object_wx_HashTable::~Object_wx_HashTable()
 
 Object *Object_wx_HashTable::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HashTable::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashTable:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -297,7 +297,7 @@ Gura_ImplementUserInheritableClass(wx_HashTable)
 
 Gura_ImplementDescendantCreator(wx_HashTable)
 {
-	return new Object_wx_HashTable((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HashTable((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

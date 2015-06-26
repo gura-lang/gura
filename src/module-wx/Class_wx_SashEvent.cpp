@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SashEvent *_pObj;
 public:
-	inline wx_SashEvent(int id, wxSashEdgePosition edge) : wxSashEvent(id, edge), _sig(NULL), _pObj(NULL) {}
+	inline wx_SashEvent(int id, wxSashEdgePosition edge) : wxSashEvent(id, edge), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SashEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SashEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SashEvent::~wx_SashEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SashEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(SashEvent)
 	if (args.IsValid(1)) edge = static_cast<wxSashEdgePosition>(args.GetInt(1));
 	wx_SashEvent *pEntity = new wx_SashEvent(id, edge);
 	Object_wx_SashEvent *pObj = Object_wx_SashEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SashEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_SashEvent, GetDragRect)
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetDragRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SashEvent, GetDragStatus)
@@ -115,13 +115,13 @@ Object_wx_SashEvent::~Object_wx_SashEvent()
 
 Object *Object_wx_SashEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SashEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SashEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -144,7 +144,7 @@ Gura_ImplementUserInheritableClass(wx_SashEvent)
 
 Gura_ImplementDescendantCreator(wx_SashEvent)
 {
-	return new Object_wx_SashEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SashEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

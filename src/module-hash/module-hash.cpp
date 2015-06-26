@@ -23,7 +23,7 @@ Object_accumulator::Object_accumulator(Class *pClass, AccumulatorBase *pAccumula
 
 Object *Object_accumulator::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_accumulator::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -115,7 +115,7 @@ Gura_ImplementUserClass(accumulator)
 //-----------------------------------------------------------------------------
 const char *AccumulatorBase::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 size_t AccumulatorBase::DoRead(Signal sig, void *buff, size_t len)

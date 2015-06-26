@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Dialog *_pObj;
 public:
-	inline wx_Dialog() : wxDialog(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Dialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDialog(parent, id, title, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Dialog() : wxDialog(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Dialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDialog(parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool DoOK();
 	~wx_Dialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Dialog *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_Dialog::~wx_Dialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Dialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(DialogEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dialog *pEntity = new wx_Dialog();
 	Object_wx_Dialog *pObj = Object_wx_Dialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Dialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(Dialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Dialog)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_Dialog *pEntity = new wx_Dialog(parent, id, title, *pos, *size, style, name);
 	Object_wx_Dialog *pObj = Object_wx_Dialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Dialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_Dialog, Create)
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->CreateButtonSizer(flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Dialog, CreateSeparatedButtonSizer)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->CreateSeparatedButtonSizer(flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Dialog, CreateStdDialogButtonSizer)
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxStdDialogButtonSizer *rtn = (wxStdDialogButtonSizer *)pThis->GetEntity()->CreateStdDialogButtonSizer(flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_StdDialogButtonSizer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StdDialogButtonSizer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Dialog, DoLayoutAdaptation)
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_Dialog, GetToolBar)
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->GetToolBar();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -644,13 +644,13 @@ Object_wx_Dialog::~Object_wx_Dialog()
 
 Object *Object_wx_Dialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Dialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.Dialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -706,7 +706,7 @@ Gura_ImplementUserInheritableClass(wx_Dialog)
 
 Gura_ImplementDescendantCreator(wx_Dialog)
 {
-	return new Object_wx_Dialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Dialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

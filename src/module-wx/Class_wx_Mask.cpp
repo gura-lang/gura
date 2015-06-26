@@ -14,10 +14,10 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Mask *_pObj;
 public:
-	inline wx_Mask() : wxMask(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _sig(NULL), _pObj(NULL) {}
-	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _sig(NULL), _pObj(NULL) {}
-	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _sig(NULL), _pObj(NULL) {}
+	inline wx_Mask() : wxMask(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Mask();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Mask *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_Mask::~wx_Mask()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Mask::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(MaskEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Mask *pEntity = new wx_Mask();
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(Mask)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap);
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(Mask_1)
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap, *colour);
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,7 +127,7 @@ Gura_ImplementFunction(Mask_2)
 	int index = args.GetInt(1);
 	wx_Mask *pEntity = new wx_Mask(*bitmap, index);
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -198,13 +198,13 @@ Object_wx_Mask::~Object_wx_Mask()
 
 Object *Object_wx_Mask::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Mask::ToString(bool exprFlag)
 {
 	String rtn("<wx.Mask:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -230,7 +230,7 @@ Gura_ImplementUserInheritableClass(wx_Mask)
 
 Gura_ImplementDescendantCreator(wx_Mask)
 {
-	return new Object_wx_Mask((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Mask((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -28,7 +28,7 @@ Gura_ImplementFunction(test)
 	ULong addrNum = ::inet_addr(addrToConnect);
 	if (addrNum == 0xffffffff) {
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
-		if (pHostEnt == NULL) {
+		if (pHostEnt == nullptr) {
 			sig.SetError(ERR_IOError, "host not found: %s", addrToConnect);
 			return Value::Null;
 		}

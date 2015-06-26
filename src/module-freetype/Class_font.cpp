@@ -13,7 +13,7 @@ Object_font::Object_font(Object_Face *pObjFace, Object_color *pObjColor) :
 
 Object *Object_font::Clone() const
 {
-	return NULL; //new Object_font(*this);
+	return nullptr; //new Object_font(*this);
 }
 
 bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -181,7 +181,7 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 			int xAdj = xOrg, yAdj = yOrg;
 			int width = bitmap.width;
 			int height = bitmap.rows;
-			if (bitmap.buffer == NULL) {
+			if (bitmap.buffer == nullptr) {
 				// nothing to do
 			} else if (!pImage->AdjustCoord(xAdj, yAdj, width, height)) {
 				// nothing to do
@@ -203,7 +203,7 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 			unsigned long codeUTF32, size_t idx, const Function *pFuncDeco)
 {
-	bool transformFlag = (pFuncDeco != NULL);
+	bool transformFlag = (pFuncDeco != nullptr);
 	FT_Matrix matrix;	// 16.16 fixed float
 	matrix.xx = 1 << 16;
 	matrix.xy = 0 << 16;
@@ -232,7 +232,7 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 		if (err != 0) return err;
 	}
 	// FT_Load_Char calls FT_Get_Char_Index and FT_Load_Glypy internally.
-	if (pFuncDeco == NULL) {
+	if (pFuncDeco == nullptr) {
 		FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 		if (err != 0) return err;
@@ -445,10 +445,10 @@ Gura_ImplementMethod(font, drawtext)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	const Function *pFuncDeco = NULL;
+	const Function *pFuncDeco = nullptr;
 	if (args.IsBlockSpecified()) {
 		pFuncDeco = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-		if (pFuncDeco == NULL) return Value::Null;
+		if (pFuncDeco == nullptr) return Value::Null;
 	}
 	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Null;
 	return args.GetThis();
@@ -463,7 +463,7 @@ Gura_DeclareMethod(font, calcsize)
 
 Gura_ImplementMethod(font, calcsize)
 {
-	const Function *pFuncDeco = NULL;
+	const Function *pFuncDeco = nullptr;
 	Object_font *pThis = Object_font::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
@@ -485,7 +485,7 @@ Gura_DeclareMethod(font, calcbbox)
 // ******************* still buggy
 Gura_ImplementMethod(font, calcbbox)
 {
-	const Function *pFuncDeco = NULL;
+	const Function *pFuncDeco = nullptr;
 	Object_font *pThis = Object_font::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);

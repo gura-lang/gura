@@ -205,7 +205,7 @@ Iterator_FromStream::~Iterator_FromStream()
 
 Iterator *Iterator_FromStream::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_FromStream::DoNext(Environment &env, Signal sig, Value &value)
@@ -255,7 +255,7 @@ Iterator_FromString::~Iterator_FromString()
 
 Iterator *Iterator_FromString::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_FromString::DoNext(Environment &env, Signal sig, Value &value)
@@ -310,11 +310,11 @@ Value ExecParser(Environment &env, Signal sig,
 		} else if (event.type == YAML_SCALAR_EVENT ||
 					event.type == YAML_SEQUENCE_START_EVENT ||
 					event.type == YAML_MAPPING_START_EVENT) {
-			yaml_char_t *anchor = NULL;
-			yaml_char_t *tag = NULL;
+			yaml_char_t *anchor = nullptr;
+			yaml_char_t *tag = nullptr;
 			Value value;
 			Stocker *pStockerTop =
-						stockerList.empty()? NULL : stockerList.back();
+						stockerList.empty()? nullptr : stockerList.back();
 			if (event.type == YAML_SCALAR_EVENT) {
 				anchor = event.data.scalar.anchor;
 				tag = event.data.scalar.tag;
@@ -345,12 +345,12 @@ Value ExecParser(Environment &env, Signal sig,
 				stockerList.push_back(pStocker);
 				value = pStocker->GetValue();
 			}
-			if (pStockerTop == NULL) {
+			if (pStockerTop == nullptr) {
 				result = value;
 			} else {
 				pStockerTop->Stock(value);
 			}
-			if (anchor != NULL) {
+			if (anchor != nullptr) {
 				anchorMap[reinterpret_cast<char *>(anchor)] = value;
 			}
 		} else if (event.type == YAML_ALIAS_EVENT) {
@@ -407,9 +407,9 @@ bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
 		}
 	} while (0);
 	do {
-		yaml_version_directive_t *version_directive = NULL;
-		yaml_tag_directive_t *tag_start = NULL;
-		yaml_tag_directive_t *tag_end = NULL;
+		yaml_version_directive_t *version_directive = nullptr;
+		yaml_tag_directive_t *tag_start = nullptr;
+		yaml_tag_directive_t *tag_end = nullptr;
 		int implicit = 1;
 		yaml_event_t event;
 		::yaml_document_start_event_initialize(&event,
@@ -445,8 +445,8 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 {
 	if (value.Is_list()) {
 		do {
-			yaml_char_t *anchor = NULL;
-			yaml_char_t *tag = NULL;
+			yaml_char_t *anchor = nullptr;
+			yaml_char_t *tag = nullptr;
 			int implicit = 0;
 			yaml_sequence_style_t style = YAML_ANY_SEQUENCE_STYLE;
 			yaml_event_t event;
@@ -469,8 +469,8 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 		} while (0);
 	} else if (value.Is_dict()) {
 		do {
-			yaml_char_t *anchor = NULL;
-			yaml_char_t *tag = NULL;
+			yaml_char_t *anchor = nullptr;
+			yaml_char_t *tag = nullptr;
 			int implicit = 0;
 			yaml_mapping_style_t style = YAML_ANY_MAPPING_STYLE;
 			yaml_event_t event;
@@ -494,8 +494,8 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 	} else {
 		String str = value.ToString(false);
 		if (sig.IsSignalled()) return false;
-		yaml_char_t *anchor = NULL;
-		yaml_char_t *tag = NULL;
+		yaml_char_t *anchor = nullptr;
+		yaml_char_t *tag = nullptr;
 		yaml_char_t *valueRaw =
 			reinterpret_cast<unsigned char *>(const_cast<char *>(str.c_str()));
 		size_t length = str.size();

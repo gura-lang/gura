@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FontPickerEvent *_pObj;
 public:
-	inline wx_FontPickerEvent(wxObject * generator, int id, const wxFont& font) : wxFontPickerEvent(generator, id, font), _sig(NULL), _pObj(NULL) {}
+	inline wx_FontPickerEvent(wxObject * generator, int id, const wxFont& font) : wxFontPickerEvent(generator, id, font), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FontPickerEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontPickerEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FontPickerEvent::~wx_FontPickerEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FontPickerEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(FontPickerEvent)
 	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();
 	wx_FontPickerEvent *pEntity = new wx_FontPickerEvent(generator, id, *font);
 	Object_wx_FontPickerEvent *pObj = Object_wx_FontPickerEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontPickerEvent, SetFont)
@@ -102,13 +102,13 @@ Object_wx_FontPickerEvent::~Object_wx_FontPickerEvent()
 
 Object *Object_wx_FontPickerEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FontPickerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontPickerEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -130,7 +130,7 @@ Gura_ImplementUserInheritableClass(wx_FontPickerEvent)
 
 Gura_ImplementDescendantCreator(wx_FontPickerEvent)
 {
-	return new Object_wx_FontPickerEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FontPickerEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

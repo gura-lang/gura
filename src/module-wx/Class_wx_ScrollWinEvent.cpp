@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ScrollWinEvent *_pObj;
 public:
-	inline wx_ScrollWinEvent(WXTYPE commandType, int pos, int orientation) : wxScrollWinEvent(commandType, pos, orientation), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScrollWinEvent(WXTYPE commandType, int pos, int orientation) : wxScrollWinEvent(commandType, pos, orientation), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ScrollWinEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrollWinEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ScrollWinEvent::~wx_ScrollWinEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScrollWinEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ScrollWinEvent)
 	if (args.IsValid(2)) orientation = args.GetInt(2);
 	wx_ScrollWinEvent *pEntity = new wx_ScrollWinEvent(commandType, pos, orientation);
 	Object_wx_ScrollWinEvent *pObj = Object_wx_ScrollWinEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollWinEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,13 +104,13 @@ Object_wx_ScrollWinEvent::~Object_wx_ScrollWinEvent()
 
 Object *Object_wx_ScrollWinEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScrollWinEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollWinEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -132,7 +132,7 @@ Gura_ImplementUserInheritableClass(wx_ScrollWinEvent)
 
 Gura_ImplementDescendantCreator(wx_ScrollWinEvent)
 {
-	return new Object_wx_ScrollWinEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScrollWinEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

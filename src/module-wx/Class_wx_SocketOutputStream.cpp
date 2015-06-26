@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SocketOutputStream *_pObj;
 public:
-	inline wx_SocketOutputStream(wxSocketBase& s) : wxSocketOutputStream(s), _sig(NULL), _pObj(NULL) {}
+	inline wx_SocketOutputStream(wxSocketBase& s) : wxSocketOutputStream(s), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SocketOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SocketOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SocketOutputStream::~wx_SocketOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SocketOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(SocketOutputStream)
 	wxSocketBase *s = Object_wx_SocketBase::GetObject(args, 0)->GetEntity();
 	wx_SocketOutputStream *pEntity = new wx_SocketOutputStream(*s);
 	Object_wx_SocketOutputStream *pObj = Object_wx_SocketOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -69,13 +69,13 @@ Object_wx_SocketOutputStream::~Object_wx_SocketOutputStream()
 
 Object *Object_wx_SocketOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.SocketOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -95,7 +95,7 @@ Gura_ImplementUserInheritableClass(wx_SocketOutputStream)
 
 Gura_ImplementDescendantCreator(wx_SocketOutputStream)
 {
-	return new Object_wx_SocketOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SocketOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

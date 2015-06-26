@@ -22,8 +22,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TCPConnection *_pObj;
 public:
-	inline wx_TCPConnection() : wxTCPConnection(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_TCPConnection(char* buffer, int size) : wxTCPConnection(buffer, size), _sig(NULL), _pObj(NULL) {}
+	inline wx_TCPConnection() : wxTCPConnection(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_TCPConnection(char* buffer, int size) : wxTCPConnection(buffer, size), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool OnAdvise(const wxString& topic, const wxString& item, char* data, int size, wxIPCFormat format);
 	//virtual bool OnDisconnect();
 	//virtual bool OnExecute(const wxString& topic, char* data, int size, wxIPCFormat format);
@@ -41,12 +41,12 @@ public:
 
 wx_TCPConnection::~wx_TCPConnection()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TCPConnection::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(TCPConnectionEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPConnection *pEntity = new wx_TCPConnection();
 	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TCPConnection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementFunction(TCPConnection)
 	int size = args.GetInt(1);
 	wx_TCPConnection *pEntity = new wx_TCPConnection(buffer, size);
 	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TCPConnection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -442,13 +442,13 @@ Object_wx_TCPConnection::~Object_wx_TCPConnection()
 
 Object *Object_wx_TCPConnection::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TCPConnection::ToString(bool exprFlag)
 {
 	String rtn("<wx.TCPConnection:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -490,7 +490,7 @@ Gura_ImplementUserInheritableClass(wx_TCPConnection)
 
 Gura_ImplementDescendantCreator(wx_TCPConnection)
 {
-	return new Object_wx_TCPConnection((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TCPConnection((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MimeTypesManager *_pObj;
 public:
-	inline wx_MimeTypesManager() : wxMimeTypesManager(), _sig(NULL), _pObj(NULL) {}
+	inline wx_MimeTypesManager() : wxMimeTypesManager(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MimeTypesManager();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MimeTypesManager *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MimeTypesManager::~wx_MimeTypesManager()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MimeTypesManager::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(MimeTypesManagerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MimeTypesManager *pEntity = new wx_MimeTypesManager();
 	Object_wx_MimeTypesManager *pObj = Object_wx_MimeTypesManager::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MimeTypesManager(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromExtension)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	wxFileType *rtn = (wxFileType *)pThis->GetEntity()->GetFileTypeFromExtension(extension);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString mimeType = wxString::FromUTF8(args.GetString(0));
 	wxFileType *rtn = (wxFileType *)pThis->GetEntity()->GetFileTypeFromMimeType(mimeType);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MimeTypesManager, IsOfType)
@@ -167,20 +167,20 @@ Gura_ImplementMethod(wx_MimeTypesManager, ReadMimeTypes)
 //----------------------------------------------------------------------------
 Object_wx_MimeTypesManager::~Object_wx_MimeTypesManager()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_MimeTypesManager::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MimeTypesManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.MimeTypesManager:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -206,7 +206,7 @@ Gura_ImplementUserInheritableClass(wx_MimeTypesManager)
 
 Gura_ImplementDescendantCreator(wx_MimeTypesManager)
 {
-	return new Object_wx_MimeTypesManager((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MimeTypesManager((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

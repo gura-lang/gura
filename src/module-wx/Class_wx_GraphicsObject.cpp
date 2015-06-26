@@ -24,12 +24,12 @@ public:
 
 wx_GraphicsObject::~wx_GraphicsObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GraphicsObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_GraphicsObject, GetRenderer)
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsRenderer *rtn = (wxGraphicsRenderer *)pThis->GetEntity()->GetRenderer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsRenderer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsRenderer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsObject, IsNull)
@@ -72,13 +72,13 @@ Object_wx_GraphicsObject::~Object_wx_GraphicsObject()
 
 Object *Object_wx_GraphicsObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GraphicsObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -99,7 +99,7 @@ Gura_ImplementUserInheritableClass(wx_GraphicsObject)
 
 Gura_ImplementDescendantCreator(wx_GraphicsObject)
 {
-	return new Object_wx_GraphicsObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GraphicsObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

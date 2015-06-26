@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ColourDatabase *_pObj;
 public:
-	inline wx_ColourDatabase() : wxColourDatabase(), _sig(NULL), _pObj(NULL) {}
+	inline wx_ColourDatabase() : wxColourDatabase(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ColourDatabase();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourDatabase *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ColourDatabase::~wx_ColourDatabase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ColourDatabase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ColourDatabaseEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ColourDatabase *pEntity = new wx_ColourDatabase();
 	Object_wx_ColourDatabase *pObj = Object_wx_ColourDatabase::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourDatabase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_ColourDatabase, Find)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wxColour rtn = pThis->GetEntity()->Find(colourName);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourDatabase, FindName)
@@ -129,20 +129,20 @@ Gura_ImplementMethod(wx_ColourDatabase, FindName)
 //----------------------------------------------------------------------------
 Object_wx_ColourDatabase::~Object_wx_ColourDatabase()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ColourDatabase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ColourDatabase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourDatabase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -166,7 +166,7 @@ Gura_ImplementUserInheritableClass(wx_ColourDatabase)
 
 Gura_ImplementDescendantCreator(wx_ColourDatabase)
 {
-	return new Object_wx_ColourDatabase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ColourDatabase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

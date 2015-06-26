@@ -118,7 +118,7 @@ Value Device::Initialize(Environment &env, Signal sig, const Function *pFuncBloc
 	Fill(sig, Value(Gura_UserSymbol(white)));
 	Object_Canvas *pObj = new Object_Canvas(env, this);
 	Value result(pObj);
-	if (pFuncBlock != NULL) {
+	if (pFuncBlock != nullptr) {
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		//ValueList valList(result);
 		AutoPtr<Args> pArgs(new Args());
@@ -144,10 +144,10 @@ Device_EnhMetaFile::Device_EnhMetaFile(Signal sig, const char *fileName,
 	_rc.right = static_cast<long>(width * 100);		// unit: 0.01mm
 	_rc.bottom = static_cast<long>(height * 100);	// unit: 0.01mm
 	PrepareSimpleLogfont(&_lf, 10, "");
-	char *description = NULL;
-	if (appName != NULL) {
+	char *description = nullptr;
+	if (appName != nullptr) {
 		size_t lenAppName = ::strlen(appName);
-		if (imageName == NULL) {
+		if (imageName == nullptr) {
 			description = new char[lenAppName + 2];
 			::strcpy(description, appName);
 			description[lenAppName + 1] = '\0';
@@ -159,11 +159,11 @@ Device_EnhMetaFile::Device_EnhMetaFile(Signal sig, const char *fileName,
 			description[lenAppName + lenImageName + 2] = '\0';
 		}
 	}
-	_hdc = ::CreateEnhMetaFile(NULL, fileName, &_rc, description);
+	_hdc = ::CreateEnhMetaFile(nullptr, fileName, &_rc, description);
 	_rc.bottom = -_rc.bottom;
 	delete[] description;
 	// SetViewPortOrg doesn't work correctly with some devices
-	if (_hdc == NULL) {
+	if (_hdc == nullptr) {
 		sig.SetError(ERR_IOError, "failed to create an enhanced meta file");
 		return;
 	}
@@ -182,11 +182,11 @@ const char *Device_EnhMetaFile::GetName() const
 
 void Device_EnhMetaFile::Close()
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	//::printf("CloseEnhMetaFile\n");
 	HENHMETAFILE hEmf = ::CloseEnhMetaFile(_hdc);
 	::DeleteEnhMetaFile(hEmf);
-	_hdc = NULL;
+	_hdc = nullptr;
 }
 
 void Device_EnhMetaFile::Fill(Signal sig, const Value &color)
@@ -199,9 +199,9 @@ void Device_EnhMetaFile::Fill(Signal sig, const Value &color)
 void Device_EnhMetaFile::SetPen(Signal sig,
 					const Value &color, Number width, const Symbol *pSymbol)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	if (color.IsInvalid()) {
-		::SelectObject(_hdc, ::CreatePen(PS_NULL, 0, RGB(0, 0, 0)));
+		::SelectObject(_hdc, ::CreatePen(PS_nullptr, 0, RGB(0, 0, 0)));
 		return;
 	}
 	int fnPenStyle = PS_SOLID;
@@ -225,9 +225,9 @@ void Device_EnhMetaFile::SetPen(Signal sig,
 
 void Device_EnhMetaFile::SetBrush(Signal sig, const Value &color, const Symbol *pSymbol)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	if (color.IsInvalid()) {
-		::SelectObject(_hdc, reinterpret_cast<HBRUSH>(::GetStockObject(NULL_BRUSH)));
+		::SelectObject(_hdc, reinterpret_cast<HBRUSH>(::GetStockObject(nullptr_BRUSH)));
 		return;
 	}
 	Color colorWk(sig, color);
@@ -309,7 +309,7 @@ void Device_EnhMetaFile::SetTextColor(Signal sig, const Value &color)
 void Device_EnhMetaFile::Text(Signal sig, Number x, Number y,
 				const char *text, Number wdBound, Number htBound, Anchor anchor)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	RECT rc;
 	rc.left = rc.right = rc.top = rc.bottom = 0;
 	::DrawText(_hdc, text, -1, &rc, DT_CALCRECT);
@@ -326,7 +326,7 @@ void Device_EnhMetaFile::Text(Signal sig, Number x, Number y,
 
 void Device_EnhMetaFile::TextRot(Signal sig, Number x, Number y, const char *text, Number angle)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	POINT pt = ToPoint(x, y);
 	LOGFONT lf = _lf;
 	lf.lfEscapement = -static_cast<int>(angle * 10);
@@ -340,17 +340,17 @@ void Device_EnhMetaFile::TextRot(Signal sig, Number x, Number y, const char *tex
 
 void Device_EnhMetaFile::Line(Signal sig, Number x1, Number y1, Number x2, Number y2)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	POINT pt1 = ToPoint(x1, y1);
 	POINT pt2 = ToPoint(x2, y2);
-	::MoveToEx(_hdc, pt1.x, pt1.y, NULL);
+	::MoveToEx(_hdc, pt1.x, pt1.y, nullptr);
 	::LineTo(_hdc, pt2.x, pt2.y);
 }
 
 void Device_EnhMetaFile::Rectangle(Signal sig, Number x, Number y,
 									Number width, Number height, Anchor anchor)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	RECT rc;
 	MakeRect(&rc, ToPoint(x, y),
 		static_cast<int>(width * 100), static_cast<int>(height * 100), anchor);
@@ -360,7 +360,7 @@ void Device_EnhMetaFile::Rectangle(Signal sig, Number x, Number y,
 void Device_EnhMetaFile::Ellipse(Signal sig, Number x, Number y,
 									Number width, Number height, Anchor anchor)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	RECT rc;
 	MakeRect(&rc, ToPoint(x, y),
 		static_cast<int>(width * 100), static_cast<int>(height * 100), anchor);
@@ -370,7 +370,7 @@ void Device_EnhMetaFile::Ellipse(Signal sig, Number x, Number y,
 void Device_EnhMetaFile::Pie(Signal sig, Number x, Number y, Number width, Number height,
 								Number degStart, Number degEnd, Anchor anchor)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	RECT rc;
 	MakeRect(&rc, ToPoint(x, y),
 		static_cast<int>(width * 100), static_cast<int>(height * 100), anchor);
@@ -389,7 +389,7 @@ void Device_EnhMetaFile::Pie(Signal sig, Number x, Number y, Number width, Numbe
 void Device_EnhMetaFile::Polygon(Signal sig,
 					const ValueList &xs, const ValueList &ys, bool closeFlag)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	int cnt = static_cast<int>((xs.size() < ys.size())? xs.size() : ys.size());
 	if (cnt == 0) return;
 	POINT *ptList = new POINT[cnt];
@@ -409,7 +409,7 @@ void Device_EnhMetaFile::Polygon(Signal sig,
 
 void Device_EnhMetaFile::Polygon(Signal sig, const ValueList &pts, bool closeFlag)
 {
-	if (_hdc == NULL) return;
+	if (_hdc == nullptr) return;
 	int cnt = static_cast<int>(pts.size());
 	if (cnt == 0) return;
 	POINT *ptList = new POINT[cnt];
@@ -822,8 +822,8 @@ Gura_ImplementFunction(create_emf)
 {
 	Device *pDevice = new Device_EnhMetaFile(sig,
 		args.GetString(0), args.GetNumber(1), args.GetNumber(2),
-		args.Is_string(3)? args.GetString(3) : NULL,
-		args.Is_string(4)? args.GetString(4) : NULL);
+		args.Is_string(3)? args.GetString(3) : nullptr,
+		args.Is_string(4)? args.GetString(4) : nullptr);
 	if (sig.IsSignalled()) {
 		delete pDevice;
 		return Value::Null;

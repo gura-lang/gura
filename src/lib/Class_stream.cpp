@@ -26,12 +26,12 @@ Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(stat))) {
 		Object *pObj = GetStream().GetStatObj(sig);
-		if (pObj != NULL) return Value(pObj);
+		if (pObj != nullptr) return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
 		return Value(GetStream().GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(identifier))) {
 		const char *identifier = GetStream().GetIdentifier();
-		if (identifier == NULL) return Value::Null;
+		if (identifier == nullptr) return Value::Null;
 		return Value(identifier);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(readable))) {
 		return Value(GetStream().IsReadable());
@@ -124,7 +124,7 @@ Gura_ImplementFunction(stream)
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
-		if (pFuncBlock == NULL) return Value::Null;
+		if (pFuncBlock == nullptr) return Value::Null;
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetValue(result);
 		pFuncBlock->Eval(env, sig, *pArgsSub);
@@ -152,13 +152,13 @@ Gura_DeclareFunction(readlines)
 
 Gura_ImplementFunction(readlines)
 {
-	Object_stream *pObjStream = NULL;
+	Object_stream *pObjStream = nullptr;
 	if (args.Is_stream(0)) {
 		pObjStream = Object_stream::GetObject(args, 0);
 	} else {
 		Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
-		if (pValue == NULL) return Value::Null;
+		if (pValue == nullptr) return Value::Null;
 		if (!pValue->Is_stream()) return Value::Null;
 		pObjStream = Object_stream::GetObject(*pValue);
 	}
@@ -757,7 +757,7 @@ Gura_DeclareMethod(stream, setcodec)
 Gura_ImplementMethod(stream, setcodec)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Codec *pCodec = NULL;
+	Codec *pCodec = nullptr;
 	if (args.IsValid(0)) {
 		pCodec = Codec::Reference(Object_codec::GetObject(args, 0)->GetCodec());
 	} else {
@@ -871,7 +871,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 {
 	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
-		if (pDecl != NULL) {
+		if (pDecl != nullptr) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
 		}
@@ -893,7 +893,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 
 Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -901,7 +901,7 @@ Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pCla
 //-----------------------------------------------------------------------------
 Iterator *Object_stream::IteratorLine::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)

@@ -103,24 +103,24 @@ public:
 	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
 	inline const ItemOwner *GetItemOwner() const { return _pItemOwner.get(); }
 	inline const char *GetText() const {
-		return (_pText.get() == NULL)? NULL : _pText->c_str();
+		return (_pText.get() == nullptr)? nullptr : _pText->c_str();
 	}
 	inline const char *GetURL() const {
-		return (_pURL.get() == NULL)? NULL : _pURL->c_str();
+		return (_pURL.get() == nullptr)? nullptr : _pURL->c_str();
 	}
 	inline const char *GetTitle() const {
-		return (_pTitle.get() == NULL)? NULL : _pTitle->c_str();
+		return (_pTitle.get() == nullptr)? nullptr : _pTitle->c_str();
 	}
 	inline const char *GetRefId() const {
-		return (_pRefId.get() == NULL)? NULL : _pRefId->c_str();
+		return (_pRefId.get() == nullptr)? nullptr : _pRefId->c_str();
 	}
 	inline const char *GetAttrs() const {
-		return (_pAttrs.get() == NULL)? NULL : _pAttrs->c_str();
+		return (_pAttrs.get() == nullptr)? nullptr : _pAttrs->c_str();
 	}
 	inline Align GetAlign() const { return _align; }
 	inline void SetText(const String &text) { _pText.reset(new String(text)); }
 	inline void AppendText(const String &text) {
-		if (_pText.get() == NULL) {
+		if (_pText.get() == nullptr) {
 			_pText.reset(new String(text));
 		} else {
 			*_pText += text;
@@ -131,9 +131,9 @@ public:
 	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
 	inline void SetAttrs(const String &attrs) { _pAttrs.reset(new String(attrs)); }
 	inline void SetAlign(Align align) { _align = align; }
-	inline void ClearURL() { _pURL.reset(NULL); }
-	inline void ClearTitle() { _pTitle.reset(NULL); }
-	inline void ClearRefId() { _pRefId.reset(NULL); }
+	inline void ClearURL() { _pURL.reset(nullptr); }
+	inline void ClearTitle() { _pTitle.reset(nullptr); }
+	inline void ClearRefId() { _pRefId.reset(nullptr); }
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
 	inline void SetIndentLevelItemBody(int indentLevelItemBody) {
 		_indentLevelItemBody = indentLevelItemBody;

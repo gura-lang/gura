@@ -13,7 +13,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StyledTextEvent *_pObj;
 public:
-	inline wx_StyledTextEvent(WXTYPE commandType, int id) : wxStyledTextEvent(commandType, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_StyledTextEvent(WXTYPE commandType, int id) : wxStyledTextEvent(commandType, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StyledTextEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StyledTextEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -24,12 +24,12 @@ public:
 
 wx_StyledTextEvent::~wx_StyledTextEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StyledTextEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(StyledTextEvent)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_StyledTextEvent *pEntity = new wx_StyledTextEvent(commandType, id);
 	Object_wx_StyledTextEvent *pObj = Object_wx_StyledTextEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StyledTextEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -758,13 +758,13 @@ Object_wx_StyledTextEvent::~Object_wx_StyledTextEvent()
 
 Object *Object_wx_StyledTextEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StyledTextEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.StyledTextEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -833,7 +833,7 @@ Gura_ImplementUserInheritableClass(wx_StyledTextEvent)
 
 Gura_ImplementDescendantCreator(wx_StyledTextEvent)
 {
-	return new Object_wx_StyledTextEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StyledTextEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

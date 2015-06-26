@@ -8,7 +8,7 @@
 
 Gura_BeginModuleBody(os)
 
-static Environment *_pEnvThis = NULL;
+static Environment *_pEnvThis = nullptr;
 
 //-----------------------------------------------------------------------------
 // Gura module functions: os
@@ -45,19 +45,19 @@ Gura_ImplementFunction(exec)
 	const char *pathName = args.GetString(0);
 	if (forkFlag) {
 		OAL::ExecProgram(env, sig, pathName, args.GetList(1),
-						 NULL, NULL, NULL, forkFlag);
+						 nullptr, nullptr, nullptr, forkFlag);
 		return Value::Null;
 	}
-	const Value *pValue = NULL;
+	const Value *pValue = nullptr;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
-	Stream *pStreamStdin = (pValue != NULL && pValue->Is_stream())?
-										&pValue->GetStream() : NULL;
+	Stream *pStreamStdin = (pValue != nullptr && pValue->Is_stream())?
+										&pValue->GetStream() : nullptr;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
-	Stream *pStreamStdout = (pValue != NULL && pValue->Is_stream())?
-										&pValue->GetStream() : NULL;
+	Stream *pStreamStdout = (pValue != nullptr && pValue->Is_stream())?
+										&pValue->GetStream() : nullptr;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
-	Stream *pStreamStderr = (pValue != NULL && pValue->Is_stream())?
-										&pValue->GetStream() : NULL;
+	Stream *pStreamStderr = (pValue != nullptr && pValue->Is_stream())?
+										&pValue->GetStream() : nullptr;
 	int rtn = OAL::ExecProgram(env, sig, pathName, args.GetList(1),
 					   pStreamStdin, pStreamStdout, pStreamStderr, forkFlag);
 	if (sig.IsSignalled()) return Value::Null;
@@ -133,15 +133,15 @@ Gura_DeclareFunction(redirect)
 
 Gura_ImplementFunction(redirect)
 {
-	Value *pValue = NULL;
+	Value *pValue = nullptr;
 	Value value_stdin, value_stdout, value_stderr;
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != nullptr) {
 		value_stdin = *pValue;
 	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate)) != nullptr) {
 		value_stdout = *pValue;
 	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != nullptr) {
 		value_stderr = *pValue;
 	}
 	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), EXTRA_Public);
@@ -153,7 +153,7 @@ Gura_ImplementFunction(redirect)
 	}
 	Value result;
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -247,17 +247,17 @@ Gura_ModuleEntry()
 	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
-		if (pValue == NULL) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Null;
 		Gura_AssignValue(stdin, *pValue);
 	} while (0);
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
-		if (pValue == NULL) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Null;
 		Gura_AssignValue(stdout, *pValue);
 	} while (0);
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
-		if (pValue == NULL) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Null;
 		Gura_AssignValue(stderr, *pValue);
 	} while (0);
 	// function assignment

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BusyCursor *_pObj;
 public:
-	inline wx_BusyCursor(wxCursor* cursor) : wxBusyCursor(cursor), _sig(NULL), _pObj(NULL) {}
+	inline wx_BusyCursor(wxCursor* cursor) : wxBusyCursor(cursor), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BusyCursor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BusyCursor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_BusyCursor::~wx_BusyCursor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BusyCursor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(BusyCursor_)
 	if (args.IsValid(0)) cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
 	wx_BusyCursor *pEntity = new wx_BusyCursor(cursor);
 	Object_wx_BusyCursor *pObj = Object_wx_BusyCursor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BusyCursor(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -66,20 +66,20 @@ Gura_ImplementFunction(BusyCursor_)
 //----------------------------------------------------------------------------
 Object_wx_BusyCursor::~Object_wx_BusyCursor()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_BusyCursor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BusyCursor::ToString(bool exprFlag)
 {
 	String rtn("<wx.BusyCursor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -99,7 +99,7 @@ Gura_ImplementUserInheritableClass(wx_BusyCursor)
 
 Gura_ImplementDescendantCreator(wx_BusyCursor)
 {
-	return new Object_wx_BusyCursor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BusyCursor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

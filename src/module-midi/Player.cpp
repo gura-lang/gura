@@ -43,11 +43,11 @@ bool Player::SetupSequence(Signal sig, const Sequence *pSequence,
 bool Player::Play()
 {
 	for (_iRepeat = 0; _cntRepeat <= 0 || _iRepeat < _cntRepeat; _iRepeat++) {
-		Event *pEventPrev = NULL;
+		Event *pEventPrev = nullptr;
 		for (_ppEvent = _pEventOwner->begin(), _idxEventCur = 0;
 					_ppEvent != _pEventOwner->end(); _ppEvent++, _idxEventCur++) {
 			Event *pEvent = *_ppEvent;
-			if (pEventPrev != NULL &&
+			if (pEventPrev != nullptr &&
 						pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
 				ULong deltaTime =
 						pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();

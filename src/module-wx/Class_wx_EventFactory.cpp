@@ -58,7 +58,7 @@ String Object_wx_EventFactory::ToString(bool exprFlag)
 
 Object_wx_Event *Object_wx_EventFactory::CreateEventObject(wxEvent &event)
 {
-	return new Object_wx_Event(&event, NULL, false);
+	return new Object_wx_Event(&event, nullptr, false);
 }
 
 void Object_wx_EventFactory::Connect(Environment &env, Signal sig,
@@ -92,7 +92,7 @@ Gura_ImplementUserInheritableClass(wx_EventFactory)
 
 Gura_ImplementDescendantCreator(wx_EventFactory)
 {
-	return new Object_wx_EventFactory((pClass == NULL)? this : pClass, NULL, "");
+	return new Object_wx_EventFactory((pClass == nullptr)? this : pClass, 0, "");
 }
 
 //----------------------------------------------------------------------------
@@ -117,7 +117,7 @@ Object_wx_EventFactory_ScrollEvent::Object_wx_EventFactory_ScrollEvent(const cha
 
 Object_wx_Event *Object_wx_EventFactory_ScrollEvent::CreateEventObject(wxEvent &event)
 {
-	return new Object_wx_ScrollEvent(wxDynamicCast(&event, wxScrollEvent), NULL, OwnerFalse);
+	return new Object_wx_ScrollEvent(wxDynamicCast(&event, wxScrollEvent), nullptr, OwnerFalse);
 }
 
 //----------------------------------------------------------------------------
@@ -142,7 +142,7 @@ Object_wx_EventFactory_ScrollWinEvent::Object_wx_EventFactory_ScrollWinEvent(con
 
 Object_wx_Event *Object_wx_EventFactory_ScrollWinEvent::CreateEventObject(wxEvent &event)
 {
-	return new Object_wx_ScrollWinEvent(wxDynamicCast(&event, wxScrollWinEvent), NULL, OwnerFalse);
+	return new Object_wx_ScrollWinEvent(wxDynamicCast(&event, wxScrollWinEvent), nullptr, OwnerFalse);
 }
 
 //----------------------------------------------------------------------------
@@ -163,7 +163,7 @@ Object_wx_EventFactory_JoystickEvent::Object_wx_EventFactory_JoystickEvent(const
 
 Object_wx_Event *Object_wx_EventFactory_JoystickEvent::CreateEventObject(wxEvent &event)
 {
-	return new Object_wx_JoystickEvent(wxDynamicCast(&event, wxJoystickEvent), NULL, OwnerFalse);
+	return new Object_wx_JoystickEvent(wxDynamicCast(&event, wxJoystickEvent), nullptr, OwnerFalse);
 }
 
 //----------------------------------------------------------------------------
@@ -193,7 +193,7 @@ Object_wx_EventFactory_MouseEvent::Object_wx_EventFactory_MouseEvent(const char 
 
 Object_wx_Event *Object_wx_EventFactory_MouseEvent::CreateEventObject(wxEvent &event)
 {
-	return new Object_wx_MouseEvent(wxDynamicCast(&event, wxMouseEvent), NULL, OwnerFalse);
+	return new Object_wx_MouseEvent(wxDynamicCast(&event, wxMouseEvent), nullptr, OwnerFalse);
 }
 
 //-----------------------------------------------------------------------------

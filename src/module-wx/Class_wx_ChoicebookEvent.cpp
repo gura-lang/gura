@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ChoicebookEvent *_pObj;
 public:
-	inline wx_ChoicebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxChoicebookEvent(eventType, id, sel, oldSel), _sig(NULL), _pObj(NULL) {}
+	inline wx_ChoicebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxChoicebookEvent(eventType, id, sel, oldSel), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ChoicebookEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ChoicebookEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ChoicebookEvent::~wx_ChoicebookEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ChoicebookEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,13 +46,13 @@ Object_wx_ChoicebookEvent::~Object_wx_ChoicebookEvent()
 
 Object *Object_wx_ChoicebookEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ChoicebookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ChoicebookEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -71,7 +71,7 @@ Gura_ImplementUserInheritableClass(wx_ChoicebookEvent)
 
 Gura_ImplementDescendantCreator(wx_ChoicebookEvent)
 {
-	return new Object_wx_ChoicebookEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ChoicebookEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

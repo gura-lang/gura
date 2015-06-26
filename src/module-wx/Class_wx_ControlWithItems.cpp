@@ -24,12 +24,12 @@ public:
 
 wx_ControlWithItems::~wx_ControlWithItems()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ControlWithItems::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -133,8 +133,8 @@ Gura_ImplementMethod(wx_ControlWithItems, GetClientObject)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
 	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject(n));
-	if (rtn == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
+	if (rtn == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ControlWithItems, GetCount)
@@ -337,13 +337,13 @@ Object_wx_ControlWithItems::~Object_wx_ControlWithItems()
 
 Object *Object_wx_ControlWithItems::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ControlWithItems::ToString(bool exprFlag)
 {
 	String rtn("<wx.ControlWithItems:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -380,7 +380,7 @@ Gura_ImplementUserInheritableClass(wx_ControlWithItems)
 
 Gura_ImplementDescendantCreator(wx_ControlWithItems)
 {
-	return new Object_wx_ControlWithItems((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ControlWithItems((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

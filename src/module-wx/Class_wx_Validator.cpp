@@ -19,7 +19,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Validator *_pObj;
 public:
-	inline wx_Validator() : wxValidator(), _sig(NULL), _pObj(NULL) {}
+	inline wx_Validator() : wxValidator(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxObject* Clone();
 	virtual bool TransferFromWindow();
 	virtual bool TransferToWindow();
@@ -34,12 +34,12 @@ public:
 
 wx_Validator::~wx_Validator()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Validator::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 bool wx_Validator::TransferFromWindow()
@@ -86,7 +86,7 @@ Gura_ImplementFunction(Validator)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Validator *pEntity = new wx_Validator();
 	Object_wx_Validator *pObj = Object_wx_Validator::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Validator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Validator, Clone)
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Validator, GetWindow)
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Validator, GetWindow)
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Validator, IsSilent)
@@ -219,13 +219,13 @@ Object_wx_Validator::~Object_wx_Validator()
 
 Object *Object_wx_Validator::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Validator::ToString(bool exprFlag)
 {
 	String rtn("<wx.Validator:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -257,7 +257,7 @@ Gura_ImplementUserInheritableClass(wx_Validator)
 
 Gura_ImplementDescendantCreator(wx_Validator)
 {
-	return new Object_wx_Validator((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Validator((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -17,7 +17,7 @@ Declaration::Declaration(const Declaration &decl) : _cntRef(1),
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType) : _cntRef(1),
 	_pSymbol(pSymbol), _valType(valType),
-	_occurPattern(OCCUR_Once), _flags(0), _pExprDefault(NULL)
+	_occurPattern(OCCUR_Once), _flags(0), _pExprDefault(nullptr)
 {
 }
 
@@ -38,7 +38,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 	ULong flags = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
-	Expr *pExprDefault = NULL;
+	Expr *pExprDefault = nullptr;
 	if (pExpr->IsBinaryOp(OPTYPE_Pair)) {
 		const Expr_BinaryOp *pExprBinaryOp =
 								dynamic_cast<const Expr_BinaryOp *>(pExpr);
@@ -52,11 +52,11 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 		occurPattern = SymbolToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			sig.SetError(ERR_SyntaxError, "invalid argument expression");
-			return NULL;
+			return nullptr;
 		}
-		if (pExprDefault != NULL) {
+		if (pExprDefault != nullptr) {
 			sig.SetError(ERR_SyntaxError, "optional arguments cannot take default value");
-			return NULL;
+			return nullptr;
 		}
 	}
 	if (pExpr->IsQuote()) {
@@ -69,18 +69,18 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 	}
 	if (!pExpr->IsIdentifier()) {
 		sig.SetError(ERR_SyntaxError, "invalid argument expression");
-		return NULL;
+		return nullptr;
 	}
 	const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
 	const SymbolList &attrFront = pExprIdentifier->GetAttrFront();
-	const Symbol *pSymbolForType = NULL;
+	const Symbol *pSymbolForType = nullptr;
 	if (!attrFront.empty()) {
 		if (valType != VTYPE_any) {
 			sig.SetError(ERR_SyntaxError, "incompatible type declaration");
-			return NULL;
+			return nullptr;
 		}
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(attrFront);
-		if (pValueTypeInfo != NULL) {
+		if (pValueTypeInfo != nullptr) {
 			pSymbolForType = attrFront.front();
 			valType = pValueTypeInfo->GetValueType();
 		}
@@ -99,7 +99,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 			flags |= FLAG_NoCast;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(privileged))) {
 			flags |= FLAG_Privileged;
-		} else if (pSymbolForType == NULL || !pSymbol->IsIdentical(pSymbolForType)) {
+		} else if (pSymbolForType == nullptr || !pSymbol->IsIdentical(pSymbolForType)) {
 			sig.SetError(ERR_SyntaxError,
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
 		}
@@ -137,14 +137,14 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 		if (value.Is_iterator()) {
 			// make a clone of the iterator
 			Iterator *pIterator = value.CreateIterator(sig);
-			if (pIterator == NULL) return false;
+			if (pIterator == nullptr) return false;
 			value = Value(new Object_iterator(env, pIterator));
 		}
 		goto done;
 	} else if (GetValueType() == VTYPE_Class && value.IsInstanceOf(VTYPE_function)) {
 		const Function *pFunc = value.GetFunction();
 		Class *pClass = pFunc->GetClassToConstruct();
-		if (pClass == NULL) {
+		if (pClass == nullptr) {
 			sig.SetError(ERR_ValueError, "constructor function must be specified");
 			return false;
 		}
@@ -153,7 +153,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 	}
 	if (!GetNoCastFlag()) {
 		Class *pClass = env.LookupClass(GetValueType());
-		for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
+		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
 			if (pClass->GetValueType() == VTYPE_undefined) {
 				sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
 				return false;
@@ -162,7 +162,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 			if (sig.IsSignalled()) return false;
 		}
 		pClass = env.LookupClass(value.GetValueType());
-		for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
+		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
 			if (pClass->CastTo(env, sig, value, *this)) goto done;
 			if (sig.IsSignalled()) return false;
 		}
@@ -296,7 +296,7 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 		const Declaration *pDecl = *ppDecl;
 		const Expr *pExprArg = pDecl->GetExprDefault();
 		Value value;
-		if (pExprArg == NULL) {
+		if (pExprArg == nullptr) {
 			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
 				value = Value::Undefined;
 			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
@@ -321,7 +321,7 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
 		} else {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			value = pExprArg->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) return false;
 		}
@@ -429,7 +429,7 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 				"any parameters cannot follow after a parameter with variable length");
 			return false;
 		}
-		if (pDecl->IsMandatory() && pDecl->GetExprDefault() == NULL &&
+		if (pDecl->IsMandatory() && pDecl->GetExprDefault() == nullptr &&
 											!empty() && back()->IsOptional()) {
 			sig.SetError(ERR_TypeError,
 				"mandatory parameters cannot follow after a parameter with variable length");
@@ -486,7 +486,7 @@ bool DeclarationOwner::ValidateAndCast(Environment &env, Signal sig,
 String DeclarationOwner::ToString() const
 {
 	String str = DeclarationList::ToString();
-	if (_pSymbolDict != NULL) {
+	if (_pSymbolDict != nullptr) {
 		if (!empty()) str += ", ";
 		str += _pSymbolDict->GetName();
 		str += Gura_Symbol(Char_Mod)->GetName();

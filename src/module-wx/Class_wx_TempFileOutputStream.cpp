@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TempFileOutputStream *_pObj;
 public:
-	inline wx_TempFileOutputStream(const wxString& fileName) : wxTempFileOutputStream(fileName), _sig(NULL), _pObj(NULL) {}
+	inline wx_TempFileOutputStream(const wxString& fileName) : wxTempFileOutputStream(fileName), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TempFileOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TempFileOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_TempFileOutputStream::~wx_TempFileOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TempFileOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(TempFileOutputStream)
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFileOutputStream *pEntity = new wx_TempFileOutputStream(fileName);
 	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TempFileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,13 +96,13 @@ Object_wx_TempFileOutputStream::~Object_wx_TempFileOutputStream()
 
 Object *Object_wx_TempFileOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TempFileOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -124,7 +124,7 @@ Gura_ImplementUserInheritableClass(wx_TempFileOutputStream)
 
 Gura_ImplementDescendantCreator(wx_TempFileOutputStream)
 {
-	return new Object_wx_TempFileOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TempFileOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

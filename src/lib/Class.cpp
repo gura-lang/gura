@@ -26,7 +26,7 @@ Object::~Object()
 	ClassCustom *pClassCustom = dynamic_cast<ClassCustom *>(_pClass.get());
 	const Function *pFunc =
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
-	if (pFunc == NULL) return;
+	if (pFunc == nullptr) return;
 	Signal &sig = pClassCustom->GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
@@ -46,7 +46,7 @@ const char *Object::GetClassName() const
 
 bool Object::IsInstanceOf(ValueType valType) const
 {
-	for (const Class *pClass = _pClass.get(); pClass != NULL;
+	for (const Class *pClass = _pClass.get(); pClass != nullptr;
 									pClass = pClass->GetClassSuper()) {
 		if (pClass->GetValueType() == valType) return true;
 	}
@@ -56,7 +56,7 @@ bool Object::IsInstanceOf(ValueType valType) const
 Value Object::EmptyIndexGet(Environment &env, Signal sig)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 		return Value::Null;
 	}
@@ -69,7 +69,7 @@ Value Object::EmptyIndexGet(Environment &env, Signal sig)
 void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitemx__), ENVREF_Escalate);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
 		return;
 	}
@@ -83,7 +83,7 @@ void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 		return Value::Null;
 	}
@@ -97,7 +97,7 @@ Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitem__), ENVREF_Escalate);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
 		return;
 	}
@@ -135,7 +135,7 @@ Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
-	if (pFunc == NULL) return Value::Null;
+	if (pFunc == nullptr) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
 	AutoPtr<Args> pArgs(new Args());
@@ -148,7 +148,7 @@ Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
-	if (pFunc == NULL) return Value::Null;
+	if (pFunc == nullptr) return Value::Null;
 	evaluatedFlag = true;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
@@ -161,7 +161,7 @@ Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, con
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
-	if (pFunc == NULL) return Value::Null;
+	if (pFunc == nullptr) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(pSymbol), value);
@@ -238,7 +238,7 @@ Gura_DeclareMethodPrimitive(Object, istype)
 Gura_ImplementMethod(Object, istype)
 {
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == NULL) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Null;
 	ValueType valType = args.GetThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_rational) &&
@@ -257,7 +257,7 @@ Gura_DeclareMethodPrimitive(Object, isinstance)
 Gura_ImplementMethod(Object, isinstance)
 {
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == NULL) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Null;
 	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
@@ -343,7 +343,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, Args &ar
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
-	SeqPostHandler *pSeqPostHandler = NULL;
+	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value value = args.GetExprListArg().front()->Exec2(env, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
 	if (!value.Is_symbol()) {
@@ -353,7 +353,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, Args &ar
 	const Symbol *pSymbol = value.GetSymbol();
 	Value valueFunc;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
-	if (pValue == NULL) {
+	if (pValue == nullptr) {
 		const SymbolSet &attrs = SymbolSet::Null;
 		valueFunc = pThis->GetProp(env, sig, pSymbol, attrs);
 		if (sig.IsSignalled()) return Value::Null;
@@ -403,7 +403,7 @@ Gura_DeclareMethod(Object, clone)
 Gura_ImplementMethod(Object, clone)
 {
 	Object *pObj = args.GetThisObj()->Clone();
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		sig.SetError(ERR_ValueError, "failed to create a clone object");
 		return Value::Null;
 	}
@@ -454,14 +454,14 @@ bool Class::IsCustom() const { return false; }
 Class::Class(Environment *pEnvOuter, ValueType valType) :
 	Fundamental(pEnvOuter, ENVTYPE_class),
 	_pClassSuper(pEnvOuter->IsClass()?
-			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : NULL),
-	_pConstructor(NULL), _pSymbol(Gura_Symbol(_anonymous_)), _valType(valType) 
+			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : nullptr),
+	_pConstructor(nullptr), _pSymbol(Gura_Symbol(_anonymous_)), _valType(valType) 
 {
 }
 
 Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new Object((pClass == NULL)? this : pClass);
+	return new Object((pClass == nullptr)? this : pClass);
 }
 
 bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
@@ -650,18 +650,18 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Assign *pExprAssign =
 								dynamic_cast<const Expr_Assign *>(pExpr);
 			pExprAssign->Exec(*pEnvLocal, sig, *this, pSymbolsAssignable, pSeqPostHandler);
 		} else if (pExpr->IsCaller()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
+			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Caller *pExprCaller =
 								dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec2(*pEnvLocal, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) return false;
 			Callable *pCallable = valueCar.GetObject();
-			if (pCallable == NULL) {
+			if (pCallable == nullptr) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
 				AutoPtr<Args> pArgs(new Args());

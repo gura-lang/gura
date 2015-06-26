@@ -24,7 +24,7 @@ private:
 	ValueType _valType;
 	OccurPattern _occurPattern;
 	ULong _flags;
-	AutoPtr<Expr> _pExprDefault;	// maybe NULL
+	AutoPtr<Expr> _pExprDefault;	// maybe nullptr
 public:
 	Gura_DeclareReferenceAccessor(Declaration)
 public:
@@ -110,7 +110,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(DeclarationOwner)
 public:
-	inline DeclarationOwner() : _cntRef(1), _pSymbolDict(NULL), _allowTooManyArgsFlag(false) {}
+	inline DeclarationOwner() : _cntRef(1), _pSymbolDict(nullptr), _allowTooManyArgsFlag(false) {}
 	DeclarationOwner(const DeclarationOwner &declOwner);
 private:
 	~DeclarationOwner();
@@ -123,10 +123,10 @@ public:
 	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
 	Declaration *Declare(Environment &env, const Symbol *pSymbol, ValueType valType,
 				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-				Expr *pExprDefault = NULL);
+				Expr *pExprDefault = nullptr);
 	inline Declaration *Declare(Environment &env, const char *name, ValueType valType,
 				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-				Expr *pExprDefault = NULL) {
+				Expr *pExprDefault = nullptr) {
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
 	bool Declare(Environment &env, Signal sig, const ExprList &exprList);

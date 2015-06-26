@@ -12,7 +12,7 @@ String MakeIndentUnit(int cntSpace);
 //-----------------------------------------------------------------------------
 Parser::Parser()
 {
-	_parser = ::XML_ParserCreate(NULL);
+	_parser = ::XML_ParserCreate(nullptr);
 	::XML_SetUserData(_parser, this);
 	::XML_SetStartElementHandler(_parser,			StartElementHandler);
 	::XML_SetEndElementHandler(_parser,				EndElementHandler);
@@ -157,16 +157,16 @@ int XMLCALL Parser::UnknownEncodingHandler(void *encodingHandlerData,
 		for (int i = 0x81; i <= 0x9f; i++) info->map[i] = -2;
 		for (int i = 0xe0; i <= 0xee; i++) info->map[i] = -2;
 		for (int i = 0xfa; i <= 0xfc; i++) info->map[i] = -2;
-		info->data = NULL;
+		info->data = nullptr;
 		info->convert = Convert_shift_jis;
-		info->release = NULL;
+		info->release = nullptr;
 		return XML_STATUS_OK;
 	} else if (::strcasecmp(name, "euc-jp") == 0) {
 		for (int i = 0; i <= 0x7f; i++) info->map[i] = i;
 		for (int i = 0x81; i <= 0xff; i++) info->map[i] = -2;
-		info->data = NULL;
+		info->data = nullptr;
 		info->convert = Convert_euc_jp;
-		info->release = NULL;
+		info->release = nullptr;
 		return XML_STATUS_OK;
 	}
 	return XML_STATUS_ERROR;
@@ -292,7 +292,7 @@ const Attribute *AttributeList::FindByName(const char *name) const
 		const Attribute *pAttribute = *ppAttribute;
 		if (::strcmp(pAttribute->GetName(), name) == 0) return pAttribute;
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -319,8 +319,8 @@ Element::Element(Type type, const String &str, const char **atts) :
 										_cntRef(1), _type(type), _str(str)
 {
 	if (type == TYPE_Tag) _pAttributes.reset(new AttributeOwner());
-	if (atts != NULL) {
-		for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
+	if (atts != nullptr) {
+		for (const char **p = atts; *p != nullptr && *(p + 1) != nullptr; p += 2) {
 			const char *name = *p, *value = *(p + 1);
 			GetAttributes()->push_back(new Attribute(name, value));
 		}
@@ -352,7 +352,7 @@ bool Element::Write(Signal sig, SimpleStream &stream,
 			stream.PutChar(sig, '"');
 			if (sig.IsSignalled()) return false;
 		}
-		if (GetChildren() == NULL || GetChildren()->empty()) {
+		if (GetChildren() == nullptr || GetChildren()->empty()) {
 			stream.Print(sig, " />");
 			if (sig.IsSignalled()) return false;
 			if (fancyFlag) {
@@ -411,7 +411,7 @@ String Element::GatherText() const
 {
 	if (IsText()) return GetText();
 	String str;
-	if (GetChildren() != NULL) {
+	if (GetChildren() != nullptr) {
 		foreach_const (ElementOwner, ppChild, *GetChildren()) {
 			const Element *pChild = *ppChild;
 			str += pChild->GatherText();
@@ -422,7 +422,7 @@ String Element::GatherText() const
 
 void Element::AddChild(Element *pChild)
 {
-	if (_pChildren.get() == NULL) _pChildren.reset(new ElementOwner());
+	if (_pChildren.get() == nullptr) _pChildren.reset(new ElementOwner());
 	_pChildren->push_back(pChild);
 }
 
@@ -627,7 +627,7 @@ int Document::OnNotStandalone()
 // Object_parser
 //-----------------------------------------------------------------------------
 Object_parser::Object_parser(Class *pClass) :
-						Object(pClass), _parser(this), _pSig(NULL)
+						Object(pClass), _parser(this), _pSig(nullptr)
 {
 }
 
@@ -635,7 +635,7 @@ void Object_parser::Parse(Environment &env, Signal &sig, Stream &stream)
 {
 	_pSig = &sig;
 	_parser.Parse(sig, stream);
-	_pSig = NULL;
+	_pSig = nullptr;
 }
 
 void Object_parser::CallHandler(const Symbol *pSymbol, const ValueList argList)
@@ -874,7 +874,7 @@ Gura_ImplementUserInheritableClass(parser)
 
 Gura_ImplementDescendantCreator(parser)
 {
-	return new Object_parser((pClass == NULL)? this : pClass);
+	return new Object_parser((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
@@ -941,9 +941,9 @@ Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueI
 		return Value::Null;
 	}
 	const AttributeOwner *pAttributes = _pElement->GetAttributes();
-	const Attribute *pAttribute = (pAttributes == NULL)?
-					NULL : pAttributes->FindByName(valueIdx.GetString());
-	if (pAttribute == NULL) {
+	const Attribute *pAttribute = (pAttributes == nullptr)?
+					nullptr : pAttributes->FindByName(valueIdx.GetString());
+	if (pAttribute == nullptr) {
 		sig.SetError(ERR_IndexError, "specified attribute doesn't exist");
 		return Value::Null;
 	}
@@ -976,12 +976,12 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		return Value(_pElement->GetComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ElementOwner *pChildren = _pElement->GetChildren();
-		if (pChildren == NULL) return Value::Null;
+		if (pChildren == nullptr) return Value::Null;
 		Iterator *pIterator = new Iterator_element(pChildren->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const AttributeOwner *pAttrs = _pElement->GetAttributes();
-		if (pAttrs == NULL) return Value::Null;
+		if (pAttrs == nullptr) return Value::Null;
 		Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	}
@@ -1135,7 +1135,7 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(encoding))) {
 		return Value(_pDocument->GetEncoding());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
-		if (_pDocument->GetRoot() == NULL) return Value::Null;
+		if (_pDocument->GetRoot() == nullptr) return Value::Null;
 		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
 	}
 	evaluatedFlag = false;
@@ -1268,7 +1268,7 @@ Iterator_attribute::Iterator_attribute(AttributeOwner *pAttributeOwner) :
 
 Iterator *Iterator_attribute::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_attribute::DoNext(Environment &env, Signal sig, Value &value)
@@ -1303,7 +1303,7 @@ Iterator_element::Iterator_element(ElementOwner *pElementOwner) :
 
 Iterator *Iterator_element::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_element::DoNext(Environment &env, Signal sig, Value &value)
@@ -1345,7 +1345,7 @@ Gura_DeclareFunction(parser)
 Gura_ImplementFunction(parser)
 {
 	Object_parser *pObj = Object_parser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_parser(Gura_UserClass(parser));
 		return ReturnValue(env, sig, args, Value(pObj));
 	}
@@ -1377,10 +1377,10 @@ Gura_ImplementFunction(element)
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	if (pExprBlock != NULL) {
+	if (pExprBlock != nullptr) {
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
-			for (const Expr *pExpr = *ppExpr; pExpr != NULL; ) {
+			SeqPostHandler *pSeqPostHandler = nullptr;
+			for (const Expr *pExpr = *ppExpr; pExpr != nullptr; ) {
 				Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
 				if (sig.IsSignalled()) return Value::Null;
 				if (!pElement->AddChild(env, sig, value)) {
@@ -1390,7 +1390,7 @@ Gura_ImplementFunction(element)
 				if (pExpr->IsCaller()) {
 					pExpr = dynamic_cast<const Expr_Caller *>(pExpr)->GetTrailer();
 				} else {
-					pExpr = NULL;
+					pExpr = nullptr;
 				}
 			}
 		}

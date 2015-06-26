@@ -22,7 +22,7 @@ bool Fundamental::IsFunction() const { return false; }
 Iterator *Fundamental::CreateIterator(Signal sig)
 {
 	sig.SetError(ERR_ValueError, "object cannot generate iterator");
-	return NULL;
+	return nullptr;
 }
 
 Value Fundamental::DoCall(Environment &env, Signal sig, Args &args)

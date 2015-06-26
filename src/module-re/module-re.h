@@ -123,14 +123,14 @@ private:
 public:
 	Gura_DeclareObjectAccessor(pattern)
 public:
-	inline Object_pattern() : Object(Gura_UserClass(pattern)), _pRegEx(NULL) {}
+	inline Object_pattern() : Object(Gura_UserClass(pattern)), _pRegEx(nullptr) {}
 	virtual ~Object_pattern();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline bool SetPattern(Signal sig, const char *pattern, const SymbolSet &attrs) {
 		_pattern = pattern;
 		_pRegEx = CreateRegEx(sig, pattern, attrs);
-		return _pRegEx != NULL;
+		return _pRegEx != nullptr;
 	}
 	inline regex_t *GetRegEx() { return _pRegEx; }
 };

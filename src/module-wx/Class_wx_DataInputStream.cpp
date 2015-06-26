@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataInputStream *_pObj;
 public:
-	inline wx_DataInputStream(wxInputStream& stream) : wxDataInputStream(stream), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DataInputStream(wxInputStream& stream, wxMBConv& conv) : wxDataInputStream(stream, conv), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataInputStream(wxInputStream& stream) : wxDataInputStream(stream), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DataInputStream(wxInputStream& stream, wxMBConv& conv) : wxDataInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_DataInputStream::~wx_DataInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(DataInputStream)
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wx_DataInputStream *pEntity = new wx_DataInputStream(*stream);
 	Object_wx_DataInputStream *pObj = Object_wx_DataInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -81,7 +81,7 @@ Gura_ImplementFunction(DataInputStream_1)
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_DataInputStream *pEntity = new wx_DataInputStream(*stream, *conv);
 	Object_wx_DataInputStream *pObj = Object_wx_DataInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read64)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint64 rtn = pThis->GetEntity()->Read64();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Uint64(new wxUint64(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Uint64(new wxUint64(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -317,20 +317,20 @@ Gura_ImplementMethod(wx_DataInputStream, ReadString)
 //----------------------------------------------------------------------------
 Object_wx_DataInputStream::~Object_wx_DataInputStream()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DataInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -363,7 +363,7 @@ Gura_ImplementUserInheritableClass(wx_DataInputStream)
 
 Gura_ImplementDescendantCreator(wx_DataInputStream)
 {
-	return new Object_wx_DataInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridRangeSelectEvent *_pObj;
 public:
-	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _sig(NULL), _pObj(NULL) {}
-	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridRangeSelectEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridRangeSelectEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GridRangeSelectEvent::~wx_GridRangeSelectEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridRangeSelectEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(GridRangeSelectEventEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridRangeSelectEvent *pEntity = new wx_GridRangeSelectEvent();
 	Object_wx_GridRangeSelectEvent *pObj = Object_wx_GridRangeSelectEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,7 +96,7 @@ Gura_ImplementFunction(GridRangeSelectEvent)
 	if (args.IsValid(9)) meta = args.GetBoolean(9);
 	wx_GridRangeSelectEvent *pEntity = new wx_GridRangeSelectEvent(id, type, obj, *topLeft, *bottomRight, sel, control, shift, alt, meta);
 	Object_wx_GridRangeSelectEvent *pObj = Object_wx_GridRangeSelectEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetBottomRightCoords)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords rtn = pThis->GetEntity()->GetBottomRightCoords();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetBottomRow)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetTopLeftCoords)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords rtn = pThis->GetEntity()->GetTopLeftCoords();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetTopRow)
@@ -269,13 +269,13 @@ Object_wx_GridRangeSelectEvent::~Object_wx_GridRangeSelectEvent()
 
 Object *Object_wx_GridRangeSelectEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridRangeSelectEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridRangeSelectEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -307,7 +307,7 @@ Gura_ImplementUserInheritableClass(wx_GridRangeSelectEvent)
 
 Gura_ImplementDescendantCreator(wx_GridRangeSelectEvent)
 {
-	return new Object_wx_GridRangeSelectEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridRangeSelectEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

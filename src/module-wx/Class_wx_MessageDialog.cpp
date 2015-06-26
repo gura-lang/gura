@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MessageDialog *_pObj;
 public:
-	inline wx_MessageDialog(wxWindow* parent, const wxString& message, const wxString& caption, long style, const wxPoint& pos) : wxMessageDialog(parent, message, caption, style, pos), _sig(NULL), _pObj(NULL) {}
+	inline wx_MessageDialog(wxWindow* parent, const wxString& message, const wxString& caption, long style, const wxPoint& pos) : wxMessageDialog(parent, message, caption, style, pos), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MessageDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MessageDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MessageDialog::~wx_MessageDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MessageDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(MessageDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxT("Message box");
 	if (args.IsValid(2)) caption = wxString::FromUTF8(args.GetString(2));
@@ -62,7 +62,7 @@ Gura_ImplementFunction(MessageDialog)
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
 	wx_MessageDialog *pEntity = new wx_MessageDialog(parent, message, caption, style, *pos);
 	Object_wx_MessageDialog *pObj = Object_wx_MessageDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MessageDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -367,13 +367,13 @@ Object_wx_MessageDialog::~Object_wx_MessageDialog()
 
 Object *Object_wx_MessageDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MessageDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.MessageDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -412,7 +412,7 @@ Gura_ImplementUserInheritableClass(wx_MessageDialog)
 
 Gura_ImplementDescendantCreator(wx_MessageDialog)
 {
-	return new Object_wx_MessageDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MessageDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ClientDC *_pObj;
 public:
-	inline wx_ClientDC(wxWindow* window) : wxClientDC(window), _sig(NULL), _pObj(NULL) {}
+	inline wx_ClientDC(wxWindow* window) : wxClientDC(window), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ClientDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ClientDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ClientDC::~wx_ClientDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ClientDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(ClientDC)
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ClientDC *pEntity = new wx_ClientDC(window);
 	Object_wx_ClientDC *pObj = Object_wx_ClientDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ClientDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -69,13 +69,13 @@ Object_wx_ClientDC::~Object_wx_ClientDC()
 
 Object *Object_wx_ClientDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ClientDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClientDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -95,7 +95,7 @@ Gura_ImplementUserInheritableClass(wx_ClientDC)
 
 Gura_ImplementDescendantCreator(wx_ClientDC)
 {
-	return new Object_wx_ClientDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ClientDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

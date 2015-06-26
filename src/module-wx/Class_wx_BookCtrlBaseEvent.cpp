@@ -24,12 +24,12 @@ public:
 
 wx_BookCtrlBaseEvent::~wx_BookCtrlBaseEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BookCtrlBaseEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -98,20 +98,20 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetSelection)
 //----------------------------------------------------------------------------
 Object_wx_BookCtrlBaseEvent::~Object_wx_BookCtrlBaseEvent()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_BookCtrlBaseEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BookCtrlBaseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.BookCtrlBaseEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -134,7 +134,7 @@ Gura_ImplementUserInheritableClass(wx_BookCtrlBaseEvent)
 
 Gura_ImplementDescendantCreator(wx_BookCtrlBaseEvent)
 {
-	return new Object_wx_BookCtrlBaseEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BookCtrlBaseEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

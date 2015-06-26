@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BoxSizer *_pObj;
 public:
-	inline wx_BoxSizer(int orient) : wxBoxSizer(orient), _sig(NULL), _pObj(NULL) {}
+	inline wx_BoxSizer(int orient) : wxBoxSizer(orient), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BoxSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BoxSizer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_BoxSizer::~wx_BoxSizer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BoxSizer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(BoxSizer)
 	int orient = args.GetInt(0);
 	wx_BoxSizer *pEntity = new wx_BoxSizer(orient);
 	Object_wx_BoxSizer *pObj = Object_wx_BoxSizer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->CalcMin();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
@@ -110,13 +110,13 @@ Object_wx_BoxSizer::~Object_wx_BoxSizer()
 
 Object *Object_wx_BoxSizer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BoxSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.BoxSizer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -139,7 +139,7 @@ Gura_ImplementUserInheritableClass(wx_BoxSizer)
 
 Gura_ImplementDescendantCreator(wx_BoxSizer)
 {
-	return new Object_wx_BoxSizer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BoxSizer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

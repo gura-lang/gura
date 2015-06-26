@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlModalHelp *_pObj;
 public:
-	inline wx_HtmlModalHelp(wxWindow* parent, const wxString& helpFile, const wxString& topic, int style) : wxHtmlModalHelp(parent, helpFile, topic, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlModalHelp(wxWindow* parent, const wxString& helpFile, const wxString& topic, int style) : wxHtmlModalHelp(parent, helpFile, topic, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlModalHelp();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlModalHelp *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlModalHelp::~wx_HtmlModalHelp()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlModalHelp::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(HtmlModalHelp)
 	if (args.IsValid(3)) style = args.GetInt(3);
 	wx_HtmlModalHelp *pEntity = new wx_HtmlModalHelp(parent, helpFile, topic, style);
 	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlModalHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,20 +73,20 @@ Gura_ImplementFunction(HtmlModalHelp)
 //----------------------------------------------------------------------------
 Object_wx_HtmlModalHelp::~Object_wx_HtmlModalHelp()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HtmlModalHelp::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlModalHelp::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlModalHelp:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -106,7 +106,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlModalHelp)
 
 Gura_ImplementDescendantCreator(wx_HtmlModalHelp)
 {
-	return new Object_wx_HtmlModalHelp((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlModalHelp((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

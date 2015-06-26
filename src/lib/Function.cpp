@@ -44,12 +44,12 @@ Function::Function(const Function &func) : _cntRef(1),
 Function::Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, ULong flags) :
 	_cntRef(1),
-	_pSymbol(pSymbol), _pClassToConstruct(NULL),
+	_pSymbol(pSymbol), _pClassToConstruct(nullptr),
 	_pEnvScope(Environment::Reference(&envScope)), _pDeclOwner(new DeclarationOwner()),
 	_funcType(funcType), _resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
-	_blockInfo.pSymbol = NULL;
+	_blockInfo.pSymbol = nullptr;
 	_blockInfo.blockScope = BLKSCOPE_Through;
 	_blockInfo.quoteFlag = false;
 }
@@ -204,8 +204,8 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 {
 	_blockInfo.occurPattern = occurPattern;
 	_blockInfo.pSymbol =
-			(occurPattern == OCCUR_Zero)? NULL :
-			(pSymbol == NULL)? Gura_Symbol(block) : pSymbol;
+			(occurPattern == OCCUR_Zero)? nullptr :
+			(pSymbol == nullptr)? Gura_Symbol(block) : pSymbol;
 	_blockInfo.blockScope = blockScope;
 	_blockInfo.quoteFlag = quoteFlag;
 }
@@ -227,9 +227,9 @@ void Function::LinkHelp(const Function *pFunc)
 
 bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 {
-	if (pEnv == NULL) return false;
+	if (pEnv == nullptr) return false;
 	const Function *pFunc = pEnv->LookupFunction(pSymbol, ENVREF_NoEscalate);
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 	LinkHelp(pFunc);
 	return true;
 }
@@ -237,15 +237,15 @@ bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const
 {
 	const Help *pHelp = _pFuncHelpLink.IsNull()?
-		NULL : _pFuncHelpLink->GetHelp(pSymbol, defaultFirstFlag);
-	if (pHelp != NULL) return pHelp;
-	if (_helpOwner.empty()) return NULL;
-	if (pSymbol == NULL) return _helpOwner.front();
+		nullptr : _pFuncHelpLink->GetHelp(pSymbol, defaultFirstFlag);
+	if (pHelp != nullptr) return pHelp;
+	if (_helpOwner.empty()) return nullptr;
+	if (pSymbol == nullptr) return _helpOwner.front();
 	foreach_const (HelpOwner, ppHelp, _helpOwner) {
 		Help *pHelp = *ppHelp;
 		if (pHelp->GetSymbol() == pSymbol) return pHelp;
 	}
-	return defaultFirstFlag? _helpOwner.front() : NULL;
+	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
 Value Function::Call(Environment &env, Signal sig, Args &args) const
@@ -272,13 +272,13 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 														pValue++, ppDecl++) {
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	if (GetDeclOwner().GetSymbolDict() != NULL) {
+	if (GetDeclOwner().GetSymbolDict() != nullptr) {
 		const ValueDict &valDictArg = args.GetValueDictArg();
 		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
 				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
 	}
 	const ValueMap *pValMapHiddenArg = args.GetValueMapHiddenArg();
-	if (pValMapHiddenArg != NULL) {
+	if (pValMapHiddenArg != nullptr) {
 		foreach_const (ValueMap, iter, *pValMapHiddenArg) {
 			const Symbol *pSymbol = iter->first;
 			const ValueEx &value = iter->second;
@@ -287,10 +287,10 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	}
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
-	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
+	if (_blockInfo.pSymbol == nullptr) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) return NULL;
-	if (pExprBlock == NULL) {
+	if (sig.IsSignalled()) return nullptr;
+	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by
 		// _blockInfo.pSymbol
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Null, EXTRA_Public);
@@ -304,7 +304,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 											FUNCTYPE_Function : FUNCTYPE_Block;
 		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv, sig,
 								_blockInfo.pSymbol, pExprBlock, funcType);
-		if (pFuncBlock == NULL) return NULL;
+		if (pFuncBlock == nullptr) return nullptr;
 		pEnvLocal->AssignFunction(pFuncBlock);
 	}
 	return pEnvLocal.release();
@@ -354,7 +354,7 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(result);
 	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
@@ -372,7 +372,7 @@ Value Function::ReturnValues(Environment &env, Signal sig,
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValueListArg(valListArg);
 	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
@@ -385,7 +385,7 @@ Value Function::ReturnValues(Environment &env, Signal sig,
 Value Function::ReturnIterator(Environment &env, Signal sig,
 								Args &args, Iterator *pIterator) const
 {
-	if (pIterator == NULL) return Value::Null;
+	if (pIterator == nullptr) return Value::Null;
 	if (sig.IsSignalled()) {
 		Iterator::Delete(pIterator);
 		return Value::Null;
@@ -396,7 +396,7 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 			const Function *pFuncBlock =
 								args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-			if (pFuncBlock == NULL) return Value::Null;
+			if (pFuncBlock == nullptr) return Value::Null;
 			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 								false, genIterFlag, pIterator);
@@ -425,13 +425,13 @@ Expr *Function::MathDiff(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
-	return NULL;
+	return nullptr;
 }
 
 Expr *Function::MathOptimize(Environment &env, Signal sig, Expr *pExprOpt) const
 {
 	SetError_MathOptimizeError(sig);
-	return NULL;
+	return nullptr;
 }
 
 void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -555,7 +555,7 @@ String Function::ToString() const
 		}
 		str += "]";
 	}
-	if (_blockInfo.pSymbol != NULL) {
+	if (_blockInfo.pSymbol != nullptr) {
 		str += " {";
 		if (_blockInfo.quoteFlag) str += "`";
 		str += _blockInfo.pSymbol->GetName();
@@ -650,7 +650,7 @@ void Function::SetError_MathOptimizeError(Signal sig) const
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
 //-----------------------------------------------------------------------------
 Function::ResultComposer::ResultComposer(Environment &env, Args &args, Value &result) :
-	_args(args), _result(result), _pValList(NULL), _cnt(0),
+	_args(args), _result(result), _pValList(nullptr), _cnt(0),
 	_excludeNilFlag(args.IsRsltXList() || args.IsRsltXSet()),
 	_setFlag(args.IsRsltSet() || args.IsRsltXSet())
 {
@@ -677,7 +677,7 @@ bool Function::ResultComposer::Store(Environment &env, Signal sig, const Value &
 		if (_args.IsRsltList()) {
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
-			if (_pValList == NULL) {
+			if (_pValList == nullptr) {
 				_pValList = &_result.InitAsList(env, _cnt, Value::Null);
 			}
 			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
@@ -686,7 +686,7 @@ bool Function::ResultComposer::Store(Environment &env, Signal sig, const Value &
 			if (sig.IsSignalled()) return false;
 		} else if (_excludeNilFlag) {
 			// nothing to do
-		} else if (_pValList != NULL) {
+		} else if (_pValList != nullptr) {
 			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
 				_pValList->push_back(value);
 			}
@@ -731,12 +731,12 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	//-------------------------------------------------------------------------
 	case STAT_Init: {
 		if (_pFunc->GetType() == FUNCTYPE_Instance &&
-				!_pArgs->GetThis().IsPrimitive() && _pArgs->GetThisObj() == NULL) {
+				!_pArgs->GetThis().IsPrimitive() && _pArgs->GetThisObj() == nullptr) {
 			sig.SetError(ERR_ValueError,
 				"object is expected as l-value of field");
 			return false;
 		} else if (_pFunc->GetType() == FUNCTYPE_Class &&
-				_pArgs->GetThis().GetClassItself() == NULL && _pArgs->GetThisObj() == NULL) {
+				_pArgs->GetThis().GetClassItself() == nullptr && _pArgs->GetThisObj() == nullptr) {
 			sig.SetError(ERR_ValueError,
 				"class or object is expected as l-value of field");
 			return false;
@@ -912,7 +912,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	}
 	//-------------------------------------------------------------------------
 	case STAT_NamedArgs: {
-		if (_pFunc->GetDeclOwner().GetSymbolDict() == NULL) {
+		if (_pFunc->GetDeclOwner().GetSymbolDict() == nullptr) {
 			if (!_exprMap.empty()) {
 				String str;
 				str = "invalid argument named ";
@@ -1086,9 +1086,9 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	// like "g() {|block|}"
 	// scope problem remains: 2010.11.02
 	const Expr_Block *pExprBlock = _pExprBlock.get();
-	while (pExprBlock != NULL) {
+	while (pExprBlock != nullptr) {
 		const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
-		if (pExprOwnerParam == NULL || !pExprBlock->GetExprOwner().empty()) {
+		if (pExprOwnerParam == nullptr || !pExprBlock->GetExprOwner().empty()) {
 			break;
 		}
 		const ExprList &exprList = *pExprOwnerParam;
@@ -1098,17 +1098,17 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 		const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(exprList.front());
 		const Value *pValue = env.LookupValue(pExprIdentifier->GetSymbol(), ENVREF_Escalate);
-		if (pValue == NULL) {
+		if (pValue == nullptr) {
 			break;
 		} else if (pValue->Is_expr()) {
 			const Expr *pExpr = pValue->GetExpr();
 			if (!pExpr->IsBlock()) {
 				sig.SetError(ERR_ValueError, "invalid value for block delegation");
-				return NULL;
+				return nullptr;
 			}
 			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
 		} else if (pValue->IsInvalid()) {
-			return NULL;
+			return nullptr;
 		} else {
 			break;
 		}
@@ -1116,11 +1116,11 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	return pExprBlock;
 }
 
-// return NULL without error if block is not specified
+// return nullptr without error if block is not specified
 const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
 {
 	const Expr_Block *pExprBlock = GetBlock(env, sig);
-	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
+	if (pExprBlock == nullptr || pSymbol == nullptr) return nullptr;
 	if (_pFuncBlock.IsNull()) {
 		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env, sig,
 										pSymbol, pExprBlock, FUNCTYPE_Block));

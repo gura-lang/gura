@@ -15,7 +15,7 @@ private:
 	FT_Face _face;
 	std::unique_ptr<Handler> _pHandler;
 public:
-	inline Object_Face(FT_Face face = NULL) :
+	inline Object_Face(FT_Face face = nullptr) :
 					Object(Gura_UserClass(Face)), _face(face) {}
 	inline Object_Face(const Object_Face &obj) :
 					Object(obj), _face(obj._face) {}

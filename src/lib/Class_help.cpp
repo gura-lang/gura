@@ -20,7 +20,7 @@ Object_help::Object_help(Class *pClass, Help *pHelp) :
 
 Object *Object_help::Clone() const
 {
-	return NULL; //new Object_help(*this);
+	return nullptr; //new Object_help(*this);
 }
 
 bool Object_help::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

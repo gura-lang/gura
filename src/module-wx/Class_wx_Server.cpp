@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Server *_pObj;
 public:
-	inline wx_Server() : wxServer(), _sig(NULL), _pObj(NULL) {}
+	inline wx_Server() : wxServer(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxConnectionBase * OnAcceptConnection(const wxString& topic);
 	~wx_Server();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Server *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_Server::~wx_Server()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Server::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(ServerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Server *pEntity = new wx_Server();
 	Object_wx_Server *pObj = Object_wx_Server::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Server(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_Server, OnAcceptConnection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnAcceptConnection(topic);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -102,13 +102,13 @@ Object_wx_Server::~Object_wx_Server()
 
 Object *Object_wx_Server::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Server::ToString(bool exprFlag)
 {
 	String rtn("<wx.Server:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -131,7 +131,7 @@ Gura_ImplementUserInheritableClass(wx_Server)
 
 Gura_ImplementDescendantCreator(wx_Server)
 {
-	return new Object_wx_Server((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Server((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

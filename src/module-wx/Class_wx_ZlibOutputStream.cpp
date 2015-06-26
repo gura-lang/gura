@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ZlibOutputStream *_pObj;
 public:
-	inline wx_ZlibOutputStream(wxOutputStream* stream, int level, int flags) : wxZlibOutputStream(stream, level, flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_ZlibOutputStream(wxOutputStream* stream, int level, int flags) : wxZlibOutputStream(stream, level, flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ZlibOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZlibOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ZlibOutputStream::~wx_ZlibOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ZlibOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(ZlibOutputStream)
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	wx_ZlibOutputStream *pEntity = new wx_ZlibOutputStream(stream, level, flags);
 	Object_wx_ZlibOutputStream *pObj = Object_wx_ZlibOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -88,13 +88,13 @@ Object_wx_ZlibOutputStream::~Object_wx_ZlibOutputStream()
 
 Object *Object_wx_ZlibOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ZlibOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZlibOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -115,7 +115,7 @@ Gura_ImplementUserInheritableClass(wx_ZlibOutputStream)
 
 Gura_ImplementDescendantCreator(wx_ZlibOutputStream)
 {
-	return new Object_wx_ZlibOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ZlibOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

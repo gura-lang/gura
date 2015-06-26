@@ -11,7 +11,7 @@ Object_JoystickGUID::~Object_JoystickGUID()
 
 Object *Object_JoystickGUID::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_JoystickGUID::ToString(bool exprFlag)

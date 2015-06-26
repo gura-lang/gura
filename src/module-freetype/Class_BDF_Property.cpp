@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_BDF_Property::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_BDF_Property::ToString(bool exprFlag)

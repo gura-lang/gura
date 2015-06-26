@@ -19,7 +19,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileSystemHandler *_pObj;
 public:
-	//inline wx_FileSystemHandler() : wxFileSystemHandler(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_FileSystemHandler() : wxFileSystemHandler(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool CanOpen(const wxString& location);
 	//virtual wxString FindFirst(const wxString& wildcard, int flags);
 	//virtual wxString FindNext();
@@ -34,12 +34,12 @@ public:
 
 wx_FileSystemHandler::~wx_FileSystemHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileSystemHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(FileSystemHandlerEmpty)
 #if 0
 	wx_FileSystemHandler *pEntity = new wx_FileSystemHandler();
 	Object_wx_FileSystemHandler *pObj = Object_wx_FileSystemHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileSystemHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
 	wxFileSystem *fs = Object_wx_FileSystem::GetObject(args, 0)->GetEntity();
 	wxString location = wxString::FromUTF8(args.GetString(1));
 	wxFSFile *rtn = (wxFSFile *)pThis->GetEntity()->OpenFile(*fs, location);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FSFile(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FSFile(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -259,13 +259,13 @@ Object_wx_FileSystemHandler::~Object_wx_FileSystemHandler()
 
 Object *Object_wx_FileSystemHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileSystemHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -298,7 +298,7 @@ Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
 
 Gura_ImplementDescendantCreator(wx_FileSystemHandler)
 {
-	return new Object_wx_FileSystemHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileSystemHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

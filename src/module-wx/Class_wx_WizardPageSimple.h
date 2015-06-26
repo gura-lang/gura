@@ -38,7 +38,7 @@ public:
 		return pEntity;
 	}
 	inline bool IsInvalid(Signal sig) const {
-		if (_pEntity != NULL) return false;
+		if (_pEntity != nullptr) return false;
 		SetError_InvalidWxObject(sig, "wxWizardPageSimple");
 		return true;
 	}

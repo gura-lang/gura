@@ -62,8 +62,8 @@ GURA_DLLDECLARE size_t Length(const char *str);
 GURA_DLLDECLARE size_t Width(const char *str);
 GURA_DLLDECLARE bool CheckCType(const char *str, UShort type);
 GURA_DLLDECLARE size_t CalcCharPos(const char *str, size_t idx);
-GURA_DLLDECLARE const char *Forward(const char *str, size_t len, size_t *pLenForward = NULL);
-GURA_DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len, size_t *pLenForward = NULL);
+GURA_DLLDECLARE const char *Forward(const char *str, size_t len, size_t *pLenForward = nullptr);
+GURA_DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len, size_t *pLenForward = nullptr);
 GURA_DLLDECLARE String Center(const char *str, size_t width, const char *padding);
 GURA_DLLDECLARE String LJust(const char *str, size_t width, const char *padding);
 GURA_DLLDECLARE String RJust(const char *str, size_t width, const char *padding);
@@ -79,7 +79,7 @@ GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
 GURA_DLLDECLARE UShort GetCType(char ch);
-GURA_DLLDECLARE Number ToNumber(const char *str, bool *pSuccessFlag = NULL);
+GURA_DLLDECLARE Number ToNumber(const char *str, bool *pSuccessFlag = nullptr);
 
 inline size_t CalcCharOffset(const char *str, size_t pos) {
 	return Forward(str, pos) - str;

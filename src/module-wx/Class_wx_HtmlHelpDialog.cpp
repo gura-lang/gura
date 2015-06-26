@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlHelpDialog *_pObj;
 public:
-	//inline wx_HtmlHelpDialog(wxHtmlHelpData* data) : wxHtmlHelpDialog(data), _sig(NULL), _pObj(NULL) {}
-	//inline wx_HtmlHelpDialog(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpDialog(parent, wxWindowID, title, style, data), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlHelpDialog(wxHtmlHelpData* data) : wxHtmlHelpDialog(data), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlHelpDialog(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpDialog(parent, wxWindowID, title, style, data), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpDialog *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_HtmlHelpDialog::~wx_HtmlHelpDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlHelpDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,11 +54,11 @@ Gura_ImplementFunction(HtmlHelpDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
-	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
+	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wx_HtmlHelpDialog *pEntity = new wx_HtmlHelpDialog(data);
 	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -95,11 +95,11 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 	if (args.IsValid(2)) title = wxString::FromUTF8(args.GetString(2));
 	int style = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(3)) style = args.GetInt(3);
-	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
+	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(4)) data = Object_wx_HtmlHelpData::GetObject(args, 4)->GetEntity();
 	wx_HtmlHelpDialog *pEntity = new wx_HtmlHelpDialog(parent, wxWindowID, title, style, data);
 	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpController(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpController(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, ReadCustomization)
@@ -278,13 +278,13 @@ Object_wx_HtmlHelpDialog::~Object_wx_HtmlHelpDialog()
 
 Object *Object_wx_HtmlHelpDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlHelpDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -313,7 +313,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlHelpDialog)
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpDialog)
 {
-	return new Object_wx_HtmlHelpDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlHelpDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

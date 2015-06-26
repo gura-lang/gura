@@ -14,14 +14,14 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Region *_pObj;
 public:
-	inline wx_Region() : wxRegion(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(const wxRect& rect) : wxRegion(rect), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(const wxRegion& region) : wxRegion(region), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _sig(NULL), _pObj(NULL) {}
-	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _sig(NULL), _pObj(NULL) {}
+	inline wx_Region() : wxRegion(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxRect& rect) : wxRegion(rect), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxRegion& region) : wxRegion(region), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Region();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Region *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -32,12 +32,12 @@ public:
 
 wx_Region::~wx_Region()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Region::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Gura_ImplementFunction(RegionEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Region *pEntity = new wx_Region();
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,7 +85,7 @@ Gura_ImplementFunction(Region)
 	wxCoord height = static_cast<wxCoord>(args.GetInt(3));
 	wx_Region *pEntity = new wx_Region(x, y, width, height);
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -111,7 +111,7 @@ Gura_ImplementFunction(Region_1)
 	wxPoint *bottomRight = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*topLeft, *bottomRight);
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -135,7 +135,7 @@ Gura_ImplementFunction(RegionRect)
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*rect);
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -168,7 +168,7 @@ Gura_ImplementFunction(RegionPoints)
 	wx_Region *pEntity = new wx_Region(n, points, fillStyle);
 	delete[] points;
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -192,7 +192,7 @@ Gura_ImplementFunction(RegionFromBitmap)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	wx_Region *pEntity = NULL;
+	wx_Region *pEntity = nullptr;
 	if (args.IsValid(1)) {
 		wxColour *transColour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 		int tolerance = 0;
@@ -202,7 +202,7 @@ Gura_ImplementFunction(RegionFromBitmap)
 		pEntity = new wx_Region(*bmp);
 	}
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -232,7 +232,7 @@ Gura_ImplementFunction(Region_6)
 	if (args.IsValid(2)) tolerance = args.GetInt(2);
 	wx_Region *pEntity = new wx_Region(*bmp, *transColour, tolerance);
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Region, ConvertToBitmap)
 	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap rtn = pThis->GetEntity()->ConvertToBitmap();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Region, GetBoxRectDim)
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_Region, GetBox)
 	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetBox();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Region, Intersect)
@@ -679,13 +679,13 @@ Object_wx_Region::~Object_wx_Region()
 
 Object *Object_wx_Region::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Region::ToString(bool exprFlag)
 {
 	String rtn("<wx.Region:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -736,7 +736,7 @@ Gura_ImplementUserInheritableClass(wx_Region)
 
 Gura_ImplementDescendantCreator(wx_Region)
 {
-	return new Object_wx_Region((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Region((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -327,7 +327,7 @@ if (sys.build == `msc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'gnuc'|
 			this.cflags = [
-				'-DGURA_MODULE_SEPARATED', '-fPIC', '-std=c++0x'
+				'-DGURA_MODULE_SEPARATED', '-fPIC'
 			]
 			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
@@ -341,6 +341,7 @@ if (sys.build == `msc) {
 		doPrecompile() = {
 			fileNameSrc = this.precompile
 			cflags = this.cflags.clone()
+			cflags.append('-std=c++0x')
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
@@ -358,6 +359,9 @@ if (sys.build == `msc) {
 			firstFlag = (idx == 0)
 			fileNameObj = this.makeFileNameObj(fileNameSrc)
 			cflags = this.cflags.clone()
+			if (!fileNameSrc.endswith('.c'):icase) {
+				cflags.append('-std=c++0x')
+			}
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')

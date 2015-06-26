@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Dir *_pObj;
 public:
-	inline wx_Dir() : wxDir(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Dir(const wxString& dir) : wxDir(dir), _sig(NULL), _pObj(NULL) {}
+	inline wx_Dir() : wxDir(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Dir(const wxString& dir) : wxDir(dir), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Dir();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Dir *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Dir::~wx_Dir()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Dir::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(DirEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dir *pEntity = new wx_Dir();
 	Object_wx_Dir *pObj = Object_wx_Dir::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Dir(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(Dir)
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wx_Dir *pEntity = new wx_Dir(dir);
 	Object_wx_Dir *pObj = Object_wx_Dir::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Dir(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -226,7 +226,7 @@ Gura_ImplementClassMethod(wx_Dir, GetTotalSize)
 #if 0
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wxULongLong rtn = wxDir::GetTotalSize(dir, *filesSkipped);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -323,20 +323,20 @@ Gura_ImplementMethod(wx_Dir, Traverse)
 //----------------------------------------------------------------------------
 Object_wx_Dir::~Object_wx_Dir()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Dir::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Dir::ToString(bool exprFlag)
 {
 	String rtn("<wx.Dir:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -369,7 +369,7 @@ Gura_ImplementUserInheritableClass(wx_Dir)
 
 Gura_ImplementDescendantCreator(wx_Dir)
 {
-	return new Object_wx_Dir((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Dir((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

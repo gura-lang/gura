@@ -12,7 +12,7 @@ Object_Surface::~Object_Surface()
 
 Object *Object_Surface::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Surface::ToString(bool exprFlag)
@@ -80,13 +80,13 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage
 		Amask = 0xff000000;
 	} else {
 		sig.SetError(ERR_ValueError, "unsupported image type");
-		return NULL;
+		return nullptr;
 	}
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurfaceFrom(
 				pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
-	if (pSurface == NULL) {
+	if (pSurface == nullptr) {
 		SetError_SDL(sig);
-		return NULL;
+		return nullptr;
 	}
 	Object_Surface *pObj = new Object_Surface(pSurface, Image::Reference(pImage));
 	return pObj;
@@ -107,7 +107,7 @@ Gura_ImplementCastFrom(Surface)
 		Image *pImage = Object_image::GetObject(value)->GetImage();
 		Object_Surface *pObjSurface =
 					Object_Surface::CreateSurfaceFromImage(sig, pImage);
-		if (pObjSurface == NULL) return false;
+		if (pObjSurface == nullptr) return false;
 		value = Value(pObjSurface);
 		return true;
 	}

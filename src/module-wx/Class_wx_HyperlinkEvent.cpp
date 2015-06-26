@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HyperlinkEvent *_pObj;
 public:
-	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _sig(NULL), _pObj(NULL) {}
+	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HyperlinkEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HyperlinkEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HyperlinkEvent::~wx_HyperlinkEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HyperlinkEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(HyperlinkEvent)
 	wxString url = wxString::FromUTF8(args.GetString(2));
 	wx_HyperlinkEvent *pEntity = new wx_HyperlinkEvent(generator, id, url);
 	Object_wx_HyperlinkEvent *pObj = Object_wx_HyperlinkEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HyperlinkEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -102,13 +102,13 @@ Object_wx_HyperlinkEvent::~Object_wx_HyperlinkEvent()
 
 Object *Object_wx_HyperlinkEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HyperlinkEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -130,7 +130,7 @@ Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)
 
 Gura_ImplementDescendantCreator(wx_HyperlinkEvent)
 {
-	return new Object_wx_HyperlinkEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HyperlinkEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

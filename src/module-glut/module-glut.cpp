@@ -16,7 +16,7 @@ Object_Font::~Object_Font()
 
 Object *Object_Font::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Font::ToString(bool exprFlag)

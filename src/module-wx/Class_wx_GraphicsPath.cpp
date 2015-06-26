@@ -24,12 +24,12 @@ public:
 
 wx_GraphicsPath::~wx_GraphicsPath()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GraphicsPath::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox)
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect2DDouble rtn = pThis->GetEntity()->GetBox();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect2DDouble(new wxRect2DDouble(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect2DDouble(new wxRect2DDouble(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetBox_1)
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint2DDouble rtn = pThis->GetEntity()->GetCurrentPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point2DDouble(new wxPoint2DDouble(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point2DDouble(new wxPoint2DDouble(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, Transform)
@@ -505,13 +505,13 @@ Object_wx_GraphicsPath::~Object_wx_GraphicsPath()
 
 Object *Object_wx_GraphicsPath::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GraphicsPath::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsPath:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -555,7 +555,7 @@ Gura_ImplementUserInheritableClass(wx_GraphicsPath)
 
 Gura_ImplementDescendantCreator(wx_GraphicsPath)
 {
-	return new Object_wx_GraphicsPath((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GraphicsPath((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

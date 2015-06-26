@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextStyleListBox *_pObj;
 public:
-	inline wx_RichTextStyleListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListBox(parent, id, pos, size, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextStyleListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListBox(parent, id, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextStyleListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleListBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextStyleListBox::~wx_RichTextStyleListBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextStyleListBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Gura_ImplementFunction(RichTextStyleListBox)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wx_RichTextStyleListBox *pEntity = new wx_RichTextStyleListBox(parent, id, *pos, *size, style);
 	Object_wx_RichTextStyleListBox *pObj = Object_wx_RichTextStyleListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_RichTextStyleListBox, GetRichTextCtrl)
 	Object_wx_RichTextStyleListBox *pThis = Object_wx_RichTextStyleListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pThis->GetEntity()->GetRichTextCtrl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextCtrl(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyle)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextStyleListBox, GetStyle)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t i = args.GetSizeT(0);
 	wxRichTextStyleDefinition *rtn = (wxRichTextStyleDefinition *)pThis->GetEntity()->GetStyle(i);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleDefinition(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyleSheet)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextStyleListBox, GetStyleSheet)
 	Object_wx_RichTextStyleListBox *pThis = Object_wx_RichTextStyleListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyleType)
@@ -337,13 +337,13 @@ Object_wx_RichTextStyleListBox::~Object_wx_RichTextStyleListBox()
 
 Object *Object_wx_RichTextStyleListBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextStyleListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleListBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -379,7 +379,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextStyleListBox)
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleListBox)
 {
-	return new Object_wx_RichTextStyleListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextStyleListBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

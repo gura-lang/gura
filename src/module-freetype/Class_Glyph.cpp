@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object_Glyph::~Object_Glyph()
 {
-	if (_pObjHolder.get() == NULL) {
+	if (_pObjHolder.get() == nullptr) {
 		::FT_Done_Glyph(*_pGlyph);
 		delete _pGlyph;
 	}
@@ -15,7 +15,7 @@ Object_Glyph::~Object_Glyph()
 
 Object *Object_Glyph::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Glyph::ToString(bool exprFlag)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(Glyph, Copy)
 		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
-	return Value(new Object_Glyph(NULL, pGlyphTgt.release()));
+	return Value(new Object_Glyph(nullptr, pGlyphTgt.release()));
 }
 
 // freetype.Glyph#Stroke(stroker:freetype.Stroker):reduce

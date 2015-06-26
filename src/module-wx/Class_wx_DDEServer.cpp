@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DDEServer *_pObj;
 public:
-	inline wx_DDEServer() : wxDDEServer(), _sig(NULL), _pObj(NULL) {}
+	inline wx_DDEServer() : wxDDEServer(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxConnectionBase * OnAcceptConnection(const wxString& topic);
 	~wx_DDEServer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DDEServer *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_DDEServer::~wx_DDEServer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DDEServer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(DDEServerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DDEServer *pEntity = new wx_DDEServer();
 	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEServer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnAcceptConnection(topic);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -102,13 +102,13 @@ Object_wx_DDEServer::~Object_wx_DDEServer()
 
 Object *Object_wx_DDEServer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DDEServer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DDEServer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -131,7 +131,7 @@ Gura_ImplementUserInheritableClass(wx_DDEServer)
 
 Gura_ImplementDescendantCreator(wx_DDEServer)
 {
-	return new Object_wx_DDEServer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DDEServer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

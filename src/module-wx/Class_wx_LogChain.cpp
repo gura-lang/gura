@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_LogChain *_pObj;
 public:
-	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _sig(NULL), _pObj(NULL) {}
+	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _sig(nullptr), _pObj(nullptr) {}
 	~wx_LogChain();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogChain *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_LogChain::~wx_LogChain()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LogChain::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(LogChain)
 	wxLog *logger = Object_wx_Log::GetObject(args, 0)->GetEntity();
 	wx_LogChain *pEntity = new wx_LogChain(logger);
 	Object_wx_LogChain *pObj = Object_wx_LogChain::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_LogChain(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_LogChain, GetOldLog)
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)pThis->GetEntity()->GetOldLog();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_LogChain, IsPassingMessages)
@@ -140,13 +140,13 @@ Object_wx_LogChain::~Object_wx_LogChain()
 
 Object *Object_wx_LogChain::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_LogChain::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogChain:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -171,7 +171,7 @@ Gura_ImplementUserInheritableClass(wx_LogChain)
 
 Gura_ImplementDescendantCreator(wx_LogChain)
 {
-	return new Object_wx_LogChain((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LogChain((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

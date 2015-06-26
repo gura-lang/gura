@@ -21,14 +21,14 @@ _pSymbol_##name = Symbol::Add(str);
 
 #if defined(GURA_MODULE_MAIN)
 #define Gura_DeclareUserSymbol(name) \
-const Symbol *_pUserSymbol_##name = NULL;
+const Symbol *_pUserSymbol_##name = nullptr;
 #else
 #define Gura_DeclareUserSymbol(name) \
 extern const Symbol *_pUserSymbol_##name;
 #endif
 
 #define Gura_DeclarePrivUserSymbol(name) \
-static const Symbol *_pUserSymbol_##name = NULL;
+static const Symbol *_pUserSymbol_##name = nullptr;
 
 #define Gura_RealizeUserSymbol(name) \
 _pUserSymbol_##name = Symbol::Add(#name);

@@ -20,7 +20,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_LanguageInfo *_pObj;
 public:
-	inline wx_LanguageInfo() : wxLanguageInfo(), _sig(NULL), _pObj(NULL) {}
+	inline wx_LanguageInfo() : wxLanguageInfo(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_LanguageInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LanguageInfo *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -31,12 +31,12 @@ public:
 
 wx_LanguageInfo::~wx_LanguageInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LanguageInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ _MS(pEntity->WinSublang = 0);
 _MS(if (args.IsValid(3)) pEntity->WinLang = args.GetInt(3));
 _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
 	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_LanguageInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,14 +84,14 @@ _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
 //----------------------------------------------------------------------------
 Object_wx_LanguageInfo::~Object_wx_LanguageInfo()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_LanguageInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_wx_LanguageInfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -160,7 +160,7 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, Signal sig, const Symb
 String Object_wx_LanguageInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.LanguageInfo:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -200,7 +200,7 @@ Gura_ImplementUserInheritableClass(wx_LanguageInfo)
 
 Gura_ImplementDescendantCreator(wx_LanguageInfo)
 {
-	return new Object_wx_LanguageInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LanguageInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

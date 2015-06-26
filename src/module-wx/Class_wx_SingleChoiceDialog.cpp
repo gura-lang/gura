@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SingleChoiceDialog *_pObj;
 public:
-	inline wx_SingleChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, char** clientData, long style, const wxPoint& pos) : wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos), _sig(NULL), _pObj(NULL) {}
+	inline wx_SingleChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, char** clientData, long style, const wxPoint& pos) : wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SingleChoiceDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SingleChoiceDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SingleChoiceDialog::~wx_SingleChoiceDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SingleChoiceDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,18 +53,18 @@ Gura_ImplementFunction(SingleChoiceDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxString::FromUTF8(args.GetString(2));
 	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
-	char **clientData = NULL;
+	char **clientData = nullptr;
 	long style = wxCHOICEDLG_STYLE;
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
 	wx_SingleChoiceDialog *pEntity = new wx_SingleChoiceDialog(parent, message, caption, *choices, clientData, style, *pos);
 	Object_wx_SingleChoiceDialog *pObj = Object_wx_SingleChoiceDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -158,13 +158,13 @@ Object_wx_SingleChoiceDialog::~Object_wx_SingleChoiceDialog()
 
 Object *Object_wx_SingleChoiceDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SingleChoiceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.SingleChoiceDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -189,7 +189,7 @@ Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)
 
 Gura_ImplementDescendantCreator(wx_SingleChoiceDialog)
 {
-	return new Object_wx_SingleChoiceDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SingleChoiceDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

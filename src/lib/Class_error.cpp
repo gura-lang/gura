@@ -35,7 +35,7 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = _err.GetSourceName();
-		if (sourceName == NULL) return Value::Null;
+		if (sourceName == nullptr) return Value::Null;
 		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(_err.GetLineNoTop());
@@ -80,7 +80,7 @@ void Class_error::Prepare(Environment &env)
 Object *Class_error::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FindReplaceDialog *_pObj;
 public:
-	inline wx_FindReplaceDialog() : wxFindReplaceDialog(), _sig(NULL), _pObj(NULL) {}
-	inline wx_FindReplaceDialog(wxWindow * parent, wxFindReplaceData* data, const wxString& title, int style) : wxFindReplaceDialog(parent, data, title, style), _sig(NULL), _pObj(NULL) {}
+	inline wx_FindReplaceDialog() : wxFindReplaceDialog(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FindReplaceDialog(wxWindow * parent, wxFindReplaceData* data, const wxString& title, int style) : wxFindReplaceDialog(parent, data, title, style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FindReplaceDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FindReplaceDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_FindReplaceDialog::~wx_FindReplaceDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FindReplaceDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(FindReplaceDialogEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FindReplaceDialog *pEntity = new wx_FindReplaceDialog();
 	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,14 +74,14 @@ Gura_ImplementFunction(FindReplaceDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	int style = 0;
 	if (args.IsValid(3)) style = args.GetInt(3);
 	wx_FindReplaceDialog *pEntity = new wx_FindReplaceDialog(parent, data, title, style);
 	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, Create)
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	int style = 0;
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, GetData)
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFindReplaceData *rtn = (wxFindReplaceData *)pThis->GetEntity()->GetData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceData(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -138,13 +138,13 @@ Object_wx_FindReplaceDialog::~Object_wx_FindReplaceDialog()
 
 Object *Object_wx_FindReplaceDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindReplaceDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -167,7 +167,7 @@ Gura_ImplementUserInheritableClass(wx_FindReplaceDialog)
 
 Gura_ImplementDescendantCreator(wx_FindReplaceDialog)
 {
-	return new Object_wx_FindReplaceDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FindReplaceDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

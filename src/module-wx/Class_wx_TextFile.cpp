@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextFile *_pObj;
 public:
-	inline wx_TextFile() : wxTextFile(), _sig(NULL), _pObj(NULL) {}
-	inline wx_TextFile(const wxString& strFile) : wxTextFile(strFile), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextFile() : wxTextFile(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextFile(const wxString& strFile) : wxTextFile(strFile), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TextFile();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextFile *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_TextFile::~wx_TextFile()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextFile::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(TextFileEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextFile *pEntity = new wx_TextFile();
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(TextFile)
 	wxString strFile = wxString::FromUTF8(args.GetString(0));
 	wx_TextFile *pEntity = new wx_TextFile(strFile);
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_TextFile, GetLineType)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxTextFileType rtn = pThis->GetEntity()->GetLineType(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_TextFile, GuessType)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextFileType rtn = pThis->GetEntity()->GuessType();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -593,20 +593,20 @@ Gura_ImplementMethod(wx_TextFile, Write)
 //----------------------------------------------------------------------------
 Object_wx_TextFile::~Object_wx_TextFile()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TextFile::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextFile:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -652,7 +652,7 @@ Gura_ImplementUserInheritableClass(wx_TextFile)
 
 Gura_ImplementDescendantCreator(wx_TextFile)
 {
-	return new Object_wx_TextFile((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextFile((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

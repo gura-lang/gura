@@ -188,7 +188,7 @@ public:
 		/* [out] */ UINT *puArgErr);
 	// other methods
 	inline void NotifyScriptError() {
-		if (_pActiveScriptSite != NULL) {
+		if (_pActiveScriptSite != nullptr) {
 			::printf("check\n");
 			_pActiveScriptSite->OnScriptError(this);
 		}

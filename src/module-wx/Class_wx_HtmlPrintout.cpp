@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlPrintout *_pObj;
 public:
-	inline wx_HtmlPrintout(const wxString& title) : wxHtmlPrintout(title), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlPrintout(const wxString& title) : wxHtmlPrintout(title), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlPrintout();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlPrintout *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_HtmlPrintout::~wx_HtmlPrintout()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlPrintout::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(HtmlPrintout)
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
 	wx_HtmlPrintout *pEntity = new wx_HtmlPrintout(title);
 	Object_wx_HtmlPrintout *pObj = Object_wx_HtmlPrintout::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlPrintout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFonts)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
-	int *sizes = NULL;
+	int *sizes = nullptr;
 	if (args.IsValid(2)) *sizes = args.GetInt(2);
 	pThis->GetEntity()->SetFonts(normal_face, fixed_face, *sizes);
 	return Value::Null;
@@ -210,13 +210,13 @@ Object_wx_HtmlPrintout::~Object_wx_HtmlPrintout()
 
 Object *Object_wx_HtmlPrintout::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlPrintout::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlPrintout:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -243,7 +243,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlPrintout)
 
 Gura_ImplementDescendantCreator(wx_HtmlPrintout)
 {
-	return new Object_wx_HtmlPrintout((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlPrintout((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

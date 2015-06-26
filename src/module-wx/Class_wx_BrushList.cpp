@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BrushList *_pObj;
 public:
-	inline wx_BrushList() : wxBrushList(), _sig(NULL), _pObj(NULL) {}
+	inline wx_BrushList() : wxBrushList(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BrushList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BrushList *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_BrushList::~wx_BrushList()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BrushList::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(BrushListEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BrushList *pEntity = new wx_BrushList();
 	Object_wx_BrushList *pObj = Object_wx_BrushList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BrushList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
 	int style = wxSOLID;
 	if (args.IsValid(1)) style = args.GetInt(1);
 	wxBrush *rtn = (wxBrush *)pThis->GetEntity()->FindOrCreateBrush(*colour, style);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -86,13 +86,13 @@ Object_wx_BrushList::~Object_wx_BrushList()
 
 Object *Object_wx_BrushList::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BrushList::ToString(bool exprFlag)
 {
 	String rtn("<wx.BrushList:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -113,7 +113,7 @@ Gura_ImplementUserInheritableClass(wx_BrushList)
 
 Gura_ImplementDescendantCreator(wx_BrushList)
 {
-	return new Object_wx_BrushList((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BrushList((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

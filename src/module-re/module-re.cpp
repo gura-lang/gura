@@ -23,7 +23,7 @@ IteratorSplit::~IteratorSplit()
 
 Iterator *IteratorSplit::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
@@ -96,7 +96,7 @@ IteratorScan::~IteratorScan()
 
 Iterator *IteratorScan::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
@@ -199,7 +199,7 @@ IteratorGroup::IteratorGroup(Object_match *pObjMatch) :
 
 Iterator *IteratorGroup::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool IteratorGroup::DoNext(Environment &env, Signal sig, Value &value)
@@ -240,7 +240,7 @@ Object *Object_match::Clone() const
 Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	const Group *pGroup = GetGroup(sig, valueIdx);
-	if (pGroup == NULL) return Value::Null;
+	if (pGroup == nullptr) return Value::Null;
 	return Value(pGroup->GetString());
 }
 
@@ -307,7 +307,7 @@ const Group *Object_match::GetGroup(Signal sig, const Value &index) const
 		size_t indexNum = static_cast<size_t>(index.GetNumber());
 		if (indexNum >= _groupList.size()) {
 			sig.SetError(ERR_IndexError, "index is out of range");
-			return NULL;
+			return nullptr;
 		}
 		return &_groupList[indexNum];
 	} else if (index.Is_string()) {
@@ -316,12 +316,12 @@ const Group *Object_match::GetGroup(Signal sig, const Value &index) const
 		if (iter == _groupNameDict.end()) {
 			sig.SetError(ERR_IndexError,
 				"regular expression doesn't have a group named '%s%", name);
-			return NULL;
+			return nullptr;
 		}
 		return &_groupList[iter->second];
 	} else {
 		sig.SetError(ERR_TypeError, "invalid argument type");
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -405,7 +405,7 @@ Gura_ImplementMethod(match, group)
 {
 	Object_match *pThis = Object_match::GetThisObj(args);
 	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
-	if (pGroup == NULL) return Value::Null;
+	if (pGroup == nullptr) return Value::Null;
 	return Value(new Object_group(*pGroup));
 }
 
@@ -498,14 +498,14 @@ Gura_ImplementUserClass(group)
 //-----------------------------------------------------------------------------
 Object_pattern::~Object_pattern()
 {
-	if (_pRegEx != NULL) {
+	if (_pRegEx != nullptr) {
 		::onig_free(_pRegEx);
 	}
 }
 
 Object *Object_pattern::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_pattern::ToString(bool exprFlag)
@@ -992,7 +992,7 @@ Gura_ModuleTerminate()
 regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs)
 {
 	// ::onig_end() call may be necessary when module is destroyed
-	regex_t *pRegEx = NULL;
+	regex_t *pRegEx = nullptr;
 	OnigOptionType option = ONIG_OPTION_CAPTURE_GROUP;
 	OnigEncoding enc = ONIG_ENCODING_UTF8;
 	OnigErrorInfo errInfo;
@@ -1009,7 +1009,7 @@ regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs)
 				option, enc, ONIG_SYNTAX_DEFAULT, &errInfo);
 	if (rtn != ONIG_NORMAL) {
 		SetError_OnigurumaError(sig, rtn);
-		return NULL;
+		return nullptr;
 	}
 	return pRegEx;
 }

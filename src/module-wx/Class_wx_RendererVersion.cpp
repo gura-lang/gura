@@ -24,12 +24,12 @@ public:
 
 wx_RendererVersion::~wx_RendererVersion()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RendererVersion::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,20 +55,20 @@ Gura_ImplementClassMethod(wx_RendererVersion, IsCompatible)
 //----------------------------------------------------------------------------
 Object_wx_RendererVersion::~Object_wx_RendererVersion()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RendererVersion::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RendererVersion::ToString(bool exprFlag)
 {
 	String rtn("<wx.RendererVersion:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -88,7 +88,7 @@ Gura_ImplementUserInheritableClass(wx_RendererVersion)
 
 Gura_ImplementDescendantCreator(wx_RendererVersion)
 {
-	return new Object_wx_RendererVersion((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RendererVersion((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

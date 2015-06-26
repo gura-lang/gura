@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CSConv *_pObj;
 public:
-	inline wx_CSConv(const wxChar* charset) : wxCSConv(charset), _sig(NULL), _pObj(NULL) {}
-	inline wx_CSConv(wxFontEncoding encoding) : wxCSConv(encoding), _sig(NULL), _pObj(NULL) {}
+	inline wx_CSConv(const wxChar* charset) : wxCSConv(charset), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CSConv(wxFontEncoding encoding) : wxCSConv(encoding), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CSConv();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CSConv *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_CSConv::~wx_CSConv()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CSConv::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(CSConv)
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	wx_CSConv *pEntity = new wx_CSConv(charset);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(CSConv_1)
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wx_CSConv *pEntity = new wx_CSConv(encoding);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -160,13 +160,13 @@ Object_wx_CSConv::~Object_wx_CSConv()
 
 Object *Object_wx_CSConv::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CSConv::ToString(bool exprFlag)
 {
 	String rtn("<wx.CSConv:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -190,7 +190,7 @@ Gura_ImplementUserInheritableClass(wx_CSConv)
 
 Gura_ImplementDescendantCreator(wx_CSConv)
 {
-	return new Object_wx_CSConv((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CSConv((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

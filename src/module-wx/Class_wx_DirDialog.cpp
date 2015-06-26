@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DirDialog *_pObj;
 public:
-	inline wx_DirDialog(wxWindow* parent, const wxString& message, const wxString& defaultPath, long style, const wxPoint& pos, const wxSize& size, const wxString& name) : wxDirDialog(parent, message, defaultPath, style, pos, size, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_DirDialog(wxWindow* parent, const wxString& message, const wxString& defaultPath, long style, const wxPoint& pos, const wxSize& size, const wxString& name) : wxDirDialog(parent, message, defaultPath, style, pos, size, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DirDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DirDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DirDialog::~wx_DirDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DirDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DirDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxT("Choose a directory");
 	if (args.IsValid(1)) message = wxString::FromUTF8(args.GetString(1));
 	wxString defaultPath = wxT("");
@@ -69,7 +69,7 @@ Gura_ImplementFunction(DirDialog)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_DirDialog *pEntity = new wx_DirDialog(parent, message, defaultPath, style, *pos, *size, name);
 	Object_wx_DirDialog *pObj = Object_wx_DirDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DirDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -160,13 +160,13 @@ Object_wx_DirDialog::~Object_wx_DirDialog()
 
 Object *Object_wx_DirDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DirDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.DirDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -191,7 +191,7 @@ Gura_ImplementUserInheritableClass(wx_DirDialog)
 
 Gura_ImplementDescendantCreator(wx_DirDialog)
 {
-	return new Object_wx_DirDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DirDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

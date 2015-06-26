@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FontMapper *_pObj;
 public:
-	inline wx_FontMapper() : wxFontMapper(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FontMapper() : wxFontMapper(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FontMapper();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontMapper *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FontMapper::~wx_FontMapper()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FontMapper::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(FontMapper)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontMapper *pEntity = new wx_FontMapper();
 	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FontMapper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementClassMethod(wx_FontMapper, Get)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontMapper *rtn = (wxFontMapper *)wxFontMapper::Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_FontMapper, GetAllEncodingNames)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
 	bool rtn = pThis->GetEntity()->GetAltForEncoding(encoding, &info, facename, interactive);
 	Value value;
 	if (rtn) {
-		value = Value(new Object_wx_NativeEncodingInfo(new wxNativeEncodingInfo(info), NULL, OwnerTrue));
+		value = Value(new Object_wx_NativeEncodingInfo(new wxNativeEncodingInfo(info), nullptr, OwnerTrue));
 	}
 	return ReturnValue(env, sig, args, value);
 }
@@ -302,7 +302,7 @@ Gura_ImplementClassMethod(wx_FontMapper, Set)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontMapper *mapper = Object_wx_FontMapper::GetObject(args, 0)->GetEntity();
 	wxFontMapper *rtn = (wxFontMapper *)wxFontMapper::Set(mapper);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FontMapper, SetConfig)
@@ -346,20 +346,20 @@ Gura_ImplementMethod(wx_FontMapper, SetConfigPath)
 //----------------------------------------------------------------------------
 Object_wx_FontMapper::~Object_wx_FontMapper()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_FontMapper::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FontMapper::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontMapper:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -395,7 +395,7 @@ Gura_ImplementUserInheritableClass(wx_FontMapper)
 
 Gura_ImplementDescendantCreator(wx_FontMapper)
 {
-	return new Object_wx_FontMapper((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FontMapper((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

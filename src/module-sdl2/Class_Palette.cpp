@@ -12,7 +12,7 @@ Object_Palette::~Object_Palette()
 
 Object *Object_Palette::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Palette::ToString(bool exprFlag)

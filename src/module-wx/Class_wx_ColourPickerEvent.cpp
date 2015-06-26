@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ColourPickerEvent *_pObj;
 public:
-	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _sig(NULL), _pObj(NULL) {}
+	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ColourPickerEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourPickerEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ColourPickerEvent::~wx_ColourPickerEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ColourPickerEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(ColourPickerEvent)
 	wxColour *colour = Object_wx_Colour::GetObject(args, 2)->GetEntity();
 	wx_ColourPickerEvent *pEntity = new wx_ColourPickerEvent(generator, id, *colour);
 	Object_wx_ColourPickerEvent *pObj = Object_wx_ColourPickerEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ColourPickerEvent, GetColour)
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourPickerEvent, SetColour)
@@ -102,13 +102,13 @@ Object_wx_ColourPickerEvent::~Object_wx_ColourPickerEvent()
 
 Object *Object_wx_ColourPickerEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourPickerEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -130,7 +130,7 @@ Gura_ImplementUserInheritableClass(wx_ColourPickerEvent)
 
 Gura_ImplementDescendantCreator(wx_ColourPickerEvent)
 {
-	return new Object_wx_ColourPickerEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ColourPickerEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

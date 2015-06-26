@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SpinCtrl *_pObj;
 public:
-	inline wx_SpinCtrl() : wxSpinCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_SpinCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, int min, int max, int initial, const wxString& name) : wxSpinCtrl(parent, id, value, pos, size, style, min, max, initial, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_SpinCtrl() : wxSpinCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SpinCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, int min, int max, int initial, const wxString& name) : wxSpinCtrl(parent, id, value, pos, size, style, min, max, initial, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SpinCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SpinCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_SpinCtrl::~wx_SpinCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SpinCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(SpinCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SpinCtrl *pEntity = new wx_SpinCtrl();
 	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementFunction(SpinCtrl)
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	wx_SpinCtrl *pEntity = new wx_SpinCtrl(parent, id, value, *pos, *size, style, min, max, initial, name);
 	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -268,13 +268,13 @@ Object_wx_SpinCtrl::~Object_wx_SpinCtrl()
 
 Object *Object_wx_SpinCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SpinCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.SpinCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -304,7 +304,7 @@ Gura_ImplementUserInheritableClass(wx_SpinCtrl)
 
 Gura_ImplementDescendantCreator(wx_SpinCtrl)
 {
-	return new Object_wx_SpinCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SpinCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MirrorDC *_pObj;
 public:
-	inline wx_MirrorDC(wxDC& dc, bool mirror) : wxMirrorDC(dc, mirror), _sig(NULL), _pObj(NULL) {}
+	inline wx_MirrorDC(wxDC& dc, bool mirror) : wxMirrorDC(dc, mirror), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MirrorDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MirrorDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MirrorDC::~wx_MirrorDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MirrorDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(MirrorDC)
 	bool mirror = args.GetBoolean(1);
 	wx_MirrorDC *pEntity = new wx_MirrorDC(*dc, mirror);
 	Object_wx_MirrorDC *pObj = Object_wx_MirrorDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MirrorDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -71,13 +71,13 @@ Object_wx_MirrorDC::~Object_wx_MirrorDC()
 
 Object *Object_wx_MirrorDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MirrorDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.MirrorDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -97,7 +97,7 @@ Gura_ImplementUserInheritableClass(wx_MirrorDC)
 
 Gura_ImplementDescendantCreator(wx_MirrorDC)
 {
-	return new Object_wx_MirrorDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MirrorDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

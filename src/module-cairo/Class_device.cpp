@@ -12,7 +12,7 @@ Object_device::~Object_device()
 
 Object *Object_device::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_device::ToString(bool exprFlag)

@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ListBox *_pObj;
 public:
-	inline wx_ListBox() : wxListBox(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_ListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxListBox(parent, id, pos, size, n, choices[], style, validator, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_ListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxListBox(parent, id, pos, size, choices, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ListBox() : wxListBox(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxListBox(parent, id, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxListBox(parent, id, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_ListBox::~wx_ListBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ListBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(ListBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListBox *pEntity = new wx_ListBox();
 	Object_wx_ListBox *pObj = Object_wx_ListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,7 +98,7 @@ Gura_ImplementFunction(ListBox)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_ListBox *pEntity = new wx_ListBox(parent, id, *pos, *size, *choices, style, *validator, name);
 	Object_wx_ListBox *pObj = Object_wx_ListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_ListBox, Set)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
-	void **clientData = NULL;
+	void **clientData = nullptr;
 	//if (args.IsValid(1)) **clientData = args.GetInt(1);
 	pThis->GetEntity()->Set(*choices, clientData);
 	return Value::Null;
@@ -284,13 +284,13 @@ Object_wx_ListBox::~Object_wx_ListBox()
 
 Object *Object_wx_ListBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -320,7 +320,7 @@ Gura_ImplementUserInheritableClass(wx_ListBox)
 
 Gura_ImplementDescendantCreator(wx_ListBox)
 {
-	return new Object_wx_ListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ListBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

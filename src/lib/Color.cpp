@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Color
 //-----------------------------------------------------------------------------
-ColorMap *Color::_pColorMap = NULL;
+ColorMap *Color::_pColorMap = nullptr;
 
 const Color::ElementEntry Color::_elementEntries[] = {
 	// basic color
@@ -836,7 +836,7 @@ Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 		}
 		return Color(r, g, b, a);
 	}
-	if (_pColorMap == NULL) {
+	if (_pColorMap == nullptr) {
 		_pColorMap = new ColorMap();
 		for (int i = 0; i < ArraySizeOf(_elementEntries); i++) {
 			const ElementEntry &elementEntry = _elementEntries[i];

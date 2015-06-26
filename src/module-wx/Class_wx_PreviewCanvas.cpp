@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PreviewCanvas *_pObj;
 public:
-	inline wx_PreviewCanvas(wxPrintPreview* preview, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewCanvas(preview, parent, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_PreviewCanvas(wxPrintPreview* preview, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewCanvas(preview, parent, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PreviewCanvas();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PreviewCanvas *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PreviewCanvas::~wx_PreviewCanvas()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PreviewCanvas::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(PreviewCanvas)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_PreviewCanvas *pEntity = new wx_PreviewCanvas(preview, parent, *pos, *size, style, name);
 	Object_wx_PreviewCanvas *pObj = Object_wx_PreviewCanvas::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,13 +98,13 @@ Object_wx_PreviewCanvas::~Object_wx_PreviewCanvas()
 
 Object *Object_wx_PreviewCanvas::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PreviewCanvas::ToString(bool exprFlag)
 {
 	String rtn("<wx.PreviewCanvas:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -125,7 +125,7 @@ Gura_ImplementUserInheritableClass(wx_PreviewCanvas)
 
 Gura_ImplementDescendantCreator(wx_PreviewCanvas)
 {
-	return new Object_wx_PreviewCanvas((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PreviewCanvas((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ListItem *_pObj;
 public:
-	inline wx_ListItem() : wxListItem(), _sig(NULL), _pObj(NULL) {}
+	inline wx_ListItem() : wxListItem(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ListItem();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListItem *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ListItem::~wx_ListItem()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ListItem::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ListItem)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListItem *pEntity = new wx_ListItem();
 	Object_wx_ListItem *pObj = Object_wx_ListItem::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ListItem, GetBackgroundColour)
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetColumn)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_ListItem, GetFont)
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetId)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_ListItem, GetTextColour)
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetWidth)
@@ -458,13 +458,13 @@ Object_wx_ListItem::~Object_wx_ListItem()
 
 Object *Object_wx_ListItem::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ListItem::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListItem:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -511,7 +511,7 @@ Gura_ImplementUserInheritableClass(wx_ListItem)
 
 Gura_ImplementDescendantCreator(wx_ListItem)
 {
-	return new Object_wx_ListItem((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ListItem((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

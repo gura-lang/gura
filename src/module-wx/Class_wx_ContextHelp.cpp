@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ContextHelp *_pObj;
 public:
-	inline wx_ContextHelp(wxWindow* window, bool doNow) : wxContextHelp(window, doNow), _sig(NULL), _pObj(NULL) {}
+	inline wx_ContextHelp(wxWindow* window, bool doNow) : wxContextHelp(window, doNow), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ContextHelp();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ContextHelp *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ContextHelp::~wx_ContextHelp()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ContextHelp::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,13 +48,13 @@ Gura_DeclareFunction(ContextHelp)
 Gura_ImplementFunction(ContextHelp)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *window = (wxWindow *)(NULL);
+	wxWindow *window = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool doNow = true;
 	if (args.IsValid(1)) doNow = args.GetBoolean(1);
 	wx_ContextHelp *pEntity = new wx_ContextHelp(window, doNow);
 	Object_wx_ContextHelp *pObj = Object_wx_ContextHelp::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ContextHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 {
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxWindow *window = (wxWindow *)(NULL);
+	wxWindow *window = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->BeginContextHelp(window);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -104,13 +104,13 @@ Object_wx_ContextHelp::~Object_wx_ContextHelp()
 
 Object *Object_wx_ContextHelp::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ContextHelp::ToString(bool exprFlag)
 {
 	String rtn("<wx.ContextHelp:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -132,7 +132,7 @@ Gura_ImplementUserInheritableClass(wx_ContextHelp)
 
 Gura_ImplementDescendantCreator(wx_ContextHelp)
 {
-	return new Object_wx_ContextHelp((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ContextHelp((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

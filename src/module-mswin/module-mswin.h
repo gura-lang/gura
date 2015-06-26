@@ -82,7 +82,7 @@ public:
 	Gura_DeclareObjectAccessor(ole)
 public:
 	inline Object_ole(Environment &env) :
-		Object(env.LookupClass(VTYPE_ole)), _pDispatch(NULL) {}
+		Object(env.LookupClass(VTYPE_ole)), _pDispatch(nullptr) {}
 	inline Object_ole(Environment &env, IDispatch *pDispatch) :
 		Object(env.LookupClass(VTYPE_ole)), _pDispatch(pDispatch) {}
 	virtual ~Object_ole();

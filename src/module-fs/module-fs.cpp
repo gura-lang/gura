@@ -66,11 +66,11 @@ Value Object_Stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(_fileStat.GetPathName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dirname))) {
 		String dirName;
-		PathMgr::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
+		PathMgr::SplitFileName(_fileStat.GetPathName(), &dirName, nullptr);
 		return Value(dirName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
 		String fileName;
-		PathMgr::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
+		PathMgr::SplitFileName(_fileStat.GetPathName(), nullptr, &fileName);
 		return Value(fileName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(static_cast<Number>(_fileStat.GetSize()));
@@ -138,7 +138,7 @@ bool Stream_File::GetAttribute(Attribute &attr)
 {
 	std::unique_ptr<OAL::FileStat> pFileStat(
 					OAL::FileStat::Generate(_sig, _fileName.c_str()));
-	if (pFileStat.get() == NULL) return false;
+	if (pFileStat.get() == nullptr) return false;
 	attr.atime = pFileStat->GetATime();
 	attr.mtime = pFileStat->GetMTime();
 	attr.ctime = pFileStat->GetCTime();
@@ -150,8 +150,8 @@ bool Stream_File::GetAttribute(Attribute &attr)
 Stream_File::Stream_File(Environment &env, Signal sig) :
 	Stream(env, sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
 {
-	_map.hFileMappingObject = NULL;
-	_map.buff = NULL;
+	_map.hFileMappingObject = nullptr;
+	_map.buff = nullptr;
 	_map.bytes = 0;
 	_map.offset = 0;
 }
@@ -174,29 +174,29 @@ bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 			OPEN_EXISTING;
 	_hFile = ::CreateFile(OAL::ToNativeString(_fileName.c_str()).c_str(),
 					dwDesiredAccess, dwShareMode,
-					NULL, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, NULL);
+					nullptr, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (_hFile == INVALID_HANDLE_VALUE) {
 		sig.SetError(ERR_IOError, "can't open file '%s'", fileName);
 		return false;
 	}
 	if (IsAppend()) {
-		::SetFilePointer(_hFile, 0, NULL, FILE_END);
+		::SetFilePointer(_hFile, 0, nullptr, FILE_END);
 	}
-	_map.hFileMappingObject = NULL;
-	_map.buff = NULL;
+	_map.hFileMappingObject = nullptr;
+	_map.buff = nullptr;
 	_map.bytes = 0;
 	_map.offset = 0;
 	_needCloseFlag = true;
 	if (dwDesiredAccess == GENERIC_READ) {
 		_map.hFileMappingObject =
-				::CreateFileMapping(_hFile, NULL, PAGE_READONLY, 0, 0, NULL);
-		if (_map.hFileMappingObject == NULL) {
+				::CreateFileMapping(_hFile, nullptr, PAGE_READONLY, 0, 0, nullptr);
+		if (_map.hFileMappingObject == nullptr) {
 			// it seems to open an empty file
 			return true;
 		}
 		_map.buff = reinterpret_cast<UChar *>(
 				::MapViewOfFile(_map.hFileMappingObject, FILE_MAP_READ, 0, 0, 0));
-		_map.bytes = ::GetFileSize(_hFile, NULL);
+		_map.bytes = ::GetFileSize(_hFile, nullptr);
 		_map.offset = 0;
 	}
 	return true;
@@ -239,7 +239,7 @@ bool Stream_File::OpenStderr()
 bool Stream_File::SetAttribute(const Attribute &attr)
 {
 	HANDLE hFileDst = ::CreateFile(_fileName.c_str(),
-			GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (hFileDst == INVALID_HANDLE_VALUE) return false;
 	FILETIME ftCreate = OAL::ToFILETIME(attr.ctime);
 	FILETIME ftAccess = OAL::ToFILETIME(attr.atime);
@@ -251,9 +251,9 @@ bool Stream_File::SetAttribute(const Attribute &attr)
 
 size_t Stream_File::DoRead(Signal sig, void *buff, size_t bytes)
 {
-	if (_map.hFileMappingObject == NULL) {
+	if (_map.hFileMappingObject == nullptr) {
 		DWORD dwBytesRead;
-		::ReadFile(_hFile, buff, static_cast<DWORD>(bytes), &dwBytesRead, NULL);
+		::ReadFile(_hFile, buff, static_cast<DWORD>(bytes), &dwBytesRead, nullptr);
 		return static_cast<size_t>(dwBytesRead);
 	} else {
 		size_t bytesRead = bytes;
@@ -271,18 +271,18 @@ size_t Stream_File::DoRead(Signal sig, void *buff, size_t bytes)
 size_t Stream_File::DoWrite(Signal sig, const void *buff, size_t bytes)
 {
 	DWORD dwBytesWritten;
-	::WriteFile(_hFile, buff, static_cast<DWORD>(bytes), &dwBytesWritten, NULL);
+	::WriteFile(_hFile, buff, static_cast<DWORD>(bytes), &dwBytesWritten, nullptr);
 	return static_cast<size_t>(dwBytesWritten);
 }
 
 bool Stream_File::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (_hFile == INVALID_HANDLE_VALUE) return true;
-	if (_map.hFileMappingObject == NULL) {
+	if (_map.hFileMappingObject == nullptr) {
 		DWORD dwMoveMethod =
 			(seekMode == SeekSet)? FILE_BEGIN :
 			(seekMode == SeekCur)? FILE_CURRENT : FILE_BEGIN;
-		DWORD dwPtr = ::SetFilePointer(_hFile, offset, NULL, dwMoveMethod);
+		DWORD dwPtr = ::SetFilePointer(_hFile, offset, nullptr, dwMoveMethod);
 		if (dwPtr == INVALID_SET_FILE_POINTER) {
 			sig.SetError(ERR_IOError, "seek error");
 			return false;
@@ -315,11 +315,11 @@ bool Stream_File::DoClose(Signal sig)
 {
 	if (!_needCloseFlag) return true;
 	if (_hFile != INVALID_HANDLE_VALUE) {
-		if (_map.hFileMappingObject != NULL) {
+		if (_map.hFileMappingObject != nullptr) {
 			::UnmapViewOfFile(_map.buff);
 			::CloseHandle(_map.hFileMappingObject);
-			_map.hFileMappingObject = NULL;
-			_map.buff = NULL;
+			_map.hFileMappingObject = nullptr;
+			_map.buff = nullptr;
 		}
 		::CloseHandle(_hFile);
 		_hFile = INVALID_HANDLE_VALUE;
@@ -332,7 +332,7 @@ bool Stream_File::DoClose(Signal sig)
 size_t Stream_File::DoGetSize()
 {
 	if (_hFile == INVALID_HANDLE_VALUE) return 0;
-	DWORD rtn = ::GetFileSize(_hFile, NULL);
+	DWORD rtn = ::GetFileSize(_hFile, nullptr);
 	if (rtn == 0xffffffff) return InvalidSize;
 	return static_cast<size_t>(rtn);
 }
@@ -343,14 +343,14 @@ Object *Stream_File::DoGetStatObj(Signal sig)
 	String pathName = OAL::MakeAbsPathName(OAL::FileSeparator, _fileName.c_str());
 	if (::GetFileInformationByHandle(_hFile, &attrData) == 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
-		return NULL;
+		return nullptr;
 	}
 	return new Object_Stat(OAL::FileStat(pathName.c_str(), attrData));
 }
 
 #else // !defined(GURA_ON_MSWIN)
 Stream_File::Stream_File(Environment &env, Signal sig) :
-		Stream(env, sig, ATTR_BwdSeekable), _fp(NULL), _needCloseFlag(false)
+		Stream(env, sig, ATTR_BwdSeekable), _fp(nullptr), _needCloseFlag(false)
 {
 }
 
@@ -371,7 +371,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 	}
 	modeMod[1] = '\0';
 	_fp = ::fopen(OAL::ToNativeString(_fileName.c_str()).c_str(), modeMod);
-	if (_fp == NULL) {
+	if (_fp == nullptr) {
 		sig.SetError(ERR_IOError, "can't open file '%s'", fileName);
 		return false;
 	}
@@ -427,7 +427,7 @@ bool Stream_File::DoFlush(Signal sig)
 
 bool Stream_File::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
-	if (_fp == NULL) return true;
+	if (_fp == nullptr) return true;
 	int origin =
 		(seekMode == SeekSet)? SEEK_SET :
 		(seekMode == SeekCur)? SEEK_CUR : SEEK_SET;
@@ -441,9 +441,9 @@ bool Stream_File::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode se
 bool Stream_File::DoClose(Signal sig)
 {
 	if (!_needCloseFlag) return true;
-	if (_fp != NULL) {
+	if (_fp != nullptr) {
 		::fclose(_fp);
-		_fp = NULL;
+		_fp = nullptr;
 		_needCloseFlag = false;
 	}
 	return Stream::DoClose(sig);
@@ -451,7 +451,7 @@ bool Stream_File::DoClose(Signal sig)
 
 size_t Stream_File::DoGetSize()
 {
-	if (_fp == NULL) return 0;
+	if (_fp == nullptr) return 0;
 	struct stat stat;
 	if (::fstat(fileno(_fp), &stat) != 0) return InvalidSize;
 	return static_cast<size_t>(stat.st_size);
@@ -464,7 +464,7 @@ Object *Stream_File::DoGetStatObj(Signal sig)
 	String pathName = OAL::MakeAbsPathName(OAL::FileSeparator, _fileName.c_str());
 	if (::fstat(fileno(_fp), &stat) != 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
-		return NULL;
+		return nullptr;
 	}
 	return new Object_Stat(OAL::FileStat(pathName.c_str(), stat));
 }
@@ -495,18 +495,18 @@ Directory *Directory_FileSys::DoNext(Environment &env, Signal sig)
 		if (!pathName.empty()) pathName += GetSeparator();
 		pathName += "*.*";
 		_hFind = ::FindFirstFile(OAL::ToNativeString(pathName.c_str()).c_str(), &findData);
-		if (_hFind == INVALID_HANDLE_VALUE) return NULL;
+		if (_hFind == INVALID_HANDLE_VALUE) return nullptr;
 	} else if (!::FindNextFile(_hFind, &findData)) {
 		::FindClose(_hFind);
 		_hFind = INVALID_HANDLE_VALUE;
-		return NULL;
+		return nullptr;
 	}
 	while (::strcmp(findData.cFileName, ".") == 0 ||
 			::strcmp(findData.cFileName, "..") == 0) {
 		if (!::FindNextFile(_hFind, &findData)) {
 			::FindClose(_hFind);
 			_hFind = INVALID_HANDLE_VALUE;
-			return NULL;
+			return nullptr;
 		}
 	}
 	Type type = (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)?
@@ -536,37 +536,37 @@ bool Directory_FileSys::IsDir(Signal sig, const char *pathName)
 Directory_FileSys::Directory_FileSys(Directory *pParent, const char *name,
 												Type type, OAL::FileStat *pFileStat) :
 	Directory(pParent, name, type, OAL::FileSeparator),
-	_pDir(NULL), _pFileStat(pFileStat)
+	_pDir(nullptr), _pFileStat(pFileStat)
 {
 }
 
 Directory_FileSys::~Directory_FileSys()
 {
-	if (_pDir != NULL) closedir(_pDir);
+	if (_pDir != nullptr) closedir(_pDir);
 }
 
 Directory *Directory_FileSys::DoNext(Environment &env, Signal sig)
 {
-	if (_pDir == NULL) {
+	if (_pDir == nullptr) {
 		String pathName(MakePathName(false));
 		String pathNameEnc = OAL::ToNativeString(pathName.c_str());
 		_pDir = opendir(pathNameEnc.empty()? "." : pathNameEnc.c_str());
-		if (_pDir == NULL) return NULL;
+		if (_pDir == nullptr) return nullptr;
 	}
-	struct dirent *pEnt = NULL;
+	struct dirent *pEnt = nullptr;
 	for (;;) {
 		pEnt = readdir(_pDir);
-		if (pEnt == NULL) {
+		if (pEnt == nullptr) {
 			closedir(_pDir);
-			_pDir = NULL;
-			return NULL;
+			_pDir = nullptr;
+			return nullptr;
 		}
 		if (::strcmp(pEnt->d_name, ".") != 0 &&
 			::strcmp(pEnt->d_name, "..") != 0) break;
 	}
 	Type type = (pEnt->d_type == DT_DIR)? TYPE_Container : TYPE_Item;
 	return new Directory_FileSys(Directory::Reference(this),
-					OAL::FromNativeString(pEnt->d_name).c_str(), type, NULL);
+					OAL::FromNativeString(pEnt->d_name).c_str(), type, nullptr);
 }
 
 bool Directory_FileSys::IsExist(Signal sig, const char *pathName)
@@ -585,10 +585,10 @@ bool Directory_FileSys::IsDir(Signal sig, const char *pathName)
 
 Object *Directory_FileSys::DoGetStatObj(Signal sig)
 {
-	if (_pFileStat.get() == NULL) {
+	if (_pFileStat.get() == nullptr) {
 		OAL::FileStat *pFileStat =
 				OAL::FileStat::Generate(sig, MakePathName(false).c_str());
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		_pFileStat.reset(pFileStat);
 	}
 	return new Object_Stat(*_pFileStat);
@@ -598,7 +598,7 @@ Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, ULong attr
 {
 	Stream_File *pStream = new Stream_File(env, sig);
 	if (!pStream->Open(sig, MakePathName(false).c_str(), attr)) {
-		return NULL;
+		return nullptr;
 	}
 	return pStream;
 }
@@ -609,7 +609,7 @@ Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, ULong attr
 bool PathMgr_FileSys::IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
-	if (pParent != NULL) return false;
+	if (pParent != nullptr) return false;
 	
 	return true;
 }
@@ -617,7 +617,7 @@ bool PathMgr_FileSys::IsResponsible(Environment &env, Signal sig,
 Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	Directory *pDirectory = NULL;
+	Directory *pDirectory = nullptr;
 	String field;
 	String pathAccum;
 	const char *p = *pPathName;
@@ -626,7 +626,7 @@ Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 		p++;
 		Directory::Type type = Directory::TYPE_RootContainer;
 		pDirectory = new Directory_FileSys(
-						Directory::Reference(pParent), "", type, NULL);
+						Directory::Reference(pParent), "", type, nullptr);
 		pParent = pDirectory;
 	}
 	for ( ; ; p++) {
@@ -636,23 +636,23 @@ Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 			Directory::Type type = Directory::TYPE_Container;
 			if (!pathAccum.empty()) {
 				bool existFlag = Directory_FileSys::IsExist(sig, pathAccum.c_str());
-				if (sig.IsSignalled()) return NULL;
+				if (sig.IsSignalled()) return nullptr;
 				if (existFlag) {
 					type = Directory_FileSys::IsDir(sig, pathAccum.c_str())?
 								Directory::TYPE_Container : Directory::TYPE_Item;
-					if (sig.IsSignalled()) return NULL;
+					if (sig.IsSignalled()) return nullptr;
 				} else if (notFoundMode == NF_Wouldbe) {
 					type = IsFileSeparator(ch)?
 								Directory::TYPE_Container : Directory::TYPE_Item;
 				} else if (notFoundMode == NF_Signal) {
 					sig.SetError(ERR_IOError, "path not exist '%s'", pathAccum.c_str());
-					return NULL;
+					return nullptr;
 				} else {
-					return NULL;
+					return nullptr;
 				}
 			}
 			pDirectory = new Directory_FileSys(
-					Directory::Reference(pParent), field.c_str(), type, NULL);
+					Directory::Reference(pParent), field.c_str(), type, nullptr);
 			pParent = pDirectory;
 			field.clear();
 			if (type == Directory::TYPE_Item || ch == '\0') break;
@@ -682,7 +682,7 @@ Gura_DeclareFunction(chdir)
 Gura_ImplementFunction(chdir)
 {
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		String pathNameOrg = OAL::GetCurDir();
 		if (!OAL::ChangeCurDir(args.GetString(0))) {
 			sig.SetError(ERR_IOError, "failed to change current directory");

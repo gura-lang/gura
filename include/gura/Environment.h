@@ -191,7 +191,7 @@ public:
 		Frame(EnvType envType, Global *pGlobal);
 		virtual ~Frame();
 		inline static Frame *Reference(const Frame *pFrame) {
-			if (pFrame == NULL) return NULL;
+			if (pFrame == nullptr) return nullptr;
 			Frame *pFrameCasted = const_cast<Frame *>(pFrame);
 			pFrameCasted->_cntRef++;
 			return pFrameCasted;
@@ -206,16 +206,16 @@ public:
 		inline Global *GetGlobal() { return _pGlobal; }
 		inline Global *GetGlobal() const { return _pGlobal; }
 		inline const ValueMap &GetValueMap() const {
-			return (_pValueMap.get() == NULL)? ValueMap::Null : *_pValueMap;
+			return (_pValueMap.get() == nullptr)? ValueMap::Null : *_pValueMap;
 		}
 		inline const ValueTypeMap &GetValueTypeMap() const {
-			return (_pValueTypeMap.get() == NULL)? ValueTypeMap::Null : *_pValueTypeMap;
+			return (_pValueTypeMap.get() == nullptr)? ValueTypeMap::Null : *_pValueTypeMap;
 		}
 		inline const SymbolSet &GetSymbolsPublic() const {
-			return (_pSymbolsPublic.get() == NULL)? SymbolSet::Null : *_pSymbolsPublic;
+			return (_pSymbolsPublic.get() == nullptr)? SymbolSet::Null : *_pSymbolsPublic;
 		}
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
-			return _pSymbolsPublic.get() != NULL && _pSymbolsPublic->IsSet(pSymbol);
+			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);
 		}
 		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
 		void RemoveValue(const Symbol *pSymbol);
@@ -313,7 +313,7 @@ public:
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-					const SymbolSet &attrs, const Value *pValueDefault = NULL,
+					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);

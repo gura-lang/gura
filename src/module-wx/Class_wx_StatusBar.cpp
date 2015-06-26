@@ -21,8 +21,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StatusBar *_pObj;
 public:
-	inline wx_StatusBar() : wxStatusBar(), _sig(NULL), _pObj(NULL) {}
-	inline wx_StatusBar(wxWindow* parent, wxWindowID id, long style, const wxString& name) : wxStatusBar(parent, id, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_StatusBar() : wxStatusBar(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StatusBar(wxWindow* parent, wxWindowID id, long style, const wxString& name) : wxStatusBar(parent, id, style, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool GetFieldRect(int i, wxRect& rect);
 	//virtual wxString GetStatusText(int i);
 	//virtual void SetFieldsCount(int number, int* widths);
@@ -39,12 +39,12 @@ public:
 
 wx_StatusBar::~wx_StatusBar()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StatusBar::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Gura_ImplementFunction(StatusBarEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StatusBar *pEntity = new wx_StatusBar();
 	Object_wx_StatusBar *pObj = Object_wx_StatusBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StatusBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -95,7 +95,7 @@ Gura_ImplementFunction(StatusBar)
 	if (args.IsValid(3)) name = wxString::FromUTF8(args.GetString(3));
 	wx_StatusBar *pEntity = new wx_StatusBar(parent, id, style, name);
 	Object_wx_StatusBar *pObj = Object_wx_StatusBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StatusBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldRect)
 	bool rtn = pThis->GetEntity()->GetFieldRect(i, rect);
 	Value value;
 	if (rtn) {
-		value = Value(new Object_wx_Rect(new wxRect(rect), NULL, OwnerTrue));
+		value = Value(new Object_wx_Rect(new wxRect(rect), nullptr, OwnerTrue));
 	}
 	return ReturnValue(env, sig, args, value);
 }
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_StatusBar, SetFieldsCount)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int number = args.GetInt(0);
-	int *widths = NULL;
+	int *widths = nullptr;
 	pThis->GetEntity()->SetFieldsCount(number, widths);
 	return Value::Null;
 }
@@ -304,13 +304,13 @@ Object_wx_StatusBar::~Object_wx_StatusBar()
 
 Object *Object_wx_StatusBar::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StatusBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.StatusBar:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -348,7 +348,7 @@ Gura_ImplementUserInheritableClass(wx_StatusBar)
 
 Gura_ImplementDescendantCreator(wx_StatusBar)
 {
-	return new Object_wx_StatusBar((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StatusBar((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

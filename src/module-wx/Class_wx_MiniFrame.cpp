@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MiniFrame *_pObj;
 public:
-	inline wx_MiniFrame() : wxMiniFrame(), _sig(NULL), _pObj(NULL) {}
-	inline wx_MiniFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxMiniFrame(parent, id, title, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_MiniFrame() : wxMiniFrame(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MiniFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxMiniFrame(parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MiniFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MiniFrame *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_MiniFrame::~wx_MiniFrame()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MiniFrame::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(MiniFrameEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MiniFrame *pEntity = new wx_MiniFrame();
 	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MiniFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -77,7 +77,7 @@ Gura_ImplementFunction(MiniFrame)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(MiniFrame)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_MiniFrame *pEntity = new wx_MiniFrame(parent, id, title, *pos, *size, style, name);
 	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MiniFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_MiniFrame, Create)
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -142,13 +142,13 @@ Object_wx_MiniFrame::~Object_wx_MiniFrame()
 
 Object *Object_wx_MiniFrame::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MiniFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.MiniFrame:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -170,7 +170,7 @@ Gura_ImplementUserInheritableClass(wx_MiniFrame)
 
 Gura_ImplementDescendantCreator(wx_MiniFrame)
 {
-	return new Object_wx_MiniFrame((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MiniFrame((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ConfigBase *_pObj;
 public:
-	//inline wx_ConfigBase(const wxString& appName, const wxString& vendorName, const wxString& localFilename, const wxString& globalFilename, long style, wxMBConv& conv) : wxConfigBase(appName, vendorName, localFilename, globalFilename, style, conv), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ConfigBase(const wxString& appName, const wxString& vendorName, const wxString& localFilename, const wxString& globalFilename, long style, wxMBConv& conv) : wxConfigBase(appName, vendorName, localFilename, globalFilename, style, conv), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ConfigBase();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ConfigBase *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ConfigBase::~wx_ConfigBase()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ConfigBase::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Gura_ImplementFunction(ConfigBase)
 	if (args.IsValid(5)) conv = Object_wx_MBConv::GetObject(args, 5)->GetEntity();
 	wx_ConfigBase *pEntity = new wx_ConfigBase(appName, vendorName, localFilename, globalFilename, style, *conv);
 	Object_wx_ConfigBase *pObj = Object_wx_ConfigBase::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ConfigBase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Create)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Create();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, DontCreateOnDemand)
@@ -203,7 +203,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Get)
 	bool CreateOnDemand = true;
 	if (args.IsValid(0)) CreateOnDemand = args.GetBoolean(0);
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Get(CreateOnDemand);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, GetAppName)
@@ -688,7 +688,7 @@ Gura_ImplementClassMethod(wx_ConfigBase, Set)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxConfigBase *pConfig = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Set(pConfig);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, SetExpandEnvVars)
@@ -815,20 +815,20 @@ Gura_ImplementMethod(wx_ConfigBase, Write_3)
 //----------------------------------------------------------------------------
 Object_wx_ConfigBase::~Object_wx_ConfigBase()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ConfigBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ConfigBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ConfigBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -890,7 +890,7 @@ Gura_ImplementUserInheritableClass(wx_ConfigBase)
 
 Gura_ImplementDescendantCreator(wx_ConfigBase)
 {
-	return new Object_wx_ConfigBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ConfigBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

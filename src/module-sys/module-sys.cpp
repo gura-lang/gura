@@ -145,7 +145,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		if (argc >= 2 && argv != NULL) {
+		if (argc >= 2 && argv != nullptr) {
 			valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str())));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
@@ -194,7 +194,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 			str = OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str());
 			if (!IsCompositeFile(fileNameScript.c_str())) {
 				String dirName;
-				PathMgr::SplitFileName(str.c_str(), &dirName, NULL);
+				PathMgr::SplitFileName(str.c_str(), &dirName, nullptr);
 				str = dirName;
 			}
 		}

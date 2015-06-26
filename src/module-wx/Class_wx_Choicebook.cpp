@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Choicebook *_pObj;
 public:
-	inline wx_Choicebook() : wxChoicebook(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Choicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxChoicebook(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Choicebook() : wxChoicebook(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Choicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxChoicebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Choicebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Choicebook *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Choicebook::~wx_Choicebook()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Choicebook::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Gura_ImplementFunction(Choicebook)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Choicebook *pEntity = new wx_Choicebook(parent, id, *pos, *size, style, name);
 	Object_wx_Choicebook *pObj = Object_wx_Choicebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Choicebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,13 +84,13 @@ Object_wx_Choicebook::~Object_wx_Choicebook()
 
 Object *Object_wx_Choicebook::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Choicebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Choicebook:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -110,7 +110,7 @@ Gura_ImplementUserInheritableClass(wx_Choicebook)
 
 Gura_ImplementDescendantCreator(wx_Choicebook)
 {
-	return new Object_wx_Choicebook((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Choicebook((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TipWindow *_pObj;
 public:
-	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _sig(NULL), _pObj(NULL) {}
+	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TipWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TipWindow *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_TipWindow::~wx_TipWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TipWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ Gura_ImplementFunction(TipWindow)
 	if (args.IsValid(4)) rectBounds = Object_wx_Rect::GetObject(args, 4)->GetEntity();
 	wx_TipWindow *pEntity = new wx_TipWindow(parent, text, maxLength, *windowPtr, rectBounds);
 	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TipWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -121,13 +121,13 @@ Object_wx_TipWindow::~Object_wx_TipWindow()
 
 Object *Object_wx_TipWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TipWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.TipWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -149,7 +149,7 @@ Gura_ImplementUserInheritableClass(wx_TipWindow)
 
 Gura_ImplementDescendantCreator(wx_TipWindow)
 {
-	return new Object_wx_TipWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TipWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

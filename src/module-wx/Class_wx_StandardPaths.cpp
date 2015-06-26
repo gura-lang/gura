@@ -24,12 +24,12 @@ public:
 
 wx_StandardPaths::~wx_StandardPaths()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StandardPaths::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementClassMethod(wx_StandardPaths, Get)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxStandardPathsBase &rtn = wxStandardPaths::Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPathsBase(new wxStandardPathsBase(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPathsBase(new wxStandardPathsBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -272,20 +272,20 @@ Gura_ImplementMethod(wx_StandardPaths, SetInstallPrefix)
 //----------------------------------------------------------------------------
 Object_wx_StandardPaths::~Object_wx_StandardPaths()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_StandardPaths::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StandardPaths::ToString(bool exprFlag)
 {
 	String rtn("<wx.StandardPaths:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -319,7 +319,7 @@ Gura_ImplementUserInheritableClass(wx_StandardPaths)
 
 Gura_ImplementDescendantCreator(wx_StandardPaths)
 {
-	return new Object_wx_StandardPaths((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StandardPaths((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

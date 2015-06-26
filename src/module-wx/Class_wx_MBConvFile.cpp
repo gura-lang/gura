@@ -24,12 +24,12 @@ public:
 
 wx_MBConvFile::~wx_MBConvFile()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MBConvFile::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -84,13 +84,13 @@ Object_wx_MBConvFile::~Object_wx_MBConvFile()
 
 Object *Object_wx_MBConvFile::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MBConvFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConvFile:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -111,7 +111,7 @@ Gura_ImplementUserInheritableClass(wx_MBConvFile)
 
 Gura_ImplementDescendantCreator(wx_MBConvFile)
 {
-	return new Object_wx_MBConvFile((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MBConvFile((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

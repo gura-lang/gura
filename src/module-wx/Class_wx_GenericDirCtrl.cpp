@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GenericDirCtrl *_pObj;
 public:
-	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GenericDirCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GenericDirCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GenericDirCtrl::~wx_GenericDirCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GenericDirCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(GenericDirCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GenericDirCtrl *pEntity = new wx_GenericDirCtrl();
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericDirCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -97,7 +97,7 @@ Gura_ImplementFunction(GenericDirCtrl)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_GenericDirCtrl *pEntity = new wx_GenericDirCtrl(parent, id, dir, *pos, *size, style, filter, defaultFilter, name);
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericDirCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDirFilterListCtrl *rtn = (wxDirFilterListCtrl *)pThis->GetEntity()->GetFilterListCtrl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DirFilterListCtrl(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DirFilterListCtrl(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetRootId)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeItemId rtn = pThis->GetEntity()->GetRootId();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GenericDirCtrl, GetTreeCtrl)
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetTreeCtrl)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeCtrl *rtn = (wxTreeCtrl *)pThis->GetEntity()->GetTreeCtrl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TreeCtrl(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TreeCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GenericDirCtrl, ReCreateTree)
@@ -418,13 +418,13 @@ Object_wx_GenericDirCtrl::~Object_wx_GenericDirCtrl()
 
 Object *Object_wx_GenericDirCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.GenericDirCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -464,7 +464,7 @@ Gura_ImplementUserInheritableClass(wx_GenericDirCtrl)
 
 Gura_ImplementDescendantCreator(wx_GenericDirCtrl)
 {
-	return new Object_wx_GenericDirCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GenericDirCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

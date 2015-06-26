@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextInputStream *_pObj;
 public:
-	inline wx_TextInputStream(wxInputStream& stream, const wxString& sep) : wxTextInputStream(stream, sep), _sig(NULL), _pObj(NULL) {}
-	//inline wx_TextInputStream(wxInputStream& stream, const wxString& sep, wxMBConv& conv) : wxTextInputStream(stream, sep, conv), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextInputStream(wxInputStream& stream, const wxString& sep) : wxTextInputStream(stream, sep), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_TextInputStream(wxInputStream& stream, const wxString& sep, wxMBConv& conv) : wxTextInputStream(stream, sep, conv), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TextInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_TextInputStream::~wx_TextInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(TextInputStream)
 	//wx_TextInputStream *pEntity = new wx_TextInputStream(*stream, sep, *conv);
 	wx_TextInputStream *pEntity = new wx_TextInputStream(*stream, sep);
 	Object_wx_TextInputStream *pObj = Object_wx_TextInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -262,20 +262,20 @@ Gura_ImplementMethod(wx_TextInputStream, SetStringSeparators)
 //----------------------------------------------------------------------------
 Object_wx_TextInputStream::~Object_wx_TextInputStream()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TextInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -307,7 +307,7 @@ Gura_ImplementUserInheritableClass(wx_TextInputStream)
 
 Gura_ImplementDescendantCreator(wx_TextInputStream)
 {
-	return new Object_wx_TextInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

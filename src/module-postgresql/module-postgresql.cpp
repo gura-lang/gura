@@ -9,7 +9,7 @@ Gura_BeginModuleBody(postgresql)
 // Object_postgresql
 //-----------------------------------------------------------------------------
 Object_postgresql::Object_postgresql() :
-					Object(Gura_UserClass(postgresql)), _conn(NULL)
+					Object(Gura_UserClass(postgresql)), _conn(nullptr)
 {
 }
 
@@ -20,7 +20,7 @@ Object_postgresql::~Object_postgresql()
 
 Object *Object_postgresql::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_postgresql::ToString(bool exprFlag)
@@ -38,7 +38,7 @@ bool Object_postgresql::Connect(Signal sig, const char *pghost, const char *pgpo
 	if (::PQstatus(_conn) == CONNECTION_BAD) {
 		sig.SetError(ERR_RuntimeError, "PostgreSQL %s", ::PQerrorMessage(_conn));
 	    ::PQfinish(_conn);
-	    _conn = NULL;
+	    _conn = nullptr;
 	    return false;
     }
 	return true;
@@ -46,27 +46,27 @@ bool Object_postgresql::Connect(Signal sig, const char *pghost, const char *pgpo
 
 void Object_postgresql::Close()
 {
-	if (_conn != NULL) {
+	if (_conn != nullptr) {
 		::PQfinish(_conn);
-		_conn = NULL;
+		_conn = nullptr;
 	}
 }
 
 Iterator *Object_postgresql::Exec(Signal sig, const char *command)
 {
-	if (_conn == NULL) return NULL;
+	if (_conn == nullptr) return nullptr;
 	PGresult *res = ::PQexec(_conn, command);
-	if (res == NULL || ::PQresultStatus(res) != PGRES_COMMAND_OK) {
+	if (res == nullptr || ::PQresultStatus(res) != PGRES_COMMAND_OK) {
 		sig.SetError(ERR_RuntimeError, "PostgreSQL %s", ::PQerrorMessage(_conn));
 		::PQclear(res);
-		return NULL;
+		return nullptr;
 	} else if (::PQresultStatus(res) == PGRES_TUPLES_OK) {
 		Iterator *pIterator =
 				new IteratorTuple(Object_postgresql::Reference(this), res);
 		return pIterator;
 	}
 	::PQclear(res);
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -129,8 +129,8 @@ Gura_ImplementMethod(postgresql, query)
 {
 	Object_postgresql *pObj = Object_postgresql::GetThisObj(args);
 	Iterator *pIterator = pObj->Exec(sig, args.GetString(0));
-	// Object_postgresql::Exec() may return NULL even if no error occurs.
-	if (pIterator == NULL) return Value::Null;
+	// Object_postgresql::Exec() may return nullptr even if no error occurs.
+	if (pIterator == nullptr) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -159,13 +159,13 @@ Gura_DeclareFunction(connect)
 
 Gura_ImplementFunction(connect)
 {
-	const char *pghost = args.Is_string(0)? args.GetString(0) : NULL;
-	const char *login = args.Is_string(1)? args.GetString(1) : NULL;
-	const char *pwd = args.Is_string(2)? args.GetString(2) : NULL;
-	const char *dbName = args.Is_string(3)? args.GetString(3) : NULL;
-	const char *pgport = NULL;
-	const char *pgoptions = NULL;
-	const char *pgtty = NULL;
+	const char *pghost = args.Is_string(0)? args.GetString(0) : nullptr;
+	const char *login = args.Is_string(1)? args.GetString(1) : nullptr;
+	const char *pwd = args.Is_string(2)? args.GetString(2) : nullptr;
+	const char *dbName = args.Is_string(3)? args.GetString(3) : nullptr;
+	const char *pgport = nullptr;
+	const char *pgoptions = nullptr;
+	const char *pgtty = nullptr;
 	Object_postgresql *pObj = new Object_postgresql();
 	if (!pObj->Connect(sig, pghost, pgport, pgoptions, pgtty, dbName, login, pwd)) {
 		delete pObj;
@@ -175,7 +175,7 @@ Gura_ImplementFunction(connect)
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
-		if (pFuncBlock == NULL) return Value::Null;
+		if (pFuncBlock == nullptr) return Value::Null;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);
 		pFuncBlock->Eval(env, sig, argsSub);

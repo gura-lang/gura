@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TaskBarIcon *_pObj;
 public:
-	inline wx_TaskBarIcon() : wxTaskBarIcon(), _sig(NULL), _pObj(NULL) {}
+	inline wx_TaskBarIcon() : wxTaskBarIcon(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxMenu* CreatePopupMenu();
 	~wx_TaskBarIcon();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TaskBarIcon *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_TaskBarIcon::~wx_TaskBarIcon()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TaskBarIcon::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TaskBarIcon *pEntity = new wx_TaskBarIcon();
 	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TaskBarIcon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->CreatePopupMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -164,13 +164,13 @@ Object_wx_TaskBarIcon::~Object_wx_TaskBarIcon()
 
 Object *Object_wx_TaskBarIcon::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 {
 	String rtn("<wx.TaskBarIcon:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -197,7 +197,7 @@ Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 
 Gura_ImplementDescendantCreator(wx_TaskBarIcon)
 {
-	return new Object_wx_TaskBarIcon((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TaskBarIcon((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

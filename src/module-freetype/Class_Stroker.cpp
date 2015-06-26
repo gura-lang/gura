@@ -12,7 +12,7 @@ Object_Stroker::~Object_Stroker()
 
 Object *Object_Stroker::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Stroker::ToString(bool exprFlag)

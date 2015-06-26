@@ -14,15 +14,15 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Icon *_pObj;
 public:
-	inline wx_Icon() : wxIcon(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _sig(NULL), _pObj(NULL) {}
-	inline wx_Icon(char** bits) : wxIcon(bits), _sig(NULL), _pObj(NULL) {}
-	inline wx_Icon(const char** bits) : wxIcon(bits), _sig(NULL), _pObj(NULL) {}
-	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _sig(NULL), _pObj(NULL) {}
-	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _sig(NULL), _pObj(NULL) {}
+	inline wx_Icon() : wxIcon(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(char** bits) : wxIcon(bits), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const char** bits) : wxIcon(bits), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Icon();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Icon *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -33,12 +33,12 @@ public:
 
 wx_Icon::~wx_Icon()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Icon::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Gura_ImplementFunction(EmptyIcon)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Icon *pEntity = new wx_Icon();
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(Icon)
 	if (args.IsValid(3)) desiredHeight = args.GetInt(3);
 	wx_Icon *pEntity = new wx_Icon(name, type, desiredWidth, desiredHeight);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -116,7 +116,7 @@ Gura_ImplementFunction(IconFromXPMData)
 	wx_Icon *pEntity = new wx_Icon(bits);
 	delete[] bits;
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -152,7 +152,7 @@ Gura_ImplementFunction(Icon_1)
 	if (args.IsValid(4)) depth = args.GetInt(4);
 	wx_Icon *pEntity = new wx_Icon(data, type, width, height, depth);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -189,7 +189,7 @@ Gura_ImplementFunction(Icon_2)
 	if (args.IsValid(3)) depth = args.GetInt(3);
 	wx_Icon *pEntity = new wx_Icon(bits[], width, height, depth);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -224,7 +224,7 @@ Gura_ImplementFunction(Icon_3)
 	if (args.IsValid(2)) depth = args.GetInt(2);
 	wx_Icon *pEntity = new wx_Icon(width, height, depth);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -252,7 +252,7 @@ Gura_ImplementFunction(Icon_5)
 	char bits = args.GetChar(0);
 	wx_Icon *pEntity = new wx_Icon(bits);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -279,7 +279,7 @@ Gura_ImplementFunction(Icon_7)
 	wxIconLocation *loc = Object_wx_IconLocation::GetObject(args, 0)->GetEntity();
 	wx_Icon *pEntity = new wx_Icon(*loc);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_Icon, SaveFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
-	wxPalette *palette = (wxPalette *)(NULL);
+	wxPalette *palette = (wxPalette *)(nullptr);
 	if (args.IsValid(2)) palette = Object_wx_Palette::GetObject(args, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(name, type, palette);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -459,13 +459,13 @@ Object_wx_Icon::~Object_wx_Icon()
 
 Object *Object_wx_Icon::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Icon::ToString(bool exprFlag)
 {
 	String rtn("<wx.Icon:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -503,7 +503,7 @@ Gura_ImplementUserInheritableClass(wx_Icon)
 
 Gura_ImplementDescendantCreator(wx_Icon)
 {
-	return new Object_wx_Icon((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Icon((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

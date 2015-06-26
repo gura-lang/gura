@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ActiveXContainer *_pObj;
 public:
-	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ActiveXContainer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ActiveXContainer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ActiveXContainer::~wx_ActiveXContainer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ActiveXContainer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(ActiveXContainer)
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ActiveXContainer *pEntity = new wx_ActiveXContainer(parent, , );
 	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ActiveXContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,13 +75,13 @@ Object_wx_ActiveXContainer::~Object_wx_ActiveXContainer()
 
 Object *Object_wx_ActiveXContainer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 {
 	String rtn("<wx.ActiveXContainer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -101,7 +101,7 @@ Gura_ImplementUserInheritableClass(wx_ActiveXContainer)
 
 Gura_ImplementDescendantCreator(wx_ActiveXContainer)
 {
-	return new Object_wx_ActiveXContainer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ActiveXContainer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewListModelNotifier *_pObj;
 public:
-	//inline wx_DataViewListModelNotifier() : wxDataViewListModelNotifier(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DataViewListModelNotifier() : wxDataViewListModelNotifier(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewListModelNotifier();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewListModelNotifier *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataViewListModelNotifier::~wx_DataViewListModelNotifier()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewListModelNotifier::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(DataViewListModelNotifierEmpty)
 #if 0
 	wx_DataViewListModelNotifier *pEntity = new wx_DataViewListModelNotifier();
 	Object_wx_DataViewListModelNotifier *pObj = Object_wx_DataViewListModelNotifier::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewListModelNotifier(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, GetOwner)
 	Object_wx_DataViewListModelNotifier *pThis = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModel *rtn = (wxDataViewListModel *)pThis->GetEntity()->GetOwner();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowAppended)
@@ -232,13 +232,13 @@ Object_wx_DataViewListModelNotifier::~Object_wx_DataViewListModelNotifier()
 
 Object *Object_wx_DataViewListModelNotifier::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewListModelNotifier::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewListModelNotifier:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -268,7 +268,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewListModelNotifier)
 
 Gura_ImplementDescendantCreator(wx_DataViewListModelNotifier)
 {
-	return new Object_wx_DataViewListModelNotifier((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewListModelNotifier((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

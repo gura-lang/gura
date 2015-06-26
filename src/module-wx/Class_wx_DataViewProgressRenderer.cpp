@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewProgressRenderer *_pObj;
 public:
-	inline wx_DataViewProgressRenderer(const wxString& label, const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewProgressRenderer(label, varianttype, mode), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewProgressRenderer(const wxString& label, const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewProgressRenderer(label, varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewProgressRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewProgressRenderer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataViewProgressRenderer::~wx_DataViewProgressRenderer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewProgressRenderer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(DataViewProgressRenderer)
 	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
 	wx_DataViewProgressRenderer *pEntity = new wx_DataViewProgressRenderer(label, varianttype, mode);
 	Object_wx_DataViewProgressRenderer *pObj = Object_wx_DataViewProgressRenderer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewProgressRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,13 +76,13 @@ Object_wx_DataViewProgressRenderer::~Object_wx_DataViewProgressRenderer()
 
 Object *Object_wx_DataViewProgressRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewProgressRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewProgressRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -102,7 +102,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewProgressRenderer)
 
 Gura_ImplementDescendantCreator(wx_DataViewProgressRenderer)
 {
-	return new Object_wx_DataViewProgressRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewProgressRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

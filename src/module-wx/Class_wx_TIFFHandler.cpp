@@ -23,12 +23,12 @@ public:
 
 wx_TIFFHandler::~wx_TIFFHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TIFFHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementFunction(TIFFHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TIFFHandler *pEntity = new wx_TIFFHandler();
 	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TIFFHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -61,20 +61,20 @@ Gura_ImplementFunction(TIFFHandler)
 //----------------------------------------------------------------------------
 Object_wx_TIFFHandler::~Object_wx_TIFFHandler()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TIFFHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TIFFHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.TIFFHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -94,7 +94,7 @@ Gura_ImplementUserInheritableClass(wx_TIFFHandler)
 
 Gura_ImplementDescendantCreator(wx_TIFFHandler)
 {
-	return new Object_wx_TIFFHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TIFFHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

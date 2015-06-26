@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PrintPreview *_pObj;
 public:
-	inline wx_PrintPreview(wxPrintout* printout, wxPrintout* printoutForPrinting, wxPrintData* data) : wxPrintPreview(printout, printoutForPrinting, data), _sig(NULL), _pObj(NULL) {}
+	inline wx_PrintPreview(wxPrintout* printout, wxPrintout* printoutForPrinting, wxPrintData* data) : wxPrintPreview(printout, printoutForPrinting, data), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PrintPreview();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrintPreview *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PrintPreview::~wx_PrintPreview()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PrintPreview::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,11 +51,11 @@ Gura_ImplementFunction(PrintPreview)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintout *printout = Object_wx_Printout::GetObject(args, 0)->GetEntity();
 	wxPrintout *printoutForPrinting = Object_wx_Printout::GetObject(args, 1)->GetEntity();
-	wxPrintData *data = (wxPrintData *)(NULL);
+	wxPrintData *data = (wxPrintData *)(nullptr);
 	if (args.IsValid(2)) data = Object_wx_PrintData::GetObject(args, 2)->GetEntity();
 	wx_PrintPreview *pEntity = new wx_PrintPreview(printout, printoutForPrinting, data);
 	Object_wx_PrintPreview *pObj = Object_wx_PrintPreview::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintPreview(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetCanvas)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPreviewCanvas *rtn = (wxPreviewCanvas *)pThis->GetEntity()->GetCanvas();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PreviewCanvas(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PreviewCanvas(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PrintPreview, GetCurrentPage)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetFrame)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrame();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PrintPreview, GetMaxPage)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetPrintout)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintout *rtn = (wxPrintout *)pThis->GetEntity()->GetPrintout();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Printout(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Printout(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PrintPreview, GetPrintoutForPrinting)
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_PrintPreview, GetPrintoutForPrinting)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintout *rtn = (wxPrintout *)pThis->GetEntity()->GetPrintoutForPrinting();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Printout(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Printout(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PrintPreview, Ok)
@@ -311,13 +311,13 @@ Object_wx_PrintPreview::~Object_wx_PrintPreview()
 
 Object *Object_wx_PrintPreview::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PrintPreview::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrintPreview:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -353,7 +353,7 @@ Gura_ImplementUserInheritableClass(wx_PrintPreview)
 
 Gura_ImplementDescendantCreator(wx_PrintPreview)
 {
-	return new Object_wx_PrintPreview((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PrintPreview((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PlatformInfo *_pObj;
 public:
-	inline wx_PlatformInfo() : wxPlatformInfo(), _sig(NULL), _pObj(NULL) {}
-	inline wx_PlatformInfo(wxPortId pid, int tkMajor, int tkMinor, wxOperatingSystemId id, int osMajor, int osMinor, wxArchitecture arch, wxEndianness endian) : wxPlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian), _sig(NULL), _pObj(NULL) {}
+	inline wx_PlatformInfo() : wxPlatformInfo(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PlatformInfo(wxPortId pid, int tkMajor, int tkMinor, wxOperatingSystemId id, int osMajor, int osMinor, wxArchitecture arch, wxEndianness endian) : wxPlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PlatformInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PlatformInfo *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_PlatformInfo::~wx_PlatformInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PlatformInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(PlatformInfoEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PlatformInfo *pEntity = new wx_PlatformInfo();
 	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PlatformInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -95,7 +95,7 @@ Gura_ImplementFunction(PlatformInfo)
 	if (args.IsValid(7)) endian = static_cast<wxEndianness>(args.GetInt(7));
 	wx_PlatformInfo *pEntity = new wx_PlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian);
 	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PlatformInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -151,7 +151,7 @@ Gura_ImplementClassMethod(wx_PlatformInfo, Get)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const wxPlatformInfo &rtn = wxPlatformInfo::Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PlatformInfo(new wxPlatformInfo(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PlatformInfo(new wxPlatformInfo(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_PlatformInfo, GetArch)
@@ -631,20 +631,20 @@ Gura_ImplementMethod(wx_PlatformInfo, SetToolkitVersion)
 //----------------------------------------------------------------------------
 Object_wx_PlatformInfo::~Object_wx_PlatformInfo()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_PlatformInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PlatformInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.PlatformInfo:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -700,7 +700,7 @@ Gura_ImplementUserInheritableClass(wx_PlatformInfo)
 
 Gura_ImplementDescendantCreator(wx_PlatformInfo)
 {
-	return new Object_wx_PlatformInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PlatformInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

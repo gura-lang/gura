@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_VariantData *_pObj;
 public:
-	//inline wx_VariantData() : wxVariantData(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_VariantData() : wxVariantData(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_VariantData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VariantData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_VariantData::~wx_VariantData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_VariantData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(VariantDataEmpty)
 #if 0
 	wx_VariantData *pEntity = new wx_VariantData();
 	Object_wx_VariantData *pObj = Object_wx_VariantData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VariantData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_VariantData, GetValueClassInfo)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetValueClassInfo();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_VariantData, IncRef)
@@ -231,13 +231,13 @@ Object_wx_VariantData::~Object_wx_VariantData()
 
 Object *Object_wx_VariantData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_VariantData::ToString(bool exprFlag)
 {
 	String rtn("<wx.VariantData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -267,7 +267,7 @@ Gura_ImplementUserInheritableClass(wx_VariantData)
 
 Gura_ImplementDescendantCreator(wx_VariantData)
 {
-	return new Object_wx_VariantData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_VariantData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

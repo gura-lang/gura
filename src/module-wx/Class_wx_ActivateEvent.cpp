@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ActivateEvent *_pObj;
 public:
-	inline wx_ActivateEvent(WXTYPE eventType, bool active, int id) : wxActivateEvent(eventType, active, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_ActivateEvent(WXTYPE eventType, bool active, int id) : wxActivateEvent(eventType, active, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ActivateEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ActivateEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ActivateEvent::~wx_ActivateEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ActivateEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ActivateEvent)
 	if (args.IsValid(2)) id = args.GetInt(2);
 	wx_ActivateEvent *pEntity = new wx_ActivateEvent(eventType, active, id);
 	Object_wx_ActivateEvent *pObj = Object_wx_ActivateEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ActivateEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -90,13 +90,13 @@ Object_wx_ActivateEvent::~Object_wx_ActivateEvent()
 
 Object *Object_wx_ActivateEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ActivateEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ActivateEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -117,7 +117,7 @@ Gura_ImplementUserInheritableClass(wx_ActivateEvent)
 
 Gura_ImplementDescendantCreator(wx_ActivateEvent)
 {
-	return new Object_wx_ActivateEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ActivateEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

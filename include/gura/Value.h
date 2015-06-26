@@ -307,11 +307,11 @@ public:
 	inline Number GetNumber() const {
 		return Is_number()? _u.num :
 				Is_boolean()? (_u.flag? 1. : 0.) :
-				Is_string()? ::strtod(GetString(), NULL) : 0.;
+				Is_string()? ::strtod(GetString(), nullptr) : 0.;
 	}
 	// VTYPE_symbol
 	inline const Symbol *GetSymbol() const {
-		return Is_symbol()? _u.pSymbol : NULL;
+		return Is_symbol()? _u.pSymbol : nullptr;
 	}
 	// VTYPE_boolean
 	inline bool GetBoolean() const {
@@ -350,14 +350,14 @@ public:
 		return _u.pRatio;
 	}
 	// VTYPE_Module
-	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }
-	inline const Module *GetModule() const { return IsModule()? _u.pModule : NULL; }
+	inline Module *GetModule() { return IsModule()? _u.pModule : nullptr; }
+	inline const Module *GetModule() const { return IsModule()? _u.pModule : nullptr; }
 	// VTYPE_Class
-	inline Class *GetClassItself() { return IsClass()? _u.pClass : NULL; }
-	inline const Class *GetClassItself() const { return IsClass()? _u.pClass : NULL; }
+	inline Class *GetClassItself() { return IsClass()? _u.pClass : nullptr; }
+	inline const Class *GetClassItself() const { return IsClass()? _u.pClass : nullptr; }
 	// VTYPE_Sequence
-	inline Sequence *GetSequence() { return IsSequence()? _u.pSequence : NULL; }
-	inline const Sequence *GetSequence() const { return IsSequence()? _u.pSequence : NULL; }
+	inline Sequence *GetSequence() { return IsSequence()? _u.pSequence : nullptr; }
+	inline const Sequence *GetSequence() const { return IsSequence()? _u.pSequence : nullptr; }
 	// VTYPE_function
 	Function *GetFunction();
 	inline const Function *GetFunction() const {
@@ -396,8 +396,8 @@ public:
 		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
-	inline Object *GetObject() { return IsObject()? _u.pObj : NULL; }
-	inline Object *GetObject() const { return IsObject()? _u.pObj : NULL; }
+	inline Object *GetObject() { return IsObject()? _u.pObj : nullptr; }
+	inline Object *GetObject() const { return IsObject()? _u.pObj : nullptr; }
 	Fundamental *GetFundamental();
 	const Fundamental *GetFundamental() const {
 		return const_cast<Value *>(this)->GetFundamental();

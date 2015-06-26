@@ -23,7 +23,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CommandProcessor *_pObj;
 public:
-	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _sig(NULL), _pObj(NULL) {}
+	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool CanUndo();
 	//virtual void ClearCommands();
 	//virtual bool Redo();
@@ -42,12 +42,12 @@ public:
 
 wx_CommandProcessor::~wx_CommandProcessor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CommandProcessor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ Gura_ImplementFunction(CommandProcessor)
 	if (args.IsValid(0)) maxCommands = args.GetInt(0);
 	wx_CommandProcessor *pEntity = new wx_CommandProcessor(maxCommands);
 	Object_wx_CommandProcessor *pObj = Object_wx_CommandProcessor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CommandProcessor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetCommands)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxList &rtn = pThis->GetEntity()->GetCommands();
-	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetMaxCommands)
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetEditMenu)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetEditMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoAccelerator)
@@ -357,13 +357,13 @@ Object_wx_CommandProcessor::~Object_wx_CommandProcessor()
 
 Object *Object_wx_CommandProcessor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CommandProcessor::ToString(bool exprFlag)
 {
 	String rtn("<wx.CommandProcessor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -410,7 +410,7 @@ Gura_ImplementUserInheritableClass(wx_CommandProcessor)
 
 Gura_ImplementDescendantCreator(wx_CommandProcessor)
 {
-	return new Object_wx_CommandProcessor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CommandProcessor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

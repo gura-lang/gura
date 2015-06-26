@@ -23,7 +23,7 @@ Object_reader::~Object_reader()
 
 Object *Object_reader::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_reader::ToString(bool exprFlag)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(reader, entry)
 {
 	Object_reader *pThis = Object_reader::GetThisObj(args);
 	Stream *pStreamSrc = pThis->GetStreamSrc();
-	if (pStreamSrc == NULL) {
+	if (pStreamSrc == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Null;
 	}
@@ -149,7 +149,7 @@ Gura_DeclareMethod(reader, entries)
 Gura_ImplementMethod(reader, entries)
 {
 	Object_reader *pThis = Object_reader::GetThisObj(args);
-	if (pThis->GetStreamSrc() == NULL) {
+	if (pThis->GetStreamSrc() == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Null;
 	}
@@ -184,7 +184,7 @@ Object_writer::~Object_writer()
 
 Object *Object_writer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_writer::ToString(bool exprFlag)
@@ -365,7 +365,7 @@ bool Object_writer::Finish()
 		if (!rec.Write(_sig, *_pStreamDst)) return false;
 	} while (0);
 	_pStreamDst->Close();
-	_pStreamDst.reset(NULL);
+	_pStreamDst.reset(nullptr);
 	return !_sig.IsSignalled();
 }
 
@@ -400,11 +400,11 @@ Gura_ImplementMethod(writer, add)
 		fileName = args.GetString(1);
 	} else {
 		const char *identifier = args.GetStream(0).GetIdentifier();
-		if (identifier == NULL) {
+		if (identifier == nullptr) {
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Null;
 		}
-		PathMgr::SplitFileName(identifier, NULL, &fileName);
+		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
 	UShort compressionMethod = args.Is_symbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :
@@ -456,7 +456,7 @@ Iterator_Entry::~Iterator_Entry()
 
 Iterator *Iterator_Entry::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
@@ -465,7 +465,7 @@ bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
 	const CentralFileHeader *pHdr = *_ppHdr;
 	const CentralFileHeader::Fields &fields = pHdr->GetFields();
 	Stream *pStreamSrc = _pObjZipR->GetStreamSrc();
-	if (pStreamSrc == NULL) return false;
+	if (pStreamSrc == nullptr) return false;
 	long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
 	Stream *pStream = CreateStream(env, sig, pStreamSrc, pHdr);
 	if (sig.IsSignalled()) return false;
@@ -731,7 +731,7 @@ bool Stream_reader::DoFlush(Signal sig)
 
 bool Stream_reader::DoClose(Signal sig)
 {
-	_pStreamSrc.reset(NULL);
+	_pStreamSrc.reset(nullptr);
 	return Stream::DoClose(sig);
 }
 
@@ -882,7 +882,7 @@ bool Stream_reader_Deflate64::DoSeek(Signal sig, long offset, size_t offsetPrev,
 //-----------------------------------------------------------------------------
 Record_ZIP::Record_ZIP(DirBuilder::Structure *pStructure, Record_ZIP *pParent,
 								const char *name, bool containerFlag) :
-	DirBuilder::Record(pStructure, pParent, name, containerFlag), _pHdr(NULL)
+	DirBuilder::Record(pStructure, pParent, name, containerFlag), _pHdr(nullptr)
 {
 }
 
@@ -925,17 +925,17 @@ Directory *Directory_ZIP::DoNext(Environment &env, Signal sig)
 Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	AutoPtr<Stream> pStreamSrc;
-	for (Directory *pDirectory = this; pDirectory != NULL;
+	for (Directory *pDirectory = this; pDirectory != nullptr;
 											pDirectory = pDirectory->GetParent()) {
 		if (pDirectory->IsBoundaryContainer()) {
 			pStreamSrc.reset(pDirectory->GetParent()->
 							DoOpenStream(env, sig, Stream::ATTR_Readable));
-			if (sig.IsSignalled()) return NULL;
+			if (sig.IsSignalled()) return nullptr;
 			break;
 		}
 	}
 	const CentralFileHeader *pHdr = _pRecord->GetCentralFileHeader();
-	GURA_ASSUME(env, pHdr != NULL);
+	GURA_ASSUME(env, pHdr != nullptr);
 	return CreateStream(env, sig, pStreamSrc.get(), pHdr);
 }
 
@@ -950,7 +950,7 @@ Object *Directory_ZIP::DoGetStatObj(Signal sig)
 bool PathMgr_ZIP::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
-	return pParent != NULL && !pParent->IsContainer() &&
+	return pParent != nullptr && !pParent->IsContainer() &&
 			(EndsWith(pParent->GetName(), ".zip", true) ||
 			 EndsWith(pParent->GetName(), ".gurc", true) ||
 			 EndsWith(pParent->GetName(), ".gurcw", true));
@@ -960,7 +960,7 @@ Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return CreateDirectory(env, sig,
 					pStreamSrc.get(), pParent, pPathName, notFoundMode);
 }
@@ -1073,14 +1073,14 @@ ULong SeekCentralDirectory(Signal sig, Stream *pStream)
 	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	pStream->Read(sig, buff, bytesBuff);
-	if (sig.IsSignalled()) return NULL;
-	char *buffAnchor = NULL;
+	if (sig.IsSignalled()) return 0;
+	char *buffAnchor = nullptr;
 	for (size_t i = 0; i <= bytesBuff - EndOfCentralDirectoryRecord::MinSize; i++) {
 		if (::memcmp(buff + i, "\x50\x4b\x05\x06", 4) == 0) {
 			buffAnchor = buff + i;
 		}
 	}
-	if (buffAnchor == NULL) {
+	if (buffAnchor == nullptr) {
 		sig.SetError(ERR_FormatError, "can't find central directory record");
 		return 0;
 	}
@@ -1095,52 +1095,52 @@ Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
 {
 	if (!pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, pStreamSrc, true);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		pStreamSrc = pStreamPrefetch;
 	}
 	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
-	pStructure->SetRoot(new Record_ZIP(pStructure.get(), NULL, "", true));
+	pStructure->SetRoot(new Record_ZIP(pStructure.get(), nullptr, "", true));
 	ULong offsetCentralDirectory = SeekCentralDirectory(sig, pStreamSrc);
-	if (sig.IsSignalled()) return NULL;
-	if (!pStreamSrc->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return NULL;
+	if (sig.IsSignalled()) return nullptr;
+	if (!pStreamSrc->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return nullptr;
 	ULong signature;
 	while (ReadStream(sig, *pStreamSrc, &signature)) {
 		//::printf("%08x\n", signature);
 		if (signature == LocalFileHeader::Signature) {
 			LocalFileHeader hdr;
-			if (!hdr.Read(sig, *pStreamSrc)) return NULL;
-			if (!hdr.SkipFileData(sig, *pStreamSrc)) return NULL;
+			if (!hdr.Read(sig, *pStreamSrc)) return nullptr;
+			if (!hdr.SkipFileData(sig, *pStreamSrc)) return nullptr;
 		} else if (signature == ArchiveExtraDataRecord::Signature) {
 			ArchiveExtraDataRecord record;
-			if (!record.Read(sig, *pStreamSrc)) return NULL;
+			if (!record.Read(sig, *pStreamSrc)) return nullptr;
 		} else if (signature == CentralFileHeader::Signature) {
 			CentralFileHeader *pHdr = new CentralFileHeader();
 			if (!pHdr->Read(sig, *pStreamSrc)) {
 				delete pHdr;
-				return NULL;
+				return nullptr;
 			}
 			Record_ZIP *pRecord = dynamic_cast<Record_ZIP *>(
 									pStructure->AddRecord(pHdr->GetFileName()));
 			pRecord->SetCentralFileHeader(pHdr);
 		} else if (signature == DigitalSignature::Signature) {
 			DigitalSignature signature;
-			if (!signature.Read(sig, *pStreamSrc)) return NULL;
+			if (!signature.Read(sig, *pStreamSrc)) return nullptr;
 		} else if (signature == Zip64EndOfCentralDirectory::Signature) {
 			Zip64EndOfCentralDirectory dir;
-			if (!dir.Read(sig, *pStreamSrc)) return NULL;
+			if (!dir.Read(sig, *pStreamSrc)) return nullptr;
 		} else if (signature == Zip64EndOfCentralDirectoryLocator::Signature) {
 			Zip64EndOfCentralDirectoryLocator loc;
-			if (!loc.Read(sig, *pStreamSrc)) return NULL;
+			if (!loc.Read(sig, *pStreamSrc)) return nullptr;
 		} else if (signature == EndOfCentralDirectoryRecord::Signature) {
 			EndOfCentralDirectoryRecord record;
-			if (!record.Read(sig, *pStreamSrc)) return NULL;
+			if (!record.Read(sig, *pStreamSrc)) return nullptr;
 			break;
 		} else {
 			sig.SetError(ERR_FormatError, "unknown signature %08x", signature);
-			return NULL;
+			return nullptr;
 		}
 	}
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	//pStreamSrc->Close();
 	return pStructure->GenerateDirectory(sig, pParent, pPathName, notFoundMode);
 }
@@ -1150,16 +1150,16 @@ Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const Cen
 	AutoPtr<Stream_reader> pStream;
 	long offset = static_cast<long>(pHdr->GetRelativeOffsetOfLocalHeader());
 	pStreamSrc->Seek(sig, offset, Stream::SeekSet);
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	do {
 		ULong signature;
-		if (!ReadStream(sig, *pStreamSrc, &signature)) return NULL;
+		if (!ReadStream(sig, *pStreamSrc, &signature)) return nullptr;
 		if (signature != LocalFileHeader::Signature) {
 			sig.SetError(ERR_FormatError, "invalid ZIP format");
-			return NULL;
+			return nullptr;
 		}
 		LocalFileHeader hdr;
-		if (!hdr.Read(sig, *pStreamSrc)) return NULL;
+		if (!hdr.Read(sig, *pStreamSrc)) return nullptr;
 	} while (0);
 	//const char *name = pHdr->GetFileName();
 	UShort compressionMethod = pHdr->GetCompressionMethod();
@@ -1204,9 +1204,9 @@ Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const Cen
 	if (pStream.IsNull()) {
 		sig.SetError(ERR_FormatError,
 				"unsupported compression method %d", compressionMethod);
-		return NULL;
+		return nullptr;
 	}
-	if (!pStream->Initialize(env, sig)) return NULL;
+	if (!pStream->Initialize(env, sig)) return nullptr;
 	return pStream.release();
 }
 

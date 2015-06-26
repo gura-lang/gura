@@ -16,7 +16,7 @@ private:
 	const char *_pStr;
 	const char *_pEnd;
 public:
-	inline SimpleStream_CStringReader(const char *pStr, const char *pEnd = NULL) :
+	inline SimpleStream_CStringReader(const char *pStr, const char *pEnd = nullptr) :
 													_pStr(pStr), _pEnd(pEnd) {}
 	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);

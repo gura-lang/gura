@@ -268,7 +268,7 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 		return true;
 	} else if (value.Is_list()) {
 		const Function *pConstructor = GetConstructor();
-		if (pConstructor == NULL) return false;
+		if (pConstructor == nullptr) return false;
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetValueListArg(value.GetList());
 		value = pConstructor->Eval(env, sig, *pArgs);
@@ -280,7 +280,7 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

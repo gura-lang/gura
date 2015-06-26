@@ -21,7 +21,7 @@ Object_writer::~Object_writer()
 
 Object *Object_writer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_writer::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -350,7 +350,7 @@ char ReaderString::NextChar(Signal sig)
 //-----------------------------------------------------------------------------
 Iterator *Iterator_reader::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_reader::DoNext(Environment &env, Signal sig, Value &value)

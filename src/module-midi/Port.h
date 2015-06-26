@@ -25,7 +25,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Port);
 public:
-	inline Port() : _cntRef(1), _hMIDI(NULL) {}
+	inline Port() : _cntRef(1), _hMIDI(nullptr) {}
 protected:
 	inline ~Port() {
 		Reset();
@@ -36,15 +36,15 @@ public:
 		return ::midiOutGetNumDevs();
 	}
 	inline bool Open(int id) {
-		if (_hMIDI != NULL) Close();
-		return ::midiOutOpen(&_hMIDI, id, 0, 0, CALLBACK_NULL) == MMSYSERR_NOERROR;
+		if (_hMIDI != nullptr) Close();
+		return ::midiOutOpen(&_hMIDI, id, 0, 0, CALLBACK_nullptr) == MMSYSERR_NOERROR;
 	}
 	inline void Close() {
-		if (_hMIDI != NULL) ::midiOutClose(_hMIDI);
-		_hMIDI = NULL;
+		if (_hMIDI != nullptr) ::midiOutClose(_hMIDI);
+		_hMIDI = nullptr;
 	}
 	inline void Reset() {
-		if (_hMIDI != NULL) ::midiOutReset(_hMIDI);
+		if (_hMIDI != nullptr) ::midiOutReset(_hMIDI);
 	}
 	inline void Send(UChar msg1) {
 		::midiOutShortMsg(_hMIDI,
@@ -80,7 +80,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Port);
 public:
-	inline Port() : _cntRef(1), _out_rmidi(NULL) {}
+	inline Port() : _cntRef(1), _out_rmidi(nullptr) {}
 protected:
 	inline ~Port() {
 		Reset();
@@ -91,14 +91,14 @@ public:
 		return 0;
 	}
 	inline bool Open(int id) {
-		if (_out_rmidi != NULL) Close();
+		if (_out_rmidi != nullptr) Close();
 		char name[128];
 		::sprintf(name, "hw:%d,%d,%d", 0, id, 0);
-		return ::snd_rawmidi_open(NULL, &_out_rmidi, name, 0) >= 0;
+		return ::snd_rawmidi_open(nullptr, &_out_rmidi, name, 0) >= 0;
 	}
 	inline void Close() {
-		if (_out_rmidi != NULL) ::snd_rawmidi_close(_out_rmidi);
-		_out_rmidi = NULL;
+		if (_out_rmidi != nullptr) ::snd_rawmidi_close(_out_rmidi);
+		_out_rmidi = nullptr;
 	}
 	inline void Reset() {
 	}

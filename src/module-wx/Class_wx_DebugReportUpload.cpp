@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DebugReportUpload *_pObj;
 public:
-	inline wx_DebugReportUpload(const wxString& url, const wxString& input, const wxString& action, const wxString& curl) : wxDebugReportUpload(url, input, action, curl), _sig(NULL), _pObj(NULL) {}
+	inline wx_DebugReportUpload(const wxString& url, const wxString& input, const wxString& action, const wxString& curl) : wxDebugReportUpload(url, input, action, curl), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DebugReportUpload();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReportUpload *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DebugReportUpload::~wx_DebugReportUpload()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DebugReportUpload::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(DebugReportUpload)
 	if (args.IsValid(3)) curl = wxString::FromUTF8(args.GetString(3));
 	wx_DebugReportUpload *pEntity = new wx_DebugReportUpload(url, input, action, curl);
 	Object_wx_DebugReportUpload *pObj = Object_wx_DebugReportUpload::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportUpload(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -98,13 +98,13 @@ Object_wx_DebugReportUpload::~Object_wx_DebugReportUpload()
 
 Object *Object_wx_DebugReportUpload::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportUpload:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -125,7 +125,7 @@ Gura_ImplementUserInheritableClass(wx_DebugReportUpload)
 
 Gura_ImplementDescendantCreator(wx_DebugReportUpload)
 {
-	return new Object_wx_DebugReportUpload((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DebugReportUpload((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

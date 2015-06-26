@@ -23,7 +23,7 @@ Gura_ImplementFunction(__gluBeginCurve)
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginCurve(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -49,7 +49,7 @@ Gura_ImplementFunction(__gluBeginPolygon)
 	tess->CreatePolygonPack(Value::Null);
 	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__gluBeginSurface)
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginSurface(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(__gluBeginTrim)
 	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	gluBeginTrim(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -133,7 +133,7 @@ Gura_ImplementFunction(__gluBuild1DMipmaps)
 	GLenum type = static_cast<GLenum>(args.GetInt(4));
 	Value data = args.GetValue(5);
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
 	return Value(_rtn);
@@ -192,7 +192,7 @@ Gura_ImplementFunction(__gluBuild2DMipmaps)
 	GLenum type = static_cast<GLenum>(args.GetInt(5));
 	Value data = args.GetValue(6);
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
 	return Value(_rtn);
@@ -943,7 +943,7 @@ Gura_ImplementFunction(__gluQuadricCallback)
 {
 	Object_Quadric *quad = Object_Quadric::GetObject(args, 0);
 	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	const Function *func = args.IsValid(2)? Object_function::GetObject(args, 2)->GetFunction() : NULL;
+	const Function *func = args.IsValid(2)? Object_function::GetObject(args, 2)->GetFunction() : nullptr;
 	quad->SetCallback(sig, which, func);
 	return Value::Null;
 }
@@ -1102,7 +1102,7 @@ Gura_ImplementFunction(__gluTessBeginContour)
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	gluTessBeginContour(tess);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1130,7 +1130,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 	PolygonPack *pPolygonPack = tess->CreatePolygonPack(polygon_data);
 	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1259,7 +1259,7 @@ Gura_ImplementFunction(__gluTessVertex)
 	GLdouble *location = reinterpret_cast<GLdouble *>(_location->GetPointer());
 	Value vertex_data = args.GetValue(2);
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
-	if (pPolygonPack == NULL) {
+	if (pPolygonPack == nullptr) {
 		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
 		return Value::Null;
 	}

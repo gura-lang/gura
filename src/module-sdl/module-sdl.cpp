@@ -15,13 +15,13 @@ Object_Cursor::~Object_Cursor()
 
 Object *Object_Cursor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 void Object_Cursor::FreeCursor()
 {
-	if (_pCursor != NULL) ::SDL_FreeCursor(_pCursor);
-	_pCursor = NULL;
+	if (_pCursor != nullptr) ::SDL_FreeCursor(_pCursor);
+	_pCursor = nullptr;
 }
 
 String Object_Cursor::ToString(bool exprFlag)
@@ -67,7 +67,7 @@ Object_Timer::~Object_Timer()
 
 Object *Object_Timer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Timer::ToString(bool exprFlag)
@@ -79,14 +79,14 @@ bool Object_Timer::AddTimer(Uint32 interval)
 {
 	_contFlag = true;
 	_timerID = ::SDL_AddTimer(interval, CallbackStub, this);
-	return _timerID != NULL;
+	return _timerID != nullptr;
 }
 
 bool Object_Timer::RemoveTimer()
 {
 	_contFlag = false;
 	SDL_bool rtn = ::SDL_RemoveTimer(_timerID);
-	_timerID = NULL;
+	_timerID = nullptr;
 	return rtn? true : false;
 }
 
@@ -119,7 +119,7 @@ Uint32 Object_Timer::CallbackStub(Uint32 interval, void *param)
 		event.type = SDL_USEREVENT_Timer;
 		event.code = 0;
 		event.data1 = Object::Reference(pThis); // decremented in PollEvent or WaitEvent
-		event.data2 = NULL;
+		event.data2 = nullptr;
 		::SDL_PushEvent(reinterpret_cast<SDL_Event *>(&event));
 		return interval;
 	}
@@ -162,7 +162,7 @@ Object_Event::~Object_Event()
 
 Object *Object_Event::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Event::ToString(bool exprFlag)
@@ -422,7 +422,7 @@ Object_Rect::~Object_Rect()
 
 Object *Object_Rect::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Rect::ToString(bool exprFlag)
@@ -500,7 +500,7 @@ Object_Color::~Object_Color()
 
 Object *Object_Color::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Color::ToString(bool exprFlag)
@@ -596,7 +596,7 @@ Object_Palette::~Object_Palette()
 
 Object *Object_Palette::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Palette::ToString(bool exprFlag)
@@ -631,7 +631,7 @@ Gura_ImplementUserClass(Palette)
 Object_PixelFormat::Object_PixelFormat(const SDL_PixelFormat &pixelFormat) :
 			Object(Gura_UserClass(PixelFormat)), _pixelFormat(pixelFormat)
 {
-	if (pixelFormat.palette != NULL) {
+	if (pixelFormat.palette != nullptr) {
 		_pixelFormat.palette = new SDL_Palette;
 		int ncolors = pixelFormat.palette->ncolors;
 		_pixelFormat.palette->ncolors = ncolors;
@@ -644,7 +644,7 @@ Object_PixelFormat::Object_PixelFormat(const SDL_PixelFormat &pixelFormat) :
 
 Object_PixelFormat::~Object_PixelFormat()
 {
-	if (_pixelFormat.palette != NULL) {
+	if (_pixelFormat.palette != nullptr) {
 		delete[] _pixelFormat.palette->colors;
 		delete _pixelFormat.palette;
 	}
@@ -652,7 +652,7 @@ Object_PixelFormat::~Object_PixelFormat()
 
 Object *Object_PixelFormat::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_PixelFormat::ToString(bool exprFlag)
@@ -850,7 +850,7 @@ Object_Surface::~Object_Surface()
 
 Object *Object_Surface::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_Surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -918,7 +918,7 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage
 		Amask = 0xff000000;
 	} else {
 		sig.SetError(ERR_ValueError, "unsupported image type");
-		return NULL;
+		return nullptr;
 	}
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurfaceFrom(
 				pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
@@ -1233,7 +1233,7 @@ Gura_DeclareMethod(Surface, SetClipRect)
 Gura_ImplementMethod(Surface, SetClipRect)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
-	SDL_Rect *rect = NULL;
+	SDL_Rect *rect = nullptr;
 	if (args.IsValid(0)) rect = &dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	::SDL_SetClipRect(pSurface, rect);
 	return Value::Null;
@@ -1287,8 +1287,8 @@ Gura_ImplementMethod(Surface, ConvertSurface)
 	int flags = args.GetInt(1);
 	SDL_Surface *pSurfaceConv = ::SDL_ConvertSurface(pSurface,
 								const_cast<SDL_PixelFormat *>(fmt), flags);
-	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
+	if (pSurfaceConv == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 // sdl.Surface#FillRect(dstrect:sdl.Rect:nil, color:Color):map:void
@@ -1315,7 +1315,7 @@ Gura_DeclareMethod(Surface, FillRect)
 Gura_ImplementMethod(Surface, FillRect)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
-	SDL_Rect *dstrect = NULL;
+	SDL_Rect *dstrect = nullptr;
 	if (args.IsValid(0)) dstrect = &dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	SDL_Color &color = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	Uint32 colorIdx = ::SDL_MapRGB(pSurface->format, color.r, color.g, color.b);
@@ -1344,8 +1344,8 @@ Gura_ImplementMethod(Surface, DisplayFormat)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormat(pSurface);
-	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
+	if (pSurfaceConv == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 // sdl.Surface#DisplayFormatAlpha() {block?}
@@ -1371,8 +1371,8 @@ Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormatAlpha(pSurface);
-	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
+	if (pSurfaceConv == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 //-----------------------------------------------------------------------------
@@ -1426,7 +1426,7 @@ Object_Overlay::~Object_Overlay()
 
 Object *Object_Overlay::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Overlay::ToString(bool exprFlag)
@@ -1512,7 +1512,7 @@ Object_VideoInfo::~Object_VideoInfo()
 
 Object *Object_VideoInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_VideoInfo::ToString(bool exprFlag)
@@ -1562,7 +1562,7 @@ Value Object_VideoInfo::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(video_mem))) {
 		return Value(_pVideoInfo->video_mem);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vfmt))) {
-		if (_pVideoInfo->vfmt == NULL) return Value::Null;
+		if (_pVideoInfo->vfmt == nullptr) return Value::Null;
 		return Object_PixelFormat::CreateValue(*_pVideoInfo->vfmt);
 	}
 	evaluatedFlag = false;
@@ -1586,7 +1586,7 @@ Object_Joystick::~Object_Joystick()
 
 Object *Object_Joystick::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Joystick::ToString(bool exprFlag)
@@ -1812,19 +1812,19 @@ Gura_ImplementUserClass(Joystick)
 //-----------------------------------------------------------------------------
 Object_AudioSpec::~Object_AudioSpec()
 {
-	if (_audio_buf != NULL) ::SDL_FreeWAV(_audio_buf);
+	if (_audio_buf != nullptr) ::SDL_FreeWAV(_audio_buf);
 	::free(_pAudioSpec);
 	Function::Delete(_pFuncCallback);
 }
 
 Object *Object_AudioSpec::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 void Object_AudioSpec::Callback(Uint8 *stream, int len)
 {
-	if (_pFuncCallback == NULL) return;
+	if (_pFuncCallback == nullptr) return;
 	Environment &env = *this;
 	Audio::Format fmt;
 	if (_pAudioSpec->format == AUDIO_U16SYS) {
@@ -1857,7 +1857,7 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 	do {
 		AutoPtr<Object_audio> pObjAudio(new Object_audio(env,
 										fmt, _pAudioSpec->channels));
-		pObjAudio->ReferenceBuffer(NULL, stream, len);
+		pObjAudio->ReferenceBuffer(nullptr, stream, len);
 		//ValueList valList;
 		//valList.reserve(1);
 		//valList.push_back(Value(pObjAudio.release()));
@@ -1871,7 +1871,7 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 
 void Object_AudioSpec::CallbackStub(void *userdata, Uint8 *stream, int len)
 {
-	if (userdata == NULL) return;
+	if (userdata == nullptr) return;
 	Object_AudioSpec *pThis = reinterpret_cast<Object_AudioSpec *>(userdata);
 	pThis->Callback(stream, len);
 }
@@ -1931,7 +1931,7 @@ Gura_ImplementMethod(AudioSpec, MixAudio)
 	Object_AudioSpec *pDst = Object_AudioSpec::GetThisObj(args);
 	Object_AudioSpec *pSrc =dynamic_cast<Object_AudioSpec *>(args.GetObject(0));
 	int volume = args.GetInt(1);
-	if (pDst->GetAudioBuf() == NULL || pSrc->GetAudioBuf() == NULL) {
+	if (pDst->GetAudioBuf() == nullptr || pSrc->GetAudioBuf() == nullptr) {
 		sig.SetError(ERR_ValueError, "audio buffer is not prepared");
 		return Value::Null;
 	}
@@ -1962,7 +1962,7 @@ Object_AudioCVT::~Object_AudioCVT()
 
 Object *Object_AudioCVT::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_AudioCVT::ToString(bool exprFlag)
@@ -2005,7 +2005,7 @@ Object_CDtrack::~Object_CDtrack()
 
 Object *Object_CDtrack::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_CDtrack::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -2057,7 +2057,7 @@ Object_CD::~Object_CD()
 
 Object *Object_CD::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_CD::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -2421,8 +2421,8 @@ Gura_DeclareFunction(GetVideoSurface)
 Gura_ImplementFunction(GetVideoSurface)
 {
 	SDL_Surface *pSurface = ::SDL_GetVideoSurface();
-	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
+	if (pSurface == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.GetVideoInfo()
@@ -2438,7 +2438,7 @@ Gura_DeclareFunction(GetVideoInfo)
 Gura_ImplementFunction(GetVideoInfo)
 {
 	const SDL_VideoInfo *pVideoInfo = ::SDL_GetVideoInfo();
-	if (pVideoInfo == NULL) return Value::Null;
+	if (pVideoInfo == nullptr) return Value::Null;
 	return Object_VideoInfo::CreateValue(pVideoInfo);
 }
 
@@ -2458,7 +2458,7 @@ Gura_ImplementFunction(VideoDriverName)
 {
 	char buff[64];
 	char *p = ::SDL_VideoDriverName(buff, sizeof(buff));
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	return Value(p);
 }
 
@@ -2477,16 +2477,16 @@ Gura_DeclareFunction(ListModes)
 Gura_ImplementFunction(ListModes)
 {
 	SDL_PixelFormat *format = args.IsValid(0)?
-			Object_PixelFormat::GetObject(args, 0)->GetPixelFormat() : NULL;
+			Object_PixelFormat::GetObject(args, 0)->GetPixelFormat() : nullptr;
 	Uint32 flags = args.GetUInt(1);
 	SDL_Rect **modes = ::SDL_ListModes(format, flags);
-	if (modes == NULL) return Value::Null;
+	if (modes == nullptr) return Value::Null;
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
 	if (modes == reinterpret_cast<SDL_Rect **>(-1)) {
 		// nothing to do
 	} else {
-		for (int i = 0; modes[i] != NULL; i++) {
+		for (int i = 0; modes[i] != nullptr; i++) {
 			valList.push_back(Value(new Object_Rect(*modes[i])));
 		}
 	}
@@ -2561,8 +2561,8 @@ Gura_ImplementFunction(SetVideoMode)
 {
 	SDL_Surface *pSurface = ::SDL_SetVideoMode(
 		args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetULong(3));
-	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
+	if (pSurface == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.SetGamma(redgamma:number, greengamma:number, bluegamma:number)
@@ -2648,7 +2648,7 @@ Gura_DeclareFunction(SetGammaRamp)
 		"Sets the gamma lookup tables for the display for each color component.\n"
 		"Each table is an array of 256 Uint16 values, representing a mapping between the input and output for that channel.\n"
 		"The input is the index into the array, and the output is the 16-bit gamma value at that index, scaled to the output color precision.\n"
-		"You may pass NULL to any of the channels to leave them unchanged.\n"
+		"You may pass nullptr to any of the channels to leave them unchanged.\n"
 		"\n"
 		"This function adjusts the gamma based on lookup tables, you can also have the gamma calculated based on a \"gamma function\" parameter with sdl.Surface#SetGamma.\n"
 		"\n"
@@ -2737,8 +2737,8 @@ Gura_ImplementFunction(CreateRGBSurface)
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurface(
 		args.GetULong(0), args.GetInt(1), args.GetInt(2), args.GetInt(3),
 		args.GetULong(4), args.GetULong(5), args.GetULong(6), args.GetULong(7));
-	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
+	if (pSurface == nullptr) return Value::Null;
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.CreateRGBSurfaceFrom(image:image) {block?}
@@ -2783,11 +2783,11 @@ Gura_ImplementFunction(LoadBMP)
 {
 	const char *file = args.GetString(0);
 	SDL_Surface *pSurface = ::SDL_LoadBMP(file);
-	if (pSurface == NULL) {
+	if (pSurface == nullptr) {
 		sig.SetError(ERR_RuntimeError, "failed to load an image %s", file);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.BlitSurface(src:sdl.Surface, srcrect:sdl.Rect:nil, dst:sdl.Surface, dstrect:sdl.Rect:nil)
@@ -2840,7 +2840,7 @@ Gura_ImplementFunction(BlitSurface)
 		dynamic_cast<Object_Surface *>(args.GetObject(0))->GetSurface();
 	SDL_Surface *dst =
 		dynamic_cast<Object_Surface *>(args.GetObject(2))->GetSurface();
-	SDL_Rect *srcrect = NULL, *dstrect = NULL;
+	SDL_Rect *srcrect = nullptr, *dstrect = nullptr;
 	if (args.IsValid(1)) {
 		srcrect = &dynamic_cast<Object_Rect *>(args.GetObject(1))->GetRect();
 	}
@@ -2932,7 +2932,7 @@ Gura_ImplementFunction(SetCursor)
 {
 	SDL_Cursor *pCursor =
 			dynamic_cast<Object_Cursor *>(args.GetObject(0))->GetCursor();
-	if (pCursor == NULL) {
+	if (pCursor == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid cursor instance");
 		return Value::Null;
 	}
@@ -3058,7 +3058,7 @@ Gura_ImplementFunction(CreateYUVOverlay)
 		dynamic_cast<Object_Surface *>(args.GetObject(3))->GetSurface();
 	SDL_Overlay *pOverlay = ::SDL_CreateYUVOverlay(
 			args.GetInt(0), args.GetInt(1), args.GetULong(2), pSurface);
-	if (pOverlay == NULL) return Value::Null;
+	if (pOverlay == nullptr) return Value::Null;
 	return Object_Overlay::CreateValue(pOverlay);
 }
 
@@ -3093,11 +3093,11 @@ Gura_DeclareFunction(WM_GetCaption)
 
 Gura_ImplementFunction(WM_GetCaption)
 {
-	char *title = NULL, *icon = NULL;
+	char *title = nullptr, *icon = nullptr;
 	::SDL_WM_GetCaption(&title, &icon);
 	Value valTitle, valIcon;
-	if (title != NULL) valTitle = Value(title);
-	if (icon != NULL) valIcon = Value(icon);
+	if (title != nullptr) valTitle = Value(title);
+	if (icon != nullptr) valIcon = Value(icon);
 	return Value::CreateList(env, valTitle, valIcon);
 }
 
@@ -3125,7 +3125,7 @@ Gura_DeclareFunction(WM_SetIcon)
 Gura_ImplementFunction(WM_SetIcon)
 {
 	SDL_Surface *pSurface = dynamic_cast<Object_Surface *>(args.GetObject(0))->GetSurface();
-	const char *mask = args.Is_binary(1)? args.GetBinary(1).data() : NULL;
+	const char *mask = args.Is_binary(1)? args.GetBinary(1).data() : nullptr;
 	::SDL_WM_SetIcon(pSurface,
 				const_cast<Uint8 *>(reinterpret_cast<const Uint8 *>(mask)));
 	return Value::Null;
@@ -3390,10 +3390,10 @@ Gura_ImplementFunction(PushEvent)
 }
 
 // sdl.SetEventFilter(filter:function)
-static Function *_pFuncEventFilter = NULL;
+static Function *_pFuncEventFilter = nullptr;
 static int EventFilter(const SDL_Event *event)
 {
-	if (_pFuncEventFilter == NULL) return 1;
+	if (_pFuncEventFilter == nullptr) return 1;
 	Signal sig;
 	Environment &env = _pFuncEventFilter->GetEnvScope();
 	//ValueList valList;
@@ -3454,7 +3454,7 @@ Gura_DeclareFunction(GetEventFilter)
 
 Gura_ImplementFunction(GetEventFilter)
 {
-	if (_pFuncEventFilter == NULL) return Value::Null;
+	if (_pFuncEventFilter == nullptr) return Value::Null;
 	return Value(new Object_function(env, _pFuncEventFilter->Reference()));
 }
 
@@ -3759,7 +3759,7 @@ Gura_DeclareFunction(JoystickOpen)
 Gura_ImplementFunction(JoystickOpen)
 {
 	SDL_Joystick *pJoystick = ::SDL_JoystickOpen(args.GetInt(0));
-	if (pJoystick == NULL) return Value::Null;
+	if (pJoystick == nullptr) return Value::Null;
 	return Object_Joystick::CreateValue(pJoystick);
 }
 
@@ -3821,7 +3821,7 @@ Gura_ImplementFunction(OpenAudio)
 		::free(obtained);
 		return Value::Null;
 	}
-	return Object_AudioSpec::CreateValue(obtained, sig, NULL, NULL, 0);
+	return Object_AudioSpec::CreateValue(obtained, sig, nullptr, nullptr, 0);
 }
 
 // sdl.PauseAudio(pause_on:number):void
@@ -3868,15 +3868,15 @@ Gura_ImplementFunction(LoadWAV)
 {
 	SDL_AudioSpec *pAudioSpec =
 		reinterpret_cast<SDL_AudioSpec *>(::malloc(sizeof(SDL_AudioSpec)));
-	Uint8 *audio_buf = NULL;
+	Uint8 *audio_buf = nullptr;
 	Uint32 audio_len = 0;
-	if (::SDL_LoadWAV(args.GetString(0), pAudioSpec, &audio_buf, &audio_len) == NULL) {
+	if (::SDL_LoadWAV(args.GetString(0), pAudioSpec, &audio_buf, &audio_len) == nullptr) {
 		sig.SetError(ERR_RuntimeError, "failed to load WAV data");
 		return Value::Null;
 	}
 	pAudioSpec->callback = Object_AudioSpec::CallbackStub;
-	pAudioSpec->userdata = NULL;
-	return Object_AudioSpec::CreateValue(pAudioSpec, sig, NULL, audio_buf, audio_len);
+	pAudioSpec->userdata = nullptr;
+	return Object_AudioSpec::CreateValue(pAudioSpec, sig, nullptr, audio_buf, audio_len);
 }
 
 // sdl.BuildAudioCVT(src_format:number, src_channels:number, src_rate:number,
@@ -4001,7 +4001,7 @@ Gura_DeclareFunction(CDOpen)
 Gura_ImplementFunction(CDOpen)
 {
 	SDL_CD *pCD = ::SDL_CDOpen(args.GetInt(0));
-	if (pCD == NULL) {
+	if (pCD == nullptr) {
 		sig.SetError(ERR_IOError, "can't open CD drive #%d", args.GetInt(0));
 		return Value::Null;
 	}
@@ -4184,13 +4184,13 @@ Gura_ImplementFunction(AudioSpec)
 	pAudioSpec->channels	= args.GetUChar(2);
 	pAudioSpec->samples		= args.GetUShort(3);
 	pAudioSpec->callback	= Object_AudioSpec::CallbackStub;
-	pAudioSpec->userdata	= NULL;
-	Function *pFuncCallback = NULL;
+	pAudioSpec->userdata	= nullptr;
+	Function *pFuncCallback = nullptr;
 	if (args.Is_function(4)) {
 		pFuncCallback = Function::Reference(args.GetFunction(4));
 	}
 	Object_AudioSpec *pObj =
-			new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, NULL, 0);
+			new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, nullptr, 0);
 	pAudioSpec->userdata = pObj;
 	return ReturnValue(env, sig, args, Value(pObj));
 }

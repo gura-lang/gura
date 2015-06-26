@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AcceleratorEntry *_pObj;
 public:
-	inline wx_AcceleratorEntry() : wxAcceleratorEntry(), _sig(NULL), _pObj(NULL) {}
-	inline wx_AcceleratorEntry(int flags, int keyCode, int cmd) : wxAcceleratorEntry(flags, keyCode, cmd), _sig(NULL), _pObj(NULL) {}
+	inline wx_AcceleratorEntry() : wxAcceleratorEntry(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorEntry(int flags, int keyCode, int cmd) : wxAcceleratorEntry(flags, keyCode, cmd), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AcceleratorEntry();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AcceleratorEntry *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_AcceleratorEntry::~wx_AcceleratorEntry()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AcceleratorEntry::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry();
 	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(AcceleratorEntry)
 	int cmd = args.GetInt(2);
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry(flags, keyCode, cmd);
 	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -157,20 +157,20 @@ Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 //----------------------------------------------------------------------------
 Object_wx_AcceleratorEntry::~Object_wx_AcceleratorEntry()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AcceleratorEntry::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.AcceleratorEntry:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -195,7 +195,7 @@ Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)
 
 Gura_ImplementDescendantCreator(wx_AcceleratorEntry)
 {
-	return new Object_wx_AcceleratorEntry((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AcceleratorEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 int ArgToKeyCode(const Function *pFunc, Signal sig, Args &args, size_t iArg)

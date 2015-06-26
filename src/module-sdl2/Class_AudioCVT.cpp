@@ -11,7 +11,7 @@ Object_AudioCVT::~Object_AudioCVT()
 
 Object *Object_AudioCVT::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_AudioCVT::ToString(bool exprFlag)

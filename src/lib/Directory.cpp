@@ -27,7 +27,7 @@ Directory *Directory::Next(Environment &env, Signal sig)
 {
 	if (!IsContainer()) {
 		sig.SetError(ERR_ValueError, "not a container entry");
-		return NULL;
+		return nullptr;
 	}
 	return DoNext(env, sig);
 }
@@ -35,7 +35,7 @@ Directory *Directory::Next(Environment &env, Signal sig)
 String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
 {
 	String pathName(_name);
-	for (Directory *pDirectory = GetParent(); pDirectory != NULL;
+	for (Directory *pDirectory = GetParent(); pDirectory != nullptr;
 										pDirectory = pDirectory->GetParent()) {
 		// a "boundary container" directory may have an empty name
 		if (*pDirectory->GetName() != '\0' || pDirectory->IsRootContainer()) {
@@ -48,7 +48,7 @@ String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
 			pathName = str;
 		}
 	}
-	if (pathNameTrail != NULL) {
+	if (pathNameTrail != nullptr) {
 		size_t len = pathName.size();
 		if (len == 0 || !IsFileSeparator(pathName[len - 1])) {
 			pathName += GetSeparator();
@@ -66,7 +66,7 @@ String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
 int Directory::CountDepth() const
 {
 	int depth = 0;
-	for (const Directory *pDirectory = GetParent(); pDirectory != NULL;
+	for (const Directory *pDirectory = GetParent(); pDirectory != nullptr;
 										pDirectory = pDirectory->GetParent()) {
 		depth++;
 	}
@@ -76,13 +76,13 @@ int Directory::CountDepth() const
 Object *Directory::DoGetStatObj(Signal sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
-	return NULL;
+	return nullptr;
 }
 
 Directory *Directory::Open(Environment &env, Signal sig,
 				const char *pathName, PathMgr::NotFoundMode notFoundMode)
 {
-	return Open(env, sig, NULL, &pathName, notFoundMode);
+	return Open(env, sig, nullptr, &pathName, notFoundMode);
 }
 
 Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
@@ -92,14 +92,14 @@ Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
 	do {
 		PathMgr *pPathMgr =
 				PathMgr::FindResponsible(env, sig, pDirectory, *pPathName);
-		if (sig.IsSignalled()) return NULL;
-		if (pPathMgr == NULL) {
+		if (sig.IsSignalled()) return nullptr;
+		if (pPathMgr == nullptr) {
 			sig.SetError(ERR_ValueError, "unsupported directory name");
-			return NULL;
+			return nullptr;
 		}
 		pDirectory = pPathMgr->DoOpenDirectory(env, sig,
 									pDirectory, pPathName, notFoundMode);
-		if (sig.IsSignalled() || pDirectory == NULL) return NULL;
+		if (sig.IsSignalled() || pDirectory == nullptr) return nullptr;
 	} while (**pPathName != '\0');
 	return pDirectory;
 }
@@ -112,7 +112,7 @@ Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
 				Directory *pDirectory, int depthMax, const StringList &patterns) :
 	Iterator(false),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
-	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depthMax(0),
+	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(nullptr), _depthMax(0),
 	_patterns(patterns)
 {
 	_depthMax = (depthMax < 0)? -1 : pDirectory->CountDepth() + depthMax + 1;
@@ -128,17 +128,17 @@ Directory::Iterator_Walk::~Iterator_Walk()
 
 Iterator *Directory::Iterator_Walk::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
-		Directory *pDirectoryChild = NULL;
+		Directory *pDirectoryChild = nullptr;
 		while (_pDirectory.IsNull() ||
-				(pDirectoryChild = _pDirectory->Next(env, sig)) == NULL) {
+				(pDirectoryChild = _pDirectory->Next(env, sig)) == nullptr) {
 			if (_directoryQue.empty()) {
-				_pDirectory.reset(NULL);
+				_pDirectory.reset(nullptr);
 				return false;
 			}
 			Directory *pDirectoryNext = _directoryQue.front();
@@ -166,7 +166,7 @@ bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value
 				if (_statFlag) {
 					Object *pObj = pDirectoryChild->GetStatObj(sig);
 					if (sig.IsSignalled()) return false;
-					if (pObj != NULL) value = Value(pObj);
+					if (pObj != nullptr) value = Value(pObj);
 				} else {
 					value = Value(pDirectoryChild->MakePathName(_addSepFlag));
 				}
@@ -199,7 +199,7 @@ Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag) :
 	Iterator(false),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
-	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depth(0)
+	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(nullptr), _depth(0)
 {
 }
 
@@ -249,17 +249,17 @@ Directory::Iterator_Glob::~Iterator_Glob()
 
 Iterator *Directory::Iterator_Glob::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)
 {
-	Directory *pDirectoryChild = NULL;
+	Directory *pDirectoryChild = nullptr;
 	for (;;) {
 		while (_pDirectory.IsNull() ||
-				(pDirectoryChild = _pDirectory->Next(env, sig)) == NULL) {
+				(pDirectoryChild = _pDirectory->Next(env, sig)) == nullptr) {
 			if (_directoryQue.empty()) {
-				_pDirectory.reset(NULL);
+				_pDirectory.reset(nullptr);
 				return false;
 			}
 			Directory *pDirectoryNext = _directoryQue.front();
@@ -269,7 +269,7 @@ bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value
 			if (pDirectoryNext->IsContainer()) {
 				_pDirectory.reset(pDirectoryNext);
 			} else {
-				_pDirectory.reset(NULL);
+				_pDirectory.reset(nullptr);
 				pDirectoryChild = pDirectoryNext;
 				goto found;
 			}
@@ -295,7 +295,7 @@ found:
 	if (_statFlag) {
 		Object *pObj = pDirectoryChild->GetStatObj(sig);
 		if (sig.IsSignalled()) return false;
-		if (pObj != NULL) value = Value(pObj);
+		if (pObj != nullptr) value = Value(pObj);
 	} else {
 		value = Value(pDirectoryChild->MakePathName(_addSepFlag));
 	}
@@ -319,7 +319,7 @@ namespace DirBuilder {
 //-----------------------------------------------------------------------------
 Record::~Record()
 {
-	if (_pRecordChildren != NULL) {
+	if (_pRecordChildren != nullptr) {
 		foreach (RecordList, ppRecordChild, *_pRecordChildren) {
 			delete *ppRecordChild;
 		}
@@ -328,19 +328,19 @@ Record::~Record()
 
 Record *Record::Find(const char *name)
 {
-	if (_pRecordChildren == NULL) return NULL;
+	if (_pRecordChildren == nullptr) return nullptr;
 	foreach (RecordList, ppRecordChild, *_pRecordChildren) {
 		if (::strcmp((*ppRecordChild)->GetName(), name) == 0) {
 			return *ppRecordChild;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
 // Structure
 //-----------------------------------------------------------------------------
-Structure::Structure() : _cntRef(1), _pRecordRoot(NULL)
+Structure::Structure() : _cntRef(1), _pRecordRoot(nullptr)
 {
 }
 
@@ -354,7 +354,7 @@ Record *Structure::AddRecord(const char *pathName)
 	const char *p = pathName;
 	if (IsFileSeparator(*p)) p++;
 	String field;
-	Record *pRecord = NULL;
+	Record *pRecord = nullptr;
 	Record *pRecordParent = GetRoot();
 	for ( ; ; p++) {
 		char ch = *p;
@@ -364,7 +364,7 @@ Record *Structure::AddRecord(const char *pathName)
 		}
 		if (!field.empty()) {
 			pRecord = pRecordParent->Find(field.c_str());
-			if (pRecord == NULL) {
+			if (pRecord == nullptr) {
 				bool containerFlag = IsFileSeparator(ch);
 				pRecord = pRecordParent->GenerateChild(
 										field.c_str(), containerFlag);
@@ -380,7 +380,7 @@ Record *Structure::AddRecord(const char *pathName)
 Directory *Structure::GenerateDirectory(Signal sig, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
-	Directory *pDirectory = NULL;
+	Directory *pDirectory = nullptr;
 	const char *p = *pPathName;
 	if (IsFileSeparator(*p)) p++;
 	String field;
@@ -396,19 +396,19 @@ Directory *Structure::GenerateDirectory(Signal sig, Directory *pParent,
 			field += ch;
 			continue;
 		}
-		Record *pRecord = NULL;
+		Record *pRecord = nullptr;
 		if (field.empty()) {
 			break;
 		} else {
 			pRecord = pRecordParent->Find(field.c_str());
-			if (pRecord != NULL) {
+			if (pRecord != nullptr) {
 				// nothing to do
 			} else if (notFoundMode == PathMgr::NF_NoSignal) {
-				pDirectory = NULL;
+				pDirectory = nullptr;
 				break;
 			} else {
 				sig.SetError(ERR_IOError, "path not found");
-				pDirectory = NULL;
+				pDirectory = nullptr;
 				break;
 			}
 		}

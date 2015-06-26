@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_GlyphSlot::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_GlyphSlot::ToString(bool exprFlag)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(GlyphSlot, Get_Glyph)
 		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
-	return Value(new Object_Glyph(NULL, pGlyph.release()));
+	return Value(new Object_Glyph(nullptr, pGlyph.release()));
 }
 
 // freetype.GlyphSlot#Render(render_mode:number):reduce

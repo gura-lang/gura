@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PostScriptDC *_pObj;
 public:
-	inline wx_PostScriptDC(const wxPrintData& printData) : wxPostScriptDC(printData), _sig(NULL), _pObj(NULL) {}
-	inline wx_PostScriptDC(const wxString& output, bool interactive, wxWindow * parent) : wxPostScriptDC(output, interactive, parent), _sig(NULL), _pObj(NULL) {}
+	inline wx_PostScriptDC(const wxPrintData& printData) : wxPostScriptDC(printData), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PostScriptDC(const wxString& output, bool interactive, wxWindow * parent) : wxPostScriptDC(output, interactive, parent), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PostScriptDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PostScriptDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_PostScriptDC::~wx_PostScriptDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PostScriptDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(PostScriptDC)
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(*printData);
 	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(PostScriptDC_1)
 	wxWindow *parent = Object_wx_Window::GetObject(args, 2)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(output, interactive, parent);
 	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -126,13 +126,13 @@ Object_wx_PostScriptDC::~Object_wx_PostScriptDC()
 
 Object *Object_wx_PostScriptDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PostScriptDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.PostScriptDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -155,7 +155,7 @@ Gura_ImplementUserInheritableClass(wx_PostScriptDC)
 
 Gura_ImplementDescendantCreator(wx_PostScriptDC)
 {
-	return new Object_wx_PostScriptDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PostScriptDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

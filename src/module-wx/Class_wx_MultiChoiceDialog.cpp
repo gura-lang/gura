@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MultiChoiceDialog *_pObj;
 public:
-	//inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, int n, const wxString* choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, n, choices, style, pos), _sig(NULL), _pObj(NULL) {}
-	inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, choices, style, pos), _sig(NULL), _pObj(NULL) {}
+	//inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, int n, const wxString* choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, n, choices, style, pos), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, choices, style, pos), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MultiChoiceDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MultiChoiceDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_MultiChoiceDialog::~wx_MultiChoiceDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MultiChoiceDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(MultiChoiceDialog)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxString::FromUTF8(args.GetString(2));
 	int n = args.GetInt(3);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(MultiChoiceDialog)
 	if (args.IsValid(6)) pos = Object_wx_Point::GetObject(args, 6)->GetEntity();
 	wx_MultiChoiceDialog *pEntity = new wx_MultiChoiceDialog(parent, message, caption, n, choices, style, *pos);
 	Object_wx_MultiChoiceDialog *pObj = Object_wx_MultiChoiceDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -99,7 +99,7 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxString::FromUTF8(args.GetString(2));
 	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
@@ -109,7 +109,7 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
 	wx_MultiChoiceDialog *pEntity = new wx_MultiChoiceDialog(parent, message, caption, *choices, style, *pos);
 	Object_wx_MultiChoiceDialog *pObj = Object_wx_MultiChoiceDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -171,13 +171,13 @@ Object_wx_MultiChoiceDialog::~Object_wx_MultiChoiceDialog()
 
 Object *Object_wx_MultiChoiceDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.MultiChoiceDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -201,7 +201,7 @@ Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)
 
 Gura_ImplementDescendantCreator(wx_MultiChoiceDialog)
 {
-	return new Object_wx_MultiChoiceDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MultiChoiceDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

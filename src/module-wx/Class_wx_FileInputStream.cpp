@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileInputStream *_pObj;
 public:
-	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _sig(NULL), _pObj(NULL) {}
-	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _sig(NULL), _pObj(NULL) {}
-	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_FileInputStream::~wx_FileInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(FileInputStream)
 	wxString ifileName = wxString::FromUTF8(args.GetString(0));
 	wx_FileInputStream *pEntity = new wx_FileInputStream(ifileName);
 	Object_wx_FileInputStream *pObj = Object_wx_FileInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,13 +85,13 @@ Object_wx_FileInputStream::~Object_wx_FileInputStream()
 
 Object *Object_wx_FileInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -113,7 +113,7 @@ Gura_ImplementUserInheritableClass(wx_FileInputStream)
 
 Gura_ImplementDescendantCreator(wx_FileInputStream)
 {
-	return new Object_wx_FileInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

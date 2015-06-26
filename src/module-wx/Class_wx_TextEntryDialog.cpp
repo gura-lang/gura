@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextEntryDialog *_pObj;
 public:
-	inline wx_TextEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxTextEntryDialog(parent, message, caption, defaultValue, style, pos), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxTextEntryDialog(parent, message, caption, defaultValue, style, pos), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TextEntryDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextEntryDialog *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_TextEntryDialog::~wx_TextEntryDialog()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextEntryDialog::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(TextEntryDialog)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxT("Please enter text");
 	if (args.IsValid(2)) caption = wxString::FromUTF8(args.GetString(2));
@@ -65,7 +65,7 @@ Gura_ImplementFunction(TextEntryDialog)
 	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
 	wx_TextEntryDialog *pEntity = new wx_TextEntryDialog(parent, message, caption, defaultValue, style, *pos);
 	Object_wx_TextEntryDialog *pObj = Object_wx_TextEntryDialog::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextEntryDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,13 +127,13 @@ Object_wx_TextEntryDialog::~Object_wx_TextEntryDialog()
 
 Object *Object_wx_TextEntryDialog::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextEntryDialog:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -156,7 +156,7 @@ Gura_ImplementUserInheritableClass(wx_TextEntryDialog)
 
 Gura_ImplementDescendantCreator(wx_TextEntryDialog)
 {
-	return new Object_wx_TextEntryDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextEntryDialog((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

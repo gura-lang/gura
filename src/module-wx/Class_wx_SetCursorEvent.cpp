@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SetCursorEvent *_pObj;
 public:
-	inline wx_SetCursorEvent(wxCoord x, wxCoord y) : wxSetCursorEvent(x, y), _sig(NULL), _pObj(NULL) {}
+	inline wx_SetCursorEvent(wxCoord x, wxCoord y) : wxSetCursorEvent(x, y), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SetCursorEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SetCursorEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SetCursorEvent::~wx_SetCursorEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SetCursorEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(SetCursorEvent)
 	if (args.IsValid(1)) y = static_cast<wxCoord>(args.GetInt(1));
 	wx_SetCursorEvent *pEntity = new wx_SetCursorEvent(x, y);
 	Object_wx_SetCursorEvent *pObj = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SetCursorEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetCursor)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxCursor &rtn = pThis->GetEntity()->GetCursor();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Cursor(new wxCursor(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Cursor(new wxCursor(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, GetX)
@@ -144,13 +144,13 @@ Object_wx_SetCursorEvent::~Object_wx_SetCursorEvent()
 
 Object *Object_wx_SetCursorEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SetCursorEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -175,7 +175,7 @@ Gura_ImplementUserInheritableClass(wx_SetCursorEvent)
 
 Gura_ImplementDescendantCreator(wx_SetCursorEvent)
 {
-	return new Object_wx_SetCursorEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SetCursorEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

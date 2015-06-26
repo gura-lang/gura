@@ -28,14 +28,14 @@ Gura_ImplementClassMethod(win32_surface, create_emf)
 	rc.left = 0, rc.top = 0;
 	rc.right = static_cast<long>(width * 20);	// unit: 1/20pt
 	rc.bottom = static_cast<long>(height * 20);	// unit: 1/20pt
-	HDC hdc = ::CreateEnhMetaFile(NULL, args.GetString(0), &rc, "EMF by Gura\0");
+	HDC hdc = ::CreateEnhMetaFile(nullptr, args.GetString(0), &rc, "EMF by Gura\0");
 	::StartPage(hdc);
 	//::SetMapMode(hdc, MM_TWIPS);				// 1 unit = 1/20pt
 	::SetMapMode(hdc, MM_HIMETRIC);				// 1 unit = 0.01mm
-	//::SetWindowOrgEx(hdc, 0, height * 20, NULL);
-	//::MoveToEx(hdc, 0, 0, NULL);
+	//::SetWindowOrgEx(hdc, 0, height * 20, nullptr);
+	//::MoveToEx(hdc, 0, 0, nullptr);
 	//::LineTo(hdc, 1000, 1000);
-	//::MoveToEx(hdc, 0, 0, NULL);
+	//::MoveToEx(hdc, 0, 0, nullptr);
 	//::LineTo(hdc, 1000, -1000);
 	Writer_EnhMetaFile *pWriter = new Writer_EnhMetaFile(sig, width, height, hdc);
 	cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
@@ -55,7 +55,7 @@ Gura_DeclareClassMethod(win32_surface, create_printing)
 
 Gura_ImplementClassMethod(win32_surface, create_printing)
 {
-	const char *driverName = NULL;
+	const char *driverName = nullptr;
 	const char *printerName = args.GetString(0);
 	char printerNameDefault[MAX_PATH];
 	BYTE printerInfoBuff[16384];
@@ -69,8 +69,8 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 		printerName = printerNameDefault;
 	}
 	do {
-		HANDLE hPrinter = NULL;
-		if (!::OpenPrinter(const_cast<char *>(printerName), &hPrinter, NULL)) {
+		HANDLE hPrinter = nullptr;
+		if (!::OpenPrinter(const_cast<char *>(printerName), &hPrinter, nullptr)) {
 			sig.SetError(ERR_IOError, "failed to open printer handler");
 			return Value::Null;
 		}
@@ -86,7 +86,7 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 	rc.left = 0, rc.top = 0;
 	rc.right = static_cast<long>(width * 20);	// unit: 1/20pt
 	rc.bottom = static_cast<long>(height * 20);	// unit: 1/20pt
-	HDC hdc = ::CreateDC(driverName, printerName, pPrinterInfo2->pPortName, NULL);
+	HDC hdc = ::CreateDC(driverName, printerName, pPrinterInfo2->pPortName, nullptr);
 	DOCINFO di;
 	::memset(&di, 0x00, sizeof(di));
 	di.cbSize = sizeof(DOCINFO);

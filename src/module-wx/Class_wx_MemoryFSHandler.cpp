@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MemoryFSHandler *_pObj;
 public:
-	inline wx_MemoryFSHandler() : wxMemoryFSHandler(), _sig(NULL), _pObj(NULL) {}
+	inline wx_MemoryFSHandler() : wxMemoryFSHandler(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MemoryFSHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryFSHandler *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MemoryFSHandler::~wx_MemoryFSHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MemoryFSHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MemoryFSHandler *pEntity = new wx_MemoryFSHandler();
 	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryFSHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -165,13 +165,13 @@ Object_wx_MemoryFSHandler::~Object_wx_MemoryFSHandler()
 
 Object *Object_wx_MemoryFSHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryFSHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -196,7 +196,7 @@ Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 
 Gura_ImplementDescendantCreator(wx_MemoryFSHandler)
 {
-	return new Object_wx_MemoryFSHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MemoryFSHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

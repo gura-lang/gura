@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_BitmapComboBox *_pObj;
 public:
-	inline wx_BitmapComboBox() : wxBitmapComboBox(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_BitmapComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxBitmapComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_BitmapComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxBitmapComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_BitmapComboBox() : wxBitmapComboBox(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_BitmapComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxBitmapComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BitmapComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxBitmapComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_BitmapComboBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BitmapComboBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_BitmapComboBox::~wx_BitmapComboBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BitmapComboBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(BitmapComboBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapComboBox *pEntity = new wx_BitmapComboBox();
 	Object_wx_BitmapComboBox *pObj = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementFunction(BitmapComboBox)
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_BitmapComboBox *pEntity = new wx_BitmapComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
 	Object_wx_BitmapComboBox *pObj = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetBitmapSize)
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetBitmapSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BitmapComboBox, GetItemBitmap)
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetItemBitmap)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
 	wxBitmap rtn = pThis->GetEntity()->GetItemBitmap(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BitmapComboBox, Insert)
@@ -329,13 +329,13 @@ Object_wx_BitmapComboBox::~Object_wx_BitmapComboBox()
 
 Object *Object_wx_BitmapComboBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapComboBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -366,7 +366,7 @@ Gura_ImplementUserInheritableClass(wx_BitmapComboBox)
 
 Gura_ImplementDescendantCreator(wx_BitmapComboBox)
 {
-	return new Object_wx_BitmapComboBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BitmapComboBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CalendarDateAttr *_pObj;
 public:
-	inline wx_CalendarDateAttr() : wxCalendarDateAttr(), _sig(NULL), _pObj(NULL) {}
-	inline wx_CalendarDateAttr(const wxColour& colText, const wxColour& colBack, const wxColour& colBorder, const wxFont& font, wxCalendarDateBorder border) : wxCalendarDateAttr(colText, colBack, colBorder, font, border), _sig(NULL), _pObj(NULL) {}
-	inline wx_CalendarDateAttr(wxCalendarDateBorder border, const wxColour& colBorder) : wxCalendarDateAttr(border, colBorder), _sig(NULL), _pObj(NULL) {}
+	inline wx_CalendarDateAttr() : wxCalendarDateAttr(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarDateAttr(const wxColour& colText, const wxColour& colBack, const wxColour& colBorder, const wxFont& font, wxCalendarDateBorder border) : wxCalendarDateAttr(colText, colBack, colBorder, font, border), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarDateAttr(wxCalendarDateBorder border, const wxColour& colBorder) : wxCalendarDateAttr(border, colBorder), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CalendarDateAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalendarDateAttr *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_CalendarDateAttr::~wx_CalendarDateAttr()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CalendarDateAttr::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(CalendarDateAttrEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CalendarDateAttr *pEntity = new wx_CalendarDateAttr();
 	Object_wx_CalendarDateAttr *pObj = Object_wx_CalendarDateAttr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarDateAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(CalendarDateAttr)
 	if (args.IsValid(4)) border = static_cast<wxCalendarDateBorder>(args.GetInt(4));
 	wx_CalendarDateAttr *pEntity = new wx_CalendarDateAttr(*colText, *colBack, *colBorder, *font, border);
 	Object_wx_CalendarDateAttr *pObj = Object_wx_CalendarDateAttr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarDateAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -113,7 +113,7 @@ Gura_ImplementFunction(CalendarDateAttr_1)
 	if (args.IsValid(1)) colBorder = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wx_CalendarDateAttr *pEntity = new wx_CalendarDateAttr(border, *colBorder);
 	Object_wx_CalendarDateAttr *pObj = Object_wx_CalendarDateAttr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarDateAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, GetTextColour)
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarDateAttr, GetBackgroundColour)
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, GetBackgroundColour)
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarDateAttr, GetBorderColour)
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, GetBorderColour)
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBorderColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarDateAttr, GetFont)
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, GetFont)
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarDateAttr, GetBorder)
@@ -372,20 +372,20 @@ Gura_ImplementMethod(wx_CalendarDateAttr, GetBorder)
 //----------------------------------------------------------------------------
 Object_wx_CalendarDateAttr::~Object_wx_CalendarDateAttr()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_CalendarDateAttr::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CalendarDateAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalendarDateAttr:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -424,7 +424,7 @@ Gura_ImplementUserInheritableClass(wx_CalendarDateAttr)
 
 Gura_ImplementDescendantCreator(wx_CalendarDateAttr)
 {
-	return new Object_wx_CalendarDateAttr((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CalendarDateAttr((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

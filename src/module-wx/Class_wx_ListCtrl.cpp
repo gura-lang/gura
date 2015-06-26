@@ -19,8 +19,8 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_ListCtrl> _pObj;
 public:
-	inline wx_ListCtrl() : wxListCtrl(), _sig(NULL), _pObj(NULL) {}
-	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_ListCtrl() : wxListCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	virtual wxListItemAttr *OnGetItemAttr(long item) const;
 	virtual int OnGetItemImage(long item) const;
 	virtual int OnGetItemColumnImage(long item, long column) const;
@@ -54,20 +54,20 @@ wx_ListCtrl::~wx_ListCtrl()
 wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnGetItemAttr);
-	if (pFunc == NULL) return wxListCtrl::OnGetItemAttr(item);
+	if (pFunc == nullptr) return wxListCtrl::OnGetItemAttr(item);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_ListItemAttr, true)) return false;
-	return rtn.IsValid()? Object_wx_ListItemAttr::GetObject(rtn)->GetEntity() : NULL;
+	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_ListItemAttr, true)) return nullptr;
+	return rtn.IsValid()? Object_wx_ListItemAttr::GetObject(rtn)->GetEntity() : nullptr;
 }
 
 int wx_ListCtrl::OnGetItemImage(long item) const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnGetItemImage);
-	if (pFunc == NULL) return wxListCtrl::OnGetItemImage(item);
+	if (pFunc == nullptr) return wxListCtrl::OnGetItemImage(item);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
@@ -80,7 +80,7 @@ int wx_ListCtrl::OnGetItemImage(long item) const
 int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnGetItemColumnImage);
-	if (pFunc == NULL) return wxListCtrl::OnGetItemColumnImage(item, column);
+	if (pFunc == nullptr) return wxListCtrl::OnGetItemColumnImage(item, column);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
@@ -94,7 +94,7 @@ int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 wxString wx_ListCtrl::OnGetItemText(long item, long column) const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnGetItemText);
-	if (pFunc == NULL) return wxListCtrl::OnGetItemText(item, column);
+	if (pFunc == nullptr) return wxListCtrl::OnGetItemText(item, column);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
@@ -124,7 +124,7 @@ Gura_ImplementFunction(ListCtrlEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListCtrl *pEntity = new wx_ListCtrl();
 	Object_wx_ListCtrl *pObj = Object_wx_ListCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -165,7 +165,7 @@ Gura_ImplementFunction(ListCtrl)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_ListCtrl *pEntity = new wx_ListCtrl(parent, id, *pos, *size, style, *validator, name);
 	Object_wx_ListCtrl *pObj = Object_wx_ListCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ListCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -464,7 +464,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetEditControl)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextCtrl *rtn = (wxTextCtrl *)pThis->GetEntity()->GetEditControl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrl(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetImageList)
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetImageList)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int which = args.GetInt(0);
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList(which);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ImageList(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItem)
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItem)
 	bool rtn = pThis->GetEntity()->GetItem(info);
 	Value value;
 	if (rtn) {
-		value = Value(new Object_wx_ListItem(new wxListItem(info), NULL, OwnerTrue));
+		value = Value(new Object_wx_ListItem(new wxListItem(info), nullptr, OwnerTrue));
 	}
 	return ReturnValue(env, sig, args, value);
 }
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemBackgroundColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	wxColour rtn = pThis->GetEntity()->GetItemBackgroundColour(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItemCount)
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemFont)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	wxFont rtn = pThis->GetEntity()->GetItemFont(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItemPosition)
@@ -610,7 +610,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemRect)
 	if (args.IsValid(1)) code = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->GetItemRect(item, rect, code);
 	Value value;
-	if (rtn) value = Value(new Object_wx_Rect(new wxRect(rect), NULL, OwnerTrue));
+	if (rtn) value = Value(new Object_wx_Rect(new wxRect(rect), nullptr, OwnerTrue));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -635,7 +635,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetSubItemRect)
 	if (args.IsValid(2)) code = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->GetSubItemRect(item, subItem, rect, code);
 	Value value;
-	if (rtn) value = Value(new Object_wx_Rect(new wxRect(rect), NULL, OwnerTrue));
+	if (rtn) value = Value(new Object_wx_Rect(new wxRect(rect), nullptr, OwnerTrue));
 	return ReturnValue(env, sig, args, value);
 #else
 	SetError_MSWOnly(sig);
@@ -654,7 +654,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemSpacing)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetItemSpacing();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItemState)
@@ -704,7 +704,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemTextColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	wxColour rtn = pThis->GetEntity()->GetItemTextColour(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetNextItem)
@@ -754,7 +754,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetTextColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetTopItem)
@@ -782,7 +782,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetViewRect)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetViewRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, HitTest)
@@ -930,7 +930,7 @@ Gura_ImplementMethod(wx_ListCtrl, OnGetItemAttr)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	wxListItemAttr *rtn = (wxListItemAttr *)dynamic_cast<wx_ListCtrl *>(pThis->GetEntity())->_OnGetItemAttr(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ListItemAttr(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ListItemAttr(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, OnGetItemImage)
@@ -1097,7 +1097,7 @@ Gura_ImplementMethod(wx_ListCtrl, SetImageList)
 {
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = NULL;
+	wxImageList *imageList = nullptr;
 	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	int which = args.GetInt(1);
 	pThis->GetEntity()->SetImageList(imageList, which);
@@ -1450,13 +1450,13 @@ Object_wx_ListCtrl::~Object_wx_ListCtrl()
 
 Object *Object_wx_ListCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ListCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -1552,7 +1552,7 @@ Gura_ImplementUserInheritableClass(wx_ListCtrl)
 
 Gura_ImplementDescendantCreator(wx_ListCtrl)
 {
-	return new Object_wx_ListCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ListCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

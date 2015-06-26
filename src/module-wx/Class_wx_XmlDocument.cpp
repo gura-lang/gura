@@ -14,10 +14,10 @@ private:
 	Gura::Signal _sig;
 	Object_wx_XmlDocument *_pObj;
 public:
-	inline wx_XmlDocument() : wxXmlDocument(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_XmlDocument(const wxString& filename, const wxString& encoding, int flags) : wxXmlDocument(filename, encoding, flags), _sig(NULL), _pObj(NULL) {}
-	//inline wx_XmlDocument(wxInputStream& stream, const wxString& encoding, int flags) : wxXmlDocument(stream, encoding, flags), _sig(NULL), _pObj(NULL) {}
-	inline wx_XmlDocument(const wxXmlDocument& doc) : wxXmlDocument(doc), _sig(NULL), _pObj(NULL) {}
+	inline wx_XmlDocument() : wxXmlDocument(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlDocument(const wxString& filename, const wxString& encoding, int flags) : wxXmlDocument(filename, encoding, flags), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlDocument(wxInputStream& stream, const wxString& encoding, int flags) : wxXmlDocument(stream, encoding, flags), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlDocument(const wxXmlDocument& doc) : wxXmlDocument(doc), _sig(nullptr), _pObj(nullptr) {}
 	~wx_XmlDocument();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlDocument *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -28,12 +28,12 @@ public:
 
 wx_XmlDocument::~wx_XmlDocument()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_XmlDocument::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(XmlDocumentEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XmlDocument *pEntity = new wx_XmlDocument();
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,7 +84,7 @@ Gura_ImplementFunction(XmlDocument)
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	wx_XmlDocument *pEntity = new wx_XmlDocument(filename, encoding, flags);
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -120,7 +120,7 @@ Gura_ImplementFunction(XmlDocument_1)
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	wx_XmlDocument *pEntity = new wx_XmlDocument(*stream, encoding, flags);
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -147,7 +147,7 @@ Gura_ImplementFunction(XmlDocument_2)
 	wxXmlDocument *doc = Object_wx_XmlDocument::GetObject(args, 0)->GetEntity();
 	wx_XmlDocument *pEntity = new wx_XmlDocument(*doc);
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->DetachRoot();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
 
 #if 0
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetRoot)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetRoot();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, GetVersion)
@@ -406,13 +406,13 @@ Object_wx_XmlDocument::~Object_wx_XmlDocument()
 
 Object *Object_wx_XmlDocument::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_XmlDocument::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlDocument:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -449,7 +449,7 @@ Gura_ImplementUserInheritableClass(wx_XmlDocument)
 
 Gura_ImplementDescendantCreator(wx_XmlDocument)
 {
-	return new Object_wx_XmlDocument((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_XmlDocument((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

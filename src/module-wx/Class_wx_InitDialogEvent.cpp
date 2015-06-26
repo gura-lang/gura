@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_InitDialogEvent *_pObj;
 public:
-	inline wx_InitDialogEvent(int id) : wxInitDialogEvent(id), _sig(NULL), _pObj(NULL) {}
+	inline wx_InitDialogEvent(int id) : wxInitDialogEvent(id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_InitDialogEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_InitDialogEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_InitDialogEvent::~wx_InitDialogEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_InitDialogEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(InitDialogEvent)
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_InitDialogEvent *pEntity = new wx_InitDialogEvent(id);
 	Object_wx_InitDialogEvent *pObj = Object_wx_InitDialogEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_InitDialogEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_InitDialogEvent::~Object_wx_InitDialogEvent()
 
 Object *Object_wx_InitDialogEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_InitDialogEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.InitDialogEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_InitDialogEvent)
 
 Gura_ImplementDescendantCreator(wx_InitDialogEvent)
 {
-	return new Object_wx_InitDialogEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_InitDialogEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

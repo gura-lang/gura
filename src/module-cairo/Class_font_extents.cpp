@@ -11,7 +11,7 @@ Object_font_extents::~Object_font_extents()
 
 Object *Object_font_extents::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_font_extents::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

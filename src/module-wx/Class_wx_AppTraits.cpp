@@ -43,12 +43,12 @@ public:
 
 wx_AppTraits::~wx_AppTraits()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AppTraits::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontMapper *rtn = (wxFontMapper *)pThis->GetEntity()->CreateFontMapper();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)pThis->GetEntity()->CreateLogTarget();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMessageOutput *rtn = (wxMessageOutput *)pThis->GetEntity()->CreateMessageOutput();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MessageOutput(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_MessageOutput(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->CreateRenderer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStandardPaths &rtn = pThis->GetEntity()->GetStandardPaths();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPaths(new wxStandardPaths(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPaths(new wxStandardPaths(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -161,9 +161,9 @@ Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
 #if 0
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int major = NULL;
+	int major = nullptr;
 	if (args.IsValid(0)) major = args.GetInt(0);
-	int minor = NULL;
+	int minor = nullptr;
 	if (args.IsValid(1)) minor = args.GetInt(1);
 	wxPortId rtn = pThis->GetEntity()->GetToolkitVersion(major, minor);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -227,20 +227,20 @@ Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
 //----------------------------------------------------------------------------
 Object_wx_AppTraits::~Object_wx_AppTraits()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AppTraits::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AppTraits::ToString(bool exprFlag)
 {
 	String rtn("<wx.AppTraits:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -278,7 +278,7 @@ Gura_ImplementUserInheritableClass(wx_AppTraits)
 
 Gura_ImplementDescendantCreator(wx_AppTraits)
 {
-	return new Object_wx_AppTraits((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AppTraits((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

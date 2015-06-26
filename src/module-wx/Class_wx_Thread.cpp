@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Thread *_pObj;
 public:
-	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _sig(NULL), _pObj(NULL) {}
+	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _sig(nullptr), _pObj(nullptr) {}
 	virtual ExitCode Entry();
 	virtual bool TestDestroy();
 	~wx_Thread();
@@ -30,12 +30,12 @@ public:
 
 wx_Thread::~wx_Thread()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Thread::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 wxThread::ExitCode wx_Thread::Entry()
@@ -69,7 +69,7 @@ Gura_ImplementFunction(Thread)
 	if (args.IsValid(0)) kind = static_cast<wxThreadKind>(args.GetInt(0));
 	wx_Thread *pEntity = new wx_Thread(kind);
 	Object_wx_Thread *pObj = Object_wx_Thread::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Thread(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -420,7 +420,7 @@ Gura_ImplementClassMethod(wx_Thread, This)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxThread *rtn = (wxThread *)wxThread::This();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Thread, Yield)
@@ -455,20 +455,20 @@ Gura_ImplementMethod(wx_Thread, Wait)
 //----------------------------------------------------------------------------
 Object_wx_Thread::~Object_wx_Thread()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Thread::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Thread::ToString(bool exprFlag)
 {
 	String rtn("<wx.Thread:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -515,7 +515,7 @@ Gura_ImplementUserInheritableClass(wx_Thread)
 
 Gura_ImplementDescendantCreator(wx_Thread)
 {
-	return new Object_wx_Thread((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Thread((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

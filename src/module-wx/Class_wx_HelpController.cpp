@@ -33,9 +33,9 @@ private:
 	Object_wx_HelpController *_pObj;
 public:
 #if defined(__WXMSW__)
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _sig(NULL), _pObj(NULL) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _sig(nullptr), _pObj(nullptr) {}
 #else
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _sig(NULL), _pObj(NULL) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _sig(nullptr), _pObj(nullptr) {}
 #endif
 	//virtual bool Initialize(const wxString& file);
 	//virtual bool Initialize(const wxString& file, int server);
@@ -64,12 +64,12 @@ public:
 
 wx_HelpController::~wx_HelpController()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HelpController::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -86,11 +86,11 @@ Gura_DeclareFunction(HelpController)
 Gura_ImplementFunction(HelpController)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWindow *parentWindow = (wxWindow *)(NULL);
+	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_HelpController *pEntity = new wx_HelpController(parentWindow);
 	Object_wx_HelpController *pObj = Object_wx_HelpController::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpController(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -246,14 +246,14 @@ Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 #if 0
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxSize *size = (wxSize *)(NULL);
+	wxSize *size = (wxSize *)(nullptr);
 	if (args.IsValid(0)) size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxPoint *pos = (wxPoint *)(NULL);
+	wxPoint *pos = (wxPoint *)(nullptr);
 	if (args.IsValid(1)) pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
-	bool newFrameEachTime = NULL;
+	bool newFrameEachTime = nullptr;
 	if (args.IsValid(2)) newFrameEachTime = args.GetBoolean(2);
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrameParameters(size, pos, newFrameEachTime);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_HelpController, GetParentWindow)
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpController, KeywordSearch)
@@ -401,13 +401,13 @@ Object_wx_HelpController::~Object_wx_HelpController()
 
 Object *Object_wx_HelpController::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HelpController::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpController:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -461,7 +461,7 @@ Gura_ImplementUserInheritableClass(wx_HelpController)
 
 Gura_ImplementDescendantCreator(wx_HelpController)
 {
-	return new Object_wx_HelpController((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HelpController((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

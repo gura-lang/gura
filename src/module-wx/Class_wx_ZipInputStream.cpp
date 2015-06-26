@@ -14,9 +14,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ZipInputStream *_pObj;
 public:
-	inline wx_ZipInputStream(wxInputStream& stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(NULL), _pObj(NULL) {}
-	inline wx_ZipInputStream(wxInputStream* stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(NULL), _pObj(NULL) {}
-	//inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _sig(NULL), _pObj(NULL) {}
+	inline wx_ZipInputStream(wxInputStream& stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ZipInputStream(wxInputStream* stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ZipInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZipInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_ZipInputStream::~wx_ZipInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ZipInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Gura_ImplementFunction(ZipInputStream)
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(*stream, *conv);
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -82,7 +82,7 @@ Gura_ImplementFunction(ZipInputStream_1)
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(stream, *conv);
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -109,7 +109,7 @@ Gura_ImplementFunction(ZipInputStream_2)
 	wxString file = wxString::FromUTF8(args.GetString(1));
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(archive, file);
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *rtn = (wxZipEntry *)pThis->GetEntity()->GetNextEntry();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ZipEntry(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ZipEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ZipInputStream, GetTotalEntries)
@@ -201,13 +201,13 @@ Object_wx_ZipInputStream::~Object_wx_ZipInputStream()
 
 Object *Object_wx_ZipInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ZipInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -234,7 +234,7 @@ Gura_ImplementUserInheritableClass(wx_ZipInputStream)
 
 Gura_ImplementDescendantCreator(wx_ZipInputStream)
 {
-	return new Object_wx_ZipInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ZipInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

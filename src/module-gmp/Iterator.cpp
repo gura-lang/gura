@@ -20,7 +20,7 @@ Iterator *Iterator_GmpSeqInf::Clone() const
 
 Iterator *Iterator_GmpSeqInf::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_GmpSeqInf::DoNext(Environment &env, Signal sig, Value &value)
@@ -55,7 +55,7 @@ Iterator *Iterator_GmpSeq::Clone() const
 
 Iterator *Iterator_GmpSeq::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_GmpSeq::DoNext(Environment &env, Signal sig, Value &value)

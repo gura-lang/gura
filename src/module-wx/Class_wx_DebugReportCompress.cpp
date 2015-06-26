@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DebugReportCompress *_pObj;
 public:
-	inline wx_DebugReportCompress() : wxDebugReportCompress(), _sig(NULL), _pObj(NULL) {}
+	inline wx_DebugReportCompress() : wxDebugReportCompress(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DebugReportCompress();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReportCompress *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DebugReportCompress::~wx_DebugReportCompress()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DebugReportCompress::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(DebugReportCompressEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReportCompress *pEntity = new wx_DebugReportCompress();
 	Object_wx_DebugReportCompress *pObj = Object_wx_DebugReportCompress::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportCompress(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -81,13 +81,13 @@ Object_wx_DebugReportCompress::~Object_wx_DebugReportCompress()
 
 Object *Object_wx_DebugReportCompress::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportCompress:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -108,7 +108,7 @@ Gura_ImplementUserInheritableClass(wx_DebugReportCompress)
 
 Gura_ImplementDescendantCreator(wx_DebugReportCompress)
 {
-	return new Object_wx_DebugReportCompress((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DebugReportCompress((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

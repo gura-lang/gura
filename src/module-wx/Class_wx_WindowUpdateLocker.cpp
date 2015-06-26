@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WindowUpdateLocker *_pObj;
 public:
-	inline wx_WindowUpdateLocker(wxWindow * win) : wxWindowUpdateLocker(win), _sig(NULL), _pObj(NULL) {}
+	inline wx_WindowUpdateLocker(wxWindow * win) : wxWindowUpdateLocker(win), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WindowUpdateLocker();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WindowUpdateLocker *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WindowUpdateLocker::~wx_WindowUpdateLocker()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WindowUpdateLocker::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(WindowUpdateLocker)
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowUpdateLocker *pEntity = new wx_WindowUpdateLocker(win);
 	Object_wx_WindowUpdateLocker *pObj = Object_wx_WindowUpdateLocker::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowUpdateLocker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -65,20 +65,20 @@ Gura_ImplementFunction(WindowUpdateLocker)
 //----------------------------------------------------------------------------
 Object_wx_WindowUpdateLocker::~Object_wx_WindowUpdateLocker()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_WindowUpdateLocker::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WindowUpdateLocker::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowUpdateLocker:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -98,7 +98,7 @@ Gura_ImplementUserInheritableClass(wx_WindowUpdateLocker)
 
 Gura_ImplementDescendantCreator(wx_WindowUpdateLocker)
 {
-	return new Object_wx_WindowUpdateLocker((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WindowUpdateLocker((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

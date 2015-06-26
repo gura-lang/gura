@@ -24,12 +24,12 @@ public:
 
 wx_HTTP::~wx_HTTP()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HTTP::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_HTTP, GetInputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HTTP, SetHeader)
@@ -107,13 +107,13 @@ Object_wx_HTTP::~Object_wx_HTTP()
 
 Object *Object_wx_HTTP::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HTTP::ToString(bool exprFlag)
 {
 	String rtn("<wx.HTTP:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -136,7 +136,7 @@ Gura_ImplementUserInheritableClass(wx_HTTP)
 
 Gura_ImplementDescendantCreator(wx_HTTP)
 {
-	return new Object_wx_HTTP((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HTTP((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

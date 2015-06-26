@@ -42,7 +42,7 @@ Gura_DeclareUserClassBegin(name) \
 Gura_DeclareUserClassEnd(name)
 
 #define Gura_ImplementUserClass(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
+ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
@@ -50,20 +50,20 @@ Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pCla
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserClassWithCast(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
+ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClass(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
+ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClassWithCast(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
+ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 void Class_##name::Prepare(Environment &env)
 
@@ -177,7 +177,7 @@ public:
 protected:
 	inline Class(const Class &cls) : Fundamental(cls),
 		_pClassSuper(Class::Reference(cls._pClassSuper.get())), _valType(cls._valType),
-		_pSymbol(cls._pSymbol), _pConstructor(NULL) {}
+		_pSymbol(cls._pSymbol), _pConstructor(nullptr) {}
 public:
 	Class(Environment *pEnvOuter, ValueType valType);
 	virtual bool IsClass() const;
@@ -226,7 +226,7 @@ public:
 	virtual bool Format_s(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
-		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
+		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 };
 
 }

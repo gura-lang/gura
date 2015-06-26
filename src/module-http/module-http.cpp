@@ -5,7 +5,7 @@
 
 Gura_BeginModuleBody(http)
 
-static Environment *_pEnvThis = NULL;
+static Environment *_pEnvThis = nullptr;
 
 static const char *HTTP_VERSION = "HTTP/1.1";
 
@@ -27,19 +27,19 @@ bool SendStreamBody(Signal sig, int sock, Stream &stream)
 // RFC 3986 3.1. Scheme
 String ExtractURIScheme(Signal sig, const char *uri, const char **next)
 {
-	if (next != NULL) *next = uri;
+	if (next != nullptr) *next = uri;
 	const char *p = uri;
 	for ( ; *p != '\0' && *p != '?' && *p != '#' && *p != ':'; p++) ;
 	if (*p != ':') return String("");
 	String rtn = String(uri, p - uri);
-	if (next != NULL) *next = p + 1;
+	if (next != nullptr) *next = p + 1;
 	return rtn;
 }
 
 // RFC 3986 3.2. Authority
 String ExtractURIAuthority(Signal sig, const char *uri, const char **next)
 {
-	if (next != NULL) *next = uri;
+	if (next != nullptr) *next = uri;
 	const char *p = uri;
 	String scheme = ExtractURIScheme(sig, uri, &p);
 	if (sig.IsSignalled()) return String("");
@@ -49,7 +49,7 @@ String ExtractURIAuthority(Signal sig, const char *uri, const char **next)
 	const char *top = p;
 	for ( ; *p != '\0' && *p != '?' && *p != '#' && *p != '/'; p++) ;
 	String rtn = String(top, p - top);
-	if (next != NULL) *next = p;
+	if (next != nullptr) *next = p;
 	return rtn;
 }
 
@@ -451,7 +451,7 @@ bool LinkDetector::AcceptTag(Signal sig,
 bool ContentType::Parse(Signal sig, const char *str)
 {
 	const char *p = ::strchr(str, ';');
-	if (p == NULL) {
+	if (p == nullptr) {
 		_type = str;
 		return true;
 	}
@@ -565,7 +565,7 @@ bool Header::ParseChar(Signal sig, char ch)
 void Header::SetField(const char *fieldName, const char *fieldValue)
 {
 	Dict::iterator iter = _dict.find(fieldName);
-	StringList *pStringList = NULL;
+	StringList *pStringList = nullptr;
 	if (iter == _dict.end()) {
 		pStringList = new StringList();
 		_dict[fieldName] = pStringList;
@@ -579,14 +579,14 @@ bool Header::GetField(const char *fieldName, StringList **ppStringList) const
 {
 	Dict::const_iterator iter = _dict.find(fieldName);
 	if (iter == _dict.end()) return false;
-	if (ppStringList != NULL) *ppStringList = iter->second;
+	if (ppStringList != nullptr) *ppStringList = iter->second;
 	return true;
 }
 
 Value Header::GetField(Environment &env,
 					Signal sig, const char *fieldName, bool signalFlag) const
 {
-	StringList *pStringList = NULL;
+	StringList *pStringList = nullptr;
 	Value value;
 	ValueList &valList = value.InitAsList(env);
 	if (GetField(fieldName, &pStringList)) {
@@ -621,7 +621,7 @@ Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) cons
 		return Value::Null;
 	}
 	const char *fieldName = valueIdx.GetString();
-	StringList *pStringList = NULL;
+	StringList *pStringList = nullptr;
 	if (GetField(fieldName, &pStringList)) {
 		return Value(pStringList->back());
 	} else {
@@ -631,7 +631,7 @@ Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) cons
 
 bool Header::GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, Value &value) const
 {
-	StringList *pStringList = NULL;
+	StringList *pStringList = nullptr;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(date))) {
 		// 14.18 Date
 		if (GetField("Date", &pStringList)) {
@@ -673,10 +673,10 @@ bool Header::IsField(const char *fieldName, const char *value, bool *pFoundFlag)
 {
 	StringList *pStringList;
 	if (!GetField(fieldName, &pStringList)) {
-		if (pFoundFlag != NULL) *pFoundFlag = false;
+		if (pFoundFlag != nullptr) *pFoundFlag = false;
 		return false;
 	}
-	if (pFoundFlag != NULL) *pFoundFlag = true;
+	if (pFoundFlag != nullptr) *pFoundFlag = true;
 	return ::strcasecmp(pStringList->back().c_str(), value) == 0;
 }
 
@@ -689,7 +689,7 @@ bool Header::SetFields(Signal sig, const ValueDict &valueDict, Stream *pStreamBo
 		if (sig.IsSignalled()) return false;
 		SetField(fieldName.c_str(), fieldValue.c_str());
 	}
-	if (pStreamBody == NULL) {
+	if (pStreamBody == nullptr) {
 		SetField("Content-Length", "0");
 	} else {
 		size_t bytes = pStreamBody->GetSize();
@@ -722,7 +722,7 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 	bool chunkedFlag = false;
 	bool gzipFlag = false;
 	size_t bytes = InvalidSize;
-	StringList *pStringList = NULL;
+	StringList *pStringList = nullptr;
 	// RFC 2616 4.4 Message Length
 	if (GetField("Transfer-Encoding", &pStringList)) {
 		// RFC 2616 3.6 Transfer Codings
@@ -737,13 +737,13 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 		// RFC 2616 14.13 Content-Length
 		const char *fieldValue = pStringList->back().c_str();
 		if (!chunkedFlag) {
-			bytes = ::strtoul(fieldValue, NULL, 0);
+			bytes = ::strtoul(fieldValue, nullptr, 0);
 		}
 	}
 	ContentType contentType;
 	if (GetField("Content-Type", &pStringList)) {
 		// RFC 2616 14.17 Content-Type
-		if (!contentType.Parse(sig, pStringList->back().c_str())) return NULL;
+		if (!contentType.Parse(sig, pStringList->back().c_str())) return nullptr;
 	}
 	if (GetField("Content-Encoding", &pStringList)) {
 		// RFC 2616 14.11 Content-Encoding
@@ -776,7 +776,7 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 	}
 	if (contentType.IsValidCharset()) {
 		AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, contentType.GetCharset(), true, false));
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 		pStreamHttp->SetCodec(pCodec.release());
 	}
 	return pStreamHttp.release();
@@ -941,7 +941,7 @@ void Status::SetStatus(const char *httpVersion,
 							const char *statusCode, const char *reasonPhrase)
 {
 	_httpVersion = httpVersion, _statusCode = statusCode;
-	if (reasonPhrase == NULL) {
+	if (reasonPhrase == nullptr) {
 		const CodePhrase *p = _codePhraseTbl;
 		for (int i = 0; i < ArraySizeOf(_codePhraseTbl); i++, p++) {
 			if (::strcasecmp(p->statusCode, statusCode) == 0) {
@@ -949,7 +949,7 @@ void Status::SetStatus(const char *httpVersion,
 				break;
 			}
 		}
-		if (reasonPhrase == NULL) {
+		if (reasonPhrase == nullptr) {
 			reasonPhrase = "Unknown Status";
 		}
 	}
@@ -1070,7 +1070,7 @@ const char *Stream_Socket::GetName() const
 
 const char *Stream_Socket::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 size_t Stream_Socket::DoRead(Signal sig, void *buff, size_t bytes)
@@ -1118,7 +1118,7 @@ size_t Stream_Socket::DoGetSize()
 Object *Stream_Socket::DoGetStatObj(Signal sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -1275,7 +1275,7 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 			}
 			if (_encodingDetector.IsValidEncoding()) {
 				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, _encodingDetector.GetEncoding(), true, false));
-				if (sig.IsSignalled()) return NULL;
+				if (sig.IsSignalled()) return 0;
 				SetCodec(pCodec.release());
 			}
 		}
@@ -1505,7 +1505,7 @@ bool Object_session::CleanupRequest(Signal sig)
 {
 	if (_pStreamHttp.IsNull()) return true;
 	bool rtn = _pStreamHttp->Cleanup(sig);
-	_pStreamHttp.reset(NULL);
+	_pStreamHttp.reset(nullptr);
 	return rtn;
 }
 
@@ -1561,16 +1561,16 @@ Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		return Value(request.GetHttpVersion());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjSession->GetStream();
-		if (pStream == NULL) return Value::Null;
+		if (pStream == nullptr) return Value::Null;
 		return Value(new Object_stream(env, Stream::Reference(pStream)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(scheme))) {
-		String str = ExtractURIScheme(sig, request.GetRequestURI(), NULL);
+		String str = ExtractURIScheme(sig, request.GetRequestURI(), nullptr);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(strUnquote.c_str());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(authority))) {
-		String str = ExtractURIAuthority(sig, request.GetRequestURI(), NULL);
+		String str = ExtractURIAuthority(sig, request.GetRequestURI(), nullptr);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
@@ -1607,7 +1607,7 @@ Value Object_request::IndexGet(Environment &env, Signal sig, const Value &valueI
 
 Object *Object_request::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_request::ToString(bool exprFlag)
@@ -1632,7 +1632,7 @@ bool Object_request::SendResponse(Signal sig,
 	_status.SetStatus(httpVersion, statusCode, reasonPhrase);
 	if (!header.SetFields(sig, valueDict, pStreamBody)) return false;
 	if (!_status.Send(sig, sock)) return false;
-	if (pStreamBody != NULL) {
+	if (pStreamBody != nullptr) {
 		if (!SendStreamBody(sig, sock, *pStreamBody)) return false;
 	}
 	return true;
@@ -1646,13 +1646,13 @@ Stream *Object_request::SendRespChunk(Signal sig,
 	int sock = _pObjSession->GetSocket();
 	Header &header = _status.GetHeader();
 	_status.SetStatus(httpVersion, statusCode, reasonPhrase);
-	if (!header.SetFields(sig, valueDict, NULL)) return NULL;
+	if (!header.SetFields(sig, valueDict, nullptr)) return nullptr;
 	header.SetField("Transfer-Encoding", "chunked");
-	if (!_status.Send(sig, sock)) return NULL;
+	if (!_status.Send(sig, sock)) return nullptr;
 	AutoPtr<Stream> pStream(new Stream_Socket(env, sig, Object::Reference(this), sock));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	pStream.reset(new Stream_Chunked(env, sig, pStream.release(), Stream::ATTR_Writable));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return pStream.release();
 }
 
@@ -1698,8 +1698,8 @@ Gura_ImplementMethod(request, response)
 {
 	Object_request *pThis = Object_request::GetThisObj(args);
 	if (!pThis->SendResponse(sig,
-			args.GetString(0), args.Is_string(1)? args.GetString(1) : NULL,
-			args.Is_stream(2)? &args.GetStream(2) : NULL, args.GetString(3),
+			args.GetString(0), args.Is_string(1)? args.GetString(1) : nullptr,
+			args.Is_stream(2)? &args.GetStream(2) : nullptr, args.GetString(3),
 			args.GetValueDictArg())) {
 		return Value::Null;
 	}
@@ -1726,7 +1726,7 @@ Gura_ImplementMethod(request, respchunk)
 {
 	Object_request *pThis = Object_request::GetThisObj(args);
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
-			args.Is_string(1)? args.GetString(1) : NULL, args.GetString(2),
+			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
 			args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
@@ -1793,7 +1793,7 @@ Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		return header.GetFieldNames(env, sig);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjClient->GetStream();
-		if (pStream == NULL) return Value::Null;
+		if (pStream == nullptr) return Value::Null;
 		return Value(new Object_stream(env, Stream::Reference(pStream)));
 	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
 		return value;
@@ -1810,7 +1810,7 @@ Value Object_response::IndexGet(Environment &env, Signal sig, const Value &value
 
 Object *Object_response::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_response::ToString(bool exprFlag)
@@ -1874,7 +1874,7 @@ Object_server::~Object_server()
 
 Object *Object_server::Clone() const
 {
-	return NULL; //new Object_server(*this);
+	return nullptr; //new Object_server(*this);
 }
 
 bool Object_server::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1920,7 +1920,7 @@ String Object_server::ToString(bool exprFlag)
 
 bool Object_server::Prepare(Signal sig, const char *addr, short port)
 {
-	_addr = (addr == NULL)? "localhost" : addr;
+	_addr = (addr == nullptr)? "localhost" : addr;
 	_port = port;
 	_sockListen = static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0));
 	if (_sockListen < 0) {
@@ -1930,11 +1930,11 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 	::memset(&_saddrServer, 0x00, sizeof(_saddrServer));
 	ULong addrNum = htonl(INADDR_ANY);
 	_saddrServer.sin_family = AF_INET;
-	if (addr != NULL) {
+	if (addr != nullptr) {
 		addrNum = ::inet_addr(addr);
 		if (addrNum == 0xffffffff) {
 			hostent *pHostEnt = ::gethostbyname(addr);
-			if (pHostEnt == NULL) {
+			if (pHostEnt == nullptr) {
 				sig.SetError(ERR_IOError, "binding address not found: %s", addr);
 				return false;
 			}
@@ -1972,7 +1972,7 @@ Object_request *Object_server::Wait(Signal sig)
 	}
 	foreach (SessionList, ppObjSession, _sessionList) {
 		Object_session *pObjSession = *ppObjSession;
-		if (!pObjSession->CleanupRequest(sig)) return NULL;
+		if (!pObjSession->CleanupRequest(sig)) return nullptr;
 	}
 	for (;;) {
 		bool requestFlag = false;
@@ -1984,20 +1984,20 @@ Object_request *Object_server::Wait(Signal sig)
 							reinterpret_cast<sockaddr *>(&saddrClient), &bytesAddr));
 			if (sockClient < 0) {
 				sig.SetError(ERR_IOError, "failed to accept connection request");
-				return NULL;
+				return nullptr;
 			}
-			const hostent *pHostEnt = NULL;
+			const hostent *pHostEnt = nullptr;
 			String remoteIP = ::inet_ntoa(saddrClient.sin_addr);
 			String remoteHost(remoteIP);
 			pHostEnt = ::gethostbyaddr(
 					reinterpret_cast<char *>(&saddrClient.sin_addr), 4, AF_INET);
-			if (pHostEnt != NULL) remoteHost = pHostEnt->h_name;
+			if (pHostEnt != nullptr) remoteHost = pHostEnt->h_name;
 			const char *remoteLogname = "";
 			String localIP = ::inet_ntoa(_saddrServer.sin_addr);
 			String localHost(localIP);
 			pHostEnt = ::gethostbyaddr(
 					reinterpret_cast<char *>(&_saddrServer.sin_addr), 4, AF_INET);
-			if (pHostEnt != NULL) localHost = pHostEnt->h_name;
+			if (pHostEnt != nullptr) localHost = pHostEnt->h_name;
 			DateTime dateTime = OAL::GetCurDateTime(false);
 			AutoPtr<Object_session> pObjSession(new Object_session(
 					Object_server::Reference(this), sockClient,
@@ -2019,13 +2019,13 @@ Object_request *Object_server::Wait(Signal sig)
 			}
 		}
 		if (requestFlag) {
-			if (!pObjSessionCur->ReceiveRequest(sig)) return NULL;
+			if (!pObjSessionCur->ReceiveRequest(sig)) return nullptr;
 			if (pObjSessionCur->GetRequest().IsComplete()) break;
 			SessionList::iterator ppObjSession = std::find(_sessionList.begin(),
 										_sessionList.end(), pObjSessionCur.get());
 			_sessionList.erase(ppObjSession);
 			::closesocket(pObjSessionCur->GetSocket());
-			pObjSessionCur.reset(NULL);
+			pObjSessionCur.reset(nullptr);
 		}
 		FD_ZERO(&_fdsRead);
 		FD_SET(static_cast<UInt>(_sockListen), &_fdsRead);
@@ -2038,7 +2038,7 @@ Object_request *Object_server::Wait(Signal sig)
 				if (sockMax < sock) sockMax = sock;
 			}
 		}
-		::select(sockMax + 1, &_fdsRead, NULL, NULL, NULL);
+		::select(sockMax + 1, &_fdsRead, nullptr, nullptr, nullptr);
 	}
 	return new Object_request(pObjSessionCur.release());
 }
@@ -2067,7 +2067,7 @@ Gura_ImplementMethod(server, wait)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Null;
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -2104,7 +2104,7 @@ Object_client::~Object_client()
 
 Object *Object_client::Clone() const
 {
-	return NULL; //new Object_client(*this);
+	return nullptr; //new Object_client(*this);
 }
 
 String Object_client::ToString(bool exprFlag)
@@ -2129,9 +2129,9 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 				const char *addrProxy, short portProxy,
 				const char *userIdProxy, const char *passwordProxy)
 {
-	if (addrProxy == NULL) {
+	if (addrProxy == nullptr) {
 		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
-		if (pValueOfList != NULL && pValueOfList->Is_list()) {
+		if (pValueOfList != nullptr && pValueOfList->Is_list()) {
 			foreach_const_reverse (ValueList, pValue, pValueOfList->GetList()) {
 				if (!pValue->IsType(VTYPE_proxy)) continue;
 				Object_proxy *pObjProxy = Object_proxy::GetObject(*pValue);
@@ -2150,7 +2150,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 	const char *addrToConnect = addr;
 	short portToConnect = port;
 	_addr = addr, _port = port;
-	if (addrProxy != NULL) {
+	if (addrProxy != nullptr) {
 		_addrProxy = addrProxy, _portProxy = portProxy;
 		_userIdProxy = userIdProxy, _passwordProxy = passwordProxy;
 		addrToConnect = addrProxy, portToConnect = portProxy;
@@ -2165,7 +2165,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 	ULong addrNum = ::inet_addr(addrToConnect);
 	if (addrNum == 0xffffffff) {
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
-		if (pHostEnt == NULL) {
+		if (pHostEnt == nullptr) {
 			sig.SetError(ERR_IOError, "host not found: %s", addrToConnect);
 			return false;
 		}
@@ -2189,10 +2189,10 @@ Object_response *Object_client::SendRequest(Signal sig,
 		const char *httpVersion, const ValueDict &valueDict)
 {
 	Environment &env = *this;
-	if (!CleanupResponse(sig)) return NULL;
+	if (!CleanupResponse(sig)) return nullptr;
 	if (_sock < 0) {
 		sig.SetError(ERR_IOError, "access to invalid socket");
-		return NULL;
+		return nullptr;
 	}
 	String uriFull;
 	uriFull = "http://";
@@ -2200,7 +2200,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 	uriFull += uri;
 	_request.SetRequest(method, IsViaProxy()? uriFull.c_str() : uri, httpVersion);
 	Header &header = _request.GetHeader();
-	if (!header.SetFields(sig, valueDict, pStreamBody)) return NULL;
+	if (!header.SetFields(sig, valueDict, pStreamBody)) return nullptr;
 	do {
 		String str;
 		str += _addr;
@@ -2220,20 +2220,20 @@ Object_response *Object_client::SendRequest(Signal sig,
 			Object_binary *pObjBinary = new Object_binary(env);
 			Stream_Base64Writer stream(env, sig, new Stream_Binary(env, sig, pObjBinary, false), 0);
 			stream.Write(sig, str.data(), str.size());
-			if (sig.IsSignalled()) return NULL;
+			if (sig.IsSignalled()) return nullptr;
 			buff += pObjBinary->GetBinary();
 		} while (0);
 		header.SetField("Proxy-Authorization", buff.c_str());
 	}
-	if (!_request.Send(sig, _sock)) return NULL;
-	if (pStreamBody != NULL) {
-		if (!SendStreamBody(sig, _sock, *pStreamBody)) return NULL;
+	if (!_request.Send(sig, _sock)) return nullptr;
+	if (pStreamBody != nullptr) {
+		if (!SendStreamBody(sig, _sock, *pStreamBody)) return nullptr;
 	}
-	if (!_status.Receive(sig, _sock)) return NULL;
+	if (!_status.Receive(sig, _sock)) return nullptr;
 	if (::strcasecmp(method, "HEAD") != 0 && _status.HasBody()) {
 		Header &header = _status.GetHeader();
 		_pStreamHttp.reset(header.GenerateDownStream(env, sig, this, _sock, uriFull.c_str()));
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return nullptr;
 	}
 	return new Object_response(Object_client::Reference(this));
 }
@@ -2252,7 +2252,7 @@ bool Object_client::CleanupResponse(Signal sig)
 	} else {
 		rtn = _pStreamHttp->Cleanup(sig);
 	}
-	_pStreamHttp.reset(NULL);
+	_pStreamHttp.reset(nullptr);
 	return rtn;
 }
 
@@ -2281,7 +2281,7 @@ Gura_ImplementMethod(client, request)
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
-			args.Is_stream(2)? &args.GetStream(2) : NULL,
+			args.Is_stream(2)? &args.GetStream(2) : nullptr,
 			args.GetString(3), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
@@ -2308,7 +2308,7 @@ Gura_ImplementMethod(client, _request)
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
-			args.Is_stream(1)? &args.GetStream(1) : NULL,
+			args.Is_stream(1)? &args.GetStream(1) : nullptr,
 			args.GetString(2), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
@@ -2354,7 +2354,7 @@ Object_proxy::~Object_proxy()
 
 Object *Object_proxy::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_proxy::ToString(bool exprFlag)
@@ -2406,9 +2406,9 @@ Gura_DeclareFunction(addproxy)
 
 Gura_ImplementFunction(addproxy)
 {
-	ValueList *pValList = NULL;
+	ValueList *pValList = nullptr;
 	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
-	if (pValue == NULL || !pValue->Is_list()) {
+	if (pValue == nullptr || !pValue->Is_list()) {
 		Value value;
 		pValList = &value.InitAsList(env);
 		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, EXTRA_Public);
@@ -2442,7 +2442,7 @@ Gura_ImplementFunction(server)
 {
 	AutoPtr<Object_server> pObjServer(new Object_server());
 	if (!pObjServer->Prepare(sig,
-				args.Is_string(0)? args.GetString(0) : NULL, args.GetShort(1))) {
+				args.Is_string(0)? args.GetString(0) : nullptr, args.GetShort(1))) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObjServer.release()));
@@ -2471,7 +2471,7 @@ Gura_DeclareFunction(client)
 Gura_ImplementFunction(client)
 {
 	AutoPtr<Object_client> pObjClient(new Object_client());
-	const char *addrProxy = NULL;
+	const char *addrProxy = nullptr;
 	short portProxy = 0;
 	const char *userIdProxy = "";
 	const char *passwordProxy = "";
@@ -2507,18 +2507,18 @@ Directory_Http::~Directory_Http()
 Directory *Directory_Http::DoNext(Environment &env, Signal sig)
 {
 	sig.SetError(ERR_SystemError, "");
-	return NULL;
+	return nullptr;
 }
 
 Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	String pathName;
-	Directory_Http *pDirectoryTop = NULL;
+	Directory_Http *pDirectoryTop = nullptr;
 	if (IsContainer()) pathName = "/";
-	for (Directory_Http *pDirectory = this; pDirectory != NULL;
+	for (Directory_Http *pDirectory = this; pDirectory != nullptr;
 		pDirectory = dynamic_cast<Directory_Http *>(pDirectory->GetParent())) {
-		if (pDirectory->GetParent() == NULL) {
+		if (pDirectory->GetParent() == nullptr) {
 			pDirectoryTop = pDirectory;
 		} else {
 			String str = "/";
@@ -2543,26 +2543,26 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
 	} while (0);
 	//::printf("%s %s\n", pDirectoryTop->GetAuthority(), pathName.c_str());
 	short port = 80;
-	const char *addrProxy = NULL;
+	const char *addrProxy = nullptr;
 	short portProxy = 0;
 	const char *userIdProxy = "";
 	const char *passwordProxy = "";
-	if (!pObjClient->Prepare(sig, pDirectoryTop->GetAuthority(), port, NULL, 0, "", "")) {
-		return NULL;
+	if (!pObjClient->Prepare(sig, pDirectoryTop->GetAuthority(), port, nullptr, 0, "", "")) {
+		return nullptr;
 	}
 	AutoPtr<Object_response> pObjResponse(pObjClient->SendRequest(sig,
-				"GET", pathName.c_str(), NULL, HTTP_VERSION, ValueDict::Null));
-	if (sig.IsSignalled()) return NULL;
+				"GET", pathName.c_str(), nullptr, HTTP_VERSION, ValueDict::Null));
+	if (sig.IsSignalled()) return nullptr;
 	Stream *pStream = pObjClient->GetStream();
-	if (pStream == NULL) {
+	if (pStream == nullptr) {
 		sig.SetError(ERR_IOError, "no body");
-		return NULL;
+		return nullptr;
 	}
 	Status &status = pObjClient->GetStatus();
 	if (::strcmp(status.GetStatusCode(), "200") != 0) {
 		sig.SetError(ERR_IOError, "%s %s",
 					status.GetStatusCode(), status.GetReasonPhrase());
-		return NULL;
+		return nullptr;
 	}
 	return Stream::Reference(pStream);
 }
@@ -2573,7 +2573,7 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
 bool PathMgr_Http::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
-	return pParent == NULL &&
+	return pParent == nullptr &&
 		(StartsWith(pathName, "http:", 0, false) ||
 		 StartsWith(pathName, "https:", 0, false));
 }
@@ -2582,7 +2582,7 @@ Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
-	String scheme = ExtractURIScheme(sig, uri, NULL);
+	String scheme = ExtractURIScheme(sig, uri, nullptr);
 	const char *p = uri;
 	String authority = ExtractURIAuthority(sig, p, &p);
 	String field;
@@ -2593,7 +2593,7 @@ Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal sig,
 		name += authority;
 		name += field;
 		pDirectoryTop = pDirectory = new Directory_Http(
-						NULL, name.c_str(), Directory::TYPE_Container);
+						nullptr, name.c_str(), Directory::TYPE_Container);
 		pParent = pDirectory;
 		for ( ; *p == '/'; p++) ;
 	} while (0);
@@ -2614,9 +2614,9 @@ Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal sig,
 	pDirectoryTop->SetScheme(scheme.c_str());
 	pDirectoryTop->SetAuthority(authority.c_str());
 	pDirectoryTop->SetQuery(ExtractURIQuery(sig, p).c_str());
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	pDirectoryTop->SetFragment(ExtractURIFragment(sig, p).c_str());
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	*pPathName = uri + ::strlen(uri);
 	return pDirectory;
 }

@@ -181,7 +181,7 @@ public:
 	Stream_Inflater(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
-			_offsetOut(0), _buffOut(NULL), _buffIn(NULL), _doneFlag(false) {
+			_offsetOut(0), _buffOut(nullptr), _buffIn(nullptr), _doneFlag(false) {
 		CopyCodec(pStream);
 	}
 	~Stream_Inflater() {
@@ -195,7 +195,7 @@ public:
 		_zstrm.avail_in = 0;
 		if (::inflateInit2(&_zstrm, windowBits) != Z_OK) {
 			sig.SetError(ERR_IOError, "%s",
-						(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
+						(_zstrm.msg == nullptr)? "zlib error" : _zstrm.msg);
 			return false;
 		}
 		_pMemory.reset(new MemoryHeap(_bytesBuff * 2));
@@ -207,7 +207,7 @@ public:
 		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
 		return 0;
@@ -250,7 +250,7 @@ public:
 						continueFlag = false;
 					} else {
 						sig.SetError(ERR_IOError, "%s",
-							(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
+							(_zstrm.msg == nullptr)? "zlib error" : _zstrm.msg);
 						::inflateEnd(&_zstrm);
 						return 0;
 					}
@@ -258,7 +258,7 @@ public:
 			}
 			size_t bytesToCopy = _bytesOut - _offsetOut;
 			if (bytesToCopy > bytesRest) bytesToCopy = bytesRest;
-			if (buffp != NULL) {
+			if (buffp != nullptr) {
 				::memcpy(buffp + bytesRead, _buffOut + _offsetOut, bytesToCopy);
 			}
 			_offsetOut += bytesToCopy;
@@ -272,13 +272,13 @@ public:
 			if (static_cast<size_t>(offset) >= offsetPrev) {
 				size_t bytesToRead = static_cast<size_t>(offset) - offsetPrev;
 				if (bytesToRead == 0) return true;
-				return DoRead(sig, NULL, bytesToRead) == static_cast<size_t>(bytesToRead);
+				return DoRead(sig, nullptr, bytesToRead) == static_cast<size_t>(bytesToRead);
 			}
 		} else if (seekMode == SeekCur) {
 			if (offset == 0) {
 				return true;
 			} else if (offset > 0) {
-				return DoRead(sig, NULL, offset) == static_cast<size_t>(offset);
+				return DoRead(sig, nullptr, offset) == static_cast<size_t>(offset);
 			}
 		}
 		sig.SetError(ERR_SystemError, "backward seeking is not supported");
@@ -307,7 +307,7 @@ private:
 public:
 	Stream_Deflater(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Writable), _pStream(pStream),
-			_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(NULL), _buffIn(NULL) {
+			_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(nullptr), _buffIn(nullptr) {
 		CopyCodec(pStream);
 	}
 	~Stream_Deflater() {
@@ -321,7 +321,7 @@ public:
 		if (::deflateInit2(&_zstrm, level,
 							Z_DEFLATED, windowBits, memLevel, strategy) != Z_OK) {
 			sig.SetError(ERR_IOError, "%s",
-						(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
+						(_zstrm.msg == nullptr)? "zlib error" : _zstrm.msg);
 			return false;
 		}
 		_pMemory.reset(new MemoryHeap(_bytesBuff * 2));
@@ -335,7 +335,7 @@ public:
 		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
 		if (_pStream.IsNull()) return 0;
@@ -350,7 +350,7 @@ public:
 			}
 			if (::deflate(&_zstrm, Z_NO_FLUSH) != Z_OK) {
 				sig.SetError(ERR_IOError, "%s",
-						(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
+						(_zstrm.msg == nullptr)? "zlib error" : _zstrm.msg);
 				return 0;
 			}
 		}
@@ -372,7 +372,7 @@ public:
 			if (rtn == Z_STREAM_END) break;
 			if (rtn != Z_OK) {
 				sig.SetError(ERR_IOError, "%s",
-						(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
+						(_zstrm.msg == nullptr)? "zlib error" : _zstrm.msg);
 				return false;
 			}
 		}
@@ -383,7 +383,7 @@ public:
 		::deflateEnd(&_zstrm);
 		if (sig.IsSignalled()) return false;
 		bool rtn = _pStream->Flush(sig);
-		_pStream.reset(NULL);
+		_pStream.reset(nullptr);
 		return rtn;
 	}
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {

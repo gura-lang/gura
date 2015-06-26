@@ -106,7 +106,7 @@ Gura_ImplementFunction(__glBegin)
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -158,9 +158,9 @@ Gura_ImplementFunction(__glBitmap)
 	GLfloat yorig = args.GetFloat(3);
 	GLfloat xmove = args.GetFloat(4);
 	GLfloat ymove = args.GetFloat(5);
-	Array<UChar> *_bitmap = args.IsValid(6)? Object_array<UChar>::GetObject(args, 6)->GetArray() : NULL;
-	GLubyte *bitmap = (_bitmap == NULL)? NULL : reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
-	if (_bitmap != NULL) {
+	Array<UChar> *_bitmap = args.IsValid(6)? Object_array<UChar>::GetObject(args, 6)->GetArray() : nullptr;
+	GLubyte *bitmap = (_bitmap == nullptr)? nullptr : reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
+	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
 			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
@@ -1520,7 +1520,7 @@ Gura_ImplementFunction(__glDrawPixels)
 	Value pixels = args.GetValue(4);
 	
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glDrawPixels(width, height, format, type, p);
 	return Value::Null;
 }
@@ -1909,9 +1909,9 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 Gura_ImplementFunction(__glFeedbackBuffer)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
-	Array<float> *buffer = args.IsValid(1)? Object_array<float>::GetObject(args, 1)->GetArray() : NULL;
-	if (buffer == NULL) {
-		glFeedbackBuffer(0, type, NULL);
+	Array<float> *buffer = args.IsValid(1)? Object_array<float>::GetObject(args, 1)->GetArray() : nullptr;
+	if (buffer == nullptr) {
+		glFeedbackBuffer(0, type, nullptr);
 	} else {
 		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
 	}
@@ -2520,7 +2520,7 @@ Gura_ImplementFunction(__glGetString)
 {
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = glGetString(name);
-	if (_rtn == NULL) {
+	if (_rtn == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid name");
 		return Value::Null;
 	}
@@ -3731,7 +3731,7 @@ Gura_ImplementFunction(__glNewList)
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -4339,7 +4339,7 @@ Gura_ImplementFunction(__glPushAttrib)
 	GLbitfield mask = args.GetUInt(0);
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -4364,7 +4364,7 @@ Gura_ImplementFunction(__glPushClientAttrib)
 	GLbitfield mask = args.GetUInt(0);
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -4387,7 +4387,7 @@ Gura_ImplementFunction(__glPushMatrix)
 {
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -4412,7 +4412,7 @@ Gura_ImplementFunction(__glPushName)
 	GLuint name = args.GetUInt(0);
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -5336,9 +5336,9 @@ Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 
 Gura_ImplementFunction(__glSelectBuffer)
 {
-	Array<UInt> *buffer = args.IsValid(0)? Object_array<UInt>::GetObject(args, 0)->GetArray() : NULL;
-	if (buffer == NULL) {
-		glSelectBuffer(0, NULL);
+	Array<UInt> *buffer = args.IsValid(0)? Object_array<UInt>::GetObject(args, 0)->GetArray() : nullptr;
+	if (buffer == nullptr) {
+		glSelectBuffer(0, nullptr);
 	} else {
 		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
 	}
@@ -6362,7 +6362,7 @@ Gura_ImplementFunction(__glTexImage1D)
 	Value pixels = args.GetValue(7);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Null;
 }
@@ -6428,7 +6428,7 @@ Gura_ImplementFunction(__glTexImage2D)
 	Value pixels = args.GetValue(8);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Null;
 }
@@ -6587,7 +6587,7 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	Value pixels = args.GetValue(6);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Null;
 }
@@ -6651,7 +6651,7 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	Value pixels = args.GetValue(8);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Null;
 }

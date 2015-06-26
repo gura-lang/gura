@@ -12,7 +12,7 @@ Object_HapticEffect::~Object_HapticEffect()
 
 Object *Object_HapticEffect::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_HapticEffect::ToString(bool exprFlag)

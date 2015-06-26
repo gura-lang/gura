@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DelegateRendererNative *_pObj;
 public:
-	inline wx_DelegateRendererNative() : wxDelegateRendererNative(), _sig(NULL), _pObj(NULL) {}
-	inline wx_DelegateRendererNative(wxRendererNative& rendererNative) : wxDelegateRendererNative(rendererNative), _sig(NULL), _pObj(NULL) {}
+	inline wx_DelegateRendererNative() : wxDelegateRendererNative(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DelegateRendererNative(wxRendererNative& rendererNative) : wxDelegateRendererNative(rendererNative), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DelegateRendererNative();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DelegateRendererNative *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_DelegateRendererNative::~wx_DelegateRendererNative()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DelegateRendererNative::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
 	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(DelegateRendererNative)
 	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
 	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -111,13 +111,13 @@ Object_wx_DelegateRendererNative::~Object_wx_DelegateRendererNative()
 
 Object *Object_wx_DelegateRendererNative::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 {
 	String rtn("<wx.DelegateRendererNative:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -139,7 +139,7 @@ Gura_ImplementUserInheritableClass(wx_DelegateRendererNative)
 
 Gura_ImplementDescendantCreator(wx_DelegateRendererNative)
 {
-	return new Object_wx_DelegateRendererNative((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DelegateRendererNative((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

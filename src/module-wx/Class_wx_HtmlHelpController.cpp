@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlHelpController *_pObj;
 public:
-	inline wx_HtmlHelpController(int style, wxWindow* parentWindow) : wxHtmlHelpController(style, parentWindow), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlHelpController(int style, wxWindow* parentWindow) : wxHtmlHelpController(style, parentWindow), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxHtmlHelpDialog* CreateHelpDialog(wxHtmlHelpData * data);
 	//virtual wxHtmlHelpFrame* CreateHelpFrame(wxHtmlHelpData * data);
 	~wx_HtmlHelpController();
@@ -30,12 +30,12 @@ public:
 
 wx_HtmlHelpController::~wx_HtmlHelpController()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlHelpController::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,11 +55,11 @@ Gura_ImplementFunction(HtmlHelpController)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int style = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(0)) style = args.GetInt(0);
-	wxWindow *parentWindow = (wxWindow *)(NULL);
+	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parentWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_HtmlHelpController *pEntity = new wx_HtmlHelpController(style, parentWindow);
 	Object_wx_HtmlHelpController *pObj = Object_wx_HtmlHelpController::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpController(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wxHtmlHelpDialog *rtn = (wxHtmlHelpDialog *)pThis->GetEntity()->CreateHelpDialog(data);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDialog(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDialog(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpFrame)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wxHtmlHelpFrame *rtn = (wxHtmlHelpFrame *)pThis->GetEntity()->CreateHelpFrame(data);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpFrame(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpFrame(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -317,13 +317,13 @@ Object_wx_HtmlHelpController::~Object_wx_HtmlHelpController()
 
 Object *Object_wx_HtmlHelpController::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlHelpController::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpController:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -359,7 +359,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlHelpController)
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpController)
 {
-	return new Object_wx_HtmlHelpController((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlHelpController((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

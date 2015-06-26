@@ -20,7 +20,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MouseState *_pObj;
 public:
-	inline wx_MouseState() : wxMouseState(), _sig(NULL), _pObj(NULL) {}
+	inline wx_MouseState() : wxMouseState(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MouseState();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseState *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -31,12 +31,12 @@ public:
 
 wx_MouseState::~wx_MouseState()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MouseState::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -322,20 +322,20 @@ Gura_ImplementMethod(wx_MouseState, SetMetaDown)
 //----------------------------------------------------------------------------
 Object_wx_MouseState::~Object_wx_MouseState()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_MouseState::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MouseState::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseState:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -374,7 +374,7 @@ Gura_ImplementUserInheritableClass(wx_MouseState)
 
 Gura_ImplementDescendantCreator(wx_MouseState)
 {
-	return new Object_wx_MouseState((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MouseState((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

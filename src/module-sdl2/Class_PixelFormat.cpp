@@ -12,7 +12,7 @@ Object_PixelFormat::~Object_PixelFormat()
 
 Object *Object_PixelFormat::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_PixelFormat::ToString(bool exprFlag)
@@ -38,7 +38,7 @@ Value Object_PixelFormat::DoGetProp(Environment &env, Signal sig, const Symbol *
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(palette))) {
-		if (_pPixelFormat->palette == NULL) return Value::Null;
+		if (_pPixelFormat->palette == nullptr) return Value::Null;
 		return Value(new Object_Palette(_pPixelFormat->palette));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BitsPerPixel))) {
 		return Value(_pPixelFormat->BitsPerPixel);

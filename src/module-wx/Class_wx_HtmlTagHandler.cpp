@@ -18,7 +18,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlTagHandler *_pObj;
 public:
-	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxString GetSupportedTags();
 	//virtual bool HandleTag(const wxHtmlTag& tag);
 	//virtual void SetParser(wxHtmlParser *parser);
@@ -32,12 +32,12 @@ public:
 
 wx_HtmlTagHandler::~wx_HtmlTagHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlTagHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 #if 0
 	wx_HtmlTagHandler *pEntity = new wx_HtmlTagHandler();
 	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTagHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -152,13 +152,13 @@ Object_wx_HtmlTagHandler::~Object_wx_HtmlTagHandler()
 
 Object *Object_wx_HtmlTagHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlTagHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -185,7 +185,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 
 Gura_ImplementDescendantCreator(wx_HtmlTagHandler)
 {
-	return new Object_wx_HtmlTagHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlTagHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

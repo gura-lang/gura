@@ -63,7 +63,7 @@ bool WriteStream(Signal sig, Stream &stream, Binary &binary);
 // structures
 //-----------------------------------------------------------------------------
 enum {
-	METHOD_Invalid		= -1,
+	METHOD_Invalid		= 0xffff,
 	METHOD_Store		= 0,	// The file is stored (no compression)
 	METHOD_Shrink		= 1,	// The file is Shrunk
 	METHOD_Factor1		= 2,	// The file is Reduced with compression factor 1
@@ -160,15 +160,15 @@ public:
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
 	inline void Print() const {
-		::printf("Signature              %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("Signature              %08lx\n", Gura_UnpackULong(_fields.Signature));
 		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
 		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
 		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
 		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
 		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08x\n", Gura_UnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08x\n", Gura_UnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08x\n", Gura_UnpackULong(_fields.UncompressedSize));
+		::printf("Crc32                  %08lx\n", Gura_UnpackULong(_fields.Crc32));
+		::printf("CompressedSize         %08lx\n", Gura_UnpackULong(_fields.CompressedSize));
+		::printf("UncompressedSize       %08lx\n", Gura_UnpackULong(_fields.UncompressedSize));
 		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
 		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
 	}
@@ -355,23 +355,23 @@ public:
 		return Gura_UnpackULong(_fields.ExternalFileAttributes);
 	}
 	inline void Print() const {
-		::printf("Signature              %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("Signature              %08lx\n", Gura_UnpackULong(_fields.Signature));
 		::printf("VersionMadeBy          %04x\n", Gura_UnpackUShort(_fields.VersionMadeBy));
 		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
 		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
 		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
 		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
 		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08x\n", Gura_UnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08x\n", Gura_UnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08x\n", Gura_UnpackULong(_fields.UncompressedSize));
+		::printf("Crc32                  %08lx\n", Gura_UnpackULong(_fields.Crc32));
+		::printf("CompressedSize         %08lx\n", Gura_UnpackULong(_fields.CompressedSize));
+		::printf("UncompressedSize       %08lx\n", Gura_UnpackULong(_fields.UncompressedSize));
 		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
 		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
 		::printf("FileCommentLength      %04x\n", Gura_UnpackUShort(_fields.FileCommentLength));
 		::printf("DiskNumberStart        %04x\n", Gura_UnpackUShort(_fields.DiskNumberStart));
 		::printf("InternalFileAttributes %04x\n", Gura_UnpackUShort(_fields.InternalFileAttributes));
-		::printf("ExternalFileAttributes %08x\n", Gura_UnpackULong(_fields.ExternalFileAttributes));
-		::printf("RelativeOffsetOfLocalHeader %08x\n", Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader));
+		::printf("ExternalFileAttributes %08lx\n", Gura_UnpackULong(_fields.ExternalFileAttributes));
+		::printf("RelativeOffsetOfLocalHeader %08lx\n", Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader));
 	}
 };
 
@@ -494,13 +494,13 @@ public:
 		return true;
 	}
 	void Print() const {
-		::printf("Signature                                                         %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("Signature                                                         %08lx\n", Gura_UnpackULong(_fields.Signature));
 		::printf("NumberOfThisDisk                                                  %04x\n", Gura_UnpackUShort(_fields.NumberOfThisDisk));
 		::printf("NumberOfTheDiskWithTheStartOfTheCentralDirectory                  %04x\n", Gura_UnpackUShort(_fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory));
 		::printf("TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk               %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk));
 		::printf("TotalNumberOfEntriesInTheCentralDirectory                         %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectory));
-		::printf("SizeOfTheCentralDirectory                                         %08x\n", Gura_UnpackULong(_fields.SizeOfTheCentralDirectory));
-		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08x\n", Gura_UnpackULong(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
+		::printf("SizeOfTheCentralDirectory                                         %08lx\n", Gura_UnpackULong(_fields.SizeOfTheCentralDirectory));
+		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08lx\n", Gura_UnpackULong(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
 		::printf("ZIPFileCommentLength                                              %04x\n", Gura_UnpackUShort(_fields.ZIPFileCommentLength));
 	}
 };

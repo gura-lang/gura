@@ -12,7 +12,7 @@ Object_Joystick::~Object_Joystick()
 
 Object *Object_Joystick::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Joystick::ToString(bool exprFlag)

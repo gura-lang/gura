@@ -22,8 +22,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Connection *_pObj;
 public:
-	inline wx_Connection() : wxConnection(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Connection(char* buffer, int size) : wxConnection(buffer, size), _sig(NULL), _pObj(NULL) {}
+	inline wx_Connection() : wxConnection(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Connection(char* buffer, int size) : wxConnection(buffer, size), _sig(nullptr), _pObj(nullptr) {}
 	//virtual bool OnAdvise(const wxString& topic, const wxString& item, char* data, int size, wxIPCFormat format);
 	//virtual bool OnDisconnect();
 	//virtual bool OnExecute(const wxString& topic, char* data, int size, wxIPCFormat format);
@@ -41,12 +41,12 @@ public:
 
 wx_Connection::~wx_Connection()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Connection::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(ConnectionEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Connection *pEntity = new wx_Connection();
 	Object_wx_Connection *pObj = Object_wx_Connection::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Connection)
 	int size = args.GetInt(1);
 	wx_Connection *pEntity = new wx_Connection(buffer, size);
 	Object_wx_Connection *pObj = Object_wx_Connection::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -442,13 +442,13 @@ Object_wx_Connection::~Object_wx_Connection()
 
 Object *Object_wx_Connection::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Connection::ToString(bool exprFlag)
 {
 	String rtn("<wx.Connection:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -490,7 +490,7 @@ Gura_ImplementUserInheritableClass(wx_Connection)
 
 Gura_ImplementDescendantCreator(wx_Connection)
 {
-	return new Object_wx_Connection((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Connection((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

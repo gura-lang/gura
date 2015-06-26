@@ -24,12 +24,12 @@ public:
 
 wx_ArchiveEntry::~wx_ArchiveEntry()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArchiveEntry::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, Clone)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveEntry, GetDateTime)
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, GetDateTime)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetDateTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ArchiveEntry, SetDateTime)
@@ -281,13 +281,13 @@ Object_wx_ArchiveEntry::~Object_wx_ArchiveEntry()
 
 Object *Object_wx_ArchiveEntry::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArchiveEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveEntry:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -322,7 +322,7 @@ Gura_ImplementUserInheritableClass(wx_ArchiveEntry)
 
 Gura_ImplementDescendantCreator(wx_ArchiveEntry)
 {
-	return new Object_wx_ArchiveEntry((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArchiveEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

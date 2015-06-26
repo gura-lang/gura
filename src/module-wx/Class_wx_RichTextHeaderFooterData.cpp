@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextHeaderFooterData *_pObj;
 public:
-	inline wx_RichTextHeaderFooterData() : wxRichTextHeaderFooterData(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RichTextHeaderFooterData(const wxRichTextHeaderFooterData& data) : wxRichTextHeaderFooterData(data), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextHeaderFooterData() : wxRichTextHeaderFooterData(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextHeaderFooterData(const wxRichTextHeaderFooterData& data) : wxRichTextHeaderFooterData(data), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextHeaderFooterData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextHeaderFooterData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_RichTextHeaderFooterData::~wx_RichTextHeaderFooterData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextHeaderFooterData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(RichTextHeaderFooterDataEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextHeaderFooterData *pEntity = new wx_RichTextHeaderFooterData();
 	Object_wx_RichTextHeaderFooterData *pObj = Object_wx_RichTextHeaderFooterData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextHeaderFooterData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(RichTextHeaderFooterData)
 	wxRichTextHeaderFooterData *data = Object_wx_RichTextHeaderFooterData::GetObject(args, 0)->GetEntity();
 	wx_RichTextHeaderFooterData *pEntity = new wx_RichTextHeaderFooterData(*data);
 	Object_wx_RichTextHeaderFooterData *pObj = Object_wx_RichTextHeaderFooterData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextHeaderFooterData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFont)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFooterMargin)
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetTextColour)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, Init)
@@ -388,13 +388,13 @@ Object_wx_RichTextHeaderFooterData::~Object_wx_RichTextHeaderFooterData()
 
 Object *Object_wx_RichTextHeaderFooterData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextHeaderFooterData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -433,7 +433,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextHeaderFooterData)
 
 Gura_ImplementDescendantCreator(wx_RichTextHeaderFooterData)
 {
-	return new Object_wx_RichTextHeaderFooterData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextHeaderFooterData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_LogStderr *_pObj;
 public:
-	inline wx_LogStderr() : _sig(NULL), _pObj(NULL) {}
-	inline wx_LogStderr(FILE *fp) : wxLogStderr(fp), _sig(NULL), _pObj(NULL) {}
+	inline wx_LogStderr() : _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LogStderr(FILE *fp) : wxLogStderr(fp), _sig(nullptr), _pObj(nullptr) {}
 	~wx_LogStderr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogStderr *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_LogStderr::~wx_LogStderr()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_LogStderr::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(LogStderr)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogStderr *pEntity = new wx_LogStderr();
 	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_LogStderr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -68,13 +68,13 @@ Object_wx_LogStderr::~Object_wx_LogStderr()
 
 Object *Object_wx_LogStderr::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_LogStderr::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogStderr:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -94,7 +94,7 @@ Gura_ImplementUserInheritableClass(wx_LogStderr)
 
 Gura_ImplementDescendantCreator(wx_LogStderr)
 {
-	return new Object_wx_LogStderr((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_LogStderr((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

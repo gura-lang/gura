@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 	int row = args.GetInt(3);
 	int col = args.GetInt(4);
 	wxSize rtn = pThis->GetEntity()->GetBestSize(*grid, *attr, *dc, row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridCellRenderer, Clone)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellRenderer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -126,13 +126,13 @@ Object_wx_GridCellRenderer::~Object_wx_GridCellRenderer()
 
 Object *Object_wx_GridCellRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -148,13 +148,13 @@ void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag
 {
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunctionCustom(Gura_UserSymbol(Draw), ENVREF_Escalate);
-	if (pFunc == NULL) return;
+	if (pFunc == nullptr) return;
 	evaluatedFlag = true;
 	ValueList valList;
-	valList.push_back(Value(new Object_wx_Grid(&grid, NULL, OwnerFalse)));
-	valList.push_back(Value(new Object_wx_GridCellAttr(&attr, NULL, OwnerFalse)));
-	valList.push_back(Value(new Object_wx_DC(&dc, NULL, OwnerFalse)));
-	valList.push_back(Value(new Object_wx_Rect(const_cast<wxRect *>(&rect), NULL, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_Grid(&grid, nullptr, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_GridCellAttr(&attr, nullptr, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_DC(&dc, nullptr, OwnerFalse)));
+	valList.push_back(Value(new Object_wx_Rect(const_cast<wxRect *>(&rect), nullptr, OwnerFalse)));
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(isSelected));
@@ -175,7 +175,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellRenderer)
 
 Gura_ImplementDescendantCreator(wx_GridCellRenderer)
 {
-	return new Object_wx_GridCellRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

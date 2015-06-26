@@ -14,23 +14,23 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Variant *_pObj;
 public:
-	inline wx_Variant() : wxVariant(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(const wxVariant& variant) : wxVariant(variant), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(const wxChar* value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(const wxString& value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(wxChar value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(long value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(bool value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(double value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(void* value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(wxObject* value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(wxVariantData* data, const wxString& name) : wxVariant(data, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(wxDateTime& val, const wxString& name) : wxVariant(val, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(wxArrayString& val, const wxString& name) : wxVariant(val, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Variant(DATE_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Variant(TIME_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Variant(TIMESTAMP_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Variant() : wxVariant(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(const wxVariant& variant) : wxVariant(variant), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(const wxChar* value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(const wxString& value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(wxChar value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(long value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(bool value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(double value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(void* value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(wxObject* value, const wxString& name) : wxVariant(value, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(wxVariantData* data, const wxString& name) : wxVariant(data, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(wxDateTime& val, const wxString& name) : wxVariant(val, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant(wxArrayString& val, const wxString& name) : wxVariant(val, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Variant(DATE_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Variant(TIME_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Variant(TIMESTAMP_STRUCT* val, const wxString& name) : wxVariant(val, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Variant();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Variant *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -41,12 +41,12 @@ public:
 
 wx_Variant::~wx_Variant()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Variant::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(VariantEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Variant *pEntity = new wx_Variant();
 	Object_wx_Variant *pObj = Object_wx_Variant::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Variant(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_DeclareFunction(Variant)
 Gura_ImplementFunction(Variant)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wx_Variant *pEntity = NULL;
+	wx_Variant *pEntity = nullptr;
 	wxString name = wxEmptyString;
 	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));
 	if (args.Is_string(0)) {
@@ -129,7 +129,7 @@ Gura_ImplementFunction(Variant)
 		return Value::Null;
 	}
 	Object_wx_Variant *pObj = Object_wx_Variant::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Variant(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_Variant, GetData)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVariantData *rtn = (wxVariantData *)pThis->GetEntity()->GetData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_VariantData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_VariantData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Variant, GetDateTime)
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Variant, GetDateTime)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetDateTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Variant, GetDouble)
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_Variant, GetWxObjectPtr)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetWxObjectPtr();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Variant, Insert)
@@ -650,13 +650,13 @@ Object_wx_Variant::~Object_wx_Variant()
 
 Object *Object_wx_Variant::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Variant::ToString(bool exprFlag)
 {
 	String rtn("<wx.Variant:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -709,7 +709,7 @@ Gura_ImplementUserInheritableClass(wx_Variant)
 
 Gura_ImplementDescendantCreator(wx_Variant)
 {
-	return new Object_wx_Variant((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Variant((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

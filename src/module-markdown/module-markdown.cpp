@@ -73,28 +73,28 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 	for (int i = 0; i < indentLevel; i++) stream.Print(sig, "  ");
 	stream.Print(sig, "<");
 	stream.Print(sig, GetTypeName());
-	if (_pURL.get() != NULL) {
+	if (_pURL.get() != nullptr) {
 		stream.Print(sig, " url='");
 		stream.Print(sig, _pURL->c_str());
 		stream.Print(sig, "'");
 	}
-	if (_pTitle.get() != NULL) {
+	if (_pTitle.get() != nullptr) {
 		stream.Print(sig, " title='");
 		stream.Print(sig, _pTitle->c_str());
 		stream.Print(sig, "'");
 	}
-	if (_pRefId.get() != NULL) {
+	if (_pRefId.get() != nullptr) {
 		stream.Print(sig, " refid='");
 		stream.Print(sig, _pRefId->c_str());
 		stream.Print(sig, "'");
 	}
-	if (_pAttrs.get() != NULL) {
+	if (_pAttrs.get() != nullptr) {
 		stream.Print(sig, " attrs='");
 		stream.Print(sig, _pAttrs->c_str());
 		stream.Print(sig, "'");
 	}
 	stream.Print(sig, ">");
-	if (_pText.get() != NULL) {
+	if (_pText.get() != nullptr) {
 		stream.Print(sig, "'");
 		stream.Print(sig, _pText->c_str());
 		stream.Print(sig, "'");
@@ -111,15 +111,15 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 //-----------------------------------------------------------------------------
 Item *ItemList::FindByRefId(const char *refId) const
 {
-	if (refId == NULL) return NULL;
+	if (refId == nullptr) return nullptr;
 	foreach_const (ItemList, ppItem, *this) {
 		Item *pItem = *ppItem;
-		if (pItem->GetRefId() != NULL &&
+		if (pItem->GetRefId() != nullptr &&
 					::strcasecmp(pItem->GetRefId(), refId) == 0) {
 			return pItem;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 Item *ItemList::FindByType(Item::Type type) const
@@ -128,7 +128,7 @@ Item *ItemList::FindByType(Item::Type type) const
 		Item *pItem = *ppItem;
 		if (pItem->GetType() == type) return pItem;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void ItemList::Print(Signal sig, Stream &stream, int indentLevel) const
@@ -418,11 +418,11 @@ void Document::ResolveReference()
 		Item *pItemLink = *ppItemLink;
 		const char *refId = pItemLink->GetRefId();
 		Item *pItemRef = _pItemRefereeOwner->FindByRefId(refId);
-		if (pItemRef != NULL) {
+		if (pItemRef != nullptr) {
 			const char *url = pItemRef->GetURL();
 			const char *title = pItemRef->GetTitle();
-			if (url != NULL) pItemLink->SetURL(url);
-			if (title != NULL) pItemLink->SetTitle(title);
+			if (url != nullptr) pItemLink->SetURL(url);
+			if (title != nullptr) pItemLink->SetTitle(title);
 		}
 	}
 	_resolvedFlag = true;
@@ -454,7 +454,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += WIDTH_Tab;
 		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_PushbackEx(ch);
-			BeginCodeBlock(NULL);
+			BeginCodeBlock(nullptr);
 			_stat = STAT_CodeBlock;
 		} else if (ch == '>') {
 			_indentLevel = -1;
@@ -957,7 +957,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else if (_indentLevel >= GetIndentLevelForCodeBlock()) {
 			Gura_PushbackEx(ch);
-			BeginCodeBlock(NULL);
+			BeginCodeBlock(nullptr);
 			_stat = STAT_CodeBlock;
 		} else if (ch == '*') {
 			UpdateIndentLevelItemBody(_indentLevel);
@@ -1322,7 +1322,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			} else if (IsWithinTag()) {
 				_text += ch;
 			} else {
-				if (EndsWith(_text.c_str(), "  ", false) != NULL) {
+				if (EndsWith(_text.c_str(), "  ", false) != nullptr) {
 					FlushText(Item::TYPE_Text, false, true);
 					Item *pItem = new Item(Item::TYPE_LineBreak);
 					_pItemOwner->push_back(pItem);
@@ -2289,7 +2289,7 @@ void Document::BeginCodeBlock(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false, false);
 	for (int i = 0; i < _indentLevel - GetIndentLevelForCodeBlock(); i++) _text += ' ';
-	if (textInit != NULL) _text += textInit;
+	if (textInit != nullptr) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_CodeBlock, new ItemOwner(), _indentLevel);
@@ -2699,7 +2699,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 //-----------------------------------------------------------------------------
 Object *Object_document::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -2791,7 +2791,7 @@ Gura_ImplementUserClass(document)
 //-----------------------------------------------------------------------------
 Object *Object_item::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -2815,24 +2815,24 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(Symbol::Add(_pItem->GetTypeName()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
 		const char *text = _pItem->GetText();
-		if (text == NULL) return Value::Null;
+		if (text == nullptr) return Value::Null;
 		return Value(text);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ItemOwner *pItemOwner = _pItem->GetItemOwner();
-		if (pItemOwner == NULL) return Value::Null;
+		if (pItemOwner == nullptr) return Value::Null;
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(url))) {
 		const char *url = _pItem->GetURL();
-		if (url == NULL) return Value::Null;
+		if (url == nullptr) return Value::Null;
 		return Value(url);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(title))) {
 		const char *title = _pItem->GetTitle();
-		if (title == NULL) return Value::Null;
+		if (title == nullptr) return Value::Null;
 		return Value(title);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const char *attrs = _pItem->GetAttrs();
-		if (attrs == NULL) return Value::Null;
+		if (attrs == nullptr) return Value::Null;
 		return Value(attrs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(align))) {
 		Align align = _pItem->GetAlign();
@@ -2962,7 +2962,7 @@ Iterator_item::Iterator_item(ItemOwner *pItemOwner) :
 
 Iterator *Iterator_item::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_item::DoNext(Environment &env, Signal sig, Value &value)
@@ -2999,12 +2999,12 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 	}
 	//ValueList valListArg;
 	AutoPtr<Args> pArgs(new Args());
-	if (title == NULL) {
+	if (title == nullptr) {
 		pArgs->AddValue(Value::Null);
 	} else {
 		pArgs->AddValue(Value(title));
 	}
-	if (pHelp == NULL) {
+	if (pHelp == nullptr) {
 		pArgs->AddValue(Value::Null);
 	} else {
 		AutoPtr<Document> pDocument(new Document());
@@ -3050,7 +3050,7 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
-	g_pFunc_Presenter.reset(NULL);
+	g_pFunc_Presenter.reset(nullptr);
 }
 
 Gura_EndModuleBody(markdown, markdown)

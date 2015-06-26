@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextFileHandler *_pObj;
 public:
-	//inline wx_RichTextFileHandler(const wxString& name, const wxString& ext, int type) : wxRichTextFileHandler(name, ext, type), _sig(NULL), _pObj(NULL) {}
+	//inline wx_RichTextFileHandler(const wxString& name, const wxString& ext, int type) : wxRichTextFileHandler(name, ext, type), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextFileHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextFileHandler *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextFileHandler::~wx_RichTextFileHandler()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextFileHandler::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(RichTextFileHandler)
 	if (args.IsValid(2)) type = args.GetInt(2);
 	wx_RichTextFileHandler *pEntity = new wx_RichTextFileHandler(name, ext, type);
 	Object_wx_RichTextFileHandler *pObj = Object_wx_RichTextFileHandler::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFileHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -420,13 +420,13 @@ Object_wx_RichTextFileHandler::~Object_wx_RichTextFileHandler()
 
 Object *Object_wx_RichTextFileHandler::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextFileHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextFileHandler:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -467,7 +467,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextFileHandler)
 
 Gura_ImplementDescendantCreator(wx_RichTextFileHandler)
 {
-	return new Object_wx_RichTextFileHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextFileHandler((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

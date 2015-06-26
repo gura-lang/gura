@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileDataObject *_pObj;
 public:
-	inline wx_FileDataObject() : wxFileDataObject(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileDataObject() : wxFileDataObject(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void AddFile(const wxString& file);
 	~wx_FileDataObject();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDataObject *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_FileDataObject::~wx_FileDataObject()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileDataObject::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(FileDataObjectEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDataObject *pEntity = new wx_FileDataObject();
 	Object_wx_FileDataObject *pObj = Object_wx_FileDataObject::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -99,13 +99,13 @@ Object_wx_FileDataObject::~Object_wx_FileDataObject()
 
 Object *Object_wx_FileDataObject::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDataObject:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -128,7 +128,7 @@ Gura_ImplementUserInheritableClass(wx_FileDataObject)
 
 Gura_ImplementDescendantCreator(wx_FileDataObject)
 {
-	return new Object_wx_FileDataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileDataObject((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

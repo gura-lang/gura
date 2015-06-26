@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ScopedArray *_pObj;
 public:
-	inline wx_ScopedArray(type * T) : wxScopedArray(* T), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScopedArray(type * T) : wxScopedArray(* T), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ScopedArray();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScopedArray *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ScopedArray::~wx_ScopedArray()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScopedArray::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ScopedArray)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScopedArray *pEntity = new wx_ScopedArray();
 	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedArray(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -103,20 +103,20 @@ Gura_ImplementMethod(wx_ScopedArray, swap)
 //----------------------------------------------------------------------------
 Object_wx_ScopedArray::~Object_wx_ScopedArray()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ScopedArray::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScopedArray::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScopedArray:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -139,7 +139,7 @@ Gura_ImplementUserInheritableClass(wx_ScopedArray)
 
 Gura_ImplementDescendantCreator(wx_ScopedArray)
 {
-	return new Object_wx_ScopedArray((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScopedArray((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

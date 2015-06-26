@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AnimationCtrl *_pObj;
 public:
-	inline wx_AnimationCtrl(wxWindow * parent, wxWindowID id, const wxAnimation& anim, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxAnimationCtrl(parent, id, anim, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_AnimationCtrl(wxWindow * parent, wxWindowID id, const wxAnimation& anim, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxAnimationCtrl(parent, id, anim, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AnimationCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AnimationCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_AnimationCtrl::~wx_AnimationCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AnimationCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ Gura_ImplementFunction(AnimationCtrl)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_AnimationCtrl *pEntity = new wx_AnimationCtrl(parent, id, *anim, *pos, *size, style, name);
 	Object_wx_AnimationCtrl *pObj = Object_wx_AnimationCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AnimationCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAnimation rtn = pThis->GetEntity()->GetAnimation();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Animation(new wxAnimation(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Animation(new wxAnimation(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap rtn = pThis->GetEntity()->GetInactiveBitmap();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
@@ -235,13 +235,13 @@ Object_wx_AnimationCtrl::~Object_wx_AnimationCtrl()
 
 Object *Object_wx_AnimationCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.AnimationCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -270,7 +270,7 @@ Gura_ImplementUserInheritableClass(wx_AnimationCtrl)
 
 Gura_ImplementDescendantCreator(wx_AnimationCtrl)
 {
-	return new Object_wx_AnimationCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AnimationCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -43,7 +43,7 @@ static const UShort _codeTbl_ISO8859_1[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x00ff,
 };
 
-Codec::Map *Codec_ISO8859_1::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_1::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_1::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_1) {}
@@ -89,7 +89,7 @@ static const UShort _codeTbl_ISO8859_2[] = {
 	0x0159, 0x016f, 0x00fa, 0x0171, 0x00fc, 0x00fd, 0x0163, 0x02d9,
 };
 
-Codec::Map *Codec_ISO8859_2::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_2::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_2::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_2) {}
@@ -135,7 +135,7 @@ static const UShort _codeTbl_ISO8859_3[] = {
 	0x011d, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x016d, 0x015d, 0x02d9,
 };
 
-Codec::Map *Codec_ISO8859_3::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_3::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_3::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_3) {}
@@ -181,7 +181,7 @@ static const UShort _codeTbl_ISO8859_4[] = {
 	0x00f8, 0x0173, 0x00fa, 0x00fb, 0x00fc, 0x0169, 0x016b, 0x02d9,
 };
 
-Codec::Map *Codec_ISO8859_4::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_4::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_4::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_4) {}
@@ -227,7 +227,7 @@ static const UShort _codeTbl_ISO8859_5[] = {
 	0x0458, 0x0459, 0x045a, 0x045b, 0x045c, 0x00a7, 0x045e, 0x045f,
 };
 
-Codec::Map *Codec_ISO8859_5::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_5::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_5::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_5) {}
@@ -273,7 +273,7 @@ static const UShort _codeTbl_ISO8859_6[] = {
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-Codec::Map *Codec_ISO8859_6::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_6::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_6::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_6) {}
@@ -319,7 +319,7 @@ static const UShort _codeTbl_ISO8859_7[] = {
 	0x03c8, 0x03c9, 0x03ca, 0x03cb, 0x03cc, 0x03cd, 0x03ce, 0x0000,
 };
 
-Codec::Map *Codec_ISO8859_7::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_7::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_7::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_7) {}
@@ -365,7 +365,7 @@ static const UShort _codeTbl_ISO8859_8[] = {
 	0x05e8, 0x05e9, 0x05ea, 0x0000, 0x0000, 0x200e, 0x200f, 0x0000,
 };
 
-Codec::Map *Codec_ISO8859_8::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_8::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_8::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_8) {}
@@ -411,7 +411,7 @@ static const UShort _codeTbl_ISO8859_9[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x0131, 0x015f, 0x00ff,
 };
 
-Codec::Map *Codec_ISO8859_9::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_9::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_9::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_9) {}
@@ -457,7 +457,7 @@ static const UShort _codeTbl_ISO8859_10[] = {
 	0x00f8, 0x0173, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x0138,
 };
 
-Codec::Map *Codec_ISO8859_10::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_10::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_10::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_10) {}
@@ -503,7 +503,7 @@ static const UShort _codeTbl_ISO8859_11[] = {
 	0x0e58, 0x0e59, 0x0e5a, 0x0e5b, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-Codec::Map *Codec_ISO8859_11::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_11::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_11::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_11) {}
@@ -549,7 +549,7 @@ static const UShort _codeTbl_ISO8859_13[] = {
 	0x0173, 0x0142, 0x015b, 0x016b, 0x00fc, 0x017c, 0x017e, 0x2019,
 };
 
-Codec::Map *Codec_ISO8859_13::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_13::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_13::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_13) {}
@@ -595,7 +595,7 @@ static const UShort _codeTbl_ISO8859_14[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x0177, 0x00ff,
 };
 
-Codec::Map *Codec_ISO8859_14::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_14::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_14::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_14) {}
@@ -641,7 +641,7 @@ static const UShort _codeTbl_ISO8859_15[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x00ff,
 };
 
-Codec::Map *Codec_ISO8859_15::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_15::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_15::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_15) {}
@@ -687,7 +687,7 @@ static const UShort _codeTbl_ISO8859_16[] = {
 	0x0171, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x0119, 0x021b, 0x00ff,
 };
 
-Codec::Map *Codec_ISO8859_16::Encoder::_pMapShared = NULL;
+Codec::Map *Codec_ISO8859_16::Encoder::_pMapShared = nullptr;
 
 Codec_ISO8859_16::Decoder::Decoder(bool delcrFlag) :
 	Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_16) {}

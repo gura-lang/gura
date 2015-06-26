@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SizeEvent *_pObj;
 public:
-	inline wx_SizeEvent(const wxSize& sz, int id) : wxSizeEvent(sz, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_SizeEvent(const wxSize& sz, int id) : wxSizeEvent(sz, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SizeEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SizeEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SizeEvent::~wx_SizeEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SizeEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(SizeEvent)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_SizeEvent *pEntity = new wx_SizeEvent(*sz, id);
 	Object_wx_SizeEvent *pObj = Object_wx_SizeEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_SizeEvent, GetSize)
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------
@@ -86,13 +86,13 @@ Object_wx_SizeEvent::~Object_wx_SizeEvent()
 
 Object *Object_wx_SizeEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SizeEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SizeEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -113,7 +113,7 @@ Gura_ImplementUserInheritableClass(wx_SizeEvent)
 
 Gura_ImplementDescendantCreator(wx_SizeEvent)
 {
-	return new Object_wx_SizeEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SizeEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

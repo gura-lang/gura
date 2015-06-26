@@ -22,7 +22,7 @@ Gura_ImplementFunction(dir)
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
 	const CodecFactory::List *pList = CodecFactory::GetList();
-	if (pList != NULL) {
+	if (pList != nullptr) {
 		foreach_const (CodecFactory::List, ppFactory, *pList) {
 			CodecFactory *pFactory = *ppFactory;
 			valList.push_back(Value(pFactory->GetEncoding()));

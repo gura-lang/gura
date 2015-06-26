@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TreebookEvent *_pObj;
 public:
-	inline wx_TreebookEvent(wxEventType commandType, int id, int nSel, int nOldSel) : wxTreebookEvent(commandType, id, nSel, nOldSel), _sig(NULL), _pObj(NULL) {}
+	inline wx_TreebookEvent(wxEventType commandType, int id, int nSel, int nOldSel) : wxTreebookEvent(commandType, id, nSel, nOldSel), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TreebookEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TreebookEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_TreebookEvent::~wx_TreebookEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TreebookEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(TreebookEvent)
 	if (args.IsValid(3)) nOldSel = args.GetInt(3);
 	wx_TreebookEvent *pEntity = new wx_TreebookEvent(commandType, id, nSel, nOldSel);
 	Object_wx_TreebookEvent *pObj = Object_wx_TreebookEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TreebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -107,13 +107,13 @@ Object_wx_TreebookEvent::~Object_wx_TreebookEvent()
 
 Object *Object_wx_TreebookEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TreebookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreebookEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -135,7 +135,7 @@ Gura_ImplementUserInheritableClass(wx_TreebookEvent)
 
 Gura_ImplementDescendantCreator(wx_TreebookEvent)
 {
-	return new Object_wx_TreebookEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TreebookEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

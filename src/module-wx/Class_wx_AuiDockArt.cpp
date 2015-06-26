@@ -29,7 +29,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AuiDockArt *_pObj;
 public:
-	//inline wx_AuiDockArt() : wxAuiDockArt(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_AuiDockArt() : wxAuiDockArt(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void DrawBackground(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect);
 	//virtual void DrawBorder(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane);
 	//virtual void DrawCaption(wxDC& dc, wxWindow* window, const wxString& text, const wxRect& rect, wxAuiPaneInfo& pane);
@@ -54,12 +54,12 @@ public:
 
 wx_AuiDockArt::~wx_AuiDockArt()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AuiDockArt::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -80,7 +80,7 @@ Gura_ImplementFunction(AuiDockArtEmpty)
 #if 0
 	wx_AuiDockArt *pEntity = new wx_AuiDockArt();
 	Object_wx_AuiDockArt *pObj = Object_wx_AuiDockArt::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiDockArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColor)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColor(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetColour)
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColour(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetFont)
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxFont rtn = pThis->GetEntity()->GetFont(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
@@ -362,20 +362,20 @@ Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
 //----------------------------------------------------------------------------
 Object_wx_AuiDockArt::~Object_wx_AuiDockArt()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_AuiDockArt::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AuiDockArt::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiDockArt:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -423,7 +423,7 @@ Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 
 Gura_ImplementDescendantCreator(wx_AuiDockArt)
 {
-	return new Object_wx_AuiDockArt((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AuiDockArt((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MenuBar *_pObj;
 public:
-	inline wx_MenuBar(long style) : wxMenuBar(style), _sig(NULL), _pObj(NULL) {}
-	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _sig(NULL), _pObj(NULL) {}
+	inline wx_MenuBar(long style) : wxMenuBar(style), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MenuBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MenuBar *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_MenuBar::~wx_MenuBar()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MenuBar::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(MenuBar)
 	if (args.IsValid(0)) style = args.GetLong(0);
 	wx_MenuBar *pEntity = new wx_MenuBar(style);
 	Object_wx_MenuBar *pObj = Object_wx_MenuBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(MenuBar_1)
 	if (args.IsValid(3)) style = args.GetLong(3);
 	wx_MenuBar *pEntity = new wx_MenuBar(n, menus[], titles[], style);
 	Object_wx_MenuBar *pObj = Object_wx_MenuBar::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -218,10 +218,10 @@ Gura_ImplementMethod(wx_MenuBar, FindItem)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
-	wxMenu ***menu = (wxMenu *)(&NULL);
+	wxMenu ***menu = (wxMenu *)(&nullptr);
 	if (args.IsValid(1)) **menu = Object_wx_Menu::GetObject(args, 1)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->FindItem(id, ***menu);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenu)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int menuIndex = args.GetInt(0);
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu(menuIndex);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetMenuCount)
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_MenuBar, Remove)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->Remove(pos);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MenuBar, Replace)
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_MenuBar, Replace)
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 1)->GetEntity();
 	wxString title = wxString::FromUTF8(args.GetString(2));
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->Replace(pos, menu, title);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MenuBar, SetHelpString)
@@ -515,13 +515,13 @@ Object_wx_MenuBar::~Object_wx_MenuBar()
 
 Object *Object_wx_MenuBar::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MenuBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.MenuBar:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -566,7 +566,7 @@ Gura_ImplementUserInheritableClass(wx_MenuBar)
 
 Gura_ImplementDescendantCreator(wx_MenuBar)
 {
-	return new Object_wx_MenuBar((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MenuBar((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

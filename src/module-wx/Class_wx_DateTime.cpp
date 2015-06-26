@@ -14,12 +14,12 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DateTime *_pObj;
 public:
-	//inline wx_DateTime() : wxDateTime(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _sig(NULL), _pObj(NULL) {}
-	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DateTime() : wxDateTime(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DateTime();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DateTime *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -30,12 +30,12 @@ public:
 
 wx_DateTime::~wx_DateTime()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DateTime::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -89,7 +89,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetBeginDST)
 	wxDateTime::Country country = wxDateTime::Country_Default;
 	if (args.IsValid(1)) country = static_cast<wxDateTime::Country>(args.GetInt(1));
 	wxDateTime rtn = wxDateTime::GetBeginDST(year, country);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetCountry)
@@ -168,7 +168,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetEndDST)
 	wxDateTime::Country country = wxDateTime::Country_Default;
 	if (args.IsValid(1)) country = static_cast<wxDateTime::Country>(args.GetInt(1));
 	wxDateTime rtn = wxDateTime::GetEndDST(year, country);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetMonthName)
@@ -346,7 +346,7 @@ Gura_ImplementClassMethod(wx_DateTime, Now)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::Now();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, SetCountry)
@@ -377,7 +377,7 @@ Gura_ImplementClassMethod(wx_DateTime, Today)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::Today();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, UNow)
@@ -390,7 +390,7 @@ Gura_ImplementClassMethod(wx_DateTime, UNow)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::UNow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(DateTime)
@@ -405,7 +405,7 @@ Gura_ImplementFunction(DateTime)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DateTime *pEntity = new wx_DateTime();
 	Object_wx_DateTime *pObj = Object_wx_DateTime::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DateTime(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_DateTime, SetToCurrent)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->SetToCurrent();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_DateTime, SetJDN)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double jdn = args.GetDouble(0);
 	wxDateTime &rtn = pThis->GetEntity()->Set(jdn);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateTime, SetHMS)
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_DateTime, SetHMS)
 	wxDateTime::wxDateTime_t millisec = 0;
 	if (args.IsValid(3)) hour = static_cast<wxDateTime::wxDateTime_t>(args.GetInt(3));
 	wxDateTime &rtn = pThis->GetEntity()->Set(hour, minute, second, millisec);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateTime, Set)
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_DateTime, Set)
 	wxDateTime::wxDateTime_t millisec = 0;
 	if (args.IsValid(6)) hour = static_cast<wxDateTime::wxDateTime_t>(args.GetInt(6));
 	wxDateTime &rtn = pThis->GetEntity()->Set(day, month, year, hour, minute, second, millisec);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateTime, ResetTime)
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_DateTime, ResetTime)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->ResetTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -542,7 +542,7 @@ Gura_ImplementMethod(wx_DateTime, SetYear)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int year = args.GetInt(0);
 	wxDateTime &rtn = pThis->GetEntity()->SetYear(year);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_DateTime, SetMonth)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->SetMonth();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -584,7 +584,7 @@ Gura_ImplementMethod(wx_DateTime, SetDay)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *day = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetDay(*day);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -606,7 +606,7 @@ Gura_ImplementMethod(wx_DateTime, SetHour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *hour = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetHour(*hour);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -628,7 +628,7 @@ Gura_ImplementMethod(wx_DateTime, SetMinute)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *minute = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetMinute(*minute);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -650,7 +650,7 @@ Gura_ImplementMethod(wx_DateTime, SetSecond)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *second = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetSecond(*second);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -672,7 +672,7 @@ Gura_ImplementMethod(wx_DateTime, SetMillisecond)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *millisecond = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetMillisecond(*millisecond);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -703,7 +703,7 @@ Gura_ImplementMethod(wx_DateTime, GetDateOnly)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetDateOnly();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateTime, GetTm)
@@ -927,7 +927,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfYear)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t rtn = pThis->GetEntity()->GetWeekOfYear(, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -947,7 +947,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfMonth)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t rtn = pThis->GetEntity()->GetWeekOfMonth(, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1009,7 +1009,7 @@ Gura_ImplementMethod(wx_DateTime, Set_5)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned ddt = args.GetInt(0);
 	wxDateTime &rtn = pThis->GetEntity()->Set(ddt);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1231,7 +1231,7 @@ Gura_ImplementMethod(wx_DateTime, Add)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Add(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1253,7 +1253,7 @@ Gura_ImplementMethod(wx_DateTime, Add_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Add(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1275,7 +1275,7 @@ Gura_ImplementMethod(wx_DateTime, Add_2)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Add(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1297,7 +1297,7 @@ Gura_ImplementMethod(wx_DateTime, Add_3)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Add(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1319,7 +1319,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Subtract(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1341,7 +1341,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Subtract(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1363,7 +1363,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_2)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Subtract(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1385,7 +1385,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_3)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Subtract(*diff);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1407,7 +1407,7 @@ Gura_ImplementMethod(wx_DateTime, Subtract_4)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxTimeSpan rtn = pThis->GetEntity()->Subtract(*dt);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TimeSpan(new wxTimeSpan(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TimeSpan(new wxTimeSpan(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1634,7 +1634,7 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDayInSameWeek)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->SetToWeekDayInSameWeek(, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1654,7 +1654,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDayInSameWeek)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetWeekDayInSameWeek(, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1674,7 +1674,7 @@ Gura_ImplementMethod(wx_DateTime, SetToNextWeekDay)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->SetToNextWeekDay();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1694,7 +1694,7 @@ Gura_ImplementMethod(wx_DateTime, GetNextWeekDay)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetNextWeekDay();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1714,7 +1714,7 @@ Gura_ImplementMethod(wx_DateTime, SetToPrevWeekDay)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime &rtn = pThis->GetEntity()->SetToPrevWeekDay();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1734,7 +1734,7 @@ Gura_ImplementMethod(wx_DateTime, GetPrevWeekDay)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetPrevWeekDay();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1786,7 +1786,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay_1)
 	int year = Inv_Year;
 	if (args.IsValid(3)) year = args.GetInt(3);
 	wxDateTime rtn = pThis->GetEntity()->GetWeekDay(, n, , year);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1832,7 +1832,7 @@ Gura_ImplementMethod(wx_DateTime, GetLastWeekDay)
 	int year = Inv_Year;
 	if (args.IsValid(2)) year = args.GetInt(2);
 	wxDateTime rtn = pThis->GetEntity()->GetLastWeekDay(, , year);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1855,7 +1855,7 @@ Gura_ImplementClassMethod(wx_DateTime, SetToWeekOfYear)
 	int year = args.GetInt(0);
 	wxDateTime_t *numWeek = Object_wx_DateTime_t::GetObject(args, 1)->GetEntity();
 	wxDateTime rtn = wxDateTime::SetToWeekOfYear(year, *numWeek, );
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1878,7 +1878,7 @@ Gura_ImplementMethod(wx_DateTime, SetToLastMonthDay)
 	int year = Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
 	wxDateTime &rtn = pThis->GetEntity()->SetToLastMonthDay(, year);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1901,7 +1901,7 @@ Gura_ImplementMethod(wx_DateTime, GetLastMonthDay)
 	int year = Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
 	wxDateTime rtn = pThis->GetEntity()->GetLastMonthDay(, year);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1923,7 +1923,7 @@ Gura_ImplementMethod(wx_DateTime, SetToYearDay)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *yday = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetToYearDay(*yday);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1945,7 +1945,7 @@ Gura_ImplementMethod(wx_DateTime, GetYearDay)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime_t *yday = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->GetYearDay(*yday);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2058,7 +2058,7 @@ Gura_ImplementMethod(wx_DateTime, FromTimezone)
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime rtn = pThis->GetEntity()->FromTimezone(, noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2081,7 +2081,7 @@ Gura_ImplementMethod(wx_DateTime, ToTimezone)
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime rtn = pThis->GetEntity()->ToTimezone(, noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2104,7 +2104,7 @@ Gura_ImplementMethod(wx_DateTime, MakeTimezone)
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime &rtn = pThis->GetEntity()->MakeTimezone(, noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2127,7 +2127,7 @@ Gura_ImplementMethod(wx_DateTime, MakeFromTimezone)
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime &rtn = pThis->GetEntity()->MakeFromTimezone(, noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2150,7 +2150,7 @@ Gura_ImplementMethod(wx_DateTime, ToUTC)
 	bool noDST = false;
 	if (args.IsValid(0)) noDST = args.GetBoolean(0);
 	wxDateTime rtn = pThis->GetEntity()->ToUTC(noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2173,7 +2173,7 @@ Gura_ImplementMethod(wx_DateTime, MakeUTC)
 	bool noDST = false;
 	if (args.IsValid(0)) noDST = args.GetBoolean(0);
 	wxDateTime &rtn = pThis->GetEntity()->MakeUTC(noDST);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2204,20 +2204,20 @@ Gura_ImplementMethod(wx_DateTime, IsDST)
 //----------------------------------------------------------------------------
 Object_wx_DateTime::~Object_wx_DateTime()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DateTime::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DateTime::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateTime:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -2442,7 +2442,7 @@ Gura_ImplementUserInheritableClass(wx_DateTime)
 
 Gura_ImplementDescendantCreator(wx_DateTime)
 {
-	return new Object_wx_DateTime((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DateTime((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

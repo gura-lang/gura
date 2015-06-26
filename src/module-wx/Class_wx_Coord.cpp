@@ -42,7 +42,7 @@ Gura_ImplementUserInheritableClass(wx_Coord)
 
 Gura_ImplementDescendantCreator(wx_Coord)
 {
-	return new Object_wx_Coord((pClass == NULL)? this : pClass, NULL);
+	return new Object_wx_Coord((pClass == nullptr)? this : pClass, nullptr);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DropFilesEvent *_pObj;
 public:
-	//inline wx_DropFilesEvent(WXTYPE id, int noFiles, wxString* files) : wxDropFilesEvent(id, noFiles, files), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DropFilesEvent(WXTYPE id, int noFiles, wxString* files) : wxDropFilesEvent(id, noFiles, files), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DropFilesEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DropFilesEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DropFilesEvent::~wx_DropFilesEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DropFilesEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	WXTYPE id = 0;
 	if (args.IsValid(0)) id = static_cast<WXTYPE>(args.GetInt(0));
 	int noFiles = 0;
-	wxString *files = NULL;
+	wxString *files = nullptr;
 	std::unique_ptr<wxArrayString> pFilesArray;
 	if (args.IsValid(1)) {
 		pFilesArray.reset(CreateArrayString(args,GetList(1)));
@@ -62,7 +62,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	}
 	wx_DropFilesEvent *pEntity = new wx_DropFilesEvent(id, noFiles, files);
 	Object_wx_DropFilesEvent *pObj = Object_wx_DropFilesEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DropFilesEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetPosition)
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------
@@ -127,13 +127,13 @@ Object_wx_DropFilesEvent::~Object_wx_DropFilesEvent()
 
 Object *Object_wx_DropFilesEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DropFilesEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DropFilesEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -156,7 +156,7 @@ Gura_ImplementUserInheritableClass(wx_DropFilesEvent)
 
 Gura_ImplementDescendantCreator(wx_DropFilesEvent)
 {
-	return new Object_wx_DropFilesEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DropFilesEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

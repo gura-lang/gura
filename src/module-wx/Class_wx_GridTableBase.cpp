@@ -33,7 +33,7 @@ private:
 	Gura::Signal _sig;
 	AutoPtr<Object_wx_GridTableBase> _pObj;
 public:
-	inline wx_GridTableBase() : wxGridTableBase(), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridTableBase() : wxGridTableBase(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridTableBase();
 	virtual int GetNumberRows();
 	virtual int GetNumberCols();
@@ -69,7 +69,7 @@ void wx_GridTableBase::GuraObjectDeleted()
 int wx_GridTableBase::GetNumberRows()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberRows);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberRows method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
@@ -82,7 +82,7 @@ int wx_GridTableBase::GetNumberRows()
 int wx_GridTableBase::GetNumberCols()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberCols);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberCols method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
@@ -95,7 +95,7 @@ int wx_GridTableBase::GetNumberCols()
 bool wx_GridTableBase::IsEmptyCell(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, IsEmptyCell);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#IsEmptyCell method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
@@ -112,7 +112,7 @@ bool wx_GridTableBase::IsEmptyCell(int row, int col)
 wxString wx_GridTableBase::GetValue(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetValue method is missing");
 		return wxEmptyString;
 	}
@@ -128,7 +128,7 @@ wxString wx_GridTableBase::GetValue(int row, int col)
 void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValue);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#SetValue method is missing");
 		return;
 	}
@@ -145,7 +145,7 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 wxString wx_GridTableBase::GetTypeName(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetTypeName);
-	if (pFunc == NULL) return wxGridTableBase::GetTypeName(row, col);
+	if (pFunc == nullptr) return wxGridTableBase::GetTypeName(row, col);
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(row));
@@ -158,7 +158,7 @@ wxString wx_GridTableBase::GetTypeName(int row, int col)
 bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanGetValueAs);
-	if (pFunc == NULL) return wxGridTableBase::CanGetValueAs(row, col, typeName);
+	if (pFunc == nullptr) return wxGridTableBase::CanGetValueAs(row, col, typeName);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(3);
@@ -173,7 +173,7 @@ bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanSetValueAs);
-	if (pFunc == NULL) return wxGridTableBase::CanSetValueAs(row, col, typeName);
+	if (pFunc == nullptr) return wxGridTableBase::CanSetValueAs(row, col, typeName);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(3);
@@ -188,7 +188,7 @@ bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 long wx_GridTableBase::GetValueAsLong(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValueAsLong);
-	if (pFunc == NULL) return wxGridTableBase::GetValueAsLong(row, col);
+	if (pFunc == nullptr) return wxGridTableBase::GetValueAsLong(row, col);
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(row));
@@ -201,7 +201,7 @@ long wx_GridTableBase::GetValueAsLong(int row, int col)
 double wx_GridTableBase::GetValueAsDouble(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValueAsDouble);
-	if (pFunc == NULL) return wxGridTableBase::GetValueAsDouble(row, col);
+	if (pFunc == nullptr) return wxGridTableBase::GetValueAsDouble(row, col);
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(row));
@@ -214,7 +214,7 @@ double wx_GridTableBase::GetValueAsDouble(int row, int col)
 bool wx_GridTableBase::GetValueAsBool(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValueAsBool);
-	if (pFunc == NULL) return wxGridTableBase::GetValueAsBool(row, col);
+	if (pFunc == nullptr) return wxGridTableBase::GetValueAsBool(row, col);
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(row));
@@ -227,7 +227,7 @@ bool wx_GridTableBase::GetValueAsBool(int row, int col)
 void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValueAsLong);
-	if (pFunc == NULL) return wxGridTableBase::SetValueAsLong(row, col, value);
+	if (pFunc == nullptr) return wxGridTableBase::SetValueAsLong(row, col, value);
 	ValueList valList;
 	valList.reserve(3);
 	valList.push_back(Value(row));
@@ -240,7 +240,7 @@ void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValueAsDouble);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxGridTableBase::SetValueAsDouble(row, col, value);
 		return;
 	}
@@ -256,7 +256,7 @@ void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValueAsBool);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		wxGridTableBase::SetValueAsBool(row, col, value);
 		return;
 	}
@@ -273,7 +273,7 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 {
 	Function *pFunc = _pObj->LookupFunctionCustom(
 									Gura_UserSymbol(GetRowLabelValue), ENVREF_Escalate);
-	if (pFunc == NULL) return wxGridTableBase::GetRowLabelValue(row);
+	if (pFunc == nullptr) return wxGridTableBase::GetRowLabelValue(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
@@ -286,7 +286,7 @@ wxString wx_GridTableBase::GetColLabelValue(int col)
 {
 	Function *pFunc = _pObj->LookupFunctionCustom(
 									Gura_UserSymbol(GetColLabelValue), ENVREF_Escalate);
-	if (pFunc == NULL) return wxGridTableBase::GetColLabelValue(col);
+	if (pFunc == nullptr) return wxGridTableBase::GetColLabelValue(col);
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(col));
@@ -310,7 +310,7 @@ Gura_ImplementFunction(GridTableBase)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridTableBase *pEntity = new wx_GridTableBase();
 	Object_wx_GridTableBase *pObj = Object_wx_GridTableBase::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridTableBase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetView)
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *rtn = (wxGrid *)pThis->GetEntity()->wxGridTableBase::GetView();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Grid(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Grid(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GridTableBase, Clear)
@@ -791,7 +791,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetAttrProvider)
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellAttrProvider *rtn = (wxGridCellAttrProvider *)pThis->GetEntity()->wxGridTableBase::GetAttrProvider();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellAttrProvider(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellAttrProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GridTableBase, CanHaveAttributes)
@@ -872,7 +872,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetAttr)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxGridCellAttr *rtn = (wxGridCellAttr *)pThis->GetEntity()->wxGridTableBase::GetAttr(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellAttr(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellAttr(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -940,13 +940,13 @@ Object_wx_GridTableBase::~Object_wx_GridTableBase()
 
 Object *Object_wx_GridTableBase::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridTableBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridTableBase:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -1015,7 +1015,7 @@ Gura_ImplementUserInheritableClass(wx_GridTableBase)
 
 Gura_ImplementDescendantCreator(wx_GridTableBase)
 {
-	return new Object_wx_GridTableBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridTableBase((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

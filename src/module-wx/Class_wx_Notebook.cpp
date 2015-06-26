@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Notebook *_pObj;
 public:
-	inline wx_Notebook() : wxNotebook(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Notebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxNotebook(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Notebook() : wxNotebook(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Notebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxNotebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Notebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Notebook *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Notebook::~wx_Notebook()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Notebook::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(NotebookEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Notebook *pEntity = new wx_Notebook();
 	Object_wx_Notebook *pObj = Object_wx_Notebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Notebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(Notebook)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Notebook *pEntity = new wx_Notebook(parent, id, *pos, *size, style, name);
 	Object_wx_Notebook *pObj = Object_wx_Notebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Notebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_Notebook, GetCurrentPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCurrentPage();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_Notebook, GetImageList)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_ImageList(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_Notebook, GetPage)
 	size_t page = args.GetSizeT(0);
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPage(page);
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_Notebook, GetThemeBackgroundColour)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetThemeBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Notebook, HitTest)
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_Notebook, SetImageList)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = NULL;
+	wxImageList *imageList = nullptr;
 	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetImageList(imageList);
 	return Value::Null;
@@ -554,13 +554,13 @@ Object_wx_Notebook::~Object_wx_Notebook()
 
 Object *Object_wx_Notebook::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Notebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Notebook:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -609,7 +609,7 @@ Gura_ImplementUserInheritableClass(wx_Notebook)
 
 Gura_ImplementDescendantCreator(wx_Notebook)
 {
-	return new Object_wx_Notebook((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Notebook((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

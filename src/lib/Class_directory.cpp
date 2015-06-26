@@ -83,7 +83,7 @@ bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const
 
 Object *Class_directory::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return NULL;
+	return nullptr;
 }
 
 }

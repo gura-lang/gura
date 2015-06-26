@@ -51,7 +51,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 	size_t nArgs = exprList.size();
 	if (nArgs == 1) {
 		bool suffixFlag = false;
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 					"operator '%s' is not a unary one", GetSymbol()->GetName());
@@ -62,8 +62,8 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, sig, value, suffixFlag);
 	} else if (nArgs == 2) {
-		SeqPostHandler *pSeqPostHandlerLeft = NULL;
-		SeqPostHandler *pSeqPostHandlerRight = NULL;
+		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
+		SeqPostHandler *pSeqPostHandlerRight = nullptr;
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 					"operator '%s' is not a binary one", GetSymbol()->GetName());
@@ -167,8 +167,8 @@ Gura_ImplementMethod(operator_, assign)
 {
 	Object_operator *pThis = Object_operator::GetThisObj(args);
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	OperatorEntryCustom *pOperatorEntry = NULL;
+	if (pFuncBlock == nullptr) return Value::Null;
+	OperatorEntryCustom *pOperatorEntry = nullptr;
 	if (args.IsValid(1)) {
 		// assign binary operator
 		OpType opType = pThis->GetBinaryOpType();
@@ -178,9 +178,9 @@ Gura_ImplementMethod(operator_, assign)
 			return Value::Null;
 		}
 		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(0));
-		if (pValueTypeInfoL == NULL) return Value::Null;
+		if (pValueTypeInfoL == nullptr) return Value::Null;
 		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(1));
-		if (pValueTypeInfoR == NULL) return Value::Null;
+		if (pValueTypeInfoR == nullptr) return Value::Null;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(),
 					Function::Reference(pFuncBlock));
@@ -193,7 +193,7 @@ Gura_ImplementMethod(operator_, assign)
 			return Value::Null;
 		}
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
-		if (pValueTypeInfo == NULL) return Value::Null;
+		if (pValueTypeInfo == nullptr) return Value::Null;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfo->GetValueType(), VTYPE_undefined,
 					Function::Reference(pFuncBlock));
@@ -283,7 +283,7 @@ void Class_operator::Prepare(Environment &env)
 Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

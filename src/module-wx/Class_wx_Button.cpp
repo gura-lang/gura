@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Button *_pObj;
 public:
-	inline wx_Button() : wxButton(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Button(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxButton(parent, id, label, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Button() : wxButton(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Button(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxButton(parent, id, label, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Button();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Button *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Button::~wx_Button()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Button::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(ButtonEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Button *pEntity = new wx_Button();
 	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -111,7 +111,7 @@ Gura_ImplementFunction(Button)
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Button *pEntity = new wx_Button(parent, id, label, *pos, *size, style, *validator, name);
 	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Button, GetDefaultSize)
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetDefaultSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Button, SetDefault)
@@ -239,13 +239,13 @@ Object_wx_Button::~Object_wx_Button()
 
 Object *Object_wx_Button::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Button::ToString(bool exprFlag)
 {
 	String rtn("<wx.Button:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -272,7 +272,7 @@ Gura_ImplementUserInheritableClass(wx_Button)
 
 Gura_ImplementDescendantCreator(wx_Button)
 {
-	return new Object_wx_Button((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Button((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

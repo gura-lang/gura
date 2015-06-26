@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StaticLine *_pObj;
 public:
-	inline wx_StaticLine() : wxStaticLine(), _sig(NULL), _pObj(NULL) {}
-	inline wx_StaticLine(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticLine(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_StaticLine() : wxStaticLine(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticLine(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticLine(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StaticLine();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticLine *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_StaticLine::~wx_StaticLine()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StaticLine::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(StaticLineEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticLine *pEntity = new wx_StaticLine();
 	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -88,7 +88,7 @@ Gura_ImplementFunction(StaticLine)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_StaticLine *pEntity = new wx_StaticLine(parent, id, *pos, *size, style, name);
 	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -166,13 +166,13 @@ Object_wx_StaticLine::~Object_wx_StaticLine()
 
 Object *Object_wx_StaticLine::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StaticLine::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticLine:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -196,7 +196,7 @@ Gura_ImplementUserInheritableClass(wx_StaticLine)
 
 Gura_ImplementDescendantCreator(wx_StaticLine)
 {
-	return new Object_wx_StaticLine((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StaticLine((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

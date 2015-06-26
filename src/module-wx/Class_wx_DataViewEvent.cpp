@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewEvent *_pObj;
 public:
-	inline wx_DataViewEvent(wxEventType commandType, int winid) : wxDataViewEvent(commandType, winid), _sig(NULL), _pObj(NULL) {}
-	inline wx_DataViewEvent(const wxDataViewEvent& event) : wxDataViewEvent(event), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewEvent(wxEventType commandType, int winid) : wxDataViewEvent(commandType, winid), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewEvent(const wxDataViewEvent& event) : wxDataViewEvent(event), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_DataViewEvent::~wx_DataViewEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ Gura_ImplementFunction(DataViewEvent)
 	if (args.IsValid(1)) winid = args.GetInt(1);
 	wx_DataViewEvent *pEntity = new wx_DataViewEvent(commandType, winid);
 	Object_wx_DataViewEvent *pObj = Object_wx_DataViewEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -79,7 +79,7 @@ Gura_ImplementFunction(DataViewEvent_1)
 	wxDataViewEvent *event = Object_wx_DataViewEvent::GetObject(args, 0)->GetEntity();
 	wx_DataViewEvent *pEntity = new wx_DataViewEvent(*event);
 	Object_wx_DataViewEvent *pObj = Object_wx_DataViewEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_DataViewEvent, Clone)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetColumn)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetDataViewColumn();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetModel)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetModel)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewModel *rtn = (wxDataViewModel *)pThis->GetEntity()->GetModel();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewModel(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetRow)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetValue)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxVariant &rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, IsEditCancelled)
@@ -286,13 +286,13 @@ Object_wx_DataViewEvent::~Object_wx_DataViewEvent()
 
 Object *Object_wx_DataViewEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -326,7 +326,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewEvent)
 
 Gura_ImplementDescendantCreator(wx_DataViewEvent)
 {
-	return new Object_wx_DataViewEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

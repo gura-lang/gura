@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FindReplaceData *_pObj;
 public:
-	inline wx_FindReplaceData(wxUint32 flags) : wxFindReplaceData(flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_FindReplaceData(wxUint32 flags) : wxFindReplaceData(flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FindReplaceData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FindReplaceData *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FindReplaceData::~wx_FindReplaceData()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FindReplaceData::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(FindReplaceData)
 	if (args.IsValid(0)) flags = static_cast<wxUint32>(args.GetULong(0));
 	wx_FindReplaceData *pEntity = new wx_FindReplaceData(flags);
 	Object_wx_FindReplaceData *pObj = Object_wx_FindReplaceData::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -157,13 +157,13 @@ Object_wx_FindReplaceData::~Object_wx_FindReplaceData()
 
 Object *Object_wx_FindReplaceData::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FindReplaceData::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindReplaceData:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -189,7 +189,7 @@ Gura_ImplementUserInheritableClass(wx_FindReplaceData)
 
 Gura_ImplementDescendantCreator(wx_FindReplaceData)
 {
-	return new Object_wx_FindReplaceData((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FindReplaceData((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

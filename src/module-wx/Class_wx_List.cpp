@@ -24,12 +24,12 @@ public:
 
 wx_List::~wx_List()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_List::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_List::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_List::~Object_wx_List()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_List::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_List::ToString(bool exprFlag)
 {
 	String rtn("<wx.List:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_List)
 
 Gura_ImplementDescendantCreator(wx_List)
 {
-	return new Object_wx_List((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_List((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

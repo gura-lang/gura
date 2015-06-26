@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_IndividualLayoutConstraint *_pObj;
 public:
-	inline wx_IndividualLayoutConstraint() : wxIndividualLayoutConstraint(), _sig(NULL), _pObj(NULL) {}
+	inline wx_IndividualLayoutConstraint() : wxIndividualLayoutConstraint(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_IndividualLayoutConstraint();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IndividualLayoutConstraint *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -27,12 +27,12 @@ public:
 
 wx_IndividualLayoutConstraint::~wx_IndividualLayoutConstraint()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_IndividualLayoutConstraint::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(IndividualLayoutConstraintEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IndividualLayoutConstraint *pEntity = new wx_IndividualLayoutConstraint();
 	Object_wx_IndividualLayoutConstraint *pObj = Object_wx_IndividualLayoutConstraint::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_IndividualLayoutConstraint(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -246,13 +246,13 @@ Object_wx_IndividualLayoutConstraint::~Object_wx_IndividualLayoutConstraint()
 
 Object *Object_wx_IndividualLayoutConstraint::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 {
 	String rtn("<wx.IndividualLayoutConstraint:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -282,7 +282,7 @@ Gura_ImplementUserInheritableClass(wx_IndividualLayoutConstraint)
 
 Gura_ImplementDescendantCreator(wx_IndividualLayoutConstraint)
 {
-	return new Object_wx_IndividualLayoutConstraint((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_IndividualLayoutConstraint((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

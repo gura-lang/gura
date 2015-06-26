@@ -24,12 +24,12 @@ public:
 
 wx_IPV4address::~wx_IPV4address()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_IPV4address::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -162,13 +162,13 @@ Object_wx_IPV4address::~Object_wx_IPV4address()
 
 Object *Object_wx_IPV4address::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_IPV4address::ToString(bool exprFlag)
 {
 	String rtn("<wx.IPV4address:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -195,7 +195,7 @@ Gura_ImplementUserInheritableClass(wx_IPV4address)
 
 Gura_ImplementDescendantCreator(wx_IPV4address)
 {
-	return new Object_wx_IPV4address((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_IPV4address((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

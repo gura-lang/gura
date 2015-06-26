@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StaticBox *_pObj;
 public:
-	inline wx_StaticBox() : wxStaticBox(), _sig(NULL), _pObj(NULL) {}
-	inline wx_StaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBox(parent, id, label, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_StaticBox() : wxStaticBox(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBox(parent, id, label, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StaticBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticBox *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_StaticBox::~wx_StaticBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StaticBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(StaticBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticBox *pEntity = new wx_StaticBox();
 	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -89,7 +89,7 @@ Gura_ImplementFunction(StaticBox)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_StaticBox *pEntity = new wx_StaticBox(parent, id, label, *pos, *size, style, name);
 	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -140,13 +140,13 @@ Object_wx_StaticBox::~Object_wx_StaticBox()
 
 Object *Object_wx_StaticBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StaticBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -168,7 +168,7 @@ Gura_ImplementUserInheritableClass(wx_StaticBox)
 
 Gura_ImplementDescendantCreator(wx_StaticBox)
 {
-	return new Object_wx_StaticBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StaticBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

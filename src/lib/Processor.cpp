@@ -23,7 +23,7 @@ bool Sequence::Step(Signal sig, Value &result)
 	if (!DoStep(sig, result)) return false;
 	if (CheckDone() && !_pSeqPostHandler.IsNull()) {
 		bool rtn = _pSeqPostHandler->DoPost(sig, result);
-		_pSeqPostHandler.reset(NULL);
+		_pSeqPostHandler.reset(nullptr);
 		return rtn;
 	}
 	return true;

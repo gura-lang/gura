@@ -133,7 +133,7 @@ public:
 	bool Compare(Signal sig, Stream &stream);
 	bool ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 					size_t bytesUnit = 0x10000, bool finalizeFlag = true,
-					const Function *pFuncFilter = NULL);
+					const Function *pFuncFilter = nullptr);
 	bool SerializeBoolean(Signal sig, bool num);
 	bool DeserializeBoolean(Signal sig, bool &num);
 	bool SerializeUChar(Signal sig, UChar num);

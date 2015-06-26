@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_FTC_CMapCache::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_FTC_CMapCache::ToString(bool exprFlag)

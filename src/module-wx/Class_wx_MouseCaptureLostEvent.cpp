@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MouseCaptureLostEvent *_pObj;
 public:
-	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _sig(NULL), _pObj(NULL) {}
+	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MouseCaptureLostEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseCaptureLostEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MouseCaptureLostEvent::~wx_MouseCaptureLostEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MouseCaptureLostEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(MouseCaptureLostEvent)
 	if (args.IsValid(0)) windowId = static_cast<wxWindowID>(args.GetInt(0));
 	wx_MouseCaptureLostEvent *pEntity = new wx_MouseCaptureLostEvent(windowId);
 	Object_wx_MouseCaptureLostEvent *pObj = Object_wx_MouseCaptureLostEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MouseCaptureLostEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -70,13 +70,13 @@ Object_wx_MouseCaptureLostEvent::~Object_wx_MouseCaptureLostEvent()
 
 Object *Object_wx_MouseCaptureLostEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MouseCaptureLostEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseCaptureLostEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -96,7 +96,7 @@ Gura_ImplementUserInheritableClass(wx_MouseCaptureLostEvent)
 
 Gura_ImplementDescendantCreator(wx_MouseCaptureLostEvent)
 {
-	return new Object_wx_MouseCaptureLostEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MouseCaptureLostEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

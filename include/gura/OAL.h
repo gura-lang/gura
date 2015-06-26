@@ -33,7 +33,7 @@ GURA_DLLDECLARE extern const char FileSeparator;
 GURA_DLLDECLARE extern const bool IgnoreCaseInPathNameFlag;
 
 GURA_DLLDECLARE bool IsAbsPathName(const char *pathName);
-GURA_DLLDECLARE String MakeAbsPathName(char chSeparator, const char *fileName, const char *dirNameBase = NULL);
+GURA_DLLDECLARE String MakeAbsPathName(char chSeparator, const char *fileName, const char *dirNameBase = nullptr);
 GURA_DLLDECLARE String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepFlag);
 GURA_DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name);
 GURA_DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name, size_t len);
@@ -53,14 +53,14 @@ GURA_DLLDECLARE const Symbol *GetLangCode();
 GURA_DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
 			const ValueList &valList, Stream *pStreamStdin,
 			Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag);
-GURA_DLLDECLARE String GetEnv(const char *name, bool *pFoundFlag = NULL);
+GURA_DLLDECLARE String GetEnv(const char *name, bool *pFoundFlag = nullptr);
 GURA_DLLDECLARE void PutEnv(const char *name, const char *value);
 GURA_DLLDECLARE void UnsetEnv(const char *name);
 GURA_DLLDECLARE bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLinkFlag);
 GURA_DLLDECLARE bool Rename(const char *src, const char *dst);
 GURA_DLLDECLARE bool Remove(const char *pathName);
 GURA_DLLDECLARE bool DoesExist(const char *pathName);
-GURA_DLLDECLARE bool IsDir(const char *pathName, bool *pExistFlag = NULL);
+GURA_DLLDECLARE bool IsDir(const char *pathName, bool *pExistFlag = nullptr);
 GURA_DLLDECLARE bool CopyDir(const char *dirNameSrc, const char *dirNameDst);
 GURA_DLLDECLARE bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst);
 GURA_DLLDECLARE bool MakeDir(const char *pathName);

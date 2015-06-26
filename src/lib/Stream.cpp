@@ -103,7 +103,7 @@ Stream::Stream(Environment &env, Signal sig, ULong attr) :
 		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _blockingFlag(false),
 		_pCodec(Codec::CreateCodecNone(true, false))
 {
-	_peek.buff = NULL;
+	_peek.buff = nullptr;
 	_peek.bytes = 0;
 	_peek.offsetRead = 0;
 }
@@ -130,7 +130,7 @@ void Stream::CopyCodec(Stream *pStream)
 
 void Stream::CopyCodec(const Codec *pCodec)
 {
-	if (pCodec != NULL) {
+	if (pCodec != nullptr) {
 		_pCodec.reset(pCodec->Duplicate());
 	}
 }
@@ -138,7 +138,7 @@ void Stream::CopyCodec(const Codec *pCodec)
 void Stream::PutChar(Signal sig, char ch)
 {
 	Codec::Encoder *pEncoder = GetCodec()->GetEncoder();
-	if (pEncoder == NULL) {
+	if (pEncoder == nullptr) {
 		DoPutChar(sig, ch);
 	} else {
 		char chConv;
@@ -257,14 +257,14 @@ void Stream::DoPutChar(Signal sig, char ch)
 Object *Stream::DoGetStatObj(Signal sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
-	return NULL;
+	return nullptr;
 }
 
 size_t Stream::Read(Signal sig, void *buff, size_t len)
 {
 	char *p = reinterpret_cast<char *>(buff);
 	size_t bytesFromPeek = 0;
-	if (_peek.buff != NULL) {
+	if (_peek.buff != nullptr) {
 		bytesFromPeek = _peek.bytes - _peek.offsetRead;
 		if (bytesFromPeek > len) bytesFromPeek = len;
 		::memcpy(p, _peek.buff + _peek.offsetRead, bytesFromPeek);
@@ -272,7 +272,7 @@ size_t Stream::Read(Signal sig, void *buff, size_t len)
 		_peek.offsetRead += bytesFromPeek;
 		if (_peek.offsetRead >= _peek.bytes) {
 			delete[] _peek.buff;
-			_peek.buff = NULL;
+			_peek.buff = nullptr;
 			_peek.bytes = 0;
 			_peek.offsetRead = 0;
 		}
@@ -297,7 +297,7 @@ size_t Stream::Write(Signal sig, const void *buff, size_t len)
 size_t Stream::Peek(Signal sig, void *buff, size_t len)
 {
 	if (len == 0) return 0;
-	if (_peek.buff == NULL) {
+	if (_peek.buff == nullptr) {
 		_peek.buff = new char [len];
 		_peek.bytes = DoRead(sig, _peek.buff, len);
 		_peek.offsetRead = 0;
@@ -334,7 +334,7 @@ bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
 		// this must not happen because illegal value has to be rejected before.
 		return false;
 	}
-	if (_peek.buff == NULL) return DoSeek(sig, offset, offsetPrev, seekMode);
+	if (_peek.buff == nullptr) return DoSeek(sig, offset, offsetPrev, seekMode);
 	if (_offsetCur < offsetPrev) {
 		size_t bytesPeeked = _peek.bytes;
 		if (_peek.offsetRead >= offsetPrev - _offsetCur) {
@@ -342,7 +342,7 @@ bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
 			return true;
 		}
 		delete[] _peek.buff;
-		_peek.buff = NULL;
+		_peek.buff = nullptr;
 		_peek.bytes = 0;
 		_peek.offsetRead = 0;
 		if (seekMode == SeekSet) return DoSeek(sig, offset, offsetPrev, SeekSet);
@@ -355,7 +355,7 @@ bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
 		}
 		size_t bytesTrail = _peek.bytes - _peek.offsetRead;
 		delete[] _peek.buff;
-		_peek.buff = NULL;
+		_peek.buff = nullptr;
 		_peek.bytes = 0;
 		_peek.offsetRead = 0;
 		if (seekMode == SeekSet) return DoSeek(sig, offset, offsetPrev, SeekSet);
@@ -371,7 +371,7 @@ bool Stream::Flush(Signal sig)
 
 bool Stream::HasNameSuffix(const char *suffix, bool ignoreCase) const
 {
-	return EndsWith(GetName(), suffix, ignoreCase) != NULL;
+	return EndsWith(GetName(), suffix, ignoreCase) != nullptr;
 }
 
 bool Stream::CheckReadable(Signal sig) const
@@ -434,7 +434,7 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	for (;;) {
 		size_t bytesRead = Read(sig, buff, bytesUnit);
 		if (bytesRead == 0) break;
-		if (pFuncFilter != NULL) {
+		if (pFuncFilter != nullptr) {
 			Value value(new Object_binary(env, buff, bytesUnit, false));
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValue(value);
@@ -650,7 +650,7 @@ bool Stream::DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet)
 	if (!DeserializePackedULong(sig, len)) return false;
 	symbolSet.clear();
 	if (len == 0) return true;
-	const Symbol *pSymbol = NULL;
+	const Symbol *pSymbol = nullptr;
 	while (len-- > 0) {
 		if (!DeserializeSymbol(sig, &pSymbol)) return false;
 		symbolSet.insert(pSymbol);
@@ -675,7 +675,7 @@ bool Stream::DeserializeSymbolList(Signal sig, SymbolList &symbolList)
 	symbolList.clear();
 	if (len == 0) return true;
 	symbolList.reserve(len);
-	const Symbol *pSymbol = NULL;
+	const Symbol *pSymbol = nullptr;
 	while (len-- > 0) {
 		if (!DeserializeSymbol(sig, &pSymbol)) return false;
 		symbolList.push_back(pSymbol);
@@ -729,7 +729,7 @@ Stream *Stream::Open(Environment &env, Signal sig, const char *pathName, ULong a
 	PathMgr::NotFoundMode notFoundMode = (attr & ATTR_Writable)?
 								PathMgr::NF_Wouldbe : PathMgr::NF_Signal;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, notFoundMode));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	return pDirectory->DoOpenStream(env, sig, attr);
 }
 
@@ -742,7 +742,7 @@ Stream *Stream::Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 	if (deleteSrcFlag) Stream::Delete(pStreamSrc);
 	if (sig.IsSignalled()) {
 		Stream::Delete(pStreamPrefetch);
-		return NULL;
+		return nullptr;
 	}
 	return pStreamPrefetch;
 }

@@ -14,12 +14,12 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileName *_pObj;
 public:
-	//inline wx_FileName() : wxFileName(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _sig(NULL), _pObj(NULL) {}
-	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _sig(NULL), _pObj(NULL) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _sig(NULL), _pObj(NULL) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _sig(NULL), _pObj(NULL) {}
-	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _sig(NULL), _pObj(NULL) {}
+	//inline wx_FileName() : wxFileName(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileName();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileName *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -30,12 +30,12 @@ public:
 
 wx_FileName::~wx_FileName()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileName::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(FileNameEmpty)
 #if 0
 	wx_FileName *pEntity = new wx_FileName();
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(FileName)
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wx_FileName *pEntity = new wx_FileName(*filename);
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -119,7 +119,7 @@ Gura_ImplementFunction(FileName_1)
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wx_FileName *pEntity = new wx_FileName(fullpath, format);
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -154,7 +154,7 @@ Gura_ImplementFunction(FileName_2)
 	if (args.IsValid(2)) format = static_cast<wxPathFormat>(args.GetInt(2));
 	wx_FileName *pEntity = new wx_FileName(path, name, format);
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -191,7 +191,7 @@ Gura_ImplementFunction(FileName_3)
 	if (args.IsValid(3)) format = static_cast<wxPathFormat>(args.GetInt(3));
 	wx_FileName *pEntity = new wx_FileName(path, name, ext, format);
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -230,7 +230,7 @@ Gura_ImplementFunction(FileName_4)
 	if (args.IsValid(4)) format = static_cast<wxPathFormat>(args.GetInt(4));
 	wx_FileName *pEntity = new wx_FileName(volume, path, name, ext, format);
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_FileName, AssignTempFileName)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
-	wxFile *fileTemp = (wxFile *)(NULL);
+	wxFile *fileTemp = (wxFile *)(nullptr);
 	if (args.IsValid(1)) fileTemp = Object_wx_File::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->AssignTempFileName(prefix, fileTemp);
 	return Value::Null;
@@ -560,7 +560,7 @@ Gura_ImplementClassMethod(wx_FileName, CreateTempFileName)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
-	wxFile *fileTemp = (wxFile *)(NULL);
+	wxFile *fileTemp = (wxFile *)(nullptr);
 	if (args.IsValid(1)) fileTemp = Object_wx_File::GetObject(args, 1)->GetEntity();
 	wxString rtn = wxFileName::CreateTempFileName(prefix, fileTemp);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -620,7 +620,7 @@ Gura_ImplementClassMethod(wx_FileName, DirName)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wxFileName rtn = wxFileName::DirName(dir, format);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileName(new wxFileName(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileName(new wxFileName(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -677,7 +677,7 @@ Gura_ImplementClassMethod(wx_FileName, FileName)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wxFileName rtn = wxFileName::FileName(file, format);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileName(new wxFileName(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileName(new wxFileName(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_FileName, GetModificationTime)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetModificationTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FileName, GetName)
@@ -1010,7 +1010,7 @@ Gura_ImplementMethod(wx_FileName, GetSize)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxULongLong rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1031,7 +1031,7 @@ Gura_ImplementClassMethod(wx_FileName, GetSize_1)
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxULongLong rtn = wxFileName::GetSize(filename);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2020,7 +2020,7 @@ Gura_ImplementClassMethod(wx_FileName, SplitPath)
 	wxString path = wxString::FromUTF8(args.GetString(2));
 	wxString name = wxString::FromUTF8(args.GetString(3));
 	wxString ext = wxString::FromUTF8(args.GetString(4));
-	bool *hasExt = NULL;
+	bool *hasExt = nullptr;
 	if (args.IsValid(5)) *hasExt = args.GetBoolean(5);
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(6)) format = static_cast<wxPathFormat>(args.GetInt(6));
@@ -2141,20 +2141,20 @@ Gura_ImplementMethod(wx_FileName, Touch)
 //----------------------------------------------------------------------------
 Object_wx_FileName::~Object_wx_FileName()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_FileName::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileName::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileName:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -2272,7 +2272,7 @@ Gura_ImplementUserInheritableClass(wx_FileName)
 
 Gura_ImplementDescendantCreator(wx_FileName)
 {
-	return new Object_wx_FileName((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileName((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

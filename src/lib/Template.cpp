@@ -9,7 +9,7 @@ namespace Gura {
 // Template
 //-----------------------------------------------------------------------------
 Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
-				   _pValueMap(new ValueMap()), _pStreamDst(NULL), _chLast('\0')
+				   _pValueMap(new ValueMap()), _pStreamDst(nullptr), _chLast('\0')
 {
 }
 
@@ -37,21 +37,21 @@ bool Template::Parse(Environment &env, Signal sig,
 
 bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
-	Template *pTemplateTop = NULL;
-	for (Template *pTemplate = this; pTemplate != NULL;
+	Template *pTemplateTop = nullptr;
+	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
 		if (!pTemplate->Prepare(env, sig)) return false;
 		pTemplate->SetStreamDst(pStreamDst);
 		pTemplateTop = pTemplate;
 	}
-	if (pTemplateTop->GetFuncForBody() == NULL) return true;
+	if (pTemplateTop->GetFuncForBody() == nullptr) return true;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(Value(new Object_template(env, Reference())));
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
-	for (Template *pTemplate = this; pTemplate != NULL;
+	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
-		pTemplate->SetStreamDst(NULL);
+		pTemplate->SetStreamDst(nullptr);
 	}
 	return !sig.IsSignalled();
 }
@@ -71,13 +71,13 @@ bool Template::Prepare(Environment &env, Signal sig)
 
 const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
 {
-	for (const Template *pTemplate = this; pTemplate != NULL;
+	for (const Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
 		const ValueMap &valueMap = pTemplate->GetValueMap();
 		ValueMap::const_iterator iter = valueMap.find(pSymbol);
 		if (iter != valueMap.end()) return &iter->second;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void Template::PutChar(Signal sig, char ch)
@@ -122,7 +122,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	int cntLineTop = 0;
 	int nDepth = 0;
 	_exprLeaderStack.clear();
-	if (pTemplate->GetFuncForBody() == NULL) {
+	if (pTemplate->GetFuncForBody() == nullptr) {
 		AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 				Gura_Symbol(_anonymous_), new Expr_Block(), FUNCTYPE_Instance));
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
@@ -358,7 +358,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
 	Class *pClass = env.LookupClass(VTYPE_template);
-	Expr *pExprLast = NULL;
+	Expr *pExprLast = nullptr;
 	AutoPtr<Expr_TmplScript> pExprTmplScript(new Expr_TmplScript(
 			pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag));
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
@@ -397,8 +397,8 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 		} while (0);
 		if (!pExprLast->IsCaller()) return true;
 		Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
-		if (pExprLastCaller->GetBlock() == NULL) {
-			Callable *pCallable = NULL;
+		if (pExprLastCaller->GetBlock() == nullptr) {
+			Callable *pCallable = nullptr;
 			if (pExprLastCaller->GetCar()->IsMember()) {
 				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
 				if (pExprCar->GetLeft()->IsIdentifier() &&
@@ -410,7 +410,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 				pCallable = pExprLastCaller->LookupCallable(env, sig);
 			}
 			sig.ClearSignal();
-			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
 				_exprLeaderStack.push_back(pExprLastCaller);
@@ -430,7 +430,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			Expr *pExpr = *ppExpr;
 			Callable *pCallable = pExpr->LookupCallable(env, sig);
 			sig.ClearSignal();
-			if (pCallable != NULL && pCallable->IsTrailer()) {
+			if (pCallable != nullptr && pCallable->IsTrailer()) {
 				pExprTmplScript->SetStringIndent("");
 				if (_exprLeaderStack.empty()) {
 					sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
@@ -438,11 +438,11 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 					return false;
 				}
 				if (!pCallable->IsEndMarker()) {
-					Expr_Caller *pExprCaller = NULL;
+					Expr_Caller *pExprCaller = nullptr;
 					if (pExpr->IsCaller()) {
 						pExprCaller = dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
 					} else {
-						pExprCaller = new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
+						pExprCaller = new Expr_Caller(Expr::Reference(pExpr), nullptr, nullptr);
 						pExprCaller->SetSourceInfo(pSourceName->Reference(),
 										pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
 					}
@@ -464,11 +464,11 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 					_exprLeaderStack.back()->GetBlock()->GetExprOwner();
 			exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
 		}
-		if (pExprLast == NULL) return true;
+		if (pExprLast == nullptr) return true;
 		if (!pExprLast->IsCaller()) return true;
 		Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
-		if (pExprLastCaller->GetBlock() == NULL) {
-			Callable *pCallable = NULL;
+		if (pExprLastCaller->GetBlock() == nullptr) {
+			Callable *pCallable = nullptr;
 			if (pExprLastCaller->GetCar()->IsMember()) {
 				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
 				if (pExprCar->GetLeft()->IsIdentifier() &&
@@ -480,7 +480,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 				pCallable = pExprLastCaller->LookupCallable(env, sig);
 			}
 			sig.ClearSignal();
-			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
 				_exprLeaderStack.push_back(pExprLastCaller);
@@ -507,7 +507,7 @@ Expr *Expr_TmplString::Clone() const
 Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	_pTemplate->Print(sig, _str.c_str());
-	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
+	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
 	return Value::Null;
 }
 
@@ -540,7 +540,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 {
 	if (GetExprOwner().empty()) return Value::Null;
 	Value value;
-	SeqPostHandler *pSeqPostHandlerEach = NULL;
+	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	foreach_const (ExprList, ppExpr, GetExprOwner()) {
 		value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
 		if (sig.IsSignalled()) return Value::Null;

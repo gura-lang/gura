@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PrinterDC *_pObj;
 public:
-	inline wx_PrinterDC(const wxPrintData& printData) : wxPrinterDC(printData), _sig(NULL), _pObj(NULL) {}
-	//inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _sig(NULL), _pObj(NULL) {}
+	inline wx_PrinterDC(const wxPrintData& printData) : wxPrinterDC(printData), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PrinterDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrinterDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_PrinterDC::~wx_PrinterDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PrinterDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(PrinterDC)
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrinterDC *pEntity = new wx_PrinterDC(*printData);
 	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(PrinterDC_1)
 	if (args.IsValid(4)) orientation = args.GetInt(4);
 	wx_PrinterDC *pEntity = new wx_PrinterDC(driver, device, output, interactive, orientation);
 	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->wxPrinterDC::GetPaperRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------
@@ -120,13 +120,13 @@ Object_wx_PrinterDC::~Object_wx_PrinterDC()
 
 Object *Object_wx_PrinterDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PrinterDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrinterDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -148,7 +148,7 @@ Gura_ImplementUserInheritableClass(wx_PrinterDC)
 
 Gura_ImplementDescendantCreator(wx_PrinterDC)
 {
-	return new Object_wx_PrinterDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PrinterDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CalculateLayoutEvent *_pObj;
 public:
-	inline wx_CalculateLayoutEvent(wxWindowID id) : wxCalculateLayoutEvent(id), _sig(NULL), _pObj(NULL) {}
+	inline wx_CalculateLayoutEvent(wxWindowID id) : wxCalculateLayoutEvent(id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CalculateLayoutEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalculateLayoutEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_CalculateLayoutEvent::~wx_CalculateLayoutEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CalculateLayoutEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(CalculateLayoutEvent)
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
 	wx_CalculateLayoutEvent *pEntity = new wx_CalculateLayoutEvent(id);
 	Object_wx_CalculateLayoutEvent *pObj = Object_wx_CalculateLayoutEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CalculateLayoutEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
@@ -128,13 +128,13 @@ Object_wx_CalculateLayoutEvent::~Object_wx_CalculateLayoutEvent()
 
 Object *Object_wx_CalculateLayoutEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalculateLayoutEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -158,7 +158,7 @@ Gura_ImplementUserInheritableClass(wx_CalculateLayoutEvent)
 
 Gura_ImplementDescendantCreator(wx_CalculateLayoutEvent)
 {
-	return new Object_wx_CalculateLayoutEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CalculateLayoutEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

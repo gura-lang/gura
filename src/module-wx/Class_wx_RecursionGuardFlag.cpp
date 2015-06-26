@@ -24,12 +24,12 @@ public:
 
 wx_RecursionGuardFlag::~wx_RecursionGuardFlag()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RecursionGuardFlag::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_RecursionGuardFlag::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_RecursionGuardFlag::~Object_wx_RecursionGuardFlag()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RecursionGuardFlag::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RecursionGuardFlag::ToString(bool exprFlag)
 {
 	String rtn("<wx.RecursionGuardFlag:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_RecursionGuardFlag)
 
 Gura_ImplementDescendantCreator(wx_RecursionGuardFlag)
 {
-	return new Object_wx_RecursionGuardFlag((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RecursionGuardFlag((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

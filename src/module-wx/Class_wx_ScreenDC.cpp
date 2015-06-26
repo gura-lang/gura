@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ScreenDC *_pObj;
 public:
-	inline wx_ScreenDC() : wxScreenDC(), _sig(NULL), _pObj(NULL) {}
+	inline wx_ScreenDC() : wxScreenDC(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_ScreenDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScreenDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_ScreenDC::~wx_ScreenDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ScreenDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(ScreenDCEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScreenDC *pEntity = new wx_ScreenDC();
 	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ScreenDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxRect *rect = (wxRect *)(NULL);
+	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(0)) rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->StartDrawingOnTop(rect);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -114,13 +114,13 @@ Object_wx_ScreenDC::~Object_wx_ScreenDC()
 
 Object *Object_wx_ScreenDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ScreenDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScreenDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -143,7 +143,7 @@ Gura_ImplementUserInheritableClass(wx_ScreenDC)
 
 Gura_ImplementDescendantCreator(wx_ScreenDC)
 {
-	return new Object_wx_ScreenDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ScreenDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

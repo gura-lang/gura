@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextOutputStream *_pObj;
 public:
-	//inline wx_TextOutputStream(wxOutputStream& stream, wxEOL mode, wxMBConv& conv) : wxTextOutputStream(stream, mode, conv), _sig(NULL), _pObj(NULL) {}
+	//inline wx_TextOutputStream(wxOutputStream& stream, wxEOL mode, wxMBConv& conv) : wxTextOutputStream(stream, mode, conv), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void WriteDouble();
 	//virtual void WriteString();
 	~wx_TextOutputStream();
@@ -30,12 +30,12 @@ public:
 
 wx_TextOutputStream::~wx_TextOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ Gura_ImplementFunction(TextOutputStream)
 	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wx_TextOutputStream *pEntity = new wx_TextOutputStream(*stream, mode, *conv);
 	Object_wx_TextOutputStream *pObj = Object_wx_TextOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -215,20 +215,20 @@ Gura_ImplementMethod(wx_TextOutputStream, WriteString)
 //----------------------------------------------------------------------------
 Object_wx_TextOutputStream::~Object_wx_TextOutputStream()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TextOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -258,7 +258,7 @@ Gura_ImplementUserInheritableClass(wx_TextOutputStream)
 
 Gura_ImplementDescendantCreator(wx_TextOutputStream)
 {
-	return new Object_wx_TextOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_ThreadHelper *_pObj;
 public:
-	//inline wx_ThreadHelper() : wxThreadHelper(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ThreadHelper() : wxThreadHelper(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual ExitCode Entry();
 	~wx_ThreadHelper();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ThreadHelper *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_ThreadHelper::~wx_ThreadHelper()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ThreadHelper::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(ThreadHelperEmpty)
 #if 0
 	wx_ThreadHelper *pEntity = new wx_ThreadHelper();
 	Object_wx_ThreadHelper *pObj = Object_wx_ThreadHelper::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_ThreadHelper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_ThreadHelper, GetThread)
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThread *rtn = (wxThread *)pThis->GetEntity()->GetThread();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -117,20 +117,20 @@ Gura_ImplementMethod(wx_ThreadHelper, GetThread)
 //----------------------------------------------------------------------------
 Object_wx_ThreadHelper::~Object_wx_ThreadHelper()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_ThreadHelper::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ThreadHelper::ToString(bool exprFlag)
 {
 	String rtn("<wx.ThreadHelper:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -154,7 +154,7 @@ Gura_ImplementUserInheritableClass(wx_ThreadHelper)
 
 Gura_ImplementDescendantCreator(wx_ThreadHelper)
 {
-	return new Object_wx_ThreadHelper((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ThreadHelper((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,8 +24,8 @@ void PathMgr::SplitFileName(const char *pathName, String *pDirName, String *pFil
 	for ( ; p > pathName; p--) {
 		if (IsFileSeparator(*(p - 1))) break;
 	}
-	if (pDirName != NULL) *pDirName = String(pathName, p);
-	if (pFileName != NULL) *pFileName = String(p);
+	if (pDirName != nullptr) *pDirName = String(pathName, p);
+	if (pFileName != nullptr) *pFileName = String(p);
 }
 
 void PathMgr::SplitBottom(const char *pathName, String *pTop, String *pBottom)
@@ -36,8 +36,8 @@ void PathMgr::SplitBottom(const char *pathName, String *pTop, String *pBottom)
 	for ( ; p > pathName; p--) {
 		if (IsFileSeparator(*(p - 1))) break;
 	}
-	if (pTop != NULL) *pTop = String(pathName, p);
-	if (pBottom != NULL) *pBottom = String(p, pEnd);
+	if (pTop != nullptr) *pTop = String(pathName, p);
+	if (pBottom != nullptr) *pBottom = String(p, pEnd);
 }
 
 const char *PathMgr::SeekExtName(const char *pathName)
@@ -111,7 +111,7 @@ PathMgr *PathMgr::FindResponsible(Environment &env, Signal sig,
 		}
 		if (sig.IsSignalled()) break;
 	}
-	return NULL;
+	return nullptr;
 }
 
 bool PathMgr::DoesExist(Environment &env, Signal sig, const char *pathName)

@@ -130,7 +130,7 @@ private:
 	bool _contFlag;
 public:
 	inline Object_Timer(Signal sig, Object_function *pObjFunc, bool threadFlag) :
-		Object(Gura_UserClass(Timer)), _timerID(NULL),
+		Object(Gura_UserClass(Timer)), _timerID(nullptr),
 		_sig(sig), _pObjFunc(pObjFunc), _threadFlag(threadFlag), _contFlag(false) {}
 	virtual ~Object_Timer();
 	virtual Object *Clone() const;

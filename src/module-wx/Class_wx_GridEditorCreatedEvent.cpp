@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridEditorCreatedEvent *_pObj;
 public:
-	//inline wx_GridEditorCreatedEvent() : wxGridEditorCreatedEvent(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_GridEditorCreatedEvent(int id, wxEventType type, wxObject* obj, int row, int col, wxControl* ctrl) : wxGridEditorCreatedEvent(id, type, obj, row, col, ctrl), _sig(NULL), _pObj(NULL) {}
+	//inline wx_GridEditorCreatedEvent() : wxGridEditorCreatedEvent(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_GridEditorCreatedEvent(int id, wxEventType type, wxObject* obj, int row, int col, wxControl* ctrl) : wxGridEditorCreatedEvent(id, type, obj, row, col, ctrl), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridEditorCreatedEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridEditorCreatedEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GridEditorCreatedEvent::~wx_GridEditorCreatedEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridEditorCreatedEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 #if 0
 	wx_GridEditorCreatedEvent *pEntity = new wx_GridEditorCreatedEvent();
 	Object_wx_GridEditorCreatedEvent *pObj = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementFunction(GridEditorCreatedEvent)
 	wxControl *ctrl = Object_wx_Control::GetObject(args, 5)->GetEntity();
 	wx_GridEditorCreatedEvent *pEntity = new wx_GridEditorCreatedEvent(id, type, obj, row, col, ctrl);
 	Object_wx_GridEditorCreatedEvent *pObj = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxControl *rtn = (wxControl *)pThis->GetEntity()->GetControl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Control(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Control(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -231,13 +231,13 @@ Object_wx_GridEditorCreatedEvent::~Object_wx_GridEditorCreatedEvent()
 
 Object *Object_wx_GridEditorCreatedEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridEditorCreatedEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -264,7 +264,7 @@ Gura_ImplementUserInheritableClass(wx_GridEditorCreatedEvent)
 
 Gura_ImplementDescendantCreator(wx_GridEditorCreatedEvent)
 {
-	return new Object_wx_GridEditorCreatedEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridEditorCreatedEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

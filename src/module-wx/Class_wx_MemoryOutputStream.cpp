@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MemoryOutputStream *_pObj;
 public:
-	//inline wx_MemoryOutputStream(char * data, size_t length) : wxMemoryOutputStream(data, length), _sig(NULL), _pObj(NULL) {}
+	//inline wx_MemoryOutputStream(char * data, size_t length) : wxMemoryOutputStream(data, length), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MemoryOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryOutputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MemoryOutputStream::~wx_MemoryOutputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MemoryOutputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,13 +51,13 @@ Gura_ImplementFunction(MemoryOutputStream)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
-	char data = NULL;
+	char data = nullptr;
 	if (args.IsValid(0)) data = args.GetChar(0);
 	size_t length = 0;
 	if (args.IsValid(1)) length = args.GetSizeT(1);
 	wx_MemoryOutputStream *pEntity = new wx_MemoryOutputStream(data, length);
 	Object_wx_MemoryOutputStream *pObj = Object_wx_MemoryOutputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetOutputStreamBuffer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -117,13 +117,13 @@ Object_wx_MemoryOutputStream::~Object_wx_MemoryOutputStream()
 
 Object *Object_wx_MemoryOutputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryOutputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -145,7 +145,7 @@ Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 
 Gura_ImplementDescendantCreator(wx_MemoryOutputStream)
 {
-	return new Object_wx_MemoryOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MemoryOutputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

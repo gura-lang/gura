@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlLinkInfo *_pObj;
 public:
-	inline wx_HtmlLinkInfo() : wxHtmlLinkInfo(), _sig(NULL), _pObj(NULL) {}
-	inline wx_HtmlLinkInfo(const wxString& href, const wxString& target) : wxHtmlLinkInfo(href, target), _sig(NULL), _pObj(NULL) {}
+	inline wx_HtmlLinkInfo() : wxHtmlLinkInfo(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlLinkInfo(const wxString& href, const wxString& target) : wxHtmlLinkInfo(href, target), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlLinkInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlLinkInfo *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_HtmlLinkInfo::~wx_HtmlLinkInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlLinkInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(HtmlLinkInfoEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlLinkInfo *pEntity = new wx_HtmlLinkInfo();
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlLinkInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(HtmlLinkInfo)
 	if (args.IsValid(1)) target = wxString::FromUTF8(args.GetString(1));
 	wx_HtmlLinkInfo *pEntity = new wx_HtmlLinkInfo(href, target);
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlLinkInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, GetEvent)
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMouseEvent *rtn = (wxMouseEvent *)pThis->GetEntity()->GetEvent();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MouseEvent(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_MouseEvent(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetHtmlCell)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, GetHtmlCell)
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetHtmlCell();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlLinkInfo, GetHref)
@@ -151,13 +151,13 @@ Object_wx_HtmlLinkInfo::~Object_wx_HtmlLinkInfo()
 
 Object *Object_wx_HtmlLinkInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlLinkInfo:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -182,7 +182,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlLinkInfo)
 
 Gura_ImplementDescendantCreator(wx_HtmlLinkInfo)
 {
-	return new Object_wx_HtmlLinkInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlLinkInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

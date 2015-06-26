@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RegionIterator *_pObj;
 public:
-	inline wx_RegionIterator() : wxRegionIterator(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RegionIterator(const wxRegion& region) : wxRegionIterator(region), _sig(NULL), _pObj(NULL) {}
+	inline wx_RegionIterator() : wxRegionIterator(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegionIterator(const wxRegion& region) : wxRegionIterator(region), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RegionIterator();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegionIterator *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_RegionIterator::~wx_RegionIterator()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RegionIterator::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(RegionIteratorEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegionIterator *pEntity = new wx_RegionIterator();
 	Object_wx_RegionIterator *pObj = Object_wx_RegionIterator::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RegionIterator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(RegionIterator)
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
 	wx_RegionIterator *pEntity = new wx_RegionIterator(*region);
 	Object_wx_RegionIterator *pObj = Object_wx_RegionIterator::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RegionIterator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetRect)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetWidth)
@@ -236,13 +236,13 @@ Object_wx_RegionIterator::~Object_wx_RegionIterator()
 
 Object *Object_wx_RegionIterator::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RegionIterator::ToString(bool exprFlag)
 {
 	String rtn("<wx.RegionIterator:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -273,7 +273,7 @@ Gura_ImplementUserInheritableClass(wx_RegionIterator)
 
 Gura_ImplementDescendantCreator(wx_RegionIterator)
 {
-	return new Object_wx_RegionIterator((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RegionIterator((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

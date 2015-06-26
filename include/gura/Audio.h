@@ -52,10 +52,10 @@ public:
 		inline Memory *GetMemory() { return _pMemory.get(); }
 		inline const Memory *GetMemory() const { return _pMemory.get(); }
 		inline UChar *GetPointer() {
-			return _pMemory.IsNull()? NULL : reinterpret_cast<UChar *>(_pMemory->GetPointer());
+			return _pMemory.IsNull()? nullptr : reinterpret_cast<UChar *>(_pMemory->GetPointer());
 		}
 		inline const UChar *GetPointer() const {
-			return _pMemory.IsNull()? NULL : reinterpret_cast<const UChar *>(_pMemory->GetPointer());
+			return _pMemory.IsNull()? nullptr : reinterpret_cast<const UChar *>(_pMemory->GetPointer());
 		}
 		inline size_t GetBytes() const { return _pMemory.IsNull()? 0 : _pMemory->GetSize(); }
 		inline size_t GetSamples() const { return GetBytes() / (GetChannels() * GetBytesPerSample()); }

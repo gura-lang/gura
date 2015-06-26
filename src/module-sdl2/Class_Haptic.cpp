@@ -12,7 +12,7 @@ Object_Haptic::~Object_Haptic()
 
 Object *Object_Haptic::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Haptic::ToString(bool exprFlag)

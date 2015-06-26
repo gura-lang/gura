@@ -15,7 +15,7 @@ Object_db::~Object_db()
 
 Object *Object_db::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_db::Open(Signal sig, const char *fileName)
@@ -31,16 +31,16 @@ bool Object_db::Open(Signal sig, const char *fileName)
 
 void Object_db::Close()
 {
-	if (_db != NULL) {
+	if (_db != nullptr) {
 		::sqlite3_close(_db);
-		_db = NULL;
+		_db = nullptr;
 		_fileName = "";
 	}
 }
 
 Value Object_db::Exec(Signal sig, const char *sql, Args &args)
 {
-	if (_db == NULL) {
+	if (_db == nullptr) {
 		SetError_NotOpened(sig);
 		return Value::Null;
 	}
@@ -56,12 +56,12 @@ Value Object_db::Exec(Signal sig, const char *sql, Args &args)
 
 bool Object_db::ExecNoResult(Signal sig, const char *sql)
 {
-	if (_db == NULL) {
+	if (_db == nullptr) {
 		SetError_NotOpened(sig);
 		return false;
 	}
 	char *errMsg;
-	int rc = ::sqlite3_exec(_db, sql, NULL, NULL, &errMsg); 
+	int rc = ::sqlite3_exec(_db, sql, nullptr, nullptr, &errMsg); 
 	if (rc != SQLITE_OK) {
 		sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
 		return false;
@@ -71,16 +71,16 @@ bool Object_db::ExecNoResult(Signal sig, const char *sql)
 
 Object_db::IteratorQuery *Object_db::Query(Signal sig, const char *sql)
 {
-	if (_db == NULL) {
+	if (_db == nullptr) {
 		SetError_NotOpened(sig);
-		return NULL;
+		return nullptr;
 	}
 	sqlite3_stmt *pStmt;
 	const char *pzTail;
 	int rc = ::sqlite3_prepare(_db, sql, -1, &pStmt, &pzTail);
 	if (rc != SQLITE_OK) {
 		sig.SetError(ERR_RuntimeError, "sqlite3 %s", ::sqlite3_errmsg(_db));
-		return NULL;
+		return nullptr;
 	}
 	return new IteratorQuery(Object_db::Reference(this), pStmt);
 }
@@ -88,7 +88,7 @@ Object_db::IteratorQuery *Object_db::Query(Signal sig, const char *sql)
 Value Object_db::GetColumnNames(Signal sig, const char *sql)
 {
 	Environment &env = *this;
-	if (_db == NULL) {
+	if (_db == nullptr) {
 		SetError_NotOpened(sig);
 		return Value::Null;
 	}
@@ -146,7 +146,7 @@ Object_db::IteratorQuery::~IteratorQuery()
 
 Iterator *Object_db::IteratorQuery::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_db::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value)

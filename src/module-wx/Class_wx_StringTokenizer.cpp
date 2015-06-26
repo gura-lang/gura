@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StringTokenizer *_pObj;
 public:
-	inline wx_StringTokenizer() : wxStringTokenizer(), _sig(NULL), _pObj(NULL) {}
-	inline wx_StringTokenizer(const wxString& str, const wxString& delims, wxStringTokenizerMode mode) : wxStringTokenizer(str, delims, mode), _sig(NULL), _pObj(NULL) {}
+	inline wx_StringTokenizer() : wxStringTokenizer(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StringTokenizer(const wxString& str, const wxString& delims, wxStringTokenizerMode mode) : wxStringTokenizer(str, delims, mode), _sig(nullptr), _pObj(nullptr) {}
 	~wx_StringTokenizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StringTokenizer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_StringTokenizer::~wx_StringTokenizer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StringTokenizer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(StringTokenizerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StringTokenizer *pEntity = new wx_StringTokenizer();
 	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -79,7 +79,7 @@ Gura_ImplementFunction(StringTokenizer)
 	if (args.IsValid(2)) mode = static_cast<wxStringTokenizerMode>(args.GetInt(2));
 	wx_StringTokenizer *pEntity = new wx_StringTokenizer(str, delims, mode);
 	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -203,13 +203,13 @@ Object_wx_StringTokenizer::~Object_wx_StringTokenizer()
 
 Object *Object_wx_StringTokenizer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StringTokenizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringTokenizer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -237,7 +237,7 @@ Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 
 Gura_ImplementDescendantCreator(wx_StringTokenizer)
 {
-	return new Object_wx_StringTokenizer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StringTokenizer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

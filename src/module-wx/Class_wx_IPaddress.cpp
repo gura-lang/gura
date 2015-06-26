@@ -43,12 +43,12 @@ public:
 
 wx_IPaddress::~wx_IPaddress()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_IPaddress::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -195,13 +195,13 @@ Object_wx_IPaddress::~Object_wx_IPaddress()
 
 Object *Object_wx_IPaddress::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_IPaddress::ToString(bool exprFlag)
 {
 	String rtn("<wx.IPaddress:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -238,7 +238,7 @@ Gura_ImplementUserInheritableClass(wx_IPaddress)
 
 Gura_ImplementDescendantCreator(wx_IPaddress)
 {
-	return new Object_wx_IPaddress((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_IPaddress((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

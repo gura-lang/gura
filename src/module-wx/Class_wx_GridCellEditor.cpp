@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellEditor *_pObj;
 public:
-	//inline wx_GridCellEditor() : wxGridCellEditor(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_GridCellEditor() : wxGridCellEditor(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellEditor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GridCellEditor::~wx_GridCellEditor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellEditor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_GridCellEditor, Show)
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
-	wxGridCellAttr *attr = (wxGridCellAttr *)(NULL);
+	wxGridCellAttr *attr = (wxGridCellAttr *)(nullptr);
 	if (args.IsValid(1)) attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->Show(show, attr);
 	return Value::Null;
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_GridCellEditor, Clone)
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellEditor(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -254,13 +254,13 @@ Object_wx_GridCellEditor::~Object_wx_GridCellEditor()
 
 Object *Object_wx_GridCellEditor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellEditor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -292,7 +292,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellEditor)
 
 Gura_ImplementDescendantCreator(wx_GridCellEditor)
 {
-	return new Object_wx_GridCellEditor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellEditor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

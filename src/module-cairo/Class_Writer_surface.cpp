@@ -7,12 +7,12 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 Object_Writer_surface::~Object_Writer_surface()
 {
-	if (_surface != NULL) {
+	if (_surface != nullptr) {
 		::cairo_surface_destroy(_surface);
-		_surface = NULL;
+		_surface = nullptr;
 	}
 	delete _pWriter; // this must be deleted after surface is destroyed
-	_pWriter = NULL;
+	_pWriter = nullptr;
 }
 
 bool Object_Writer_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -30,7 +30,7 @@ Value Object_Writer_surface::DoGetProp(Environment &env, Signal sig, const Symbo
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(stream))) {
 		Stream *pStream = _pWriter->GetStream();
-		if (pStream == NULL) return Value::Null;
+		if (pStream == nullptr) return Value::Null;
 		Object_stream *pObjStream = new Object_stream(env, Stream::Reference(pStream));
 		return Value(pObjStream);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {

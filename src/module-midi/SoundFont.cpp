@@ -75,17 +75,17 @@ SoundFont::SoundFont(Stream *pStream) : _pStream(pStream)
 
 void SoundFont::Clear()
 {
-	_INFO.p_ifil.reset(NULL);	// mandatory
-	_INFO.p_isng.reset(NULL);	// mandatory
-	_INFO.p_INAM.reset(NULL);	// mandatory
-	_INFO.p_irom.reset(NULL);	// optional
-	_INFO.p_iver.reset(NULL);	// optional
-	_INFO.p_ICRD.reset(NULL);	// optional
-	_INFO.p_IENG.reset(NULL);	// optional
-	_INFO.p_IPRD.reset(NULL);	// optional
-	_INFO.p_ICOP.reset(NULL);	// optional
-	_INFO.p_ICMT.reset(NULL);	// optional
-	_INFO.p_ISFT.reset(NULL);	// optional
+	_INFO.p_ifil.reset(nullptr);	// mandatory
+	_INFO.p_isng.reset(nullptr);	// mandatory
+	_INFO.p_INAM.reset(nullptr);	// mandatory
+	_INFO.p_irom.reset(nullptr);	// optional
+	_INFO.p_iver.reset(nullptr);	// optional
+	_INFO.p_ICRD.reset(nullptr);	// optional
+	_INFO.p_IENG.reset(nullptr);	// optional
+	_INFO.p_IPRD.reset(nullptr);	// optional
+	_INFO.p_ICOP.reset(nullptr);	// optional
+	_INFO.p_ICMT.reset(nullptr);	// optional
+	_INFO.p_ISFT.reset(nullptr);	// optional
 	_offsetSdta = 0;
 	_pdta.phdrs.Clear();
 	_pdta.pbags.Clear();
@@ -124,8 +124,8 @@ bool SoundFont::ReadChunks(Environment &env, Signal sig)
 	}
 	ckSize -= 4;
 	if (!ReadSubChunk(env, sig, static_cast<size_t>(ckSize))) return false;
-	if (_INFO.p_ifil.get() == NULL ||
-				_INFO.p_isng.get() == NULL || _INFO.p_INAM.get() == NULL) {
+	if (_INFO.p_ifil.get() == nullptr ||
+				_INFO.p_isng.get() == nullptr || _INFO.p_INAM.get() == nullptr) {
 		sig.SetError(ERR_FormatError, "necessary chunk doesn't exist");
 		return false;
 	}
@@ -172,16 +172,16 @@ const SoundFont::sfPresetHeader *SoundFont::LookupPresetHeader(
 		const sfPresetHeader *pPresetHeader = *ppPresetHeader;
 		if (pPresetHeader->IsMatched(wPreset, wBank)) return pPresetHeader;
 	}
-	return NULL;
+	return nullptr;
 }
 
 SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
 					UShort wPreset, UShort wBank, UChar key, UChar velocity) const
 {
 	const sfPresetHeader *pPresetHeader = LookupPresetHeader(wPreset, wBank);
-	if (pPresetHeader == NULL) {
+	if (pPresetHeader == nullptr) {
 		sig.SetError(ERR_IndexError, "can't find specified PresetHeader");
-		return NULL;
+		return nullptr;
 	}
 	AutoPtr<Synthesizer> pSynthesizer(new Synthesizer());
 	foreach_const (sfPresetBagOwner, ppPresetBag, pPresetHeader->GetPresetBagOwner()) {
@@ -195,7 +195,7 @@ SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
 			pSynthesizer->GetModOwner().push_back(pMod->Reference());
 		}
 		const sfInst *pInst = pPresetBag->GetInst();
-		if (pInst == NULL) continue;
+		if (pInst == nullptr) continue;
 		foreach_const (sfInstBagOwner, ppInstBag, pInst->GetInstBagOwner()) {
 			const sfInstBag *pInstBag = *ppInstBag;
 			if (!pInstBag->IsMatched(key, velocity)) continue;
@@ -214,10 +214,10 @@ SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
 		UShort wSampleNdx = pSynthesizer->GetProps().sampleID;
 		if (static_cast<size_t>(wSampleNdx) >= _pdta.shdrs.size()) {
 			sig.SetError(ERR_FormatError, "invalid index value in sfGen sampleID");
-			return NULL;
+			return nullptr;
 		}
 		sfSample *pSample = _pdta.shdrs[wSampleNdx];
-		if (!pSample->CreateAudio(sig, *_pStream, _offsetSdta)) return NULL;
+		if (!pSample->CreateAudio(sig, *_pStream, _offsetSdta)) return nullptr;
 		pSynthesizer->SetSample(sfSample::Reference(pSample));
 	} while (0);
 	return pSynthesizer.release();
@@ -225,23 +225,23 @@ SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
 
 void SoundFont::Print() const
 {
-	if (_INFO.p_ifil.get() != NULL) {
+	if (_INFO.p_ifil.get() != nullptr) {
 		::printf("ifil ");
 		_INFO.p_ifil->Print(0);
 	}
-	if (_INFO.p_isng.get() != NULL) ::printf("isng \"%s\"\n", _INFO.p_isng->c_str());
-	if (_INFO.p_INAM.get() != NULL) ::printf("INAM \"%s\"\n", _INFO.p_INAM->c_str());
-	if (_INFO.p_irom.get() != NULL) ::printf("irom \"%s\"\n", _INFO.p_irom->c_str());
-	if (_INFO.p_iver.get() != NULL) {
+	if (_INFO.p_isng.get() != nullptr) ::printf("isng \"%s\"\n", _INFO.p_isng->c_str());
+	if (_INFO.p_INAM.get() != nullptr) ::printf("INAM \"%s\"\n", _INFO.p_INAM->c_str());
+	if (_INFO.p_irom.get() != nullptr) ::printf("irom \"%s\"\n", _INFO.p_irom->c_str());
+	if (_INFO.p_iver.get() != nullptr) {
 		::printf("<iver> ");
 		_INFO.p_iver->Print(0);
 	}
-	if (_INFO.p_ICRD.get() != NULL) ::printf("ICRD \"%s\"\n", _INFO.p_ICRD->c_str());
-	if (_INFO.p_IENG.get() != NULL) ::printf("IENG \"%s\"\n", _INFO.p_IENG->c_str());
-	if (_INFO.p_IPRD.get() != NULL) ::printf("IPRD \"%s\"\n", _INFO.p_IPRD->c_str());
-	if (_INFO.p_ICOP.get() != NULL) ::printf("ICOP \"%s\"\n", _INFO.p_ICOP->c_str());
-	if (_INFO.p_ICMT.get() != NULL) ::printf("ICMT \"%s\"\n", _INFO.p_ICMT->c_str());
-	if (_INFO.p_ISFT.get() != NULL) ::printf("ISFT \"%s\"\n", _INFO.p_ISFT->c_str());
+	if (_INFO.p_ICRD.get() != nullptr) ::printf("ICRD \"%s\"\n", _INFO.p_ICRD->c_str());
+	if (_INFO.p_IENG.get() != nullptr) ::printf("IENG \"%s\"\n", _INFO.p_IENG->c_str());
+	if (_INFO.p_IPRD.get() != nullptr) ::printf("IPRD \"%s\"\n", _INFO.p_IPRD->c_str());
+	if (_INFO.p_ICOP.get() != nullptr) ::printf("ICOP \"%s\"\n", _INFO.p_ICOP->c_str());
+	if (_INFO.p_ICMT.get() != nullptr) ::printf("ICMT \"%s\"\n", _INFO.p_ICMT->c_str());
+	if (_INFO.p_ISFT.get() != nullptr) ::printf("ISFT \"%s\"\n", _INFO.p_ISFT->c_str());
 	::printf("phdr[%d] : sfPresetHeader\n", _pdta.phdrs.size());
 	_pdta.phdrs.Print(0);
 }
@@ -609,7 +609,7 @@ void SoundFont::sfPresetBag::Print(int indentLevel) const
 		_wModNdx);
 	GetGenOwner().Print(indentLevel + 1);
 	GetModOwner().Print(indentLevel + 1);
-	if (GetInst() != NULL) GetInst()->Print(indentLevel + 1);
+	if (GetInst() != nullptr) GetInst()->Print(indentLevel + 1);
 }
 
 bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta)
@@ -900,12 +900,12 @@ bool SoundFont::sfSample::CreateAudio(Signal sig, Stream &stream, size_t offsetS
 		sig.SetError(ERR_FormatError, "invalid value in sfSample");
 		return false;
 	}
-	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return NULL;
+	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return nullptr;
 	size_t nSamples = _dwEnd - _dwStart;
 	Audio::Chain *pChain = _pAudio->AllocChain(nSamples);
 	size_t bytesToRead = nSamples * 2;
 	size_t bytesRead = stream.Read(sig, pChain->GetPointer(), bytesToRead);
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return nullptr;
 	if (bytesRead < bytesToRead) {
 		sig.SetError(ERR_FormatError, "invalid format of SoundFont");
 		return false;

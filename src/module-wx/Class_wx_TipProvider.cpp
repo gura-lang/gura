@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TipProvider *_pObj;
 public:
-	//inline wx_TipProvider(size_t currentTip) : wxTipProvider(currentTip), _sig(NULL), _pObj(NULL) {}
+	//inline wx_TipProvider(size_t currentTip) : wxTipProvider(currentTip), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxString PreProcessTip(const wxString& tip);
 	~wx_TipProvider();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TipProvider *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_TipProvider::~wx_TipProvider()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TipProvider::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(TipProvider)
 	size_t currentTip = args.GetSizeT(0);
 	wx_TipProvider *pEntity = new wx_TipProvider(currentTip);
 	Object_wx_TipProvider *pObj = Object_wx_TipProvider::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TipProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -124,20 +124,20 @@ Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 //----------------------------------------------------------------------------
 Object_wx_TipProvider::~Object_wx_TipProvider()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TipProvider::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TipProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.TipProvider:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -161,7 +161,7 @@ Gura_ImplementUserInheritableClass(wx_TipProvider)
 
 Gura_ImplementDescendantCreator(wx_TipProvider)
 {
-	return new Object_wx_TipProvider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TipProvider((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

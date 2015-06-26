@@ -105,7 +105,7 @@ public:
 	}
 	Directory *Next(Environment &env, Signal sig);
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
-	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
+	String MakePathName(bool addSepFlag, const char *pathNameTrail = nullptr) const;
 	int CountDepth() const;
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr) = 0;
 public:
@@ -139,20 +139,20 @@ public:
 	inline Record(Structure *pStructure, Record *pRecordParent,
 			const char *name, bool containerFlag) :
 			_pStructure(pStructure), _pRecordParent(pRecordParent), _name(name),
-			_pRecordChildren(containerFlag? new RecordList() : NULL) {}
+			_pRecordChildren(containerFlag? new RecordList() : nullptr) {}
 	virtual ~Record();
 	inline const char *GetName() const { return _name.c_str(); }
-	inline bool IsRoot() const { return _pRecordParent == NULL; }
-	inline bool IsContainer() const { return _pRecordChildren != NULL; }
+	inline bool IsRoot() const { return _pRecordParent == nullptr; }
+	inline bool IsContainer() const { return _pRecordChildren != nullptr; }
 	inline void AddChild(Record *pRecord) {
-		if (_pRecordChildren != NULL) _pRecordChildren->push_back(pRecord);
+		if (_pRecordChildren != nullptr) _pRecordChildren->push_back(pRecord);
 	}
 	inline void InitIterator() {
-		if (_pRecordChildren != NULL) _ppRecordChild = _pRecordChildren->begin();
+		if (_pRecordChildren != nullptr) _ppRecordChild = _pRecordChildren->begin();
 	}
 	inline Directory *Next(Directory *pParent) {
-		if (_pRecordChildren == NULL) return NULL;
-		if (_ppRecordChild == _pRecordChildren->end()) return NULL;
+		if (_pRecordChildren == nullptr) return nullptr;
+		if (_ppRecordChild == _pRecordChildren->end()) return nullptr;
 		Record *pRecord = *_ppRecordChild++;
 		return pRecord->GenerateDirectory(pParent, false);
 	}

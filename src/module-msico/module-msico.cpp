@@ -14,7 +14,7 @@ Object_content::~Object_content()
 
 Object *Object_content::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

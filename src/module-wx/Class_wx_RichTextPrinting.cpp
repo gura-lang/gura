@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_RichTextPrinting *_pObj;
 public:
-	inline wx_RichTextPrinting(const wxString& name, wxWindow* parentWindow) : wxRichTextPrinting(name, parentWindow), _sig(NULL), _pObj(NULL) {}
+	inline wx_RichTextPrinting(const wxString& name, wxWindow* parentWindow) : wxRichTextPrinting(name, parentWindow), _sig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextPrinting();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextPrinting *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_RichTextPrinting::~wx_RichTextPrinting()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextPrinting::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,11 +50,11 @@ Gura_ImplementFunction(RichTextPrinting)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxT("Printing");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
-	wxWindow *parentWindow = (wxWindow *)(NULL);
+	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parentWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_RichTextPrinting *pEntity = new wx_RichTextPrinting(name, parentWindow);
 	Object_wx_RichTextPrinting *pObj = Object_wx_RichTextPrinting::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextPrinting(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetHeaderFooterData)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxRichTextHeaderFooterData &rtn = pThis->GetEntity()->GetHeaderFooterData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextHeaderFooterData(new wxRichTextHeaderFooterData(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextHeaderFooterData(new wxRichTextHeaderFooterData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetHeaderText)
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetPageSetupData)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPageSetupDialogData *rtn = (wxPageSetupDialogData *)pThis->GetEntity()->GetPageSetupData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetParentWindow)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetParentWindow)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetPreviewRect)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetPreviewRect)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxRect &rtn = pThis->GetEntity()->GetPreviewRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetPrintData)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetPrintData)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintData *rtn = (wxPrintData *)pThis->GetEntity()->GetPrintData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetTitle)
@@ -451,13 +451,13 @@ Object_wx_RichTextPrinting::~Object_wx_RichTextPrinting()
 
 Object *Object_wx_RichTextPrinting::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextPrinting::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextPrinting:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -501,7 +501,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextPrinting)
 
 Gura_ImplementDescendantCreator(wx_RichTextPrinting)
 {
-	return new Object_wx_RichTextPrinting((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextPrinting((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

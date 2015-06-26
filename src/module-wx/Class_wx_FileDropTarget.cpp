@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileDropTarget *_pObj;
 public:
-	inline wx_FileDropTarget() : wxFileDropTarget(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileDropTarget() : wxFileDropTarget(), _sig(nullptr), _pObj(nullptr) {}
 	virtual bool OnDrop(wxCoord x, wxCoord y);
 	virtual bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 	~wx_FileDropTarget();
@@ -30,18 +30,18 @@ public:
 
 wx_FileDropTarget::~wx_FileDropTarget()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileDropTarget::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 bool wx_FileDropTarget::OnDrop(wxCoord x, wxCoord y)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDrop);
-	if (pFunc == NULL) return wxFileDropTarget::OnDrop(x, y);
+	if (pFunc == nullptr) return wxFileDropTarget::OnDrop(x, y);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -54,7 +54,7 @@ bool wx_FileDropTarget::OnDrop(wxCoord x, wxCoord y)
 bool wx_FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDropFiles);
-	if (pFunc == NULL) return false;
+	if (pFunc == nullptr) return false;
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(FileDropTarget)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDropTarget *pEntity = new wx_FileDropTarget();
 	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -147,13 +147,13 @@ Object_wx_FileDropTarget::~Object_wx_FileDropTarget()
 
 Object *Object_wx_FileDropTarget::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileDropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDropTarget:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -177,7 +177,7 @@ Gura_ImplementUserInheritableClass(wx_FileDropTarget)
 
 Gura_ImplementDescendantCreator(wx_FileDropTarget)
 {
-	return new Object_wx_FileDropTarget((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileDropTarget((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

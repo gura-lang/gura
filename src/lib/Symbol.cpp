@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // static variables
 //-----------------------------------------------------------------------------
-SymbolPool *SymbolPool::_pInst = NULL;
+SymbolPool *SymbolPool::_pInst = nullptr;
 
 const SymbolSet SymbolSet::Null;
 
@@ -120,7 +120,7 @@ SymbolPool::~SymbolPool()
 
 void SymbolPool::Initialize()
 {
-	if (_pInst == NULL) {
+	if (_pInst == nullptr) {
 		_pInst = new SymbolPool();
 		_pInst->_Initialize();
 	}

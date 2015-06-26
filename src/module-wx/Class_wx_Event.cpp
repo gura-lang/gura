@@ -16,7 +16,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Event *_pObj;
 public:
-	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _sig(NULL), _pObj(NULL) {}
+	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _sig(nullptr), _pObj(nullptr) {}
 	//virtual wxEvent* Clone();
 	~wx_Event();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Event *pObj) {
@@ -28,12 +28,12 @@ public:
 
 wx_Event::~wx_Event()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Event::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Gura_ImplementFunction(Event)
 	if (args.IsValid(1)) eventType = static_cast<wxEventType>(args.GetInt(1));
 	wx_Event *pEntity = new wx_Event(id, eventType);
 	Object_wx_Event *pObj = Object_wx_Event::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Event(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_Event, Clone)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventObject)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_Event, GetEventObject)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetEventObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventType)
@@ -299,13 +299,13 @@ Object_wx_Event::~Object_wx_Event()
 
 Object *Object_wx_Event::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Event::ToString(bool exprFlag)
 {
 	String rtn("<wx.Event:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -341,7 +341,7 @@ Gura_ImplementUserInheritableClass(wx_Event)
 
 Gura_ImplementDescendantCreator(wx_Event)
 {
-	return new Object_wx_Event((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Event((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

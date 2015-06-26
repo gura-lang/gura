@@ -24,12 +24,12 @@ public:
 
 wx_BufferedInputStream::~wx_BufferedInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_BufferedInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_BufferedInputStream::~Object_wx_BufferedInputStream()
 
 Object *Object_wx_BufferedInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_BufferedInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.BufferedInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_BufferedInputStream)
 
 Gura_ImplementDescendantCreator(wx_BufferedInputStream)
 {
-	return new Object_wx_BufferedInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_BufferedInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

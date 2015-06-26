@@ -142,7 +142,7 @@ Object_binary::IteratorByte::IteratorByte(Object_binary *pObj, int cntMax) :
 
 Iterator *Object_binary::IteratorByte::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &value)
@@ -176,7 +176,7 @@ Object_binary::IteratorUnpack::IteratorUnpack(Object_binary *pObj,
 
 Iterator *Object_binary::IteratorUnpack::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &value)
@@ -368,7 +368,7 @@ Gura_ImplementMethod(binary, hex)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	String rtn;
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
-	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : NULL;
+	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : nullptr;
 	const char *format =
 		args.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
 		args.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
@@ -376,7 +376,7 @@ Gura_ImplementMethod(binary, hex)
 	const Binary &buff = pThis->GetBinary();
 	foreach_const (Binary, p, buff) {
 		UChar ch = static_cast<UChar>(*p);
-		if (sep != NULL && p != buff.begin()) rtn += sep;
+		if (sep != nullptr && p != buff.begin()) rtn += sep;
 		char buff[32];
 		::sprintf(buff, format, ch);
 		rtn += buff;
@@ -661,7 +661,7 @@ bool Class_binary::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 
 Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new Object_binary((pClass == NULL)? this : pClass);
+	return new Object_binary((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
@@ -684,7 +684,7 @@ const char *Stream_Binary::GetName() const
 
 const char *Stream_Binary::GetIdentifier() const
 {
-	return NULL;
+	return nullptr;
 }
 
 size_t Stream_Binary::DoRead(Signal sig, void *buff, size_t len)

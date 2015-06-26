@@ -24,12 +24,12 @@ public:
 
 wx_DialUpManager::~wx_DialUpManager()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DialUpManager::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_DialUpManager, Create)
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDialUpManager *rtn = (wxDialUpManager *)pThis->GetEntity()->Create();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DialUpManager(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DialUpManager(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DialUpManager, IsOk)
@@ -263,20 +263,20 @@ Gura_ImplementMethod(wx_DialUpManager, SetConnectCommand)
 //----------------------------------------------------------------------------
 Object_wx_DialUpManager::~Object_wx_DialUpManager()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DialUpManager::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DialUpManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.DialUpManager:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -309,7 +309,7 @@ Gura_ImplementUserInheritableClass(wx_DialUpManager)
 
 Gura_ImplementDescendantCreator(wx_DialUpManager)
 {
-	return new Object_wx_DialUpManager((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DialUpManager((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

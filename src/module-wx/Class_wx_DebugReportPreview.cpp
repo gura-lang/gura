@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DebugReportPreview *_pObj;
 public:
-	//inline wx_DebugReportPreview() : wxDebugReportPreview(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DebugReportPreview() : wxDebugReportPreview(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DebugReportPreview();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReportPreview *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DebugReportPreview::~wx_DebugReportPreview()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DebugReportPreview::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(DebugReportPreviewEmpty)
 #if 0
 	wx_DebugReportPreview *pEntity = new wx_DebugReportPreview();
 	Object_wx_DebugReportPreview *pObj = Object_wx_DebugReportPreview::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportPreview(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -85,20 +85,20 @@ Gura_ImplementMethod(wx_DebugReportPreview, Show)
 //----------------------------------------------------------------------------
 Object_wx_DebugReportPreview::~Object_wx_DebugReportPreview()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DebugReportPreview::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DebugReportPreview::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportPreview:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -119,7 +119,7 @@ Gura_ImplementUserInheritableClass(wx_DebugReportPreview)
 
 Gura_ImplementDescendantCreator(wx_DebugReportPreview)
 {
-	return new Object_wx_DebugReportPreview((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DebugReportPreview((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

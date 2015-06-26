@@ -35,7 +35,7 @@ const Error::TypeInfo Error::_typeInfoTbl[] = {
 	{ ERR_ResourceError,		"ResourceError"			},
 	{ ERR_MemberAccessError,	"MemberAccessError"		},
 	{ ERR_VersionError,			"VersionError"			},
-	{ ERR_None,					NULL					},
+	{ ERR_None,					nullptr					},
 };
 
 Error::Error(ErrorType errType) : _errType(errType), _pExprCauseOwner(new ExprOwner())
@@ -64,7 +64,7 @@ void Error::Set(ErrorType errType, const String &textPre, const String &text)
 const char *Error::GetSourceName() const
 {
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	return exprCauseOwner.empty()? NULL : exprCauseOwner.front()->GetSourceName();
+	return exprCauseOwner.empty()? nullptr : exprCauseOwner.front()->GetSourceName();
 }
 
 int Error::GetLineNoTop() const
@@ -103,7 +103,7 @@ String Error::MakeText(bool lineInfoFlag) const
 
 const char *Error::GetTypeName(ErrorType errType)
 {
-	for (const TypeInfo *p = _typeInfoTbl; p->name != NULL; p++) {
+	for (const TypeInfo *p = _typeInfoTbl; p->name != nullptr; p++) {
 		if (p->errType == errType) return p->name;
 	}
 	return "unknown";
@@ -111,7 +111,7 @@ const char *Error::GetTypeName(ErrorType errType)
 
 void Error::AssignErrorTypes(Environment &env)
 {
-	for (const TypeInfo *p = _typeInfoTbl; p->name != NULL; p++) {
+	for (const TypeInfo *p = _typeInfoTbl; p->name != nullptr; p++) {
 		Object *pObj = new Object_error(env, Error(p->errType));
 		env.AssignValue(Symbol::Add(p->name), Value(pObj), EXTRA_Public);
 	}

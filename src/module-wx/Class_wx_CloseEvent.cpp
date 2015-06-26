@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CloseEvent *_pObj;
 public:
-	inline wx_CloseEvent(WXTYPE commandEventType, int id) : wxCloseEvent(commandEventType, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_CloseEvent(WXTYPE commandEventType, int id) : wxCloseEvent(commandEventType, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CloseEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CloseEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_CloseEvent::~wx_CloseEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CloseEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(CloseEvent)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_CloseEvent *pEntity = new wx_CloseEvent(commandEventType, id);
 	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CloseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -168,13 +168,13 @@ Object_wx_CloseEvent::~Object_wx_CloseEvent()
 
 Object *Object_wx_CloseEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CloseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CloseEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -200,7 +200,7 @@ Gura_ImplementUserInheritableClass(wx_CloseEvent)
 
 Gura_ImplementDescendantCreator(wx_CloseEvent)
 {
-	return new Object_wx_CloseEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CloseEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

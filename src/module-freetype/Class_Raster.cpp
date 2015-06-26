@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object *Object_Raster::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Raster::ToString(bool exprFlag)

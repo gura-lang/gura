@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_AutoBufferedPaintDC *_pObj;
 public:
-	inline wx_AutoBufferedPaintDC(wxWindow * window) : wxAutoBufferedPaintDC(window), _sig(NULL), _pObj(NULL) {}
+	inline wx_AutoBufferedPaintDC(wxWindow * window) : wxAutoBufferedPaintDC(window), _sig(nullptr), _pObj(nullptr) {}
 	~wx_AutoBufferedPaintDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AutoBufferedPaintDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_AutoBufferedPaintDC::~wx_AutoBufferedPaintDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_AutoBufferedPaintDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(AutoBufferedPaintDC)
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_AutoBufferedPaintDC *pEntity = new wx_AutoBufferedPaintDC(window);
 	Object_wx_AutoBufferedPaintDC *pObj = Object_wx_AutoBufferedPaintDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_AutoBufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -69,13 +69,13 @@ Object_wx_AutoBufferedPaintDC::~Object_wx_AutoBufferedPaintDC()
 
 Object *Object_wx_AutoBufferedPaintDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_AutoBufferedPaintDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.AutoBufferedPaintDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -95,7 +95,7 @@ Gura_ImplementUserInheritableClass(wx_AutoBufferedPaintDC)
 
 Gura_ImplementDescendantCreator(wx_AutoBufferedPaintDC)
 {
-	return new Object_wx_AutoBufferedPaintDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_AutoBufferedPaintDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

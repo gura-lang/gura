@@ -12,7 +12,7 @@ Object_glyph::~Object_glyph()
 
 Object *Object_glyph::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_glyph::ToString(bool exprFlag)

@@ -7,7 +7,7 @@ Gura_BeginModuleScope(freetype)
 //-----------------------------------------------------------------------------
 Object_Bitmap::~Object_Bitmap()
 {
-	if (_pObjHolder.get() == NULL) {
+	if (_pObjHolder.get() == nullptr) {
 		::FT_Bitmap_Done(g_lib, _pBitmap);
 		delete _pBitmap;
 	}
@@ -15,7 +15,7 @@ Object_Bitmap::~Object_Bitmap()
 
 Object *Object_Bitmap::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Bitmap::ToString(bool exprFlag)
@@ -84,7 +84,7 @@ Gura_ImplementFunction(Bitmap)
 {
 	FT_Bitmap *pBitmap = new FT_Bitmap;
 	::FT_Bitmap_New(pBitmap);
-	AutoPtr<Object_Bitmap> pObjRtn(new Object_Bitmap(NULL, pBitmap));
+	AutoPtr<Object_Bitmap> pObjRtn(new Object_Bitmap(nullptr, pBitmap));
 	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
 }
 

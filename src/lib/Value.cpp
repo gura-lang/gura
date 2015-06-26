@@ -103,25 +103,25 @@ void Value::FreeResource()
 		// nothing to do
 	} else if (Is_complex()) {
 		delete _u.pComp;
-		_u.pComp = NULL;
+		_u.pComp = nullptr;
 	} else if (Is_rational()) {
 		delete _u.pRatio;
-		_u.pRatio = NULL;
+		_u.pRatio = nullptr;
 	} else if (Is_string()) {
 		StringRef::Delete(_u.pStrRef);
-		_u.pStrRef = NULL;
+		_u.pStrRef = nullptr;
 	} else if (IsObject()) {
 		if (IsOwner()) Object::Delete(_u.pObj);
-		_u.pObj = NULL;
+		_u.pObj = nullptr;
 	} else if (IsModule()) {
 		if (IsOwner()) Module::Delete(_u.pModule);
-		_u.pModule = NULL;
+		_u.pModule = nullptr;
 	} else if (IsClass()) {
 		if (IsOwner()) Class::Delete(_u.pClass);
-		_u.pClass = NULL;
+		_u.pClass = nullptr;
 	} else if (IsSequence()) {
 		if (IsOwner()) Sequence::Delete(_u.pSequence);
-		_u.pSequence = NULL;
+		_u.pSequence = nullptr;
 	} else { // Number, Boolean
 		// nothing to do
 	}
@@ -181,7 +181,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 			const Object_function *pObjFunc =
 								dynamic_cast<const Object_function *>(pFund);
 			Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
-			if (pClass != NULL) {
+			if (pClass != nullptr) {
 				InitAsClass(Class::Reference(pClass));
 				pFund = pClass;
 			}
@@ -190,7 +190,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 	}
 	sig.SetError(ERR_ValueError,
 		"%s can not be specified as l-value of member", MakeValueTypeName().c_str());
-	return NULL;
+	return nullptr;
 }
 
 bool Value::IsFlatList() const
@@ -203,8 +203,8 @@ bool Value::IsInstanceOf(ValueType valType) const
 	if (_valType == valType) return true;
 	const ValueTypeInfo *pValueTypeInfo =
 							ValueTypePool::GetInstance()->Lookup(_valType);
-	if (pValueTypeInfo == NULL) return false;
-	for (Class *pClass = pValueTypeInfo->GetClass(); pClass != NULL;
+	if (pValueTypeInfo == nullptr) return false;
+	for (Class *pClass = pValueTypeInfo->GetClass(); pClass != nullptr;
 										pClass = pClass->GetClassSuper()) {
 		if (pClass->GetValueType() == valType) return true;
 	}
@@ -304,7 +304,7 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 		return GetClassItself()->DirProp(env, sig, symbols, escalateFlag);
 	} else if (Is_function()) {
 		Class *pClass = GetFunction()->GetClassToConstruct();
-		if (pClass != NULL) {
+		if (pClass != nullptr) {
 			return pClass->DirProp(env, sig, symbols, escalateFlag);
 		}
 	} else if (IsObject()) {
@@ -353,7 +353,7 @@ const ValueDict &Value::GetDict() const
 Iterator *Value::GetIterator() const
 {
 	return Is_iterator()?
-		dynamic_cast<const Object_iterator *>(_u.pObj)->GetIterator() : NULL;
+		dynamic_cast<const Object_iterator *>(_u.pObj)->GetIterator() : nullptr;
 }
 
 Stream &Value::GetStream() const
@@ -363,19 +363,19 @@ Stream &Value::GetStream() const
 
 const Expr *Value::GetExpr() const
 {
-	return Is_expr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : NULL;
+	return Is_expr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : nullptr;
 }
 
 Function *Value::GetFunction()
 {
-	return Is_function()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : NULL;
+	return Is_function()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : nullptr;
 }
 
 Expr *Value::CloneExpr() const
 {
 	return
 		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
-		Is_symbol()? new Expr_Identifier(_u.pSymbol) : NULL;
+		Is_symbol()? new Expr_Identifier(_u.pSymbol) : nullptr;
 }
 
 Fundamental *Value::GetFundamental()
@@ -387,7 +387,7 @@ Fundamental *Value::GetFundamental()
 	} else if (IsModule()) {
 		return _u.pModule;
 	}
-	return NULL;
+	return nullptr;
 }
 
 Iterator *Value::CreateIterator(Signal sig) const
@@ -397,7 +397,7 @@ Iterator *Value::CreateIterator(Signal sig) const
 	}
 	sig.SetError(ERR_ValueError, "value of %s cannot generate iterator",
 											MakeValueTypeName().c_str());
-	return NULL;
+	return nullptr;
 }
 
 String Value::ToString(bool exprFlag) const
@@ -492,7 +492,7 @@ int Value::Compare(Environment &env, Signal sig, const Value &value1, const Valu
 	if (value1.IsInvalid() && value2.IsInvalid()) return 0;
 	const OperatorEntry *pOperatorEntry = env.GetOperator(OPTYPE_Cmp)->
 						Lookup(value1.GetValueType(), value2.GetValueType());
-	if (pOperatorEntry != NULL) {
+	if (pOperatorEntry != nullptr) {
 		Value result = pOperatorEntry->DoEval(env, sig, value1, value2);
 		if (sig.IsSignalled()) return -1;
 		if (!result.Is_number()) return -1;
@@ -771,7 +771,7 @@ bool Value::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 	}
 	const ValueTypeInfo *pValueTypeInfo =
 			ValueTypePool::GetInstance()->LookupWithCheck(static_cast<ValueType>(valType));
-	if (pValueTypeInfo == NULL) {
+	if (pValueTypeInfo == nullptr) {
 		sig.SetError(ERR_IOError, "invalid value type in the stream");
 		return false;
 	}
@@ -865,8 +865,8 @@ bool ValueList::CheckMatrix(size_t *pnRow, size_t *pnCol) const
 			if (pValueCol->Is_list()) return false;
 		}
 	}
-	if (pnRow != NULL) *pnRow = nRow;
-	if (pnCol != NULL) *pnCol = nCol;
+	if (pnRow != nullptr) *pnRow = nRow;
+	if (pnCol != nullptr) *pnCol = nCol;
 	return true;
 }
 
@@ -1034,10 +1034,10 @@ const Value *ValueDict::Find(Signal sig, const Value &valueIdx) const
 {
 	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
-		return NULL;
+		return nullptr;
 	}
 	const_iterator iter = find(valueIdx);
-	return (iter == end())? NULL : &iter->second;
+	return (iter == end())? nullptr : &iter->second;
 }
 
 bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)

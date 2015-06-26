@@ -11,7 +11,7 @@ Object_GameControllerButtonBind::~Object_GameControllerButtonBind()
 
 Object *Object_GameControllerButtonBind::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_GameControllerButtonBind::ToString(bool exprFlag)

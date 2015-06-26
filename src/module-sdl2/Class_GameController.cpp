@@ -12,7 +12,7 @@ Object_GameController::~Object_GameController()
 
 Object *Object_GameController::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_GameController::ToString(bool exprFlag)

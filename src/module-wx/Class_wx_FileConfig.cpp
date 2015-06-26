@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileConfig *_pObj;
 public:
-	inline wx_FileConfig(wxInputStream& is, wxMBConv& conv) : wxFileConfig(is, conv), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileConfig(wxInputStream& is, wxMBConv& conv) : wxFileConfig(is, conv), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FileConfig();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileConfig *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FileConfig::~wx_FileConfig()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FileConfig::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Gura_ImplementFunction(FileConfig)
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_FileConfig *pEntity = new wx_FileConfig(*is, *conv);
 	Object_wx_FileConfig *pObj = Object_wx_FileConfig::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FileConfig(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -106,13 +106,13 @@ Object_wx_FileConfig::~Object_wx_FileConfig()
 
 Object *Object_wx_FileConfig::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FileConfig::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileConfig:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -134,7 +134,7 @@ Gura_ImplementUserInheritableClass(wx_FileConfig)
 
 Gura_ImplementDescendantCreator(wx_FileConfig)
 {
-	return new Object_wx_FileConfig((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FileConfig((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

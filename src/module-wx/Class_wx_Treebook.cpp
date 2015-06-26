@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Treebook *_pObj;
 public:
-	inline wx_Treebook() : wxTreebook(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_Treebook() : wxTreebook(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Treebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Treebook *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_Treebook::~wx_Treebook()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Treebook::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(TreebookEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Treebook *pEntity = new wx_Treebook();
 	Object_wx_Treebook *pObj = Object_wx_Treebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(Treebook)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Treebook *pEntity = new wx_Treebook(parent, id, *pos, *size, style, name);
 	Object_wx_Treebook *pObj = Object_wx_Treebook::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_Treebook, SetImageList)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = NULL;
+	wxImageList *imageList = nullptr;
 	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetImageList(imageList);
 	return Value::Null;
@@ -478,13 +478,13 @@ Object_wx_Treebook::~Object_wx_Treebook()
 
 Object *Object_wx_Treebook::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Treebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Treebook:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -525,7 +525,7 @@ Gura_ImplementUserInheritableClass(wx_Treebook)
 
 Gura_ImplementDescendantCreator(wx_Treebook)
 {
-	return new Object_wx_Treebook((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Treebook((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

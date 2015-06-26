@@ -65,7 +65,7 @@ String MakeAbsPathName(char chSeparator, const char *fileName, const char *dirNa
 	String pathName;
 	if (IsAbsPathName(fileName)) {
 		// nothing to do
-	} else if (dirNameBase == NULL) {
+	} else if (dirNameBase == nullptr) {
 		pathName += GetCurDir();
 	} else {
 		pathName += dirNameBase;
@@ -313,7 +313,7 @@ bool CopyDir(const char *dirNameSrc, const char *dirNameDst)
 	DirLister dirLister(dirNameSrc, false);
 	bool dirFlag = false;
 	String fileName;
-	while (dirLister.Next(NULL, fileName, &dirFlag)) {
+	while (dirLister.Next(nullptr, fileName, &dirFlag)) {
 		if (dirFlag) continue;
 		String pathNameSrc = JoinPathName(dirNameSrc, fileName.c_str());
 		String pathNameDst = JoinPathName(dirNameDst, fileName.c_str());
@@ -336,7 +336,7 @@ bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
 		DirLister dirLister(dirNameIterSrc.c_str(), false);
 		bool dirFlag = false;
 		String fileName;
-		while (dirLister.Next(NULL, fileName, &dirFlag)) {
+		while (dirLister.Next(nullptr, fileName, &dirFlag)) {
 			if (dirFlag) {
 				String relName = JoinPathName(relNameIter, fileName.c_str());
 				relNames.push_back(relName);
@@ -382,7 +382,7 @@ bool RemoveDirTree(const char *dirName)
 		DirLister dirLister(dirNameIter);
 		bool dirFlag = false;
 		String pathName;
-		while (dirLister.Next(NULL, pathName, &dirFlag)) {
+		while (dirLister.Next(nullptr, pathName, &dirFlag)) {
 			if (dirFlag) dirNames.push_back(pathName);
 		}
 	}
@@ -391,7 +391,7 @@ bool RemoveDirTree(const char *dirName)
 		DirLister dirLister(dirNameIter);
 		bool dirFlag = false;
 		String pathName;
-		while (dirLister.Next(NULL, pathName, &dirFlag)) {
+		while (dirLister.Next(nullptr, pathName, &dirFlag)) {
 			if (dirFlag) {
 				// nothing to do
 			} else if (!Remove(pathName.c_str())) {
@@ -455,7 +455,7 @@ const char *GetEncodingForConsole()
 	const char *strp = str.c_str();
 	const char *p = ::strchr(strp, '.');
 	String langLeft, langRight;
-	if (p == NULL) {
+	if (p == nullptr) {
 		langLeft = strp;
 	} else {
 		langLeft = String(strp, p - strp);
@@ -516,12 +516,12 @@ const Symbol *GetLangCodeFromCFUserTextEncoding()
 	};
 	String strLine = GetEnv("__CF_USER_TEXT_ENCODING");
 	const char *strp = ::strchr(strLine.c_str(), ':');
-	if (strp == NULL) return Gura_Symbol(en);
+	if (strp == nullptr) return Gura_Symbol(en);
 	strp++;
 	strp = ::strchr(strp, ':');
-	if (strp == NULL) return Gura_Symbol(en);
+	if (strp == nullptr) return Gura_Symbol(en);
 	strp++;
-	ULong key = ::strtoul(strp, NULL, 0); // returns zero for invalid format
+	ULong key = ::strtoul(strp, nullptr, 0); // returns zero for invalid format
 	for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 		if (assocInfoTbl[i].key == key) {
 			return Symbol::Add(assocInfoTbl[i].value);
@@ -549,7 +549,7 @@ const Symbol *GetLangCode()
 
 static void AppendCmdLine(String &cmdLine, const char *arg)
 {
-	bool quoteFlag = (::strchr(arg, ' ') != NULL);
+	bool quoteFlag = (::strchr(arg, ' ') != nullptr);
 	if (quoteFlag) {
 		cmdLine += '"';
 		cmdLine += arg;
@@ -582,8 +582,8 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		si.hStdInput = ::GetStdHandle(STD_INPUT_HANDLE);
 		si.hStdOutput = ::GetStdHandle(STD_OUTPUT_HANDLE);
 		si.hStdError = ::GetStdHandle(STD_ERROR_HANDLE);
-		BOOL rtn = ::CreateProcess(NULL, const_cast<char *>(cmdLine.c_str()),
-								   NULL, NULL, TRUE, 0, NULL, NULL, &si, &ps);
+		BOOL rtn = ::CreateProcess(nullptr, const_cast<char *>(cmdLine.c_str()),
+								   nullptr, nullptr, TRUE, 0, nullptr, nullptr, &si, &ps);
 		if (!rtn) {
 			sig.SetError(ERR_IOError, "failed to execute %s", pathName);
 			return -1;
@@ -598,13 +598,13 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		SECURITY_ATTRIBUTES sa;
 		::memset(&sa, 0x00, sizeof(sa));
 		sa.nLength = sizeof(sa);
-		sa.lpSecurityDescriptor = NULL;
+		sa.lpSecurityDescriptor = nullptr;
 		sa.bInheritHandle = TRUE;
-		if (pStreamStdout != NULL && !::CreatePipe(&hStdoutWatch, &hStdout, &sa, 0)) {
+		if (pStreamStdout != nullptr && !::CreatePipe(&hStdoutWatch, &hStdout, &sa, 0)) {
 			sig.SetError(ERR_IOError, "failed to create a pipe");
 			return -1;
 		}
-		if (pStreamStderr != NULL && !::CreatePipe(&hStderrWatch, &hStderr, &sa, 0)) {
+		if (pStreamStderr != nullptr && !::CreatePipe(&hStderrWatch, &hStderr, &sa, 0)) {
 			sig.SetError(ERR_IOError, "failed to create a pipe");
 			return -1;
 		}
@@ -617,8 +617,8 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 	si.hStdInput = ::GetStdHandle(STD_INPUT_HANDLE);
 	si.hStdOutput = hStdout;
 	si.hStdError = hStderr;
-	BOOL rtn = ::CreateProcess(NULL, const_cast<char *>(cmdLine.c_str()),
-							NULL, NULL, TRUE, 0, NULL, NULL, &si, &ps);
+	BOOL rtn = ::CreateProcess(nullptr, const_cast<char *>(cmdLine.c_str()),
+							nullptr, nullptr, TRUE, 0, nullptr, nullptr, &si, &ps);
 	if (!rtn) {
 		sig.SetError(ERR_IOError, "failed to execute %s", pathName);
 		return -1;
@@ -628,27 +628,27 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 	DWORD exitCode = 0;
 	for (;;) {
 		bool dataAvailFlag = false;
-		if (pStreamStdout != NULL) {
+		if (pStreamStdout != nullptr) {
 			DWORD bytesAvail;
-			::PeekNamedPipe(hStdoutWatch, NULL, NULL, NULL, &bytesAvail, NULL);
+			::PeekNamedPipe(hStdoutWatch, nullptr, nullptr, nullptr, &bytesAvail, nullptr);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
 				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 				DWORD bytesRead;
 				::ReadFile(hStdoutWatch, buff,
-							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, NULL);
+							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, nullptr);
 				pStreamStdout->Write(sig, buff, bytesRead);
 			}
 		}
-		if (pStreamStderr != NULL) {
+		if (pStreamStderr != nullptr) {
 			DWORD bytesAvail;
-			::PeekNamedPipe(hStderrWatch, NULL, NULL, NULL, &bytesAvail, NULL);
+			::PeekNamedPipe(hStderrWatch, nullptr, nullptr, nullptr, &bytesAvail, nullptr);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
 				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 				DWORD bytesRead;
 				::ReadFile(hStderrWatch, buff,
-							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, NULL);
+							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, nullptr);
 				pStreamStderr->Write(sig, buff, bytesRead);
 			}
 		}
@@ -670,16 +670,16 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 String GetEnv(const char *name, bool *pFoundFlag)
 {
 	String nameEnc = ToNativeString(name);
-	DWORD len = ::GetEnvironmentVariable(nameEnc.c_str(), NULL, 0);
+	DWORD len = ::GetEnvironmentVariable(nameEnc.c_str(), nullptr, 0);
 	if (len == 0) {
-		if (pFoundFlag != NULL) *pFoundFlag = false;
+		if (pFoundFlag != nullptr) *pFoundFlag = false;
 		return String("");
 	}
 	char *buff = new char [len];
 	::GetEnvironmentVariable(nameEnc.c_str(), buff, len);
 	String rtn(FromNativeString(buff));
 	delete[] buff;
-	if (pFoundFlag != NULL) *pFoundFlag = true;
+	if (pFoundFlag != nullptr) *pFoundFlag = true;
 	return rtn;
 }
 
@@ -690,16 +690,16 @@ void PutEnv(const char *name, const char *value)
 
 void UnsetEnv(const char *name)
 {
-	::SetEnvironmentVariable(ToNativeString(name).c_str(), NULL);
+	::SetEnvironmentVariable(ToNativeString(name).c_str(), nullptr);
 }
 
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLinkFlag)
 {
 	String srcNative = ToNativeString(src);
 	String dstNative;
-	if (IsDir(dst, NULL)) {
+	if (IsDir(dst, nullptr)) {
 		String fileName;
-		PathMgr::SplitFileName(src, NULL, &fileName);
+		PathMgr::SplitFileName(src, nullptr, &fileName);
 		dstNative = ToNativeString(JoinPathName(dst, fileName.c_str()).c_str());
 	} else {
 		dstNative = ToNativeString(dst);
@@ -730,14 +730,14 @@ bool IsDir(const char *pathName, bool *pExistFlag)
 	WIN32_FILE_ATTRIBUTE_DATA attrData;
 	bool existFlag = (::GetFileAttributesEx(ToNativeString(pathName).c_str(),
 										GetFileExInfoStandard, &attrData) != 0);
-	if (pExistFlag != NULL) *pExistFlag = existFlag;
+	if (pExistFlag != nullptr) *pExistFlag = existFlag;
 	if (!existFlag) return false;
 	return (attrData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
 }
 
 bool MakeDir(const char *pathName)
 {
-	return ::CreateDirectory(ToNativeString(pathName).c_str(), NULL)? true : false;
+	return ::CreateDirectory(ToNativeString(pathName).c_str(), nullptr)? true : false;
 }
 
 bool RemoveDir(const char *pathName)
@@ -828,7 +828,7 @@ DateTime ToDateTime(const FILETIME &ft, bool utcFlag)
 	::FileTimeToSystemTime(&ft, &stUTC);
 	if (!utcFlag) {
 		SYSTEMTIME stLocal;
-		::SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
+		::SystemTimeToTzSpecificLocalTime(nullptr, &stUTC, &stLocal);
 		return ToDateTime(stLocal, GetSecsOffsetTZ());
 	}
 	return ToDateTime(stUTC, 0);
@@ -864,7 +864,7 @@ int GetSecsOffsetTZ()
 	return -tzInfo.Bias * 60;
 }
 
-static HMODULE g_hModule = NULL;
+static HMODULE g_hModule = nullptr;
 
 void SetModuleHandle(HMODULE hModule)
 {
@@ -874,7 +874,7 @@ void SetModuleHandle(HMODULE hModule)
 String GetExecutable()
 {
 	char pathName[512];
-	::GetModuleFileName(NULL, pathName, ArraySizeOf(pathName)); // Win32 API
+	::GetModuleFileName(nullptr, pathName, ArraySizeOf(pathName)); // Win32 API
 	return FromNativeString(pathName);
 }
 
@@ -926,7 +926,7 @@ String GetLibraryDir()
 String GetLocalDir()
 {
 	char buff[MAX_PATH];
-	::SHGetSpecialFolderPath(NULL, buff, CSIDL_LOCAL_APPDATA, FALSE);
+	::SHGetSpecialFolderPath(nullptr, buff, CSIDL_LOCAL_APPDATA, FALSE);
 	String dirName = FromNativeString(buff);
 	dirName += "\\Gura\\";
 	dirName += GURA_VERSION;
@@ -936,7 +936,7 @@ String GetLocalDir()
 String PrepareLocalDir()
 {
 	char buff[MAX_PATH];
-	::SHGetSpecialFolderPath(NULL, buff, CSIDL_LOCAL_APPDATA, FALSE);
+	::SHGetSpecialFolderPath(nullptr, buff, CSIDL_LOCAL_APPDATA, FALSE);
 	String dirName = FromNativeString(buff);
 	dirName += "\\Gura";
 	MakeDir(dirName.c_str());
@@ -995,14 +995,14 @@ void SetupExecutablePath()
 
 String ConvCodePage(const char *str, int len, UINT codePageSrc, UINT codePageDst)
 {
-	int cchWideChar = ::MultiByteToWideChar(codePageSrc, 0, str, len, NULL, 0);
+	int cchWideChar = ::MultiByteToWideChar(codePageSrc, 0, str, len, nullptr, 0);
 	WCHAR *wcharBuff = new WCHAR [cchWideChar + 1];
 	::MultiByteToWideChar(codePageSrc, 0, str, len, wcharBuff, cchWideChar);
 	int cchMultiByte = ::WideCharToMultiByte(codePageDst, 0,
-				wcharBuff, cchWideChar, NULL, 0, NULL, NULL);
+				wcharBuff, cchWideChar, nullptr, 0, nullptr, nullptr);
 	char *charBuff = new char [cchMultiByte + 1];
 	::WideCharToMultiByte(codePageDst, 0,
-				wcharBuff, cchWideChar, charBuff, cchMultiByte, NULL, NULL);
+				wcharBuff, cchWideChar, charBuff, cchMultiByte, nullptr, nullptr);
 	charBuff[cchMultiByte] = '\0';
 	String rtn(charBuff); // don't use String(charBuff, cchMultiByte) here!
 	delete[] wcharBuff;
@@ -1086,7 +1086,7 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 								FileSeparator, fileName).c_str());
 	if (::GetFileAttributesEx(pathName.c_str(), GetFileExInfoStandard, &attrData) == 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
-		return NULL;
+		return nullptr;
 	}
 	return new FileStat(pathName.c_str(), attrData);
 }
@@ -1119,7 +1119,7 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 		}
 		fileName = FromNativeString(findData.cFileName);
 		if (fileName != "." && fileName != ".." &&
-			(pattern == NULL || PathMgr::DoesMatchName(pattern, fileName.c_str(), true))) break;
+			(pattern == nullptr || PathMgr::DoesMatchName(pattern, fileName.c_str(), true))) break;
 	}
 	if (_joinPathNameFlag) {
 		pathName = JoinPathName(_dirName.c_str(), fileName.c_str());
@@ -1133,14 +1133,14 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 //-----------------------------------------------------------------------------
 // DynamicLibrary
 //-----------------------------------------------------------------------------
-DynamicLibrary::DynamicLibrary() : _hModule(NULL)
+DynamicLibrary::DynamicLibrary() : _hModule(nullptr)
 {
 }
 
 bool DynamicLibrary::Open(Signal sig, const char *pathName)
 {
 	_hModule = ::LoadLibrary(ToNativeString(pathName).c_str());
-	if (_hModule == NULL) {
+	if (_hModule == nullptr) {
 		sig.SetError(ERR_ImportError, "can't open module file '%s'", pathName);
 		return false;
 	}
@@ -1149,19 +1149,19 @@ bool DynamicLibrary::Open(Signal sig, const char *pathName)
 
 void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 {
-	if (_hModule == NULL) {
+	if (_hModule == nullptr) {
 		sig.SetError(ERR_ImportError, "library has not been opened");
-		return NULL;
+		return nullptr;
 	}
 	FARPROC pFunc = ::GetProcAddress(_hModule, name);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		String nameEx = "_";
 		nameEx += name;
 		pFunc = ::GetProcAddress(_hModule, nameEx.c_str());
 	}
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ImportError, "can't find entry function '%s'", name);
-		return NULL;
+		return nullptr;
 	}
 	return pFunc;
 }
@@ -1177,7 +1177,7 @@ static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 	return 0;
 }
 
-Thread::Thread() : _hThread(NULL), _threadId(0)
+Thread::Thread() : _hThread(nullptr), _threadId(0)
 {
 }
 
@@ -1187,7 +1187,7 @@ Thread::~Thread()
 
 void Thread::Start()
 {
-	_hThread = ::CreateThread(NULL, 0, ThreadProc, this, 0, &_threadId);
+	_hThread = ::CreateThread(nullptr, 0, ThreadProc, this, 0, &_threadId);
 }
 
 void Thread::Wait()
@@ -1200,7 +1200,7 @@ void Thread::Wait()
 //-----------------------------------------------------------------------------
 Semaphore::Semaphore()
 {
-	_hMutex = ::CreateMutex(NULL, FALSE, NULL);
+	_hMutex = ::CreateMutex(nullptr, FALSE, nullptr);
 }
 
 Semaphore::~Semaphore()
@@ -1223,7 +1223,7 @@ void Semaphore::Release()
 //-----------------------------------------------------------------------------
 Event::Event()
 {
-	_hEvent = ::CreateEvent(NULL, FALSE, FALSE, NULL);
+	_hEvent = ::CreateEvent(nullptr, FALSE, FALSE, nullptr);
 }
 
 Event::~Event()
@@ -1263,7 +1263,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		AppendCmdLine(cmdLine, ToNativeString(pValue->GetString()).c_str());
 	}
 	argv[2] = ::strdup(cmdLine.c_str());
-	argv[3] = NULL;
+	argv[3] = nullptr;
 	if (forkFlag) {
 		pid_t pid = ::fork();
 		if (pid == 0) {
@@ -1294,7 +1294,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 	}
 	fd_set fdsRead;
 	for (;;) {
-		if (pStreamStdin != NULL && !pStreamStdin->GetBlocking()) {
+		if (pStreamStdin != nullptr && !pStreamStdin->GetBlocking()) {
 			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 			size_t bytesRead = pStreamStdin->Read(sig, buff, pMemory->GetSize());
 			if (sig.IsSignalled()) goto done;
@@ -1309,9 +1309,9 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		tv.tv_sec = 0;
 		tv.tv_usec = 100 * 1000;
 		FD_ZERO(&fdsRead);
-		if (pStreamStdout != NULL) FD_SET(fdsStdout[0], &fdsRead);
-		if (pStreamStderr != NULL) FD_SET(fdsStderr[0], &fdsRead);
-		::select(ChooseMax(fdsStdout[0], fdsStderr[0]) + 1, &fdsRead, NULL, NULL, &tv);
+		if (pStreamStdout != nullptr) FD_SET(fdsStdout[0], &fdsRead);
+		if (pStreamStderr != nullptr) FD_SET(fdsStderr[0], &fdsRead);
+		::select(ChooseMax(fdsStdout[0], fdsStderr[0]) + 1, &fdsRead, nullptr, nullptr, &tv);
 		bool idleFlag = true;
 		if (FD_ISSET(fdsStdout[0], &fdsRead)) {
 			idleFlag = false;
@@ -1349,11 +1349,11 @@ done:
 String GetEnv(const char *name, bool *pFoundFlag)
 {
 	const char *str = ::getenv(ToNativeString(name).c_str());
-	if (str == NULL) {
-		if (pFoundFlag != NULL) *pFoundFlag = false;
+	if (str == nullptr) {
+		if (pFoundFlag != nullptr) *pFoundFlag = false;
 		return String("");
 	}
-	if (pFoundFlag != NULL) *pFoundFlag = true;
+	if (pFoundFlag != nullptr) *pFoundFlag = true;
 	return FromNativeString(str);
 }
 
@@ -1374,9 +1374,9 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstWork;
-	if (IsDir(dst, NULL)) {
+	if (IsDir(dst, nullptr)) {
 		String fileName;
-		PathMgr::SplitFileName(src, NULL, &fileName);
+		PathMgr::SplitFileName(src, nullptr, &fileName);
 		dstWork = JoinPathName(dst, fileName.c_str()).c_str();
 	} else {
 		dstWork = dst;
@@ -1405,7 +1405,7 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 			return false;
 		}
 		size_t bytesSrc = statSrc.st_size;
-		void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
+		void *addrSrc = ::mmap(nullptr, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
 		if (addrSrc == MAP_FAILED) {
 			const size_t bytesBuff = 65536;
 			void *buff = ::malloc(bytesBuff);
@@ -1480,7 +1480,7 @@ bool IsDir(const char *pathName, bool *pExistFlag)
 {
 	struct stat stat;
 	bool existFlag = (::stat(ToNativeString(pathName).c_str(), &stat) == 0);
-	if (pExistFlag != NULL) *pExistFlag = existFlag;
+	if (pExistFlag != nullptr) *pExistFlag = existFlag;
 	if (!existFlag) return false;
 	return S_ISDIR(stat.st_mode);
 }
@@ -1504,7 +1504,7 @@ bool ChangeCurDir(const char *pathName)
 String GetCurDir()
 {
 	//char *pathName = ::get_current_dir_name();
-	char *pathName = ::getcwd(NULL, 0);
+	char *pathName = ::getcwd(nullptr, 0);
 	String rtn = FromNativeString(pathName);
 	::free(pathName);
 	if (rtn.empty() || !IsFileSeparator(rtn[rtn.size() - 1])) {
@@ -1544,7 +1544,7 @@ void Sleep(Number delay)	// unit: sec
 	struct timeval tv;
 	tv.tv_sec = static_cast<long>(delay);
 	tv.tv_usec = static_cast<long>((delay - tv.tv_sec) * 1000000);
-	::select(0, NULL, NULL, NULL, &tv);
+	::select(0, nullptr, nullptr, nullptr, &tv);
 }
 
 Number GetTickTime()
@@ -1804,7 +1804,7 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 								FileSeparator, fileName).c_str());
 	if (::stat(pathName.c_str(), &stat) != 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
-		return NULL;
+		return nullptr;
 	}
 	return new FileStat(pathName.c_str(), stat);
 }
@@ -1813,30 +1813,30 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 // DirLister
 //-----------------------------------------------------------------------------
 DirLister::DirLister(const char *dirName, bool joinPathNameFlag) :
-		_dirName(dirName), _joinPathNameFlag(joinPathNameFlag), _dirp(NULL)
+		_dirName(dirName), _joinPathNameFlag(joinPathNameFlag), _dirp(nullptr)
 {
 }
 
 DirLister::~DirLister()
 {
-	if (_dirp != NULL) ::closedir(_dirp);
+	if (_dirp != nullptr) ::closedir(_dirp);
 }
 
 bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 {
-	struct dirent *direntp = NULL;
+	struct dirent *direntp = nullptr;
 	pathName.clear();
 	String fileName;
 	for (;;) {
-		if (_dirp == NULL) {
+		if (_dirp == nullptr) {
 			_dirp = ::opendir(_dirName.empty()? "." : _dirName.c_str());
-			if (_dirp == NULL) return false;
+			if (_dirp == nullptr) return false;
 		}
 		direntp = ::readdir(_dirp);
-		if (direntp == NULL) return false;
+		if (direntp == nullptr) return false;
 		fileName = FromNativeString(direntp->d_name);
 		if (fileName != "." && fileName != ".." &&
-			(pattern == NULL || PathMgr::DoesMatchName(pattern, fileName.c_str(), false))) break;
+			(pattern == nullptr || PathMgr::DoesMatchName(pattern, fileName.c_str(), false))) break;
 	}
 	if (_joinPathNameFlag) {
 		pathName = JoinPathName(_dirName.c_str(), fileName.c_str());
@@ -1850,14 +1850,14 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 //-----------------------------------------------------------------------------
 // DynamicLibrary
 //-----------------------------------------------------------------------------
-DynamicLibrary::DynamicLibrary() : _hLibrary(NULL)
+DynamicLibrary::DynamicLibrary() : _hLibrary(nullptr)
 {
 }
 
 bool DynamicLibrary::Open(Signal sig, const char *pathName)
 {
 	_hLibrary = dlopen(ToNativeString(pathName).c_str(), RTLD_LAZY);
-	if (_hLibrary == NULL) {
+	if (_hLibrary == nullptr) {
 		sig.SetError(ERR_ImportError, "%s", dlerror());
 		return false;
 	}
@@ -1868,9 +1868,9 @@ bool DynamicLibrary::Open(Signal sig, const char *pathName)
 void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 {
 	void *pFunc = dlsym(_hLibrary, name);
-	if (pFunc == NULL) {
+	if (pFunc == nullptr) {
 		sig.SetError(ERR_ImportError, "can't find entry function '%s'", name);
-		return NULL;
+		return nullptr;
 	}
 	return pFunc;
 }
@@ -1897,7 +1897,7 @@ Thread::~Thread()
 
 void Thread::Start()
 {
-	::pthread_create(&_pt, NULL, &start_routine, this);
+	::pthread_create(&_pt, nullptr, &start_routine, this);
 }
 
 void Thread::Wait()

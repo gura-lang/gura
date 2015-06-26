@@ -24,12 +24,12 @@ public:
 
 wx_GraphicsFont::~wx_GraphicsFont()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GraphicsFont::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_GraphicsFont::~Object_wx_GraphicsFont()
 
 Object *Object_wx_GraphicsFont::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GraphicsFont::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsFont:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_GraphicsFont)
 
 Gura_ImplementDescendantCreator(wx_GraphicsFont)
 {
-	return new Object_wx_GraphicsFont((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GraphicsFont((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

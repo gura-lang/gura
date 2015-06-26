@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MemoryInputStream *_pObj;
 public:
-	//inline wx_MemoryInputStream(const char * data, size_t len) : wxMemoryInputStream(data, len), _sig(NULL), _pObj(NULL) {}
-	inline wx_MemoryInputStream(const wxMemoryOutputStream& stream) : wxMemoryInputStream(stream), _sig(NULL), _pObj(NULL) {}
+	//inline wx_MemoryInputStream(const char * data, size_t len) : wxMemoryInputStream(data, len), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MemoryInputStream(const wxMemoryOutputStream& stream) : wxMemoryInputStream(stream), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MemoryInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_MemoryInputStream::~wx_MemoryInputStream()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MemoryInputStream::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(MemoryInputStream)
 	size_t len = args.GetSizeT(1);
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(data, len);
 	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -83,7 +83,7 @@ Gura_ImplementFunction(MemoryInputStream_1)
 	wxMemoryOutputStream *stream = Object_wx_MemoryOutputStream::GetObject(args, 0)->GetEntity();
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(*stream);
 	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -116,13 +116,13 @@ Object_wx_MemoryInputStream::~Object_wx_MemoryInputStream()
 
 Object *Object_wx_MemoryInputStream::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MemoryInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryInputStream:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -144,7 +144,7 @@ Gura_ImplementUserInheritableClass(wx_MemoryInputStream)
 
 Gura_ImplementDescendantCreator(wx_MemoryInputStream)
 {
-	return new Object_wx_MemoryInputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MemoryInputStream((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

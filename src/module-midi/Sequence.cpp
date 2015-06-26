@@ -231,7 +231,7 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
-		const Event *pEventPrev = NULL;
+		const Event *pEventPrev = nullptr;
 		ULong timeStamp = 0x00000000;
 		AutoPtr<EventOwner> pEventOwner(new EventOwner());
 		pEventOwner->AddEvents(pTrack->GetEventOwner());
@@ -270,7 +270,7 @@ Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntR
 {
 	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort)));
 	if (!pPlayer->SetupSequence(sig, this, _pProperty->GetDivision(),
-						_pProperty->GetMPQN(), speed, cntRepeat)) return NULL;
+						_pProperty->GetMPQN(), speed, cntRepeat)) return nullptr;
 	return pPlayer.release();
 }
 

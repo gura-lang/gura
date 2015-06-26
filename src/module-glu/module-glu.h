@@ -19,10 +19,10 @@
 
 #define DispatchCallback(funcToSetCallback, obj, which, name) \
 case which: { \
-	if (func != NULL) { \
+	if (func != nullptr) { \
 		int idx = 0; \
 		for ( ; idx < ArraySizeOf(_tbl_CB_##name); idx++) { \
-			if (_pFuncs_CB_##name[idx] == NULL) break; \
+			if (_pFuncs_CB_##name[idx] == nullptr) break; \
 		} \
 		if (idx >= ArraySizeOf(_tbl_CB_##name)) { \
 			sig.SetError(ERR_OutOfRangeError, "no room to register the callback"); \
@@ -34,8 +34,8 @@ case which: { \
 	} else if (_idx_CB_##name >= 0) { \
 		int idx = _idx_CB_##name; \
 		Function::Delete(_pFuncs_CB_##name[idx]); \
-		_pFuncs_CB_##name[idx] = NULL;	\
-		funcToSetCallback(obj, which, NULL); \
+		_pFuncs_CB_##name[idx] = nullptr;	\
+		funcToSetCallback(obj, which, nullptr); \
 	} \
 	break; \
 }
@@ -67,7 +67,7 @@ _idx_CB_##name = -1;
 if (_idx_CB_##name >= 0) { \
 	int idx = _idx_CB_##name; \
 	Function::Delete(_pFuncs_CB_##name[idx]); \
-	_pFuncs_CB_##name[idx] = NULL; \
+	_pFuncs_CB_##name[idx] = nullptr; \
 }
 
 Gura_BeginModuleHeader(glu)
@@ -189,7 +189,7 @@ public:
 		_pPolygonPack.reset(pPolygonPack);
 		return pPolygonPack;
 	}
-	inline void DeletePolygonPack() { _pPolygonPack.reset(NULL); }
+	inline void DeletePolygonPack() { _pPolygonPack.reset(nullptr); }
 	inline PolygonPack *GetPolygonPack() { return _pPolygonPack.get(); }
 private:
 	inline Object_Tesselator(const Object_Tesselator &obj) : Object(obj) {}

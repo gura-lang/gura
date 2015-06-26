@@ -16,8 +16,8 @@ public:
 		_pFunc.reset(pFunc);
 	}
 	inline void ClearFunc() {
-		_pEnv.reset(NULL);
-		_pFunc.reset(NULL);
+		_pEnv.reset(nullptr);
+		_pFunc.reset(nullptr);
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
@@ -63,7 +63,7 @@ struct Context {
 	inline Context() : idxMenu(0) {}
 };
 
-Context *g_pContext = NULL;
+Context *g_pContext = nullptr;
 
 template<int idx> void OnMenuTmpl(int value)
 {
@@ -311,7 +311,7 @@ Gura_ImplementFunction(__glutInit)
 {
 	const ValueList &argv = args.GetList(0);
 	int argc = static_cast<int>(argv.size());
-	char **_argv = NULL;
+	char **_argv = nullptr;
 	if (argc > 0) {
 		_argv = new char *[argc];
 		int i = 0;
@@ -1085,10 +1085,10 @@ Gura_DeclareFunctionAlias(__glutDisplayFunc, "glutDisplayFunc")
 
 Gura_ImplementFunction(__glutDisplayFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnDisplay.ClearFunc();
-		glutDisplayFunc(NULL);
+		glutDisplayFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnDisplay.SetFunc(env, sig, func->Reference());
 		glutDisplayFunc(OnDisplay);
@@ -1108,10 +1108,10 @@ Gura_DeclareFunctionAlias(__glutReshapeFunc, "glutReshapeFunc")
 
 Gura_ImplementFunction(__glutReshapeFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnReshape.ClearFunc();
-		glutReshapeFunc(NULL);
+		glutReshapeFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnReshape.SetFunc(env, sig, func->Reference());
 		glutReshapeFunc(OnReshape);
@@ -1131,10 +1131,10 @@ Gura_DeclareFunctionAlias(__glutKeyboardFunc, "glutKeyboardFunc")
 
 Gura_ImplementFunction(__glutKeyboardFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnKeyboard.ClearFunc();
-		glutKeyboardFunc(NULL);
+		glutKeyboardFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnKeyboard.SetFunc(env, sig, func->Reference());
 		glutKeyboardFunc(OnKeyboard);
@@ -1154,10 +1154,10 @@ Gura_DeclareFunctionAlias(__glutMouseFunc, "glutMouseFunc")
 
 Gura_ImplementFunction(__glutMouseFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnMouse.ClearFunc();
-		glutMouseFunc(NULL);
+		glutMouseFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnMouse.SetFunc(env, sig, func->Reference());
 		glutMouseFunc(OnMouse);
@@ -1177,10 +1177,10 @@ Gura_DeclareFunctionAlias(__glutMotionFunc, "glutMotionFunc")
 
 Gura_ImplementFunction(__glutMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnMotion.ClearFunc();
-		glutMotionFunc(NULL);
+		glutMotionFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnMotion.SetFunc(env, sig, func->Reference());
 		glutMotionFunc(OnMotion);
@@ -1200,10 +1200,10 @@ Gura_DeclareFunctionAlias(__glutPassiveMotionFunc, "glutPassiveMotionFunc")
 
 Gura_ImplementFunction(__glutPassiveMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnPassiveMotion.ClearFunc();
-		glutPassiveMotionFunc(NULL);
+		glutPassiveMotionFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnPassiveMotion.SetFunc(env, sig, func->Reference());
 		glutPassiveMotionFunc(OnPassiveMotion);
@@ -1223,10 +1223,10 @@ Gura_DeclareFunctionAlias(__glutEntryFunc, "glutEntryFunc")
 
 Gura_ImplementFunction(__glutEntryFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnEntry.ClearFunc();
-		glutEntryFunc(NULL);
+		glutEntryFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnEntry.SetFunc(env, sig, func->Reference());
 		glutEntryFunc(OnEntry);
@@ -1246,10 +1246,10 @@ Gura_DeclareFunctionAlias(__glutVisibilityFunc, "glutVisibilityFunc")
 
 Gura_ImplementFunction(__glutVisibilityFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnVisibility.ClearFunc();
-		glutVisibilityFunc(NULL);
+		glutVisibilityFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnVisibility.SetFunc(env, sig, func->Reference());
 		glutVisibilityFunc(OnVisibility);
@@ -1269,10 +1269,10 @@ Gura_DeclareFunctionAlias(__glutIdleFunc, "glutIdleFunc")
 
 Gura_ImplementFunction(__glutIdleFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnIdle.ClearFunc();
-		glutIdleFunc(NULL);
+		glutIdleFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnIdle.SetFunc(env, sig, func->Reference());
 		glutIdleFunc(OnIdle);
@@ -1295,11 +1295,11 @@ Gura_DeclareFunctionAlias(__glutTimerFunc, "glutTimerFunc")
 Gura_ImplementFunction(__glutTimerFunc)
 {
 	unsigned int millis = args.GetUInt(0);
-	const Function *func = args.IsValid(1)? Object_function::GetObject(args, 1)->GetFunction() : NULL;
+	const Function *func = args.IsValid(1)? Object_function::GetObject(args, 1)->GetFunction() : nullptr;
 	int value = args.GetInt(2);
-	if (func == NULL) {
+	if (func == nullptr) {
 		g_pContext->funcPackOnTimer.ClearFunc();
-		glutTimerFunc(millis, NULL, value);
+		glutTimerFunc(millis, nullptr, value);
 	} else {
 		g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
@@ -1319,10 +1319,10 @@ Gura_DeclareFunctionAlias(__glutMenuStateFunc, "glutMenuStateFunc")
 
 Gura_ImplementFunction(__glutMenuStateFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnMenuState.ClearFunc();
-		glutMenuStateFunc(NULL);
+		glutMenuStateFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnMenuState.SetFunc(env, sig, func->Reference());
 		glutMenuStateFunc(OnMenuState);
@@ -1342,10 +1342,10 @@ Gura_DeclareFunctionAlias(__glutSpecialFunc, "glutSpecialFunc")
 
 Gura_ImplementFunction(__glutSpecialFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnSpecial.ClearFunc();
-		glutSpecialFunc(NULL);
+		glutSpecialFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnSpecial.SetFunc(env, sig, func->Reference());
 		glutSpecialFunc(OnSpecial);
@@ -1365,10 +1365,10 @@ Gura_DeclareFunctionAlias(__glutSpaceballMotionFunc, "glutSpaceballMotionFunc")
 
 Gura_ImplementFunction(__glutSpaceballMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballMotion.ClearFunc();
-		glutSpaceballMotionFunc(NULL);
+		glutSpaceballMotionFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnSpaceballMotion.SetFunc(env, sig, func->Reference());
 		glutSpaceballMotionFunc(OnSpaceballMotion);
@@ -1388,10 +1388,10 @@ Gura_DeclareFunctionAlias(__glutSpaceballRotateFunc, "glutSpaceballRotateFunc")
 
 Gura_ImplementFunction(__glutSpaceballRotateFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballRotate.ClearFunc();
-		glutSpaceballRotateFunc(NULL);
+		glutSpaceballRotateFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnSpaceballRotate.SetFunc(env, sig, func->Reference());
 		glutSpaceballRotateFunc(OnSpaceballRotate);
@@ -1411,10 +1411,10 @@ Gura_DeclareFunctionAlias(__glutSpaceballButtonFunc, "glutSpaceballButtonFunc")
 
 Gura_ImplementFunction(__glutSpaceballButtonFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballButton.ClearFunc();
-		glutSpaceballButtonFunc(NULL);
+		glutSpaceballButtonFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnSpaceballButton.SetFunc(env, sig, func->Reference());
 		glutSpaceballButtonFunc(OnSpaceballButton);
@@ -1434,10 +1434,10 @@ Gura_DeclareFunctionAlias(__glutButtonBoxFunc, "glutButtonBoxFunc")
 
 Gura_ImplementFunction(__glutButtonBoxFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnButtonBox.ClearFunc();
-		glutButtonBoxFunc(NULL);
+		glutButtonBoxFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnButtonBox.SetFunc(env, sig, func->Reference());
 		glutButtonBoxFunc(OnButtonBox);
@@ -1457,10 +1457,10 @@ Gura_DeclareFunctionAlias(__glutDialsFunc, "glutDialsFunc")
 
 Gura_ImplementFunction(__glutDialsFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnDials.ClearFunc();
-		glutDialsFunc(NULL);
+		glutDialsFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnDials.SetFunc(env, sig, func->Reference());
 		glutDialsFunc(OnDials);
@@ -1480,10 +1480,10 @@ Gura_DeclareFunctionAlias(__glutTabletMotionFunc, "glutTabletMotionFunc")
 
 Gura_ImplementFunction(__glutTabletMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnTabletMotion.ClearFunc();
-		glutTabletMotionFunc(NULL);
+		glutTabletMotionFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnTabletMotion.SetFunc(env, sig, func->Reference());
 		glutTabletMotionFunc(OnTabletMotion);
@@ -1503,10 +1503,10 @@ Gura_DeclareFunctionAlias(__glutTabletButtonFunc, "glutTabletButtonFunc")
 
 Gura_ImplementFunction(__glutTabletButtonFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnTabletButton.ClearFunc();
-		glutTabletButtonFunc(NULL);
+		glutTabletButtonFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnTabletButton.SetFunc(env, sig, func->Reference());
 		glutTabletButtonFunc(OnTabletButton);
@@ -1526,10 +1526,10 @@ Gura_DeclareFunctionAlias(__glutMenuStatusFunc, "glutMenuStatusFunc")
 
 Gura_ImplementFunction(__glutMenuStatusFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnMenuStatus.ClearFunc();
-		glutMenuStatusFunc(NULL);
+		glutMenuStatusFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnMenuStatus.SetFunc(env, sig, func->Reference());
 		glutMenuStatusFunc(OnMenuStatus);
@@ -1549,10 +1549,10 @@ Gura_DeclareFunctionAlias(__glutOverlayDisplayFunc, "glutOverlayDisplayFunc")
 
 Gura_ImplementFunction(__glutOverlayDisplayFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnOverlayDisplay.ClearFunc();
-		glutOverlayDisplayFunc(NULL);
+		glutOverlayDisplayFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnOverlayDisplay.SetFunc(env, sig, func->Reference());
 		glutOverlayDisplayFunc(OnOverlayDisplay);
@@ -1572,10 +1572,10 @@ Gura_DeclareFunctionAlias(__glutWindowStatusFunc, "glutWindowStatusFunc")
 
 Gura_ImplementFunction(__glutWindowStatusFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnWindowStatus.ClearFunc();
-		glutWindowStatusFunc(NULL);
+		glutWindowStatusFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnWindowStatus.SetFunc(env, sig, func->Reference());
 		glutWindowStatusFunc(OnWindowStatus);
@@ -1595,10 +1595,10 @@ Gura_DeclareFunctionAlias(__glutKeyboardUpFunc, "glutKeyboardUpFunc")
 
 Gura_ImplementFunction(__glutKeyboardUpFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnKeyboardUp.ClearFunc();
-		glutKeyboardUpFunc(NULL);
+		glutKeyboardUpFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnKeyboardUp.SetFunc(env, sig, func->Reference());
 		glutKeyboardUpFunc(OnKeyboardUp);
@@ -1618,10 +1618,10 @@ Gura_DeclareFunctionAlias(__glutSpecialUpFunc, "glutSpecialUpFunc")
 
 Gura_ImplementFunction(__glutSpecialUpFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
-	if (func == NULL) {
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	if (func == nullptr) {
 		g_pContext->funcPackOnSpecialUp.ClearFunc();
-		glutSpecialUpFunc(NULL);
+		glutSpecialUpFunc(nullptr);
 	} else {
 		g_pContext->funcPackOnSpecialUp.SetFunc(env, sig, func->Reference());
 		glutSpecialUpFunc(OnSpecialUp);
@@ -1642,11 +1642,11 @@ Gura_DeclareFunctionAlias(__glutJoystickFunc, "glutJoystickFunc")
 
 Gura_ImplementFunction(__glutJoystickFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : NULL;
+	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
 	int pollInterval = args.GetInt(1);
-	if (func == NULL) {
+	if (func == nullptr) {
 		g_pContext->funcPackOnJoystick.ClearFunc();
-		glutJoystickFunc(NULL, pollInterval);
+		glutJoystickFunc(nullptr, pollInterval);
 	} else {
 		g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);

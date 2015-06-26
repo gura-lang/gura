@@ -27,11 +27,11 @@ inline Gura::String IIDString(REFIID riid)
 // CMain implementation
 //-----------------------------------------------------------------------------
 CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
-	_objectSafety(this), _pActiveScriptSite(NULL), _pEnv(new Gura::Environment())
+	_objectSafety(this), _pActiveScriptSite(nullptr), _pEnv(new Gura::Environment())
 {
 	int argc = 0;
-	const char **argv = NULL;
-	_pEnv->InitializeAsRoot(_sig, argc, argv, NULL, 0);
+	const char **argv = nullptr;
+	_pEnv->InitializeAsRoot(_sig, argc, argv, nullptr, 0);
 }
 
 STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)
@@ -65,7 +65,7 @@ STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)
 		_objectSafety.AddRef();
 		return S_OK;
 	}
-	*ppv = NULL;
+	*ppv = nullptr;
 	return E_NOINTERFACE;
 }
 
@@ -97,7 +97,7 @@ HRESULT STDMETHODCALLTYPE CMain::GetScriptSite(
 	/* [iid_is][out] */ void **ppvObject)
 {
 	DBGPRINTF(("IActiveScript::GetScriptSite()\n"));
-	if (_pActiveScriptSite == NULL) return S_FALSE;
+	if (_pActiveScriptSite == nullptr) return S_FALSE;
 	return _pActiveScriptSite->QueryInterface(riid, ppvObject);
 }
 
@@ -255,8 +255,8 @@ HRESULT CMain::ParseScriptText(
 		pexcepinfo->bstrHelpFile = L"";
 		pexcepinfo->bstrSource = L"Gura";
 		pexcepinfo->dwHelpContext = 0;
-		pexcepinfo->pfnDeferredFillIn = NULL;
-		pexcepinfo->pvReserved = NULL;
+		pexcepinfo->pfnDeferredFillIn = nullptr;
+		pexcepinfo->pvReserved = nullptr;
 		pexcepinfo->wCode = ERROR_INVALID_FUNCTION;
 		pexcepinfo->wReserved = 0;
 		_sig.PrintSignal(*pConsole);
@@ -275,7 +275,7 @@ HRESULT CMain::ParseScriptText(
 			NotifyScriptError();
 			return DISP_E_EXCEPTION;
 		}
-		if (result.IsValid() && pvarResult != NULL) {
+		if (result.IsValid() && pvarResult != nullptr) {
 			Gura::Gura_Module(mswin)::ValueToVariant(_sig, *pvarResult, result);
 		}
 	}
@@ -343,7 +343,7 @@ HRESULT STDMETHODCALLTYPE CMain::GetIDsOfNames(
 		const Gura::Symbol *pSymbol =
 			Gura::Symbol::Add(Gura::Gura_Module(mswin)::BSTRToString(rgszNames[iName]).c_str());
 		const Gura::Value *pValue = _pEnv->LookupValue(pSymbol, Gura::ENVREF_NoEscalate);
-		if (pValue == NULL) {
+		if (pValue == nullptr) {
 			return E_INVALIDARG;
 		} else {
 			rgDispId[iName] = static_cast<DISPID>(_valListDispatched.size());
@@ -379,8 +379,8 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 			pExcepInfo->bstrHelpFile = L"";
 			pExcepInfo->bstrSource = L"Gura";
 			pExcepInfo->dwHelpContext = 0;
-			pExcepInfo->pfnDeferredFillIn = NULL;
-			pExcepInfo->pvReserved = NULL;
+			pExcepInfo->pfnDeferredFillIn = nullptr;
+			pExcepInfo->pvReserved = nullptr;
 			pExcepInfo->wCode = ERROR_INVALID_DATA;
 			pExcepInfo->wReserved = 0;
 			_sig.PrintSignal(*pConsole);
@@ -400,18 +400,18 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 			pExcepInfo->bstrHelpFile = L"";
 			pExcepInfo->bstrSource = L"Gura";
 			pExcepInfo->dwHelpContext = 0;
-			pExcepInfo->pfnDeferredFillIn = NULL;
-			pExcepInfo->pvReserved = NULL;
+			pExcepInfo->pfnDeferredFillIn = nullptr;
+			pExcepInfo->pvReserved = nullptr;
 			pExcepInfo->wCode = ERROR_INVALID_FUNCTION;
 			pExcepInfo->wReserved = 0;
 			_sig.PrintSignal(*pConsole);
 			return DISP_E_EXCEPTION;
 		}
-		if (pVarResult != NULL) {
+		if (pVarResult != nullptr) {
 			Gura::Gura_Module(mswin)::ValueToVariant(_sig, *pVarResult, result);
 		}
 	} else if (wFlags == DISPATCH_PROPERTYGET) {
-		if (pVarResult != NULL) {
+		if (pVarResult != nullptr) {
 			Gura::Gura_Module(mswin)::ValueToVariant(_sig, *pVarResult, value);
 		}
 	} else if (wFlags == DISPATCH_PROPERTYPUT) {
@@ -527,7 +527,7 @@ STDMETHODIMP CClassFactory::QueryInterface(REFIID riid, void **ppv)
 		*ppv = &g_classFactory;
 		return S_OK;
 	}
-	*ppv = NULL;
+	*ppv = nullptr;
 	return E_NOINTERFACE;
 }
 
@@ -552,7 +552,7 @@ STDMETHODIMP CClassFactory::LockServer(BOOL bLock)
 STDMETHODIMP CClassFactory::CreateInstance(IUnknown *pUnknownOuter, REFIID riid, void **ppv)
 {
 	DBGPRINTF(("CClassFactory::CreateInstance(%s)\n", IIDString(riid).c_str()));
-	if (pUnknownOuter != NULL) return CLASS_E_NOAGGREGATION;
+	if (pUnknownOuter != nullptr) return CLASS_E_NOAGGREGATION;
 	CMain *pMain = new CMain();
 	return pMain->QueryInterface(riid, ppv);
 }
@@ -572,7 +572,7 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppv)
 	if (rclsid == CMain::ClsId) {
 		return g_classFactory.QueryInterface(riid, ppv);
 	}
-	*ppv = NULL;
+	*ppv = nullptr;
 	return CLASS_E_CLASSNOTAVAILABLE;
 }
 
@@ -590,8 +590,8 @@ STDAPI DllRegisterServer()
 		hKeyParent = hKey;
 		do {
 			HKEY hKey;
-			if (::RegCreateKeyEx(hKeyParent, clsIdStr, 0, NULL,
-				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+			if (::RegCreateKeyEx(hKeyParent, clsIdStr, 0, nullptr,
+				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 			if (::RegSetValueEx(hKey, "", 0, REG_SZ,
 				reinterpret_cast<const BYTE *>(progId),
 				static_cast<DWORD>(::strlen(progId) + 1)) != ERROR_SUCCESS) goto error_done;
@@ -600,8 +600,8 @@ STDAPI DllRegisterServer()
 				HKEY hKey;
 				char fileName[MAX_PATH];
 				::GetModuleFileName(g_hModule, fileName, MAX_PATH);
-				if (::RegCreateKeyEx(hKeyParent, "InprocServer32", 0, NULL,
-					REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+				if (::RegCreateKeyEx(hKeyParent, "InprocServer32", 0, nullptr,
+					REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 				if (::RegSetValueEx(hKey, "", 0, REG_SZ,
 					reinterpret_cast<const BYTE *>(fileName),
 					static_cast<DWORD>(::strlen(fileName) + 1)) != ERROR_SUCCESS) goto error_done;
@@ -609,8 +609,8 @@ STDAPI DllRegisterServer()
 			} while (0);
 			do {
 				HKEY hKey;
-				if (::RegCreateKeyEx(hKeyParent, "ProgID", 0, NULL,
-					REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+				if (::RegCreateKeyEx(hKeyParent, "ProgID", 0, nullptr,
+					REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 				if (::RegSetValueEx(hKey, "", 0, REG_SZ,
 					reinterpret_cast<const BYTE *>(progId),
 					static_cast<DWORD>(::strlen(progId) + 1)) != ERROR_SUCCESS) goto error_done;
@@ -621,16 +621,16 @@ STDAPI DllRegisterServer()
 		::RegCloseKey(hKey);
 	} while (0);
 	do {
-		if (::RegCreateKeyEx(HKEY_CLASSES_ROOT, "Gura", 0, NULL,
-			REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+		if (::RegCreateKeyEx(HKEY_CLASSES_ROOT, "Gura", 0, nullptr,
+			REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 		if (::RegSetValueEx(hKey, "", 0, REG_SZ,
 			reinterpret_cast<const BYTE *>(comment),
 			static_cast<DWORD>(::strlen(comment) + 1)) != ERROR_SUCCESS) goto error_done;
 		hKeyParent = hKey;
 		do {
 			HKEY hKey;
-			if (::RegCreateKeyEx(hKeyParent, "CLSID", 0, NULL,
-				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+			if (::RegCreateKeyEx(hKeyParent, "CLSID", 0, nullptr,
+				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 			if (::RegSetValueEx(hKey, "", 0, REG_SZ,
 				reinterpret_cast<const BYTE *>(clsIdStr),
 				static_cast<DWORD>(::strlen(clsIdStr) + 1)) != ERROR_SUCCESS) goto error_done;
@@ -638,8 +638,8 @@ STDAPI DllRegisterServer()
 		} while (0);
 		do {
 			HKEY hKey;
-			if (::RegCreateKeyEx(hKeyParent, "OLEScript", 0, NULL,
-				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) != ERROR_SUCCESS) goto error_done;
+			if (::RegCreateKeyEx(hKeyParent, "OLEScript", 0, nullptr,
+				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr) != ERROR_SUCCESS) goto error_done;
 			::RegCloseKey(hKey);
 		} while (0);
 		::RegCloseKey(hKey);

@@ -12,7 +12,7 @@ Object_font_face::~Object_font_face()
 
 Object *Object_font_face::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_font_face::ToString(bool exprFlag)

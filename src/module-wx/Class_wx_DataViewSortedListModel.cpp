@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DataViewSortedListModel *_pObj;
 public:
-	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _sig(NULL), _pObj(NULL) {}
+	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewSortedListModel();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewSortedListModel *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DataViewSortedListModel::~wx_DataViewSortedListModel()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DataViewSortedListModel::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(DataViewSortedListModel)
 	wxDataViewListModel *child = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
 	wx_DataViewSortedListModel *pEntity = new wx_DataViewSortedListModel(child);
 	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewSortedListModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -111,13 +111,13 @@ Object_wx_DataViewSortedListModel::~Object_wx_DataViewSortedListModel()
 
 Object *Object_wx_DataViewSortedListModel::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DataViewSortedListModel::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewSortedListModel:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -140,7 +140,7 @@ Gura_ImplementUserInheritableClass(wx_DataViewSortedListModel)
 
 Gura_ImplementDescendantCreator(wx_DataViewSortedListModel)
 {
-	return new Object_wx_DataViewSortedListModel((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DataViewSortedListModel((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

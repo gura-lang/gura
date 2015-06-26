@@ -195,7 +195,7 @@ public:
 	Value GetFieldNames(Environment &env, Signal sig) const;
 	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
 	bool GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, Value &value) const;
-	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = NULL) const;
+	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = nullptr) const;
 	inline static void SetError_InvalidFormat(Signal sig) {
 		sig.SetError(ERR_FormatError, "invalid format of HTTP header");
 	}
@@ -247,8 +247,8 @@ public:
 	}
 	inline bool HasBody() const {
 		// see RFC 2616 4.3 MessageBody
-		return _header.GetField("Content-Length", NULL) ||
-							_header.GetField("Transfer-Encoding", NULL);
+		return _header.GetField("Content-Length", nullptr) ||
+							_header.GetField("Transfer-Encoding", nullptr);
 	}
 	bool Send(Signal sig, int sock);
 	bool Receive(Signal sig, int sock);
@@ -532,7 +532,7 @@ public:
 			const char *remoteIP, const char *remoteHost, const char *remoteLogname,
 			const char *localIP, const char *localHost, const DateTime dateTime) :
 		Object(Gura_UserClass(session)),
-		_pObjServer(pObjServer), _pStreamHttp(NULL), _sock(sock),
+		_pObjServer(pObjServer), _pStreamHttp(nullptr), _sock(sock),
 		_remoteIP(remoteIP), _remoteHost(remoteHost), _remoteLogname(remoteLogname),
 		_localIP(localIP), _localHost(localHost), _dateTime(dateTime) {}
 	inline Object_session(const Object_session &obj) : Object(obj) {}
@@ -601,7 +601,7 @@ private:
 	Status _status;
 public:
 	inline Object_client() : Object(Gura_UserClass(client)),
-			_pStreamHttp(NULL), _sock(-1), _port(0), _portProxy(0) {}
+			_pStreamHttp(nullptr), _sock(-1), _port(0), _portProxy(0) {}
 	virtual ~Object_client();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

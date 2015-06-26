@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellChoiceEditor *_pObj;
 public:
-	inline wx_GridCellChoiceEditor(size_t count, const wxString choices[], bool allowOthers) : wxGridCellChoiceEditor(count, choices, allowOthers), _sig(NULL), _pObj(NULL) {}
-	inline wx_GridCellChoiceEditor(const wxArrayString& choices, bool allowOthers) : wxGridCellChoiceEditor(choices, allowOthers), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellChoiceEditor(size_t count, const wxString choices[], bool allowOthers) : wxGridCellChoiceEditor(count, choices, allowOthers), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellChoiceEditor(const wxArrayString& choices, bool allowOthers) : wxGridCellChoiceEditor(choices, allowOthers), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellChoiceEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellChoiceEditor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GridCellChoiceEditor::~wx_GridCellChoiceEditor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellChoiceEditor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(GridCellChoiceEditor)
 	if (args.IsValid(1)) allowOthers = args.GetBoolean(1);
 	wx_GridCellChoiceEditor *pEntity = new wx_GridCellChoiceEditor(*choices, allowOthers);
 	Object_wx_GridCellChoiceEditor *pObj = Object_wx_GridCellChoiceEditor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellChoiceEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -88,13 +88,13 @@ Object_wx_GridCellChoiceEditor::~Object_wx_GridCellChoiceEditor()
 
 Object *Object_wx_GridCellChoiceEditor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellChoiceEditor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -115,7 +115,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellChoiceEditor)
 
 Gura_ImplementDescendantCreator(wx_GridCellChoiceEditor)
 {
-	return new Object_wx_GridCellChoiceEditor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellChoiceEditor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

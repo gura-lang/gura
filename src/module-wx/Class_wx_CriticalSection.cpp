@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CriticalSection *_pObj;
 public:
-	inline wx_CriticalSection() : wxCriticalSection(), _sig(NULL), _pObj(NULL) {}
+	inline wx_CriticalSection() : wxCriticalSection(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CriticalSection();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CriticalSection *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_CriticalSection::~wx_CriticalSection()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CriticalSection::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(CriticalSectionEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CriticalSection *pEntity = new wx_CriticalSection();
 	Object_wx_CriticalSection *pObj = Object_wx_CriticalSection::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CriticalSection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -89,20 +89,20 @@ Gura_ImplementMethod(wx_CriticalSection, Leave)
 //----------------------------------------------------------------------------
 Object_wx_CriticalSection::~Object_wx_CriticalSection()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_CriticalSection::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CriticalSection::ToString(bool exprFlag)
 {
 	String rtn("<wx.CriticalSection:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -124,7 +124,7 @@ Gura_ImplementUserInheritableClass(wx_CriticalSection)
 
 Gura_ImplementDescendantCreator(wx_CriticalSection)
 {
-	return new Object_wx_CriticalSection((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CriticalSection((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

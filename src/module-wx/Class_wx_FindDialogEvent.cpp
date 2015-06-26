@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FindDialogEvent *_pObj;
 public:
-	inline wx_FindDialogEvent(wxEventType commandType, int id) : wxFindDialogEvent(commandType, id), _sig(NULL), _pObj(NULL) {}
+	inline wx_FindDialogEvent(wxEventType commandType, int id) : wxFindDialogEvent(commandType, id), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FindDialogEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FindDialogEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FindDialogEvent::~wx_FindDialogEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FindDialogEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_ImplementFunction(FindDialogEvent)
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_FindDialogEvent *pEntity = new wx_FindDialogEvent(commandType, id);
 	Object_wx_FindDialogEvent *pObj = Object_wx_FindDialogEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FindDialogEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetDialog)
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFindReplaceDialog *rtn = (wxFindReplaceDialog *)pThis->GetEntity()->GetDialog();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceDialog(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceDialog(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -129,13 +129,13 @@ Object_wx_FindDialogEvent::~Object_wx_FindDialogEvent()
 
 Object *Object_wx_FindDialogEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FindDialogEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindDialogEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -159,7 +159,7 @@ Gura_ImplementUserInheritableClass(wx_FindDialogEvent)
 
 Gura_ImplementDescendantCreator(wx_FindDialogEvent)
 {
-	return new Object_wx_FindDialogEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FindDialogEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

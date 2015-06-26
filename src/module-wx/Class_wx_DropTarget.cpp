@@ -21,7 +21,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DropTarget *_pObj;
 public:
-	inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _sig(NULL), _pObj(NULL) {}
+	inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _sig(nullptr), _pObj(nullptr) {}
 	virtual bool GetData();
 	virtual wxDragResult OnData(wxCoord x, wxCoord y, wxDragResult def);
 	virtual bool OnDrop(wxCoord x, wxCoord y);
@@ -38,18 +38,18 @@ public:
 
 wx_DropTarget::~wx_DropTarget()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DropTarget::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 bool wx_DropTarget::GetData()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetData);
-	if (pFunc == NULL) return wxDropTarget::GetData();
+	if (pFunc == nullptr) return wxDropTarget::GetData();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -58,7 +58,7 @@ bool wx_DropTarget::GetData()
 wxDragResult wx_DropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnData);
-	if (pFunc == NULL) return def;
+	if (pFunc == nullptr) return def;
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -72,7 +72,7 @@ wxDragResult wx_DropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
 bool wx_DropTarget::OnDrop(wxCoord x, wxCoord y)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDrop);
-	if (pFunc == NULL) return wxDropTarget::OnDrop(x, y);
+	if (pFunc == nullptr) return wxDropTarget::OnDrop(x, y);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -85,7 +85,7 @@ bool wx_DropTarget::OnDrop(wxCoord x, wxCoord y)
 wxDragResult wx_DropTarget::OnEnter(wxCoord x, wxCoord y, wxDragResult def)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnEnter);
-	if (pFunc == NULL) return wxDropTarget::OnEnter(x, y, def);
+	if (pFunc == nullptr) return wxDropTarget::OnEnter(x, y, def);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -99,7 +99,7 @@ wxDragResult wx_DropTarget::OnEnter(wxCoord x, wxCoord y, wxDragResult def)
 wxDragResult wx_DropTarget::OnDragOver(wxCoord x, wxCoord y, wxDragResult def)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDragOver);
-	if (pFunc == NULL) return wxDropTarget::OnDragOver(x, y, def);
+	if (pFunc == nullptr) return wxDropTarget::OnDragOver(x, y, def);
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
@@ -113,7 +113,7 @@ wxDragResult wx_DropTarget::OnDragOver(wxCoord x, wxCoord y, wxDragResult def)
 void wx_DropTarget::OnLeave()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnLeave);
-	if (pFunc == NULL) return;
+	if (pFunc == nullptr) return;
 	_pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 }
 
@@ -131,11 +131,11 @@ Gura_DeclareFunction(DropTarget)
 Gura_ImplementFunction(DropTarget)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxDataObject *data = (wxDataObject *)(NULL);
+	wxDataObject *data = (wxDataObject *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	wx_DropTarget *pEntity = new wx_DropTarget(data);
 	Object_wx_DropTarget *pObj = Object_wx_DropTarget::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_DropTarget, OnData)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnData(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DropTarget, OnEnter)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnEnter(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnDragOver(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -307,20 +307,20 @@ Gura_ImplementMethod(wx_DropTarget, SetDataObject)
 //----------------------------------------------------------------------------
 Object_wx_DropTarget::~Object_wx_DropTarget()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_DropTarget::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.DropTarget:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -353,7 +353,7 @@ Gura_ImplementUserInheritableClass(wx_DropTarget)
 
 Gura_ImplementDescendantCreator(wx_DropTarget)
 {
-	return new Object_wx_DropTarget((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DropTarget((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

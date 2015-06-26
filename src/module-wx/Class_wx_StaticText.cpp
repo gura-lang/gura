@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_StaticText *_pObj;
 public:
-	inline wx_StaticText() : wxStaticText(), _sig(NULL), _pObj(NULL) {}
-	inline wx_StaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticText(parent, id, label, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_StaticText() : wxStaticText(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticText(parent, id, label, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void SetLabel(const wxString& label);
 	~wx_StaticText();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticText *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_StaticText::~wx_StaticText()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_StaticText::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(StaticTextEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticText *pEntity = new wx_StaticText();
 	Object_wx_StaticText *pObj = Object_wx_StaticText::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticText(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -92,7 +92,7 @@ Gura_ImplementFunction(StaticText)
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_StaticText *pEntity = new wx_StaticText(parent, id, label, *pos, *size, style, name);
 	Object_wx_StaticText *pObj = Object_wx_StaticText::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticText(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -201,13 +201,13 @@ Object_wx_StaticText::~Object_wx_StaticText()
 
 Object *Object_wx_StaticText::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_StaticText::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticText:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -235,7 +235,7 @@ Gura_ImplementUserInheritableClass(wx_StaticText)
 
 Gura_ImplementDescendantCreator(wx_StaticText)
 {
-	return new Object_wx_StaticText((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_StaticText((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

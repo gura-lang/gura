@@ -12,7 +12,7 @@ Object_context::~Object_context()
 
 Object *Object_context::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -39,7 +39,7 @@ String Object_context::ToString(bool exprFlag)
 {
 	String str;
 	str += "<cairo.context:";
-	if (_cr == NULL) {
+	if (_cr == nullptr) {
 		str += "invalid";
 	} else {
 		cairo_surface_t *surface = ::cairo_get_target(_cr);
@@ -58,10 +58,10 @@ String Object_context::ToString(bool exprFlag)
 
 void Object_context::Destroy()
 {
-	if (_cr != NULL) {
+	if (_cr != nullptr) {
 		::cairo_destroy(_cr);
-		_cr = NULL;
-		_pObjSurface.reset(NULL);
+		_cr = nullptr;
+		_pObjSurface.reset(nullptr);
 	}
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(context, save)
 	::cairo_save(cr);
 	if (Is_error(sig, cr)) return Value::Null;
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1486,7 +1486,7 @@ Gura_DeclareMethod(context, copy_path)
 	"Creates a copy of the current path and returns it to the user as a cairo.path.\n"
 	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
 	"\n"
-	"The result will have no data (data==NULL and num_data==0), if either of the following conditions hold:\n"
+	"The result will have no data (data==nullptr and num_data==0), if either of the following conditions hold:\n"
 	"\n"
 	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
 	"\n"
@@ -1517,7 +1517,7 @@ Gura_DeclareMethod(context, copy_path_flat)
 	"(accurate to within the current tolerance value).\n"
 	"That is, the result is guaranteed to not have any elements of type cairo.PATH_CURVE_TO which will instead be replaced by a series of cairo.PATH_LINE_TO elements.\n"
 	"\n"
-	"The result will have no data (data==NULL and num_data==0), if either of the following conditions hold:\n"
+	"The result will have no data (data==nullptr and num_data==0), if either of the following conditions hold:\n"
 	"\n"
 	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
 	"\n"

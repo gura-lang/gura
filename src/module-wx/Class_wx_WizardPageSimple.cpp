@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WizardPageSimple *_pObj;
 public:
-	inline wx_WizardPageSimple(wxWizard* parent, wxWizardPage* prev, wxWizardPage* next, const wxBitmap& bitmap) : wxWizardPageSimple(parent, prev, next, bitmap), _sig(NULL), _pObj(NULL) {}
+	inline wx_WizardPageSimple(wxWizard* parent, wxWizardPage* prev, wxWizardPage* next, const wxBitmap& bitmap) : wxWizardPageSimple(parent, prev, next, bitmap), _sig(nullptr), _pObj(nullptr) {}
 	~wx_WizardPageSimple();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardPageSimple *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_WizardPageSimple::~wx_WizardPageSimple()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_WizardPageSimple::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,17 +50,17 @@ Gura_DeclareFunction(WizardPageSimple)
 Gura_ImplementFunction(WizardPageSimple)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWizard *parent = (wxWizard *)(NULL);
+	wxWizard *parent = (wxWizard *)(nullptr);
 	if (args.IsValid(0)) parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
-	wxWizardPage *prev = (wxWizardPage *)(NULL);
+	wxWizardPage *prev = (wxWizardPage *)(nullptr);
 	if (args.IsValid(1)) prev = Object_wx_WizardPage::GetObject(args, 1)->GetEntity();
-	wxWizardPage *next = (wxWizardPage *)(NULL);
+	wxWizardPage *next = (wxWizardPage *)(nullptr);
 	if (args.IsValid(2)) next = Object_wx_WizardPage::GetObject(args, 2)->GetEntity();
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(3)) bitmap = Object_wx_Bitmap::GetObject(args, 3)->GetEntity();
 	wx_WizardPageSimple *pEntity = new wx_WizardPageSimple(parent, prev, next, *bitmap);
 	Object_wx_WizardPageSimple *pObj = Object_wx_WizardPageSimple::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardPageSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -142,13 +142,13 @@ Object_wx_WizardPageSimple::~Object_wx_WizardPageSimple()
 
 Object *Object_wx_WizardPageSimple::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_WizardPageSimple::ToString(bool exprFlag)
 {
 	String rtn("<wx.WizardPageSimple:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -172,7 +172,7 @@ Gura_ImplementUserInheritableClass(wx_WizardPageSimple)
 
 Gura_ImplementDescendantCreator(wx_WizardPageSimple)
 {
-	return new Object_wx_WizardPageSimple((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_WizardPageSimple((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

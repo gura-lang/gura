@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Joystick *_pObj;
 public:
-	inline wx_Joystick(int joystick) : wxJoystick(joystick), _sig(NULL), _pObj(NULL) {}
+	inline wx_Joystick(int joystick) : wxJoystick(joystick), _sig(nullptr), _pObj(nullptr) {}
 	~wx_Joystick();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Joystick *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_Joystick::~wx_Joystick()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Joystick::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(Joystick)
 	if (args.IsValid(0)) joystick = args.GetInt(0);
 	wx_Joystick *pEntity = new wx_Joystick(joystick);
 	Object_wx_Joystick *pObj = Object_wx_Joystick::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Joystick(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_Joystick, GetPosition)
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Joystick, GetPOVPosition)
@@ -635,13 +635,13 @@ Object_wx_Joystick::~Object_wx_Joystick()
 
 Object *Object_wx_Joystick::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Joystick::ToString(bool exprFlag)
 {
 	String rtn("<wx.Joystick:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -701,7 +701,7 @@ Gura_ImplementUserInheritableClass(wx_Joystick)
 
 Gura_ImplementDescendantCreator(wx_Joystick)
 {
-	return new Object_wx_Joystick((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Joystick((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

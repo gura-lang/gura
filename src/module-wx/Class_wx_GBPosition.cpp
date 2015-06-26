@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GBPosition *_pObj;
 public:
-	inline wx_GBPosition() : wxGBPosition(), _sig(NULL), _pObj(NULL) {}
-	inline wx_GBPosition(int row, int col) : wxGBPosition(row, col), _sig(NULL), _pObj(NULL) {}
+	inline wx_GBPosition() : wxGBPosition(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GBPosition(int row, int col) : wxGBPosition(row, col), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GBPosition();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBPosition *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_GBPosition::~wx_GBPosition()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GBPosition::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(GBPositionEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBPosition *pEntity = new wx_GBPosition();
 	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(GBPosition)
 	int col = args.GetInt(1);
 	wx_GBPosition *pEntity = new wx_GBPosition(row, col);
 	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -173,20 +173,20 @@ Gura_ImplementUnaryOperator(Not, wx_GBPosition)
 //----------------------------------------------------------------------------
 Object_wx_GBPosition::~Object_wx_GBPosition()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_GBPosition::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GBPosition::ToString(bool exprFlag)
 {
 	String rtn("<wx.GBPosition:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -214,7 +214,7 @@ Gura_ImplementUserInheritableClass(wx_GBPosition)
 
 Gura_ImplementDescendantCreator(wx_GBPosition)
 {
-	return new Object_wx_GBPosition((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GBPosition((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

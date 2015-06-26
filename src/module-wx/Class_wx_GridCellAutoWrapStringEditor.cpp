@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_GridCellAutoWrapStringEditor *_pObj;
 public:
-	inline wx_GridCellAutoWrapStringEditor() : wxGridCellAutoWrapStringEditor(), _sig(NULL), _pObj(NULL) {}
+	inline wx_GridCellAutoWrapStringEditor() : wxGridCellAutoWrapStringEditor(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellAutoWrapStringEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellAutoWrapStringEditor *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_GridCellAutoWrapStringEditor::~wx_GridCellAutoWrapStringEditor()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridCellAutoWrapStringEditor::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(GridCellAutoWrapStringEditor)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAutoWrapStringEditor *pEntity = new wx_GridCellAutoWrapStringEditor();
 	Object_wx_GridCellAutoWrapStringEditor *pObj = Object_wx_GridCellAutoWrapStringEditor::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellAutoWrapStringEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -67,13 +67,13 @@ Object_wx_GridCellAutoWrapStringEditor::~Object_wx_GridCellAutoWrapStringEditor(
 
 Object *Object_wx_GridCellAutoWrapStringEditor::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridCellAutoWrapStringEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellAutoWrapStringEditor:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -93,7 +93,7 @@ Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringEditor)
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringEditor)
 {
-	return new Object_wx_GridCellAutoWrapStringEditor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridCellAutoWrapStringEditor((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -58,7 +58,7 @@ bool Class_symbol::Serialize(Environment &env, Signal sig, Stream &stream, const
 
 bool Class_symbol::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	const Symbol *pSymbol = NULL;
+	const Symbol *pSymbol = nullptr;
 	if (!stream.DeserializeSymbol(sig, &pSymbol)) return false;
 	value = Value(pSymbol);
 	return true;

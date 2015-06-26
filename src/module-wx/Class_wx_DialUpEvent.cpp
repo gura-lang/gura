@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DialUpEvent *_pObj;
 public:
-	inline wx_DialUpEvent(bool isConnected, bool isOwnEvent) : wxDialUpEvent(isConnected, isOwnEvent), _sig(NULL), _pObj(NULL) {}
+	inline wx_DialUpEvent(bool isConnected, bool isOwnEvent) : wxDialUpEvent(isConnected, isOwnEvent), _sig(nullptr), _pObj(nullptr) {}
 	~wx_DialUpEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DialUpEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_DialUpEvent::~wx_DialUpEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_DialUpEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(DialUpEvent)
 	bool isOwnEvent = args.GetBoolean(1);
 	wx_DialUpEvent *pEntity = new wx_DialUpEvent(isConnected, isOwnEvent);
 	Object_wx_DialUpEvent *pObj = Object_wx_DialUpEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_DialUpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -99,13 +99,13 @@ Object_wx_DialUpEvent::~Object_wx_DialUpEvent()
 
 Object *Object_wx_DialUpEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_DialUpEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DialUpEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -127,7 +127,7 @@ Gura_ImplementUserInheritableClass(wx_DialUpEvent)
 
 Gura_ImplementDescendantCreator(wx_DialUpEvent)
 {
-	return new Object_wx_DialUpEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_DialUpEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

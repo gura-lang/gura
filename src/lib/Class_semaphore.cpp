@@ -19,7 +19,7 @@ Object_semaphore::Object_semaphore(Class *pClass) : Object(pClass)
 
 Object *Object_semaphore::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_semaphore::ToString(bool exprFlag)
@@ -130,7 +130,7 @@ void Class_semaphore::Prepare(Environment &env)
 Object *Class_semaphore::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

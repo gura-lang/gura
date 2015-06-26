@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FilePickerCtrl *_pObj;
 public:
-	inline wx_FilePickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxString& wildcard, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFilePickerCtrl(parent, id, path, message, wildcard, pos, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_FilePickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxString& wildcard, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFilePickerCtrl(parent, id, path, message, wildcard, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FilePickerCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FilePickerCtrl *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_FilePickerCtrl::~wx_FilePickerCtrl()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FilePickerCtrl::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ Gura_ImplementFunction(FilePickerCtrl)
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	wx_FilePickerCtrl *pEntity = new wx_FilePickerCtrl(parent, id, path, message, wildcard, *pos, *size, style, *validator, name);
 	Object_wx_FilePickerCtrl *pObj = Object_wx_FilePickerCtrl::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FilePickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -166,13 +166,13 @@ Object_wx_FilePickerCtrl::~Object_wx_FilePickerCtrl()
 
 Object *Object_wx_FilePickerCtrl::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FilePickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.FilePickerCtrl:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -195,7 +195,7 @@ Gura_ImplementUserInheritableClass(wx_FilePickerCtrl)
 
 Gura_ImplementDescendantCreator(wx_FilePickerCtrl)
 {
-	return new Object_wx_FilePickerCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FilePickerCtrl((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

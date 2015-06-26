@@ -21,7 +21,7 @@ Object_exif::~Object_exif()
 
 Object *Object_exif::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 Value Object_exif::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
@@ -103,79 +103,79 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 	AutoPtr<Memory> pMemory(new MemoryHeap(65536));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	SHORT_BE *pShort = reinterpret_cast<SHORT_BE *>(buff);
-	if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
+	if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return nullptr;
 	if (Gura_UnpackUShort(pShort->num) != MARKER_SOI) {
 		sig.SetError(ERR_FormatError, "invalid jpeg file");
-		return NULL;
+		return nullptr;
 	}
 	size_t bytesAPP1 = 0;
 	for (;;) {
-		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
+		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return nullptr;
 		unsigned short marker = Gura_UnpackUShort(pShort->num);
 		if (marker < MARKER_APP0 || MARKER_APP15 < marker) {
-			return NULL;	// exif doesn't exist
+			return nullptr;	// exif doesn't exist
 		}
-		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
+		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return nullptr;
 		unsigned short bytes = Gura_UnpackUShort(pShort->num);
 		if (bytes < UNITSIZE_SHORT) {
 			sig.SetError(ERR_FormatError, "invalid jpeg file");
-			return NULL;
+			return nullptr;
 		}
 		if (marker == MARKER_APP1) {
 			char code[6];
-			if (!ReadBuff(sig, stream, code, 6)) return NULL;
+			if (!ReadBuff(sig, stream, code, 6)) return nullptr;
 			if (::memcmp(code, "Exif\0\0", 6) != 0) {
-				return NULL;	// exif doesn't exist
+				return nullptr;	// exif doesn't exist
 			}
 			bytesAPP1 = bytes;
 			break;
 		}
-		if (!stream.Seek(sig, bytes - 2, Stream::SeekCur)) return NULL;
+		if (!stream.Seek(sig, bytes - 2, Stream::SeekCur)) return nullptr;
 	}
-	if (!ReadBuff(sig, stream, buff, bytesAPP1)) return NULL;
+	if (!ReadBuff(sig, stream, buff, bytesAPP1)) return nullptr;
 	AutoPtr<Object_exif> pObj(new Object_exif());
 	if (::memcmp(buff, "MM", 2) == 0) {
 		pObj->_bigendianFlag = true;
 		TIFF_BE *pTIFF = reinterpret_cast<TIFF_BE *>(buff + 2);
 		if (Gura_UnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
-			return NULL;
+			return nullptr;
 		}
 		size_t offset = Gura_UnpackULong(pTIFF->Offset0thIFD);
 		pObj->_pObj0thIFD.reset(ParseIFD_BE(env, sig, Symbol::Add("ifd0"),
 										buff, bytesAPP1, offset, &offset));
-		if (pObj->_pObj0thIFD.IsNull()) return NULL;
+		if (pObj->_pObj0thIFD.IsNull()) return nullptr;
 		if (offset != 0) {
 			pObj->_pObj1stIFD.reset(ParseIFD_BE(env, sig, Symbol::Add("ifd1"),
 										buff, bytesAPP1, offset, &offset));
-			if (pObj->_pObj1stIFD.IsNull()) return NULL;
+			if (pObj->_pObj1stIFD.IsNull()) return nullptr;
 		}
 	} else if (::memcmp(buff, "II", 2) == 0) {
 		pObj->_bigendianFlag = false;
 		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
 		if (Gura_UnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
-			return NULL;
+			return nullptr;
 		}
 		size_t offset = Gura_UnpackULong(pTIFF->Offset0thIFD);
 		pObj->_pObj0thIFD.reset(ParseIFD_LE(env, sig, Symbol::Add("ifd0"),
 										buff, bytesAPP1, offset, &offset));
-		if (pObj->_pObj0thIFD.IsNull()) return NULL;
+		if (pObj->_pObj0thIFD.IsNull()) return nullptr;
 		if (offset != 0) {
 			pObj->_pObj1stIFD.reset(ParseIFD_LE(env, sig, Symbol::Add("ifd1"),
 										buff, bytesAPP1, offset, &offset));
-			if (pObj->_pObj1stIFD.IsNull()) return NULL;
+			if (pObj->_pObj1stIFD.IsNull()) return nullptr;
 		}
 	} else {
 		SetError_InvalidFormat(sig);
-		return NULL;
+		return nullptr;
 	}
 	if (pObj->_pObj1stIFD.IsNull()) return pObj.release();
 	// extract thumbnail image
 	UShort compression = 0;
 	Object_tag *pObjTag_Compression =
 		pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_Compression);
-	if (pObjTag_Compression != NULL && pObjTag_Compression->GetType() == TYPE_SHORT) {
+	if (pObjTag_Compression != nullptr && pObjTag_Compression->GetType() == TYPE_SHORT) {
 		compression = pObjTag_Compression->GetValue().GetUShort();
 	}
 	if (compression == 1) {	// uncompressed
@@ -187,10 +187,10 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_StripOffsets);
 		Object_tag *pObjTag_StripByteCounts =
 			pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_StripByteCounts);
-		if (pObjTag_ImageWidth == NULL ||
-					pObjTag_ImageLength == NULL ||
-					pObjTag_StripOffsets == NULL ||
-					pObjTag_StripByteCounts == NULL) {
+		if (pObjTag_ImageWidth == nullptr ||
+					pObjTag_ImageLength == nullptr ||
+					pObjTag_StripOffsets == nullptr ||
+					pObjTag_StripByteCounts == nullptr) {
 			// nothing to do
 		} else if (!pObjTag_ImageWidth->IsTypeSHORTorLONG() ||
 					!pObjTag_ImageLength->IsTypeSHORTorLONG() ||
@@ -205,7 +205,7 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			size_t bytesThumbnail = pObjTag_StripByteCounts->GetValue().GetULong();
 			if (offsetThumbnail + bytesThumbnail >= bytesAPP1 - 1) {
 				SetError_InvalidFormat(sig);
-				return NULL;
+				return nullptr;
 			}
 			pObj->_pObjBinaryThumbnail.reset(new Object_binary(env,
 								buff + offsetThumbnail, bytesThumbnail, false));
@@ -215,8 +215,8 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormat);
 		Object_tag *pObjTag_JPEGInterchangeFormatLength =
 			 pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormatLength);
-		if (pObjTag_JPEGInterchangeFormat == NULL ||
-					pObjTag_JPEGInterchangeFormatLength == NULL) {
+		if (pObjTag_JPEGInterchangeFormat == nullptr ||
+					pObjTag_JPEGInterchangeFormatLength == nullptr) {
 			// nothing to do
 		} else if (pObjTag_JPEGInterchangeFormat->GetType() != TYPE_LONG ||
 					pObjTag_JPEGInterchangeFormatLength->GetType() != TYPE_LONG) {
@@ -226,14 +226,14 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			size_t bytesThumbnail = pObjTag_JPEGInterchangeFormatLength->GetValue().GetULong();
 			if (offsetThumbnail + bytesThumbnail >= bytesAPP1 - 1) {
 				SetError_InvalidFormat(sig);
-				return NULL;
+				return nullptr;
 			}
 			pObj->_pObjBinaryThumbnail.reset(new Object_binary(env,
 								buff + offsetThumbnail, bytesThumbnail, false));
 		}
 	} else {
 		SetError_InvalidFormat(sig);
-		return NULL;
+		return nullptr;
 	}
 	return pObj.release();
 }
@@ -265,7 +265,7 @@ Gura_ImplementFunction(exif)
 	if (args.Is_stream(0)) {
 		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
 		if (sig.IsSignalled()) return Value::Null;
-		if (pObj != NULL) {
+		if (pObj != nullptr) {
 			value = Value(pObj);
 		} else if (args.IsSet(Gura_Symbol(raise))) {
 			sig.SetError(ERR_FormatError, "Exif information doesn't exist");

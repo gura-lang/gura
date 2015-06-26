@@ -13,7 +13,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_VersionInfo *_pObj;
 public:
-	inline wx_VersionInfo() : wxVersionInfo(), _sig(NULL), _pObj(NULL) {}
+	inline wx_VersionInfo() : wxVersionInfo(), _sig(nullptr), _pObj(nullptr) {}
 	inline wx_VersionInfo(const wxString &name, int major, int minor, int micro, const wxString &description, const wxString &copyright) :
 				wxVersionInfo(name, major, minor, micro, description, copyright) {}
 	~wx_VersionInfo();
@@ -26,12 +26,12 @@ public:
 
 wx_VersionInfo::~wx_VersionInfo()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_VersionInfo::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -67,7 +67,7 @@ Gura_ImplementFunction(VersionInfo)
 	if (args.IsValid(5)) copyright = wxString::FromUTF8(args.GetString(5));
 	wx_VersionInfo *pEntity = new wx_VersionInfo(name, major, minor, micro, description, copyright);
 	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_VersionInfo(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -82,14 +82,14 @@ Gura_ImplementFunction(VersionInfo)
 //----------------------------------------------------------------------------
 Object_wx_VersionInfo::~Object_wx_VersionInfo()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_VersionInfo::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_VersionInfo::ToString(bool exprFlag)
@@ -110,7 +110,7 @@ Gura_ImplementUserInheritableClass(wx_VersionInfo)
 
 Gura_ImplementDescendantCreator(wx_VersionInfo)
 {
-	return new Object_wx_VersionInfo((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_VersionInfo((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

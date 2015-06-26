@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_Module *_pObj;
 public:
-	//inline wx_Module() : wxModule(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_Module() : wxModule(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void OnExit();
 	//virtual bool OnInit();
 	~wx_Module();
@@ -30,12 +30,12 @@ public:
 
 wx_Module::~wx_Module()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Module::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Gura_ImplementFunction(ModuleEmpty)
 #if 0
 	wx_Module *pEntity = new wx_Module();
 	Object_wx_Module *pObj = Object_wx_Module::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_Module(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -126,13 +126,13 @@ Object_wx_Module::~Object_wx_Module()
 
 Object *Object_wx_Module::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Module::ToString(bool exprFlag)
 {
 	String rtn("<wx.Module:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -157,7 +157,7 @@ Gura_ImplementUserInheritableClass(wx_Module)
 
 Gura_ImplementDescendantCreator(wx_Module)
 {
-	return new Object_wx_Module((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Module((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

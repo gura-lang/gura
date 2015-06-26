@@ -39,12 +39,12 @@ public:
 
 wx_TopLevelWindow::~wx_TopLevelWindow()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TopLevelWindow::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetDefaultItem)
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetDefaultItem();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetIcon)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetIcon)
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxIcon &rtn = pThis->GetEntity()->GetIcon();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetIcons)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, GetIcons)
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxIconBundle &rtn = pThis->GetEntity()->GetIcons();
-	return ReturnValue(env, sig, args, Value(new Object_wx_IconBundle(new wxIconBundle(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_IconBundle(new wxIconBundle(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TopLevelWindow, GetTitle)
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetLeftMenu)
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wxString label = wxEmptyString;
 	if (args.IsValid(1)) label = wxString::FromUTF8(args.GetString(1));
-	wxMenu *subMenu = (wxMenu *)(NULL);
+	wxMenu *subMenu = (wxMenu *)(nullptr);
 	if (args.IsValid(2)) subMenu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
 	pThis->GetEntity()->SetLeftMenu(id, label, subMenu);
 	return Value::Null;
@@ -488,7 +488,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetRightMenu)
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wxString label = wxEmptyString;
 	if (args.IsValid(1)) label = wxString::FromUTF8(args.GetString(1));
-	wxMenu *subMenu = (wxMenu *)(NULL);
+	wxMenu *subMenu = (wxMenu *)(nullptr);
 	if (args.IsValid(2)) subMenu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
 	pThis->GetEntity()->SetRightMenu(id, label, subMenu);
 	return Value::Null;
@@ -630,13 +630,13 @@ Object_wx_TopLevelWindow::~Object_wx_TopLevelWindow()
 
 Object *Object_wx_TopLevelWindow::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TopLevelWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.TopLevelWindow:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -695,7 +695,7 @@ Gura_ImplementUserInheritableClass(wx_TopLevelWindow)
 
 Gura_ImplementDescendantCreator(wx_TopLevelWindow)
 {
-	return new Object_wx_TopLevelWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TopLevelWindow((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

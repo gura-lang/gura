@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HashSet *_pObj;
 public:
-	inline wx_HashSet(size_type size) : wxHashSet(size), _sig(NULL), _pObj(NULL) {}
-	inline wx_HashSet(const wxHashSet& set) : wxHashSet(set), _sig(NULL), _pObj(NULL) {}
+	inline wx_HashSet(size_type size) : wxHashSet(size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HashSet(const wxHashSet& set) : wxHashSet(set), _sig(nullptr), _pObj(nullptr) {}
 	~wx_HashSet();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HashSet *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_HashSet::~wx_HashSet()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HashSet::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(HashSet)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashSet *pEntity = new wx_HashSet();
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HashSet(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(HashSet_1)
 	wxHashSet *set = Object_wx_HashSet::GetObject(args, 0)->GetEntity();
 	wx_HashSet *pEntity = new wx_HashSet(*set);
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HashSet(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -261,20 +261,20 @@ Gura_ImplementMethod(wx_HashSet, size)
 //----------------------------------------------------------------------------
 Object_wx_HashSet::~Object_wx_HashSet()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_HashSet::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HashSet::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashSet:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -309,7 +309,7 @@ Gura_ImplementUserInheritableClass(wx_HashSet)
 
 Gura_ImplementDescendantCreator(wx_HashSet)
 {
-	return new Object_wx_HashSet((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HashSet((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

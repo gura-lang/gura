@@ -3579,7 +3579,7 @@ Iterator *Iterator_NewIds::Clone() const
 
 Iterator *Iterator_NewIds::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Iterator_NewIds::DoNext(Environment &env, Signal sig, Value &value)

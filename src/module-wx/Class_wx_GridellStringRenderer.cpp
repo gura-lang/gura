@@ -24,12 +24,12 @@ public:
 
 wx_GridellStringRenderer::~wx_GridellStringRenderer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_GridellStringRenderer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_GridellStringRenderer::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_GridellStringRenderer::~Object_wx_GridellStringRenderer()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_GridellStringRenderer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_GridellStringRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridellStringRenderer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_GridellStringRenderer)
 
 Gura_ImplementDescendantCreator(wx_GridellStringRenderer)
 {
-	return new Object_wx_GridellStringRenderer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_GridellStringRenderer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

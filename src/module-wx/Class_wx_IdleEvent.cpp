@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_IdleEvent *_pObj;
 public:
-	inline wx_IdleEvent() : wxIdleEvent(), _sig(NULL), _pObj(NULL) {}
+	inline wx_IdleEvent() : wxIdleEvent(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_IdleEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IdleEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_IdleEvent::~wx_IdleEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_IdleEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IdleEvent *pEntity = new wx_IdleEvent();
 	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_IdleEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -141,13 +141,13 @@ Object_wx_IdleEvent::~Object_wx_IdleEvent()
 
 Object *Object_wx_IdleEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_IdleEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.IdleEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -172,7 +172,7 @@ Gura_ImplementUserInheritableClass(wx_IdleEvent)
 
 Gura_ImplementDescendantCreator(wx_IdleEvent)
 {
-	return new Object_wx_IdleEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_IdleEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

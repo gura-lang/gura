@@ -280,7 +280,7 @@ DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine,
 
 Iterator *DiffLine::IteratorHunk::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
@@ -321,7 +321,7 @@ DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &
 
 Iterator *DiffLine::IteratorEdit::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
@@ -406,7 +406,7 @@ DiffChar::IteratorEdit::IteratorEdit(EditOwner *pEditOwner, FilterType filterTyp
 
 Iterator *DiffChar::IteratorEdit::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
@@ -531,19 +531,19 @@ void Sync::Compose(DiffLine *pDiffLine)
 				DiffLine::EditList::const_iterator pEditLineEnd = pEditLine;
 				AutoPtr<DiffChar> pDiffChar(pDiffLine->CreateDiffChar(
 												pEditLineBegin, pEditLineEnd));
-				SyncLine *pSyncLineOrg = NULL;
-				SyncLine *pSyncLineNew = NULL;
+				SyncLine *pSyncLineOrg = nullptr;
+				SyncLine *pSyncLineNew = nullptr;
 				foreach_const (DiffChar::EditOwner, ppEditChar, pDiffChar->GetEditOwner()) {
 					const DiffChar::Edit *pEditChar = *ppEditChar;
-					if (pSyncLineOrg == NULL) {
+					if (pSyncLineOrg == nullptr) {
 						pSyncLineOrg = new SyncLine(EDITTYPE_Change);
 						pSyncLineNew = new SyncLine(EDITTYPE_Change);
 						_syncLinesOrg.push_back(pSyncLineOrg);
 						_syncLinesNew.push_back(pSyncLineNew);
 					}
 					if (pEditChar->IsEOL()) {
-						pSyncLineOrg = NULL;
-						pSyncLineNew = NULL;
+						pSyncLineOrg = nullptr;
+						pSyncLineNew = nullptr;
 					} else if (pEditChar->GetEditType() == EDITTYPE_Copy) {
 						pSyncLineOrg->AddEditChar(pEditChar->Reference());
 						pSyncLineNew->AddEditChar(pEditChar->Reference());
@@ -595,7 +595,7 @@ IteratorSyncLine::IteratorSyncLine(Sync *pSync, Target target) :
 
 Iterator *IteratorSyncLine::GetSource()
 {
-	return NULL;
+	return nullptr;
 }
 
 bool IteratorSyncLine::DoNext(Environment &env, Signal sig, Value &value)
@@ -622,7 +622,7 @@ void IteratorSyncLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 //-----------------------------------------------------------------------------
 Object *Object_diff_at_line::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_diff_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -766,7 +766,7 @@ Gura_ImplementUserClass(diff_at_line)
 //-----------------------------------------------------------------------------
 Object *Object_hunk_at_line::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -864,7 +864,7 @@ Gura_ImplementUserClass(hunk_at_line)
 //-----------------------------------------------------------------------------
 Object *Object_edit_at_line::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_edit_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -965,7 +965,7 @@ Gura_ImplementUserClass(edit_at_line)
 //-----------------------------------------------------------------------------
 Object *Object_diff_at_char::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1025,7 +1025,7 @@ Gura_ImplementUserClass(diff_at_char)
 //-----------------------------------------------------------------------------
 Object *Object_edit_at_char::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1093,7 +1093,7 @@ Gura_ImplementUserClass(edit_at_char)
 //-----------------------------------------------------------------------------
 Object *Object_sync::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_sync::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -1139,7 +1139,7 @@ Gura_ImplementUserClass(sync)
 //-----------------------------------------------------------------------------
 Object *Object_syncline::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 bool Object_syncline::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)

@@ -56,7 +56,7 @@ Gura_DeclareFunction(bottom)
 Gura_ImplementFunction(bottom)
 {
 	String bottom;
-	PathMgr::SplitBottom(args.GetString(0), NULL, &bottom);
+	PathMgr::SplitBottom(args.GetString(0), nullptr, &bottom);
 	return Value(bottom);
 }
 
@@ -73,7 +73,7 @@ Gura_DeclareFunction(cutbottom)
 Gura_ImplementFunction(cutbottom)
 {
 	String top;
-	PathMgr::SplitBottom(args.GetString(0), &top, NULL);
+	PathMgr::SplitBottom(args.GetString(0), &top, nullptr);
 	return Value(top);
 }
 
@@ -130,7 +130,7 @@ Gura_DeclareFunction(dirname)
 Gura_ImplementFunction(dirname)
 {
 	String dirName;
-	PathMgr::SplitFileName(args.GetString(0), &dirName, NULL);
+	PathMgr::SplitFileName(args.GetString(0), &dirName, nullptr);
 	return Value(dirName);
 }
 
@@ -182,7 +182,7 @@ Gura_DeclareFunction(filename)
 Gura_ImplementFunction(filename)
 {
 	String fileName;
-	PathMgr::SplitFileName(args.GetString(0), NULL, &fileName);
+	PathMgr::SplitFileName(args.GetString(0), nullptr, &fileName);
 	return Value(fileName);
 }
 

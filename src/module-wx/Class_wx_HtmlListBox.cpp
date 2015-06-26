@@ -16,8 +16,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HtmlListBox *_pObj;
 public:
-	//inline wx_HtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlListBox(parent, id, pos, size, style, name), _sig(NULL), _pObj(NULL) {}
-	//inline wx_HtmlListBox() : wxHtmlListBox(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_HtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlListBox(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlListBox() : wxHtmlListBox(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual void OnLinkClicked(size_t n, const wxHtmlLinkInfo& link);
 	~wx_HtmlListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlListBox *pObj) {
@@ -29,12 +29,12 @@ public:
 
 wx_HtmlListBox::~wx_HtmlListBox()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_HtmlListBox::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ Gura_ImplementFunction(HtmlListBox)
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox(parent, id, *pos, *size, style, name);
 	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -100,7 +100,7 @@ Gura_ImplementFunction(HtmlListBoxEmpty)
 #if 0
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox();
 	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileSystem &rtn = pThis->GetEntity()->GetFileSystem();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFileSystem &rtn = pThis->GetEntity()->GetFileSystem();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colBg = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetSelectedTextBgColour(*colBg);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colFg = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetSelectedTextColour(*colFg);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -300,13 +300,13 @@ Object_wx_HtmlListBox::~Object_wx_HtmlListBox()
 
 Object *Object_wx_HtmlListBox::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_HtmlListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlListBox:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -337,7 +337,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlListBox)
 
 Gura_ImplementDescendantCreator(wx_HtmlListBox)
 {
-	return new Object_wx_HtmlListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_HtmlListBox((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

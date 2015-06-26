@@ -11,7 +11,7 @@ Object_DisplayMode::~Object_DisplayMode()
 
 Object *Object_DisplayMode::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_DisplayMode::ToString(bool exprFlag)

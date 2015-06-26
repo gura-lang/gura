@@ -24,12 +24,12 @@ public:
 
 wx_RichTextAction::~wx_RichTextAction()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_RichTextAction::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -41,20 +41,20 @@ void wx_RichTextAction::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Object_wx_RichTextAction::~Object_wx_RichTextAction()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_RichTextAction::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_RichTextAction::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextAction:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -73,7 +73,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextAction)
 
 Gura_ImplementDescendantCreator(wx_RichTextAction)
 {
-	return new Object_wx_RichTextAction((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_RichTextAction((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -24,12 +24,12 @@ public:
 
 wx_MediaEvent::~wx_MediaEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MediaEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -45,13 +45,13 @@ Object_wx_MediaEvent::~Object_wx_MediaEvent()
 
 Object *Object_wx_MediaEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MediaEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MediaEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -70,7 +70,7 @@ Gura_ImplementUserInheritableClass(wx_MediaEvent)
 
 Gura_ImplementDescendantCreator(wx_MediaEvent)
 {
-	return new Object_wx_MediaEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MediaEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

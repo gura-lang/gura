@@ -24,12 +24,12 @@ public:
 
 wx_ArtProvider::~wx_ArtProvider()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArtProvider::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -80,7 +80,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetBitmap)
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxBitmap rtn = wxArtProvider::GetBitmap(id, client, *size);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetIcon)
@@ -101,7 +101,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetIcon)
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxIcon rtn = wxArtProvider::GetIcon(id, client, *size);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetSizeHint)
@@ -119,7 +119,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetSizeHint)
 	bool platform_default = false;
 	if (args.IsValid(1)) platform_default = args.GetBoolean(1);
 	wxSize rtn = wxArtProvider::GetSizeHint(*client, platform_default);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, Insert)
@@ -187,13 +187,13 @@ Object_wx_ArtProvider::~Object_wx_ArtProvider()
 
 Object *Object_wx_ArtProvider::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArtProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArtProvider:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -221,7 +221,7 @@ Gura_ImplementUserInheritableClass(wx_ArtProvider)
 
 Gura_ImplementDescendantCreator(wx_ArtProvider)
 {
-	return new Object_wx_ArtProvider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArtProvider((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

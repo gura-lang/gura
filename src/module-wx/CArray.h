@@ -11,7 +11,7 @@ private:
 	int _n;
 	T *_buff;
 public:
-	inline CArray() : _n(0), _buff(NULL) {}
+	inline CArray() : _n(0), _buff(nullptr) {}
 	inline CArray(const ValueList &valList) { Init(valList); }
 	~CArray() {
 		delete[] _buff;

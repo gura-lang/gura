@@ -37,10 +37,10 @@ public:
 public:
 	inline Object_wx_EventFactory(wxEventType eventType, const char *name) :
 		Object(Gura_UserClass(wx_EventFactory)),
-		_eventType(eventType), _name(name), _cntEventTypes(0), _eventTypes(NULL) {}
+		_eventType(eventType), _name(name), _cntEventTypes(0), _eventTypes(nullptr) {}
 	inline Object_wx_EventFactory(Class *pClass, wxEventType eventType, const char *name) :
 		Object(pClass),
-		_eventType(eventType), _name(name), _cntEventTypes(0), _eventTypes(NULL) {}
+		_eventType(eventType), _name(name), _cntEventTypes(0), _eventTypes(nullptr) {}
 	inline bool IsInvalid(Signal sig) const { return false; }
 	virtual ~Object_wx_EventFactory();
 	virtual Object *Clone() const;
@@ -59,7 +59,7 @@ public:
 	inline Object_wx_EventFactoryDerive(wxEventType type, const char *name) :
 									Object_wx_EventFactory(type, name) {}
 	virtual Object_wx_Event *CreateEventObject(wxEvent &event) {
-		return new T_Gura(wxDynamicCast(&event, T_WX), NULL, OwnerFalse);
+		return new T_Gura(wxDynamicCast(&event, T_WX), nullptr, OwnerFalse);
 	}
 };
 

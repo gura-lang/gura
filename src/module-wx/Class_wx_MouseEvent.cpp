@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MouseEvent *_pObj;
 public:
-	inline wx_MouseEvent(WXTYPE mouseEventType) : wxMouseEvent(mouseEventType), _sig(NULL), _pObj(NULL) {}
+	inline wx_MouseEvent(WXTYPE mouseEventType) : wxMouseEvent(mouseEventType), _sig(nullptr), _pObj(nullptr) {}
 	~wx_MouseEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_MouseEvent::~wx_MouseEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MouseEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(MouseEvent)
 	if (args.IsValid(0)) mouseEventType = static_cast<WXTYPE>(args.GetInt(0));
 	wx_MouseEvent *pEntity = new wx_MouseEvent(mouseEventType);
 	Object_wx_MouseEvent *pObj = Object_wx_MouseEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MouseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetPosition)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MouseEvent, GetPosition_1)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_MouseEvent, GetLogicalPosition)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxPoint rtn = pThis->GetEntity()->GetLogicalPosition(*dc);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MouseEvent, GetLinesPerAction)
@@ -619,13 +619,13 @@ Object_wx_MouseEvent::~Object_wx_MouseEvent()
 
 Object *Object_wx_MouseEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MouseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -682,7 +682,7 @@ Gura_ImplementUserInheritableClass(wx_MouseEvent)
 
 Gura_ImplementDescendantCreator(wx_MouseEvent)
 {
-	return new Object_wx_MouseEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MouseEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

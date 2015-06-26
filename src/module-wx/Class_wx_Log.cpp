@@ -31,12 +31,12 @@ public:
 
 wx_Log::~wx_Log()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_Log::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -126,7 +126,7 @@ Gura_ImplementClassMethod(wx_Log, GetActiveTarget)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)wxLog::GetActiveTarget();
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Log(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Log(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -141,10 +141,10 @@ Gura_ImplementClassMethod(wx_Log, SetActiveTarget)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *logtarget = args.IsValid(0)?
-					Object_wx_Log::GetObject(args, 0)->GetEntity() : NULL;
+					Object_wx_Log::GetObject(args, 0)->GetEntity() : nullptr;
 	wxLog *rtn = (wxLog *)wxLog::SetActiveTarget(logtarget);
 	Value value;
-	if (rtn != NULL) value = Value(new Object_wx_Log(rtn, NULL, OwnerFalse));
+	if (rtn != nullptr) value = Value(new Object_wx_Log(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -433,20 +433,20 @@ Gura_ImplementClassMethod(wx_Log, RemoveTraceMask)
 //----------------------------------------------------------------------------
 Object_wx_Log::~Object_wx_Log()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_Log::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_Log::ToString(bool exprFlag)
 {
 	String rtn("<wx.Log:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -494,7 +494,7 @@ Gura_ImplementUserInheritableClass(wx_Log)
 
 Gura_ImplementDescendantCreator(wx_Log)
 {
-	return new Object_wx_Log((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_Log((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

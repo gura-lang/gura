@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SocketClient *_pObj;
 public:
-	inline wx_SocketClient(wxSocketFlags flags) : wxSocketClient(flags), _sig(NULL), _pObj(NULL) {}
+	inline wx_SocketClient(wxSocketFlags flags) : wxSocketClient(flags), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SocketClient();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SocketClient *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SocketClient::~wx_SocketClient()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SocketClient::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Gura_ImplementFunction(SocketClient)
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
 	wx_SocketClient *pEntity = new wx_SocketClient(flags);
 	Object_wx_SocketClient *pObj = Object_wx_SocketClient::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -130,13 +130,13 @@ Object_wx_SocketClient::~Object_wx_SocketClient()
 
 Object *Object_wx_SocketClient::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SocketClient::ToString(bool exprFlag)
 {
 	String rtn("<wx.SocketClient:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -159,7 +159,7 @@ Gura_ImplementUserInheritableClass(wx_SocketClient)
 
 Gura_ImplementDescendantCreator(wx_SocketClient)
 {
-	return new Object_wx_SocketClient((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SocketClient((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

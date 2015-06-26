@@ -11,7 +11,7 @@ Object_Color::~Object_Color()
 
 Object *Object_Color::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_Color::ToString(bool exprFlag)

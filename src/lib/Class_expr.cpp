@@ -62,7 +62,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(attrfront))) {
-		const SymbolList *pAttrFront = NULL;
+		const SymbolList *pAttrFront = nullptr;
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
 			pAttrFront = &pExpr->GetAttrFront();
@@ -70,7 +70,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			pAttrFront = &pExpr->GetAttrFront();
 		}
-		if (pAttrFront != NULL) {
+		if (pAttrFront != nullptr) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrFront->size());
 			foreach_const (SymbolList, ppSymbol, *pAttrFront) {
@@ -81,7 +81,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
-		const SymbolSet *pAttrs = NULL;
+		const SymbolSet *pAttrs = nullptr;
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
 			pAttrs = &pExpr->GetAttrs();
@@ -89,7 +89,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			pAttrs = &pExpr->GetAttrs();
 		}
-		if (pAttrs != NULL) {
+		if (pAttrs != nullptr) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
 			foreach_const (SymbolSet, ppSymbol, *pAttrs) {
@@ -100,7 +100,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
-		const SymbolSet *pAttrsOpt = NULL;
+		const SymbolSet *pAttrsOpt = nullptr;
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
 			pAttrsOpt = &pExpr->GetAttrsOpt();
@@ -108,7 +108,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			pAttrsOpt = &pExpr->GetAttrsOpt();
 		}
-		if (pAttrsOpt == NULL) {
+		if (pAttrsOpt == nullptr) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrsOpt->size());
 			foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
@@ -122,7 +122,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			const Expr_Block *pExprBlock = pExpr->GetBlock();
-			if (pExprBlock == NULL) return Value::Null;
+			if (pExprBlock == nullptr) return Value::Null;
 			return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
 		}
 		sig.SetError(ERR_ValueError, "not a caller expression");
@@ -131,7 +131,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (GetExpr()->IsBlock()) {
 			const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
 			const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
-			if (pExprOwnerParam == NULL) return Value::Null;
+			if (pExprOwnerParam == nullptr) return Value::Null;
 			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwnerParam->Reference())));
 		}
 		sig.SetError(ERR_ValueError, "expression is not a block");
@@ -194,7 +194,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		} else if (GetExpr()->IsAssign()) {
 			const Expr_Assign *pExpr = dynamic_cast<const Expr_Assign *>(GetExpr());
 			const Operator *pOperator = pExpr->GetOperatorToApply();
-			if (pOperator == NULL) return Value::Null;
+			if (pOperator == nullptr) return Value::Null;
 			return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
 		}
 		sig.SetError(ERR_ValueError, "expression is not a unaryop, binaryop nor assign");
@@ -210,7 +210,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = GetExpr()->GetSourceName();
-		if (sourceName == NULL) return Value::Null;
+		if (sourceName == nullptr) return Value::Null;
 		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(suffix))) {
 		if (GetExpr()->IsSuffixed()) {
@@ -230,7 +230,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			const Expr_Caller *pExprTrailer = pExpr->GetTrailer();
-			if (pExprTrailer == NULL) return Value::Null;
+			if (pExprTrailer == nullptr) return Value::Null;
 			return Value(new Object_expr(env, Expr::Reference(pExprTrailer)));
 		}
 		sig.SetError(ERR_ValueError, "not a caller expression");
@@ -569,7 +569,7 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	return nullptr;
 }
 
 }

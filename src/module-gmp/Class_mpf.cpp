@@ -50,10 +50,10 @@ Value Object_mpf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 String Object_mpf::ToString(bool exprFlag)
 {
-	char *p = NULL;
+	char *p = nullptr;
 	::gmp_asprintf(&p, "%.Ff", _num.get_mpf_t());
 	String str = p;
-	if (::strchr(p, '.') == NULL) str += '.';
+	if (::strchr(p, '.') == nullptr) str += '.';
 	str += 'L';
 	::free(p);
 	return str;

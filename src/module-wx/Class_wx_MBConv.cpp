@@ -19,7 +19,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_MBConv *_pObj;
 public:
-	//inline wx_MBConv() : wxMBConv(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_MBConv() : wxMBConv(), _sig(nullptr), _pObj(nullptr) {}
 	//virtual size_t MB2WC(wchar_t * out, const char * in, size_t outLen);
 	//virtual size_t WC2MB(char* buf, const wchar_t* psz, size_t n);
 	//virtual size_t FromWChar(char_t * dst, size_t dstLen, const wchar_t * src, size_t srcLen);
@@ -34,12 +34,12 @@ public:
 
 wx_MBConv::~wx_MBConv()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_MBConv::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MBConvEmpty)
 #if 0
 	wx_MBConv *pEntity = new wx_MBConv();
 	Object_wx_MBConv *pObj = Object_wx_MBConv::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_MBConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_MBConv, cMB2WC)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char in = args.GetChar(0);
 	wxWCharBuffer rtn = pThis->GetEntity()->cMB2WC(in);
-	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cMB2WC_1)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_MBConv, cMB2WC_1)
 	size_t inLen = args.GetSizeT(1);
 	size_t *outLen = args.GetSizeT(2);
 	wxWCharBuffer rtn = pThis->GetEntity()->cMB2WC(in, inLen, *outLen);
-	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cWC2MB)
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_MBConv, cWC2MB)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t in = static_cast<wchar_t>(args.GetUShort(0));
 	wxCharBuffer rtn = pThis->GetEntity()->cWC2MB(in);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cWC2MB_1)
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_MBConv, cWC2MB_1)
 	size_t inLen = args.GetSizeT(1);
 	size_t *outLen = args.GetSizeT(2);
 	wxCharBuffer rtn = pThis->GetEntity()->cWC2MB(in, inLen, *outLen);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cMB2WX)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_MBConv, cMB2WX_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char psz = args.GetChar(0);
 	wxWCharBuffer rtn = pThis->GetEntity()->cMB2WX(psz);
-	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cWX2MB)
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_MBConv, cWX2MB_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
 	wxCharBuffer rtn = pThis->GetEntity()->cWX2MB(psz);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cWC2WX)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_MBConv, cWC2WX_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(0));
 	wxCharBuffer rtn = pThis->GetEntity()->cWC2WX(psz);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, cWX2WC)
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_MBConv, cWX2WC_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
 	wxWCharBuffer rtn = pThis->GetEntity()->cWX2WC(psz);
-	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_MBConv, FromWChar)
@@ -390,20 +390,20 @@ Gura_ImplementMethod(wx_MBConv, ToWChar)
 //----------------------------------------------------------------------------
 Object_wx_MBConv::~Object_wx_MBConv()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_MBConv::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_MBConv::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConv:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -447,7 +447,7 @@ Gura_ImplementUserInheritableClass(wx_MBConv)
 
 Gura_ImplementDescendantCreator(wx_MBConv)
 {
-	return new Object_wx_MBConv((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MBConv((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

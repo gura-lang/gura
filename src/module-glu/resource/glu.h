@@ -80,7 +80,7 @@ extern "C" {
 #define GLU_NURBS_ERROR5                     100255   /* knot multiplicity > spline order */
 #define GLU_NURBS_ERROR6                     100256   /* endcurve() must follow bgncurve() */
 #define GLU_NURBS_ERROR7                     100257   /* bgncurve() must precede endcurve() */
-#define GLU_NURBS_ERROR8                     100258   /* ctrlarray or knot vector is NULL */
+#define GLU_NURBS_ERROR8                     100258   /* ctrlarray or knot vector is nullptr */
 #define GLU_NURBS_ERROR9                     100259   /* can't draw pwlcurves */
 #define GLU_NURBS_ERROR10                    100260   /* missing gluNurbsCurve() */
 #define GLU_NURBS_ERROR11                    100261   /* missing gluNurbsSurface() */

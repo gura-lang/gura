@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PenList *_pObj;
 public:
-	inline wx_PenList() : wxPenList(), _sig(NULL), _pObj(NULL) {}
+	inline wx_PenList() : wxPenList(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PenList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PenList *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PenList::~wx_PenList()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PenList::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(PenListEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PenList *pEntity = new wx_PenList();
 	Object_wx_PenList *pObj = Object_wx_PenList::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PenList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
 	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(*colour, width, style);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_PenList, FindOrCreatePen_1)
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
 	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(colourName, width, style);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------
@@ -103,20 +103,20 @@ Gura_ImplementMethod(wx_PenList, FindOrCreatePen_1)
 //----------------------------------------------------------------------------
 Object_wx_PenList::~Object_wx_PenList()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_PenList::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PenList::ToString(bool exprFlag)
 {
 	String rtn("<wx.PenList:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -138,7 +138,7 @@ Gura_ImplementUserInheritableClass(wx_PenList)
 
 Gura_ImplementDescendantCreator(wx_PenList)
 {
-	return new Object_wx_PenList((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PenList((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

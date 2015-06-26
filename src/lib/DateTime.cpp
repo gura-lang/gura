@@ -481,7 +481,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			p++;
 		}
 	}
-	if (next != NULL) *next = p;
+	if (next != nullptr) *next = p;
 	_year = static_cast<short>(year);
 	_month = static_cast<char>(month);
 	_day = static_cast<char>(day);

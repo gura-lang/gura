@@ -24,12 +24,12 @@ public:
 
 wx_ArchiveClassFactory::~wx_ArchiveClassFactory()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_ArchiveClassFactory::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetConv)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMBConv &rtn = pThis->GetEntity()->GetConv();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MBConv(new wxMBConv(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_MBConv(new wxMBConv(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -102,7 +102,7 @@ Gura_ImplementClassMethod(wx_ArchiveClassFactory, Find)
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(1)) type = static_cast<wxStreamProtocolType>(args.GetInt(1));
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)wxArchiveClassFactory::Find(protocol, type);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_ArchiveClassFactory, GetFirst)
@@ -115,7 +115,7 @@ Gura_ImplementClassMethod(wx_ArchiveClassFactory, GetFirst)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)wxArchiveClassFactory::GetFirst();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetNext)
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetNext)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)pThis->GetEntity()->GetNext();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetInternalName)
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewEntry)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->NewEntry();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveInputStream *rtn = (wxArchiveInputStream *)pThis->GetEntity()->NewStream(*stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveInputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveInputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_1)
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveOutputStream *rtn = (wxArchiveOutputStream *)pThis->GetEntity()->NewStream(*stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveOutputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveOutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_2)
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_2)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveInputStream *rtn = (wxArchiveInputStream *)pThis->GetEntity()->NewStream(stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveInputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveInputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_3)
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_3)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveOutputStream *rtn = (wxArchiveOutputStream *)pThis->GetEntity()->NewStream(stream);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveOutputStream(rtn, NULL, OwnerFalse)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveOutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, PushFront)
@@ -301,13 +301,13 @@ Object_wx_ArchiveClassFactory::~Object_wx_ArchiveClassFactory()
 
 Object *Object_wx_ArchiveClassFactory::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_ArchiveClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveClassFactory:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -342,7 +342,7 @@ Gura_ImplementUserInheritableClass(wx_ArchiveClassFactory)
 
 Gura_ImplementDescendantCreator(wx_ArchiveClassFactory)
 {
-	return new Object_wx_ArchiveClassFactory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_ArchiveClassFactory((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TarEntry *_pObj;
 public:
-	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _sig(NULL), _pObj(NULL) {}
-	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _sig(NULL), _pObj(NULL) {}
+	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TarEntry();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TarEntry *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_TarEntry::~wx_TarEntry()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TarEntry::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementFunction(TarEntry)
 	if (args.IsValid(2)) size = static_cast<wxFileOffset>(args.GetInt64(2));
 	wx_TarEntry *pEntity = new wx_TarEntry(name, dt, size);
 	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -82,7 +82,7 @@ Gura_ImplementFunction(TarEntry_1)
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
 	wx_TarEntry *pEntity = new wx_TarEntry(*entry);
 	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_TarEntry, GetAccessTime)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetAccessTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetAccessTime)
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_TarEntry, GetCreateTime)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetCreateTime();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetCreateTime)
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName_1)
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
-	bool pIsDir = NULL;
+	bool pIsDir = nullptr;
 	if (args.IsValid(2)) pIsDir = args.GetBoolean(2);
 	wxString rtn = pThis->GetEntity()->GetInternalName(name, format, pIsDir);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -501,13 +501,13 @@ Object_wx_TarEntry::~Object_wx_TarEntry()
 
 Object *Object_wx_TarEntry::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TarEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarEntry:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -554,7 +554,7 @@ Gura_ImplementUserInheritableClass(wx_TarEntry)
 
 Gura_ImplementDescendantCreator(wx_TarEntry)
 {
-	return new Object_wx_TarEntry((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TarEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

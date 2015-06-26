@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextAttr *_pObj;
 public:
-	inline wx_TextAttr() : wxTextAttr(), _sig(NULL), _pObj(NULL) {}
-	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextAttr() : wxTextAttr(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _sig(nullptr), _pObj(nullptr) {}
 	~wx_TextAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextAttr *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_TextAttr::~wx_TextAttr()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_TextAttr::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Gura_ImplementFunction(TextAttr)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextAttr *pEntity = new wx_TextAttr();
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -82,7 +82,7 @@ Gura_ImplementFunction(TextAttr_1)
 	if (args.IsValid(3)) alignment = static_cast<wxTextAttrAlignment>(args.GetInt(3));
 	wx_TextAttr *pEntity = new wx_TextAttr(*colText, *colBack, *font, alignment);
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_TextAttr, GetBackgroundColour)
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextAttr, GetFont)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_TextAttr, GetFont)
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextAttr, GetLeftIndent)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_TextAttr, GetTextColour)
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextAttr, HasAlignment)
@@ -359,7 +359,7 @@ Gura_ImplementClassMethod(wx_TextAttr, Merge_1)
 	wxTextAttr *base = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
 	wxTextAttr *overlay = Object_wx_TextAttr::GetObject(args, 1)->GetEntity();
 	wxTextAttr rtn = wxTextAttr::Merge(*base, *overlay);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), NULL, OwnerTrue)));
+	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetAlignment)
@@ -490,20 +490,20 @@ Gura_ImplementMethod(wx_TextAttr, SetTextColour)
 //----------------------------------------------------------------------------
 Object_wx_TextAttr::~Object_wx_TextAttr()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_TextAttr::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_TextAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextAttr:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -551,7 +551,7 @@ Gura_ImplementUserInheritableClass(wx_TextAttr)
 
 Gura_ImplementDescendantCreator(wx_TextAttr)
 {
-	return new Object_wx_TextAttr((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_TextAttr((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_SysColourChangedEvent *_pObj;
 public:
-	inline wx_SysColourChangedEvent() : wxSysColourChangedEvent(), _sig(NULL), _pObj(NULL) {}
+	inline wx_SysColourChangedEvent() : wxSysColourChangedEvent(), _sig(nullptr), _pObj(nullptr) {}
 	~wx_SysColourChangedEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SysColourChangedEvent *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_SysColourChangedEvent::~wx_SysColourChangedEvent()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_SysColourChangedEvent::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Gura_ImplementFunction(SysColourChangedEventEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SysColourChangedEvent *pEntity = new wx_SysColourChangedEvent();
 	Object_wx_SysColourChangedEvent *pObj = Object_wx_SysColourChangedEvent::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_SysColourChangedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -67,13 +67,13 @@ Object_wx_SysColourChangedEvent::~Object_wx_SysColourChangedEvent()
 
 Object *Object_wx_SysColourChangedEvent::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_SysColourChangedEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SysColourChangedEvent:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -93,7 +93,7 @@ Gura_ImplementUserInheritableClass(wx_SysColourChangedEvent)
 
 Gura_ImplementDescendantCreator(wx_SysColourChangedEvent)
 {
-	return new Object_wx_SysColourChangedEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_SysColourChangedEvent((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

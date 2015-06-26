@@ -14,7 +14,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_PaintDC *_pObj;
 public:
-	inline wx_PaintDC(wxWindow* window) : wxPaintDC(window), _sig(NULL), _pObj(NULL) {}
+	inline wx_PaintDC(wxWindow* window) : wxPaintDC(window), _sig(nullptr), _pObj(nullptr) {}
 	~wx_PaintDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PaintDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -25,12 +25,12 @@ public:
 
 wx_PaintDC::~wx_PaintDC()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_PaintDC::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Gura_ImplementFunction(PaintDC)
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_PaintDC *pEntity = new wx_PaintDC(window);
 	Object_wx_PaintDC *pObj = Object_wx_PaintDC::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_PaintDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -69,13 +69,13 @@ Object_wx_PaintDC::~Object_wx_PaintDC()
 
 Object *Object_wx_PaintDC::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_PaintDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.PaintDC:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -95,7 +95,7 @@ Gura_ImplementUserInheritableClass(wx_PaintDC)
 
 Gura_ImplementDescendantCreator(wx_PaintDC)
 {
-	return new Object_wx_PaintDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_PaintDC((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

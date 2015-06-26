@@ -14,8 +14,8 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FlexGridSizer *_pObj;
 public:
-	inline wx_FlexGridSizer(int rows, int cols, int vgap, int hgap) : wxFlexGridSizer(rows, cols, vgap, hgap), _sig(NULL), _pObj(NULL) {}
-	inline wx_FlexGridSizer(int cols, int vgap, int hgap) : wxFlexGridSizer(cols, vgap, hgap), _sig(NULL), _pObj(NULL) {}
+	inline wx_FlexGridSizer(int rows, int cols, int vgap, int hgap) : wxFlexGridSizer(rows, cols, vgap, hgap), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FlexGridSizer(int cols, int vgap, int hgap) : wxFlexGridSizer(cols, vgap, hgap), _sig(nullptr), _pObj(nullptr) {}
 	~wx_FlexGridSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FlexGridSizer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -26,12 +26,12 @@ public:
 
 wx_FlexGridSizer::~wx_FlexGridSizer()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_FlexGridSizer::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(FlexGridSizer)
 	if (args.IsValid(2)) vgap = args.GetInt(2);
 	int hgap = 0;
 	if (args.IsValid(3)) hgap = args.GetInt(3);
-	wx_FlexGridSizer *pEntity = NULL;
+	wx_FlexGridSizer *pEntity = nullptr;
 	if (args.Is_number(0)) {
 		int rows = args.GetInt(0);
 		pEntity = new wx_FlexGridSizer(rows, cols, vgap, hgap);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(FlexGridSizer)
 		pEntity = new wx_FlexGridSizer(cols, vgap, hgap);
 	}
 	Object_wx_FlexGridSizer *pObj = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_FlexGridSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -208,13 +208,13 @@ Object_wx_FlexGridSizer::~Object_wx_FlexGridSizer()
 
 Object *Object_wx_FlexGridSizer::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_FlexGridSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.FlexGridSizer:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -242,7 +242,7 @@ Gura_ImplementUserInheritableClass(wx_FlexGridSizer)
 
 Gura_ImplementDescendantCreator(wx_FlexGridSizer)
 {
-	return new Object_wx_FlexGridSizer((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_FlexGridSizer((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)

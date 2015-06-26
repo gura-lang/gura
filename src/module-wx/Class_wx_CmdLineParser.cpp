@@ -14,13 +14,13 @@ private:
 	Gura::Signal _sig;
 	Object_wx_CmdLineParser *_pObj;
 public:
-	//inline wx_CmdLineParser() : wxCmdLineParser(), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _sig(NULL), _pObj(NULL) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _sig(NULL), _pObj(NULL) {}
+	//inline wx_CmdLineParser() : wxCmdLineParser(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _sig(nullptr), _pObj(nullptr) {}
 	~wx_CmdLineParser();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CmdLineParser *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -31,12 +31,12 @@ public:
 
 wx_CmdLineParser::~wx_CmdLineParser()
 {
-	if (_pObj != NULL) _pObj->InvalidateEntity();
+	if (_pObj != nullptr) _pObj->InvalidateEntity();
 }
 
 void wx_CmdLineParser::GuraObjectDeleted()
 {
-	_pObj = NULL;
+	_pObj = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Gura_ImplementFunction(CmdLineParserEmpty)
 #if 0
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser();
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -89,7 +89,7 @@ Gura_ImplementFunction(CmdLineParser)
 	char argv = args.GetChar(1);
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(argc, argv);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -121,7 +121,7 @@ Gura_ImplementFunction(CmdLineParser_1)
 	wchar_t argv = static_cast<wchar_t>(args.GetUShort(1));
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(argc, argv);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -151,7 +151,7 @@ Gura_ImplementFunction(CmdLineParser_2)
 	wxString cmdline = wxString::FromUTF8(args.GetString(0));
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(cmdline);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -181,7 +181,7 @@ Gura_ImplementFunction(CmdLineParser_3)
 	wxCmdLineEntryDesc *desc = Object_wx_CmdLineEntryDesc::GetObject(args, 0)->GetEntity();
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(desc);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -215,7 +215,7 @@ Gura_ImplementFunction(CmdLineParser_4)
 	char argv = args.GetChar(2);
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(desc, argc, argv);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -247,7 +247,7 @@ Gura_ImplementFunction(CmdLineParser_5)
 	wxString cmdline = wxString::FromUTF8(args.GetString(1));
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(desc, cmdline);
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
-	if (pObj == NULL) {
+	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
@@ -717,20 +717,20 @@ Gura_ImplementMethod(wx_CmdLineParser, GetParam)
 //----------------------------------------------------------------------------
 Object_wx_CmdLineParser::~Object_wx_CmdLineParser()
 {
-	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_pEntity != nullptr) NotifyGuraObjectDeleted();
 	if (_ownerFlag) delete _pEntity;
-	_pEntity = NULL;
+	_pEntity = nullptr;
 }
 
 Object *Object_wx_CmdLineParser::Clone() const
 {
-	return NULL;
+	return nullptr;
 }
 
 String Object_wx_CmdLineParser::ToString(bool exprFlag)
 {
 	String rtn("<wx.CmdLineParser:");
-	if (GetEntity() == NULL) {
+	if (GetEntity() == nullptr) {
 		rtn += "invalid>";
 	} else {
 		char buff[64];
@@ -777,7 +777,7 @@ Gura_ImplementUserInheritableClass(wx_CmdLineParser)
 
 Gura_ImplementDescendantCreator(wx_CmdLineParser)
 {
-	return new Object_wx_CmdLineParser((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_CmdLineParser((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)
