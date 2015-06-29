@@ -1,20 +1,27 @@
 #!/usr/bin/env gura
 //==============================================================================
-// helper.makedoc.gura
-// Helper module to create a makedoc@foo module that provides document for
-// a module.
+// makedoc.gura
+// Helper module to create a foo.doc module that provides document for a module.
 //==============================================================================
 import(markdown)
 
 suffixmgr(`string).assign(`moddoc) {|str| str.template().render()}
 
 _reference(lang:symbol, func:function, fullname:string, fmt:string):map = {
-	str = '**' + fullname.replace('_', '\\_').replace('`', '\\`') + '**\n\n'
+	/*
+	str = '**' + fullname.replaces(['_', '\\_', '`', '\\`']) + '**\n\n'
 	if (fmt.find('`')) {
 		str += '`` ' + fmt + '``\n\n'
 	} else {
 		str += '`' + fmt + '`\n\n'
 	}
+	if (help = function.gethelp(func, lang)) {
+		str +=  help.text
+		if (!str.endswith('\n')) { str += '\n' }
+		str += '\n'
+	}
+	*/
+	str = format('<funcentry fullname="%s" format="%s" />\n', fullname, fmt.escapehtml())
 	if (help = function.gethelp(func, lang)) {
 		str +=  help.text
 		if (!str.endswith('\n')) { str += '\n' }

@@ -195,6 +195,7 @@ Renderer@tex = class {
 		this.RenderItem(doc.root)
 	}
 	RenderItem(item:item):map:void = {
+		!this.OnRenderItemPre(item) && return
 		if (item.type == `root) {
 			_this = this
 			this.out.print(R'''
@@ -330,6 +331,7 @@ Renderer@tex = class {
 		} elsif (item.type == `br) {
 			this.out.println(r'\newline')
 		}
+		this.OnRenderItemPost(item)
 	}
 	replaceTbl = [
 		'\\', r'$\backslash$',
@@ -387,6 +389,8 @@ Renderer@tex = class {
 		this.out.println(r'\end{tabular}')
 		this.out.print('\n\\vspace{3mm}\n\n')
 	}
+	OnRenderItemPre(item:item) = true
+	OnRenderItemPost(item:item):void = nil
 }
 
 Renderer@rtf = class {

@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(markdown)
+import(re)
 
 fileNameTeX = 'gura-lib-e.tex'
 dirName@html = 'html'
@@ -112,6 +113,17 @@ Renderer@html = class(markdown.Renderer@html) {
 			println('rendering ', path.filename(fileName))
 			this.out = open(fileName, 'w')
 			this.out.print(headerForPage)
+		} elsif (item.type == `tag && item.text == 'funcentry') {
+			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+				this.out.printf(R'''
+				<p><strong>%s</strong></p>
+				<p><code>%s</code></p>
+				''', m[1], m[2])
+			} else {
+				println('**** error ****')
+				sys.exit(1)
+			}
+			return(false)
 		}
 		true
 	}
@@ -120,6 +132,31 @@ Renderer@html = class(markdown.Renderer@html) {
 			this.out && this.out.print(footerForPage)
 			this.out = nil
 		}
+	}
+}
+
+Renderer@tex = class(markdown.Renderer@tex) {
+	OnRenderItemPre(item:item) = {
+		if (item.type == `tag && item.text == 'funcentry') {
+			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
+				this.out.printf(R'''
+				\vspace{5mm}
+
+				\underline{\sf %s}
+
+				\vspace{1mm}
+
+				{\tt %s}
+
+				\vspace{3mm}
+				''', this.EscapeText(m[1]), this.EscapeText(m[2].unescapehtml()))
+			} else {
+				println('**** error ****')
+				sys.exit(1)
+			}
+			return(false)
+		}
+		true
 	}
 }
 
@@ -136,7 +173,10 @@ makeDocument() = {
 
 output@tex() = {
 	doc = makeDocument()
-	doc.render@tex(title, author, date, fileNameTeX)
+	open(fileNameTeX, 'w') {|out|
+		Renderer@tex(out, title, author, date).Render(doc)
+	}
+	//doc.render@tex(title, author, date, fileNameTeX)
 	sys.stderr.println(fileNameTeX, ' was created.')
 }
 
@@ -167,7 +207,7 @@ output@html() = {
 						indices[0], indices[1], indices[0], anchorName, text)
 			}
 		}
-	out.print(Renderer@html.footerForTOC)
+		out.print(Renderer@html.footerForTOC)
 	}
 	Renderer@html().Render(doc)
 }
