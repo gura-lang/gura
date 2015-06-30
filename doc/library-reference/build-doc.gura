@@ -141,13 +141,12 @@ Renderer@tex = class(markdown.Renderer@tex) {
 			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
 				this.out.printf(R'''
 				\vspace{5mm}
-
+				\vbox{
 				\underline{\sf %s}
 
 				\vspace{1mm}
 
-				{\tt %s}
-
+				{\tt\small %s}}
 				\vspace{3mm}
 				''', this.EscapeText(m[1]), this.EscapeText(m[2].unescapehtml()))
 			} else {
