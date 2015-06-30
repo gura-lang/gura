@@ -6,7 +6,7 @@ dirName@html = 'html'
 
 title = 'Gura Language Manual'
 author = 'Yutaka Saito'
-date = 'May 24th, 2015'
+date = 'June 30th, 2015'
 
 fileNames = [
 	'00-Introduction.md'
