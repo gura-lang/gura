@@ -116,8 +116,8 @@ Renderer@html = class(markdown.Renderer@html) {
 		} elsif (item.type == `tag && item.text == 'funcentry') {
 			if (m = item.attrs.match('fullname="([^\"]+)" format="([^\"]+)"')) {
 				this.out.printf(R'''
-				<p><strong>%s</strong></p>
-				<p><code>%s</code></p>
+				<div><strong style="text-decoration:underline">%s</strong></div>
+				<div style="margin-bottom:1em"><code>%s</code></div>
 				''', m[1], m[2])
 			} else {
 				println('**** error ****')
