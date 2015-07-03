@@ -3,13 +3,16 @@ import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 
-} elsif (sys.platform == `linux) {
-
-} elsif (sys.platform == `darwin) {
+} elsif (sys.platform in [`linux, `darwin]) {
+	if (sys.platform == `linux) {
+		configPath = 'llvm-config'
+	} else {
+		configPath = 'guest/llvm-3.6.1.src/build/bin/llvm-config'
+	}
 	cflags = scope {
 		buff = binary()
 		os.redirect(nil, buff) {
-			os.exec('guest/llvm-3.6.1.src/build/bin/llvm-config', '--cxxflags')
+			os.exec(configPath, '--cxxflags')
 		}
 		os.fromnative(buff).strip().split(' '):list
 	}
@@ -17,8 +20,7 @@ if (sys.platform == `mswin) {
 	ldflags = scope {
 		buff = binary()
 		os.redirect(nil, buff) {
-			os.exec('guest/llvm-3.6.1.src/build/bin/llvm-config', '--ldflags',
-					'--system-libs', '--libs')
+			os.exec(configPath, '--ldflags', '--system-libs', '--libs')
 		}
 		str = os.fromnative(buff).replace('\n', ' ')
 		str.strip().split(' '):list
