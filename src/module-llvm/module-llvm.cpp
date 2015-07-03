@@ -10,6 +10,8 @@ Gura_BeginModuleBody(llvm)
 //-----------------------------------------------------------------------------
 class CodeGeneratorLLVM : public CodeGenerator {
 public:
+	CodeGeneratorLLVM();
+public:
 	virtual bool GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue);
 	virtual bool GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr);
 	virtual bool GenCode_Suffixed(Environment &env, Signal sig, const Expr_Suffixed *pExpr);
@@ -26,73 +28,96 @@ public:
 	virtual bool GenCode_Member(Environment &env, Signal sig, const Expr_Member *pExpr);
 };
 
+CodeGeneratorLLVM::CodeGeneratorLLVM()
+{
+}
+
 bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue)
 {
+	::printf("Value\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr)
 {
+	::printf("Identifier\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Suffixed(Environment &env, Signal sig, const Expr_Suffixed *pExpr)
 {
+	::printf("Suffixed\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Root(Environment &env, Signal sig, const Expr_Root *pExpr)
 {
+	::printf("Root\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_Block *pExpr)
 {
+	::printf("Block\n");
+	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	pExpr->GetExprOwnerParam();
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_Lister *pExpr)
 {
+	::printf("Lister\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, Signal sig, const Expr_Iterer *pExpr)
 {
+	::printf("Iterer\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal sig, const Expr_Indexer *pExpr)
 {
+	::printf("Indexer\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_Caller *pExpr)
 {
+	::printf("Caller\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr_UnaryOp *pExpr)
 {
+	::printf("UnaryOp\n");
+	pExpr->GetChild()->GenerateCode(env, sig, *this);
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Expr_BinaryOp *pExpr)
 {
+	::printf("BinaryOp\n");
+	pExpr->GetLeft()->GenerateCode(env, sig, *this);
+	pExpr->GetRight()->GenerateCode(env, sig, *this);
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Quote(Environment &env, Signal sig, const Expr_Quote *pExpr)
 {
+	::printf("Quote\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal sig, const Expr_Assign *pExpr)
 {
+	::printf("Assign\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal sig, const Expr_Member *pExpr)
 {
+	::printf("Member\n");
 	return true;
 }
 
