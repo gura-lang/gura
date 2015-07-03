@@ -141,11 +141,32 @@ Gura_ImplementFunction(gencode)
 	return Value::Null;
 }
 
+// llvm.test()
+Gura_DeclareFunction(test)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(test)
+{
+	const char *fileName = "sample.ll";
+	llvm::LLVMContext &context = llvm::getGlobalContext();
+	llvm::SMDiagnostic err;
+	std::unique_ptr<llvm::Module> pModule(llvm::parseIRFile(fileName, err, context));
+	if (pModule == nullptr) {
+		::fprintf(stderr, "error while createing module\n");
+		::exit(1);
+	}
+	pModule->dump();
+	return Value::Null;
+}
+
 // Module entry
 Gura_ModuleEntry()
 {
 	// function assignment
 	Gura_AssignFunction(gencode);
+	Gura_AssignFunction(test);
 	return true;
 }
 
