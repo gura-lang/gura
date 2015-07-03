@@ -10,9 +10,13 @@ Gura_BeginModuleBody(llvm)
 //-----------------------------------------------------------------------------
 class CodeGeneratorLLVM : public CodeGenerator {
 private:
-	
+	llvm::LLVMContext &_context;
+	std::unique_ptr<llvm::Module> _pModule;
+	llvm::IRBuilder<> _builder;
+	llvm::Value *_pValueResult;
 public:
 	CodeGeneratorLLVM();
+	inline llvm::Module *GetModule() { return _pModule.get(); }
 public:
 	virtual bool GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue);
 	virtual bool GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr);
@@ -30,13 +34,24 @@ public:
 	virtual bool GenCode_Member(Environment &env, Signal sig, const Expr_Member *pExpr);
 };
 
-CodeGeneratorLLVM::CodeGeneratorLLVM()
+CodeGeneratorLLVM::CodeGeneratorLLVM() :
+	_context(llvm::getGlobalContext()),
+	_pModule(new llvm::Module("gura", llvm::getGlobalContext())),
+	_builder(llvm::getGlobalContext()), _pValueResult(nullptr)
 {
 }
 
 bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue)
 {
 	::printf("Value\n");
+	const Value &value = pExprValue->GetValue();
+	if (value.Is_number()) {
+		_pValueResult = llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble());
+	} else if (value.Is_string()) {
+		_pValueResult = _builder.CreateGlobalStringPtr(value.GetString());
+	} else {
+		sig.SetError(ERR_SyntaxError, "GetCode_Value()");
+	}
 	return true;
 }
 
@@ -61,7 +76,13 @@ bool CodeGeneratorLLVM::GenCode_Root(Environment &env, Signal sig, const Expr_Ro
 bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_Block *pExpr)
 {
 	::printf("Block\n");
+	llvm::FunctionType *funcType = llvm::FunctionType::get(_builder.getVoidTy(), false);
+	llvm::Function *pFunction = 
+		llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", _pModule.get());
+	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
+	_builder.SetInsertPoint(pBasicBlock);
 	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	_builder.CreateRet(_pValueResult);
 	pExpr->GetExprOwnerParam();
 	return true;
 }
@@ -100,8 +121,11 @@ bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr
 bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Expr_BinaryOp *pExpr)
 {
 	::printf("BinaryOp\n");
-	pExpr->GetLeft()->GenerateCode(env, sig, *this);
-	pExpr->GetRight()->GenerateCode(env, sig, *this);
+	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *pValueLHS = _pValueResult;
+	if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *pValueRHS = _pValueResult;
+	_pValueResult = _builder.CreateFAdd(pValueLHS, pValueRHS);
 	return true;
 }
 
@@ -138,6 +162,7 @@ Gura_ImplementFunction(gencode)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	CodeGeneratorLLVM codeGeneratorLLVM;
 	pExprBlock->GenerateCode(env, sig, codeGeneratorLLVM);
+	codeGeneratorLLVM.GetModule()->dump();
 	return Value::Null;
 }
 
