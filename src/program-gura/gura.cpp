@@ -116,7 +116,7 @@ int Main(int argc, const char *argv[])
 			return 1;
 		}
 		if (opt.IsSet("llvm")) {
-			pExprRoot->GenerateCode(env, sig, *env.GetConsole());
+			//pExprRoot->GenerateCode(env, sig, *env.GetConsole());
 		} else {
 			AutoPtr<Processor> pProcessor(new Processor());
 			pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
