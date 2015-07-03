@@ -9,6 +9,8 @@ Gura_BeginModuleBody(llvm)
 // CodeGeneratorLLVM
 //-----------------------------------------------------------------------------
 class CodeGeneratorLLVM : public CodeGenerator {
+private:
+	
 public:
 	CodeGeneratorLLVM();
 public:

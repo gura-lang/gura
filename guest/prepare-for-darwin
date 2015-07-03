@@ -22,6 +22,7 @@ files="$files pixman-0.32.6.tar.gz"
 files="$files tiff-3.8.2.tar.gz"
 files="$files wxWidgets-3.0.1.tar.bz2"
 files="$files yaml-0.1.5.tar.gz"
+files="$files llvm-3.6.1.src.tar.xz"
 for file in $files
 do
 	echo $file
@@ -170,3 +171,11 @@ popd
 rm -f include/cairo
 ln -sf ../cairo-1.12.18/src/ include/cairo
 setup_dylib cairo-1.12.18/src/.libs dylib
+#---------------------------------------------------------------------------
+tar xfJ llvm-3.6.1.src.tar.xz
+pushd llvm-3.6.1.src
+mkdir build
+cd build
+cmake ..
+make $make_option
+popd

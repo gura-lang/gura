@@ -1,85 +1,26 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-builder.build('llvm', ['module-llvm.cpp'])
-
-/*
-dirLLVM = path.join(guestDir, 'llvm-2.8')
-hintLLVM = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install llvm-2.8
-- Install yum package:
-  # yum install llvm-2.8 llvm-devel-2.8
-'''
-successFlag = true
 if (sys.platform == `mswin) {
-	cflagsLLVM = []
-	ldflagsLLVM = []
-	libsLLVM = [
-		'LLVMX86CodeGen.lib'
-		'LLVMX86AsmParser.lib'
-		'LLVMX86Disassembler.lib'
-		'LLVMBitReader.lib'
-		'LLVMAsmParser.lib'
-		'LLVMAsmPrinter.lib'
-		'LLVMSelectionDAG.lib'
-		'LLVMX86AsmPrinter.lib'
-		'LLVMX86Info.lib'
-		'LLVMMCParser.lib'
-		'LLVMCodeGen.lib'
-		'LLVMScalarOpts.lib'
-		'LLVMInstCombine.lib'
-		'LLVMTransformUtils.lib'
-		'LLVMipa.lib'
-		'LLVMAnalysis.lib'
-		'LLVMTarget.lib'
-		'LLVMCore.lib'
-		'LLVMMC.lib'
-		'LLVMSupport.lib'
-		'LLVMSystem.lib'
-		'LLVMAsmPrinter.lib'
-		'LLVMMCParser.lib'
-		'LLVMInterpreter.lib'
-		'LLVMLinker.lib'
-		'LLVMExecutionEngine.lib'
-		'LLVMJIT.lib'
-	]
 } elsif (sys.platform == `linux) {
-	IsExist(filename:string) = {
-		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
+} elsif (sys.platform == `darwin) {
+	cflags = scope {
+		buff = binary()
+		os.redirect(nil, buff) {
+			os.exec('llvm-config', '--cppflags')
+		}
+		os.fromnative(buff).strip().split(' '):list
 	}
-	if (IsExist('llvm-config-2.8')) {
-		llvm_config = 'llvm-config-2.8'
-	} elsif (IsExist('llvm-config')) {
-		llvm_config = 'llvm-config'
-	} else {
-		print(hintLLVM)
- 		successFlag = false
+	builder.cflags.append(cflags.filter(cflags != ''))
+	ldflags = scope {
+		buff = binary()
+		os.redirect(nil, buff) {
+			os.exec('llvm-config', '--version=3.0', '--libs',
+					'xrc,stc,richtext,ribbon,propgrid,aui,gl,html,qa,adv,core,xml,net,base')
+		}
+		str = os.fromnative(buff).replace('\n', ' ')
+		str.strip().split(' '):list
 	}
-	if (successFlag) {
-		cflagsLLVM = (os.exec(llvm_config, '--cxxflags'):stdout).strip().split(' ')
-		cflagsLLVM = [cflagsLLVM.filter((cflagsLLVM != '') & (cflagsLLVM != '-fno-rtti'))]
-		ldflagsLLVM = (os.exec(llvm_config, '--ldflags'):stdout).strip().split(' '):list
-		ldflagsLLVM = [ldflagsLLVM.filter(ldflagsLLVM != '')]
-		libsLLVM = (os.exec(llvm_config, '--libnames'):stdout).strip().split(' '):list
-		libsLLVM = libsLLVM::replace('lib', '')::replace('.a', '')
-	}
+	builder.ldflags.append(ldflags.filter(ldflags != ''))
 }
-successFlag && build('llvm', ['module-llvm.cpp']) {
-	msc = %{
-		`incDirs => [
-			path.join(dirLLVM, 'include')
-			path.join(dirLLVM, 'build-msc', 'include')
-		]
-		`libs => path.join(dirLLVM, 'build-msc', 'lib', 'Release', libsLLVM)
-	}
-	gnuc = %{
-		`cflags => cflagsLLVM
-		`ldflags => ldflagsLLVM
-		`libs => libsLLVM
-		`hint => hintLLVM
-	}
-}
-*/
+builder.build('llvm', ['module-llvm.cpp'])
