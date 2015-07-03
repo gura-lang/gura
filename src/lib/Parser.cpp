@@ -1308,9 +1308,8 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		pExpr = new Expr_Value(Value(elem1.GetStringSTL()));
 	} else if (elem1.IsType(ETYPE_Binary)) {
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
-		Value value(new Object_binary(env,
-					Binary(elem1.GetString(), elem1.GetStringSize()), false));
-		pExpr = new Expr_Value(value);
+		pExpr = new Expr_Value(Value(new Object_binary(env,
+						   Binary(elem1.GetString(), elem1.GetStringSize()), false)));
 	} else if (elem1.IsType(ETYPE_Symbol)) {
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem1.GetString());

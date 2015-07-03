@@ -367,7 +367,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Value : public Expr {
 protected:
-	Value _value;
+	Value _value;		// only contains number, string and binary
 	std::unique_ptr<String> _pScript;
 public:
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
