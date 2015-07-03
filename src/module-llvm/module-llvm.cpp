@@ -17,6 +17,8 @@ private:
 public:
 	CodeGeneratorLLVM();
 	inline llvm::Module *GetModule() { return _pModule.get(); }
+	bool Generate(Environment &env, Signal sig, const Expr *pExpr);
+	void Run(Environment &env, Signal sig);
 public:
 	virtual bool GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue);
 	virtual bool GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr);
@@ -35,10 +37,64 @@ public:
 };
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
-	_context(llvm::getGlobalContext()),
-	_pModule(new llvm::Module("gura", llvm::getGlobalContext())),
-	_builder(llvm::getGlobalContext()), _pValueResult(nullptr)
+	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()), _pValueResult(nullptr)
 {
+}
+
+bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
+{
+	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
+	do {
+		// declare i32 @puts(i8*)
+		_pModule->getOrInsertFunction(
+			"puts",
+			_builder.getInt32Ty(),
+			_builder.getInt8Ty()->getPointerTo(),
+			nullptr);
+	} while (0);
+	llvm::FunctionType *funcType = llvm::FunctionType::get(_builder.getVoidTy(), false);
+	llvm::Function *pFunction = 
+		llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", _pModule.get());
+	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
+	_builder.SetInsertPoint(pBasicBlock);
+	if (!pExpr->GenerateCode(env, sig, *this)) return false;
+	//_builder.CreateRet(_pValueResult);
+	_builder.CreateRetVoid();
+	return true;
+}
+
+void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
+{
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
+	llvm::EngineBuilder engineBuilder(std::move(_pModule));
+	std::string errStr;
+	engineBuilder.setMArch("");
+	engineBuilder.setMCPU("");
+	std::vector<std::string> attrs;
+	engineBuilder.setMAttrs(attrs);
+	engineBuilder.setRelocationModel(llvm::Reloc::Default);
+	engineBuilder.setCodeModel(llvm::CodeModel::JITDefault);
+	engineBuilder.setErrorStr(&errStr);
+	//engineBuilder.setEngineKind(llvm::EngineKind::Interpreter);
+	engineBuilder.setEngineKind(llvm::EngineKind::JIT);
+	llvm::ExecutionEngine *pExecutionEngine = engineBuilder.create();
+	if (pExecutionEngine == nullptr) {
+		::fprintf(stderr, "error while building execution engine\n");
+		::exit(1);
+	}
+	pExecutionEngine->finalizeObject();
+    pExecutionEngine->runStaticConstructorsDestructors(false);
+	llvm::Function *pFunction = pExecutionEngine->FindFunctionNamed("main");
+	if (pFunction == nullptr) {
+		::fprintf(stderr, "failed to find function main\n");
+		::exit(1);
+	}
+	void (*func)() = reinterpret_cast<void (*)()>(
+					pExecutionEngine->getPointerToFunction(pFunction));
+	func();
+    pExecutionEngine->runStaticConstructorsDestructors(true);
 }
 
 bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue)
@@ -76,14 +132,8 @@ bool CodeGeneratorLLVM::GenCode_Root(Environment &env, Signal sig, const Expr_Ro
 bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_Block *pExpr)
 {
 	::printf("Block\n");
-	llvm::FunctionType *funcType = llvm::FunctionType::get(_builder.getVoidTy(), false);
-	llvm::Function *pFunction = 
-		llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", _pModule.get());
-	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
-	_builder.SetInsertPoint(pBasicBlock);
 	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
-	_builder.CreateRet(_pValueResult);
-	pExpr->GetExprOwnerParam();
+	//pExpr->GetExprOwnerParam();
 	return true;
 }
 
@@ -108,6 +158,9 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal sig, const Expr
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_Caller *pExpr)
 {
 	::printf("Caller\n");
+	_pValueResult = _builder.CreateCall(
+		_pModule->getFunction("puts"),
+		_builder.CreateGlobalStringPtr("hello world!"));
 	return true;
 }
 
@@ -161,8 +214,9 @@ Gura_ImplementFunction(gencode)
 {
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	CodeGeneratorLLVM codeGeneratorLLVM;
-	pExprBlock->GenerateCode(env, sig, codeGeneratorLLVM);
+	codeGeneratorLLVM.Generate(env, sig, pExprBlock);
 	codeGeneratorLLVM.GetModule()->dump();
+	codeGeneratorLLVM.Run(env, sig);
 	return Value::Null;
 }
 
