@@ -2,12 +2,14 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
+
 } elsif (sys.platform == `linux) {
+
 } elsif (sys.platform == `darwin) {
 	cflags = scope {
 		buff = binary()
 		os.redirect(nil, buff) {
-			os.exec('llvm-config', '--cppflags')
+			os.exec('guest/llvm-3.6.1.src/build/bin/llvm-config', '--cxxflags')
 		}
 		os.fromnative(buff).strip().split(' '):list
 	}
@@ -15,8 +17,8 @@ if (sys.platform == `mswin) {
 	ldflags = scope {
 		buff = binary()
 		os.redirect(nil, buff) {
-			os.exec('llvm-config', '--version=3.0', '--libs',
-					'xrc,stc,richtext,ribbon,propgrid,aui,gl,html,qa,adv,core,xml,net,base')
+			os.exec('guest/llvm-3.6.1.src/build/bin/llvm-config', '--ldflags',
+					'--system-libs', '--libs')
 		}
 		str = os.fromnative(buff).replace('\n', ' ')
 		str.strip().split(' '):list
