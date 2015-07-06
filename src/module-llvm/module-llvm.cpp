@@ -41,9 +41,21 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 {
 }
 
+void MakeValue(Value &value)
+{
+	value = Value(3);
+}
+
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
+	do {
+		// 
+		llvm::StructType *pStructType = llvm::StructType::create(
+			"Value",
+			_builder.getInt32Ty(),
+			nullptr);
+	} while (0);
 	do {
 		// declare i32 @puts(i8*)
 		_pModule->getOrInsertFunction(
@@ -52,14 +64,25 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_builder.getInt8Ty()->getPointerTo(),
 			nullptr);
 	} while (0);
-	llvm::FunctionType *funcType = llvm::FunctionType::get(_builder.getVoidTy(), false);
-	llvm::Function *pFunction = 
-		llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", _pModule.get());
-	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
-	_builder.SetInsertPoint(pBasicBlock);
-	if (!pExpr->GenerateCode(env, sig, *this)) return false;
-	//_builder.CreateRet(_pValueResult);
-	_builder.CreateRetVoid();
+	do {
+		// define int32 @main(int32, int32)
+		llvm::Function *pFunction = llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"main",
+				_builder.getInt32Ty(),
+				_builder.getInt32Ty(),
+				_builder.getInt32Ty(),
+				nullptr));
+		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
+		llvm::Value *pValue_x = pArg++;
+		llvm::Value *pValue_y = pArg++;
+		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
+		_builder.SetInsertPoint(pBasicBlock);
+		if (!pExpr->GenerateCode(env, sig, *this)) return false;
+		//_builder.CreateRet(_pValueResult);
+		//_builder.CreateRetVoid();
+		_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
+	} while (0);
 	return true;
 }
 
@@ -91,9 +114,9 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	void (*func)() = reinterpret_cast<void (*)()>(
+	int (*func)(int, int) = reinterpret_cast<int (*)(int, int)>(
 					pExecutionEngine->getPointerToFunction(pFunction));
-	func();
+	::printf("%d\n", func(12, 34));
     pExecutionEngine->runStaticConstructorsDestructors(true);
 }
 
@@ -158,9 +181,9 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal sig, const Expr
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_Caller *pExpr)
 {
 	::printf("Caller\n");
-	_pValueResult = _builder.CreateCall(
-		_pModule->getFunction("puts"),
-		_builder.CreateGlobalStringPtr("hello world!"));
+	//_pValueResult = _builder.CreateCall(
+	//	_pModule->getFunction("puts"),
+	//	_builder.CreateGlobalStringPtr("hello world!"));
 	return true;
 }
 
