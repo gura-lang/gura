@@ -45,6 +45,37 @@ const char *Operator::_mathSymbolTbl[] = {
 	"=>",	// OPTYPE_Pair
 };
 
+Operator *Operator::Pos			= nullptr;
+Operator *Operator::Neg			= nullptr;
+Operator *Operator::Inv			= nullptr;
+Operator *Operator::Not			= nullptr;
+Operator *Operator::SeqInf		= nullptr;
+Operator *Operator::Question	= nullptr;
+Operator *Operator::Each		= nullptr;
+Operator *Operator::Add			= nullptr;
+Operator *Operator::Sub			= nullptr;
+Operator *Operator::Mul			= nullptr;
+Operator *Operator::Div			= nullptr;
+Operator *Operator::Mod			= nullptr;
+Operator *Operator::Pow			= nullptr;
+Operator *Operator::Eq			= nullptr;
+Operator *Operator::Ne			= nullptr;
+Operator *Operator::Gt			= nullptr;
+Operator *Operator::Lt			= nullptr;
+Operator *Operator::Ge			= nullptr;
+Operator *Operator::Le			= nullptr;
+Operator *Operator::Cmp			= nullptr;
+Operator *Operator::Contains	= nullptr;
+Operator *Operator::And			= nullptr;
+Operator *Operator::Or			= nullptr;
+Operator *Operator::Xor			= nullptr;
+Operator *Operator::Shl			= nullptr;
+Operator *Operator::Shr			= nullptr;
+Operator *Operator::OrOr		= nullptr;
+Operator *Operator::AndAnd		= nullptr;
+Operator *Operator::Seq			= nullptr;
+Operator *Operator::Pair		= nullptr;
+
 const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 {
 	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valType, suffixFlag));
@@ -1176,36 +1207,36 @@ void OperatorEntry::SetError_InvalidValueType(Signal &sig,
 //-----------------------------------------------------------------------------
 void Operator::Initialize(Environment &env)
 {
-	env.SetOperator(OPTYPE_Pos,			new Operator_Pos());
-	env.SetOperator(OPTYPE_Neg,			new Operator_Neg());
-	env.SetOperator(OPTYPE_Inv,			new Operator_Inv());
-	env.SetOperator(OPTYPE_Not,			new Operator_Not());
-	env.SetOperator(OPTYPE_SeqInf,		new Operator_SeqInf());
-	env.SetOperator(OPTYPE_Question,	new Operator_Question());
-	env.SetOperator(OPTYPE_Each,		new Operator_Each());
-	env.SetOperator(OPTYPE_Add,			new Operator_Add());
-	env.SetOperator(OPTYPE_Sub,			new Operator_Sub());
-	env.SetOperator(OPTYPE_Mul,			new Operator_Mul());
-	env.SetOperator(OPTYPE_Div,			new Operator_Div());
-	env.SetOperator(OPTYPE_Mod,			new Operator_Mod());
-	env.SetOperator(OPTYPE_Pow,			new Operator_Pow());
-	env.SetOperator(OPTYPE_Eq,			new Operator_Eq());
-	env.SetOperator(OPTYPE_Ne,			new Operator_Ne());
-	env.SetOperator(OPTYPE_Gt,			new Operator_Gt());
-	env.SetOperator(OPTYPE_Lt,			new Operator_Lt());
-	env.SetOperator(OPTYPE_Ge,			new Operator_Ge());
-	env.SetOperator(OPTYPE_Le,			new Operator_Le());
-	env.SetOperator(OPTYPE_Cmp,			new Operator_Cmp());
-	env.SetOperator(OPTYPE_Contains,	new Operator_Contains());
-	env.SetOperator(OPTYPE_And,			new Operator_And());
-	env.SetOperator(OPTYPE_Or,			new Operator_Or());
-	env.SetOperator(OPTYPE_Xor,			new Operator_Xor());
-	env.SetOperator(OPTYPE_Shl,			new Operator_Shl());
-	env.SetOperator(OPTYPE_Shr,			new Operator_Shr());
-	env.SetOperator(OPTYPE_OrOr,		new Operator_OrOr());
-	env.SetOperator(OPTYPE_AndAnd,		new Operator_AndAnd());
-	env.SetOperator(OPTYPE_Seq,			new Operator_Seq());
-	env.SetOperator(OPTYPE_Pair,		new Operator_Pair());
+	env.SetOperator(OPTYPE_Pos,			Operator::Pos		= new Operator_Pos());
+	env.SetOperator(OPTYPE_Neg,			Operator::Neg		= new Operator_Neg());
+	env.SetOperator(OPTYPE_Inv,			Operator::Inv		= new Operator_Inv());
+	env.SetOperator(OPTYPE_Not,			Operator::Not		= new Operator_Not());
+	env.SetOperator(OPTYPE_SeqInf,		Operator::SeqInf	= new Operator_SeqInf());
+	env.SetOperator(OPTYPE_Question,	Operator::Question	= new Operator_Question());
+	env.SetOperator(OPTYPE_Each,		Operator::Each		= new Operator_Each());
+	env.SetOperator(OPTYPE_Add,			Operator::Add		= new Operator_Add());
+	env.SetOperator(OPTYPE_Sub,			Operator::Sub		= new Operator_Sub());
+	env.SetOperator(OPTYPE_Mul,			Operator::Mul		= new Operator_Mul());
+	env.SetOperator(OPTYPE_Div,			Operator::Div		= new Operator_Div());
+	env.SetOperator(OPTYPE_Mod,			Operator::Mod		= new Operator_Mod());
+	env.SetOperator(OPTYPE_Pow,			Operator::Pow		= new Operator_Pow());
+	env.SetOperator(OPTYPE_Eq,			Operator::Eq		= new Operator_Eq());
+	env.SetOperator(OPTYPE_Ne,			Operator::Ne		= new Operator_Ne());
+	env.SetOperator(OPTYPE_Gt,			Operator::Gt		= new Operator_Gt());
+	env.SetOperator(OPTYPE_Lt,			Operator::Lt		= new Operator_Lt());
+	env.SetOperator(OPTYPE_Ge,			Operator::Ge		= new Operator_Ge());
+	env.SetOperator(OPTYPE_Le,			Operator::Le		= new Operator_Le());
+	env.SetOperator(OPTYPE_Cmp,			Operator::Cmp		= new Operator_Cmp());
+	env.SetOperator(OPTYPE_Contains,	Operator::Contains	= new Operator_Contains());
+	env.SetOperator(OPTYPE_And,			Operator::And		= new Operator_And());
+	env.SetOperator(OPTYPE_Or,			Operator::Or		= new Operator_Or());
+	env.SetOperator(OPTYPE_Xor,			Operator::Xor		= new Operator_Xor());
+	env.SetOperator(OPTYPE_Shl,			Operator::Shl		= new Operator_Shl());
+	env.SetOperator(OPTYPE_Shr,			Operator::Shr		= new Operator_Shr());
+	env.SetOperator(OPTYPE_OrOr,		Operator::OrOr		= new Operator_OrOr());
+	env.SetOperator(OPTYPE_AndAnd,		Operator::AndAnd	= new Operator_AndAnd());
+	env.SetOperator(OPTYPE_Seq,			Operator::Seq		= new Operator_Seq());
+	env.SetOperator(OPTYPE_Pair,		Operator::Pair		= new Operator_Pair());
 }
 
 }

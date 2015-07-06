@@ -104,6 +104,37 @@ private:
 	EntryDict _entryDict;
 	static const char *_mathSymbolTbl[];
 public:
+	static Operator *Pos;
+	static Operator *Neg;
+	static Operator *Inv;
+	static Operator *Not;
+	static Operator *SeqInf;
+	static Operator *Question;
+	static Operator *Each;
+	static Operator *Add;
+	static Operator *Sub;
+	static Operator *Mul;
+	static Operator *Div;
+	static Operator *Mod;
+	static Operator *Pow;
+	static Operator *Eq;
+	static Operator *Ne;
+	static Operator *Gt;
+	static Operator *Lt;
+	static Operator *Ge;
+	static Operator *Le;
+	static Operator *Cmp;
+	static Operator *Contains;
+	static Operator *And;
+	static Operator *Or;
+	static Operator *Xor;
+	static Operator *Shl;
+	static Operator *Shr;
+	static Operator *OrOr;
+	static Operator *AndAnd;
+	static Operator *Seq;
+	static Operator *Pair;
+public:
 	inline Operator(OpType opType, bool mapFlag = true) :
 		_opType(opType), _pSymbol(Symbol::Add(_mathSymbolTbl[opType])), _mapFlag(mapFlag) {}
 	inline OpType GetOpType() const { return _opType; }

@@ -81,6 +81,12 @@ extern "C" void SetValue_string(Value &dst, const char *str)
 	dst = Value(str);
 }
 
+extern "C" void BinaryOp_add(Value &dst, const char *str)
+{
+	::memset(&dst, 0x00, sizeof(dst));
+	dst = Value(str);
+}
+
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
@@ -353,11 +359,16 @@ bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr
 bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Expr_BinaryOp *pExpr)
 {
 	::printf("BinaryOp\n");
+	std::vector<llvm::Value *> args;
 	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *pValueLHS = _pValueResult;
+	args.push_back(_pValueResult);
 	if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *pValueRHS = _pValueResult;
-	_pValueResult = _builder.CreateFAdd(pValueLHS, pValueRHS);
+	args.push_back(_pValueResult);
+	_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
+	args.push_back(_pValueResult);
+	_builder.CreateCall(
+		_pModule->getFunction("BinaryOp_add"),
+		args);
 	return true;
 }
 
