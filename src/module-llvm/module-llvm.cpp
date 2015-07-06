@@ -49,15 +49,12 @@ void MakeValue(Value &value)
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
-	do {
-		// 
-		llvm::StructType *pStructType = llvm::StructType::create(
-			"Value",
-			_builder.getInt16Ty(),
-			_builder.getInt16Ty(),
-			_builder.getInt64Ty(),
-			nullptr);
-	} while (0);
+	llvm::StructType *pStructType_Hoge = llvm::StructType::create(
+		"struct.Hoge",
+		_builder.getInt16Ty(),
+		_builder.getInt16Ty(),
+		_builder.getInt64Ty(),
+		nullptr);
 	do {
 		// declare i32 @puts(i8*)
 		_pModule->getOrInsertFunction(
@@ -67,27 +64,39 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			nullptr);
 	} while (0);
 	do {
-		// define void @main(int8*, int32)
+		// define void @main(Hoge* pHoge, int32 *num)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"main",
 				_builder.getVoidTy(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt32Ty(),
+				pStructType_Hoge->getPointerTo(),
+				_builder.getInt32Ty()->getPointerTo(),
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
-		llvm::Value *pValue_x = pArg++;
-		llvm::Value *pValue_y = pArg++;
+		pArg->setName("pHoge");
+		llvm::Value *pValue_pHoge = pArg++;
+		pArg->setName("num");
+		llvm::Value *pValue_num = pArg++;
 		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
 		_builder.SetInsertPoint(pBasicBlock);
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
 		//_builder.CreateRet(_pValueResult);
 		//_builder.CreateRetVoid();
 		//_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
+		//_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0);
+		_builder.CreateStore(
+			llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
+			pValue_num);
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
 }
+
+struct Hoge {
+	UShort x;
+	UShort y;
+	UInt64 z;
+};
 
 void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 {
@@ -117,9 +126,12 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	int (*func)(int, int) = reinterpret_cast<int (*)(int, int)>(
+	int (*func)(Hoge &, int &) = reinterpret_cast<int (*)(Hoge &, int &)>(
 					pExecutionEngine->getPointerToFunction(pFunction));
-	::printf("%d\n", func(12, 34));
+	Hoge hoge;
+	int x;
+	func(hoge, x);
+	::printf("x = %d\n", x);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 }
 
