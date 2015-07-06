@@ -48,11 +48,13 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 
 extern "C" void MakeValue(Environment &env, Signal &sig, Value &result)
 {
+	::memset(&result, 0x00, sizeof(result));
 	result = Value("hello world");
 }
 
 extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const char *name)
 {
+	::memset(&result, 0x00, sizeof(result));
 	Value *pValue = env.LookupValue(Symbol::Add(name), ENVREF_Escalate);
 	if (pValue == NULL) {
 		sig.SetError(ERR_ValueError, "undefined variable %s", name);
@@ -61,21 +63,37 @@ extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const 
 	}
 }
 
+extern "C" void CopyValue(Value &dst, Value &src)
+{
+	::memset(&dst, 0x00, sizeof(dst));
+	dst = src;
+}
+
+extern "C" void SetValue_number(Value &dst, double num)
+{
+	::memset(&dst, 0x00, sizeof(dst));
+	dst = Value(num);
+}
+
+extern "C" void SetValue_string(Value &dst, const char *str)
+{
+	::memset(&dst, 0x00, sizeof(dst));
+	dst = Value(str);
+}
+
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
-	::printf("sizeof Value = %d\n", sizeof(Value));
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
 	_pStructType_Value = llvm::StructType::create(
 		"struct.Value",
-		_builder.getInt64Ty(),
-		_builder.getInt64Ty(),
+		llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
 		nullptr);
 	do {
 		// declare i32 @puts(i8*)
 		_pModule->getOrInsertFunction(
 			"puts",
-			_builder.getInt32Ty(),
-			_builder.getInt8Ty()->getPointerTo(),
+			_builder.getInt32Ty(),						// return
+			_builder.getInt8Ty()->getPointerTo(),		// argument #1
 			nullptr);
 	} while (0);
 	do {
@@ -83,10 +101,40 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"MakeValue",
-				_builder.getVoidTy(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value->getPointerTo(),
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// argument #1
+				_builder.getInt8Ty()->getPointerTo(),	// argument #2
+				_pStructType_Value->getPointerTo(),		// argument #3
+				nullptr));
+	} while (0);
+	do {
+		// declare void @CopyValue(struct.Value*, struct.Value*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"CopyValue",
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// argument #1
+				_builder.getInt8Ty()->getPointerTo(),	// argument #2
+				nullptr));
+	} while (0);
+	do {
+		// declare void @SetValue_number(struct.Value*, double)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"SetValue_number",
+				_builder.getVoidTy(),					// return
+				_pStructType_Value->getPointerTo(),		// argument #1
+				_builder.getDoubleTy(),					// argument #2
+				nullptr));
+	} while (0);
+	do {
+		// declare void @SetValue_string(struct.Value*, i8*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"SetValue_string",
+				_builder.getVoidTy(),					// return
+				_pStructType_Value->getPointerTo(),		// argument #1
+				_builder.getInt8Ty()->getPointerTo(),	// argument #2
 				nullptr));
 	} while (0);
 	do {
@@ -94,11 +142,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"LookupValue",
-				_builder.getVoidTy(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// argument #1
+				_builder.getInt8Ty()->getPointerTo(),	// argument #2
+				_pStructType_Value->getPointerTo(),		// argument #3
+				_builder.getInt8Ty()->getPointerTo(),	// argument #4
 				nullptr));
 	} while (0);
 	do {
@@ -126,12 +174,9 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		//_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
 		//_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0);
 		//_builder.CreateStore(
-		//	llvm::ConstantInt::get(_builder.getInt16Ty(), 12345),
-		//	_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0));
-		//_builder.CreateStore(
 		//	llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
 		//	pValue_num);
-#if 1
+#if 0
 		do {
 			std::vector<llvm::Value *> args;
 			args.push_back(_pValue_env);
@@ -150,6 +195,16 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_pModule->getFunction("puts"),
 				args);
 		} while (0);
+#endif
+#if 0
+		if (_pValueResult != nullptr) {
+			std::vector<llvm::Value *> args;
+			args.push_back(pValue_result);
+			args.push_back(_pValueResult);
+			_builder.CreateCall(
+				_pModule->getFunction("CopyValue"),
+				args);
+		}
 #endif
 		_builder.CreateRetVoid();
 	} while (0);
@@ -204,11 +259,24 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 	::printf("Value\n");
 	const Value &value = pExprValue->GetValue();
 	if (value.Is_number()) {
-		_pValueResult = llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble());
+		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
+		std::vector<llvm::Value *> args;
+		args.push_back(_pValueResult);
+		args.push_back(llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble()));
+		_builder.CreateCall(
+			_pModule->getFunction("SetValue_number"),
+			args);
 	} else if (value.Is_string()) {
-		_pValueResult = _builder.CreateGlobalStringPtr(value.GetString());
+		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
+		std::vector<llvm::Value *> args;
+		args.push_back(_pValueResult);
+		args.push_back(_builder.CreateGlobalStringPtr(value.GetString()));
+		_builder.CreateCall(
+			_pModule->getFunction("SetValue_string"),
+			args);
 	} else {
 		sig.SetError(ERR_SyntaxError, "GetCode_Value()");
+		return false;
 	}
 	return true;
 }
