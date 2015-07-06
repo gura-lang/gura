@@ -41,9 +41,9 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 {
 }
 
-void MakeValue(Value &value)
+extern "C" void MakeValue(Value &value, double num)
 {
-	value = Value(3);
+	value = Value(num);
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
@@ -62,6 +62,18 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_builder.getInt32Ty(),
 			_builder.getInt8Ty()->getPointerTo(),
 			nullptr);
+	} while (0);
+	do {
+		// declare void @MakeValue(i8* value, double num)
+		llvm::Function *pFunction = llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"MakeValue",
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getDoubleTy(),
+				nullptr));
+		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
+		pArg->setName("value"); pArg++;
+		pArg->setName("num"); pArg++;
 	} while (0);
 	do {
 		// define void @main(Hoge* pHoge, int32 *num)
@@ -84,6 +96,9 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		//_builder.CreateRetVoid();
 		//_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
 		//_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0);
+		//_builder.CreateStore(
+		//	llvm::ConstantInt::get(_builder.getInt16Ty(), 12345),
+		//	_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0));
 		_builder.CreateStore(
 			llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
 			pValue_num);
