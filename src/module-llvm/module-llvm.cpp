@@ -63,6 +63,7 @@ extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const 
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
+	::printf("sizeof Value = %d\n", sizeof(Value));
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
 	_pStructType_Value = llvm::StructType::create(
 		"struct.Value",
@@ -150,19 +151,6 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				args);
 		} while (0);
 #endif
-#if 1
-		do {
-			llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
-			std::vector<llvm::Value *> args;
-			args.push_back(_pValue_env);
-			args.push_back(_pValue_sig);
-			args.push_back(pValueResult);
-			args.push_back(_builder.CreateGlobalStringPtr("hoge"));
-			_builder.CreateCall(
-				_pModule->getFunction("LookupValue"),
-				args);
-		} while (0);
-#endif
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
@@ -228,12 +216,12 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr)
 {
 	::printf("Identifier\n");
-	_pValueResult = _builder.CreateAlloca(_builder.getInt8Ty(), nullptr);
+	_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
 	std::vector<llvm::Value *> args;
 	args.push_back(_pValue_env);
 	args.push_back(_pValue_sig);
-	args.push_back(_builder.CreateGlobalStringPtr(pExpr->GetSymbol()->GetName()));
 	args.push_back(_pValueResult);
+	args.push_back(_builder.CreateGlobalStringPtr(pExpr->GetSymbol()->GetName()));
 	_builder.CreateCall(
 		_pModule->getFunction("LookupValue"),
 		args);
