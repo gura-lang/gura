@@ -3,7 +3,7 @@ import(llvm)
 
 foo = 3
 llvm.gencode {
-	3
-	'hello world'
-	foo
+	foo + 3 + 4 + 2
+	//'hello world'
+	//foo
 }

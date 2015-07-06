@@ -81,10 +81,11 @@ extern "C" void SetValue_string(Value &dst, const char *str)
 	dst = Value(str);
 }
 
-extern "C" void BinaryOp_add(Value &dst, const char *str)
+extern "C" void BinaryOp_add(Environment &env, Signal &sig,
+							 Value &valueLeft, Value &valueRight, Value &valueAns)
 {
-	::memset(&dst, 0x00, sizeof(dst));
-	dst = Value(str);
+	::memset(&valueAns, 0x00, sizeof(valueAns));
+	valueAns = Operator::Add->EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
@@ -119,8 +120,8 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_pModule->getOrInsertFunction(
 				"CopyValue",
 				_builder.getVoidTy(),					// return
-				_builder.getInt8Ty()->getPointerTo(),	// argument #1
-				_builder.getInt8Ty()->getPointerTo(),	// argument #2
+				_pStructType_Value->getPointerTo(),		// argument #1
+				_pStructType_Value->getPointerTo(),		// argument #2
 				nullptr));
 	} while (0);
 	do {
@@ -153,6 +154,19 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_builder.getInt8Ty()->getPointerTo(),	// argument #2
 				_pStructType_Value->getPointerTo(),		// argument #3
 				_builder.getInt8Ty()->getPointerTo(),	// argument #4
+				nullptr));
+	} while (0);
+	do {
+		// declare void @BinaryOp_add(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"BinaryOp_add",
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// argument #1
+				_builder.getInt8Ty()->getPointerTo(),	// argument #2
+				_pStructType_Value->getPointerTo(),		// argument #3
+				_pStructType_Value->getPointerTo(),		// argument #4
+				_pStructType_Value->getPointerTo(),		// argument #5
 				nullptr));
 	} while (0);
 	do {
@@ -202,7 +216,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				args);
 		} while (0);
 #endif
-#if 0
+#if 1
 		if (_pValueResult != nullptr) {
 			std::vector<llvm::Value *> args;
 			args.push_back(pValue_result);
@@ -360,6 +374,8 @@ bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Exp
 {
 	::printf("BinaryOp\n");
 	std::vector<llvm::Value *> args;
+	args.push_back(_pValue_env);
+	args.push_back(_pValue_sig);
 	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
 	args.push_back(_pValueResult);
 	if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
