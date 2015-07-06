@@ -86,7 +86,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value,
+				_pStructType_Value->getPointerTo(),
 				nullptr));
 	} while (0);
 	do {
@@ -97,7 +97,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value,
+				_pStructType_Value->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
 				nullptr));
 	} while (0);
@@ -109,7 +109,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value,
+				_pStructType_Value->getPointerTo(),
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 		pArg->setName("env");
