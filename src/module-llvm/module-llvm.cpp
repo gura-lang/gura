@@ -41,9 +41,9 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 {
 }
 
-extern "C" void MakeValue(Value &value, double num)
+extern "C" void MakeValue(Environment &env, Signal &sig, Value &result)
 {
-	value = Value(num);
+	result = Value("hello world");
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
@@ -64,31 +64,33 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			nullptr);
 	} while (0);
 	do {
-		// declare void @MakeValue(i8* value, double num)
+		// declare void @MakeValue(i8*, i8*, i8*)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"MakeValue",
+				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getDoubleTy(),
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
 				nullptr));
-		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
-		pArg->setName("value"); pArg++;
-		pArg->setName("num"); pArg++;
 	} while (0);
 	do {
-		// define void @main(Hoge* pHoge, int32 *num)
+		// define void @GuraEntry(i8* env, i8* sig, i8* result)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"main",
+				"GuraEntry",
 				_builder.getVoidTy(),
-				pStructType_Hoge->getPointerTo(),
-				_builder.getInt32Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
-		pArg->setName("pHoge");
-		llvm::Value *pValue_pHoge = pArg++;
-		pArg->setName("num");
-		llvm::Value *pValue_num = pArg++;
+		pArg->setName("env");
+		llvm::Value *pValue_env = pArg++;
+		pArg->setName("sig");
+		llvm::Value *pValue_sig = pArg++;
+		pArg->setName("result");
+		llvm::Value *pValue_result = pArg++;
 		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
 		_builder.SetInsertPoint(pBasicBlock);
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
@@ -99,9 +101,29 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		//_builder.CreateStore(
 		//	llvm::ConstantInt::get(_builder.getInt16Ty(), 12345),
 		//	_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0));
-		_builder.CreateStore(
-			llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
-			pValue_num);
+		//_builder.CreateStore(
+		//	llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
+		//	pValue_num);
+#if 1
+		do {
+			std::vector<llvm::Value *> args;
+			args.push_back(pValue_env);
+			args.push_back(pValue_sig);
+			args.push_back(pValue_result);
+			_builder.CreateCall(
+				_pModule->getFunction("MakeValue"),
+				args);
+		} while (0);
+#endif
+#if 0
+		do {
+			std::vector<llvm::Value *> args;
+			args.push_back(_builder.CreateGlobalStringPtr("hello world!"));
+			_builder.CreateCall(
+				_pModule->getFunction("puts"),
+				args);
+		} while (0);
+#endif
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
@@ -136,17 +158,17 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 	}
 	pExecutionEngine->finalizeObject();
     pExecutionEngine->runStaticConstructorsDestructors(false);
-	llvm::Function *pFunction = pExecutionEngine->FindFunctionNamed("main");
-	if (pFunction == nullptr) {
+	llvm::Function *pFunction_GuraEntry = pExecutionEngine->FindFunctionNamed("GuraEntry");
+	if (pFunction_GuraEntry == nullptr) {
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	int (*func)(Hoge &, int &) = reinterpret_cast<int (*)(Hoge &, int &)>(
-					pExecutionEngine->getPointerToFunction(pFunction));
-	Hoge hoge;
-	int x;
-	func(hoge, x);
-	::printf("x = %d\n", x);
+	void (*pGuraEntry)(Environment &env, Signal &sig, Value &) =
+		reinterpret_cast<void (*)(Environment &env, Signal &sig, Value &)>(
+			pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
+	Value result;
+	(*pGuraEntry)(env, sig, result);
+	::printf("value = %s\n", result.ToString().c_str());
     pExecutionEngine->runStaticConstructorsDestructors(true);
 }
 
