@@ -14,6 +14,8 @@ private:
 	std::unique_ptr<llvm::Module> _pModule;
 	llvm::IRBuilder<> _builder;
 	llvm::Value *_pValueResult;
+	llvm::Value *_pValue_env;
+	llvm::Value *_pValue_sig;
 public:
 	CodeGeneratorLLVM();
 	inline llvm::Module *GetModule() { return _pModule.get(); }
@@ -37,13 +39,24 @@ public:
 };
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
-	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()), _pValueResult(nullptr)
+	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()),
+	_pValueResult(nullptr), _pValue_env(nullptr), _pValue_sig(nullptr)
 {
 }
 
 extern "C" void MakeValue(Environment &env, Signal &sig, Value &result)
 {
 	result = Value("hello world");
+}
+
+extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const char *name)
+{
+	Value *pValue = env.LookupValue(Symbol::Add(name), ENVREF_Escalate);
+	if (pValue == NULL) {
+		sig.SetError(ERR_ValueError, "undefined variable %s", name);
+	} else {
+		result = *pValue;
+	}
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
@@ -65,10 +78,22 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 	} while (0);
 	do {
 		// declare void @MakeValue(i8*, i8*, i8*)
-		llvm::Function *pFunction = llvm::cast<llvm::Function>(
+		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"MakeValue",
 				_builder.getVoidTy(),
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
+				_builder.getInt8Ty()->getPointerTo(),
+				nullptr));
+	} while (0);
+	do {
+		// declare void @LookupValue(i8*, i8*, i8*, i8*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"LookupValue",
+				_builder.getVoidTy(),
+				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
@@ -86,9 +111,9 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 		pArg->setName("env");
-		llvm::Value *pValue_env = pArg++;
+		_pValue_env = pArg++;
 		pArg->setName("sig");
-		llvm::Value *pValue_sig = pArg++;
+		_pValue_sig = pArg++;
 		pArg->setName("result");
 		llvm::Value *pValue_result = pArg++;
 		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
@@ -107,8 +132,8 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 #if 1
 		do {
 			std::vector<llvm::Value *> args;
-			args.push_back(pValue_env);
-			args.push_back(pValue_sig);
+			args.push_back(_pValue_env);
+			args.push_back(_pValue_sig);
 			args.push_back(pValue_result);
 			_builder.CreateCall(
 				_pModule->getFunction("MakeValue"),
@@ -124,6 +149,18 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				args);
 		} while (0);
 #endif
+		do {
+			llvm::Value *pValueResult = _builder.CreateAlloca(
+				_builder.getInt8Ty(), llvm::ConstantInt::get(_builder.getInt32Ty(), 64));
+			std::vector<llvm::Value *> args;
+			args.push_back(_pValue_env);
+			args.push_back(_pValue_sig);
+			args.push_back(pValueResult);
+			args.push_back(_builder.CreateGlobalStringPtr("hoge"));
+			_builder.CreateCall(
+				_pModule->getFunction("LookupValue"),
+				args);
+		} while (0);
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
@@ -189,6 +226,15 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr)
 {
 	::printf("Identifier\n");
+	_pValueResult = _builder.CreateAlloca(_builder.getInt8Ty(), nullptr);
+	std::vector<llvm::Value *> args;
+	args.push_back(_pValue_env);
+	args.push_back(_pValue_sig);
+	args.push_back(_builder.CreateGlobalStringPtr(pExpr->GetSymbol()->GetName()));
+	args.push_back(_pValueResult);
+	_builder.CreateCall(
+		_pModule->getFunction("LookupValue"),
+		args);
 	return true;
 }
 
