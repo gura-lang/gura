@@ -53,7 +53,9 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		// 
 		llvm::StructType *pStructType = llvm::StructType::create(
 			"Value",
-			_builder.getInt32Ty(),
+			_builder.getInt16Ty(),
+			_builder.getInt16Ty(),
+			_builder.getInt64Ty(),
 			nullptr);
 	} while (0);
 	do {
@@ -65,12 +67,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			nullptr);
 	} while (0);
 	do {
-		// define int32 @main(int32, int32)
+		// define void @main(int8*, int32)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"main",
-				_builder.getInt32Ty(),
-				_builder.getInt32Ty(),
+				_builder.getVoidTy(),
+				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt32Ty(),
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
@@ -81,7 +83,8 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
 		//_builder.CreateRet(_pValueResult);
 		//_builder.CreateRetVoid();
-		_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
+		//_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
+		_builder.CreateRetVoid();
 	} while (0);
 	return true;
 }
