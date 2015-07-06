@@ -66,8 +66,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
 	_pStructType_Value = llvm::StructType::create(
 		"struct.Value",
-		_builder.getInt16Ty(),
-		_builder.getInt16Ty(),
+		_builder.getInt64Ty(),
 		_builder.getInt64Ty(),
 		nullptr);
 	do {
@@ -151,7 +150,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				args);
 		} while (0);
 #endif
-#if 0
+#if 1
 		do {
 			llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
 			std::vector<llvm::Value *> args;
