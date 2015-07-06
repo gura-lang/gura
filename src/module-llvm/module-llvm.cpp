@@ -16,6 +16,7 @@ private:
 	llvm::Value *_pValueResult;
 	llvm::Value *_pValue_env;
 	llvm::Value *_pValue_sig;
+	llvm::StructType *_pStructType_Value;
 public:
 	CodeGeneratorLLVM();
 	inline llvm::Module *GetModule() { return _pModule.get(); }
@@ -40,7 +41,8 @@ public:
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
 	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()),
-	_pValueResult(nullptr), _pValue_env(nullptr), _pValue_sig(nullptr)
+	_pValueResult(nullptr), _pValue_env(nullptr), _pValue_sig(nullptr),
+	_pStructType_Value(nullptr)
 {
 }
 
@@ -62,8 +64,8 @@ extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
-	llvm::StructType *pStructType_Hoge = llvm::StructType::create(
-		"struct.Hoge",
+	_pStructType_Value = llvm::StructType::create(
+		"struct.Value",
 		_builder.getInt16Ty(),
 		_builder.getInt16Ty(),
 		_builder.getInt64Ty(),
@@ -77,37 +79,37 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			nullptr);
 	} while (0);
 	do {
-		// declare void @MakeValue(i8*, i8*, i8*)
+		// declare void @MakeValue(i8*, i8*, struct.Value*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"MakeValue",
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
+				_pStructType_Value,
 				nullptr));
 	} while (0);
 	do {
-		// declare void @LookupValue(i8*, i8*, i8*, i8*)
+		// declare void @LookupValue(i8*, i8*, struct.Value*, i8*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"LookupValue",
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
+				_pStructType_Value,
 				_builder.getInt8Ty()->getPointerTo(),
 				nullptr));
 	} while (0);
 	do {
-		// define void @GuraEntry(i8* env, i8* sig, i8* result)
+		// define void @GuraEntry(i8* env, i8* sig, %struct.Value* result)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
 				"GuraEntry",
 				_builder.getVoidTy(),
 				_builder.getInt8Ty()->getPointerTo(),
 				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
+				_pStructType_Value,
 				nullptr));
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 		pArg->setName("env");
@@ -149,9 +151,9 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				args);
 		} while (0);
 #endif
+#if 0
 		do {
-			llvm::Value *pValueResult = _builder.CreateAlloca(
-				_builder.getInt8Ty(), llvm::ConstantInt::get(_builder.getInt32Ty(), 64));
+			llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr);
 			std::vector<llvm::Value *> args;
 			args.push_back(_pValue_env);
 			args.push_back(_pValue_sig);
@@ -161,6 +163,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_pModule->getFunction("LookupValue"),
 				args);
 		} while (0);
+#endif
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
