@@ -46,13 +46,7 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 {
 }
 
-extern "C" void MakeValue(Environment &env, Signal &sig, Value &result)
-{
-	::memset(&result, 0x00, sizeof(result));
-	result = Value("hello world");
-}
-
-extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const char *name)
+extern "C" void Gura_LookupValue(Environment &env, Signal &sig, Value &result, const char *name)
 {
 	::memset(&result, 0x00, sizeof(result));
 	Value *pValue = env.LookupValue(Symbol::Add(name), ENVREF_Escalate);
@@ -63,29 +57,20 @@ extern "C" void LookupValue(Environment &env, Signal &sig, Value &result, const 
 	}
 }
 
-extern "C" void CopyValue(Value &dst, Value &src)
+extern "C" void Gura_SetValue_number(Value &dst, double num)
 {
-	::memset(&dst, 0x00, sizeof(dst));
-	dst = src;
+	Gura_CopyValue(dst, Value(num));
 }
 
-extern "C" void SetValue_number(Value &dst, double num)
+extern "C" void Gura_SetValue_string(Value &dst, const char *str)
 {
-	::memset(&dst, 0x00, sizeof(dst));
-	dst = Value(num);
+	Gura_CopyValue(dst, Value(str));
 }
 
-extern "C" void SetValue_string(Value &dst, const char *str)
-{
-	::memset(&dst, 0x00, sizeof(dst));
-	dst = Value(str);
-}
-
-extern "C" void BinaryOp_add(Environment &env, Signal &sig,
+extern "C" void Gura_BinaryOp_Add(Environment &env, Signal &sig,
 							 Value &valueResult, Value &valueLeft, Value &valueRight)
 {
-	::memset(&valueResult, 0x00, sizeof(valueResult));
-	valueResult = Operator::Add->EvalMapBinary(env, sig, valueLeft, valueRight);
+	Gura_CopyValue(valueResult, Operator::Add->EvalMapBinary(env, sig, valueLeft, valueRight));
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
@@ -104,51 +89,40 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			nullptr);
 	} while (0);
 	do {
-		// declare void @MakeValue(i8*, i8*, struct.Value*)
+		// declare void @Gura_CopyValue(struct.Value*, struct.Value*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"MakeValue",
-				_builder.getVoidTy(),					// return
-				_builder.getInt8Ty()->getPointerTo(),	// env
-				_builder.getInt8Ty()->getPointerTo(),	// sig
-				_pStructType_Value->getPointerTo(),		// value
-				nullptr));
-	} while (0);
-	do {
-		// declare void @CopyValue(struct.Value*, struct.Value*)
-		llvm::cast<llvm::Function>(
-			_pModule->getOrInsertFunction(
-				"CopyValue",
+				"Gura_CopyValue",
 				_builder.getVoidTy(),					// return
 				_pStructType_Value->getPointerTo(),		// valueDst
 				_pStructType_Value->getPointerTo(),		// valueSrc
 				nullptr));
 	} while (0);
 	do {
-		// declare void @SetValue_number(struct.Value*, double)
+		// declare void @Gura_SetValue_number(struct.Value*, double)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"SetValue_number",
+				"Gura_SetValue_number",
 				_builder.getVoidTy(),					// return
 				_pStructType_Value->getPointerTo(),		// value
 				_builder.getDoubleTy(),					// num
 				nullptr));
 	} while (0);
 	do {
-		// declare void @SetValue_string(struct.Value*, i8*)
+		// declare void @Gura_SetValue_string(struct.Value*, i8*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"SetValue_string",
+				"Gura_SetValue_string",
 				_builder.getVoidTy(),					// return
 				_pStructType_Value->getPointerTo(),		// value
 				_builder.getInt8Ty()->getPointerTo(),	// str
 				nullptr));
 	} while (0);
 	do {
-		// declare void @LookupValue(i8*, i8*, struct.Value*, i8*)
+		// declare void @Gura_LookupValue(i8*, i8*, struct.Value*, i8*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"LookupValue",
+				"Gura_LookupValue",
 				_builder.getVoidTy(),					// return
 				_builder.getInt8Ty()->getPointerTo(),	// env
 				_builder.getInt8Ty()->getPointerTo(),	// sig
@@ -157,10 +131,10 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				nullptr));
 	} while (0);
 	do {
-		// declare void @BinaryOp_add(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+		// declare void @Gura_BinaryOp_Add(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"BinaryOp_add",
+				"Gura_BinaryOp_Add",
 				_builder.getVoidTy(),					// return
 				_builder.getInt8Ty()->getPointerTo(),	// env
 				_builder.getInt8Ty()->getPointerTo(),	// sig
@@ -199,17 +173,6 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 #if 0
 		do {
 			std::vector<llvm::Value *> args;
-			args.push_back(_pValue_env);
-			args.push_back(_pValue_sig);
-			args.push_back(pValue_result);
-			_builder.CreateCall(
-				_pModule->getFunction("MakeValue"),
-				args);
-		} while (0);
-#endif
-#if 0
-		do {
-			std::vector<llvm::Value *> args;
 			args.push_back(_builder.CreateGlobalStringPtr("hello world!"));
 			_builder.CreateCall(
 				_pModule->getFunction("puts"),
@@ -222,7 +185,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			args.push_back(pValue_result);
 			args.push_back(_pValueResult);
 			_builder.CreateCall(
-				_pModule->getFunction("CopyValue"),
+				_pModule->getFunction("Gura_CopyValue"),
 				args);
 		}
 #endif
@@ -284,7 +247,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 		args.push_back(_pValueResult);
 		args.push_back(llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble()));
 		_builder.CreateCall(
-			_pModule->getFunction("SetValue_number"),
+			_pModule->getFunction("Gura_SetValue_number"),
 			args);
 	} else if (value.Is_string()) {
 		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
@@ -292,7 +255,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 		args.push_back(_pValueResult);
 		args.push_back(_builder.CreateGlobalStringPtr(value.GetString()));
 		_builder.CreateCall(
-			_pModule->getFunction("SetValue_string"),
+			_pModule->getFunction("Gura_SetValue_string"),
 			args);
 	} else {
 		sig.SetError(ERR_SyntaxError, "GetCode_Value()");
@@ -311,7 +274,7 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const E
 	args.push_back(_pValueResult);
 	args.push_back(_builder.CreateGlobalStringPtr(pExpr->GetSymbol()->GetName()));
 	_builder.CreateCall(
-		_pModule->getFunction("LookupValue"),
+		_pModule->getFunction("Gura_LookupValue"),
 		args);
 	return true;
 }
@@ -383,7 +346,7 @@ bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Exp
 	if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
 	args.push_back(_pValueResult);
 	_builder.CreateCall(
-		_pModule->getFunction("BinaryOp_add"),
+		_pModule->getFunction("Gura_BinaryOp_Add"),
 		args);
 	_pValueResult = pValueResult;
 	return true;
