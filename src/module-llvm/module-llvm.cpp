@@ -208,6 +208,19 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_pModule.get());
 	} while (0);
 	do {
+		// declare void @Gura_SetValue_list(i8*, struct.Value*)
+		llvm::Type *pTypeResult = _builder.getInt8Ty()->getPointerTo();	// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		bool isVarArg = false;
+		llvm::Function *pFunction = llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"Gura_SetValue_list",
+			_pModule.get());
+	} while (0);
+	do {
 		// declare void @Gura_LookupValue(i8*, i8*, struct.Value*, i8*)
 		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 		std::vector<llvm::Type *> typeArgs;
@@ -220,6 +233,19 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
 			"Gura_LookupValue",
+			_pModule.get());
+	} while (0);
+	do {
+		// declare void @Gura_AddValueList(i8*, struct.Value*)
+		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// valList
+		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		bool isVarArg = false;
+		llvm::Function *pFunction = llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"Gura_AddValueList",
 			_pModule.get());
 	} while (0);
 	for (const char *opName : {
@@ -412,7 +438,24 @@ bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_B
 bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_Lister *pExpr)
 {
 	::printf("Lister\n");
-	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	std::vector<llvm::Value *> args;
+	args.push_back(_pValue_env);
+	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	args.push_back(pValueResult);
+	llvm::Value *pValue_valList = _builder.CreateCall(
+		_pModule->getFunction("Gura_SetValue_list"),
+		args);
+	foreach_const (ExprOwner, ppExpr, pExpr->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (!pExpr->GenerateCode(env, sig, *this)) return false;
+		std::vector<llvm::Value *> args;
+		args.push_back(pValue_valList);
+		args.push_back(_pValueResult);
+		_builder.CreateCall(
+			_pModule->getFunction("Gura_AddValueList"),
+			args);
+	}
+	_pValueResult = pValueResult;
 	return true;
 }
 
