@@ -67,11 +67,57 @@ extern "C" void Gura_SetValue_string(Value &dst, const char *str)
 	Gura_CopyValue(dst, Value(str));
 }
 
-extern "C" void Gura_BinaryOp_Add(Environment &env, Signal &sig,
-							 Value &valueResult, Value &valueLeft, Value &valueRight)
-{
-	Gura_CopyValue(valueResult, Operator::Add->EvalMapBinary(env, sig, valueLeft, valueRight));
+#define ImplementPrefixedUnaryOpStub(name) \
+extern "C" void Gura_UnaryOp_##name(Environment &env, Signal &sig, \
+									Value &valueResult, Value &value)	\
+{ \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, false)); \
 }
+
+#define ImplementSuffixedUnaryOpStub(name) \
+extern "C" void Gura_UnaryOp_##name(Environment &env, Signal &sig, \
+									Value &valueResult, Value &value)	\
+{ \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, true)); \
+}
+
+#define ImplementBinaryOpStub(name) \
+extern "C" void Gura_BinaryOp_##name(Environment &env, Signal &sig, \
+					Value &valueResult, Value &valueLeft, Value &valueRight) \
+{ \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapBinary(env, sig, valueLeft, valueRight)); \
+}
+
+ImplementPrefixedUnaryOpStub(Pos)
+ImplementPrefixedUnaryOpStub(Neg)
+ImplementPrefixedUnaryOpStub(Inv)
+ImplementPrefixedUnaryOpStub(Not)
+ImplementSuffixedUnaryOpStub(SeqInf)
+ImplementSuffixedUnaryOpStub(Question)
+ImplementPrefixedUnaryOpStub(Each)
+ImplementBinaryOpStub(Add)
+ImplementBinaryOpStub(Sub)
+ImplementBinaryOpStub(Mul)
+ImplementBinaryOpStub(Div)
+ImplementBinaryOpStub(Mod)
+ImplementBinaryOpStub(Pow)
+ImplementBinaryOpStub(Eq)
+ImplementBinaryOpStub(Ne)
+ImplementBinaryOpStub(Gt)
+ImplementBinaryOpStub(Lt)
+ImplementBinaryOpStub(Ge)
+ImplementBinaryOpStub(Le)
+ImplementBinaryOpStub(Cmp)
+ImplementBinaryOpStub(Contains)
+ImplementBinaryOpStub(And)
+ImplementBinaryOpStub(Or)
+ImplementBinaryOpStub(Xor)
+ImplementBinaryOpStub(Shl)
+ImplementBinaryOpStub(Shr)
+ImplementBinaryOpStub(OrOr)
+ImplementBinaryOpStub(AndAnd)
+ImplementBinaryOpStub(Seq)
+ImplementBinaryOpStub(Pair)
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
@@ -130,11 +176,15 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_builder.getInt8Ty()->getPointerTo(),	// name
 				nullptr));
 	} while (0);
-	do {
-		// declare void @Gura_BinaryOp_Add(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+	for (const char *opName : {
+				"Add", "Sub", "Mul", "Div", "Mod", "Pow",
+				"Eq", "Ne", "Gt", "lt", "Ge", "Lt", "Ge", "Le", "Cmp", "Contains",
+				"And", "Or", "Xor",	"Shl", "Shr", "OrOr", "AndAnd",
+				"Seq", "Pair" }) {
+		// declare void @Gura_BinaryOp_*(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
 		llvm::cast<llvm::Function>(
 			_pModule->getOrInsertFunction(
-				"Gura_BinaryOp_Add",
+				std::string("Gura_BinaryOp_") + opName,
 				_builder.getVoidTy(),					// return
 				_builder.getInt8Ty()->getPointerTo(),	// env
 				_builder.getInt8Ty()->getPointerTo(),	// sig
@@ -142,7 +192,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_pStructType_Value->getPointerTo(),		// valueLeft
 				_pStructType_Value->getPointerTo(),		// valueRight
 				nullptr));
-	} while (0);
+	}
 	do {
 		// define void @GuraEntry(i8* env, i8* sig, %struct.Value* valueResult)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
@@ -346,7 +396,7 @@ bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Exp
 	if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
 	args.push_back(_pValueResult);
 	_builder.CreateCall(
-		_pModule->getFunction("Gura_BinaryOp_Add"),
+		_pModule->getFunction(std::string("Gura_BinaryOp_") + pExpr->GetOperator()->GetName()),
 		args);
 	_pValueResult = pValueResult;
 	return true;
