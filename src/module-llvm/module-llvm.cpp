@@ -122,7 +122,15 @@ ImplementBinaryOpStub(Pair)
 extern "C" void Gura_CallFunction(Environment &env, Signal &sig,
 								  Value &valueResult, const Value &valueCar, const Value &valueArg)
 {
-	Gura_CopyValue(valueResult, Value::Null);
+	if (!valueCar.Is_function()) {
+		sig.SetError(ERR_TypeError, "object is not a function");
+		Gura_CopyValue(valueResult, Value::Null);
+		return;
+	}
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->AddValue(valueArg);
+	const Function *pFunc = valueCar.GetFunction();
+	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
 }
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)

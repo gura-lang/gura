@@ -1,7 +1,9 @@
 #!/usr/bin/env gura
 import(llvm)
 
-sub(n) = {}
+sub(n) = {
+	println('hello', n)
+}
 
 foo = 3
 llvm.gencode {
