@@ -6,6 +6,40 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
+// Functions to manage Value resources
+//-----------------------------------------------------------------------------
+void Gura_ReleaseValue(Value &value)
+{
+	if (value.GetTinyBuffFlag()) {
+		// nothing to do
+	} else if (value.Is_complex()) {
+		delete value._u.pComp;
+		value._u.pComp = nullptr;
+	} else if (value.Is_rational()) {
+		delete value._u.pRatio;
+		value._u.pRatio = nullptr;
+	} else if (value.Is_string()) {
+		StringRef::Delete(value._u.pStrRef);
+		value._u.pStrRef = nullptr;
+	} else if (value.IsObject()) {
+		if (value.IsOwner()) Object::Delete(value._u.pObj);
+		value._u.pObj = nullptr;
+	} else if (value.IsModule()) {
+		if (value.IsOwner()) Module::Delete(value._u.pModule);
+		value._u.pModule = nullptr;
+	} else if (value.IsClass()) {
+		if (value.IsOwner()) Class::Delete(value._u.pClass);
+		value._u.pClass = nullptr;
+	} else if (value.IsSequence()) {
+		if (value.IsOwner()) Sequence::Delete(value._u.pSequence);
+		value._u.pSequence = nullptr;
+	} else { // Number, Boolean
+		// nothing to do
+	}
+	value._valType = VTYPE_nil;
+}
+
+//-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
 const Value Value::Null;
@@ -57,10 +91,10 @@ Value::~Value()
 	if (IsInvalid()) return;
 	// when the application terminates, it calls a destructor for statically
 	// defined values such as Value::Null. until that timing, it's likely
-	// that VTYPE_xxxx referenced in FreeResource() are not initialized and
+	// that VTYPE_xxxx referenced in Gura_ReleaseValue() are not initialized and
 	// it causes application error. to avoid such a case, the above line is
 	// necessary.
-	FreeResource();
+	Gura_ReleaseValue(*this);
 }
 
 // VTYPE_string
@@ -97,40 +131,9 @@ Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VF
 	}
 }
 
-void Value::FreeResource()
-{
-	if (GetTinyBuffFlag()) {
-		// nothing to do
-	} else if (Is_complex()) {
-		delete _u.pComp;
-		_u.pComp = nullptr;
-	} else if (Is_rational()) {
-		delete _u.pRatio;
-		_u.pRatio = nullptr;
-	} else if (Is_string()) {
-		StringRef::Delete(_u.pStrRef);
-		_u.pStrRef = nullptr;
-	} else if (IsObject()) {
-		if (IsOwner()) Object::Delete(_u.pObj);
-		_u.pObj = nullptr;
-	} else if (IsModule()) {
-		if (IsOwner()) Module::Delete(_u.pModule);
-		_u.pModule = nullptr;
-	} else if (IsClass()) {
-		if (IsOwner()) Class::Delete(_u.pClass);
-		_u.pClass = nullptr;
-	} else if (IsSequence()) {
-		if (IsOwner()) Sequence::Delete(_u.pSequence);
-		_u.pSequence = nullptr;
-	} else { // Number, Boolean
-		// nothing to do
-	}
-	_valType = VTYPE_nil;
-}
-
 Value &Value::operator=(const Value &value)
 {
-	FreeResource();
+	Gura_ReleaseValue(*this);
 	_valType = value._valType;
 	_valFlags = value._valFlags;
 	if (GetTinyBuffFlag()) {
@@ -544,19 +547,19 @@ bool Value::Accept(ValueVisitor &visitor) const
 
 void Value::InitAsModule(Module *pModule)
 {
-	FreeResource();
+	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Module, _u.pModule = pModule;
 }
 
 void Value::InitAsClass(Class *pClass)
 {
-	FreeResource();
+	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Class, _u.pClass = pClass;
 }
 
 void Value::InitAsObject(Object *pObj)
 {
-	FreeResource();
+	Gura_ReleaseValue(*this);
 	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
 	_valFlags = VFLAG_Owner;
 }

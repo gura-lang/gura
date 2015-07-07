@@ -12,6 +12,7 @@
 #include "Complex.h"
 #include "Rational.h"
 
+
 namespace Gura {
 
 class Expr;
@@ -41,6 +42,11 @@ enum {
 	VFLAG_NoMap			= (1 << 3),
 	// b15-b8 are reserved for super-skip count
 };
+
+//-----------------------------------------------------------------------------
+// Functions to manage Value resources
+//-----------------------------------------------------------------------------
+extern "C" void Gura_ReleaseValue(Value &value);
 
 //-----------------------------------------------------------------------------
 // Value
@@ -284,16 +290,16 @@ public:
 	inline bool MustBe_timedelta(Signal &sig) const		{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
 	inline bool MustBe_uri(Signal &sig) const			{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline void SetSymbol(const Symbol *pSymbol) {
-		FreeResource(); _valType = VTYPE_symbol, _u.pSymbol = pSymbol;
+		Gura_ReleaseValue(*this); _valType = VTYPE_symbol, _u.pSymbol = pSymbol;
 	}
 	inline void SetBoolean(bool flag) {
-		FreeResource(); _valType = VTYPE_boolean, _u.flag = flag;
+		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;
 	}
 	inline void SetNumber(Number num) {
-		FreeResource(); _valType = VTYPE_number, _u.num = num;
+		Gura_ReleaseValue(*this); _valType = VTYPE_number, _u.num = num;
 	}
 	inline void SetComplex(const Complex &comp) {
-		FreeResource();
+		Gura_ReleaseValue(*this);
 		if (comp.imag() == 0.) {
 			 _valType = VTYPE_number, _u.num = comp.real();
 		} else {
@@ -301,7 +307,7 @@ public:
 		}
 	}
 	inline void SetRational(const Rational &ratio) {
-		FreeResource();
+		Gura_ReleaseValue(*this);
 		_valType = VTYPE_rational, _u.pRatio = new Rational(ratio);
 	}
 	inline Number GetNumber() const {
@@ -448,8 +454,8 @@ public:
 	static Value CreateList(Environment &env, const char *strs[], size_t n);
 	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
 	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
-private:
-	void FreeResource();
+public:
+	friend void Gura_ReleaseValue(Value &value);
 };
 
 //-----------------------------------------------------------------------------
