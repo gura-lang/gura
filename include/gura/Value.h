@@ -416,6 +416,7 @@ public:
 	void InitAsModule(Module *pModule);
 	void InitAsClass(Class *pClass);
 	void InitAsObject(Object *pObj);
+	void _SetObject(Object *pObj);
 	ValueList &InitAsList(Environment &env);
 	ValueList &InitAsList(Environment &env, size_t n);
 	ValueList &InitAsList(Environment &env, const ValueList &valList);

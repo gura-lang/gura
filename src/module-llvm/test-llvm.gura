@@ -7,11 +7,12 @@ sub(n) = {
 
 foo = 3
 llvm.gencode {
-	repeat (10) {|i|
-		println(i)
-	}
-	printf('hello %d %d\n', 3, 4)
-	sub(3)
+	[1, 2, 3, 4, 5]
+	//repeat (10) {|i|
+	//	println(i)
+	//}
+	//printf('hello %d %d\n', 3, 4)
+	//sub(3)
 	//foo + 3 + 4 + 2 * 3
 	//-(3 + 4)
 	//'hello world'

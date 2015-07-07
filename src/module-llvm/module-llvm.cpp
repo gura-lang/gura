@@ -57,14 +57,26 @@ extern "C" void Gura_LookupValue(Environment &env, Signal &sig, Value &result, c
 	}
 }
 
-extern "C" void Gura_SetValue_number(Value &dst, double num)
+extern "C" void Gura_AddValueList(ValueList &valList, const Value &value)
 {
-	Gura_CopyValue(dst, Value(num));
+	valList.push_back(value);
 }
 
-extern "C" void Gura_SetValue_string(Value &dst, const char *str)
+extern "C" void Gura_SetValue_number(Value &value, double num)
 {
-	Gura_CopyValue(dst, Value(str));
+	Gura_CopyValue(value, Value(num));
+}
+
+extern "C" void Gura_SetValue_string(Value &value, const char *str)
+{
+	Gura_CopyValue(value, Value(str));
+}
+
+extern "C" ValueList &Gura_SetValue_list(Environment &env, Value &value)
+{
+	Object_list *pObj = new Object_list(env);
+	value._SetObject(pObj);
+	return pObj->GetList();
 }
 
 #define ImplementPrefixedUnaryOpStub(name) \
@@ -260,7 +272,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			llvm::Function::ExternalLinkage,
 			"Gura_CallFunction",
 			_pModule.get());
-		pFunction->setCallingConv(llvm::CallingConv::C);
+		//pFunction->setCallingConv(llvm::CallingConv::C);
 	} while (0);
 	do {
 		// define void @GuraEntry(i8* env, i8* sig, %struct.Value* valueResult)
@@ -400,12 +412,14 @@ bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_B
 bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_Lister *pExpr)
 {
 	::printf("Lister\n");
+	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, Signal sig, const Expr_Iterer *pExpr)
 {
 	::printf("Iterer\n");
+	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
 	return true;
 }
 

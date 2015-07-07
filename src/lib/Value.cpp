@@ -597,17 +597,25 @@ void Value::InitAsModule(Module *pModule)
 {
 	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Module, _u.pModule = pModule;
+	_valFlags = VFLAG_Owner;
 }
 
 void Value::InitAsClass(Class *pClass)
 {
 	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Class, _u.pClass = pClass;
+	_valFlags = VFLAG_Owner;
 }
 
 void Value::InitAsObject(Object *pObj)
 {
 	Gura_ReleaseValue(*this);
+	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
+	_valFlags = VFLAG_Owner;
+}
+
+void Value::_SetObject(Object *pObj)
+{
 	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
 	_valFlags = VFLAG_Owner;
 }
@@ -635,8 +643,8 @@ ValueList &Value::InitAsList(Environment &env, const ValueList &valList)
 
 ValueList &Value::InitAsList(Environment &env, size_t n, const Value &value)
 {
-	Object_list *pObj =
-			(n == 0)? new Object_list(env) : new Object_list(env, n, value);
+	Object_list *pObj = (n == 0)?
+		new Object_list(env) : new Object_list(env, n, value);
 	InitAsObject(pObj);
 	return pObj->GetList();
 }
