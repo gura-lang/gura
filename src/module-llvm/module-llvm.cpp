@@ -275,16 +275,6 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			llvm::Function::ExternalLinkage,
 			"GuraEntry",
 			_pModule.get());
-#if 0
-		llvm::Function *pFunction = llvm::cast<llvm::Function>(
-			_pModule->getOrInsertFunction(
-				"GuraEntry",
-				_builder.getVoidTy(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_builder.getInt8Ty()->getPointerTo(),
-				_pStructType_Value->getPointerTo(),
-				nullptr));
-#endif
 		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 		pArg->setName("env");
 		_pValue_env = pArg++;
@@ -295,23 +285,6 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
 		_builder.SetInsertPoint(pBasicBlock);
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
-		//_builder.CreateRet(_pValueResult);
-		//_builder.CreateRetVoid();
-		//_builder.CreateRet(_builder.CreateAdd(pValue_x, pValue_y));
-		//_pValue_pHoge->getOffsetOf(pStructType_Hoge, 0);
-		//_builder.CreateStore(
-		//	llvm::ConstantInt::get(_builder.getInt32Ty(), 12345),
-		//	pValue_num);
-#if 0
-		do {
-			std::vector<llvm::Value *> args;
-			args.push_back(_builder.CreateGlobalStringPtr("hello world!"));
-			_builder.CreateCall(
-				_pModule->getFunction("puts"),
-				args);
-		} while (0);
-#endif
-#if 1
 		if (_pValueResult != nullptr) {
 			std::vector<llvm::Value *> args;
 			args.push_back(pValue_result);
@@ -320,17 +293,10 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_pModule->getFunction("Gura_CopyValue"),
 				args);
 		}
-#endif
 		_builder.CreateRetVoid();
 	} while (0);
 	return true;
 }
-
-struct Hoge {
-	UShort x;
-	UShort y;
-	UInt64 z;
-};
 
 void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 {
