@@ -7,6 +7,7 @@ sub(n) = {
 
 foo = 3
 llvm.gencode {
+	printf('hello %d %d\n', 3, 4)
 	sub(3)
 	//foo + 3 + 4 + 2 * 3
 	//-(3 + 4)

@@ -120,15 +120,19 @@ ImplementBinaryOpStub(Seq)
 ImplementBinaryOpStub(Pair)
 
 extern "C" void Gura_CallFunction(Environment &env, Signal &sig,
-								  Value &valueResult, const Value &valueCar, const Value &valueArg)
+					  Value &valueResult, const Value &valueCar, ...)
 {
 	if (!valueCar.Is_function()) {
 		sig.SetError(ERR_TypeError, "object is not a function");
 		Gura_CopyValue(valueResult, Value::Null);
 		return;
 	}
+	va_list vargs;
+	va_start(vargs, valueCar);
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->AddValue(valueArg);
+	while (Value *pValue = va_arg(vargs, Value *)) {
+		pArgs->AddValue(*pValue);
+	}
 	const Function *pFunc = valueCar.GetFunction();
 	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
 }
@@ -243,14 +247,13 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_pModule.get());
 	}
 	do {
-		// declare void @Gura_CallFunction(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+		// declare void @Gura_CallFunction(i8*, i8*, struct.Value*, struct.Value*, ...)
 		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
 		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());		// ValueCar
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueArg
 		bool isVarArg = true;
 		llvm::Function *pFunction = llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -464,6 +467,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 			if (!pExprArg->GenerateCode(env, sig, *this)) return false;
 			args.push_back(_pValueResult);
 		}
+		args.push_back(llvm::ConstantPointerNull::get(_pStructType_Value->getPointerTo()));
 		_builder.CreateCall(
 			_pModule->getFunction("Gura_CallFunction"),
 			args);
