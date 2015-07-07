@@ -177,6 +177,19 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				nullptr));
 	} while (0);
 	for (const char *opName : {
+				"Pos", "Neg", "Inv", "Not", "SeqInf", "Question", "Each" }) {
+		// declare void @Gura_UnaryOp_*(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				std::string("Gura_UnaryOp_") + opName,
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// env
+				_builder.getInt8Ty()->getPointerTo(),	// sig
+				_pStructType_Value->getPointerTo(),		// valueResult
+				_pStructType_Value->getPointerTo(),		// value
+				nullptr));
+	}
+	for (const char *opName : {
 				"Add", "Sub", "Mul", "Div", "Mod", "Pow",
 				"Eq", "Ne", "Gt", "lt", "Ge", "Lt", "Ge", "Le", "Cmp", "Contains",
 				"And", "Or", "Xor",	"Shl", "Shr", "OrOr", "AndAnd",
@@ -379,7 +392,17 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr_UnaryOp *pExpr)
 {
 	::printf("UnaryOp\n");
-	pExpr->GetChild()->GenerateCode(env, sig, *this);
+	std::vector<llvm::Value *> args;
+	args.push_back(_pValue_env);
+	args.push_back(_pValue_sig);
+	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	args.push_back(pValueResult);
+	if (!pExpr->GetChild()->GenerateCode(env, sig, *this)) return false;
+	args.push_back(_pValueResult);
+	_builder.CreateCall(
+		_pModule->getFunction(std::string("Gura_UnaryOp_") + pExpr->GetOperator()->GetName()),
+		args);
+	_pValueResult = pValueResult;
 	return true;
 }
 
