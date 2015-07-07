@@ -69,21 +69,21 @@ extern "C" void Gura_SetValue_string(Value &dst, const char *str)
 
 #define ImplementPrefixedUnaryOpStub(name) \
 extern "C" void Gura_UnaryOp_##name(Environment &env, Signal &sig, \
-									Value &valueResult, Value &value)	\
+									Value &valueResult, const Value &value)	\
 { \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, false)); \
 }
 
 #define ImplementSuffixedUnaryOpStub(name) \
 extern "C" void Gura_UnaryOp_##name(Environment &env, Signal &sig, \
-									Value &valueResult, Value &value)	\
+									Value &valueResult, const Value &value)	\
 { \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, true)); \
 }
 
 #define ImplementBinaryOpStub(name) \
 extern "C" void Gura_BinaryOp_##name(Environment &env, Signal &sig, \
-					Value &valueResult, Value &valueLeft, Value &valueRight) \
+					Value &valueResult, const Value &valueLeft, const Value &valueRight) \
 { \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapBinary(env, sig, valueLeft, valueRight)); \
 }
@@ -118,6 +118,12 @@ ImplementBinaryOpStub(OrOr)
 ImplementBinaryOpStub(AndAnd)
 ImplementBinaryOpStub(Seq)
 ImplementBinaryOpStub(Pair)
+
+extern "C" void Gura_CallFunction(Environment &env, Signal &sig,
+								  Value &valueResult, const Value &valueCar, const Value &valueArg)
+{
+	Gura_CopyValue(valueResult, Value::Null);
+}
 
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
@@ -206,6 +212,19 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 				_pStructType_Value->getPointerTo(),		// valueRight
 				nullptr));
 	}
+	do {
+		// declare void @Gura_CallFunction(i8*, i8*, struct.Value*, struct.Value*, struct.Value*)
+		llvm::cast<llvm::Function>(
+			_pModule->getOrInsertFunction(
+				"Gura_CallFunction",
+				_builder.getVoidTy(),					// return
+				_builder.getInt8Ty()->getPointerTo(),	// env
+				_builder.getInt8Ty()->getPointerTo(),	// sig
+				_pStructType_Value->getPointerTo(),		// valueResult
+				_pStructType_Value->getPointerTo(),		// valueCar
+				_pStructType_Value->getPointerTo(),		// valueArg
+				nullptr));
+	} while (0);
 	do {
 		// define void @GuraEntry(i8* env, i8* sig, %struct.Value* valueResult)
 		llvm::Function *pFunction = llvm::cast<llvm::Function>(
@@ -383,9 +402,26 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal sig, const Expr
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_Caller *pExpr)
 {
 	::printf("Caller\n");
-	//_pValueResult = _builder.CreateCall(
-	//	_pModule->getFunction("puts"),
-	//	_builder.CreateGlobalStringPtr("hello world!"));
+	if (pExpr->GetCar()->IsMember()) {
+		
+	} else {
+		std::vector<llvm::Value *> args;
+		args.push_back(_pValue_env);
+		args.push_back(_pValue_sig);
+		llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		args.push_back(pValueResult);
+		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
+		args.push_back(_pValueResult);
+		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
+			const Expr *pExprArg = *ppExprArg;
+			if (!pExprArg->GenerateCode(env, sig, *this)) return false;
+			args.push_back(_pValueResult);
+		}
+		_builder.CreateCall(
+			_pModule->getFunction("Gura_CallFunction"),
+			args);
+		_pValueResult = pValueResult;
+	}
 	return true;
 }
 

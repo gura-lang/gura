@@ -1,10 +1,13 @@
 #!/usr/bin/env gura
 import(llvm)
 
+sub(n) = {}
+
 foo = 3
 llvm.gencode {
-	foo + 3 + 4 + 2 * 3
-	-(3 + 4)
+	sub(3)
+	//foo + 3 + 4 + 2 * 3
+	//-(3 + 4)
 	//'hello world'
 	//foo
 }
