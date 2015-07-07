@@ -9,40 +9,40 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
-const char *Operator::_mathSymbolTbl[] = {
-	"",		// OPTYPE_None
+const Operator::SymbolInfo Operator::_symbolInfoTbl[] = {
+	{ "",		"None"		},
 	// unary operators
-	"+",	// OPTYPE_Pos
-	"-",	// OPTYPE_Neg
-	"~",	// OPTYPE_Inv
-	"!",	// OPTYPE_Not
-	"..",	// OPTYPE_SeqInf
-	"?",	// OPTYPE_Question
-	"*",	// OPTYPE_Each
+	{ "+",		"Pos"		},
+	{ "-",		"Neg"		},
+	{ "~",		"Inv"		},
+	{ "!",		"Not"		},
+	{ "..",		"SeqInf"	},
+	{ "?",		"Question"	},
+	{ "*",		"Each"		},
 	// binary operators
-	"+",	// OPTYPE_Add
-	"-",	// OPTYPE_Sub
-	"*",	// OPTYPE_Mul
-	"/",	// OPTYPE_Div
-	"%",	// OPTYPE_Mod
-	"**",	// OPTYPE_Pow
-	"==",	// OPTYPE_Eq
-	"!=",	// OPTYPE_Ne
-	">",	// OPTYPE_Gt
-	"<",	// OPTYPE_Lt
-	">=",	// OPTYPE_Ge
-	"<=",	// OPTYPE_Le
-	"<=>",	// OPTYPE_Cmp
-	"in",	// OPTYPE_Contains
-	"&",	// OPTYPE_And
-	"|",	// OPTYPE_Or
-	"^",	// OPTYPE_Xor
-	"<<",	// OPTYPE_Shl
-	">>",	// OPTYPE_Shr
-	"||",	// OPTYPE_OrOr
-	"&&",	// OPTYPE_AndAnd
-	"..",	// OPTYPE_Seq
-	"=>",	// OPTYPE_Pair
+	{ "+",		"Add"		},
+	{ "-",		"Sub"		},
+	{ "*",		"Mul"		},
+	{ "/",		"Div"		},
+	{ "%",		"Mod"		},
+	{ "**",		"Pow"		},
+	{ "==",		"Eq"		},
+	{ "!=",		"Ne"		},
+	{ ">",		"Gt"		},
+	{ "<",		"Lt"		},
+	{ ">=",		"Ge"		},
+	{ "<=",		"Le"		},
+	{ "<=>",	"Cmp"		},
+	{ "in",		"Contains"	},
+	{ "&",		"And"		},
+	{ "|",		"Or"		},
+	{ "^",		"Xor"		},
+	{ "<<",		"Shl"		},
+	{ ">>",		"Shr"		},
+	{ "||",		"OrOr"		},
+	{ "&&",		"AndAnd"	},
+	{ "..",		"Seq"		},
+	{ "=>",		"Pair"		},
 };
 
 Operator *Operator::Pos			= nullptr;
@@ -199,7 +199,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal sig,
 OpType Operator::LookupUnaryOpType(const char *str)
 {
 	for (size_t i = OPTYPE_unary; i < OPTYPE_binary; i++) {
-		if (::strcmp(_mathSymbolTbl[i], str) == 0) return static_cast<OpType>(i);
+		if (::strcmp(_symbolInfoTbl[i].symbol, str) == 0) return static_cast<OpType>(i);
 	}
 	return OPTYPE_None;
 }
@@ -207,7 +207,7 @@ OpType Operator::LookupUnaryOpType(const char *str)
 OpType Operator::LookupBinaryOpType(const char *str)
 {
 	for (size_t i = OPTYPE_binary; i < OPTYPE_max; i++) {
-		if (::strcmp(_mathSymbolTbl[i], str) == 0) return static_cast<OpType>(i);
+		if (::strcmp(_symbolInfoTbl[i].symbol, str) == 0) return static_cast<OpType>(i);
 	}
 	return OPTYPE_None;
 }
@@ -231,10 +231,10 @@ void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 {
 	if (suffixFlag) {
 		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-					value.MakeValueTypeName().c_str(), GetMathSymbol(opType));
+					value.MakeValueTypeName().c_str(), GetSymbolInfo(opType).symbol);
 	} else {
 		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-					GetMathSymbol(opType), value.MakeValueTypeName().c_str());
+					GetSymbolInfo(opType).symbol, value.MakeValueTypeName().c_str());
 	}
 }
 
@@ -242,7 +242,8 @@ void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 						const Value &valueLeft, const Value &valueRight)
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-		valueLeft.MakeValueTypeName().c_str(), GetMathSymbol(opType), valueRight.MakeValueTypeName().c_str());
+				 valueLeft.MakeValueTypeName().c_str(), GetSymbolInfo(opType).symbol,
+				 valueRight.MakeValueTypeName().c_str());
 }
 
 void Operator::SetError_DivideByZero(Signal &sig)

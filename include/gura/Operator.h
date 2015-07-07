@@ -46,7 +46,7 @@ Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
 
 namespace Gura {
 
-// the order of Operator::_mathSymbolTbl depends on OpType numbers.
+// the order of Operator::_symbolInfoTbl depends on OpType numbers.
 enum OpType {
 	OPTYPE_None,
 	// unary operators
@@ -95,6 +95,11 @@ class OperatorEntry;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator {
 public:
+	struct SymbolInfo {
+		const char *symbol;
+		const char *name;
+	};
+public:
 	typedef ULong Key;
 	typedef std::map<Key, OperatorEntry *> EntryDict;
 private:
@@ -102,7 +107,7 @@ private:
 	const Symbol *_pSymbol;
 	bool _mapFlag;
 	EntryDict _entryDict;
-	static const char *_mathSymbolTbl[];
+	static const SymbolInfo _symbolInfoTbl[];
 public:
 	static Operator *Pos;
 	static Operator *Neg;
@@ -136,12 +141,13 @@ public:
 	static Operator *Pair;
 public:
 	inline Operator(OpType opType, bool mapFlag = true) :
-		_opType(opType), _pSymbol(Symbol::Add(_mathSymbolTbl[opType])), _mapFlag(mapFlag) {}
+		_opType(opType), _pSymbol(Symbol::Add(_symbolInfoTbl[opType].symbol)), _mapFlag(mapFlag) {}
 	inline OpType GetOpType() const { return _opType; }
 	inline EntryDict &GetEntryDict() { return _entryDict; }
 	inline const EntryDict &GetEntryDict() const { return _entryDict; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
-	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
+	inline const char *GetName() const { return _symbolInfoTbl[_opType].name; }
+	inline static const SymbolInfo &GetSymbolInfo(OpType opType) { return _symbolInfoTbl[opType]; }
 	inline static Key CalcKey(ValueType valType, bool suffixFlag) {
 		if (suffixFlag) {
 			return static_cast<Key>((static_cast<ULong>(valType) << 16) +
@@ -497,7 +503,9 @@ public:
 	inline ValueType GetValueTypeLeft() const { return _valTypeLeft; }
 	inline ValueType GetValueTypeRight() const { return _valTypeRight; }
 	inline Operator::Key CalcKey() const { return Operator::CalcKey(_valTypeLeft, _valTypeRight); }
-	inline const char *GetMathSymbol() const { return Operator::GetMathSymbol(_opType); }
+	inline const Operator::SymbolInfo &GetSymbolInfo() const {
+		return Operator::GetSymbolInfo(_opType);
+	}
 	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
 	virtual Value DoEval(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
