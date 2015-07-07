@@ -8,6 +8,38 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Functions to manage Value resources
 //-----------------------------------------------------------------------------
+void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
+{
+	valueDst._valType = valueSrc._valType;
+	valueDst._valFlags = valueSrc._valFlags;
+	if (valueSrc.GetTinyBuffFlag()) {
+		valueDst._u = valueSrc._u;
+	} else if (valueSrc.Is_boolean()) {
+		valueDst._u.flag = valueSrc._u.flag;
+	} else if (valueSrc.Is_complex()) {
+		valueDst._u.pComp = new Complex(*valueSrc._u.pComp);
+	} else if (valueSrc.Is_number()) {
+		valueDst._u.num = valueSrc._u.num;
+	} else if (valueSrc.Is_rational()) {
+		valueDst._u.pRatio = new Rational(*valueSrc._u.pRatio);
+	} else if (valueSrc.Is_string()) {
+		valueDst._u.pStrRef = valueSrc._u.pStrRef->Reference();
+	} else if (valueSrc.Is_symbol()) {
+		valueDst._u.pSymbol = valueSrc._u.pSymbol;
+	} else if (valueSrc.IsObject()) {
+		valueDst._u.pObj = Object::Reference(valueSrc._u.pObj);
+	} else if (valueSrc.IsModule()) {
+		valueDst._u.pModule = Module::Reference(valueSrc._u.pModule);
+	} else if (valueSrc.IsClass()) {
+		valueDst._u.pClass = Class::Reference(valueSrc._u.pClass);
+	} else if (valueSrc.IsSequence()) {
+		valueDst._u.pSequence = Sequence::Reference(valueSrc._u.pSequence);
+	} else {
+		// nothing to do
+		//valueDst._valType = VTYPE_nil;
+	}
+}
+
 void Gura_ReleaseValue(Value &value)
 {
 	if (value.GetTinyBuffFlag()) {
@@ -51,6 +83,12 @@ const Value Value::False(false);
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 
+Value::Value(const Value &value)
+{
+	Gura_CopyValue(*this, value);
+}
+
+#if 0
 Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._valFlags)
 {
 	if (value.GetTinyBuffFlag()) {
@@ -79,6 +117,7 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 		// nothing to do
 	}
 }
+#endif
 
 Value::Value(Object *pObj, UShort valFlags) :
 				_valType(pObj->GetClass()->GetValueType()), _valFlags(valFlags)
@@ -134,6 +173,14 @@ Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VF
 Value &Value::operator=(const Value &value)
 {
 	Gura_ReleaseValue(*this);
+	Gura_CopyValue(*this, value);
+	return *this;
+}
+
+#if 0
+Value &Value::operator=(const Value &value)
+{
+	Gura_ReleaseValue(*this);
 	_valType = value._valType;
 	_valFlags = value._valFlags;
 	if (GetTinyBuffFlag()) {
@@ -164,6 +211,7 @@ Value &Value::operator=(const Value &value)
 	}
 	return *this;
 }
+#endif
 
 bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 {

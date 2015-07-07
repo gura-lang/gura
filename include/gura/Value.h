@@ -46,6 +46,7 @@ enum {
 //-----------------------------------------------------------------------------
 // Functions to manage Value resources
 //-----------------------------------------------------------------------------
+extern "C" void Gura_CopyValue(Value &valueDst, const Value &valueSrc);
 extern "C" void Gura_ReleaseValue(Value &value);
 
 //-----------------------------------------------------------------------------
@@ -455,6 +456,7 @@ public:
 	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
 	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
 public:
+	friend void Gura_CopyValue(Value &valueDst, const Value &valueSrc);
 	friend void Gura_ReleaseValue(Value &value);
 };
 
