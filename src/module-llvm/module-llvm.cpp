@@ -72,6 +72,11 @@ extern "C" void Gura_SetValue_string(Value &value, const char *str)
 	Gura_CopyValue(value, Value(str));
 }
 
+extern "C" void Gura_SetValue_binary(Environment &env, Value &value, const char *buff, ULong bytes)
+{
+	Gura_CopyValue(value, Value(new Object_binary(env, buff, bytes, false)));
+}
+
 extern "C" ValueList &Gura_SetValue_list(Environment &env, Value &value)
 {
 	Object_list *pObj = new Object_list(env);
@@ -205,6 +210,21 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
 			"Gura_SetValue_string",
+			_pModule.get());
+	} while (0);
+	do {
+		// declare void @Gura_SetValue_binary(i8*, struct.Value*, i8*, i32)
+		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// buff
+		typeArgs.push_back(_builder.getInt32Ty());					// bytes
+		bool isVarArg = false;
+		llvm::Function *pFunction = llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"Gura_SetValue_binary",
 			_pModule.get());
 	} while (0);
 	do {
@@ -392,6 +412,18 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 		args.push_back(_builder.CreateGlobalStringPtr(value.GetString()));
 		_builder.CreateCall(
 			_pModule->getFunction("Gura_SetValue_string"),
+			args);
+	} else if (value.Is_binary()) {
+		const Binary &binary = value.GetBinary();
+		std::string buff(binary.data(), binary.size());
+		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		std::vector<llvm::Value *> args;
+		args.push_back(_pValue_env);
+		args.push_back(_pValueResult);
+		args.push_back(_builder.CreateGlobalStringPtr(buff));
+		args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), binary.size()));
+		_builder.CreateCall(
+			_pModule->getFunction("Gura_SetValue_binary"),
 			args);
 	} else {
 		sig.SetError(ERR_SyntaxError, "GetCode_Value()");

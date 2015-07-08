@@ -7,7 +7,8 @@ sub(n) = {
 
 foo = 3
 llvm.gencode {
-	[1, 2, 3, [4, 5, 6], 4, 5]
+	b'hello \x00 world'
+	//[1, 2, 3, [4, 5, 6], 4, 5]
 	//repeat (10) {|i|
 	//	println(i)
 	//}
