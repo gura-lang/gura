@@ -57,9 +57,22 @@ extern "C" void Gura_LookupValue(Environment &env, Signal &sig, Value &result, c
 	}
 }
 
-extern "C" void Gura_AddValueList(ValueList &valList, const Value &value)
+extern "C" void Gura_AddValueList(Environment &env, Signal &sig, ValueList &valList, const Value &value)
 {
-	valList.push_back(value);
+	if (value.Is_iterator()) {
+		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+		if (sig.IsSignalled()) return;
+		if (pIterator->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return;
+		}
+		Value value;
+		while (pIterator->Next(env, sig, value)) {
+			valList.push_back(value);
+		}
+	} else {
+		valList.push_back(value);
+	}
 }
 
 extern "C" void Gura_SetValue_number(Value &value, double num)
@@ -256,9 +269,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_pModule.get());
 	} while (0);
 	do {
-		// declare void @Gura_AddValueList(i8*, struct.Value*)
+		// declare void @Gura_AddValueList(i8*, i8*, i8*, struct.Value*)
 		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// sig
 		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// valList
 		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
 		bool isVarArg = false;
@@ -395,7 +410,7 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 
 bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_Value *pExprValue)
 {
-	::printf("Value\n");
+	//::printf("Value\n");
 	const Value &value = pExprValue->GetValue();
 	if (value.Is_number()) {
 		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
@@ -434,7 +449,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal sig, const Expr_V
 
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const Expr_Identifier *pExpr)
 {
-	::printf("Identifier\n");
+	//::printf("Identifier\n");
 	_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
 	std::vector<llvm::Value *> args;
 	args.push_back(_pValue_env);
@@ -449,27 +464,27 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal sig, const E
 
 bool CodeGeneratorLLVM::GenCode_Suffixed(Environment &env, Signal sig, const Expr_Suffixed *pExpr)
 {
-	::printf("Suffixed\n");
+	//::printf("Suffixed\n");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Root(Environment &env, Signal sig, const Expr_Root *pExpr)
 {
-	::printf("Root\n");
+	//::printf("Root\n");
+	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal sig, const Expr_Block *pExpr)
 {
-	::printf("Block\n");
+	//::printf("Block\n");
 	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
-	//pExpr->GetExprOwnerParam();
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_Lister *pExpr)
 {
-	::printf("Lister\n");
+	//::printf("Lister\n");
 	std::vector<llvm::Value *> args;
 	args.push_back(_pValue_env);
 	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
@@ -481,6 +496,8 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_
 		const Expr *pExpr = *ppExpr;
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
 		std::vector<llvm::Value *> args;
+		args.push_back(_pValue_env);
+		args.push_back(_pValue_sig);
 		args.push_back(pValue_valList);
 		args.push_back(_pValueResult);
 		_builder.CreateCall(
@@ -493,7 +510,7 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal sig, const Expr_
 
 bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, Signal sig, const Expr_Iterer *pExpr)
 {
-	::printf("Iterer\n");
+	//::printf("Iterer\n");
 	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
 	return true;
 }
@@ -506,7 +523,7 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal sig, const Expr
 
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_Caller *pExpr)
 {
-	::printf("Caller\n");
+	//::printf("Caller\n");
 	if (pExpr->GetCar()->IsMember()) {
 		
 	} else {
@@ -533,7 +550,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 
 bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr_UnaryOp *pExpr)
 {
-	::printf("UnaryOp\n");
+	//::printf("UnaryOp\n");
 	std::vector<llvm::Value *> args;
 	args.push_back(_pValue_env);
 	args.push_back(_pValue_sig);
@@ -550,7 +567,7 @@ bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal sig, const Expr
 
 bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal sig, const Expr_BinaryOp *pExpr)
 {
-	::printf("BinaryOp\n");
+	//::printf("BinaryOp\n");
 	std::vector<llvm::Value *> args;
 	args.push_back(_pValue_env);
 	args.push_back(_pValue_sig);

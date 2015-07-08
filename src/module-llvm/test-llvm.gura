@@ -7,13 +7,15 @@ sub(n) = {
 
 foo = 3
 llvm.gencode {
-	b'hello \x00 world'
+	//b'hello \x00 world'
 	//[1, 2, 3, [4, 5, 6], 4, 5]
 	//repeat (10) {|i|
 	//	println(i)
 	//}
 	//printf('hello %d %d\n', 3, 4)
 	//sub(3)
+	//[1, 2, 3] + [1, 2, 3, 4]
+	[1, 2, 100..10]
 	//foo + 3 + 4 + 2 * 3
 	//-(3 + 4)
 	//'hello world'
