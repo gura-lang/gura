@@ -37,6 +37,8 @@ public:
 	virtual bool GenCode_Quote(Environment &env, Signal sig, const Expr_Quote *pExpr);
 	virtual bool GenCode_Assign(Environment &env, Signal sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal sig, const Expr_Member *pExpr);
+private:
+	llvm::Function *CreateFunctionFromExpr(Environment &env, Signal sig, const Expr *pExpr);
 };
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
@@ -548,6 +550,12 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 	if (pExpr->GetCar()->IsMember()) {
 		
 	} else {
+#if 0
+		if (pExpr->GetBlock() != nullptr) {
+			llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetBlock());
+			if (pFunction == nullptr) return false;
+		}
+#endif
 		std::vector<llvm::Value *> args;
 		args.push_back(_pValue_env);
 		args.push_back(_pValue_sig);
@@ -627,49 +635,12 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal sig, const Expr_
 			sig.SetError(ERR_SyntaxError, "invalid operation");
 			return false;
 		}
-		llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
-		do {
-			// define void @CustomFunction(i8* env, i8* sig, %struct.Value* valueResult)
-			llvm::Type *pTypeResult = _builder.getVoidTy();				// return
-			std::vector<llvm::Type *> typeArgs;
-			typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-			typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// sig
-			typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
-			bool isVarArg = false;
-			llvm::Function *pFunction = llvm::Function::Create(
-				llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
-				llvm::Function::ExternalLinkage,
-				"CustomFunction",
-				_pModule.get());
-			llvm::Function::arg_iterator pArg = pFunction->arg_begin();
-			pArg->setName("env");
-			_pValue_env = pArg++;
-			pArg->setName("sig");
-			_pValue_sig = pArg++;
-			pArg->setName("valueResult");
-			llvm::Value *pValue_result = pArg++;
-			llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
-			_builder.SetInsertPoint(pBasicBlock);
-			if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) break;
-			if (_pValueResult != nullptr) {
-				std::vector<llvm::Value *> args;
-				args.push_back(pValue_result);
-				args.push_back(_pValueResult);
-				_builder.CreateCall(
-					_pModule->getFunction("Gura_CopyValue"),
-					args);
-			}
-			_builder.CreateRetVoid();
-			llvm::verifyFunction(*pFunction);
-			//TheFPM->run(*pFunction);
-			successFlag = true;
-		} while (0);
-		_builder.SetInsertPoint(pBasicBlockSaved);
-		_pValueResult = nullptr;
+		llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetRight());
+		if (pFunction == nullptr) return false;
+		successFlag = true;
 	} else if (pExpr->GetOperatorToApply() == nullptr) {
 		if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *pValueToAssign = _pValueResult;
-#if 1
 		if (pExpr->GetLeft()->IsIdentifier()) {
 			const Expr_Identifier *pExprEx =
 				dynamic_cast<const Expr_Identifier *>(pExpr->GetLeft());
@@ -684,7 +655,6 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal sig, const Expr_
 				_pModule->getFunction("GuraStub_AssignValue"),
 				args);
 		}
-#endif
 		_pValueResult = pValueToAssign;
 		successFlag = true;
 	} else {
@@ -698,6 +668,51 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal sig, const Expr_
 {
 	::printf("Member\n");
 	return true;
+}
+
+llvm::Function *CodeGeneratorLLVM::CreateFunctionFromExpr(
+						Environment &env, Signal sig, const Expr *pExpr)
+{
+	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
+	// define void @CustomFunction(i8* env, i8* sig, %struct.Value* valueResult)
+	llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+	std::vector<llvm::Type *> typeArgs;
+	typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
+	typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// sig
+	typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
+	bool isVarArg = false;
+	llvm::Function *pFunction = llvm::Function::Create(
+		llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+		llvm::Function::ExternalLinkage,
+		"CustomFunction",
+		_pModule.get());
+	llvm::Function::arg_iterator pArg = pFunction->arg_begin();
+	pArg->setName("env");
+	_pValue_env = pArg++;
+	pArg->setName("sig");
+	_pValue_sig = pArg++;
+	pArg->setName("valueResult");
+	llvm::Value *pValue_result = pArg++;
+	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
+	_builder.SetInsertPoint(pBasicBlock);
+	if (!pExpr->GenerateCode(env, sig, *this)) {
+		_builder.SetInsertPoint(pBasicBlockSaved);
+		return nullptr;
+	}
+	if (_pValueResult != nullptr) {
+		std::vector<llvm::Value *> args;
+		args.push_back(pValue_result);
+		args.push_back(_pValueResult);
+		_builder.CreateCall(
+			_pModule->getFunction("Gura_CopyValue"),
+			args);
+		_pValueResult = nullptr;
+	}
+	_builder.CreateRetVoid();
+	llvm::verifyFunction(*pFunction);
+	//TheFPM->run(*pFunction);
+	_builder.SetInsertPoint(pBasicBlockSaved);
+	return pFunction;
 }
 
 //-----------------------------------------------------------------------------

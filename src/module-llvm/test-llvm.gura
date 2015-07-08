@@ -28,7 +28,8 @@ llvm.gencode {
 		println('hello')
 	}
 	*/
-	y = 11
-	y = 3 + 4
-	x = y + 2
+	//y = 11
+	//y = 3 + 4
+	//x = y + 2
+	repeat(3) {}
 }
