@@ -39,6 +39,7 @@ llvm.gencode {
 	//	x + y
 	//}
 	//3 + 4
-	repeat(3) {
-	}
+	//repeat(3) {
+	//}
+	println('hello', 3, 4)
 }

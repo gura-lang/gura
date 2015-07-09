@@ -181,13 +181,16 @@ extern "C" void GuraStub_CallFunction(
 		Gura_CopyValue(valueResult, Value::Null);
 		return;
 	}
+	const Function *pFunc = valueCar.GetFunction();
 	va_list vargs;
 	va_start(vargs, bridgeFuncBlock);
 	AutoPtr<Args> pArgs(new Args());
-	while (Value *pValue = va_arg(vargs, Value *)) {
-		pArgs->AddValue(*pValue);
+	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
+		Value value;
+		bridgeFuncArg(env, sig, value);
+		if (sig.IsSignalled()) return;
+		pArgs->AddValue(value);
 	}
-	const Function *pFunc = valueCar.GetFunction();
 	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
 }
 
@@ -429,10 +432,10 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	BridgeFunctionT pGuraEntry = reinterpret_cast<BridgeFunctionT>(
+	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value result;
-	(*pGuraEntry)(env, sig, result);
+	bridgeFuncGuraEntry(env, sig, result);
 	::printf("value = %s\n", result.ToString().c_str());
     pExecutionEngine->runStaticConstructorsDestructors(true);
 }
@@ -569,15 +572,17 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 		} else {
 			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
 			llvm::Function *pFunction = CreateBridgeFunction(
-				env, sig, pExpr->GetBlock(), "BlockFunc");
+				env, sig, pExpr->GetBlock(), "Block");
 			if (pFunction == nullptr) return false;
 			args.push_back(llvm::ConstantExpr::getBitCast(
 							   pFunction, _builder.getInt8Ty()->getPointerTo()));
 		}
 		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
 			const Expr *pExprArg = *ppExprArg;
-			if (!pExprArg->GenerateCode(env, sig, *this)) return false;
-			args.push_back(_pValueResult);
+			llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
+			if (pFunction == nullptr) return false;
+			args.push_back(llvm::ConstantExpr::getBitCast(
+							   pFunction, _builder.getInt8Ty()->getPointerTo()));
 		}
 		args.push_back(llvm::ConstantPointerNull::get(_pStructType_Value->getPointerTo()));
 		_builder.CreateCall(
@@ -647,7 +652,7 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal sig, const Expr_
 			return false;
 		}
 		llvm::Function *pFunction = CreateBridgeFunction(
-			env, sig, pExpr->GetRight(), "CustomFunc");
+			env, sig, pExpr->GetRight(), "FunctionBody");
 		if (pFunction == nullptr) return false;
 		successFlag = true;
 	} else if (pExpr->GetOperatorToApply() == nullptr) {
