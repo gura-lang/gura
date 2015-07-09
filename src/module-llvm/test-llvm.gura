@@ -31,7 +31,14 @@ llvm.gencode {
 	//y = 11
 	//y = 3 + 4
 	//x = y + 2
-	//repeat(3) {}
-	//f() = {}
-	3 + 4
+	//repeat(3) {
+	//	println('hello')
+	//}
+	//println('hello world')
+	//f(x, y) = {
+	//	x + y
+	//}
+	//3 + 4
+	repeat(3) {
+	}
 }
