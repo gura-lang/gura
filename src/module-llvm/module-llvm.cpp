@@ -550,7 +550,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 	if (pExpr->GetCar()->IsMember()) {
 		
 	} else {
-#if 0
+#if 1
 		if (pExpr->GetBlock() != nullptr) {
 			llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetBlock());
 			if (pFunction == nullptr) return false;
