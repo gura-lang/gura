@@ -550,12 +550,10 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 	if (pExpr->GetCar()->IsMember()) {
 		
 	} else {
-#if 1
 		if (pExpr->GetBlock() != nullptr) {
 			llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetBlock());
 			if (pFunction == nullptr) return false;
 		}
-#endif
 		std::vector<llvm::Value *> args;
 		args.push_back(_pValue_env);
 		args.push_back(_pValue_sig);
@@ -688,9 +686,7 @@ llvm::Function *CodeGeneratorLLVM::CreateFunctionFromExpr(
 		_pModule.get());
 	llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 	pArg->setName("env");
-	_pValue_env = pArg++;
 	pArg->setName("sig");
-	_pValue_sig = pArg++;
 	pArg->setName("valueResult");
 	llvm::Value *pValue_result = pArg++;
 	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
