@@ -5,6 +5,8 @@
 
 Gura_BeginModuleBody(llvm)
 
+typedef void (*BridgeFunctionT)(Environment &env, Signal &sig, Value &result);
+
 //-----------------------------------------------------------------------------
 // CodeGeneratorLLVM
 //-----------------------------------------------------------------------------
@@ -38,7 +40,8 @@ public:
 	virtual bool GenCode_Assign(Environment &env, Signal sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal sig, const Expr_Member *pExpr);
 private:
-	llvm::Function *CreateFunctionFromExpr(Environment &env, Signal sig, const Expr *pExpr);
+	llvm::Function *CreateBridgeFunction(Environment &env, Signal sig,
+										 const Expr *pExpr, const char *name);
 };
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
@@ -174,9 +177,15 @@ extern "C" void GuraStub_CallFunction(Environment &env, Signal &sig,
 	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
 }
 
+extern "C" void GuraStub_PrintFunctionPointer(void *pFunc)
+{
+	::printf("%p\n", pFunc);
+}
+
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
+	
 	_pStructType_Value = llvm::StructType::create(
 		"struct.Value",
 		llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
@@ -358,39 +367,21 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal sig, const Expr *pExpr
 			_pModule.get());
 		//pFunction->setCallingConv(llvm::CallingConv::C);
 	} while (0);
+
 	do {
-		// define void @GuraEntry(i8* env, i8* sig, %struct.Value* valueResult)
+		// declare void @GuraStub_PrintFunctionPointer(i8*)
 		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// pFunc
 		bool isVarArg = false;
-		llvm::Function *pFunction = llvm::Function::Create(
+		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
-			"GuraEntry",
+			"GuraStub_PrintFunctionPointer",
 			_pModule.get());
-		llvm::Function::arg_iterator pArg = pFunction->arg_begin();
-		pArg->setName("env");
-		_pValue_env = pArg++;
-		pArg->setName("sig");
-		_pValue_sig = pArg++;
-		pArg->setName("valueResult");
-		llvm::Value *pValue_result = pArg++;
-		llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
-		_builder.SetInsertPoint(pBasicBlock);
-		if (!pExpr->GenerateCode(env, sig, *this)) return false;
-		if (_pValueResult != nullptr) {
-			std::vector<llvm::Value *> args;
-			args.push_back(pValue_result);
-			args.push_back(_pValueResult);
-			_builder.CreateCall(
-				_pModule->getFunction("Gura_CopyValue"),
-				args);
-		}
-		_builder.CreateRetVoid();
 	} while (0);
+	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExpr, "GuraEntry");
+	if (pFunction == nullptr) return false;
 	return true;
 }
 
@@ -422,9 +413,8 @@ void CodeGeneratorLLVM::Run(Environment &env, Signal sig)
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	void (*pGuraEntry)(Environment &env, Signal &sig, Value &) =
-		reinterpret_cast<void (*)(Environment &env, Signal &sig, Value &)>(
-			pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
+	BridgeFunctionT pGuraEntry = reinterpret_cast<BridgeFunctionT>(
+		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value result;
 	(*pGuraEntry)(env, sig, result);
 	::printf("value = %s\n", result.ToString().c_str());
@@ -551,7 +541,8 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal sig, const Expr_
 		
 	} else {
 		if (pExpr->GetBlock() != nullptr) {
-			llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetBlock());
+			llvm::Function *pFunction = CreateBridgeFunction(
+				env, sig, pExpr->GetBlock(), "BlockFunc");
 			if (pFunction == nullptr) return false;
 		}
 		std::vector<llvm::Value *> args;
@@ -633,8 +624,16 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal sig, const Expr_
 			sig.SetError(ERR_SyntaxError, "invalid operation");
 			return false;
 		}
-		llvm::Function *pFunction = CreateFunctionFromExpr(env, sig, pExpr->GetRight());
+		llvm::Function *pFunction = CreateBridgeFunction(
+			env, sig, pExpr->GetRight(), "CustomFunc");
 		if (pFunction == nullptr) return false;
+		
+		std::vector<llvm::Value *> args;
+		args.push_back(llvm::ConstantExpr::getBitCast(pFunction, _builder.getInt8Ty()->getPointerTo()));
+		_builder.CreateCall(
+			_pModule->getFunction("GuraStub_PrintFunctionPointer"),
+			args);
+
 		successFlag = true;
 	} else if (pExpr->GetOperatorToApply() == nullptr) {
 		if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
@@ -668,11 +667,11 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal sig, const Expr_
 	return true;
 }
 
-llvm::Function *CodeGeneratorLLVM::CreateFunctionFromExpr(
-						Environment &env, Signal sig, const Expr *pExpr)
+llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
+	Environment &env, Signal sig, const Expr *pExpr, const char *name)
 {
 	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
-	// define void @CustomFunction(i8* env, i8* sig, %struct.Value* valueResult)
+	// define void @BridgeFunction(i8* env, i8* sig, %struct.Value* valueResult)
 	llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 	std::vector<llvm::Type *> typeArgs;
 	typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
@@ -682,32 +681,34 @@ llvm::Function *CodeGeneratorLLVM::CreateFunctionFromExpr(
 	llvm::Function *pFunction = llvm::Function::Create(
 		llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 		llvm::Function::ExternalLinkage,
-		"CustomFunction",
+		name,
 		_pModule.get());
 	llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 	pArg->setName("env");
+	_pValue_env = pArg++;
 	pArg->setName("sig");
+	_pValue_sig = pArg++;
 	pArg->setName("valueResult");
 	llvm::Value *pValue_result = pArg++;
 	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
 	_builder.SetInsertPoint(pBasicBlock);
-	if (!pExpr->GenerateCode(env, sig, *this)) {
-		_builder.SetInsertPoint(pBasicBlockSaved);
-		return nullptr;
+	if (pExpr->GenerateCode(env, sig, *this)) {
+		if (_pValueResult != nullptr) {
+			std::vector<llvm::Value *> args;
+			args.push_back(pValue_result);
+			args.push_back(_pValueResult);
+			_builder.CreateCall(
+				_pModule->getFunction("Gura_CopyValue"),
+				args);
+			_pValueResult = nullptr;
+		}
+		_builder.CreateRetVoid();
+		//llvm::verifyFunction(*pFunction);
+		//TheFPM->run(*pFunction);
+	} else {
+		pFunction = nullptr;
 	}
-	if (_pValueResult != nullptr) {
-		std::vector<llvm::Value *> args;
-		args.push_back(pValue_result);
-		args.push_back(_pValueResult);
-		_builder.CreateCall(
-			_pModule->getFunction("Gura_CopyValue"),
-			args);
-		_pValueResult = nullptr;
-	}
-	_builder.CreateRetVoid();
-	llvm::verifyFunction(*pFunction);
-	//TheFPM->run(*pFunction);
-	_builder.SetInsertPoint(pBasicBlockSaved);
+	if (pBasicBlockSaved != nullptr) _builder.SetInsertPoint(pBasicBlockSaved);
 	return pFunction;
 }
 

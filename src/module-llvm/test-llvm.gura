@@ -31,5 +31,7 @@ llvm.gencode {
 	//y = 11
 	//y = 3 + 4
 	//x = y + 2
-	repeat(3) {}
+	//repeat(3) {}
+	//f() = {}
+	3 + 4
 }
