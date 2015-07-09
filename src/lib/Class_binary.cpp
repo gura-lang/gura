@@ -135,8 +135,7 @@ String Object_binary::ToString(bool exprFlag)
 // Object_binary::IteratorByte
 //-----------------------------------------------------------------------------
 Object_binary::IteratorByte::IteratorByte(Object_binary *pObj, int cntMax) :
-			Iterator(false), _pObj(pObj), _cnt(cntMax), _cntMax(cntMax),
-			_offset(0)
+			Iterator(false), _pObj(pObj), _cnt(cntMax), _offset(0)
 {
 }
 
@@ -170,7 +169,7 @@ void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, Env
 Object_binary::IteratorUnpack::IteratorUnpack(Object_binary *pObj,
 				const char *format, const ValueList &valListArg, size_t offset) :
 		Iterator(false), _pObj(pObj), _format(format), _valListArg(valListArg),
-		_offset(offset), _offsetInit(offset)
+		_offset(offset)
 {
 }
 
@@ -720,7 +719,6 @@ size_t Stream_Binary::DoWrite(Signal sig, const void *buff, size_t len)
 
 bool Stream_Binary::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
-	const Binary &binary = GetBinary();
 	if (seekMode == SeekSet) {
 		_offset = static_cast<size_t>(offset);
 	} else if (seekMode == SeekCur) {

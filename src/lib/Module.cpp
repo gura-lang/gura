@@ -22,7 +22,6 @@ Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *source
 	Fundamental(pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol), _sourceName(sourceName),
 	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
-	Environment &env = *this;
 	AssignValue(Gura_Symbol(__name__), Value(GetName()), EXTRA_Public);
 	AssignValue(Gura_Symbol(__symbol__), Value(GetSymbol()), EXTRA_Public);
 	AssignValue(Gura_Symbol(__source__), Value(sourceName), EXTRA_Public);

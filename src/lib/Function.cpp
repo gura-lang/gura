@@ -669,7 +669,6 @@ bool Function::ResultComposer::Store(Environment &env, Signal sig, const Value &
 	} else if (_args.IsRsltXReduce()) {
 		if (value.IsValid()) _result = value;
 	} else if (_args.IsRsltFlat() && value.Is_list()) {
-		const ValueList &valList = value.GetList();
 		foreach_const (ValueList, pValue, value.GetList()) {
 			if (!Store(env, sig, *pValue)) return false;
 		}
@@ -725,7 +724,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
-	ValueDict &valDictArg = _pArgs->GetValueDictArg();
 	Gura_BeginPushbackRegion();
 	switch (_stat) {
 	//-------------------------------------------------------------------------

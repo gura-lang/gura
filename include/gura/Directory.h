@@ -138,8 +138,8 @@ protected:
 public:
 	inline Record(Structure *pStructure, Record *pRecordParent,
 			const char *name, bool containerFlag) :
-			_pStructure(pStructure), _pRecordParent(pRecordParent), _name(name),
-			_pRecordChildren(containerFlag? new RecordList() : nullptr) {}
+			_pStructure(pStructure), _pRecordParent(pRecordParent),
+			_pRecordChildren(containerFlag? new RecordList() : nullptr), _name(name) {}
 	virtual ~Record();
 	inline const char *GetName() const { return _name.c_str(); }
 	inline bool IsRoot() const { return _pRecordParent == nullptr; }

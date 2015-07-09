@@ -26,7 +26,7 @@ public:
 	class IteratorByte : public Iterator {
 	private:
 		AutoPtr<Object_binary> _pObj;
-		int _cnt, _cntMax;
+		int _cnt;
 		size_t _offset;
 	public:
 		IteratorByte(Object_binary *pObj, int cntMax);
@@ -40,7 +40,7 @@ public:
 		AutoPtr<Object_binary> _pObj;
 		String _format;
 		ValueList _valListArg;
-		size_t _offset, _offsetInit;
+		size_t _offset;
 	public:
 		IteratorUnpack(Object_binary *pObj, const char *format,
 										const ValueList &valListArg, size_t offset);

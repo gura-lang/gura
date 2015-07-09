@@ -498,6 +498,7 @@ protected:
 public:
 	inline OperatorEntry(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) :
 			_opType(opType), _valTypeLeft(valTypeLeft), _valTypeRight(valTypeRight) {}
+	virtual ~OperatorEntry();
 	inline OpType GetOpType() const { return _opType; }
 	inline ValueType GetValueType() const { return _valTypeLeft; }
 	inline ValueType GetValueTypeLeft() const { return _valTypeLeft; }

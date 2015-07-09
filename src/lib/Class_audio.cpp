@@ -289,7 +289,6 @@ Gura_ImplementMethod(audio, store)
 	}
 	size_t offset = args.GetSizeT(1);
 	Iterator *pIterator = args.GetIterator(2);
-	int data = 0;
 	if (!pAudio->StoreData(env, sig, iChannel, offset, pIterator)) return Value::Null;
 	return args.GetThis();
 }

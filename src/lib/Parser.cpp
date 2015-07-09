@@ -13,8 +13,8 @@ namespace Gura {
 Parser::Parser(const String &sourceName, int cntLineStart) :
 		_stat(STAT_BOF), _lineHeadFlag(true),
 		_appearShebangFlag(false), _blockParamFlag(false),
-		_pSourceName(new StringRef(sourceName)),
-		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0)
+		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
+		_pSourceName(new StringRef(sourceName))
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;

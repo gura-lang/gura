@@ -72,7 +72,7 @@ public:
 		ValueList::iterator _pValue;
 	public:
 		inline IteratorCycle(Object_list *pObj, int cnt) :
-			Iterator(cnt < 0), _pObj(pObj), _pValue(pObj->GetList().begin()), _cnt(cnt) {}
+			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
 		virtual ~IteratorCycle();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);

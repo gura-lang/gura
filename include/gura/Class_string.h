@@ -18,7 +18,7 @@ public:
 		enum Attr { ATTR_None, ATTR_UTF8, ATTR_UTF32, };
 	private:
 		String _str;
-		int _cnt, _cntMax;
+		int _cnt;
 		Attr _attr;
 		String::const_iterator _pCur;
 	public:
@@ -32,7 +32,7 @@ public:
 	class GURA_DLLDECLARE IteratorLine : public Iterator {
 	private:
 		String _str;
-		int _cnt, _cntMax;
+		int _cnt;
 		String::const_iterator _pCur;
 		bool _includeEOLFlag;
 	public:
@@ -47,7 +47,7 @@ public:
 	private:
 		String _str;
 		String _sep;
-		int _cnt, _cntMax;
+		int _cnt;
 		bool _ignoreCaseFlag;
 		bool _doneFlag;
 		String::const_iterator _pCur;

@@ -39,8 +39,8 @@ public:
 	inline Signal &GetSignal() { return _sig; }
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
-	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	virtual bool Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;

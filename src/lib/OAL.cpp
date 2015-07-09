@@ -325,7 +325,6 @@ bool CopyDir(const char *dirNameSrc, const char *dirNameDst)
 bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
 {
 	typedef std::list<String> RelNames;
-	bool rtn = true;
 	RelNames relNames;
 	relNames.push_back("");
 	foreach (RelNames, pRelNameIter, relNames) {
@@ -1798,7 +1797,6 @@ FileStat::FileStat(const char *pathName, const struct stat &stat) :
 
 FileStat *FileStat::Generate(Signal sig, const char *fileName)
 {
-	ULong attr = 0;
 	struct stat stat;
 	String pathName = ToNativeString(MakeAbsPathName(
 								FileSeparator, fileName).c_str());
@@ -1813,7 +1811,7 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 // DirLister
 //-----------------------------------------------------------------------------
 DirLister::DirLister(const char *dirName, bool joinPathNameFlag) :
-		_dirName(dirName), _joinPathNameFlag(joinPathNameFlag), _dirp(nullptr)
+		_dirName(dirName), _dirp(nullptr), _joinPathNameFlag(joinPathNameFlag)
 {
 }
 

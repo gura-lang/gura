@@ -117,7 +117,7 @@ bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Decla
 	return true;
 }
 
-bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool ClassCustom::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__serialize__), ENVREF_NoEscalate));
@@ -126,7 +126,7 @@ bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) cons
 	return false;
 }
 
-bool ClassCustom::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool ClassCustom::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__deserialize__), ENVREF_NoEscalate));
@@ -252,7 +252,6 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args)
 {
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args, false));
 	if (pEnvLocal.IsNull()) return Value::Null;
-	EnvType envType = pEnvLocal->GetEnvType();
 	Value valueRtn(args.GetThis());
 	if (!valueRtn.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, sig, _pClassToConstruct);

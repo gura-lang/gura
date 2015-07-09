@@ -516,14 +516,14 @@ void Expr_TmplString::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
 {
-	stream.Println(sig, "TmplString");
+	//stream.Println(sig, "TmplString");
 	return true;
 }
 
 bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
 }
@@ -606,14 +606,14 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	return Value::Null;
 }
 
-bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
 {
-	stream.Println(sig, "TmplScript");
+	//stream.Println(sig, "TmplScript");
 	return true;
 }
 
 bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
 }

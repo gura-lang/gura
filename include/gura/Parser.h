@@ -165,14 +165,14 @@ public:
 	public:
 		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(nullptr) {}
 		inline Element(const Element &elem) :
-					_elemType(elem._elemType), _lineNo(elem._lineNo), _pExpr(elem._pExpr),
-					_str(elem._str), _suffix(elem._suffix) {}
+					_elemType(elem._elemType), _lineNo(elem._lineNo), _str(elem._str),
+					_suffix(elem._suffix), _pExpr(elem._pExpr) {}
 		inline Element(ElemType elemType, int lineNo) :
 					_elemType(elemType), _lineNo(lineNo), _pExpr(nullptr) {}
 		inline Element(ElemType elemType, int lineNo, const String &str) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(nullptr), _str(str) {}
+					_elemType(elemType), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
 		inline Element(ElemType elemType, int lineNo, const String &str, const String &suffix) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(nullptr), _str(str), _suffix(suffix) {}
+					_elemType(elemType), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
 		inline Element(ElemType elemType, Expr *pExpr) :
 					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 		inline Element &operator=(const Element &elem) {

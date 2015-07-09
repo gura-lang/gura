@@ -289,8 +289,8 @@ Gura_ImplementMethod(datetime, format)
 				strTZ += dateTime.GetTZOffsetStr(false);
 			}
 			::sprintf(str, "%s, %02d %s %04d %02d:%02d:%02d%s",
-				weekNames[dateTime.GetDayOfWeek()], dateTime.GetDay(),
-				monthNames[dateTime.GetMonth()], dateTime.GetYear(),
+				weekNames[static_cast<int>(dateTime.GetDayOfWeek())], dateTime.GetDay(),
+				monthNames[static_cast<int>(dateTime.GetMonth())], dateTime.GetYear(),
 				dateTime.GetHour(), dateTime.GetMin(), dateTime.GetSec(),
 				strTZ.c_str());
 		} else if (pSymbol->IsIdentical(Gura_Symbol(asctime))) {
@@ -300,8 +300,8 @@ Gura_ImplementMethod(datetime, format)
 				strTZ += dateTime.GetTZOffsetStr(false);
 			}
 			::sprintf(str, "%s %s %2d %02d:%02d:%02d%s %04d",
-				weekNames[dateTime.GetDayOfWeek()],
-				monthNames[dateTime.GetMonth()], dateTime.GetDay(),
+				weekNames[static_cast<int>(dateTime.GetDayOfWeek())],
+				monthNames[static_cast<int>(dateTime.GetMonth())], dateTime.GetDay(),
 				dateTime.GetHour(), dateTime.GetMin(), dateTime.GetSec(),
 				strTZ.c_str(), dateTime.GetYear());
 		} else {

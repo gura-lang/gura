@@ -172,7 +172,6 @@ void Uri::ExtractQuery(const char *urlPath, ValueDict &valDict, bool skipPathFla
 		STAT_Begin, STAT_Key, STAT_Value,
 	} stat = skipPathFlag? STAT_Begin : STAT_Key;
 	String key, value;
-	UChar chHex = 0x00;
 	for (const char *p = urlPath; ; p++) {
 		const char ch = *p;
 		switch (stat) {

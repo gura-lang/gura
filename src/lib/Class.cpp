@@ -455,7 +455,7 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 	Fundamental(pEnvOuter, ENVTYPE_class),
 	_pClassSuper(pEnvOuter->IsClass()?
 			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : nullptr),
-	_pConstructor(nullptr), _pSymbol(Gura_Symbol(_anonymous_)), _valType(valType) 
+	_valType(valType), _pSymbol(Gura_Symbol(_anonymous_)), _pConstructor(nullptr)
 {
 }
 

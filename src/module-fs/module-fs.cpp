@@ -459,7 +459,6 @@ size_t Stream_File::DoGetSize()
 
 Object *Stream_File::DoGetStatObj(Signal sig)
 {
-	ULong attr = 0;
 	struct stat stat;
 	String pathName = OAL::MakeAbsPathName(OAL::FileSeparator, _fileName.c_str());
 	if (::fstat(fileno(_fp), &stat) != 0) {

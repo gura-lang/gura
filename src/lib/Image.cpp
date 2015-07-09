@@ -714,7 +714,6 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
-				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
 				size_t xDst = 0;
 				size_t numerX = 0;
@@ -773,7 +772,6 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
-				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
 				size_t xDst = 0;
 				size_t numerX = 0;
@@ -1164,7 +1162,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 {
 	int biWidth = static_cast<int>(GetWidth());
-	int biHeight = static_cast<int>(GetHeight());
+	//int biHeight = static_cast<int>(GetHeight());
 	if (biBitCount == 1) {
 		if (_pPalette.IsNull()) return false;
 		size_t bytesPerLine = (biWidth + 7) / 8;

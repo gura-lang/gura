@@ -790,7 +790,7 @@ Value Matrix::Mul(Environment &env, Signal sig,
 							const Value &value, const Matrix *pMat)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
-	size_t nFold = pMat->GetFold();
+	//size_t nFold = pMat->GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valListResult = pMatRtn->GetList();
 	ValueType valType1 = value.GetValueType();

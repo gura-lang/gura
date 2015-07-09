@@ -1181,6 +1181,10 @@ Value Operator_Pair::EvalMapBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // OperatorEntry
 //-----------------------------------------------------------------------------
+OperatorEntry::~OperatorEntry()
+{
+}
+
 Value OperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
 {
 	return Value::Null;

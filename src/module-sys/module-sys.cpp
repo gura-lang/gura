@@ -110,6 +110,7 @@ bool IsCompositeFile(const char *pathName)
 			::strcasecmp(extName, ".gurcw") == 0;
 }
 
+#if 0
 static bool ExpandWildCard(Environment &env, Signal sig,
 									ValueList &valList, const char *pattern)
 {
@@ -134,6 +135,7 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 	if (emptyFlag) valList.push_back(Value(pattern));
 	return !sig.IsSignalled();
 }
+#endif
 
 bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 {

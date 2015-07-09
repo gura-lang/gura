@@ -165,7 +165,6 @@ Gura_ImplementFunction(extname)
 {
 	const char *pathName = args.GetString(0);
 	const char *p = PathMgr::SeekExtName(pathName);
-	size_t lenLeft = p - pathName;
 	return Value((*p == '.')? p + 1 : p);
 }
 

@@ -2642,7 +2642,6 @@ Value Expr_Assign::Exec(Environment &env, Signal sig, Environment &envDst,
 {
 	Value valueAssigned;
 	const Expr *pExpr = GetLeft();
-	bool funcAssignFlag = false;
 	if (pExpr->IsCaller()) {
 		if (_pOperatorToApply != nullptr) {
 			SetError(sig, ERR_SyntaxError, "invalid operation");

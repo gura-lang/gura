@@ -613,7 +613,7 @@ char DateTime::GetDaysOfMonth(short year, char month)
 		0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
 	};
 	if (month < 1 || month > 12) return -1;
-	return (IsLeapYear(year)? daysTbl_Leap : daysTbl_Normal)[month];
+	return (IsLeapYear(year)? daysTbl_Leap : daysTbl_Normal)[static_cast<int>(month)];
 }
 
 short DateTime::GetDayOfYear(short year, char month, char day)
@@ -625,7 +625,7 @@ short DateTime::GetDayOfYear(short year, char month, char day)
 		0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335,
 	};
 	if (day < 1 || month < 1 || month > 12) return -1;
-	return (IsLeapYear(year)? offsetTbl_Leap : offsetTbl_Normal)[month] + day - 1;
+	return (IsLeapYear(year)? offsetTbl_Leap : offsetTbl_Normal)[static_cast<int>(month)] + day - 1;
 }
 
 void DateTime::GetMonthDay(short year, short dayOfYear, char &month, char &day)

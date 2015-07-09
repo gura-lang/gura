@@ -212,7 +212,6 @@ Iterator *Object_list::IteratorEach::GetSource()
 
 bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
-	ValueList &valList = _pObj->GetList();
 	if (_pValue == _pValueEnd) return false;
 	value = *_pValue;
 	_pValue++;

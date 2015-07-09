@@ -94,9 +94,9 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual void Accept(ExprVisitor &visitor);
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -134,9 +134,9 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 }
