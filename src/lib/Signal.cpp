@@ -8,54 +8,33 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Signal
 //-----------------------------------------------------------------------------
-Signal::Signal() : _pShared(new Shared()), _stackLevel(0)
+Signal::Signal() : _sigType(SIGTYPE_None), _pValue(new Value())
 {
-}
-
-Signal::Signal(Shared *pShared) : _pShared(pShared), _stackLevel(0)
-{
-}
-
-Signal::Signal(const Signal &sig) : _pShared(sig._pShared), _stackLevel(sig._stackLevel + 1)
-{
-	if (_stackLevel > MAX_STACK_LEVEL) {
-		SetError(ERR_SystemError, "stack level exceeds maximum (%d)", MAX_STACK_LEVEL);
-	}
-}
-
-Signal &Signal::operator=(const Signal &sig)
-{
-	_pShared = sig._pShared, _stackLevel = sig._stackLevel;
-	return *this;
 }
 
 void Signal::SetValue(const Value &value) const
 {
-	*_pShared->pValue = value;
+	*_pValue = value;
 }
 
 void Signal::ClearSignal()
 {
-	_pShared->sigType = SIGTYPE_None;
-	_pShared->err.Clear();
+	_sigType = SIGTYPE_None;
+	_err.Clear();
 }
 
 void Signal::SetSignal(SignalType sigType, const Value &value)
 {
-	_pShared->sigType = sigType;
-	*_pShared->pValue = value;
+	_sigType = sigType;
+	*_pValue = value;
 }
 
 void Signal::AddExprCause(const Expr *pExpr)
 {
-	ExprOwner &exprOwner = _pShared->err.GetExprCauseOwner();
+	ExprOwner &exprOwner = _err.GetExprCauseOwner();
 	if (std::find(exprOwner.begin(), exprOwner.end(), pExpr) == exprOwner.end()) {
 		exprOwner.push_back(Expr::Reference(pExpr));
 	}
-}
-
-Signal::Shared::Shared() : sigType(SIGTYPE_None), pValue(new Value())
-{
 }
 
 void Signal::SetError(ErrorType errType, const char *format, ...)
@@ -71,9 +50,9 @@ void Signal::SetErrorV(ErrorType errType,
 {
 	Signal sig;
 	String text = Formatter::FormatV(sig, format, ap);
-	_pShared->sigType = SIGTYPE_Error;
-	*_pShared->pValue = Value::Null;
-	_pShared->err.Set(errType, textPre, text);
+	_sigType = SIGTYPE_Error;
+	*_pValue = Value::Null;
+	_err.Set(errType, textPre, text);
 }
 
 void Signal::PrintSignal(SimpleStream &stream)
