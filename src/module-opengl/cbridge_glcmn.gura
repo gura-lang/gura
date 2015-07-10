@@ -257,8 +257,8 @@ cbridge.AddTypeConvs {
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			''',
 			R'''
-			Array<UChar> *_${arg.name} = args.IsValid(${idx})? Object_array<UChar>::GetObject(args, ${idx})->GetArray() : NULL;
-			GLubyte *${arg.name} = (_${arg.name} == NULL)? NULL : reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
+			Array<UChar> *_${arg.name} = args.IsValid(${idx})? Object_array<UChar>::GetObject(args, ${idx})->GetArray() : nullptr;
+			GLubyte *${arg.name} = (_${arg.name} == nullptr)? nullptr : reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			''',
 			R'''
 			const GLubyte *_rtn = ${fi.MakeCaller()};

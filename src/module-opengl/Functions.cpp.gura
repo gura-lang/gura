@@ -42,7 +42,7 @@ glArrayElement(i:GLint):void:map = `auto % {`en, 'markdown',
 glBegin(mode:GLenum):void:map {block?} = R'''
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -61,7 +61,7 @@ glBindTexture(target:GLenum, texture:GLuint):void:map = `auto % {`en, 'markdown'
 }
 
 glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:GLubyte@:const:nil):void:map = R'''
-	if (_bitmap != NULL) {
+	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
 			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
@@ -555,7 +555,7 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''	
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glDrawPixels(width, height, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -673,8 +673,8 @@ glEvalPoint2(i:GLint, j:GLint):void:map = `auto % {`en, 'markdown',
 }
 
 glFeedbackBuffer(type:GLenum, buffer:array@float:nil):void = R'''
-	if (buffer == NULL) {
-		glFeedbackBuffer(0, type, NULL);
+	if (buffer == nullptr) {
+		glFeedbackBuffer(0, type, nullptr);
 	} else {
 		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
 	}
@@ -997,7 +997,7 @@ glGetPolygonStipple(mask:GLubyte@):void:map = `unsupport % {`en, 'markdown',
 
 glGetString(name:GLenum):map {block?} = R'''
 	const GLubyte *_rtn = glGetString(name);
-	if (_rtn == NULL) {
+	if (_rtn == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid name");
 		return Value::Null;
 	}
@@ -1376,7 +1376,7 @@ glMultMatrixf(m:GLfloat@matrix:const):void = `auto % {`en, 'markdown',
 glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1553,7 +1553,7 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:ma
 glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1568,7 +1568,7 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1583,7 +1583,7 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 glPushMatrix():void {block?} = R'''
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1598,7 +1598,7 @@ glPushMatrix():void {block?} = R'''
 glPushName(name:GLuint):void:map {block?} = R'''
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -1835,8 +1835,8 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`
 }
 
 glSelectBuffer(buffer:array@uint:nil):void = R'''
-	if (buffer == NULL) {
-		glSelectBuffer(0, NULL);
+	if (buffer == nullptr) {
+		glSelectBuffer(0, nullptr);
 	} else {
 		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
 	}
@@ -2084,7 +2084,7 @@ glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
 			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -2110,7 +2110,7 @@ glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
 		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -2159,7 +2159,7 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
 			 width:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -2184,7 +2184,7 @@ glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
 		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Null;
 ''' % {`en, 'markdown',
@@ -2902,7 +2902,7 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	glBeginQuery(target, id);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);

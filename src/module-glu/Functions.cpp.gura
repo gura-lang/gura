@@ -7,7 +7,7 @@ cbridge_glcmn.Implement {
 gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginCurve(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -23,7 +23,7 @@ gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
 	tess->CreatePolygonPack(Value::Null);
 	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -39,7 +39,7 @@ gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
 gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginSurface(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -54,7 +54,7 @@ gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
 gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginTrim(nurb);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -84,7 +84,7 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 
 gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
 	return Value(_rtn);
@@ -126,7 +126,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 
 gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == NULL) return Value::Null;
+	if (p == nullptr) return Value::Null;
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
 	return Value(_rtn);
@@ -434,7 +434,7 @@ gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = 
 gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
 	gluTessBeginContour(tess);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -450,7 +450,7 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 	PolygonPack *pPolygonPack = tess->CreatePolygonPack(polygon_data);
 	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
 	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
+		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
@@ -497,7 +497,7 @@ gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `auto %
 
 gluTessVertex(tess:Object_Tesselator@, location:GLdouble@, vertex_data:any):void = R'''
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
-	if (pPolygonPack == NULL) {
+	if (pPolygonPack == nullptr) {
 		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
 		return Value::Null;
 	}
