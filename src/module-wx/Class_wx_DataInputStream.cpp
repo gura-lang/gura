@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataInputStream: public wxDataInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataInputStream *_pObj;
 public:
-	inline wx_DataInputStream(wxInputStream& stream) : wxDataInputStream(stream), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DataInputStream(wxInputStream& stream, wxMBConv& conv) : wxDataInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataInputStream(wxInputStream& stream) : wxDataInputStream(stream), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DataInputStream(wxInputStream& stream, wxMBConv& conv) : wxDataInputStream(stream, conv), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DataInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataInputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

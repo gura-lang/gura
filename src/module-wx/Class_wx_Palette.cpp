@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Palette: public wxPalette, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Palette *_pObj;
 public:
-	inline wx_Palette() : wxPalette(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Palette(const wxPalette& palette) : wxPalette(palette), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Palette(int n, const unsigned char* red, const unsigned char* green, const unsigned char* blue) : wxPalette(n, red, green, blue), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Palette() : wxPalette(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Palette(const wxPalette& palette) : wxPalette(palette), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Palette(int n, const unsigned char* red, const unsigned char* green, const unsigned char* blue) : wxPalette(n, red, green, blue), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Palette();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Palette *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

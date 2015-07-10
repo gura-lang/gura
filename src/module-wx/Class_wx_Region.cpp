@@ -11,20 +11,20 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Region: public wxRegion, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Region *_pObj;
 public:
-	inline wx_Region() : wxRegion(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxRect& rect) : wxRegion(rect), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxRegion& region) : wxRegion(region), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Region() : wxRegion(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxRect& rect) : wxRegion(rect), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxRegion& region) : wxRegion(region), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Region();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Region *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

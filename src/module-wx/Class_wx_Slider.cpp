@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Slider: public wxSlider, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Slider *_pObj;
 public:
-	inline wx_Slider() : wxSlider(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Slider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& point, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSlider(parent, id, value, minValue, maxValue, point, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Slider() : wxSlider(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Slider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& point, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSlider(parent, id, value, minValue, maxValue, point, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Slider();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Slider *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

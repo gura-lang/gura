@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BitmapButton: public wxBitmapButton, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_BitmapButton *_pObj;
 public:
-	inline wx_BitmapButton() : wxBitmapButton(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_BitmapButton(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxBitmapButton(parent, id, bitmap, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BitmapButton() : wxBitmapButton(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_BitmapButton(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxBitmapButton(parent, id, bitmap, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_BitmapButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BitmapButton *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

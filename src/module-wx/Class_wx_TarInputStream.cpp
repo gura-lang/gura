@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TarInputStream: public wxTarInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TarInputStream *_pObj;
 public:
-	inline wx_TarInputStream(wxInputStream& stream, wxMBConv& conv) : wxTarInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TarInputStream(wxInputStream* stream, wxMBConv& conv) : wxTarInputStream(stream, conv), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TarInputStream(wxInputStream& stream, wxMBConv& conv) : wxTarInputStream(stream, conv), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TarInputStream(wxInputStream* stream, wxMBConv& conv) : wxTarInputStream(stream, conv), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TarInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TarInputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -15,17 +15,17 @@ Gura_DeclarePrivUserSymbol(OnGetLinesHint);
 //----------------------------------------------------------------------------
 class wx_VScrolledWindow: public wxVScrolledWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_VScrolledWindow *_pObj;
 public:
-	//inline wx_VScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVScrolledWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_VScrolledWindow() : wxVScrolledWindow(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_VScrolledWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVScrolledWindow(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_VScrolledWindow() : wxVScrolledWindow(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxCoord EstimateTotalHeight();
 	//virtual wxCoord OnGetLineHeight(size_t n);
 	//virtual void OnGetLinesHint(size_t lineMin, size_t lineMax);
 	~wx_VScrolledWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VScrolledWindow *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

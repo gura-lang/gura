@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_VListBox: public wxVListBox, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_VListBox *_pObj;
 public:
-	//inline wx_VListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVListBox(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_VListBox() : wxVListBox(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_VListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxVListBox(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_VListBox() : wxVListBox(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_VListBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VListBox *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

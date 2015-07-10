@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_File: public wxFile, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_File *_pObj;
 public:
-	inline wx_File() : wxFile(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_File(const wxString& filename, wxFile::OpenMode mode) : wxFile(filename, mode), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_File(int fd) : wxFile(fd), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_File() : wxFile(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_File(const wxString& filename, wxFile::OpenMode mode) : wxFile(filename, mode), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_File(int fd) : wxFile(fd), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_File();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_File *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Sound: public wxSound, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Sound *_pObj;
 public:
-	inline wx_Sound() : wxSound(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Sound() : wxSound(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Sound();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Sound *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

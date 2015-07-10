@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(OnCompareItems);
 class wx_TreeCtrl: public wxTreeCtrl, public GuraObjectObserver {
 private:
 	DECLARE_DYNAMIC_CLASS(wx_TreeCtrl)
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_TreeCtrl> _pObj;
 public:
-	inline wx_TreeCtrl() : wxTreeCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TreeCtrl() : wxTreeCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TreeCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TreeCtrl *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_TreeCtrl::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_TreeCtrl::Reference(pObj));
 	}
 	virtual int OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& item2);
 	// virtual function of GuraObjectObserver
@@ -47,8 +47,8 @@ int wx_TreeCtrl::OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& i
 	valList.reserve(2);
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item1), nullptr, OwnerTrue)));
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item2), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 

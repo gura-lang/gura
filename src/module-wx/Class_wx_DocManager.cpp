@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DocManager: public wxDocManager, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DocManager *_pObj;
 public:
-	inline wx_DocManager(long flags, bool initialize) : wxDocManager(flags, initialize), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DocManager(long flags, bool initialize) : wxDocManager(flags, initialize), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DocManager();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocManager *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

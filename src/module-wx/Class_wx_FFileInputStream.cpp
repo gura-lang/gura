@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FFileInputStream: public wxFFileInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FFileInputStream *_pObj;
 public:
-	//inline wx_FFileInputStream(const wxString& filename, const wxChar * mode) : wxFFileInputStream(filename, mode), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FFileInputStream(wxFFile& file) : wxFFileInputStream(file), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FFileInputStream(FILE * fp) : wxFFileInputStream(fp), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FFileInputStream(const wxString& filename, const wxChar * mode) : wxFFileInputStream(filename, mode), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FFileInputStream(wxFFile& file) : wxFFileInputStream(file), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FFileInputStream(FILE * fp) : wxFFileInputStream(fp), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FFileInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FFileInputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

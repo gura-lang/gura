@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextEvent: public wxRichTextEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextEvent *_pObj;
 public:
-	inline wx_RichTextEvent(const wxRichTextEvent& event) : wxRichTextEvent(event), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextEvent(wxEventType commandType, int winid) : wxRichTextEvent(commandType, winid), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextEvent(const wxRichTextEvent& event) : wxRichTextEvent(event), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextEvent(wxEventType commandType, int winid) : wxRichTextEvent(commandType, winid), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

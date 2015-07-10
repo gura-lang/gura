@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Mask: public wxMask, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Mask *_pObj;
 public:
-	inline wx_Mask() : wxMask(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask() : wxMask(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Mask();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Mask *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

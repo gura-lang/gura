@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Choice: public wxChoice, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Choice *_pObj;
 public:
-	inline wx_Choice() : wxChoice(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Choice() : wxChoice(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Choice(wxWindow * parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxChoice(parent, id, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Choice();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Choice *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

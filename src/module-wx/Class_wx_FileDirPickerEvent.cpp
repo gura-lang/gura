@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileDirPickerEvent: public wxFileDirPickerEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileDirPickerEvent *_pObj;
 public:
-	inline wx_FileDirPickerEvent(wxEventType type, wxObject * generator, int id, const wxString& path) : wxFileDirPickerEvent(type, generator, id, path), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileDirPickerEvent(wxEventType type, wxObject * generator, int id, const wxString& path) : wxFileDirPickerEvent(type, generator, id, path), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FileDirPickerEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDirPickerEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

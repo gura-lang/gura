@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BusyCursor: public wxBusyCursor, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_BusyCursor *_pObj;
 public:
-	inline wx_BusyCursor(wxCursor* cursor) : wxBusyCursor(cursor), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BusyCursor(wxCursor* cursor) : wxBusyCursor(cursor), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_BusyCursor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BusyCursor *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

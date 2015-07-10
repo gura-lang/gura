@@ -29,13 +29,13 @@ Gura_DeclarePrivUserSymbol(Quit);
 //----------------------------------------------------------------------------
 class wx_HelpController: public wxHelpController, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HelpController *_pObj;
 public:
 #if defined(__WXMSW__)
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _pSig(nullptr), _pObj(nullptr) {}
 #else
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _pSig(nullptr), _pObj(nullptr) {}
 #endif
 	//virtual bool Initialize(const wxString& file);
 	//virtual bool Initialize(const wxString& file, int server);
@@ -56,7 +56,7 @@ public:
 	//virtual bool Quit();
 	~wx_HelpController();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpController *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

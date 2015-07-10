@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DateSpan: public wxDateSpan, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DateSpan *_pObj;
 public:
-	inline wx_DateSpan(int years, int months, int weeks, int days) : wxDateSpan(years, months, weeks, days), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DateSpan(int years, int months, int weeks, int days) : wxDateSpan(years, months, weeks, days), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DateSpan();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DateSpan *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

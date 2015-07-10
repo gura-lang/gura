@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HashMap: public wxHashMap, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HashMap *_pObj;
 public:
-	inline wx_HashMap(size_type size) : wxHashMap(size), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_HashMap(const wxHashMap& map) : wxHashMap(map), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HashMap(size_type size) : wxHashMap(size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HashMap(const wxHashMap& map) : wxHashMap(map), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HashMap();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HashMap *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlProperty: public wxXmlProperty, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_XmlProperty *_pObj;
 public:
-	inline wx_XmlProperty() : wxXmlProperty(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlProperty() : wxXmlProperty(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_XmlProperty();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlProperty *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

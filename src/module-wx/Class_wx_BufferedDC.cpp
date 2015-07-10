@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BufferedDC: public wxBufferedDC, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_BufferedDC *_pObj;
 public:
-	inline wx_BufferedDC() : wxBufferedDC(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_BufferedDC(wxDC * dc, const wxSize& area, int style) : wxBufferedDC(dc, area, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_BufferedDC(wxDC * dc, wxBitmap& buffer, int style) : wxBufferedDC(dc, buffer, style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BufferedDC() : wxBufferedDC(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_BufferedDC(wxDC * dc, const wxSize& area, int style) : wxBufferedDC(dc, area, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_BufferedDC(wxDC * dc, wxBitmap& buffer, int style) : wxBufferedDC(dc, buffer, style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_BufferedDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BufferedDC *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

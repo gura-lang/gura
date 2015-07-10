@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ActiveXContainer: public wxActiveXContainer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ActiveXContainer *_pObj;
 public:
-	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ActiveXContainer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ActiveXContainer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

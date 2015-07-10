@@ -18,11 +18,11 @@ Gura_DeclarePrivUserSymbol(SetStatusWidths);
 //----------------------------------------------------------------------------
 class wx_Frame: public wxFrame, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Frame *_pObj;
 public:
-	inline wx_Frame() : wxFrame(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxFrame(parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Frame() : wxFrame(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxFrame(parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxStatusBar* CreateStatusBar(int number, long style, wxWindowID id, const wxString& name);
 	//virtual wxToolBar* CreateToolBar(long style, wxWindowID id, const wxString& name);
 	//virtual wxStatusBar* OnCreateStatusBar(int number, long style, wxWindowID id, const wxString& name);
@@ -31,7 +31,7 @@ public:
 	//virtual void SetStatusWidths(int n, int * widths);
 	~wx_Frame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Frame *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RegionIterator: public wxRegionIterator, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RegionIterator *_pObj;
 public:
-	inline wx_RegionIterator() : wxRegionIterator(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RegionIterator(const wxRegion& region) : wxRegionIterator(region), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegionIterator() : wxRegionIterator(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RegionIterator(const wxRegion& region) : wxRegionIterator(region), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RegionIterator();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegionIterator *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -104,11 +104,11 @@ Gura_DeclarePrivUserSymbol(WindowToClientSize);
 //----------------------------------------------------------------------------
 class wx_Window: public wxWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Window *_pObj;
 public:
-	inline wx_Window() : wxWindow(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Window(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Window() : wxWindow(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Window(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxWindow(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void AddChild(wxWindow* child);
 	//virtual void CaptureMouse();
 	//virtual void ClientToScreen(int* x, int* y);
@@ -203,7 +203,7 @@ public:
 	//virtual wxSize WindowToClientSize(const wxSize& size);
 	~wx_Window();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Window *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -222,10 +222,10 @@ void wx_Window::GuraObjectDeleted()
 bool wx_Window::TransferDataFromWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
 		Gura_UserSymbol(TransferDataFromWindow), ValueList::Null, evaluatedFlag);
-	if (_sig.IsSignalled()) {
-		SetLogError(_sig);
+	if (_pSig->IsSignalled()) {
+		SetLogError(*_pSig);
 		return false;
 	}
 	return rtn.GetBoolean();
@@ -234,10 +234,10 @@ bool wx_Window::TransferDataFromWindow()
 bool wx_Window::TransferDataToWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
 		Gura_UserSymbol(TransferDataToWindow), ValueList::Null, evaluatedFlag);
-	if (_sig.IsSignalled()) {
-		SetLogError(_sig);
+	if (_pSig->IsSignalled()) {
+		SetLogError(*_pSig);
 		return false;
 	}
 	return rtn.GetBoolean();

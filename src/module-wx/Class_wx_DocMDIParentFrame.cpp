@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DocMDIParentFrame: public wxDocMDIParentFrame, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DocMDIParentFrame *_pObj;
 public:
-	inline wx_DocMDIParentFrame() : wxDocMDIParentFrame(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_DocMDIParentFrame(wxDocManager* manager, wxFrame * parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocMDIParentFrame(manager, parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DocMDIParentFrame() : wxDocMDIParentFrame(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DocMDIParentFrame(wxDocManager* manager, wxFrame * parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocMDIParentFrame(manager, parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DocMDIParentFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocMDIParentFrame *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellFloatEditor: public wxGridCellFloatEditor, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridCellFloatEditor *_pObj;
 public:
-	inline wx_GridCellFloatEditor(int width, int precision) : wxGridCellFloatEditor(width, precision), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellFloatEditor(int width, int precision) : wxGridCellFloatEditor(width, precision), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellFloatEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellFloatEditor *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

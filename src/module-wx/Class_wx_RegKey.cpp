@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RegKey: public wxRegKey, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RegKey *_pObj;
 public:
-	inline wx_RegKey() : wxRegKey(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RegKey(const wxString& strKey) : wxRegKey(strKey), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RegKey(const wxRegKey& keyParent, const wxString& strKey) : wxRegKey(keyParent, strKey), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegKey() : wxRegKey(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RegKey(const wxString& strKey) : wxRegKey(strKey), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RegKey(const wxRegKey& keyParent, const wxString& strKey) : wxRegKey(keyParent, strKey), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RegKey();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegKey *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

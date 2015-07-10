@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(AddToolbarButtons);
 //----------------------------------------------------------------------------
 class wx_HtmlHelpFrame: public wxHtmlHelpFrame, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HtmlHelpFrame *_pObj;
 public:
-	inline wx_HtmlHelpFrame(wxHtmlHelpData* data) : wxHtmlHelpFrame(data), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_HtmlHelpFrame(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpFrame(parent, wxWindowID, title, style, data), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpFrame(wxHtmlHelpData* data) : wxHtmlHelpFrame(data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpFrame(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpFrame(parent, wxWindowID, title, style, data), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpFrame *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

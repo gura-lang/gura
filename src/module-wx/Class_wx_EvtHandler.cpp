@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(SearchEventTable);
 //----------------------------------------------------------------------------
 class wx_EvtHandler: public wxEvtHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_EvtHandler *_pObj;
 public:
-	inline wx_EvtHandler() : wxEvtHandler(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_EvtHandler() : wxEvtHandler(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool ProcessEvent(wxEvent& event);
 	//virtual bool SearchEventTable(wxEventTable& table, wxEvent& event);
 	~wx_EvtHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_EvtHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	void ObjectEventFunction(wxEvent &event);
 	// virtual function of GuraObjectObserver

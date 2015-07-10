@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LayoutAlgorithm: public wxLayoutAlgorithm, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LayoutAlgorithm *_pObj;
 public:
-	inline wx_LayoutAlgorithm() : wxLayoutAlgorithm(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LayoutAlgorithm() : wxLayoutAlgorithm(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LayoutAlgorithm();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LayoutAlgorithm *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

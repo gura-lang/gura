@@ -11,19 +11,19 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CmdLineParser: public wxCmdLineParser, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CmdLineParser *_pObj;
 public:
-	//inline wx_CmdLineParser() : wxCmdLineParser(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser() : wxCmdLineParser(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CmdLineParser();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CmdLineParser *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

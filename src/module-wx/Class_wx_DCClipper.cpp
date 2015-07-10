@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DCClipper: public wxDCClipper, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DCClipper *_pObj;
 public:
-	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DCClipper();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DCClipper *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

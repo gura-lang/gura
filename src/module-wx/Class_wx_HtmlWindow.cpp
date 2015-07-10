@@ -21,11 +21,11 @@ Gura_DeclarePrivUserSymbol(WriteCustomization);
 //----------------------------------------------------------------------------
 class wx_HtmlWindow: public wxHtmlWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_HtmlWindow> _pObj;
 public:
-	inline wx_HtmlWindow() : wxHtmlWindow(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_HtmlWindow(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlWindow(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlWindow() : wxHtmlWindow(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlWindow(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlWindow(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool LoadFile(const wxFileName& filename);
 	//virtual bool LoadPage(const wxString& location);
 	virtual bool OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const wxMouseEvent& event);
@@ -37,7 +37,7 @@ public:
 	//virtual void WriteCustomization(wxConfigBase *cfg, wxString path);
 	~wx_HtmlWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlWindow *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_HtmlWindow::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_HtmlWindow::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -79,8 +79,8 @@ bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const 
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(new Object_wx_MouseEvent(const_cast<wxMouseEvent *>(&event), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -97,8 +97,8 @@ void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 	valList.push_back(Value(new Object_wx_HtmlCell(cell, nullptr, OwnerFalse)));
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
@@ -112,8 +112,8 @@ void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_HtmlLinkInfo(const_cast<wxHtmlLinkInfo *>(&link), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxString& url, wxString * redirect)
@@ -125,15 +125,15 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 	valList.reserve(2);
 	valList.push_back(Value(type));
 	valList.push_back(Value(url.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_list)) return wxHTML_OPEN;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_list)) return wxHTML_OPEN;
 	ValueList &valListRtn = rtn.GetList();
 	if (valListRtn.size() != 2) {
-		_sig.SetError(ERR_ValueError, "a list of two elements is expected");
+		_pSig->SetError(ERR_ValueError, "a list of two elements is expected");
 		return wxHTML_OPEN;
 	}
 	if (!valListRtn[0].Is_number() || valListRtn[1].Is_string()) {
-		_sig.SetError(ERR_ValueError, "unexpected result type");
+		_pSig->SetError(ERR_ValueError, "unexpected result type");
 		return wxHTML_OPEN;
 	}
 	*redirect = wxString::FromUTF8(valListRtn[1].GetString());
@@ -151,8 +151,8 @@ void wx_HtmlWindow::OnSetTitle(const wxString& title)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(title.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 //----------------------------------------------------------------------------

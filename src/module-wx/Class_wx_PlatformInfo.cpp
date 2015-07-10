@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PlatformInfo: public wxPlatformInfo, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PlatformInfo *_pObj;
 public:
-	inline wx_PlatformInfo() : wxPlatformInfo(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_PlatformInfo(wxPortId pid, int tkMajor, int tkMinor, wxOperatingSystemId id, int osMajor, int osMinor, wxArchitecture arch, wxEndianness endian) : wxPlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PlatformInfo() : wxPlatformInfo(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PlatformInfo(wxPortId pid, int tkMajor, int tkMinor, wxOperatingSystemId id, int osMajor, int osMinor, wxArchitecture arch, wxEndianness endian) : wxPlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PlatformInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PlatformInfo *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

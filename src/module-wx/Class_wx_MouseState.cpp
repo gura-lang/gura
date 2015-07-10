@@ -17,13 +17,13 @@ Gura_DeclarePrivUserSymbol(Description);
 //----------------------------------------------------------------------------
 class wx_MouseState: public wxMouseState, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MouseState *_pObj;
 public:
-	inline wx_MouseState() : wxMouseState(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MouseState() : wxMouseState(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MouseState();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseState *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

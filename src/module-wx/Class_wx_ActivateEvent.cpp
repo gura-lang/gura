@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ActivateEvent: public wxActivateEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ActivateEvent *_pObj;
 public:
-	inline wx_ActivateEvent(WXTYPE eventType, bool active, int id) : wxActivateEvent(eventType, active, id), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ActivateEvent(WXTYPE eventType, bool active, int id) : wxActivateEvent(eventType, active, id), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ActivateEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ActivateEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

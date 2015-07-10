@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SplashScreen: public wxSplashScreen, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SplashScreen *_pObj;
 public:
-	inline wx_SplashScreen(const wxBitmap& bitmap, long splashStyle, int milliseconds, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxSplashScreen(bitmap, splashStyle, milliseconds, parent, id, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SplashScreen(const wxBitmap& bitmap, long splashStyle, int milliseconds, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxSplashScreen(bitmap, splashStyle, milliseconds, parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SplashScreen();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SplashScreen *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

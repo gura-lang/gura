@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DateTime: public wxDateTime, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DateTime *_pObj;
 public:
-	//inline wx_DateTime() : wxDateTime(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime() : wxDateTime(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DateTime();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DateTime *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

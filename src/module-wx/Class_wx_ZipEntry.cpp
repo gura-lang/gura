@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ZipEntry: public wxZipEntry, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ZipEntry *_pObj;
 public:
-	inline wx_ZipEntry(const wxString& name, const wxDateTime& dt, off_t size) : wxZipEntry(name, dt, size), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ZipEntry(const wxZipEntry& entry) : wxZipEntry(entry), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ZipEntry(const wxString& name, const wxDateTime& dt, off_t size) : wxZipEntry(name, dt, size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ZipEntry(const wxZipEntry& entry) : wxZipEntry(entry), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ZipEntry();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZipEntry *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

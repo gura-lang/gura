@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewToggleRenderer: public wxDataViewToggleRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataViewToggleRenderer *_pObj;
 public:
-	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewToggleRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewToggleRenderer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

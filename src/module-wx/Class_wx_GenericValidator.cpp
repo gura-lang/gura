@@ -15,20 +15,20 @@ Gura_DeclarePrivUserSymbol(TransferToWindow);
 //----------------------------------------------------------------------------
 class wx_GenericValidator: public wxGenericValidator, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GenericValidator *_pObj;
 public:
-	inline wx_GenericValidator(const wxGenericValidator& validator) : wxGenericValidator(validator), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_GenericValidator(bool* valPtr) : wxGenericValidator(valPtr), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_GenericValidator(wxString* valPtr) : wxGenericValidator(valPtr), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_GenericValidator(int* valPtr) : wxGenericValidator(valPtr), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_GenericValidator(wxArrayInt* valPtr) : wxGenericValidator(valPtr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GenericValidator(const wxGenericValidator& validator) : wxGenericValidator(validator), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_GenericValidator(bool* valPtr) : wxGenericValidator(valPtr), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_GenericValidator(wxString* valPtr) : wxGenericValidator(valPtr), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_GenericValidator(int* valPtr) : wxGenericValidator(valPtr), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_GenericValidator(wxArrayInt* valPtr) : wxGenericValidator(valPtr), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxValidator* Clone();
 	//virtual bool TransferFromWindow();
 	//virtual bool TransferToWindow();
 	~wx_GenericValidator();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GenericValidator *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

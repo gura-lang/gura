@@ -18,13 +18,13 @@ Gura_DeclarePrivUserSymbol(OnDismiss);
 //----------------------------------------------------------------------------
 class wx_PopupTransientWindow: public wxPopupTransientWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_PopupTransientWindow> _pObj;
 public:
-	inline wx_PopupTransientWindow(wxWindow* parent, long style) : wxPopupTransientWindow(parent, style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PopupTransientWindow(wxWindow* parent, long style) : wxPopupTransientWindow(parent, style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PopupTransientWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PopupTransientWindow *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_PopupTransientWindow::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_PopupTransientWindow::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,8 +60,8 @@ void wx_PopupTransientWindow::Popup(wxWindow *focus)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_Window(focus, nullptr, OwnerFalse)));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 void wx_PopupTransientWindow::Dismiss()
@@ -71,16 +71,16 @@ void wx_PopupTransientWindow::Dismiss()
 		wxPopupTransientWindow::Dismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	CheckMethodResult(*_pSig);
 }
 
 bool wx_PopupTransientWindow::CanDismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanDismiss);
 	if (pFunc == nullptr) return wxPopupTransientWindow::CanDismiss();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -91,8 +91,8 @@ bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_MouseEvent(new wxMouseEvent(event), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -103,8 +103,8 @@ bool wx_PopupTransientWindow::Show(bool show)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(show));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -115,8 +115,8 @@ void wx_PopupTransientWindow::OnDismiss()
 		wxPopupTransientWindow::OnDismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	CheckMethodResult(*_pSig);
 }
 
 //----------------------------------------------------------------------------

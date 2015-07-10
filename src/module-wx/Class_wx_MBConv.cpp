@@ -16,17 +16,17 @@ Gura_DeclarePrivUserSymbol(ToWChar);
 //----------------------------------------------------------------------------
 class wx_MBConv: public wxMBConv, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MBConv *_pObj;
 public:
-	//inline wx_MBConv() : wxMBConv(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_MBConv() : wxMBConv(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual size_t MB2WC(wchar_t * out, const char * in, size_t outLen);
 	//virtual size_t WC2MB(char* buf, const wchar_t* psz, size_t n);
 	//virtual size_t FromWChar(char_t * dst, size_t dstLen, const wchar_t * src, size_t srcLen);
 	//virtual size_t ToWChar(wchar_t * dst, size_t dstLen, const char_t * src, size_t srcLen);
 	~wx_MBConv();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MBConv *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

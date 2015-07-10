@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PrinterDC: public wxPrinterDC, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PrinterDC *_pObj;
 public:
-	inline wx_PrinterDC(const wxPrintData& printData) : wxPrinterDC(printData), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PrinterDC(const wxPrintData& printData) : wxPrinterDC(printData), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PrinterDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrinterDC *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

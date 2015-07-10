@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LongLong: public wxLongLong, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LongLong *_pObj;
 public:
-	//inline wx_LongLong() : wxLongLong(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_LongLong(wxLongLong_t ll) : wxLongLong(ll), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_LongLong(long hi, unsigned long lo) : wxLongLong(hi, lo), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_LongLong() : wxLongLong(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_LongLong(wxLongLong_t ll) : wxLongLong(ll), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_LongLong(long hi, unsigned long lo) : wxLongLong(hi, lo), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LongLong();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LongLong *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

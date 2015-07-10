@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogStream: public wxLogStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LogStream *_pObj;
 public:
-	inline wx_LogStream(std::ostream *ostr) : wxLogStream(*ostr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LogStream(std::ostream *ostr) : wxLogStream(*ostr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LogStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

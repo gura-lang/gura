@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DocChildFrame: public wxDocChildFrame, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DocChildFrame *_pObj;
 public:
-	inline wx_DocChildFrame(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DocChildFrame(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DocChildFrame();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocChildFrame *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

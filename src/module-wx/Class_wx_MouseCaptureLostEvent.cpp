@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MouseCaptureLostEvent: public wxMouseCaptureLostEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MouseCaptureLostEvent *_pObj;
 public:
-	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MouseCaptureLostEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseCaptureLostEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

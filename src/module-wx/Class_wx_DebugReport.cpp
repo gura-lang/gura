@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DebugReport: public wxDebugReport, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DebugReport *_pObj;
 public:
-	inline wx_DebugReport() : wxDebugReport(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DebugReport() : wxDebugReport(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DebugReport();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReport *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

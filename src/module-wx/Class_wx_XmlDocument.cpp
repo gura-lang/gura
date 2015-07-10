@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlDocument: public wxXmlDocument, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_XmlDocument *_pObj;
 public:
-	inline wx_XmlDocument() : wxXmlDocument(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_XmlDocument(const wxString& filename, const wxString& encoding, int flags) : wxXmlDocument(filename, encoding, flags), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_XmlDocument(wxInputStream& stream, const wxString& encoding, int flags) : wxXmlDocument(stream, encoding, flags), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlDocument(const wxXmlDocument& doc) : wxXmlDocument(doc), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlDocument() : wxXmlDocument(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlDocument(const wxString& filename, const wxString& encoding, int flags) : wxXmlDocument(filename, encoding, flags), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlDocument(wxInputStream& stream, const wxString& encoding, int flags) : wxXmlDocument(stream, encoding, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlDocument(const wxXmlDocument& doc) : wxXmlDocument(doc), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_XmlDocument();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlDocument *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

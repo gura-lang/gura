@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MaximizeEvent: public wxMaximizeEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MaximizeEvent *_pObj;
 public:
-	inline wx_MaximizeEvent(int id) : wxMaximizeEvent(id), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MaximizeEvent(int id) : wxMaximizeEvent(id), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MaximizeEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MaximizeEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

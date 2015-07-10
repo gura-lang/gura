@@ -11,17 +11,17 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Rect: public wxRect, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Rect *_pObj;
 public:
-	inline wx_Rect() : wxRect(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(int x, int y, int width, int height) : wxRect(x, y, width, height), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRect(topLeft, bottomRight), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxPoint& pos, const wxSize& size) : wxRect(pos, size), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxSize& size) : wxRect(size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect() : wxRect(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect(int x, int y, int width, int height) : wxRect(x, y, width, height), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRect(topLeft, bottomRight), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect(const wxPoint& pos, const wxSize& size) : wxRect(pos, size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect(const wxSize& size) : wxRect(size), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Rect();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Rect *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

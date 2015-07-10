@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HelpControllerHelpProvider: public wxHelpControllerHelpProvider, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HelpControllerHelpProvider *_pObj;
 public:
-	inline wx_HelpControllerHelpProvider(wxHelpControllerBase* hc) : wxHelpControllerHelpProvider(hc), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpControllerHelpProvider(wxHelpControllerBase* hc) : wxHelpControllerHelpProvider(hc), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HelpControllerHelpProvider();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpControllerHelpProvider *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

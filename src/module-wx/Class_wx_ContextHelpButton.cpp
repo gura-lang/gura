@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ContextHelpButton: public wxContextHelpButton, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ContextHelpButton *_pObj;
 public:
-	//inline wx_ContextHelpButton() : wxContextHelpButton(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ContextHelpButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxContextHelpButton(parent, id, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ContextHelpButton() : wxContextHelpButton(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ContextHelpButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxContextHelpButton(parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ContextHelpButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ContextHelpButton *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

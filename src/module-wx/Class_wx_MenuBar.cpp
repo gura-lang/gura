@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MenuBar: public wxMenuBar, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MenuBar *_pObj;
 public:
-	inline wx_MenuBar(long style) : wxMenuBar(style), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MenuBar(long style) : wxMenuBar(style), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MenuBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MenuBar *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

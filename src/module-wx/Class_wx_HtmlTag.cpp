@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlTag: public wxHtmlTag, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HtmlTag *_pObj;
 public:
-	//inline wx_HtmlTag(wxHtmlTag * parent, const wxString& source, int pos, int end_pos, wxHtmlTagsCache* cache, wxHtmlEntitiesParser * entParser) : wxHtmlTag(parent, source, pos, end_pos, cache, entParser), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlTag(wxHtmlTag * parent, const wxString& source, int pos, int end_pos, wxHtmlTagsCache* cache, wxHtmlEntitiesParser * entParser) : wxHtmlTag(parent, source, pos, end_pos, cache, entParser), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlTag();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlTag *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

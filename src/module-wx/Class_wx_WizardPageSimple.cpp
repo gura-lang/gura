@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_WizardPageSimple: public wxWizardPageSimple, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_WizardPageSimple *_pObj;
 public:
-	inline wx_WizardPageSimple(wxWizard* parent, wxWizardPage* prev, wxWizardPage* next, const wxBitmap& bitmap) : wxWizardPageSimple(parent, prev, next, bitmap), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_WizardPageSimple(wxWizard* parent, wxWizardPage* prev, wxWizardPage* next, const wxBitmap& bitmap) : wxWizardPageSimple(parent, prev, next, bitmap), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_WizardPageSimple();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardPageSimple *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

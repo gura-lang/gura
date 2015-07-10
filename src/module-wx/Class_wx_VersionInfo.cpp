@@ -10,15 +10,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_VersionInfo: public wxVersionInfo, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_VersionInfo *_pObj;
 public:
-	inline wx_VersionInfo() : wxVersionInfo(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_VersionInfo() : wxVersionInfo(), _pSig(nullptr), _pObj(nullptr) {}
 	inline wx_VersionInfo(const wxString &name, int major, int minor, int micro, const wxString &description, const wxString &copyright) :
 				wxVersionInfo(name, major, minor, micro, description, copyright) {}
 	~wx_VersionInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VersionInfo *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

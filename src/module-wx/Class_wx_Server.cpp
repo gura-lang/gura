@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(OnAcceptConnection);
 //----------------------------------------------------------------------------
 class wx_Server: public wxServer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Server *_pObj;
 public:
-	inline wx_Server() : wxServer(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Server() : wxServer(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxConnectionBase * OnAcceptConnection(const wxString& topic);
 	~wx_Server();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Server *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

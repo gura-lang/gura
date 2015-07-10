@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DialUpEvent: public wxDialUpEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DialUpEvent *_pObj;
 public:
-	inline wx_DialUpEvent(bool isConnected, bool isOwnEvent) : wxDialUpEvent(isConnected, isOwnEvent), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DialUpEvent(bool isConnected, bool isOwnEvent) : wxDialUpEvent(isConnected, isOwnEvent), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DialUpEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DialUpEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

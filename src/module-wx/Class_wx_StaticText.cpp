@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(SetLabel);
 //----------------------------------------------------------------------------
 class wx_StaticText: public wxStaticText, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StaticText *_pObj;
 public:
-	inline wx_StaticText() : wxStaticText(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticText(parent, id, label, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticText() : wxStaticText(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticText(parent, id, label, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void SetLabel(const wxString& label);
 	~wx_StaticText();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticText *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

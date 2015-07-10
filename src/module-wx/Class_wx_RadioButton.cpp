@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RadioButton: public wxRadioButton, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RadioButton *_pObj;
 public:
-	inline wx_RadioButton() : wxRadioButton(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxRadioButton(parent, id, label, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RadioButton() : wxRadioButton(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxRadioButton(parent, id, label, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RadioButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RadioButton *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

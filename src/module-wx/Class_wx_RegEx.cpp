@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RegEx: public wxRegEx, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RegEx *_pObj;
 public:
-	inline wx_RegEx() : wxRegEx(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RegEx(const wxString& expr, int flags) : wxRegEx(expr, flags), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RegEx() : wxRegEx(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RegEx(const wxString& expr, int flags) : wxRegEx(expr, flags), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RegEx();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegEx *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

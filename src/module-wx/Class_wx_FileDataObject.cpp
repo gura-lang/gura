@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(AddFile);
 //----------------------------------------------------------------------------
 class wx_FileDataObject: public wxFileDataObject, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileDataObject *_pObj;
 public:
-	inline wx_FileDataObject() : wxFileDataObject(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileDataObject() : wxFileDataObject(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void AddFile(const wxString& file);
 	~wx_FileDataObject();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDataObject *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

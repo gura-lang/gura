@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(GiveFeedback);
 //----------------------------------------------------------------------------
 class wx_DropSource: public wxDropSource, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DropSource *_pObj;
 public:
-	//inline wx_DropSource(wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(win, iconCopy, iconMove, iconNone), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DropSource(wxDataObject& data, wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(data, win, iconCopy, iconMove, iconNone), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_DropSource(wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(win, iconCopy, iconMove, iconNone), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DropSource(wxDataObject& data, wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(data, win, iconCopy, iconMove, iconNone), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxDragResult DoDragDrop(int flags);
 	//virtual bool GiveFeedback(wxDragResult effect);
 	~wx_DropSource();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DropSource *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

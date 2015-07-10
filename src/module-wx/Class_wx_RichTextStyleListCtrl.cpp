@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextStyleListCtrl: public wxRichTextStyleListCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextStyleListCtrl *_pObj;
 public:
-	inline wx_RichTextStyleListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListCtrl(parent, id, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextStyleListCtrl() : wxRichTextStyleListCtrl(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextStyleListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListCtrl(parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextStyleListCtrl() : wxRichTextStyleListCtrl(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextStyleListCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleListCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

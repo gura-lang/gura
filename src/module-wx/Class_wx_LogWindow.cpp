@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(OnFrameDelete);
 //----------------------------------------------------------------------------
 class wx_LogWindow: public wxLogWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LogWindow *_pObj;
 public:
-	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void OnFrameCreate(wxFrame *frame);
 	//virtual bool OnFrameClose(wxFrame *frame);
 	//virtual void OnFrameDelete(wxFrame *frame);
 	~wx_LogWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogWindow *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

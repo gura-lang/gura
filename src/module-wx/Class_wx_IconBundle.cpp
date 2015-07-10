@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_IconBundle: public wxIconBundle, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_IconBundle *_pObj;
 public:
-	inline wx_IconBundle() : wxIconBundle(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_IconBundle(const wxString& file, long type) : wxIconBundle(file, type), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_IconBundle(const wxIcon& icon) : wxIconBundle(icon), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_IconBundle(const wxIconBundle& ic) : wxIconBundle(ic), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_IconBundle() : wxIconBundle(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IconBundle(const wxString& file, long type) : wxIconBundle(file, type), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IconBundle(const wxIcon& icon) : wxIconBundle(icon), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IconBundle(const wxIconBundle& ic) : wxIconBundle(ic), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_IconBundle();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IconBundle *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

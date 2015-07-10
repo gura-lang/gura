@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridRangeSelectEvent: public wxGridRangeSelectEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridRangeSelectEvent *_pObj;
 public:
-	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridRangeSelectEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridRangeSelectEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

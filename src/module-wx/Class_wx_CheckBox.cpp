@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CheckBox: public wxCheckBox, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CheckBox *_pObj;
 public:
-	inline wx_CheckBox() : wxCheckBox(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_CheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxCheckBox(parent, id, label, pos, size, style, val, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CheckBox() : wxCheckBox(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& val, const wxString& name) : wxCheckBox(parent, id, label, pos, size, style, val, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CheckBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CheckBox *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

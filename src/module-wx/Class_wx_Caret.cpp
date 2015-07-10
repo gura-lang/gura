@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Caret: public wxCaret, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Caret *_pObj;
 public:
-	inline wx_Caret() : wxCaret(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret() : wxCaret(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Caret();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Caret *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

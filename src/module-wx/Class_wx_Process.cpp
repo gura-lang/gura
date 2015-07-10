@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Process: public wxProcess, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Process *_pObj;
 public:
-	inline wx_Process(wxEvtHandler * parent, int id) : wxProcess(parent, id), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Process(int flags) : wxProcess(flags), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Process(wxEvtHandler * parent, int id) : wxProcess(parent, id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Process(int flags) : wxProcess(flags), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Process();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Process *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

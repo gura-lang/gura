@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ListItemAttr: public wxListItemAttr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ListItemAttr *_pObj;
 public:
-	inline wx_ListItemAttr() : wxListItemAttr(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ListItemAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font) : wxListItemAttr(colText, colBack, font), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ListItemAttr() : wxListItemAttr(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ListItemAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font) : wxListItemAttr(colText, colBack, font), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ListItemAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListItemAttr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellAttr: public wxGridCellAttr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridCellAttr *_pObj;
 public:
-	inline wx_GridCellAttr() : wxGridCellAttr(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GridCellAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, int hAlign, int vAlign) : wxGridCellAttr(colText, colBack, font, hAlign, vAlign), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellAttr() : wxGridCellAttr(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, int hAlign, int vAlign) : wxGridCellAttr(colText, colBack, font, hAlign, vAlign), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellAttr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

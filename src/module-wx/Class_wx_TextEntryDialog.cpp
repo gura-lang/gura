@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextEntryDialog: public wxTextEntryDialog, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TextEntryDialog *_pObj;
 public:
-	inline wx_TextEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxTextEntryDialog(parent, message, caption, defaultValue, style, pos), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxTextEntryDialog(parent, message, caption, defaultValue, style, pos), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TextEntryDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextEntryDialog *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MBConvUTF16: public wxMBConvUTF16, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MBConvUTF16 *_pObj;
 public:
 	~wx_MBConvUTF16();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MBConvUTF16 *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Size: public wxSize, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Size *_pObj;
 public:
-	inline wx_Size() : wxSize(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Size(int width, int height) : wxSize(width, height), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Size() : wxSize(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Size(int width, int height) : wxSize(width, height), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Size();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Size *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

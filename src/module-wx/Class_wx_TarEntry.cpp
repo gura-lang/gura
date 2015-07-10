@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TarEntry: public wxTarEntry, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TarEntry *_pObj;
 public:
-	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TarEntry();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TarEntry *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

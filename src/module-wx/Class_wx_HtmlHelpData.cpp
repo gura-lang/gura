@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlHelpData: public wxHtmlHelpData, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HtmlHelpData *_pObj;
 public:
-	inline wx_HtmlHelpData() : wxHtmlHelpData(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpData() : wxHtmlHelpData(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HtmlHelpData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpData *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

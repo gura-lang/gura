@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StaticBoxSizer: public wxStaticBoxSizer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StaticBoxSizer *_pObj;
 public:
-	inline wx_StaticBoxSizer(wxStaticBox* box, int orient) : wxStaticBoxSizer(box, orient), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StaticBoxSizer(int orient, wxWindow *parent, const wxString& label) : wxStaticBoxSizer(orient, parent, label), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticBoxSizer(wxStaticBox* box, int orient) : wxStaticBoxSizer(box, orient), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticBoxSizer(int orient, wxWindow *parent, const wxString& label) : wxStaticBoxSizer(orient, parent, label), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_StaticBoxSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticBoxSizer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

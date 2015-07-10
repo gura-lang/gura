@@ -14,23 +14,23 @@ Gura_DeclarePrivUserSymbol(Create_1);
 //----------------------------------------------------------------------------
 class wx_Bitmap : public wxBitmap, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Bitmap *_pObj;
 public:
-	inline wx_Bitmap() : wxBitmap(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const wxBitmap& bitmap) : wxBitmap(bitmap), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Bitmap(const void* data, int type, int width, int height, int depth) : wxBitmap(data, type, width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const char bits[], int width, int height, int depth) : wxBitmap(bits, width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(int width, int height, int depth) : wxBitmap(width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const char* const* bits) : wxBitmap(bits), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const wxString& name, wxBitmapType type) : wxBitmap(name, type), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const wxImage& img, int depth) : wxBitmap(img, depth), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Bitmap(const wxIcon& icon) : wxBitmap(icon), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap() : wxBitmap(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const wxBitmap& bitmap) : wxBitmap(bitmap), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Bitmap(const void* data, int type, int width, int height, int depth) : wxBitmap(data, type, width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const char bits[], int width, int height, int depth) : wxBitmap(bits, width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(int width, int height, int depth) : wxBitmap(width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const char* const* bits) : wxBitmap(bits), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const wxString& name, wxBitmapType type) : wxBitmap(name, type), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const wxImage& img, int depth) : wxBitmap(img, depth), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Bitmap(const wxIcon& icon) : wxBitmap(icon), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool Create(int width, int height, int depth);
 	//virtual bool Create(const void* data, int type, int width, int height, int depth);
 	~wx_Bitmap();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Bitmap *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

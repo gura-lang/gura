@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SymbolPickerDialog: public wxSymbolPickerDialog, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SymbolPickerDialog *_pObj;
 public:
-	inline wx_SymbolPickerDialog(const wxString& symbol, const wxString& initialFont, const wxString& normalTextFont, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxSymbolPickerDialog(symbol, initialFont, normalTextFont, parent, id, title, pos, size, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SymbolPickerDialog() : wxSymbolPickerDialog(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SymbolPickerDialog(const wxString& symbol, const wxString& initialFont, const wxString& normalTextFont, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxSymbolPickerDialog(symbol, initialFont, normalTextFont, parent, id, title, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SymbolPickerDialog() : wxSymbolPickerDialog(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SymbolPickerDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SymbolPickerDialog *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

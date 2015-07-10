@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AuiPaneInfo: public wxAuiPaneInfo, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_AuiPaneInfo *_pObj;
 public:
-	inline wx_AuiPaneInfo() : wxAuiPaneInfo(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_AuiPaneInfo(const wxAuiPaneInfo& c) : wxAuiPaneInfo(c), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiPaneInfo() : wxAuiPaneInfo(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiPaneInfo(const wxAuiPaneInfo& c) : wxAuiPaneInfo(c), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_AuiPaneInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiPaneInfo *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

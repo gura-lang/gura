@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileHistory: public wxFileHistory, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileHistory *_pObj;
 public:
-	inline wx_FileHistory(size_t maxFiles, wxWindowID idBase) : wxFileHistory(maxFiles, idBase), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileHistory(size_t maxFiles, wxWindowID idBase) : wxFileHistory(maxFiles, idBase), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FileHistory();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileHistory *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

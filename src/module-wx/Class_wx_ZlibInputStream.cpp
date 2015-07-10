@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ZlibInputStream: public wxZlibInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ZlibInputStream *_pObj;
 public:
-	inline wx_ZlibInputStream(wxInputStream* stream, int flags) : wxZlibInputStream(stream, flags), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ZlibInputStream(wxInputStream* stream, int flags) : wxZlibInputStream(stream, flags), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ZlibInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZlibInputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

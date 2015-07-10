@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PaintDC: public wxPaintDC, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PaintDC *_pObj;
 public:
-	inline wx_PaintDC(wxWindow* window) : wxPaintDC(window), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PaintDC(wxWindow* window) : wxPaintDC(window), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PaintDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PaintDC *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

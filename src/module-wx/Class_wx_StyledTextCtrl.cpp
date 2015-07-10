@@ -10,14 +10,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StyledTextCtrl: public wxStyledTextCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StyledTextCtrl *_pObj;
 public:
-	inline wx_StyledTextCtrl() : wxStyledTextCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StyledTextCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStyledTextCtrl(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StyledTextCtrl() : wxStyledTextCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StyledTextCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStyledTextCtrl(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_StyledTextCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StyledTextCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

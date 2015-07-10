@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridEvent: public wxGridEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridEvent *_pObj;
 public:
-	inline wx_GridEvent() : wxGridEvent(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GridEvent(int id, wxEventType type, wxObject* obj, int row, int col, int x, int y, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridEvent(id, type, obj, row, col, x, y, sel, control, shift, alt, meta), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridEvent() : wxGridEvent(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridEvent(int id, wxEventType type, wxObject* obj, int row, int col, int x, int y, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridEvent(id, type, obj, row, col, x, y, sel, control, shift, alt, meta), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

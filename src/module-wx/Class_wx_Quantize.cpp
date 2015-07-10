@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Quantize: public wxQuantize, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Quantize *_pObj;
 public:
-	inline wx_Quantize() : wxQuantize(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Quantize() : wxQuantize(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Quantize();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Quantize *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

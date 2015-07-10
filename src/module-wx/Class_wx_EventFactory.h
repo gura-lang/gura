@@ -105,16 +105,16 @@ public:
 class EventHandlerPack : public wxObject {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal _sig;
+	Signal *_pSig;
 	AutoPtr<Object_function> _pObjFunc;
 	AutoPtr<Object_wx_EventFactory> _pEventFactory;
 public:
 	inline EventHandlerPack(Environment &env, Signal &sig,
 				Object_function *pObjFunc, Object_wx_EventFactory *pEventFactory) :
-		_pEnv(new Environment(env)), _sig(sig), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
+		_pEnv(new Environment(env)), _pSig(&sig), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
 	virtual ~EventHandlerPack();
 	void Eval(wxEvent &event);
-	Signal &GetSignal() { return _sig; }
+	Signal &GetSignal() { return *_pSig; }
 };
 
 Gura_EndModuleScope(wx)

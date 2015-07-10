@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MetafileDC: public wxMetafileDC, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MetafileDC *_pObj;
 public:
-	inline wx_MetafileDC(const wxString& filename) : wxMetafileDC(filename), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MetafileDC(const wxString& filename) : wxMetafileDC(filename), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MetafileDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MetafileDC *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

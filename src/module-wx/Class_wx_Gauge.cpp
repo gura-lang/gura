@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Gauge: public wxGauge, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Gauge *_pObj;
 public:
-	inline wx_Gauge() : wxGauge(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Gauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxGauge(parent, id, range, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Gauge() : wxGauge(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Gauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxGauge(parent, id, range, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Gauge();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Gauge *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

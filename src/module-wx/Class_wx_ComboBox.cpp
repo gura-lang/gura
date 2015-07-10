@@ -13,16 +13,16 @@ Gura_DeclarePrivUserSymbol(GetLastPosition);
 //----------------------------------------------------------------------------
 class wx_ComboBox: public wxComboBox, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ComboBox *_pObj;
 public:
-	inline wx_ComboBox() : wxComboBox(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboBox() : wxComboBox(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxTextPos GetLastPosition();
 	~wx_ComboBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboBox *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

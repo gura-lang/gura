@@ -15,7 +15,7 @@ Gura_DeclarePrivUserSymbol(Flush);
 //----------------------------------------------------------------------------
 class wx_Log: public wxLog, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Log *_pObj;
 public:
 	//virtual void DoLog(wxLogLevel level, const wxChar *msg, time_t timestamp);
@@ -23,7 +23,7 @@ public:
 	//virtual void Flush();
 	~wx_Log();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Log *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,20 +11,20 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Cursor: public wxCursor, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Cursor *_pObj;
 public:
-	inline wx_Cursor() : wxCursor(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor() : wxCursor(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _pSig(nullptr), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _pSig(nullptr), _pObj(nullptr) {}
 #endif
-	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Cursor(const wxImage& image) : wxCursor(image), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Cursor(const wxCursor& cursor) : wxCursor(cursor), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(const wxImage& image) : wxCursor(image), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(const wxCursor& cursor) : wxCursor(cursor), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Cursor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Cursor *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

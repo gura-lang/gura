@@ -26,10 +26,10 @@ Gura_DeclarePrivUserSymbol(StartDrag);
 //----------------------------------------------------------------------------
 class wx_DataViewCustomRenderer: public wxDataViewCustomRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataViewCustomRenderer *_pObj;
 public:
-	inline wx_DataViewCustomRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewCustomRenderer(varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewCustomRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewCustomRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
 	// wxDataViewRenderer
 	virtual wxDataViewCellMode GetMode();
 	virtual wxDataViewColumn* GetOwner();
@@ -48,7 +48,7 @@ public:
 	virtual bool StartDrag(wxPoint cursor, wxRect cell, wxDataViewListModel* model, unsigned int col, unsigned int row);
 	~wx_DataViewCustomRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewCustomRenderer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -68,8 +68,8 @@ wxDataViewCellMode wx_DataViewCustomRenderer::GetMode()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetMode);
 	if (pFunc == nullptr) return wxDataViewCustomRenderer::GetMode();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return wxDATAVIEW_CELL_INERT;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return wxDATAVIEW_CELL_INERT;
 	return static_cast<wxDataViewCellMode>(rtn.GetInt());
 }
 
@@ -77,8 +77,8 @@ wxDataViewColumn* wx_DataViewCustomRenderer::GetOwner()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetOwner);
 	if (pFunc == nullptr) return wxDataViewCustomRenderer::GetOwner();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_DataViewColumn)) return nullptr;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_DataViewColumn)) return nullptr;
 	return Object_wx_DataViewColumn::GetObject(rtn)->GetEntity();
 }
 
@@ -86,8 +86,8 @@ bool wx_DataViewCustomRenderer::GetValue(wxVariant& value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
 	if (pFunc == nullptr) return wxDataViewCustomRenderer::GetValue(value);
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_Variant, true)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_Variant, true)) return false;
 	if (rtn.IsInvalid()) return false;
 	value = *Object_wx_Variant::GetObject(rtn)->GetEntity();
 	return true;
@@ -97,8 +97,8 @@ wxString wx_DataViewCustomRenderer::GetVariantType()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetVariantType);
 	if (pFunc == nullptr) return wxDataViewCustomRenderer::GetVariantType();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
 
@@ -109,8 +109,8 @@ void wx_DataViewCustomRenderer::SetOwner(wxDataViewColumn* owner)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(new Object_wx_DataViewColumn(owner, nullptr, OwnerFalse)));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	CheckMethodResult(*_pSig);
 }
 
 bool wx_DataViewCustomRenderer::SetValue(const wxVariant& value)
@@ -120,8 +120,8 @@ bool wx_DataViewCustomRenderer::SetValue(const wxVariant& value)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(new Object_wx_Variant(new wxVariant(value), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -132,8 +132,8 @@ bool wx_DataViewCustomRenderer::Validate(wxVariant& value)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(new Object_wx_Variant(new wxVariant(value), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -147,8 +147,8 @@ bool wx_DataViewCustomRenderer::Activate(wxRect cell, wxDataViewListModel* model
 	valListArg.push_back(Value(new Object_wx_DataViewListModel(model, nullptr, OwnerFalse)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -156,8 +156,8 @@ wxDC* wx_DataViewCustomRenderer::GetDC()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetDC);
 	if (pFunc == nullptr) return wxDataViewCustomRenderer::GetDC();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_DC)) return nullptr;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_DC)) return nullptr;
 	return Object_wx_DC::GetObject(rtn)->GetEntity();
 }
 
@@ -166,12 +166,12 @@ wxSize wx_DataViewCustomRenderer::GetSize()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetSize);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#GetSize method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#GetSize method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return wxSize();
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_Size)) return wxSize();
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_Size)) return wxSize();
 	return *Object_wx_Size::GetObject(rtn)->GetEntity();
 }
 
@@ -186,8 +186,8 @@ bool wx_DataViewCustomRenderer::LeftClick(wxPoint cursor, wxRect cell, wxDataVie
 	valListArg.push_back(Value(new Object_wx_DataViewListModel(model, nullptr, OwnerFalse)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -196,7 +196,7 @@ bool wx_DataViewCustomRenderer::Render(wxRect cell, wxDC* dc, int state)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, Render);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#Render method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#Render method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}
@@ -205,8 +205,8 @@ bool wx_DataViewCustomRenderer::Render(wxRect cell, wxDC* dc, int state)
 	valListArg.push_back(Value(new Object_wx_Rect(new wxRect(cell), nullptr, OwnerTrue)));
 	valListArg.push_back(Value(new Object_wx_DC(dc, nullptr, OwnerFalse)));
 	valListArg.push_back(Value(state));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -221,8 +221,8 @@ bool wx_DataViewCustomRenderer::RightClick(wxPoint cursor, wxRect cell, wxDataVi
 	valListArg.push_back(Value(new Object_wx_DataViewListModel(model, nullptr, OwnerFalse)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -237,8 +237,8 @@ bool wx_DataViewCustomRenderer::StartDrag(wxPoint cursor, wxRect cell, wxDataVie
 	valListArg.push_back(Value(new Object_wx_DataViewListModel(model, nullptr, OwnerFalse)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 

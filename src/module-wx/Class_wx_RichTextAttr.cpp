@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextAttr: public wxRichTextAttr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextAttr *_pObj;
 public:
-	inline wx_RichTextAttr() : wxRichTextAttr(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_RichTextAttr(const wxColour& colText, const wxColour& colBack, wxTextAttrAlignment alignment) : wxRichTextAttr(colText, colBack, alignment), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextAttr(const wxTextAttrEx& attr) : wxRichTextAttr(attr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextAttr() : wxRichTextAttr(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_RichTextAttr(const wxColour& colText, const wxColour& colBack, wxTextAttrAlignment alignment) : wxRichTextAttr(colText, colBack, alignment), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextAttr(const wxTextAttrEx& attr) : wxRichTextAttr(attr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextAttr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

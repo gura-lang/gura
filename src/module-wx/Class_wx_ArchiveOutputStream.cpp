@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ArchiveOutputStream: public wxArchiveOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ArchiveOutputStream *_pObj;
 public:
 	~wx_ArchiveOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ArchiveOutputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

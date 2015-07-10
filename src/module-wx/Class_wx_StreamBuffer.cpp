@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StreamBuffer: public wxStreamBuffer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StreamBuffer *_pObj;
 public:
-	inline wx_StreamBuffer(wxStreamBase& stream, BufMode mode) : wxStreamBuffer(stream, mode), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StreamBuffer(BufMode mode) : wxStreamBuffer(mode), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StreamBuffer(const wxStreamBuffer& buffer) : wxStreamBuffer(buffer), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_StreamBuffer() : wxStreamBuffer(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamBuffer(wxStreamBase& stream, BufMode mode) : wxStreamBuffer(stream, mode), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamBuffer(BufMode mode) : wxStreamBuffer(mode), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamBuffer(const wxStreamBuffer& buffer) : wxStreamBuffer(buffer), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_StreamBuffer() : wxStreamBuffer(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_StreamBuffer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StreamBuffer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

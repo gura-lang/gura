@@ -11,21 +11,21 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Icon: public wxIcon, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Icon *_pObj;
 public:
-	inline wx_Icon() : wxIcon(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(char** bits) : wxIcon(bits), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const char** bits) : wxIcon(bits), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon() : wxIcon(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(char** bits) : wxIcon(bits), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const char** bits) : wxIcon(bits), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Icon();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Icon *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

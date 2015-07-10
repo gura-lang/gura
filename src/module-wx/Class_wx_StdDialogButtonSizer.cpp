@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StdDialogButtonSizer: public wxStdDialogButtonSizer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StdDialogButtonSizer *_pObj;
 public:
-	inline wx_StdDialogButtonSizer() : wxStdDialogButtonSizer(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StdDialogButtonSizer() : wxStdDialogButtonSizer(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_StdDialogButtonSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StdDialogButtonSizer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

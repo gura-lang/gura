@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(SetParser);
 //----------------------------------------------------------------------------
 class wx_HtmlTagHandler: public wxHtmlTagHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HtmlTagHandler *_pObj;
 public:
-	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxString GetSupportedTags();
 	//virtual bool HandleTag(const wxHtmlTag& tag);
 	//virtual void SetParser(wxHtmlParser *parser);
 	~wx_HtmlTagHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlTagHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

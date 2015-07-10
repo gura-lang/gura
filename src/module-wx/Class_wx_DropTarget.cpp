@@ -18,10 +18,10 @@ Gura_DeclarePrivUserSymbol(OnLeave);
 //----------------------------------------------------------------------------
 class wx_DropTarget: public wxDropTarget, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DropTarget *_pObj;
 public:
-	inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _pSig(nullptr), _pObj(nullptr) {}
 	virtual bool GetData();
 	virtual wxDragResult OnData(wxCoord x, wxCoord y, wxDragResult def);
 	virtual bool OnDrop(wxCoord x, wxCoord y);
@@ -30,7 +30,7 @@ public:
 	virtual void OnLeave();
 	~wx_DropTarget();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DropTarget *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,8 +50,8 @@ bool wx_DropTarget::GetData()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetData);
 	if (pFunc == nullptr) return wxDropTarget::GetData();
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -64,8 +64,8 @@ wxDragResult wx_DropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(def));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return def;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return def;
 	return static_cast<wxDragResult>(rtn.GetInt());
 }
 
@@ -77,8 +77,8 @@ bool wx_DropTarget::OnDrop(wxCoord x, wxCoord y)
 	ValueList valList;
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -91,8 +91,8 @@ wxDragResult wx_DropTarget::OnEnter(wxCoord x, wxCoord y, wxDragResult def)
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(def));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return def;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return def;
 	return static_cast<wxDragResult>(rtn.GetInt());
 }
 
@@ -105,8 +105,8 @@ wxDragResult wx_DropTarget::OnDragOver(wxCoord x, wxCoord y, wxDragResult def)
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(def));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return def;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return def;
 	return static_cast<wxDragResult>(rtn.GetInt());
 }
 
@@ -114,7 +114,7 @@ void wx_DropTarget::OnLeave()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnLeave);
 	if (pFunc == nullptr) return;
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
 }
 
 //----------------------------------------------------------------------------

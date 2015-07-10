@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(Clone);
 //----------------------------------------------------------------------------
 class wx_Event: public wxEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Event *_pObj;
 public:
-	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxEvent* Clone();
 	~wx_Event();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Event *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

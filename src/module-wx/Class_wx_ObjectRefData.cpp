@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ObjectRefData: public wxObjectRefData, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ObjectRefData *_pObj;
 public:
-	inline wx_ObjectRefData() : wxObjectRefData(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_ObjectRefData() : wxObjectRefData(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ObjectRefData() : wxObjectRefData(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_ObjectRefData() : wxObjectRefData(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ObjectRefData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ObjectRefData *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

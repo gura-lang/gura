@@ -16,18 +16,18 @@ Gura_DeclarePrivUserSymbol(Validate);
 //----------------------------------------------------------------------------
 class wx_TextValidator: public wxTextValidator, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TextValidator *_pObj;
 public:
-	inline wx_TextValidator(const wxTextValidator& validator) : wxTextValidator(validator), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_TextValidator(long style, wxString* valPtr) : wxTextValidator(style, valPtr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextValidator(const wxTextValidator& validator) : wxTextValidator(validator), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TextValidator(long style, wxString* valPtr) : wxTextValidator(style, valPtr), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxValidator* Clone();
 	//virtual bool TransferFromWindow();
 	//virtual bool TransferToWindow();
 	//virtual bool Validate(wxWindow* parent);
 	~wx_TextValidator();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextValidator *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

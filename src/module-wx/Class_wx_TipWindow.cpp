@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TipWindow: public wxTipWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TipWindow *_pObj;
 public:
-	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TipWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TipWindow *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HashTable: public wxHashTable, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HashTable *_pObj;
 public:
-	//inline wx_HashTable(unsigned int key_type, int size) : wxHashTable(key_type, size), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_HashTable(unsigned int key_type, int size) : wxHashTable(key_type, size), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HashTable();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HashTable *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridSizer: public wxGridSizer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridSizer *_pObj;
 public:
-	inline wx_GridSizer(int rows, int cols, int vgap, int hgap) : wxGridSizer(rows, cols, vgap, hgap), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GridSizer(int cols, int vgap, int hgap) : wxGridSizer(cols, vgap, hgap), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridSizer(int rows, int cols, int vgap, int hgap) : wxGridSizer(rows, cols, vgap, hgap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridSizer(int cols, int vgap, int hgap) : wxGridSizer(cols, vgap, hgap), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridSizer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridSizer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

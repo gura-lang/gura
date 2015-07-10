@@ -22,10 +22,10 @@ Gura_DeclarePrivUserSymbol(OnUpdate);
 //----------------------------------------------------------------------------
 class wx_View: public wxView, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_View *_pObj;
 public:
-	//inline wx_View() : wxView(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_View() : wxView(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void Activate(bool activate);
 	//virtual bool Close(bool deleteWindow);
 	//virtual void OnActivateView(bool activate, wxView * activeView, wxView * deactiveView);
@@ -38,7 +38,7 @@ public:
 	//virtual void OnUpdate(wxView* sender, wxObject* hint);
 	~wx_View();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_View *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

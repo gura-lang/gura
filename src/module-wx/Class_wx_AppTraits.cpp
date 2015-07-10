@@ -21,7 +21,7 @@ Gura_DeclarePrivUserSymbol(ShowAssertDialog);
 //----------------------------------------------------------------------------
 class wx_AppTraits: public wxAppTraits, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_AppTraits *_pObj;
 public:
 	//virtual wxFontMapper * CreateFontMapper();
@@ -35,7 +35,7 @@ public:
 	//virtual bool ShowAssertDialog(const wxString & msg);
 	~wx_AppTraits();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AppTraits *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

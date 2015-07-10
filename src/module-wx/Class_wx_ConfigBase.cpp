@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ConfigBase: public wxConfigBase, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ConfigBase *_pObj;
 public:
-	//inline wx_ConfigBase(const wxString& appName, const wxString& vendorName, const wxString& localFilename, const wxString& globalFilename, long style, wxMBConv& conv) : wxConfigBase(appName, vendorName, localFilename, globalFilename, style, conv), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ConfigBase(const wxString& appName, const wxString& vendorName, const wxString& localFilename, const wxString& globalFilename, long style, wxMBConv& conv) : wxConfigBase(appName, vendorName, localFilename, globalFilename, style, conv), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ConfigBase();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ConfigBase *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

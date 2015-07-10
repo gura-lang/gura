@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogChain: public wxLogChain, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LogChain *_pObj;
 public:
-	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LogChain();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogChain *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

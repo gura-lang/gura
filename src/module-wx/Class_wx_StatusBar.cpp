@@ -18,11 +18,11 @@ Gura_DeclarePrivUserSymbol(SetStatusStyles);
 //----------------------------------------------------------------------------
 class wx_StatusBar: public wxStatusBar, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_StatusBar *_pObj;
 public:
-	inline wx_StatusBar() : wxStatusBar(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_StatusBar(wxWindow* parent, wxWindowID id, long style, const wxString& name) : wxStatusBar(parent, id, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_StatusBar() : wxStatusBar(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StatusBar(wxWindow* parent, wxWindowID id, long style, const wxString& name) : wxStatusBar(parent, id, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool GetFieldRect(int i, wxRect& rect);
 	//virtual wxString GetStatusText(int i);
 	//virtual void SetFieldsCount(int number, int* widths);
@@ -31,7 +31,7 @@ public:
 	//virtual void SetStatusStyles(int n, int * styles);
 	~wx_StatusBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StatusBar *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

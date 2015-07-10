@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MediaCtrl: public wxMediaCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MediaCtrl *_pObj;
 public:
-	inline wx_MediaCtrl() : wxMediaCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_MediaCtrl(wxWindow* parent, wxWindowID id, const wxString& fileName, const wxPoint& pos, const wxSize& size, long style, const wxString& szBackend, const wxValidator& validator, const wxString& name) : wxMediaCtrl(parent, id, fileName, pos, size, style, szBackend, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MediaCtrl() : wxMediaCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MediaCtrl(wxWindow* parent, wxWindowID id, const wxString& fileName, const wxPoint& pos, const wxSize& size, long style, const wxString& szBackend, const wxValidator& validator, const wxString& name) : wxMediaCtrl(parent, id, fileName, pos, size, style, szBackend, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MediaCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MediaCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

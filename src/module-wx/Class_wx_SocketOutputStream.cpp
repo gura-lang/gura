@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SocketOutputStream: public wxSocketOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SocketOutputStream *_pObj;
 public:
-	inline wx_SocketOutputStream(wxSocketBase& s) : wxSocketOutputStream(s), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SocketOutputStream(wxSocketBase& s) : wxSocketOutputStream(s), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SocketOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SocketOutputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

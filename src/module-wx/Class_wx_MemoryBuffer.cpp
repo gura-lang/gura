@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MemoryBuffer: public wxMemoryBuffer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MemoryBuffer *_pObj;
 public:
-	inline wx_MemoryBuffer(const wxMemoryBuffer& src) : wxMemoryBuffer(src), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_MemoryBuffer(size_t size) : wxMemoryBuffer(size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MemoryBuffer(const wxMemoryBuffer& src) : wxMemoryBuffer(src), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MemoryBuffer(size_t size) : wxMemoryBuffer(size), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MemoryBuffer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryBuffer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

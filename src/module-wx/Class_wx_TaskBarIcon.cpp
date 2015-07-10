@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(CreatePopupMenu);
 //----------------------------------------------------------------------------
 class wx_TaskBarIcon: public wxTaskBarIcon, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TaskBarIcon *_pObj;
 public:
-	inline wx_TaskBarIcon() : wxTaskBarIcon(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TaskBarIcon() : wxTaskBarIcon(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxMenu* CreatePopupMenu();
 	~wx_TaskBarIcon();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TaskBarIcon *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

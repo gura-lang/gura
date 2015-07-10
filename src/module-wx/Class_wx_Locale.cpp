@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Locale: public wxLocale, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Locale *_pObj;
 public:
-	inline wx_Locale() : wxLocale(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Locale(int language, int flags) : wxLocale(language, flags), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Locale(const char *szName, const char *szShort, const char *szLocale, bool bLoadDefault, bool bConvertEncoding) : wxLocale(*szName, *szShort, *szLocale, bLoadDefault, bConvertEncoding), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Locale() : wxLocale(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Locale(int language, int flags) : wxLocale(language, flags), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Locale(const char *szName, const char *szShort, const char *szLocale, bool bLoadDefault, bool bConvertEncoding) : wxLocale(*szName, *szShort, *szLocale, bLoadDefault, bConvertEncoding), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Locale();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Locale *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

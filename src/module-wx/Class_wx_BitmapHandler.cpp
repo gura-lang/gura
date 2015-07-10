@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(Create);
 //----------------------------------------------------------------------------
 class wx_BitmapHandler: public wxBitmapHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_BitmapHandler *_pObj;
 public:
-	inline wx_BitmapHandler() : wxBitmapHandler(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BitmapHandler() : wxBitmapHandler(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool Create(wxBitmap* bitmap, const void* data, int type, int width, int height, int depth);
 	~wx_BitmapHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BitmapHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

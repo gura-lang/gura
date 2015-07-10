@@ -37,11 +37,11 @@ Gura_DeclarePrivUserSymbol(Undo);
 //----------------------------------------------------------------------------
 class wx_TextCtrl: public wxTextCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TextCtrl *_pObj;
 public:
-	inline wx_TextCtrl() : wxTextCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextCtrl() : wxTextCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool CanCopy();
 	//virtual bool CanCut();
 	//virtual bool CanPaste();
@@ -69,7 +69,7 @@ public:
 	//virtual void Undo();
 	~wx_TextCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

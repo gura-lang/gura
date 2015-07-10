@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Animation: public wxAnimation, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Animation *_pObj;
 public:
-	inline wx_Animation() : wxAnimation(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation() : wxAnimation(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Animation();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Animation *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

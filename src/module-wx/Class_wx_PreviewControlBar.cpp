@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PreviewControlBar: public wxPreviewControlBar, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PreviewControlBar *_pObj;
 public:
-	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PreviewControlBar();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PreviewControlBar *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

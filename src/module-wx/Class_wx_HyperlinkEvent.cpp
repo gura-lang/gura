@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HyperlinkEvent: public wxHyperlinkEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HyperlinkEvent *_pObj;
 public:
-	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_HyperlinkEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HyperlinkEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

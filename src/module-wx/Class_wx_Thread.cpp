@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(TestDestroy);
 //----------------------------------------------------------------------------
 class wx_Thread: public wxThread, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Thread *_pObj;
 public:
-	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _pSig(nullptr), _pObj(nullptr) {}
 	virtual ExitCode Entry();
 	virtual bool TestDestroy();
 	~wx_Thread();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Thread *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CriticalSectionLocker: public wxCriticalSectionLocker, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CriticalSectionLocker *_pObj;
 public:
-	inline wx_CriticalSectionLocker(wxCriticalSection& criticalsection) : wxCriticalSectionLocker(criticalsection), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CriticalSectionLocker(wxCriticalSection& criticalsection) : wxCriticalSectionLocker(criticalsection), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CriticalSectionLocker();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CriticalSectionLocker *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

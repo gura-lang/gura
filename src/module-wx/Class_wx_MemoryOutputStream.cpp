@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MemoryOutputStream: public wxMemoryOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MemoryOutputStream *_pObj;
 public:
-	//inline wx_MemoryOutputStream(char * data, size_t length) : wxMemoryOutputStream(data, length), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_MemoryOutputStream(char * data, size_t length) : wxMemoryOutputStream(data, length), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MemoryOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryOutputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

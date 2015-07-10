@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextAttrEx: public wxTextAttrEx, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TextAttrEx *_pObj;
 public:
-	inline wx_TextAttrEx() : wxTextAttrEx(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TextAttrEx(const wxTextAttrEx& attr) : wxTextAttrEx(attr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttrEx() : wxTextAttrEx(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttrEx(const wxTextAttrEx& attr) : wxTextAttrEx(attr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TextAttrEx();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextAttrEx *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

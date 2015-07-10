@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogPassThrough: public wxLogPassThrough, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LogPassThrough *_pObj;
 public:
 	~wx_LogPassThrough();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogPassThrough *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

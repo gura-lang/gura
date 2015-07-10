@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Colour: public wxColour, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Colour *_pObj;
 public:
-	inline wx_Colour() : wxColour(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(const wxColour& colour) : wxColour(colour), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour() : wxColour(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour(const wxColour& colour) : wxColour(colour), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Colour();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Colour *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

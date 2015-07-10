@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ContextMenuEvent: public wxContextMenuEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ContextMenuEvent *_pObj;
 public:
-	inline wx_ContextMenuEvent(WXTYPE type, int id, const wxPoint& pos) : wxContextMenuEvent(type, id, pos), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ContextMenuEvent(WXTYPE type, int id, const wxPoint& pos) : wxContextMenuEvent(type, id, pos), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ContextMenuEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ContextMenuEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextAttr: public wxTextAttr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TextAttr *_pObj;
 public:
-	inline wx_TextAttr() : wxTextAttr(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttr() : wxTextAttr(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TextAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextAttr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -16,19 +16,19 @@ Gura_DeclarePrivUserSymbol(ShowItem);
 //----------------------------------------------------------------------------
 class wx_RadioBox: public wxRadioBox, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RadioBox *_pObj;
 public:
-	inline wx_RadioBox() : wxRadioBox(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_RadioBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& point, const wxSize& size, int n, const wxString choices[], int majorDimension, long style, const wxValidator& validator, const wxString& name) : wxRadioBox(parent, id, label, point, size, n, choices[], majorDimension, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RadioBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& point, const wxSize& size, const wxArrayString& choices, int majorDimension, long style, const wxValidator& validator, const wxString& name) : wxRadioBox(parent, id, label, point, size, choices, majorDimension, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RadioBox() : wxRadioBox(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_RadioBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& point, const wxSize& size, int n, const wxString choices[], int majorDimension, long style, const wxValidator& validator, const wxString& name) : wxRadioBox(parent, id, label, point, size, n, choices[], majorDimension, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RadioBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& point, const wxSize& size, const wxArrayString& choices, int majorDimension, long style, const wxValidator& validator, const wxString& name) : wxRadioBox(parent, id, label, point, size, choices, majorDimension, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool Enable(bool enable);
 	//virtual bool Enable(unsigned int n, bool enable);
 	//virtual bool Show(const bool show);
 	//virtual bool Show(unsigned int item, const bool show);
 	~wx_RadioBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RadioBox *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

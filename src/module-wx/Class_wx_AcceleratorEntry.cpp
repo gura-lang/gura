@@ -13,14 +13,14 @@ int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg);
 //----------------------------------------------------------------------------
 class wx_AcceleratorEntry: public wxAcceleratorEntry, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_AcceleratorEntry *_pObj;
 public:
-	inline wx_AcceleratorEntry() : wxAcceleratorEntry(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_AcceleratorEntry(int flags, int keyCode, int cmd) : wxAcceleratorEntry(flags, keyCode, cmd), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorEntry() : wxAcceleratorEntry(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorEntry(int flags, int keyCode, int cmd) : wxAcceleratorEntry(flags, keyCode, cmd), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_AcceleratorEntry();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AcceleratorEntry *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

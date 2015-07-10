@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TempFileOutputStream: public wxTempFileOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TempFileOutputStream *_pObj;
 public:
-	inline wx_TempFileOutputStream(const wxString& fileName) : wxTempFileOutputStream(fileName), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_TempFileOutputStream(const wxString& fileName) : wxTempFileOutputStream(fileName), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TempFileOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TempFileOutputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

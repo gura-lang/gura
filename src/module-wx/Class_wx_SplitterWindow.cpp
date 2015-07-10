@@ -15,17 +15,17 @@ Gura_DeclarePrivUserSymbol(OnSashPositionChange);
 //----------------------------------------------------------------------------
 class wx_SplitterWindow: public wxSplitterWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SplitterWindow *_pObj;
 public:
-	inline wx_SplitterWindow() : wxSplitterWindow(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SplitterWindow(wxWindow* parent, wxWindowID id, const wxPoint& point, const wxSize& size, long style, const wxString& name) : wxSplitterWindow(parent, id, point, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SplitterWindow() : wxSplitterWindow(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SplitterWindow(wxWindow* parent, wxWindowID id, const wxPoint& point, const wxSize& size, long style, const wxString& name) : wxSplitterWindow(parent, id, point, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void OnDoubleClickSash(int x, int y);
 	//virtual void OnUnsplit(wxWindow* removed);
 	//virtual bool OnSashPositionChange(int newSashPosition);
 	~wx_SplitterWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SplitterWindow *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

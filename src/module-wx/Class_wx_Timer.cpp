@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Timer: public wxTimer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Timer *_pObj;
 public:
-	inline wx_Timer() : wxTimer(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Timer(wxEvtHandler * owner, int id) : wxTimer(owner, id), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Timer() : wxTimer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Timer(wxEvtHandler * owner, int id) : wxTimer(owner, id), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Timer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Timer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

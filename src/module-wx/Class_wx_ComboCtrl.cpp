@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(DoShowPopup);
 //----------------------------------------------------------------------------
 class wx_ComboCtrl: public wxComboCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ComboCtrl *_pObj;
 public:
-	inline wx_ComboCtrl() : wxComboCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ComboCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxComboCtrl(parent, id, value, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboCtrl() : wxComboCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxComboCtrl(parent, id, value, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool AnimateShow(const wxRect& rect, int flags);
 	//virtual void DoShowPopup(const wxRect& rect, int flags);
 	~wx_ComboCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

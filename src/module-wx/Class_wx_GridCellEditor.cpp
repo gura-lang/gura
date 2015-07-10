@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellEditor: public wxGridCellEditor, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GridCellEditor *_pObj;
 public:
-	//inline wx_GridCellEditor() : wxGridCellEditor(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_GridCellEditor() : wxGridCellEditor(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridCellEditor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellEditor *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AcceleratorTable: public wxAcceleratorTable, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_AcceleratorTable *_pObj;
 public:
-	inline wx_AcceleratorTable() : wxAcceleratorTable(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_AcceleratorTable(const wxAcceleratorTable& table) : wxAcceleratorTable(table), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_AcceleratorTable(int n, wxAcceleratorEntry entries[]) : wxAcceleratorTable(n, entries), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable() : wxAcceleratorTable(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(const wxAcceleratorTable& table) : wxAcceleratorTable(table), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(int n, wxAcceleratorEntry entries[]) : wxAcceleratorTable(n, entries), _pSig(nullptr), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_AcceleratorTable(const wxString& resource) : wxAcceleratorTable(resource), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(const wxString& resource) : wxAcceleratorTable(resource), _pSig(nullptr), _pObj(nullptr) {}
 #endif
 	~wx_AcceleratorTable();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AcceleratorTable *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

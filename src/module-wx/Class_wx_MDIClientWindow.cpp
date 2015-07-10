@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MDIClientWindow: public wxMDIClientWindow, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MDIClientWindow *_pObj;
 public:
-	inline wx_MDIClientWindow() : wxMDIClientWindow(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MDIClientWindow() : wxMDIClientWindow(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MDIClientWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MDIClientWindow *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

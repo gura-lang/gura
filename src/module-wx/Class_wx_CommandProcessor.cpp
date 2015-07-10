@@ -20,10 +20,10 @@ Gura_DeclarePrivUserSymbol(Undo);
 //----------------------------------------------------------------------------
 class wx_CommandProcessor: public wxCommandProcessor, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CommandProcessor *_pObj;
 public:
-	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool CanUndo();
 	//virtual void ClearCommands();
 	//virtual bool Redo();
@@ -34,7 +34,7 @@ public:
 	//virtual bool Undo();
 	~wx_CommandProcessor();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CommandProcessor *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

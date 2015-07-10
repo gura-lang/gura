@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Treebook: public wxTreebook, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Treebook *_pObj;
 public:
-	inline wx_Treebook() : wxTreebook(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Treebook() : wxTreebook(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Treebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Treebook *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

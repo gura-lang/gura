@@ -13,14 +13,14 @@ Value MenuItemListToValue(Environment &env, const wxMenuItemList &list);
 //----------------------------------------------------------------------------
 class wx_Menu: public wxMenu, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Menu *_pObj;
 public:
-	inline wx_Menu(const wxString& title, long style) : wxMenu(title, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Menu(long style) : wxMenu(style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Menu(const wxString& title, long style) : wxMenu(title, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Menu(long style) : wxMenu(style), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Menu();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Menu *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

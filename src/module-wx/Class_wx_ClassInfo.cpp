@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ClassInfo: public wxClassInfo, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ClassInfo *_pObj;
 public:
-	//inline wx_ClassInfo(const wxChar * className, const wxClassInfo * baseClass1, const wxClassInfo * baseClass2, int size, wxObjectConstructorFn fn) : wxClassInfo(className, baseClass1, baseClass2, size, fn), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ClassInfo(const wxChar * className, const wxClassInfo * baseClass1, const wxClassInfo * baseClass2, int size, wxObjectConstructorFn fn) : wxClassInfo(className, baseClass1, baseClass2, size, fn), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ClassInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ClassInfo *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

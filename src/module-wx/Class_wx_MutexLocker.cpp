@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MutexLocker: public wxMutexLocker, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_MutexLocker *_pObj;
 public:
-	inline wx_MutexLocker(wxMutex& mutex) : wxMutexLocker(mutex), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_MutexLocker(wxMutex& mutex) : wxMutexLocker(mutex), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_MutexLocker();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MutexLocker *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

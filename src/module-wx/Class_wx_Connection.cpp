@@ -19,11 +19,11 @@ Gura_DeclarePrivUserSymbol(OnStopAdvise);
 //----------------------------------------------------------------------------
 class wx_Connection: public wxConnection, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Connection *_pObj;
 public:
-	inline wx_Connection() : wxConnection(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Connection(char* buffer, int size) : wxConnection(buffer, size), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Connection() : wxConnection(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Connection(char* buffer, int size) : wxConnection(buffer, size), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool OnAdvise(const wxString& topic, const wxString& item, char* data, int size, wxIPCFormat format);
 	//virtual bool OnDisconnect();
 	//virtual bool OnExecute(const wxString& topic, char* data, int size, wxIPCFormat format);
@@ -33,7 +33,7 @@ public:
 	//virtual bool OnStopAdvise(const wxString& topic, const wxString& item);
 	~wx_Connection();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Connection *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

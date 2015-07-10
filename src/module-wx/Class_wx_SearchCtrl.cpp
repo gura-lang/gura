@@ -18,11 +18,11 @@ Gura_DeclarePrivUserSymbol(IsCancelButtonVisible);
 //----------------------------------------------------------------------------
 class wx_SearchCtrl: public wxSearchCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SearchCtrl *_pObj;
 public:
-	inline wx_SearchCtrl() : wxSearchCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SearchCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSearchCtrl(parent, id, value, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SearchCtrl() : wxSearchCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SearchCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSearchCtrl(parent, id, value, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void SetMenu(wxMenu* menu);
 	//virtual wxMenu* GetMenu();
 	//virtual void ShowSearchButton(bool show);
@@ -31,7 +31,7 @@ public:
 	//virtual bool IsCancelButtonVisible();
 	~wx_SearchCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SearchCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

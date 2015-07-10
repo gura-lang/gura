@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Mutex: public wxMutex, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Mutex *_pObj;
 public:
-	inline wx_Mutex(wxMutexType type) : wxMutex(type), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Mutex(wxMutexType type) : wxMutex(type), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Mutex();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Mutex *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

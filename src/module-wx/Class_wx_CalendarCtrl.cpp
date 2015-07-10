@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CalendarCtrl: public wxCalendarCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CalendarCtrl *_pObj;
 public:
-	inline wx_CalendarCtrl() : wxCalendarCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_CalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxCalendarCtrl(parent, id, date, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarCtrl() : wxCalendarCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxCalendarCtrl(parent, id, date, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CalendarCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalendarCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SockAddress: public wxSockAddress, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SockAddress *_pObj;
 public:
-	//inline wx_SockAddress() : wxSockAddress(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_SockAddress() : wxSockAddress(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SockAddress();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SockAddress *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

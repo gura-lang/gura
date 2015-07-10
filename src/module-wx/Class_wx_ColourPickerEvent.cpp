@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ColourPickerEvent: public wxColourPickerEvent, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ColourPickerEvent *_pObj;
 public:
-	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ColourPickerEvent();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourPickerEvent *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

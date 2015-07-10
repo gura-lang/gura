@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CountingOutputStream: public wxCountingOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CountingOutputStream *_pObj;
 public:
-	inline wx_CountingOutputStream() : wxCountingOutputStream(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CountingOutputStream() : wxCountingOutputStream(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CountingOutputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CountingOutputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

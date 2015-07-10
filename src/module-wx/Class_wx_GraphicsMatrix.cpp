@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GraphicsMatrix: public wxGraphicsMatrix, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GraphicsMatrix *_pObj;
 public:
 	~wx_GraphicsMatrix();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GraphicsMatrix *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextRange: public wxRichTextRange, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextRange *_pObj;
 public:
-	inline wx_RichTextRange(long start, long end) : wxRichTextRange(start, end), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextRange(const wxRichTextRange& range) : wxRichTextRange(range), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextRange() : wxRichTextRange(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextRange(long start, long end) : wxRichTextRange(start, end), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextRange(const wxRichTextRange& range) : wxRichTextRange(range), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextRange() : wxRichTextRange(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextRange();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextRange *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

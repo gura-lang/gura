@@ -14,21 +14,21 @@ Gura_DeclarePrivUserSymbol(GetImageRect);
 //----------------------------------------------------------------------------
 class wx_DragImage: public wxDragImage, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DragImage *_pObj;
 public:
-	inline wx_DragImage() : wxDragImage(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(cursor, cursorHotspot), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DragImage() : wxDragImage(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool DoDrawImage(wxDC& dc, const wxPoint& pos);
 	//virtual wxRect GetImageRect(const wxPoint& pos);
 	~wx_DragImage();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DragImage *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

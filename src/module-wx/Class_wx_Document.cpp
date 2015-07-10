@@ -34,10 +34,10 @@ Gura_DeclarePrivUserSymbol(SetCommandProcessor);
 //----------------------------------------------------------------------------
 class wx_Document: public wxDocument, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Document *_pObj;
 public:
-	inline wx_Document() : wxDocument(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Document() : wxDocument(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool AddView(wxView * view);
 	//virtual bool Close();
 	//virtual bool DeleteAllViews();
@@ -62,7 +62,7 @@ public:
 	//virtual void SetCommandProcessor(wxCommandProcessor * processor);
 	~wx_Document();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Document *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

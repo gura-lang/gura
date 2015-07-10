@@ -18,10 +18,10 @@ Gura_DeclarePrivUserSymbol(TakeData);
 //----------------------------------------------------------------------------
 class wx_CustomDataObject: public wxCustomDataObject, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CustomDataObject *_pObj;
 public:
-	inline wx_CustomDataObject(const wxDataFormat& format) : wxCustomDataObject(format), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CustomDataObject(const wxDataFormat& format) : wxCustomDataObject(format), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void * Alloc(size_t size);
 	//virtual void Free();
 	//virtual size_t GetSize();
@@ -30,7 +30,7 @@ public:
 	//virtual void TakeData(size_t size, const void *data);
 	~wx_CustomDataObject();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CustomDataObject *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

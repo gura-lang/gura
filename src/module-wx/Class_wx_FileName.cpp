@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileName: public wxFileName, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileName *_pObj;
 public:
-	//inline wx_FileName() : wxFileName(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName() : wxFileName(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FileName();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileName *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

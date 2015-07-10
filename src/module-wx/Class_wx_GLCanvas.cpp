@@ -13,16 +13,16 @@ int *MakeAttribList(const ValueList &valList);
 //----------------------------------------------------------------------------
 class wx_GLCanvas: public wxGLCanvas, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GLCanvas *_pObj;
 public:
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, id, pos, size, style, name, attribList, palette), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GLCanvas();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GLCanvas *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

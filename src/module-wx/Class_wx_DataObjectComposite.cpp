@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataObjectComposite: public wxDataObjectComposite, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataObjectComposite *_pObj;
 public:
-	inline wx_DataObjectComposite() : wxDataObjectComposite(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataObjectComposite() : wxDataObjectComposite(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DataObjectComposite();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataObjectComposite *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

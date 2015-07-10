@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FindReplaceData: public wxFindReplaceData, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FindReplaceData *_pObj;
 public:
-	inline wx_FindReplaceData(wxUint32 flags) : wxFindReplaceData(flags), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FindReplaceData(wxUint32 flags) : wxFindReplaceData(flags), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FindReplaceData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FindReplaceData *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

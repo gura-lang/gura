@@ -30,10 +30,10 @@ Gura_DeclarePrivUserSymbol(GetColLabelValue);
 //----------------------------------------------------------------------------
 class wx_GridTableBase: public wxGridTableBase, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_GridTableBase> _pObj;
 public:
-	inline wx_GridTableBase() : wxGridTableBase(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GridTableBase() : wxGridTableBase(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GridTableBase();
 	virtual int GetNumberRows();
 	virtual int GetNumberCols();
@@ -52,7 +52,7 @@ public:
 	virtual wxString GetRowLabelValue(int row);
 	virtual wxString GetColLabelValue(int col);
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridTableBase *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_GridTableBase::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_GridTableBase::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -70,12 +70,12 @@ int wx_GridTableBase::GetNumberRows()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberRows);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberRows method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberRows method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -83,12 +83,12 @@ int wx_GridTableBase::GetNumberCols()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNumberCols);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberCols method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberCols method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -96,7 +96,7 @@ bool wx_GridTableBase::IsEmptyCell(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, IsEmptyCell);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#IsEmptyCell method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.GridTableBase#IsEmptyCell method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}
@@ -104,8 +104,8 @@ bool wx_GridTableBase::IsEmptyCell(int row, int col)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -113,15 +113,15 @@ wxString wx_GridTableBase::GetValue(int row, int col)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetValue method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.GridTableBase#GetValue method is missing");
 		return wxEmptyString;
 	}
 	ValueList valListArg;
 	valListArg.reserve(2);
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 
@@ -129,7 +129,7 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValue);
 	if (pFunc == nullptr) {
-		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#SetValue method is missing");
+		_pSig->SetError(ERR_NotImplementedError, "wx.GridTableBase#SetValue method is missing");
 		return;
 	}
 	Environment &env = *_pObj;
@@ -138,8 +138,8 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(value.ToUTF8()));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	CheckMethodResult(*_pSig);
 }
 
 wxString wx_GridTableBase::GetTypeName(int row, int col)
@@ -150,8 +150,8 @@ wxString wx_GridTableBase::GetTypeName(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
 
@@ -165,8 +165,8 @@ bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(typeName.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -180,8 +180,8 @@ bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(typeName.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -193,8 +193,8 @@ long wx_GridTableBase::GetValueAsLong(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetLong();
 }
 
@@ -206,8 +206,8 @@ double wx_GridTableBase::GetValueAsDouble(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return false;
 	return rtn.GetDouble();
 }
 
@@ -219,8 +219,8 @@ bool wx_GridTableBase::GetValueAsBool(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -233,8 +233,8 @@ void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
@@ -249,8 +249,8 @@ void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
@@ -265,8 +265,8 @@ void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	CheckMethodResult(_sig);
+	_pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	CheckMethodResult(*_pSig);
 }
 
 wxString wx_GridTableBase::GetRowLabelValue(int row)
@@ -277,8 +277,8 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 
@@ -290,8 +290,8 @@ wxString wx_GridTableBase::GetColLabelValue(int col)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
-	if (!CheckMethodResult(_sig)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valListArg);
+	if (!CheckMethodResult(*_pSig)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 

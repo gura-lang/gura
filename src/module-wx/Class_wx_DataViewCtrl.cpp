@@ -26,11 +26,11 @@ Gura_DeclarePrivUserSymbol(Unselect);
 //----------------------------------------------------------------------------
 class wx_DataViewCtrl: public wxDataViewCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataViewCtrl *_pObj;
 public:
-	inline wx_DataViewCtrl() : wxDataViewCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewCtrl() : wxDataViewCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool AppendColumn(wxDataViewColumn* col);
 	//virtual bool AssociateModel(wxDataViewListModel* model);
 	//virtual bool ClearColumns();
@@ -47,7 +47,7 @@ public:
 	//virtual void Unselect(unsigned int row);
 	~wx_DataViewCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

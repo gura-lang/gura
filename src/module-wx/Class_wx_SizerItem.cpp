@@ -11,17 +11,17 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SizerItem: public wxSizerItem, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SizerItem *_pObj;
 public:
-	inline wx_SizerItem(int width, int height, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(width, height, proportion, flag, border, userData), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SizerItem(wxWindow* window, const wxSizerFlags& flags) : wxSizerItem(window, flags), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SizerItem(wxWindow* window, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(window, proportion, flag, border, userData), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SizerItem(wxSizer* window, const wxSizerFlags& flags) : wxSizerItem(window, flags), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SizerItem(wxSizer* sizer, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(sizer, proportion, flag, border, userData), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SizerItem(int width, int height, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(width, height, proportion, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SizerItem(wxWindow* window, const wxSizerFlags& flags) : wxSizerItem(window, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SizerItem(wxWindow* window, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(window, proportion, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SizerItem(wxSizer* window, const wxSizerFlags& flags) : wxSizerItem(window, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SizerItem(wxSizer* sizer, int proportion, int flag, int border, wxObject* userData) : wxSizerItem(sizer, proportion, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SizerItem();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SizerItem *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

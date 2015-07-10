@@ -15,7 +15,7 @@ Gura_DeclarePrivUserSymbol(OnOpenError);
 //----------------------------------------------------------------------------
 class wx_DirTraverser: public wxDirTraverser, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DirTraverser *_pObj;
 public:
 	//virtual wxDirTraverseResult OnDir(const wxString& dirname);
@@ -23,7 +23,7 @@ public:
 	//virtual wxDirTraverseResult OnOpenError(const wxString& openerrorname);
 	~wx_DirTraverser();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DirTraverser *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

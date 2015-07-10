@@ -26,10 +26,10 @@ Gura_DeclarePrivUserSymbol(SetMetric);
 //----------------------------------------------------------------------------
 class wx_AuiDockArt: public wxAuiDockArt, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_AuiDockArt *_pObj;
 public:
-	//inline wx_AuiDockArt() : wxAuiDockArt(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_AuiDockArt() : wxAuiDockArt(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual void DrawBackground(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect);
 	//virtual void DrawBorder(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane);
 	//virtual void DrawCaption(wxDC& dc, wxWindow* window, const wxString& text, const wxRect& rect, wxAuiPaneInfo& pane);
@@ -46,7 +46,7 @@ public:
 	//virtual void SetMetric(int id, int new_val);
 	~wx_AuiDockArt();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiDockArt *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

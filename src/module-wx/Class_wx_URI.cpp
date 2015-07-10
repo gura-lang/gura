@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_URI: public wxURI, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_URI *_pObj;
 public:
-	inline wx_URI() : wxURI(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxString& uri) : wxURI(uri), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxChar* uri) : wxURI(uri), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxURI& uri) : wxURI(uri), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_URI() : wxURI(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_URI(const wxString& uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_URI(const wxChar* uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_URI(const wxURI& uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_URI();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_URI *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

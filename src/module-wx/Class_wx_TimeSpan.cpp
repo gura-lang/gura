@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TimeSpan: public wxTimeSpan, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_TimeSpan *_pObj;
 public:
-	//inline wx_TimeSpan() : wxTimeSpan(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_TimeSpan(long hours, long min, long sec, long msec) : wxTimeSpan(hours, min, sec, msec), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_TimeSpan() : wxTimeSpan(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TimeSpan(long hours, long min, long sec, long msec) : wxTimeSpan(hours, min, sec, msec), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_TimeSpan();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TimeSpan *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

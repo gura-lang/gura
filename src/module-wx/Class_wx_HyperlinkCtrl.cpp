@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HyperlinkCtrl: public wxHyperlinkCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HyperlinkCtrl *_pObj;
 public:
 	inline wx_HyperlinkCtrl(wxWindow* parent, wxWindowID id, const wxString & label, const wxString & url, const wxPoint& pos, const wxSize& size, long style, const wxString& name) :
 		wxHyperlinkCtrl(parent, id, label, url, pos, size, style, name) {}
 	~wx_HyperlinkCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HyperlinkCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

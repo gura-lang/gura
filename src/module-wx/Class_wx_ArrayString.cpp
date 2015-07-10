@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ArrayString: public wxArrayString, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ArrayString *_pObj;
 public:
-	inline wx_ArrayString() : wxArrayString(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ArrayString(const wxArrayString& array) : wxArrayString(array), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ArrayString(size_t sz, const wxChar** arr) : wxArrayString(sz, arr), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ArrayString(size_t sz, const wxString* arr) : wxArrayString(sz, arr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString() : wxArrayString(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(const wxArrayString& array) : wxArrayString(array), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(size_t sz, const wxChar** arr) : wxArrayString(sz, arr), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ArrayString(size_t sz, const wxString* arr) : wxArrayString(sz, arr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ArrayString();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ArrayString *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

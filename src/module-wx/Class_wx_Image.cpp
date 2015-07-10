@@ -11,22 +11,22 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Image: public wxImage, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Image *_pObj;
 public:
-	inline wx_Image() : wxImage(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxImage& image) : wxImage(image), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Image(const wxBitmap& bitmap) : wxImage(bitmap), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(int width, int height, bool clear) : wxImage(width, height, clear), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_Image(int width, int height, unsigned char* data, bool static_data) : wxImage(width, height, data, static_data), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxString& name, long type, int index) : wxImage(name, type, index), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxString& name, const wxString& mimetype, int index) : wxImage(name, mimetype, index), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(wxInputStream& stream, long type, int index) : wxImage(stream, type, index), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(wxInputStream& stream, const wxString& mimetype, int index) : wxImage(stream, mimetype, index), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const char* const* xpmData) : wxImage(xpmData), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Image() : wxImage(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(const wxImage& image) : wxImage(image), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Image(const wxBitmap& bitmap) : wxImage(bitmap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(int width, int height, bool clear) : wxImage(width, height, clear), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Image(int width, int height, unsigned char* data, bool static_data) : wxImage(width, height, data, static_data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(const wxString& name, long type, int index) : wxImage(name, type, index), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(const wxString& name, const wxString& mimetype, int index) : wxImage(name, mimetype, index), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(wxInputStream& stream, long type, int index) : wxImage(stream, type, index), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(wxInputStream& stream, const wxString& mimetype, int index) : wxImage(stream, mimetype, index), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image(const char* const* xpmData) : wxImage(xpmData), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Image();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Image *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ScopedTiedPtr: public wxScopedTiedPtr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ScopedTiedPtr *_pObj;
 public:
-	inline wx_ScopedTiedPtr(T ** ppTie, T * ptr) : wxScopedTiedPtr(ppTie, ptr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ScopedTiedPtr(T ** ppTie, T * ptr) : wxScopedTiedPtr(ppTie, ptr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ScopedTiedPtr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScopedTiedPtr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

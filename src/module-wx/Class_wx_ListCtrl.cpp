@@ -1404,11 +1404,11 @@ Gura_DeclareMethod(wx_ListCtrl, SortItems)
 class wxListCompareFunction {
 private:
 	Environment &_env;
-	Signal &_sig;
+	Signal *_pSig;
 	const Function *_pFunc;
 public:
 	inline wxListCompareFunction(Environment &env, Signal &sig, const Function *pFunc) :
-											_env(env), _sig(sig), _pFunc(pFunc) {}
+											_env(env), _pSig(&sig), _pFunc(pFunc) {}
 	int Body(long item1, long item2);
 	static int wxCALLBACK Stub(long item1, long item2, long sortData);
 };
@@ -1421,7 +1421,7 @@ int wxListCompareFunction::Body(long item1, long item2)
 	//valList.push_back(Value(item2));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(item1), Value(item2));
-	Value rtn = _pFunc->Eval(_env, _sig, *pArgs);
+	Value rtn = _pFunc->Eval(_env, *_pSig, *pArgs);
 	return rtn.GetInt();
 }
 

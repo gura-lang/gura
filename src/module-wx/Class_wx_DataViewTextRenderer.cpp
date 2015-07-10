@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewTextRenderer: public wxDataViewTextRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataViewTextRenderer *_pObj;
 public:
-	inline wx_DataViewTextRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewTextRenderer(varianttype, mode), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewTextRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewTextRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewTextRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewTextRenderer *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

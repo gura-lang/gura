@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ContextHelp: public wxContextHelp, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ContextHelp *_pObj;
 public:
-	inline wx_ContextHelp(wxWindow* window, bool doNow) : wxContextHelp(window, doNow), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ContextHelp(wxWindow* window, bool doNow) : wxContextHelp(window, doNow), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ContextHelp();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ContextHelp *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

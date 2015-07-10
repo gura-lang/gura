@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewSortedListModel: public wxDataViewSortedListModel, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_DataViewSortedListModel *_pObj;
 public:
-	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_DataViewSortedListModel();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewSortedListModel *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

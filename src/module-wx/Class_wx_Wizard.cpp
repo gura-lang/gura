@@ -15,17 +15,17 @@ Gura_DeclarePrivUserSymbol(HasPrevPage);
 //----------------------------------------------------------------------------
 class wx_Wizard: public wxWizard, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Wizard *_pObj;
 public:
-	inline wx_Wizard() : wxWizard(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Wizard(wxWindow* parent, int id, const wxString& title, const wxBitmap& bitmap, const wxPoint& pos, long style) : wxWizard(parent, id, title, bitmap, pos, style), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Wizard() : wxWizard(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Wizard(wxWindow* parent, int id, const wxString& title, const wxBitmap& bitmap, const wxPoint& pos, long style) : wxWizard(parent, id, title, bitmap, pos, style), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual wxSizer* GetPageAreaSizer();
 	//virtual bool HasNextPage(wxWizardPage * page);
 	//virtual bool HasPrevPage(wxWizardPage * page);
 	~wx_Wizard();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Wizard *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

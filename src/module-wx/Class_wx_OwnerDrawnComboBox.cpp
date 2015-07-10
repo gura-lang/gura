@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_OwnerDrawnComboBox: public wxOwnerDrawnComboBox, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_OwnerDrawnComboBox *_pObj;
 public:
-	inline wx_OwnerDrawnComboBox() : wxOwnerDrawnComboBox(), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_OwnerDrawnComboBox() : wxOwnerDrawnComboBox(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_OwnerDrawnComboBox();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_OwnerDrawnComboBox *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Joystick: public wxJoystick, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Joystick *_pObj;
 public:
-	inline wx_Joystick(int joystick) : wxJoystick(joystick), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Joystick(int joystick) : wxJoystick(joystick), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Joystick();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Joystick *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

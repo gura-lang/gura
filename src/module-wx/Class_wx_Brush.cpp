@@ -11,17 +11,17 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Brush: public wxBrush, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Brush *_pObj;
 public:
-	inline wx_Brush() : wxBrush(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Brush(const wxColour& colour, int style) : wxBrush(colour, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Brush(const wxString& colourName, int style) : wxBrush(colourName, style), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Brush(const wxBitmap& stippleBitmap) : wxBrush(stippleBitmap), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Brush(const wxBrush& brush) : wxBrush(brush), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Brush() : wxBrush(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Brush(const wxColour& colour, int style) : wxBrush(colour, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Brush(const wxString& colourName, int style) : wxBrush(colourName, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Brush(const wxBitmap& stippleBitmap) : wxBrush(stippleBitmap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Brush(const wxBrush& brush) : wxBrush(brush), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Brush();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Brush *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

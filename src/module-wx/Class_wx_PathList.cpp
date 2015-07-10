@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PathList: public wxPathList, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PathList *_pObj;
 public:
-	inline wx_PathList() : wxPathList(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_PathList(const wxArrayString& arr) : wxPathList(arr), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PathList() : wxPathList(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PathList(const wxArrayString& arr) : wxPathList(arr), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PathList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PathList *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

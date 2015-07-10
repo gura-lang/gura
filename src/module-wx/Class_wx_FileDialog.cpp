@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileDialog: public wxFileDialog, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileDialog *_pObj;
 public:
-	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FileDialog();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDialog *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

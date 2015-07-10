@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CalendarDateAttr: public wxCalendarDateAttr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_CalendarDateAttr *_pObj;
 public:
-	inline wx_CalendarDateAttr() : wxCalendarDateAttr(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_CalendarDateAttr(const wxColour& colText, const wxColour& colBack, const wxColour& colBorder, const wxFont& font, wxCalendarDateBorder border) : wxCalendarDateAttr(colText, colBack, colBorder, font, border), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_CalendarDateAttr(wxCalendarDateBorder border, const wxColour& colBorder) : wxCalendarDateAttr(border, colBorder), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarDateAttr() : wxCalendarDateAttr(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarDateAttr(const wxColour& colText, const wxColour& colBack, const wxColour& colBorder, const wxFont& font, wxCalendarDateBorder border) : wxCalendarDateAttr(colText, colBack, colBorder, font, border), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarDateAttr(wxCalendarDateBorder border, const wxColour& colBorder) : wxCalendarDateAttr(border, colBorder), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_CalendarDateAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalendarDateAttr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

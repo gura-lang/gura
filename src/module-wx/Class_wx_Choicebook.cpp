@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Choicebook: public wxChoicebook, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Choicebook *_pObj;
 public:
-	inline wx_Choicebook() : wxChoicebook(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Choicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxChoicebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Choicebook() : wxChoicebook(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Choicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxChoicebook(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Choicebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Choicebook *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

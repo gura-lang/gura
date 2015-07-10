@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileInputStream: public wxFileInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_FileInputStream *_pObj;
 public:
-	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_FileInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileInputStream *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlNode: public wxXmlNode, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_XmlNode *_pObj;
 public:
-	//inline wx_XmlNode(wxXmlNode* parent, wxXmlNodeType type, const wxString& name, const wxString& content, wxXmlProperty* props, wxXmlNode* next) : wxXmlNode(parent, type, name, content, props, next), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlNode(const wxXmlNode& node) : wxXmlNode(node), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlNode(wxXmlNodeType type, const wxString& name, const wxString& content) : wxXmlNode(type, name, content), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlNode(wxXmlNode* parent, wxXmlNodeType type, const wxString& name, const wxString& content, wxXmlProperty* props, wxXmlNode* next) : wxXmlNode(parent, type, name, content, props, next), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlNode(const wxXmlNode& node) : wxXmlNode(node), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlNode(wxXmlNodeType type, const wxString& name, const wxString& content) : wxXmlNode(type, name, content), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_XmlNode();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlNode *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

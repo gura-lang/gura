@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GenericDirCtrl: public wxGenericDirCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GenericDirCtrl *_pObj;
 public:
-	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GenericDirCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GenericDirCtrl *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

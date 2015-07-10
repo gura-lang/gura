@@ -21,10 +21,10 @@ Gura_DeclarePrivUserSymbol(ProcessMouseClick);
 //----------------------------------------------------------------------------
 class wx_HtmlCell: public wxHtmlCell, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_HtmlCell *_pObj;
 public:
-	inline wx_HtmlCell() : wxHtmlCell(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlCell() : wxHtmlCell(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool AdjustPagebreak(int * pagebreak);
 	//virtual void Draw(wxDC& dc, int x, int y, int view_y1, int view_y2);
 	//virtual void DrawInvisible(wxDC& dc, int x, int y);
@@ -36,7 +36,7 @@ public:
 	//virtual bool ProcessMouseClick(wxHtmlWindowInterface* window, const wxPoint& pos, const wxMouseEvent& event);
 	~wx_HtmlCell();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlCell *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

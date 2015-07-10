@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogStderr: public wxLogStderr, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LogStderr *_pObj;
 public:
-	inline wx_LogStderr() : _sig(nullptr), _pObj(nullptr) {}
-	inline wx_LogStderr(FILE *fp) : wxLogStderr(fp), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LogStderr() : _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_LogStderr(FILE *fp) : wxLogStderr(fp), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LogStderr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogStderr *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

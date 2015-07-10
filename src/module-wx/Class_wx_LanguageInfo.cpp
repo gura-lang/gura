@@ -17,13 +17,13 @@ Gura_DeclarePrivUserSymbol(Description);
 //----------------------------------------------------------------------------
 class wx_LanguageInfo: public wxLanguageInfo, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_LanguageInfo *_pObj;
 public:
-	inline wx_LanguageInfo() : wxLanguageInfo(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_LanguageInfo() : wxLanguageInfo(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_LanguageInfo();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LanguageInfo *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

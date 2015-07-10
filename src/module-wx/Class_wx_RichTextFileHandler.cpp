@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextFileHandler: public wxRichTextFileHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextFileHandler *_pObj;
 public:
-	//inline wx_RichTextFileHandler(const wxString& name, const wxString& ext, int type) : wxRichTextFileHandler(name, ext, type), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_RichTextFileHandler(const wxString& name, const wxString& ext, int type) : wxRichTextFileHandler(name, ext, type), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextFileHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextFileHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

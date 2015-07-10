@@ -20,10 +20,10 @@ Gura_DeclarePrivUserSymbol(ShowHelp);
 //----------------------------------------------------------------------------
 class wx_RichTextFormattingDialogFactory: public wxRichTextFormattingDialogFactory, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextFormattingDialogFactory *_pObj;
 public:
-	inline wx_RichTextFormattingDialogFactory() : wxRichTextFormattingDialogFactory(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextFormattingDialogFactory() : wxRichTextFormattingDialogFactory(), _pSig(nullptr), _pObj(nullptr) {}
 	//virtual bool CreateButtons(wxRichTextFormattingDialog* dialog);
 	//virtual wxPanel* CreatePage(int page, wxString& title, wxRichTextFormattingDialog* dialog);
 	//virtual bool CreatePages(long pages, wxRichTextFormattingDialog* dialog);
@@ -34,7 +34,7 @@ public:
 	//virtual bool ShowHelp(int page, wxRichTextFormattingDialog* dialog);
 	~wx_RichTextFormattingDialogFactory();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextFormattingDialogFactory *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

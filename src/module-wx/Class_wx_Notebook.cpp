@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Notebook: public wxNotebook, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_Notebook *_pObj;
 public:
-	inline wx_Notebook() : wxNotebook(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_Notebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxNotebook(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_Notebook() : wxNotebook(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Notebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxNotebook(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_Notebook();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Notebook *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

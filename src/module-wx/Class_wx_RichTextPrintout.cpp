@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextPrintout: public wxRichTextPrintout, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextPrintout *_pObj;
 public:
-	inline wx_RichTextPrintout(const wxString& title) : wxRichTextPrintout(title), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextPrintout(const wxString& title) : wxRichTextPrintout(title), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextPrintout();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextPrintout *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

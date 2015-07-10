@@ -11,19 +11,19 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_String: public wxString, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_String *_pObj;
 public:
-	inline wx_String() : wxString(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_String(const wxString& x) : wxString(x), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_String(wxChar ch, size_t n) : wxString(ch, n), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_String(const wxChar* psz, size_t nLength) : wxString(psz, nLength), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_String(const unsigned char* psz, size_t nLength) : wxString(psz, nLength), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_String(const wchar_t* psz, wxMBConv& conv, size_t nLength) : wxString(psz, conv, nLength), _sig(nullptr), _pObj(nullptr) {}
-	//inline wx_String(const char* psz, wxMBConv& conv, size_t nLength) : wxString(psz, conv, nLength), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_String() : wxString(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_String(const wxString& x) : wxString(x), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_String(wxChar ch, size_t n) : wxString(ch, n), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_String(const wxChar* psz, size_t nLength) : wxString(psz, nLength), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_String(const unsigned char* psz, size_t nLength) : wxString(psz, nLength), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_String(const wchar_t* psz, wxMBConv& conv, size_t nLength) : wxString(psz, conv, nLength), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_String(const char* psz, wxMBConv& conv, size_t nLength) : wxString(psz, conv, nLength), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_String();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_String *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

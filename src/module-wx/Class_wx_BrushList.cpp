@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BrushList: public wxBrushList, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_BrushList *_pObj;
 public:
-	inline wx_BrushList() : wxBrushList(), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_BrushList() : wxBrushList(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_BrushList();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BrushList *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

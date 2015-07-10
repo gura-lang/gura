@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlResourceHandler: public wxXmlResourceHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_XmlResourceHandler *_pObj;
 public:
-	//inline wx_XmlResourceHandler() : wxXmlResourceHandler(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlResourceHandler() : wxXmlResourceHandler(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_XmlResourceHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlResourceHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

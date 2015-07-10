@@ -13,12 +13,12 @@ Gura_DeclarePrivUserSymbol(Draw);
 //----------------------------------------------------------------------------
 class wx_GridCellRenderer: public wxGridCellRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_GridCellRenderer> _pObj;
 public:
 	~wx_GridCellRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellRenderer *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_GridCellRenderer::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_GridCellRenderer::Reference(pObj));
 	}
 	virtual void Draw(wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 					const wxRect &rect, int row, int col, bool isSelected);
@@ -39,7 +39,7 @@ void wx_GridCellRenderer::Draw(wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 					const wxRect &rect, int row, int col, bool isSelected)
 {
 	bool evaluatedFlag = false;
-	_pObj->EvalMethod_Draw(_sig, evaluatedFlag,
+	_pObj->EvalMethod_Draw(*_pSig, evaluatedFlag,
 							grid, attr, dc, rect, row, col, isSelected);
 	if (!evaluatedFlag) wxGridCellRenderer::Draw(grid, attr, dc, rect, row, col, isSelected);
 }

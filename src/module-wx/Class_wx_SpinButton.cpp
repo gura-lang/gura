@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SpinButton: public wxSpinButton, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_SpinButton *_pObj;
 public:
-	inline wx_SpinButton() : wxSpinButton(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_SpinButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSpinButton(parent, id, pos, size, style, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_SpinButton() : wxSpinButton(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SpinButton(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxSpinButton(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_SpinButton();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SpinButton *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

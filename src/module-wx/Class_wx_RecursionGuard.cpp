@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RecursionGuard: public wxRecursionGuard, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RecursionGuard *_pObj;
 public:
-	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RecursionGuard();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RecursionGuard *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

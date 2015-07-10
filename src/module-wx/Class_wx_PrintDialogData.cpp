@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PrintDialogData: public wxPrintDialogData, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_PrintDialogData *_pObj;
 public:
-	inline wx_PrintDialogData() : wxPrintDialogData(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData() : wxPrintDialogData(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_PrintDialogData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrintDialogData *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

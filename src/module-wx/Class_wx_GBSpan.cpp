@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GBSpan: public wxGBSpan, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_GBSpan *_pObj;
 public:
-	inline wx_GBSpan() : wxGBSpan(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_GBSpan() : wxGBSpan(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_GBSpan();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBSpan *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

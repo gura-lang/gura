@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ImageHandler: public wxImageHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_ImageHandler *_pObj;
 public:
-	//inline wx_ImageHandler() : wxImageHandler(), _sig(nullptr), _pObj(nullptr) {}
+	//inline wx_ImageHandler() : wxImageHandler(), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_ImageHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ImageHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextHTMLHandler: public wxRichTextHTMLHandler, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextHTMLHandler *_pObj;
 public:
-	inline wx_RichTextHTMLHandler(const wxString& name, const wxString& ext, int type) : wxRichTextHTMLHandler(name, ext, type), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextHTMLHandler(const wxString& name, const wxString& ext, int type) : wxRichTextHTMLHandler(name, ext, type), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextHTMLHandler();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextHTMLHandler *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextHeaderFooterData: public wxRichTextHeaderFooterData, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_RichTextHeaderFooterData *_pObj;
 public:
-	inline wx_RichTextHeaderFooterData() : wxRichTextHeaderFooterData(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextHeaderFooterData(const wxRichTextHeaderFooterData& data) : wxRichTextHeaderFooterData(data), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextHeaderFooterData() : wxRichTextHeaderFooterData(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextHeaderFooterData(const wxRichTextHeaderFooterData& data) : wxRichTextHeaderFooterData(data), _pSig(nullptr), _pObj(nullptr) {}
 	~wx_RichTextHeaderFooterData();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextHeaderFooterData *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
