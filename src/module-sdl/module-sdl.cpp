@@ -3394,7 +3394,7 @@ static Function *_pFuncEventFilter = nullptr;
 static int EventFilter(const SDL_Event *event)
 {
 	if (_pFuncEventFilter == nullptr) return 1;
-	Signal &sig;
+	Signal sig;
 	Environment &env = _pFuncEventFilter->GetEnvScope();
 	//ValueList valList;
 	//valList.push_back(Object_Event::CreateValue(*event));
