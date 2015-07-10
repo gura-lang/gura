@@ -22,23 +22,23 @@ public:
 		return *this;
 	}
 public:
-	bool Pack(Environment &env, Signal sig, size_t &offset,
+	bool Pack(Environment &env, Signal &sig, size_t &offset,
 				const char *format, const ValueList &valListArg);
-	Value Unpack(Environment &env, Signal sig, size_t &offset,
+	Value Unpack(Environment &env, Signal &sig, size_t &offset,
 				const char *format, const ValueList &valListArg, bool exceedErrorFlag);
-	bool PackForward(Signal sig, size_t offset, size_t bytes);
-	bool UnpackForward(Signal sig,size_t &offset, int distance, bool exceedErrorFlag);
+	bool PackForward(Signal &sig, size_t offset, size_t bytes);
+	bool UnpackForward(Signal &sig,size_t &offset, int distance, bool exceedErrorFlag);
 	static void PackUShort(iterator pByte, bool bigEndianFlag, UShort num);
 	static void PackULong(iterator pByte, bool bigEndianFlag, ULong num);
 	static void PackUInt64(iterator pByte, bool bigEndianFlag, UInt64 num);
 	static UShort UnpackUShort(iterator pByte, bool bigEndianFlag);
 	static ULong UnpackULong(iterator pByte, bool bigEndianFlag);
 	static UInt64 UnpackUInt64(iterator pByte, bool bigEndianFlag);
-	static bool CheckString(Signal sig,
+	static bool CheckString(Signal &sig,
 				const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal sig,
+	static bool CheckNumber(Signal &sig,
 				const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal sig, const ValueList &valList,
+	static bool CheckNumber(Signal &sig, const ValueList &valList,
 				ValueList::const_iterator pValue, Number numMin, Number numMax);
 };
 

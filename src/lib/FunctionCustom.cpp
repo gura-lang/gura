@@ -33,7 +33,7 @@ FunctionCustom::~FunctionCustom()
 {
 }
 
-Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
+Value FunctionCustom::DoEval(Environment &env, Signal &sig, Args &args) const
 {
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig,
 											args, _funcType != FUNCTYPE_Block));
@@ -62,7 +62,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 #endif
 }
 
-Expr *FunctionCustom::MathDiff(Environment &env, Signal sig,
+Expr *FunctionCustom::MathDiff(Environment &env, Signal &sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExpr(GetExprBody()->MathDiff(env, sig, pSymbol));
@@ -72,7 +72,7 @@ Expr *FunctionCustom::MathDiff(Environment &env, Signal sig,
 	return pExpr.release();
 }
 
-FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
+FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal &sig,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env, pSymbol,
@@ -163,7 +163,7 @@ FunctionCustom::SequenceEx::SequenceEx(Environment *pEnv, FunctionCustom *pFunct
 	}
 }
 
-bool FunctionCustom::SequenceEx::DoStep(Signal sig, Value &result)
+bool FunctionCustom::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;

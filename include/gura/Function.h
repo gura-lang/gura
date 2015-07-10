@@ -18,7 +18,7 @@ class Func_##name : public Function {
 #define Gura_DeclareFunctionEnd(name) \
 public: \
 	Func_##name(Environment &env, const char *name = #name); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -27,7 +27,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -39,8 +39,8 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-	virtual Expr *MathDiff(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Expr *MathDiff(Environment &env, Signal &sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -53,7 +53,7 @@ Gura_DeclareFunctionWithMathDiffAlias(name, #name)
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -66,7 +66,7 @@ Gura_DeclareFunctionTrailerAlias(name, #name)
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Instance, FLAG_None)
@@ -78,7 +78,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -90,7 +90,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
@@ -98,16 +98,16 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 #define Gura_DeclareClassMethod(className, name) Gura_DeclareClassMethodAlias(className, name, #name)
 
 #define Gura_ImplementFunction(name) \
-Value Func_##name::DoEval(Environment &env, Signal sig, Args &args) const
+Value Func_##name::DoEval(Environment &env, Signal &sig, Args &args) const
 
 #define Gura_ImplementMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Signal sig, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &args) const
 
 #define Gura_ImplementClassMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Signal sig, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &args) const
 
 #define Gura_ImplementMathDiff(name) \
-Expr *Func_##name::MathDiff(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const
+Expr *Func_##name::MathDiff(Environment &env, Signal &sig, const Expr *pExprArg, const Symbol *pSymbol) const
 
 #define Gura_Function(name) Func_##name
 
@@ -165,7 +165,7 @@ public:
 		bool _setFlag;
 	public:
 		ResultComposer(Environment &env, Args &args, Value &result);
-		bool Store(Environment &env, Signal sig, const Value &value);
+		bool Store(Environment &env, Signal &sig, const Value &value);
 	};
 	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
 	public:
@@ -197,7 +197,7 @@ public:
 	public:
 		inline Args *GetArgs() { return _pArgs.get(); }
 		inline ExprMap &GetExprMap() { return _exprMap; }
-		virtual bool DoStep(Signal sig, Value &result);
+		virtual bool DoStep(Signal &sig, Value &result);
 		virtual String ToString() const;
 		void SkipDeclarations(size_t nSkipDecl);
 	};
@@ -208,7 +208,7 @@ public:
 	public:
 		inline SeqPostHandler_StoreDict(Environment *pEnv, SequenceEx *pSequenceCall, const Value &valueKey) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
-		virtual bool DoPost(Signal sig, const Value &result);
+		virtual bool DoPost(Signal &sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ExpandMod : public SeqPostHandler {
 	private:
@@ -216,7 +216,7 @@ public:
 	public:
 		inline SeqPostHandler_ExpandMod(Environment *pEnv, SequenceEx *pSequenceCall) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
-		virtual bool DoPost(Signal sig, const Value &result);
+		virtual bool DoPost(Signal &sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ExpandMul : public SeqPostHandler {
 	private:
@@ -224,7 +224,7 @@ public:
 	public:
 		inline SeqPostHandler_ExpandMul(Environment *pEnv, SequenceEx *pSequenceCall) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
-		virtual bool DoPost(Signal sig, const Value &result);
+		virtual bool DoPost(Signal &sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ValListArg : public SeqPostHandler {
 	private:
@@ -233,7 +233,7 @@ public:
 	public:
 		inline SeqPostHandler_ValListArg(Environment *pEnv, SequenceEx *pSequenceCall, bool skipDeclFlag) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
-		virtual bool DoPost(Signal sig, const Value &result);
+		virtual bool DoPost(Signal &sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ValDictArg : public SeqPostHandler {
 	private:
@@ -242,7 +242,7 @@ public:
 	public:
 		inline SeqPostHandler_ValDictArg(Environment *pEnv, SequenceEx *pSequenceCall, const Symbol *pSymbol) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _pSymbol(pSymbol) {}
-		virtual bool DoPost(Signal sig, const Value &result);
+		virtual bool DoPost(Signal &sig, const Value &result);
 	};
 protected:
 	int _cntRef;
@@ -281,9 +281,9 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, Signal sig, Args &args) const;
-	Value Eval(Environment &env, Signal sig, Args &args) const;
-	Value EvalMap(Environment &env, Signal sig, Args &args) const;
+	virtual Value Call(Environment &env, Signal &sig, Args &args) const;
+	Value Eval(Environment &env, Signal &sig, Args &args) const;
+	Value EvalMap(Environment &env, Signal &sig, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
@@ -315,7 +315,7 @@ public:
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
-	bool CustomDeclare(Environment &env, Signal sig,
+	bool CustomDeclare(Environment &env, Signal &sig,
 			const SymbolSet &attrsAcceptable, Args &args);
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
@@ -345,32 +345,32 @@ public:
 	const Help *GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const;
 	String MakeFullName() const;
 	String ToString() const;
-	void SetError_DivideByZero(Signal sig) const;
-	void SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const;
-	void SetError_NotConstructor(Signal sig) const;
-	void SetError_ArgumentTypeByIndex(Signal sig, Args &args, size_t idxArg) const;
-	void SetError_InvalidValue(Signal sig, const Value &value) const;
-	void SetError_InvalidValue(Signal sig, const Value &value1, const Value &value2) const;
-	void SetError_InvalidValType(Signal sig, const Value &value) const;
-	void SetError_InvalidValType(Signal sig, const Value &value1, const Value &value2) const;
-	void SetError_InvalidFunctionExpression(Signal sig) const;
-	void SetError_MathDiffError(Signal sig) const;
-	void SetError_MathOptimizeError(Signal sig) const;
-	virtual Expr *MathDiff(Environment &env, Signal sig,
+	void SetError_DivideByZero(Signal &sig) const;
+	void SetError_UnsupportedAttr(Signal &sig, const SymbolSet &attrs) const;
+	void SetError_NotConstructor(Signal &sig) const;
+	void SetError_ArgumentTypeByIndex(Signal &sig, Args &args, size_t idxArg) const;
+	void SetError_InvalidValue(Signal &sig, const Value &value) const;
+	void SetError_InvalidValue(Signal &sig, const Value &value1, const Value &value2) const;
+	void SetError_InvalidValType(Signal &sig, const Value &value) const;
+	void SetError_InvalidValType(Signal &sig, const Value &value1, const Value &value2) const;
+	void SetError_InvalidFunctionExpression(Signal &sig) const;
+	void SetError_MathDiffError(Signal &sig) const;
+	void SetError_MathOptimizeError(Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, Signal &sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprOpt) const;
+	virtual Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value ReturnValue(Environment &env, Signal sig,
+	Value ReturnValue(Environment &env, Signal &sig,
 					Args &args, const Value &result) const;
-	Value ReturnValues(Environment &env, Signal sig,
+	Value ReturnValues(Environment &env, Signal &sig,
 					Args &args, const ValueList &valListArg) const;
-	Value ReturnIterator(Environment &env, Signal sig,
+	Value ReturnIterator(Environment &env, Signal &sig,
 					Args &args, Iterator *pIterator) const;
-	Environment *PrepareEnvironment(Environment &env, Signal sig,
+	Environment *PrepareEnvironment(Environment &env, Signal &sig,
 									Args &args, bool thisAssignFlag) const;
 private:
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const = 0;
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -627,8 +627,8 @@ public:
 	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
-	const Expr_Block *GetBlock(Environment &env, Signal sig) const;
-	const Function *GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol);
+	const Expr_Block *GetBlock(Environment &env, Signal &sig) const;
+	const Function *GetBlockFunc(Environment &env, Signal &sig, const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------
@@ -636,7 +636,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
+	virtual Value DoCall(Environment &env, Signal &sig, Args &args) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;

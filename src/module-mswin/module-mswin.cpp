@@ -280,7 +280,7 @@ Object *Object_ole::Clone() const
 	return nullptr;
 }
 
-bool Object_ole::Create(Signal sig, const char *progID)
+bool Object_ole::Create(Signal &sig, const char *progID)
 {
 	HRESULT hr;
 	CLSID clsid;
@@ -299,7 +299,7 @@ bool Object_ole::Create(Signal sig, const char *progID)
 	return true;
 }
 
-bool Object_ole::Connect(Signal sig, const char *progID)
+bool Object_ole::Connect(Signal &sig, const char *progID)
 {
 	HRESULT hr;
 	CLSID clsid;
@@ -325,7 +325,7 @@ bool Object_ole::Connect(Signal sig, const char *progID)
 	return true;
 }
 
-bool Object_ole::ImportConstant(Environment &env, Signal sig)
+bool Object_ole::ImportConstant(Environment &env, Signal &sig)
 {
 	HRESULT hr;
 	//hr = _pDispatch->GetTypeInfoCount(&cnt); // 0 or 1
@@ -429,7 +429,7 @@ HRESULT Object_ole::GetDispIDOfNamedArg(
 	return hr;
 }
 
-Iterator *Object_ole::CreateIterator(Signal sig)
+Iterator *Object_ole::CreateIterator(Signal &sig)
 {
 	VARIANT var;
 	HRESULT hr;
@@ -470,7 +470,7 @@ Iterator *Object_ole::CreateIterator(Signal sig)
 	return pIterator;
 }
 
-bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_ole::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	HRESULT hr;
@@ -562,7 +562,7 @@ bool Object_ole::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ole::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_ole::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	DISPID dispid;
@@ -590,7 +590,7 @@ Value Object_ole::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return result;
 }
 
-Value Object_ole::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_ole::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -622,7 +622,7 @@ Value Object_ole::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return value;
 }
 
-Callable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
+Callable *Object_ole::GetCallable(Signal &sig, const Symbol *pSymbol)
 {
 	foreach (CallableOLEOwner, ppCallableOLE, _callableOLEOwner) {
 		CallableOLE *pCallableOLE = *ppCallableOLE;
@@ -692,7 +692,7 @@ String Object_ole::ToString(bool exprFlag)
 	return rtn;
 }
 
-void Object_ole::SetError(Signal sig, HRESULT hr)
+void Object_ole::SetError(Signal &sig, HRESULT hr)
 {
 	LPWSTR errMsg = nullptr;
 	::FormatMessageW(
@@ -715,7 +715,7 @@ void Object_ole::SetError(Signal sig, HRESULT hr)
 //-----------------------------------------------------------------------------
 // Object_ole::CallableOLE
 //-----------------------------------------------------------------------------
-Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsExpr)
+Value Object_ole::CallableOLE::DoCall(Environment &env, Signal &sig, Args &argsExpr)
 {
 	Value result;
 	HRESULT hr;
@@ -852,7 +852,7 @@ Iterator *Object_ole::IteratorEx::GetSource()
 	return nullptr;
 }
 
-bool Object_ole::IteratorEx::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_ole::IteratorEx::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	VARIANT var;
 	::VariantInit(&var);
@@ -895,7 +895,7 @@ Iterator *Iterator_RegEnumKey::GetSource()
 	return nullptr;
 }
 
-bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_RegEnumKey::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	char name[256];
 	FILETIME ftLastWriteTime;
@@ -944,7 +944,7 @@ Iterator *Iterator_RegEnumValue::GetSource()
 	return nullptr;
 }
 
-bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_RegEnumValue::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	char valueName[256];
 	DWORD cValueName = ArraySizeOf(valueName);
@@ -1133,7 +1133,7 @@ String BSTRToString(const OLECHAR *bstr)
 	return String(psz);
 }
 
-bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
+bool ValueToVariant(Signal &sig, VARIANT &var, const Value &value)
 {
 	//::printf("ValueToVariant(%s %s)\n", value.GetTypeName(), value.ToString().c_str());
 	::VariantInit(&var);
@@ -1187,7 +1187,7 @@ bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 	return true;
 }
 
-bool VariantToValue(Environment &env, Signal sig, Value &value, const VARIANT &var)
+bool VariantToValue(Environment &env, Signal &sig, Value &value, const VARIANT &var)
 {
 	VARTYPE type = var.vt & VT_TYPEMASK;
 	if (var.vt & VT_ARRAY) {
@@ -1235,7 +1235,7 @@ bool VariantToValue(Environment &env, Signal sig, Value &value, const VARIANT &v
 	return true;
 }
 
-Value RegDataToValue(Environment &env, Signal sig,
+Value RegDataToValue(Environment &env, Signal &sig,
 								DWORD dwType, LPCBYTE lpData, DWORD cbData)
 {
 	Value result;
@@ -1273,7 +1273,7 @@ Value RegDataToValue(Environment &env, Signal sig,
 	return result;
 }
 
-bool ValueToRegData(Environment &env, Signal sig, const Value &value,
+bool ValueToRegData(Environment &env, Signal &sig, const Value &value,
 								DWORD *pdwType, LPBYTE *lppData, DWORD *pcbData)
 {
 	if (value.Is_number()) {

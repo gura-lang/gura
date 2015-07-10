@@ -86,32 +86,32 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // AudioStreamer_WAV
 //-----------------------------------------------------------------------------
-bool AudioStreamer_WAV::IsResponsible(Signal sig, Stream &stream)
+bool AudioStreamer_WAV::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 	}
 	return stream.HasNameSuffix(".wav");
 }
 
-bool AudioStreamer_WAV::Read(Environment &env, Signal sig,
+bool AudioStreamer_WAV::Read(Environment &env, Signal &sig,
 									Audio *pAudio, Stream &stream)
 {
 	return AudioStreamer_WAV::ReadStream(sig, pAudio, stream);
 }
 
-bool AudioStreamer_WAV::Write(Environment &env, Signal sig,
+bool AudioStreamer_WAV::Write(Environment &env, Signal &sig,
 									Audio *pAudio, Stream &stream)
 {
 	return AudioStreamer_WAV::WriteStream(sig, pAudio, stream);
 }
 
-bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
+bool AudioStreamer_WAV::ReadStream(Signal &sig, Audio *pAudio, Stream &stream)
 {
 	//if (!pObjAudio->CheckEmpty(sig)) return false;
 	return false;
 }
 
-bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
+bool AudioStreamer_WAV::WriteStream(Signal &sig, Audio *pAudio, Stream &stream)
 {
 	std::unique_ptr<Wave> pWave(new Wave());
 	if (!pWave->SetAudio(sig, pAudio)) return false;
@@ -119,7 +119,7 @@ bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 	return true;
 }
 
-void AudioStreamer_WAV::SetError_InvalidWAVFormat(Signal sig)
+void AudioStreamer_WAV::SetError_InvalidWAVFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid WAV format");
 }

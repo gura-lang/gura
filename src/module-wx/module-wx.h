@@ -41,11 +41,11 @@ extern const bool OwnerTrue;
 //-----------------------------------------------------------------------------
 void SetWxReadyFlag(bool wxReadyFlag);
 bool IsWxReady();
-bool CheckWxReady(Signal sig);
+bool CheckWxReady(Signal &sig);
 void InitializeObjects(Environment &env);
-void SetError_NotImplemented(Signal sig);
-void SetError_MSWOnly(Signal sig);
-void SetError_InvalidWxObject(Signal sig, const char *name);
+void SetError_NotImplemented(Signal &sig);
+void SetError_MSWOnly(Signal &sig);
+void SetError_InvalidWxObject(Signal &sig, const char *name);
 void SetLogError(const Signal &sig);
 wxArrayString *CreateArrayString(const ValueList &valList);
 wxArrayInt *CreateArrayInt(const ValueList &valList);
@@ -55,8 +55,8 @@ Value ArrayStringToValue(Environment &env, const wxString *array, int n);
 void AddToArrayString(wxArrayString &array, const ValueList &valList);
 void AddToArrayInt(wxArrayInt &array, const ValueList &valList);
 void ConvertToWxImage(Image *pImageGura, wxImage *pImage);
-bool CheckMethodResult(Signal sig);
-bool CheckMethodResult(Signal sig, const Value &rtn,
+bool CheckMethodResult(Signal &sig);
+bool CheckMethodResult(Signal &sig, const Value &rtn,
 					ValueType valueType, bool invalidAcceptableFlag = false);
 
 //-----------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public:
 	inline Iterator_NewIds() : Iterator(true) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

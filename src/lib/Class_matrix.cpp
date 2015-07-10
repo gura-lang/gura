@@ -27,7 +27,7 @@ Object *Object_matrix::Clone() const
 	return new Object_matrix(*this);
 }
 
-Value Object_matrix::EmptyIndexGet(Environment &env, Signal sig)
+Value Object_matrix::EmptyIndexGet(Environment &env, Signal &sig)
 {
 	if (_pMat->GetIndexForColFlag()) {
 		sig.SetError(ERR_IndexError, "only one empty index should be applied");
@@ -40,7 +40,7 @@ Value Object_matrix::EmptyIndexGet(Environment &env, Signal sig)
 	return Value(new Object_matrix(env, pMat.release()));
 }
 
-Value Object_matrix::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_matrix::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
@@ -86,7 +86,7 @@ Value Object_matrix::IndexGet(Environment &env, Signal sig, const Value &valueId
 	}
 }
 
-void Object_matrix::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+void Object_matrix::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
 {
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
@@ -800,7 +800,7 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, transpose);
 }
 
-bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_matrix::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
@@ -814,7 +814,7 @@ bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const
 	return true;
 }
 
-bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_matrix::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
 	if (!pElements->GetList().Deserialize(env, sig, stream)) return false;
@@ -841,7 +841,7 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 	return true;
 }
 
-Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_matrix::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return nullptr;
 }

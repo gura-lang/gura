@@ -39,11 +39,11 @@ public:
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
 	Property *GetProperty() { return _pProperty.get(); }
 	void ResetTimeStamp();
-	bool Read(Environment &env, Signal sig, Stream &stream);
-	bool Write(Environment &env, Signal sig, Stream &stream);
-	Player *GeneratePlayer(Signal sig, Port *pPort, double speed, int cntRepeat) const;
-	bool ParseStreamMML(Signal sig, SimpleStream &stream);
-	bool ParseStringMML(Signal sig, const char *str);
+	bool Read(Environment &env, Signal &sig, Stream &stream);
+	bool Write(Environment &env, Signal &sig, Stream &stream);
+	Player *GeneratePlayer(Signal &sig, Port *pPort, double speed, int cntRepeat) const;
+	bool ParseStreamMML(Signal &sig, SimpleStream &stream);
+	bool ParseStringMML(Signal &sig, const char *str);
 };
 
 Gura_EndModuleScope(midi)

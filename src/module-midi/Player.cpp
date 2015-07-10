@@ -6,7 +6,7 @@ Gura_BeginModuleScope(midi)
 //-----------------------------------------------------------------------------
 // Player
 //-----------------------------------------------------------------------------
-Player::Player(Signal sig, Port *pPort) :
+Player::Player(Signal &sig, Port *pPort) :
 		_cntRef(1), _sig(sig), _pPort(pPort), _division(1), _mpqn(0),
 		_speed(1), _cntRepeat(1), _pEventOwner(new EventOwner()),
 		_iRepeat(0), _cntEvents(0), _idxEventCur(0)
@@ -18,7 +18,7 @@ Player::~Player()
 {
 }
 
-bool Player::SetupSequence(Signal sig, const Sequence *pSequence,
+bool Player::SetupSequence(Signal &sig, const Sequence *pSequence,
 				UShort division, ULong mpqn, double speed,
 				int cntRepeat)
 {

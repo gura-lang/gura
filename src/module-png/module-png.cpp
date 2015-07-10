@@ -64,7 +64,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_PNG
 //-----------------------------------------------------------------------------
-bool ImageStreamer_PNG::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_PNG::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		char buff[8];
@@ -76,19 +76,19 @@ bool ImageStreamer_PNG::IsResponsible(Signal sig, Stream &stream)
 	return stream.HasNameSuffix(".png");
 }
 
-bool ImageStreamer_PNG::Read(Environment &env, Signal sig,
+bool ImageStreamer_PNG::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PNG::Write(Environment &env, Signal sig,
+bool ImageStreamer_PNG::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_PNG::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	Handler handler(sig, stream);
@@ -171,7 +171,7 @@ bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	return true;
 }
 
-bool ImageStreamer_PNG::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_PNG::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckValid(sig)) return false;
 	Handler handler(sig, stream);

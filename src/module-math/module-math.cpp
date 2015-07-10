@@ -839,7 +839,7 @@ private:
 	NumberList _nums;
 public:
 	Func_BezierPrototype(Environment &env, const ValueList &nums);
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
 };
 
 Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nums) :
@@ -869,7 +869,7 @@ Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nu
 	}
 }
 
-Value Func_BezierPrototype::DoEval(Environment &env, Signal sig, Args &args) const
+Value Func_BezierPrototype::DoEval(Environment &env, Signal &sig, Args &args) const
 {
 	Number t = args.GetNumber(0);
 	if (_nums.size() == 2) {
@@ -1042,7 +1042,7 @@ Gura_ImplementFunction(dot_product)
 }
 
 // math.cross_product(a[], b[])
-static Value CalcCrossElem(Environment &env, Signal sig,
+static Value CalcCrossElem(Environment &env, Signal &sig,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by);
 
 Gura_DeclareFunction(cross_product)
@@ -1091,7 +1091,7 @@ Gura_ImplementFunction(cross_product)
 	}
 }
 
-Value CalcCrossElem(Environment &env, Signal sig,
+Value CalcCrossElem(Environment &env, Signal &sig,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by)
 {
 	Value valueLeft;

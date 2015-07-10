@@ -61,7 +61,7 @@ Object_wx_Event *Object_wx_EventFactory::CreateEventObject(wxEvent &event)
 	return new Object_wx_Event(&event, nullptr, false);
 }
 
-void Object_wx_EventFactory::Connect(Environment &env, Signal sig,
+void Object_wx_EventFactory::Connect(Environment &env, Signal &sig,
 		wxEvtHandler *pEvtHandler, int id, int lastId,
 		wxObjectEventFunction function, Object_function *pObjFunc, wxEvtHandler *eventSink)
 {

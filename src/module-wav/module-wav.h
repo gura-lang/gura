@@ -14,13 +14,13 @@ Gura_BeginModuleHeader(wav)
 class AudioStreamer_WAV : public AudioStreamer {
 public:
 	inline AudioStreamer_WAV() : AudioStreamer("wav") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Audio *pAudio, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Audio *pAudio, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Audio *pAudio, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Audio *pAudio, Stream &stream);
 public:
-	static bool ReadStream(Signal sig, Audio *pAudio, Stream &stream);
-	static bool WriteStream(Signal sig, Audio *pAudio, Stream &stream);
-	static void SetError_InvalidWAVFormat(Signal sig);
+	static bool ReadStream(Signal &sig, Audio *pAudio, Stream &stream);
+	static bool WriteStream(Signal &sig, Audio *pAudio, Stream &stream);
+	static void SetError_InvalidWAVFormat(Signal &sig);
 };
 
 Gura_EndModuleHeader(wav)

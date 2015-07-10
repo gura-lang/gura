@@ -22,10 +22,10 @@ public:
 		ExprLeaderStack _exprLeaderStack;
 	public:
 		Parser(bool autoIndentFlag, bool appendLastEOLFlag);
-		bool ParseStream(Environment &env, Signal sig,
+		bool ParseStream(Environment &env, Signal &sig,
 							Template *pTemplate, SimpleStream &streamSrc);
 	private:
-		bool CreateTmplScript(Environment &env, Signal sig,
+		bool CreateTmplScript(Environment &env, Signal &sig,
 				const char *strIndent, const char *strTmplScript, const char *strPost,
 				Template *pTemplate, Expr_Block *pExprBlock,
 				StringRef *pSourceName, int cntLineTop, int cntLineBtm);
@@ -45,19 +45,19 @@ public:
 private:
 	inline ~Template() {}
 public:
-	bool Read(Environment &env, Signal sig,
+	bool Read(Environment &env, Signal &sig,
 			  SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Parse(Environment &env, Signal sig,
+	bool Parse(Environment &env, Signal &sig,
 			   String::const_iterator strSrc, String::const_iterator strSrcEnd,
 			   bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Parse(Environment &env, Signal sig,
+	bool Parse(Environment &env, Signal &sig,
 			   const char *strSrc, const char *strSrcEnd,
 			   bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Render(Environment &env, Signal sig, SimpleStream *pStreamDst);
-	bool Prepare(Environment &env, Signal sig);
+	bool Render(Environment &env, Signal &sig, SimpleStream *pStreamDst);
+	bool Prepare(Environment &env, Signal &sig);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
-	void PutChar(Signal sig, char ch);
-	void Print(Signal sig, const char *str);
+	void PutChar(Signal &sig, char ch);
+	void Print(Signal &sig, const char *str);
 	inline void SetTemplateSuper(Template *pTemplateSuper) {
 		_pTemplateSuper.reset(pTemplateSuper);
 	}
@@ -92,10 +92,10 @@ public:
 		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual void Accept(ExprVisitor &visitor);
-	virtual bool GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const;
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+	virtual bool GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const;
+	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
@@ -107,7 +107,7 @@ public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
+		virtual bool DoStep(Signal &sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -133,9 +133,9 @@ public:
 		return dynamic_cast<Expr_TmplScript *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const;
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual bool GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const;
+	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 

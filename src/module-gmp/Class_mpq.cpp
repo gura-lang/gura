@@ -16,7 +16,7 @@ Object_mpq::Object_mpq(const mpq_class &num) : Object(Gura_UserClass(mpq)), _num
 {
 }
 
-bool Object_mpq::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_mpq::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(numer));
@@ -24,7 +24,7 @@ bool Object_mpq::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_mpq::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_mpq::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -191,26 +191,26 @@ Gura_ImplementCastTo(mpq)
 	return false;
 }
 
-bool Gura_ClassName(mpq)::Format_d(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_d(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_d(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
-bool Gura_ClassName(mpq)::Format_b(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_b(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	//return _Format_b(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
-bool Gura_ClassName(mpq)::Format_o(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_o(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_o(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
-bool Gura_ClassName(mpq)::Format_x(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_x(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_x(sig, pFormatter, flags, Object_mpq::GetEntity(value));

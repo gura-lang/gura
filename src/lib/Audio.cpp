@@ -93,7 +93,7 @@ bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
 	return false;
 }
 
-bool Audio::StoreData(Environment &env, Signal sig,
+bool Audio::StoreData(Environment &env, Signal &sig,
 						size_t iChannel, size_t offset, Iterator *pIterator)
 {
 	size_t bytes = offset * GetBytesPerSample() * GetChannels();
@@ -133,7 +133,7 @@ bool Audio::StoreData(Environment &env, Signal sig,
 	return true;
 }
 
-bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
+bool Audio::Read(Environment &env, Signal &sig, Stream &stream, const char *audioType)
 {
 	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
@@ -145,7 +145,7 @@ bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audio
 	return pAudioStreamer->Read(env, sig, this, stream);
 }
 
-bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audioType)
+bool Audio::Write(Environment &env, Signal &sig, Stream &stream, const char *audioType)
 {
 	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
@@ -157,7 +157,7 @@ bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audi
 	return pAudioStreamer->Write(env, sig, this, stream);
 }
 
-bool Audio::AddSineWave(Signal sig, size_t iChannel,
+bool Audio::AddSineWave(Signal &sig, size_t iChannel,
 							double freq, size_t nSamples, int amplitude)
 {
 	if (iChannel >= _nChannels) {
@@ -193,7 +193,7 @@ Audio *Audio::ConvertFormat(Format format) const
 	return pAudio.release();
 }
 
-Audio::Format Audio::SymbolToFormat(Signal sig, const Symbol *pSymbol)
+Audio::Format Audio::SymbolToFormat(Signal &sig, const Symbol *pSymbol)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(u8))) {
 		return FORMAT_U8;
@@ -291,7 +291,7 @@ Iterator *Audio::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+bool Audio::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_doneFlag) return false;
 	if (_pChain.IsNull()) {
@@ -349,7 +349,7 @@ void AudioStreamer::Register(AudioStreamer *pAudioStreamer)
 	_pList->push_back(pAudioStreamer);
 }
 
-AudioStreamer *AudioStreamer::FindResponsible(Signal sig, Stream &stream, const char *audioType)
+AudioStreamer *AudioStreamer::FindResponsible(Signal &sig, Stream &stream, const char *audioType)
 {
 	if (_pList == nullptr) return nullptr;
 	if (audioType != nullptr) return FindByAudioType(audioType);

@@ -186,7 +186,7 @@ public:
 			Iterator(false),
 			_scanner(pImage, x, y, width, height, scanDir), _doneFlag(false) {}
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -247,26 +247,26 @@ public:
 	inline Scanner *CreateScanner(ScanDir scanDir = SCAN_LeftTopHorz) {
 		return new Scanner(Image::Reference(this), 0, 0, _width, _height, scanDir);
 	}
-	bool CheckEmpty(Signal sig) const;
-	bool CheckValid(Signal sig) const;
+	bool CheckEmpty(Signal &sig) const;
+	bool CheckValid(Signal &sig) const;
 	bool AllocBuffer(size_t width, size_t height, UChar fillValue);
-	bool AllocBuffer(Signal sig, size_t width, size_t height, UChar fillValue);
+	bool AllocBuffer(Signal &sig, size_t width, size_t height, UChar fillValue);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {
 		return 0 <= x && x < static_cast<int>(_width) &&
 				0 <= y && y < static_cast<int>(_height);
 	}
-	bool CheckCoord(Signal sig, size_t x, size_t y) const;
+	bool CheckCoord(Signal &sig, size_t x, size_t y) const;
 	bool AdjustCoord(int &x, int &y, int &width, int &height) const;
 	void PutPixel(UChar *buff, const Color &color);
 	void GetPixel(const UChar *buff, Color &color);
-	bool Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
+	bool Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, const Matrix *pMat);
-	bool Store(Environment &env, Signal sig, size_t x, size_t y, size_t width, size_t height,
+	bool Store(Environment &env, Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, Iterator *pIterator);
-	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
+	bool Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, Matrix *pMat);
-	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
+	bool Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, ValueList &valList);
 	void ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 						const Color &colorOrg, const Color &color, double tolerance);
@@ -288,34 +288,34 @@ public:
 		FillRectAlpha(0, 0, _width, _height, alpha, color, tolerance);
 	}
 	const Palette *GetPalette() const { return _pPalette.get(); }
-	Image *ReduceColor(Signal sig, const Palette *pPalette);
-	Image *GrayScale(Signal sig);
-	Image *MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, const UChar *mapB);
-	Image *Blur(Signal sig, int radius, Number sigma);
-	Image *Flip(Signal sig, bool horzFlag, bool vertFlag);
-	Image *Rotate90(Signal sig, bool clockwiseFlag);
-	Image *Rotate(Signal sig, double angle, const Color &color);
-	Image *Crop(Signal sig, size_t x, size_t y, size_t width, size_t height);
-	Image *Resize(Signal sig, size_t width, size_t height);
+	Image *ReduceColor(Signal &sig, const Palette *pPalette);
+	Image *GrayScale(Signal &sig);
+	Image *MapColorLevel(Signal &sig, const UChar *mapR, const UChar *mapG, const UChar *mapB);
+	Image *Blur(Signal &sig, int radius, Number sigma);
+	Image *Flip(Signal &sig, bool horzFlag, bool vertFlag);
+	Image *Rotate90(Signal &sig, bool clockwiseFlag);
+	Image *Rotate(Signal &sig, double angle, const Color &color);
+	Image *Crop(Signal &sig, size_t x, size_t y, size_t width, size_t height);
+	Image *Resize(Signal &sig, size_t width, size_t height);
 	void Paste(size_t x, size_t y, Image *pImage,
 		size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha);
 	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
 	void SetPalette(Palette *pPalette);
-	bool Read(Environment &env, Signal sig, Stream &stream, const char *imageType);
-	bool Write(Environment &env, Signal sig, Stream &stream, const char *imageType);
+	bool Read(Environment &env, Signal &sig, Stream &stream, const char *imageType);
+	bool Write(Environment &env, Signal &sig, Stream &stream, const char *imageType);
 	int CalcDIBBitCount() const;
 	static inline size_t CalcDIBPaletteSize(int biBitCount) {
 		return (biBitCount <= 8)? (1 << biBitCount) * 4 : 0;
 	}
 	size_t CalcDIBImageSize(int biBitCount, bool maskFlag) const;
-	bool ReadDIBPalette(Environment &env, Signal sig, Stream &stream, int biBitCount);
-	bool WriteDIBPalette(Environment &env, Signal sig, Stream &stream, int biBitCount);
-	bool ReadDIB(Signal sig, Stream &stream,
+	bool ReadDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount);
+	bool WriteDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount);
+	bool ReadDIB(Signal &sig, Stream &stream,
 				int biWidth, int biHeight, int biBitCount, bool maskFlag);
-	bool WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag);
+	bool WriteDIB(Signal &sig, Stream &stream, int biBitCount, bool maskFlag);
 	static ScanDir SymbolToScanDir(const Symbol *pSymbol);
-	size_t SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const;
-	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
+	size_t SymbolToPixelOffset(Signal &sig, const Symbol *pSymbol) const;
+	static Format SymbolToFormat(Signal &sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
 	static inline UChar GetPixelGray(UChar *buff) {
 		return Color::CalcGray(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff));
@@ -379,7 +379,7 @@ public:
 #endif
 private:
 	void InitMetrics();
-	Image *CreateDerivation(Signal sig,
+	Image *CreateDerivation(Signal &sig,
 				size_t width, size_t height, Palette *pPalette = nullptr);
 };
 
@@ -395,12 +395,12 @@ private:
 public:
 	inline ImageStreamer(const char *imageType) : _imageType(imageType) {}
 	inline const char *GetImageType() const { return _imageType; }
-	virtual bool IsResponsible(Signal sig, Stream &stream) = 0;
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream) = 0;
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream) = 0;
+	virtual bool IsResponsible(Signal &sig, Stream &stream) = 0;
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream) = 0;
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream) = 0;
 public:
 	static void Register(ImageStreamer *pImageStreamer);
-	static ImageStreamer *FindResponsible(Signal sig, Stream &stream, const char *imageType);
+	static ImageStreamer *FindResponsible(Signal &sig, Stream &stream, const char *imageType);
 	static ImageStreamer *FindByImageType(const char *imageType);
 };
 

@@ -12,7 +12,7 @@ static const char *HTTP_VERSION = "HTTP/1.1";
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool SendStreamBody(Signal sig, int sock, Stream &stream)
+bool SendStreamBody(Signal &sig, int sock, Stream &stream)
 {
 	const size_t bytesBuff = 32768;
 	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
@@ -25,7 +25,7 @@ bool SendStreamBody(Signal sig, int sock, Stream &stream)
 }
 
 // RFC 3986 3.1. Scheme
-String ExtractURIScheme(Signal sig, const char *uri, const char **next)
+String ExtractURIScheme(Signal &sig, const char *uri, const char **next)
 {
 	if (next != nullptr) *next = uri;
 	const char *p = uri;
@@ -37,7 +37,7 @@ String ExtractURIScheme(Signal sig, const char *uri, const char **next)
 }
 
 // RFC 3986 3.2. Authority
-String ExtractURIAuthority(Signal sig, const char *uri, const char **next)
+String ExtractURIAuthority(Signal &sig, const char *uri, const char **next)
 {
 	if (next != nullptr) *next = uri;
 	const char *p = uri;
@@ -54,7 +54,7 @@ String ExtractURIAuthority(Signal sig, const char *uri, const char **next)
 }
 
 // RFC 3986 3.3. Path
-String ExtractURIPath(Signal sig, const char *uri)
+String ExtractURIPath(Signal &sig, const char *uri)
 {
 	const char *p = uri;
 	ExtractURIScheme(sig, p, &p);
@@ -67,7 +67,7 @@ String ExtractURIPath(Signal sig, const char *uri)
 }
 
 // RFC 3986 3.4. Query
-String ExtractURIQuery(Signal sig, const char *uri)
+String ExtractURIQuery(Signal &sig, const char *uri)
 {
 	const char *p = uri;
 	for ( ; *p != '\0' && *p != '?' && *p != '#'; p++) ;
@@ -78,7 +78,7 @@ String ExtractURIQuery(Signal sig, const char *uri)
 	return String(top, p - top);
 }
 
-String ExtractURIFragment(Signal sig, const char *uri)
+String ExtractURIFragment(Signal &sig, const char *uri)
 {
 	const char *p = uri;
 	for ( ; *p != '\0' && *p != '#'; p++) ;
@@ -104,7 +104,7 @@ String QuoteURI(const char *str)
 	return rtn;
 }
 
-String UnquoteURI(Signal sig, const char *str)
+String UnquoteURI(Signal &sig, const char *str)
 {
 	enum {
 		STAT_Start, STAT_Hex1, STAT_Hex2,
@@ -158,7 +158,7 @@ Chunk::~Chunk()
 {
 }
 
-bool Chunk::ParseChar(Signal sig, char ch)
+bool Chunk::ParseChar(Signal &sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
 	Gura_BeginPushbackRegion();
@@ -215,7 +215,7 @@ bool Chunk::ParseChar(Signal sig, char ch)
 // - <?xml .. encoding="xxxxxxxx"?>
 // - <meta http-equiv="Content-Type" content="..; charset=xxxxxxxx />
 //-----------------------------------------------------------------------------
-bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
+bool SimpleHTMLParser::ParseChar(Signal &sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
 	Gura_BeginPushbackRegion();
@@ -407,7 +407,7 @@ bool SimpleHTMLParser::ParseChar(Signal sig, char ch)
 // - <?xml .. encoding="xxxxxxxx"?>
 // - <meta http-equiv="Content-Type" content="..; charset=xxxxxxxx />
 //-----------------------------------------------------------------------------
-bool EncodingDetector::AcceptTag(Signal sig,
+bool EncodingDetector::AcceptTag(Signal &sig,
 					char tagPrefix, const char *tagName, const Attrs &attrs)
 {
 	if (tagPrefix == '?' && ::strcasecmp(tagName, "xml") == 0) {
@@ -439,7 +439,7 @@ bool EncodingDetector::AcceptTag(Signal sig,
 //-----------------------------------------------------------------------------
 // LinkDetector implementation
 //-----------------------------------------------------------------------------
-bool LinkDetector::AcceptTag(Signal sig,
+bool LinkDetector::AcceptTag(Signal &sig,
 					char tagPrefix, const char *tagName, const Attrs &attrs)
 {
 	return true;
@@ -448,7 +448,7 @@ bool LinkDetector::AcceptTag(Signal sig,
 //-----------------------------------------------------------------------------
 // ContentType implementation
 //-----------------------------------------------------------------------------
-bool ContentType::Parse(Signal sig, const char *str)
+bool ContentType::Parse(Signal &sig, const char *str)
 {
 	const char *p = ::strchr(str, ';');
 	if (p == nullptr) {
@@ -493,7 +493,7 @@ void Header::Reset()
 	_dict.clear();
 }
 
-bool Header::ParseChar(Signal sig, char ch)
+bool Header::ParseChar(Signal &sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
 	Gura_BeginPushbackRegion();
@@ -584,7 +584,7 @@ bool Header::GetField(const char *fieldName, StringList **ppStringList) const
 }
 
 Value Header::GetField(Environment &env,
-					Signal sig, const char *fieldName, bool signalFlag) const
+					Signal &sig, const char *fieldName, bool signalFlag) const
 {
 	StringList *pStringList = nullptr;
 	Value value;
@@ -602,7 +602,7 @@ Value Header::GetField(Environment &env,
 	return value;
 }
 
-Value Header::GetFieldNames(Environment &env, Signal sig) const
+Value Header::GetFieldNames(Environment &env, Signal &sig) const
 {
 	Value valueRtn;
 	ValueList &valListRtn = valueRtn.InitAsList(env);
@@ -614,7 +614,7 @@ Value Header::GetFieldNames(Environment &env, Signal sig) const
 	return valueRtn;
 }
 
-Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
+Value Header::IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const
 {
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_KeyError, "index must be a string");
@@ -629,7 +629,7 @@ Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) cons
 	}
 }
 
-bool Header::GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, Value &value) const
+bool Header::GetTimeField(Environment &env, Signal &sig, const Symbol *pSymbol, Value &value) const
 {
 	StringList *pStringList = nullptr;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(date))) {
@@ -680,7 +680,7 @@ bool Header::IsField(const char *fieldName, const char *value, bool *pFoundFlag)
 	return ::strcasecmp(pStringList->back().c_str(), value) == 0;
 }
 
-bool Header::SetFields(Signal sig, const ValueDict &valueDict, Stream *pStreamBody)
+bool Header::SetFields(Signal &sig, const ValueDict &valueDict, Stream *pStreamBody)
 {
 	foreach_const (ValueDict, iter, valueDict) {
 		String fieldName = iter->first.ToString(false);
@@ -716,7 +716,7 @@ String Header::GetString() const
 	return str;
 }
 
-Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
+Stream_Http *Header::GenerateDownStream(Environment &env, Signal &sig,
 						Object *pObjOwner, int sock, const char *name) const
 {
 	bool chunkedFlag = false;
@@ -792,7 +792,7 @@ void Header::DoDirProp(SymbolSet &symbols)
 //-----------------------------------------------------------------------------
 // Request implementation
 //-----------------------------------------------------------------------------
-bool Request::ParseChar(Signal sig, char ch)
+bool Request::ParseChar(Signal &sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
 	Gura_BeginPushbackRegion();
@@ -859,7 +859,7 @@ bool Request::ParseChar(Signal sig, char ch)
 	return true;
 }
 
-bool Request::Send(Signal sig, int sock)
+bool Request::Send(Signal &sig, int sock)
 {
 	String str;
 	str += _method;
@@ -874,7 +874,7 @@ bool Request::Send(Signal sig, int sock)
 	return true;
 }
 
-bool Request::Receive(Signal sig, int sock)
+bool Request::Receive(Signal &sig, int sock)
 {
 	char ch;
 	Reset();
@@ -957,7 +957,7 @@ void Status::SetStatus(const char *httpVersion,
 	_header.Reset();
 }
 
-bool Status::ParseChar(Signal sig, char ch)
+bool Status::ParseChar(Signal &sig, char ch)
 {
 	if (ch == '\r') return true;	// just skip CR code
 	Gura_BeginPushbackRegion();
@@ -1024,7 +1024,7 @@ bool Status::ParseChar(Signal sig, char ch)
 	return true;
 }
 
-bool Status::Send(Signal sig, int sock)
+bool Status::Send(Signal &sig, int sock)
 {
 	String str;
 	str += _httpVersion;
@@ -1039,7 +1039,7 @@ bool Status::Send(Signal sig, int sock)
 	return true;
 }
 
-bool Status::Receive(Signal sig, int sock)
+bool Status::Receive(Signal &sig, int sock)
 {
 	char ch;
 	Reset();
@@ -1054,7 +1054,7 @@ bool Status::Receive(Signal sig, int sock)
 //-----------------------------------------------------------------------------
 // Stream_Socket implementation
 //-----------------------------------------------------------------------------
-Stream_Socket::Stream_Socket(Environment &env, Signal sig, Object *pObjOwner, int sock) :
+Stream_Socket::Stream_Socket(Environment &env, Signal &sig, Object *pObjOwner, int sock) :
 		Stream(env, sig, ATTR_Readable | ATTR_Writable), _pObjOwner(pObjOwner), _sock(sock)
 {
 }
@@ -1073,7 +1073,7 @@ const char *Stream_Socket::GetIdentifier() const
 	return nullptr;
 }
 
-size_t Stream_Socket::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_Socket::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	int rtn = ::recv(_sock, reinterpret_cast<char *>(buff), static_cast<int>(bytes), 0);
 	if (rtn < 0) {
@@ -1083,7 +1083,7 @@ size_t Stream_Socket::DoRead(Signal sig, void *buff, size_t bytes)
 	return rtn;
 }
 
-size_t Stream_Socket::DoWrite(Signal sig, const void *buff, size_t bytes)
+size_t Stream_Socket::DoWrite(Signal &sig, const void *buff, size_t bytes)
 {
 	int rtn = ::send(_sock, reinterpret_cast<const char *>(buff), static_cast<int>(bytes), 0);
 	if (rtn < 0) {
@@ -1093,19 +1093,19 @@ size_t Stream_Socket::DoWrite(Signal sig, const void *buff, size_t bytes)
 	return rtn;
 }
 
-bool Stream_Socket::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Socket::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (_sock < 0) return false;
 	return false;
 }
 
-bool Stream_Socket::DoFlush(Signal sig)
+bool Stream_Socket::DoFlush(Signal &sig)
 {
 	if (_sock < 0) return false;
 	return true;
 }
 
-bool Stream_Socket::DoClose(Signal sig)
+bool Stream_Socket::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -1115,7 +1115,7 @@ size_t Stream_Socket::DoGetSize()
 	return InvalidSize;
 }
 
-Object *Stream_Socket::DoGetStatObj(Signal sig)
+Object *Stream_Socket::DoGetStatObj(Signal &sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
 	return nullptr;
@@ -1124,7 +1124,7 @@ Object *Stream_Socket::DoGetStatObj(Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Chunked implementation
 //-----------------------------------------------------------------------------
-Stream_Chunked::Stream_Chunked(Environment &env, Signal sig, Stream *pStream, ULong attr) :
+Stream_Chunked::Stream_Chunked(Environment &env, Signal &sig, Stream *pStream, ULong attr) :
 		Stream(env, sig, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
 {
 }
@@ -1143,7 +1143,7 @@ const char *Stream_Chunked::GetIdentifier() const
 	return _pStream->GetIdentifier();
 }
 
-size_t Stream_Chunked::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_Chunked::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	size_t offset = 0;
@@ -1175,7 +1175,7 @@ size_t Stream_Chunked::DoRead(Signal sig, void *buff, size_t bytes)
 	return offset;
 }
 
-size_t Stream_Chunked::DoWrite(Signal sig, const void *buff, size_t bytes)
+size_t Stream_Chunked::DoWrite(Signal &sig, const void *buff, size_t bytes)
 {
 	char buffChunkSep[32];
 	::sprintf(buffChunkSep, "%x\r\n", bytes);
@@ -1184,7 +1184,7 @@ size_t Stream_Chunked::DoWrite(Signal sig, const void *buff, size_t bytes)
 	return bytes;
 }
 
-bool Stream_Chunked::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Chunked::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	size_t bytesToSkip = 0;
 	if (seekMode == SeekSet) {
@@ -1210,7 +1210,7 @@ bool Stream_Chunked::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode
 	return true;
 }
 
-bool Stream_Chunked::DoFlush(Signal sig)
+bool Stream_Chunked::DoFlush(Signal &sig)
 {
 	if (_attr & ATTR_Writable) {
 		char buffChunkSep[32];
@@ -1221,7 +1221,7 @@ bool Stream_Chunked::DoFlush(Signal sig)
 	return true;
 }
 
-bool Stream_Chunked::DoClose(Signal sig)
+bool Stream_Chunked::DoClose(Signal &sig)
 {
 	if (!DoFlush(sig)) return false;
 	return Stream::DoClose(sig);
@@ -1235,7 +1235,7 @@ size_t Stream_Chunked::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Http implementation
 //-----------------------------------------------------------------------------
-Stream_Http::Stream_Http(Environment &env, Signal sig, Stream *pStream, ULong attr,
+Stream_Http::Stream_Http(Environment &env, Signal &sig, Stream *pStream, ULong attr,
 					const char *name, size_t bytes, const Header &header) :
 		Stream(env, sig, attr), _pStream(pStream), _name(name),
 		_bytesRead(bytes), _header(header)
@@ -1256,7 +1256,7 @@ const char *Stream_Http::GetIdentifier() const
 	return _name.c_str();
 }
 
-size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_Http::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	size_t offset = 0;
@@ -1285,7 +1285,7 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 	return offset;
 }
 
-size_t Stream_Http::DoWrite(Signal sig, const void *buff, size_t bytes)
+size_t Stream_Http::DoWrite(Signal &sig, const void *buff, size_t bytes)
 {
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	size_t offset = 0;
@@ -1298,7 +1298,7 @@ size_t Stream_Http::DoWrite(Signal sig, const void *buff, size_t bytes)
 	return offset;
 }
 
-bool Stream_Http::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Http::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	size_t bytesToSkip = 0;
 	if (seekMode == SeekSet) {
@@ -1324,12 +1324,12 @@ bool Stream_Http::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode se
 	return true;
 }
 
-bool Stream_Http::DoFlush(Signal sig)
+bool Stream_Http::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool Stream_Http::DoClose(Signal sig)
+bool Stream_Http::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -1339,12 +1339,12 @@ size_t Stream_Http::DoGetSize()
 	return _bytesRead;
 }
 
-Object *Stream_Http::DoGetStatObj(Signal sig)
+Object *Stream_Http::DoGetStatObj(Signal &sig)
 {
 	return new Object_stat(_header);
 }
 
-bool Stream_Http::Cleanup(Signal sig)
+bool Stream_Http::Cleanup(Signal &sig)
 {
 	if (GetSize() == InvalidSize) return true;
 	const size_t bytesBuff = 32768;
@@ -1369,14 +1369,14 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1388,7 +1388,7 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-Value Object_stat::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_stat::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	return _header.IndexGet(env, sig, valueIdx);
 }
@@ -1433,7 +1433,7 @@ Object_session::~Object_session()
 	if (_sock >= 0) ::closesocket(_sock);
 }
 
-bool Object_session::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_session::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(server));
@@ -1446,7 +1446,7 @@ bool Object_session::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_session::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_session::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1489,7 +1489,7 @@ String Object_session::ToString(bool exprFlag)
 	return rtn;
 }
 
-bool Object_session::ReceiveRequest(Signal sig)
+bool Object_session::ReceiveRequest(Signal &sig)
 {
 	Environment &env = *this;
 	if (!_request.Receive(sig, _sock)) return false;
@@ -1501,7 +1501,7 @@ bool Object_session::ReceiveRequest(Signal sig)
 	return true;
 }
 
-bool Object_session::CleanupRequest(Signal sig)
+bool Object_session::CleanupRequest(Signal &sig)
 {
 	if (_pStreamHttp.IsNull()) return true;
 	bool rtn = _pStreamHttp->Cleanup(sig);
@@ -1527,7 +1527,7 @@ Object_request::~Object_request()
 {
 }
 
-bool Object_request::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_request::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(session));
@@ -1544,7 +1544,7 @@ bool Object_request::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_request::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1599,7 +1599,7 @@ Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-Value Object_request::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_request::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	Request &request = _pObjSession->GetRequest();
 	return request.GetHeader().IndexGet(env, sig, valueIdx);
@@ -1623,7 +1623,7 @@ String Object_request::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_request::SendResponse(Signal sig,
+bool Object_request::SendResponse(Signal &sig,
 		const char *statusCode, const char *reasonPhrase, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict)
 {
@@ -1638,7 +1638,7 @@ bool Object_request::SendResponse(Signal sig,
 	return true;
 }
 
-Stream *Object_request::SendRespChunk(Signal sig,
+Stream *Object_request::SendRespChunk(Signal &sig,
 		const char *statusCode, const char *reasonPhrase,
 		const char *httpVersion, const ValueDict &valueDict)
 {
@@ -1765,7 +1765,7 @@ Object_response::~Object_response()
 {
 }
 
-bool Object_response::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_response::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
@@ -1776,7 +1776,7 @@ bool Object_response::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_response::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1802,7 +1802,7 @@ Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_response::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_response::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	Status &status = _pObjClient->GetStatus();
 	return status.GetHeader().IndexGet(env, sig, valueIdx);
@@ -1877,14 +1877,14 @@ Object *Object_server::Clone() const
 	return nullptr; //new Object_server(*this);
 }
 
-bool Object_server::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_server::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(sessions));
 	return true;
 }
 
-Value Object_server::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_server::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1918,7 +1918,7 @@ String Object_server::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_server::Prepare(Signal sig, const char *addr, short port)
+bool Object_server::Prepare(Signal &sig, const char *addr, short port)
 {
 	_addr = (addr == nullptr)? "localhost" : addr;
 	_port = port;
@@ -1955,7 +1955,7 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 	return true;
 }
 
-Object_request *Object_server::Wait(Signal sig)
+Object_request *Object_server::Wait(Signal &sig)
 {
 	AutoPtr<Object_session> pObjSessionCur;
 	for (SessionList::iterator ppObjSession = _sessionList.begin();
@@ -2125,7 +2125,7 @@ String Object_client::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_client::Prepare(Signal sig, const char *addr, short port,
+bool Object_client::Prepare(Signal &sig, const char *addr, short port,
 				const char *addrProxy, short portProxy,
 				const char *userIdProxy, const char *passwordProxy)
 {
@@ -2184,7 +2184,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 	return true;
 }
 
-Object_response *Object_client::SendRequest(Signal sig,
+Object_response *Object_client::SendRequest(Signal &sig,
 		const char *method, const char *uri, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict)
 {
@@ -2238,7 +2238,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 	return new Object_response(Object_client::Reference(this));
 }
 
-bool Object_client::CleanupResponse(Signal sig)
+bool Object_client::CleanupResponse(Signal &sig)
 {
 	if (_pStreamHttp.IsNull()) return true;
 	Header &header = _status.GetHeader();
@@ -2368,7 +2368,7 @@ String Object_proxy::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_proxy::IsResponsible(Environment &env, Signal sig, const char *addr) const
+bool Object_proxy::IsResponsible(Environment &env, Signal &sig, const char *addr) const
 {
 	if (_pFuncCriteria.IsNull()) return true;
 	//ValueList valListArg(Value(env, addr));
@@ -2504,13 +2504,13 @@ Directory_Http::~Directory_Http()
 {
 }
 
-Directory *Directory_Http::DoNext(Environment &env, Signal sig)
+Directory *Directory_Http::DoNext(Environment &env, Signal &sig)
 {
 	sig.SetError(ERR_SystemError, "");
 	return nullptr;
 }
 
-Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
+Stream *Directory_Http::DoOpenStream(Environment &env, Signal &sig, ULong attr)
 {
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	String pathName;
@@ -2570,7 +2570,7 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
 //-----------------------------------------------------------------------------
 // PathMgr_Http implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_Http::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_Http::IsResponsible(Environment &env, Signal &sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == nullptr &&
@@ -2578,7 +2578,7 @@ bool PathMgr_Http::IsResponsible(Environment &env, Signal sig,
 		 StartsWith(pathName, "https:", 0, false));
 }
 
-Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;

@@ -129,7 +129,7 @@ private:
 	bool _threadFlag;
 	bool _contFlag;
 public:
-	inline Object_Timer(Signal sig, Object_function *pObjFunc, bool threadFlag) :
+	inline Object_Timer(Signal &sig, Object_function *pObjFunc, bool threadFlag) :
 		Object(Gura_UserClass(Timer)), _timerID(nullptr),
 		_sig(sig), _pObjFunc(pObjFunc), _threadFlag(threadFlag), _contFlag(false) {}
 	virtual ~Object_Timer();
@@ -158,8 +158,8 @@ public:
 	inline Object_Event(const Object_Event &obj) : Object(obj) {}
 	virtual ~Object_Event();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline SDL_Event &GetEvent() { return _event; }
@@ -186,10 +186,10 @@ public:
 	virtual ~Object_Rect();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_Rect &GetRect() { return _rect; }
 	inline const SDL_Rect &GetRect() const { return _rect; }
@@ -215,10 +215,10 @@ public:
 	virtual ~Object_Color();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_Color &GetColor() { return _color; }
 	inline const SDL_Color &GetColor() const { return _color; }
@@ -244,8 +244,8 @@ public:
 	virtual ~Object_Palette();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline static Value CreateValue(const SDL_Palette *pPalette) {
 		return Value(new Object_Palette(pPalette));
@@ -268,8 +268,8 @@ public:
 	virtual ~Object_PixelFormat();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_PixelFormat *GetPixelFormat() { return &_pixelFormat; }
 	inline const SDL_PixelFormat *GetPixelFormat() const { return &_pixelFormat; }
@@ -297,14 +297,14 @@ public:
 	inline SDL_Surface *GetSurface() { return _pSurface; }
 	virtual ~Object_Surface();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline static Value CreateValue(SDL_Surface *pSurface, Image *pImage) {
 		return Value(new Object_Surface(pSurface, pImage));
 	}
-	static Object_Surface *CreateSurfaceFromImage(Signal sig, Image *pImage);
+	static Object_Surface *CreateSurfaceFromImage(Signal &sig, Image *pImage);
 };
 
 //-----------------------------------------------------------------------------
@@ -347,8 +347,8 @@ public:
 	virtual ~Object_VideoInfo();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline static Value CreateValue(const SDL_VideoInfo *pVideoInfo) {
 		return Value(new Object_VideoInfo(pVideoInfo));
@@ -419,7 +419,7 @@ private:
 	Uint32 _audio_len;
 public:
 	inline Object_AudioSpec(SDL_AudioSpec *pAudioSpec,
-		Signal sig, Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) :
+		Signal &sig, Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) :
 			Object(Gura_UserClass(AudioSpec)),
 			_pAudioSpec(pAudioSpec), _sig(sig), _pFuncCallback(pFuncCallback),
 			_audio_buf(audio_buf), _audio_len(audio_len) {}
@@ -431,7 +431,7 @@ public:
 	inline Uint8 *GetAudioBuf() { return _audio_buf; }
 	inline Uint32 GetAudioLen() { return _audio_len; }
 	inline static Value CreateValue(SDL_AudioSpec *pAudioSpec,
-			Signal sig,  Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) {
+			Signal &sig,  Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) {
 		return Value(new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, audio_buf, audio_len));
 	}
 	void Callback(Uint8 *stream, int len);
@@ -476,8 +476,8 @@ public:
 	inline Object_CDtrack(const Object_CDtrack &obj) : Object(obj) {}
 	virtual ~Object_CDtrack();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline SDL_CDtrack &GetCDtrack() { return _CDtrack; }
@@ -501,8 +501,8 @@ public:
 	inline Object_CD(const Object_CD &obj) : Object(obj) {}
 	virtual ~Object_CD();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline SDL_CD *GetCD() { return _pCD; }

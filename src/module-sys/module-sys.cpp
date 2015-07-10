@@ -111,7 +111,7 @@ bool IsCompositeFile(const char *pathName)
 }
 
 #if 0
-static bool ExpandWildCard(Environment &env, Signal sig,
+static bool ExpandWildCard(Environment &env, Signal &sig,
 									ValueList &valList, const char *pattern)
 {
 	bool addSepFlag = true;
@@ -137,7 +137,7 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 }
 #endif
 
-bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
+bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
 	String fileNameScript;

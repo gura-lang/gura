@@ -29,7 +29,7 @@ public:
 public:
 	inline PathMgr() : _cntRef(1) {}
 	virtual ~PathMgr();
-	virtual bool IsResponsible(Environment &env, Signal sig,
+	virtual bool IsResponsible(Environment &env, Signal &sig,
 								const Directory *pParent, const char *pathName) = 0;
 public:
 	inline static bool IsWildCardChar(char ch) {
@@ -47,11 +47,11 @@ public:
 							const char *fileName, bool ignoreCaseFlag);
 public:
 	static void Register(Environment &env, PathMgr *pPathMgr);
-	static PathMgr *FindResponsible(Environment &env, Signal sig,
+	static PathMgr *FindResponsible(Environment &env, Signal &sig,
 				const Directory *pParent, const char *pathName);
-	static bool DoesExist(Environment &env, Signal sig, const char *pathName);
-	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+	static bool DoesExist(Environment &env, Signal &sig, const char *pathName);
+	static bool IsContainer(Environment &env, Signal &sig, const char *pathName);
+	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
 				Directory *pParent, const char **pPathName,
 				PathMgr::NotFoundMode notFoundMode) = 0;
 };

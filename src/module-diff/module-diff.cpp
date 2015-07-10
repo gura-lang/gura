@@ -15,7 +15,7 @@ void DiffLine::Compose()
 	compose();
 }
 
-bool DiffLine::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const
+bool DiffLine::PrintHunk(Signal &sig, SimpleStream &stream, const Hunk &hunk) const
 {
 	const EditList &edits = GetEditList();
 	EditList::const_iterator pEdit = edits.begin() + hunk.idxEditBegin;
@@ -39,7 +39,7 @@ bool DiffLine::PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) con
 	return true;
 }
 
-bool DiffLine::PrintHunks(Signal sig, SimpleStream &stream,
+bool DiffLine::PrintHunks(Signal &sig, SimpleStream &stream,
 						  DiffLine::Format format, size_t nLinesCommon) const
 {
 	size_t idxEdit = 0;
@@ -133,7 +133,7 @@ void DiffLine::FeedString(size_t iSeq, const char *src)
 	if (!str.empty()) seq.push_back(str);
 }
 
-bool DiffLine::FeedStream(Signal sig, size_t iSeq, Stream &src)
+bool DiffLine::FeedStream(Signal &sig, size_t iSeq, Stream &src)
 {
 	Sequence &seq = GetSequence(iSeq);
 	bool includeEOLFlag = false;
@@ -145,7 +145,7 @@ bool DiffLine::FeedStream(Signal sig, size_t iSeq, Stream &src)
 	return !sig.IsSignalled();
 }
 
-bool DiffLine::FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator)
+bool DiffLine::FeedIterator(Environment &env, Signal &sig, size_t iSeq, Iterator *pIterator)
 {
 	Sequence &seq = GetSequence(iSeq);
 	Value value;
@@ -206,7 +206,7 @@ String DiffLine::TextizeEdit_Unified(const DiffLine::Edit &edit)
 	return str;
 }
 
-DiffLine::Format DiffLine::SymbolToFormat(Signal sig, const Symbol *pSymbol)
+DiffLine::Format DiffLine::SymbolToFormat(Signal &sig, const Symbol *pSymbol)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
 		return FORMAT_Normal;
@@ -283,7 +283,7 @@ Iterator *DiffLine::IteratorHunk::GetSource()
 	return nullptr;
 }
 
-bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal sig, Value &value)
+bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	DiffLine::Hunk hunk;
 	if (_pDiffLine->NextHunk(&_idxEdit, _format, _nLinesCommon, &hunk)) {
@@ -324,7 +324,7 @@ Iterator *DiffLine::IteratorEdit::GetSource()
 	return nullptr;
 }
 
-bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
+bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idxEdit >= _idxEditEnd) return false;
 	value = Value(new Object_edit_at_line(_pDiffLine->Reference(), _idxEdit));
@@ -409,7 +409,7 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 	return nullptr;
 }
 
-bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal sig, Value &value)
+bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
 		EditType editType = (*_pEditOwner)[_idxEdit]->GetEditType();
@@ -598,7 +598,7 @@ Iterator *IteratorSyncLine::GetSource()
 	return nullptr;
 }
 
-bool IteratorSyncLine::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorSyncLine::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idxSyncLine >= _idxSyncLineEnd) return false;
 	value = Value(new Object_syncline(_syncLines[_idxSyncLine]->Reference()));
@@ -625,7 +625,7 @@ Object *Object_diff_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_diff_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_diff_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
@@ -635,7 +635,7 @@ bool Object_diff_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	return true;
 }
 
-Value Object_diff_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_diff_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -769,7 +769,7 @@ Object *Object_hunk_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_hunk_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
@@ -782,7 +782,7 @@ bool Object_hunk_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	return true;
 }
 
-Value Object_hunk_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_hunk_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -867,7 +867,7 @@ Object *Object_edit_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_edit_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_edit_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
@@ -881,7 +881,7 @@ bool Object_edit_at_line::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	return true;
 }
 
-Value Object_edit_at_line::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_edit_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
@@ -968,7 +968,7 @@ Object *Object_diff_at_char::Clone() const
 	return nullptr;
 }
 
-bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_diff_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
@@ -978,7 +978,7 @@ bool Object_diff_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	return true;
 }
 
-Value Object_diff_at_char::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_diff_at_char::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1028,7 +1028,7 @@ Object *Object_edit_at_char::Clone() const
 	return nullptr;
 }
 
-bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_edit_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
@@ -1040,7 +1040,7 @@ bool Object_edit_at_char::DoDirProp(Environment &env, Signal sig, SymbolSet &sym
 	return true;
 }
 
-Value Object_edit_at_char::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_edit_at_char::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1096,7 +1096,7 @@ Object *Object_sync::Clone() const
 	return nullptr;
 }
 
-bool Object_sync::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_sync::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(synclines_at_org));
@@ -1104,7 +1104,7 @@ bool Object_sync::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_sync::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_sync::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1142,14 +1142,14 @@ Object *Object_syncline::Clone() const
 	return nullptr;
 }
 
-bool Object_syncline::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_syncline::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
 	return true;
 }
 
-Value Object_syncline::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_syncline::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -60,10 +60,10 @@ public:
 	void AdjustFollowingTimeStamp(long deltaTime);
 	void AddEvent(Event *pEvent);
 	void AddEvent(Event *pEvent, ULong deltaTime);
-	bool SeekSet(Signal sig, long offset);
-	bool SeekCur(Signal sig, long offset);
+	bool SeekSet(Signal &sig, long offset);
+	bool SeekCur(Signal &sig, long offset);
 	long Tell() const;
-	bool Erase(Signal sig, size_t cnt);
+	bool Erase(Signal &sig, size_t cnt);
 };
 
 //-----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ public:
 //-----------------------------------------------------------------------------
 class TrackList : public std::vector<Track *> {
 public:
-	bool Write(Signal sig, Stream &stream) const;
+	bool Write(Signal &sig, Stream &stream) const;
 };
 
 //-----------------------------------------------------------------------------

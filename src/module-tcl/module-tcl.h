@@ -25,7 +25,7 @@ private:
 	AutoPtr<Object_function> _pObjFunc;
 	Signal _sig;
 public:
-	inline Handler(Object_interp *pObjInterp, Object_function *pObjFunc, Signal sig) :
+	inline Handler(Object_interp *pObjInterp, Object_function *pObjFunc, Signal &sig) :
 					_pObjInterp(pObjInterp), _pObjFunc(pObjFunc), _sig(sig) {}
 	~Handler();
 	Value Eval(ValueList &valListArg);
@@ -71,20 +71,20 @@ public:
 	virtual ~Object_interp();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	Tcl_Obj *ConvToTclObj(Environment &env, Signal sig, const Value &value);
-	Value ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *obj);
-	Tcl_Obj **CreateTclObjArray(Environment &env, Signal sig,
+	Tcl_Obj *ConvToTclObj(Environment &env, Signal &sig, const Value &value);
+	Value ConvFromTclObj(Environment &env, Signal &sig, Tcl_Obj *obj);
+	Tcl_Obj **CreateTclObjArray(Environment &env, Signal &sig,
 										const ValueList &valList, int *pObjc);
 	String NewCommandName();
 	String NewVariableName();
 	void ExitMainLoop();
-	Value TclEval(Environment &env, Signal sig, const ValueList &valList);
+	Value TclEval(Environment &env, Signal &sig, const ValueList &valList);
 	static void DeleteTclObjArray(int objc, Tcl_Obj **objv);
 	static int CommandProc(ClientData clientData, Tcl_Interp *interp,
 										int argc, const char *argv[]);
 	static void CommandDeleteProc(ClientData clientData);
 	static int TclThreadProc(Tcl_Event *ev, int flags);
-	Value InvokeTclThread(Environment &env, Signal sig, const ValueList &valListArg);
+	Value InvokeTclThread(Environment &env, Signal &sig, const ValueList &valListArg);
 };
 
 //-----------------------------------------------------------------------------
@@ -104,14 +104,14 @@ public:
 	inline const char *GetVarName() const { return _varName.c_str(); }
 	virtual ~Object_variable();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool Set(Environment &env, Signal sig, const Value &value);
-	Value Get(Environment &env, Signal sig);
+	bool Set(Environment &env, Signal &sig, const Value &value);
+	Value Get(Environment &env, Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -134,7 +134,7 @@ public:
 	virtual ~Object_timer();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	void Start(Signal sig, const Function *pFunc, int msec, int msecCont, int cnt);
+	void Start(Signal &sig, const Function *pFunc, int msec, int msecCont, int cnt);
 	void Cancel();
 	bool TimerProc();
 	static void TimerProcStub(ClientData clientData);

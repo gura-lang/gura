@@ -76,8 +76,8 @@ public:
 		inline Decoder(bool delcrFlag) : _delcrFlag(delcrFlag) {}
 		inline void SetDelcrFlag(bool delcrFlag) { _delcrFlag = delcrFlag; }
 		inline bool GetDelcrFlag() const { return _delcrFlag; }
-		bool Decode(Signal sig, String &dst, const char *buff, size_t bytes);
-		bool Decode(Signal sig, String &dst, const Binary &src);
+		bool Decode(Signal &sig, String &dst, const char *buff, size_t bytes);
+		bool Decode(Signal &sig, String &dst, const Binary &src);
 		Decoder *Duplicate() const;
 	};
 	class GURA_DLLDECLARE Encoder : public DecEncBase {
@@ -85,10 +85,10 @@ public:
 		bool _addcrFlag;
 	public:
 		inline Encoder(bool addcrFlag) : _addcrFlag(addcrFlag) {}
-		bool Encode(Signal sig, Binary &dst, const char *str);
+		bool Encode(Signal &sig, Binary &dst, const char *str);
 		inline void SetAddcrFlag(bool addcrFlag) { _addcrFlag = addcrFlag; }
 		inline bool GetAddcrFlag() const { return _addcrFlag; }
-		inline bool Encode(Signal sig, Binary &dst, const String &src) {
+		inline bool Encode(Signal &sig, Binary &dst, const String &src) {
 			return Encode(sig, dst, src.c_str());
 		}
 		Encoder *Duplicate() const;
@@ -120,7 +120,7 @@ public:
 	inline Encoder *GetEncoder() { return _pEncoder.get(); }
 	Codec *Duplicate() const;
 	static Codec *CreateCodecNone(bool delcrFlag, bool addcrFlag);
-	static Codec *CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
+	static Codec *CreateCodec(Signal &sig, const char *encoding, bool delcrFlag, bool addcrFlag);
 	static void Initialize();
 	static UShort DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDBCS);
 	static UShort UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap);

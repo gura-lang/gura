@@ -98,7 +98,7 @@ void SoundFont::Clear()
 	_pdta.shdrs.Clear();
 }
 
-bool SoundFont::ReadChunks(Environment &env, Signal sig)
+bool SoundFont::ReadChunks(Environment &env, Signal &sig)
 {
 	ChunkHdr chunkHdr;
 	size_t bytesRead = _pStream->Read(sig, &chunkHdr, ChunkHdr::Size);
@@ -175,7 +175,7 @@ const SoundFont::sfPresetHeader *SoundFont::LookupPresetHeader(
 	return nullptr;
 }
 
-SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
+SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal &sig,
 					UShort wPreset, UShort wBank, UChar key, UChar velocity) const
 {
 	const sfPresetHeader *pPresetHeader = LookupPresetHeader(wPreset, wBank);
@@ -252,7 +252,7 @@ const char *SoundFont::SFGeneratorToName(SFGenerator generator)
 	return "unknown";
 }
 
-bool SoundFont::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
+bool SoundFont::ReadSubChunk(Environment &env, Signal &sig, size_t bytes)
 {
 	size_t bytesRest = (bytes + 1) / 2 * 2;
 	while (bytesRest > 0) {
@@ -450,7 +450,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 	return true;
 }
 
-bool SoundFont::ReadStruct(Environment &env, Signal sig,
+bool SoundFont::ReadStruct(Environment &env, Signal &sig,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual)
 {
 	if (ckSizeExpect > ckSizeActual) {
@@ -465,7 +465,7 @@ bool SoundFont::ReadStruct(Environment &env, Signal sig,
 	return true;
 }
 
-bool SoundFont::ReadString(Environment &env, Signal sig,
+bool SoundFont::ReadString(Environment &env, Signal &sig,
 						char *str, size_t ckSizeMax, size_t ckSizeActual)
 {
 	size_t ckSizeAlign = (ckSizeActual + 1) / 2 * 2;
@@ -562,7 +562,7 @@ void SoundFont::sfPresetHeader::Print(int indentLevel) const
 	GetPresetBagOwner().Print(indentLevel + 1);
 }
 
-bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
+bool SoundFont::sfPresetHeader::SetupReference(Signal &sig,
 							sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta)
 {
 	if (_wPresetBagNdx > pPresetHeaderNext->_wPresetBagNdx ||
@@ -612,7 +612,7 @@ void SoundFont::sfPresetBag::Print(int indentLevel) const
 	if (GetInst() != nullptr) GetInst()->Print(indentLevel + 1);
 }
 
-bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta)
+bool SoundFont::sfPresetBag::SetupReference(Signal &sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta)
 {
 	if (_wModNdx > pPresetBagNext->_wModNdx ||
 			static_cast<size_t>(_wModNdx) > pdta.pmods.size() ||
@@ -751,7 +751,7 @@ void SoundFont::sfInst::Print(int indentLevel) const
 	GetInstBagOwner().Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext, const pdta_t &pdta)
+bool SoundFont::sfInst::SetupReference(Signal &sig, sfInst *pInstNext, const pdta_t &pdta)
 {
 	if (_wInstBagNdx > pInstNext->_wInstBagNdx ||
 			static_cast<size_t>(_wInstBagNdx) > pdta.ibags.size() ||
@@ -799,7 +799,7 @@ void SoundFont::sfInstBag::Print(int indentLevel) const
 	GetInstModOwner().Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInstBag::SetupReference(Signal sig,
+bool SoundFont::sfInstBag::SetupReference(Signal &sig,
 								sfInstBag *pInstBagNext, const pdta_t &pdta)
 {
 	if (_wInstModNdx > pInstBagNext->_wInstModNdx ||
@@ -892,7 +892,7 @@ SoundFont::sfSample::sfSample(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
 }
 
-bool SoundFont::sfSample::CreateAudio(Signal sig, Stream &stream, size_t offsetSdta)
+bool SoundFont::sfSample::CreateAudio(Signal &sig, Stream &stream, size_t offsetSdta)
 {
 	if (!_pAudio.IsNull()) return true;
 	_pAudio.reset(new Audio(Audio::FORMAT_S16LE, 1, _dwSampleRate));

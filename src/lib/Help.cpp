@@ -52,7 +52,7 @@ void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);
 }
 
-bool HelpPresenter::Present(Environment &env, Signal sig,
+bool HelpPresenter::Present(Environment &env, Signal &sig,
 										const char *title, const Help *pHelp)
 {
 	const char *formatName = (pHelp == nullptr)?

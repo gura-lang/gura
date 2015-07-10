@@ -82,7 +82,7 @@ Environment::~Environment()
 	// virtual destructor
 }
 
-bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
+bool Environment::InitializeAsRoot(Signal &sig, int &argc, const char *argv[],
 									const Option::Info *optInfoTbl, int cntOptInfo)
 {
 	Environment &env = *this;
@@ -386,7 +386,7 @@ ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol)
 	return nullptr;
 }
 
-ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &valList)
+ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valList)
 {
 	SymbolList symbolList;
 	foreach_const_reverse (ValueList, pValue, valList) {
@@ -409,7 +409,7 @@ ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &valList
 	return pValueTypeInfo;
 }
 
-ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
+ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
 {
 	SymbolList symbolList;
 	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
@@ -426,24 +426,24 @@ ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
 	return pValueTypeInfo;
 }
 
-Value Environment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Environment::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Environment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Environment::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Callable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
+Callable *Environment::GetCallable(Signal &sig, const Symbol *pSymbol)
 {
 	return nullptr;
 }
 
-Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Environment::GetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault,
 						EnvRefMode envRefMode, int cntSuperSkip) const
 {
@@ -514,7 +514,7 @@ void Environment::AssignIntegratedModule(Module *pModule)
 	}
 }
 
-bool Environment::ImportModules(Signal sig, const char *moduleNames,
+bool Environment::ImportModules(Signal &sig, const char *moduleNames,
 									bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	bool assignModuleNameFlag = true;
@@ -543,7 +543,7 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames,
 	return true;
 }
 
-Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
+Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
@@ -588,7 +588,7 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbolOfModule,
+Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
@@ -700,7 +700,7 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 	return pModule;
 }
 
-bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
+bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 		SymbolList::const_iterator ppSymbolOfModule,
 		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag)
 {
@@ -742,7 +742,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 	return false;
 }
 
-Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvOuter,
+Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnvOuter,
 									const char *pathName, const Symbol *pSymbol)
 {
 	Environment &env = *this;
@@ -770,7 +770,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	return pModule;
 }
 
-Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvOuter,
+Module *Environment::ImportSeparatedModule_Binary(Signal &sig, Environment *pEnvOuter,
 									const char *pathName, const Symbol *pSymbol)
 {
 	OAL::DynamicLibrary dynamicLibrary;
@@ -860,7 +860,7 @@ Environment::Global::~Global()
 	}
 }
 
-void Environment::Global::Prepare(Environment &env, Signal sig)
+void Environment::Global::Prepare(Environment &env, Signal &sig)
 {
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();

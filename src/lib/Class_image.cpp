@@ -28,7 +28,7 @@ Object *Object_image::Clone() const
 	return new Object_image(*this);
 }
 
-bool Object_image::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_image::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
@@ -38,7 +38,7 @@ bool Object_image::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_image::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -57,7 +57,7 @@ Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_image::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
@@ -536,7 +536,7 @@ Gura_DeclareMethod(image, mapcolorlevel)
 		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
-UChar *ValueListToMapTable(Signal sig, const ValueList &valList)
+UChar *ValueListToMapTable(Signal &sig, const ValueList &valList)
 {
 	if (valList.size() != 256) {
 		sig.SetError(ERR_ValueError, "the list of map table must contain %d elements");
@@ -1138,7 +1138,7 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, write);
 }
 
-bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_image::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {

@@ -118,7 +118,7 @@ int WriterToStream::WriteHandlerStub(void *ext, unsigned char *buffer, size_t si
 	return reinterpret_cast<WriterToStream *>(ext)->WriteHandler(buffer, size);
 }
 
-bool WriterToStream::Write(Environment &env, Signal sig, Stream &stream, const Value &value)
+bool WriterToStream::Write(Environment &env, Signal &sig, Stream &stream, const Value &value)
 {
 	WriterToStream writer(sig, stream);
 	yaml_emitter_t emitter;
@@ -145,7 +145,7 @@ int WriterToString::WriteHandlerStub(void *ext, unsigned char *buffer, size_t si
 	return reinterpret_cast<WriterToString *>(ext)->WriteHandler(buffer, size);
 }
 
-bool WriterToString::Write(Environment &env, Signal sig, String &str, const Value &value)
+bool WriterToString::Write(Environment &env, Signal &sig, String &str, const Value &value)
 {
 	WriterToString writer(str);
 	yaml_emitter_t emitter;
@@ -190,7 +190,7 @@ Value Stocker_Sequence::GetValue()
 //-----------------------------------------------------------------------------
 // Iterator_FromStream
 //-----------------------------------------------------------------------------
-Iterator_FromStream::Iterator_FromStream(Signal sig, Stream *pStream) :
+Iterator_FromStream::Iterator_FromStream(Signal &sig, Stream *pStream) :
 			Iterator(false), _sig(sig), _pStream(pStream), _doneFlag(false)
 {
 	::yaml_parser_initialize(&_parser);
@@ -208,7 +208,7 @@ Iterator *Iterator_FromStream::GetSource()
 	return nullptr;
 }
 
-bool Iterator_FromStream::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_FromStream::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_doneFlag) return false;
 	value = ExecParser(env, sig, _parser, _anchorMap);
@@ -258,7 +258,7 @@ Iterator *Iterator_FromString::GetSource()
 	return nullptr;
 }
 
-bool Iterator_FromString::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_FromString::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_doneFlag) return false;
 	value = ExecParser(env, sig, _parser, _anchorMap);
@@ -278,7 +278,7 @@ void Iterator_FromString::GatherFollower(Environment::Frame *pFrame, Environment
 //-----------------------------------------------------------------------------
 // Parser body
 //-----------------------------------------------------------------------------
-Value ExecParser(Environment &env, Signal sig,
+Value ExecParser(Environment &env, Signal &sig,
 							yaml_parser_t &parser, AnchorMap &anchorMap)
 {
 	Value result;
@@ -392,10 +392,10 @@ Value ExecParser(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Emitter body
 //-----------------------------------------------------------------------------
-bool ExecEmitterSub(Environment &env, Signal sig,
+bool ExecEmitterSub(Environment &env, Signal &sig,
 								yaml_emitter_t &emitter, const Value &value);
 
-bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
+bool ExecEmitter(Environment &env, Signal &sig, yaml_emitter_t &emitter,
 								yaml_encoding_t encoding, const Value &value)
 {
 	do {
@@ -440,7 +440,7 @@ bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
 	return true;
 }
 
-bool ExecEmitterSub(Environment &env, Signal sig,
+bool ExecEmitterSub(Environment &env, Signal &sig,
 								yaml_emitter_t &emitter, const Value &value)
 {
 	if (value.Is_list()) {

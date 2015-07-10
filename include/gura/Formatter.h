@@ -74,17 +74,17 @@ private:
 public:
 	inline Formatter(bool nilVisibleFlag = true) :
 					_nilVisibleFlag(nilVisibleFlag), _lineSep("\n") {}
-	bool DoFormat(Signal sig, const char *format, const ValueList &valList);
-	bool DoFormat(Signal sig, const char *format, va_list ap);
-	bool DoFormat(Signal sig, const char *format, Source &source);
-	bool PutString(Signal sig, const char *p);
-	bool PutAlignedString(Signal sig, const Flags &flags, const char *p, int cntMax = -1);
-	bool PutInvalid(Signal sig, const Flags &flags);
-	virtual bool PutChar(Signal sig, char ch) = 0;
-	static String Format(Signal sig, const char *format, ...);
-	static String FormatV(Signal sig, const char *format, va_list ap);
-	static String FormatValueList(Signal sig, const char *format, const ValueList &valList);
-	static Value FormatIterator(Environment &env, Signal sig,
+	bool DoFormat(Signal &sig, const char *format, const ValueList &valList);
+	bool DoFormat(Signal &sig, const char *format, va_list ap);
+	bool DoFormat(Signal &sig, const char *format, Source &source);
+	bool PutString(Signal &sig, const char *p);
+	bool PutAlignedString(Signal &sig, const Flags &flags, const char *p, int cntMax = -1);
+	bool PutInvalid(Signal &sig, const Flags &flags);
+	virtual bool PutChar(Signal &sig, char ch) = 0;
+	static String Format(Signal &sig, const char *format, ...);
+	static String FormatV(Signal &sig, const char *format, va_list ap);
+	static String FormatValueList(Signal &sig, const char *format, const ValueList &valList);
+	static Value FormatIterator(Environment &env, Signal &sig,
 							const char *format, IteratorOwner &iterOwner);
 	static const char *Format_d(const Flags &flags, int value, char *buff, size_t size);
 	static const char *Format_u(const Flags &flags, UInt value, char *buff, size_t size);
@@ -110,7 +110,7 @@ class GURA_DLLDECLARE FormatterString : public Formatter {
 private:
 	String _str;
 public:
-	virtual bool PutChar(Signal sig, char ch);
+	virtual bool PutChar(Signal &sig, char ch);
 	inline const String &GetStringSTL() const { return _str; }
 };
 

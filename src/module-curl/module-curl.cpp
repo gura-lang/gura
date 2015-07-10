@@ -26,7 +26,7 @@ Gura_BeginModuleBody(curl)
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-void SetError_Curl(Signal sig, CURLcode code)
+void SetError_Curl(Signal &sig, CURLcode code)
 {
 	sig.SetError(ERR_RuntimeError, "%s", ::curl_easy_strerror(code));
 }
@@ -66,7 +66,7 @@ void FileinfoOwner::Clear()
 //-----------------------------------------------------------------------------
 // Browser
 //-----------------------------------------------------------------------------
-Browser::Browser(Signal sig, FileinfoOwner &fileinfoOwner) :
+Browser::Browser(Signal &sig, FileinfoOwner &fileinfoOwner) :
 									_sig(sig), _fileinfoOwner(fileinfoOwner)
 {
 }
@@ -98,7 +98,7 @@ long Browser::OnChunkEndStub(struct callback_data *data)
 //-----------------------------------------------------------------------------
 // Writer
 //-----------------------------------------------------------------------------
-Writer::Writer(Signal sig, Stream *pStream) : _sig(sig), _pStream(pStream)
+Writer::Writer(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
 {
 }
 
@@ -117,7 +117,7 @@ size_t Writer::OnWriteStub(char *buffer, size_t size, size_t nitems, void *outst
 //-----------------------------------------------------------------------------
 // Reader
 //-----------------------------------------------------------------------------
-Reader::Reader(Signal sig, Stream *pStream) : _sig(sig), _pStream(pStream)
+Reader::Reader(Signal &sig, Stream *pStream) : _sig(sig), _pStream(pStream)
 {
 }
 
@@ -709,7 +709,7 @@ Directory_cURL::~Directory_cURL()
 {
 }
 
-Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
+Directory *Directory_cURL::DoNext(Environment &env, Signal &sig)
 {
 	if (_pFileinfoOwner.get() == nullptr) {
 		_pFileinfoOwner.reset(DoBrowse(sig));
@@ -724,7 +724,7 @@ Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
 										pFileinfo->GetFilename(), type);
 }
 
-Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, ULong attr)
+Stream *Directory_cURL::DoOpenStream(Environment &env, Signal &sig, ULong attr)
 {
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
 	// pThread will automatically be deleted after the thread is done.
@@ -734,7 +734,7 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, ULong attr)
 	return pStream.release();
 }
 
-FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
+FileinfoOwner *Directory_cURL::DoBrowse(Signal &sig)
 {
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
@@ -776,7 +776,7 @@ void Directory_cURL::Thread::Run()
 //-----------------------------------------------------------------------------
 // PathMgr_cURL implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_cURL::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_cURL::IsResponsible(Environment &env, Signal &sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == nullptr && (
@@ -787,7 +787,7 @@ bool PathMgr_cURL::IsResponsible(Environment &env, Signal sig,
 			StartsWith(pathName, "sftp:", 0, false));
 }
 
-Directory *PathMgr_cURL::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_cURL::DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
@@ -815,7 +815,7 @@ Object *Object_easy_handle::Clone() const
 	return nullptr;
 }
 
-bool Object_easy_handle::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_easy_handle::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_UserSymbol(surface));
@@ -824,7 +824,7 @@ bool Object_easy_handle::DoDirProp(Environment &env, Signal sig, SymbolSet &symb
 	return true;
 }
 
-Value Object_easy_handle::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_easy_handle::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	//evaluatedFlag = true;

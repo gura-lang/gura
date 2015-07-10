@@ -14,7 +14,7 @@ Object_function::~Object_function()
 {
 }
 
-bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_function::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	Class *pClass = GetFunction()->GetClassToConstruct();
 	if (pClass != nullptr) return pClass->DoDirProp(env, sig, symbols);
@@ -28,7 +28,7 @@ bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_function::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -53,7 +53,7 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_function::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -109,7 +109,7 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 	return GetFunction()->GetBlockOccurPattern();
 }
 
-Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
+Value Object_function::DoCall(Environment &env, Signal &sig, Args &args)
 {
 	if (args.GetThis().IsInvalid() ||
 					(args.GetThis().IsModule() && _valueThis.IsValid())) {
@@ -118,7 +118,7 @@ Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
 	return GetFunction()->Call(env, sig, args);
 }
 
-Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg) const
+Value Object_function::Eval(Environment &env, Signal &sig, ValueList &valListArg) const
 {
 	GetFunction()->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
@@ -473,7 +473,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignUnaryOperator(Inv, function);
 }
 
-bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_function::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_expr()) {
 		Expr_Block *pExprBlock = value.GetExpr()->ToExprBlock();
@@ -486,17 +486,17 @@ bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const 
 	return false;
 }
 
-bool Class_function::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_function::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_function::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_function::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	return false;
 }
 
-Object *Class_function::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_function::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

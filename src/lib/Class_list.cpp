@@ -31,7 +31,7 @@ Object *Object_list::Clone() const
 	return new Object_list(*this);
 }
 
-Value Object_list::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_list::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
@@ -46,7 +46,7 @@ Value Object_list::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	return GetList()[idx];
 }
 
-void Object_list::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+void Object_list::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
 {
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
@@ -61,7 +61,7 @@ void Object_list::IndexSet(Environment &env, Signal sig, const Value &valueIdx, 
 	GetList()[idx] = value;
 }
 
-Iterator *Object_list::CreateIterator(Signal sig)
+Iterator *Object_list::CreateIterator(Signal &sig)
 {
 	return new IteratorEach(Object_list::Reference(this));
 }
@@ -84,7 +84,7 @@ String Object_list::ToString(bool exprFlag)
 	return str;
 }
 
-Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
+Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag)
 {
 	typedef std::map<const Value *, const Value *> ValuePtrMap;
@@ -210,7 +210,7 @@ Iterator *Object_list::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pValue == _pValueEnd) return false;
 	value = *_pValue;
@@ -239,7 +239,7 @@ Iterator *Object_list::IteratorReverse::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorReverse::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorReverse::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_pValue == valList.rend()) return false;
@@ -269,7 +269,7 @@ Iterator *Object_list::IteratorCycle::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorCycle::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorCycle::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_pValue == valList.end() || _cnt == 0) return false;
@@ -301,7 +301,7 @@ Iterator *Object_list::IteratorPingpong::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_forwardFlag) {
@@ -357,7 +357,7 @@ Iterator *Object_list::IteratorFold::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorFold::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_doneFlag) return false;
 	ValueList &valList = _pObj->GetList();
@@ -407,7 +407,7 @@ Iterator *Object_list::IteratorPermutation::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (!_validFlag) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
@@ -459,7 +459,7 @@ Iterator *Object_list::IteratorCombination::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorCombination::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorCombination::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (!_validFlag) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
@@ -2085,7 +2085,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, while_);
 }
 
-bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_list::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsType(VTYPE_nil)) {
 		value.InitAsList(env);
@@ -2111,18 +2111,18 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 	return false;
 }
 
-bool Class_list::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_list::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	return value.GetList().Serialize(env, sig, stream);
 }
 
-bool Class_list::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_list::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	ValueList &valList = value.InitAsList(env);
 	return valList.Deserialize(env, sig, stream);
 }
 
-Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_list::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return (pClass == nullptr)? new Object_list(env) : new Object_list(pClass);
 }

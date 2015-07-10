@@ -114,7 +114,7 @@ typedef std::map<String, Module *> ModuleMap;
 //-----------------------------------------------------------------------------
 // Module Entry Type
 //-----------------------------------------------------------------------------
-typedef bool (*ModuleEntryType)(Environment &env, Signal sig);
+typedef bool (*ModuleEntryType)(Environment &env, Signal &sig);
 typedef void (*ModuleTerminateType)(Module *pModule);
 
 //-----------------------------------------------------------------------------
@@ -153,7 +153,7 @@ public:
 		inline static void Delete(Global *pGlobal) {
 			delete pGlobal;
 		}
-		void Prepare(Environment &env, Signal sig);
+		void Prepare(Environment &env, Signal &sig);
 		Class *LookupClass(ValueType valType) const;
 		Module *LookupIntegratedModule(const char *name) const;
 		void RegisterIntegratedModule(Module *pModule);
@@ -261,7 +261,7 @@ public:
 protected:
 	virtual ~Environment();
 public:
-	bool InitializeAsRoot(Signal sig, int &argc, const char *argv[],
+	bool InitializeAsRoot(Signal &sig, int &argc, const char *argv[],
 								const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
 	inline const FrameOwner &GetFrameOwner() const { return _frameOwner;					}
@@ -305,26 +305,26 @@ public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
 	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
-	ValueTypeInfo *LookupValueType(Signal sig, const ValueList &valList);
-	ValueTypeInfo *LookupValueType(Signal sig, const Expr *pExpr);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	ValueTypeInfo *LookupValueType(Signal &sig, const ValueList &valList);
+	ValueTypeInfo *LookupValueType(Signal &sig, const Expr *pExpr);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
-	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
+	Value GetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}
 	void AssignIntegratedModule(Module *pModule);
-	bool ImportModules(Signal sig, const char *moduleNames,
+	bool ImportModules(Signal &sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);
-	Module *ImportModule(Signal sig, const Expr *pExpr,
+	Module *ImportModule(Signal &sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
-	Module *ImportModule(Signal sig, SymbolList::const_iterator ppSymbolOfModule,
+	Module *ImportModule(Signal &sig, SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
@@ -343,12 +343,12 @@ public:
 	Stream *GetConsoleErr();
 	Stream *GetConsoleDumb();
 private:
-	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
+	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
-	Module *ImportSeparatedModule_Script(Signal sig, Environment *pEnvOuter,
+	Module *ImportSeparatedModule_Script(Signal &sig, Environment *pEnvOuter,
 							const char *pathName, const Symbol *pSymbol);
-	Module *ImportSeparatedModule_Binary(Signal sig, Environment *pEnvOuter,
+	Module *ImportSeparatedModule_Binary(Signal &sig, Environment *pEnvOuter,
 							const char *pathName, const Symbol *pSymbol);
 };
 

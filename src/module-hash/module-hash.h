@@ -20,17 +20,17 @@ protected:
 	Value _value;
 	Binary _digest;
 public:
-	inline AccumulatorBase(Environment &env, Signal sig) : Stream(env, sig, ATTR_Infinite | ATTR_Writable) {}
+	inline AccumulatorBase(Environment &env, Signal &sig) : Stream(env, sig, ATTR_Infinite | ATTR_Writable) {}
 	virtual const char *GetIdentifier() const;
 	virtual void Init() = 0;
 	virtual void Finish() = 0;
 	virtual const Binary &GetDigest() = 0;
 	virtual const Value &GetValue();
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) = 0;
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len) = 0;
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -47,8 +47,8 @@ public:
 	Object_accumulator(Environment &env, AccumulatorBase *pAccumulator, const char *name);
 	Object_accumulator(Class *pClass, AccumulatorBase *pAccumulator, const char *name);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline AccumulatorBase &GetAccumulator() {
@@ -63,10 +63,10 @@ class Accumulator_MD5 : public AccumulatorBase {
 private:
 	md5_state_t _state;
 public:
-	Accumulator_MD5(Environment &env, Signal sig);
+	Accumulator_MD5(Environment &env, Signal &sig);
 	virtual void Init();
 	virtual const char *GetName() const;
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
 	virtual void Finish();
 	virtual const Binary &GetDigest();
 };
@@ -78,10 +78,10 @@ class Accumulator_SHA1 : public AccumulatorBase {
 private:
     sha1_context _ctx;
 public:
-	Accumulator_SHA1(Environment &env, Signal sig);
+	Accumulator_SHA1(Environment &env, Signal &sig);
 	virtual void Init();
 	virtual const char *GetName() const;
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
 	virtual void Finish();
 	virtual const Binary &GetDigest();
 };
@@ -93,10 +93,10 @@ class Accumulator_CRC32 : public AccumulatorBase {
 private:
 	CRC32 _crc32;
 public:
-	Accumulator_CRC32(Environment &env, Signal sig);
+	Accumulator_CRC32(Environment &env, Signal &sig);
 	virtual void Init();
 	virtual const char *GetName() const;
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
 	virtual void Finish();
 	virtual const Binary &GetDigest();
 	virtual const Value &GetValue();

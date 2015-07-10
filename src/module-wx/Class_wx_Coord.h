@@ -25,7 +25,7 @@ public:
 				Object(Gura_UserClass(wx_Coord)), _pEntity(pEntity) {}
 	inline Object_wx_Coord(Class *pClass, wxCoord *pEntity) :
 				Object(pClass), _pEntity(pEntity) {}
-	inline bool IsInvalid(Signal sig) const { return false; }
+	inline bool IsInvalid(Signal &sig) const { return false; }
 	virtual ~Object_wx_Coord();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

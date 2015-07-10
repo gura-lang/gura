@@ -47,12 +47,12 @@ public:
 	inline Object_content(const Object_content &obj) : Object(obj) {}
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool Read(Environment &env, Signal sig, Stream &stream, Image::Format format);
-	bool Write(Environment &env, Signal sig, Stream &stream);
+	bool Read(Environment &env, Signal &sig, Stream &stream, Image::Format format);
+	bool Write(Environment &env, Signal &sig, Stream &stream);
 	void AddImage(const Value &value);
 };
 
@@ -62,11 +62,11 @@ public:
 class ImageStreamer_ICO : public ImageStreamer {
 public:
 	inline ImageStreamer_ICO() : ImageStreamer("msico") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream, int idx);
+	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream, int idx);
 };
 
 Gura_EndModuleHeader(msico)

@@ -7,7 +7,7 @@ Gura_BeginModuleScope(jpeg)
 // utility functions
 //-----------------------------------------------------------------------------
 template<typename RATIONAL_T>
-Value RationalToValue(Signal sig, const RATIONAL_T &rational)
+Value RationalToValue(Signal &sig, const RATIONAL_T &rational)
 {
 	unsigned long numerator = Gura_UnpackULong(rational.numerator);
 	unsigned long denominator = Gura_UnpackULong(rational.denominator);
@@ -22,7 +22,7 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 }
 
 template<typename RATIONAL_T>
-Value SRationalToValue(Signal sig, const RATIONAL_T &rational)
+Value SRationalToValue(Signal &sig, const RATIONAL_T &rational)
 {
 	long numerator = Gura_UnpackLong(rational.numerator);
 	long denominator = Gura_UnpackLong(rational.denominator);
@@ -38,7 +38,7 @@ Value SRationalToValue(Signal sig, const RATIONAL_T &rational)
 
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
 		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
-Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
+Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD,
 					char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
@@ -276,14 +276,14 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 	return pObjIFD.release();
 }
 
-Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
+Object_ifd *ParseIFD_BE(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_BE, TagRaw_BE, ValueRaw_BE, SHORT_BE,
 		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, pSymbolOfIFD, buff, bytesAPP1, offset, pOffsetNext);
 }
 
-Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
+Object_ifd *ParseIFD_LE(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_LE, TagRaw_LE, ValueRaw_LE, SHORT_LE,
@@ -303,7 +303,7 @@ Iterator *IteratorTag::GetSource()
 	return nullptr;
 }
 
-bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorTag::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	TagOwner &tagOwner = _pObjIFD->GetTagOwner();
 	if (_idx >= tagOwner.size()) return false;
@@ -338,7 +338,7 @@ Object *Object_ifd::Clone() const
 	return nullptr;
 }
 
-Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_ifd::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (valueIdx.Is_number()) {
 		unsigned short tagId = valueIdx.GetUShort();
@@ -361,7 +361,7 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	return Value::Null;
 }
 
-bool Object_ifd::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_ifd::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
@@ -377,7 +377,7 @@ bool Object_ifd::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ifd::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_ifd::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

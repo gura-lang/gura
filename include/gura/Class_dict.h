@@ -15,9 +15,9 @@ class GURA_DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_dict : public Object {
@@ -29,7 +29,7 @@ public:
 	public:
 		IteratorKeys(Object_dict *pObj);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -40,7 +40,7 @@ public:
 	public:
 		IteratorValues(Object_dict *pObj);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -51,7 +51,7 @@ public:
 	public:
 		IteratorItems(Object_dict *pObj);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -66,7 +66,7 @@ public:
 		IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
 					const Value &valDefault, bool raiseFlag, bool setDefaultFlag);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -85,12 +85,12 @@ public:
 	inline ValueDict &GetDict() { return *_pValDict; }
 	inline const ValueDict &GetDict() const { return *_pValDict; }
 	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual Iterator *CreateIterator(Signal sig);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
-	const Value *Find(Signal sig, const Value &valueIdx) const;
-	static void SetError_KeyNotFound(Signal sig, const Value &valueIdx);
+	const Value *Find(Signal &sig, const Value &valueIdx) const;
+	static void SetError_KeyNotFound(Signal &sig, const Value &valueIdx);
 };
 
 }

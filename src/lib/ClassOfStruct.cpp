@@ -100,7 +100,7 @@ void ClassOfStruct::Prepare(Environment &env)
 	Gura_AssignMethod(Struct, tolist);
 }
 
-bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool ClassOfStruct::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_list()) {
 		Class *pClass = env.LookupClass(pDecl->GetValueType());
@@ -115,7 +115,7 @@ bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const D
 	return false;
 }
 
-Object *ClassOfStruct::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *ClassOfStruct::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return new ObjectOfStruct((pClass == nullptr)? this : pClass);
 }
@@ -130,7 +130,7 @@ ClassOfStruct::Constructor::Constructor(Environment &env) :
 {
 }
 
-Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal sig, Args &args) const
+Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal &sig, Args &args) const
 {
 	Object *pObjThis = nullptr;
 	Value valueRtn(args.GetThis());

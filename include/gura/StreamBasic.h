@@ -19,10 +19,10 @@ public:
 	inline SimpleStream_CStringReader(const char *pStr, const char *pEnd = nullptr) :
 													_pStr(pStr), _pEnd(pEnd) {}
 	virtual const char *GetName() const;
-	virtual int GetChar(Signal sig);
-	virtual void PutChar(Signal sig, char ch);
-	virtual size_t Read(Signal sig, void *buff, size_t len);
-	virtual size_t Write(Signal sig, const void *buff, size_t len);
+	virtual int GetChar(Signal &sig);
+	virtual void PutChar(Signal &sig, char ch);
+	virtual size_t Read(Signal &sig, void *buff, size_t len);
+	virtual size_t Write(Signal &sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------
@@ -36,10 +36,10 @@ public:
 	inline SimpleStream_StringReader(String::const_iterator pStr,
 				String::const_iterator pEnd) : _pStr(pStr), _pEnd(pEnd) {}
 	virtual const char *GetName() const;
-	virtual int GetChar(Signal sig);
-	virtual void PutChar(Signal sig, char ch);
-	virtual size_t Read(Signal sig, void *buff, size_t len);
-	virtual size_t Write(Signal sig, const void *buff, size_t len);
+	virtual int GetChar(Signal &sig);
+	virtual void PutChar(Signal &sig, char ch);
+	virtual size_t Read(Signal &sig, void *buff, size_t len);
+	virtual size_t Write(Signal &sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------
@@ -51,10 +51,10 @@ private:
 public:
 	inline SimpleStream_StringWriter(String &str) : _str(str) {}
 	virtual const char *GetName() const;
-	virtual int GetChar(Signal sig);
-	virtual void PutChar(Signal sig, char ch);
-	virtual size_t Read(Signal sig, void *buff, size_t len);
-	virtual size_t Write(Signal sig, const void *buff, size_t len);
+	virtual int GetChar(Signal &sig);
+	virtual void PutChar(Signal &sig, char ch);
+	virtual size_t Read(Signal &sig, void *buff, size_t len);
+	virtual size_t Write(Signal &sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------
@@ -62,16 +62,16 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamDumb : public Stream {
 public:
-	StreamDumb(Environment &env, Signal sig);
+	StreamDumb(Environment &env, Signal &sig);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -91,16 +91,16 @@ private:
 	std::unique_ptr<OAL::Event> _pEventReadReq;
 	std::unique_ptr<OAL::Event> _pEventWriteReq;
 public:
-	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
+	StreamFIFO(Environment &env, Signal &sig, size_t bytesBuff);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 	void SetWriteDoneFlag();
 public:
@@ -116,16 +116,16 @@ class GURA_DLLDECLARE StreamMemory : public Stream {
 private:
 	std::unique_ptr<Binary> _pBinary;
 public:
-	StreamMemory(Environment &env, Signal sig);
+	StreamMemory(Environment &env, Signal &sig);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 	const char *GetPointer() const;
 };
@@ -138,16 +138,16 @@ private:
 	const char *_buff;
 	size_t _bytes;
 public:
-	StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes);
+	StreamMemReader(Environment &env, Signal &sig, const void *buff, size_t bytes);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -162,18 +162,18 @@ private:
 	size_t _bytesUnit;
 	MemoryOwner _memoryOwner;
 public:
-	Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSrc, size_t bytesUnit);
+	Stream_Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc, size_t bytesUnit);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
-	bool DoPrefetch(Signal sig);
+	bool DoPrefetch(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -188,16 +188,16 @@ private:
 	size_t _iBuffWork;
 	UChar _buffWork[8];
 public:
-	Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc);
+	Stream_Base64Reader(Environment &env, Signal &sig, Stream *pStreamSrc);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -213,16 +213,16 @@ private:
 	UChar _buffWork[8];
 	static const char _chars[];
 public:
-	Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine);
+	Stream_Base64Writer(Environment &env, Signal &sig, Stream *pStreamDst, int nCharsPerLine);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -234,14 +234,14 @@ private:
 	AutoPtr<Stream> _pStreamDst;
 	CRC32 _crc32;
 public:
-	Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst);
+	Stream_CRC32(Environment &env, Signal &sig, Stream *pStreamDst);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 	inline void Initialize() { _crc32.Initialize(); }
 	inline ULong GetCRC32() const { return _crc32.GetResult(); }
@@ -256,15 +256,15 @@ private:
 	String _str;
 	size_t _offset;
 public:
-	Stream_StringReader(Environment &env, Signal sig, const String &str);
+	Stream_StringReader(Environment &env, Signal &sig, const String &str);
 	virtual ~Stream_StringReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 

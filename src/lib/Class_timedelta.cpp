@@ -22,7 +22,7 @@ Object *Object_timedelta::Clone() const
 	return new Object_timedelta(*this);
 }
 
-bool Object_timedelta::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_timedelta::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(days));
@@ -31,7 +31,7 @@ bool Object_timedelta::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_timedelta::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_timedelta::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -46,7 +46,7 @@ Value Object_timedelta::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_timedelta::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_timedelta::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -111,7 +111,7 @@ void Class_timedelta::Prepare(Environment &env)
 	Gura_AssignFunction(timedelta);
 }
 
-Object *Class_timedelta::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_timedelta::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

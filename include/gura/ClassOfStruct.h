@@ -17,13 +17,13 @@ public:
 	public:
 		Constructor(Environment &env);
 		virtual bool IsConstructorOfStruct() const;
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
 	};
 public:
 	ClassOfStruct(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------

@@ -279,7 +279,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_xpm
 //-----------------------------------------------------------------------------
-bool ImageStreamer_xpm::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_xpm::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		return false;
@@ -287,25 +287,25 @@ bool ImageStreamer_xpm::IsResponsible(Signal sig, Stream &stream)
 	return stream.HasNameSuffix(".xpm");
 }
 
-bool ImageStreamer_xpm::Read(Environment &env, Signal sig,
+bool ImageStreamer_xpm::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ImageStreamer_xpm::ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_xpm::Write(Environment &env, Signal sig,
+bool ImageStreamer_xpm::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ImageStreamer_xpm::WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_xpm::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_xpm::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	return false;
 }
 
-bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_xpm::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	const int nCharsPerPixel = 2;
 	const int xHotspot = 0, yHotspot = 0;
@@ -399,7 +399,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 	return true;
 }
 
-void ImageStreamer_xpm::SetError_InvalidFormat(Signal sig)
+void ImageStreamer_xpm::SetError_InvalidFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid xpm format");
 }

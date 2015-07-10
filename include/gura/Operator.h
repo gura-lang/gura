@@ -11,28 +11,28 @@ class OperatorEntry_##op##_##type : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##type, VTYPE_undefined) {} \
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const; \
 }; \
-Value OperatorEntry_##op##_##type::DoEval(Environment &env, Signal sig, const Value &value) const
+Value OperatorEntry_##op##_##type::DoEval(Environment &env, Signal &sig, const Value &value) const
 
 #define Gura_ImplementUnaryOperatorSuffix(op, type) \
 class OperatorEntry_##op##_##type##_suffix : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type##_suffix() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_undefined, VTYPE_##type) {} \
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
+	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const; \
 }; \
-Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, Signal sig, const Value &value) const
+Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, Signal &sig, const Value &value) const
 
 #define Gura_ImplementBinaryOperator(op, typeL, typeR) \
 class OperatorEntry_##op##_##typeL##_##typeR : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##typeL##_##typeR() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##typeL, VTYPE_##typeR) {} \
-	virtual Value DoEval(Environment &env, Signal sig, \
+	virtual Value DoEval(Environment &env, Signal &sig, \
 				const Value &valueLeft, const Value &valueRight) const; \
 }; \
-Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, Signal sig, \
+Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, Signal &sig, \
 					const Value &valueLeft, const Value &valueRight) const
 
 #define Gura_AssignUnaryOperator(op, type) \
@@ -174,25 +174,25 @@ public:
 	}
 	const OperatorEntry *Lookup(ValueType valType, bool suffixFlag) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
-	virtual Expr *MathDiffUnary(Environment &env, Signal sig,
+	virtual Expr *MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const;
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	Expr *MathOptimizeConst(Environment &env, Signal sig,
+	Expr *MathOptimizeConst(Environment &env, Signal &sig,
 									Expr_Value *pExprChild, bool suffixFlag) const;
-	Expr *MathOptimizeConst(Environment &env, Signal sig,
+	Expr *MathOptimizeConst(Environment &env, Signal &sig,
 									Expr_Value *pExprLeft, Expr_Value *pExprRight) const;
-	virtual Expr *MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const;
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	Value EvalUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const;
-	Value EvalBinary(Environment &env, Signal sig,
+	Value EvalUnary(Environment &env, Signal &sig, const Value &value, bool suffixFlag) const;
+	Value EvalBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
-	virtual Value EvalMapUnary(Environment &env, Signal sig,
+	virtual Value EvalMapUnary(Environment &env, Signal &sig,
 									const Value &value, bool suffixFlag) const;
-	virtual Value EvalMapBinary(Environment &env, Signal sig,
+	virtual Value EvalMapBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 									const Value &value, bool suffixFlag);
@@ -212,10 +212,10 @@ public:
 class GURA_DLLDECLARE Operator_Pos : public Operator {
 public:
 	inline Operator_Pos() : Operator(OPTYPE_Pos) {}
-	virtual Expr *MathDiffUnary(Environment &env, Signal sig,
+	virtual Expr *MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprChild);
+	virtual Expr *MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const;
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -224,10 +224,10 @@ public:
 class GURA_DLLDECLARE Operator_Neg : public Operator {
 public:
 	inline Operator_Neg() : Operator(OPTYPE_Neg) {}
-	virtual Expr *MathDiffUnary(Environment &env, Signal sig,
+	virtual Expr *MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprChild);
+	virtual Expr *MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const;
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -276,11 +276,11 @@ public:
 class GURA_DLLDECLARE Operator_Add : public Operator {
 public:
 	inline Operator_Add() : Operator(OPTYPE_Add) {}
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -289,11 +289,11 @@ public:
 class GURA_DLLDECLARE Operator_Sub : public Operator {
 public:
 	inline Operator_Sub() : Operator(OPTYPE_Sub) {}
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -302,13 +302,13 @@ public:
 class GURA_DLLDECLARE Operator_Mul : public Operator {
 public:
 	inline Operator_Mul() : Operator(OPTYPE_Mul) {}
-	virtual Value EvalMapBinary(Environment &env, Signal sig,
+	virtual Value EvalMapBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -317,11 +317,11 @@ public:
 class GURA_DLLDECLARE Operator_Div : public Operator {
 public:
 	inline Operator_Div() : Operator(OPTYPE_Div) {}
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -330,7 +330,7 @@ public:
 class GURA_DLLDECLARE Operator_Mod : public Operator {
 public:
 	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
-	virtual Value EvalMapBinary(Environment &env, Signal sig,
+	virtual Value EvalMapBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -340,11 +340,11 @@ public:
 class GURA_DLLDECLARE Operator_Pow : public Operator {
 public:
 	inline Operator_Pow() : Operator(OPTYPE_Pow) {}
-	virtual Expr *MathDiffBinary(Environment &env, Signal sig,
+	virtual Expr *MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
+	virtual Expr *MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const;
-	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -409,7 +409,7 @@ public:
 class GURA_DLLDECLARE Operator_Contains : public Operator {
 public:
 	inline Operator_Contains() : Operator(OPTYPE_Contains) {}
-	virtual Value EvalMapBinary(Environment &env, Signal sig,
+	virtual Value EvalMapBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -483,7 +483,7 @@ public:
 class GURA_DLLDECLARE Operator_Pair : public Operator {
 public:
 	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
-	virtual Value EvalMapBinary(Environment &env, Signal sig,
+	virtual Value EvalMapBinary(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -507,8 +507,8 @@ public:
 	inline const Operator::SymbolInfo &GetSymbolInfo() const {
 		return Operator::GetSymbolInfo(_opType);
 	}
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal sig,
+	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const;
+	virtual Value DoEval(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
@@ -523,8 +523,8 @@ private:
 public:
 	inline OperatorEntryCustom(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
 					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal sig,
+	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const;
+	virtual Value DoEval(Environment &env, Signal &sig,
 				const Value &valueLeft, const Value &valueRight) const;
 };
 

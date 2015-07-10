@@ -17,7 +17,7 @@ String Object_FTC_SBit::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_FTC_SBit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_FTC_SBit::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 #if 0
@@ -27,7 +27,7 @@ bool Object_FTC_SBit::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_FTC_SBit::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_FTC_SBit::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -42,7 +42,7 @@ Value Object_FTC_SBit::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_FTC_SBit::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_FTC_SBit::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

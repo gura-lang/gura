@@ -20,10 +20,10 @@ public:
 			Object(obj), _sbitCache(obj._sbitCache) {}
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FTC_SBitCache &GetEntity() { return _sbitCache; }
 	inline const FTC_SBitCache &GetEntity() const { return _sbitCache; }

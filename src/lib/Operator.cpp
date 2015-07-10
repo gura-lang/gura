@@ -98,21 +98,21 @@ const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRi
 	return nullptr;
 }
 
-Expr *Operator::MathDiffUnary(Environment &env, Signal sig,
+Expr *Operator::MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
+Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
 								Expr_Value *pExprChild, bool suffixFlag) const
 {
 	Value value = pExprChild->GetValue();
@@ -122,7 +122,7 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
 	return new Expr_Value(result);
 }
 
-Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
+Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
 								Expr_Value *pExprLeft, Expr_Value *pExprRight) const
 {
 	Value valueLeft = pExprLeft->GetValue();
@@ -134,20 +134,20 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal sig,
 	return new Expr_Value(result);
 }
 
-Expr *Operator::MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const
+Expr *Operator::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
 {
 	SetError_MathOptimizeError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator::MathOptimizeBinary(Environment &env, Signal &sig,
 										Expr *pExprLeft, Expr *pExprRight) const
 {
 	SetError_MathOptimizeError(sig);
 	return nullptr;
 }
 
-Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
+Value Operator::EvalUnary(Environment &env, Signal &sig, const Value &value, bool suffixFlag) const
 {
 	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
 	if (pOperatorEntry == nullptr) {
@@ -157,7 +157,7 @@ Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value, bool
 	return pOperatorEntry->DoEval(env, sig, value);
 }
 
-Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft, const Value &valueRight) const
+Value Operator::EvalBinary(Environment &env, Signal &sig, const Value &valueLeft, const Value &valueRight) const
 {
 	const OperatorEntry *pOperatorEntry =
 					Lookup(valueLeft.GetValueType(), valueRight.GetValueType());
@@ -168,7 +168,7 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
 }
 
-Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
+Value Operator::EvalMapUnary(Environment &env, Signal &sig, const Value &value, bool suffixFlag) const
 {
 	if (!_mapFlag || !value.IsListOrIterator() || value.GetNoMapFlag()) {
 		return EvalUnary(env, sig, value, suffixFlag);
@@ -181,7 +181,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, b
 	return pIterator->ToList(env, sig, true, false);
 }
 
-Value Operator::EvalMapBinary(Environment &env, Signal sig,
+Value Operator::EvalMapBinary(Environment &env, Signal &sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	if (!_mapFlag || ((!valueLeft.IsListOrIterator() || valueLeft.GetNoMapFlag()) &&
@@ -264,7 +264,7 @@ void Operator::SetError_MathOptimizeError(Signal &sig)
 //-----------------------------------------------------------------------------
 // Operator_Pos
 //-----------------------------------------------------------------------------
-Expr *Operator_Pos::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
+Expr *Operator_Pos::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
@@ -273,7 +273,7 @@ Expr *Operator_Pos::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
 	return pExprChild;
 }
 
-Expr *Operator_Pos::MathDiffUnary(Environment &env, Signal sig,
+Expr *Operator_Pos::MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
@@ -281,7 +281,7 @@ Expr *Operator_Pos::MathDiffUnary(Environment &env, Signal sig,
 	return Operator_Pos::MathOptimize(env, sig, pExprDiff.release());
 }
 
-Expr *Operator_Pos::MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const
+Expr *Operator_Pos::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
 {
 	return Operator_Pos::MathOptimize(env, sig, pExprChild);
 }
@@ -289,7 +289,7 @@ Expr *Operator_Pos::MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprC
 //-----------------------------------------------------------------------------
 // Operator_Neg
 //-----------------------------------------------------------------------------
-Expr *Operator_Neg::MathDiffUnary(Environment &env, Signal sig,
+Expr *Operator_Neg::MathDiffUnary(Environment &env, Signal &sig,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
@@ -297,12 +297,12 @@ Expr *Operator_Neg::MathDiffUnary(Environment &env, Signal sig,
 	return Operator_Neg::MathOptimize(env, sig, pExprDiff.release());
 }
 
-Expr *Operator_Neg::MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprChild) const
+Expr *Operator_Neg::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
 {
 	return Operator_Neg::MathOptimize(env, sig, pExprChild);
 }
 
-Expr *Operator_Neg::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
+Expr *Operator_Neg::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
@@ -346,7 +346,7 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Signal sig, Expr *pExprChild)
 //-----------------------------------------------------------------------------
 // Operator_Add
 //-----------------------------------------------------------------------------
-Expr *Operator_Add::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator_Add::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
@@ -358,13 +358,13 @@ Expr *Operator_Add::MathDiffBinary(Environment &env, Signal sig,
 		env, sig, pExprDiff1.release(), pExprDiff2.release());
 }
 
-Expr *Operator_Add::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator_Add::MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
 	return Operator_Add::MathOptimize(env, sig, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Add::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
@@ -466,7 +466,7 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 // Operator_Sub
 //-----------------------------------------------------------------------------
-Expr *Operator_Sub::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator_Sub::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
@@ -478,13 +478,13 @@ Expr *Operator_Sub::MathDiffBinary(Environment &env, Signal sig,
 		env, sig, pExprDiff1.release(), pExprDiff2.release());
 }
 
-Expr *Operator_Sub::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator_Sub::MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
 	return Operator_Sub::MathOptimize(env, sig, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Sub::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
@@ -587,7 +587,7 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 // Operator_Mul
 //-----------------------------------------------------------------------------
-Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
+Value Operator_Mul::EvalMapBinary(Environment &env, Signal &sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	if (valueLeft.Is_function()) {
@@ -635,7 +635,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
-Expr *Operator_Mul::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator_Mul::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
@@ -651,13 +651,13 @@ Expr *Operator_Mul::MathDiffBinary(Environment &env, Signal sig,
 			env, sig, pExprLeft->Clone(), pExprDiff2.release()));
 }
 
-Expr *Operator_Mul::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator_Mul::MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
 	return Operator_Mul::MathOptimize(env, sig, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Mul::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
@@ -805,7 +805,7 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 // Operator_Div
 //-----------------------------------------------------------------------------
-Expr *Operator_Div::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator_Div::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
@@ -825,13 +825,13 @@ Expr *Operator_Div::MathDiffBinary(Environment &env, Signal sig,
 			env, sig, pExprRight->Clone(), new Expr_Value(2)));
 }
 
-Expr *Operator_Div::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator_Div::MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
 	return Operator_Div::MathOptimize(env, sig, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Div::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
@@ -952,7 +952,7 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 // Operator_Mod
 //-----------------------------------------------------------------------------
-Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
+Value Operator_Mod::EvalMapBinary(Environment &env, Signal &sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	if (valueLeft.Is_function()) {
@@ -1011,7 +1011,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Operator_Pow
 //-----------------------------------------------------------------------------
-Expr *Operator_Pow::MathDiffBinary(Environment &env, Signal sig,
+Expr *Operator_Pow::MathDiffBinary(Environment &env, Signal &sig,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
 	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
@@ -1041,13 +1041,13 @@ Expr *Operator_Pow::MathDiffBinary(Environment &env, Signal sig,
 				env, sig, pExprLeft->Clone(), pExprRight->Clone())));
 }
 
-Expr *Operator_Pow::MathOptimizeBinary(Environment &env, Signal sig,
+Expr *Operator_Pow::MathOptimizeBinary(Environment &env, Signal &sig,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
 	return Operator_Pow::MathOptimize(env, sig, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Pow::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Pow::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
@@ -1131,7 +1131,7 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 // Operator_Contains
 //-----------------------------------------------------------------------------
-Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
+Value Operator_Contains::EvalMapBinary(Environment &env, Signal &sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	return EvalBinary(env, sig, valueLeft, valueRight);
@@ -1172,7 +1172,7 @@ Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Operator_Pair
 //-----------------------------------------------------------------------------
-Value Operator_Pair::EvalMapBinary(Environment &env, Signal sig,
+Value Operator_Pair::EvalMapBinary(Environment &env, Signal &sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	return EvalBinary(env, sig, valueLeft, valueRight);
@@ -1185,12 +1185,12 @@ OperatorEntry::~OperatorEntry()
 {
 }
 
-Value OperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
+Value OperatorEntry::DoEval(Environment &env, Signal &sig, const Value &value) const
 {
 	return Value::Null;
 }
 
-Value OperatorEntry::DoEval(Environment &env, Signal sig,
+Value OperatorEntry::DoEval(Environment &env, Signal &sig,
 				const Value &valueLeft, const Value &valueRight) const
 {
 	return Value::Null;

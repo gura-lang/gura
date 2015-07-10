@@ -22,7 +22,7 @@ String Object_Stroker::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Stroker::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Stroker::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 #if 0
@@ -32,7 +32,7 @@ bool Object_Stroker::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Stroker::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Stroker::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -47,7 +47,7 @@ Value Object_Stroker::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-Value Object_Stroker::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Stroker::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Binary
 //-----------------------------------------------------------------------------
-bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
+bool Binary::Pack(Environment &env, Signal &sig, size_t &offset,
 							const char *format, const ValueList &valListArg)
 {
 	enum {
@@ -248,7 +248,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 	return true;
 }
 
-Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
+Value Binary::Unpack(Environment &env, Signal &sig, size_t &offset,
 		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	enum {
@@ -475,7 +475,7 @@ Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
 	return result;
 }
 
-bool Binary::PackForward(Signal sig, size_t offset, size_t bytes)
+bool Binary::PackForward(Signal &sig, size_t offset, size_t bytes)
 {
 	if (offset + bytes > size()) {
 		append(offset + bytes - size(), '\0');
@@ -483,7 +483,7 @@ bool Binary::PackForward(Signal sig, size_t offset, size_t bytes)
 	return true;
 }
 
-bool Binary::UnpackForward(Signal sig, size_t &offset, int distance, bool exceedErrorFlag)
+bool Binary::UnpackForward(Signal &sig, size_t &offset, int distance, bool exceedErrorFlag)
 {
 	if ((distance < 0 && offset < static_cast<size_t>(-distance)) ||
 					(distance > 0 && offset + distance > size())) {
@@ -620,7 +620,7 @@ UInt64 Binary::UnpackUInt64(iterator pByte, bool bigEndianFlag)
 	}
 }
 
-bool Binary::CheckString(Signal sig,
+bool Binary::CheckString(Signal &sig,
 				const ValueList &valList, ValueList::const_iterator pValue)
 {
 	if (pValue == valList.end()) {
@@ -633,7 +633,7 @@ bool Binary::CheckString(Signal sig,
 	return true;
 }
 
-bool Binary::CheckNumber(Signal sig,
+bool Binary::CheckNumber(Signal &sig,
 				const ValueList &valList, ValueList::const_iterator pValue)
 {
 	if (pValue == valList.end()) {
@@ -646,7 +646,7 @@ bool Binary::CheckNumber(Signal sig,
 	return true;
 }
 
-bool Binary::CheckNumber(Signal sig, const ValueList &valList,
+bool Binary::CheckNumber(Signal &sig, const ValueList &valList,
 				ValueList::const_iterator pValue, Number numMin, Number numMax)
 {
 	if (!CheckNumber(sig, valList, pValue)) return false;

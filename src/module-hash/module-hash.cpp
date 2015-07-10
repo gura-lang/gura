@@ -26,7 +26,7 @@ Object *Object_accumulator::Clone() const
 	return nullptr;
 }
 
-bool Object_accumulator::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_accumulator::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(digest));
@@ -35,7 +35,7 @@ bool Object_accumulator::DoDirProp(Environment &env, Signal sig, SymbolSet &symb
 	return true;
 }
 
-Value Object_accumulator::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_accumulator::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {
@@ -118,14 +118,14 @@ const char *AccumulatorBase::GetIdentifier() const
 	return nullptr;
 }
 
-size_t AccumulatorBase::DoRead(Signal sig, void *buff, size_t len)
+size_t AccumulatorBase::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-bool AccumulatorBase::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) { return false; }
-bool AccumulatorBase::DoFlush(Signal sig) { return true; }
-bool AccumulatorBase::DoClose(Signal sig) { return Stream::DoClose(sig); }
+bool AccumulatorBase::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode) { return false; }
+bool AccumulatorBase::DoFlush(Signal &sig) { return true; }
+bool AccumulatorBase::DoClose(Signal &sig) { return Stream::DoClose(sig); }
 
 const Value &AccumulatorBase::GetValue()
 {
@@ -135,7 +135,7 @@ const Value &AccumulatorBase::GetValue()
 //-----------------------------------------------------------------------------
 // Accumulator_MD5 implementation
 //-----------------------------------------------------------------------------
-Accumulator_MD5::Accumulator_MD5(Environment &env, Signal sig) : AccumulatorBase(env, sig)
+Accumulator_MD5::Accumulator_MD5(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
 {
 	_digest.clear();
 	::md5_init(&_state);
@@ -152,7 +152,7 @@ const char *Accumulator_MD5::GetName() const
 	return "<hash.accumulator:md5>";
 }
 
-size_t Accumulator_MD5::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Accumulator_MD5::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	::md5_append(&_state, reinterpret_cast<const md5_byte_t *>(buff), static_cast<int>(len));
 	return len;
@@ -174,7 +174,7 @@ const Binary &Accumulator_MD5::GetDigest()
 //-----------------------------------------------------------------------------
 // Accumulator_SHA1 implementation
 //-----------------------------------------------------------------------------
-Accumulator_SHA1::Accumulator_SHA1(Environment &env, Signal sig) : AccumulatorBase(env, sig)
+Accumulator_SHA1::Accumulator_SHA1(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
 {
 	_digest.clear();
 	::sha1_starts(&_ctx);
@@ -191,7 +191,7 @@ const char *Accumulator_SHA1::GetName() const
 	return "<hash.accumulator:sha1>";
 }
 
-size_t Accumulator_SHA1::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Accumulator_SHA1::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	::sha1_update(&_ctx, reinterpret_cast<uint8 *>(const_cast<void *>(buff)),
 													static_cast<uint32>(len));
@@ -214,7 +214,7 @@ const Binary &Accumulator_SHA1::GetDigest()
 //-----------------------------------------------------------------------------
 // Accumulator_CRC32 implementation
 //-----------------------------------------------------------------------------
-Accumulator_CRC32::Accumulator_CRC32(Environment &env, Signal sig) : AccumulatorBase(env, sig)
+Accumulator_CRC32::Accumulator_CRC32(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
 {
 	_digest.clear();
 }
@@ -230,7 +230,7 @@ const char *Accumulator_CRC32::GetName() const
 	return "<accumulator:crc32>";
 }
 
-size_t Accumulator_CRC32::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Accumulator_CRC32::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	_crc32.Update(buff, len);
 	return len;

@@ -141,7 +141,7 @@ public:
 	inline int GetIndentLevel() const { return _indentLevel; }
 	inline int GetIndentLevelItemBody() const { return _indentLevelItemBody; }
 	const char *GetTypeName() const;
-	void Print(Signal sig, Stream &stream, int indentLevel) const;
+	void Print(Signal &sig, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -151,7 +151,7 @@ class ItemList : public std::vector<Item *> {
 public:
 	Item *FindByRefId(const char *refId) const;
 	Item *FindByType(Item::Type type) const;
-	void Print(Signal sig, Stream &stream, int indentLevel) const;
+	void Print(Signal &sig, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -343,8 +343,8 @@ public:
 private:
 	inline ~Document() {}
 public:
-	bool ParseStream(Signal sig, SimpleStream &stream);
-	bool ParseString(Signal sig, const char *text);
+	bool ParseStream(Signal &sig, SimpleStream &stream);
+	bool ParseString(Signal &sig, const char *text);
 	void AddItemReferee(Item *pItem);
 	void ResolveReference();
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
@@ -352,8 +352,8 @@ public:
 		return _pItemRefereeOwner.get();
 	}
 private:
-	bool _ParseString(Signal sig, String text);
-	bool ParseChar(Signal sig, char ch);
+	bool _ParseString(Signal &sig, String text);
+	bool ParseChar(Signal &sig, char ch);
 	bool CheckSpecialChar(char ch);
 	bool AdjustBlockQuote();
 	void AppendJointSpace();
@@ -417,10 +417,10 @@ public:
 	inline Object_document(Document *pDocument) : Object(Gura_UserClass(document)), _pDocument(pDocument) {}
 	inline Document *GetDocument() { return _pDocument.get(); }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -439,10 +439,10 @@ public:
 	inline Object_item(Item *pItem) : Object(Gura_UserClass(item)), _pItem(pItem) {}
 	inline Item *GetItem() { return _pItem.get(); }
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -457,7 +457,7 @@ private:
 public:
 	Iterator_item(ItemOwner *pItemOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -468,7 +468,7 @@ public:
 class HelpPresenter_markdown : public HelpPresenter {
 public:
 	inline HelpPresenter_markdown() : HelpPresenter("markdown") {}
-	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const;
+	virtual bool DoPresent(Environment &env, Signal &sig, const char *title, const Help *pHelp) const;
 };
 
 Gura_EndModuleHeader(markdown)

@@ -170,7 +170,7 @@ void Class_codec::Prepare(Environment &env)
 	Gura_AssignClassValueEx("bom@utf32be", Value(new Object_binary(env, Binary(Codec::BOM_UTF32BE, 4), false)));
 }
 
-bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_codec::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, value.GetString(), true, false));
@@ -181,7 +181,7 @@ bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	return false;
 }
 
-Object *Class_codec::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_codec::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

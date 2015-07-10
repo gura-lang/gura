@@ -8,13 +8,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_directory
 //-----------------------------------------------------------------------------
-bool Object_directory::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_directory::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return true;
 }
 
-Value Object_directory::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_directory::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
@@ -69,7 +69,7 @@ void Class_directory::Prepare(Environment &env)
 	Gura_AssignFunction(directory);
 }
 
-bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_directory::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
@@ -81,7 +81,7 @@ bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const
 	return false;
 }
 
-Object *Class_directory::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_directory::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return nullptr;
 }

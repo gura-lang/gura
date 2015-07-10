@@ -24,7 +24,7 @@ public:
 		inline IteratorTuple(Object_postgresql *pObj, PGresult *res) :
 						Iterator(false), _pObj(pObj), _res(res), _iTuple(0) {}
 		virtual ~IteratorTuple();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 	};
 private:
@@ -36,10 +36,10 @@ public:
 	virtual ~Object_postgresql();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool Connect(Signal sig, const char *pghost, const char *pgport,
+	bool Connect(Signal &sig, const char *pghost, const char *pgport,
 		const char *pgoptions, const char *pgtty, const char *dbName, const char *login, const char *pwd);
 	void Close();
-	Iterator *Exec(Signal sig, const char *command);
+	Iterator *Exec(Signal &sig, const char *command);
 };
 
 Gura_EndModuleHeader(postgresql)

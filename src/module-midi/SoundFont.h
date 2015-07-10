@@ -261,7 +261,7 @@ public:
 		inline ~sfPresetHeader() {}
 	public:
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
+		bool SetupReference(Signal &sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
 		inline bool IsMatched(UShort wPreset, UShort wBank) const {
 			return wPreset == _wPreset && wBank == _wBank;
 		}
@@ -295,7 +295,7 @@ public:
 		inline ~sfPresetBag() {}
 	public:
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta);
+		bool SetupReference(Signal &sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta);
 		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 		inline const sfGenOwner &GetGenOwner() const { return *_pGenOwner; }
@@ -388,7 +388,7 @@ public:
 		inline sfInstBagOwner &GetInstBagOwner() { return *_pInstBagOwner; }
 		inline const sfInstBagOwner &GetInstBagOwner() const { return *_pInstBagOwner; }
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfInst *pInstNext, const pdta_t &pdta);
+		bool SetupReference(Signal &sig, sfInst *pInstNext, const pdta_t &pdta);
 	};
 	typedef ListTemplate<sfInst> sfInstList;
 	class sfInstOwner : public OwnerTemplate<sfInst, sfInstList> {
@@ -431,7 +431,7 @@ public:
 		inline RangesType *GetVelRange() { return _pVelRange.get(); }
 		inline const RangesType *GetVelRange() const { return _pVelRange.get(); }
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta);
+		bool SetupReference(Signal &sig, sfInstBag *pInstBagNext, const pdta_t &pdta);
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
 	class sfInstBagOwner : public OwnerTemplate<sfInstBag, sfInstBagList> {
@@ -475,7 +475,7 @@ public:
 	private:
 		inline ~sfSample() {}
 	public:
-		bool CreateAudio(Signal sig, Stream &stream, size_t offsetSdta);
+		bool CreateAudio(Signal &sig, Stream &stream, size_t offsetSdta);
 		inline const Audio *GetAudio() const { return _pAudio.get(); }
 		void Print(int indentLevel) const;
 	};
@@ -600,9 +600,9 @@ private:
 public:
 	SoundFont(Stream *pStream);
 	void Clear();
-	bool ReadChunks(Environment &env, Signal sig);
+	bool ReadChunks(Environment &env, Signal &sig);
 	const sfPresetHeader *LookupPresetHeader(UShort wPreset, UShort wBank) const;
-	Synthesizer *CreateSynthesizer(Signal sig, UShort wPreset, UShort wBank, UChar key, UChar velocity) const;
+	Synthesizer *CreateSynthesizer(Signal &sig, UShort wPreset, UShort wBank, UChar key, UChar velocity) const;
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }
@@ -611,10 +611,10 @@ public:
 public:
 	static const char *SFGeneratorToName(SFGenerator generator);
 private:
-	bool ReadSubChunk(Environment &env, Signal sig, size_t bytes);
-	bool ReadStruct(Environment &env, Signal sig,
+	bool ReadSubChunk(Environment &env, Signal &sig, size_t bytes);
+	bool ReadStruct(Environment &env, Signal &sig,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual);
-	bool ReadString(Environment &env, Signal sig,
+	bool ReadString(Environment &env, Signal &sig,
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 

@@ -46,12 +46,12 @@ enum CompressionType {
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock);
-Stream *DecorateReaderStream(Environment &env, Signal sig, Stream *pStreamSrc,
+Header *ReadHeader(Signal &sig, Stream *pStream, void *buffBlock);
+Stream *DecorateReaderStream(Environment &env, Signal &sig, Stream *pStreamSrc,
 						const char *name, CompressionType compressionType);
-Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
+Stream *DecorateWriterStream(Environment &env, Signal &sig, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
-ULong OctetToULong(Signal sig, const char *octet, size_t len);
+ULong OctetToULong(Signal &sig, const char *octet, size_t len);
 
 CompressionType SymbolToCompressionType(const Symbol *pSymbol);
 
@@ -137,7 +137,7 @@ public:
 	Header();
 	Header(const Header &hdr);
 	void Initialize();
-	bool SetRawHeader(Signal sig, const star_header &rawHdr);
+	bool SetRawHeader(Signal &sig, const star_header &rawHdr);
 	void ComposeHeaderBlock(void *memBlock);
 	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
@@ -194,20 +194,20 @@ protected:
 	String _name;
 	size_t _offsetTop;
 public:
-	Stream_Entry(Environment &env, Signal sig, Stream *pStreamSrc, const Header &hdr);
+	Stream_Entry(Environment &env, Signal &sig, Stream *pStreamSrc, const Header &hdr);
 	virtual ~Stream_Entry();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
-	virtual Object *DoGetStatObj(Signal sig);
-	bool FlushRead(Signal sig);
+	virtual Object *DoGetStatObj(Signal &sig);
+	bool FlushRead(Signal &sig);
 	inline Stream &GetSource() { return *_pStreamSrc; }
 	inline const Stream &GetSource() const { return *_pStreamSrc; }
 };
@@ -225,9 +225,9 @@ public:
 	Directory_TAR(Directory *pParent, const char *name,
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
-	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
-	virtual Object *DoGetStatObj(Signal sig);
+	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	virtual Object *DoGetStatObj(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -235,9 +235,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_TAR : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal sig,
+	virtual bool IsResponsible(Environment &env, Signal &sig,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
@@ -272,8 +272,8 @@ public:
 	inline Object_stat(const Object_stat &obj) : Object(obj), _hdr(obj._hdr) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -294,9 +294,9 @@ public:
 	virtual ~Object_reader();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool Open(Environment &env, Signal sig, Stream *pStreamSrc, CompressionType compressionType);
+	bool Open(Environment &env, Signal &sig, Stream *pStreamSrc, CompressionType compressionType);
 	inline Stream *GetStreamSrc() { return _pStreamSrc.get(); }
-	Header *NextHeader(Signal sig);
+	Header *NextHeader(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -306,13 +306,13 @@ Gura_DeclareUserClass(writer);
 
 class Object_writer : public Object {
 private:
-	Signal _sig;
+	Signal &_sig;
 	AutoPtr<Stream> _pStreamDst;
 	AutoPtr<Memory> _pMemoryBlock;
 public:
 	Gura_DeclareObjectAccessor(writer)
 public:
-	Object_writer(Signal sig);
+	Object_writer(Signal &sig);
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -332,7 +332,7 @@ private:
 public:
 	inline Iterator_Entry(Object_reader *pObjReader);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

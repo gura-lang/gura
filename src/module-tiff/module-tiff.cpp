@@ -118,26 +118,26 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_TIFF
 //-----------------------------------------------------------------------------
-bool ImageStreamer_TIFF::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_TIFF::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 	}
 	return stream.HasNameSuffix(".tif") || stream.HasNameSuffix(".tiff");
 }
 
-bool ImageStreamer_TIFF::Read(Environment &env, Signal sig,
+bool ImageStreamer_TIFF::Read(Environment &env, Signal &sig,
 											Image *pImage, Stream &stream)
 {
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_TIFF::Write(Environment &env, Signal sig,
+bool ImageStreamer_TIFF::Write(Environment &env, Signal &sig,
 											Image *pImage, Stream &stream)
 {
 	return WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	Handler handler(sig, stream);
@@ -185,7 +185,7 @@ bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage,
 	return true;
 }
 
-bool ImageStreamer_TIFF::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_TIFF::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckValid(sig)) return false;
 	return true;

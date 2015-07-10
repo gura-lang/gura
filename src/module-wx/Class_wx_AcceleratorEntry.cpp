@@ -6,7 +6,7 @@
 
 Gura_BeginModuleScope(wx)
 
-int ArgToKeyCode(const Function *pFunc, Signal sig, Args &args, size_t iArg);
+int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg);
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -198,7 +198,7 @@ Gura_ImplementDescendantCreator(wx_AcceleratorEntry)
 	return new Object_wx_AcceleratorEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
-int ArgToKeyCode(const Function *pFunc, Signal sig, Args &args, size_t iArg)
+int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg)
 {
 	int keyCode = 0;
 	if (args.IsInstanceOf(iArg, VTYPE_number)) {

@@ -24,12 +24,12 @@ String Object_pointer::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_pointer::UnpackForward(Signal sig, int distance, bool exceedErrorFlag)
+bool Object_pointer::UnpackForward(Signal &sig, int distance, bool exceedErrorFlag)
 {
 	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
 }
 
-Value Object_pointer::Unpack(Signal sig, bool forwardFlag,
+Value Object_pointer::Unpack(Signal &sig, bool forwardFlag,
 		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	Environment &env = *this;
@@ -40,7 +40,7 @@ Value Object_pointer::Unpack(Signal sig, bool forwardFlag,
 	return value;
 }
 
-bool Object_pointer::Pack(Signal sig,
+bool Object_pointer::Pack(Signal &sig,
 				bool forwardFlag, const char *format, const ValueList &valListArg)
 {
 	Environment &env = *this;
@@ -170,7 +170,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, unpacks);
 }
 
-Object *Class_pointer::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_pointer::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return nullptr;
 }

@@ -15,10 +15,10 @@ class GURA_DLLDECLARE Class_list : public Class {
 public:
 	Class_list(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ public:
 					pObj->GetList().begin() + offset + cnt : pObj->GetList().end()) {}
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -61,7 +61,7 @@ public:
 			Iterator(false), _pObj(pObj), _pValue(pObj->GetList().rbegin()) {}
 		virtual ~IteratorReverse();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -75,7 +75,7 @@ public:
 			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
 		virtual ~IteratorCycle();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -94,7 +94,7 @@ public:
 			_pValueFwd(pObj->GetList().begin()), _pValueBwd(pObj->GetList().rbegin()) {}
 		virtual ~IteratorPingpong();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -112,7 +112,7 @@ public:
 					 size_t cntStep, bool listItemFlag, bool neatFlag);
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -128,7 +128,7 @@ public:
 		IteratorPermutation(Object_list *pObj, int cnt);
 		~IteratorPermutation();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -144,7 +144,7 @@ public:
 		IteratorCombination(Object_list *pObj, int cnt);
 		~IteratorCombination();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -185,11 +185,11 @@ public:
 	class ValueVisitor_Index : public ValueVisitor {
 	private:
 		Environment &_env;
-		Signal _sig;
+		Signal &_sig;
 		const ValueList &_valList;
 		IndexList _indexList;
 	public:
-		inline ValueVisitor_Index(Environment &env, Signal sig, const ValueList &valList) :
+		inline ValueVisitor_Index(Environment &env, Signal &sig, const ValueList &valList) :
 									_env(env), _sig(sig), _valList(valList) {}
 		virtual bool Visit(const Value &value);
 		inline IndexList &GetIndexList() { return _indexList; }
@@ -211,11 +211,11 @@ public:
 	virtual Object *Clone() const;
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual Iterator *CreateIterator(Signal sig);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
-	Object_list *SortRank(Signal sig, const Value &valDirective,
+	Object_list *SortRank(Signal &sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag);
 };
 

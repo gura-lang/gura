@@ -27,14 +27,14 @@ String Object_operator::ToString(bool exprFlag)
 	return rtn;
 }
 
-bool Object_operator::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_operator::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(symbol));
 	return true;
 }
 
-Value Object_operator::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_operator::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -45,7 +45,7 @@ Value Object_operator::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
+Value Object_operator::DoCall(Environment &env, Signal &sig, Args &args)
 {
 	const ExprList &exprList = args.GetExprListArg();
 	size_t nArgs = exprList.size();
@@ -280,7 +280,7 @@ void Class_operator::Prepare(Environment &env)
 	Gura_AssignMethod(operator_, entries);
 }
 
-Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_operator::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

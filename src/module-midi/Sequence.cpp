@@ -10,7 +10,7 @@ Sequence::Sequence() : _format(0),
 {
 }
 
-bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
+bool Sequence::Read(Environment &env, Signal &sig, Stream &stream)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -198,7 +198,7 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
+bool Sequence::Write(Environment &env, Signal &sig, Stream &stream)
 {
 	do {
 		HeaderChunkTop headerChunkTop;
@@ -266,7 +266,7 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntRepeat) const
+Player *Sequence::GeneratePlayer(Signal &sig, Port *pPort, double speed, int cntRepeat) const
 {
 	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort)));
 	if (!pPlayer->SetupSequence(sig, this, _pProperty->GetDivision(),

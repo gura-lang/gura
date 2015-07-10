@@ -94,8 +94,8 @@ public:
 		inline ~Format() {}
 	public:
 		void Print() const;
-		Audio *ReadAudio(Signal sig, Stream &stream, size_t ckSize) const;
-		bool Write(Signal sig, Stream &stream) const;
+		Audio *ReadAudio(Signal &sig, Stream &stream, size_t ckSize) const;
+		bool Write(Signal &sig, Stream &stream) const;
 	};
 private:
 	AutoPtr<Format> _pFormat;
@@ -103,17 +103,17 @@ private:
 public:
 	Wave();
 	void Clear();
-	bool SetAudio(Signal sig, const Audio *pAudio);
-	bool Read(Signal sig, Stream &stream);
-	bool Write(Signal sig, Stream &stream);
+	bool SetAudio(Signal &sig, const Audio *pAudio);
+	bool Read(Signal &sig, Stream &stream);
+	bool Write(Signal &sig, Stream &stream);
 	void Print() const;
 	inline Format *GetFormat() const { return _pFormat.get(); }
 	inline Audio *GetAudio() const { return _pAudio.get(); }
 private:
-	bool ReadSubChunk(Signal sig, Stream &stream, size_t bytes);
-	static bool ReadStruct(Signal sig, Stream &stream,
+	bool ReadSubChunk(Signal &sig, Stream &stream, size_t bytes);
+	static bool ReadStruct(Signal &sig, Stream &stream,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual);
-	static bool ReadString(Signal sig, Stream &stream,
+	static bool ReadString(Signal &sig, Stream &stream,
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 

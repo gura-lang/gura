@@ -38,15 +38,15 @@ public:
 	virtual UChar GetStatusCode() const = 0;
 	virtual const Symbol *GetSymbol() const = 0;
 	virtual String GetArgsName() const = 0;
-	virtual bool Play(Signal sig, Player *pPlayer) const = 0;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
+	virtual bool Play(Signal &sig, Player *pPlayer) const = 0;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const = 0;
 	virtual Event *Clone() const = 0;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	static bool WriteVariableFormat(Signal sig, Stream &stream, ULong num);
+	static bool WriteVariableFormat(Signal &sig, Stream &stream, ULong num);
 };
 
 //-----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ public:
 	};
 public:
 	void Sort();
-	bool Write(Signal sig, Stream &stream) const;
+	bool Write(Signal &sig, Stream &stream) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -110,12 +110,12 @@ public:
 	}
 	virtual bool IsMIDIEvent() const;
 	virtual UChar GetStatusCode() const;
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -137,10 +137,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetNote() const { return _params[0]; }
 	inline UChar GetVelocity() const { return _params[1]; }
@@ -166,10 +166,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetNote() const { return _params[0]; }
 	inline UChar GetVelocity() const { return _params[1]; }
@@ -195,10 +195,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetNote() const { return _params[0]; }
 	inline UChar GetValue() const { return _params[1]; }
@@ -224,10 +224,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetController() const { return _params[0]; }
 	inline UChar GetValue() const { return _params[1]; }
@@ -252,10 +252,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetProgram() const { return _params[0]; }
 	inline void SetProgram(UChar program) { _params[0] = program; }
@@ -278,10 +278,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UChar GetPressure() const { return _params[0]; }
 	inline void SetPressure(UChar pressure) { _params[0] = pressure; }
@@ -305,10 +305,10 @@ public:
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline UShort GetValue() const {
 		return (static_cast<UShort>(_params[0]) << 0) +
@@ -336,12 +336,12 @@ public:
 	virtual UChar GetStatusCode() const;
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Event *Clone() const;
 };
@@ -359,13 +359,13 @@ public:
 	inline MetaEvent(ULong timeStamp, UChar eventType) :
 								Event(false, timeStamp), _eventType(eventType) {}
 	inline UChar GetEventType() const { return _eventType; }
-	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
+	virtual bool Prepare(Signal &sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
 	virtual UChar GetStatusCode() const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	static bool Add(Signal sig, Track *pTrack, bool enableRunningStatus,
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
+	static bool Add(Signal &sig, Track *pTrack, bool enableRunningStatus,
 			ULong timeStamp, UChar eventType, const Binary &binary);
-	static void SetError_TooShortMetaEvent(Signal sig);
+	static void SetError_TooShortMetaEvent(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -383,14 +383,14 @@ public:
 										MetaEvent(timeStamp, eventType), _binary(binary) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -411,14 +411,14 @@ public:
 								MetaEvent(timeStamp, EventType), _number(number) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -439,14 +439,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -467,14 +467,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -495,14 +495,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -523,14 +523,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -551,14 +551,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -579,14 +579,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -607,14 +607,14 @@ public:
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -635,14 +635,14 @@ public:
 								MetaEvent(timeStamp, EventType), _channel(channel) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -662,14 +662,14 @@ public:
 	}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -690,14 +690,14 @@ public:
 									MetaEvent(timeStamp, EventType), _mpqn(mpqn) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -722,14 +722,14 @@ public:
 			_frame(frame), _subFrame(subFrame) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -755,14 +755,14 @@ public:
 			_metronome(metronome), _cnt32nd(cnt32nd) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -783,14 +783,14 @@ public:
 					MetaEvent(timeStamp, EventType), _key(key), _scale(scale) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
@@ -811,14 +811,14 @@ public:
 										MetaEvent(timeStamp, EventType), _binary(binary) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
-	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Player *pPlayer) const;
-	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool Prepare(Signal &sig, const Binary &binary);
+	virtual bool Play(Signal &sig, Player *pPlayer) const;
+	virtual bool Write(Signal &sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 

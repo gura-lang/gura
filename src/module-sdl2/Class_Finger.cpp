@@ -20,7 +20,7 @@ String Object_Finger::ToString(bool exprFlag)
 	return String("<sdl2.Finger>");
 }
 
-bool Object_Finger::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Finger::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
@@ -30,7 +30,7 @@ bool Object_Finger::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Finger::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Finger::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -47,7 +47,7 @@ Value Object_Finger::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_Finger::DoSetProp(Environment &env, Signal sig,
+Value Object_Finger::DoSetProp(Environment &env, Signal &sig,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

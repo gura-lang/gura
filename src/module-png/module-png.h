@@ -16,12 +16,12 @@ Gura_BeginModuleHeader(png)
 class ImageStreamer_PNG : public ImageStreamer {
 public:
 	inline ImageStreamer_PNG() : ImageStreamer("png") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -29,10 +29,10 @@ public:
 //-----------------------------------------------------------------------------
 class Handler {
 private:
-	Signal _sig;
+	Signal &_sig;
 	Stream &_stream;
 public:
-	inline Handler(Signal sig, Stream &stream) : _sig(sig), _stream(stream) {}
+	inline Handler(Signal &sig, Stream &stream) : _sig(sig), _stream(stream) {}
 	inline Signal &GetSignal() { return _sig; }
 	inline Stream &GetStream() { return _stream; }
 public:

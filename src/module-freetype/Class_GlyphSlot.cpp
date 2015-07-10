@@ -17,7 +17,7 @@ String Object_GlyphSlot::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_GlyphSlot::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_GlyphSlot::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(advance));
@@ -29,7 +29,7 @@ bool Object_GlyphSlot::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_GlyphSlot::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_GlyphSlot::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -56,7 +56,7 @@ Value Object_GlyphSlot::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_GlyphSlot::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_GlyphSlot::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

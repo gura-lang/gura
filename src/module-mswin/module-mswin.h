@@ -52,7 +52,7 @@ public:
 				Iterator(false), _pObj(pObj), _pEnum(pEnum), _validFlag(false) {}
 		virtual ~IteratorEx();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -65,7 +65,7 @@ public:
 	public:
 		inline CallableOLE(Object_ole *pObj, const Symbol *pSymbol, DISPID dispid) :
 								_pObj(pObj), _pSymbol(pSymbol), _dispid(dispid) {}
-		virtual Value DoCall(Environment &env, Signal sig, Args &argsExpr);
+		virtual Value DoCall(Environment &env, Signal &sig, Args &argsExpr);
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
 	};
 	class CallableOLEList : public std::vector<CallableOLE *> {
@@ -88,21 +88,21 @@ public:
 	virtual ~Object_ole();
 	virtual Object *Clone() const;
 	inline IDispatch *GetDispatch() { return _pDispatch; }
-	bool Create(Signal sig, const char *progID);
-	bool Connect(Signal sig, const char *progID);
-	bool ImportConstant(Environment &env, Signal sig);
+	bool Create(Signal &sig, const char *progID);
+	bool Connect(Signal &sig, const char *progID);
+	bool ImportConstant(Environment &env, Signal &sig);
 	HRESULT GetDispID(const char *name, DISPID &dispid);
 	HRESULT GetDispIDOfNamedArg(
 				const char *nameMethod, const char *name, DISPID &dispid);
-	virtual Iterator *CreateIterator(Signal sig);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Iterator *CreateIterator(Signal &sig);
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
+	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
 	virtual String ToString(bool exprFlag);
-	static void SetError(Signal sig, HRESULT hr);
+	static void SetError(Signal &sig, HRESULT hr);
 };
 
 //-----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ private:
 public:
 	Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDesired);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -131,7 +131,7 @@ private:
 public:
 	Iterator_RegEnumValue(Object_regkey *pObjRegKey);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -142,11 +142,11 @@ public:
 void SetError(Signal &sig, DWORD dwErrCode);
 OLECHAR *StringToBSTR(const char *psz);
 String BSTRToString(const OLECHAR *bstr);
-bool ValueToVariant(Signal sig, VARIANT &var, const Value &value);
-bool VariantToValue(Environment &env, Signal sig, Value &value, const VARIANT &var);
-Value RegDataToValue(Environment &env, Signal sig,
+bool ValueToVariant(Signal &sig, VARIANT &var, const Value &value);
+bool VariantToValue(Environment &env, Signal &sig, Value &value, const VARIANT &var);
+Value RegDataToValue(Environment &env, Signal &sig,
 							DWORD dwType, LPCBYTE lpData, DWORD cbData);
-bool ValueToRegData(Environment &env, Signal sig, const Value &value,
+bool ValueToRegData(Environment &env, Signal &sig, const Value &value,
 							DWORD *pdwType, LPBYTE *lppData, DWORD *pcbData);
 
 Gura_EndModuleHeader(mswin)

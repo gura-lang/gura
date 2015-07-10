@@ -54,7 +54,7 @@ Expr *Module::MakeExpr() const
 	return new Expr_Identifier(_pSymbol);
 }
 
-bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Module::DirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
 		symbols.insert(iter->first);
@@ -69,7 +69,7 @@ void Module::DirValueType(SymbolSet &symbols) const
 	}
 }
 
-bool Module::ImportBuiltIns(Environment &env, Signal sig)
+bool Module::ImportBuiltIns(Environment &env, Signal &sig)
 {
 	Module *pModule = nullptr;
 	// import(basement) {*}

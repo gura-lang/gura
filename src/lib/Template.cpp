@@ -13,14 +13,14 @@ Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
 {
 }
 
-bool Template::Read(Environment &env, Signal sig,
+bool Template::Read(Environment &env, Signal &sig,
 			SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	Parser parser(autoIndentFlag, appendLastEOLFlag);
 	return parser.ParseStream(env, sig, this, streamSrc);
 }
 
-bool Template::Parse(Environment &env, Signal sig,
+bool Template::Parse(Environment &env, Signal &sig,
 		String::const_iterator strSrc, String::const_iterator strSrcEnd,
 		bool autoIndentFlag, bool appendLastEOLFlag)
 {
@@ -28,14 +28,14 @@ bool Template::Parse(Environment &env, Signal sig,
 	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
 }
 
-bool Template::Parse(Environment &env, Signal sig,
+bool Template::Parse(Environment &env, Signal &sig,
 		const char *strSrc, const char *strSrcEnd, bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	SimpleStream_CStringReader streamSrc(strSrc, strSrcEnd);
 	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
 }
 
-bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
+bool Template::Render(Environment &env, Signal &sig, SimpleStream *pStreamDst)
 {
 	Template *pTemplateTop = nullptr;
 	for (Template *pTemplate = this; pTemplate != nullptr;
@@ -56,7 +56,7 @@ bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	return !sig.IsSignalled();
 }
 
-bool Template::Prepare(Environment &env, Signal sig)
+bool Template::Prepare(Environment &env, Signal &sig)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
@@ -80,13 +80,13 @@ const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
 	return nullptr;
 }
 
-void Template::PutChar(Signal sig, char ch)
+void Template::PutChar(Signal &sig, char ch)
 {
 	_pStreamDst->PutChar(sig, ch);
 	_chLast = ch;
 }
 
-void Template::Print(Signal sig, const char *str)
+void Template::Print(Signal &sig, const char *str)
 {
 	_pStreamDst->Print(sig, str);
 	size_t len = ::strlen(str);
@@ -101,7 +101,7 @@ Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 {
 }
 
-bool Template::Parser::ParseStream(Environment &env, Signal sig,
+bool Template::Parser::ParseStream(Environment &env, Signal &sig,
 								Template *pTemplate, SimpleStream &streamSrc)
 {
 	AutoPtr<StringRef> pSourceName(new StringRef(streamSrc.GetName()));
@@ -352,7 +352,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	return true;
 }
 
-bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
+bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
 			const char *strIndent, const char *strTmplScript, const char *strPost,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
@@ -504,7 +504,7 @@ Expr *Expr_TmplString::Clone() const
 	return new Expr_TmplString(*this);
 }
 
-Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_TmplString::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	_pTemplate->Print(sig, _str.c_str());
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
@@ -516,13 +516,13 @@ void Expr_TmplString::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_TmplString::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	//stream.Println(sig, "TmplString");
 	return true;
 }
 
-bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_TmplString::GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
@@ -536,7 +536,7 @@ Expr *Expr_TmplScript::Clone() const
 	return new Expr_TmplScript(*this);
 }
 
-Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_TmplScript::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
 	Value value;
@@ -606,13 +606,13 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	return Value::Null;
 }
 
-bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_TmplScript::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	//stream.Println(sig, "TmplScript");
 	return true;
 }
 
-bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_TmplScript::GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
@@ -622,7 +622,7 @@ Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_TmplScript::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_TmplScript::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }

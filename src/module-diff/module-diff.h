@@ -134,7 +134,7 @@ public:
 	public:
 		IteratorHunk(DiffLine *pDiffLine, Format format, size_t nLinesCommon);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -148,7 +148,7 @@ public:
 		IteratorEdit(DiffLine *pDiffLine);
 		IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -164,19 +164,19 @@ protected:
 	inline ~DiffLine() {}
 public:
 	void Compose();
-	bool PrintHunk(Signal sig, SimpleStream &stream, const Hunk &hunk) const;
-	bool PrintHunks(Signal sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
+	bool PrintHunk(Signal &sig, SimpleStream &stream, const Hunk &hunk) const;
+	bool PrintHunks(Signal &sig, SimpleStream &stream, Format format, size_t nLinesCommon) const;
 	bool NextHunk(size_t *pIdxEdit, Format format, size_t nLinesCommon, Hunk *pHunk) const;
 	void FeedString(size_t iSeq, const char *src);
-	bool FeedStream(Signal sig, size_t iSeq, Stream &stream);
-	bool FeedIterator(Environment &env, Signal sig, size_t iSeq, Iterator *pIterator);
+	bool FeedStream(Signal &sig, size_t iSeq, Stream &stream);
+	bool FeedIterator(Environment &env, Signal &sig, size_t iSeq, Iterator *pIterator);
 	void FeedList(size_t iSeq, const ValueList &valList);
 	DiffChar *CreateDiffChar(EditList::const_iterator pEditBegin,
 							 EditList::const_iterator pEditEnd);
 	DiffChar *CreateDiffChar(size_t idxEditBegin, size_t idxEditEnd);
 	static String TextizeEdit_Normal(const Edit &edit);
 	static String TextizeEdit_Unified(const Edit &edit);
-	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
+	static Format SymbolToFormat(Signal &sig, const Symbol *pSymbol);
 	inline bool GetIgnoreCaseFlag() const { return cmp.GetIgnoreCaseFlag(); }
 	inline Sequence &GetSequence(size_t iSeq) { return (iSeq == 0)? getA() : getB(); }
 	inline long long GetEditDistance() const { return getEditDistance(); }
@@ -236,7 +236,7 @@ public:
 	public:
 		IteratorEdit(EditOwner *pEditOwner, FilterType filterType);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -328,7 +328,7 @@ private:
 public:
 	IteratorSyncLine(Sync *pSync, Target target);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -347,8 +347,8 @@ public:
 	inline Object_diff_at_line(DiffLine *pDiffLine) :
 		Object(Gura_UserClass(diff_at_line)), _pDiffLine(pDiffLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
@@ -370,8 +370,8 @@ public:
 	inline Object_hunk_at_line(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
 		Object(Gura_UserClass(hunk_at_line)), _pDiffLine(pDiffLine), _hunk(hunk) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	const DiffChar *GetDiffChar();
@@ -394,8 +394,8 @@ public:
 	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
 		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
@@ -416,8 +416,8 @@ public:
 	inline Object_diff_at_char(DiffChar *pDiffChar) :
 		Object(Gura_UserClass(diff_at_char)), _pDiffChar(pDiffChar) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffChar *GetDiffChar() { return _pDiffChar.get(); }
@@ -437,8 +437,8 @@ public:
 	inline Object_edit_at_char(DiffChar::Edit *pEdit) :
 		Object(Gura_UserClass(edit_at_char)), _pEdit(pEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffChar::Edit *GetEdit() { return _pEdit.get(); }
@@ -457,8 +457,8 @@ public:
 public:
 	inline Object_sync(Sync *pSync) : Object(Gura_UserClass(sync)), _pSync(pSync) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	Sync *GetSync() { return _pSync.get(); }
@@ -478,8 +478,8 @@ public:
 	inline Object_syncline(SyncLine *pSyncLine) :
 			Object(Gura_UserClass(syncline)), _pSyncLine(pSyncLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	SyncLine *GetSyncLine() { return _pSyncLine.get(); }

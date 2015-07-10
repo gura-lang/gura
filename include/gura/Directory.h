@@ -46,7 +46,7 @@ public:
 				Directory *pDirectory, int depthMax, const StringList &patterns);
 		~Iterator_Walk();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -68,9 +68,9 @@ public:
 		Iterator_Glob(bool addSepFlag, bool statFlag,
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag);
 		~Iterator_Glob();
-		bool Init(Environment &env, Signal sig, const char *pattern);
+		bool Init(Environment &env, Signal &sig, const char *pattern);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -103,19 +103,19 @@ public:
 	inline bool DoesMatchName(const char *pattern, bool ignoreCaseFlag) const {
 		return PathMgr::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
-	Directory *Next(Environment &env, Signal sig);
-	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
+	Directory *Next(Environment &env, Signal &sig);
+	inline Object *GetStatObj(Signal &sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = nullptr) const;
 	int CountDepth() const;
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr) = 0;
+	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr) = 0;
 public:
-	static Directory *Open(Environment &env, Signal sig,
+	static Directory *Open(Environment &env, Signal &sig,
 					const char *pathName, PathMgr::NotFoundMode notFoundMode);
-	static Directory *Open(Environment &env, Signal sig, Directory *pParent,
+	static Directory *Open(Environment &env, Signal &sig, Directory *pParent,
 					const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 protected:
-	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
-	virtual Object *DoGetStatObj(Signal sig);
+	virtual Directory *DoNext(Environment &env, Signal &sig) = 0;
+	virtual Object *DoGetStatObj(Signal &sig);
 };
 
 namespace DirBuilder {
@@ -187,7 +187,7 @@ public:
 	inline void SetRoot(Record *pRecordRoot) { _pRecordRoot = pRecordRoot; }
 	inline Record *GetRoot() { return _pRecordRoot; }
 	Record *AddRecord(const char *pathName);
-	Directory *GenerateDirectory(Signal sig, Directory *pParent,
+	Directory *GenerateDirectory(Signal &sig, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 };
 

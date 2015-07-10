@@ -15,7 +15,7 @@ namespace Gura {
 void PrintVersion(FILE *fp);
 void PrintHelp(FILE *fp);
 
-void ReadEvalPrintLoop(Environment &env, Signal sig);
+void ReadEvalPrintLoop(Environment &env, Signal &sig);
 
 //-----------------------------------------------------------------------------
 // Main entry
@@ -191,7 +191,7 @@ void PrintHelp(FILE *fp)
 }
 
 #if defined(GURA_ON_MSWIN)
-void ReadEvalPrintLoop(Environment &env, Signal sig)
+void ReadEvalPrintLoop(Environment &env, Signal &sig)
 {
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);
@@ -208,7 +208,7 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 	}
 }
 #else
-void ReadEvalPrintLoop(Environment &env, Signal sig)
+void ReadEvalPrintLoop(Environment &env, Signal &sig)
 {
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);

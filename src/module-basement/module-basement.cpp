@@ -357,7 +357,7 @@ Gura_DeclareFunction(dim)
 		"    // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]\n");
 }
 
-bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, ValueList &valListParent,
+bool Func_dim_Sub(Environment &env, Signal &sig, const Function *pFuncBlock, ValueList &valListParent,
 	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
 {
 	if (pCnt + 1 == cntList.end()) {
@@ -1658,7 +1658,7 @@ private:
 	ValueType _valType;
 public:
 	Gura_Function(istype_)(Environment &env, const char *name, ValueType valType);
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
 };
 Gura_Function(istype_)::Gura_Function(istype_)(
 					Environment &env, const char *name, ValueType valType) :

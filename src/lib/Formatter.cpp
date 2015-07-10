@@ -8,19 +8,19 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Formatter
 //-----------------------------------------------------------------------------
-bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valList)
+bool Formatter::DoFormat(Signal &sig, const char *format, const ValueList &valList)
 {
 	Source_ValueList source(valList);
 	return DoFormat(sig, format, source);
 }
 
-bool Formatter::DoFormat(Signal sig, const char *format, va_list ap)
+bool Formatter::DoFormat(Signal &sig, const char *format, va_list ap)
 {
 	Source_va_list source(ap);
 	return DoFormat(sig, format, source);
 }
 
-bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
+bool Formatter::DoFormat(Signal &sig, const char *format, Source &source)
 {
 	bool eatNextFlag;
 	const char *formatp = format;
@@ -203,13 +203,13 @@ bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
 	return !sig.IsSignalled();
 }
 
-bool Formatter::PutString(Signal sig, const char *p)
+bool Formatter::PutString(Signal &sig, const char *p)
 {
 	for ( ; *p != '\0'; p++) if (!PutChar(sig, *p)) return false;
 	return true;
 }
 
-bool Formatter::PutAlignedString(Signal sig, const Flags &flags, const char *p, int cntMax)
+bool Formatter::PutAlignedString(Signal &sig, const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
 	if (cntMax >= 0 && cnt > cntMax) cnt = cntMax;
@@ -224,7 +224,7 @@ bool Formatter::PutAlignedString(Signal sig, const Flags &flags, const char *p, 
 	return true;
 }
 
-bool Formatter::PutInvalid(Signal sig, const Flags &flags)
+bool Formatter::PutInvalid(Signal &sig, const Flags &flags)
 {
 	if (!_nilVisibleFlag) return true;
 	std::string str;
@@ -232,28 +232,28 @@ bool Formatter::PutInvalid(Signal sig, const Flags &flags)
 	return PutAlignedString(sig, flags, str.c_str());
 }
 
-String Formatter::Format(Signal sig, const char *format, ...)
+String Formatter::Format(Signal &sig, const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);
 	return Formatter::FormatV(sig, format, ap);
 }
 
-String Formatter::FormatV(Signal sig, const char *format, va_list ap)
+String Formatter::FormatV(Signal &sig, const char *format, va_list ap)
 {
 	FormatterString formatter;
 	formatter.DoFormat(sig, format, ap);
 	return formatter.GetStringSTL();
 }
 
-String Formatter::FormatValueList(Signal sig, const char *format, const ValueList &valList)
+String Formatter::FormatValueList(Signal &sig, const char *format, const ValueList &valList)
 {
 	FormatterString formatter;
 	formatter.DoFormat(sig, format, valList);
 	return formatter.GetStringSTL();
 }
 
-Value Formatter::FormatIterator(Environment &env, Signal sig,
+Value Formatter::FormatIterator(Environment &env, Signal &sig,
 						const char *format, IteratorOwner &iterOwner)
 {
 	Value result;
@@ -590,7 +590,7 @@ Value Formatter::Source_va_list::GetString()
 //-----------------------------------------------------------------------------
 // FormatterString
 //-----------------------------------------------------------------------------
-bool FormatterString::PutChar(Signal slg, char ch)
+bool FormatterString::PutChar(Signal &sig, char ch)
 {
 	_str += ch;
 	return true;

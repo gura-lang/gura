@@ -15,7 +15,7 @@ Object_Writer_surface::~Object_Writer_surface()
 	_pWriter = nullptr;
 }
 
-bool Object_Writer_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Writer_surface::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object_surface::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(stream));
@@ -24,7 +24,7 @@ bool Object_Writer_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &s
 	return true;
 }
 
-Value Object_Writer_surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Writer_surface::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -355,7 +355,7 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 }
 
 template<typename T_Elem, typename T_ElemResult>
-Value Pos_Array(Environment &env, Signal sig, const Value &value, ValueType valTypeResult)
+Value Pos_Array(Environment &env, Signal &sig, const Value &value, ValueType valTypeResult)
 {
 	LoopOn_Array() {
 		*pResult = static_cast<T_ElemResult>(*pElem);
@@ -449,7 +449,7 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 }
 
 template<typename T_Elem, typename T_ElemResult>
-Value Neg_Array(Environment &env, Signal sig, const Value &value, ValueType valTypeResult)
+Value Neg_Array(Environment &env, Signal &sig, const Value &value, ValueType valTypeResult)
 {
 	LoopOn_Array() {
 		*pResult = -static_cast<T_ElemResult>(*pElem);
@@ -701,7 +701,7 @@ Gura_ImplementBinaryOperator(Add, any, string)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Add_ArrayAndArray(Environment &env, Signal sig,
+Value Add_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -711,7 +711,7 @@ Value Add_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Add_ArrayAndNumber(Environment &env, Signal sig,
+Value Add_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -721,7 +721,7 @@ Value Add_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Add_NumberAndArray(Environment &env, Signal sig,
+Value Add_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -861,7 +861,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Sub_ArrayAndArray(Environment &env, Signal sig,
+Value Sub_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -871,7 +871,7 @@ Value Sub_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Sub_ArrayAndNumber(Environment &env, Signal sig,
+Value Sub_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -881,7 +881,7 @@ Value Sub_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Sub_NumberAndArray(Environment &env, Signal sig,
+Value Sub_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1051,7 +1051,7 @@ Gura_ImplementBinaryOperator(Mul, number, binary)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Mul_ArrayAndArray(Environment &env, Signal sig,
+Value Mul_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1061,7 +1061,7 @@ Value Mul_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Mul_ArrayAndNumber(Environment &env, Signal sig,
+Value Mul_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1071,7 +1071,7 @@ Value Mul_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Mul_NumberAndArray(Environment &env, Signal sig,
+Value Mul_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1171,7 +1171,7 @@ Gura_ImplementBinaryOperator(Div, matrix, any)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Div_ArrayAndArray(Environment &env, Signal sig,
+Value Div_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1185,7 +1185,7 @@ Value Div_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Div_ArrayAndNumber(Environment &env, Signal sig,
+Value Div_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
@@ -1205,7 +1205,7 @@ Value Div_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Div_NumberAndArray(Environment &env, Signal sig,
+Value Div_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1234,7 +1234,7 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Mod_ArrayAndArray(Environment &env, Signal sig,
+Value Mod_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1248,7 +1248,7 @@ Value Mod_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Mod_ArrayAndNumber(Environment &env, Signal sig,
+Value Mod_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	Array<T_ElemLeft> *pArrayLeft = Object_array<T_ElemLeft>::GetObject(valueLeft)->GetArray();
@@ -1268,7 +1268,7 @@ Value Mod_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Mod_NumberAndArray(Environment &env, Signal sig,
+Value Mod_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1307,7 +1307,7 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Pow_ArrayAndArray(Environment &env, Signal sig,
+Value Pow_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1317,7 +1317,7 @@ Value Pow_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Pow_ArrayAndNumber(Environment &env, Signal sig,
+Value Pow_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1327,7 +1327,7 @@ Value Pow_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Pow_NumberAndArray(Environment &env, Signal sig,
+Value Pow_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1557,7 +1557,7 @@ Gura_ImplementBinaryOperator(And, any, nil)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value And_ArrayAndArray(Environment &env, Signal sig,
+Value And_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1567,7 +1567,7 @@ Value And_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value And_ArrayAndNumber(Environment &env, Signal sig,
+Value And_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1577,7 +1577,7 @@ Value And_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value And_NumberAndArray(Environment &env, Signal sig,
+Value And_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1612,7 +1612,7 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Or_ArrayAndArray(Environment &env, Signal sig,
+Value Or_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1622,7 +1622,7 @@ Value Or_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Or_ArrayAndNumber(Environment &env, Signal sig,
+Value Or_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1632,7 +1632,7 @@ Value Or_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Or_NumberAndArray(Environment &env, Signal sig,
+Value Or_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1660,7 +1660,7 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Xor_ArrayAndArray(Environment &env, Signal sig,
+Value Xor_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1670,7 +1670,7 @@ Value Xor_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Xor_ArrayAndNumber(Environment &env, Signal sig,
+Value Xor_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1680,7 +1680,7 @@ Value Xor_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Xor_NumberAndArray(Environment &env, Signal sig,
+Value Xor_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1701,7 +1701,7 @@ Gura_ImplementBinaryOperator(Shl, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Shl_ArrayAndArray(Environment &env, Signal sig,
+Value Shl_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1711,7 +1711,7 @@ Value Shl_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Shl_ArrayAndNumber(Environment &env, Signal sig,
+Value Shl_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1721,7 +1721,7 @@ Value Shl_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Shl_NumberAndArray(Environment &env, Signal sig,
+Value Shl_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1742,7 +1742,7 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
-Value Shr_ArrayAndArray(Environment &env, Signal sig,
+Value Shr_ArrayAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndArray() {
@@ -1752,7 +1752,7 @@ Value Shr_ArrayAndArray(Environment &env, Signal sig,
 }
 
 template<typename T_ElemLeft, typename T_ElemResult>
-Value Shr_ArrayAndNumber(Environment &env, Signal sig,
+Value Shr_ArrayAndNumber(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayAndNumber() {
@@ -1762,7 +1762,7 @@ Value Shr_ArrayAndNumber(Environment &env, Signal sig,
 }
 
 template<typename T_ElemRight, typename T_ElemResult>
-Value Shr_NumberAndArray(Environment &env, Signal sig,
+Value Shr_NumberAndArray(Environment &env, Signal &sig,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArray() {
@@ -1829,14 +1829,14 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 //-----------------------------------------------------------------------------
 // OperatorEntryCustom
 //-----------------------------------------------------------------------------
-Value OperatorEntryCustom::DoEval(Environment &env, Signal sig, const Value &value) const
+Value OperatorEntryCustom::DoEval(Environment &env, Signal &sig, const Value &value) const
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(value);
 	return _pFunc->Eval(env, sig, *pArgs);
 }
 
-Value OperatorEntryCustom::DoEval(Environment &env, Signal sig,
+Value OperatorEntryCustom::DoEval(Environment &env, Signal &sig,
 					const Value &valueLeft, const Value &valueRight) const
 {
 	AutoPtr<Args> pArgs(new Args());

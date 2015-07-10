@@ -16,14 +16,14 @@ Object_mpf::Object_mpf(const mpf_class &num) : Object(Gura_UserClass(mpf)), _num
 {
 }
 
-bool Object_mpf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_mpf::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(prec));
 	return true;
 }
 
-Value Object_mpf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_mpf::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -34,7 +34,7 @@ Value Object_mpf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_mpf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_mpf::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -249,21 +249,21 @@ Gura_ImplementCastTo(mpf)
 	return false;
 }
 
-bool Gura_ClassName(mpf)::Format_d(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_d(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	mpz_class num(Object_mpf::GetEntity(value));
 	return _Format_d(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_u(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_u(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	mpz_class num(Object_mpf::GetEntity(value));
 	return _Format_u(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_b(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_b(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	//mpz_class num(Object_mpf::GetEntity(value));
@@ -271,33 +271,33 @@ bool Gura_ClassName(mpf)::Format_b(Signal sig, Formatter *pFormatter,
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
-bool Gura_ClassName(mpf)::Format_o(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_o(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	mpz_class num(Object_mpf::GetEntity(value));
 	return _Format_o(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_x(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_x(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	mpz_class num(Object_mpf::GetEntity(value));
 	return _Format_x(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_e(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_e(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_e(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
-bool Gura_ClassName(mpf)::Format_f(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_f(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_f(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
-bool Gura_ClassName(mpf)::Format_g(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_g(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_g(sig, pFormatter, flags, Object_mpf::GetEntity(value));

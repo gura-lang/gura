@@ -52,7 +52,7 @@ enum {
 	K_DELETE,
 };
 
-bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
+bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum);
 
 //-----------------------------------------------------------------------------
 // Gura module functions: conio
@@ -607,7 +607,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility function
 //-----------------------------------------------------------------------------
-bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
+bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum)
 {
 #if defined(GURA_ON_MSWIN)
 	int num =

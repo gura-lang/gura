@@ -50,7 +50,7 @@ public:
 	void FillZero() {
 		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
 	}
-	bool Paste(Signal sig, size_t offset, const Array *pArraySrc) {
+	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc) {
 		if (GetSize() < offset + pArraySrc->GetSize()) {
 			sig.SetError(ERR_OutOfRangeError, "out of range");
 			return false;
@@ -59,22 +59,22 @@ public:
 				 sizeof(T_Elem) * pArraySrc->GetSize());
 		return true;
 	}
-	void Dump(Signal sig, Stream &stream, bool upperFlag) const {
+	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
 	}
 private:
 	inline ~Array() {}
 };
 
-template<> GURA_DLLDECLARE void Array<char>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UChar>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<short>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UShort>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<long>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<ULong>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<int>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UInt>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<float>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<double>::Dump(Signal sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<long>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<ULong>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<int>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UInt>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 
 //-----------------------------------------------------------------------------
 // Iterator_Array
@@ -87,7 +87,7 @@ private:
 public:
 	inline Iterator_Array(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
 	virtual Iterator *GetSource() { return nullptr; }
-	virtual bool DoNext(Environment &env, Signal sig, Value &value) {
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value) {
 		if (_idx >= _pArray->GetSize()) return false;
 		value = Value(*(_pArray->GetPointer() + _idx));
 		_idx++;
@@ -126,7 +126,7 @@ Array<T_Elem> *CreateArrayFromList(const ValueList &valList)
 }
 
 template<typename T_Elem>
-Array<T_Elem> *CreateArrayFromList(Signal sig, const ValueList &valList)
+Array<T_Elem> *CreateArrayFromList(Signal &sig, const ValueList &valList)
 {
 	AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
 	T_Elem *p = pArray->GetPointer();

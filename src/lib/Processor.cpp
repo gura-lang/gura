@@ -18,7 +18,7 @@ Sequence::~Sequence()
 {
 }
 
-bool Sequence::Step(Signal sig, Value &result)
+bool Sequence::Step(Signal &sig, Value &result)
 {
 	if (!DoStep(sig, result)) return false;
 	if (CheckDone() && !_pSeqPostHandler.IsNull()) {
@@ -29,7 +29,7 @@ bool Sequence::Step(Signal sig, Value &result)
 	return true;
 }
 
-Value Sequence::Return(Signal sig, Sequence *pSequence)
+Value Sequence::Return(Signal &sig, Sequence *pSequence)
 {
 	Value result;
 	while (!pSequence->CheckDone()) {
@@ -72,7 +72,7 @@ Processor::Processor() : _cntRef(1)
 {
 }
 
-bool Processor::Step(Signal sig, Value &result)
+bool Processor::Step(Signal &sig, Value &result)
 {
 	if (CheckDone()) return true;
 	Sequence *pSequence = _sequenceStack.back();
@@ -88,7 +88,7 @@ bool Processor::Step(Signal sig, Value &result)
 	return true;
 }
 
-Value Processor::Run(Signal sig)
+Value Processor::Run(Signal &sig)
 {
 	Value result;
 	while (!CheckDone()) {
@@ -97,7 +97,7 @@ Value Processor::Run(Signal sig)
 	return result;
 }
 
-Value Processor::Run(Environment *pEnv, Signal sig, const Expr *pExpr)
+Value Processor::Run(Environment *pEnv, Signal &sig, const Expr *pExpr)
 {
 	AutoPtr<Processor> pProcessor(new Processor());
 	if (pExpr->IsRoot()) {

@@ -78,7 +78,7 @@ struct Color {
 	inline Color() : _red(0), _blue(0), _green(0) {}
 	inline Color(UChar red, UChar blue, UChar green) :
 									_red(red), _blue(blue), _green(green) {}
-	Color(Signal sig, const Value &value);
+	Color(Signal &sig, const Value &value);
 #if defined(GURA_ON_MSWIN)
 	inline COLORREF ToWin32() const { return RGB(_red, _blue, _green); }
 #endif
@@ -101,25 +101,25 @@ public:
 		if (pDevice != nullptr && pDevice->DecRef() <= 0) delete pDevice;
 	}
 	virtual ~Device();
-	Value Initialize(Environment &env, Signal sig, const Function *pFuncBlock);
+	Value Initialize(Environment &env, Signal &sig, const Function *pFuncBlock);
 	virtual const char *GetName() const = 0;
 	virtual void Close() = 0;
-	virtual void Fill(Signal sig, const Value &color) = 0;
-	virtual void SetPen(Signal sig, const Value &color, Number width, const Symbol *pSymbol) = 0;
-	virtual void SetBrush(Signal sig, const Value &color, const Symbol *pSymbol) = 0;
-	virtual void SetFont(Signal sig, Number height,
+	virtual void Fill(Signal &sig, const Value &color) = 0;
+	virtual void SetPen(Signal &sig, const Value &color, Number width, const Symbol *pSymbol) = 0;
+	virtual void SetBrush(Signal &sig, const Value &color, const Symbol *pSymbol) = 0;
+	virtual void SetFont(Signal &sig, Number height,
 			const Symbol *family, const Symbol *style, const Symbol *weight,
 			const char *faceName) = 0;
-	virtual void SetTextColor(Signal sig, const Value &color) = 0;
-	virtual void Text(Signal sig, Number x, Number y, const char *text, Number wdBound, Number htBound, Anchor anchor) = 0;
-	virtual void TextRot(Signal sig, Number x, Number y, const char *text, Number angle) = 0;
-	virtual void Line(Signal sig, Number x1, Number y1, Number x2, Number y2) = 0;
-	virtual void Rectangle(Signal sig, Number x, Number y, Number width, Number height, Anchor anchor) = 0;
-	virtual void Ellipse(Signal sig, Number x, Number y, Number width, Number height, Anchor anchor) = 0;
-	virtual void Pie(Signal sig, Number x, Number y, Number width, Number height,
+	virtual void SetTextColor(Signal &sig, const Value &color) = 0;
+	virtual void Text(Signal &sig, Number x, Number y, const char *text, Number wdBound, Number htBound, Anchor anchor) = 0;
+	virtual void TextRot(Signal &sig, Number x, Number y, const char *text, Number angle) = 0;
+	virtual void Line(Signal &sig, Number x1, Number y1, Number x2, Number y2) = 0;
+	virtual void Rectangle(Signal &sig, Number x, Number y, Number width, Number height, Anchor anchor) = 0;
+	virtual void Ellipse(Signal &sig, Number x, Number y, Number width, Number height, Anchor anchor) = 0;
+	virtual void Pie(Signal &sig, Number x, Number y, Number width, Number height,
 								Number degStart, Number degEnd, Anchor anchor) = 0;
-	virtual void Polygon(Signal sig, const ValueList &xs, const ValueList &ys, bool closeFlag) = 0;
-	virtual void Polygon(Signal sig, const ValueList &pts, bool closeFlag) = 0;
+	virtual void Polygon(Signal &sig, const ValueList &xs, const ValueList &ys, bool closeFlag) = 0;
+	virtual void Polygon(Signal &sig, const ValueList &pts, bool closeFlag) = 0;
 	inline Number GetWidth() const { return _width; }
 	inline Number GetHeight() const { return _height; }
 };
@@ -154,7 +154,7 @@ private:
 	RECT _rc;
 	LOGFONT _lf;
 public:
-	Device_EnhMetaFile(Signal sig, const char *fileName,
+	Device_EnhMetaFile(Signal &sig, const char *fileName,
 		Number width, Number height, const char *appName, const char *imageName);
 	inline POINT ToPoint(Number x, Number y) {
 		POINT pt;
@@ -165,22 +165,22 @@ public:
 	virtual ~Device_EnhMetaFile();
 	virtual const char *GetName() const;
 	virtual void Close();
-	virtual void Fill(Signal sig, const Value &color);
-	virtual void SetPen(Signal sig, const Value &color, Number width, const Symbol *pSymbol);
-	virtual void SetBrush(Signal sig, const Value &color, const Symbol *pSymbol);
-	virtual void SetFont(Signal sig, Number height,
+	virtual void Fill(Signal &sig, const Value &color);
+	virtual void SetPen(Signal &sig, const Value &color, Number width, const Symbol *pSymbol);
+	virtual void SetBrush(Signal &sig, const Value &color, const Symbol *pSymbol);
+	virtual void SetFont(Signal &sig, Number height,
 			const Symbol *family, const Symbol *style, const Symbol *weight,
 			const char *faceName);
-	virtual void SetTextColor(Signal sig, const Value &color);
-	virtual void Text(Signal sig, Number x, Number y, const char *text, Number wdBound, Number htBound, Anchor anchor);
-	virtual void TextRot(Signal sig, Number x, Number y, const char *text, Number angle);
-	virtual void Line(Signal sig, Number x1, Number y1, Number x2, Number y2);
-	virtual void Rectangle(Signal sig, Number x, Number y, Number width, Number height, Anchor anchor);
-	virtual void Ellipse(Signal sig, Number x, Number y, Number width, Number height, Anchor anchor);
-	virtual void Pie(Signal sig, Number x, Number y, Number width, Number height,
+	virtual void SetTextColor(Signal &sig, const Value &color);
+	virtual void Text(Signal &sig, Number x, Number y, const char *text, Number wdBound, Number htBound, Anchor anchor);
+	virtual void TextRot(Signal &sig, Number x, Number y, const char *text, Number angle);
+	virtual void Line(Signal &sig, Number x1, Number y1, Number x2, Number y2);
+	virtual void Rectangle(Signal &sig, Number x, Number y, Number width, Number height, Anchor anchor);
+	virtual void Ellipse(Signal &sig, Number x, Number y, Number width, Number height, Anchor anchor);
+	virtual void Pie(Signal &sig, Number x, Number y, Number width, Number height,
 								Number degStart, Number degEnd, Anchor anchor);
-	virtual void Polygon(Signal sig, const ValueList &xs, const ValueList &ys, bool closeFlag);
-	virtual void Polygon(Signal sig, const ValueList &pts, bool closeFlag);
+	virtual void Polygon(Signal &sig, const ValueList &xs, const ValueList &ys, bool closeFlag);
+	virtual void Polygon(Signal &sig, const ValueList &pts, bool closeFlag);
 private:
 	static void PrepareSimpleLogfont(LOGFONT *plf, LONG lHeight, LPCTSTR pszFaceName);
 	static void MakeRect(RECT *prc, const POINT &pt, int width, int height, Anchor anchor);

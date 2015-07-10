@@ -15,14 +15,14 @@ Gura_BeginModuleHeader(ppm)
 class ImageStreamer_PPM : public ImageStreamer {
 public:
 	inline ImageStreamer_PPM() : ImageStreamer("ppm") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal sig, Image *pImage,
+	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal &sig, Image *pImage,
 										Stream &stream, bool grayFlag);
-	static void SetError_InvalidPPMFormat(Signal sig);
+	static void SetError_InvalidPPMFormat(Signal &sig);
 };
 
 Gura_EndModuleHeader(ppm)

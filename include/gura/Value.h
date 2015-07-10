@@ -389,17 +389,17 @@ public:
 	const Expr *GetExpr() const;
 	//-----------------------
 	bool Is(const Value &value) const;
-	Value EmptyIndexGet(Environment &env, Signal sig) const;
-	void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
-	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
-	void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
+	Value EmptyIndexGet(Environment &env, Signal &sig) const;
+	void EmptyIndexSet(Environment &env, Signal &sig, const Value &value);
+	Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const;
+	void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	bool DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool escalateFlag);
 	void DirValueType(SymbolSet &symbols, bool escalateFlag);
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
-	Fundamental *ExtractFundamental(Signal sig);
-	inline Fundamental *ExtractFundamental(Signal sig) const {
+	Fundamental *ExtractFundamental(Signal &sig);
+	inline Fundamental *ExtractFundamental(Signal &sig) const {
 		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
@@ -409,7 +409,7 @@ public:
 	const Fundamental *GetFundamental() const {
 		return const_cast<Value *>(this)->GetFundamental();
 	}
-	Iterator *CreateIterator(Signal sig) const;
+	Iterator *CreateIterator(Signal &sig) const;
 	String ToString(bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;
 	bool Accept(ValueVisitor &visitor) const;
@@ -422,9 +422,9 @@ public:
 	ValueList &InitAsList(Environment &env, const ValueList &valList);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
-	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;
+	bool CastType(Environment &env, Signal &sig, ValueType valType, Value &valueCasted) const;
 public:
-	static int Compare(Environment &env, Signal sig, const Value &value1, const Value &value2);
+	static int Compare(Environment &env, Signal &sig, const Value &value1, const Value &value2);
 	static int CompareBoolean(bool flag1, bool flag2);
 	static int CompareComplex(const Complex &comp1, const Complex &comp2);
 	static int CompareNumber(Number num1, Number num2);
@@ -454,8 +454,8 @@ public:
 	static Value CreateList(Environment &env, const float *buff, size_t n);
 	static Value CreateList(Environment &env, const double *buff, size_t n);
 	static Value CreateList(Environment &env, const char *strs[], size_t n);
-	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
-	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
+	static bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value);
+	static bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value, bool mustBeValidFlag);
 public:
 	friend void Gura_CopyValue(Value &valueDst, const Value &valueSrc);
 	friend void Gura_ReleaseValue(Value &value);
@@ -505,24 +505,24 @@ public:
 	}
 	ValueList(const ValueList &valList);
 	bool IsFlat() const;
-	bool DoesContain(Environment &env, Signal sig, const Value &value) const;
+	bool DoesContain(Environment &env, Signal &sig, const Value &value) const;
 	bool DoesContainIterator() const;
 	bool CheckMatrix(size_t *pnRow, size_t *pnCol) const;
 	void ExtractFlat(ValueList &valList) const;
 	bool Accept(ValueVisitor &visitor) const;
 	void Append(const ValueList &valList);
-	bool Append(Environment &env, Signal sig, Iterator *pIterator);
+	bool Append(Environment &env, Signal &sig, Iterator *pIterator);
 	String Join(const char *sep) const;
-	Binary Joinb(Signal sig) const;
-	void Print(Signal sig, int indentLevel = 0) const;
-	void PrintEach(Environment &env, Signal sig, Stream *pStream) const;
-	void PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format) const;
-	void PrintlnEach(Environment &env, Signal sig, Stream *pStream) const;
-	bool ToStringList(Signal sig, StringList &strList) const;
-	static bool AssumeSameLength(Signal sig,
+	Binary Joinb(Signal &sig) const;
+	void Print(Signal &sig, int indentLevel = 0) const;
+	void PrintEach(Environment &env, Signal &sig, Stream *pStream) const;
+	void PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format) const;
+	void PrintlnEach(Environment &env, Signal &sig, Stream *pStream) const;
+	bool ToStringList(Signal &sig, StringList &strList) const;
+	static bool AssumeSameLength(Signal &sig,
 					const ValueList &valList1, const ValueList &valList2);
-	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
-	bool Deserialize(Environment &env, Signal sig, Stream &stream);
+	bool Serialize(Environment &env, Signal &sig, Stream &stream) const;
+	bool Deserialize(Environment &env, Signal &sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -583,13 +583,13 @@ public:
 private:
 	inline ~ValueDict() {}
 public:
-	const Value *Find(Signal sig, const Value &valueIdx) const;
-	bool Store(Signal sig, const ValueList &valList, StoreMode storeMode);
-	bool Store(Signal sig, const ValueDict &valDict, StoreMode storeMode);
-	bool Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode);
+	const Value *Find(Signal &sig, const Value &valueIdx) const;
+	bool Store(Signal &sig, const ValueList &valList, StoreMode storeMode);
+	bool Store(Signal &sig, const ValueDict &valDict, StoreMode storeMode);
+	bool Store(Signal &sig, const Value &valueIdx, const Value &value, StoreMode storeMode);
 	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
-	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
-	bool Deserialize(Environment &env, Signal sig, Stream &stream);
+	bool Serialize(Environment &env, Signal &sig, Stream &stream) const;
+	bool Deserialize(Environment &env, Signal &sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------

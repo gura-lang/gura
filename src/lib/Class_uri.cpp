@@ -17,7 +17,7 @@ Object *Object_uri::Clone() const
 	return new Object_uri(*this);
 }
 
-bool Object_uri::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_uri::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(scheme));
@@ -30,7 +30,7 @@ bool Object_uri::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_uri::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_uri::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -53,7 +53,7 @@ Value Object_uri::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_uri::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_uri::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -209,7 +209,7 @@ void Class_uri::Prepare(Environment &env)
 	Gura_AssignMethod(uri, parsequery);
 }
 
-bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_uri::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		AutoPtr<Object_uri> pObj(new Object_uri(env));
@@ -220,7 +220,7 @@ bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Decla
 	return false;
 }
 
-Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_uri::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

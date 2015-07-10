@@ -15,9 +15,9 @@ class GURA_DLLDECLARE Class_matrix : public Class {
 public:
 	Class_matrix(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -33,9 +33,9 @@ public:
 	Object_matrix(const Object_matrix &obj);
 	virtual ~Object_matrix();
 	virtual Object *Clone() const;
-	virtual Value EmptyIndexGet(Environment &env, Signal sig);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
+	virtual Value EmptyIndexGet(Environment &env, Signal &sig);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
 	virtual String ToString(bool exprFlag);
 	Matrix *GetMatrix() { return _pMat.get(); }
 	const Matrix *GetMatrix() const { return _pMat.get(); }

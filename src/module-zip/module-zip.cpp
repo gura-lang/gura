@@ -9,7 +9,7 @@ Gura_BeginModuleBody(zip)
 //-----------------------------------------------------------------------------
 // Implementation of Object_reader
 //-----------------------------------------------------------------------------
-Object_reader::Object_reader(Signal sig, Stream *pStreamSrc) :
+Object_reader::Object_reader(Signal &sig, Stream *pStreamSrc) :
 				Object(Gura_UserClass(reader)), _pStreamSrc(pStreamSrc)
 {
 }
@@ -45,7 +45,7 @@ String Object_reader::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_reader::ReadDirectory(Environment &env, Signal sig)
+bool Object_reader::ReadDirectory(Environment &env, Signal &sig)
 {
 	if (!_pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, _pStreamSrc.release(), true);
@@ -167,7 +167,7 @@ Gura_ImplementUserClass(reader)
 //-----------------------------------------------------------------------------
 // Implementation of Object_writer
 //-----------------------------------------------------------------------------
-Object_writer::Object_writer(Signal sig, Stream *pStreamDst,
+Object_writer::Object_writer(Signal &sig, Stream *pStreamDst,
 											UShort compressionMethod) :
 		Object(Gura_UserClass(writer)), _sig(sig),
 		_pStreamDst(pStreamDst), _compressionMethod(compressionMethod)
@@ -206,7 +206,7 @@ String Object_writer::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
+bool Object_writer::Add(Environment &env, Signal &sig, Stream &streamSrc,
 					const char *fileName, UShort compressionMethod)
 {
 	if (_pStreamDst.IsNull()) {
@@ -459,7 +459,7 @@ Iterator *Iterator_Entry::GetSource()
 	return nullptr;
 }
 
-bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_Entry::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_ppHdr == _pObjZipR->GetHeaderList().end()) return false;
 	const CentralFileHeader *pHdr = *_ppHdr;
@@ -615,7 +615,7 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(filename));
@@ -629,7 +629,7 @@ bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -674,7 +674,7 @@ Gura_ImplementUserClass(stat)
 //-----------------------------------------------------------------------------
 // Stream_reader implementation
 //-----------------------------------------------------------------------------
-Stream_reader::Stream_reader(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+Stream_reader::Stream_reader(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
 	Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc), _hdr(hdr),
 	_name(hdr.GetFileName()), _bytesUncompressed(hdr.GetUncompressedSize()),
 	_bytesCompressed(hdr.GetCompressedSize()), _crc32Expected(hdr.GetCrc32()),
@@ -708,7 +708,7 @@ bool Stream_reader::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-size_t Stream_reader::CheckCRC32(Signal sig, const void *buff, size_t bytesRead)
+size_t Stream_reader::CheckCRC32(Signal &sig, const void *buff, size_t bytesRead)
 {
 	if (_seekedFlag) return bytesRead;
 	_crc32.Update(buff, bytesRead);
@@ -719,17 +719,17 @@ size_t Stream_reader::CheckCRC32(Signal sig, const void *buff, size_t bytesRead)
 	return bytesRead;
 }
 
-size_t Stream_reader::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_reader::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream_reader::DoFlush(Signal sig)
+bool Stream_reader::DoFlush(Signal &sig)
 {
 	return false;
 }
 
-bool Stream_reader::DoClose(Signal sig)
+bool Stream_reader::DoClose(Signal &sig)
 {
 	_pStreamSrc.reset(nullptr);
 	return Stream::DoClose(sig);
@@ -740,7 +740,7 @@ size_t Stream_reader::DoGetSize()
 	return _bytesUncompressed;
 }
 
-Object *Stream_reader::DoGetStatObj(Signal sig)
+Object *Stream_reader::DoGetStatObj(Signal &sig)
 {
 	return new Object_stat(_hdr);
 }
@@ -749,7 +749,7 @@ Object *Stream_reader::DoGetStatObj(Signal sig)
 // Stream_reader_Store implementation
 // Compression method #0: stored (no compression)
 //-----------------------------------------------------------------------------
-Stream_reader_Store::Stream_reader_Store(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+Stream_reader_Store::Stream_reader_Store(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
 	Stream_reader(env, sig, pStreamSrc, hdr), _offsetTop(pStreamSrc->Tell())
 {
 }
@@ -758,12 +758,12 @@ Stream_reader_Store::~Stream_reader_Store()
 {
 }
 
-bool Stream_reader_Store::Initialize(Environment &env, Signal sig)
+bool Stream_reader_Store::Initialize(Environment &env, Signal &sig)
 {
 	return true;
 }
 
-size_t Stream_reader_Store::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_reader_Store::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	size_t bytesRest = _bytesUncompressed - (_pStreamSrc->Tell() - _offsetTop);
 	if (bytes > bytesRest) bytes = bytesRest;
@@ -771,7 +771,7 @@ size_t Stream_reader_Store::DoRead(Signal sig, void *buff, size_t bytes)
 	return CheckCRC32(sig, buff, bytesRead);
 }
 
-bool Stream_reader_Store::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_reader_Store::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
 		_seekedFlag = true;
@@ -787,7 +787,7 @@ bool Stream_reader_Store::DoSeek(Signal sig, long offset, size_t offsetPrev, See
 // Stream_reader_Deflate implementation
 // Compression method #8: Deflated
 //-----------------------------------------------------------------------------
-Stream_reader_Deflate::Stream_reader_Deflate(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+Stream_reader_Deflate::Stream_reader_Deflate(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
 											Stream_reader(env, sig, pStreamSrc, hdr)
 {
 }
@@ -796,20 +796,20 @@ Stream_reader_Deflate::~Stream_reader_Deflate()
 {
 }
 
-bool Stream_reader_Deflate::Initialize(Environment &env, Signal sig)
+bool Stream_reader_Deflate::Initialize(Environment &env, Signal &sig)
 {
 	_pStreamInflater.reset(new ZLib::Stream_Inflater(env, sig,
 						Stream::Reference(_pStreamSrc.get()), _bytesCompressed));
 	return _pStreamInflater->Initialize(sig, -MAX_WBITS);
 }
 
-size_t Stream_reader_Deflate::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_reader_Deflate::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	size_t bytesRead = _pStreamInflater->Read(sig, buff, bytes);
 	return CheckCRC32(sig, buff, bytesRead);
 }
 
-bool Stream_reader_Deflate::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_reader_Deflate::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	_seekedFlag = true;
 	return _pStreamInflater->Seek(sig, offset, seekMode);
@@ -819,7 +819,7 @@ bool Stream_reader_Deflate::DoSeek(Signal sig, long offset, size_t offsetPrev, S
 // Stream_reader_BZIP2 implementation
 // Compression method #12: BZIP2
 //-----------------------------------------------------------------------------
-Stream_reader_BZIP2::Stream_reader_BZIP2(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+Stream_reader_BZIP2::Stream_reader_BZIP2(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
 											Stream_reader(env, sig, pStreamSrc, hdr)
 {
 }
@@ -828,7 +828,7 @@ Stream_reader_BZIP2::~Stream_reader_BZIP2()
 {
 }
 
-bool Stream_reader_BZIP2::Initialize(Environment &env, Signal sig)
+bool Stream_reader_BZIP2::Initialize(Environment &env, Signal &sig)
 {
 	_pStreamDecompressor.reset(new BZLib::Stream_Decompressor(env, sig,
 						Stream::Reference(_pStreamSrc.get()), _bytesCompressed));
@@ -836,13 +836,13 @@ bool Stream_reader_BZIP2::Initialize(Environment &env, Signal sig)
 	return _pStreamDecompressor->Initialize(sig, verbosity, small);
 }
 
-size_t Stream_reader_BZIP2::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_reader_BZIP2::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	size_t bytesRead = _pStreamDecompressor->Read(sig, buff, bytes);
 	return CheckCRC32(sig, buff, bytesRead);
 }
 
-bool Stream_reader_BZIP2::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_reader_BZIP2::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	_seekedFlag = true;
 	return _pStreamDecompressor->Seek(sig, offset, seekMode);
@@ -852,7 +852,7 @@ bool Stream_reader_BZIP2::DoSeek(Signal sig, long offset, size_t offsetPrev, See
 // Stream_reader_Deflate64 implementation
 // Compression method #9: Enhanced Deflating using Deflate64(tm)
 //-----------------------------------------------------------------------------
-Stream_reader_Deflate64::Stream_reader_Deflate64(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+Stream_reader_Deflate64::Stream_reader_Deflate64(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
 	Stream_reader(env, sig, pStreamSrc, hdr)
 {
 }
@@ -861,18 +861,18 @@ Stream_reader_Deflate64::~Stream_reader_Deflate64()
 {
 }
 
-bool Stream_reader_Deflate64::Initialize(Environment &env, Signal sig)
+bool Stream_reader_Deflate64::Initialize(Environment &env, Signal &sig)
 {
 	sig.SetError(ERR_SystemError, "this compression method is not implemented yet");
 	return false;
 }
 
-size_t Stream_reader_Deflate64::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_reader_Deflate64::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	return 0;
 }
 
-bool Stream_reader_Deflate64::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_reader_Deflate64::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
@@ -917,12 +917,12 @@ Directory_ZIP::~Directory_ZIP()
 {
 }
 
-Directory *Directory_ZIP::DoNext(Environment &env, Signal sig)
+Directory *Directory_ZIP::DoNext(Environment &env, Signal &sig)
 {
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, ULong attr)
+Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal &sig, ULong attr)
 {
 	AutoPtr<Stream> pStreamSrc;
 	for (Directory *pDirectory = this; pDirectory != nullptr;
@@ -939,7 +939,7 @@ Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, ULong attr)
 	return CreateStream(env, sig, pStreamSrc.get(), pHdr);
 }
 
-Object *Directory_ZIP::DoGetStatObj(Signal sig)
+Object *Directory_ZIP::DoGetStatObj(Signal &sig)
 {
 	return new Object_stat(*_pRecord->GetCentralFileHeader());
 }
@@ -947,7 +947,7 @@ Object *Directory_ZIP::DoGetStatObj(Signal sig)
 //-----------------------------------------------------------------------------
 // PathMgr_ZIP implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_ZIP::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_ZIP::IsResponsible(Environment &env, Signal &sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != nullptr && !pParent->IsContainer() &&
@@ -956,7 +956,7 @@ bool PathMgr_ZIP::IsResponsible(Environment &env, Signal sig,
 			 EndsWith(pParent->GetName(), ".gurcw", true));
 }
 
-Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
@@ -1047,7 +1047,7 @@ bool IsMatchedName(const char *name1, const char *name2)
 	return true;
 }
 
-ULong SeekCentralDirectory(Signal sig, Stream *pStream)
+ULong SeekCentralDirectory(Signal &sig, Stream *pStream)
 {
 	size_t bytesZIPFile = pStream->GetSize();
 	if (bytesZIPFile == InvalidSize) {
@@ -1090,7 +1090,7 @@ ULong SeekCentralDirectory(Signal sig, Stream *pStream)
 			OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
 }
 
-Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
+Directory *CreateDirectory(Environment &env, Signal &sig, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	if (!pStreamSrc->IsBwdSeekable()) {
@@ -1145,7 +1145,7 @@ Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
 	return pStructure->GenerateDirectory(sig, pParent, pPathName, notFoundMode);
 }
 
-Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr)
+Stream *CreateStream(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader *pHdr)
 {
 	AutoPtr<Stream_reader> pStream;
 	long offset = static_cast<long>(pHdr->GetRelativeOffsetOfLocalHeader());
@@ -1210,12 +1210,12 @@ Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const Cen
 	return pStream.release();
 }
 
-bool SkipStream(Signal sig, Stream &stream, size_t bytes)
+bool SkipStream(Signal &sig, Stream &stream, size_t bytes)
 {
 	return stream.Seek(sig, static_cast<long>(bytes), Stream::SeekCur);
 }
 
-bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t offset)
+bool ReadStream(Signal &sig, Stream &stream, void *buff, size_t bytes, size_t offset)
 {
 	if (bytes == 0) return true;
 	size_t bytesRead = stream.Read(sig,
@@ -1228,7 +1228,7 @@ bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t off
 	return true;
 }
 
-bool ReadStream(Signal sig, Stream &stream, ULong *pSignature)
+bool ReadStream(Signal &sig, Stream &stream, ULong *pSignature)
 {
 	struct {
 		Gura_PackedULong_LE(Signature);
@@ -1238,7 +1238,7 @@ bool ReadStream(Signal sig, Stream &stream, ULong *pSignature)
 	return true;
 }
 
-bool ReadStream(Signal sig, Stream &stream, Binary &binary, size_t bytes)
+bool ReadStream(Signal &sig, Stream &stream, Binary &binary, size_t bytes)
 {
 	if (bytes == 0) {
 		binary = Binary();
@@ -1254,13 +1254,13 @@ bool ReadStream(Signal sig, Stream &stream, Binary &binary, size_t bytes)
 	return true;
 }
 
-bool WriteStream(Signal sig, Stream &stream, void *buff, size_t bytes)
+bool WriteStream(Signal &sig, Stream &stream, void *buff, size_t bytes)
 {
 	stream.Write(sig, buff, bytes);
 	return !sig.IsSignalled();
 }
 
-bool WriteStream(Signal sig, Stream &stream, Binary &binary)
+bool WriteStream(Signal &sig, Stream &stream, Binary &binary)
 {
 	stream.Write(sig, binary.data(), binary.size());
 	return !sig.IsSignalled();
@@ -1269,7 +1269,7 @@ bool WriteStream(Signal sig, Stream &stream, Binary &binary)
 //-----------------------------------------------------------------------------
 // structures
 //-----------------------------------------------------------------------------
-bool LocalFileHeader::SkipOver(Signal sig, Stream &stream)
+bool LocalFileHeader::SkipOver(Signal &sig, Stream &stream)
 {
 	if (!ReadStream(sig, stream, &_fields, 30 - 4, 4)) return false;
 	if (IsExistDataDescriptor()) {

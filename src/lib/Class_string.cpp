@@ -978,7 +978,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForString($);
 }
 
-Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
+Value Class_string::IndexGetPrimitive(Environment &env, Signal &sig,
 						const Value &valueThis, const Value &valueIdx) const
 {
 	if (!valueIdx.Is_number()) {
@@ -1002,18 +1002,18 @@ Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
 	}
 }
 
-bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_string::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	value = Value(value.ToString(false));
 	return !sig.IsSignalled();
 }
 
-bool Class_string::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_string::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_string::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	String str;
 	if (!stream.DeserializeString(sig, str)) return false;
@@ -1021,7 +1021,7 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 	return true;
 }
 
-Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_string::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return nullptr;
 }
@@ -1044,7 +1044,7 @@ Iterator *Class_string::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+bool Class_string::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _str.end()) return false;
 	if (_attr == ATTR_UTF8) {
@@ -1097,7 +1097,7 @@ Iterator *Class_string::IteratorLine::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
+bool Class_string::IteratorLine::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _str.end() || _cnt == 0) return false;
 	String::const_iterator pLeft = _pCur;
@@ -1147,7 +1147,7 @@ Iterator *Class_string::IteratorSplit::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
+bool Class_string::IteratorSplit::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_doneFlag) {
 		return false;
@@ -1202,7 +1202,7 @@ Iterator *Class_string::IteratorFold::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
+bool Class_string::IteratorFold::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _str.end()) return false;
 	size_t lenForward = 0;
@@ -1250,7 +1250,7 @@ Iterator *Class_string::IteratorFoldw::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal sig, Value &value)
+bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	ULong codeUTF32 = 0;
 	size_t width = 0; 

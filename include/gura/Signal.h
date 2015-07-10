@@ -49,9 +49,11 @@ private:
 	int _stackLevel;
 public:
 	Signal();
+public:
 	Signal(Shared *pShared);
 	Signal(const Signal &sig);
 	Signal &operator=(const Signal &sig);
+public:
 	inline bool IsSignalled() const	{
 		return _pShared->sigType != SIGTYPE_None &&
 									_pShared->sigType != SIGTYPE_ErrorSuspended;

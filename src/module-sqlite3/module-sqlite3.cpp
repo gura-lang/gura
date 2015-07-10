@@ -18,7 +18,7 @@ Object *Object_db::Clone() const
 	return nullptr;
 }
 
-bool Object_db::Open(Signal sig, const char *fileName)
+bool Object_db::Open(Signal &sig, const char *fileName)
 {
 	int rc = ::sqlite3_open(fileName, &_db);
 	if (rc != SQLITE_OK) {
@@ -38,7 +38,7 @@ void Object_db::Close()
 	}
 }
 
-Value Object_db::Exec(Signal sig, const char *sql, Args &args)
+Value Object_db::Exec(Signal &sig, const char *sql, Args &args)
 {
 	if (_db == nullptr) {
 		SetError_NotOpened(sig);
@@ -54,7 +54,7 @@ Value Object_db::Exec(Signal sig, const char *sql, Args &args)
 	return Value::Null;
 }
 
-bool Object_db::ExecNoResult(Signal sig, const char *sql)
+bool Object_db::ExecNoResult(Signal &sig, const char *sql)
 {
 	if (_db == nullptr) {
 		SetError_NotOpened(sig);
@@ -69,7 +69,7 @@ bool Object_db::ExecNoResult(Signal sig, const char *sql)
 	return true;
 }
 
-Object_db::IteratorQuery *Object_db::Query(Signal sig, const char *sql)
+Object_db::IteratorQuery *Object_db::Query(Signal &sig, const char *sql)
 {
 	if (_db == nullptr) {
 		SetError_NotOpened(sig);
@@ -85,7 +85,7 @@ Object_db::IteratorQuery *Object_db::Query(Signal sig, const char *sql)
 	return new IteratorQuery(Object_db::Reference(this), pStmt);
 }
 
-Value Object_db::GetColumnNames(Signal sig, const char *sql)
+Value Object_db::GetColumnNames(Signal &sig, const char *sql)
 {
 	Environment &env = *this;
 	if (_db == nullptr) {
@@ -131,7 +131,7 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	return pResultComposer->Store(env, sig, value)? SQLITE_OK : SQLITE_ERROR;
 }
 
-void Object_db::SetError_NotOpened(Signal sig)
+void Object_db::SetError_NotOpened(Signal &sig)
 {
 	sig.SetError(ERR_RuntimeError, "database not opened");
 }
@@ -149,7 +149,7 @@ Iterator *Object_db::IteratorQuery::GetSource()
 	return nullptr;
 }
 
-bool Object_db::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_db::IteratorQuery::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (::sqlite3_step(_pStmt) != SQLITE_ROW) {
 		return false;

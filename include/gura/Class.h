@@ -29,9 +29,9 @@ public: \
 	static ValueTypeInfo *_pValueTypeInfo; \
 public: \
 	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl); \
-	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl); \
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass); \
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl); \
+	virtual bool CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl); \
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass); \
 	virtual void Prepare(Environment &env);
 
 #define Gura_DeclareUserClassEnd(name) \
@@ -44,22 +44,22 @@ Gura_DeclareUserClassEnd(name)
 #define Gura_ImplementUserClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
+bool Class_##name::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl) { return false; } \
+bool Class_##name::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl) { return false; } \
+Object *Class_##name::CreateDescendant(Environment &env, Signal &sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserClassWithCast(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
+Object *Class_##name::CreateDescendant(Environment &env, Signal &sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = nullptr; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
+bool Class_##name::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl) { return false; } \
+bool Class_##name::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl) { return false; } \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClassWithCast(name) \
@@ -68,13 +68,13 @@ ValueType VTYPE_##name = static_cast<ValueType>(0); \
 void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementCastFrom(name) \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_##name::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 
 #define Gura_ImplementCastTo(name) \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
+bool Class_##name::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl)
 
 #define Gura_ImplementDescendantCreator(name) \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_##name::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 
 #define Gura_RealizeUserClassAlias(name, str, pClassBase) do { \
 	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
@@ -148,18 +148,18 @@ public:
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
-	virtual Value EmptyIndexGet(Environment &env, Signal sig);
-	virtual void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Value EmptyIndexGet(Environment &env, Signal &sig);
+	virtual void EmptyIndexSet(Environment &env, Signal &sig, const Value &value);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 					const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 					const Value &value, const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	Value EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg);
-	Value EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
+	bool DirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	Value EvalMethod(Environment &env, Signal &sig, const Function *pFunc, const ValueList &valListArg);
+	Value EvalMethod(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag);
 };
 
@@ -182,7 +182,7 @@ public:
 	Class(Environment *pEnvOuter, ValueType valType);
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 	virtual void Prepare(Environment &env);
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));
@@ -204,28 +204,28 @@ public:
 	}
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
-	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
-	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+	bool DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool escalateFlag);
+	virtual Value GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
-	virtual Value EmptyIndexGetPrimitive(Environment &env, Signal sig, const Value &valueThis) const;
-	virtual Value IndexGetPrimitive(Environment &env, Signal sig,
+	virtual Value EmptyIndexGetPrimitive(Environment &env, Signal &sig, const Value &valueThis) const;
+	virtual Value IndexGetPrimitive(Environment &env, Signal &sig,
 									const Value &valueThis, const Value &valueIdx) const;
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual bool CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual bool Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_o(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_x(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_s(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
+	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	bool BuildContent(Environment &env, Signal &sig, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 };
 

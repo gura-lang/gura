@@ -16,24 +16,24 @@ Event::~Event()
 	// virtual destructor
 }
 
-bool Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Event::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Event::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Event::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Event::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-bool Event::WriteVariableFormat(Signal sig, Stream &stream, ULong num)
+bool Event::WriteVariableFormat(Signal &sig, Stream &stream, ULong num)
 {
 	UChar buff[32];
 	UChar *p = buff + sizeof(buff);
@@ -92,7 +92,7 @@ UChar MIDIEvent::GetStatusCode() const
 	return _status | _channel;
 }
 
-bool MIDIEvent::Play(Signal sig, Player *pPlayer) const
+bool MIDIEvent::Play(Signal &sig, Player *pPlayer) const
 {
 	if (_nParams == 1) {
 		pPlayer->GetPort()->Send(_status | _channel, _params[0]);
@@ -102,7 +102,7 @@ bool MIDIEvent::Play(Signal sig, Player *pPlayer) const
 	return true;
 }
 
-bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MIDIEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	size_t bytes = 0;
 	UChar buff[8];
@@ -116,13 +116,13 @@ bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-bool MIDIEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(channel));
 	return true;
 }
 
-Value MIDIEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -133,7 +133,7 @@ Value MIDIEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value MIDIEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -160,7 +160,7 @@ Event *MIDIEvent_NoteOff::Clone() const
 	return new MIDIEvent_NoteOff(*this);
 }
 
-bool MIDIEvent_NoteOff::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_NoteOff::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
@@ -168,7 +168,7 @@ bool MIDIEvent_NoteOff::DoDirProp(Environment &env, Signal sig, SymbolSet &symbo
 	return true;
 }
 
-Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -181,7 +181,7 @@ Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_NoteOff::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_NoteOff::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -219,7 +219,7 @@ Event *MIDIEvent_NoteOn::Clone() const
 	return new MIDIEvent_NoteOn(*this);
 }
 
-bool MIDIEvent_NoteOn::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_NoteOn::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
@@ -227,7 +227,7 @@ bool MIDIEvent_NoteOn::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 	return true;
 }
 
-Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -240,7 +240,7 @@ Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_NoteOn::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_NoteOn::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -278,7 +278,7 @@ Event *MIDIEvent_PolyPressure::Clone() const
 	return new MIDIEvent_PolyPressure(*this);
 }
 
-bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
@@ -286,7 +286,7 @@ bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, Signal sig, SymbolSet &
 	return true;
 }
 
-Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -299,7 +299,7 @@ Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal sig, const Symb
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -339,7 +339,7 @@ Event *MIDIEvent_ControlChange::Clone() const
 	return new MIDIEvent_ControlChange(*this);
 }
 
-bool MIDIEvent_ControlChange::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_ControlChange::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(controller));
@@ -347,7 +347,7 @@ bool MIDIEvent_ControlChange::DoDirProp(Environment &env, Signal sig, SymbolSet 
 	return true;
 }
 
-Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -369,7 +369,7 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ControlChange::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ControlChange::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -408,14 +408,14 @@ Event *MIDIEvent_ProgramChange::Clone() const
 	return new MIDIEvent_ProgramChange(*this);
 }
 
-bool MIDIEvent_ProgramChange::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_ProgramChange::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(program));
 	return true;
 }
 
-Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -426,7 +426,7 @@ Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal sig, const Sym
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -459,14 +459,14 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 	return new MIDIEvent_ChannelPressure(*this);
 }
 
-bool MIDIEvent_ChannelPressure::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_ChannelPressure::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(pressure));
 	return true;
 }
 
-Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -477,7 +477,7 @@ Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal sig, const S
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -510,14 +510,14 @@ Event *MIDIEvent_PitchBend::Clone() const
 	return new MIDIEvent_PitchBend(*this);
 }
 
-bool MIDIEvent_PitchBend::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MIDIEvent_PitchBend::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -528,7 +528,7 @@ Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal sig, const Symbol 
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_PitchBend::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_PitchBend::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -563,12 +563,12 @@ String SysExEvent::GetArgsName() const
 	return String(str);
 }
 
-bool SysExEvent::Play(Signal sig, Player *pPlayer) const
+bool SysExEvent::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool SysExEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool SysExEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
@@ -578,13 +578,13 @@ Event *SysExEvent::Clone() const
 	return new SysExEvent(*this);
 }
 
-bool SysExEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool SysExEvent::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value SysExEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value SysExEvent::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -595,7 +595,7 @@ Value SysExEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value SysExEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value SysExEvent::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -618,7 +618,7 @@ UChar MetaEvent::GetStatusCode() const
 	return Status;
 }
 
-bool MetaEvent::Add(Signal sig, Track *pTrack, bool enableRunningStatus,
+bool MetaEvent::Add(Signal &sig, Track *pTrack, bool enableRunningStatus,
 		ULong timeStamp, UChar eventType, const Binary &binary)
 {
 	MetaEvent *pEvent = nullptr;
@@ -664,7 +664,7 @@ bool MetaEvent::Add(Signal sig, Track *pTrack, bool enableRunningStatus,
 	return false;
 }
 
-bool MetaEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	size_t bytes = 0;
 	UChar buff[2];
@@ -675,7 +675,7 @@ bool MetaEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-void MetaEvent::SetError_TooShortMetaEvent(Signal sig)
+void MetaEvent::SetError_TooShortMetaEvent(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "too short meta event");
 }
@@ -683,18 +683,18 @@ void MetaEvent::SetError_TooShortMetaEvent(Signal sig)
 //-----------------------------------------------------------------------------
 // MetaEvent_Unknown
 //-----------------------------------------------------------------------------
-bool MetaEvent_Unknown::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_Unknown::Prepare(Signal &sig, const Binary &binary)
 {
 	_binary = binary;
 	return true;
 }
 
-bool MetaEvent_Unknown::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_Unknown::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_Unknown::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_binary.size()))) return false;
@@ -718,13 +718,13 @@ Event *MetaEvent_Unknown::Clone() const
 	return new MetaEvent_Unknown(*this);
 }
 
-bool MetaEvent_Unknown::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_Unknown::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -735,7 +735,7 @@ Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	return Value::Null;
 }
 
-Value MetaEvent_Unknown::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_Unknown::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -751,7 +751,7 @@ Value MetaEvent_Unknown::DoSetProp(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
-bool MetaEvent_SequenceNumber::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_SequenceNumber::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 2) {
 		SetError_TooShortMetaEvent(sig);
@@ -763,12 +763,12 @@ bool MetaEvent_SequenceNumber::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SequenceNumber::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_SequenceNumber::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_SequenceNumber::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 2;
@@ -796,13 +796,13 @@ Event *MetaEvent_SequenceNumber::Clone() const
 	return new MetaEvent_SequenceNumber(*this);
 }
 
-bool MetaEvent_SequenceNumber::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_SequenceNumber::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(number));
 	return true;
 }
 
-Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -813,7 +813,7 @@ Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal sig, const Sy
 	return Value::Null;
 }
 
-Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -829,18 +829,18 @@ Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, Signal sig, const Sy
 //-----------------------------------------------------------------------------
 // MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
-bool MetaEvent_TextEvent::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_TextEvent::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_TextEvent::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_TextEvent::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_TextEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -864,13 +864,13 @@ Event *MetaEvent_TextEvent::Clone() const
 	return new MetaEvent_TextEvent(*this);
 }
 
-bool MetaEvent_TextEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_TextEvent::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -881,7 +881,7 @@ Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal sig, const Symbol 
 	return Value::Null;
 }
 
-Value MetaEvent_TextEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TextEvent::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -897,18 +897,18 @@ Value MetaEvent_TextEvent::DoSetProp(Environment &env, Signal sig, const Symbol 
 //-----------------------------------------------------------------------------
 // MetaEvent_CopyrightNotice
 //-----------------------------------------------------------------------------
-bool MetaEvent_CopyrightNotice::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_CopyrightNotice::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_CopyrightNotice::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_CopyrightNotice::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_CopyrightNotice::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -932,13 +932,13 @@ Event *MetaEvent_CopyrightNotice::Clone() const
 	return new MetaEvent_CopyrightNotice(*this);
 }
 
-bool MetaEvent_CopyrightNotice::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_CopyrightNotice::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -949,7 +949,7 @@ Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal sig, const S
 	return Value::Null;
 }
 
-Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -965,18 +965,18 @@ Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, Signal sig, const S
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
-bool MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_SequenceOrTrackName::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_SequenceOrTrackName::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_SequenceOrTrackName::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_SequenceOrTrackName::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -1000,13 +1000,13 @@ Event *MetaEvent_SequenceOrTrackName::Clone() const
 	return new MetaEvent_SequenceOrTrackName(*this);
 }
 
-bool MetaEvent_SequenceOrTrackName::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_SequenceOrTrackName::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1017,7 +1017,7 @@ Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal sig, con
 	return Value::Null;
 }
 
-Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1033,18 +1033,18 @@ Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, Signal sig, con
 //-----------------------------------------------------------------------------
 // MetaEvent_InstrumentName
 //-----------------------------------------------------------------------------
-bool MetaEvent_InstrumentName::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_InstrumentName::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_InstrumentName::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_InstrumentName::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_InstrumentName::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -1068,13 +1068,13 @@ Event *MetaEvent_InstrumentName::Clone() const
 	return new MetaEvent_InstrumentName(*this);
 }
 
-bool MetaEvent_InstrumentName::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_InstrumentName::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1085,7 +1085,7 @@ Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal sig, const Sy
 	return Value::Null;
 }
 
-Value MetaEvent_InstrumentName::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_InstrumentName::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1101,18 +1101,18 @@ Value MetaEvent_InstrumentName::DoSetProp(Environment &env, Signal sig, const Sy
 //-----------------------------------------------------------------------------
 // MetaEvent_LyricText
 //-----------------------------------------------------------------------------
-bool MetaEvent_LyricText::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_LyricText::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_LyricText::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_LyricText::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_LyricText::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_LyricText::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -1136,13 +1136,13 @@ Event *MetaEvent_LyricText::Clone() const
 	return new MetaEvent_LyricText(*this);
 }
 
-bool MetaEvent_LyricText::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_LyricText::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1153,7 +1153,7 @@ Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal sig, const Symbol 
 	return Value::Null;
 }
 
-Value MetaEvent_LyricText::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_LyricText::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1169,18 +1169,18 @@ Value MetaEvent_LyricText::DoSetProp(Environment &env, Signal sig, const Symbol 
 //-----------------------------------------------------------------------------
 // MetaEvent_MarkerText
 //-----------------------------------------------------------------------------
-bool MetaEvent_MarkerText::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_MarkerText::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_MarkerText::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_MarkerText::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_MarkerText::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -1204,13 +1204,13 @@ Event *MetaEvent_MarkerText::Clone() const
 	return new MetaEvent_MarkerText(*this);
 }
 
-bool MetaEvent_MarkerText::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_MarkerText::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1221,7 +1221,7 @@ Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal sig, const Symbol
 	return Value::Null;
 }
 
-Value MetaEvent_MarkerText::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_MarkerText::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1237,18 +1237,18 @@ Value MetaEvent_MarkerText::DoSetProp(Environment &env, Signal sig, const Symbol
 //-----------------------------------------------------------------------------
 // MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
-bool MetaEvent_CuePoint::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_CuePoint::Prepare(Signal &sig, const Binary &binary)
 {
 	_text = String(binary);
 	return true;
 }
 
-bool MetaEvent_CuePoint::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_CuePoint::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_CuePoint::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_text.size()))) return false;
@@ -1272,13 +1272,13 @@ Event *MetaEvent_CuePoint::Clone() const
 	return new MetaEvent_CuePoint(*this);
 }
 
-bool MetaEvent_CuePoint::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_CuePoint::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1289,7 +1289,7 @@ Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal sig, const Symbol *
 	return Value::Null;
 }
 
-Value MetaEvent_CuePoint::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_CuePoint::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1305,7 +1305,7 @@ Value MetaEvent_CuePoint::DoSetProp(Environment &env, Signal sig, const Symbol *
 //-----------------------------------------------------------------------------
 // MetaEvent_MIDIChannelPrefixAssignment
 //-----------------------------------------------------------------------------
-bool MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 1) {
 		SetError_TooShortMetaEvent(sig);
@@ -1315,12 +1315,12 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const Binary &bi
 	return true;
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 1;
@@ -1347,13 +1347,13 @@ Event *MetaEvent_MIDIChannelPrefixAssignment::Clone() const
 	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_MIDIChannelPrefixAssignment::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(channel));
 	return true;
 }
 
-Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1364,7 +1364,7 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal 
 	return Value::Null;
 }
 
-Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1380,18 +1380,18 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, Signal 
 //-----------------------------------------------------------------------------
 // MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
-bool MetaEvent_EndOfTrack::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_EndOfTrack::Prepare(Signal &sig, const Binary &binary)
 {
 	// no buff
 	return true;
 }
 
-bool MetaEvent_EndOfTrack::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_EndOfTrack::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_EndOfTrack::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, 0)) return false;
@@ -1415,18 +1415,18 @@ Event *MetaEvent_EndOfTrack::Clone() const
 	return new MetaEvent_EndOfTrack(*this);
 }
 
-bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -1435,7 +1435,7 @@ Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, Signal sig, const Symbol
 //-----------------------------------------------------------------------------
 // MetaEvent_TempoSetting
 //-----------------------------------------------------------------------------
-bool MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_TempoSetting::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 3) {
 		SetError_TooShortMetaEvent(sig);
@@ -1448,13 +1448,13 @@ bool MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_TempoSetting::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_TempoSetting::Play(Signal &sig, Player *pPlayer) const
 {
 	pPlayer->SetMPQN(_mpqn);
 	return true;
 }
 
-bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_TempoSetting::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 3;
@@ -1483,13 +1483,13 @@ Event *MetaEvent_TempoSetting::Clone() const
 	return new MetaEvent_TempoSetting(*this);
 }
 
-bool MetaEvent_TempoSetting::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_TempoSetting::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(mpqn));
 	return true;
 }
 
-Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1500,7 +1500,7 @@ Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal sig, const Symb
 	return Value::Null;
 }
 
-Value MetaEvent_TempoSetting::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TempoSetting::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1516,7 +1516,7 @@ Value MetaEvent_TempoSetting::DoSetProp(Environment &env, Signal sig, const Symb
 //-----------------------------------------------------------------------------
 // MetaEvent_SMPTEOffset
 //-----------------------------------------------------------------------------
-bool MetaEvent_SMPTEOffset::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_SMPTEOffset::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 5) {
 		SetError_TooShortMetaEvent(sig);
@@ -1530,12 +1530,12 @@ bool MetaEvent_SMPTEOffset::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SMPTEOffset::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_SMPTEOffset::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_SMPTEOffset::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 5;
@@ -1567,7 +1567,7 @@ Event *MetaEvent_SMPTEOffset::Clone() const
 	return new MetaEvent_SMPTEOffset(*this);
 }
 
-bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(hour));
 	symbols.insert(Gura_UserSymbol(minute));
@@ -1577,7 +1577,7 @@ bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal sig, SymbolSet &s
 	return true;
 }
 
-Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1596,7 +1596,7 @@ Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal sig, const Symbo
 	return Value::Null;
 }
 
-Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1628,7 +1628,7 @@ Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, Signal sig, const Symbo
 //-----------------------------------------------------------------------------
 // MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
-bool MetaEvent_TimeSignature::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_TimeSignature::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 4) {
 		SetError_TooShortMetaEvent(sig);
@@ -1641,12 +1641,12 @@ bool MetaEvent_TimeSignature::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_TimeSignature::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_TimeSignature::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_TimeSignature::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 4;
@@ -1677,7 +1677,7 @@ Event *MetaEvent_TimeSignature::Clone() const
 	return new MetaEvent_TimeSignature(*this);
 }
 
-bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(numerator));
 	symbols.insert(Gura_UserSymbol(denominator));
@@ -1686,7 +1686,7 @@ bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal sig, SymbolSet 
 	return true;
 }
 
-Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1703,7 +1703,7 @@ Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal sig, const Sym
 	return Value::Null;
 }
 
-Value MetaEvent_TimeSignature::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TimeSignature::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1731,7 +1731,7 @@ Value MetaEvent_TimeSignature::DoSetProp(Environment &env, Signal sig, const Sym
 //-----------------------------------------------------------------------------
 // MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
-bool MetaEvent_KeySignature::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_KeySignature::Prepare(Signal &sig, const Binary &binary)
 {
 	if (binary.size() < 2) {
 		SetError_TooShortMetaEvent(sig);
@@ -1742,12 +1742,12 @@ bool MetaEvent_KeySignature::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_KeySignature::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_KeySignature::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_KeySignature::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 2;
@@ -1775,14 +1775,14 @@ Event *MetaEvent_KeySignature::Clone() const
 	return new MetaEvent_KeySignature(*this);
 }
 
-bool MetaEvent_KeySignature::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_KeySignature::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(key));
 	symbols.insert(Gura_UserSymbol(scale));
 	return true;
 }
 
-Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1795,7 +1795,7 @@ Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal sig, const Symb
 	return Value::Null;
 }
 
-Value MetaEvent_KeySignature::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_KeySignature::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1815,18 +1815,18 @@ Value MetaEvent_KeySignature::DoSetProp(Environment &env, Signal sig, const Symb
 //-----------------------------------------------------------------------------
 // MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
-bool MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const Binary &binary)
+bool MetaEvent_SequencerSpecificEvent::Prepare(Signal &sig, const Binary &binary)
 {
 	_binary = binary;
 	return true;
 }
 
-bool MetaEvent_SequencerSpecificEvent::Play(Signal sig, Player *pPlayer) const
+bool MetaEvent_SequencerSpecificEvent::Play(Signal &sig, Player *pPlayer) const
 {
 	return true;
 }
 
-bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
+bool MetaEvent_SequencerSpecificEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) const
 {
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<ULong>(_binary.size()))) return false;
@@ -1850,13 +1850,13 @@ Event *MetaEvent_SequencerSpecificEvent::Clone() const
 	return new MetaEvent_SequencerSpecificEvent(*this);
 }
 
-bool MetaEvent_SequencerSpecificEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool MetaEvent_SequencerSpecificEvent::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1867,7 +1867,7 @@ Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal sig, 
 	return Value::Null;
 }
 
-Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

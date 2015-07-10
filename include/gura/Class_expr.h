@@ -15,8 +15,8 @@ class GURA_DLLDECLARE Class_expr : public Class {
 public:
 	Class_expr(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -34,8 +34,8 @@ public:
 						Object(pClass), _pExpr(pExpr) {}
 	Object_expr(const Object_expr &obj);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Expr *GetExpr() { return _pExpr.get(); }

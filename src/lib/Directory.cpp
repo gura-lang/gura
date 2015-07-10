@@ -23,7 +23,7 @@ Directory::~Directory()
 {
 }
 
-Directory *Directory::Next(Environment &env, Signal sig)
+Directory *Directory::Next(Environment &env, Signal &sig)
 {
 	if (!IsContainer()) {
 		sig.SetError(ERR_ValueError, "not a container entry");
@@ -73,19 +73,19 @@ int Directory::CountDepth() const
 	return depth;
 }
 
-Object *Directory::DoGetStatObj(Signal sig)
+Object *Directory::DoGetStatObj(Signal &sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
 	return nullptr;
 }
 
-Directory *Directory::Open(Environment &env, Signal sig,
+Directory *Directory::Open(Environment &env, Signal &sig,
 				const char *pathName, PathMgr::NotFoundMode notFoundMode)
 {
 	return Open(env, sig, nullptr, &pathName, notFoundMode);
 }
 
-Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
+Directory *Directory::Open(Environment &env, Signal &sig, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = pParent;
@@ -131,7 +131,7 @@ Iterator *Directory::Iterator_Walk::GetSource()
 	return nullptr;
 }
 
-bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
+bool Directory::Iterator_Walk::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	for (;;) {
 		Directory *pDirectoryChild = nullptr;
@@ -203,7 +203,7 @@ Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 {
 }
 
-bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pattern)
+bool Directory::Iterator_Glob::Init(Environment &env, Signal &sig, const char *pattern)
 {
 	String pathName, field;
 	const char *patternTop = pattern;
@@ -252,7 +252,7 @@ Iterator *Directory::Iterator_Glob::GetSource()
 	return nullptr;
 }
 
-bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)
+bool Directory::Iterator_Glob::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Directory *pDirectoryChild = nullptr;
 	for (;;) {
@@ -377,7 +377,7 @@ Record *Structure::AddRecord(const char *pathName)
 	return pRecord;
 }
 
-Directory *Structure::GenerateDirectory(Signal sig, Directory *pParent,
+Directory *Structure::GenerateDirectory(Signal &sig, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = nullptr;

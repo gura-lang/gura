@@ -22,7 +22,7 @@ public:
 	};
 private:
 	int _cntRef;
-	Signal _sig;
+	Signal &_sig;
 	AutoPtr<Port> _pPort;
 	UShort _division;
 	ULong _mpqn;
@@ -36,13 +36,13 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Player);
 public:
-	Player(Signal sig, Port *pPort);
+	Player(Signal &sig, Port *pPort);
 protected:
 	virtual ~Player();
 public:
 	inline Port *GetPort() { return _pPort.get(); }
 	inline void SetMPQN(ULong mpqn) { _mpqn = mpqn; }
-	bool SetupSequence(Signal sig, const Sequence *pSequence,
+	bool SetupSequence(Signal &sig, const Sequence *pSequence,
 				UShort division, ULong mpqn, double speed, int cntRepeat);
 	bool Play();
 	void PlayBackground();

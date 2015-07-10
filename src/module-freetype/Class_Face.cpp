@@ -34,7 +34,7 @@ String Object_Face::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_Face::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Face::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(num_faces));
@@ -55,7 +55,7 @@ bool Object_Face::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Face::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -142,7 +142,7 @@ Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-Value Object_Face::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Face::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -161,7 +161,7 @@ Value Object_Face::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-bool Object_Face::Initialize(Environment &env, Signal sig, Stream *pStream, int index)
+bool Object_Face::Initialize(Environment &env, Signal &sig, Stream *pStream, int index)
 {
 	AutoPtr<Stream> pStreamRef(Stream::Reference(pStream));
 	if (!pStreamRef->IsBwdSeekable()) {

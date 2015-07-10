@@ -31,7 +31,7 @@ String Object_mysql::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_mysql::Connect(Signal sig, const char *host, const char *user, const char *passwd,
+bool Object_mysql::Connect(Signal &sig, const char *host, const char *user, const char *passwd,
 	const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag)
 {
 	if (::mysql_real_connect(&_mysql, host, user, passwd,
@@ -47,7 +47,7 @@ void Object_mysql::Close()
 	::mysql_close(&_mysql);
 }
 
-Iterator *Object_mysql::Query(Signal sig, const char *stmt_str)
+Iterator *Object_mysql::Query(Signal &sig, const char *stmt_str)
 {
 	if (::mysql_query(&_mysql, stmt_str) != 0) {
 		sig.SetError(ERR_RuntimeError, "MySQL %s\n", ::mysql_error(&_mysql));
@@ -73,7 +73,7 @@ Object_mysql::IteratorQuery::~IteratorQuery()
 	::mysql_free_result(_pRes);
 }
 
-bool Object_mysql::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_mysql::IteratorQuery::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	//Environment &env = *_pObj;
 	unsigned int nFields = ::mysql_num_fields(_pRes);

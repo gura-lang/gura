@@ -34,7 +34,7 @@ public:
 		InvalidateEntity();
 		return pEntity;
 	}
-	inline bool IsInvalid(Signal sig) const {
+	inline bool IsInvalid(Signal &sig) const {
 		if (_pEntity != nullptr) return false;
 		SetError_InvalidWxObject(sig, "wxGraphicsBrush");
 		return true;

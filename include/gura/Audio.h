@@ -78,7 +78,7 @@ public:
 	public:
 		IteratorEach(Audio *pAudio, size_t iChannel, size_t offset);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -193,11 +193,11 @@ public:
 	size_t GetBytes() const;
 	bool PutData(size_t iChannel, size_t offset, int data);
 	bool GetData(size_t iChannel, size_t offset, int *pData);
-	bool StoreData(Environment &env, Signal sig,
+	bool StoreData(Environment &env, Signal &sig,
 						size_t iChannel, size_t offset, Iterator *pIterator);
-	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
-	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
-	bool AddSineWave(Signal sig, size_t iChannel,
+	bool Read(Environment &env, Signal &sig, Stream &stream, const char *audioType);
+	bool Write(Environment &env, Signal &sig, Stream &stream, const char *audioType);
+	bool AddSineWave(Signal &sig, size_t iChannel,
 							double freq, size_t nSamples, int amplitude);
 	Audio *ConvertFormat(Format format) const;
 public:
@@ -212,7 +212,7 @@ public:
 			(format == FORMAT_U16LE || format == FORMAT_S16LE ||
 			 format == FORMAT_U16BE || format == FORMAT_S16BE)? 0x7fff : 0;
 	}
-	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
+	static Format SymbolToFormat(Signal &sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
 };
 
@@ -228,12 +228,12 @@ private:
 public:
 	inline AudioStreamer(const char *audioType) : _audioType(audioType) {}
 	inline const char *GetAudioType() const { return _audioType; }
-	virtual bool IsResponsible(Signal sig, Stream &stream) = 0;
-	virtual bool Read(Environment &env, Signal sig, Audio *pAudio, Stream &stream) = 0;
-	virtual bool Write(Environment &env, Signal sig, Audio *pAudio, Stream &stream) = 0;
+	virtual bool IsResponsible(Signal &sig, Stream &stream) = 0;
+	virtual bool Read(Environment &env, Signal &sig, Audio *pAudio, Stream &stream) = 0;
+	virtual bool Write(Environment &env, Signal &sig, Audio *pAudio, Stream &stream) = 0;
 public:
 	static void Register(AudioStreamer *pAudioStreamer);
-	static AudioStreamer *FindResponsible(Signal sig, Stream &stream, const char *audioType);
+	static AudioStreamer *FindResponsible(Signal &sig, Stream &stream, const char *audioType);
 	static AudioStreamer *FindByAudioType(const char *audioType);
 };
 

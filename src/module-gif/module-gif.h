@@ -76,9 +76,9 @@ Gura_DeclareUserSymbol(ImageDescriptor);
 class ImageStreamer_GIF : public ImageStreamer {
 public:
 	inline ImageStreamer_GIF() : ImageStreamer("gif") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -204,9 +204,9 @@ public:
 		UChar _blockData[256];
 	public:
 		ImageDataBlock();
-		bool ReadCode(Signal sig, Stream &stream, UShort &code, int bitsOfCode);
-		bool WriteCode(Signal sig, Stream &stream, UShort code, int bitsOfCode);
-		bool Flush(Signal sig, Stream &stream);
+		bool ReadCode(Signal &sig, Stream &stream, UShort &code, int bitsOfCode);
+		bool WriteCode(Signal &sig, Stream &stream, UShort code, int bitsOfCode);
+		bool Flush(Signal &sig, Stream &stream);
 	};
 	typedef std::map<Binary, UShort> TransMap;
 private:
@@ -218,21 +218,21 @@ private:
 public:
 	GIF();
 	~GIF();
-	bool Read(Environment &env, Signal sig, Stream &stream,
+	bool Read(Environment &env, Signal &sig, Stream &stream,
 								Image *pImageTgt, Image::Format format);
-	bool Write(Environment &env, Signal sig, Stream &stream,
+	bool Write(Environment &env, Signal &sig, Stream &stream,
 		const Color &colorBackground, bool validBackgroundFlag, UShort loopCount);
-	bool ReadColorTable(Signal sig, Stream &stream, Palette *pPalette);
-	bool WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette);
-	bool ReadDataBlocks(Signal sig, Stream &stream, Binary &binary);
-	bool WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary);
-	bool SkipImageDescriptor(Signal sig, Stream &stream);
-	bool ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
+	bool ReadColorTable(Signal &sig, Stream &stream, Palette *pPalette);
+	bool WriteColorTable(Signal &sig, Stream &stream, const Palette *pPalette);
+	bool ReadDataBlocks(Signal &sig, Stream &stream, Binary &binary);
+	bool WriteDataBlocks(Signal &sig, Stream &stream, const Binary &binary);
+	bool SkipImageDescriptor(Signal &sig, Stream &stream);
+	bool ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 								const GraphicControlExtension &graphicControl,
 								Image *pImage, Value *pValueGIF);
-	bool WriteGraphicControl(Signal sig, Stream &stream,
+	bool WriteGraphicControl(Signal &sig, Stream &stream,
 								const GraphicControlExtension &graphiControl);
-	bool WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
+	bool WriteImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 		const GraphicControlExtension &graphicControl, Object_image *pObjImage);
 	inline Header &GetHeader() { return _header; }
 	inline LogicalScreenDescriptor &GetLogicalScreenDescriptor() {
@@ -244,11 +244,11 @@ public:
 	void AddImage(const Value &value,
 			UShort imageLeftPosition, UShort imageTopPosition,
 			UShort delayTime, UChar disposalMethod);
-	static bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
-	static bool WriteBuff(Signal sig, Stream &stream, const void *buff, size_t bytes);
+	static bool ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes);
+	static bool WriteBuff(Signal &sig, Stream &stream, const void *buff, size_t bytes);
 	static void Dump(UChar *data, int bytes);
 	static const Symbol *DisposalMethodToSymbol(UChar disposalMethod);
-	static UChar DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol);
+	static UChar DisposalMethodFromSymbol(Signal &sig, const Symbol *pSymbol);
 	static ImageDescriptor *GetImageDescriptor(const Object_image *pObjImage);
 	static GraphicControlExtension *GetGraphicControl(const Object_image *pObjImage);
 	static int GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage);
@@ -268,8 +268,8 @@ public:
 	inline Object_content() : Object(Gura_UserClass(content)) {}
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF &GetGIF() { return _gif; }
@@ -290,8 +290,8 @@ public:
 	inline Object_Header(Object_content *pObjContent) :
 				Object(Gura_UserClass(Header)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -311,8 +311,8 @@ public:
 	inline Object_LogicalScreenDescriptor(Object_content *pObjContent) :
 				Object(Gura_UserClass(LogicalScreenDescriptor)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -332,8 +332,8 @@ public:
 	inline Object_CommentExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(CommentExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -353,8 +353,8 @@ public:
 	inline Object_PlainTextExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(PlainTextExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -374,8 +374,8 @@ public:
 	inline Object_ApplicationExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(ApplicationExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -395,8 +395,8 @@ public:
 					Object(Gura_UserClass(GraphicControl)), _gctl(gctl) {}
 	virtual ~Object_GraphicControl();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF::GraphicControlExtension *GetGraphicControl() { return &_gctl; }
@@ -417,8 +417,8 @@ public:
 					Object(Gura_UserClass(ImageDescriptor)), _desc(desc) {}
 	virtual ~Object_ImageDescriptor();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF::ImageDescriptor *GetImageDescriptor() { return &_desc; }
@@ -442,8 +442,8 @@ public:
 				_pObjImageDescriptor(pObjImageDescriptor) {}
 	virtual ~Object_imgprop();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline GIF::GraphicControlExtension *GetGraphicControl() {

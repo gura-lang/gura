@@ -23,7 +23,7 @@ private:
 	char *_buffIn;
 	bool _doneFlag;
 public:
-	Stream_Decompressor(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
+	Stream_Decompressor(Environment &env, Signal &sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
 			_offsetOut(0), _buffOut(nullptr), _buffIn(nullptr), _doneFlag(false) {
@@ -32,7 +32,7 @@ public:
 	~Stream_Decompressor() {
 		::BZ2_bzDecompressEnd(&_bzstrm);
 	}
-	bool Initialize(Signal sig, int verbosity, int small) {
+	bool Initialize(Signal &sig, int verbosity, int small) {
 		::memset(&_bzstrm, 0x00, sizeof(_bzstrm));
 		_bzstrm.bzalloc = nullptr;
 		_bzstrm.bzfree = nullptr;
@@ -53,10 +53,10 @@ public:
 	virtual const char *GetIdentifier() const {
 		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len) {
 		return 0;
 	}
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes) {
 		size_t bytesRead = 0;
 		char *buffp = reinterpret_cast<char *>(buff);
 		bool continueFlag = true;
@@ -111,7 +111,7 @@ public:
 		}
 		return bytesRead;
 	}
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) {
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode) {
 		if (seekMode == SeekSet) {
 			if (static_cast<size_t>(offset) >= offsetPrev) {
 				size_t bytesToRead = static_cast<size_t>(offset) - offsetPrev;
@@ -128,10 +128,10 @@ public:
 		sig.SetError(ERR_SystemError, "backward seeking is not supported");
 		return false;
 	}
-	virtual bool DoFlush(Signal sig) {
+	virtual bool DoFlush(Signal &sig) {
 		return false;
 	}
-	virtual bool DoClose(Signal sig) {
+	virtual bool DoClose(Signal &sig) {
 		return true;
 	}
 };
@@ -149,7 +149,7 @@ private:
 	char *_buffOut;
 	char *_buffIn;
 public:
-	Stream_Compressor(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff = 32768) :
+	Stream_Compressor(Environment &env, Signal &sig, Stream *pStream, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Writable), _pStream(pStream),
 			_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(nullptr), _buffIn(nullptr) {
 		CopyCodec(pStream);
@@ -157,7 +157,7 @@ public:
 	~Stream_Compressor() {
 		DoClose(_sig);
 	}
-	bool Initialize(Signal sig, int blockSize100k, int verbosity, int workFactor) {
+	bool Initialize(Signal &sig, int blockSize100k, int verbosity, int workFactor) {
 		::memset(&_bzstrm, 0x00, sizeof(_bzstrm));
 		_bzstrm.bzalloc = nullptr;
 		_bzstrm.bzfree = nullptr;
@@ -179,7 +179,7 @@ public:
 	virtual const char *GetIdentifier() const {
 		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len) {
 		if (_pStream.IsNull()) return 0;
 		_bzstrm.next_in = reinterpret_cast<char *>(const_cast<void *>(buff));
 		_bzstrm.avail_in = static_cast<unsigned int>(len);
@@ -198,10 +198,10 @@ public:
 		}
 		return len;
 	}
-	virtual bool DoFlush(Signal sig) {
+	virtual bool DoFlush(Signal &sig) {
 		return DoClose(sig);
 	}
-	virtual bool DoClose(Signal sig) {
+	virtual bool DoClose(Signal &sig) {
 		if (_pStream.IsNull()) return true;
 		for (;;) {
 			if (_bzstrm.avail_out == 0) {
@@ -227,10 +227,10 @@ public:
 		_pStream.reset(nullptr);
 		return rtn;
 	}
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes) {
 		return 0;
 	}
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) {
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode) {
 		return false;
 	}
 };

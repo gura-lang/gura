@@ -20,7 +20,7 @@ Uri::Uri(const Uri &uri) : _userValidFlag(uri._userValidFlag),
 	// ftp, http, gopher, mailto, news, nntp, telnet, wais, file, prospro
 }
 
-bool Uri::Parse(Signal sig, const char *str)
+bool Uri::Parse(Signal &sig, const char *str)
 {
 	enum {
 		STAT_Scheme,
@@ -154,7 +154,7 @@ String Uri::ToString() const
 	return rtn;
 }
 
-void Uri::SetError_InvalidURIFormat(Signal sig)
+void Uri::SetError_InvalidURIFormat(Signal &sig)
 {
 	sig.SetError(ERR_ValueError, "invalid URI format");
 }

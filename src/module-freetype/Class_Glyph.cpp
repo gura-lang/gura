@@ -25,7 +25,7 @@ String Object_Glyph::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Glyph::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Glyph::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 #if 0
@@ -35,7 +35,7 @@ bool Object_Glyph::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Glyph::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Glyph::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -50,7 +50,7 @@ Value Object_Glyph::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_Glyph::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Glyph::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

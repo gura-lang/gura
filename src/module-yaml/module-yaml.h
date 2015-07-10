@@ -20,14 +20,14 @@ typedef std::map<String, Value> AnchorMap;
 //-----------------------------------------------------------------------------
 class WriterToStream {
 private:
-	Signal _sig;
+	Signal &_sig;
 	Stream &_stream;
 public:
-	inline WriterToStream(Signal sig, Stream &stream) : _sig(sig), _stream(stream) {}
+	inline WriterToStream(Signal &sig, Stream &stream) : _sig(sig), _stream(stream) {}
 	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
-	static bool Write(Environment &env, Signal sig, Stream &stream, const Value &value);
+	static bool Write(Environment &env, Signal &sig, Stream &stream, const Value &value);
 };
 
 //-----------------------------------------------------------------------------
@@ -41,7 +41,7 @@ public:
 	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
-	static bool Write(Environment &env, Signal sig, String &str, const Value &value);
+	static bool Write(Environment &env, Signal &sig, String &str, const Value &value);
 };
 
 //-----------------------------------------------------------------------------
@@ -92,16 +92,16 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_FromStream : public Iterator {
 private:
-	Signal _sig;
+	Signal &_sig;
 	Stream *_pStream;
 	yaml_parser_t _parser;
 	AnchorMap _anchorMap;
 	bool _doneFlag;
 public:
-	Iterator_FromStream(Signal sig, Stream *pStream);
+	Iterator_FromStream(Signal &sig, Stream *pStream);
 	virtual ~Iterator_FromStream();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	int DoRead(unsigned char *buffer, size_t size, size_t *length);
@@ -121,7 +121,7 @@ public:
 	Iterator_FromString(const char *str);
 	virtual ~Iterator_FromString();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -129,12 +129,12 @@ public:
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool WriteStream(Environment &env, Signal sig, Stream &stream, const Value &value);
+bool WriteStream(Environment &env, Signal &sig, Stream &stream, const Value &value);
 const char *GetErrorText(yaml_error_type_e error);
 
-Value ExecParser(Environment &env, Signal sig,
+Value ExecParser(Environment &env, Signal &sig,
 						yaml_parser_t &parser, AnchorMap &anchorMap);
-bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
+bool ExecEmitter(Environment &env, Signal &sig, yaml_emitter_t &emitter,
 						yaml_encoding_t encoding, const Value &value);
 
 Gura_EndModuleHeader(yaml)

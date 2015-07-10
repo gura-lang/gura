@@ -40,7 +40,7 @@ void Parser::InitStack()
 	_elemStack.push_back(Element(ETYPE_Begin, 0));
 }
 
-Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
+Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 {
 	if (ch == '\r') return nullptr;
 	Expr *pExpr = nullptr;
@@ -970,7 +970,7 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 	return true;
 }
 
-Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
+Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, Stream &stream)
 {
 	Value result;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
@@ -1001,7 +1001,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 	return pExprRoot.release();
 }
 
-Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding)
+Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, const char *pathName, const char *encoding)
 {
 	String pathNameMod;
 	do {
@@ -1032,7 +1032,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 	return ParseStream(env, sig, *pStream);
 }
 
-bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
+bool Parser::ParseString(Environment &env, Signal &sig, ExprOwner &exprOwner,
 									const char *str, size_t len, bool parseNullFlag)
 {
 	for ( ; ; str++, len--) {
@@ -1053,7 +1053,7 @@ bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 	return true;
 }
 
-void Parser::EvalConsoleChar(Environment &env, Signal sig,
+void Parser::EvalConsoleChar(Environment &env, Signal &sig,
 						Expr_Root *pExprRoot, Stream *pConsole, char ch)
 {
 	char chConv = '\0';
@@ -1216,7 +1216,7 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 	return precTbl[indexLeft][indexRight - 1];
 }
 
-Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
+Expr *Parser::FeedElement(Environment &env, Signal &sig, const Element &elem)
 {
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
 	Expr *pExpr = nullptr;
@@ -1294,7 +1294,7 @@ Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
 	return pExpr;
 }
 
-bool Parser::ReduceOneElem(Environment &env, Signal sig)
+bool Parser::ReduceOneElem(Environment &env, Signal &sig)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(0);
@@ -1343,7 +1343,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	return true;
 }
 
-bool Parser::ReduceTwoElems(Environment &env, Signal sig)
+bool Parser::ReduceTwoElems(Environment &env, Signal &sig)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(1);
@@ -1534,7 +1534,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	return true;
 }
 
-bool Parser::ReduceThreeElems(Environment &env, Signal sig)
+bool Parser::ReduceThreeElems(Environment &env, Signal &sig)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(2);
@@ -1965,7 +1965,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	return true;
 }
 
-bool Parser::ReduceFourElems(Environment &env, Signal sig)
+bool Parser::ReduceFourElems(Environment &env, Signal &sig)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(3);
@@ -2133,7 +2133,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 	return true;
 }
 
-bool Parser::ReduceFiveElems(Environment &env, Signal sig)
+bool Parser::ReduceFiveElems(Environment &env, Signal &sig)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(4);
@@ -2275,7 +2275,7 @@ bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
 	return true;
 }
 
-void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
+void Parser::SetError(Signal &sig, ErrorType errType, const char *format, ...)
 {
 	String textPre;
 	if (!_pSourceName->GetStringSTL().empty()) {
@@ -2294,12 +2294,12 @@ void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 	va_end(ap);
 }
 
-void Parser::SetError_InvalidElement(Signal sig)
+void Parser::SetError_InvalidElement(Signal &sig)
 {
 	SetError(sig, ERR_SyntaxError, "invalid element");
 }
 
-void Parser::SetError_InvalidElement(Signal sig, int lineno)
+void Parser::SetError_InvalidElement(Signal &sig, int lineno)
 {
 	SetError(sig, ERR_SyntaxError, "invalid element (%d) .. %s", lineno,
 										_elemStack.ToString().c_str());

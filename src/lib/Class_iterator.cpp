@@ -23,7 +23,7 @@ Object *Object_iterator::Clone() const
 	return new Object_iterator(*this);
 }
 
-Iterator *Object_iterator::CreateIterator(Signal sig)
+Iterator *Object_iterator::CreateIterator(Signal &sig)
 {
 	return _pIterator->Clone();
 }
@@ -1604,7 +1604,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, while_);
 }
 
-bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_iterator::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	Iterator *pIterator = value.CreateIterator(sig);
 	if (pIterator != nullptr) {
@@ -1614,7 +1614,7 @@ bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const 
 	return false;
 }
 
-Object *Class_iterator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_iterator::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

@@ -63,50 +63,50 @@ public:
 	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
-	inline bool Next(Environment &env, Signal sig, Value &value) {
+	inline bool Next(Environment &env, Signal &sig, Value &value) {
 		_idxCur = _idxNext;
 		_idxNext++;
 		return NextShared(env, sig, 0, value);
 	}
-	bool NextShared(Environment &env, Signal sig, int id, Value &value);
+	bool NextShared(Environment &env, Signal &sig, int id, Value &value);
 	virtual bool IsSequence() const;
 	virtual bool IsSequenceInf() const;
 	Iterator *_Clone();
 	virtual Iterator *Clone() const;
-	bool Consume(Environment &env, Signal sig);
-	Value ToList(Environment &env, Signal sig,
+	bool Consume(Environment &env, Signal &sig);
+	Value ToList(Environment &env, Signal &sig,
 								bool alwaysListFlag, bool excludeNilFlag);
-	Value Eval(Environment &env, Signal sig, Args &args);
-	Value Reduce(Environment &env, Signal sig,
+	Value Eval(Environment &env, Signal &sig, Args &args);
+	Value Reduce(Environment &env, Signal &sig,
 								Value valueAccum, const Function *pFuncBlock);
-	Value MinMax(Environment &env, Signal sig,
+	Value MinMax(Environment &env, Signal &sig,
 									bool maxFlag, const SymbolSet &attrs);
-	Value Sum(Environment &env, Signal sig, size_t &cnt);
-	Value Prod(Environment &env, Signal sig);
-	Value Average(Environment &env, Signal sig, size_t &cnt);
-	Value Variance(Environment &env, Signal sig, size_t &cnt);
-	Value StandardDeviation(Environment &env, Signal sig, size_t &cnt);
-	Value And(Environment &env, Signal sig);
-	Value Or(Environment &env, Signal sig);
-	size_t Find(Environment &env, Signal sig, const Value &criteria, Value &value);
-	size_t FindTrue(Environment &env, Signal sig, Value &value);
-	size_t Count(Environment &env, Signal sig, const Value &criteria);
-	size_t CountTrue(Environment &env, Signal sig);
-	Iterator *Filter(Environment &env, Signal sig, const Value &criteria);
-	Iterator *While(Environment &env, Signal sig, const Value &criteria);
-	Iterator *Since(Environment &env, Signal sig, const Value &criteria, bool containFirstFlag);
-	Iterator *Until(Environment &env, Signal sig, const Value &criteria, bool containLastFlag);
-	bool DoesContain(Environment &env, Signal sig, const Value &value);
-	String Join(Environment &env, Signal sig, const char *sep);
-	Binary Joinb(Environment &env, Signal sig);
-	void PrintEach(Environment &env, Signal sig, Stream *pStream);
-	void PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format);
-	void PrintlnEach(Environment &env, Signal sig, Stream *pStream);
+	Value Sum(Environment &env, Signal &sig, size_t &cnt);
+	Value Prod(Environment &env, Signal &sig);
+	Value Average(Environment &env, Signal &sig, size_t &cnt);
+	Value Variance(Environment &env, Signal &sig, size_t &cnt);
+	Value StandardDeviation(Environment &env, Signal &sig, size_t &cnt);
+	Value And(Environment &env, Signal &sig);
+	Value Or(Environment &env, Signal &sig);
+	size_t Find(Environment &env, Signal &sig, const Value &criteria, Value &value);
+	size_t FindTrue(Environment &env, Signal &sig, Value &value);
+	size_t Count(Environment &env, Signal &sig, const Value &criteria);
+	size_t CountTrue(Environment &env, Signal &sig);
+	Iterator *Filter(Environment &env, Signal &sig, const Value &criteria);
+	Iterator *While(Environment &env, Signal &sig, const Value &criteria);
+	Iterator *Since(Environment &env, Signal &sig, const Value &criteria, bool containFirstFlag);
+	Iterator *Until(Environment &env, Signal &sig, const Value &criteria, bool containLastFlag);
+	bool DoesContain(Environment &env, Signal &sig, const Value &value);
+	String Join(Environment &env, Signal &sig, const char *sep);
+	Binary Joinb(Environment &env, Signal &sig);
+	void PrintEach(Environment &env, Signal &sig, Stream *pStream);
+	void PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format);
+	void PrintlnEach(Environment &env, Signal &sig, Stream *pStream);
 	virtual String ToString() const;
-	static void SetError_InvalidDataTypeOfElement(Signal sig);
-	static void SetError_InfiniteNotAllowed(Signal sig);
+	static void SetError_InvalidDataTypeOfElement(Signal &sig);
+	static void SetError_InfiniteNotAllowed(Signal &sig);
 	virtual Iterator *GetSource() = 0;
-	virtual bool DoNext(Environment &env, Signal sig, Value &value) = 0;
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) = 0;
 private:
 	inline void operator=(const Iterator &iterator) {}
@@ -120,10 +120,10 @@ public:
 	inline IteratorOwner() {}
 	IteratorOwner(const IteratorOwner &iterOwner);
 	virtual ~IteratorOwner();
-	bool Next(Environment &env, Signal sig, ValueList &valList);
+	bool Next(Environment &env, Signal &sig, ValueList &valList);
 	void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	bool IsInfinite() const;
-	bool PrepareForMap(Signal sig, const DeclarationList &declList, const ValueList &valListArg);
+	bool PrepareForMap(Signal &sig, const DeclarationList &declList, const ValueList &valListArg);
 };
 
 //-----------------------------------------------------------------------------

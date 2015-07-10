@@ -13,7 +13,7 @@ void Wave::Clear()
 {
 }
 
-bool Wave::SetAudio(Signal sig, const Audio *pAudio)
+bool Wave::SetAudio(Signal &sig, const Audio *pAudio)
 {
 	UShort wFormatTag = FORMAT_PCM;
 	UShort nChannels = pAudio->GetChannels();
@@ -58,7 +58,7 @@ bool Wave::SetAudio(Signal sig, const Audio *pAudio)
 	return true;
 }
 
-bool Wave::Read(Signal sig, Stream &stream)
+bool Wave::Read(Signal &sig, Stream &stream)
 {
 	ChunkHdr chunkHdr;
 	size_t bytesRead = stream.Read(sig, &chunkHdr, ChunkHdr::Size);
@@ -87,7 +87,7 @@ bool Wave::Read(Signal sig, Stream &stream)
 	return true;
 }
 
-bool Wave::Write(Signal sig, Stream &stream)
+bool Wave::Write(Signal &sig, Stream &stream)
 {
 	size_t bytesData = _pAudio->GetBytes();
 	size_t bytesChunk = 4;
@@ -121,7 +121,7 @@ void Wave::Print() const
 	_pFormat->Print();
 }
 
-bool Wave::ReadSubChunk(Signal sig, Stream &stream, size_t bytes)
+bool Wave::ReadSubChunk(Signal &sig, Stream &stream, size_t bytes)
 {
 	size_t bytesRest = (bytes + 1) / 2 * 2;
 	while (bytesRest > 0) {
@@ -168,7 +168,7 @@ bool Wave::ReadSubChunk(Signal sig, Stream &stream, size_t bytes)
 	return true;
 }
 
-bool Wave::ReadStruct(Signal sig, Stream &stream,
+bool Wave::ReadStruct(Signal &sig, Stream &stream,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual)
 {
 	if (ckSizeExpect > ckSizeActual) {
@@ -183,7 +183,7 @@ bool Wave::ReadStruct(Signal sig, Stream &stream,
 	return true;
 }
 
-bool Wave::ReadString(Signal sig, Stream &stream,
+bool Wave::ReadString(Signal &sig, Stream &stream,
 						char *str, size_t ckSizeMax, size_t ckSizeActual)
 {
 	size_t ckSizeAlign = (ckSizeActual + 1) / 2 * 2;
@@ -244,7 +244,7 @@ void Wave::Format::Print() const
 		_wBitsPerSample);
 }
 
-bool Wave::Format::Write(Signal sig, Stream &stream) const
+bool Wave::Format::Write(Signal &sig, Stream &stream) const
 {
 	ChunkHdr chunkHdr;
 	RawData rawData;
@@ -260,7 +260,7 @@ bool Wave::Format::Write(Signal sig, Stream &stream) const
 	return stream.Write(sig, &rawData, RawData::Size) == RawData::Size;
 }
 
-Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
+Audio *Wave::Format::ReadAudio(Signal &sig, Stream &stream, size_t ckSize) const
 {
 	if (_nChannels != 1 && _nChannels != 2) {
 		sig.SetError(ERR_FormatError, "nChannels must be one or two");

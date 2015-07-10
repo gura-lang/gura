@@ -13,7 +13,7 @@ private:
 	Signal _sig;
 	AutoPtr<StreamFIFO> _pStreamFIFO;
 public:
-	inline Thread1(Signal sig, StreamFIFO *pStreamFIFO) :
+	inline Thread1(Signal &sig, StreamFIFO *pStreamFIFO) :
 								_sig(sig), _pStreamFIFO(pStreamFIFO) {}
 	virtual void Run();
 };

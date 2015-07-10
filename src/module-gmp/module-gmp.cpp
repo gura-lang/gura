@@ -154,7 +154,7 @@ mpq_class MpqFromRational(const Rational &ratio)
 	return mpq_class(num);
 }
 
-mpf_class MpfFromRational(Signal sig, const Rational &ratio)
+mpf_class MpfFromRational(Signal &sig, const Rational &ratio)
 {
 	if (ratio.denom == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -165,7 +165,7 @@ mpf_class MpfFromRational(Signal sig, const Rational &ratio)
 	return numer / denom;
 }
 
-mpf_class MpfFromMpq(Signal sig, const mpq_class &num)
+mpf_class MpfFromMpq(Signal &sig, const mpq_class &num)
 {
 	mpf_class numer = num.get_num();
 	mpf_class denom = num.get_den();
@@ -176,7 +176,7 @@ mpf_class MpfFromMpq(Signal sig, const mpq_class &num)
 	return numer / denom;
 }
 
-bool _Format_d(Signal sig, Formatter *pFormatter,
+bool _Format_d(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
 	char *str = nullptr;
@@ -186,7 +186,7 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_u(Signal sig, Formatter *pFormatter,
+bool _Format_u(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
 	char *str = nullptr;
@@ -196,7 +196,7 @@ bool _Format_u(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_b(Signal sig, Formatter *pFormatter,
+bool _Format_b(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
 	char *str = nullptr;
@@ -206,7 +206,7 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_o(Signal sig, Formatter *pFormatter,
+bool _Format_o(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
 	char *str = nullptr;
@@ -216,7 +216,7 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_x(Signal sig, Formatter *pFormatter,
+bool _Format_x(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
 	char *str = nullptr;
@@ -227,7 +227,7 @@ bool _Format_x(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_e(Signal sig, Formatter *pFormatter,
+bool _Format_e(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
 	char *str = nullptr;
@@ -238,7 +238,7 @@ bool _Format_e(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_f(Signal sig, Formatter *pFormatter,
+bool _Format_f(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
 	char *str = nullptr;
@@ -248,7 +248,7 @@ bool _Format_f(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_g(Signal sig, Formatter *pFormatter,
+bool _Format_g(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpf_class &num)
 {
 	char *str = nullptr;
@@ -259,7 +259,7 @@ bool _Format_g(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_d(Signal sig, Formatter *pFormatter,
+bool _Format_d(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
 	char *str = nullptr;
@@ -269,7 +269,7 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_b(Signal sig, Formatter *pFormatter,
+bool _Format_b(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
 	char *str = nullptr;
@@ -279,7 +279,7 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_o(Signal sig, Formatter *pFormatter,
+bool _Format_o(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
 	char *str = nullptr;
@@ -289,7 +289,7 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 	return rtn;
 }
 
-bool _Format_x(Signal sig, Formatter *pFormatter,
+bool _Format_x(Signal &sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpq_class &num)
 {
 	char *str = nullptr;

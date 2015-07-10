@@ -71,7 +71,7 @@ void Function::SetClassToConstruct(Class *pClassToConstruct)
 	pClassToConstruct->SetConstructor(Function::Reference(this));
 }
 
-bool Function::CustomDeclare(Environment &env, Signal sig,
+bool Function::CustomDeclare(Environment &env, Signal &sig,
 								const SymbolSet &attrsAcceptable, Args &args)
 {
 	// delcaration of arguments
@@ -248,13 +248,13 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, Signal sig, Args &args) const
+Value Function::Call(Environment &env, Signal &sig, Args &args) const
 {
 	Sequence *pSequence = new SequenceEx(env.Reference(), Reference(this), args);
 	return Sequence::Return(sig, pSequence);
 }
 
-Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args, bool thisAssignFlag) const
+Environment *Function::PrepareEnvironment(Environment &env, Signal &sig, Args &args, bool thisAssignFlag) const
 {
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
@@ -310,7 +310,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	return pEnvLocal.release();
 }
 
-Value Function::Eval(Environment &env, Signal sig, Args &args) const
+Value Function::Eval(Environment &env, Signal &sig, Args &args) const
 {
 	ValueList valListCasted;
 	if (!GetDeclOwner().ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
@@ -322,7 +322,7 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 	return value;
 }
 
-Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
+Value Function::EvalMap(Environment &env, Signal &sig, Args &args) const
 {
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
 				new Environment(env), sig,
@@ -346,7 +346,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
-Value Function::ReturnValue(Environment &env, Signal sig,
+Value Function::ReturnValue(Environment &env, Signal &sig,
 									Args &args, const Value &result) const
 {
 	if (!args.IsBlockSpecified()) return result;
@@ -364,7 +364,7 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	return value;
 }
 
-Value Function::ReturnValues(Environment &env, Signal sig,
+Value Function::ReturnValues(Environment &env, Signal &sig,
 								Args &args, const ValueList &valListArg) const
 {
 	if (!args.IsBlockSpecified()) return valListArg.front();
@@ -382,7 +382,7 @@ Value Function::ReturnValues(Environment &env, Signal sig,
 	return value;
 }
 
-Value Function::ReturnIterator(Environment &env, Signal sig,
+Value Function::ReturnIterator(Environment &env, Signal &sig,
 								Args &args, Iterator *pIterator) const
 {
 	if (pIterator == nullptr) return Value::Null;
@@ -421,14 +421,14 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 	return result;
 }
 
-Expr *Function::MathDiff(Environment &env, Signal sig,
+Expr *Function::MathDiff(Environment &env, Signal &sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Function::MathOptimize(Environment &env, Signal sig, Expr *pExprOpt) const
+Expr *Function::MathOptimize(Environment &env, Signal &sig, Expr *pExprOpt) const
 {
 	SetError_MathOptimizeError(sig);
 	return nullptr;
@@ -570,7 +570,7 @@ String Function::ToString() const
 	return str;
 }
 
-void Function::SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const
+void Function::SetError_UnsupportedAttr(Signal &sig, const SymbolSet &attrs) const
 {
 	String str;
 	str += "function '";
@@ -585,17 +585,17 @@ void Function::SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) cons
 	sig.SetError(ERR_AttributeError, "%s", str.c_str());
 }
 
-void Function::SetError_DivideByZero(Signal sig) const
+void Function::SetError_DivideByZero(Signal &sig) const
 {
 	sig.SetError(ERR_ZeroDivisionError, "divide by zero");
 }
 
-void Function::SetError_NotConstructor(Signal sig) const
+void Function::SetError_NotConstructor(Signal &sig) const
 {
 	sig.SetError(ERR_ValueError, "'%s' is not a constructor", GetName());
 }
 
-void Function::SetError_ArgumentTypeByIndex(Signal sig, Args &args, size_t idxArg) const
+void Function::SetError_ArgumentTypeByIndex(Signal &sig, Args &args, size_t idxArg) const
 {
 	if (idxArg < GetDeclOwner().size()) {
 		const Declaration *pDecl = GetDeclOwner()[idxArg];
@@ -605,41 +605,41 @@ void Function::SetError_ArgumentTypeByIndex(Signal sig, Args &args, size_t idxAr
 	}
 }
 
-void Function::SetError_InvalidValue(Signal sig, const Value &value) const
+void Function::SetError_InvalidValue(Signal &sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s)",
 				GetName(), value.ToString().c_str());
 }
 
-void Function::SetError_InvalidValue(Signal sig, const Value &value1, const Value &value2) const
+void Function::SetError_InvalidValue(Signal &sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
 				GetName(), value1.ToString().c_str(), value2.MakeValueTypeName().c_str());
 }
 
-void Function::SetError_InvalidValType(Signal sig, const Value &value) const
+void Function::SetError_InvalidValType(Signal &sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s)",
 				GetName(), value.MakeValueTypeName().c_str());
 }
 
-void Function::SetError_InvalidValType(Signal sig, const Value &value1, const Value &value2) const
+void Function::SetError_InvalidValType(Signal &sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
 				GetName(), value1.MakeValueTypeName().c_str(), value2.MakeValueTypeName().c_str());
 }
 
-void Function::SetError_InvalidFunctionExpression(Signal sig) const
+void Function::SetError_InvalidFunctionExpression(Signal &sig) const
 {
 	sig.SetError(ERR_SyntaxError, "invalid function expression");
 }
 
-void Function::SetError_MathDiffError(Signal sig) const
+void Function::SetError_MathDiffError(Signal &sig) const
 {
 	sig.SetError(ERR_ValueError, "failed to generate a differential function");
 }
 
-void Function::SetError_MathOptimizeError(Signal sig) const
+void Function::SetError_MathOptimizeError(Signal &sig) const
 {
 	sig.SetError(ERR_ValueError, "mathematical optimization is not supported");
 }
@@ -660,7 +660,7 @@ Function::ResultComposer::ResultComposer(Environment &env, Args &args, Value &re
 	}
 }
 
-bool Function::ResultComposer::Store(Environment &env, Signal sig, const Value &value)
+bool Function::ResultComposer::Store(Environment &env, Signal &sig, const Value &value)
 {
 	if (_args.IsRsltVoid()) {
 		// nothing to do
@@ -720,7 +720,7 @@ Function::SequenceEx::SequenceEx(Environment *pEnv, Function *pFunc, Args &args)
 	_ppExprArg = _pArgs->GetExprListArg().begin();
 }
 
-bool Function::SequenceEx::DoStep(Signal sig, Value &result)
+bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
@@ -977,7 +977,7 @@ void Function::SequenceEx::SkipDeclarations(size_t nSkipDecl)
 //-----------------------------------------------------------------------------
 // Function::SeqPostHandler_StoreDict
 //-----------------------------------------------------------------------------
-bool Function::SeqPostHandler_StoreDict::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_StoreDict::DoPost(Signal &sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	valDictArg[_valueKey] = result;
@@ -987,7 +987,7 @@ bool Function::SeqPostHandler_StoreDict::DoPost(Signal sig, const Value &result)
 //-----------------------------------------------------------------------------
 // Function::SeqPostHandler_ExpandMod
 //-----------------------------------------------------------------------------
-bool Function::SeqPostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ExpandMod::DoPost(Signal &sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	ExprMap &exprMap = _pSequenceCall->GetExprMap();
@@ -1017,7 +1017,7 @@ bool Function::SeqPostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 //-----------------------------------------------------------------------------
 // Function::SeqPostHandler_ExpandMul
 //-----------------------------------------------------------------------------
-bool Function::SeqPostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ExpandMul::DoPost(Signal &sig, const Value &result)
 {
 	do {
 		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
@@ -1039,7 +1039,7 @@ bool Function::SeqPostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 //-----------------------------------------------------------------------------
 // Function::SeqPostHandler_ValListArg
 //-----------------------------------------------------------------------------
-bool Function::SeqPostHandler_ValListArg::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ValListArg::DoPost(Signal &sig, const Value &result)
 {
 	ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
 	valListArg.push_back(result);
@@ -1050,7 +1050,7 @@ bool Function::SeqPostHandler_ValListArg::DoPost(Signal sig, const Value &result
 //-----------------------------------------------------------------------------
 // Function::SeqPostHandler_ValDictArg
 //-----------------------------------------------------------------------------
-bool Function::SeqPostHandler_ValDictArg::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ValDictArg::DoPost(Signal &sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	valDictArg[Value(_pSymbol)] = result;
@@ -1078,7 +1078,7 @@ bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 	return false;
 }
 
-const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
+const Expr_Block *Args::GetBlock(Environment &env, Signal &sig) const
 {
 	// check if the block parameter specifies a delegated block information
 	// like "g() {|block|}"
@@ -1115,7 +1115,7 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 }
 
 // return nullptr without error if block is not specified
-const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
+const Function *Args::GetBlockFunc(Environment &env, Signal &sig, const Symbol *pSymbol)
 {
 	const Expr_Block *pExprBlock = GetBlock(env, sig);
 	if (pExprBlock == nullptr || pSymbol == nullptr) return nullptr;

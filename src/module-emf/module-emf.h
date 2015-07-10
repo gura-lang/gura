@@ -88,7 +88,7 @@ public:
 	virtual ~EMR_basement() {
 		delete[] _buff;
 	}
-	bool Read(Signal sig, Stream &stream) {
+	bool Read(Signal &sig, Stream &stream) {
 		size_t bytes = _dwordsParms * 4;
 		size_t bytesRead = stream.Read(sig, _buff, bytes);
 		if (sig.IsSignalled()) return false;

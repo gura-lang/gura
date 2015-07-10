@@ -19,19 +19,19 @@ Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
 
 bool Fundamental::IsFunction() const { return false; }
 
-Iterator *Fundamental::CreateIterator(Signal sig)
+Iterator *Fundamental::CreateIterator(Signal &sig)
 {
 	sig.SetError(ERR_ValueError, "object cannot generate iterator");
 	return nullptr;
 }
 
-Value Fundamental::DoCall(Environment &env, Signal sig, Args &args)
+Value Fundamental::DoCall(Environment &env, Signal &sig, Args &args)
 {
 	sig.SetError(ERR_TypeError, "object is not callable");
 	return Value::Null;
 }
 
-bool Fundamental::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Fundamental::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	return true;
 }

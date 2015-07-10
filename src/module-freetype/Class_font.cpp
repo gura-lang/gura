@@ -16,7 +16,7 @@ Object *Object_font::Clone() const
 	return nullptr; //new Object_font(*this);
 }
 
-bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_font::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(face));
@@ -30,7 +30,7 @@ bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_font::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -59,7 +59,7 @@ Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_font::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -128,7 +128,7 @@ void Object_font::ClearDeco()
 	_rotate.cosNum = 1., _rotate.sinNum = 0.;
 }
 
-bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
+bool Object_font::CalcSize(Environment &env, Signal &sig, const String &str,
 					size_t &width, size_t &height, const Function *pFuncDeco)
 {
 	int xShifted = 0, yShifted = 0;
@@ -158,7 +158,7 @@ bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
 	return true;
 }
 
-bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
+bool Object_font::DrawOnImage(Environment &env, Signal &sig, Image *pImage,
 				int x, int y, const String &str, const Function *pFuncDeco)
 {
 	const Color &color = _pObjColor->GetColor();
@@ -200,7 +200,7 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 	return true;
 }
 
-FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
+FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal &sig,
 			unsigned long codeUTF32, size_t idx, const Function *pFuncDeco)
 {
 	bool transformFlag = (pFuncDeco != nullptr);

@@ -68,7 +68,7 @@ const char *Item::GetTypeName() const
 	return "?";
 }
 
-void Item::Print(Signal sig, Stream &stream, int indentLevel) const
+void Item::Print(Signal &sig, Stream &stream, int indentLevel) const
 {
 	for (int i = 0; i < indentLevel; i++) stream.Print(sig, "  ");
 	stream.Print(sig, "<");
@@ -131,7 +131,7 @@ Item *ItemList::FindByType(Item::Type type) const
 	return nullptr;
 }
 
-void ItemList::Print(Signal sig, Stream &stream, int indentLevel) const
+void ItemList::Print(Signal &sig, Stream &stream, int indentLevel) const
 {
 	foreach_const (ItemList, ppItem, *this) {
 		const Item *pItem = *ppItem;
@@ -218,7 +218,7 @@ Document::Document() : _cntRef(1), _resolvedFlag(false), _decoPrecedingFlag(fals
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Document::ParseStream(Signal sig, SimpleStream &stream)
+bool Document::ParseStream(Signal &sig, SimpleStream &stream)
 {
 	enum {
 		STAT_FirstRowTop,
@@ -391,13 +391,13 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	return true;
 }
 
-bool Document::ParseString(Signal sig, const char *text)
+bool Document::ParseString(Signal &sig, const char *text)
 {
 	SimpleStream_CStringReader stream(text);
 	return ParseStream(sig, stream);
 }
 
-bool Document::_ParseString(Signal sig, String text)
+bool Document::_ParseString(Signal &sig, String text)
 {
 	foreach (String, p, text) {
 		if (!ParseChar(sig, *p)) return false;
@@ -428,7 +428,7 @@ void Document::ResolveReference()
 	_resolvedFlag = true;
 }
 
-bool Document::ParseChar(Signal sig, char ch)
+bool Document::ParseChar(Signal &sig, char ch)
 {
 	Gura_BeginPushbackRegionEx(char, 16, ch);
 	switch (_stat) {
@@ -2702,7 +2702,7 @@ Object *Object_document::Clone() const
 	return nullptr;
 }
 
-bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_document::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(refs));
@@ -2710,7 +2710,7 @@ bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_document::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -2726,7 +2726,7 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_document::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -2794,7 +2794,7 @@ Object *Object_item::Clone() const
 	return nullptr;
 }
 
-bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_item::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
@@ -2807,7 +2807,7 @@ bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_item::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -2845,7 +2845,7 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-Value Object_item::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_item::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -2965,7 +2965,7 @@ Iterator *Iterator_item::GetSource()
 	return nullptr;
 }
 
-bool Iterator_item::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_item::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idxItem < _pItemOwner->size()) {
 		Item *pItem = (*_pItemOwner)[_idxItem++];
@@ -2990,7 +2990,7 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // HelpPresenter_markdown
 //-----------------------------------------------------------------------------
-bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
+bool HelpPresenter_markdown::DoPresent(Environment &env, Signal &sig,
 									const char *title, const Help *pHelp) const
 {
 	if (g_pFunc_Presenter.IsNull()) {

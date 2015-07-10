@@ -142,7 +142,7 @@ String Object_wx_GridCellRenderer::ToString(bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag,
+void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal &sig, bool &evaluatedFlag,
 			wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 			const wxRect &rect, int row, int col, bool isSelected)
 {

@@ -3,9 +3,9 @@ sys.path.add('../module-opengl')
 import(cbridge_glcmn)
 
 tmplCallbackHandler = R'''
-	if (func == NULL) {
+	if (func == nullptr) {
 		g_pContext->funcPackOn${eventName}.ClearFunc();
-		glut${eventName}Func(NULL);
+		glut${eventName}Func(nullptr);
 	} else {
 		g_pContext->funcPackOn${eventName}.SetFunc(env, sig, func->Reference());
 		glut${eventName}Func(On${eventName});
@@ -21,7 +21,7 @@ cbridge_glcmn.Implement {
 
 glutInit(argv[]:string) {block?} = R'''
 	int argc = static_cast<int>(argv.size());
-	char **_argv = NULL;
+	char **_argv = nullptr;
 	if (argc > 0) {
 		_argv = new char *[argc];
 		int i = 0;
@@ -351,9 +351,9 @@ glutIdleFunc(func:function:nil):void = RenderCallbackHandler('Idle') % {`en, 'ma
 }
 
 glutTimerFunc(millis:unsigned_int, func:function:nil, value:int):void = R'''
-	if (func == NULL) {
+	if (func == nullptr) {
 		g_pContext->funcPackOnTimer.ClearFunc();
-		glutTimerFunc(millis, NULL, value);
+		glutTimerFunc(millis, nullptr, value);
 	} else {
 		g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
@@ -435,9 +435,9 @@ glutSpecialUpFunc(func:function:nil):void = RenderCallbackHandler('SpecialUp') %
 }
 
 glutJoystickFunc(func:function:nil, pollInterval:int):void = R'''
-	if (func == NULL) {
+	if (func == nullptr) {
 		g_pContext->funcPackOnJoystick.ClearFunc();
-		glutJoystickFunc(NULL, pollInterval);
+		glutJoystickFunc(nullptr, pollInterval);
 	} else {
 		g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);
@@ -700,24 +700,24 @@ Gura_BeginModuleScope(${renderer.moduleName})
 class FunctionPack {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal _sig;
+	Signal *_pSig;
 	AutoPtr<Function> _pFunc;
 public:
 	inline FunctionPack() {}
-	inline void SetFunc(Environment &env, Signal sig, Function *pFunc) {
+	inline void SetFunc(Environment &env, Signal &sig, Function *pFunc) {
 		_pEnv.reset(new Environment(env));
-		_sig = sig;
+		_pSig = &sig;
 		_pFunc.reset(pFunc);
 	}
 	inline void ClearFunc() {
-		_pEnv.reset(NULL);
-		_pFunc.reset(NULL);
+		_pEnv.reset(nullptr);
+		_pFunc.reset(nullptr);
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
-		Value result = _pFunc->Eval(*_pEnv, _sig, args);
-		if (_sig.IsSignalled()) {
-			_sig.PrintSignal(*_pEnv->GetConsoleErr());
+		Value result = _pFunc->Eval(*_pEnv, *_pSig, args);
+		if (_pSig->IsSignalled()) {
+			_pSig->PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);
 		}
 		return result;
@@ -757,7 +757,7 @@ struct Context {
 	inline Context() : idxMenu(0) {}
 };
 
-Context *g_pContext = NULL;
+Context *g_pContext = nullptr;
 
 template<int idx> void OnMenuTmpl(int value)
 {

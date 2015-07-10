@@ -29,10 +29,10 @@ private:
 public:
 	Object_font(Object_Face *pObjFace, Object_color *pObjColor);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
@@ -56,12 +56,12 @@ public:
 	}
 	inline double GetRotate() const { return _rotate.deg; }
 	void ClearDeco();
-	bool CalcSize(Environment &env, Signal sig, const String &str,
+	bool CalcSize(Environment &env, Signal &sig, const String &str,
 					size_t &width, size_t &height, const Function *pFuncDeco);
-	bool DrawOnImage(Environment &env, Signal sig, Image *pImage, int x, int y,
+	bool DrawOnImage(Environment &env, Signal &sig, Image *pImage, int x, int y,
 					const String &str, const Function *pFuncDeco);
 private:
-	FT_Error LoadAndDecorateChar(Environment &env, Signal sig,
+	FT_Error LoadAndDecorateChar(Environment &env, Signal &sig,
 				unsigned long codeUTF32, size_t idx, const Function *pFuncDeco);
 	void DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,

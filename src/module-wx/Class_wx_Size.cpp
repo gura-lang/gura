@@ -398,7 +398,7 @@ Object *Object_wx_Size::Clone() const
 	return nullptr;
 }
 
-bool Object_wx_Size::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_wx_Size::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(x));
@@ -406,7 +406,7 @@ bool Object_wx_Size::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_Size::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_wx_Size::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -419,7 +419,7 @@ Value Object_wx_Size::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-Value Object_wx_Size::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_wx_Size::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {

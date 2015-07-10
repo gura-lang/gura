@@ -28,7 +28,7 @@ public:
 		inline IteratorEach(Palette *pPalette) :
 					Iterator(false), _pPalette(pPalette), _idx(0) {}
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -67,14 +67,14 @@ public:
 	inline size_t CountEntries() const { return _nEntries; }
 	void AllocBuff(size_t nEntries);
 	void ResizeBuff(size_t nEntries, size_t nEntriesToCopy);
-	bool Prepare(Signal sig, const Symbol *pSymbol);
+	bool Prepare(Signal &sig, const Symbol *pSymbol);
 	Value GetColorValue(Environment &env, size_t idx);
 	void SetColor(size_t idx, const Color &color);
 	size_t LookupNearest(UChar r, UChar g, UChar b) const;
 	bool UpdateByImage(const Image *pImage, ShrinkMode shrinkMode);
-	bool UpdateByImage(Signal sig, const Image *pImage, ShrinkMode shrinkMode);
+	bool UpdateByImage(Signal &sig, const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode);
-	bool UpdateByPalette(Signal sig, const Palette *pPalette, ShrinkMode shrinkMode);
+	bool UpdateByPalette(Signal &sig, const Palette *pPalette, ShrinkMode shrinkMode);
 	void Shrink(size_t nEntries, bool alignFlag);
 	inline size_t LookupNearest(const UChar *pPixel) const {
 		return LookupNearest(pPixel[Image::OffsetR], pPixel[Image::OffsetG], pPixel[Image::OffsetB]);

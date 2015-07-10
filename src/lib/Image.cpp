@@ -54,7 +54,7 @@ bool Image::AllocBuffer(size_t width, size_t height, UChar fillValue)
 	return true;
 }
 
-bool Image::AllocBuffer(Signal sig,
+bool Image::AllocBuffer(Signal &sig,
 					size_t width, size_t height, UChar fillValue)
 {
 	if (AllocBuffer(width, height, fillValue)) return true;
@@ -68,14 +68,14 @@ void Image::FreeBuffer()
 	_width = 0, _height = 0;
 }
 
-bool Image::CheckEmpty(Signal sig) const
+bool Image::CheckEmpty(Signal &sig) const
 {
 	if (!IsValid()) return true;
 	sig.SetError(ERR_ValueError, "image has already been initialized with a buffer");
 	return false;
 }
 
-bool Image::CheckValid(Signal sig) const
+bool Image::CheckValid(Signal &sig) const
 {
 	if (IsValid()) return true;
 	sig.SetError(ERR_ValueError, "image does not have a buffer");
@@ -105,7 +105,7 @@ Image::ScanDir Image::SymbolToScanDir(const Symbol *pSymbol)
 	}
 }
 
-size_t Image::SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const
+size_t Image::SymbolToPixelOffset(Signal &sig, const Symbol *pSymbol) const
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
 		return OffsetR;
@@ -124,7 +124,7 @@ size_t Image::SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const
 	return 0;
 }
 
-Image::Format Image::SymbolToFormat(Signal sig, const Symbol *pSymbol)
+Image::Format Image::SymbolToFormat(Signal &sig, const Symbol *pSymbol)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(rgb))) {
 		return FORMAT_RGB;
@@ -158,7 +158,7 @@ void Image::InitMetrics()
 			(_format == FORMAT_RGBA)? _width * 4 : 0;
 }
 
-Image *Image::CreateDerivation(Signal sig,
+Image *Image::CreateDerivation(Signal &sig,
 						size_t width, size_t height, Palette *pPalette)
 {
 	AutoPtr<Image> pImage(new Image(_format));
@@ -171,7 +171,7 @@ Image *Image::CreateDerivation(Signal sig,
 	return pImage.release();
 }
 
-bool Image::CheckCoord(Signal sig, size_t x, size_t y) const
+bool Image::CheckCoord(Signal &sig, size_t x, size_t y) const
 {
 	if (CheckCoord(static_cast<int>(x), static_cast<int>(y))) return true;
 	sig.SetError(ERR_ValueError, "coordinate is out of range");
@@ -224,7 +224,7 @@ void Image::GetPixel(const UChar *buff, Color &color)
 	}
 }
 
-bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
+bool Image::Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 							const Symbol *pSymbol, const Matrix *pMat)
 {
 	if (pMat->GetRows() < height || pMat->GetCols() < width) {
@@ -247,7 +247,7 @@ bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	return true;
 }
 
-bool Image::Store(Environment &env, Signal sig, size_t x, size_t y, size_t width, size_t height,
+bool Image::Store(Environment &env, Signal &sig, size_t x, size_t y, size_t width, size_t height,
 							const Symbol *pSymbol, Iterator *pIterator)
 {
 	size_t bytesPerLine = GetBytesPerLine();
@@ -266,7 +266,7 @@ bool Image::Store(Environment &env, Signal sig, size_t x, size_t y, size_t width
 	return true;
 }
 
-bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
+bool Image::Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 							const Symbol *pSymbol, Matrix *pMat)
 {
 	if (pMat->GetRows() < height || pMat->GetCols() < width) {
@@ -289,7 +289,7 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	return true;
 }
 
-bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
+bool Image::Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 									const Symbol *pSymbol, ValueList &valList)
 {
 	if (valList.size() < height * width) {
@@ -414,7 +414,7 @@ void Image::FillRectAlpha(size_t x, size_t y,
 	}
 }
 
-Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
+Image *Image::ReduceColor(Signal &sig, const Palette *pPalette)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height,
 										Palette::Reference(pPalette)));
@@ -436,7 +436,7 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 	return pImage.release();
 }
 
-Image *Image::GrayScale(Signal sig)
+Image *Image::GrayScale(Signal &sig)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return nullptr;
@@ -456,7 +456,7 @@ Image *Image::GrayScale(Signal sig)
 	return pImage.release();
 }
 
-Image *Image::MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, const UChar *mapB)
+Image *Image::MapColorLevel(Signal &sig, const UChar *mapR, const UChar *mapG, const UChar *mapB)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return nullptr;
@@ -480,7 +480,7 @@ Image *Image::MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, co
 	return pImage.release();
 }
 
-Image *Image::Blur(Signal sig, int radius, Number sigma)
+Image *Image::Blur(Signal &sig, int radius, Number sigma)
 {
 	int diameter = radius * 2 + 1;
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
@@ -564,7 +564,7 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 	return pImage.release();
 }
 
-Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
+Image *Image::Flip(Signal &sig, bool horzFlag, bool vertFlag)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return nullptr;
@@ -594,7 +594,7 @@ Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 	return pImage.release();
 }
 
-Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
+Image *Image::Rotate90(Signal &sig, bool clockwiseFlag)
 {
 	size_t width = _height, height = _width;
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
@@ -614,7 +614,7 @@ Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
 	return pImage.release();
 }
 
-Image *Image::Rotate(Signal sig, double angle, const Color &color)
+Image *Image::Rotate(Signal &sig, double angle, const Color &color)
 {
 	int angleInt = static_cast<int>(angle);
 	if (static_cast<double>(angleInt) != angle) {
@@ -679,7 +679,7 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 	return pImage.release();
 }
 
-Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
+Image *Image::Crop(Signal &sig, size_t x, size_t y, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return nullptr;
@@ -695,7 +695,7 @@ Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 	return pImage.release();
 }
 
-Image *Image::Resize(Signal sig, size_t width, size_t height)
+Image *Image::Resize(Signal &sig, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return nullptr;
@@ -887,7 +887,7 @@ void Image::SetPalette(Palette *pPalette)
 	_pPalette.reset(pPalette);
 }
 
-bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imageType)
+bool Image::Read(Environment &env, Signal &sig, Stream &stream, const char *imageType)
 {
 	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
@@ -899,7 +899,7 @@ bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *image
 	return pImageStreamer->Read(env, sig, this, stream);
 }
 
-bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imageType)
+bool Image::Write(Environment &env, Signal &sig, Stream &stream, const char *imageType)
 {
 	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
@@ -946,7 +946,7 @@ size_t Image::CalcDIBImageSize(int biBitCount, bool maskFlag) const
 	return bytes;
 }
 
-bool Image::ReadDIBPalette(Environment &env, Signal sig, Stream &stream, int biBitCount)
+bool Image::ReadDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount)
 {
 	if (biBitCount == 24 || biBitCount == 32) return true;
 	if (!(biBitCount == 1 || biBitCount == 4 || biBitCount == 8)) {
@@ -966,7 +966,7 @@ bool Image::ReadDIBPalette(Environment &env, Signal sig, Stream &stream, int biB
 	return true;
 }
 
-bool Image::WriteDIBPalette(Environment &env, Signal sig, Stream &stream, int biBitCount)
+bool Image::WriteDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount)
 {
 	if (biBitCount == 24 || biBitCount == 32) return true;
 	if (!(biBitCount == 1 || biBitCount == 4 || biBitCount == 8)) {
@@ -1005,7 +1005,7 @@ bool Image::WriteDIBPalette(Environment &env, Signal sig, Stream &stream, int bi
 	return true;
 }
 
-bool Image::ReadDIB(Signal sig, Stream &stream,
+bool Image::ReadDIB(Signal &sig, Stream &stream,
 				int biWidth, int biHeight, int biBitCount, bool maskFlag)
 {
 	bool vertRevFlag = true;
@@ -1159,7 +1159,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 	return true;
 }
 
-bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
+bool Image::WriteDIB(Signal &sig, Stream &stream, int biBitCount, bool maskFlag)
 {
 	int biWidth = static_cast<int>(GetWidth());
 	//int biHeight = static_cast<int>(GetHeight());
@@ -1390,7 +1390,7 @@ Iterator *Image::IteratorScan::GetSource()
 	return nullptr;
 }
 
-bool Image::IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
+bool Image::IteratorScan::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
 	if (_doneFlag) return false;
@@ -1422,7 +1422,7 @@ void ImageStreamer::Register(ImageStreamer *pImageStreamer)
 	_pList->push_back(pImageStreamer);
 }
 
-ImageStreamer *ImageStreamer::FindResponsible(Signal sig, Stream &stream, const char *imageType)
+ImageStreamer *ImageStreamer::FindResponsible(Signal &sig, Stream &stream, const char *imageType)
 {
 	if (_pList == nullptr) return nullptr;
 	if (imageType != nullptr) return FindByImageType(imageType);

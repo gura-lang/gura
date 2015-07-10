@@ -99,7 +99,7 @@ bool PathMgr::DoesMatchNameSub(const char *pattern, const char *fileName, bool i
 	}
 }
 
-PathMgr *PathMgr::FindResponsible(Environment &env, Signal sig,
+PathMgr *PathMgr::FindResponsible(Environment &env, Signal &sig,
 								const Directory *pParent, const char *pathName)
 {
 	PathMgrOwner &pathMgrOwner = env.GetGlobal()->GetPathMgrOwner();
@@ -114,14 +114,14 @@ PathMgr *PathMgr::FindResponsible(Environment &env, Signal sig,
 	return nullptr;
 }
 
-bool PathMgr::DoesExist(Environment &env, Signal sig, const char *pathName)
+bool PathMgr::DoesExist(Environment &env, Signal &sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
 	return !pDirectory.IsNull();
 }
 
-bool PathMgr::IsContainer(Environment &env, Signal sig, const char *pathName)
+bool PathMgr::IsContainer(Environment &env, Signal &sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));

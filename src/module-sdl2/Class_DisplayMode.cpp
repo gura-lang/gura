@@ -19,7 +19,7 @@ String Object_DisplayMode::ToString(bool exprFlag)
 	return String("<sdl2.DisplayMode>");
 }
 
-bool Object_DisplayMode::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_DisplayMode::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(format));
@@ -29,7 +29,7 @@ bool Object_DisplayMode::DoDirProp(Environment &env, Signal sig, SymbolSet &symb
 	return true;
 }
 
-Value Object_DisplayMode::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_DisplayMode::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -46,7 +46,7 @@ Value Object_DisplayMode::DoGetProp(Environment &env, Signal sig, const Symbol *
 	return Value::Null;
 }
 
-Value Object_DisplayMode::DoSetProp(Environment &env, Signal sig,
+Value Object_DisplayMode::DoSetProp(Environment &env, Signal &sig,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

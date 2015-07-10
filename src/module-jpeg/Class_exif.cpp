@@ -24,13 +24,13 @@ Object *Object_exif::Clone() const
 	return nullptr;
 }
 
-Value Object_exif::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_exif::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
 }
 
-bool Object_exif::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_exif::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	if (_pObj0thIFD.IsNull()) return true;
@@ -42,7 +42,7 @@ bool Object_exif::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return _pObj0thIFD->DoDirProp(env, sig, symbols);
 }
 
-Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_exif::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (_pObj0thIFD.IsNull()) return Value::Null;
@@ -98,7 +98,7 @@ String Object_exif::ToString(bool exprFlag)
 	return String("<jpeg.exif>");
 }
 
-Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &stream)
+Object_exif *Object_exif::ReadStream(Environment &env, Signal &sig, Stream &stream)
 {
 	AutoPtr<Memory> pMemory(new MemoryHeap(65536));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());

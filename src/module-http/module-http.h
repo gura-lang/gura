@@ -82,7 +82,7 @@ public:
 	inline size_t GetSize() const { return _size; }
 	inline const char *GetExtName() const { return _extName.c_str(); }
 	inline const char *GetExtValue() const { return _extValue.c_str(); }
-	bool ParseChar(Signal sig, char ch);
+	bool ParseChar(Signal &sig, char ch);
 };
 
 //-----------------------------------------------------------------------------
@@ -112,7 +112,7 @@ protected:
 public:
 	inline SimpleHTMLParser() :
 			_stat(STAT_Complete), _statNext(STAT_Complete), _tagPrefix('\0') {}
-	bool ParseChar(Signal sig, char ch);
+	bool ParseChar(Signal &sig, char ch);
 	inline void Activate() { _stat = _statNext = STAT_Init; }
 	inline bool IsComplete() const {
 		return _stat == STAT_Complete;
@@ -120,7 +120,7 @@ public:
 	inline bool IsActive() const {
 		return _stat != STAT_Error && _stat != STAT_Complete;
 	}
-	virtual bool AcceptTag(Signal sig,
+	virtual bool AcceptTag(Signal &sig,
 				char tagPrefix, const char *tagName, const Attrs &attrs) = 0;
 };
 
@@ -131,7 +131,7 @@ class EncodingDetector : public SimpleHTMLParser {
 private:
 	String _encoding;
 public:
-	virtual bool AcceptTag(Signal sig,
+	virtual bool AcceptTag(Signal &sig,
 				char tagPrefix, const char *tagName, const Attrs &attrs);
 	inline bool IsValidEncoding() const {
 		return IsComplete() && !_encoding.empty();
@@ -144,7 +144,7 @@ public:
 //-----------------------------------------------------------------------------
 class LinkDetector : public SimpleHTMLParser {
 public:
-	virtual bool AcceptTag(Signal sig,
+	virtual bool AcceptTag(Signal &sig,
 				char tagPrefix, const char *tagName, const Attrs &attrs);
 };
 
@@ -157,7 +157,7 @@ private:
 	String _charset;
 public:
 	inline ContentType() {}
-	bool Parse(Signal sig, const char *str);
+	bool Parse(Signal &sig, const char *str);
 	inline const char *GetType() const { return _type.c_str(); }
 	inline const char *GetCharset() const { return _charset.c_str(); }
 	inline bool IsValidCharset() const { return !_charset.empty(); }
@@ -184,23 +184,23 @@ public:
 					_stat(completeFlag? STAT_Complete : STAT_LineTop) {}
 	Header(const Header &header);
 	~Header();
-	bool ParseChar(Signal sig, char ch);
+	bool ParseChar(Signal &sig, char ch);
 	bool IsComplete() const { return _stat == STAT_Complete; }
 	void Reset();
-	bool SetFields(Signal sig, const ValueDict &valueDict, Stream *pStreamBody);
+	bool SetFields(Signal &sig, const ValueDict &valueDict, Stream *pStreamBody);
 	//Value GetFieldsAsDict(Environment &env) const;
 	void SetField(const char *fieldName, const char *fieldValue);
 	bool GetField(const char *fieldName, StringList **ppStringList) const;
-	Value GetField(Environment &env, Signal sig, const char *fieldName, bool signalFlag) const;
-	Value GetFieldNames(Environment &env, Signal sig) const;
-	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
-	bool GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, Value &value) const;
+	Value GetField(Environment &env, Signal &sig, const char *fieldName, bool signalFlag) const;
+	Value GetFieldNames(Environment &env, Signal &sig) const;
+	Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const;
+	bool GetTimeField(Environment &env, Signal &sig, const Symbol *pSymbol, Value &value) const;
 	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = nullptr) const;
-	inline static void SetError_InvalidFormat(Signal sig) {
+	inline static void SetError_InvalidFormat(Signal &sig) {
 		sig.SetError(ERR_FormatError, "invalid format of HTTP header");
 	}
 	String GetString() const;
-	Stream_Http *GenerateDownStream(Environment &env, Signal sig,
+	Stream_Http *GenerateDownStream(Environment &env, Signal &sig,
 					Object *pObjOwner, int sock, const char *name) const;
 	static void DoDirProp(SymbolSet &symbols);
 };
@@ -230,7 +230,7 @@ public:
 		_method = method, _requestURI = requestURI, _httpVersion = httpVersion;
 		_header.Reset();
 	}
-	bool ParseChar(Signal sig, char ch);
+	bool ParseChar(Signal &sig, char ch);
 	bool IsComplete() const { return _header.IsComplete(); }
 	inline Header &GetHeader() { return _header; }
 	inline const Header &GetHeader() const { return _header; }
@@ -242,7 +242,7 @@ public:
 	inline const char *GetMethod() const { return _method.c_str(); }
 	inline const char *GetRequestURI() const { return _requestURI.c_str(); }
 	inline const char *GetHttpVersion() const { return _httpVersion.c_str(); }
-	inline static void SetError_InvalidFormat(Signal sig) {
+	inline static void SetError_InvalidFormat(Signal &sig) {
 		sig.SetError(ERR_FormatError, "invalid format of HTTP request");
 	}
 	inline bool HasBody() const {
@@ -250,8 +250,8 @@ public:
 		return _header.GetField("Content-Length", nullptr) ||
 							_header.GetField("Transfer-Encoding", nullptr);
 	}
-	bool Send(Signal sig, int sock);
-	bool Receive(Signal sig, int sock);
+	bool Send(Signal &sig, int sock);
+	bool Receive(Signal &sig, int sock);
 };
 
 //-----------------------------------------------------------------------------
@@ -331,7 +331,7 @@ public:
 		_httpVersion(status._httpVersion), _statusCode(status._statusCode),
 		_reasonPhrase(status._reasonPhrase), _header(status._header) {}
 	void SetStatus(const char *httpVersion, const char *statusCode, const char *reasonPhrase);
-	bool ParseChar(Signal sig, char ch);
+	bool ParseChar(Signal &sig, char ch);
 	bool IsComplete() const { return _header.IsComplete(); }
 	inline Header &GetHeader() { return _header; }
 	inline const Header &GetHeader() const { return _header; }
@@ -346,15 +346,15 @@ public:
 	inline bool IsOK() const {
 		return _statusCode.compare("200") == 0;
 	}
-	inline static void SetError_InvalidFormat(Signal sig) {
+	inline static void SetError_InvalidFormat(Signal &sig) {
 		sig.SetError(ERR_FormatError, "invalid format of HTTP status");
 	}
 	inline bool HasBody() const {
 		// see RFC 2616 4.3 MessageBody
 		return _statusCode.compare("204") != 0 && _statusCode.compare("304") != 0;
 	}
-	bool Send(Signal sig, int sock);
-	bool Receive(Signal sig, int sock);
+	bool Send(Signal &sig, int sock);
+	bool Receive(Signal &sig, int sock);
 };
 
 //-----------------------------------------------------------------------------
@@ -365,17 +365,17 @@ private:
 	AutoPtr<Object> _pObjOwner;
 	int _sock;
 public:
-	Stream_Socket(Environment &env, Signal sig, Object *pObjOwner, int sock);
+	Stream_Socket(Environment &env, Signal &sig, Object *pObjOwner, int sock);
 	~Stream_Socket();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t bytes);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t bytes);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
-	virtual Object *DoGetStatObj(Signal sig);
+	virtual Object *DoGetStatObj(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -388,15 +388,15 @@ private:
 	bool _doneFlag;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Chunked(Environment &env, Signal sig, Stream *pStream, ULong attr);
+	Stream_Chunked(Environment &env, Signal &sig, Stream *pStream, ULong attr);
 	~Stream_Chunked();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t bytes);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t bytes);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -412,22 +412,22 @@ private:
 	EncodingDetector _encodingDetector;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Http(Environment &env, Signal sig, Stream *pStream, ULong attr,
+	Stream_Http(Environment &env, Signal &sig, Stream *pStream, ULong attr,
 						const char *name, size_t bytes, const Header &header);
 	~Stream_Http();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t bytes);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t bytes);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
-	virtual Object *DoGetStatObj(Signal sig);
+	virtual Object *DoGetStatObj(Signal &sig);
 	inline void ActivateEncodingDetector() {
 		_encodingDetector.Activate();
 	}
-	bool Cleanup(Signal sig);
+	bool Cleanup(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -447,10 +447,10 @@ public:
 				Object(obj), _header(obj._header) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
 	virtual String ToString(bool exprFlag);
 	Header &GetHeader() { return _header; }
 };
@@ -470,16 +470,16 @@ public:
 	inline Object_request(Object_session *pObjSession) :
 			Object(Gura_UserClass(request)), _pObjSession(pObjSession) {}
 	virtual ~Object_request();
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool SendResponse(Signal sig,
+	bool SendResponse(Signal &sig,
 		const char *statusCode, const char *reasonPhrase, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict);
-	Stream *SendRespChunk(Signal sig,
+	Stream *SendRespChunk(Signal &sig,
 		const char *statusCode, const char *reasonPhrase,
 		const char *httpVersion, const ValueDict &valueDict);
 	inline Object_session *GetSessionObj() { return _pObjSession.get(); }
@@ -499,10 +499,10 @@ public:
 	inline Object_response(Object_client *pObjClient) :
 			Object(Gura_UserClass(response)), _pObjClient(pObjClient) {}
 	virtual ~Object_response();
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline Object_client *GetClientObj() { return _pObjClient.get(); }
@@ -537,8 +537,8 @@ public:
 		_localIP(localIP), _localHost(localHost), _dateTime(dateTime) {}
 	inline Object_session(const Object_session &obj) : Object(obj) {}
 	virtual ~Object_session();
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -547,8 +547,8 @@ public:
 	inline Request &GetRequest() { return _request; }
 	inline Stream_Http *GetStream() { return _pStreamHttp.get(); }
 	inline const DateTime &GetDateTime() const { return _dateTime; }
-	bool ReceiveRequest(Signal sig);
-	bool CleanupRequest(Signal sig);
+	bool ReceiveRequest(Signal &sig);
+	bool CleanupRequest(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -572,12 +572,12 @@ public:
 	Object_server();
 	virtual ~Object_server();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool Prepare(Signal sig, const char *addr, short port);
-	Object_request *Wait(Signal sig);
+	bool Prepare(Signal &sig, const char *addr, short port);
+	Object_request *Wait(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -605,17 +605,17 @@ public:
 	virtual ~Object_client();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool Prepare(Signal sig, const char *addr, short port,
+	bool Prepare(Signal &sig, const char *addr, short port,
 					const char *addrProxy, short portProxy,
 					const char *userIdProxy, const char *passwordProxy);
 	inline Request &GetRequest() { return _request; }
 	inline Status &GetStatus() { return _status; }
 	inline Stream_Http *GetStream() { return _pStreamHttp.get(); }
 	inline bool IsViaProxy() const { return !_addrProxy.empty(); }
-	Object_response *SendRequest(Signal sig,
+	Object_response *SendRequest(Signal &sig,
 			const char *method, const char *uri, Stream *pStreamBody,
 			const char *httpVersion, const ValueDict &valueDict);
-	bool CleanupResponse(Signal sig);
+	bool CleanupResponse(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -644,7 +644,7 @@ public:
 	inline short GetPort() const { return _port; }
 	inline const char *GetUserId() const { return _userId.c_str(); }
 	inline const char *GetPassword() const { return _password.c_str(); }
-	bool IsResponsible(Environment &env, Signal sig, const char *addr) const;
+	bool IsResponsible(Environment &env, Signal &sig, const char *addr) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -659,8 +659,8 @@ private:
 public:
 	Directory_Http(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_Http();
-	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
+	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
 	inline void SetScheme(const char *scheme) { _scheme = scheme; }
 	inline void SetAuthority(const char *authority) { _authority = authority; }
 	inline void SetQuery(const char *query) { _query = query; }
@@ -676,9 +676,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_Http : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal sig,
+	virtual bool IsResponsible(Environment &env, Signal &sig,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 

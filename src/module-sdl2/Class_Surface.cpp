@@ -20,7 +20,7 @@ String Object_Surface::ToString(bool exprFlag)
 	return String("<sdl2.Surface>");
 }
 
-bool Object_Surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Surface::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(flags));
@@ -34,7 +34,7 @@ bool Object_Surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Surface::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -59,7 +59,7 @@ Value Object_Surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage)
+Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImage)
 {
 	void *pixels = pImage->GetBuffer();
 	int width = static_cast<int>(pImage->GetWidth());

@@ -16,10 +16,10 @@ class GURA_DLLDECLARE Class_function : public Class {
 public:
 	Class_function(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_function : public Object {
@@ -44,19 +44,19 @@ public:
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value GetThis() const { return _valueThis; }
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
-	virtual Value DoCall(Environment &env, Signal sig, Args &args);
+	virtual Value DoCall(Environment &env, Signal &sig, Args &args);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	Value Eval(Environment &env, Signal sig, ValueList &valListArg) const;
+	Value Eval(Environment &env, Signal &sig, ValueList &valListArg) const;
 };
 
 }

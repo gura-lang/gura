@@ -562,7 +562,7 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 //=============================================================================
 // Windows API
 //=============================================================================
-int ExecProgram(Environment &env, Signal sig, const char *pathName,
+int ExecProgram(Environment &env, Signal &sig, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
@@ -1077,7 +1077,7 @@ FileStat::FileStat(const char *pathName, const WIN32_FIND_DATA &findData) :
 	}
 }
 
-FileStat *FileStat::Generate(Signal sig, const char *fileName)
+FileStat *FileStat::Generate(Signal &sig, const char *fileName)
 {
 	ULong attr = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attrData;
@@ -1136,7 +1136,7 @@ DynamicLibrary::DynamicLibrary() : _hModule(nullptr)
 {
 }
 
-bool DynamicLibrary::Open(Signal sig, const char *pathName)
+bool DynamicLibrary::Open(Signal &sig, const char *pathName)
 {
 	_hModule = ::LoadLibrary(ToNativeString(pathName).c_str());
 	if (_hModule == nullptr) {
@@ -1146,7 +1146,7 @@ bool DynamicLibrary::Open(Signal sig, const char *pathName)
 	return true;
 }
 
-void *DynamicLibrary::GetEntry(Signal sig, const char *name)
+void *DynamicLibrary::GetEntry(Signal &sig, const char *name)
 {
 	if (_hModule == nullptr) {
 		sig.SetError(ERR_ImportError, "library has not been opened");
@@ -1245,7 +1245,7 @@ void Event::Notify()
 //=============================================================================
 // POSIX
 //=============================================================================
-int ExecProgram(Environment &env, Signal sig, const char *pathName,
+int ExecProgram(Environment &env, Signal &sig, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
@@ -1795,7 +1795,7 @@ FileStat::FileStat(const char *pathName, const struct stat &stat) :
 	_attr |= (stat.st_mode & 0777);
 }
 
-FileStat *FileStat::Generate(Signal sig, const char *fileName)
+FileStat *FileStat::Generate(Signal &sig, const char *fileName)
 {
 	struct stat stat;
 	String pathName = ToNativeString(MakeAbsPathName(
@@ -1852,7 +1852,7 @@ DynamicLibrary::DynamicLibrary() : _hLibrary(nullptr)
 {
 }
 
-bool DynamicLibrary::Open(Signal sig, const char *pathName)
+bool DynamicLibrary::Open(Signal &sig, const char *pathName)
 {
 	_hLibrary = dlopen(ToNativeString(pathName).c_str(), RTLD_LAZY);
 	if (_hLibrary == nullptr) {
@@ -1863,7 +1863,7 @@ bool DynamicLibrary::Open(Signal sig, const char *pathName)
 	return true;
 }
 
-void *DynamicLibrary::GetEntry(Signal sig, const char *name)
+void *DynamicLibrary::GetEntry(Signal &sig, const char *name)
 {
 	void *pFunc = dlsym(_hLibrary, name);
 	if (pFunc == nullptr) {

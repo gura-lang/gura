@@ -41,14 +41,14 @@ public:
 	inline Object_wx_EventFactory(Class *pClass, wxEventType eventType, const char *name) :
 		Object(pClass),
 		_eventType(eventType), _name(name), _cntEventTypes(0), _eventTypes(nullptr) {}
-	inline bool IsInvalid(Signal sig) const { return false; }
+	inline bool IsInvalid(Signal &sig) const { return false; }
 	virtual ~Object_wx_EventFactory();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Object_wx_Event *CreateEventObject(wxEvent &event);
 	inline wxEventType GetEventType() { return _eventType; }
 	inline const char *GetName() { return _name.c_str(); }
-	void Connect(Environment &env, Signal sig,
+	void Connect(Environment &env, Signal &sig,
 		wxEvtHandler *pEvtHandler, int id, int lastId,
 		wxObjectEventFunction function, Object_function *pObjFunc, wxEvtHandler *eventSink);
 };
@@ -109,7 +109,7 @@ private:
 	AutoPtr<Object_function> _pObjFunc;
 	AutoPtr<Object_wx_EventFactory> _pEventFactory;
 public:
-	inline EventHandlerPack(Environment &env, Signal sig,
+	inline EventHandlerPack(Environment &env, Signal &sig,
 				Object_function *pObjFunc, Object_wx_EventFactory *pEventFactory) :
 		_pEnv(new Environment(env)), _sig(sig), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
 	virtual ~EventHandlerPack();

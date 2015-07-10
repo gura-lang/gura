@@ -23,7 +23,7 @@ public:
 		inline IteratorQuery(Object_mysql *pObj, MYSQL_RES *pRes) :
 								Iterator(false), _pObj(pObj), _pRes(pRes) {}
 		virtual ~IteratorQuery();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 	};
 private:
@@ -35,10 +35,10 @@ public:
 	virtual ~Object_mysql();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool Connect(Signal sig, const char *host, const char *user, const char *passwd,
+	bool Connect(Signal &sig, const char *host, const char *user, const char *passwd,
 		const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
 	void Close();
-	Iterator *Query(Signal sig, const char *stmt_str);
+	Iterator *Query(Signal &sig, const char *stmt_str);
 };
 
 Gura_EndModuleHeader(mysql)

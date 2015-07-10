@@ -19,19 +19,19 @@ String Object_Wav::ToString(bool exprFlag)
 	return String("<sdl2.Wav>");
 }
 
-bool Object_Wav::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Wav::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_Wav::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Wav::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_Wav::DoSetProp(Environment &env, Signal sig,
+Value Object_Wav::DoSetProp(Environment &env, Signal &sig,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

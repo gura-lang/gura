@@ -81,7 +81,7 @@ class Object_Tesselator;
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
-GLenum GetImageFormat(Signal sig, Image *pImage);
+GLenum GetImageFormat(Signal &sig, Image *pImage);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
 
 //-----------------------------------------------------------------------------
@@ -143,7 +143,7 @@ public:
 	virtual ~Object_Quadric();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	void SetCallback(Signal sig, GLenum which, const Function *func);
+	void SetCallback(Signal &sig, GLenum which, const Function *func);
 	inline GLUquadric *GetQuadric() { return _quad; }
 private:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
@@ -182,7 +182,7 @@ public:
 	virtual ~Object_Tesselator();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	void SetCallback(Signal sig, GLenum which, const Function *func);
+	void SetCallback(Signal &sig, GLenum which, const Function *func);
 	inline GLUtesselator *GetTesselator() { return _tess; }
 	inline PolygonPack *CreatePolygonPack(const Value &polygonData) {
 		PolygonPack *pPolygonPack = new PolygonPack(this, polygonData);
@@ -279,7 +279,7 @@ public:
 	virtual ~Object_Nurbs();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	void SetCallback(Signal sig, GLenum which, const Function *func);
+	void SetCallback(Signal &sig, GLenum which, const Function *func);
 	inline GLUnurbs *GetNurbs() { return _nurb; }
 	inline void SetCallbackData(const Value &userData) { _userData = userData; }
 	inline void SetCallbackDataEXT(const Value &userData) { _userDataEXT = userData; }

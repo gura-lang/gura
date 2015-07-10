@@ -82,7 +82,7 @@ void Header::Initialize()
 	SetDevMinor(0);
 }
 
-bool Header::SetRawHeader(Signal sig, const star_header &rawHdr)
+bool Header::SetRawHeader(Signal &sig, const star_header &rawHdr)
 {
 	_name[sizeof(_name) - 1] = '\0';
 	_linkname[sizeof(_linkname) - 1] = '\0';
@@ -130,12 +130,12 @@ void Header::ComposeHeaderBlock(void *memBlock)
 	star_header &rawHdr = *reinterpret_cast<star_header *>(memBlock);
 	::memset(memBlock, 0x00, BLOCKSIZE);
 	::memcpy(rawHdr.name,		_name, sizeof(rawHdr.name));
-	::sprintf(rawHdr.mode,		"%06o ", _mode);
-	::sprintf(rawHdr.uid,		"%06o ", _uid);
-	::sprintf(rawHdr.gid,		"%06o ", _gid);
-	::sprintf(rawHdr.size,		"%11o", _size);
+	::sprintf(rawHdr.mode,		"%06lo ", _mode);
+	::sprintf(rawHdr.uid,		"%06lo ", _uid);
+	::sprintf(rawHdr.gid,		"%06lo ", _gid);
+	::sprintf(rawHdr.size,		"%11lo", _size);
 	rawHdr.size[11] = ' ';
-	::sprintf(rawHdr.mtime,		"%11o", _mtime.GetUnixTime());
+	::sprintf(rawHdr.mtime,		"%11lo", _mtime.GetUnixTime());
 	rawHdr.mtime[11] = ' ';
 	::memset(rawHdr.chksum,		' ', 8);
 	rawHdr.typeflag = _typeflag;
@@ -154,7 +154,7 @@ void Header::ComposeHeaderBlock(void *memBlock)
 	ULong chksum = 0;
 	UChar *p = reinterpret_cast<UChar *>(&rawHdr);
 	for (int i = 0; i < BLOCKSIZE; i++, p++) chksum += *p;
-	::sprintf(rawHdr.chksum,	"%6o ", chksum);
+	::sprintf(rawHdr.chksum,	"%6lo ", chksum);
 }
 
 //-----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ String Object_reader::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_reader::Open(Environment &env, Signal sig,
+bool Object_reader::Open(Environment &env, Signal &sig,
 						Stream *pStreamSrc, CompressionType compressionType)
 {
 	_pStreamSrc.reset(DecorateReaderStream(env, sig,
@@ -195,7 +195,7 @@ bool Object_reader::Open(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-Header *Object_reader::NextHeader(Signal sig)
+Header *Object_reader::NextHeader(Signal &sig)
 {
 	return ReadHeader(sig, _pStreamSrc.get(), _pMemoryBlock->GetPointer());
 }
@@ -229,7 +229,7 @@ Gura_ImplementUserClass(reader)
 //-----------------------------------------------------------------------------
 // Implementation of Object_writer
 //-----------------------------------------------------------------------------
-Object_writer::Object_writer(Signal sig) : Object(Gura_UserClass(writer)),
+Object_writer::Object_writer(Signal &sig) : Object(Gura_UserClass(writer)),
 					_sig(sig), _pMemoryBlock(new MemoryHeap(BLOCKSIZE))
 {
 }
@@ -398,7 +398,7 @@ Iterator *Iterator_Entry::GetSource()
 	return nullptr;
 }
 
-bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_Entry::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Stream *pStreamSrc = _pObjReader->GetStreamSrc();
 	if (_offsetNext != InvalidSize) {
@@ -436,7 +436,7 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
@@ -458,7 +458,7 @@ bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -519,7 +519,7 @@ Gura_ImplementUserClass(stat)
 //-----------------------------------------------------------------------------
 // Stream_Entry implementation
 //-----------------------------------------------------------------------------
-Stream_Entry::Stream_Entry(Environment &env, Signal sig, Stream *pStreamSrc, const Header &hdr) :
+Stream_Entry::Stream_Entry(Environment &env, Signal &sig, Stream *pStreamSrc, const Header &hdr) :
 		Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
 		_hdr(hdr), _name(hdr.GetName()), _offsetTop(pStreamSrc->Tell())
 {
@@ -552,14 +552,14 @@ bool Stream_Entry::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-bool Stream_Entry::FlushRead(Signal sig)
+bool Stream_Entry::FlushRead(Signal &sig)
 {
 	Stream &streamSrc = GetSource();
 	size_t offset = _offsetTop + _hdr.CalcBlocks() * BLOCKSIZE;
 	return streamSrc.Seek(sig, offset, Stream::SeekSet);
 }
 
-size_t Stream_Entry::DoRead(Signal sig, void *buff, size_t bytes)
+size_t Stream_Entry::DoRead(Signal &sig, void *buff, size_t bytes)
 {
 	Stream &streamSrc = GetSource();
 	size_t bytesRest = _hdr.GetSize() - (streamSrc.Tell() - _offsetTop);
@@ -567,7 +567,7 @@ size_t Stream_Entry::DoRead(Signal sig, void *buff, size_t bytes)
 	return streamSrc.Read(sig, buff, bytes);
 }
 
-bool Stream_Entry::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Entry::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	Stream &streamSrc = GetSource();
 	if (seekMode == SeekSet) {
@@ -578,17 +578,17 @@ bool Stream_Entry::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode s
 	return false;
 }
 
-size_t Stream_Entry::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_Entry::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream_Entry::DoFlush(Signal sig)
+bool Stream_Entry::DoFlush(Signal &sig)
 {
 	return false;
 }
 
-bool Stream_Entry::DoClose(Signal sig)
+bool Stream_Entry::DoClose(Signal &sig)
 {
 	_pStreamSrc.reset(nullptr);
 	return Stream::DoClose(sig);
@@ -599,7 +599,7 @@ size_t Stream_Entry::DoGetSize()
 	return _hdr.GetSize();
 }
 
-Object *Stream_Entry::DoGetStatObj(Signal sig)
+Object *Stream_Entry::DoGetStatObj(Signal &sig)
 {
 	return new Object_stat(_hdr);
 }
@@ -618,12 +618,12 @@ Directory_TAR::~Directory_TAR()
 {
 }
 
-Directory *Directory_TAR::DoNext(Environment &env, Signal sig)
+Directory *Directory_TAR::DoNext(Environment &env, Signal &sig)
 {
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_TAR::DoOpenStream(Environment &env, Signal sig, ULong attr)
+Stream *Directory_TAR::DoOpenStream(Environment &env, Signal &sig, ULong attr)
 {
 	Directory *pDirectory = this;
 	for ( ; pDirectory != nullptr && !pDirectory->IsBoundaryContainer();
@@ -657,7 +657,7 @@ Stream *Directory_TAR::DoOpenStream(Environment &env, Signal sig, ULong attr)
 	return new Stream_Entry(env, sig, pStreamSrc.release(), *pHdr);
 }
 
-Object *Directory_TAR::DoGetStatObj(Signal sig)
+Object *Directory_TAR::DoGetStatObj(Signal &sig)
 {
 	return new Object_stat(*_pRecord->GetHeader());
 }
@@ -681,7 +681,7 @@ Directory *Record_TAR::DoGenerateDirectory(Directory *pParent, Directory::Type t
 //-----------------------------------------------------------------------------
 // PathMgr_TAR implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_TAR::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_TAR::IsResponsible(Environment &env, Signal &sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != nullptr && !pParent->IsContainer() &&
@@ -689,7 +689,7 @@ bool PathMgr_TAR::IsResponsible(Environment &env, Signal sig,
 										IsGZippedTar(pParent->GetName()));
 }
 
-Directory *PathMgr_TAR::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_TAR::DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStream(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
@@ -877,7 +877,7 @@ CompressionType SymbolToCompressionType(const Symbol *pSymbol)
 	}
 }
 
-Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock)
+Header *ReadHeader(Signal &sig, Stream *pStream, void *buffBlock)
 {
 	int nTerminator = 0;
 	for (;;) {
@@ -906,7 +906,7 @@ Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock)
 	return pHdr.release();
 }
 
-Stream *DecorateReaderStream(Environment &env, Signal sig, Stream *pStreamSrc,
+Stream *DecorateReaderStream(Environment &env, Signal &sig, Stream *pStreamSrc,
 							const char *name, CompressionType compressionType)
 {
 	if (compressionType != COMPRESS_Auto) {
@@ -937,7 +937,7 @@ Stream *DecorateReaderStream(Environment &env, Signal sig, Stream *pStreamSrc,
 	return pStreamSrc;
 }
 
-Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
+Stream *DecorateWriterStream(Environment &env, Signal &sig, Stream *pStreamDst,
 							const char *name, CompressionType compressionType)
 {
 	if (compressionType != COMPRESS_Auto) {
@@ -969,7 +969,7 @@ Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
 	return pStreamDst;
 }
 
-ULong OctetToULong(Signal sig, const char *octet, size_t len)
+ULong OctetToULong(Signal &sig, const char *octet, size_t len)
 {
 	ULong num = 0;
 	for (const char *p = octet; len > 0; len--, p++) {

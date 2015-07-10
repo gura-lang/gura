@@ -21,7 +21,7 @@ public:
 	public:
 		SequenceEx(Environment *pEnv, FunctionCustom *pFunctionCustom);
 	public:
-		virtual bool DoStep(Signal sig, Value &result);
+		virtual bool DoStep(Signal &sig, Value &result);
 		virtual String ToString() const;
 	};
 private:
@@ -34,12 +34,12 @@ public:
 	inline Expr *GetExprBody() { return _pExprBody.get(); }
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
-	virtual Expr *MathDiff(Environment &env, Signal sig,
+	virtual Expr *MathDiff(Environment &env, Signal &sig,
 						const Expr *pExprArg, const Symbol *pSymbol) const;
-	static FunctionCustom *CreateBlockFunc(Environment &env, Signal sig,
+	static FunctionCustom *CreateBlockFunc(Environment &env, Signal &sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
 };
 
 }

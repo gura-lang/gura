@@ -23,14 +23,14 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
-bool Object_binary::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_binary::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(writable));
 	return true;
 }
 
-Value Object_binary::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_binary::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
@@ -40,7 +40,7 @@ Value Object_binary::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_binary::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_binary::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for binary");
@@ -63,7 +63,7 @@ Value Object_binary::IndexGet(Environment &env, Signal sig, const Value &valueId
 	}
 }
 
-void Object_binary::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+void Object_binary::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
 {
 	if (!IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
@@ -99,7 +99,7 @@ void Object_binary::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 	}
 }
 
-Iterator *Object_binary::CreateIterator(Signal sig)
+Iterator *Object_binary::CreateIterator(Signal &sig)
 {
 	return new IteratorByte(Object_binary::Reference(this), -1);
 }
@@ -144,7 +144,7 @@ Iterator *Object_binary::IteratorByte::GetSource()
 	return nullptr;
 }
 
-bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_binary::IteratorByte::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	const Binary &binary = _pObj->GetBinary();
 	if (_offset >= binary.size() || _cnt == 0) return false;
@@ -178,7 +178,7 @@ Iterator *Object_binary::IteratorUnpack::GetSource()
 	return nullptr;
 }
 
-bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	value = _pObj->GetBinary().Unpack(env, sig, _offset, _format.c_str(), _valListArg, false);
 	return value.IsValid();
@@ -638,7 +638,7 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, writer);
 }
 
-bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_binary::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		Object_binary *pObjBinary = new Object_binary(env, value.GetStringSTL(), true);
@@ -648,17 +648,17 @@ bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
-bool Class_binary::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_binary::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_binary::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_binary::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	return false;
 }
 
-Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_binary::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return new Object_binary((pClass == nullptr)? this : pClass);
 }
@@ -666,7 +666,7 @@ Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pCla
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
-Stream_Binary::Stream_Binary(Environment &env, Signal sig, Object_binary *pObjBinary, bool seekEndFlag) :
+Stream_Binary::Stream_Binary(Environment &env, Signal &sig, Object_binary *pObjBinary, bool seekEndFlag) :
 	Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
 	_pObjBinary(pObjBinary), _offset(seekEndFlag? pObjBinary->GetBinary().size() : 0)
 {
@@ -686,7 +686,7 @@ const char *Stream_Binary::GetIdentifier() const
 	return nullptr;
 }
 
-size_t Stream_Binary::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_Binary::DoRead(Signal &sig, void *buff, size_t len)
 {
 	const Binary &binary = GetBinary();
 	if (_offset > binary.size()) {
@@ -699,7 +699,7 @@ size_t Stream_Binary::DoRead(Signal sig, void *buff, size_t len)
 	return len;
 }
 
-size_t Stream_Binary::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_Binary::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	Binary &binary = GetBinary();
 	const char *buffp = reinterpret_cast<const char *>(buff);
@@ -717,7 +717,7 @@ size_t Stream_Binary::DoWrite(Signal sig, const void *buff, size_t len)
 	return len;
 }
 
-bool Stream_Binary::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Binary::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
 		_offset = static_cast<size_t>(offset);
@@ -727,12 +727,12 @@ bool Stream_Binary::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode 
 	return true;
 }
 
-bool Stream_Binary::DoFlush(Signal sig)
+bool Stream_Binary::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool Stream_Binary::DoClose(Signal sig)
+bool Stream_Binary::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }

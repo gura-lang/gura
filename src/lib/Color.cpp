@@ -802,7 +802,7 @@ const Color Color::fuchsia(	255,   0, 255, 255);
 const Color Color::aqua(	  0, 255, 255, 255);
 const Color Color::white(	255, 255, 255, 255);
 
-Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
+Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
 {
 	if (*name == '#') {
 		name++;

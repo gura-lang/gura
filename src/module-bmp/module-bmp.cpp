@@ -66,7 +66,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_BMP
 //-----------------------------------------------------------------------------
-bool ImageStreamer_BMP::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_BMP::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		char buff[2];
@@ -77,19 +77,19 @@ bool ImageStreamer_BMP::IsResponsible(Signal sig, Stream &stream)
 	return stream.HasNameSuffix(".bmp");
 }
 
-bool ImageStreamer_BMP::Read(Environment &env, Signal sig,
+bool ImageStreamer_BMP::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ImageStreamer_BMP::ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_BMP::Write(Environment &env, Signal sig,
+bool ImageStreamer_BMP::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ImageStreamer_BMP::WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_BMP::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_BMP::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	Image::BitmapFileHeader bfh;
@@ -118,7 +118,7 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	return pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, false);
 }
 
-bool ImageStreamer_BMP::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_BMP::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckValid(sig)) return false;
 	int biWidth = static_cast<int>(pImage->GetWidth());
@@ -161,7 +161,7 @@ bool ImageStreamer_BMP::WriteStream(Environment &env, Signal sig, Image *pImage,
 	return pImage->WriteDIB(sig, stream, biBitCount, false);
 }
 
-void ImageStreamer_BMP::SetError_InvalidBMPFormat(Signal sig)
+void ImageStreamer_BMP::SetError_InvalidBMPFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid BMP format");
 }

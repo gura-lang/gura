@@ -15,13 +15,13 @@ Gura_BeginModuleHeader(xpm)
 class ImageStreamer_xpm : public ImageStreamer {
 public:
 	inline ImageStreamer_xpm() : ImageStreamer("xpm") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pObjImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pObjImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pObjImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pObjImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pObjImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal sig, Image *pObjImage, Stream &stream);
-	static void SetError_InvalidFormat(Signal sig);
+	static bool ReadStream(Environment &env, Signal &sig, Image *pObjImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal &sig, Image *pObjImage, Stream &stream);
+	static void SetError_InvalidFormat(Signal &sig);
 };
 
 Gura_EndModuleHeader(xpm)

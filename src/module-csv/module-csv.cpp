@@ -24,14 +24,14 @@ Object *Object_writer::Clone() const
 	return nullptr;
 }
 
-bool Object_writer::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_writer::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	return true;
 }
 
-Value Object_writer::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_writer::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -42,7 +42,7 @@ Value Object_writer::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_writer::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_writer::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -70,7 +70,7 @@ String Object_writer::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_writer::PutValue(Environment &env, Signal sig, const Value &value)
+bool Object_writer::PutValue(Environment &env, Signal &sig, const Value &value)
 {
 	String str;
 	if (value.IsInvalid()) {
@@ -95,7 +95,7 @@ bool Object_writer::PutValue(Environment &env, Signal sig, const Value &value)
 	return true;
 }
 
-bool Object_writer::PutLine(Environment &env, Signal sig, const ValueList &valList)
+bool Object_writer::PutLine(Environment &env, Signal &sig, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		if (pValue != valList.begin()) {
@@ -260,7 +260,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // Reader
 //-----------------------------------------------------------------------------
-bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
+bool Reader::ReadLine(Environment &env, Signal &sig, ValueList &valList)
 {
 	enum {
 		STAT_LineTop, STAT_FieldTop, STAT_Field, STAT_Quoted, STAT_QuotedEnd,
@@ -331,7 +331,7 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 //-----------------------------------------------------------------------------
 // ReaderStream
 //-----------------------------------------------------------------------------
-char ReaderStream::NextChar(Signal sig)
+char ReaderStream::NextChar(Signal &sig)
 {
 	int ch = _pStream->GetChar(sig);
 	return (ch < 0)? '\0' : static_cast<char>(static_cast<UChar>(ch));
@@ -340,7 +340,7 @@ char ReaderStream::NextChar(Signal sig)
 //-----------------------------------------------------------------------------
 // ReaderString
 //-----------------------------------------------------------------------------
-char ReaderString::NextChar(Signal sig)
+char ReaderString::NextChar(Signal &sig)
 {
 	return (_strp == _str.end())? '\0' : *_strp++;
 }
@@ -353,7 +353,7 @@ Iterator *Iterator_reader::GetSource()
 	return nullptr;
 }
 
-bool Iterator_reader::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_reader::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	ValueList &valList = value.InitAsList(env);
 	if (_pReader->ReadLine(env, sig, valList)) return true;

@@ -46,7 +46,7 @@ void MML::UpdateTimeStamp(Track *pTrack)
 	}
 }
 
-bool MML::ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream)
+bool MML::ParseStream(Signal &sig, Sequence &sequence, SimpleStream &stream)
 {
 	bool rtn = true;
 	TrackOwner &trackOwner = sequence.GetTrackOwner();
@@ -72,13 +72,13 @@ bool MML::ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream)
 	return rtn;
 }
 
-bool MML::ParseString(Signal sig, Sequence &sequence, const char *str)
+bool MML::ParseString(Signal &sig, Sequence &sequence, const char *str)
 {
 	SimpleStream_CStringReader stream(str);
 	return ParseStream(sig, sequence, stream);
 }
 
-MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)
+MML::Result MML::ParseStream(Signal &sig, Track *pTrack, SimpleStream &stream)
 {
 	Result result = RSLT_None;
 	pTrack->RequestEndOfTrack();
@@ -95,13 +95,13 @@ MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)
 	return result;
 }
 
-MML::Result MML::ParseString(Signal sig, Track *pTrack, const char *str)
+MML::Result MML::ParseString(Signal &sig, Track *pTrack, const char *str)
 {
 	SimpleStream_CStringReader stream(str);
 	return ParseStream(sig, pTrack, stream);
 }
 
-MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
+MML::Result MML::FeedChar(Signal &sig, Track *pTrack, int ch)
 {
 	Result result = RSLT_None;
 	if (_stateMachineStack.empty()) {

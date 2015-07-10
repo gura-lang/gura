@@ -13,7 +13,7 @@ Object *Object_dict::Clone() const
 	return new Object_dict(*this);
 }
 
-Value Object_dict::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_dict::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	const Value *pValue = GetDict().Find(sig, valueIdx);
 	if (sig.IsSignalled()) {
@@ -25,7 +25,7 @@ Value Object_dict::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	return *pValue;
 }
 
-void Object_dict::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+void Object_dict::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
 {
 	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
@@ -34,7 +34,7 @@ void Object_dict::IndexSet(Environment &env, Signal sig, const Value &valueIdx, 
 	GetDict()[valueIdx] = value;
 }
 
-Iterator *Object_dict::CreateIterator(Signal sig)
+Iterator *Object_dict::CreateIterator(Signal &sig)
 {
 	return new IteratorItems(Object_dict::Reference(this));
 }
@@ -63,7 +63,7 @@ String Object_dict::ToString(bool exprFlag)
 	return str;
 }
 
-void Object_dict::SetError_KeyNotFound(Signal sig, const Value &valueIdx)
+void Object_dict::SetError_KeyNotFound(Signal &sig, const Value &valueIdx)
 {
 	sig.SetError(ERR_KeyError, "dictionary doesn't have a key '%s'",
 										valueIdx.ToString().c_str());
@@ -82,7 +82,7 @@ Iterator *Object_dict::IteratorKeys::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->first;
@@ -112,7 +112,7 @@ Iterator *Object_dict::IteratorValues::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorValues::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_dict::IteratorValues::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->second;
@@ -142,7 +142,7 @@ Iterator *Object_dict::IteratorItems::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorItems::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_dict::IteratorItems::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
@@ -176,7 +176,7 @@ Iterator *Object_dict::IteratorGet::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_dict::IteratorGet::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Value valueIdx;
 	if (!_pIteratorKey->Next(env, sig, valueIdx)) return false;
@@ -587,14 +587,14 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, values);
 }
 
-bool Class_dict::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_dict::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	bool ignoreCaseFlag = Object_dict::GetObject(value)->GetIgnoreCaseFlag();
 	if (!stream.SerializeBoolean(sig, ignoreCaseFlag)) return false;
 	return value.GetDict().Serialize(env, sig, stream);
 }
 
-bool Class_dict::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_dict::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	bool ignoreCaseFlag = false;
 	if (!stream.DeserializeBoolean(sig, ignoreCaseFlag)) return false;
@@ -602,7 +602,7 @@ bool Class_dict::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 	return valDict.Deserialize(env, sig, stream);
 }
 
-Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_dict::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict());
 }

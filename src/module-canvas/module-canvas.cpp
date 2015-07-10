@@ -49,7 +49,7 @@ Anchor GetAnchor(const SymbolSet &attrs)
 //-----------------------------------------------------------------------------
 // Color
 //-----------------------------------------------------------------------------
-Color::Color(Signal sig, const Value &value)
+Color::Color(Signal &sig, const Value &value)
 {
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
@@ -110,7 +110,7 @@ Device::~Device()
 {
 }
 
-Value Device::Initialize(Environment &env, Signal sig, const Function *pFuncBlock)
+Value Device::Initialize(Environment &env, Signal &sig, const Function *pFuncBlock)
 {
 	SetPen(sig, Value(Gura_UserSymbol(black)), 1., Gura_UserSymbol(solid));
 	SetFont(sig, 8.0, Gura_UserSymbol(default), Gura_UserSymbol(normal),
@@ -136,7 +136,7 @@ Value Device::Initialize(Environment &env, Signal sig, const Function *pFuncBloc
 //-----------------------------------------------------------------------------
 // Device_EnhMetaFile
 //-----------------------------------------------------------------------------
-Device_EnhMetaFile::Device_EnhMetaFile(Signal sig, const char *fileName,
+Device_EnhMetaFile::Device_EnhMetaFile(Signal &sig, const char *fileName,
 		Number width, Number height, const char *appName, const char *imageName) :
 														Device(width, height)
 {
@@ -189,14 +189,14 @@ void Device_EnhMetaFile::Close()
 	_hdc = nullptr;
 }
 
-void Device_EnhMetaFile::Fill(Signal sig, const Value &color)
+void Device_EnhMetaFile::Fill(Signal &sig, const Value &color)
 {
 	Color colorWk(sig, color);
 	if (sig.IsSignalled()) return;
 	::FillRect(_hdc, &_rc, ::CreateSolidBrush(colorWk.ToWin32()));
 }
 
-void Device_EnhMetaFile::SetPen(Signal sig,
+void Device_EnhMetaFile::SetPen(Signal &sig,
 					const Value &color, Number width, const Symbol *pSymbol)
 {
 	if (_hdc == nullptr) return;
@@ -223,7 +223,7 @@ void Device_EnhMetaFile::SetPen(Signal sig,
 	::SelectObject(_hdc, ::CreatePen(fnPenStyle, nWidth, colorWk.ToWin32()));
 }
 
-void Device_EnhMetaFile::SetBrush(Signal sig, const Value &color, const Symbol *pSymbol)
+void Device_EnhMetaFile::SetBrush(Signal &sig, const Value &color, const Symbol *pSymbol)
 {
 	if (_hdc == nullptr) return;
 	if (color.IsInvalid()) {
@@ -256,7 +256,7 @@ void Device_EnhMetaFile::SetBrush(Signal sig, const Value &color, const Symbol *
 	}
 }
 
-void Device_EnhMetaFile::SetFont(Signal sig, Number height,
+void Device_EnhMetaFile::SetFont(Signal &sig, Number height,
 			const Symbol *family, const Symbol *style, const Symbol *weight,
 			const char *faceName)
 {
@@ -299,14 +299,14 @@ void Device_EnhMetaFile::SetFont(Signal sig, Number height,
 	::SelectObject(_hdc, hFont);
 }
 
-void Device_EnhMetaFile::SetTextColor(Signal sig, const Value &color)
+void Device_EnhMetaFile::SetTextColor(Signal &sig, const Value &color)
 {
 	Color colorWk(sig, color);
 	if (sig.IsSignalled()) return;
 	::SetTextColor(_hdc, colorWk.ToWin32());
 }
 
-void Device_EnhMetaFile::Text(Signal sig, Number x, Number y,
+void Device_EnhMetaFile::Text(Signal &sig, Number x, Number y,
 				const char *text, Number wdBound, Number htBound, Anchor anchor)
 {
 	if (_hdc == nullptr) return;
@@ -324,7 +324,7 @@ void Device_EnhMetaFile::Text(Signal sig, Number x, Number y,
 	//::DrawText(_hdc, text, -1, &rc, DT_SINGLELINE);
 }
 
-void Device_EnhMetaFile::TextRot(Signal sig, Number x, Number y, const char *text, Number angle)
+void Device_EnhMetaFile::TextRot(Signal &sig, Number x, Number y, const char *text, Number angle)
 {
 	if (_hdc == nullptr) return;
 	POINT pt = ToPoint(x, y);
@@ -338,7 +338,7 @@ void Device_EnhMetaFile::TextRot(Signal sig, Number x, Number y, const char *tex
 	::SelectObject(_hdc, hFontOld);
 }
 
-void Device_EnhMetaFile::Line(Signal sig, Number x1, Number y1, Number x2, Number y2)
+void Device_EnhMetaFile::Line(Signal &sig, Number x1, Number y1, Number x2, Number y2)
 {
 	if (_hdc == nullptr) return;
 	POINT pt1 = ToPoint(x1, y1);
@@ -347,7 +347,7 @@ void Device_EnhMetaFile::Line(Signal sig, Number x1, Number y1, Number x2, Numbe
 	::LineTo(_hdc, pt2.x, pt2.y);
 }
 
-void Device_EnhMetaFile::Rectangle(Signal sig, Number x, Number y,
+void Device_EnhMetaFile::Rectangle(Signal &sig, Number x, Number y,
 									Number width, Number height, Anchor anchor)
 {
 	if (_hdc == nullptr) return;
@@ -357,7 +357,7 @@ void Device_EnhMetaFile::Rectangle(Signal sig, Number x, Number y,
 	::Rectangle(_hdc, rc.left, rc.top, rc.right, rc.bottom);
 }
 
-void Device_EnhMetaFile::Ellipse(Signal sig, Number x, Number y,
+void Device_EnhMetaFile::Ellipse(Signal &sig, Number x, Number y,
 									Number width, Number height, Anchor anchor)
 {
 	if (_hdc == nullptr) return;
@@ -367,7 +367,7 @@ void Device_EnhMetaFile::Ellipse(Signal sig, Number x, Number y,
 	::Ellipse(_hdc, rc.left, rc.top, rc.right, rc.bottom);
 }
 
-void Device_EnhMetaFile::Pie(Signal sig, Number x, Number y, Number width, Number height,
+void Device_EnhMetaFile::Pie(Signal &sig, Number x, Number y, Number width, Number height,
 								Number degStart, Number degEnd, Anchor anchor)
 {
 	if (_hdc == nullptr) return;
@@ -386,7 +386,7 @@ void Device_EnhMetaFile::Pie(Signal sig, Number x, Number y, Number width, Numbe
 	::Pie(_hdc, rc.left, rc.top, rc.right, rc.bottom, xStart, yStart, xEnd, yEnd);
 }
 
-void Device_EnhMetaFile::Polygon(Signal sig,
+void Device_EnhMetaFile::Polygon(Signal &sig,
 					const ValueList &xs, const ValueList &ys, bool closeFlag)
 {
 	if (_hdc == nullptr) return;
@@ -407,7 +407,7 @@ void Device_EnhMetaFile::Polygon(Signal sig,
 	delete[] ptList;
 }
 
-void Device_EnhMetaFile::Polygon(Signal sig, const ValueList &pts, bool closeFlag)
+void Device_EnhMetaFile::Polygon(Signal &sig, const ValueList &pts, bool closeFlag)
 {
 	if (_hdc == nullptr) return;
 	int cnt = static_cast<int>(pts.size());

@@ -369,12 +369,12 @@ struct TypeInfo {
 class ImageStreamer_JPEG : public ImageStreamer {
 public:
 	inline ImageStreamer_JPEG() : ImageStreamer("jpeg") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream, int quality);
+	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream, int quality);
 };
 
 //-----------------------------------------------------------------------------
@@ -461,7 +461,7 @@ public:
 // utility functions
 //-----------------------------------------------------------------------------
 void SetError_InvalidFormat(Signal &sig);
-bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
+bool ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes);
 const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UShort id);
 const TypeInfo *TypeToInfo(UShort type);
 

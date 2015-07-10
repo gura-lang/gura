@@ -97,14 +97,14 @@ Gura_DeclareUserSymbol(outline);
 //-----------------------------------------------------------------------------
 class Handler {
 private:
-	Signal _sig;
+	Signal &_sig;
 	Stream *_pStream;
 	FT_StreamRec *_pStreamRec;
 public:
-	inline Handler(Signal sig, Stream *pStream) :
+	inline Handler(Signal &sig, Stream *pStream) :
 			_sig(sig), _pStream(pStream), _pStreamRec(new FT_StreamRec) {}
 	~Handler();
-	bool OpenFace(Signal sig, int index, FT_Face *aface);
+	bool OpenFace(Signal &sig, int index, FT_Face *aface);
 private:
 	FT_ULong Read(FT_ULong pos, FT_Byte *buffer, FT_ULong count);
 	static FT_ULong ReadStub(FT_Stream streamFT,
@@ -115,7 +115,7 @@ private:
 // utility functions
 //-----------------------------------------------------------------------------
 String GetSysFontPathName();
-void SetError_Freetype(Signal sig, FT_Error err);
+void SetError_Freetype(Signal &sig, FT_Error err);
 
 Gura_EndModuleHeader(freetype)
 

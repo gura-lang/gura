@@ -53,7 +53,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 	}
 }
 
-bool Palette::Prepare(Signal sig, const Symbol *pSymbol)
+bool Palette::Prepare(Signal &sig, const Symbol *pSymbol)
 {
 	size_t nEntries = 0;
 	const UChar *rgb = nullptr;
@@ -135,7 +135,7 @@ bool Palette::UpdateByImage(const Image *pImage, ShrinkMode shrinkMode)
 	return true;
 }
 
-bool Palette::UpdateByImage(Signal sig, const Image *pImage, ShrinkMode shrinkMode)
+bool Palette::UpdateByImage(Signal &sig, const Image *pImage, ShrinkMode shrinkMode)
 {
 	if (UpdateByImage(pImage, shrinkMode)) return true;
 	sig.SetError(ERR_ValueError,
@@ -163,7 +163,7 @@ bool Palette::UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode)
 	return true;
 }
 
-bool Palette::UpdateByPalette(Signal sig, const Palette *pPalette, ShrinkMode shrinkMode)
+bool Palette::UpdateByPalette(Signal &sig, const Palette *pPalette, ShrinkMode shrinkMode)
 {
 	if (UpdateByPalette(pPalette, shrinkMode)) return true;
 	sig.SetError(ERR_ValueError,
@@ -750,7 +750,7 @@ Iterator *Palette::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Palette::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+bool Palette::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx >= _pPalette->CountEntries()) return false;
 	value = _pPalette->GetColorValue(env, _idx);

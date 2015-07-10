@@ -2,7 +2,7 @@
 
 namespace Gura {
 
-const void *GetArrayPointer(Signal sig, GLenum type, const Value &value)
+const void *GetArrayPointer(Signal &sig, GLenum type, const Value &value)
 {
 	const void *p = nullptr;
 	if (value.IsType(VTYPE_array_char)) {

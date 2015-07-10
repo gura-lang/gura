@@ -61,10 +61,10 @@ public:
 //-----------------------------------------------------------------------------
 class Browser {
 private:
-	Signal _sig;
+	Signal &_sig;
 	FileinfoOwner &_fileinfoOwner;
 public:
-	Browser(Signal sig, FileinfoOwner &fileinfoOwner);
+	Browser(Signal &sig, FileinfoOwner &fileinfoOwner);
 	long OnChunkBgn(struct curl_fileinfo *finfo, int remains);
 	long OnChunkEnd();
 	static long OnChunkBgnStub(struct curl_fileinfo *finfo,
@@ -77,10 +77,10 @@ public:
 //-----------------------------------------------------------------------------
 class Writer {
 private:
-	Signal _sig;
+	Signal &_sig;
 	AutoPtr<Stream> _pStream;
 public:
-	Writer(Signal sig, Stream *pStream);
+	Writer(Signal &sig, Stream *pStream);
 	size_t OnWrite(char *buffer, size_t size, size_t nitems);
 	static size_t OnWriteStub(char *buffer, size_t size, size_t nitems, void *outstream);
 };
@@ -90,10 +90,10 @@ public:
 //-----------------------------------------------------------------------------
 class Reader {
 private:
-	Signal _sig;
+	Signal &_sig;
 	AutoPtr<Stream> _pStream;
 public:
-	Reader(Signal sig, Stream *pStream);
+	Reader(Signal &sig, Stream *pStream);
 	size_t OnRead(char *buffer, size_t size, size_t nitems);
 	int OnSeek(curl_off_t offset, int origin);
 	static size_t OnReadStub(char *buffer, size_t size, size_t nitems, void *instream);
@@ -107,11 +107,11 @@ class Directory_cURL : public Directory {
 public:
 	class Thread : public OAL::Thread {
 	private:
-		Signal _sig;
+		Signal &_sig;
 		String _name;
 		AutoPtr<StreamFIFO> _pStreamFIFO;
 	public:
-		inline Thread(Signal sig, const String &name, StreamFIFO *pStreamFIFO) :
+		inline Thread(Signal &sig, const String &name, StreamFIFO *pStreamFIFO) :
 						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
 		virtual void Run();
 	};
@@ -122,9 +122,9 @@ private:
 public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_cURL();
-	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
-	FileinfoOwner *DoBrowse(Signal sig);
+	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	FileinfoOwner *DoBrowse(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -132,9 +132,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_cURL : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal sig,
+	virtual bool IsResponsible(Environment &env, Signal &sig,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
@@ -153,8 +153,8 @@ public:
 				Object(Gura_UserClass(easy_handle)), _curl(curl) {}
 	virtual ~Object_easy_handle();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline CURL *GetEntity() { return _curl; }

@@ -13,19 +13,19 @@ const char *SimpleStream_CStringReader::GetName() const
 	return SRCNAME_string;
 }
 
-int SimpleStream_CStringReader::GetChar(Signal sig)
+int SimpleStream_CStringReader::GetChar(Signal &sig)
 {
 	if (*_pStr == '\0' || _pStr == _pEnd) return -1;
 	char ch = *_pStr++;
 	return static_cast<UChar>(ch);
 }
 
-void SimpleStream_CStringReader::PutChar(Signal sig, char ch)
+void SimpleStream_CStringReader::PutChar(Signal &sig, char ch)
 {
 	// nothing to do
 }
 
-size_t SimpleStream_CStringReader::Read(Signal sig, void *buff, size_t len)
+size_t SimpleStream_CStringReader::Read(Signal &sig, void *buff, size_t len)
 {
 	size_t lenRest = (_pEnd == nullptr)? ::strlen(_pStr) : _pEnd - _pStr;
 	size_t lenToCopy = ChooseMin(lenRest, len);
@@ -34,7 +34,7 @@ size_t SimpleStream_CStringReader::Read(Signal sig, void *buff, size_t len)
 	return lenToCopy;
 }
 
-size_t SimpleStream_CStringReader::Write(Signal sig, const void *buff, size_t len)
+size_t SimpleStream_CStringReader::Write(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
@@ -47,19 +47,19 @@ const char *SimpleStream_StringReader::GetName() const
 	return SRCNAME_string;
 }
 
-int SimpleStream_StringReader::GetChar(Signal sig)
+int SimpleStream_StringReader::GetChar(Signal &sig)
 {
 	if (_pStr == _pEnd) return -1;
 	char ch = *_pStr++;
 	return static_cast<UChar>(ch);
 }
 
-void SimpleStream_StringReader::PutChar(Signal sig, char ch)
+void SimpleStream_StringReader::PutChar(Signal &sig, char ch)
 {
 	// nothing to do
 }
 
-size_t SimpleStream_StringReader::Read(Signal sig, void *buff, size_t len)
+size_t SimpleStream_StringReader::Read(Signal &sig, void *buff, size_t len)
 {
 	char *p = reinterpret_cast<char *>(buff);
 	size_t lenCopied = 0;
@@ -69,7 +69,7 @@ size_t SimpleStream_StringReader::Read(Signal sig, void *buff, size_t len)
 	return lenCopied;
 }
 
-size_t SimpleStream_StringReader::Write(Signal sig, const void *buff, size_t len)
+size_t SimpleStream_StringReader::Write(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
@@ -82,22 +82,22 @@ const char *SimpleStream_StringWriter::GetName() const
 	return SRCNAME_string;
 }
 
-int SimpleStream_StringWriter::GetChar(Signal sig)
+int SimpleStream_StringWriter::GetChar(Signal &sig)
 {
 	return -1;
 }
 
-void SimpleStream_StringWriter::PutChar(Signal sig, char ch)
+void SimpleStream_StringWriter::PutChar(Signal &sig, char ch)
 {
 	_str += ch;
 }
 
-size_t SimpleStream_StringWriter::Read(Signal sig, void *buff, size_t len)
+size_t SimpleStream_StringWriter::Read(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t SimpleStream_StringWriter::Write(Signal sig, const void *buff, size_t len)
+size_t SimpleStream_StringWriter::Write(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
@@ -105,7 +105,7 @@ size_t SimpleStream_StringWriter::Write(Signal sig, const void *buff, size_t len
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-StreamDumb::StreamDumb(Environment &env, Signal sig) : Stream(env, sig, ATTR_Writable)
+StreamDumb::StreamDumb(Environment &env, Signal &sig) : Stream(env, sig, ATTR_Writable)
 {
 }
 
@@ -129,27 +129,27 @@ bool StreamDumb::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-size_t StreamDumb::DoRead(Signal sig, void *buff, size_t len)
+size_t StreamDumb::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t StreamDumb::DoWrite(Signal sig, const void *buff, size_t len)
+size_t StreamDumb::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return len;
 }
 
-bool StreamDumb::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool StreamDumb::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return true;
 }
 
-bool StreamDumb::DoFlush(Signal sig)
+bool StreamDumb::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool StreamDumb::DoClose(Signal sig)
+bool StreamDumb::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -162,7 +162,7 @@ size_t StreamDumb::DoGetSize()
 //-----------------------------------------------------------------------------
 // StreamFIFO
 //-----------------------------------------------------------------------------
-StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
+StreamFIFO::StreamFIFO(Environment &env, Signal &sig, size_t bytesBuff) :
 		Stream(env, sig, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
 		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
@@ -192,7 +192,7 @@ bool StreamFIFO::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
+size_t StreamFIFO::DoRead(Signal &sig, void *buff, size_t len)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
@@ -239,7 +239,7 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 	return offset;
 }
 
-size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
+size_t StreamFIFO::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	_pSemaphore->Wait();
@@ -275,17 +275,17 @@ size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
 	return len;
 }
 
-bool StreamFIFO::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool StreamFIFO::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
 
-bool StreamFIFO::DoFlush(Signal sig)
+bool StreamFIFO::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool StreamFIFO::DoClose(Signal sig)
+bool StreamFIFO::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -304,7 +304,7 @@ void StreamFIFO::SetWriteDoneFlag()
 //-----------------------------------------------------------------------------
 // StreamMemory
 //-----------------------------------------------------------------------------
-StreamMemory::StreamMemory(Environment &env, Signal sig) :
+StreamMemory::StreamMemory(Environment &env, Signal &sig) :
 					Stream(env, sig, ATTR_Writable), _pBinary(new Binary())
 {
 }
@@ -329,28 +329,28 @@ bool StreamMemory::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-size_t StreamMemory::DoRead(Signal sig, void *buff, size_t len)
+size_t StreamMemory::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t StreamMemory::DoWrite(Signal sig, const void *buff, size_t len)
+size_t StreamMemory::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	_pBinary->append(reinterpret_cast<const char *>(buff), len);
 	return len;
 }
 
-bool StreamMemory::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool StreamMemory::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
 
-bool StreamMemory::DoFlush(Signal sig)
+bool StreamMemory::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool StreamMemory::DoClose(Signal sig)
+bool StreamMemory::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -368,7 +368,7 @@ const char *StreamMemory::GetPointer() const
 //-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
-StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes) :
+StreamMemReader::StreamMemReader(Environment &env, Signal &sig, const void *buff, size_t bytes) :
 				Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable),
 				_buff(reinterpret_cast<const char *>(buff)), _bytes(bytes)
 {
@@ -394,7 +394,7 @@ bool StreamMemReader::SetAttribute(const Attribute &attr)
 	return false;
 }
 
-size_t StreamMemReader::DoRead(Signal sig, void *buff, size_t len)
+size_t StreamMemReader::DoRead(Signal &sig, void *buff, size_t len)
 {
 	if (_offsetCur > _bytes) {
 		sig.SetError(ERR_IndexError, "out of range");
@@ -407,12 +407,12 @@ size_t StreamMemReader::DoRead(Signal sig, void *buff, size_t len)
 	return lenRead;
 }
 
-size_t StreamMemReader::DoWrite(Signal sig, const void *buff, size_t len)
+size_t StreamMemReader::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool StreamMemReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool StreamMemReader::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
 		_offsetCur = static_cast<size_t>(offset);
@@ -422,12 +422,12 @@ bool StreamMemReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMod
 	return true;
 }
 
-bool StreamMemReader::DoFlush(Signal sig)
+bool StreamMemReader::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool StreamMemReader::DoClose(Signal sig)
+bool StreamMemReader::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -440,7 +440,7 @@ size_t StreamMemReader::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
-Stream_Prefetch::Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSrc, size_t bytesUnit) :
+Stream_Prefetch::Stream_Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc, size_t bytesUnit) :
 			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_offset(0), _bytesAll(0), _bytesUnit(bytesUnit)
 {
@@ -467,7 +467,7 @@ bool Stream_Prefetch::SetAttribute(const Attribute &attr)
 	return _pStreamSrc->SetAttribute(attr);
 }
 
-size_t Stream_Prefetch::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_Prefetch::DoRead(Signal &sig, void *buff, size_t len)
 {
 	size_t iMemory = _offset / _bytesUnit;
 	if (iMemory >= _memoryOwner.size()) {
@@ -492,12 +492,12 @@ size_t Stream_Prefetch::DoRead(Signal sig, void *buff, size_t len)
 	return bytesCopied;
 }
 
-size_t Stream_Prefetch::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_Prefetch::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream_Prefetch::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Prefetch::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
 		_offset = static_cast<size_t>(offset);
@@ -507,12 +507,12 @@ bool Stream_Prefetch::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMod
 	return true;
 }
 
-bool Stream_Prefetch::DoFlush(Signal sig)
+bool Stream_Prefetch::DoFlush(Signal &sig)
 {
 	return false;
 }
 
-bool Stream_Prefetch::DoClose(Signal sig)
+bool Stream_Prefetch::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -522,7 +522,7 @@ size_t Stream_Prefetch::DoGetSize()
 	return _bytesAll;
 }
 
-bool Stream_Prefetch::DoPrefetch(Signal sig)
+bool Stream_Prefetch::DoPrefetch(Signal &sig)
 {
 	_bytesAll = 0;
 	for (;;) {
@@ -543,7 +543,7 @@ bool Stream_Prefetch::DoPrefetch(Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Base64Reader
 //-----------------------------------------------------------------------------
-Stream_Base64Reader::Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc) :
+Stream_Base64Reader::Stream_Base64Reader(Environment &env, Signal &sig, Stream *pStreamSrc) :
 			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_nChars(0), _nInvalid(0), _accum(0), _iBuffWork(0)
 {
@@ -570,7 +570,7 @@ bool Stream_Base64Reader::SetAttribute(const Attribute &attr)
 	return _pStreamSrc->SetAttribute(attr);
 }
 
-size_t Stream_Base64Reader::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_Base64Reader::DoRead(Signal &sig, void *buff, size_t len)
 {
 	UChar *buffp = reinterpret_cast<UChar *>(buff);
 	size_t lenRead = 0;
@@ -627,22 +627,22 @@ size_t Stream_Base64Reader::DoRead(Signal sig, void *buff, size_t len)
 	return lenRead;
 }
 
-size_t Stream_Base64Reader::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_Base64Reader::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream_Base64Reader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Base64Reader::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
 
-bool Stream_Base64Reader::DoFlush(Signal sig)
+bool Stream_Base64Reader::DoFlush(Signal &sig)
 {
 	return false;
 }
 
-bool Stream_Base64Reader::DoClose(Signal sig)
+bool Stream_Base64Reader::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }
@@ -658,7 +658,7 @@ size_t Stream_Base64Reader::DoGetSize()
 const char Stream_Base64Writer::_chars[] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-Stream_Base64Writer::Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine) :
+Stream_Base64Writer::Stream_Base64Writer(Environment &env, Signal &sig, Stream *pStreamDst, int nCharsPerLine) :
 			Stream(env, sig, ATTR_Writable), _pStreamDst(pStreamDst),
 			_nCharsPerLine(nCharsPerLine), _nChars(0), _iBuffWork(0)
 {
@@ -686,12 +686,12 @@ bool Stream_Base64Writer::SetAttribute(const Attribute &attr)
 	return _pStreamDst->SetAttribute(attr);
 }
 
-size_t Stream_Base64Writer::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_Base64Writer::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t Stream_Base64Writer::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_Base64Writer::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	const UChar *buffp = reinterpret_cast<const UChar *>(buff);
 	size_t lenWritten = 0;
@@ -724,12 +724,12 @@ size_t Stream_Base64Writer::DoWrite(Signal sig, const void *buff, size_t len)
 	return lenWritten;
 }
 
-bool Stream_Base64Writer::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_Base64Writer::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
 
-bool Stream_Base64Writer::DoFlush(Signal sig)
+bool Stream_Base64Writer::DoFlush(Signal &sig)
 {
 	char buffDst[8];
 	bool addcrFlag = _pStreamDst->GetCodec()->GetEncoder()->GetAddcrFlag();
@@ -781,7 +781,7 @@ bool Stream_Base64Writer::DoFlush(Signal sig)
 	return !sig.IsSignalled();
 }
 
-bool Stream_Base64Writer::DoClose(Signal sig)
+bool Stream_Base64Writer::DoClose(Signal &sig)
 {
 	if (!DoFlush(sig)) return false;
 	return Stream::DoClose(sig);
@@ -795,7 +795,7 @@ size_t Stream_Base64Writer::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_CRC32
 //-----------------------------------------------------------------------------
-Stream_CRC32::Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst) :
+Stream_CRC32::Stream_CRC32(Environment &env, Signal &sig, Stream *pStreamDst) :
 		Stream(env, sig, (pStreamDst == nullptr)? ATTR_Writable : pStreamDst->GetAttr()),
 		_pStreamDst(pStreamDst)
 {
@@ -812,28 +812,28 @@ const char *Stream_CRC32::GetIdentifier() const
 	return _pStreamDst.IsNull()? nullptr : _pStreamDst->GetIdentifier();
 }
 
-size_t Stream_CRC32::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_CRC32::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return _pStreamDst.IsNull()? 0 : _pStreamDst->Read(sig, buff, len);
 }
 
-size_t Stream_CRC32::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_CRC32::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	_crc32.Update(buff, len);
 	return _pStreamDst.IsNull()? len : _pStreamDst->Write(sig, buff, len);
 }
 
-bool Stream_CRC32::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_CRC32::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return _pStreamDst.IsNull()? true : _pStreamDst->Seek(sig, offset, seekMode);
 }
 
-bool Stream_CRC32::DoFlush(Signal sig)
+bool Stream_CRC32::DoFlush(Signal &sig)
 {
 	return _pStreamDst.IsNull()? true : _pStreamDst->Flush(sig);
 }
 
-bool Stream_CRC32::DoClose(Signal sig)
+bool Stream_CRC32::DoClose(Signal &sig)
 {
 	if (!_pStreamDst.IsNull() && !_pStreamDst->DoClose(sig)) return false;
 	return Stream::DoClose(sig);
@@ -847,7 +847,7 @@ size_t Stream_CRC32::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_StringReader
 //-----------------------------------------------------------------------------
-Stream_StringReader::Stream_StringReader(Environment &env, Signal sig, const String &str) :
+Stream_StringReader::Stream_StringReader(Environment &env, Signal &sig, const String &str) :
 					Stream(env, sig, ATTR_Readable), _str(str), _offset(0)
 {
 }
@@ -866,7 +866,7 @@ const char *Stream_StringReader::GetIdentifier() const
 	return nullptr;
 }
 
-size_t Stream_StringReader::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream_StringReader::DoRead(Signal &sig, void *buff, size_t len)
 {
 	if (_offset > _str.size()) {
 		sig.SetError(ERR_IndexError, "out of range");
@@ -878,12 +878,12 @@ size_t Stream_StringReader::DoRead(Signal sig, void *buff, size_t len)
 	return len;
 }
 
-size_t Stream_StringReader::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream_StringReader::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream_StringReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream_StringReader::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
 		_offset = static_cast<size_t>(offset);
@@ -893,12 +893,12 @@ bool Stream_StringReader::DoSeek(Signal sig, long offset, size_t offsetPrev, See
 	return true;
 }
 
-bool Stream_StringReader::DoFlush(Signal sig)
+bool Stream_StringReader::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool Stream_StringReader::DoClose(Signal sig)
+bool Stream_StringReader::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }

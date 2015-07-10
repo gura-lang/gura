@@ -17,7 +17,7 @@ void Class_boolean::Prepare(Environment &env)
 	Gura_AssignValue(boolean, Value(Reference()));
 }
 
-bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_boolean::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_list()) {
 		return true;
@@ -27,12 +27,12 @@ bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const D
 	}
 }
 
-bool Class_boolean::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_boolean::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeUChar(sig, static_cast<UChar>(value.GetBoolean()));
 }
 
-bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_boolean::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	UChar num = 0;
 	if (!stream.DeserializeUChar(sig, num)) return false;
@@ -40,14 +40,14 @@ bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 	return true;
 }
 
-bool Class_boolean::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_boolean::Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,
 		static_cast<int>(value.GetBoolean()), buff, sizeof(buff)));
 }
 
-bool Class_boolean::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_boolean::Format_u(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,

@@ -17,7 +17,7 @@ Object *Object_error::Clone() const
 	return new Object_error(*this);
 }
 
-bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_error::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(source));
@@ -29,7 +29,7 @@ bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_error::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -77,7 +77,7 @@ void Class_error::Prepare(Environment &env)
 	Gura_AssignValue(error, Value(Reference()));
 }
 
-Object *Class_error::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_error::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

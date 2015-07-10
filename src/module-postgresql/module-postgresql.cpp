@@ -31,7 +31,7 @@ String Object_postgresql::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_postgresql::Connect(Signal sig, const char *pghost, const char *pgport,
+bool Object_postgresql::Connect(Signal &sig, const char *pghost, const char *pgport,
 	const char *pgoptions, const char *pgtty, const char *dbName, const char *login, const char *pwd)
 {
 	_conn = ::PQsetdbLogin(pghost, pgport, pgoptions, pgtty, dbName, login, pwd);
@@ -52,7 +52,7 @@ void Object_postgresql::Close()
 	}
 }
 
-Iterator *Object_postgresql::Exec(Signal sig, const char *command)
+Iterator *Object_postgresql::Exec(Signal &sig, const char *command)
 {
 	if (_conn == nullptr) return nullptr;
 	PGresult *res = ::PQexec(_conn, command);
@@ -78,7 +78,7 @@ Object_postgresql::IteratorTuple::~IteratorTuple()
 	::PQclear(_res);
 }
 
-bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	//Environment &env = *_pObj;
 	if (_iTuple >= ::PQntuples(_res)) return false;

@@ -16,13 +16,13 @@ Object_mpz::Object_mpz(const mpz_class &num) : Object(Gura_UserClass(mpz)), _num
 {
 }
 
-bool Object_mpz::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_mpz::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return true;
 }
 
-Value Object_mpz::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_mpz::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -151,50 +151,50 @@ Gura_ImplementCastTo(mpz)
 	return false;
 }
 
-bool Gura_ClassName(mpz)::Format_d(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_d(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_d(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_u(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_u(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_u(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_b(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_b(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	//return _Format_b(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
-bool Gura_ClassName(mpz)::Format_o(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_o(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_o(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_x(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_x(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_x(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_e(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_e(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_e(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_f(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_f(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_f(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
-bool Gura_ClassName(mpz)::Format_g(Signal sig, Formatter *pFormatter,
+bool Gura_ClassName(mpz)::Format_g(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_g(sig, pFormatter, flags, Object_mpz::GetEntity(value));

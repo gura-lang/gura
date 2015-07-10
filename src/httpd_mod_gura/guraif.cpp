@@ -88,15 +88,15 @@ class StreamAPR : public Stream {
 private:
 	request_rec *_r;
 public:
-	inline StreamAPR(Environment &env, Signal sig, request_rec *r) :
+	inline StreamAPR(Environment &env, Signal &sig, request_rec *r) :
 									Stream(env, sig, ATTR_Writable), _r(r) {}
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
+	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal &sig);
+	virtual bool DoClose(Signal &sig);
 	virtual size_t DoGetSize();
 };
 
@@ -113,28 +113,28 @@ const char *StreamAPR::GetIdentifier() const
 	return nullptr;
 }
 
-size_t StreamAPR::DoRead(Signal sig, void *buff, size_t len)
+size_t StreamAPR::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t StreamAPR::DoWrite(Signal sig, const void *buff, size_t len)
+size_t StreamAPR::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	ap_rwrite(buff, static_cast<int>(len), _r);
 	return len;
 }
 
-bool StreamAPR::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool StreamAPR::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return false;
 }
 
-bool StreamAPR::DoFlush(Signal sig)
+bool StreamAPR::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool StreamAPR::DoClose(Signal sig)
+bool StreamAPR::DoClose(Signal &sig)
 {
 	return Stream::DoClose(sig);
 }

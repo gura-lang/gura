@@ -122,7 +122,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(j);
 }
 
-Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+Value Class_complex::GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -148,7 +148,7 @@ Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value 
 	return Value::Null;
 }
 
-bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_complex::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to complex
 		return true;
@@ -164,7 +164,7 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 	return false;
 }
 
-bool Class_complex::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_complex::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	const Complex *pComp = value.GetComplexPtr();
 	if (!stream.SerializeDouble(sig, pComp->real())) return false;
@@ -172,7 +172,7 @@ bool Class_complex::Serialize(Environment &env, Signal sig, Stream &stream, cons
 	return true;
 }
 
-bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	double re = 0, im = 0;
 	if (!stream.DeserializeDouble(sig, re)) return false;
@@ -181,7 +181,7 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 	return true;
 }
 
-bool Class_complex::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();
@@ -195,7 +195,7 @@ bool Class_complex::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags
 	return true;
 }
 
-bool Class_complex::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();
@@ -209,7 +209,7 @@ bool Class_complex::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags
 	return true;
 }
 
-bool Class_complex::Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_g(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();

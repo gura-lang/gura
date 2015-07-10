@@ -16,8 +16,8 @@ class GURA_DLLDECLARE Class_stream : public Class {
 public:
 	Class_stream(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ public:
 			Iterator(pObj->GetStream().IsInfinite()), _pObj(pObj), _nLinesMax(nLinesMax),
 			_includeEOLFlag(includeEOLFlag), _nLines(0) {}
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -50,9 +50,9 @@ public:
 	inline Object_stream(Class *pClass, Stream *pStream) :
 						Object(pClass), _pStream(pStream) {}
 	inline Stream &GetStream() { return *_pStream; }
-	virtual Iterator *CreateIterator(Signal sig);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Iterator *CreateIterator(Signal &sig);
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };

@@ -16,18 +16,18 @@ Gura_DeclarePrivUserSymbol(OnGetItemText);
 //----------------------------------------------------------------------------
 class wx_ListCtrl: public wxListCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	AutoPtr<Object_wx_ListCtrl> _pObj;
 public:
-	inline wx_ListCtrl() : wxListCtrl(), _sig(nullptr), _pObj(nullptr) {}
-	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_ListCtrl() : wxListCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
 	virtual wxListItemAttr *OnGetItemAttr(long item) const;
 	virtual int OnGetItemImage(long item) const;
 	virtual int OnGetItemColumnImage(long item, long column) const;
 	virtual wxString OnGetItemText(long item, long column) const;
 	~wx_ListCtrl();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListCtrl *pObj) {
-		_sig = sig, _pObj.reset(Object_wx_ListCtrl::Reference(pObj));
+		_pSig = &sig, _pObj.reset(Object_wx_ListCtrl::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,8 +59,8 @@ wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_ListItemAttr, true)) return nullptr;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_ListItemAttr, true)) return nullptr;
 	return rtn.IsValid()? Object_wx_ListItemAttr::GetObject(rtn)->GetEntity() : nullptr;
 }
 
@@ -72,8 +72,8 @@ int wx_ListCtrl::OnGetItemImage(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -86,8 +86,8 @@ int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -100,8 +100,8 @@ wxString wx_ListCtrl::OnGetItemText(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
-	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
 

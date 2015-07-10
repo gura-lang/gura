@@ -24,14 +24,14 @@ public:
 	Object_writer(Stream *pStreamDst, const char *format);
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool PutValue(Environment &env, Signal sig, const Value &value);
-	bool PutLine(Environment &env, Signal sig, const ValueList &valList);
+	bool PutValue(Environment &env, Signal &sig, const Value &value);
+	bool PutLine(Environment &env, Signal &sig, const ValueList &valList);
 };
 
 //-----------------------------------------------------------------------------
@@ -39,8 +39,8 @@ public:
 //-----------------------------------------------------------------------------
 class Reader {
 public:
-	bool ReadLine(Environment &env, Signal sig, ValueList &valList);
-	virtual char NextChar(Signal sig) = 0;
+	bool ReadLine(Environment &env, Signal &sig, ValueList &valList);
+	virtual char NextChar(Signal &sig) = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ private:
 	AutoPtr<Stream> _pStream;
 public:
 	inline ReaderStream(Stream *pStream) : _pStream(pStream) {}
-	virtual char NextChar(Signal sig);
+	virtual char NextChar(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ private:
 	String::iterator _strp;
 public:
 	inline ReaderString(const String &str) : _str(str) { _strp = _str.begin(); }
-	virtual char NextChar(Signal sig);
+	virtual char NextChar(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ public:
 	inline Iterator_reader(Reader *pReader) :
 								Iterator(false), _pReader(pReader) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

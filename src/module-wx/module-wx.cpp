@@ -45,7 +45,7 @@ const bool OwnerFalse = false;
 
 static bool g_wxReadyFlag = false;
 
-void RegisterFunctions(Environment &env, Signal sig);
+void RegisterFunctions(Environment &env, Signal &sig);
 
 //-----------------------------------------------------------------------------
 // Gura module functions: wx
@@ -3429,24 +3429,24 @@ bool IsWxReady()
 	return g_wxReadyFlag;
 }
 
-bool CheckWxReady(Signal sig)
+bool CheckWxReady(Signal &sig)
 {
 	if (g_wxReadyFlag) return true;
 	sig.SetError(ERR_RuntimeError, "wxWidgets functions must be called after wxApp::OnInit");
 	return false;
 }
 
-void SetError_NotImplemented(Signal sig)
+void SetError_NotImplemented(Signal &sig)
 {
 	sig.SetError(ERR_NotImplementedError, "sorry, not implemented yet");
 }
 
-void SetError_MSWOnly(Signal sig)
+void SetError_MSWOnly(Signal &sig)
 {
 	sig.SetError(ERR_NotImplementedError, "this function is only implemented in MSW");
 }
 
-void SetError_InvalidWxObject(Signal sig, const char *name)
+void SetError_InvalidWxObject(Signal &sig, const char *name)
 {
 	sig.SetError(ERR_ValueError, "invalid wx object of %s", name);
 }
@@ -3542,7 +3542,7 @@ void ConvertToWxImage(Image *pImageGura, wxImage *pImage)
 	}
 }
 
-bool CheckMethodResult(Signal sig)
+bool CheckMethodResult(Signal &sig)
 {
 	if (sig.IsSignalled()) {
 		SetLogError(sig);
@@ -3552,7 +3552,7 @@ bool CheckMethodResult(Signal sig)
 	return true;
 }
 
-bool CheckMethodResult(Signal sig, const Value &rtn,
+bool CheckMethodResult(Signal &sig, const Value &rtn,
 						ValueType valueType, bool invalidAcceptableFlag)
 {
 	if (sig.IsSignalled()) {
@@ -3582,7 +3582,7 @@ Iterator *Iterator_NewIds::GetSource()
 	return nullptr;
 }
 
-bool Iterator_NewIds::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_NewIds::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	value = Value(::wxNewId());
 	return true;

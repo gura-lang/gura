@@ -220,7 +220,7 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 	return false;
 }
 
-Fundamental *Value::ExtractFundamental(Signal sig)
+Fundamental *Value::ExtractFundamental(Signal &sig)
 {
 	if (IsModule()) {
 		return GetModule();
@@ -307,7 +307,7 @@ bool Value::Is(const Value &value) const
 	return false;
 }
 
-Value Value::EmptyIndexGet(Environment &env, Signal sig) const
+Value Value::EmptyIndexGet(Environment &env, Signal &sig) const
 {
 	if (IsPrimitive()) {
 		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, sig, *this);
@@ -318,7 +318,7 @@ Value Value::EmptyIndexGet(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-void Value::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
+void Value::EmptyIndexSet(Environment &env, Signal &sig, const Value &value)
 {
 	if (IsObject()) {
 		GetObject()->EmptyIndexSet(env, sig, value);
@@ -327,7 +327,7 @@ void Value::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
 
-Value Value::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
+Value Value::IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const
 {
 	if (IsPrimitive()) {
 		return env.LookupClass(_valType)->IndexGetPrimitive(env, sig, *this, valueIdx);
@@ -338,7 +338,7 @@ Value Value::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
 	return Value::Null;
 }
 
-void Value::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+void Value::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
 {
 	if (IsObject()) {
 		GetObject()->IndexSet(env, sig, valueIdx, value);
@@ -347,7 +347,7 @@ void Value::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const 
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
 
-bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
+bool Value::DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (IsModule()) {
 		return GetModule()->DirProp(env, sig, symbols);
@@ -441,7 +441,7 @@ Fundamental *Value::GetFundamental()
 	return nullptr;
 }
 
-Iterator *Value::CreateIterator(Signal sig) const
+Iterator *Value::CreateIterator(Signal &sig) const
 {
 	if (IsObject()) {
 		return _u.pObj->CreateIterator(sig);
@@ -538,7 +538,7 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 	}
 }
 
-int Value::Compare(Environment &env, Signal sig, const Value &value1, const Value &value2)
+int Value::Compare(Environment &env, Signal &sig, const Value &value1, const Value &value2)
 {
 	if (value1.IsInvalid() && value2.IsInvalid()) return 0;
 	const OperatorEntry *pOperatorEntry = env.GetOperator(OPTYPE_Cmp)->
@@ -656,7 +656,7 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 	return pObj->GetDict();
 }
 
-bool Value::CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const
+bool Value::CastType(Environment &env, Signal &sig, ValueType valType, Value &valueCasted) const
 {
 	valueCasted = *this;
 	if (IsType(valType)) return true;
@@ -812,7 +812,7 @@ Value Value::CreateList(Environment &env, const char *buff[], size_t n)
 	return CreateListTmpl(env, buff, n);
 }
 
-bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value)
+bool Value::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value)
 {
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
 	ULong valType = static_cast<ULong>(value.GetValueType());
@@ -820,7 +820,7 @@ bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value 
 	return pValueTypeInfo->GetClass()->Serialize(env, sig, stream, value);
 }
 
-bool Value::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
+bool Value::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value, bool mustBeValidFlag)
 {
 	ULong valType = static_cast<ULong>(VTYPE_nil);
 	if (!stream.DeserializePackedULong(sig, valType)) return false;
@@ -887,7 +887,7 @@ bool ValueList::IsFlat() const
 	return true;
 }
 
-bool ValueList::DoesContain(Environment &env, Signal sig, const Value &value) const
+bool ValueList::DoesContain(Environment &env, Signal &sig, const Value &value) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		int rtn = Value::Compare(env, sig, *pValue, value);
@@ -929,7 +929,7 @@ bool ValueList::CheckMatrix(size_t *pnRow, size_t *pnCol) const
 	return true;
 }
 
-bool ValueList::AssumeSameLength(Signal sig,
+bool ValueList::AssumeSameLength(Signal &sig,
 						const ValueList &valList1, const ValueList &valList2)
 {
 	if (valList1.size() == valList2.size()) return true;
@@ -963,7 +963,7 @@ void ValueList::Append(const ValueList &valList)
 	}
 }
 
-bool ValueList::Append(Environment &env, Signal sig, Iterator *pIterator)
+bool ValueList::Append(Environment &env, Signal &sig, Iterator *pIterator)
 {
 	if (pIterator->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
@@ -989,7 +989,7 @@ String ValueList::Join(const char *sep) const
 	return rtn;
 }
 
-Binary ValueList::Joinb(Signal sig) const
+Binary ValueList::Joinb(Signal &sig) const
 {
 	Binary buff;
 	foreach_const (ValueList, pValue, *this) {
@@ -1003,7 +1003,7 @@ Binary ValueList::Joinb(Signal sig) const
 	return buff;
 }
 
-void ValueList::Print(Signal sig, int indentLevel) const
+void ValueList::Print(Signal &sig, int indentLevel) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		if (pValue->Is_list()) {
@@ -1015,7 +1015,7 @@ void ValueList::Print(Signal sig, int indentLevel) const
 	}
 }
 
-void ValueList::PrintEach(Environment &env, Signal sig, Stream *pStream) const
+void ValueList::PrintEach(Environment &env, Signal &sig, Stream *pStream) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
@@ -1024,7 +1024,7 @@ void ValueList::PrintEach(Environment &env, Signal sig, Stream *pStream) const
 	}
 }
 
-void ValueList::PrintfEach(Environment &env, Signal sig, Stream *pStream, const char *format) const
+void ValueList::PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
@@ -1037,7 +1037,7 @@ void ValueList::PrintfEach(Environment &env, Signal sig, Stream *pStream, const 
 	}
 }
 
-void ValueList::PrintlnEach(Environment &env, Signal sig, Stream *pStream) const
+void ValueList::PrintlnEach(Environment &env, Signal &sig, Stream *pStream) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
@@ -1046,7 +1046,7 @@ void ValueList::PrintlnEach(Environment &env, Signal sig, Stream *pStream) const
 	}
 }
 
-bool ValueList::ToStringList(Signal sig, StringList &strList) const
+bool ValueList::ToStringList(Signal &sig, StringList &strList) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		String str = pValue->ToString(false);
@@ -1056,7 +1056,7 @@ bool ValueList::ToStringList(Signal sig, StringList &strList) const
 	return true;
 }
 
-bool ValueList::Serialize(Environment &env, Signal sig, Stream &stream) const
+bool ValueList::Serialize(Environment &env, Signal &sig, Stream &stream) const
 {
 	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
@@ -1066,7 +1066,7 @@ bool ValueList::Serialize(Environment &env, Signal sig, Stream &stream) const
 	return true;
 }
 
-bool ValueList::Deserialize(Environment &env, Signal sig, Stream &stream)
+bool ValueList::Deserialize(Environment &env, Signal &sig, Stream &stream)
 {
 	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
@@ -1089,7 +1089,7 @@ const ValueMap ValueMap::Null;
 //-----------------------------------------------------------------------------
 const ValueDict ValueDict::Null;
 
-const Value *ValueDict::Find(Signal sig, const Value &valueIdx) const
+const Value *ValueDict::Find(Signal &sig, const Value &valueIdx) const
 {
 	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
@@ -1099,7 +1099,7 @@ const Value *ValueDict::Find(Signal sig, const Value &valueIdx) const
 	return (iter == end())? nullptr : &iter->second;
 }
 
-bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
+bool ValueDict::Store(Signal &sig, const ValueList &valList, StoreMode storeMode)
 {
 	enum { FIELD_Key, FIELD_Value } field = FIELD_Key;
 	Value valueIdx;
@@ -1161,7 +1161,7 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 	return true;
 }
 
-bool ValueDict::Store(Signal sig, const ValueDict &valDict, StoreMode storeMode)
+bool ValueDict::Store(Signal &sig, const ValueDict &valDict, StoreMode storeMode)
 {
 	foreach_const (ValueDict, iterSrc, valDict) {
 		const Value &valueIdx = iterSrc->first;
@@ -1180,7 +1180,7 @@ bool ValueDict::Store(Signal sig, const ValueDict &valDict, StoreMode storeMode)
 	return true;
 }
 
-bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode)
+bool ValueDict::Store(Signal &sig, const Value &valueIdx, const Value &value, StoreMode storeMode)
 {
 	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
@@ -1200,7 +1200,7 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 	return true;
 }
 
-bool ValueDict::Serialize(Environment &env, Signal sig, Stream &stream) const
+bool ValueDict::Serialize(Environment &env, Signal &sig, Stream &stream) const
 {
 	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
@@ -1211,7 +1211,7 @@ bool ValueDict::Serialize(Environment &env, Signal sig, Stream &stream) const
 	return true;
 }
 
-bool ValueDict::Deserialize(Environment &env, Signal sig, Stream &stream)
+bool ValueDict::Deserialize(Environment &env, Signal &sig, Stream &stream)
 {
 	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;

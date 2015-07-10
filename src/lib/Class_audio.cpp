@@ -23,7 +23,7 @@ Object *Object_audio::Clone() const
 	return nullptr; //new Object_audio(*this);
 }
 
-bool Object_audio::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_audio::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
@@ -34,7 +34,7 @@ bool Object_audio::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_audio::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_audio::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -53,7 +53,7 @@ Value Object_audio::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_audio::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_audio::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
@@ -310,7 +310,7 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, store);
 }
 
-bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_audio::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	size_t nChannels = 1;
 	size_t nSamplesPerSec = 10000;

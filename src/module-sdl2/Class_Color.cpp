@@ -21,7 +21,7 @@ String Object_Color::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Color::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(r));
@@ -30,7 +30,7 @@ bool Object_Color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Color::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -45,7 +45,7 @@ Value Object_Color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_Color::DoSetProp(Environment &env, Signal sig,
+Value Object_Color::DoSetProp(Environment &env, Signal &sig,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

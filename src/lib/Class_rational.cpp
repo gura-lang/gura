@@ -88,7 +88,7 @@ void Class_rational::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(r);
 }
 
-Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+Value Class_rational::GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -103,7 +103,7 @@ Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value
 	return Value::Null;
 }
 
-bool Class_rational::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_rational::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to rational
 		return true;
@@ -111,7 +111,7 @@ bool Class_rational::CastFrom(Environment &env, Signal sig, Value &value, const 
 	return false;
 }
 
-bool Class_rational::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_rational::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	const Rational *pRatio = value.GetRationalPtr();
 	if (!stream.SerializeDouble(sig, pRatio->numer)) return false;
@@ -119,7 +119,7 @@ bool Class_rational::Serialize(Environment &env, Signal sig, Stream &stream, con
 	return true;
 }
 
-bool Class_rational::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_rational::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	double numer = 0, denom = 0;
 	if (!stream.DeserializeDouble(sig, numer)) return false;
@@ -132,7 +132,7 @@ bool Class_rational::Deserialize(Environment &env, Signal sig, Stream &stream, V
 	return true;
 }
 
-bool Class_rational::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_rational::Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Rational &num = value.GetRational();

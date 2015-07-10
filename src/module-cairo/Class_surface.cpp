@@ -18,14 +18,14 @@ Object *Object_surface::Clone() const
 	return nullptr;
 }
 
-bool Object_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_surface::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	return true;
 }
 
-Value Object_surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_surface::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

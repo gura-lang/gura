@@ -33,7 +33,7 @@ Codec *Codec::CreateCodecNone(bool delcrFlag, bool addcrFlag)
 	return _pFactory_None->CreateCodec(delcrFlag, addcrFlag);
 }
 
-Codec *Codec::CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag)
+Codec *Codec::CreateCodec(Signal &sig, const char *encoding, bool delcrFlag, bool addcrFlag)
 {
 	if (encoding == nullptr) encoding = "none";
 	CodecFactory *pFactory = CodecFactory::Lookup(encoding);
@@ -154,7 +154,7 @@ CodecFactory *CodecFactory::Lookup(const char *encoding)
 //-----------------------------------------------------------------------------
 // Codec::Decoder
 //-----------------------------------------------------------------------------
-bool Codec::Decoder::Decode(Signal sig, String &dst, const char *buff, size_t bytes)
+bool Codec::Decoder::Decode(Signal &sig, String &dst, const char *buff, size_t bytes)
 {
 	char ch;
 	for (const char *p = buff; bytes > 0; p++, bytes--) {
@@ -174,7 +174,7 @@ bool Codec::Decoder::Decode(Signal sig, String &dst, const char *buff, size_t by
 	return true;
 }
 
-bool Codec::Decoder::Decode(Signal sig, String &dst, const Binary &src)
+bool Codec::Decoder::Decode(Signal &sig, String &dst, const Binary &src)
 {
 	return Decode(sig, dst, src.data(), src.size());
 }
@@ -182,7 +182,7 @@ bool Codec::Decoder::Decode(Signal sig, String &dst, const Binary &src)
 //-----------------------------------------------------------------------------
 // Codec::Encoder
 //-----------------------------------------------------------------------------
-bool Codec::Encoder::Encode(Signal sig, Binary &dst, const char *str)
+bool Codec::Encoder::Encode(Signal &sig, Binary &dst, const char *str)
 {
 	char ch;
 	for (const char *p = str; *p != '\0'; p++) {

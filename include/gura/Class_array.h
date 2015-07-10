@@ -36,7 +36,7 @@ public:
 		str += ">";
 		return str;
 	}
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) {
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx) {
 		if (!valueIdx.Is_number()) {
 			sig.SetError(ERR_ValueError, "index must be a number");
 			return Value::Null;
@@ -48,7 +48,7 @@ public:
 		}
 		return Value(_pArray->GetPointer()[idx]);
 	}
-	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value) {
+	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value) {
 		if (!valueIdx.Is_number()) {
 			sig.SetError(ERR_ValueError, "index must be a number");
 			return;
@@ -81,7 +81,7 @@ public:
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			AutoPtr<Array<T_Elem> > pArray;
 			if (args.Is_number(0)) {
 				pArray.reset(new Array<T_Elem>(args.GetSizeT(0)));
@@ -112,7 +112,7 @@ public:
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_Once);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
@@ -154,7 +154,7 @@ public:
 				"where `elem` is the element value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
 			return ReturnIterator(env, sig, args, pIterator.release());
@@ -176,7 +176,7 @@ public:
 				"Prints out a binary dump of the array's content.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			bool upperFlag = args.IsSet(Gura_Symbol(upper));
 			Stream *pStream = args.IsValid(0)?
@@ -200,7 +200,7 @@ public:
 				"Fills array with a specified value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			pArray->Fill(static_cast<T_Elem>(args.GetNumber(0)));
 			return Value::Null;
@@ -227,7 +227,7 @@ public:
 				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
@@ -262,7 +262,7 @@ public:
 				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
@@ -295,7 +295,7 @@ public:
 				"The argument `offset` specifies the posision where elements are pasted in\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			size_t offset = args.GetSizeT(0);
 			const Array<T_Elem> *pArraySrc = Object_array<T_Elem>::GetObject(args, 1)->GetArray();
@@ -324,7 +324,7 @@ public:
 				"In this case, the block's result would become the function's returned value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal sig, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
@@ -364,7 +364,7 @@ public:
 		AssignFunction(new Func_paste(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
 	}
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) {
+	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl) {
 		if (value.Is_list()) {
 			AutoPtr<Array<T_Elem> > pArray(CreateArrayFromList<T_Elem>(sig, value.GetList()));
 			if (pArray.IsNull()) return false;
@@ -373,7 +373,7 @@ public:
 		}
 		return false;
 	}
-	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) {
+	virtual bool CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl) {
 		if (decl.IsType(VTYPE_list)) {
 			AutoPtr<Array<T_Elem> > pArray(
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());

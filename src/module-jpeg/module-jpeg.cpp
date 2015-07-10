@@ -597,7 +597,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_JPEG
 //-----------------------------------------------------------------------------
-bool ImageStreamer_JPEG::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_JPEG::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		char buff[2];
@@ -610,19 +610,19 @@ bool ImageStreamer_JPEG::IsResponsible(Signal sig, Stream &stream)
 				stream.HasNameSuffix(".jpeg") || stream.HasNameSuffix(".jpe");
 }
 
-bool ImageStreamer_JPEG::Read(Environment &env, Signal sig,
+bool ImageStreamer_JPEG::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_JPEG::Write(Environment &env, Signal sig,
+bool ImageStreamer_JPEG::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return WriteStream(env, sig, pImage, stream, 75);
 }
 
-bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	ErrorMgr errMgr(sig);
@@ -665,7 +665,7 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal sig, Image *pImage,
 	return true;
 }
 
-bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal sig,
+bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal &sig,
 						Image *pImage, Stream &stream, int quality)
 {
 	if (!pImage->CheckValid(sig)) return false;
@@ -893,7 +893,7 @@ void SetError_InvalidFormat(Signal &sig)
 	sig.SetError(ERR_FormatError, "invalid Exif format");
 }
 
-bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
+bool ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes)
 {
 	size_t bytesRead = stream.Read(sig, buff, bytes);
 	if (sig.IsSignalled()) return false;

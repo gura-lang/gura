@@ -35,8 +35,8 @@ public:
 private:
 	~Declaration();
 public:
-	static Declaration *Create(Environment &env, Signal sig, const Expr *pExpr);
-	bool ValidateAndCast(Environment &env, Signal sig,
+	static Declaration *Create(Environment &env, Signal &sig, const Expr *pExpr);
+	bool ValidateAndCast(Environment &env, Signal &sig,
 							Value &value, bool listElemFlag = false) const;
 	inline Declaration *Clone() const { return new Declaration(*this); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
@@ -72,11 +72,11 @@ public:
 				!((IsType(VTYPE_list) || GetListFlag()) && value.IsFlatList());
 	}
 	String ToString() const;
-	void SetError_ArgumentType(Signal sig, const Value &value) const;
-	void SetError_ArgumentMustBeList(Signal sig, const Value &value) const;
-	static void SetError_InvalidArgument(Signal sig);
-	static void SetError_NotEnoughArguments(Signal sig);
-	static void SetError_TooManyArguments(Signal sig);
+	void SetError_ArgumentType(Signal &sig, const Value &value) const;
+	void SetError_ArgumentMustBeList(Signal &sig, const Value &value) const;
+	static void SetError_InvalidArgument(Signal &sig);
+	static void SetError_NotEnoughArguments(Signal &sig);
+	static void SetError_TooManyArguments(Signal &sig);
 	static OccurPattern SymbolToOccurPattern(const Symbol *pSymbol);
 };
 
@@ -93,7 +93,7 @@ public:
 	~DeclarationList();
 	bool IsVariableLength() const;
 	void SetAsLoose();
-	bool Compensate(Environment &env, Signal sig, ValueList &valList) const;
+	bool Compensate(Environment &env, Signal &sig, ValueList &valList) const;
 	bool ShouldImplicitMap(const ValueList &valList) const;
 	bool ShouldImplicitMap(const Args &args) const;
 	String ToString() const;
@@ -129,8 +129,8 @@ public:
 				Expr *pExprDefault = nullptr) {
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
-	bool Declare(Environment &env, Signal sig, const ExprList &exprList);
-	bool ValidateAndCast(Environment &env, Signal sig,
+	bool Declare(Environment &env, Signal &sig, const ExprList &exprList);
+	bool ValidateAndCast(Environment &env, Signal &sig,
 		const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;
 };

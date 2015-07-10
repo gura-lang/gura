@@ -41,7 +41,7 @@ String Object_interp::ToString(bool exprFlag)
 	return String("<tcl.interp>");
 }
 
-Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &value)
+Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal &sig, const Value &value)
 {
 	if (value.IsInvalid()) {
 		return ::Tcl_NewStringObj("", 0);
@@ -97,7 +97,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 	return ::Tcl_NewStringObj(str.c_str(), static_cast<int>(str.size()));
 }
 
-Value Object_interp::ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *objPtr)
+Value Object_interp::ConvFromTclObj(Environment &env, Signal &sig, Tcl_Obj *objPtr)
 {
 	Tcl_ObjType *typePtr = objPtr->typePtr;
 	if (typePtr == nullptr) {
@@ -139,7 +139,7 @@ Value Object_interp::ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *objPt
 	return Value(objPtr->bytes, objPtr->length);
 }
 
-Tcl_Obj **Object_interp::CreateTclObjArray(Environment &env, Signal sig,
+Tcl_Obj **Object_interp::CreateTclObjArray(Environment &env, Signal &sig,
 										const ValueList &valList, int *pObjc)
 {
 	*pObjc = static_cast<int>(valList.size());
@@ -163,7 +163,7 @@ void Object_interp::DeleteTclObjArray(int objc, Tcl_Obj **objv)
 	delete[] objv;
 }
 
-Value Object_interp::TclEval(Environment &env, Signal sig, const ValueList &valList)
+Value Object_interp::TclEval(Environment &env, Signal &sig, const ValueList &valList)
 {
 	int objc;
 	Tcl_Obj **objv = CreateTclObjArray(env, sig, valList, &objc);
@@ -251,7 +251,7 @@ int Object_interp::TclThreadProc(Tcl_Event *ev, int flags)
 	return 1;
 }
 
-Value Object_interp::InvokeTclThread(Environment &env, Signal sig,
+Value Object_interp::InvokeTclThread(Environment &env, Signal &sig,
 												const ValueList &valListArg)
 {
 	Tcl_Condition cond = nullptr;
@@ -476,7 +476,7 @@ String Object_variable::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_variable::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_variable::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(boolean));
@@ -485,7 +485,7 @@ bool Object_variable::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_variable::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
@@ -531,7 +531,7 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_variable::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_variable::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
@@ -553,14 +553,14 @@ Value Object_variable::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-bool Object_variable::Set(Environment &env, Signal sig, const Value &value)
+bool Object_variable::Set(Environment &env, Signal &sig, const Value &value)
 {
 	ValueList valList(Value("set"), Value(GetVarName()), value);
 	_pObjInterp->TclEval(env, sig, valList);
 	return !sig.IsSignalled();
 }
 
-Value Object_variable::Get(Environment &env, Signal sig)
+Value Object_variable::Get(Environment &env, Signal &sig)
 {
 	ValueList valList(Value("set"), Value(GetVarName()));
 	return _pObjInterp->TclEval(env, sig, valList);
@@ -602,7 +602,7 @@ String Object_timer::ToString(bool exprFlag)
 	return str;
 }
 
-void Object_timer::Start(Signal sig, const Function *pFunc,
+void Object_timer::Start(Signal &sig, const Function *pFunc,
 									int msec, int msecCont, int cnt)
 {
 	Environment &env = *this;

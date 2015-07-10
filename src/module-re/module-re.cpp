@@ -26,7 +26,7 @@ Iterator *IteratorSplit::GetSource()
 	return nullptr;
 }
 
-bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorSplit::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	const char *str = _str.c_str();
 	if (_doneFlag) return false;
@@ -99,7 +99,7 @@ Iterator *IteratorScan::GetSource()
 	return nullptr;
 }
 
-bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorScan::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx >= _idxEnd) return false;
 	const char *str = _str.c_str();
@@ -159,7 +159,7 @@ Iterator *IteratorGrep::GetSource()
 	return _pIteratorSrc.get();
 }
 
-bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorGrep::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	const int pos = 0, posEnd = -1;
 	while (_pIteratorSrc->Next(env, sig, value)) {
@@ -202,7 +202,7 @@ Iterator *IteratorGroup::GetSource()
 	return nullptr;
 }
 
-bool IteratorGroup::DoNext(Environment &env, Signal sig, Value &value)
+bool IteratorGroup::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	const GroupList &groupList = _pObjMatch->GetGroupList();
 	if (_iGroup < groupList.size()) {
@@ -237,14 +237,14 @@ Object *Object_match::Clone() const
 	return new Object_match(*this);
 }
 
-Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_match::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	const Group *pGroup = GetGroup(sig, valueIdx);
 	if (pGroup == nullptr) return Value::Null;
 	return Value(pGroup->GetString());
 }
 
-bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_match::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(source));
@@ -254,7 +254,7 @@ bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_match::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -301,7 +301,7 @@ bool Object_match::SetMatchInfo(const char *str,
 	return true;
 }
 
-const Group *Object_match::GetGroup(Signal sig, const Value &index) const
+const Group *Object_match::GetGroup(Signal &sig, const Value &index) const
 {
 	if (index.Is_number()) {
 		size_t indexNum = static_cast<size_t>(index.GetNumber());
@@ -450,7 +450,7 @@ Object *Object_group::Clone() const
 	return new Object_group(*this);
 }
 
-bool Object_group::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_group::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
@@ -459,7 +459,7 @@ bool Object_group::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_group::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_group::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -989,7 +989,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // Utilities
 //-----------------------------------------------------------------------------
-regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs)
+regex_t *CreateRegEx(Signal &sig, const char *pattern, const SymbolSet &attrs)
 {
 	// ::onig_end() call may be necessary when module is destroyed
 	regex_t *pRegEx = nullptr;
@@ -1014,7 +1014,7 @@ regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs)
 	return pRegEx;
 }
 
-Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
+Value DoMatch(Environment &env, Signal &sig, regex_t *pRegEx,
 										const char *str, int pos, int posEnd)
 {
 	Value result;
@@ -1045,7 +1045,7 @@ Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
 	return result;
 }
 
-String DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithString(Environment &env, Signal &sig, regex_t *pRegEx,
 							const char *replace, const char *str, int cnt)
 {
 	enum Stat { STAT_Start, STAT_Escape };
@@ -1106,7 +1106,7 @@ error_done:
 	return "";
 }
 
-String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithFunc(Environment &env, Signal &sig, regex_t *pRegEx,
 						const Function *pFunc, const char *str, int cnt)
 {
 	enum Stat { STAT_Start, STAT_Escape };
@@ -1153,14 +1153,14 @@ error_done:
 	return "";
 }
 
-void SetError_OnigurumaError(Signal sig, int errCode)
+void SetError_OnigurumaError(Signal &sig, int errCode)
 {
 	char errMsg[ONIG_MAX_ERROR_MESSAGE_LEN];
 	::onig_error_code_to_str(reinterpret_cast<OnigUChar *>(errMsg), errCode);
 	sig.SetError(ERR_ValueError, "oniguruma: %s", errMsg);
 }
 
-void SetError_FailInOniguruma(Signal sig)
+void SetError_FailInOniguruma(Signal &sig)
 {
 	sig.SetError(ERR_SystemError,
 				"something's wrong in the process of Oniguruma library");

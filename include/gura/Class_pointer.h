@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_pointer : public Class {
 public:
 	Class_pointer(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_pointer : public Object {
@@ -42,11 +42,11 @@ public:
 	inline bool IsWritable() const { return _pObjBinary->IsWritable(); }
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
-	bool Pack(Signal sig, bool forwardFlag,
+	bool Pack(Signal &sig, bool forwardFlag,
 					const char *format, const ValueList &valListArg);
-	Value Unpack(Signal sig, bool forwardFlag,
+	Value Unpack(Signal &sig, bool forwardFlag,
 					const char *format, const ValueList &valListArg, bool exeedErrorFlag);
-	bool UnpackForward(Signal sig, int distance, bool exceedErrorFlag);
+	bool UnpackForward(Signal &sig, int distance, bool exceedErrorFlag);
 };
 
 }

@@ -106,7 +106,7 @@ public:
 			 static_cast<ULong>(g) * 587 +
 			 static_cast<ULong>(b) * 114) / 1000);
 	}
-	static Color CreateNamedColor(Signal sig, const char *name, UChar a);
+	static Color CreateNamedColor(Signal &sig, const char *name, UChar a);
 	static const ElementEntry *GetElementEntries(size_t *pCnt);
 };
 

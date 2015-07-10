@@ -21,7 +21,7 @@ String Object_Matrix::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Matrix::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Matrix::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(xx));
@@ -31,7 +31,7 @@ bool Object_Matrix::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Matrix::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Matrix::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -48,7 +48,7 @@ Value Object_Matrix::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_Matrix::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Matrix::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -73,7 +73,7 @@ Value Object_Matrix::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-bool Object_Matrix::ConvertFrom(Signal sig, const Gura::Matrix *pMat)
+bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
 {
 	if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
 		sig.SetError(ERR_ValueError, "matrix must be larger than or equal to 2x2");

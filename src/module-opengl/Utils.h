@@ -5,7 +5,7 @@
 namespace Gura {
 
 template<typename T_Elem>
-Array<T_Elem> *MakeMatrix(Signal sig, const Value &value)
+Array<T_Elem> *MakeMatrix(Signal &sig, const Value &value)
 {
 	AutoPtr<Array<T_Elem> > rtn(new Array<T_Elem>(16));
 	if (value.Is_list()) {
@@ -46,7 +46,7 @@ done:
 	return rtn.release();
 }
 
-const void *GetArrayPointer(Signal sig, GLenum type, const Value &value);
+const void *GetArrayPointer(Signal &sig, GLenum type, const Value &value);
 	
 }
 

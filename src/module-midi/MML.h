@@ -98,12 +98,12 @@ public:
 	MML(int velocityMax);
 	void Reset();
 	void UpdateTimeStamp(Track *pTrack);
-	bool ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream);
-	bool ParseString(Signal sig, Sequence &sequence, const char *str);
-	Result ParseStream(Signal sig, Track *pTrack, SimpleStream &stream);
-	Result ParseString(Signal sig, Track *pTrack, const char *str);
+	bool ParseStream(Signal &sig, Sequence &sequence, SimpleStream &stream);
+	bool ParseString(Signal &sig, Sequence &sequence, const char *str);
+	Result ParseStream(Signal &sig, Track *pTrack, SimpleStream &stream);
+	Result ParseString(Signal &sig, Track *pTrack, const char *str);
 private:
-	Result FeedChar(Signal sig, Track *pTrack, int ch);
+	Result FeedChar(Signal &sig, Track *pTrack, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }

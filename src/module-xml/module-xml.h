@@ -50,7 +50,7 @@ private:
 public:
 	Parser();
 	virtual ~Parser();
-	bool Parse(Signal sig, SimpleStream &stream);
+	bool Parse(Signal &sig, SimpleStream &stream);
 	inline void StopParser() { ::XML_StopParser(_parser, XML_FALSE); }
 private:
 	static void XMLCALL StartElementHandler(void *userData, const XML_Char *name, const XML_Char **atts);
@@ -167,11 +167,11 @@ public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
 	Element(Type type, const String &str, const char **atts = nullptr);
-	bool Write(Signal sig, SimpleStream &stream, bool fancyFlag,
+	bool Write(Signal &sig, SimpleStream &stream, bool fancyFlag,
 							int indentLevel, const char *indentUnit) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
-	bool AddChild(Environment &env, Signal sig, const Value &value);
+	bool AddChild(Environment &env, Signal &sig, const Value &value);
 	inline bool IsTag() const { return _type == TYPE_Tag; }
 	inline bool IsText() const { return _type == TYPE_Text; }
 	inline bool IsComment() const { return _type == TYPE_Comment; }
@@ -229,7 +229,7 @@ public:
 private:
 	inline ~Document() {}
 public:
-	bool Write(Signal sig, SimpleStream &stream, bool fancyFlag, const char *indentUnit) const;
+	bool Write(Signal &sig, SimpleStream &stream, bool fancyFlag, const char *indentUnit) const;
 	inline void SetVersion(const String &version) { _version = version; }
 	inline void SetEncoding(const String &encoding) { _encoding = encoding; }
 	inline const char *GetVersion() const { return _version.c_str(); }
@@ -321,8 +321,8 @@ public:
 	Object_attribute(Attribute *pAttribute);
 	inline Attribute *GetAttribute() { return _pAttribute.get(); }
 	inline const Attribute *GetAttribute() const { return _pAttribute.get(); }
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -341,9 +341,9 @@ public:
 	Object_element(Element *pElement);
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -362,10 +362,10 @@ public:
 	Object_document(Document *pDocument);
 	inline Document *GetDocument() { return _pDocument.get(); }
 	inline const Document *GetDocument() const { return _pDocument.get(); }
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -380,7 +380,7 @@ private:
 public:
 	Iterator_attribute(AttributeOwner *pAttributeOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -395,7 +395,7 @@ private:
 public:
 	Iterator_element(ElementOwner *pElementOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

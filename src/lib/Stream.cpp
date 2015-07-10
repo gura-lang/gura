@@ -8,25 +8,25 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // SimpleStream
 //-----------------------------------------------------------------------------
-void SimpleStream::Print(Signal sig, const char *str)
+void SimpleStream::Print(Signal &sig, const char *str)
 {
 	for ( ; *str != '\0'; str++) PutChar(sig, *str);
 }
 
-void SimpleStream::Println(Signal sig, const char *str)
+void SimpleStream::Println(Signal &sig, const char *str)
 {
 	Print(sig, str);
 	PutChar(sig, '\n');
 }
 
-void SimpleStream::PrintFmt(Signal sig, const char *format, const ValueList &valList)
+void SimpleStream::PrintFmt(Signal &sig, const char *format, const ValueList &valList)
 {
 	String str = Formatter::FormatValueList(sig, format, valList);
 	if (sig.IsSignalled()) return;
 	Print(sig, str.c_str());
 }
 
-void SimpleStream::Printf(Signal sig, const char *format, ...)
+void SimpleStream::Printf(Signal &sig, const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);
@@ -36,7 +36,7 @@ void SimpleStream::Printf(Signal sig, const char *format, ...)
 	Print(sig, str.c_str());
 }
 
-bool SimpleStream::ReadLine(Signal sig, String &str, bool includeEOLFlag)
+bool SimpleStream::ReadLine(Signal &sig, String &str, bool includeEOLFlag)
 {
 	int ch = GetChar(sig);
 	if (ch < 0) return false;
@@ -50,7 +50,7 @@ bool SimpleStream::ReadLine(Signal sig, String &str, bool includeEOLFlag)
 	return !sig.IsSignalled();
 }
 
-bool SimpleStream::ReadLines(Signal sig, StringList &strList, bool includeEOLFlag)
+bool SimpleStream::ReadLines(Signal &sig, StringList &strList, bool includeEOLFlag)
 {
 	for (;;) {
 		String str;
@@ -60,7 +60,7 @@ bool SimpleStream::ReadLines(Signal sig, StringList &strList, bool includeEOLFla
 	return !sig.IsSignalled();
 }
 
-void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
+void SimpleStream::Dump(Signal &sig, const void *buff, size_t bytes, bool upperFlag)
 {
 	int iCol = 0;
 	String strHex, strASCII;
@@ -99,7 +99,7 @@ void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFl
 //-----------------------------------------------------------------------------
 // Stream
 //-----------------------------------------------------------------------------
-Stream::Stream(Environment &env, Signal sig, ULong attr) :
+Stream::Stream(Environment &env, Signal &sig, ULong attr) :
 		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _blockingFlag(false),
 		_pCodec(Codec::CreateCodecNone(true, false))
 {
@@ -135,7 +135,7 @@ void Stream::CopyCodec(const Codec *pCodec)
 	}
 }
 
-void Stream::PutChar(Signal sig, char ch)
+void Stream::PutChar(Signal &sig, char ch)
 {
 	Codec::Encoder *pEncoder = GetCodec()->GetEncoder();
 	if (pEncoder == nullptr) {
@@ -152,7 +152,7 @@ void Stream::PutChar(Signal sig, char ch)
 	}
 }
 
-String Stream::ReadChar(Signal sig)
+String Stream::ReadChar(Signal &sig)
 {
 	char chConv = '\0';
 	String str;
@@ -173,7 +173,7 @@ String Stream::ReadChar(Signal sig)
 	return str;
 }
 
-int Stream::GetChar(Signal sig)
+int Stream::GetChar(Signal &sig)
 {
 	char chConv = '\0';
 	Codec::Decoder *pDecoder = GetCodec()->GetDecoder();
@@ -211,27 +211,27 @@ bool Stream::GetBlocking() const
 	return _blockingFlag;
 }
 
-size_t Stream::DoRead(Signal sig, void *buff, size_t len)
+size_t Stream::DoRead(Signal &sig, void *buff, size_t len)
 {
 	return 0;
 }
 
-size_t Stream::DoWrite(Signal sig, const void *buff, size_t len)
+size_t Stream::DoWrite(Signal &sig, const void *buff, size_t len)
 {
 	return 0;
 }
 
-bool Stream::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+bool Stream::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	return true;
 }
 
-bool Stream::DoFlush(Signal sig)
+bool Stream::DoFlush(Signal &sig)
 {
 	return true;
 }
 
-bool Stream::DoClose(Signal sig)
+bool Stream::DoClose(Signal &sig)
 {
 	_attr &= ~(ATTR_Readable | ATTR_Writable | ATTR_Append);
 	return true;
@@ -242,25 +242,25 @@ size_t Stream::DoGetSize()
 	return InvalidSize;
 }
 
-int Stream::DoGetChar(Signal sig)
+int Stream::DoGetChar(Signal &sig)
 {
 	UChar ch;
 	if (Read(sig, &ch, 1) == 0) return -1;
 	return ch;
 }
 
-void Stream::DoPutChar(Signal sig, char ch)
+void Stream::DoPutChar(Signal &sig, char ch)
 {
 	Write(sig, &ch, 1);
 }
 
-Object *Stream::DoGetStatObj(Signal sig)
+Object *Stream::DoGetStatObj(Signal &sig)
 {
 	sig.SetError(ERR_IOError, "can't retrieve stat object");
 	return nullptr;
 }
 
-size_t Stream::Read(Signal sig, void *buff, size_t len)
+size_t Stream::Read(Signal &sig, void *buff, size_t len)
 {
 	char *p = reinterpret_cast<char *>(buff);
 	size_t bytesFromPeek = 0;
@@ -287,14 +287,14 @@ size_t Stream::Read(Signal sig, void *buff, size_t len)
 	return bytesRead;
 }
 
-size_t Stream::Write(Signal sig, const void *buff, size_t len)
+size_t Stream::Write(Signal &sig, const void *buff, size_t len)
 {
 	size_t rtn = DoWrite(sig, buff, len);
 	_offsetCur += rtn;
 	return rtn;
 }
 
-size_t Stream::Peek(Signal sig, void *buff, size_t len)
+size_t Stream::Peek(Signal &sig, void *buff, size_t len)
 {
 	if (len == 0) return 0;
 	if (_peek.buff == nullptr) {
@@ -317,7 +317,7 @@ size_t Stream::Peek(Signal sig, void *buff, size_t len)
 	return bytesToPeek;
 }
 
-bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
+bool Stream::Seek(Signal &sig, long offset, SeekMode seekMode)
 {
 	size_t offsetPrev = _offsetCur;
 	if (seekMode == SeekSet) {
@@ -364,7 +364,7 @@ bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
 	}
 }
 
-bool Stream::Flush(Signal sig)
+bool Stream::Flush(Signal &sig)
 {
 	return DoFlush(sig);
 }
@@ -374,28 +374,28 @@ bool Stream::HasNameSuffix(const char *suffix, bool ignoreCase) const
 	return EndsWith(GetName(), suffix, ignoreCase) != nullptr;
 }
 
-bool Stream::CheckReadable(Signal sig) const
+bool Stream::CheckReadable(Signal &sig) const
 {
 	if (IsReadable()) return true;
 	sig.SetError(ERR_IOError, "stream is not readable");
 	return false;
 }
 
-bool Stream::CheckWritable(Signal sig) const
+bool Stream::CheckWritable(Signal &sig) const
 {
 	if (IsWritable()) return true;
 	sig.SetError(ERR_IOError, "stream is not writable");
 	return false;
 }
 
-bool Stream::CheckBwdSeekable(Signal sig) const
+bool Stream::CheckBwdSeekable(Signal &sig) const
 {
 	if (IsBwdSeekable()) return true;
 	sig.SetError(ERR_IOError, "stream is not capable of backward seeking");
 	return false;
 }
 
-bool Stream::Compare(Signal sig, Stream &stream)
+bool Stream::Compare(Signal &sig, Stream &stream)
 {
 	if (!CheckReadable(sig) || !stream.CheckReadable(sig)) return false;
 	const size_t bytesBuff = 1024 * 16;
@@ -420,7 +420,7 @@ bool Stream::Compare(Signal sig, Stream &stream)
 	return sameFlag;
 }
 
-bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
+bool Stream::ReadToStream(Environment &env, Signal &sig, Stream &streamDst,
 			size_t bytesUnit, bool finalizeFlag, const Function *pFuncFilter)
 {
 	if (!CheckReadable(sig) || !streamDst.CheckWritable(sig)) return false;
@@ -461,13 +461,13 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	return true;
 }
 
-bool Stream::SerializeBoolean(Signal sig, bool num)
+bool Stream::SerializeBoolean(Signal &sig, bool num)
 {
 	UChar numRaw = static_cast<UChar>(num);
 	return Write(sig, &numRaw, sizeof(numRaw)) == sizeof(numRaw);
 }
 
-bool Stream::DeserializeBoolean(Signal sig, bool &num)
+bool Stream::DeserializeBoolean(Signal &sig, bool &num)
 {
 	UChar numRaw = 0;
 	if (Read(sig, &numRaw, sizeof(numRaw)) != sizeof(numRaw)) return false;
@@ -475,17 +475,17 @@ bool Stream::DeserializeBoolean(Signal sig, bool &num)
 	return true;
 }
 
-bool Stream::SerializeUChar(Signal sig, UChar num)
+bool Stream::SerializeUChar(Signal &sig, UChar num)
 {
 	return Write(sig, &num, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::DeserializeUChar(Signal sig, UChar &num)
+bool Stream::DeserializeUChar(Signal &sig, UChar &num)
 {
 	return Read(sig, &num, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::SerializeUShort(Signal sig, UShort num)
+bool Stream::SerializeUShort(Signal &sig, UShort num)
 {
 	UChar buff[2] = {
 		static_cast<UChar>((num >> 0) & 0xff),
@@ -494,7 +494,7 @@ bool Stream::SerializeUShort(Signal sig, UShort num)
 	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
-bool Stream::DeserializeUShort(Signal sig, UShort &num)
+bool Stream::DeserializeUShort(Signal &sig, UShort &num)
 {
 	UChar buff[2];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
@@ -504,7 +504,7 @@ bool Stream::DeserializeUShort(Signal sig, UShort &num)
 	return true;
 }
 
-bool Stream::SerializeULong(Signal sig, ULong num)
+bool Stream::SerializeULong(Signal &sig, ULong num)
 {
 	UChar buff[4] = {
 		static_cast<UChar>((num >> 0) & 0xff),
@@ -515,7 +515,7 @@ bool Stream::SerializeULong(Signal sig, ULong num)
 	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
-bool Stream::DeserializeULong(Signal sig, ULong &num)
+bool Stream::DeserializeULong(Signal &sig, ULong &num)
 {
 	UChar buff[4];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
@@ -527,7 +527,7 @@ bool Stream::DeserializeULong(Signal sig, ULong &num)
 	return true;
 }
 
-bool Stream::SerializeUInt64(Signal sig, UInt64 num)
+bool Stream::SerializeUInt64(Signal &sig, UInt64 num)
 {
 	UChar buff[8] = {
 		static_cast<UChar>((num >> 0) & 0xff),
@@ -542,7 +542,7 @@ bool Stream::SerializeUInt64(Signal sig, UInt64 num)
 	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
-bool Stream::DeserializeUInt64(Signal sig, UInt64 &num)
+bool Stream::DeserializeUInt64(Signal &sig, UInt64 &num)
 {
 	UChar buff[8];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
@@ -558,26 +558,26 @@ bool Stream::DeserializeUInt64(Signal sig, UInt64 &num)
 	return true;
 }
 
-bool Stream::SerializeDouble(Signal sig, double num)
+bool Stream::SerializeDouble(Signal &sig, double num)
 {
 	UChar *buff = reinterpret_cast<UChar *>(&num);
 	return Write(sig, buff, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::DeserializeDouble(Signal sig, double &num)
+bool Stream::DeserializeDouble(Signal &sig, double &num)
 {
 	UChar *buff = reinterpret_cast<UChar *>(&num);
 	return Read(sig, buff, sizeof(num)) == sizeof(num);
 }
 
-bool Stream::SerializeString(Signal sig, const char *str)
+bool Stream::SerializeString(Signal &sig, const char *str)
 {
 	ULong len = static_cast<ULong>(::strlen(str));
 	if (!SerializePackedULong(sig, len)) return false;
 	return Write(sig, str, len) == len;
 }
 
-bool Stream::DeserializeString(Signal sig, String &str)
+bool Stream::DeserializeString(Signal &sig, String &str)
 {
 	ULong len = 0;
 	if (!DeserializePackedULong(sig, len)) return false;
@@ -596,14 +596,14 @@ bool Stream::DeserializeString(Signal sig, String &str)
 	return true;
 }
 
-bool Stream::SerializeBinary(Signal sig, const Binary &binary)
+bool Stream::SerializeBinary(Signal &sig, const Binary &binary)
 {
 	ULong len = static_cast<ULong>(binary.size());
 	if (!SerializePackedULong(sig, len)) return false;
 	return Write(sig, binary.data(), len) == len;
 }
 
-bool Stream::DeserializeBinary(Signal sig, Binary &binary)
+bool Stream::DeserializeBinary(Signal &sig, Binary &binary)
 {
 	ULong len = 0;
 	if (!DeserializePackedULong(sig, len)) return false;
@@ -621,12 +621,12 @@ bool Stream::DeserializeBinary(Signal sig, Binary &binary)
 	return true;
 }
 
-bool Stream::SerializeSymbol(Signal sig, const Symbol *pSymbol)
+bool Stream::SerializeSymbol(Signal &sig, const Symbol *pSymbol)
 {
 	return SerializeString(sig, pSymbol->GetName());
 }
 
-bool Stream::DeserializeSymbol(Signal sig, const Symbol **ppSymbol)
+bool Stream::DeserializeSymbol(Signal &sig, const Symbol **ppSymbol)
 {
 	String str;
 	if (!DeserializeString(sig, str)) return false;
@@ -634,7 +634,7 @@ bool Stream::DeserializeSymbol(Signal sig, const Symbol **ppSymbol)
 	return true;
 }
 
-bool Stream::SerializeSymbolSet(Signal sig, const SymbolSet &symbolSet)
+bool Stream::SerializeSymbolSet(Signal &sig, const SymbolSet &symbolSet)
 {
 	ULong len = static_cast<ULong>(symbolSet.size());
 	if (!SerializePackedULong(sig, len)) return false;
@@ -644,7 +644,7 @@ bool Stream::SerializeSymbolSet(Signal sig, const SymbolSet &symbolSet)
 	return true;
 }
 
-bool Stream::DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet)
+bool Stream::DeserializeSymbolSet(Signal &sig, SymbolSet &symbolSet)
 {
 	ULong len = 0;
 	if (!DeserializePackedULong(sig, len)) return false;
@@ -658,7 +658,7 @@ bool Stream::DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet)
 	return true;
 }
 
-bool Stream::SerializeSymbolList(Signal sig, const SymbolList &symbolList)
+bool Stream::SerializeSymbolList(Signal &sig, const SymbolList &symbolList)
 {
 	ULong len = static_cast<ULong>(symbolList.size());
 	if (!SerializePackedULong(sig, len)) return false;
@@ -668,7 +668,7 @@ bool Stream::SerializeSymbolList(Signal sig, const SymbolList &symbolList)
 	return true;
 }
 
-bool Stream::DeserializeSymbolList(Signal sig, SymbolList &symbolList)
+bool Stream::DeserializeSymbolList(Signal &sig, SymbolList &symbolList)
 {
 	ULong len = 0;
 	if (!DeserializePackedULong(sig, len)) return false;
@@ -683,7 +683,7 @@ bool Stream::DeserializeSymbolList(Signal sig, SymbolList &symbolList)
 	return true;
 }
 
-bool Stream::SerializePackedULong(Signal sig, ULong num)
+bool Stream::SerializePackedULong(Signal &sig, ULong num)
 {
 	UChar buff[16];
 	size_t bytesBuff = 0;
@@ -700,7 +700,7 @@ bool Stream::SerializePackedULong(Signal sig, ULong num)
 	return Write(sig, buff, bytesBuff) == bytesBuff;
 }
 
-bool Stream::DeserializePackedULong(Signal sig, ULong &num)
+bool Stream::DeserializePackedULong(Signal &sig, ULong &num)
 {
 	num = 0;
 	UChar data = 0x00;
@@ -716,7 +716,7 @@ bool Stream::DeserializePackedULong(Signal sig, ULong &num)
 	return true;
 }
 
-Stream *Stream::Open(Environment &env, Signal sig, const char *pathName, ULong attr)
+Stream *Stream::Open(Environment &env, Signal &sig, const char *pathName, ULong attr)
 {
 	if (*pathName == '>') {
 		pathName++;
@@ -733,7 +733,7 @@ Stream *Stream::Open(Environment &env, Signal sig, const char *pathName, ULong a
 	return pDirectory->DoOpenStream(env, sig, attr);
 }
 
-Stream *Stream::Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
+Stream *Stream::Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc,
 										bool deleteSrcFlag, size_t bytesUnit)
 {
 	Stream_Prefetch *pStreamPrefetch =
@@ -747,7 +747,7 @@ Stream *Stream::Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 	return pStreamPrefetch;
 }
 
-ULong Stream::ParseOpenMode(Signal sig, const char *mode)
+ULong Stream::ParseOpenMode(Signal &sig, const char *mode)
 {
 	ULong attr = ATTR_None;
 	const char *p = mode;

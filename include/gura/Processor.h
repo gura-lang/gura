@@ -32,11 +32,11 @@ public:
 	inline void SetSeqPostHandler(SeqPostHandler *pSeqPostHandler) {
 		_pSeqPostHandler.reset(pSeqPostHandler);
 	}
-	bool Step(Signal sig, Value &result);
-	virtual bool DoStep(Signal sig, Value &result) = 0;
+	bool Step(Signal &sig, Value &result);
+	virtual bool DoStep(Signal &sig, Value &result) = 0;
 	virtual String ToString() const = 0;
 	inline bool CheckDone() const { return _doneFlag; }
-	static Value Return(Signal sig, Sequence *pSequence);
+	static Value Return(Signal &sig, Sequence *pSequence);
 };
 
 //-----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ public:
 protected:
 	virtual ~SeqPostHandler();
 public:
-	virtual bool DoPost(Signal sig, const Value &value) = 0;
+	virtual bool DoPost(Signal &sig, const Value &value) = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -76,11 +76,11 @@ public:
 	Gura_DeclareReferenceAccessor(Processor)
 public:
 	Processor();
-	bool Step(Signal sig, Value &value);
+	bool Step(Signal &sig, Value &value);
 	inline void PushSequence(Sequence *pSequence) { _sequenceStack.push_back(pSequence); }
 	inline bool CheckDone() const { return _sequenceStack.empty(); }
-	Value Run(Signal sig);
-	static Value Run(Environment *pEnv, Signal sig, const Expr *pExpr);
+	Value Run(Signal &sig);
+	static Value Run(Environment *pEnv, Signal &sig, const Expr *pExpr);
 };
 
 }

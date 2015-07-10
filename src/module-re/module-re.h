@@ -16,15 +16,15 @@ Gura_DeclareUserSymbol(multiline);
 //-----------------------------------------------------------------------------
 // Utilities
 //-----------------------------------------------------------------------------
-regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs);
-Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
+regex_t *CreateRegEx(Signal &sig, const char *pattern, const SymbolSet &attrs);
+Value DoMatch(Environment &env, Signal &sig, regex_t *pRegEx,
 							const char *str, int pos, int posEnd);
-String DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithString(Environment &env, Signal &sig, regex_t *pRegEx,
 							const char *replace, const char *str, int cnt);
-String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithFunc(Environment &env, Signal &sig, regex_t *pRegEx,
 							const Function *pFunc, const char *str, int cnt);
-void SetError_OnigurumaError(Signal sig, int rtn);
-void SetError_FailInOniguruma(Signal sig);
+void SetError_OnigurumaError(Signal &sig, int rtn);
+void SetError_FailInOniguruma(Signal &sig);
 
 //-----------------------------------------------------------------------------
 // Group
@@ -67,8 +67,8 @@ public:
 	inline Object_group(const Object_group &obj) : Object(obj), _group(obj._group) {}
 	virtual ~Object_group();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };
@@ -93,15 +93,15 @@ public:
 			_pStrRef(obj._pStrRef->Reference()), _groupList(obj._groupList) {}
 	virtual ~Object_match();
 	virtual Object *Clone() const;
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,
 								const OnigRegion *pRegion, int posOffset);
 	inline const char *GetString() const { return _pStrRef->GetString(); }
-	const Group *GetGroup(Signal sig, const Value &index) const;
+	const Group *GetGroup(Signal &sig, const Value &index) const;
 	const GroupList &GetGroupList() const { return _groupList; }
 private:
 	int ForeachNameCallback(const String &name, int nGroups,
@@ -127,7 +127,7 @@ public:
 	virtual ~Object_pattern();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline bool SetPattern(Signal sig, const char *pattern, const SymbolSet &attrs) {
+	inline bool SetPattern(Signal &sig, const char *pattern, const SymbolSet &attrs) {
 		_pattern = pattern;
 		_pRegEx = CreateRegEx(sig, pattern, attrs);
 		return _pRegEx != nullptr;
@@ -151,7 +151,7 @@ public:
 	IteratorSplit(Object_pattern *pObjPattern, const String &str, int cntMax);
 	virtual ~IteratorSplit();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -170,7 +170,7 @@ public:
 	IteratorScan(Object_pattern *pObjPattern, const String &str, int pos, int posEnd);
 	virtual ~IteratorScan();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -185,7 +185,7 @@ private:
 public:
 	IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -200,7 +200,7 @@ private:
 public:
 	IteratorGroup(Object_match *pObjMatch);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

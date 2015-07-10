@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(GetPrev);
 //----------------------------------------------------------------------------
 class wx_WizardPage: public wxWizardPage, public GuraObjectObserver {
 private:
-	Gura::Signal _sig;
+	Gura::Signal *_pSig;
 	Object_wx_WizardPage *_pObj;
 public:
-	inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap) : wxWizardPage(parent, bitmap), _sig(nullptr), _pObj(nullptr) {}
+	inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap) : wxWizardPage(parent, bitmap), _pSig(nullptr), _pObj(nullptr) {}
 	virtual wxWizardPage *GetNext() const;
 	virtual wxWizardPage *GetPrev() const;
 	~wx_WizardPage();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardPage *pObj) {
-		_sig = sig, _pObj = pObj;
+		_pSig = &sig, _pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -42,9 +42,9 @@ wxWizardPage *wx_WizardPage::GetNext() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNext);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_WizardPage)) return 0;
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
 }
 
@@ -52,9 +52,9 @@ wxWizardPage *wx_WizardPage::GetPrev() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetPrev);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
-	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_WizardPage)) return 0;
+	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
 }
 

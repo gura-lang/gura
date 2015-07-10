@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-bool Object_stream::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_stream::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(stat));
@@ -20,7 +20,7 @@ bool Object_stream::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_stream::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -44,7 +44,7 @@ Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Iterator *Object_stream::CreateIterator(Signal sig)
+Iterator *Object_stream::CreateIterator(Signal &sig)
 {
 	return new IteratorLine(Object_stream::Reference(this), -1, true);
 }
@@ -867,7 +867,7 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, write);
 }
 
-bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_stream::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
@@ -891,7 +891,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
-Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_stream::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	return nullptr;
 }
@@ -904,7 +904,7 @@ Iterator *Object_stream::IteratorLine::GetSource()
 	return nullptr;
 }
 
-bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_stream::IteratorLine::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Stream &stream = _pObj->GetStream();
 	if (_nLines == _nLinesMax) return false;

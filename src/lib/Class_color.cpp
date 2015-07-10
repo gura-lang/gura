@@ -17,7 +17,7 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
-bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_color::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(r));
@@ -27,7 +27,7 @@ bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_color::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -44,7 +44,7 @@ Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_color::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
@@ -254,7 +254,7 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
 }
 
-bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_color::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_symbol()) {
 		Color color = Color::CreateNamedColor(sig, value.GetSymbol()->GetName(), 255);
@@ -277,7 +277,7 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	return false;
 }
 
-Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_color::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

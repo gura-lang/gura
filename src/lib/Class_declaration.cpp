@@ -13,7 +13,7 @@ Object *Object_declaration::Clone() const
 	return new Object_declaration(*this);
 }
 
-bool Object_declaration::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_declaration::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(symbol));
@@ -22,7 +22,7 @@ bool Object_declaration::DoDirProp(Environment &env, Signal sig, SymbolSet &symb
 	return true;
 }
 
-Value Object_declaration::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_declaration::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -118,7 +118,7 @@ Iterator *Iterator_declaration::GetSource()
 	return nullptr;
 }
 
-bool Iterator_declaration::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_declaration::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx < _pDeclarationOwner->size()) {
 		Declaration *pDeclaration = (*_pDeclarationOwner)[_idx++];

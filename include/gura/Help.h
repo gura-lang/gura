@@ -83,10 +83,10 @@ public:
 	HelpPresenter(const String &formatName);
 	virtual ~HelpPresenter();
 	const char *GetFormatName() const { return _formatName.c_str(); }
-	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const = 0;
+	virtual bool DoPresent(Environment &env, Signal &sig, const char *title, const Help *pHelp) const = 0;
 public:
 	static void Register(Environment &env, HelpPresenter *pHelpPresenter);
-	static bool Present(Environment &env, Signal sig, const char *title, const Help *pHelp);
+	static bool Present(Environment &env, Signal &sig, const char *title, const Help *pHelp);
 };
 
 //-----------------------------------------------------------------------------

@@ -43,7 +43,7 @@ Parser::~Parser()
 	::XML_ParserFree(_parser);
 }
 
-bool Parser::Parse(Signal sig, SimpleStream &stream)
+bool Parser::Parse(Signal &sig, SimpleStream &stream)
 {
 	const size_t bytesToRead = 1024 * 8;
 	for (;;) {
@@ -327,7 +327,7 @@ Element::Element(Type type, const String &str, const char **atts) :
 	}
 }
 
-bool Element::Write(Signal sig, SimpleStream &stream,
+bool Element::Write(Signal &sig, SimpleStream &stream,
 				bool fancyFlag, int indentLevel, const char *indentUnit) const
 {
 	String indent;
@@ -426,7 +426,7 @@ void Element::AddChild(Element *pChild)
 	_pChildren->push_back(pChild);
 }
 
-bool Element::AddChild(Environment &env, Signal sig, const Value &value)
+bool Element::AddChild(Environment &env, Signal &sig, const Value &value)
 {
 	if (value.Is_string()) {
 		AutoPtr<Element> pChild(new Element(Element::TYPE_Text, value.GetStringSTL()));
@@ -481,7 +481,7 @@ Document::Document() : _cntRef(1), _version("1.0"), _encoding("utf-8"), _standal
 {
 }
 
-bool Document::Write(Signal sig, SimpleStream &stream,
+bool Document::Write(Signal &sig, SimpleStream &stream,
 								bool fancyFlag, const char *indentUnit) const
 {
 	stream.Print(sig, "<?xml version=\"");
@@ -885,7 +885,7 @@ Object_attribute::Object_attribute(Attribute *pAttribute) :
 {
 }
 
-bool Object_attribute::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_attribute::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
@@ -893,7 +893,7 @@ bool Object_attribute::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_attribute::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_attribute::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -934,7 +934,7 @@ Object_element::Object_element(Element *pElement) :
 {
 }
 
-Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_element::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 {
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_ValueError, "index must be a string");
@@ -950,7 +950,7 @@ Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueI
 	return Value(pAttribute->GetValue());
 }
 
-bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_element::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(tagname));
@@ -961,7 +961,7 @@ bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_element::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1117,7 +1117,7 @@ Object_document::Object_document(Document *pDocument) :
 {
 }
 
-bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_document::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
@@ -1126,7 +1126,7 @@ bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_document::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1142,7 +1142,7 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_document::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1271,7 +1271,7 @@ Iterator *Iterator_attribute::GetSource()
 	return nullptr;
 }
 
-bool Iterator_attribute::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_attribute::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx < _pAttributeOwner->size()) {
 		Attribute *pAttribute = (*_pAttributeOwner)[_idx++];
@@ -1306,7 +1306,7 @@ Iterator *Iterator_element::GetSource()
 	return nullptr;
 }
 
-bool Iterator_element::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_element::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx < _pElementOwner->size()) {
 		Element *pElement = (*_pElementOwner)[_idx++];

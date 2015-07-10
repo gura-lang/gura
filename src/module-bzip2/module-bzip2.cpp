@@ -138,7 +138,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream)
+Object_stream *GenerateDecompressor(Environment &env, Signal &sig, Stream &stream)
 {
 	int verbosity = 0;
 	int small = 0;
@@ -148,7 +148,7 @@ Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream
 	return new Object_stream(env, pStream.release());
 }
 
-Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream, int blockSize100k)
+Object_stream *GenerateCompressor(Environment &env, Signal &sig, Stream &stream, int blockSize100k)
 {
 	int verbosity = 0;
 	int workFactor = 0;

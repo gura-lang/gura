@@ -18,7 +18,7 @@ ClassCustom::ClassCustom(const ClassCustom &cls) :
 }
 
 ClassCustom::ClassCustom(Environment *pEnv, Class *pClassSuper,
-				ValueType valType, Expr_Block *pExprContent, Signal sig) :
+				ValueType valType, Expr_Block *pExprContent, Signal &sig) :
 	Class(pClassSuper, valType), _pExprContent(pExprContent), _sig(sig)
 {
 	AddLackingFrame(pEnv->GetFrameOwner());
@@ -28,7 +28,7 @@ ClassCustom::~ClassCustom()
 {
 }
 
-Object *ClassCustom::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *ClassCustom::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	Object *pObj = _pClassSuper->CreateDescendant(env, sig, pClass);
 	if (pObj == nullptr) {
@@ -39,7 +39,7 @@ Object *ClassCustom::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return pObj;
 }
 
-Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
+Function *ClassCustom::PrepareConstructor(Environment &env, Signal &sig)
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
@@ -88,7 +88,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 	return pFunc.release();
 }
 
-bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool ClassCustom::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
@@ -103,7 +103,7 @@ bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	return true;
 }
 
-bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
+bool ClassCustom::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl)
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
@@ -117,7 +117,7 @@ bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Decla
 	return true;
 }
 
-bool ClassCustom::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool ClassCustom::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__serialize__), ENVREF_NoEscalate));
@@ -126,7 +126,7 @@ bool ClassCustom::Serialize(Environment &env, Signal sig, Stream &stream, const 
 	return false;
 }
 
-bool ClassCustom::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool ClassCustom::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__deserialize__), ENVREF_NoEscalate));
@@ -135,7 +135,7 @@ bool ClassCustom::Deserialize(Environment &env, Signal sig, Stream &stream, Valu
 	return false;
 }
 
-bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_d(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -144,7 +144,7 @@ bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_u(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -153,7 +153,7 @@ bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_b(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -162,7 +162,7 @@ bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_o(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -171,7 +171,7 @@ bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_x(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -180,7 +180,7 @@ bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_e(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -189,7 +189,7 @@ bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_f(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -198,7 +198,7 @@ bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_g(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -207,7 +207,7 @@ bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_s(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -216,7 +216,7 @@ bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_c(Signal &sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
@@ -225,7 +225,7 @@ bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-bool ClassCustom::Format_X(Signal sig, Formatter *pFormatter,
+bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
 {
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
@@ -248,7 +248,7 @@ ClassCustom::Constructor::Constructor(Environment &envScope,
 {
 }
 
-Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args) const
+Value ClassCustom::Constructor::DoEval(Environment &env, Signal &sig, Args &args) const
 {
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args, false));
 	if (pEnvLocal.IsNull()) return Value::Null;

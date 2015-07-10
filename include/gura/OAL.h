@@ -50,7 +50,7 @@ inline String JoinPathName(const char *pathName, const char *name, size_t len) {
 GURA_DLLDECLARE const char *GetEncodingForConsole();
 GURA_DLLDECLARE const Symbol *GetLangCode();
 
-GURA_DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
+GURA_DLLDECLARE int ExecProgram(Environment &env, Signal &sig, const char *pathName,
 			const ValueList &valList, Stream *pStreamStdin,
 			Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag);
 GURA_DLLDECLARE String GetEnv(const char *name, bool *pFoundFlag = nullptr);
@@ -157,7 +157,7 @@ public:
 	inline bool IsFifo() const { return (_attr & ATTR_Fifo)? true : false; }
 	inline bool IsLnk() const { return (_attr & ATTR_Lnk)? true : false; }
 	inline bool IsSock() const { return (_attr & ATTR_Sock)? true : false; }
-	static FileStat *Generate(Signal sig, const char *fileName);
+	static FileStat *Generate(Signal &sig, const char *fileName);
 };
 
 //-----------------------------------------------------------------------------
@@ -189,8 +189,8 @@ private:
 #endif
 public:
 	DynamicLibrary();
-	bool Open(Signal sig, const char *pathName);
-	void *GetEntry(Signal sig, const char *name);
+	bool Open(Signal &sig, const char *pathName);
+	void *GetEntry(Signal &sig, const char *name);
 };
 
 //-----------------------------------------------------------------------------

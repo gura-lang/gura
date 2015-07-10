@@ -33,7 +33,7 @@ Declaration::~Declaration()
 	// virtual destructor
 }
 
-Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr)
+Declaration *Declaration::Create(Environment &env, Signal &sig, const Expr *pExpr)
 {
 	ULong flags = 0;
 	OccurPattern occurPattern = OCCUR_Once;
@@ -109,7 +109,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 
 // value will be casted only when that is valid for declaration.
 // it will not be casted if validation fails.
-bool Declaration::ValidateAndCast(Environment &env, Signal sig,
+bool Declaration::ValidateAndCast(Environment &env, Signal &sig,
 									Value &value, bool listElemFlag) const
 {
 	if (!listElemFlag && GetListFlag()) {
@@ -174,13 +174,13 @@ done:
 	return true;
 }
 
-void Declaration::SetError_ArgumentType(Signal sig, const Value &value) const
+void Declaration::SetError_ArgumentType(Signal &sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "variable '%s' cannot take %s value in '%s'",
 				GetSymbol()->GetName(), value.MakeValueTypeName().c_str(), ToString().c_str());
 }
 
-void Declaration::SetError_ArgumentMustBeList(Signal sig, const Value &value) const
+void Declaration::SetError_ArgumentMustBeList(Signal &sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "variable '%s' can only take a list in '%s'",
 				GetSymbol()->GetName(), ToString().c_str());
@@ -288,7 +288,7 @@ void DeclarationList::SetAsLoose()
 	}
 }
 
-bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valList) const
+bool DeclarationList::Compensate(Environment &env, Signal &sig, ValueList &valList) const
 {
 	if (valList.size() >= size()) return true;
 	DeclarationList::const_iterator ppDecl = begin() + valList.size();
@@ -340,17 +340,17 @@ String DeclarationList::ToString() const
 	return str;
 }
 
-void Declaration::SetError_InvalidArgument(Signal sig)
+void Declaration::SetError_InvalidArgument(Signal &sig)
 {
 	sig.SetError(ERR_SyntaxError, "invalid argument");
 }
 
-void Declaration::SetError_NotEnoughArguments(Signal sig)
+void Declaration::SetError_NotEnoughArguments(Signal &sig)
 {
 	sig.SetError(ERR_TypeError, "not enough arguments");
 }
 
-void Declaration::SetError_TooManyArguments(Signal sig)
+void Declaration::SetError_TooManyArguments(Signal &sig)
 {
 	sig.SetError(ERR_TypeError, "too many arguments");
 }
@@ -402,7 +402,7 @@ Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, 
 	return pDecl;
 }
 
-bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exprList)
+bool DeclarationOwner::Declare(Environment &env, Signal &sig, const ExprList &exprList)
 {
 	foreach_const (ExprList, ppExpr, exprList) {
 		const Expr *pExpr = *ppExpr;
@@ -440,7 +440,7 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 	return true;
 }
 
-bool DeclarationOwner::ValidateAndCast(Environment &env, Signal sig,
+bool DeclarationOwner::ValidateAndCast(Environment &env, Signal &sig,
 						const ValueList &valList, ValueList &valListCasted) const
 {
 	ValueList::const_iterator pValue = valList.begin();

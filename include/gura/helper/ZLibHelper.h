@@ -43,7 +43,7 @@ public:
 		_fields.ExtraFlags			= 0x00;
 		_fields.OperatingSystem		= 0x00;
 	}
-	bool Read(Signal sig, Stream &stream) {
+	bool Read(Signal &sig, Stream &stream) {
 		if (stream.Read(sig, &_fields, Fields::Size) < Fields::Size) {
 			SetError_InvalidFormat(sig);
 			return false;
@@ -96,7 +96,7 @@ public:
 		}
 		return true;
 	}
-	bool Write(Signal sig, Stream &stream) {
+	bool Write(Signal &sig, Stream &stream) {
 		if (stream.Write(sig, &_fields, Fields::Size) < Fields::Size) {
 			SetError_InvalidFormat(sig);
 			return false;
@@ -157,7 +157,7 @@ public:
 		_fields.Flags |= (1 << 4);
 	}
 private:
-	inline void SetError_InvalidFormat(Signal sig) {
+	inline void SetError_InvalidFormat(Signal &sig) {
 		sig.SetError(ERR_FormatError, "invalid gzip format");
 	}
 };
@@ -178,7 +178,7 @@ private:
 	unsigned char *_buffIn;
 	bool _doneFlag;
 public:
-	Stream_Inflater(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
+	Stream_Inflater(Environment &env, Signal &sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
 			_offsetOut(0), _buffOut(nullptr), _buffIn(nullptr), _doneFlag(false) {
@@ -187,7 +187,7 @@ public:
 	~Stream_Inflater() {
 		::inflateEnd(&_zstrm);
 	}
-	bool Initialize(Signal sig, int windowBits = 15) {
+	bool Initialize(Signal &sig, int windowBits = 15) {
 		::memset(&_zstrm, 0x00, sizeof(_zstrm));
 		_zstrm.zalloc = Z_NULL;
 		_zstrm.zfree = Z_NULL;
@@ -209,10 +209,10 @@ public:
 	virtual const char *GetIdentifier() const {
 		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len) {
 		return 0;
 	}
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes) {
 		size_t bytesRead = 0;
 		char *buffp = reinterpret_cast<char *>(buff);
 		bool continueFlag = true;
@@ -267,7 +267,7 @@ public:
 		}
 		return bytesRead;
 	}
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) {
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode) {
 		if (seekMode == SeekSet) {
 			if (static_cast<size_t>(offset) >= offsetPrev) {
 				size_t bytesToRead = static_cast<size_t>(offset) - offsetPrev;
@@ -284,10 +284,10 @@ public:
 		sig.SetError(ERR_SystemError, "backward seeking is not supported");
 		return false;
 	}
-	virtual bool DoFlush(Signal sig) {
+	virtual bool DoFlush(Signal &sig) {
 		return false;
 	}
-	virtual bool DoClose(Signal sig) {
+	virtual bool DoClose(Signal &sig) {
 		return true;
 	}
 };
@@ -305,7 +305,7 @@ private:
 	unsigned char *_buffOut;
 	unsigned char *_buffIn;
 public:
-	Stream_Deflater(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff = 32768) :
+	Stream_Deflater(Environment &env, Signal &sig, Stream *pStream, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Writable), _pStream(pStream),
 			_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(nullptr), _buffIn(nullptr) {
 		CopyCodec(pStream);
@@ -313,7 +313,7 @@ public:
 	~Stream_Deflater() {
 		DoClose(_sig);
 	}
-	bool Initialize(Signal sig, int level, int windowBits, int memLevel, int strategy) {
+	bool Initialize(Signal &sig, int level, int windowBits, int memLevel, int strategy) {
 		::memset(&_zstrm, 0x00, sizeof(_zstrm));
 		_zstrm.zalloc = Z_NULL;
 		_zstrm.zfree = Z_NULL;
@@ -337,7 +337,7 @@ public:
 	virtual const char *GetIdentifier() const {
 		return (_pStream.IsNull())? nullptr : _pStream->GetIdentifier();
 	}
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
+	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len) {
 		if (_pStream.IsNull()) return 0;
 		_zstrm.next_in = reinterpret_cast<Bytef *>(const_cast<void *>(buff));
 		_zstrm.avail_in = static_cast<uInt>(len);
@@ -356,10 +356,10 @@ public:
 		}
 		return len;
 	}
-	virtual bool DoFlush(Signal sig) {
+	virtual bool DoFlush(Signal &sig) {
 		return DoClose(sig);
 	}
-	virtual bool DoClose(Signal sig) {
+	virtual bool DoClose(Signal &sig) {
 		if (_pStream.IsNull()) return true;
 		for (;;) {
 			if (_zstrm.avail_out == 0) {
@@ -386,10 +386,10 @@ public:
 		_pStream.reset(nullptr);
 		return rtn;
 	}
-	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
+	virtual size_t DoRead(Signal &sig, void *buff, size_t bytes) {
 		return 0;
 	}
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) {
+	virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode) {
 		return false;
 	}
 };

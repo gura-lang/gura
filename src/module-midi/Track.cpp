@@ -57,7 +57,7 @@ void Track::AddEvent(Event *pEvent, ULong deltaTime)
 	AdjustFollowingTimeStamp(deltaTime);
 }
 
-bool Track::SeekSet(Signal sig, long offset)
+bool Track::SeekSet(Signal &sig, long offset)
 {
 	if (offset < 0 || offset > _pEventOwner->size()) {
 		sig.SetError(ERR_OutOfRangeError, "offst is out of range");
@@ -67,7 +67,7 @@ bool Track::SeekSet(Signal sig, long offset)
 	return true;
 }
 
-bool Track::SeekCur(Signal sig, long offset)
+bool Track::SeekCur(Signal &sig, long offset)
 {
 	long idx = Tell();
 	idx += offset;
@@ -86,7 +86,7 @@ long Track::Tell() const
 	return static_cast<long>(n);
 }
 
-bool Track::Erase(Signal sig, size_t cnt)
+bool Track::Erase(Signal &sig, size_t cnt)
 {
 	if (cnt == 0) return true;
 	size_t offset = Tell();

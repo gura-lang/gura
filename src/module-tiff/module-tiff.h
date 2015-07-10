@@ -18,12 +18,12 @@ Gura_BeginModuleHeader(tiff)
 class ImageStreamer_TIFF : public ImageStreamer {
 public:
 	inline ImageStreamer_TIFF() : ImageStreamer("tiff") {}
-	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool IsResponsible(Signal &sig, Stream &stream);
+	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -31,10 +31,10 @@ public:
 //-----------------------------------------------------------------------------
 class Handler {
 private:
-	Signal _sig;
+	Signal &_sig;
 	Stream &_stream;
 public:
-	inline Handler(Signal sig, Stream &stream) : _sig(sig), _stream(stream) {}
+	inline Handler(Signal &sig, Stream &stream) : _sig(sig), _stream(stream) {}
 	inline size_t Read(void *buff, size_t bytes) {
 		return _stream.Read(_sig, buff, bytes);
 	}

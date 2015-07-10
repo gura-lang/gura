@@ -23,13 +23,13 @@ Object *Object_template::Clone() const
 	return nullptr;
 }
 
-bool Object_template::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_template::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return true;
 }
 
-Value Object_template::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_template::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
@@ -579,7 +579,7 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, init_super);
 }
 
-bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_template::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {
@@ -594,7 +594,7 @@ bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const 
 	return false;
 }
 
-Object *Class_template::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *Class_template::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

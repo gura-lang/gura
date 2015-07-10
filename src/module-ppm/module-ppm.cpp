@@ -67,7 +67,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_PPM
 //-----------------------------------------------------------------------------
-bool ImageStreamer_PPM::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_PPM::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		char buff[2];
@@ -79,19 +79,19 @@ bool ImageStreamer_PPM::IsResponsible(Signal sig, Stream &stream)
 	return stream.HasNameSuffix(".ppm") || stream.HasNameSuffix(".pbm");
 }
 
-bool ImageStreamer_PPM::Read(Environment &env, Signal sig,
+bool ImageStreamer_PPM::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PPM::Write(Environment &env, Signal sig,
+bool ImageStreamer_PPM::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return WriteStream(env, sig, pImage, stream, false);
 }
 
-bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
+bool ImageStreamer_PPM::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	char format = '\0';
@@ -286,7 +286,7 @@ bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	return true;
 }
 
-bool ImageStreamer_PPM::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream, bool grayFlag)
+bool ImageStreamer_PPM::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream, bool grayFlag)
 {
 	if (!pImage->CheckValid(sig)) return false;
 	char buff[64];
@@ -331,7 +331,7 @@ bool ImageStreamer_PPM::WriteStream(Environment &env, Signal sig, Image *pImage,
 	return true;
 }
 
-void ImageStreamer_PPM::SetError_InvalidPPMFormat(Signal sig)
+void ImageStreamer_PPM::SetError_InvalidPPMFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid PPM format");
 }

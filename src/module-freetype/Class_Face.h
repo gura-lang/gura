@@ -22,14 +22,14 @@ public:
 	~Object_Face();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FT_Face &GetEntity() { return _face; }
 	inline const FT_Face &GetEntity() const { return _face; }
-	bool Initialize(Environment &env, Signal sig, Stream *pSstream, int index);
+	bool Initialize(Environment &env, Signal &sig, Stream *pSstream, int index);
 };
 
 Gura_EndModuleScope(freetype)

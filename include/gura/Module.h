@@ -16,8 +16,8 @@ namespace Gura { \
 namespace ModuleNS_##name {
 
 #define Gura_EndModuleHeader(name) \
-GURA_DLLEXPORT bool MixIn(Environment &env, Signal sig); \
-GURA_DLLEXPORT Module *Import(Environment &env, Signal sig); \
+GURA_DLLEXPORT bool MixIn(Environment &env, Signal &sig); \
+GURA_DLLEXPORT Module *Import(Environment &env, Signal &sig); \
 }}
 
 #define Gura_BeginModuleBody(name) \
@@ -29,7 +29,7 @@ GURA_DLLEXPORT void Terminate(Module *pModule) \
 { \
 	_Terminate(pModule); \
 } \
-GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
+GURA_DLLEXPORT Module *Import(Environment &env, Signal &sig) \
 { \
 	Module *pModule = new Module(&env, Symbol::Add(#nameBase), \
 								 "<integrated>", nullptr, Terminate); \
@@ -49,7 +49,7 @@ namespace ModuleNS_##name {
 #if defined(GURA_MODULE_SEPARATED)
 #define Gura_RegisterModule(name) \
 extern "C" GURA_DLLEXPORT \
-bool GuraModuleEntry(Gura::Environment &env, Gura::Signal sig) \
+bool GuraModuleEntry(Gura::Environment &env, Gura::Signal &sig) \
 { \
 	return Gura::ModuleNS_##name::MixIn(env, sig); \
 } \
@@ -68,7 +68,7 @@ namespace ModuleNS_##name { \
 //ModuleIntegrator s_integrator(#name, MixIn, Terminate);
 
 #define Gura_ModuleEntry() \
-GURA_DLLEXPORT bool MixIn(Environment &env, Signal sig)
+GURA_DLLEXPORT bool MixIn(Environment &env, Signal &sig)
 
 #define Gura_ModuleTerminate() \
 GURA_DLLEXPORT void _Terminate(Module *pModule)
@@ -105,14 +105,14 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	Expr *MakeExpr() const;
-	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	bool DirProp(Environment &env, Signal &sig, SymbolSet &symbols);
 	void DirValueType(SymbolSet &symbols) const;
 	virtual bool IsModule() const;
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	virtual Module *Clone() const;
 	virtual String ToString(bool exprFlag);
 public:
-	static bool ImportBuiltIns(Environment &env, Signal sig);
+	static bool ImportBuiltIns(Environment &env, Signal &sig);
 };
 
 }

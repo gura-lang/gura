@@ -13,7 +13,7 @@ Object *Object_Header::Clone() const
 	return new Object_Header(*this);
 }
 
-bool Object_Header::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Header::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(Signature));
@@ -21,7 +21,7 @@ bool Object_Header::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Header::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Header::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -53,7 +53,7 @@ Object *Object_LogicalScreenDescriptor::Clone() const
 	return new Object_LogicalScreenDescriptor(*this);
 }
 
-bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(LogicalScreenWidth));
@@ -68,7 +68,7 @@ bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal sig, Sym
 	return true;
 }
 
-Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -119,14 +119,14 @@ Object *Object_CommentExtension::Clone() const
 	return new Object_CommentExtension(*this);
 }
 
-bool Object_CommentExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_CommentExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(CommentData));
 	return true;
 }
 
-Value Object_CommentExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_CommentExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -158,7 +158,7 @@ Object *Object_PlainTextExtension::Clone() const
 	return new Object_PlainTextExtension(*this);
 }
 
-bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(TextGridLeftPosition));
@@ -173,7 +173,7 @@ bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal sig, SymbolSe
 	return true;
 }
 
-Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -221,7 +221,7 @@ Object *Object_ApplicationExtension::Clone() const
 	return new Object_ApplicationExtension(*this);
 }
 
-bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ApplicationIdentifier));
@@ -230,7 +230,7 @@ bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal sig, Symbol
 	return true;
 }
 
-Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -269,7 +269,7 @@ GIF::~GIF()
 {
 }
 
-bool GIF::Read(Environment &env, Signal sig, Stream &stream,
+bool GIF::Read(Environment &env, Signal &sig, Stream &stream,
 								Image *pImageTgt, Image::Format format)
 {
 	if (!ReadBuff(sig, stream, &_header, 6)) return false;
@@ -349,7 +349,7 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 	return !sig.IsSignalled();
 }
 
-bool GIF::Write(Environment &env, Signal sig, Stream &stream,
+bool GIF::Write(Environment &env, Signal &sig, Stream &stream,
 	const Color &colorBackground, bool validBackgroundFlag, UShort loopCount)
 {
 	if (GetList().empty()) {
@@ -486,7 +486,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	return false;
 }
 
-bool GIF::ReadDataBlocks(Signal sig, Stream &stream, Binary &binary)
+bool GIF::ReadDataBlocks(Signal &sig, Stream &stream, Binary &binary)
 {
 	for (;;) {
 		UChar blockSize;
@@ -499,7 +499,7 @@ bool GIF::ReadDataBlocks(Signal sig, Stream &stream, Binary &binary)
 	return true;
 }
 
-bool GIF::WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary)
+bool GIF::WriteDataBlocks(Signal &sig, Stream &stream, const Binary &binary)
 {
 	size_t size = binary.size();
 	for (size_t offset = 0; offset < size; ) {
@@ -516,7 +516,7 @@ bool GIF::WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary)
 	return true;
 }
 
-bool GIF::SkipImageDescriptor(Signal sig, Stream &stream)
+bool GIF::SkipImageDescriptor(Signal &sig, Stream &stream)
 {
 	ImageDescriptor imageDescriptor;
 	if (!ReadBuff(sig, stream, &imageDescriptor, 9)) return false;
@@ -535,7 +535,7 @@ bool GIF::SkipImageDescriptor(Signal sig, Stream &stream)
 	return true;
 }
 
-bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
+bool GIF::ReadImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 	const GraphicControlExtension &graphicControl, Image *pImage, Value *pValueGIF)
 {
 	ImageDescriptor imageDescriptor;
@@ -689,7 +689,7 @@ done:
 	return !sig.IsSignalled();
 }
 
-bool GIF::WriteGraphicControl(Signal sig, Stream &stream,
+bool GIF::WriteGraphicControl(Signal &sig, Stream &stream,
 								const GraphicControlExtension &graphicControl)
 {
 	const UChar buff[] = {
@@ -702,7 +702,7 @@ bool GIF::WriteGraphicControl(Signal sig, Stream &stream,
 	return true;
 }
 
-bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
+bool GIF::WriteImageDescriptor(Environment &env, Signal &sig, Stream &stream,
 				const GraphicControlExtension &graphicControl, Object_image *pObjImage)
 {
 	Image *pImage = pObjImage->GetImage();
@@ -786,7 +786,7 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 	return true;
 }
 
-bool GIF::ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
+bool GIF::ReadBuff(Signal &sig, Stream &stream, void *buff, size_t bytes)
 {
 	size_t bytesRead = stream.Read(sig, buff, bytes);
 	if (sig.IsSignalled()) return false;
@@ -797,13 +797,13 @@ bool GIF::ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
 	return true;
 }
 
-bool GIF::WriteBuff(Signal sig, Stream &stream, const void *buff, size_t bytes)
+bool GIF::WriteBuff(Signal &sig, Stream &stream, const void *buff, size_t bytes)
 {
 	size_t bytesWritten = stream.Write(sig, buff, bytes);
 	return !sig.IsSignalled();
 }
 
-bool GIF::ReadColorTable(Signal sig, Stream &stream, Palette *pPalette)
+bool GIF::ReadColorTable(Signal &sig, Stream &stream, Palette *pPalette)
 {
 	UChar buff[3];
 	size_t nEntries = pPalette->CountEntries();
@@ -814,7 +814,7 @@ bool GIF::ReadColorTable(Signal sig, Stream &stream, Palette *pPalette)
 	return true;
 }
 
-bool GIF::WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette)
+bool GIF::WriteColorTable(Signal &sig, Stream &stream, const Palette *pPalette)
 {
 	UChar buff[3];
 	int nEntries = static_cast<int>(pPalette->CountEntries());
@@ -908,7 +908,7 @@ const Symbol *GIF::DisposalMethodToSymbol(UChar disposalMethod)
 	}
 }
 
-UChar GIF::DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol)
+UChar GIF::DisposalMethodFromSymbol(Signal &sig, const Symbol *pSymbol)
 {
 	UChar disposalMethod;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(none))) {
@@ -991,7 +991,7 @@ GIF::ImageDataBlock::ImageDataBlock() : _bitOffset(0), _bitsRead(0)
 	::memset(_blockData, 0x00, 256);
 }
 
-bool GIF::ImageDataBlock::ReadCode(Signal sig, Stream &stream,
+bool GIF::ImageDataBlock::ReadCode(Signal &sig, Stream &stream,
 										UShort &code, int bitsOfCode)
 {
 	for (int bitsAccum = 0; bitsAccum < bitsOfCode; ) {
@@ -1020,7 +1020,7 @@ bool GIF::ImageDataBlock::ReadCode(Signal sig, Stream &stream,
 	return true;
 }
 
-bool GIF::ImageDataBlock::WriteCode(Signal sig, Stream &stream,
+bool GIF::ImageDataBlock::WriteCode(Signal &sig, Stream &stream,
 										UShort code, int bitsOfCode)
 {
 	const int bitsFull = 8 * 255;
@@ -1048,7 +1048,7 @@ bool GIF::ImageDataBlock::WriteCode(Signal sig, Stream &stream,
 	return true;
 }
 
-bool GIF::ImageDataBlock::Flush(Signal sig, Stream &stream)
+bool GIF::ImageDataBlock::Flush(Signal &sig, Stream &stream)
 {
 	if (_bitOffset > 0) {
 		UChar blockSize = static_cast<UChar>((_bitOffset + 7) / 8);
@@ -1074,7 +1074,7 @@ Object *Object_content::Clone() const
 	return nullptr;
 }
 
-bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(images));
@@ -1086,7 +1086,7 @@ bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF::Extensions &exts = _gif.GetExtensions();
@@ -1214,7 +1214,7 @@ Object *Object_GraphicControl::Clone() const
 	return nullptr;
 }
 
-bool Object_GraphicControl::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_GraphicControl::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(DisposalMethod));
@@ -1225,7 +1225,7 @@ bool Object_GraphicControl::DoDirProp(Environment &env, Signal sig, SymbolSet &s
 	return true;
 }
 
-Value Object_GraphicControl::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_GraphicControl::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1269,7 +1269,7 @@ Object *Object_ImageDescriptor::Clone() const
 	return nullptr;
 }
 
-bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ImageLeftPosition));
@@ -1283,7 +1283,7 @@ bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal sig, SymbolSet &
 	return true;
 }
 
-Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1333,7 +1333,7 @@ Object *Object_imgprop::Clone() const
 	return nullptr;
 }
 
-bool Object_imgprop::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_imgprop::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(GraphicControl));
@@ -1341,7 +1341,7 @@ bool Object_imgprop::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_imgprop::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_imgprop::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1541,7 +1541,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_GIF
 //-----------------------------------------------------------------------------
-bool ImageStreamer_GIF::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_GIF::IsResponsible(Signal &sig, Stream &stream)
 {
 	if (stream.IsReadable()) {
 		char buff[6];
@@ -1553,14 +1553,14 @@ bool ImageStreamer_GIF::IsResponsible(Signal sig, Stream &stream)
 	return stream.HasNameSuffix(".gif");
 }
 
-bool ImageStreamer_GIF::Read(Environment &env, Signal sig,
+bool ImageStreamer_GIF::Read(Environment &env, Signal &sig,
 										Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckEmpty(sig)) return false;
 	return GIF().Read(env, sig, stream, pImage, pImage->GetFormat());
 }
 
-bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
+bool ImageStreamer_GIF::Write(Environment &env, Signal &sig,
 										Image *pImage, Stream &stream)
 {
 	if (!pImage->CheckValid(sig)) return false;

@@ -17,14 +17,14 @@ Object *Object_content::Clone() const
 	return nullptr;
 }
 
-bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(images));
 	return true;
 }
 
-Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -35,7 +35,7 @@ Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-bool Object_content::Read(Environment &env, Signal sig,
+bool Object_content::Read(Environment &env, Signal &sig,
 									Stream &stream, Image::Format format)
 {
 	int cntIcons = 0;
@@ -78,7 +78,7 @@ bool Object_content::Read(Environment &env, Signal sig,
 	return true;
 }
 
-bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
+bool Object_content::Write(Environment &env, Signal &sig, Stream &stream)
 {
 	int cntIcons = static_cast<int>(_valList.size());
 	do {
@@ -297,18 +297,18 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // ImageStreamer_ICO
 //-----------------------------------------------------------------------------
-bool ImageStreamer_ICO::IsResponsible(Signal sig, Stream &stream)
+bool ImageStreamer_ICO::IsResponsible(Signal &sig, Stream &stream)
 {
 	return stream.HasNameSuffix(".ico");
 }
 
-bool ImageStreamer_ICO::Read(Environment &env, Signal sig,
+bool ImageStreamer_ICO::Read(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	return ReadStream(env, sig, pImage, stream, 0);
 }
 
-bool ImageStreamer_ICO::Write(Environment &env, Signal sig,
+bool ImageStreamer_ICO::Write(Environment &env, Signal &sig,
 									Image *pImage, Stream &stream)
 {
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -316,7 +316,7 @@ bool ImageStreamer_ICO::Write(Environment &env, Signal sig,
 	//return pImage->WriteICO(sig, stream, false);
 }
 
-bool ImageStreamer_ICO::ReadStream(Environment &env, Signal sig,
+bool ImageStreamer_ICO::ReadStream(Environment &env, Signal &sig,
 						Image *pImage, Stream &stream, int idx)
 {
 	int cntIcons = 0;

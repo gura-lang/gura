@@ -73,7 +73,7 @@ Expr::~Expr()
 {
 }
 
-Value Expr::Exec(Environment &env, Signal sig,
+Value Expr::Exec(Environment &env, Signal &sig,
 			AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag) const
 {
 	Value result = DoExec(env, sig, pSeqPostHandler.get());
@@ -101,7 +101,7 @@ Value Expr::Exec(Environment &env, Signal sig,
 	return result;
 }
 
-Value Expr::Assign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr::Assign(Environment &env, Signal &sig, Value &valueAssigned,
 				const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	Value result = DoAssign(env, sig, valueAssigned, pSymbolsAssignable, escalateFlag);
@@ -112,21 +112,21 @@ Value Expr::Assign(Environment &env, Signal sig, Value &valueAssigned,
 	return result;
 }
 
-Value Expr::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	SetError(sig, ERR_SyntaxError, "l-value is required");
 	return Value::Null;
 }
 
-Expr *Expr::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	SetError(sig, ERR_ValueError,
 				"differential operation is not supported for this expression");
 	return nullptr;
 }
 
-Expr *Expr::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr::MathOptimize(Environment &env, Signal &sig) const
 {
 	SetError(sig, ERR_ValueError,
 				"mathematical optimization is not supported for this expression");
@@ -274,7 +274,7 @@ bool Expr::IsParentOf(const Expr *pExpr) const
 	return false;
 }
 
-void Expr::SetError(Signal sig, ErrorType errType, const char *format, ...) const
+void Expr::SetError(Signal &sig, ErrorType errType, const char *format, ...) const
 {
 	va_list ap;
 	va_start(ap, format);
@@ -283,23 +283,23 @@ void Expr::SetError(Signal sig, ErrorType errType, const char *format, ...) cons
 	va_end(ap);
 }
 
-void Expr::SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const
+void Expr::SetError_NotAssignableSymbol(Signal &sig, const Symbol *pSymbol) const
 {
 	SetError(sig, ERR_ValueError,
 		"symbol '%s' cannot be assigned in this object", pSymbol->GetName());
 }
 
-Callable *Expr::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr::LookupCallable(Environment &env, Signal &sig) const
 {
 	return nullptr;
 }
 
-bool Expr::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return false;
 }
 
-bool Expr::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
@@ -336,7 +336,7 @@ String Expr::MakePosText() const
 	return str;
 }
 
-bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel, const char *strIndent)
+bool Expr::PutNestIndent(Signal &sig, SimpleStream &stream, int nestLevel, const char *strIndent)
 {
 	for (int i = 0; i < nestLevel; i++) {
 		stream.Print(sig, strIndent);
@@ -429,7 +429,7 @@ Expr::SequenceRoot::SequenceRoot(Environment *pEnv, ExprOwner *pExprOwner) :
 {
 }
 
-bool Expr::SequenceRoot::DoStep(Signal sig, Value &result)
+bool Expr::SequenceRoot::DoStep(Signal &sig, Value &result)
 {
 	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;
@@ -498,7 +498,7 @@ bool ExprList::IsContained(const Expr *pExpr) const
 	return std::find(begin(), end(), const_cast<Expr *>(pExpr)) != end();
 }
 
-bool ExprList::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool ExprList::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	foreach_const (ExprList, ppExpr, *this) {
 		if (!(*ppExpr)->GenerateCode(env, sig, codeGenerator)) return false;
@@ -506,7 +506,7 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGen
 	return true;
 }
 
-bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
+bool ExprList::GenerateScript(Signal &sig, SimpleStream &stream,
 			Expr::ScriptStyle scriptStyle, int nestLevel, const char *strIndent, Expr::Separator sep) const
 {
 	const char *sepText =
@@ -592,7 +592,7 @@ Iterator *ExprOwner::Iterator::GetSource()
 	return nullptr;
 }
 
-bool ExprOwner::Iterator::DoNext(Environment &env, Signal sig, Value &value)
+bool ExprOwner::Iterator::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (_idx < _pExprOwner->size()) {
 		Expr *pExpr = (*_pExprOwner)[_idx++];
@@ -621,7 +621,7 @@ ExprOwner::SequenceEach::SequenceEach(Environment *pEnv, ExprOwner *pExprOwner) 
 {
 }
 
-bool ExprOwner::SequenceEach::DoStep(Signal sig, Value &result)
+bool ExprOwner::SequenceEach::DoStep(Signal &sig, Value &result)
 {
 	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;
@@ -654,7 +654,7 @@ ExprOwner::SequenceToList::SequenceToList(Environment *pEnv, ExprOwner *pExprOwn
 	_pSeqPostHandlerEach.reset(new SeqPostHandlerEach(pEnv->Reference(), *_pValList));
 }
 
-bool ExprOwner::SequenceToList::DoStep(Signal sig, Value &result)
+bool ExprOwner::SequenceToList::DoStep(Signal &sig, Value &result)
 {
 	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;
@@ -678,7 +678,7 @@ String ExprOwner::SequenceToList::ToString() const
 	return str;
 }
 
-bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal sig, const Value &result)
+bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal &sig, const Value &result)
 {
 	Environment &env = *_pEnv;
 	if (result.Is_iterator()) {
@@ -710,7 +710,7 @@ Expr *Expr_Value::Clone() const
 	return new Expr_Value(*this);
 }
 
-Value Expr_Value::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Value::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
 	if (_value.Is_expr()) {
@@ -722,12 +722,12 @@ Value Expr_Value::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	return result;
 }
 
-Expr *Expr_Value::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_Value::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	return new Expr_Value(0);
 }
 
-Expr *Expr_Value::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_Value::MathOptimize(Environment &env, Signal &sig) const
 {
 	return Clone();
 }
@@ -737,12 +737,12 @@ void Expr_Value::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_Value::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Value::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Value(env, sig, this);
 }
 
-bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Value::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (_value.Is_string()) {
@@ -797,7 +797,7 @@ Expr *Expr_Identifier::Clone() const
 	return new Expr_Identifier(*this);
 }
 
-Callable *Expr_Identifier::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr_Identifier::LookupCallable(Environment &env, Signal &sig) const
 {
 	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
@@ -807,7 +807,7 @@ Callable *Expr_Identifier::LookupCallable(Environment &env, Signal sig) const
 	return rtn.GetObject();
 }
 
-Value Expr_Identifier::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Identifier::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
@@ -815,7 +815,7 @@ Value Expr_Identifier::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	return result;
 }
 
-Value Expr_Identifier::Exec(Environment &env, Signal sig,
+Value Expr_Identifier::Exec(Environment &env, Signal &sig,
 				const Value &valueThis, SeqPostHandler *pSeqPostHandler) const
 {
 	if (valueThis.IsPrimitive()) {
@@ -836,7 +836,7 @@ Value Expr_Identifier::Exec(Environment &env, Signal sig,
 	return rtn;
 }
 
-Value Expr_Identifier::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Identifier::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	bool evaluatedFlag = false;
@@ -924,23 +924,23 @@ void Expr_Identifier::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-Expr *Expr_Identifier::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_Identifier::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	Number num = GetSymbol()->IsIdentical(pSymbol)? 1 : 0;
 	return new Expr_Value(num);
 }
 
-Expr *Expr_Identifier::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_Identifier::MathOptimize(Environment &env, Signal &sig) const
 {
 	return Clone();
 }
 
-bool Expr_Identifier::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Identifier::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Identifier(env, sig, this);
 }
 
-bool Expr_Identifier::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (!GenerateScriptHead(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
@@ -948,7 +948,7 @@ bool Expr_Identifier::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-bool Expr_Identifier::GenerateScriptHead(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScriptHead(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.Print(sig, GetSymbol()->GetName());
@@ -956,7 +956,7 @@ bool Expr_Identifier::GenerateScriptHead(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-bool Expr_Identifier::GenerateScriptTail(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScriptTail(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
@@ -1013,7 +1013,7 @@ Expr *Expr_Suffixed::Clone() const
 	return new Expr_Suffixed(*this);
 }
 
-Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Suffixed::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
 	SuffixMgrEntry *pSuffixMgrEntry = _numberFlag?
@@ -1035,12 +1035,12 @@ void Expr_Suffixed::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_Suffixed::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Suffixed::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Suffixed(env, sig, this);
 }
 
-bool Expr_Suffixed::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Suffixed::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (_numberFlag) {
@@ -1198,7 +1198,7 @@ Expr *Expr_Root::Clone() const
 	return new Expr_Root(*this);
 }
 
-Value Expr_Root::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Root::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	//AutoPtr<Processor> pProcessor(new Processor());
 	//pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
@@ -1206,12 +1206,12 @@ Value Expr_Root::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHa
 	return Value::Null;
 }
 
-bool Expr_Root::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Root::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Root(env, sig, this);
 }
 
-bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Root::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent,
@@ -1261,7 +1261,7 @@ Expr *Expr_Block::Clone() const
 	return new Expr_Block(*this);
 }
 
-Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Block::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 #if 1
 	Value result;
@@ -1295,7 +1295,7 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 #endif
 }
 
-Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_Block::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	return (GetExprOwner().size() == 1)?
 			GetExprOwner().front()->MathDiff(env, sig, pSymbol) :
@@ -1308,12 +1308,12 @@ void Expr_Block::Accept(ExprVisitor &visitor)
 	Expr_Collector::Accept(visitor);
 }
 
-bool Expr_Block::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Block::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Block(env, sig, this);
 }
 
-bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Block::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '{');
@@ -1382,7 +1382,7 @@ Expr *Expr_Lister::Clone() const
 	return new Expr_Lister(*this);
 }
 
-Value Expr_Lister::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Lister::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 #if 1
 	Value result;
@@ -1417,7 +1417,7 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 #endif
 }
 
-Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Lister::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	const ExprList &exprList = GetExprOwner();
@@ -1490,12 +1490,12 @@ Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-bool Expr_Lister::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Lister::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Lister(env, sig, this);
 }
 
-bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Lister::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '[');
@@ -1518,7 +1518,7 @@ Expr_Lister::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Lister::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Lister::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -1540,7 +1540,7 @@ Expr *Expr_Iterer::Clone() const
 	return new Expr_Iterer(*this);
 }
 
-Value Expr_Iterer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Iterer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
@@ -1562,12 +1562,12 @@ Value Expr_Iterer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-bool Expr_Iterer::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Iterer::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Iterer(env, sig, this);
 }
 
-bool Expr_Iterer::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Iterer::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '(');
@@ -1594,7 +1594,7 @@ Expr_Iterer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Iterer::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Iterer::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -1649,7 +1649,7 @@ Expr *Expr_Indexer::Clone() const
 	return new Expr_Indexer(*this);
 }
 
-Value Expr_Indexer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Indexer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	Value valueCar = GetCar()->Exec2(env, sig, pSeqPostHandlerCar);
@@ -1713,7 +1713,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Indexer::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
@@ -1807,12 +1807,12 @@ void Expr_Indexer::Accept(ExprVisitor &visitor)
 	}
 }
 
-bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Indexer::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Indexer(env, sig, this);
 }
 
-bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (GetCar()->IsIdentifier()) {
@@ -1869,7 +1869,7 @@ Expr_Indexer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Indexer::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Indexer::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -1915,7 +1915,7 @@ Expr *Expr_Caller::Clone() const
 	return new Expr_Caller(*this);
 }
 
-Callable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr_Caller::LookupCallable(Environment &env, Signal &sig) const
 {
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	if (_pExprCar->IsMember()) return nullptr;
@@ -1927,7 +1927,7 @@ Callable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
 	return valueCar.GetObject();
 }
 
-Value Expr_Caller::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
 	AutoPtr<TrailCtrlHolder> pTrailCtrlHolder(new TrailCtrlHolder(TRAILCTRL_Continue));
@@ -1971,7 +1971,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailCtrlHolder) const
+Value Expr_Caller::DoExec(Environment &env, Signal &sig, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
@@ -2027,7 +2027,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailC
 	}
 }
 
-Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis,
+Value Expr_Caller::EvalEach(Environment &env, Signal &sig, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
@@ -2083,7 +2083,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	return pCallable->DoCall(env, sig, *pArgs);
 }
 
-Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Caller::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	if (!valueAssigned.Is_expr()) {
@@ -2175,7 +2175,7 @@ bool Expr_Caller::IsParentOf(const Expr *pExpr) const
 	return false;
 }
 
-Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_Caller::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	// f(g(x))' = f(u)'g(x)'
 	if (GetExprOwner().size() != 1) return nullptr;
@@ -2207,17 +2207,17 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 	return Operator_Mul::MathOptimize(env, sig, pExprFuncDiff, pExprArgDiff);
 }
 
-Expr *Expr_Caller::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_Caller::MathOptimize(Environment &env, Signal &sig) const
 {
 	return Clone();
 }
 
-bool Expr_Caller::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Caller::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Caller(env, sig, this);
 }
 
-bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool argListFlag = !GetExprOwner().empty() ||
@@ -2323,7 +2323,7 @@ Expr_Caller::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Caller::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Caller::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -2346,7 +2346,7 @@ Expr *Expr_UnaryOp::Clone() const
 	return new Expr_UnaryOp(*this);
 }
 
-Value Expr_UnaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_UnaryOp::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	SeqPostHandler *pSeqPostHandlerChild = nullptr;
 	Value value = GetChild()->Exec2(env, sig, pSeqPostHandlerChild);
@@ -2357,12 +2357,12 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	return _pOperator->MathDiffUnary(env, sig, GetChild(), pSymbol);
 }
 
-Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal &sig) const
 {
 	Expr *pExprOpt = GetChild()->MathOptimize(env, sig);
 	if (sig.IsSignalled()) {
@@ -2372,12 +2372,12 @@ Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
 	return _pOperator->MathOptimizeUnary(env, sig, pExprOpt);
 }
 
-bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_UnaryOp::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_UnaryOp(env, sig, this);
 }
 
-bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
@@ -2409,7 +2409,7 @@ Expr_UnaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_UnaryOp::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_UnaryOp::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -2431,7 +2431,7 @@ Expr *Expr_BinaryOp::Clone() const
 	return new Expr_BinaryOp(*this);
 }
 
-Value Expr_BinaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_BinaryOp::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	OpType opType = _pOperator->GetOpType();
 	const Expr *pExprLeft = GetLeft();
@@ -2477,12 +2477,12 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
 {
 	return _pOperator->MathDiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
 }
 
-Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal &sig) const
 {
 	AutoPtr<Expr> pExprOpt1(GetLeft()->MathOptimize(env, sig));
 	if (sig.IsSignalled()) {
@@ -2497,12 +2497,12 @@ Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
 	return _pOperator->MathOptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
 }
 
-bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_BinaryOp::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_BinaryOp(env, sig, this);
 }
 
-bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_BinaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
@@ -2541,7 +2541,7 @@ Expr_BinaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_BinaryOp::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_BinaryOp::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -2568,7 +2568,7 @@ const Expr *Expr_Quote::Unquote() const
 	return GetChild();
 }
 
-Value Expr_Quote::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Quote::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
 	if (GetChild()->IsIdentifier()) {
@@ -2582,12 +2582,12 @@ Value Expr_Quote::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	return result;
 }
 
-bool Expr_Quote::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Quote::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Quote(env, sig, this);
 }
 
-bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Quote::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (GetChild()->IsUnary() || GetChild()->IsBinary()) {
@@ -2608,7 +2608,7 @@ Expr_Quote::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Quote::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Quote::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -2630,14 +2630,14 @@ Expr *Expr_Assign::Clone() const
 	return new Expr_Assign(*this);
 }
 
-Value Expr_Assign::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Assign::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result = Exec(env, sig, env, nullptr, pSeqPostHandler);
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
 }
 
-Value Expr_Assign::Exec(Environment &env, Signal sig, Environment &envDst,
+Value Expr_Assign::Exec(Environment &env, Signal &sig, Environment &envDst,
 		const SymbolSet *pSymbolsAssignable, SeqPostHandler *pSeqPostHandler) const
 {
 	Value valueAssigned;
@@ -2664,12 +2664,12 @@ Value Expr_Assign::Exec(Environment &env, Signal sig, Environment &envDst,
 	return GetLeft()->Assign(envDst, sig, valueAssigned, pSymbolsAssignable, true);
 }
 
-bool Expr_Assign::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Assign::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Assign(env, sig, this);
 }
 
-bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
@@ -2703,7 +2703,7 @@ Expr_Assign::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Assign::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Assign::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }
@@ -2725,7 +2725,7 @@ Expr *Expr_Member::Clone() const
 	return new Expr_Member(*this);
 }
 
-Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Member::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
 {
 	SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
@@ -2778,7 +2778,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Member::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
@@ -2824,12 +2824,12 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-bool Expr_Member::GenerateCode(Environment &env, Signal sig, CodeGenerator &codeGenerator) const
+bool Expr_Member::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
 {
 	return codeGenerator.GenCode_Member(env, sig, this);
 }
 
-bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
@@ -2872,7 +2872,7 @@ Expr_Member::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Member::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Member::SequenceEx::DoStep(Signal &sig, Value &result)
 {
 	return false;
 }

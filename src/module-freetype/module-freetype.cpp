@@ -22,7 +22,7 @@ Handler::~Handler()
 	delete _pStreamRec;
 }
 
-bool Handler::OpenFace(Signal sig, int index, FT_Face *aface)
+bool Handler::OpenFace(Signal &sig, int index, FT_Face *aface)
 {
 	::memset(_pStreamRec, 0x00, sizeof(FT_StreamRec));
 	_pStreamRec->descriptor.pointer = this;
@@ -619,7 +619,7 @@ String GetSysFontPathName()
 }
 #endif
 
-void SetError_Freetype(Signal sig, FT_Error err)
+void SetError_Freetype(Signal &sig, FT_Error err)
 {
 	sig.SetError(ERR_RuntimeError, "freetype error");
 }

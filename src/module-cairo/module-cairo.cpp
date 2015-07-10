@@ -628,7 +628,7 @@ Stream *Writer_WindowsDC::GetStream()
 //-----------------------------------------------------------------------------
 // Error handling
 //-----------------------------------------------------------------------------
-bool IsInvalid(Signal sig, cairo_t *cr)
+bool IsInvalid(Signal &sig, cairo_t *cr)
 {
 	if (cr == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid context");
@@ -637,49 +637,49 @@ bool IsInvalid(Signal sig, cairo_t *cr)
 	return false;
 }
 
-bool Is_error(Signal sig, cairo_status_t status)
+bool Is_error(Signal &sig, cairo_status_t status)
 {
 	if (status == CAIRO_STATUS_SUCCESS) return false;
 	sig.SetError(ERR_RuntimeError, "%s", ::cairo_status_to_string(status));
 	return true;
 }
 
-bool Is_error(Signal sig, cairo_t *cr)
+bool Is_error(Signal &sig, cairo_t *cr)
 {
 	return Is_error(sig, ::cairo_status(cr));
 }
 
-bool Is_error(Signal sig, cairo_pattern_t *pattern)
+bool Is_error(Signal &sig, cairo_pattern_t *pattern)
 {
 	return Is_error(sig, ::cairo_pattern_status(pattern));
 }
 
-bool Is_error(Signal sig, cairo_region_t *region)
+bool Is_error(Signal &sig, cairo_region_t *region)
 {
 	return Is_error(sig, ::cairo_region_status(region));
 }
 
-bool Is_error(Signal sig, cairo_font_face_t *font_face)
+bool Is_error(Signal &sig, cairo_font_face_t *font_face)
 {
 	return Is_error(sig, ::cairo_font_face_status(font_face));
 }
 
-bool Is_error(Signal sig, cairo_scaled_font_t *scaled_font)
+bool Is_error(Signal &sig, cairo_scaled_font_t *scaled_font)
 {
 	return Is_error(sig, ::cairo_scaled_font_status(scaled_font));
 }
 
-bool Is_error(Signal sig, cairo_device_t *device)
+bool Is_error(Signal &sig, cairo_device_t *device)
 {
 	return Is_error(sig, ::cairo_device_status(device));
 }
 
-bool Is_error(Signal sig, cairo_surface_t *surface)
+bool Is_error(Signal &sig, cairo_surface_t *surface)
 {
 	return Is_error(sig, ::cairo_surface_status(surface));
 }
 
-bool Is_error(Signal sig, cairo_font_options_t *options)
+bool Is_error(Signal &sig, cairo_font_options_t *options)
 {
 	return Is_error(sig, ::cairo_font_options_status(options));
 }
@@ -738,7 +738,7 @@ Value RectangleToValue(Environment &env, const cairo_rectangle_t &rectangle)
 	return value;
 }
 
-bool ValueListToRectangle(Signal sig, cairo_rectangle_t &rectangle, const ValueList &valList)
+bool ValueListToRectangle(Signal &sig, cairo_rectangle_t &rectangle, const ValueList &valList)
 {
 	if (valList.size() != 4) {
 		sig.SetError(ERR_ValueError, "list must have four elements");
@@ -751,7 +751,7 @@ bool ValueListToRectangle(Signal sig, cairo_rectangle_t &rectangle, const ValueL
 	return true;
 }
 
-bool ValueListToRectangle(Signal sig, cairo_rectangle_int_t &rectangle, const ValueList &valList)
+bool ValueListToRectangle(Signal &sig, cairo_rectangle_int_t &rectangle, const ValueList &valList)
 {
 	if (valList.size() != 4) {
 		sig.SetError(ERR_ValueError, "list must have four elements");
@@ -779,7 +779,7 @@ Matrix *CairoToMatrix(const cairo_matrix_t &matrix)
 	return pMat;
 }
 
-bool MatrixToCairo(Signal sig, cairo_matrix_t &matrix, Matrix *pMat)
+bool MatrixToCairo(Signal &sig, cairo_matrix_t &matrix, Matrix *pMat)
 {
 	if (pMat->GetRows() != 3 || pMat->GetCols() != 3) {
 		sig.SetError(ERR_ValueError, "matrix size must be 3x3");
@@ -856,7 +856,7 @@ Value CreateValueList(Environment &env,
 	return result;
 }
 
-cairo_surface_t *CreateSurfaceFromImage(Signal sig, Image *pImage)
+cairo_surface_t *CreateSurfaceFromImage(Signal &sig, Image *pImage)
 {
 	if (!pImage->CheckValid(sig)) return nullptr;
 	if (pImage->GetFormat() != Image::FORMAT_RGBA) {

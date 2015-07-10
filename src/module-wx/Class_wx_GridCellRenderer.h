@@ -34,13 +34,13 @@ public:
 		InvalidateEntity();
 		return pEntity;
 	}
-	inline bool IsInvalid(Signal sig) const {
+	inline bool IsInvalid(Signal &sig) const {
 		if (_pEntity != nullptr) return false;
 		SetError_InvalidWxObject(sig, "wxGridCellRenderer");
 		return true;
 	}
 public:
-	void EvalMethod_Draw(Signal sig, bool &evaluatedFlag,
+	void EvalMethod_Draw(Signal &sig, bool &evaluatedFlag,
 					wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 					const wxRect &rect, int row, int col, bool isSelected);
 };

@@ -1384,7 +1384,7 @@ void PrepareParamInfoDict()
 	}
 }
 
-GLenum GetImageFormat(Signal sig, const Image *pImage)
+GLenum GetImageFormat(Signal &sig, const Image *pImage)
 {
 	GLenum format = 0;
 	Image::Format fmt = pImage->GetFormat();
@@ -1440,7 +1440,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
+bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 {
 #if GURA_USE_MSWIN_DIB
 	PIXELFORMATDESCRIPTOR pfd = { 

@@ -1013,7 +1013,7 @@ String Middle(const char *str, int start, int len)
 	}
 }
 
-Value FindString(Environment &env, Signal sig,
+Value FindString(Environment &env, Signal &sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs)
 {
 	bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
