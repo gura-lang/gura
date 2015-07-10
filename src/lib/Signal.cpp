@@ -23,7 +23,7 @@ void Signal::ClearSignal()
 	_err.Clear();
 }
 
-void Signal::SetSignal(SignalType sigType, const Value &value)
+void Signal::SetSignal(ULong sigType, const Value &value)
 {
 	_sigType = sigType;
 	*_pValue = value;
@@ -85,10 +85,10 @@ void Signal::PrintSignal(SimpleStream &stream)
 	}
 }
 
-const char *Signal::GetTypeName(SignalType sigType)
+const char *Signal::GetTypeName(ULong sigType)
 {
 	static const struct {
-		SignalType sigType;
+		ULong sigType;
 		const char *name;
 	} tbl[] = {
 		{ SIGTYPE_None,				"none",					},

@@ -207,6 +207,10 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		"struct.Value",
 		llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
 		nullptr);
+	_pStructType_Signal = llvm::StructType::create(
+		"struct.Signal",
+		_builder.getInt32Ty(), // sigType
+		nullptr);
 	do {
 		// declare i32 @puts(i8*)
 		llvm::Type *pTypeResult = _builder.getInt32Ty();			// return

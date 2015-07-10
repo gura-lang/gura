@@ -1938,7 +1938,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 		if (trailCtrl == TRAILCTRL_Quit) break;
 		if (trailCtrl == TRAILCTRL_Finalize) {
 			// doesn't work correctly yet.
-			SignalType sigType = SIGTYPE_None;
+			ULong sigType = SIGTYPE_None;
 			Value valueSig;
 			if (sig.IsErrorSuspended() || sig.IsError() || sig.IsTerminate()) break;
 			if (sig.IsBreak() || sig.IsContinue() || sig.IsReturn()) {
