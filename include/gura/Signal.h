@@ -49,7 +49,7 @@ private:
 	int _stackLevel;
 public:
 	Signal();
-public:
+private:
 	Signal(Shared *pShared);
 	Signal(const Signal &sig);
 	Signal &operator=(const Signal &sig);
