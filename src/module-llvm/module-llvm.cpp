@@ -30,6 +30,7 @@ private:
 	llvm::Value *_pValueResult;
 	ContextStack _contextStack;
 	llvm::StructType *_pStructType_Value;
+	llvm::StructType *_pStructType_Environment;
 	llvm::StructType *_pStructType_Signal;
 	llvm::StructType *_pStructType_Symbol;
 public:
@@ -78,12 +79,13 @@ extern "C" void GuraStub_LookupValue(Environment &env, Signal &sig, Value &resul
 }
 
 extern "C" void GuraStub_AssignValue(Environment &env, Signal &sig,
-								 const Symbol *pSymbol, const Value &value, ULong extra)
+									 const Symbol *pSymbol, const Value &value, ULong extra)
 {
 	env.AssignValue(pSymbol, value, extra);
 }
 
-extern "C" void GuraStub_AddValueList(Environment &env, Signal &sig, ValueList &valList, const Value &value)
+extern "C" void GuraStub_AddValueList(Environment &env, Signal &sig,
+									  ValueList &valList, const Value &value)
 {
 	if (value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
@@ -210,6 +212,10 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		"struct.Value",
 		llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
 		nullptr);
+	_pStructType_Environment = llvm::StructType::create(
+		"struct.Environment",
+		_builder.getInt32Ty(), // (dummy)
+		nullptr);
 	_pStructType_Signal = llvm::StructType::create(
 		"struct.Signal",
 		_builder.getInt32Ty(), // sigType
@@ -299,12 +305,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	do {
 		// declare void @GuraStub_LookupValue(i8*, i8*, struct.Value*, i8*)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
-		typeArgs.push_back(_pStructType_Symbol->getPointerTo());	// pSymbol
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
+		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -314,13 +320,13 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	do {
 		// declare void @GuraStub_AssignValue(i8*, struct.Signal*, i8*, struct.Value*, i32)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Symbol->getPointerTo());	// name
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
-		typeArgs.push_back(_builder.getInt32Ty());					// extra
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
+		typeArgs.push_back(_builder.getInt32Ty());						// extra
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -330,12 +336,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	do {
 		// declare void @GuraStub_AddValueList(i8*, struct.Signal*, i8*, struct.Value*)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// valList
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// valList
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -346,12 +352,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	for (const char *opName : {
 				"Pos", "Neg", "Inv", "Not", "SeqInf", "Question", "Each" }) {
 		// declare void @GuraStub_UnaryOp_*(i8*, struct.Signal*, struct.Value*, struct.Value*, struct.Value*)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -365,13 +371,13 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 				"And", "Or", "Xor",	"Shl", "Shr", "OrOr", "AndAnd",
 				"Seq", "Pair" }) {
 		// declare void @GuraStub_BinaryOp_*(i8*, struct.Signal*, struct.Value*, struct.Value*, struct.Value*)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueLeft
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueRight
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueLeft
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueRight
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -381,14 +387,14 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	}
 	do {
 		// declare void @GuraStub_CallFunction(i8*, struct.Signal*, struct.Value*, struct.Value*, ...)
-		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 		std::vector<llvm::Type *> typeArgs;
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
-		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueCar
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// bridgeFuncBlockParam
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// bridgeFuncBlock
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// bridgeFuncBlockParam
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// bridgeFuncBlock
 		bool isVarArg = true;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -710,11 +716,11 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	Environment &env, Signal &sig, const Expr *pExpr, const char *name)
 {
 	// define void @BridgeFunction(i8* env, i8* sig, %struct.Value* valueResult)
-	llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+	llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 	std::vector<llvm::Type *> typeArgs;
-	typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());	// env
-	typeArgs.push_back(_pStructType_Signal->getPointerTo());	// sig
-	typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueResult
+	typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+	typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+	typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 	bool isVarArg = false;
 	llvm::Function *pFunction = llvm::Function::Create(
 		llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
