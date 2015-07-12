@@ -42,4 +42,5 @@ llvm.gencode {
 	//repeat(3) {
 	//}
 	println('hello', 3, 4)
+	//foo
 }
