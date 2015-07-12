@@ -56,6 +56,7 @@ public:
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
 private:
+	llvm::Value *CreateAllocaValue(const llvm::Twine &name);
 	llvm::Value *GetCPointerToPtr(const void *p, llvm::Type *pType);
 	llvm::Function *CreateBridgeFunction(Environment &env, Signal &sig,
 										 const Expr *pExpr, const char *name);
@@ -208,22 +209,34 @@ extern "C" void GuraStub_PrintFunctionPointer(void *pFunc)
 bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
-	_pStructType_Value = llvm::StructType::create(
-		"struct.Value",
-		llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
-		nullptr);
-	_pStructType_Environment = llvm::StructType::create(
-		"struct.Environment",
-		_builder.getInt32Ty(), // (dummy)
-		nullptr);
-	_pStructType_Signal = llvm::StructType::create(
-		"struct.Signal",
-		_builder.getInt32Ty(), // sigType
-		nullptr);
-	_pStructType_Symbol = llvm::StructType::create(
-		"struct.Symbol",
-		_builder.getInt32Ty(), // uniqNum
-		nullptr);
+	do {
+		// %struct.Value = type { [sizeof(Value) x i8] }
+		_pStructType_Value = llvm::StructType::create(
+			"struct.Value",
+			llvm::ArrayType::get(_builder.getInt8Ty(), sizeof(Value)),
+			nullptr);
+	} while (0);
+	do {
+		// %struct.Environment = type { i32 }
+		_pStructType_Environment = llvm::StructType::create(
+			"struct.Environment",
+			_builder.getInt32Ty(),		// (dummy)
+			nullptr);
+	} while (0);
+	do {
+		// %struct.Signal = type { i32 }
+		_pStructType_Signal = llvm::StructType::create(
+			"struct.Signal",
+			_builder.getInt32Ty(),		// sigType
+			nullptr);
+	} while (0);
+	do {
+		// %struct.Symbol = type { i32 }
+		_pStructType_Symbol = llvm::StructType::create(
+			"struct.Symbol",
+			_builder.getInt32Ty(),		// uniqNum
+			nullptr);
+	} while (0);
 	do {
 		// declare i32 @puts(i8*)
 		llvm::Type *pTypeResult = _builder.getInt32Ty();			// return
@@ -462,7 +475,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 	//::printf("Value\n");
 	const Value &value = pExprValue->GetValue();
 	if (value.Is_number()) {
-		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		_pValueResult = CreateAllocaValue("value");
 		std::vector<llvm::Value *> args;
 		args.push_back(_pValueResult);
 		args.push_back(llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble()));
@@ -470,7 +483,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 			_pModule->getFunction("GuraStub_CreateValue_number"),
 			args);
 	} else if (value.Is_string()) {
-		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		_pValueResult = CreateAllocaValue("value");
 		std::vector<llvm::Value *> args;
 		args.push_back(_pValueResult);
 		args.push_back(_builder.CreateGlobalStringPtr(value.GetString()));
@@ -480,7 +493,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 	} else if (value.Is_binary()) {
 		const Binary &binary = value.GetBinary();
 		std::string buff(binary.data(), binary.size());
-		_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		_pValueResult = CreateAllocaValue("value");
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(_pValueResult);
@@ -499,7 +512,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr)
 {
 	//::printf("Identifier\n");
-	_pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	_pValueResult = CreateAllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
@@ -536,7 +549,7 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 	//::printf("Lister\n");
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
-	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	llvm::Value *pValueResult = CreateAllocaValue("value");
 	args.push_back(pValueResult);
 	llvm::Value *pValue_valList = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_CreateValue_list"),
@@ -579,7 +592,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+		llvm::Value *pValueResult = CreateAllocaValue("value");
 		args.push_back(pValueResult);
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
 		args.push_back(_pValueResult);
@@ -616,7 +629,7 @@ bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal &sig, const Exp
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	llvm::Value *pValueResult = CreateAllocaValue("value");
 	args.push_back(pValueResult);
 	if (!pExpr->GetChild()->GenerateCode(env, sig, *this)) return false;
 	args.push_back(_pValueResult);
@@ -633,7 +646,7 @@ bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal &sig, const Ex
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	llvm::Value *pValueResult = _builder.CreateAlloca(_pStructType_Value, nullptr, "value");
+	llvm::Value *pValueResult = CreateAllocaValue("value");
 	args.push_back(pValueResult);
 	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
 	args.push_back(_pValueResult);
@@ -703,6 +716,15 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 {
 	::printf("Member\n");
 	return true;
+}
+
+llvm::Value *CodeGeneratorLLVM::CreateAllocaValue(const llvm::Twine &name)
+{
+	llvm::Value *pValue = _builder.CreateAlloca(_pStructType_Value, nullptr, name);
+	//_builder.CreateStore(
+	//	llvm::GetElementPtrInst::Create(pValue, llvm::ConstantInt::get(_builder.getInt32Ty(), 0)),
+	//	llvm::ConstantInt::get(_builder.getInt32Ty(), 0));
+	return pValue;
 }
 
 llvm::Value *CodeGeneratorLLVM::GetCPointerToPtr(const void *p, llvm::Type *pType)
