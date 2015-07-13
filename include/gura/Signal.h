@@ -18,8 +18,8 @@ class SimpleStream;
 // SignalType
 //-----------------------------------------------------------------------------
 enum {
-	SIGTYPE_None = 0,
-	SIGTYPE_ErrorSuspended,
+	SIGTYPE_None = 0,		// must be at first
+	SIGTYPE_ErrorSuspended,	// must be at second
 	SIGTYPE_Error,
 	SIGTYPE_Terminate,
 	SIGTYPE_Break,
@@ -44,14 +44,12 @@ private:
 	inline Signal(const Signal &sig) {}
 	inline void operator=(const Signal &sig) {}
 public:
-	inline bool IsSignalled() const	{
-		return _sigType != SIGTYPE_None &&
-									_sigType != SIGTYPE_ErrorSuspended;
-	}
+	inline bool IsSignalled() const			{ return _sigType > SIGTYPE_ErrorSuspended; 	}
+	inline bool IsNoSignalled() const		{ return _sigType <= SIGTYPE_ErrorSuspended; 	}
 	inline bool IsErrorSuspended() const	{ return _sigType == SIGTYPE_ErrorSuspended;	}
-	inline bool IsError() const				{ return _sigType == SIGTYPE_Error;			}
-	inline bool IsTerminate() const			{ return _sigType == SIGTYPE_Terminate;		}
-	inline bool IsBreak() const				{ return _sigType == SIGTYPE_Break;			}
+	inline bool IsError() const				{ return _sigType == SIGTYPE_Error;				}
+	inline bool IsTerminate() const			{ return _sigType == SIGTYPE_Terminate;			}
+	inline bool IsBreak() const				{ return _sigType == SIGTYPE_Break;				}
 	inline bool IsContinue() const			{ return _sigType == SIGTYPE_Continue;			}
 	inline bool IsReturn() const			{ return _sigType == SIGTYPE_Return;			}
 	inline bool IsSwitchDone() const		{ return _sigType == SIGTYPE_SwitchDone;		}
