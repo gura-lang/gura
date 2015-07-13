@@ -41,7 +41,7 @@ llvm.gencode {
 	//3 + 4
 	//repeat(3) {
 	//}
-	println('hello', 3, 4)
+	//println('hello', 3, 4)
 	bar = 'hello 3'
 }
-println('bar = ', bar)
+//println('bar = ', bar)

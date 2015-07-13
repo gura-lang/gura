@@ -56,7 +56,7 @@ public:
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
 private:
-	llvm::Value *CreateAllocaValue(const llvm::Twine &name);
+	llvm::Value *CreateAllocaValue(const llvm::Twine &name, bool initFlag = true);
 	llvm::Value *GetCPointerToPtr(const void *p, llvm::Type *pType);
 	llvm::Function *CreateBridgeFunction(Environment &env, Signal &sig,
 										 const Expr *pExpr, const char *name);
@@ -702,6 +702,9 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 			_builder.CreateCall(
 				_pModule->getFunction("GuraStub_AssignValue"),
 				args);
+			_builder.CreateICmpNE(
+				_builder.CreateLoad(_builder.CreateConstGEP2_32(GetValue_sig(), 0, 0)),
+				llvm::ConstantInt::get(_builder.getInt32Ty(), 0x00000000));
 		}
 		_pValueResult = pValueToAssign;
 		successFlag = true;
@@ -718,12 +721,14 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 	return true;
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateAllocaValue(const llvm::Twine &name)
+llvm::Value *CodeGeneratorLLVM::CreateAllocaValue(const llvm::Twine &name, bool initFlag)
 {
 	llvm::Value *pValue = _builder.CreateAlloca(_pStructType_Value, nullptr, name);
-	//_builder.CreateStore(
-	//	llvm::GetElementPtrInst::Create(pValue, llvm::ConstantInt::get(_builder.getInt32Ty(), 0)),
-	//	llvm::ConstantInt::get(_builder.getInt32Ty(), 0));
+	if (initFlag) {
+		_builder.CreateStore(
+			llvm::ConstantInt::get(_builder.getInt32Ty(), 0x00000000),
+			_builder.CreatePointerCast(pValue, _builder.getInt32Ty()->getPointerTo()));
+	}
 	return pValue;
 }
 
