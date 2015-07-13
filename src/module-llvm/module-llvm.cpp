@@ -5,6 +5,8 @@
 
 Gura_BeginModuleBody(llvm)
 
+typedef std::vector<llvm::Value *> LLVMValueList;
+
 typedef void (*BridgeFunctionT)(Environment &env, Signal &sig, Value &result);
 
 //-----------------------------------------------------------------------------
@@ -16,11 +18,19 @@ public:
 	private:
 		llvm::Value *_pValue_env;
 		llvm::Value *_pValue_sig;
+		llvm::BasicBlock *_pBasicBlockEntry;
+		llvm::BasicBlock *_pBasicBlockExit;
+		LLVMValueList _valuesCreated;
 	public:
-		inline Context(llvm::Value *pValue_env, llvm::Value *pValue_sig) :
-			_pValue_env(pValue_env), _pValue_sig(pValue_sig) {}
+		inline Context(llvm::Value *pValue_env, llvm::Value *pValue_sig,
+					   llvm::BasicBlock *pBasicBlockEntry, llvm::BasicBlock *pBasicBlockExit) :
+			_pValue_env(pValue_env), _pValue_sig(pValue_sig),
+			_pBasicBlockEntry(pBasicBlockEntry), _pBasicBlockExit(pBasicBlockExit) {}
 		inline llvm::Value *GetValue_env() { return _pValue_env; }
 		inline llvm::Value *GetValue_sig() { return _pValue_sig; }
+		inline llvm::BasicBlock *GetBasicBlockEntry() { return _pBasicBlockEntry; }
+		inline llvm::BasicBlock *GetBasicBlockExit() { return _pBasicBlockExit; }
+		inline LLVMValueList &GetValuesCreated() { return _valuesCreated; }
 	};
 	typedef std::vector<Context *> ContextStack;
 private:
@@ -38,8 +48,17 @@ public:
 	inline llvm::Module *GetModule() { return _pModule.get(); }
 	bool Generate(Environment &env, Signal &sig, const Expr *pExpr);
 	void Run(Environment &env, Signal &sig);
-	llvm::Value *GetValue_env() { return _contextStack.back()->GetValue_env(); }
-	llvm::Value *GetValue_sig() { return _contextStack.back()->GetValue_sig(); }
+	inline llvm::Value *GetValue_env() { return _contextStack.back()->GetValue_env(); }
+	inline llvm::Value *GetValue_sig() { return _contextStack.back()->GetValue_sig(); }
+	inline llvm::BasicBlock *GetBasicBlockEntry() {
+		return _contextStack.back()->GetBasicBlockEntry();
+	}
+	inline llvm::BasicBlock *GetBasicBlockExit() {
+		return _contextStack.back()->GetBasicBlockExit();
+	}
+	inline LLVMValueList &GetValuesCreated() {
+		return _contextStack.back()->GetValuesCreated();
+	}
 public:
 	virtual bool GenCode_Value(Environment &env, Signal &sig, const Expr_Value *pExprValue);
 	virtual bool GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr);
@@ -251,7 +270,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	do {
 		// declare void @Gura_CopyValue(struct.Value*, struct.Value*)
-		llvm::Type *pTypeResult = _builder.getInt32Ty();			// return
+		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueDst
 		typeArgs.push_back(_pStructType_Value->getPointerTo());		// valueSrc
@@ -260,6 +279,18 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
 			"Gura_CopyValue",
+			_pModule.get());
+	} while (0);
+	do {
+		// declare void @Gura_ReleaseValue(struct.Value*)
+		llvm::Type *pTypeResult = _builder.getVoidTy();				// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Value->getPointerTo());		// value
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"Gura_ReleaseValue",
 			_pModule.get());
 	} while (0);
 	do {
@@ -512,7 +543,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr)
 {
 	//::printf("Identifier\n");
-	_pValueResult = CreateAllocaValue("value");
+	_pValueResult = CreateAllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
@@ -723,12 +754,16 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 
 llvm::Value *CodeGeneratorLLVM::CreateAllocaValue(const llvm::Twine &name, bool initFlag)
 {
+	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
+	_builder.SetInsertPoint(GetBasicBlockEntry());
 	llvm::Value *pValue = _builder.CreateAlloca(_pStructType_Value, nullptr, name);
 	if (initFlag) {
 		_builder.CreateStore(
 			llvm::ConstantInt::get(_builder.getInt32Ty(), 0x00000000),
 			_builder.CreatePointerCast(pValue, _builder.getInt32Ty()->getPointerTo()));
 	}
+	GetValuesCreated().push_back(pValue);
+	_builder.SetInsertPoint(pBasicBlockSaved);
 	return pValue;
 }
 
@@ -761,13 +796,32 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	llvm::Value *pValue_sig = pArg++;
 	pArg->setName("valueResult");
 	llvm::Value *pValue_result = pArg++;
-	_contextStack.push_back(new Context(pValue_env, pValue_sig));
 	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
-	llvm::BasicBlock *pBasicBlock = llvm::BasicBlock::Create(_context, "entrypoint", pFunction);
-	_builder.SetInsertPoint(pBasicBlock);
+	llvm::BasicBlock *pBasicBlockEntry =
+		llvm::BasicBlock::Create(_context, "function.entry", pFunction);
+	llvm::BasicBlock *pBasicBlockBody =
+		llvm::BasicBlock::Create(_context, "function.body", pFunction);
+	llvm::BasicBlock *pBasicBlockExit =
+		llvm::BasicBlock::Create(_context, "function.exit");
 	llvm::Value *pValueResultSaved = _pValueResult;
 	_pValueResult = nullptr;
+	_contextStack.push_back(new Context(pValue_env, pValue_sig, pBasicBlockEntry, pBasicBlockExit));
+	_builder.SetInsertPoint(pBasicBlockBody);
 	if (pExpr->GenerateCode(env, sig, *this)) {
+		pFunction->getBasicBlockList().push_back(pBasicBlockExit);
+		_builder.CreateBr(pBasicBlockExit);
+		_builder.SetInsertPoint(pBasicBlockEntry);
+		_builder.CreateBr(pBasicBlockBody);
+		_builder.SetInsertPoint(pBasicBlockExit);
+		foreach (LLVMValueList, ppValue, GetValuesCreated()) {
+			llvm::Value *pValue = *ppValue;
+			if (pValue == _pValueResult) continue;
+			std::vector<llvm::Value *> args;
+			args.push_back(pValue);
+			_builder.CreateCall(
+				_pModule->getFunction("Gura_ReleaseValue"),
+				args);
+		} while (0);
 		if (_pValueResult != nullptr) {
 			std::vector<llvm::Value *> args;
 			args.push_back(pValue_result);
@@ -779,7 +833,6 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 		}
 		_builder.CreateRetVoid();
 		llvm::verifyFunction(*pFunction);
-		//TheFPM->run(*pFunction);
 	} else {
 		pFunction = nullptr;
 	}
