@@ -6,7 +6,7 @@ sub(n) = {
 }
 
 foo = 3
-llvm.gencode {
+rtn = llvm.gencode {
 	//b'hello \x00 world'
 	//[1, 2, 3, [4, 5, 6], 4, 5]
 	//repeat (10) {|i|
@@ -42,7 +42,11 @@ llvm.gencode {
 	//repeat(3) {
 	//}
 	//println('hello', 3, 4)
-	bar = 'hello 3'
-	foo = 3
+	//bar = 'hello 3'
+	//foo = 3
+	a = 3
+	b = 'fdjafkjdas'
+	printf('a = %d\n', a)
+	99
 }
-//println('bar = ', bar)
+println('rtn = ', rtn)
