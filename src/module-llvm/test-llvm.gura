@@ -5,7 +5,7 @@ sub(n) = {
 	println('hello', n)
 }
 
-foo = 3
+foo = 322
 //x = @@{{1, 2, 3}, {4, 5, 6}}
 x = 'hello world'.split():list
 
@@ -41,7 +41,7 @@ rtn = llvm.gencode {
 	//f(x, y) = {
 	//	x + y
 	//}
-	3 + 4
+	//3 + 4
 	//repeat(3) {
 	//}
 	//println('hello', 3, 4)
@@ -52,5 +52,7 @@ rtn = llvm.gencode {
 	//printf('a = %d\n', a)
 	//99
 	//x[0..4]
+	foo += 3
 }
 println('rtn = ', rtn)
+println(foo)
