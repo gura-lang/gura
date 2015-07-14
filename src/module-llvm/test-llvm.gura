@@ -6,7 +6,8 @@ sub(n) = {
 }
 
 foo = 3
-x = 'Hello world'.split():list
+//x = @@{{1, 2, 3}, {4, 5, 6}}
+x = 'hello world'.split():list
 
 rtn = llvm.gencode {
 	//b'hello \x00 world'
@@ -50,6 +51,6 @@ rtn = llvm.gencode {
 	//b = 'fdjafkjdas'
 	//printf('a = %d\n', a)
 	//99
-	x[0, 1, 2, 3]
+	x[0..4]
 }
 println('rtn = ', rtn)

@@ -133,10 +133,33 @@ extern "C" bool GuraStub_IndexGet(
 	Environment &env, Signal &sig,
 	ValueList &valList, const Value &valueCar, const Value &valueIdx)
 {
-	Value value = valueCar.IndexGet(env, sig, valueIdx);
-	if (sig.IsSignalled()) return false;
-	valList.push_back(value);
+	if (valueIdx.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		if (pIterator->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return false;
+		}
+		Value valueIdxElem;
+		while (pIterator->Next(env, sig, valueIdxElem)) {
+			Value value = valueCar.IndexGet(env, sig, valueIdxElem);
+			if (sig.IsSignalled()) return false;
+			valList.push_back(value);
+		}
+		return sig.IsNoSignalled();
+	} else {
+		Value value = valueCar.IndexGet(env, sig, valueIdx);
+		if (sig.IsSignalled()) return false;
+		valList.push_back(value);
+	}
 	return true;
+}
+
+extern "C" bool GuraStub_EmptyIndexGet(
+	Environment &env, Signal &sig, Value &valueResult, const Value &valueCar)
+{
+	valueResult = valueCar.EmptyIndexGet(env, sig);
+	return sig.IsNoSignalled();
 }
 
 extern "C" bool GuraStub_CallFunction(
@@ -481,6 +504,22 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
+		// declare i1 @GuraStub_EmptyIndexGet(struct.Environment*, struct.Signal*,
+		//                                    struct.Value*, struct.Value*)
+		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"GuraStub_EmptyIndexGet",
+			_pModule.get());
+	} while (0);
+	do {
 		// declare i1 @GuraStub_CallFunction(struct.Environment*, struct.Signal*,
 		//                                   struct.Value*, struct.Value*, ...)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
@@ -662,29 +701,44 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 	if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
 	llvm::Value *pValueCar = _pValueResult;
 	llvm::Value *pValueResult = CreateAllocaValue("value");
-	std::vector<llvm::Value *> args;
-	args.push_back(GetValue_env());
-	args.push_back(pValueResult);
-	llvm::Value *pValue_valList = _builder.CreateCall(
-		_pModule->getFunction("GuraStub_CreateValueList"),
-		args, "valList");
-	foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
-		const Expr *pExprIdx = *ppExprIdx;
-		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *pValueIdx = _pValueResult;
+	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		args.push_back(pValue_valList);
+		args.push_back(pValueResult);
 		args.push_back(pValueCar);
-		args.push_back(pValueIdx);
 		llvm::Value *pValueStatus = _builder.CreateCall(
-			_pModule->getFunction("GuraStub_IndexGet"),
+			_pModule->getFunction("GuraStub_EmptyIndexGet"),
 			args, "status");
 		llvm::BasicBlock *pBasicBlockContinue =
 			llvm::BasicBlock::Create(_context, "bb.continue", GetFunctionCur());
 		_builder.CreateCondBr(pValueStatus, pBasicBlockContinue, GetBasicBlockExit());
 		_builder.SetInsertPoint(pBasicBlockContinue);
+	} else {
+		std::vector<llvm::Value *> args;
+		args.push_back(GetValue_env());
+		args.push_back(pValueResult);
+		llvm::Value *pValue_valList = _builder.CreateCall(
+			_pModule->getFunction("GuraStub_CreateValueList"),
+			args, "valList");
+		foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
+			const Expr *pExprIdx = *ppExprIdx;
+			if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+			llvm::Value *pValueIdx = _pValueResult;
+			std::vector<llvm::Value *> args;
+			args.push_back(GetValue_env());
+			args.push_back(GetValue_sig());
+			args.push_back(pValue_valList);
+			args.push_back(pValueCar);
+			args.push_back(pValueIdx);
+			llvm::Value *pValueStatus = _builder.CreateCall(
+				_pModule->getFunction("GuraStub_IndexGet"),
+				args, "status");
+			llvm::BasicBlock *pBasicBlockContinue =
+				llvm::BasicBlock::Create(_context, "bb.continue", GetFunctionCur());
+			_builder.CreateCondBr(pValueStatus, pBasicBlockContinue, GetBasicBlockExit());
+			_builder.SetInsertPoint(pBasicBlockContinue);
+		}
 	}
 	_pValueResult = pValueResult;
 	return true;
