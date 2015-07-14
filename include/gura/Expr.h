@@ -30,7 +30,7 @@ class Expr_Assign;
 class Expr_Member;
 class Callable;
 
-typedef void (*JITFunctionT)(Environment &env, Signal &sig, Value &result);
+typedef void (*BridgeFunctionT)(Environment &env, Signal &sig, Value &result);
 
 //-----------------------------------------------------------------------------
 // ExprType
@@ -185,7 +185,7 @@ private:
 	int _lineNoTop, _lineNoBtm;
 	const Expr *_pExprParent;
 	AutoPtr<StringRef> _pSourceName;
-	JITFunctionT _jitFunction;
+	BridgeFunctionT _bridgeFunction;
 public:
 	Gura_DeclareReferenceAccessor(Expr);
 public:
@@ -216,10 +216,10 @@ public:
 			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
 		return Exec(env, sig, pSeqPostHandler, evalSymFuncFlag);
 	}
-	inline void _SetJITFunction(JITFunctionT jitFunction) const {
-		const_cast<Expr *>(this)->_jitFunction = jitFunction;
+	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
+		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
 	}
-	inline JITFunctionT _GetJITFunction() const { return _jitFunction; }
+	inline BridgeFunctionT _GetBridgeFunction() const { return _bridgeFunction; }
 	Expr_Block *ToExprBlock() const;
 	bool IsAtSameLine(const Expr *pExpr) const;
 	void GatherSymbol(SymbolSet &symbolSet) const;

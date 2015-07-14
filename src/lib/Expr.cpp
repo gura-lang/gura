@@ -60,14 +60,14 @@ const char *Expr::IndentDefault = "    ";
 
 Expr::Expr(ExprType exprType) :
 	_exprType(exprType), _cntRef(1), _lineNoTop(0), _lineNoBtm(0),
-	_pExprParent(nullptr), _jitFunction(nullptr)
+	_pExprParent(nullptr), _bridgeFunction(nullptr)
 {
 }
 
 Expr::Expr(const Expr &expr) :
 	_exprType(expr._exprType), _cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
 	_pExprParent(nullptr), _pSourceName(StringRef::Reference(expr._pSourceName.get())),
-	_jitFunction(expr._jitFunction)
+	_bridgeFunction(expr._bridgeFunction)
 {
 }
 
@@ -79,10 +79,10 @@ Value Expr::Exec(Environment &env, Signal &sig,
 			AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag) const
 {
 	Value result;
-	if (_jitFunction == nullptr) {
+	if (_bridgeFunction == nullptr) {
 		result = DoExec(env, sig, pSeqPostHandler.get());
 	} else {
-		(*_jitFunction)(env, sig, result);
+		(*_bridgeFunction)(env, sig, result);
 	}
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
