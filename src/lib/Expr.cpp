@@ -58,14 +58,16 @@ const char *GetExprTypeName(ExprType exprType)
 //-----------------------------------------------------------------------------
 const char *Expr::IndentDefault = "    ";
 
-Expr::Expr(ExprType exprType) : _exprType(exprType),
-	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(nullptr)
+Expr::Expr(ExprType exprType) :
+	_exprType(exprType), _cntRef(1), _lineNoTop(0), _lineNoBtm(0),
+	_pExprParent(nullptr), _jitFunction(nullptr)
 {
 }
 
-Expr::Expr(const Expr &expr) : _exprType(expr._exprType),
-	_cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
-	_pExprParent(nullptr), _pSourceName(StringRef::Reference(expr._pSourceName.get()))
+Expr::Expr(const Expr &expr) :
+	_exprType(expr._exprType), _cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
+	_pExprParent(nullptr), _pSourceName(StringRef::Reference(expr._pSourceName.get())),
+	_jitFunction(expr._jitFunction)
 {
 }
 
@@ -76,7 +78,12 @@ Expr::~Expr()
 Value Expr::Exec(Environment &env, Signal &sig,
 			AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag) const
 {
-	Value result = DoExec(env, sig, pSeqPostHandler.get());
+	Value result;
+	if (_jitFunction == nullptr) {
+		result = DoExec(env, sig, pSeqPostHandler.get());
+	} else {
+		(*_jitFunction)(env, sig, result);
+	}
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -386,7 +393,6 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(Expr *pExpr)
 					dynamic_cast<const Expr_Identifier *>(pExprCar)->GetSymbol();
 			if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) return false;
 		}
-		
 	} else if (pExpr->IsIdentifier()) {
 		const Symbol *pSymbol =
 						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
@@ -1271,7 +1277,6 @@ Value Expr_Block::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPost
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
 			if (sig.IsSignalled()) return Value::Null;
-			
 			valList.push_back(value);
 		}
 	} else {
@@ -1952,7 +1957,6 @@ Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 				if (pCallable != nullptr && pCallable->IsFinalizer()) {
 					result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
 					if (sig.IsSignalled()) return Value::Null;
-					
 					sig.SetType(sigType);
 					sig.SetValue(valueSig);
 					return Value::Null;

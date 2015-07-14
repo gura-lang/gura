@@ -7,8 +7,6 @@ Gura_BeginModuleBody(llvm)
 
 typedef std::vector<llvm::Value *> LLVMValueList;
 
-typedef void (*BridgeFunctionT)(Environment &env, Signal &sig, Value &result);
-
 //-----------------------------------------------------------------------------
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
@@ -165,7 +163,7 @@ extern "C" bool GuraStub_EmptyIndexGet(
 extern "C" bool GuraStub_CallFunction(
 	Environment &env, Signal &sig,
 	Value &valueResult, const Value &valueCar,
-	BridgeFunctionT bridgeFuncBlockParam, BridgeFunctionT bridgeFuncBlock, ...)
+	JITFunctionT jitFuncBlockParam, JITFunctionT jitFuncBlock, ...)
 {
 	if (!valueCar.Is_function()) {
 		sig.SetError(ERR_TypeError, "object is not a function");
@@ -174,11 +172,11 @@ extern "C" bool GuraStub_CallFunction(
 	}
 	const Function *pFunc = valueCar.GetFunction();
 	va_list vargs;
-	va_start(vargs, bridgeFuncBlock);
+	va_start(vargs, jitFuncBlock);
 	AutoPtr<Args> pArgs(new Args());
-	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
+	while (JITFunctionT jitFuncArg = va_arg(vargs, JITFunctionT)) {
 		Value value;
-		bridgeFuncArg(env, sig, value);
+		jitFuncArg(env, sig, value);
 		if (sig.IsSignalled()) return false;
 		pArgs->AddValue(value);
 	}
@@ -528,8 +526,8 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// bridgeFuncBlockParam
-		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// bridgeFuncBlock
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// jitFuncBlockParam
+		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// jitFuncBlock
 		bool isVarArg = true;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
@@ -571,10 +569,10 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 		::fprintf(stderr, "failed to find function main\n");
 		::exit(1);
 	}
-	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
+	JITFunctionT jitFuncGuraEntry = reinterpret_cast<JITFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value result;
-	bridgeFuncGuraEntry(env, sig, result);
+	jitFuncGuraEntry(env, sig, result);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 	return result;
 }

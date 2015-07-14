@@ -41,7 +41,7 @@ rtn = llvm.gencode {
 	//f(x, y) = {
 	//	x + y
 	//}
-	//3 + 4
+	3 + 4
 	//repeat(3) {
 	//}
 	//println('hello', 3, 4)
@@ -51,6 +51,6 @@ rtn = llvm.gencode {
 	//b = 'fdjafkjdas'
 	//printf('a = %d\n', a)
 	//99
-	x[0..4]
+	//x[0..4]
 }
 println('rtn = ', rtn)
