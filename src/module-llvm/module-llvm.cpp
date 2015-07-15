@@ -5,6 +5,64 @@
 
 Gura_BeginModuleBody(llvm)
 
+#if 0
+class ValueExpander {
+private:
+	bool _singleValueFlag;
+	union {
+		Value _value;
+		Iterator *_pIterator;
+	};
+public:
+	inline ValueExpander() {}
+	inline void Release() {
+		if (_singleValueFlag) {
+			Gura_ReleaseValue(_value);
+		} else {
+			Iterator::Delete(_pIterator);
+		}
+	}
+	inline void SetValue(const Value &value) {
+		_singleValueFlag = true;
+		_value = value;
+	}
+	inline void SetIterator(Iterator *pIterator) {
+		_singleValueFlag = false;
+		_pIterator = pIterator;
+	}
+	inline bool Next(Environment &env, Signal &sig, Value &value) {
+		if (_singleValueFlag) {
+			value = _value;
+		} else {
+			return _pIterator->Next(env, sig, value);
+		}
+	}
+};
+
+bool GuraStub_CreateValueExpander(Environment &env, Signal &sig,
+								  ValueExpander &valueExpander, const Value &valueSrc)
+{
+	if (valueSrc.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(valueSrc.CreateIterator(sig));
+		if (pIterator.IsNull()) return false;
+		valueExpander.SetIterator(pIterator.release());
+	} else {
+		valueExpander.SetValue(valueSrc);
+	}
+	return true;
+}
+
+void GuraStub_ReleaseValueExpander(ValueExpander &valueExpander)
+{
+	valueExpander.Release();
+}
+
+bool GuraStub_ExpandValue(Environment &env, Signal &sig, ValueExpander &valueExpander, Value &value)
+{
+	return valueExpander.Next(env, sig, value);
+}
+#endif
+
 //-----------------------------------------------------------------------------
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
@@ -772,6 +830,20 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 bool CodeGeneratorLLVM::GenCode_AssignToLister(Environment &env, Signal &sig,
 											   const Expr_Lister *pExpr, llvm::Value *pValueAssigned)
 {
+	foreach_const (ExprOwner, ppExprElem, pExpr->GetExprOwner()) {
+		const Expr *pExprElem = *ppExprElem;
+		if (pExprElem->IsIdentifier()) {
+			const Expr_Identifier *pExprElemEx = dynamic_cast<const Expr_Identifier *>(pExprElem);
+			if (!GenCode_AssignToIdentifier(env, sig, pExprElemEx, pValueAssigned)) return false;
+		} else if (pExprElem->IsIndexer()) {
+			const Expr_Indexer *pExprElemEx = dynamic_cast<const Expr_Indexer *>(pExprElem);
+			if (!GenCode_AssignToIndexer(env, sig, pExprElemEx, pValueAssigned)) return false;
+		} else if (pExprElem->IsMember()) {
+			const Expr_Member *pExprElemEx = dynamic_cast<const Expr_Member *>(pExprElem);
+			if (!GenCode_AssignToMember(env, sig, pExprElemEx, pValueAssigned)) return false;
+		}
+	}
+	_pValueResult = pValueAssigned;
 	return true;
 }
 
