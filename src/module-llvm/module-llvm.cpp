@@ -5,64 +5,6 @@
 
 Gura_BeginModuleBody(llvm)
 
-#if 0
-class ValueExpander {
-private:
-	bool _singleValueFlag;
-	union {
-		Value _value;
-		Iterator *_pIterator;
-	};
-public:
-	inline ValueExpander() {}
-	inline void Release() {
-		if (_singleValueFlag) {
-			Gura_ReleaseValue(_value);
-		} else {
-			Iterator::Delete(_pIterator);
-		}
-	}
-	inline void SetValue(const Value &value) {
-		_singleValueFlag = true;
-		_value = value;
-	}
-	inline void SetIterator(Iterator *pIterator) {
-		_singleValueFlag = false;
-		_pIterator = pIterator;
-	}
-	inline bool Next(Environment &env, Signal &sig, Value &value) {
-		if (_singleValueFlag) {
-			value = _value;
-		} else {
-			return _pIterator->Next(env, sig, value);
-		}
-	}
-};
-
-bool GuraStub_CreateValueExpander(Environment &env, Signal &sig,
-								  ValueExpander &valueExpander, const Value &valueSrc)
-{
-	if (valueSrc.IsListOrIterator()) {
-		AutoPtr<Iterator> pIterator(valueSrc.CreateIterator(sig));
-		if (pIterator.IsNull()) return false;
-		valueExpander.SetIterator(pIterator.release());
-	} else {
-		valueExpander.SetValue(valueSrc);
-	}
-	return true;
-}
-
-void GuraStub_ReleaseValueExpander(ValueExpander &valueExpander)
-{
-	valueExpander.Release();
-}
-
-bool GuraStub_ExpandValue(Environment &env, Signal &sig, ValueExpander &valueExpander, Value &value)
-{
-	return valueExpander.Next(env, sig, value);
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
@@ -211,25 +153,48 @@ extern "C" bool GuraStub_IndexGet(
 
 extern "C" bool GuraStub_IndexSet(
 	Environment &env, Signal &sig,
-	Value &valueCar, const Value &valueIdx, const Value &value)
+	Value &valueCar, const Value &valueIdx, const Value &valueAssigned)
 {
-	if (valueIdx.IsListOrIterator()) {
-		AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(sig));
+	if (!valueIdx.IsListOrIterator()) {
+		valueCar.IndexSet(env, sig, valueIdx, valueAssigned);
+		return sig.IsNoSignalled();
+	} else if (!valueAssigned.IsListOrIterator()) {
+		AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
-		if (pIterator->IsInfinite()) {
+		AutoPtr<Iterator> pIteratorAssigned(valueAssigned.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		if (pIteratorIdx->IsInfinite() && pIteratorAssigned->IsInfinite()) {
 			Iterator::SetError_InfiniteNotAllowed(sig);
 			return false;
 		}
-		Value valueIdxElem;
-		while (pIterator->Next(env, sig, valueIdxElem)) {
-			valueCar.IndexSet(env, sig, valueIdxElem, value);
+		Value valueIdxElem, valueAssignedElem;
+		while (pIteratorIdx->Next(env, sig, valueIdxElem) &&
+			   pIteratorAssigned->Next(env, sig, valueAssignedElem)) {
+			valueCar.IndexSet(env, sig, valueIdxElem, valueAssignedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
 	} else {
-		valueCar.IndexSet(env, sig, valueIdx, value);
+		AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		if (pIteratorIdx->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return false;
+		}
+		Value valueIdxElem;
+		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
+			valueCar.IndexSet(env, sig, valueIdxElem, valueAssigned);
+			if (sig.IsSignalled()) return false;
+		}
 		return sig.IsNoSignalled();
 	}
+}
+
+extern "C" bool GuraStub_IndexSetIterator(
+	Environment &env, Signal &sig,
+	Value &valueCar, const Value &valueIdx, Iterator *pIterator)
+{
+	return true;
 }
 
 extern "C" bool GuraStub_EmptyIndexGet(
@@ -307,6 +272,7 @@ private:
 	llvm::StructType *_pStructType_Environment;
 	llvm::StructType *_pStructType_Signal;
 	llvm::StructType *_pStructType_Symbol;
+	llvm::StructType *_pStructType_Iterator;
 public:
 	CodeGeneratorLLVM();
 	inline llvm::Module *GetModule() { return _pModule.get(); }
@@ -353,6 +319,7 @@ public:
 								const Expr_Member *pExpr, llvm::Value *pValueAssigned);
 private:
 	void CreateCondBrErrorExit(llvm::Value *pValueStatus);
+	llvm::Value *CreateCheckListOrIterator(llvm::Value *pValue);
 	llvm::Value *CreateBinaryOp(
 		Environment &env, Signal &sig, const Operator *pOperator,
 		const Expr *pExprLeft, const Expr *pExprRight);
@@ -368,7 +335,7 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()),
 	_pValueResult(nullptr), _pStructType_Value(nullptr),
 	_pStructType_ValueList(nullptr), _pStructType_Signal(nullptr),
-	_pStructType_Symbol(nullptr)
+	_pStructType_Symbol(nullptr), _pStructType_Iterator(nullptr)
 {
 }
 
@@ -408,6 +375,13 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		_pStructType_Symbol = llvm::StructType::create(
 			"struct.Symbol",
 			_builder.getInt32Ty(),		// uniqNum
+			nullptr);
+	} while (0);
+	do {
+		// %struct.Iterator = type { i32 }
+		_pStructType_Iterator = llvm::StructType::create(
+			"struct.Iterator",
+			_builder.getInt32Ty(),		// (dummy)
 			nullptr);
 	} while (0);
 	do {
@@ -618,6 +592,23 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
 			"GuraStub_IndexSet",
+			_pModule.get());
+	} while (0);
+	do {
+		// declare i1 @GuraStub_IndexSetIterator(struct.Environment*, struct.Signal*,
+		//                               struct.Value*, struct.Value*, struct.Iterator*)
+		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueIdx
+		typeArgs.push_back(_pStructType_Iterator->getPointerTo());		// pIterator
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"GuraStub_IndexSetIterator",
 			_pModule.get());
 	} while (0);
 	do {
@@ -911,10 +902,40 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 			args, "status");
 		CreateCondBrErrorExit(pValueStatus);
 	} else {
-		std::vector<llvm::Value *> args;
-		args.push_back(GetValue_env());
-		foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
-			const Expr *pExprIdx = *ppExprIdx;
+		llvm::BasicBlock *pBasicBlockSingle =
+			llvm::BasicBlock::Create(_context, "bb.single", GetFunctionCur());
+		llvm::BasicBlock *pBasicBlockMulti =
+			llvm::BasicBlock::Create(_context, "bb.multi");
+		llvm::BasicBlock *pBasicBlockContinue =
+			llvm::BasicBlock::Create(_context, "bb.continue");
+		_builder.CreateCondBr(
+			CreateCheckListOrIterator(pValueAssigned), pBasicBlockMulti, pBasicBlockSingle);
+		_builder.SetInsertPoint(pBasicBlockSingle);
+		do {
+			// tgt[i] = scalar
+			// tgt[i, j, k] = scalar
+			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
+				const Expr *pExprIdx = *ppExprIdx;
+				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+				llvm::Value *pValueIdx = _pValueResult;
+				std::vector<llvm::Value *> args;
+				args.push_back(GetValue_env());
+				args.push_back(GetValue_sig());
+				args.push_back(pValueCar);
+				args.push_back(pValueIdx);
+				args.push_back(pValueAssigned);
+				llvm::Value *pValueStatus = _builder.CreateCall(
+					_pModule->getFunction("GuraStub_IndexSet"),
+					args, "status");
+				CreateCondBrErrorExit(pValueStatus);
+			}
+		} while (0);
+		_builder.CreateBr(pBasicBlockContinue);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockMulti);
+		_builder.SetInsertPoint(pBasicBlockMulti);
+		if (pExpr->GetExprOwner().size() == 1) {
+			// tgt[i] = iterable
+			const Expr *pExprIdx = pExpr->GetExprOwner().front();
 			if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
 			llvm::Value *pValueIdx = _pValueResult;
 			std::vector<llvm::Value *> args;
@@ -927,7 +948,28 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 				_pModule->getFunction("GuraStub_IndexSet"),
 				args, "status");
 			CreateCondBrErrorExit(pValueStatus);
+		} else {
+			// tgt[i, j, k] = iterable
+			// ***** invalid code *****
+			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
+				const Expr *pExprIdx = *ppExprIdx;
+				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+				llvm::Value *pValueIdx = _pValueResult;
+				std::vector<llvm::Value *> args;
+				args.push_back(GetValue_env());
+				args.push_back(GetValue_sig());
+				args.push_back(pValueCar);
+				args.push_back(pValueIdx);
+				args.push_back(pValueAssigned);
+				llvm::Value *pValueStatus = _builder.CreateCall(
+					_pModule->getFunction("GuraStub_IndexSetIterable"),
+					args, "status");
+				CreateCondBrErrorExit(pValueStatus);
+			}
 		}
+		_builder.CreateBr(pBasicBlockContinue);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockContinue);
+		_builder.SetInsertPoint(pBasicBlockContinue);
 	}
 	_pValueResult = pValueAssigned;
 	return true;
@@ -1096,6 +1138,19 @@ llvm::Value *CodeGeneratorLLVM::CreateBinaryOp(
 		args, "status");
 	CreateCondBrErrorExit(pValueStatus);
 	return pValueResult;
+}
+
+llvm::Value *CodeGeneratorLLVM::CreateCheckListOrIterator(llvm::Value *pValue)
+{
+	llvm::Value *pValue_valType = _builder.CreateLoad(
+		_builder.CreatePointerCast(
+			pValue, _builder.getInt16Ty()->getPointerTo(), "valType"));
+	return _builder.CreateOr(
+		_builder.CreateICmpEQ(
+			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_list), pValue_valType),
+		_builder.CreateICmpEQ(
+			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_iterator), pValue_valType),
+		"flag.ListOrIterator");
 }
 
 void CodeGeneratorLLVM::CreateCondBrErrorExit(llvm::Value *pValueStatus)
