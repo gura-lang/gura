@@ -56,7 +56,8 @@ rtn = llvm.gencode {
 	//x[2] = 'X'
 	//x = !3
 	//[a, b, c] = 3
-	x[0..2] = [33, 44]
+	x[2, 4, 6] = [33, 44]
+	//[x, y, z] = [1, 2]
 }
 //println('rtn = ', rtn)
 println(x)
