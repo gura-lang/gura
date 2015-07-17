@@ -291,8 +291,8 @@ public:
 			_plv_env(plv_env), _plv_sig(plv_sig),
 			_pBasicBlockEntry(pBasicBlockEntry), _pBasicBlockExit(pBasicBlockExit),
 			_pBasicBlockRelease(pBasicBlockRelease) {}
-		inline llvm::Value *Get_plv_env() { return _plv_env; }
-		inline llvm::Value *Get_plv_sig() { return _plv_sig; }
+		inline llvm::Value *Get_env() { return _plv_env; }
+		inline llvm::Value *Get_sig() { return _plv_sig; }
 		inline llvm::BasicBlock *GetBasicBlockEntry() { return _pBasicBlockEntry; }
 		inline llvm::BasicBlock *GetBasicBlockExit() { return _pBasicBlockExit; }
 		inline llvm::BasicBlock *GetBasicBlockRelease() { return _pBasicBlockRelease; }
@@ -319,8 +319,8 @@ private:
 	inline llvm::Function *GetFunctionCur() {
 		return _builder.GetInsertBlock()->getParent();
 	}
-	inline llvm::Value *Get_plv_env() { return _contextStack.back()->Get_plv_env(); }
-	inline llvm::Value *Get_plv_sig() { return _contextStack.back()->Get_plv_sig(); }
+	inline llvm::Value *Get_env() { return _contextStack.back()->Get_env(); }
+	inline llvm::Value *Get_sig() { return _contextStack.back()->Get_sig(); }
 	inline llvm::BasicBlock *GetBasicBlockEntry() {
 		return _contextStack.back()->GetBasicBlockEntry();
 	}
@@ -882,7 +882,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 		std::string buff(binary.data(), binary.size());
 		_plv_valueResult = GenCode_AllocaValue("value");
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
+		args.push_back(Get_env());
 		args.push_back(_plv_valueResult);
 		args.push_back(_builder.CreateGlobalStringPtr(buff));
 		args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), binary.size()));
@@ -900,8 +900,8 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const 
 {
 	_plv_valueResult = GenCode_AllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
-	args.push_back(Get_plv_sig());
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
 	args.push_back(_plv_valueResult);
 	args.push_back(GenCode_CastCPointerToPtr(
 					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
@@ -918,8 +918,8 @@ bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 {
 	ULong extra = EXTRA_None;
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
-	args.push_back(Get_plv_sig());
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
 	args.push_back(GenCode_CastCPointerToPtr(
 					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
 	args.push_back(plv_valueAssigned);
@@ -952,7 +952,7 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 {
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
+	args.push_back(Get_env());
 	args.push_back(plv_valueResult);
 	llvm::Value *plv_valList = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_CreateValueList"),
@@ -962,8 +962,8 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *plv_valueElem = _plv_valueResult;
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valList);
 		args.push_back(plv_valueElem);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1045,8 +1045,8 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valueResult);
 		args.push_back(plv_valueCar);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1057,7 +1057,7 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 		return true;
 	}
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
+	args.push_back(Get_env());
 	args.push_back(plv_valueResult);
 	llvm::Value *plv_valList = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_CreateValueList"),
@@ -1067,8 +1067,8 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valList);
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueIdx);
@@ -1089,8 +1089,8 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	llvm::Value *plv_valueCar = _plv_valueResult;
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueAssigned);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1120,8 +1120,8 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
 				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
-				args.push_back(Get_plv_env());
-				args.push_back(Get_plv_sig());
+				args.push_back(Get_env());
+				args.push_back(Get_sig());
 				args.push_back(plv_valueCar);
 				args.push_back(plv_valueIdx);
 				args.push_back(plv_valueAssigned);
@@ -1141,8 +1141,8 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueIdx);
 		args.push_back(plv_valueAssigned);
@@ -1161,8 +1161,8 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 			if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
 			llvm::Value *plv_valueIdx = _plv_valueResult;
 			std::vector<llvm::Value *> args;
-			args.push_back(Get_plv_env());
-			args.push_back(Get_plv_sig());
+			args.push_back(Get_env());
+			args.push_back(Get_sig());
 			args.push_back(plv_valueCar);
 			args.push_back(plv_valueIdx);
 			args.push_back(plv_pIteratorAssigned);
@@ -1198,8 +1198,8 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *plv_valueCar = _plv_valueResult;
 		std::vector<llvm::Value *> args;
-		args.push_back(Get_plv_env());
-		args.push_back(Get_plv_sig());
+		args.push_back(Get_env());
+		args.push_back(Get_sig());
 		args.push_back(plv_valueResult);
 		args.push_back(plv_valueCar);
 		if (pExpr->GetBlock() == nullptr) {
@@ -1328,8 +1328,8 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CallUnaryOp(
 	llvm::Value *plv_valueChild = _plv_valueResult;
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
-	args.push_back(Get_plv_sig());
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
 	args.push_back(plv_valueResult);
 	args.push_back(plv_valueChild);
 	llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1349,8 +1349,8 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CallBinaryOp(
 	llvm::Value *plv_valueRight = _plv_valueResult;
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
-	args.push_back(Get_plv_sig());
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
 	args.push_back(plv_valueResult);
 	args.push_back(plv_valueLeft);
 	args.push_back(plv_valueRight);
@@ -1389,7 +1389,7 @@ void CodeGeneratorLLVM::GenCode_CondBrErrorExit(const llvm::Twine &nameForContin
 {
 	GenCode_CondBrErrorExit(
 		_builder.CreateICmpULE(
-			_builder.CreateLoad(_builder.CreateStructGEP(Get_plv_sig(), 0), "sigType"),
+			_builder.CreateLoad(_builder.CreateStructGEP(Get_sig(), 0), "sigType"),
 			llvm::ConstantInt::get(_builder.getInt32Ty(), SIGTYPE_ErrorSuspended)),
 		nameForContinueBB);
 }
@@ -1438,8 +1438,8 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CreateIterator(
 	llvm::Value *plv_ppIterator = _builder.CreateAlloca(
 		_pStructType_Iterator->getPointerTo(), nullptr, nameForPP);
 	std::vector<llvm::Value *> args;
-	args.push_back(Get_plv_env());
-	args.push_back(Get_plv_sig());
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
 	args.push_back(plv_value);
 	args.push_back(plv_ppIterator);
 	llvm::Value *plv_successFlag = _builder.CreateCall(
