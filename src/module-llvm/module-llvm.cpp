@@ -190,7 +190,7 @@ extern "C" bool GuraStub_IndexSet(
 	}
 }
 
-extern "C" bool GuraStub_IndexSetIterator(
+extern "C" bool GuraStub_IndexSetByIterator(
 	Environment &env, Signal &sig,
 	Value &valueCar, const Value &valueIdx, Iterator *pIteratorAssigned)
 {
@@ -279,20 +279,20 @@ class CodeGeneratorLLVM : public CodeGenerator {
 public:
 	class Context {
 	private:
-		llvm::Value *_pValue_env;
-		llvm::Value *_pValue_sig;
+		llvm::Value *_plv_env;
+		llvm::Value *_plv_sig;
 		llvm::BasicBlock *_pBasicBlockEntry;
 		llvm::BasicBlock *_pBasicBlockExit;
 		llvm::BasicBlock *_pBasicBlockRelease;
 	public:
-		inline Context(llvm::Value *pValue_env, llvm::Value *pValue_sig,
+		inline Context(llvm::Value *plv_env, llvm::Value *plv_sig,
 					   llvm::BasicBlock *pBasicBlockEntry, llvm::BasicBlock *pBasicBlockExit,
 					   llvm::BasicBlock *pBasicBlockRelease) :
-			_pValue_env(pValue_env), _pValue_sig(pValue_sig),
+			_plv_env(plv_env), _plv_sig(plv_sig),
 			_pBasicBlockEntry(pBasicBlockEntry), _pBasicBlockExit(pBasicBlockExit),
 			_pBasicBlockRelease(pBasicBlockRelease) {}
-		inline llvm::Value *GetValue_env() { return _pValue_env; }
-		inline llvm::Value *GetValue_sig() { return _pValue_sig; }
+		inline llvm::Value *GetValue_env() { return _plv_env; }
+		inline llvm::Value *GetValue_sig() { return _plv_sig; }
 		inline llvm::BasicBlock *GetBasicBlockEntry() { return _pBasicBlockEntry; }
 		inline llvm::BasicBlock *GetBasicBlockExit() { return _pBasicBlockExit; }
 		inline llvm::BasicBlock *GetBasicBlockRelease() { return _pBasicBlockRelease; }
@@ -302,7 +302,7 @@ private:
 	llvm::LLVMContext &_context;
 	std::unique_ptr<llvm::Module> _pModule;
 	llvm::IRBuilder<> _builder;
-	llvm::Value *_pValueResult;
+	llvm::Value *_plv_valueResult;
 	ContextStack _contextStack;
 	llvm::StructType *_pStructType_Value;
 	llvm::StructType *_pStructType_ValueList;
@@ -345,34 +345,39 @@ public:
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
 	bool GenCode_AssignToIdentifier(Environment &env, Signal &sig,
-									const Expr_Identifier *pExpr, llvm::Value *pValueAssigned);
+									const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned);
 	bool GenCode_AssignToLister(Environment &env, Signal &sig,
-								const Expr_Lister *pExpr, llvm::Value *pValueAssigned);
+								const Expr_Lister *pExpr, llvm::Value *plv_valueAssigned,
+								bool alwaysIterableFlag);
 	bool GenCode_AssignToIndexer(Environment &env, Signal &sig,
-								 const Expr_Indexer *pExpr, llvm::Value *pValueAssigned);
+								 const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned,
+								 bool alwaysIterableFlag);
 	bool GenCode_AssignToCaller(Environment &env, Signal &sig,
 								const Expr_Caller *pExpr, const Expr *pExprAssigned);
 	bool GenCode_AssignToMember(Environment &env, Signal &sig,
-								const Expr_Member *pExpr, llvm::Value *pValueAssigned);
+								const Expr_Member *pExpr, llvm::Value *plv_valueAssigned);
 private:
-	void CreateCondBrErrorExit();
-	void CreateCondBrErrorExit(llvm::Value *pValue_successFlag);
-	llvm::Value *CreateCheckValType(llvm::Value *pValue, UShort valType);
-	llvm::Value *CreateCheckValTypeListOrIterator(llvm::Value *pValue);
-	llvm::Value *CreateBinaryOp(
+	void GenCode_CondBrErrorExit(const llvm::Twine &nameForContinueBB);
+	void GenCode_CondBrErrorExit(llvm::Value *plv_successFlag, const llvm::Twine &nameForContinueBB);
+	llvm::Value *GenCode_CheckValType(llvm::Value *plv_value, UShort valType);
+	llvm::Value *GenCode_CheckValTypeListOrIterator(llvm::Value *plv_value);
+	llvm::Value *GenCode_CallBinaryOp(
 		Environment &env, Signal &sig, const Operator *pOperator,
 		const Expr *pExprLeft, const Expr *pExprRight);
-	llvm::Value *CreateUnaryOp(
+	llvm::Value *GenCode_CallUnaryOp(
 		Environment &env, Signal &sig, const Operator *pOperator, const Expr *pExprChild);
-	llvm::Value *CreateAllocaValue(const llvm::Twine &name, bool initFlag = true);
-	llvm::Value *GetCPointerToPtr(const void *p, llvm::Type *pType);
+	llvm::Value *GenCode_AllocaValue(const llvm::Twine &name, bool initFlag = true);
+	llvm::Value *GenCode_CastCPointerToPtr(const void *p, llvm::Type *pType);
 	llvm::Function *CreateBridgeFunction(Environment &env, Signal &sig,
 										 const Expr *pExpr, const char *name);
+	llvm::Value *GenCode_CreateIterator(
+		llvm::Value *plv_value, const llvm::Twine &nameForPP, const llvm::Twine &nameForP);
+	llvm::Value *GenCode_ReleaseIterator(llvm::Value *plv_pIterator);
 };
 
 CodeGeneratorLLVM::CodeGeneratorLLVM() :
 	_context(llvm::getGlobalContext()),	_builder(llvm::getGlobalContext()),
-	_pValueResult(nullptr), _pStructType_Value(nullptr),
+	_plv_valueResult(nullptr), _pStructType_Value(nullptr),
 	_pStructType_ValueList(nullptr), _pStructType_Signal(nullptr),
 	_pStructType_Symbol(nullptr), _pStructType_Iterator(nullptr)
 {
@@ -634,7 +639,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_IndexSetIterator(struct.Environment*, struct.Signal*,
+		// declare i1 @GuraStub_IndexSetByIterator(struct.Environment*, struct.Signal*,
 		//                               struct.Value*, struct.Value*, struct.Iterator*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
@@ -647,7 +652,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
-			"GuraStub_IndexSetIterator",
+			"GuraStub_IndexSetByIterator",
 			_pModule.get());
 	} while (0);
 	do {
@@ -790,17 +795,17 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 {
 	const Value &value = pExprValue->GetValue();
 	if (value.Is_number()) {
-		_pValueResult = CreateAllocaValue("value");
+		_plv_valueResult = GenCode_AllocaValue("value");
 		std::vector<llvm::Value *> args;
-		args.push_back(_pValueResult);
+		args.push_back(_plv_valueResult);
 		args.push_back(llvm::ConstantFP::get(_builder.getDoubleTy(), value.GetDouble()));
 		_builder.CreateCall(
 			_pModule->getFunction("GuraStub_CreateValue_number"),
 			args);
 	} else if (value.Is_string()) {
-		_pValueResult = CreateAllocaValue("value");
+		_plv_valueResult = GenCode_AllocaValue("value");
 		std::vector<llvm::Value *> args;
-		args.push_back(_pValueResult);
+		args.push_back(_plv_valueResult);
 		args.push_back(_builder.CreateGlobalStringPtr(value.GetString()));
 		_builder.CreateCall(
 			_pModule->getFunction("GuraStub_CreateValue_string"),
@@ -808,10 +813,10 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 	} else if (value.Is_binary()) {
 		const Binary &binary = value.GetBinary();
 		std::string buff(binary.data(), binary.size());
-		_pValueResult = CreateAllocaValue("value");
+		_plv_valueResult = GenCode_AllocaValue("value");
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
-		args.push_back(_pValueResult);
+		args.push_back(_plv_valueResult);
 		args.push_back(_builder.CreateGlobalStringPtr(buff));
 		args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), binary.size()));
 		_builder.CreateCall(
@@ -826,35 +831,36 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 
 bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr)
 {
-	_pValueResult = CreateAllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
+	_plv_valueResult = GenCode_AllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	args.push_back(_pValueResult);
-	args.push_back(GetCPointerToPtr(pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
-	llvm::Value *pValue_successFlag = _builder.CreateCall(
+	args.push_back(_plv_valueResult);
+	args.push_back(GenCode_CastCPointerToPtr(
+					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
+	llvm::Value *plv_successFlag = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_LookupValue"),
 		args, "successFlag");
-	CreateCondBrErrorExit(pValue_successFlag);
+	GenCode_CondBrErrorExit(plv_successFlag, "bb.identifier.success");
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 	Environment &env, Signal &sig,
-	const Expr_Identifier *pExpr, llvm::Value *pValueAssigned)
+	const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned)
 {
 	ULong extra = EXTRA_None;
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	args.push_back(GetCPointerToPtr(
+	args.push_back(GenCode_CastCPointerToPtr(
 					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
-	args.push_back(pValueAssigned);
+	args.push_back(plv_valueAssigned);
 	args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), extra));
-	llvm::Value *pValue_successFlag = _builder.CreateCall(
+	llvm::Value *plv_successFlag = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_AssignValue"),
 		args, "successFlag");
-	CreateCondBrErrorExit(pValue_successFlag);
+	GenCode_CondBrErrorExit(plv_successFlag, "bb.assignToIdentifier.success");
 	return true;
 }
 
@@ -877,49 +883,85 @@ bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal &sig, const Expr_
 
 bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr_Lister *pExpr)
 {
-	llvm::Value *pValueResult = CreateAllocaValue("value");
+	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
-	args.push_back(pValueResult);
-	llvm::Value *pValue_valList = _builder.CreateCall(
+	args.push_back(plv_valueResult);
+	llvm::Value *plv_valList = _builder.CreateCall(
 		_pModule->getFunction("GuraStub_CreateValueList"),
 		args, "valList");
 	foreach_const (ExprOwner, ppExpr, pExpr->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (!pExpr->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *pValueElem = _pValueResult;
+		llvm::Value *plv_valueElem = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		args.push_back(pValue_valList);
-		args.push_back(pValueElem);
-		llvm::Value *pValue_successFlag = _builder.CreateCall(
+		args.push_back(plv_valList);
+		args.push_back(plv_valueElem);
+		llvm::Value *plv_successFlag = _builder.CreateCall(
 			_pModule->getFunction("GuraStub_AddValueList"),
 			args, "successFlag");
-		CreateCondBrErrorExit(pValue_successFlag);
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.lister.continue");
 	}
-	_pValueResult = pValueResult;
+	_plv_valueResult = plv_valueResult;
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToLister(
 	Environment &env, Signal &sig,
-	const Expr_Lister *pExpr, llvm::Value *pValueAssigned)
+	const Expr_Lister *pExpr, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
 {
-	foreach_const (ExprOwner, ppExprElem, pExpr->GetExprOwner()) {
-		const Expr *pExprElem = *ppExprElem;
-		if (pExprElem->IsIdentifier()) {
-			const Expr_Identifier *pExprElemEx = dynamic_cast<const Expr_Identifier *>(pExprElem);
-			if (!GenCode_AssignToIdentifier(env, sig, pExprElemEx, pValueAssigned)) return false;
-		} else if (pExprElem->IsIndexer()) {
-			const Expr_Indexer *pExprElemEx = dynamic_cast<const Expr_Indexer *>(pExprElem);
-			if (!GenCode_AssignToIndexer(env, sig, pExprElemEx, pValueAssigned)) return false;
-		} else if (pExprElem->IsMember()) {
-			const Expr_Member *pExprElemEx = dynamic_cast<const Expr_Member *>(pExprElem);
-			if (!GenCode_AssignToMember(env, sig, pExprElemEx, pValueAssigned)) return false;
-		}
+	if (pExpr->GetExprOwner().empty()) {
+		// .....
 	}
-	_pValueResult = pValueAssigned;
+	llvm::BasicBlock *pBasicBlockDone =
+		llvm::BasicBlock::Create(_context, "bb.assignToLister.done");
+	if (!alwaysIterableFlag) {
+		llvm::BasicBlock *pBasicBlockScalar =
+			llvm::BasicBlock::Create(_context, "bb.assignToLister.scalar");
+		llvm::BasicBlock *pBasicBlockIterable =
+			llvm::BasicBlock::Create(_context, "bb.assignToLister.iterable");
+		_builder.CreateCondBr(
+			GenCode_CheckValTypeListOrIterator(plv_valueAssigned),
+			pBasicBlockIterable, pBasicBlockScalar);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockScalar);
+		_builder.SetInsertPoint(pBasicBlockScalar);
+		do {
+			// [i] = scalar
+			// [i, j, k] = scalar
+			foreach_const (ExprOwner, ppExprElem, pExpr->GetExprOwner()) {
+				const Expr *pExprElem = *ppExprElem;
+				if (pExprElem->IsIdentifier()) {
+					const Expr_Identifier *pExprElemEx =
+						dynamic_cast<const Expr_Identifier *>(pExprElem);
+					if (!GenCode_AssignToIdentifier(
+							env, sig, pExprElemEx, plv_valueAssigned)) return false;
+				} else if (pExprElem->IsIndexer()) {
+					const Expr_Indexer *pExprElemEx =
+						dynamic_cast<const Expr_Indexer *>(pExprElem);
+					if (!GenCode_AssignToIndexer(
+							env, sig, pExprElemEx, plv_valueAssigned, false)) return false;
+				} else if (pExprElem->IsMember()) {
+					const Expr_Member *pExprElemEx =
+						dynamic_cast<const Expr_Member *>(pExprElem);
+					if (!GenCode_AssignToMember(
+							env, sig, pExprElemEx, plv_valueAssigned)) return false;
+				}
+			}
+		} while (0);
+		_builder.CreateBr(pBasicBlockDone);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockIterable);
+		_builder.SetInsertPoint(pBasicBlockIterable);
+	}
+	do {
+		// [i, j, k] = iterable
+		
+	} while (0);
+	_builder.CreateBr(pBasicBlockDone);
+	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
+	_builder.SetInsertPoint(pBasicBlockDone);
+	_plv_valueResult = plv_valueAssigned;
 	return true;
 }
 
@@ -932,70 +974,76 @@ bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, Signal &sig, const Expr
 bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Expr_Indexer *pExpr)
 {
 	if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *pValueCar = _pValueResult;
-	llvm::Value *pValueResult = CreateAllocaValue("value");
+	llvm::Value *plv_valueCar = _plv_valueResult;
+	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		args.push_back(pValueResult);
-		args.push_back(pValueCar);
-		llvm::Value *pValue_successFlag = _builder.CreateCall(
+		args.push_back(plv_valueResult);
+		args.push_back(plv_valueCar);
+		llvm::Value *plv_successFlag = _builder.CreateCall(
 			_pModule->getFunction("GuraStub_EmptyIndexGet"),
 			args, "successFlag");
-		CreateCondBrErrorExit(pValue_successFlag);
-	} else {
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.indexer.continue");
+		_plv_valueResult = plv_valueResult;
+		return true;
+	}
+	std::vector<llvm::Value *> args;
+	args.push_back(GetValue_env());
+	args.push_back(plv_valueResult);
+	llvm::Value *plv_valList = _builder.CreateCall(
+		_pModule->getFunction("GuraStub_CreateValueList"),
+		args, "valList");
+	foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
+		const Expr *pExprIdx = *ppExprIdx;
+		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
-		args.push_back(pValueResult);
-		llvm::Value *pValue_valList = _builder.CreateCall(
-			_pModule->getFunction("GuraStub_CreateValueList"),
-			args, "valList");
-		foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
-			const Expr *pExprIdx = *ppExprIdx;
-			if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
-			llvm::Value *pValueIdx = _pValueResult;
-			std::vector<llvm::Value *> args;
-			args.push_back(GetValue_env());
-			args.push_back(GetValue_sig());
-			args.push_back(pValue_valList);
-			args.push_back(pValueCar);
-			args.push_back(pValueIdx);
-			llvm::Value *pValue_successFlag = _builder.CreateCall(
-				_pModule->getFunction("GuraStub_IndexGet"),
-				args, "successFlag");
-			CreateCondBrErrorExit(pValue_successFlag);
-		}
+		args.push_back(GetValue_sig());
+		args.push_back(plv_valList);
+		args.push_back(plv_valueCar);
+		args.push_back(plv_valueIdx);
+		llvm::Value *plv_successFlag = _builder.CreateCall(
+			_pModule->getFunction("GuraStub_IndexGet"),
+			args, "successFlag");
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.indexer.continue");
 	}
-	_pValueResult = pValueResult;
+	_plv_valueResult = plv_valueResult;
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	Environment &env, Signal &sig,
-	const Expr_Indexer *pExpr, llvm::Value *pValueAssigned)
+	const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
 {
 	if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *pValueCar = _pValueResult;
+	llvm::Value *plv_valueCar = _plv_valueResult;
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		args.push_back(pValueCar);
-		args.push_back(pValueAssigned);
-		llvm::Value *pValue_successFlag = _builder.CreateCall(
+		args.push_back(plv_valueCar);
+		args.push_back(plv_valueAssigned);
+		llvm::Value *plv_successFlag = _builder.CreateCall(
 			_pModule->getFunction("GuraStub_EmptyIndexSet"),
 			args, "successFlag");
-		CreateCondBrErrorExit(pValue_successFlag);
-	} else {
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.assignToIndexer.continue");
+		_plv_valueResult = plv_valueAssigned;
+		return true;
+	}
+	llvm::BasicBlock *pBasicBlockDone =
+		llvm::BasicBlock::Create(_context, "bb.assignToIndexer.done");
+	if (!alwaysIterableFlag) {
 		llvm::BasicBlock *pBasicBlockScalar =
-			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.scalar", GetFunctionCur());
+			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.scalar");
 		llvm::BasicBlock *pBasicBlockIterable =
 			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.iterable");
-		llvm::BasicBlock *pBasicBlockDone =
-			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.done");
 		_builder.CreateCondBr(
-			CreateCheckValTypeListOrIterator(pValueAssigned), pBasicBlockIterable, pBasicBlockScalar);
+			GenCode_CheckValTypeListOrIterator(plv_valueAssigned),
+			pBasicBlockIterable, pBasicBlockScalar);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockScalar);
 		_builder.SetInsertPoint(pBasicBlockScalar);
 		do {
 			// tgt[i] = scalar
@@ -1003,91 +1051,74 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
 				const Expr *pExprIdx = *ppExprIdx;
 				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
-				llvm::Value *pValueIdx = _pValueResult;
+				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
 				args.push_back(GetValue_env());
 				args.push_back(GetValue_sig());
-				args.push_back(pValueCar);
-				args.push_back(pValueIdx);
-				args.push_back(pValueAssigned);
-				llvm::Value *pValue_successFlag = _builder.CreateCall(
+				args.push_back(plv_valueCar);
+				args.push_back(plv_valueIdx);
+				args.push_back(plv_valueAssigned);
+				llvm::Value *plv_successFlag = _builder.CreateCall(
 					_pModule->getFunction("GuraStub_IndexSet"),
 					args, "successFlag");
-				CreateCondBrErrorExit(pValue_successFlag);
+				GenCode_CondBrErrorExit(plv_successFlag, "bb.assignToIndexer.continue");
 			}
 		} while (0);
 		_builder.CreateBr(pBasicBlockDone);
 		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockIterable);
 		_builder.SetInsertPoint(pBasicBlockIterable);
-		if (pExpr->GetExprOwner().size() == 1) {
-			// tgt[i] = iterable
-			const Expr *pExprIdx = pExpr->GetExprOwner().front();
+	}
+	if (pExpr->GetExprOwner().size() == 1) {
+		// tgt[i] = iterable
+		const Expr *pExprIdx = pExpr->GetExprOwner().front();
+		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+		llvm::Value *plv_valueIdx = _plv_valueResult;
+		std::vector<llvm::Value *> args;
+		args.push_back(GetValue_env());
+		args.push_back(GetValue_sig());
+		args.push_back(plv_valueCar);
+		args.push_back(plv_valueIdx);
+		args.push_back(plv_valueAssigned);
+		llvm::Value *plv_successFlag = _builder.CreateCall(
+			_pModule->getFunction("GuraStub_IndexSet"),
+			args, "successFlag");
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.assignToIndexer.continue");
+	} else {
+		// tgt[i, j, k] = iterable
+		llvm::BasicBlock *pBasicBlockDone =
+			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.iterable.done");
+		llvm::Value *plv_pIteratorAssigned = GenCode_CreateIterator(
+			plv_valueAssigned, "ppIteratorAssigned", "pIteratorAssigned");
+		foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
+			const Expr *pExprIdx = *ppExprIdx;
 			if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
-			llvm::Value *pValueIdx = _pValueResult;
+			llvm::Value *plv_valueIdx = _plv_valueResult;
 			std::vector<llvm::Value *> args;
 			args.push_back(GetValue_env());
 			args.push_back(GetValue_sig());
-			args.push_back(pValueCar);
-			args.push_back(pValueIdx);
-			args.push_back(pValueAssigned);
-			llvm::Value *pValue_successFlag = _builder.CreateCall(
-				_pModule->getFunction("GuraStub_IndexSet"),
-				args, "successFlag");
-			CreateCondBrErrorExit(pValue_successFlag);
-		} else {
-			// tgt[i, j, k] = iterable
-			llvm::BasicBlock *pBasicBlockDone =
-				llvm::BasicBlock::Create(_context, "bb.assignToIndexer.iterable.done");
-			llvm::Value *pValue_ppIteratorAssigned = _builder.CreateAlloca(
-				_pStructType_Iterator->getPointerTo(), nullptr, "ppIteratorAssigned");
-			do {
-				std::vector<llvm::Value *> args;
-				args.push_back(GetValue_env());
-				args.push_back(GetValue_sig());
-				args.push_back(pValueAssigned);
-				args.push_back(pValue_ppIteratorAssigned);
-				llvm::Value *pValue_successFlag = _builder.CreateCall(
-					_pModule->getFunction("GuraStub_CreateIterator"),
-					args, "successFlag");
-				CreateCondBrErrorExit(pValue_successFlag);
-			} while (0);
-			llvm::Value *pValue_pIteratorAssigned = _builder.CreateLoad(
-				pValue_ppIteratorAssigned, "pIteratorAssigned");
-			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
-				const Expr *pExprIdx = *ppExprIdx;
-				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
-				llvm::Value *pValueIdx = _pValueResult;
-				std::vector<llvm::Value *> args;
-				args.push_back(GetValue_env());
-				args.push_back(GetValue_sig());
-				args.push_back(pValueCar);
-				args.push_back(pValueIdx);
-				args.push_back(pValue_pIteratorAssigned);
-				llvm::Value *pValue_continueFlag = _builder.CreateCall(
-					_pModule->getFunction("GuraStub_IndexSetIterator"),
-					args, "continueFlag");
-				llvm::BasicBlock *pBasicBlockContinue =
-					llvm::BasicBlock::Create(_context, "bb.assignToIndexer.iterable.continue", GetFunctionCur());
-				_builder.CreateCondBr(pValue_continueFlag, pBasicBlockContinue, pBasicBlockDone);
-				_builder.SetInsertPoint(pBasicBlockContinue);
-			}
-			_builder.CreateBr(pBasicBlockDone);
-			GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
-			_builder.SetInsertPoint(pBasicBlockDone);
-			do {
-				std::vector<llvm::Value *> args;
-				args.push_back(pValue_pIteratorAssigned);
-				_builder.CreateCall(
-					_pModule->getFunction("GuraStub_ReleaseIterator"),
-					args);
-			} while (0);
-			CreateCondBrErrorExit();
+			args.push_back(plv_valueCar);
+			args.push_back(plv_valueIdx);
+			args.push_back(plv_pIteratorAssigned);
+			llvm::Value *plv_continueFlag = _builder.CreateCall(
+				_pModule->getFunction("GuraStub_IndexSetByIterator"),
+				args, "continueFlag");
+			llvm::BasicBlock *pBasicBlockContinue =
+				llvm::BasicBlock::Create(_context,
+										 "bb.assignToIndexer.iterable.continue",
+										 GetFunctionCur());
+			_builder.CreateCondBr(plv_continueFlag, pBasicBlockContinue, pBasicBlockDone);
+			_builder.SetInsertPoint(pBasicBlockContinue);
 		}
 		_builder.CreateBr(pBasicBlockDone);
 		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
 		_builder.SetInsertPoint(pBasicBlockDone);
+		GenCode_ReleaseIterator(plv_pIteratorAssigned);
+		GenCode_CondBrErrorExit("bb.assignToIndexer.continue");
 	}
-	_pValueResult = pValueAssigned;
+	_builder.CreateBr(pBasicBlockDone);
+	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
+	_builder.SetInsertPoint(pBasicBlockDone);
+	_plv_valueResult = plv_valueAssigned;
 	return true;
 }
 
@@ -1096,14 +1127,14 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 	if (pExpr->GetCar()->IsMember()) {
 		
 	} else {
-		llvm::Value *pValueResult = CreateAllocaValue("value");
+		llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *pValueCar = _pValueResult;
+		llvm::Value *plv_valueCar = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(GetValue_env());
 		args.push_back(GetValue_sig());
-		args.push_back(pValueResult);
-		args.push_back(pValueCar);
+		args.push_back(plv_valueResult);
+		args.push_back(plv_valueCar);
 		if (pExpr->GetBlock() == nullptr) {
 			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
 			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
@@ -1123,11 +1154,11 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 							   pFunction, _builder.getInt8Ty()->getPointerTo()));
 		}
 		args.push_back(llvm::ConstantPointerNull::get(_pStructType_Value->getPointerTo()));
-		llvm::Value *pValue_successFlag = _builder.CreateCall(
+		llvm::Value *plv_successFlag = _builder.CreateCall(
 			_pModule->getFunction("GuraStub_CallFunction"),
 			args, "successFlag");
-		CreateCondBrErrorExit(pValue_successFlag);
-		_pValueResult = pValueResult;
+		GenCode_CondBrErrorExit(plv_successFlag, "bb.caller.continue");
+		_plv_valueResult = plv_valueResult;
 	}
 	return true;
 }
@@ -1138,21 +1169,21 @@ bool CodeGeneratorLLVM::GenCode_AssignToCaller(
 {
 	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprAssigned, "FunctionBody");
 	if (pFunction == nullptr) return false;
-	_pValueResult = nullptr;
+	_plv_valueResult = nullptr;
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal &sig, const Expr_UnaryOp *pExpr)
 {
-	_pValueResult = CreateUnaryOp(env, sig, pExpr->GetOperator(), pExpr->GetChild());
-	return _pValueResult != nullptr;
+	_plv_valueResult = GenCode_CallUnaryOp(env, sig, pExpr->GetOperator(), pExpr->GetChild());
+	return _plv_valueResult != nullptr;
 }
 
 bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal &sig, const Expr_BinaryOp *pExpr)
 {
-	_pValueResult = CreateBinaryOp(env, sig, pExpr->GetOperator(),
-								   pExpr->GetLeft(), pExpr->GetRight());
-	return _pValueResult != nullptr;
+	_plv_valueResult = GenCode_CallBinaryOp(env, sig, pExpr->GetOperator(),
+											pExpr->GetLeft(), pExpr->GetRight());
+	return _plv_valueResult != nullptr;
 }
 
 bool CodeGeneratorLLVM::GenCode_Quote(Environment &env, Signal &sig, const Expr_Quote *pExpr)
@@ -1179,29 +1210,34 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 		if (!GenCode_AssignToCaller(env, sig, pExprEx, pExpr->GetRight())) return false;
 		return true;
 	}
-	llvm::Value *pValueAssigned = nullptr;
+	bool alwaysIterableFlag = false;
+	llvm::Value *plv_valueAssigned = nullptr;
 	if (pExpr->GetOperatorToApply() == nullptr) {
 		if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
-		pValueAssigned = _pValueResult;
+		plv_valueAssigned = _plv_valueResult;
+		alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
 	} else {
-		pValueAssigned = CreateBinaryOp(env, sig, pExpr->GetOperatorToApply(),
-										pExpr->GetLeft(), pExpr->GetRight());
-		if (pValueAssigned == nullptr) return false;
+		plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
+												 pExpr->GetLeft(), pExpr->GetRight());
+		if (plv_valueAssigned == nullptr) return false;
+		alwaysIterableFlag = true;
 	}
 	if (pExpr->GetLeft()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetLeft());
-		if (!GenCode_AssignToIdentifier(env, sig, pExprEx, pValueAssigned)) return false;
+		if (!GenCode_AssignToIdentifier(env, sig, pExprEx, plv_valueAssigned)) return false;
 	} else if (pExpr->GetLeft()->IsIndexer()) {
 		const Expr_Indexer *pExprEx = dynamic_cast<const Expr_Indexer *>(pExpr->GetLeft());
-		if (!GenCode_AssignToIndexer(env, sig, pExprEx, pValueAssigned)) return false;
+		if (!GenCode_AssignToIndexer(env, sig,
+									 pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
 	} else if (pExpr->GetLeft()->IsLister()) {
 		const Expr_Lister *pExprEx = dynamic_cast<const Expr_Lister *>(pExpr->GetLeft());
-		if (!GenCode_AssignToLister(env, sig, pExprEx, pValueAssigned)) return false;
+		if (!GenCode_AssignToLister(env, sig,
+									pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
 	} else if (pExpr->GetLeft()->IsMember()) {
 		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetLeft());
-		if (!GenCode_AssignToMember(env, sig, pExprEx, pValueAssigned)) return false;
+		if (!GenCode_AssignToMember(env, sig, pExprEx, plv_valueAssigned)) return false;
 	}
-	_pValueResult = pValueAssigned;
+	_plv_valueResult = plv_valueAssigned;
 	return true;
 }
 
@@ -1213,114 +1249,116 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 
 bool CodeGeneratorLLVM::GenCode_AssignToMember(
 	Environment &env, Signal &sig,
-	const Expr_Member *pExpr, llvm::Value *pValueAssigned)
+	const Expr_Member *pExpr, llvm::Value *plv_valueAssigned)
 {
 	return true;
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateUnaryOp(
+llvm::Value *CodeGeneratorLLVM::GenCode_CallUnaryOp(
 	Environment &env, Signal &sig, const Operator *pOperator, const Expr *pExprChild)
 {
 	if (!pExprChild->GenerateCode(env, sig, *this)) return nullptr;
-	llvm::Value *pValueChild = _pValueResult;
-	llvm::Value *pValueResult = CreateAllocaValue("value");
+	llvm::Value *plv_valueChild = _plv_valueResult;
+	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	args.push_back(pValueResult);
-	args.push_back(pValueChild);
-	llvm::Value *pValue_successFlag = _builder.CreateCall(
+	args.push_back(plv_valueResult);
+	args.push_back(plv_valueChild);
+	llvm::Value *plv_successFlag = _builder.CreateCall(
 		_pModule->getFunction(std::string("GuraStub_UnaryOp_") + pOperator->GetName()),
 		args, "successFlag");
-	CreateCondBrErrorExit(pValue_successFlag);
-	return pValueResult;
+	GenCode_CondBrErrorExit(plv_successFlag, "bb.callUnaryOp.success");
+	return plv_valueResult;
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateBinaryOp(
+llvm::Value *CodeGeneratorLLVM::GenCode_CallBinaryOp(
 	Environment &env, Signal &sig, const Operator *pOperator,
 	const Expr *pExprLeft, const Expr *pExprRight)
 {
 	if (!pExprLeft->GenerateCode(env, sig, *this)) return nullptr;
-	llvm::Value *pValueLeft = _pValueResult;
+	llvm::Value *plv_valueLeft = _plv_valueResult;
 	if (!pExprRight->GenerateCode(env, sig, *this)) return nullptr;
-	llvm::Value *pValueRight = _pValueResult;
-	llvm::Value *pValueResult = CreateAllocaValue("value");
+	llvm::Value *plv_valueRight = _plv_valueResult;
+	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(GetValue_env());
 	args.push_back(GetValue_sig());
-	args.push_back(pValueResult);
-	args.push_back(pValueLeft);
-	args.push_back(pValueRight);
-	llvm::Value *pValue_successFlag = _builder.CreateCall(
+	args.push_back(plv_valueResult);
+	args.push_back(plv_valueLeft);
+	args.push_back(plv_valueRight);
+	llvm::Value *plv_successFlag = _builder.CreateCall(
 		_pModule->getFunction(std::string("GuraStub_BinaryOp_") + pOperator->GetName()),
 		args, "successFlag");
-	CreateCondBrErrorExit(pValue_successFlag);
-	return pValueResult;
+	GenCode_CondBrErrorExit(plv_successFlag, "bb.callBinaryOp.success");
+	return plv_valueResult;
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateCheckValType(llvm::Value *pValue, UShort valType)
+llvm::Value *CodeGeneratorLLVM::GenCode_CheckValType(llvm::Value *plv_value, UShort valType)
 {
-	llvm::Value *pValue_valType = _builder.CreateLoad(
+	llvm::Value *plv_valType = _builder.CreateLoad(
 		_builder.CreatePointerCast(
-			pValue, _builder.getInt16Ty()->getPointerTo(), "valType"));
+			plv_value, _builder.getInt16Ty()->getPointerTo(), "valType"));
 	return _builder.CreateICmpEQ(
-		llvm::ConstantInt::get(_builder.getInt16Ty(), valType), pValue_valType);
+		llvm::ConstantInt::get(_builder.getInt16Ty(), valType), plv_valType);
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateCheckValTypeListOrIterator(llvm::Value *pValue)
+llvm::Value *CodeGeneratorLLVM::GenCode_CheckValTypeListOrIterator(llvm::Value *plv_value)
 {
-	llvm::Value *pValue_valType = _builder.CreateLoad(
+	llvm::Value *plv_valType = _builder.CreateLoad(
 		_builder.CreatePointerCast(
-			pValue, _builder.getInt16Ty()->getPointerTo(), "valType"));
+			plv_value, _builder.getInt16Ty()->getPointerTo(), "valType"));
 	return _builder.CreateOr(
 		_builder.CreateICmpEQ(
 			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_list),
-			pValue_valType),
+			plv_valType),
 		_builder.CreateICmpEQ(
 			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_iterator),
-			pValue_valType),
+			plv_valType),
 		"valueIsListOrIteratorFlag");
 }
 
-void CodeGeneratorLLVM::CreateCondBrErrorExit()
+void CodeGeneratorLLVM::GenCode_CondBrErrorExit(const llvm::Twine &nameForContinueBB)
 {
-	CreateCondBrErrorExit(
+	GenCode_CondBrErrorExit(
 		_builder.CreateICmpULE(
 			_builder.CreateLoad(_builder.CreateStructGEP(GetValue_sig(), 0), "sigType"),
-			llvm::ConstantInt::get(_builder.getInt32Ty(), SIGTYPE_ErrorSuspended)));
+			llvm::ConstantInt::get(_builder.getInt32Ty(), SIGTYPE_ErrorSuspended)),
+		nameForContinueBB);
 }
 
-void CodeGeneratorLLVM::CreateCondBrErrorExit(llvm::Value *pValue_successFlag)
+void CodeGeneratorLLVM::GenCode_CondBrErrorExit(
+	llvm::Value *plv_successFlag, const llvm::Twine &nameForContinueBB)
 {
 	llvm::BasicBlock *pBasicBlockContinue =
-		llvm::BasicBlock::Create(_context, "bb.function.continue", GetFunctionCur());
-	_builder.CreateCondBr(pValue_successFlag, pBasicBlockContinue, GetBasicBlockExit());
+		llvm::BasicBlock::Create(_context, nameForContinueBB, GetFunctionCur());
+	_builder.CreateCondBr(plv_successFlag, pBasicBlockContinue, GetBasicBlockExit());
 	_builder.SetInsertPoint(pBasicBlockContinue);
 }
 
-llvm::Value *CodeGeneratorLLVM::CreateAllocaValue(const llvm::Twine &name, bool initFlag)
+llvm::Value *CodeGeneratorLLVM::GenCode_AllocaValue(const llvm::Twine &name, bool initFlag)
 {
 	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
 	_builder.SetInsertPoint(GetBasicBlockEntry());
-	llvm::Value *pValue = _builder.CreateAlloca(_pStructType_Value, nullptr, name);
+	llvm::Value *plv_value = _builder.CreateAlloca(_pStructType_Value, nullptr, name);
 	if (initFlag) {
 		_builder.CreateStore(
 			llvm::ConstantInt::get(_builder.getInt32Ty(), 0x00000000),
-			_builder.CreatePointerCast(pValue, _builder.getInt32Ty()->getPointerTo(), "valHeader"));
+			_builder.CreatePointerCast(plv_value, _builder.getInt32Ty()->getPointerTo(), "valHeader"));
 	}
 	_builder.SetInsertPoint(GetBasicBlockRelease());
 	do {
 		std::vector<llvm::Value *> args;
-		args.push_back(pValue);
+		args.push_back(plv_value);
 		_builder.CreateCall(
 			_pModule->getFunction("Gura_ReleaseValue"),
 			args);
 	} while (0);
 	_builder.SetInsertPoint(pBasicBlockSaved);
-	return pValue;
+	return plv_value;
 }
 
-llvm::Value *CodeGeneratorLLVM::GetCPointerToPtr(const void *p, llvm::Type *pType)
+llvm::Value *CodeGeneratorLLVM::GenCode_CastCPointerToPtr(const void *p, llvm::Type *pType)
 {
 	return llvm::ConstantExpr::getIntToPtr(
 		llvm::ConstantInt::get(_builder.getInt64Ty(), reinterpret_cast<uint64_t>(p)),
@@ -1344,37 +1382,37 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 		_pModule.get());
 	llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 	pArg->setName("env");
-	llvm::Value *pValue_env = pArg++;
+	llvm::Value *plv_env = pArg++;
 	pArg->setName("sig");
-	llvm::Value *pValue_sig = pArg++;
+	llvm::Value *plv_sig = pArg++;
 	pArg->setName("valueResult");
-	llvm::Value *pValue_result = pArg++;
+	llvm::Value *plv_result = pArg++;
 	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
 	llvm::BasicBlock *pBasicBlockEntry =
-		llvm::BasicBlock::Create(_context, "bb.function.entry", pFunction);
+		llvm::BasicBlock::Create(_context, "bb.Function.entry", pFunction);
 	llvm::BasicBlock *pBasicBlockBody =
-		llvm::BasicBlock::Create(_context, "bb.function.body", pFunction);
+		llvm::BasicBlock::Create(_context, "bb.Function.body", pFunction);
 	llvm::BasicBlock *pBasicBlockExit =
-		llvm::BasicBlock::Create(_context, "bb.function.exit");
+		llvm::BasicBlock::Create(_context, "bb.Function.exit");
 	llvm::BasicBlock *pBasicBlockRelease =
-		llvm::BasicBlock::Create(_context, "bb.function.release");
-	llvm::Value *pValueResultSaved = _pValueResult;
-	_pValueResult = nullptr;
-	_contextStack.push_back(new Context(pValue_env, pValue_sig,
+		llvm::BasicBlock::Create(_context, "bb.Function.release");
+	llvm::Value *plv_valueResultSaved = _plv_valueResult;
+	_plv_valueResult = nullptr;
+	_contextStack.push_back(new Context(plv_env, plv_sig,
 										pBasicBlockEntry, pBasicBlockExit, pBasicBlockRelease));
 	_builder.SetInsertPoint(pBasicBlockBody);
 	if (pExpr->GenerateCode(env, sig, *this)) {
-		llvm::Value *pValueRtn = _pValueResult;
+		llvm::Value *plv_valueRtn = _plv_valueResult;
 		pFunction->getBasicBlockList().push_back(pBasicBlockExit);
 		pFunction->getBasicBlockList().push_back(pBasicBlockRelease);
 		_builder.CreateBr(pBasicBlockExit);
 		_builder.SetInsertPoint(pBasicBlockEntry);
 		_builder.CreateBr(pBasicBlockBody);
 		_builder.SetInsertPoint(pBasicBlockExit);
-		if (pValueRtn != nullptr) {
+		if (plv_valueRtn != nullptr) {
 			std::vector<llvm::Value *> args;
-			args.push_back(pValue_result);
-			args.push_back(pValueRtn);
+			args.push_back(plv_result);
+			args.push_back(plv_valueRtn);
 			_builder.CreateCall(
 				_pModule->getFunction("Gura_CopyValue"),
 				args);
@@ -1388,9 +1426,35 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	}
 	delete _contextStack.back();
 	_contextStack.pop_back();
-	_pValueResult = pValueResultSaved;
+	_plv_valueResult = plv_valueResultSaved;
 	if (pBasicBlockSaved != nullptr) _builder.SetInsertPoint(pBasicBlockSaved);
 	return pFunction;
+}
+
+llvm::Value *CodeGeneratorLLVM::GenCode_CreateIterator(
+	llvm::Value *plv_value, const llvm::Twine &nameForPP, const llvm::Twine &nameForP)
+{
+	llvm::Value *plv_ppIterator = _builder.CreateAlloca(
+		_pStructType_Iterator->getPointerTo(), nullptr, nameForPP);
+	std::vector<llvm::Value *> args;
+	args.push_back(GetValue_env());
+	args.push_back(GetValue_sig());
+	args.push_back(plv_value);
+	args.push_back(plv_ppIterator);
+	llvm::Value *plv_successFlag = _builder.CreateCall(
+		_pModule->getFunction("GuraStub_CreateIterator"),
+		args, "successFlag");
+	GenCode_CondBrErrorExit(plv_successFlag, "bb.createIterator.success");
+	return _builder.CreateLoad(plv_ppIterator, nameForP);
+}
+
+llvm::Value *CodeGeneratorLLVM::GenCode_ReleaseIterator(llvm::Value *plv_pIterator)
+{
+	std::vector<llvm::Value *> args;
+	args.push_back(plv_pIterator);
+	_builder.CreateCall(
+		_pModule->getFunction("GuraStub_ReleaseIterator"),
+		args);
 }
 
 //-----------------------------------------------------------------------------
