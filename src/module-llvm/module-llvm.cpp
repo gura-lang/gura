@@ -366,23 +366,28 @@ private:
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
 private:
-	bool GenCode_IdentifierInMember(Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
-									const Expr_Identifier *pExpr, Expr_Member::Mode mode);
-	bool GenCode_CallerInMember(Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
-								const Expr_Caller *pExpr, Expr_Member::Mode mode);
+	bool GenCode_IdentifierInMember(Environment &env, Signal &sig, const Expr *pExprLeft,
+									const Expr_Identifier *pExprRight, Expr_Member::Mode mode);
+	bool GenCode_CallerInMember(Environment &env, Signal &sig, const Expr *pExprLeft,
+								const Expr_Caller *pExprRight, Expr_Member::Mode mode);
 private:
-	bool GenCode_AssignToIdentifier(Environment &env, Signal &sig,
-									const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned);
-	bool GenCode_AssignToLister(Environment &env, Signal &sig,
-								const Expr_Lister *pExpr, llvm::Value *plv_valueAssigned,
-								bool alwaysIterableFlag);
-	bool GenCode_AssignToIndexer(Environment &env, Signal &sig,
-								 const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned,
-								 bool alwaysIterableFlag);
-	bool GenCode_AssignToCaller(Environment &env, Signal &sig,
-								const Expr_Caller *pExpr, const Expr *pExprAssigned);
-	bool GenCode_AssignToMember(Environment &env, Signal &sig,
-								const Expr_Member *pExpr, llvm::Value *plv_valueAssigned);
+	bool GenCode_AssignToIdentifier(
+		Environment &env, Signal &sig, const Expr_Identifier *pExpr,
+		llvm::Value *plv_valueAssigned);
+	bool GenCode_AssignToLister(
+		Environment &env, Signal &sig, const Expr_Lister *pExpr,
+		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+	bool GenCode_AssignToIndexer(
+		Environment &env, Signal &sig, const Expr_Indexer *pExpr,
+		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+	bool GenCode_AssignToCaller(
+		Environment &env, Signal &sig, const Expr_Caller *pExpr, const Expr *pExprAssigned);
+	bool GenCode_AssignToIdentifierInMember(
+		Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Identifier *pExprRight,
+		Expr_Member::Mode mode, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+	bool GenCode_AssignToCallerInMember(
+		Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Caller *pExprRight,
+		Expr_Member::Mode mode, const Expr *pExprAssigned);
 private:
 	void GenCode_CondBrExitWhenSignalled(const llvm::Twine &nameForContinueBB);
 	void GenCode_CondBrContinueOrExit(llvm::Value *plv_successFlag, const llvm::Twine &nameForContinueBB);
@@ -1035,8 +1040,11 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 			} else if (pExprElem->IsMember()) {
 				const Expr_Member *pExprElemEx =
 					dynamic_cast<const Expr_Member *>(pExprElem);
-				if (!GenCode_AssignToMember(
-						env, sig, pExprElemEx, plv_valueAssigned)) return false;
+				if (pExprElemEx->GetLeft()->IsIdentifier()) {
+					//if (!GenCode_AssignToIdentifierInMember(
+					//		env, sig, pExprElemEx->, plv_valueAssigned)) return false;
+				} else {
+				}
 			} else {
 				sig.SetError(ERR_SyntaxError, "invalid element in lister assignment");
 				return false;
@@ -1080,8 +1088,15 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 				} else if (pExprElem->IsMember()) {
 					const Expr_Member *pExprElemEx =
 						dynamic_cast<const Expr_Member *>(pExprElem);
-					if (!GenCode_AssignToMember(
-							env, sig, pExprElemEx, plv_valueAssignedElem)) return false;
+					if (pExprElemEx->GetRight()->IsIdentifier()) {
+						if (!GenCode_AssignToIdentifierInMember(
+								env, sig, pExprElemEx->GetLeft(),
+								dynamic_cast<const Expr_Identifier *>(pExprElemEx->GetRight()),
+								pExprElemEx->GetMode(), plv_valueAssignedElem, false)) return false;
+					} else {
+						sig.SetError(ERR_SyntaxError, "invalid element in lister assignment");
+						return false;
+					}
 				} else {
 					sig.SetError(ERR_SyntaxError, "invalid element in lister assignment");
 					return false;
@@ -1344,6 +1359,37 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr->GetLeft());
 		if (!GenCode_AssignToCaller(env, sig, pExprEx, pExpr->GetRight())) return false;
 		return true;
+	} else if (pExpr->GetLeft()->IsMember()) {
+		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetLeft());
+		if (pExprEx->GetRight()->IsIdentifier()) {
+			bool alwaysIterableFlag = false;
+			llvm::Value *plv_valueAssigned = nullptr;
+			if (pExpr->GetOperatorToApply() == nullptr) {
+				if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
+				plv_valueAssigned = _plv_valueResult;
+				alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
+			} else {
+				plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
+														 pExpr->GetLeft(), pExpr->GetRight());
+				if (plv_valueAssigned == nullptr) return false;
+			}
+			return GenCode_AssignToIdentifierInMember(
+				env, sig, pExprEx->GetLeft(),
+				dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight()),
+				pExprEx->GetMode(), plv_valueAssigned, alwaysIterableFlag);
+		} else if (pExprEx->GetRight()->IsCaller()) {
+			if (pExpr->GetOperatorToApply() != nullptr) {
+				sig.SetError(ERR_SyntaxError, "invalid operation");
+				return false;
+			}
+			return GenCode_AssignToCallerInMember(
+				env, sig, pExprEx->GetLeft(),
+				dynamic_cast<const Expr_Caller *>(pExprEx->GetRight()),
+				pExprEx->GetMode(), pExpr->GetRight());
+		} else {
+			// error
+			return false;
+		}
 	}
 	bool alwaysIterableFlag = false;
 	llvm::Value *plv_valueAssigned = nullptr;
@@ -1355,7 +1401,7 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 		plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
 												 pExpr->GetLeft(), pExpr->GetRight());
 		if (plv_valueAssigned == nullptr) return false;
-		alwaysIterableFlag = true;
+		alwaysIterableFlag = pExpr->GetLeft()->IsLister();
 	}
 	if (pExpr->GetLeft()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetLeft());
@@ -1368,9 +1414,6 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 		const Expr_Lister *pExprEx = dynamic_cast<const Expr_Lister *>(pExpr->GetLeft());
 		if (!GenCode_AssignToLister(env, sig,
 									pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
-	} else if (pExpr->GetLeft()->IsMember()) {
-		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetLeft());
-		if (!GenCode_AssignToMember(env, sig, pExprEx, plv_valueAssigned)) return false;
 	}
 	_plv_valueResult = plv_valueAssigned;
 	return true;
@@ -1378,14 +1421,12 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 
 bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr)
 {
-	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *plv_valueThis = _plv_valueResult;
 	if (pExpr->GetRight()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetRight());
-		return GenCode_IdentifierInMember(env, sig, plv_valueThis, pExprEx, pExpr->GetMode());
+		return GenCode_IdentifierInMember(env, sig, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
 	} else if (pExpr->GetRight()->IsCaller()) {
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr->GetRight());
-		return GenCode_CallerInMember(env, sig, plv_valueThis, pExprEx, pExpr->GetMode());
+		return GenCode_CallerInMember(env, sig, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
 	} else {
 		// error
 		return false;
@@ -1394,22 +1435,32 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 }
 
 bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
-	Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
-	const Expr_Identifier *pExpr, Expr_Member::Mode mode)
+	Environment &env, Signal &sig, const Expr *pExprLeft,
+	const Expr_Identifier *pExprRight, Expr_Member::Mode mode)
 {
+	if (!pExprLeft->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *plv_valueThis = _plv_valueResult;
+	
 	return true;
 }
 
 bool CodeGeneratorLLVM::GenCode_CallerInMember(
-	Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
-	const Expr_Caller *pExpr, Expr_Member::Mode mode)
+	Environment &env, Signal &sig, const Expr *pExprLeft,
+	const Expr_Caller *pExprRight, Expr_Member::Mode mode)
 {
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_AssignToMember(
-	Environment &env, Signal &sig,
-	const Expr_Member *pExpr, llvm::Value *plv_valueAssigned)
+bool CodeGeneratorLLVM::GenCode_AssignToIdentifierInMember(
+	Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Identifier *pExprRight,
+	Expr_Member::Mode mode, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+{
+	return true;
+}
+
+bool CodeGeneratorLLVM::GenCode_AssignToCallerInMember(
+	Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Caller *pExprRight,
+	Expr_Member::Mode mode, const Expr *pExprAssigned)
 {
 	return true;
 }
