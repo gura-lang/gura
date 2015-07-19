@@ -365,6 +365,12 @@ private:
 	virtual bool GenCode_Quote(Environment &env, Signal &sig, const Expr_Quote *pExpr);
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
+private:
+	bool GenCode_IdentifierInMember(Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
+									const Expr_Identifier *pExpr, Expr_Member::Mode mode);
+	bool GenCode_CallerInMember(Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
+								const Expr_Caller *pExpr, Expr_Member::Mode mode);
+private:
 	bool GenCode_AssignToIdentifier(Environment &env, Signal &sig,
 									const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned);
 	bool GenCode_AssignToLister(Environment &env, Signal &sig,
@@ -1372,7 +1378,32 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 
 bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr)
 {
-	::printf("Member\n");
+	if (!pExpr->GetLeft()->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *plv_valueThis = _plv_valueResult;
+	if (pExpr->GetRight()->IsIdentifier()) {
+		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetRight());
+		return GenCode_IdentifierInMember(env, sig, plv_valueThis, pExprEx, pExpr->GetMode());
+	} else if (pExpr->GetRight()->IsCaller()) {
+		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr->GetRight());
+		return GenCode_CallerInMember(env, sig, plv_valueThis, pExprEx, pExpr->GetMode());
+	} else {
+		// error
+		return false;
+	}
+	return true;
+}
+
+bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
+	Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
+	const Expr_Identifier *pExpr, Expr_Member::Mode mode)
+{
+	return true;
+}
+
+bool CodeGeneratorLLVM::GenCode_CallerInMember(
+	Environment &env, Signal &sig, const llvm::Value *plv_valueThis,
+	const Expr_Caller *pExpr, Expr_Member::Mode mode)
+{
 	return true;
 }
 
