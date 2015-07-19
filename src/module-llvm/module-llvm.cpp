@@ -1372,6 +1372,7 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 				plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
 														 pExpr->GetLeft(), pExpr->GetRight());
 				if (plv_valueAssigned == nullptr) return false;
+				alwaysIterableFlag = (pExprEx->GetMode() != Expr_Member::MODE_Normal);
 			}
 			return GenCode_AssignToIdentifierInMember(
 				env, sig, pExprEx->GetLeft(),
@@ -1380,6 +1381,10 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 		} else if (pExprEx->GetRight()->IsCaller()) {
 			if (pExpr->GetOperatorToApply() != nullptr) {
 				sig.SetError(ERR_SyntaxError, "invalid operation");
+				return false;
+			}
+			if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
+				sig.SetError(ERR_SyntaxError, "invalid assignment");
 				return false;
 			}
 			return GenCode_AssignToCallerInMember(
