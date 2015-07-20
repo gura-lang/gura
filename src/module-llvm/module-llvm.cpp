@@ -24,16 +24,58 @@ public:
 //-----------------------------------------------------------------------------
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
-extern "C" bool GuraStub_LookupValue(Environment &env, Signal &sig, Value &result, const Symbol *pSymbol)
+extern "C" bool GuraStub_LookupValue(
+	Environment &env, Signal &sig, Value &valueResult, const Symbol *pSymbol)
 {
 	Value *pValue = env.LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == NULL) {
 		sig.SetError(ERR_ValueError, "undefined variable %s", pSymbol->GetName());
 		return false;
-	} else {
-		Gura_CopyValue(result, *pValue);
-		return true;
 	}
+	Gura_CopyValue(valueResult, *pValue);
+	return true;
+}
+
+extern "C" bool GuraStub_LookupValueInMember(
+	Environment &env, Signal &sig, Value &valueThis, Value &valueResult,
+	const Symbol *pSymbol, Expr_Member::Mode mode)
+{
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
+	if (pFund == nullptr) return false;
+	if (mode == Expr_Member::MODE_Normal) {
+		Value *pValue = pFund->LookupValue(pSymbol, ENVREF_Escalate);
+		if (pValue == NULL) {
+			sig.SetError(ERR_ValueError, "undefined member variable %s", pSymbol->GetName());
+			return false;
+		}
+		if (pValue->Is_function()) {
+			Object_function *pObjFunc =
+				dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
+			pObjFunc->SetThis(valueThis);
+			Gura_CopyValue(valueResult, Value(pObjFunc));
+		} else {
+			Gura_CopyValue(valueResult, *pValue);
+		}
+	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
+		Gura_CopyValue(valueResult, valueThis);
+	} else {
+		AutoPtr<Iterator> pIterator(pFund->CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+#if 0
+		if (pIterator != nullptr) {
+			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
+					   new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
+			if (mode == MODE_MapToIter) {
+				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
+			} else {
+				valueResult = pIteratorMap->ToList(env, sig, false, false);
+				if (sig.IsSignalled()) return Value::Null;
+			}
+		}
+#endif
+	}
+	return true;
 }
 
 extern "C" bool GuraStub_AssignValue(Environment &env, Signal &sig,
@@ -366,10 +408,9 @@ private:
 	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
 	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
 private:
-	bool GenCode_IdentifierInMember(Environment &env, Signal &sig, const Expr *pExprLeft,
-									const Expr_Identifier *pExprRight, Expr_Member::Mode mode);
-	bool GenCode_CallerInMember(Environment &env, Signal &sig, const Expr *pExprLeft,
-								const Expr_Caller *pExprRight, Expr_Member::Mode mode);
+	bool GenCode_IdentifierInMember(
+		Environment &env, Signal &sig, const Expr *pExprThis,
+		const Expr_Identifier *pExprSelector, Expr_Member::Mode mode);
 private:
 	bool GenCode_AssignToIdentifier(
 		Environment &env, Signal &sig, const Expr_Identifier *pExpr,
@@ -383,11 +424,9 @@ private:
 	bool GenCode_AssignToCaller(
 		Environment &env, Signal &sig, const Expr_Caller *pExpr, const Expr *pExprAssigned);
 	bool GenCode_AssignToIdentifierInMember(
-		Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Identifier *pExprRight,
-		Expr_Member::Mode mode, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
-	bool GenCode_AssignToCallerInMember(
-		Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Caller *pExprRight,
-		Expr_Member::Mode mode, const Expr *pExprAssigned);
+		Environment &env, Signal &sig, const Expr *pExprThis,
+		const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
+		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
 private:
 	void GenCode_CondBrExitWhenSignalled(const llvm::Twine &nameForContinueBB);
 	void GenCode_CondBrContinueOrExit(llvm::Value *plv_successFlag, const llvm::Twine &nameForContinueBB);
@@ -537,7 +576,7 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare struct.ValueList* @GuraStub_CreateValueList(i8*, struct.Value*)
+		// declare struct.ValueList* @GuraStub_CreateValueList(struct.Environment*, struct.Value*)
 		llvm::Type *pTypeResult = _pStructType_ValueList->getPointerTo(); // return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
@@ -550,12 +589,13 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_LookupValue(i8*, i8*, struct.Value*, i8*)
+		// declare i1 @GuraStub_LookupValue(struct.Environment*, struct.Signal*,
+		//                                  struct.Value*, struct.Symbol*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
 		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
-		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
 		bool isVarArg = false;
 		llvm::Function::Create(
@@ -564,6 +604,26 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			"GuraStub_LookupValue",
 			_pModule.get());
 	} while (0);
+	do {
+		// declare i1 @GuraStub_LookupValueInMember(struct.Environment*, struct.Signal*,
+		//                      struct.Value*, struct.Value*, struct.Symbol*, i32)
+		//                                         
+		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
+		typeArgs.push_back(_builder.getInt32Ty());						// mode
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"GuraStub_LookupValueInMember",
+			_pModule.get());
+	} while (0);
+
 	do {
 		// declare i1 @GuraStub_AssignValue(struct.Environment*, struct.Signal*, i8*, struct.Value*, i32)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
@@ -824,7 +884,7 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	Environment &env, Signal &sig, const Expr *pExpr, const char *name)
 {
-	// define void @BridgeFunction(i8* env, i8* sig, %struct.Value* valueResult)
+	// define void @BridgeFunction(struct.Environment*, struct.Signal*, %struct.Value*)
 	llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 	std::vector<llvm::Type *> typeArgs;
 	typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
@@ -941,6 +1001,29 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const 
 	return true;
 }
 
+bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
+	Environment &env, Signal &sig, const Expr *pExprThis,
+	const Expr_Identifier *pExprSelector, Expr_Member::Mode mode)
+{
+	if (!pExprThis->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *plv_valueThis = _plv_valueResult;
+	_plv_valueResult = GenCode_AllocaValue(std::string("value.this.") +
+										   pExprSelector->GetSymbol()->GetName());
+	std::vector<llvm::Value *> args;
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
+	args.push_back(plv_valueThis);
+	args.push_back(_plv_valueResult);
+	args.push_back(GenCode_CastCPointerToPtr(
+					   pExprSelector->GetSymbol(), _pStructType_Symbol->getPointerTo()));
+	args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), mode));
+	llvm::Value *plv_successFlag = _builder.CreateCall(
+		_pModule->getFunction("GuraStub_LookupValueInMember"),
+		args, "successFlag");
+	GenCode_CondBrContinueOrExit(plv_successFlag, "bb.identifier.success");
+	return true;
+}
+
 bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 	Environment &env, Signal &sig,
 	const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned)
@@ -957,6 +1040,17 @@ bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 		_pModule->getFunction("GuraStub_AssignValue"),
 		args, "successFlag");
 	GenCode_CondBrContinueOrExit(plv_successFlag, "bb.assignToIdentifier.success");
+	return true;
+}
+
+bool CodeGeneratorLLVM::GenCode_AssignToIdentifierInMember(
+	Environment &env, Signal &sig, const Expr *pExprThis,
+	const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
+	llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+{
+	if (!pExprThis->GenerateCode(env, sig, *this)) return false;
+	llvm::Value *plv_valueThis = _plv_valueResult;
+
 	return true;
 }
 
@@ -1041,9 +1135,13 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 				const Expr_Member *pExprElemEx =
 					dynamic_cast<const Expr_Member *>(pExprElem);
 				if (pExprElemEx->GetLeft()->IsIdentifier()) {
-					//if (!GenCode_AssignToIdentifierInMember(
-					//		env, sig, pExprElemEx->, plv_valueAssigned)) return false;
+					if (!GenCode_AssignToIdentifierInMember(
+							env, sig, pExprElemEx->GetLeft(),
+							dynamic_cast<const Expr_Identifier *>(pExprElemEx->GetRight()),
+							pExprElemEx->GetMode(), plv_valueAssigned, false)) return false;
 				} else {
+					sig.SetError(ERR_SyntaxError, "invalid element in lister assignment");
+					return false;
 				}
 			} else {
 				sig.SetError(ERR_SyntaxError, "invalid element in lister assignment");
@@ -1275,11 +1373,19 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr_Caller *pExpr)
 {
 	if (pExpr->GetCar()->IsMember()) {
-		
+		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetCar());
+		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
+		llvm::Value *plv_valueThis = _plv_valueResult;
+		if (pExprEx->GetMode() == Expr_Member::MODE_Normal) {
+
+		} else {
+
+		}
+		return true;
 	} else {
-		llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
 		llvm::Value *plv_valueCar = _plv_valueResult;
+		llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
 		args.push_back(Get_sig());
@@ -1320,6 +1426,20 @@ bool CodeGeneratorLLVM::GenCode_AssignToCaller(
 	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprAssigned, "FunctionBody");
 	if (pFunction == nullptr) return false;
 	_plv_valueResult = nullptr;
+	if (pExpr->GetCar()->IsMember()) {
+		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetCar());
+		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
+		llvm::Value *plv_valueThis = _plv_valueResult;
+		if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
+			sig.SetError(ERR_SyntaxError,
+						 "assignment to map-to-list or map-to-iterator is invalid");
+			return false;
+		}
+		
+		return true;
+	} else {
+
+	}
 	return true;
 }
 
@@ -1378,19 +1498,6 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 				env, sig, pExprEx->GetLeft(),
 				dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight()),
 				pExprEx->GetMode(), plv_valueAssigned, alwaysIterableFlag);
-		} else if (pExprEx->GetRight()->IsCaller()) {
-			if (pExpr->GetOperatorToApply() != nullptr) {
-				sig.SetError(ERR_SyntaxError, "invalid operation");
-				return false;
-			}
-			if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
-				sig.SetError(ERR_SyntaxError, "invalid assignment");
-				return false;
-			}
-			return GenCode_AssignToCallerInMember(
-				env, sig, pExprEx->GetLeft(),
-				dynamic_cast<const Expr_Caller *>(pExprEx->GetRight()),
-				pExprEx->GetMode(), pExpr->GetRight());
 		} else {
 			// error
 			return false;
@@ -1429,44 +1536,10 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 	if (pExpr->GetRight()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetRight());
 		return GenCode_IdentifierInMember(env, sig, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
-	} else if (pExpr->GetRight()->IsCaller()) {
-		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr->GetRight());
-		return GenCode_CallerInMember(env, sig, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
 	} else {
-		// error
+		sig.SetError(ERR_SyntaxError, "invalid member access");
 		return false;
 	}
-	return true;
-}
-
-bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
-	Environment &env, Signal &sig, const Expr *pExprLeft,
-	const Expr_Identifier *pExprRight, Expr_Member::Mode mode)
-{
-	if (!pExprLeft->GenerateCode(env, sig, *this)) return false;
-	llvm::Value *plv_valueThis = _plv_valueResult;
-	
-	return true;
-}
-
-bool CodeGeneratorLLVM::GenCode_CallerInMember(
-	Environment &env, Signal &sig, const Expr *pExprLeft,
-	const Expr_Caller *pExprRight, Expr_Member::Mode mode)
-{
-	return true;
-}
-
-bool CodeGeneratorLLVM::GenCode_AssignToIdentifierInMember(
-	Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Identifier *pExprRight,
-	Expr_Member::Mode mode, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
-{
-	return true;
-}
-
-bool CodeGeneratorLLVM::GenCode_AssignToCallerInMember(
-	Environment &env, Signal &sig, const Expr *pExprLeft, const Expr_Caller *pExprRight,
-	Expr_Member::Mode mode, const Expr *pExprAssigned)
-{
 	return true;
 }
 
