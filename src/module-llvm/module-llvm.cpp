@@ -290,8 +290,8 @@ extern "C" bool GuraStub_EmptyIndexSet(
 }
 
 extern "C" bool GuraStub_CallFunction(
-	Environment &env, Signal &sig,
-	Value &valueResult, const Value &valueCar, Value &valueThis,
+	Environment &env, Signal &sig, Value &valueThis,
+	Value &valueResult, const Value &valueCar,
 	BridgeFunctionT bridgeFuncBlockParam, BridgeFunctionT bridgeFuncBlock, ...)
 {
 	if (!valueCar.Is_function()) {
@@ -780,11 +780,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	do {
 		// declare i1 @GuraStub_CallFunction(struct.Environment*, struct.Signal*,
-		//                                   struct.Value*, struct.Value*, ...)
+		//                                   struct.Value*, struct.Value*, struct.Value*, ...)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
 		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		typeArgs.push_back(_builder.getInt8Ty()->getPointerTo());		// bridgeFuncBlockParam
@@ -1388,11 +1389,13 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		return true;
 	} else {
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *plv_valueCar = _plv_valueResult;
+		llvm::Value *plv_valueThis = GenCode_AllocaValue("valueThis");
 		llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
+		llvm::Value *plv_valueCar = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
 		args.push_back(Get_sig());
+		args.push_back(plv_valueThis);
 		args.push_back(plv_valueResult);
 		args.push_back(plv_valueCar);
 		if (pExpr->GetBlock() == nullptr) {
