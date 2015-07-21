@@ -28,7 +28,7 @@ extern "C" bool GuraStub_LookupValue(
 	Environment &env, Signal &sig, Value &valueResult, const Symbol *pSymbol)
 {
 	Value *pValue = env.LookupValue(pSymbol, ENVREF_Escalate);
-	if (pValue == NULL) {
+	if (pValue == nullptr) {
 		sig.SetError(ERR_ValueError, "undefined variable %s", pSymbol->GetName());
 		return false;
 	}
@@ -76,32 +76,24 @@ Iterator *Iterator_MemberMap::GetSource()
 
 bool Iterator_MemberMap::DoNext(Environment &env, Signal &sig, Value &value)
 {
-#if 0
-	Value valueThisEach;
-	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
-	Fundamental *pFundEach = nullptr;
-	if (valueThisEach.IsPrimitive()) {
-		pFundEach = env.LookupClass(valueThisEach.GetValueType());
+	Value valueThis;
+	if (!_pIterator->Next(env, sig, valueThis)) return false;
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
+	if (pFund == nullptr) return false;
+	Value *pValue = pFund->LookupValue(_pSymbol, ENVREF_Escalate);
+	if (pValue == nullptr) {
+		sig.SetError(ERR_ValueError, "undefined member variable %s", _pSymbol->GetName());
+		return false;
+	}
+	if (pValue->Is_function()) {
+		Object_function *pObjFunc =
+			dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
+		pObjFunc->SetThis(valueThis);
+		Gura_CopyValue(value, Value(pObjFunc));
 	} else {
-		pFundEach = valueThisEach.ExtractFundamental(sig);
-		if (sig.IsSignalled()) return false;
+		Gura_CopyValue(value, *pValue);
 	}
-	if (_pExpr->IsIdentifier()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Identifier *pExprIdentifier =
-							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		value = pExprIdentifier->Exec(*pFundEach, sig, valueThisEach, pSeqPostHandler);
-	} else {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);
-	}
-	if (value.Is_function()) {
-		Object_function *pObj = new Object_function(env,
-									Function::Reference(value.GetFunction()));
-		pObj->SetThis(valueThisEach);
-		value = Value(pObj);
-	}
-#endif
 	return true;
 }
 
@@ -133,7 +125,7 @@ extern "C" bool GuraStub_LookupValueInMember(
 	if (pFund == nullptr) return false;
 	if (mode == Expr_Member::MODE_Normal) {
 		Value *pValue = pFund->LookupValue(pSymbol, ENVREF_Escalate);
-		if (pValue == NULL) {
+		if (pValue == nullptr) {
 			sig.SetError(ERR_ValueError, "undefined member variable %s", pSymbol->GetName());
 			return false;
 		}

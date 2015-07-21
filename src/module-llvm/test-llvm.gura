@@ -16,6 +16,9 @@ Person = struct(name:string, age:number) {
 }
 
 person = Person('Taro', 23)
+people = @(Person) {
+	{'Taro', 23}, {'Hanako', 21}, {'Kenta', 24}
+}
 
 rtn = llvm.gencode {
 	//b'hello \x00 world'
@@ -67,7 +70,9 @@ rtn = llvm.gencode {
 	//x[2, 4, 6] = [33, 44]
 	//[x, y, z] = [1, 2]
 	//person.name
-	person.Print()
+	//person.Print()
+	people::name
+	people:*age.sum()
 	//'1234'.len()
 	
 }
