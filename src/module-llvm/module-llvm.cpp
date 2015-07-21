@@ -303,11 +303,12 @@ extern "C" bool GuraStub_CallFunction(
 	va_list vargs;
 	va_start(vargs, bridgeFuncBlock);
 	AutoPtr<Args> pArgs(new Args());
+	Value valueThis;
 	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
-		Value value;
-		bridgeFuncArg(env, sig, Value::Null, value);
+		Value valueResult;
+		bridgeFuncArg(env, sig, valueThis, valueResult);
 		if (sig.IsSignalled()) return false;
-		pArgs->AddValue(value);
+		pArgs->AddValue(valueResult);
 	}
 	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
 	return sig.IsNoSignalled();
@@ -875,10 +876,11 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 	}
 	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
-	Value result;
-	bridgeFuncGuraEntry(env, sig, Value::Null, result);
+	Value valueThis;
+	Value valueResult;
+	bridgeFuncGuraEntry(env, sig, valueThis, valueResult);
     pExecutionEngine->runStaticConstructorsDestructors(true);
-	return result;
+	return valueResult;
 }
 
 llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
