@@ -30,7 +30,8 @@ class Expr_Assign;
 class Expr_Member;
 class Callable;
 
-typedef void (*BridgeFunctionT)(Environment &env, Signal &sig, Value &valueThis, Value &valueResult);
+typedef void (*BridgeFunctionT)(Environment &env, Signal &sig,
+								const Value &valueThis, Value &valueResult);
 
 //-----------------------------------------------------------------------------
 // ExprType

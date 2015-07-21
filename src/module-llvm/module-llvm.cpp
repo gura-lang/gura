@@ -291,7 +291,7 @@ extern "C" bool GuraStub_EmptyIndexSet(
 
 extern "C" bool GuraStub_CallFunction(
 	Environment &env, Signal &sig,
-	Value &valueResult, const Value &valueCar,
+	Value &valueResult, const Value &valueCar, Value &valueThis,
 	BridgeFunctionT bridgeFuncBlockParam, BridgeFunctionT bridgeFuncBlock, ...)
 {
 	if (!valueCar.Is_function()) {
@@ -303,7 +303,7 @@ extern "C" bool GuraStub_CallFunction(
 	va_list vargs;
 	va_start(vargs, bridgeFuncBlock);
 	AutoPtr<Args> pArgs(new Args());
-	Value valueThis;
+	pArgs->SetThis(valueThis);
 	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
 		Value valueResult;
 		bridgeFuncArg(env, sig, valueThis, valueResult);
@@ -876,9 +876,8 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 	}
 	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
-	Value valueThis;
 	Value valueResult;
-	bridgeFuncGuraEntry(env, sig, valueThis, valueResult);
+	bridgeFuncGuraEntry(env, sig, Value::Null, valueResult);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 	return valueResult;
 }
