@@ -44,9 +44,9 @@ private:
 	AutoPtr<Environment> _pEnv;
 	Signal &_sig;
 	AutoPtr<Iterator> _pIterator;
-	AutoPtr<Expr> _pExpr;
+	const Symbol *_pSymbol;
 public:
-	Iterator_MemberMap(Environment *pEnv, Signal &sig, Iterator *pIterator, Expr *pExpr);
+	Iterator_MemberMap(Environment *pEnv, Signal &sig, Iterator *pIterator, const Symbol *pSymbol);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
@@ -57,8 +57,10 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
-Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Signal &sig, Iterator *pIterator, Expr *pExpr) :
-		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig), _pIterator(pIterator), _pExpr(pExpr)
+Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Signal &sig,
+									   Iterator *pIterator, const Symbol *pSymbol) :
+		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig),
+		_pIterator(pIterator), _pSymbol(pSymbol)
 {
 }
 
@@ -74,6 +76,7 @@ Iterator *Iterator_MemberMap::GetSource()
 
 bool Iterator_MemberMap::DoNext(Environment &env, Signal &sig, Value &value)
 {
+#if 0
 	Value valueThisEach;
 	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
 	Fundamental *pFundEach = nullptr;
@@ -98,6 +101,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal &sig, Value &value)
 		pObj->SetThis(valueThisEach);
 		value = Value(pObj);
 	}
+#endif
 	return true;
 }
 
@@ -105,7 +109,7 @@ String Iterator_MemberMap::ToString() const
 {
 	String rtn;
 	rtn += "member_map(";
-	rtn += _pExpr->ToString(Expr::SCRSTYLE_Brief);
+	rtn += _pSymbol->GetName();
 	rtn += ";";
 	rtn += _pIterator->ToString();
 	rtn += ")";
@@ -146,18 +150,17 @@ extern "C" bool GuraStub_LookupValueInMember(
 	} else {
 		AutoPtr<Iterator> pIterator(pFund->CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
-#if 0
-		if (pIterator != nullptr) {
-			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-					   new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
-			if (mode == MODE_MapToIter) {
+		if (!pIterator.IsNull()) {
+			AutoPtr<Iterator> pIteratorMap(
+				new Iterator_MemberMap(
+					new Environment(env), sig, pIterator.release(), pSymbol));
+			if (mode == Expr_Member::MODE_MapToIter) {
 				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
-			} else {
+			} else { // Expr_Member::MODE_MapToList
 				valueResult = pIteratorMap->ToList(env, sig, false, false);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return false;
 			}
 		}
-#endif
 	}
 	return true;
 }
