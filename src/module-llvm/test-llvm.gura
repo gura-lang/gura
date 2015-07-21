@@ -52,7 +52,7 @@ rtn = llvm.gencode {
 	//foo = 3
 	//a = 3
 	//b = 'fdjafkjdas'
-	printf('a = %d\n', 111)
+	//printf('a = %d\n', 111)
 	//99
 	//x[0..4]
 	//foo += 3
@@ -62,7 +62,7 @@ rtn = llvm.gencode {
 	//x[2, 4, 6] = [33, 44]
 	//[x, y, z] = [1, 2]
 	//person.name
-	//''.len()
+	'1234'.len()
 }
 println('rtn = ', rtn)
 println(x)

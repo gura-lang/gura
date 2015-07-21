@@ -1377,52 +1377,72 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 
 bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr_Caller *pExpr)
 {
+	llvm::Value *plv_valueThis = nullptr;
+	llvm::Value *plv_valueCar = nullptr;
 	if (pExpr->GetCar()->IsMember()) {
 		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetCar());
-		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *plv_valueThis = _plv_valueResult;
-		if (pExprEx->GetMode() == Expr_Member::MODE_Normal) {
-
-		} else {
-
+		if (!pExprEx->GetRight()->IsIdentifier()) {
+			sig.SetError(ERR_SyntaxError, "");
+			return false;
 		}
-		return true;
-	} else {
-		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
-		llvm::Value *plv_valueThis = GenCode_AllocaValue("valueThis");
-		llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
-		llvm::Value *plv_valueCar = _plv_valueResult;
+		const Expr_Identifier *pExprSelector =
+			dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight());
+		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
+		plv_valueThis = _plv_valueResult;
+		if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
+
+			return true;
+		}
+		plv_valueCar = GenCode_AllocaValue(std::string("value.this.") +
+										   pExprSelector->GetSymbol()->GetName());
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
 		args.push_back(Get_sig());
 		args.push_back(plv_valueThis);
-		args.push_back(plv_valueResult);
 		args.push_back(plv_valueCar);
-		if (pExpr->GetBlock() == nullptr) {
-			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
-			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
-		} else {
-			args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
-			llvm::Function *pFunction = CreateBridgeFunction(
-				env, sig, pExpr->GetBlock(), "Block");
-			if (pFunction == nullptr) return false;
-			args.push_back(llvm::ConstantExpr::getBitCast(
-							   pFunction, _builder.getInt8Ty()->getPointerTo()));
-		}
-		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
-			const Expr *pExprArg = *ppExprArg;
-			llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
-			if (pFunction == nullptr) return false;
-			args.push_back(llvm::ConstantExpr::getBitCast(
-							   pFunction, _builder.getInt8Ty()->getPointerTo()));
-		}
-		args.push_back(llvm::ConstantPointerNull::get(_pStructType_Value->getPointerTo()));
+		args.push_back(GenCode_CastCPointerToPtr(
+						   pExprSelector->GetSymbol(), _pStructType_Symbol->getPointerTo()));
+		args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), Expr_Member::MODE_Normal));
 		llvm::Value *plv_successFlag = _builder.CreateCall(
-			_pModule->getFunction("GuraStub_CallFunction"),
+			_pModule->getFunction("GuraStub_LookupValueInMember"),
 			args, "successFlag");
 		GenCode_CondBrContinueOrExit(plv_successFlag, "bb.caller.continue");
-		_plv_valueResult = plv_valueResult;
+	} else {
+		plv_valueThis = GenCode_AllocaValue("valueThis");
+		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
+		plv_valueCar = _plv_valueResult;
 	}
+	llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
+	std::vector<llvm::Value *> args;
+	args.push_back(Get_env());
+	args.push_back(Get_sig());
+	args.push_back(plv_valueThis);
+	args.push_back(plv_valueResult);
+	args.push_back(plv_valueCar);
+	if (pExpr->GetBlock() == nullptr) {
+		args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
+		args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
+	} else {
+		args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
+		llvm::Function *pFunction = CreateBridgeFunction(
+			env, sig, pExpr->GetBlock(), "Block");
+		if (pFunction == nullptr) return false;
+		args.push_back(llvm::ConstantExpr::getBitCast(
+						   pFunction, _builder.getInt8Ty()->getPointerTo()));
+	}
+	foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
+		const Expr *pExprArg = *ppExprArg;
+		llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
+		if (pFunction == nullptr) return false;
+		args.push_back(llvm::ConstantExpr::getBitCast(
+						   pFunction, _builder.getInt8Ty()->getPointerTo()));
+	}
+	args.push_back(llvm::ConstantPointerNull::get(_pStructType_Value->getPointerTo()));
+	llvm::Value *plv_successFlag = _builder.CreateCall(
+		_pModule->getFunction("GuraStub_CallFunction"),
+		args, "successFlag");
+	GenCode_CondBrContinueOrExit(plv_successFlag, "bb.caller.continue");
+	_plv_valueResult = plv_valueResult;
 	return true;
 }
 
