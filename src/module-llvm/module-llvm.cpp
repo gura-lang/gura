@@ -305,7 +305,7 @@ extern "C" bool GuraStub_CallFunction(
 	AutoPtr<Args> pArgs(new Args());
 	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
 		Value value;
-		bridgeFuncArg(env, sig, value);
+		bridgeFuncArg(env, sig, Value::Null, value);
 		if (sig.IsSignalled()) return false;
 		pArgs->AddValue(value);
 	}
@@ -876,7 +876,7 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value result;
-	bridgeFuncGuraEntry(env, sig, result);
+	bridgeFuncGuraEntry(env, sig, Value::Null, result);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 	return result;
 }
@@ -884,11 +884,12 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	Environment &env, Signal &sig, const Expr *pExpr, const char *name)
 {
-	// define void @BridgeFunction(struct.Environment*, struct.Signal*, %struct.Value*)
+	// define void @BridgeFunction(struct.Environment*, struct.Signal*, &struct.Value*, %struct.Value*)
 	llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 	std::vector<llvm::Type *> typeArgs;
 	typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
 	typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
+	typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 	typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 	bool isVarArg = false;
 	llvm::Function *pFunction = llvm::Function::Create(
@@ -901,8 +902,10 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	llvm::Value *plv_env = pArg++;
 	pArg->setName("sig");
 	llvm::Value *plv_sig = pArg++;
+	pArg->setName("valueThis");
+	llvm::Value *plv_valueThis = pArg++;
 	pArg->setName("valueResult");
-	llvm::Value *plv_result = pArg++;
+	llvm::Value *plv_valueResult = pArg++;
 	llvm::BasicBlock *pBasicBlockSaved = _builder.GetInsertBlock();
 	llvm::BasicBlock *pBasicBlockEntry =
 		llvm::BasicBlock::Create(_context, "bb.Function.entry", pFunction);
@@ -927,7 +930,7 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 		_builder.SetInsertPoint(pBasicBlockExit);
 		if (plv_valueRtn != nullptr) {
 			std::vector<llvm::Value *> args;
-			args.push_back(plv_result);
+			args.push_back(plv_valueResult);
 			args.push_back(plv_valueRtn);
 			_builder.CreateCall(
 				_pModule->getFunction("Gura_CopyValue"),
