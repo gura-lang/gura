@@ -9,7 +9,12 @@ foo = 322
 //x = @@{{1, 2, 3}, {4, 5, 6}}
 x = 'hello world'.split():list
 
-Person = struct(name:string, age:number)
+Person = struct(name:string, age:number) {
+	Print() = {
+		printf('name:%s, age:%d\n', this.name, this.age)
+	}
+}
+
 person = Person('Taro', 23)
 
 rtn = llvm.gencode {
@@ -62,7 +67,9 @@ rtn = llvm.gencode {
 	//x[2, 4, 6] = [33, 44]
 	//[x, y, z] = [1, 2]
 	//person.name
-	'1234'.len()
+	person.Print()
+	//'1234'.len()
+	
 }
 println('rtn = ', rtn)
 println(x)
