@@ -8,9 +8,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Binary
 //-----------------------------------------------------------------------------
-bool Binary::Pack(Environment &env, Signal &sig, size_t &offset,
+bool Binary::Pack(Environment &env, Signal &_sig, size_t &offset,
 							const char *format, const ValueList &valListArg)
 {
+	Signal &sig = env.GetSignal();
 	enum {
 		STAT_Format,
 		STAT_Repeat,
@@ -248,9 +249,10 @@ bool Binary::Pack(Environment &env, Signal &sig, size_t &offset,
 	return true;
 }
 
-Value Binary::Unpack(Environment &env, Signal &sig, size_t &offset,
+Value Binary::Unpack(Environment &env, Signal &_sig, size_t &offset,
 		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
+	Signal &sig = env.GetSignal();
 	enum {
 		STAT_Format,
 		STAT_Repeat,

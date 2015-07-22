@@ -1203,7 +1203,7 @@ Gura_ImplementFunction(class_)
 	}
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
-			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
+			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)));
 	return Value(pClassCustom);
 }
 
@@ -1265,7 +1265,7 @@ Gura_ImplementFunction(struct_)
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
-			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
+			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)));
 	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());

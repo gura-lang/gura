@@ -93,9 +93,10 @@ bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
 	return false;
 }
 
-bool Audio::StoreData(Environment &env, Signal &sig,
+bool Audio::StoreData(Environment &env, Signal &_sig,
 						size_t iChannel, size_t offset, Iterator *pIterator)
 {
+	Signal &sig = env.GetSignal();
 	size_t bytes = offset * GetBytesPerSample() * GetChannels();
 	Chain *pChain = GetChainTop();
 	for ( ; pChain != nullptr; pChain = pChain->GetNext()) {
@@ -133,8 +134,9 @@ bool Audio::StoreData(Environment &env, Signal &sig,
 	return true;
 }
 
-bool Audio::Read(Environment &env, Signal &sig, Stream &stream, const char *audioType)
+bool Audio::Read(Environment &env, Signal &_sig, Stream &stream, const char *audioType)
 {
+	Signal &sig = env.GetSignal();
 	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
 	if (sig.IsSignalled()) return false;
@@ -145,8 +147,9 @@ bool Audio::Read(Environment &env, Signal &sig, Stream &stream, const char *audi
 	return pAudioStreamer->Read(env, sig, this, stream);
 }
 
-bool Audio::Write(Environment &env, Signal &sig, Stream &stream, const char *audioType)
+bool Audio::Write(Environment &env, Signal &_sig, Stream &stream, const char *audioType)
 {
+	Signal &sig = env.GetSignal();
 	AudioStreamer *pAudioStreamer = nullptr;
 	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
 	if (sig.IsSignalled()) return false;
@@ -291,8 +294,9 @@ Iterator *Audio::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Audio::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
+bool Audio::IteratorEach::DoNext(Environment &env, Signal &_sig, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_doneFlag) return false;
 	if (_pChain.IsNull()) {
 		size_t bytes = _offset * _pAudio->GetBytesPerSample() * _pAudio->GetChannels();

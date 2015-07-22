@@ -27,16 +27,14 @@ public:
 	};
 private:
 	AutoPtr<Expr_Block> _pExprContent;
-	Signal &_sig;
 public:
 	ClassCustom(const ClassCustom &cls);
 	ClassCustom(Environment *pEnv, Class *pClassSuper,
-				ValueType valType, Expr_Block *pExprContent, Signal &sig);
+				ValueType valType, Expr_Block *pExprContent);
 	virtual ~ClassCustom();
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 	Function *PrepareConstructor(Environment &env, Signal &sig);
-	inline Signal &GetSignal() { return _sig; }
 	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl);
 	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
