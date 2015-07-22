@@ -38,7 +38,7 @@ int Main(int argc, const char *argv[])
 		{ "no-local-dir",	'N', false	},
 	};
 	Signal sig;
-	AutoPtr<Environment> pEnv(new Environment());
+	AutoPtr<Environment> pEnv(new Environment(sig));
 	Environment &env = *pEnv;
 	if (!env.InitializeAsRoot(sig, argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
 		sig.PrintSignal(*env.GetConsoleErr());

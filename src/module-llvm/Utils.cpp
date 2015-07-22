@@ -97,16 +97,7 @@ bool Iterator_CallerInMember::DoNext(Environment &env, Signal &sig, Value &value
 		sig.SetError(ERR_ValueError, "undefined member variable %s", _pSymbol->GetName());
 		return false;
 	}
-#if 0
-	if (pValue->Is_function()) {
-		Object_function *pObjFunc =
-			dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
-		pObjFunc->SetThis(valueThis);
-		Gura_CopyValue(value, Value(pObjFunc));
-	} else {
-		Gura_CopyValue(value, *pValue);
-	}
-#endif
+	(*_bridgeFunc)(env, sig, valueThis, value);
 	return true;
 }
 

@@ -51,11 +51,11 @@ void PathMgrOwner::Clear()
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-Environment::Environment() : _cntRef(1)
+Environment::Environment(Signal &sig) : _cntRef(1), _sig(sig)
 {
 }
 
-Environment::Environment(const Environment &env) : _cntRef(1)
+Environment::Environment(const Environment &env) : _cntRef(1), _sig(env.GetSignal())
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -64,7 +64,8 @@ Environment::Environment(const Environment &env) : _cntRef(1)
 	}
 }
 
-Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntRef(1)
+Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
+	_cntRef(1), _sig(pEnvOuter->GetSignal())
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	//if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != nullptr) {
@@ -359,7 +360,7 @@ ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
 	Environment *pEnv = this;
 	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
 		// make a reference to the root environment
-		pEnvRoot.reset(new Environment());
+		pEnvRoot.reset(new Environment(GetSignal()));
 		pEnvRoot->AddRootFrame(GetFrameOwner());
 		pEnv = pEnvRoot.get();
 		ppSymbol++;
@@ -844,6 +845,14 @@ Stream *Environment::GetConsoleDumb()
 bool Environment::IsModule() const { return false; }
 bool Environment::IsClass() const { return false; }
 bool Environment::IsObject() const { return false; }
+
+void Environment::SetError(ErrorType errType, const char *format, ...) const
+{
+	va_list ap;
+	va_start(ap, format);
+	SetErrorV(errType, format, ap);
+	va_end(ap);
+}
 
 //-----------------------------------------------------------------------------
 // Environment::Global

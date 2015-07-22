@@ -250,17 +250,19 @@ public:
 	};
 protected:
 	int _cntRef;
+	Signal &_sig;
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
 public:
-	Environment();
+	Environment(Signal &sig);
 	Environment(const Environment &env);
 	Environment(const Environment *pEnvOuter, EnvType envType);
 protected:
 	virtual ~Environment();
 public:
+	inline Signal &GetSignal() const { return _sig; }
 	bool InitializeAsRoot(Signal &sig, int &argc, const char *argv[],
 								const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
@@ -342,6 +344,12 @@ public:
 	Stream *GetConsole();
 	Stream *GetConsoleErr();
 	Stream *GetConsoleDumb();
+	inline bool IsSignalled() const { return GetSignal().IsSignalled(); }
+	void SetError(ErrorType errType, const char *format, ...) const;
+	inline void SetErrorV(ErrorType errType,
+						  const char *format, va_list ap, const char *textPre = "") const {
+		GetSignal().SetErrorV(errType, format, ap, textPre);
+	}
 private:
 	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,

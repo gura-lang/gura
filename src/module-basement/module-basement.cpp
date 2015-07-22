@@ -1426,7 +1426,7 @@ Gura_DeclareFunction(outers)
 
 Gura_ImplementFunction(outers)
 {
-	AutoPtr<Environment> pEnvOuter(new Environment());
+	AutoPtr<Environment> pEnvOuter(new Environment(env.GetSignal()));
 	pEnvOuter->AddOuterFrame(env.GetFrameOwner());
 	return ReturnValue(env, sig, args, Value(new Object_environment(*pEnvOuter)));
 }

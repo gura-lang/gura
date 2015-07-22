@@ -27,7 +27,7 @@ inline Gura::String IIDString(REFIID riid)
 // CMain implementation
 //-----------------------------------------------------------------------------
 CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
-	_objectSafety(this), _pActiveScriptSite(nullptr), _pEnv(new Gura::Environment())
+		 _objectSafety(this), _pActiveScriptSite(nullptr), _pEnv(new Gura::Environment(_sig))
 {
 	int argc = 0;
 	const char **argv = nullptr;
