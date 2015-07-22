@@ -6,22 +6,6 @@
 Gura_BeginModuleBody(llvm)
 
 //-----------------------------------------------------------------------------
-// Restorer
-//-----------------------------------------------------------------------------
-template<typename T> class Restorer {
-private:
-	T &_target;
-	T _valueOrg;
-public:
-	inline Restorer(T &target, T value) : _target(target), _valueOrg(target) {
-		_target = value;
-	}
-	inline ~Restorer() {
-		_target = _valueOrg;
-	}
-};
-
-//-----------------------------------------------------------------------------
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
 extern "C" bool GuraStub_LookupValue(
@@ -34,86 +18,6 @@ extern "C" bool GuraStub_LookupValue(
 	}
 	Gura_CopyValue(valueResult, *pValue);
 	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Iterator_MemberMap
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
-private:
-	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
-	AutoPtr<Iterator> _pIterator;
-	const Symbol *_pSymbol;
-public:
-	Iterator_MemberMap(Environment *pEnv, Signal &sig, Iterator *pIterator, const Symbol *pSymbol);
-	virtual ~Iterator_MemberMap();
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// Iterator_MemberMap
-//-----------------------------------------------------------------------------
-Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Signal &sig,
-									   Iterator *pIterator, const Symbol *pSymbol) :
-		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig),
-		_pIterator(pIterator), _pSymbol(pSymbol)
-{
-}
-
-Iterator_MemberMap::~Iterator_MemberMap()
-{
-	if (IsVirgin()) Consume(*_pEnv, _sig);
-}
-
-Iterator *Iterator_MemberMap::GetSource()
-{
-	return _pIterator.get();
-}
-
-bool Iterator_MemberMap::DoNext(Environment &env, Signal &sig, Value &value)
-{
-	Value valueThis;
-	if (!_pIterator->Next(env, sig, valueThis)) return false;
-	Fundamental *pFund = valueThis.IsPrimitive()?
-		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
-	if (pFund == nullptr) return false;
-	Value *pValue = pFund->LookupValue(_pSymbol, ENVREF_Escalate);
-	if (pValue == nullptr) {
-		sig.SetError(ERR_ValueError, "undefined member variable %s", _pSymbol->GetName());
-		return false;
-	}
-	if (pValue->Is_function()) {
-		Object_function *pObjFunc =
-			dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
-		pObjFunc->SetThis(valueThis);
-		Gura_CopyValue(value, Value(pObjFunc));
-	} else {
-		Gura_CopyValue(value, *pValue);
-	}
-	return true;
-}
-
-String Iterator_MemberMap::ToString() const
-{
-	String rtn;
-	rtn += "member_map(";
-	rtn += _pSymbol->GetName();
-	rtn += ";";
-	rtn += _pIterator->ToString();
-	rtn += ")";
-	return rtn;
-}
-
-void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-	if (_cntRef == 1) {
-		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
-		_pIterator->GatherFollower(pFrame, envSet);
-	}
 }
 
 extern "C" bool GuraStub_LookupValueInMember(
@@ -144,7 +48,7 @@ extern "C" bool GuraStub_LookupValueInMember(
 		if (sig.IsSignalled()) return false;
 		if (!pIterator.IsNull()) {
 			AutoPtr<Iterator> pIteratorMap(
-				new Iterator_MemberMap(
+				new Iterator_IdentifierInMember(
 					new Environment(env), sig, pIterator.release(), pSymbol));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
