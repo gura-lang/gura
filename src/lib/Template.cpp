@@ -516,7 +516,7 @@ void Expr_TmplString::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_TmplString::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_TmplString::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	//stream.Println(sig, "TmplString");
 	return true;
@@ -606,7 +606,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSe
 	return Value::Null;
 }
 
-bool Expr_TmplScript::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_TmplScript::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	//stream.Println(sig, "TmplScript");
 	return true;

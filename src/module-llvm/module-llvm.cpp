@@ -377,38 +377,38 @@ private:
 	llvm::Function *CreateBridgeFunction(Environment &env, Signal &sig,
 										 const Expr *pExpr, const char *name);
 private:
-	virtual bool GenCode_Value(Environment &env, Signal &sig, const Expr_Value *pExprValue);
-	virtual bool GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr);
-	virtual bool GenCode_Suffixed(Environment &env, Signal &sig, const Expr_Suffixed *pExpr);
-	virtual bool GenCode_Root(Environment &env, Signal &sig, const Expr_Root *pExpr);
-	virtual bool GenCode_Block(Environment &env, Signal &sig, const Expr_Block *pExpr);
-	virtual bool GenCode_Lister(Environment &env, Signal &sig, const Expr_Lister *pExpr);
-	virtual bool GenCode_Iterer(Environment &env, Signal &sig, const Expr_Iterer *pExpr);
-	virtual bool GenCode_Indexer(Environment &env, Signal &sig, const Expr_Indexer *pExpr);
-	virtual bool GenCode_Caller(Environment &env, Signal &sig, const Expr_Caller *pExpr);
-	virtual bool GenCode_UnaryOp(Environment &env, Signal &sig, const Expr_UnaryOp *pExpr);
-	virtual bool GenCode_BinaryOp(Environment &env, Signal &sig, const Expr_BinaryOp *pExpr);
-	virtual bool GenCode_Quote(Environment &env, Signal &sig, const Expr_Quote *pExpr);
-	virtual bool GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr);
-	virtual bool GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr);
+	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExprValue);
+	virtual bool GenCode_Identifier(Environment &env, const Expr_Identifier *pExpr);
+	virtual bool GenCode_Suffixed(Environment &env, const Expr_Suffixed *pExpr);
+	virtual bool GenCode_Root(Environment &env, const Expr_Root *pExpr);
+	virtual bool GenCode_Block(Environment &env, const Expr_Block *pExpr);
+	virtual bool GenCode_Lister(Environment &env, const Expr_Lister *pExpr);
+	virtual bool GenCode_Iterer(Environment &env, const Expr_Iterer *pExpr);
+	virtual bool GenCode_Indexer(Environment &env, const Expr_Indexer *pExpr);
+	virtual bool GenCode_Caller(Environment &env, const Expr_Caller *pExpr);
+	virtual bool GenCode_UnaryOp(Environment &env, const Expr_UnaryOp *pExpr);
+	virtual bool GenCode_BinaryOp(Environment &env, const Expr_BinaryOp *pExpr);
+	virtual bool GenCode_Quote(Environment &env, const Expr_Quote *pExpr);
+	virtual bool GenCode_Assign(Environment &env, const Expr_Assign *pExpr);
+	virtual bool GenCode_Member(Environment &env, const Expr_Member *pExpr);
 private:
 	bool GenCode_IdentifierInMember(
-		Environment &env, Signal &sig, const Expr *pExprThis,
+		Environment &env, const Expr *pExprThis,
 		const Expr_Identifier *pExprSelector, Expr_Member::Mode mode);
 private:
 	bool GenCode_AssignToIdentifier(
-		Environment &env, Signal &sig, const Expr_Identifier *pExpr,
+		Environment &env, const Expr_Identifier *pExpr,
 		llvm::Value *plv_valueAssigned);
 	bool GenCode_AssignToLister(
-		Environment &env, Signal &sig, const Expr_Lister *pExpr,
+		Environment &env, const Expr_Lister *pExpr,
 		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
 	bool GenCode_AssignToIndexer(
-		Environment &env, Signal &sig, const Expr_Indexer *pExpr,
+		Environment &env, const Expr_Indexer *pExpr,
 		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
 	bool GenCode_AssignToCaller(
-		Environment &env, Signal &sig, const Expr_Caller *pExpr, const Expr *pExprAssigned);
+		Environment &env, const Expr_Caller *pExpr, const Expr *pExprAssigned);
 	bool GenCode_AssignToIdentifierInMember(
-		Environment &env, Signal &sig, const Expr *pExprThis,
+		Environment &env, const Expr *pExprThis,
 		const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
 		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
 private:
@@ -417,10 +417,10 @@ private:
 	llvm::Value *GenCode_CheckValType(llvm::Value *plv_value, UShort valType);
 	llvm::Value *GenCode_CheckValTypeListOrIterator(llvm::Value *plv_value);
 	llvm::Value *GenCode_CallBinaryOp(
-		Environment &env, Signal &sig, const Operator *pOperator,
+		Environment &env, const Operator *pOperator,
 		const Expr *pExprLeft, const Expr *pExprRight);
 	llvm::Value *GenCode_CallUnaryOp(
-		Environment &env, Signal &sig, const Operator *pOperator, const Expr *pExprChild);
+		Environment &env, const Operator *pOperator, const Expr *pExprChild);
 	llvm::Value *GenCode_AllocaValue(const llvm::Twine &name, bool initFlag = true);
 	llvm::Value *GenCode_CastCPointerToPtr(const void *p, llvm::Type *pType);
 	llvm::Value *GenCode_CreateIterator(
@@ -906,7 +906,7 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	_contextStack.push_back(new Context(plv_env, plv_sig,
 										pBasicBlockEntry, pBasicBlockExit, pBasicBlockRelease));
 	_builder.SetInsertPoint(pBasicBlockBody);
-	if (pExpr->GenerateCode(env, sig, *this)) {
+	if (pExpr->GenerateCode(env, *this)) {
 		llvm::Value *plv_valueRtn = _plv_valueResult;
 		pFunction->getBasicBlockList().push_back(pBasicBlockExit);
 		pFunction->getBasicBlockList().push_back(pBasicBlockRelease);
@@ -936,8 +936,9 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	return pFunction;
 }
 
-bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_Value *pExprValue)
+bool CodeGeneratorLLVM::GenCode_Value(Environment &env, const Expr_Value *pExprValue)
 {
+	Signal &sig = env.GetSignal();
 	const Value &value = pExprValue->GetValue();
 	if (value.Is_number()) {
 		_plv_valueResult = GenCode_AllocaValue("value");
@@ -974,7 +975,7 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, Signal &sig, const Expr_
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const Expr_Identifier *pExpr)
+bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, const Expr_Identifier *pExpr)
 {
 	_plv_valueResult = GenCode_AllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
@@ -991,10 +992,10 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, Signal &sig, const 
 }
 
 bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
-	Environment &env, Signal &sig, const Expr *pExprThis,
+	Environment &env, const Expr *pExprThis,
 	const Expr_Identifier *pExprSelector, Expr_Member::Mode mode)
 {
-	if (!pExprThis->GenerateCode(env, sig, *this)) return false;
+	if (!pExprThis->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueThis = _plv_valueResult;
 	_plv_valueResult = GenCode_AllocaValue(std::string("value.this.") +
 										   pExprSelector->GetSymbol()->GetName());
@@ -1014,7 +1015,7 @@ bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
-	Environment &env, Signal &sig,
+	Environment &env,
 	const Expr_Identifier *pExpr, llvm::Value *plv_valueAssigned)
 {
 	ULong extra = EXTRA_None;
@@ -1033,34 +1034,34 @@ bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToIdentifierInMember(
-	Environment &env, Signal &sig, const Expr *pExprThis,
+	Environment &env, const Expr *pExprThis,
 	const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
 	llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
 {
-	if (!pExprThis->GenerateCode(env, sig, *this)) return false;
+	if (!pExprThis->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueThis = _plv_valueResult;
 
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Suffixed(Environment &env, Signal &sig, const Expr_Suffixed *pExpr)
+bool CodeGeneratorLLVM::GenCode_Suffixed(Environment &env, const Expr_Suffixed *pExpr)
 {
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Root(Environment &env, Signal &sig, const Expr_Root *pExpr)
+bool CodeGeneratorLLVM::GenCode_Root(Environment &env, const Expr_Root *pExpr)
 {
-	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	pExpr->GetExprOwner().GenerateCode(env, *this);
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Block(Environment &env, Signal &sig, const Expr_Block *pExpr)
+bool CodeGeneratorLLVM::GenCode_Block(Environment &env, const Expr_Block *pExpr)
 {
-	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	pExpr->GetExprOwner().GenerateCode(env, *this);
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr_Lister *pExpr)
+bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, const Expr_Lister *pExpr)
 {
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
@@ -1071,7 +1072,7 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 		args, "valList");
 	foreach_const (ExprOwner, ppExpr, pExpr->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		if (!pExpr->GenerateCode(env, sig, *this)) return false;
+		if (!pExpr->GenerateCode(env, *this)) return false;
 		llvm::Value *plv_valueElem = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
@@ -1088,9 +1089,10 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, Signal &sig, const Expr
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToLister(
-	Environment &env, Signal &sig,
-	const Expr_Lister *pExpr, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+	Environment &env, const Expr_Lister *pExpr,
+	llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
 {
+	Signal &sig = env.GetSignal();
 	if (pExpr->GetExprOwner().empty()) {
 		// .....
 	}
@@ -1114,18 +1116,18 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 				const Expr_Identifier *pExprElemEx =
 					dynamic_cast<const Expr_Identifier *>(pExprElem);
 				if (!GenCode_AssignToIdentifier(
-						env, sig, pExprElemEx, plv_valueAssigned)) return false;
+						env, pExprElemEx, plv_valueAssigned)) return false;
 			} else if (pExprElem->IsIndexer()) {
 				const Expr_Indexer *pExprElemEx =
 					dynamic_cast<const Expr_Indexer *>(pExprElem);
 				if (!GenCode_AssignToIndexer(
-						env, sig, pExprElemEx, plv_valueAssigned, false)) return false;
+						env, pExprElemEx, plv_valueAssigned, false)) return false;
 			} else if (pExprElem->IsMember()) {
 				const Expr_Member *pExprElemEx =
 					dynamic_cast<const Expr_Member *>(pExprElem);
 				if (pExprElemEx->GetLeft()->IsIdentifier()) {
 					if (!GenCode_AssignToIdentifierInMember(
-							env, sig, pExprElemEx->GetLeft(),
+							env, pExprElemEx->GetLeft(),
 							dynamic_cast<const Expr_Identifier *>(pExprElemEx->GetRight()),
 							pExprElemEx->GetMode(), plv_valueAssigned, false)) return false;
 				} else {
@@ -1166,18 +1168,18 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 					const Expr_Identifier *pExprElemEx =
 						dynamic_cast<const Expr_Identifier *>(pExprElem);
 					if (!GenCode_AssignToIdentifier(
-							env, sig, pExprElemEx, plv_valueAssignedElem)) return false;
+							env, pExprElemEx, plv_valueAssignedElem)) return false;
 				} else if (pExprElem->IsIndexer()) {
 					const Expr_Indexer *pExprElemEx =
 						dynamic_cast<const Expr_Indexer *>(pExprElem);
 					if (!GenCode_AssignToIndexer(
-							env, sig, pExprElemEx, plv_valueAssignedElem, false)) return false;
+							env, pExprElemEx, plv_valueAssignedElem, false)) return false;
 				} else if (pExprElem->IsMember()) {
 					const Expr_Member *pExprElemEx =
 						dynamic_cast<const Expr_Member *>(pExprElem);
 					if (pExprElemEx->GetRight()->IsIdentifier()) {
 						if (!GenCode_AssignToIdentifierInMember(
-								env, sig, pExprElemEx->GetLeft(),
+								env, pExprElemEx->GetLeft(),
 								dynamic_cast<const Expr_Identifier *>(pExprElemEx->GetRight()),
 								pExprElemEx->GetMode(), plv_valueAssignedElem, false)) return false;
 					} else {
@@ -1203,15 +1205,15 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, Signal &sig, const Expr_Iterer *pExpr)
+bool CodeGeneratorLLVM::GenCode_Iterer(Environment &env, const Expr_Iterer *pExpr)
 {
-	pExpr->GetExprOwner().GenerateCode(env, sig, *this);
+	pExpr->GetExprOwner().GenerateCode(env, *this);
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Expr_Indexer *pExpr)
+bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, const Expr_Indexer *pExpr)
 {
-	if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
+	if (!pExpr->GetCar()->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueCar = _plv_valueResult;
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	if (pExpr->GetExprOwner().empty()) {
@@ -1235,7 +1237,7 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 		args, "valList");
 	foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
 		const Expr *pExprIdx = *ppExprIdx;
-		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+		if (!pExprIdx->GenerateCode(env, *this)) return false;
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
@@ -1253,10 +1255,10 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, Signal &sig, const Exp
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
-	Environment &env, Signal &sig,
+	Environment &env,
 	const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
 {
-	if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
+	if (!pExpr->GetCar()->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueCar = _plv_valueResult;
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
@@ -1288,7 +1290,7 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 			// tgt[i, j, k] = scalar
 			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
 				const Expr *pExprIdx = *ppExprIdx;
-				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+				if (!pExprIdx->GenerateCode(env, *this)) return false;
 				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
 				args.push_back(Get_env());
@@ -1309,7 +1311,7 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	if (pExpr->GetExprOwner().size() == 1) {
 		// tgt[i] = iterable
 		const Expr *pExprIdx = pExpr->GetExprOwner().front();
-		if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+		if (!pExprIdx->GenerateCode(env, *this)) return false;
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
@@ -1331,7 +1333,7 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 			Restorer<llvm::BasicBlock *> restorer(_pBasicBlockExit, pBasicBlockDone);
 			foreach_const (ExprOwner, ppExprIdx, pExpr->GetExprOwner()) {
 				const Expr *pExprIdx = *ppExprIdx;
-				if (!pExprIdx->GenerateCode(env, sig, *this)) return false;
+				if (!pExprIdx->GenerateCode(env, *this)) return false;
 				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
 				args.push_back(Get_env());
@@ -1359,8 +1361,9 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr_Caller *pExpr)
+bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExpr)
 {
+	Signal &sig = env.GetSignal();
 	llvm::Value *plv_valueThis = nullptr;
 	llvm::Value *plv_valueCar = nullptr;
 	if (pExpr->GetCar()->IsMember()) {
@@ -1371,7 +1374,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		}
 		const Expr_Identifier *pExprSelector =
 			dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight());
-		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
+		if (!pExprEx->GetLeft()->GenerateCode(env, *this)) return false;
 		plv_valueThis = _plv_valueResult;
 		if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
 
@@ -1393,7 +1396,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		GenCode_CondBrContinueOrExit(plv_successFlag, "bb.caller.continue");
 	} else {
 		plv_valueThis = GenCode_AllocaValue("valueThis");
-		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
+		if (!pExpr->GetCar()->GenerateCode(env, *this)) return false;
 		plv_valueCar = _plv_valueResult;
 	}
 	llvm::Value *plv_valTypeCar = _builder.CreateLoad(
@@ -1412,6 +1415,14 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 	_builder.SetInsertPoint(pBasicBlockFunction);
 	do {
 		// declaration
+		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
+			const Expr *pExprArg = *ppExprArg;
+			if (!pExprArg->GenerateCode(env, *this)) return false;
+			//llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
+			//if (pFunction == nullptr) return false;
+			//args.push_back(llvm::ConstantExpr::getBitCast(
+			//				   pFunction, _builder.getInt8Ty()->getPointerTo()));
+		}
 	} while (0);
 	_builder.CreateBr(pBasicBlockContinue);
 	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockCheckIfOperator);
@@ -1476,15 +1487,16 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToCaller(
-	Environment &env, Signal &sig,
+	Environment &env,
 	const Expr_Caller *pExpr, const Expr *pExprAssigned)
 {
+	Signal &sig = env.GetSignal();
 	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprAssigned, "FunctionBody");
 	if (pFunction == nullptr) return false;
 	_plv_valueResult = nullptr;
 	if (pExpr->GetCar()->IsMember()) {
 		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetCar());
-		if (!pExprEx->GetLeft()->GenerateCode(env, sig, *this)) return false;
+		if (!pExprEx->GetLeft()->GenerateCode(env, *this)) return false;
 		llvm::Value *plv_valueThis = _plv_valueResult;
 		if (pExprEx->GetMode() != Expr_Member::MODE_Normal) {
 			sig.SetError(ERR_SyntaxError,
@@ -1499,20 +1511,20 @@ bool CodeGeneratorLLVM::GenCode_AssignToCaller(
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, Signal &sig, const Expr_UnaryOp *pExpr)
+bool CodeGeneratorLLVM::GenCode_UnaryOp(Environment &env, const Expr_UnaryOp *pExpr)
 {
-	_plv_valueResult = GenCode_CallUnaryOp(env, sig, pExpr->GetOperator(), pExpr->GetChild());
+	_plv_valueResult = GenCode_CallUnaryOp(env, pExpr->GetOperator(), pExpr->GetChild());
 	return _plv_valueResult != nullptr;
 }
 
-bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, Signal &sig, const Expr_BinaryOp *pExpr)
+bool CodeGeneratorLLVM::GenCode_BinaryOp(Environment &env, const Expr_BinaryOp *pExpr)
 {
-	_plv_valueResult = GenCode_CallBinaryOp(env, sig, pExpr->GetOperator(),
+	_plv_valueResult = GenCode_CallBinaryOp(env, pExpr->GetOperator(),
 											pExpr->GetLeft(), pExpr->GetRight());
 	return _plv_valueResult != nullptr;
 }
 
-bool CodeGeneratorLLVM::GenCode_Quote(Environment &env, Signal &sig, const Expr_Quote *pExpr)
+bool CodeGeneratorLLVM::GenCode_Quote(Environment &env, const Expr_Quote *pExpr)
 {
 	::printf("Quote\n");
 	if (pExpr->GetChild()->IsIdentifier()) {
@@ -1525,15 +1537,16 @@ bool CodeGeneratorLLVM::GenCode_Quote(Environment &env, Signal &sig, const Expr_
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr_Assign *pExpr)
+bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, const Expr_Assign *pExpr)
 {
+	Signal &sig = env.GetSignal();
 	if (pExpr->GetLeft()->IsCaller()) {
 		if (pExpr->GetOperatorToApply() != nullptr) {
 			sig.SetError(ERR_SyntaxError, "invalid operation");
 			return false;
 		}
 		const Expr_Caller *pExprEx = dynamic_cast<const Expr_Caller *>(pExpr->GetLeft());
-		if (!GenCode_AssignToCaller(env, sig, pExprEx, pExpr->GetRight())) return false;
+		if (!GenCode_AssignToCaller(env, pExprEx, pExpr->GetRight())) return false;
 		return true;
 	} else if (pExpr->GetLeft()->IsMember()) {
 		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetLeft());
@@ -1541,17 +1554,17 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 			bool alwaysIterableFlag = false;
 			llvm::Value *plv_valueAssigned = nullptr;
 			if (pExpr->GetOperatorToApply() == nullptr) {
-				if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
+				if (!pExpr->GetRight()->GenerateCode(env, *this)) return false;
 				plv_valueAssigned = _plv_valueResult;
 				alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
 			} else {
-				plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
+				plv_valueAssigned = GenCode_CallBinaryOp(env, pExpr->GetOperatorToApply(),
 														 pExpr->GetLeft(), pExpr->GetRight());
 				if (plv_valueAssigned == nullptr) return false;
 				alwaysIterableFlag = (pExprEx->GetMode() != Expr_Member::MODE_Normal);
 			}
 			return GenCode_AssignToIdentifierInMember(
-				env, sig, pExprEx->GetLeft(),
+				env, pExprEx->GetLeft(),
 				dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight()),
 				pExprEx->GetMode(), plv_valueAssigned, alwaysIterableFlag);
 		} else {
@@ -1562,36 +1575,35 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, Signal &sig, const Expr
 	bool alwaysIterableFlag = false;
 	llvm::Value *plv_valueAssigned = nullptr;
 	if (pExpr->GetOperatorToApply() == nullptr) {
-		if (!pExpr->GetRight()->GenerateCode(env, sig, *this)) return false;
+		if (!pExpr->GetRight()->GenerateCode(env, *this)) return false;
 		plv_valueAssigned = _plv_valueResult;
 		alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
 	} else {
-		plv_valueAssigned = GenCode_CallBinaryOp(env, sig, pExpr->GetOperatorToApply(),
+		plv_valueAssigned = GenCode_CallBinaryOp(env, pExpr->GetOperatorToApply(),
 												 pExpr->GetLeft(), pExpr->GetRight());
 		if (plv_valueAssigned == nullptr) return false;
 		alwaysIterableFlag = pExpr->GetLeft()->IsLister();
 	}
 	if (pExpr->GetLeft()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetLeft());
-		if (!GenCode_AssignToIdentifier(env, sig, pExprEx, plv_valueAssigned)) return false;
+		if (!GenCode_AssignToIdentifier(env, pExprEx, plv_valueAssigned)) return false;
 	} else if (pExpr->GetLeft()->IsIndexer()) {
 		const Expr_Indexer *pExprEx = dynamic_cast<const Expr_Indexer *>(pExpr->GetLeft());
-		if (!GenCode_AssignToIndexer(env, sig,
-									 pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
+		if (!GenCode_AssignToIndexer(env, pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
 	} else if (pExpr->GetLeft()->IsLister()) {
 		const Expr_Lister *pExprEx = dynamic_cast<const Expr_Lister *>(pExpr->GetLeft());
-		if (!GenCode_AssignToLister(env, sig,
-									pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
+		if (!GenCode_AssignToLister(env, pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
 	}
 	_plv_valueResult = plv_valueAssigned;
 	return true;
 }
 
-bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr_Member *pExpr)
+bool CodeGeneratorLLVM::GenCode_Member(Environment &env, const Expr_Member *pExpr)
 {
+	Signal &sig = env.GetSignal();
 	if (pExpr->GetRight()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetRight());
-		return GenCode_IdentifierInMember(env, sig, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
+		return GenCode_IdentifierInMember(env, pExpr->GetLeft(), pExprEx, pExpr->GetMode());
 	} else {
 		sig.SetError(ERR_SyntaxError, "invalid member access");
 		return false;
@@ -1600,9 +1612,9 @@ bool CodeGeneratorLLVM::GenCode_Member(Environment &env, Signal &sig, const Expr
 }
 
 llvm::Value *CodeGeneratorLLVM::GenCode_CallUnaryOp(
-	Environment &env, Signal &sig, const Operator *pOperator, const Expr *pExprChild)
+	Environment &env, const Operator *pOperator, const Expr *pExprChild)
 {
-	if (!pExprChild->GenerateCode(env, sig, *this)) return nullptr;
+	if (!pExprChild->GenerateCode(env, *this)) return nullptr;
 	llvm::Value *plv_valueChild = _plv_valueResult;
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
@@ -1618,12 +1630,11 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CallUnaryOp(
 }
 
 llvm::Value *CodeGeneratorLLVM::GenCode_CallBinaryOp(
-	Environment &env, Signal &sig, const Operator *pOperator,
-	const Expr *pExprLeft, const Expr *pExprRight)
+	Environment &env, const Operator *pOperator, const Expr *pExprLeft, const Expr *pExprRight)
 {
-	if (!pExprLeft->GenerateCode(env, sig, *this)) return nullptr;
+	if (!pExprLeft->GenerateCode(env, *this)) return nullptr;
 	llvm::Value *plv_valueLeft = _plv_valueResult;
-	if (!pExprRight->GenerateCode(env, sig, *this)) return nullptr;
+	if (!pExprRight->GenerateCode(env, *this)) return nullptr;
 	llvm::Value *plv_valueRight = _plv_valueResult;
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;

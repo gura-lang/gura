@@ -301,7 +301,7 @@ Callable *Expr::LookupCallable(Environment &env, Signal &sig) const
 	return nullptr;
 }
 
-bool Expr::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	return false;
 }
@@ -504,10 +504,10 @@ bool ExprList::IsContained(const Expr *pExpr) const
 	return std::find(begin(), end(), const_cast<Expr *>(pExpr)) != end();
 }
 
-bool ExprList::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool ExprList::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	foreach_const (ExprList, ppExpr, *this) {
-		if (!(*ppExpr)->GenerateCode(env, sig, codeGenerator)) return false;
+		if (!(*ppExpr)->GenerateCode(env, codeGenerator)) return false;
 	}
 	return true;
 }
@@ -743,9 +743,9 @@ void Expr_Value::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_Value::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Value::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Value(env, sig, this);
+	return codeGenerator.GenCode_Value(env, this);
 }
 
 bool Expr_Value::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -941,9 +941,9 @@ Expr *Expr_Identifier::MathOptimize(Environment &env, Signal &sig) const
 	return Clone();
 }
 
-bool Expr_Identifier::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Identifier::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Identifier(env, sig, this);
+	return codeGenerator.GenCode_Identifier(env, this);
 }
 
 bool Expr_Identifier::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1041,9 +1041,9 @@ void Expr_Suffixed::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-bool Expr_Suffixed::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Suffixed::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Suffixed(env, sig, this);
+	return codeGenerator.GenCode_Suffixed(env, this);
 }
 
 bool Expr_Suffixed::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1212,9 +1212,9 @@ Value Expr_Root::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostH
 	return Value::Null;
 }
 
-bool Expr_Root::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Root::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Root(env, sig, this);
+	return codeGenerator.GenCode_Root(env, this);
 }
 
 bool Expr_Root::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1313,9 +1313,9 @@ void Expr_Block::Accept(ExprVisitor &visitor)
 	Expr_Collector::Accept(visitor);
 }
 
-bool Expr_Block::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Block::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Block(env, sig, this);
+	return codeGenerator.GenCode_Block(env, this);
 }
 
 bool Expr_Block::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1495,9 +1495,9 @@ Value Expr_Lister::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-bool Expr_Lister::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Lister::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Lister(env, sig, this);
+	return codeGenerator.GenCode_Lister(env, this);
 }
 
 bool Expr_Lister::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1567,9 +1567,9 @@ Value Expr_Iterer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-bool Expr_Iterer::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Iterer::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Iterer(env, sig, this);
+	return codeGenerator.GenCode_Iterer(env, this);
 }
 
 bool Expr_Iterer::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -1812,9 +1812,9 @@ void Expr_Indexer::Accept(ExprVisitor &visitor)
 	}
 }
 
-bool Expr_Indexer::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Indexer::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Indexer(env, sig, this);
+	return codeGenerator.GenCode_Indexer(env, this);
 }
 
 bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2216,9 +2216,9 @@ Expr *Expr_Caller::MathOptimize(Environment &env, Signal &sig) const
 	return Clone();
 }
 
-bool Expr_Caller::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Caller::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Caller(env, sig, this);
+	return codeGenerator.GenCode_Caller(env, this);
 }
 
 bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2376,9 +2376,9 @@ Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal &sig) const
 	return _pOperator->MathOptimizeUnary(env, sig, pExprOpt);
 }
 
-bool Expr_UnaryOp::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_UnaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_UnaryOp(env, sig, this);
+	return codeGenerator.GenCode_UnaryOp(env, this);
 }
 
 bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2501,9 +2501,9 @@ Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal &sig) const
 	return _pOperator->MathOptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
 }
 
-bool Expr_BinaryOp::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_BinaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_BinaryOp(env, sig, this);
+	return codeGenerator.GenCode_BinaryOp(env, this);
 }
 
 bool Expr_BinaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2586,9 +2586,9 @@ Value Expr_Quote::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-bool Expr_Quote::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Quote::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Quote(env, sig, this);
+	return codeGenerator.GenCode_Quote(env, this);
 }
 
 bool Expr_Quote::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2668,9 +2668,9 @@ Value Expr_Assign::Exec(Environment &env, Signal &sig, Environment &envDst,
 	return GetLeft()->Assign(envDst, sig, valueAssigned, pSymbolsAssignable, true);
 }
 
-bool Expr_Assign::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Assign::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Assign(env, sig, this);
+	return codeGenerator.GenCode_Assign(env, this);
 }
 
 bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
@@ -2828,9 +2828,9 @@ Value Expr_Member::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-bool Expr_Member::GenerateCode(Environment &env, Signal &sig, CodeGenerator &codeGenerator) const
+bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	return codeGenerator.GenCode_Member(env, sig, this);
+	return codeGenerator.GenCode_Member(env, this);
 }
 
 bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
