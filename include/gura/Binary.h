@@ -22,9 +22,9 @@ public:
 		return *this;
 	}
 public:
-	bool Pack(Environment &env, Signal &sig, size_t &offset,
+	bool Pack(Environment &env, size_t &offset,
 				const char *format, const ValueList &valListArg);
-	Value Unpack(Environment &env, Signal &sig, size_t &offset,
+	Value Unpack(Environment &env, size_t &offset,
 				const char *format, const ValueList &valListArg, bool exceedErrorFlag);
 	bool PackForward(Signal &sig, size_t offset, size_t bytes);
 	bool UnpackForward(Signal &sig,size_t &offset, int distance, bool exceedErrorFlag);

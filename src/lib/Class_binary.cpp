@@ -180,7 +180,7 @@ Iterator *Object_binary::IteratorUnpack::GetSource()
 
 bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal &sig, Value &value)
 {
-	value = _pObj->GetBinary().Unpack(env, sig, _offset, _format.c_str(), _valListArg, false);
+	value = _pObj->GetBinary().Unpack(env, _offset, _format.c_str(), _valListArg, false);
 	return value.IsValid();
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementClassMethod(binary, pack)
 {
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
-	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), args.GetList(1));
+	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), args.GetList(1));
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
 }
@@ -568,7 +568,7 @@ Gura_ImplementMethod(binary, unpack)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	size_t offset = 0;
 	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));
-	return pThis->GetBinary().Unpack(env, sig, offset,
+	return pThis->GetBinary().Unpack(env, offset,
 						args.GetString(0), args.GetList(1), exceedErrorFlag);
 }
 

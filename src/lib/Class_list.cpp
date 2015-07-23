@@ -1579,7 +1579,7 @@ Gura_ImplementMethod(list, pack)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
-	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), pThis->GetList());
+	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), pThis->GetList());
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObjBinary.release());
 }

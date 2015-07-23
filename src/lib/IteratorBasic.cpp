@@ -5,7 +5,7 @@
 
 namespace Gura {
 
-static bool PrepareRepeaterIterators(Environment &env, Signal &sig,
+static bool PrepareRepeaterIterators(Environment &env,
 	const ValueList &valListArg, ExprList &exprLeftList, IteratorOwner &iteratorOwner);
 
 //-----------------------------------------------------------------------------
@@ -1563,10 +1563,10 @@ bool Iterator_Pack::DoNext(Environment &env, Signal &sig, Value &value)
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	if (valueSrc.Is_list()) {
-		pObjBinary->GetBinary().Pack(env, sig, offset, _format.c_str(), valueSrc.GetList());
+		pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valueSrc.GetList());
 	} else {
 		ValueList valList(valueSrc);
-		pObjBinary->GetBinary().Pack(env, sig, offset, _format.c_str(), valList);
+		pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valList);
 	}
 	if (sig.IsSignalled()) return false;
 	value = Value(pObjBinary.release());
@@ -2149,7 +2149,7 @@ Iterator_for::Iterator_for(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 		_genIterFlag(genIterFlag),
 		_pIteratorNest(nullptr), _idx(0), _doneFlag(false)
 {
-	PrepareRepeaterIterators(*_pEnv, sig, valListArg, _exprLeftList, _iteratorOwner);
+	PrepareRepeaterIterators(*_pEnv, valListArg, _exprLeftList, _iteratorOwner);
 }
 
 Iterator *Iterator_for::GetSource()
@@ -2235,7 +2235,7 @@ Iterator_cross::Iterator_cross(Environment *pEnv, Signal &sig, Function *pFuncBl
 		_genIterFlag(genIterFlag),
 		_pIteratorNest(nullptr), _idx(0), _doneFlag(true)
 {
-	if (!PrepareRepeaterIterators(*_pEnv, sig, valListArg,
+	if (!PrepareRepeaterIterators(*_pEnv, valListArg,
 									_exprLeftList, _iteratorOwnerOrg)) return;
 	_valListArg.reserve(_iteratorOwnerOrg.size() + 1);
 	_iteratorOwner.reserve(_iteratorOwnerOrg.size());
@@ -2368,9 +2368,10 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal &sig)
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool PrepareRepeaterIterators(Environment &env, Signal &sig,
+bool PrepareRepeaterIterators(Environment &env,
 	const ValueList &valListArg, ExprList &exprLeftList, IteratorOwner &iteratorOwner)
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, valListArg) {
 		GURA_ASSUME(env, pValue->Is_expr());
 		const Expr *pExpr = pValue->GetExpr();

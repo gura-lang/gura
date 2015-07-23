@@ -34,7 +34,7 @@ Value Object_pointer::Unpack(Signal &sig, bool forwardFlag,
 {
 	Environment &env = *this;
 	size_t offset = _offset;
-	Value value = _pObjBinary->GetBinary().Unpack(env, sig, offset,
+	Value value = _pObjBinary->GetBinary().Unpack(env, offset,
 											format, valListArg, exceedErrorFlag);
 	if (forwardFlag) _offset = offset;
 	return value;
@@ -45,7 +45,7 @@ bool Object_pointer::Pack(Signal &sig,
 {
 	Environment &env = *this;
 	size_t offset = _offset;
-	if (!_pObjBinary->GetBinary().Pack(env, sig, offset, format, valListArg)) return false;
+	if (!_pObjBinary->GetBinary().Pack(env, offset, format, valListArg)) return false;
 	if (forwardFlag) _offset = offset;
 	return true;
 }
