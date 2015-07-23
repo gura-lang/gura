@@ -51,11 +51,11 @@ Gura_ImplementFunction(ScopedArray)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedArray(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScopedArray, reset)

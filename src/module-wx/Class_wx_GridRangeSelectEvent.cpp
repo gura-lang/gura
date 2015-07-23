@@ -52,11 +52,11 @@ Gura_ImplementFunction(GridRangeSelectEventEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GridRangeSelectEvent)
@@ -99,11 +99,11 @@ Gura_ImplementFunction(GridRangeSelectEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, AltDown)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, AltDown)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->AltDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, ControlDown)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, ControlDown)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ControlDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetBottomRightCoords)
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetBottomRightCoords)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords rtn = pThis->GetEntity()->GetBottomRightCoords();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetBottomRow)
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetBottomRow)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBottomRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetLeftCol)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetLeftCol)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLeftCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetRightCol)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetRightCol)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRightCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetTopLeftCoords)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetTopLeftCoords)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords rtn = pThis->GetEntity()->GetTopLeftCoords();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_GridCellCoords(new wxGridCellCoords(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, GetTopRow)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, GetTopRow)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTopRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, MetaDown)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, MetaDown)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MetaDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, Selecting)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, Selecting)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Selecting();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridRangeSelectEvent, ShiftDown)
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, ShiftDown)
 	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ShiftDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

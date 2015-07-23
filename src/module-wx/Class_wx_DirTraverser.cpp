@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_DirTraverser, OnDir)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
 	wxDirTraverseResult rtn = pThis->GetEntity()->OnDir(dirname);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DirTraverser, OnFile)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_DirTraverser, OnFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxDirTraverseResult rtn = pThis->GetEntity()->OnFile(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DirTraverser, OnOpenError)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_DirTraverser, OnOpenError)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString openerrorname = wxString::FromUTF8(args.GetString(0));
 	wxDirTraverseResult rtn = pThis->GetEntity()->OnOpenError(openerrorname);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

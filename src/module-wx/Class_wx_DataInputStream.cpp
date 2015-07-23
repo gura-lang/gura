@@ -54,11 +54,11 @@ Gura_ImplementFunction(DataInputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DataInputStream_1)
@@ -84,11 +84,11 @@ Gura_ImplementFunction(DataInputStream_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read8)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint8 rtn = pThis->GetEntity()->Read8();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataInputStream, Read8_1)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read16)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint16 rtn = pThis->GetEntity()->Read16();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataInputStream, Read16_1)
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read32)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 rtn = pThis->GetEntity()->Read32();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataInputStream, Read32_1)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DataInputStream, Read64)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint64 rtn = pThis->GetEntity()->Read64();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Uint64(new wxUint64(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Uint64(new wxUint64(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_DataInputStream, ReadDouble)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double rtn = pThis->GetEntity()->ReadDouble();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataInputStream, ReadDouble_1)
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_DataInputStream, ReadString)
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

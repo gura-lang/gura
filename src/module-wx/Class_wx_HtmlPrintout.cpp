@@ -54,11 +54,11 @@ Gura_ImplementFunction(HtmlPrintout)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlPrintout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_HtmlPrintout, AddFilter)

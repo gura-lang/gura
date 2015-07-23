@@ -53,11 +53,11 @@ Gura_ImplementFunction(MutexLocker)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MutexLocker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MutexLocker, IsOk)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_MutexLocker, IsOk)
 	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

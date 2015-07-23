@@ -62,11 +62,11 @@ Gura_ImplementFunction(HtmlHelpController)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpController(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HtmlHelpController, AddBook)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, AddBook)
 	wxFileName *bookFile = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	bool showWaitMsg = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->AddBook(*bookFile, showWaitMsg);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpController, AddBook_1)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, AddBook_1)
 	wxString bookUrl = wxString::FromUTF8(args.GetString(0));
 	bool showWaitMsg = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->AddBook(bookUrl, showWaitMsg);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpController, CreateHelpDialog)
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wxHtmlHelpDialog *rtn = (wxHtmlHelpDialog *)pThis->GetEntity()->CreateHelpDialog(data);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDialog(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpDialog(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpFrame)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wxHtmlHelpFrame *rtn = (wxHtmlHelpFrame *)pThis->GetEntity()->CreateHelpFrame(data);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpFrame(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpFrame(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, KeywordSearch)
 	wxHelpSearchMode mode = wxHELP_SEARCH_ALL;
 	if (args.IsValid(1)) mode = static_cast<wxHelpSearchMode>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->KeywordSearch(keyword, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpController, ReadCustomization)

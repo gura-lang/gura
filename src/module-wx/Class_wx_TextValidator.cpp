@@ -63,11 +63,11 @@ Gura_ImplementFunction(TextValidator_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TextValidator)
@@ -92,11 +92,11 @@ Gura_ImplementFunction(TextValidator)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_TextValidator, Clone)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TextValidator, GetExcludes)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_TextValidator, GetExcludes)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString rtn = pThis->GetEntity()->GetExcludes();
-	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_TextValidator, GetIncludes)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_TextValidator, GetIncludes)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString rtn = pThis->GetEntity()->GetIncludes();
-	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_TextValidator, GetStyle)
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_TextValidator, GetStyle)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetStyle();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextValidator, OnChar)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferFromWindow)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextValidator, TransferToWindow)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferToWindow)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextValidator, Validate)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_TextValidator, Validate)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Validate(parent);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

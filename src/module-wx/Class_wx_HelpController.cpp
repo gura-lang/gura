@@ -93,11 +93,11 @@ Gura_ImplementFunction(HelpController)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpController(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HelpController, Initialize)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Initialize(file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, Initialize_1)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize_1)
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	int server = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Initialize(file, server);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplayBlock)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayBlock)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long blockNo = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->DisplayBlock(blockNo);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplayContents)
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContents)
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DisplayContents();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplayContextPopup)
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContextPopup)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int contextId = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->DisplayContextPopup(contextId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplaySection)
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString section = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->DisplaySection(section);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplaySection_1)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int sectionNo = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->DisplaySection(sectionNo);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, DisplayTextPopup)
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayTextPopup)
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->DisplayTextPopup(text, *pos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, GetFrameParameters)
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 	bool newFrameEachTime = nullptr;
 	if (args.IsValid(2)) newFrameEachTime = args.GetBoolean(2);
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrameParameters(size, pos, newFrameEachTime);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_HelpController, GetParentWindow)
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpController, KeywordSearch)
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_HelpController, KeywordSearch)
 	wxHelpSearchMode mode = wxHELP_SEARCH_ALL;
 	if (args.IsValid(1)) mode = static_cast<wxHelpSearchMode>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->KeywordSearch(keyWord, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, LoadFile)
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_HelpController, LoadFile)
 	wxString file = wxT("");
 	if (args.IsValid(0)) file = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->LoadFile(file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HelpController, OnQuit)
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_HelpController, Quit)
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Quit();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

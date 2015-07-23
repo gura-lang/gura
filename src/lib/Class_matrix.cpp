@@ -286,7 +286,7 @@ Gura_ImplementMethod(matrix, each)
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	Iterator *pIterator = new Matrix::IteratorEach(Matrix::Reference(pThis->GetMatrix()),
 								args.IsSet(Gura_Symbol(transpose)));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // matrix#eachcol()
@@ -302,7 +302,7 @@ Gura_DeclareMethod(matrix, eachcol)
 Gura_ImplementMethod(matrix, eachcol)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 		new Matrix::IteratorEachCol(Matrix::Reference(pThis->GetMatrix())));
 }
 
@@ -319,7 +319,7 @@ Gura_DeclareMethod(matrix, eachrow)
 Gura_ImplementMethod(matrix, eachrow)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 		new Matrix::IteratorEachRow(Matrix::Reference(pThis->GetMatrix())));
 }
 
@@ -337,7 +337,7 @@ Gura_DeclareClassMethod(matrix, identity)
 Gura_ImplementClassMethod(matrix, identity)
 {
 	AutoPtr<Matrix> pMat(Matrix::CreateIdentity(args.GetInt(0)));
-	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+	return ReturnValue(env, args, Value(new Object_matrix(env, pMat.release())));
 }
 
 // matrix#invert()
@@ -414,7 +414,7 @@ Gura_ImplementClassMethod(matrix, rotation)
 	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	AutoPtr<Matrix> pMat(Matrix::CreateRotation(angle, transFlag, xTrans, yTrans));
-	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+	return ReturnValue(env, args, Value(new Object_matrix(env, pMat.release())));
 }
 
 // matrix.rotation@x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
@@ -465,7 +465,7 @@ Gura_ImplementClassMethod(matrix, rotation_x)
 	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	AutoPtr<Matrix> pMat(Matrix::CreateRotationX(angle, transFlag, xTrans, yTrans, zTrans));
-	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+	return ReturnValue(env, args, Value(new Object_matrix(env, pMat.release())));
 }
 
 // matrix.rotation@y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
@@ -516,7 +516,7 @@ Gura_ImplementClassMethod(matrix, rotation_y)
 	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	AutoPtr<Matrix> pMat(Matrix::CreateRotationY(angle, transFlag, xTrans, yTrans, zTrans));
-	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+	return ReturnValue(env, args, Value(new Object_matrix(env, pMat.release())));
 }
 
 // matrix.rotation@z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
@@ -567,7 +567,7 @@ Gura_ImplementClassMethod(matrix, rotation_z)
 	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	AutoPtr<Matrix> pMat(Matrix::CreateRotationZ(angle, transFlag, xTrans, yTrans, zTrans));
-	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+	return ReturnValue(env, args, Value(new Object_matrix(env, pMat.release())));
 }
 
 // matrix#roundoff(threshold:number => 1e-10) {block?}
@@ -591,7 +591,7 @@ Gura_ImplementMethod(matrix, roundoff)
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	Value value = pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 // matrix#row(row:number):map

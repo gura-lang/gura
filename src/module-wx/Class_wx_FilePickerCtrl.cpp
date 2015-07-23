@@ -79,11 +79,11 @@ Gura_ImplementFunction(FilePickerCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilePickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, Create)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, Create)
 	wxString name = wxT("filepickerctrl");
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	bool rtn = pThis->GetEntity()->Create(parent, id, path, message, wildcard, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, GetPath)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, SetPath)

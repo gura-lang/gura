@@ -191,7 +191,7 @@ Gura_ImplementFunction(Face)
 	int index = args.GetInt(1);
 	AutoPtr<Object_Face> pObjFace(new Object_Face());
 	if (!pObjFace->Initialize(env, sig, &args.GetStream(0), index)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjFace.release()));
+	return ReturnValue(env, args, Value(pObjFace.release()));
 }
 
 // freetype.Face#CheckTrueTypePatents()

@@ -52,11 +52,11 @@ Gura_ImplementFunction(GridEventEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GridEvent)
@@ -107,11 +107,11 @@ Gura_ImplementFunction(GridEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridEvent, AltDown)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_GridEvent, AltDown)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->AltDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, ControlDown)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_GridEvent, ControlDown)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ControlDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, GetCol)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_GridEvent, GetCol)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, GetPosition)
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_GridEvent, GetPosition)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridEvent, GetRow)
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_GridEvent, GetRow)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, MetaDown)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_GridEvent, MetaDown)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MetaDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, Selecting)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_GridEvent, Selecting)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Selecting();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridEvent, ShiftDown)
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_GridEvent, ShiftDown)
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ShiftDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

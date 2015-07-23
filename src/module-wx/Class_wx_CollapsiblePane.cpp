@@ -72,11 +72,11 @@ Gura_ImplementFunction(CollapsiblePane)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CollapsiblePane(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CollapsiblePane, Create)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, Create)
 	wxString name = wxT("collapsiblePane");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CollapsiblePane, IsCollapsed)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsCollapsed)
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCollapsed();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CollapsiblePane, IsExpanded)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsExpanded)
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsExpanded();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CollapsiblePane, Collapse)
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, GetPane)
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPane();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

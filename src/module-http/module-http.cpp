@@ -1729,7 +1729,7 @@ Gura_ImplementMethod(request, respchunk)
 			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
 			args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
 // http.request#ismethod(method:string)
@@ -2284,7 +2284,7 @@ Gura_ImplementMethod(client, request)
 			args.Is_stream(2)? &args.GetStream(2) : nullptr,
 			args.GetString(3), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjResponse));
+	return ReturnValue(env, args, Value(pObjResponse));
 }
 
 // http.client#_request(uri:string, body?:stream:r,
@@ -2311,7 +2311,7 @@ Gura_ImplementMethod(client, _request)
 			args.Is_stream(1)? &args.GetStream(1) : nullptr,
 			args.GetString(2), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjResponse));
+	return ReturnValue(env, args, Value(pObjResponse));
 }
 
 // http.client#cleanup()
@@ -2445,7 +2445,7 @@ Gura_ImplementFunction(server)
 				args.Is_string(0)? args.GetString(0) : nullptr, args.GetShort(1))) {
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObjServer.release()));
+	return ReturnValue(env, args, Value(pObjServer.release()));
 }
 
 // http.client(addr:string, port:number => 80,
@@ -2489,7 +2489,7 @@ Gura_ImplementFunction(client)
 							addrProxy, portProxy, userIdProxy, passwordProxy)) {
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObjClient.release()));
+	return ReturnValue(env, args, Value(pObjClient.release()));
 }
 
 //-----------------------------------------------------------------------------

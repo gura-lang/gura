@@ -26,7 +26,7 @@ Gura_ImplementFunction(reader)
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
 										stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // gzip.writer(stream:stream:w, level?:number) {block?}
@@ -49,7 +49,7 @@ Gura_ImplementFunction(writer)
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
 									stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 //-----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ Gura_ImplementMethod(stream, reader_gzip)
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
 											stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // stream#writer@gzip(level?:number) {block?}
@@ -94,7 +94,7 @@ Gura_ImplementMethod(stream, writer_gzip)
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
 									stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // Module entry

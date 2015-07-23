@@ -954,7 +954,7 @@ Gura_ImplementFunction(diff)
 {
 	Expr *pExprDiff = args.GetExpr(0)->MathDiff(env, sig, args.GetSymbol(1));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprDiff)));
+	return ReturnValue(env, args, Value(new Object_expr(env, pExprDiff)));
 }
 
 // math.optimize(expr:expr):map {block?}
@@ -972,7 +972,7 @@ Gura_ImplementFunction(optimize)
 {
 	Expr *pExprOpt = args.GetExpr(0)->MathOptimize(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprOpt)));
+	return ReturnValue(env, args, Value(new Object_expr(env, pExprOpt)));
 }
 
 // math.fft(seq[])

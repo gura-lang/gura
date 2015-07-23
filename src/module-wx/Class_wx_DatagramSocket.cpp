@@ -57,11 +57,11 @@ Gura_ImplementFunction(DatagramSocket)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DatagramSocket(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->ReceiveFrom(*address, buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->SendTo(*address, buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

@@ -60,11 +60,11 @@ Gura_ImplementFunction(ProcessEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ProcessEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ProcessEvent, GetPid)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_ProcessEvent, GetPid)
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPid();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetExitCode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

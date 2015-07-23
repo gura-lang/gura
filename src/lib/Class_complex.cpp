@@ -28,7 +28,7 @@ Gura_ImplementFunction(complex)
 {
 	double real = args.GetDouble(0);
 	double imag = args.Is_number(1)? args.GetDouble(1) : 0;
-	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
+	return ReturnValue(env, args, Value(Complex(real, imag)));
 }
 
 //-----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Gura_ImplementClassMethod(complex, polar)
 	double abs = args.GetDouble(0);
 	double arg = args.GetDouble(1);
 	if (args.IsSet(Gura_Symbol(deg))) arg = DegToRad(arg);
-	return ReturnValue(env, sig, args, Value(Complex::Polar(abs, arg)));
+	return ReturnValue(env, args, Value(Complex::Polar(abs, arg)));
 }
 
 // complex#roundoff(threshold:number => 1e-10) {block?}
@@ -87,7 +87,7 @@ Gura_ImplementMethod(complex, roundoff)
 	if (realAbs < numThreshold) real = 0;
 	if (imagAbs < numThreshold) imag = 0;
 	if (imag == 0) return Value(real);
-	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
+	return ReturnValue(env, args, Value(Complex(real, imag)));
 }
 
 //-----------------------------------------------------------------------------

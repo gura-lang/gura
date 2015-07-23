@@ -54,11 +54,11 @@ Gura_ImplementFunction(PrinterDC)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 #if 0
@@ -89,11 +89,11 @@ Gura_ImplementFunction(PrinterDC_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 #endif
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->wxPrinterDC::GetPaperRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

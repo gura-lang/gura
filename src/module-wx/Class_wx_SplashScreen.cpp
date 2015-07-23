@@ -70,11 +70,11 @@ Gura_ImplementFunction(SplashScreen)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplashScreen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetSplashStyle();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SplashScreen, GetSplashWindow)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSplashScreenWindow *rtn = (wxSplashScreenWindow *)pThis->GetEntity()->GetSplashWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SplashScreenWindow(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_SplashScreenWindow(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTimeout();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

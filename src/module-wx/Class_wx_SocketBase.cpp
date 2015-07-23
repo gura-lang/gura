@@ -54,11 +54,11 @@ Gura_ImplementFunction(SocketBaseEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketBase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_SocketBase, Destroy)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Destroy();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_SocketBase, Discard)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketBase &rtn = pThis->GetEntity()->Discard();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_SocketBase, Error)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Error();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, GetClientData)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SocketBase, GetLocal)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSockAddress *addr = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetLocal(*addr);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, GetFlags)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_SocketBase, GetFlags)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketFlags rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, GetPeer)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_SocketBase, GetPeer)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSockAddress *addr = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetPeer(*addr);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, InterruptWait)
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_SocketBase, IsConnected)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsConnected();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, IsData)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_SocketBase, IsData)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsData();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, IsDisconnected)
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_SocketBase, IsDisconnected)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDisconnected();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, LastCount)
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_SocketBase, LastCount)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 rtn = pThis->GetEntity()->LastCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, LastError)
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_SocketBase, LastError)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketError rtn = pThis->GetEntity()->LastError();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketError(new wxSocketError(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketError(new wxSocketError(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_SocketBase, IsOk)
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketBase, RestoreState)
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_SocketBase, SetLocal)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIPV4address *local = Object_wx_IPV4address::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetLocal(*local);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_SocketBase, Peek)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->Peek(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -522,7 +522,7 @@ Gura_ImplementMethod(wx_SocketBase, Read)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->Read(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_SocketBase, ReadMsg)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->ReadMsg(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_SocketBase, Unread)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->Unread(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -596,7 +596,7 @@ Gura_ImplementMethod(wx_SocketBase, Wait)
 	long millisecond = 0;
 	if (args.IsValid(1)) millisecond = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->Wait(seconds, millisecond);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -622,7 +622,7 @@ Gura_ImplementMethod(wx_SocketBase, Wait_1)
 	long millisecond = 0;
 	if (args.IsValid(1)) millisecond = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->Wait(seconds, millisecond);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -648,7 +648,7 @@ Gura_ImplementMethod(wx_SocketBase, WaitForRead)
 	long millisecond = 0;
 	if (args.IsValid(1)) millisecond = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->WaitForRead(seconds, millisecond);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -674,7 +674,7 @@ Gura_ImplementMethod(wx_SocketBase, WaitForWrite)
 	long millisecond = 0;
 	if (args.IsValid(1)) millisecond = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->WaitForWrite(seconds, millisecond);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -698,7 +698,7 @@ Gura_ImplementMethod(wx_SocketBase, Write)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->Write(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -722,7 +722,7 @@ Gura_ImplementMethod(wx_SocketBase, WriteMsg)
 	int buffer = args.GetInt(0);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(1));
 	wxSocketBase &rtn = pThis->GetEntity()->WriteMsg(buffer, nbytes);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(new wxSocketBase(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

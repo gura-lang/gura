@@ -72,11 +72,11 @@ Gura_ImplementFunction(FrameEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Frame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Frame)
@@ -113,11 +113,11 @@ Gura_ImplementFunction(Frame)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Frame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Frame, Centre)
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_Frame, Create)
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Frame, CreateStatusBar)
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Frame, CreateStatusBar)
 	wxString name = wxT("statusBar");
 	if (args.IsValid(3)) name = wxString::FromUTF8(args.GetString(3));
 	wxStatusBar *rtn = (wxStatusBar *)pThis->GetEntity()->CreateStatusBar(number, style, id, name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_StatusBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_StatusBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Frame, CreateToolBar)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Frame, CreateToolBar)
 	wxString name = wxT("toolBar");
 	if (args.IsValid(2)) name = wxString::FromUTF8(args.GetString(2));
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->CreateToolBar(style, id, name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Frame, GetClientAreaOrigin)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_Frame, GetClientAreaOrigin)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetClientAreaOrigin();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Frame, GetMenuBar)
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_Frame, GetMenuBar)
 	if (rtn != nullptr) {
 		value = Value(new Object_wx_MenuBar(rtn, nullptr, OwnerFalse));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Frame, GetStatusBar)
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Frame, GetStatusBar)
 	if (rtn != nullptr) {
 		value = Value(new Object_wx_StatusBar(rtn, nullptr, OwnerFalse));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Frame, GetStatusBarPane)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Frame, GetStatusBarPane)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetStatusBarPane();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Frame, GetToolBar)
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_Frame, GetToolBar)
 	if (rtn != nullptr) {
 		value = Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Frame, OnCreateStatusBar)
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_Frame, OnCreateStatusBar)
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(2));
 	wxString name = wxString::FromUTF8(args.GetString(3));
 	wxStatusBar *rtn = (wxStatusBar *)pThis->GetEntity()->OnCreateStatusBar(number, style, id, name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_StatusBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_StatusBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Frame, OnCreateToolBar)
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Frame, OnCreateToolBar)
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString name = wxString::FromUTF8(args.GetString(2));
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->OnCreateToolBar(style, id, name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Frame, ProcessCommand)

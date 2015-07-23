@@ -55,11 +55,11 @@ Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -95,11 +95,11 @@ Gura_ImplementFunction(GridEditorCreatedEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetCol)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxControl *rtn = (wxControl *)pThis->GetEntity()->GetControl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Control(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Control(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetRow)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

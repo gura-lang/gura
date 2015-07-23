@@ -112,7 +112,7 @@ Gura_ImplementFunction(mpf)
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -164,7 +164,7 @@ Gura_ImplementMethod(mpf, cast_mpz)
 {
 	const mpf_class &num = Object_mpf::GetThisEntity(args);
 	mpz_class numCasted(num);
-	return ReturnValue(env, sig, args, Value(new Object_mpz(numCasted)));
+	return ReturnValue(env, args, Value(new Object_mpz(numCasted)));
 }
 
 // string#cast@mpf(prec?:number) {block?}
@@ -193,7 +193,7 @@ Gura_ImplementMethod(string, cast_mpf)
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpf(num)));
+	return ReturnValue(env, args, Value(new Object_mpf(num)));
 }
 
 //-----------------------------------------------------------------------------

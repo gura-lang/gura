@@ -52,11 +52,11 @@ Gura_ImplementFunction(ButtonEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Button)
@@ -114,11 +114,11 @@ Gura_ImplementFunction(Button)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Button, Create)
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Button, Create)
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Button, GetLabel)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Button, GetLabel)
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Button, GetDefaultSize)
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Button, GetDefaultSize)
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetDefaultSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Button, SetDefault)

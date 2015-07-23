@@ -52,11 +52,11 @@ Gura_ImplementFunction(PathListEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PathList)
@@ -76,11 +76,11 @@ Gura_ImplementFunction(PathList)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PathList, AddEnvList)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_PathList, Add)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Add(path);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PathList, Add_1)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->EnsureFileAccessible(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindAbsoluteValidPath(file);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_PathList, FindValidPath)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_PathList, FindValidPath)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindValidPath(file);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

@@ -97,7 +97,7 @@ Gura_ImplementFunction(mpq)
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ Gura_ImplementMethod(mpq, cast_mpf)
 	const mpq_class &num = Object_mpq::GetThisEntity(args);
 	mpf_class numCasted = MpfFromMpq(sig, num);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_mpf(numCasted)));
+	return ReturnValue(env, args, Value(new Object_mpf(numCasted)));
 }
 
 // string#cast@mpq():map {block?}
@@ -144,7 +144,7 @@ Gura_ImplementMethod(string, cast_mpq)
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
 		return false;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpq(num)));
+	return ReturnValue(env, args, Value(new Object_mpq(num)));
 }
 
 //-----------------------------------------------------------------------------

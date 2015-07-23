@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsMatrix *t = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsEqual(*t);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GraphicsMatrix, IsIdentity)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsIdentity)
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsIdentity();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GraphicsMatrix, Rotate)

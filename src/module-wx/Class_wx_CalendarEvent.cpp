@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_CalendarEvent, GetWeekDay)
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime::WeekDay rtn = pThis->GetEntity()->GetWeekDay();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CalendarEvent, SetWeekDay)

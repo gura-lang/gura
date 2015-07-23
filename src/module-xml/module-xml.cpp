@@ -1347,9 +1347,9 @@ Gura_ImplementFunction(parser)
 	Object_parser *pObj = Object_parser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_parser(Gura_UserClass(parser));
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 // xml.element(_tagname_:string, attrs%):map {block?}
@@ -1434,7 +1434,7 @@ Gura_ImplementFunction(document)
 	if (args.Is_stream(0)) {
 		if (!pDocument->Parse(sig, args.GetStream(0))) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_document(pDocument.release())));
+	return ReturnValue(env, args, Value(new Object_document(pDocument.release())));
 }
 
 //-----------------------------------------------------------------------------

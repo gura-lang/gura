@@ -85,7 +85,7 @@ Gura_ImplementFunction(Stroker)
 		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce

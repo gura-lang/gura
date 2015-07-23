@@ -52,11 +52,11 @@ Gura_ImplementFunction(TreebookEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Treebook)
@@ -90,11 +90,11 @@ Gura_ImplementFunction(Treebook)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Treebook, AddPage)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Treebook, AddPage)
 	int imageId = wxNOT_FOUND;
 	if (args.IsValid(3)) imageId = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AddPage(page, text, bSelect, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, AddSubPage)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_Treebook, AddSubPage)
 	int imageId = wxNOT_FOUND;
 	if (args.IsValid(3)) imageId = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AddSubPage(page, text, bSelect, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, AssignImageList)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Treebook, ChangeSelection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->ChangeSelection(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, CollapseNode)
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_Treebook, CollapseNode)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pageId = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->CollapseNode(pageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, Create)
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_Treebook, Create)
 	wxString name = wxEmptyString;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, DeleteAllPages)
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_Treebook, DeleteAllPages)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DeleteAllPages();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, DeletePage)
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_Treebook, DeletePage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pagePos = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->DeletePage(pagePos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, ExpandNode)
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Treebook, ExpandNode)
 	bool expand = true;
 	if (args.IsValid(1)) expand = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->ExpandNode(pageId, expand);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, GetPageImage)
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageImage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->GetPageImage(n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, GetPageParent)
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageParent)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->GetPageParent(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, GetPageText)
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_Treebook, GetPageText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetPageText(n);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Treebook, GetSelection)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_Treebook, GetSelection)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, InsertPage)
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_Treebook, InsertPage)
 	int imageId = wxNOT_FOUND;
 	if (args.IsValid(4)) imageId = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->InsertPage(pagePos, page, text, bSelect, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, InsertSubPage)
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_Treebook, InsertSubPage)
 	int imageId = wxNOT_FOUND;
 	if (args.IsValid(4)) imageId = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->InsertSubPage(pagePos, page, text, bSelect, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, IsNodeExpanded)
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_Treebook, IsNodeExpanded)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pageId = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->IsNodeExpanded(pageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, SetImageList)
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_Treebook, SetPageImage)
 	size_t page = args.GetSizeT(0);
 	int imageId = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SetPageImage(page, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, SetPageText)
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_Treebook, SetPageText)
 	size_t page = args.GetSizeT(0);
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetPageText(page, text);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Treebook, SetSelection)
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_Treebook, SetSelection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->SetSelection(n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -67,11 +67,11 @@ Gura_ImplementFunction(SingleChoiceDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionClientData)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char rtn = pThis->GetEntity()->GetSelectionClientData();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

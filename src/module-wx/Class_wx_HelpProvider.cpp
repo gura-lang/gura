@@ -104,7 +104,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Get)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, GetHelp)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HelpProvider, GetHelp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetHelp(window);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, RemoveHelp)
@@ -150,7 +150,7 @@ Gura_ImplementClassMethod(wx_HelpProvider, Set)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *helpProvider = Object_wx_HelpProvider::GetObject(args, 0)->GetEntity();
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Set(helpProvider);
-	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HelpProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, ShowHelpAtPoint)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_HelpProvider, ShowHelpAtPoint)
 	wxPoint *point = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->ShowHelpAtPoint(window, *point, *origin);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_HelpProvider, ShowHelp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->ShowHelp(window);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

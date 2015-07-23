@@ -131,7 +131,7 @@ Gura_ImplementMethod(postgresql, query)
 	Iterator *pIterator = pObj->Exec(sig, args.GetString(0));
 	// Object_postgresql::Exec() may return nullptr even if no error occurs.
 	if (pIterator == nullptr) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // assignment

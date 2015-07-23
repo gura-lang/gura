@@ -67,11 +67,11 @@ Gura_ImplementFunction(HtmlParserEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlParser(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetFS)
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileSystem *rtn = (wxFileSystem *)pThis->GetEntity()->GetFS();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileSystem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_FileSystem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlParser, GetProduct)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetProduct)
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetProduct();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlParser, GetSource)
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetSource)
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetSource();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_HtmlParser, OpenURL)
 	wxHtmlURLType type = static_cast<wxHtmlURLType>(args.GetInt(0));
 	wxString url = wxString::FromUTF8(args.GetString(1));
 	wxFSFile *rtn = (wxFSFile *)pThis->GetEntity()->OpenURL(type, url);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FSFile(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_FSFile(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlParser, Parse)
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_HtmlParser, Parse)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString source = wxString::FromUTF8(args.GetString(0));
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Parse(source);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlParser, PushTagHandler)

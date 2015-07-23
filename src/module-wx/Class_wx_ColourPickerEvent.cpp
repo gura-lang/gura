@@ -57,11 +57,11 @@ Gura_ImplementFunction(ColourPickerEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ColourPickerEvent, GetColour)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ColourPickerEvent, GetColour)
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourPickerEvent, SetColour)

@@ -130,7 +130,7 @@ Gura_ImplementFunction(palette)
 		sig.SetError(ERR_ValueError, "number or symbol must be specified");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_palette(env, pPalette.release())));
+	return ReturnValue(env, args, Value(new Object_palette(env, pPalette.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -152,7 +152,7 @@ Gura_ImplementMethod(palette, each)
 {
 	Object_palette *pThis = Object_palette::GetThisObj(args);
 	Iterator *pIterator = new Palette::IteratorEach(Palette::Reference(pThis->GetPalette()));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // palette#nearest(color:color):map:[index]

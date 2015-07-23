@@ -61,11 +61,11 @@ Gura_ImplementFunction(HtmlHelpDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -102,11 +102,11 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
 	int style = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(3)) style = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpController(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpController(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpDialog, ReadCustomization)

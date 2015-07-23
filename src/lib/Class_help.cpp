@@ -81,7 +81,7 @@ Gura_DeclareClassMethod(help, gettext_iterator_en)
 
 Gura_ImplementClassMethod(help, gettext_iterator_en)
 {
-	return ReturnValue(env, sig, args, Value(GURA_HELPTEXT_ITERATOR_en()));
+	return ReturnValue(env, args, Value(GURA_HELPTEXT_ITERATOR_en()));
 }
 
 // help.gettext_block_en(varname:string, typename:string) {block?}
@@ -105,7 +105,7 @@ Gura_ImplementClassMethod(help, gettext_block_en)
 	String buff = Formatter::Format(
 		sig, GURA_HELPTEXT_BLOCK_en("%s", "%s"), varName, typeName, varName);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(buff));
+	return ReturnValue(env, args, Value(buff));
 }
 
 //-----------------------------------------------------------------------------

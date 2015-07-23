@@ -465,7 +465,7 @@ Gura_ImplementMethod(dict, items)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 							new Object_dict::IteratorItems(pObj));
 }
 
@@ -485,7 +485,7 @@ Gura_ImplementMethod(dict, keys)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 							new Object_dict::IteratorKeys(pObj));
 }
 
@@ -560,7 +560,7 @@ Gura_ImplementMethod(dict, values)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 							new Object_dict::IteratorValues(pObj));
 }
 

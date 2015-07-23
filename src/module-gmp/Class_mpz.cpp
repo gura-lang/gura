@@ -77,7 +77,7 @@ Gura_ImplementFunction(mpz)
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ Gura_ImplementMethod(string, cast_mpz)
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 		return false;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpz(num)));
+	return ReturnValue(env, args, Value(new Object_mpz(num)));
 }
 
 

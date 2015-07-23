@@ -57,11 +57,11 @@ Gura_ImplementFunction(SetCursorEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SetCursorEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, GetCursor)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetCursor)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxCursor &rtn = pThis->GetEntity()->GetCursor();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Cursor(new wxCursor(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Cursor(new wxCursor(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, GetX)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetX)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, GetY)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetY)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, HasCursor)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, HasCursor)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasCursor();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SetCursorEvent, SetCursor)

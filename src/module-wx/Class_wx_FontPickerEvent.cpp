@@ -57,11 +57,11 @@ Gura_ImplementFunction(FontPickerEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontPickerEvent, GetFont)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontPickerEvent, SetFont)

@@ -99,7 +99,7 @@ public:
 				return Value::Null;
 			}
 			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));
-			return ReturnValue(env, sig, args, value);
+			return ReturnValue(env, args, value);
 		}
 	};
 	// @T() {block}
@@ -157,7 +157,7 @@ public:
 		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
-			return ReturnIterator(env, sig, args, pIterator.release());
+			return ReturnIterator(env, args, pIterator.release());
 		}
 	};
 	// array@T#dump():void
@@ -238,7 +238,7 @@ public:
 			AutoPtr<Array<T_Elem> > pArrayRtn(
 				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
-			return ReturnValue(env, sig, args, value);
+			return ReturnValue(env, args, value);
 		}
 	};
 	// array@T#offset(n:number):map {block?}
@@ -274,7 +274,7 @@ public:
 			AutoPtr<Array<T_Elem> > pArrayRtn(
 				new Array<T_Elem>(pArray->GetMemory()->Reference(), cnt, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
-			return ReturnValue(env, sig, args, value);
+			return ReturnValue(env, args, value);
 		}
 	};
 	// array@T#paste(offset:number, src:array):map:void
@@ -335,7 +335,7 @@ public:
 			AutoPtr<Array<T_Elem> > pArrayRtn(
 				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
-			return ReturnValue(env, sig, args, value);
+			return ReturnValue(env, args, value);
 		}
 	};
 private:

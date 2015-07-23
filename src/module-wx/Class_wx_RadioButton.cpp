@@ -52,11 +52,11 @@ Gura_ImplementFunction(RadioButtonEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RadioButton)
@@ -95,11 +95,11 @@ Gura_ImplementFunction(RadioButton)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RadioButton, Create)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RadioButton, Create)
 	wxString name = wxT("radioButton");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RadioButton, GetValue)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_RadioButton, GetValue)
 	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RadioButton, SetValue)

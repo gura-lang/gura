@@ -114,7 +114,7 @@ Gura_ImplementFunction(dir)
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // path.dirname(pathname:string):map
@@ -213,7 +213,7 @@ Gura_ImplementFunction(glob)
 	if (!pIterator->Init(env, sig, args.GetString(0))) {
 		return Value::Null;
 	}
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // path.join(paths+:string):map:[uri]
@@ -385,7 +385,7 @@ Gura_ImplementFunction(walk)
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // Module entry

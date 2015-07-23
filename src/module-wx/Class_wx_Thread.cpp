@@ -72,11 +72,11 @@ Gura_ImplementFunction(Thread)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Thread(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_Thread, Create)
 	unsigned stackSize = 0;
 	if (args.IsValid(0)) stackSize = args.GetInt(0);
 	wxThreadError rtn = pThis->GetEntity()->Create(stackSize);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, Delete)
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_Thread, Delete)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThreadError rtn = pThis->GetEntity()->Delete();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, Entry)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_Thread, Entry)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThread::ExitCode rtn = pThis->GetEntity()->wxThread::Entry();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -163,7 +163,7 @@ Gura_ImplementClassMethod(wx_Thread, GetCPUCount)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxThread::GetCPUCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Thread, GetCurrentId)
@@ -176,7 +176,7 @@ Gura_ImplementClassMethod(wx_Thread, GetCurrentId)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned rtn = wxThread::GetCurrentId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, GetId)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_Thread, GetId)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, GetPriority)
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_Thread, GetPriority)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPriority();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, IsAlive)
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_Thread, IsAlive)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsAlive();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, IsDetached)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Thread, IsDetached)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDetached();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Thread, IsMain)
@@ -245,7 +245,7 @@ Gura_ImplementClassMethod(wx_Thread, IsMain)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxThread::IsMain();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, IsPaused)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_Thread, IsPaused)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsPaused();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, IsRunning)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_Thread, IsRunning)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsRunning();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, Kill)
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_Thread, Kill)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThreadError rtn = pThis->GetEntity()->Kill();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 #if 0
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_Thread, Pause)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThreadError rtn = pThis->GetEntity()->Pause();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, Run)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_Thread, Run)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThreadError rtn = pThis->GetEntity()->Run();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, SetPriority)
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_Thread, Resume)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThreadError rtn = pThis->GetEntity()->Resume();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Thread, SetConcurrency)
@@ -388,7 +388,7 @@ Gura_ImplementClassMethod(wx_Thread, SetConcurrency)
 	if (!CheckWxReady(sig)) return Value::Null;
 	size_t level = args.GetSizeT(0);
 	bool rtn = wxThread::SetConcurrency(level);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Thread, TestDestroy)
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Thread, TestDestroy)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxThread::TestDestroy();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -420,7 +420,7 @@ Gura_ImplementClassMethod(wx_Thread, This)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxThread *rtn = (wxThread *)wxThread::This();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Thread(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Thread, Yield)
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_Thread, Wait)
 	Object_wx_Thread *pThis = Object_wx_Thread::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxThread::ExitCode rtn = pThis->GetEntity()->Wait();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

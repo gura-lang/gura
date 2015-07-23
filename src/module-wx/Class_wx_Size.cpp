@@ -52,11 +52,11 @@ Gura_ImplementFunction(SizeEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Size(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Size)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(Size)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Size(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Size, DecBy)
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Size, IsFullySpecified)
 	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsFullySpecified();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Size, GetWidth)
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_Size, GetWidth)
 	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Size, GetHeight)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_Size, GetHeight)
 	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Size, IncBy)
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Size, Scale)
 	float xscale = args.GetFloat(0);
 	float yscale = args.GetFloat(1);
 	wxSize &rtn = pThis->GetEntity()->Scale(xscale, yscale);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Size, Set)

@@ -51,11 +51,11 @@ Gura_ImplementFunction(ColourData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ColourData, GetChooseFull)
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_ColourData, GetChooseFull)
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetChooseFull();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ColourData, GetColour)
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ColourData, GetColour)
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour &rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourData, GetCustomColour)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
 	const wxColour &rtn = pThis->GetEntity()->GetCustomColour(i);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourData, SetChooseFull)

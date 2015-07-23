@@ -57,11 +57,11 @@ Gura_ImplementFunction(PanelEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Panel)
@@ -96,11 +96,11 @@ Gura_ImplementFunction(Panel)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Panel, Create)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Panel, Create)
 	wxString name = wxT("panel");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Panel, InitDialog)

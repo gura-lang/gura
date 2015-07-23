@@ -56,11 +56,11 @@ Gura_ImplementFunction(HtmlContainerCell)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlContainerCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignHor)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetAlignHor();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignVer)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignVer)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetAlignVer();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetBackgroundColour)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetBackgroundColour)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetIndent)
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndent)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int ind = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetIndent(ind);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlContainerCell, GetIndentUnits)
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndentUnits)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int ind = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetIndentUnits(ind);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlContainerCell, InsertCell)

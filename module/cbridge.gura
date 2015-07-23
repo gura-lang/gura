@@ -319,7 +319,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			bool _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'char' => TypeConv(
 			'number', 'Once', [],
@@ -327,7 +327,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			bool _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'short' => TypeConv(
 			'number', 'Once', [],
@@ -335,7 +335,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			short _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'int' => TypeConv(
 			'number', 'Once', [],
@@ -343,7 +343,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			int _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'long' => TypeConv(
 			'number', 'Once', [],
@@ -351,7 +351,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			long _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'unsigned_char' => TypeConv(
 			'number', 'Once', [],
@@ -359,7 +359,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			unsigned char _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'unsigned_short' => TypeConv(
 			'number', 'Once', [],
@@ -367,7 +367,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			unsigned short _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'unsigned_int' => TypeConv(
 			'number', 'Once', [],
@@ -375,7 +375,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			unsigned int _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'unsigned_long' => TypeConv(
 			'number', 'Once', [],
@@ -383,7 +383,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			unsigned long _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'UChar' => TypeConv(
 			'number', 'Once', [],
@@ -391,7 +391,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			UChar _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'UShort' => TypeConv(
 			'number', 'Once', [],
@@ -399,7 +399,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			UShort _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'UInt' => TypeConv(
 			'number', 'Once', [],
@@ -407,7 +407,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			UInt _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'ULong' => TypeConv(
 			'number', 'Once', [],
@@ -415,7 +415,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			ULong _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'Int64' => TypeConv(
 			'number', 'Once', [],
@@ -423,7 +423,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			Int64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'UInt64' => TypeConv(
 			'number', 'Once', [],
@@ -431,7 +431,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			UInt64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'float' => TypeConv(
 			'number', 'Once', [],
@@ -439,7 +439,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			float _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'double' => TypeConv(
 			'number', 'Once', [],
@@ -447,7 +447,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			double _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'char[]' => TypeConv(
 			'number', 'Once', ['List'],
@@ -500,7 +500,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			char *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'char@:const' => TypeConv(
 			'string', 'Once', [],
@@ -508,7 +508,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			const char *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'boolean' => TypeConv(
 			'boolean', 'Once', [],
@@ -536,7 +536,7 @@ typeConvDict = %{
 			'const Symbol *${arg.name} = args.IsValid(${idx})? args.GetSymbol(${idx}) : nullptr;',
 			R'''
 			const Symbol *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(_rtn));
+			return ReturnValue(env, args, Value(_rtn));
 			''')
 	'binary' => TypeConv(
 			'binary', 'Once', [],

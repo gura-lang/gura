@@ -51,7 +51,7 @@ Gura_ImplementClassMethod(scaled_font, create)
 	cairo_font_options_t *options = Object_font_options::GetObject(args, 3)->GetEntity();
 	cairo_scaled_font_t *scaled_font = ::cairo_scaled_font_create(
 			::cairo_font_face_reference(font_face), &font_matrix, &ctm, options);
-	return ReturnValue(env, sig, args, Value(new Object_scaled_font(scaled_font)));
+	return ReturnValue(env, args, Value(new Object_scaled_font(scaled_font)));
 }
 
 //#cairo_scaled_font_t *cairo_scaled_font_reference(cairo_scaled_font_t *scaled_font);

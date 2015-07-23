@@ -59,11 +59,11 @@ Gura_ImplementFunction(FileDirPickerEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDirPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, GetPath)
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_FileDirPickerEvent, GetPath)
 	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, SetPath)

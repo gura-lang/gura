@@ -54,11 +54,11 @@ Gura_ImplementFunction(CalculateLayoutEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalculateLayoutEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)

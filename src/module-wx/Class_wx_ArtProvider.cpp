@@ -59,7 +59,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Delete)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxArtProvider *provider = Object_wx_ArtProvider::GetObject(args, 0)->GetEntity();
 	bool rtn = wxArtProvider::Delete(provider);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetBitmap)
@@ -80,7 +80,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetBitmap)
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxBitmap rtn = wxArtProvider::GetBitmap(id, client, *size);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetIcon)
@@ -101,7 +101,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetIcon)
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxIcon rtn = wxArtProvider::GetIcon(id, client, *size);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, GetSizeHint)
@@ -119,7 +119,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetSizeHint)
 	bool platform_default = false;
 	if (args.IsValid(1)) platform_default = args.GetBoolean(1);
 	wxSize rtn = wxArtProvider::GetSizeHint(*client, platform_default);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, Insert)
@@ -146,7 +146,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Pop)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxArtProvider::Pop();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_ArtProvider, Push)
@@ -175,7 +175,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, Remove)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxArtProvider *provider = Object_wx_ArtProvider::GetObject(args, 0)->GetEntity();
 	bool rtn = wxArtProvider::Remove(provider);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

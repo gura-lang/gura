@@ -37,11 +37,11 @@ Gura_ImplementFunction(ObjectEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Object)
@@ -61,11 +61,11 @@ Gura_ImplementFunction(Object)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ObjectEmpty_1)
@@ -83,11 +83,11 @@ Gura_ImplementFunction(ObjectEmpty_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Object, Dump)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Object, GetClassInfo)
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetClassInfo();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Object, GetRefData)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_Object, GetRefData)
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObjectRefData *rtn = (wxObjectRefData *)pThis->GetEntity()->GetRefData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ObjectRefData(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ObjectRefData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Object, IsKindOf)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_Object, IsKindOf)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *info = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsKindOf(info);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Object, IsSameAs)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Object, IsSameAs)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *obj = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsSameAs(*obj);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Object, Ref)

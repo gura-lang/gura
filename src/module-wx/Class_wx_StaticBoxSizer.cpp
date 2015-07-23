@@ -56,11 +56,11 @@ Gura_ImplementFunction(StaticBoxSizer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticBoxSizerAuto)
@@ -85,11 +85,11 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStaticBox *rtn = (wxStaticBox *)pThis->GetEntity()->GetStaticBox();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StaticBox(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_StaticBox(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

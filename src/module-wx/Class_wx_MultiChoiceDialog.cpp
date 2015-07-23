@@ -72,11 +72,11 @@ Gura_ImplementFunction(MultiChoiceDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -112,11 +112,11 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, GetSelections)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt rtn = pThis->GetEntity()->GetSelections();
-	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
+	return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

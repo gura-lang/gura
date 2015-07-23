@@ -64,11 +64,11 @@ Gura_ImplementFunction(EmptyBitmap)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Bitmap)
@@ -91,11 +91,11 @@ Gura_ImplementFunction(Bitmap)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapFromXPMData)
@@ -121,11 +121,11 @@ Gura_ImplementFunction(BitmapFromXPMData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Bitmap_1)
@@ -157,11 +157,11 @@ Gura_ImplementFunction(Bitmap_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -191,11 +191,11 @@ Gura_ImplementFunction(BitmapFromBits)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapWH)
@@ -220,11 +220,11 @@ Gura_ImplementFunction(BitmapWH)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapFromFile)
@@ -246,11 +246,11 @@ Gura_ImplementFunction(BitmapFromFile)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapFromIcon)
@@ -270,11 +270,11 @@ Gura_ImplementFunction(BitmapFromIcon)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapFromImage)
@@ -297,11 +297,11 @@ Gura_ImplementFunction(BitmapFromImage)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Bitmap(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, AddHandler)
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Bitmap, ConvertToImage)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImage rtn = pThis->GetEntity()->ConvertToImage();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Bitmap, CopyFromIcon)
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_Bitmap, CopyFromIcon)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CopyFromIcon(*icon);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, Create)
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_Bitmap, Create)
 	int depth = -1;
 	if (args.IsValid(2)) depth = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->Create(width, height, depth);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, Create_1)
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_Bitmap, Create_1)
 	int depth = -1;
 	if (args.IsValid(4)) depth = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->Create(data, type, width, height, depth);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -424,7 +424,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapHandler *rtn = (wxBitmapHandler *)wxBitmap::FindHandler(name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, FindHandler_1)
@@ -441,7 +441,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler_1)
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType bitmapType = static_cast<wxBitmapType>(args.GetInt(1));
 	wxBitmapHandler *rtn = (wxBitmapHandler *)wxBitmap::FindHandler(extension, bitmapType);
-	return ReturnValue(env, sig, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, FindHandler_2)
@@ -456,7 +456,7 @@ Gura_ImplementClassMethod(wx_Bitmap, FindHandler_2)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmapType bitmapType = static_cast<wxBitmapType>(args.GetInt(0));
 	wxBitmapHandler *rtn = (wxBitmapHandler *)wxBitmap::FindHandler(bitmapType);
-	return ReturnValue(env, sig, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_BitmapHandler(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetDepth)
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_Bitmap, GetDepth)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDepth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, GetHandlers)
@@ -483,7 +483,7 @@ Gura_ImplementClassMethod(wx_Bitmap, GetHandlers)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxList &rtn = wxBitmap::GetHandlers();
-	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetHeight)
@@ -497,7 +497,7 @@ Gura_ImplementMethod(wx_Bitmap, GetHeight)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetPalette)
@@ -511,7 +511,7 @@ Gura_ImplementMethod(wx_Bitmap, GetPalette)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPalette *rtn = (wxPalette *)pThis->GetEntity()->GetPalette();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Palette(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Palette(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetMask)
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_Bitmap, GetMask)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMask *rtn = (wxMask *)pThis->GetEntity()->GetMask();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Mask(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Mask(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetWidth)
@@ -539,7 +539,7 @@ Gura_ImplementMethod(wx_Bitmap, GetWidth)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, GetSubBitmap)
@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_Bitmap, GetSubBitmap)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxBitmap rtn = pThis->GetEntity()->GetSubBitmap(*rect);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, InitStandardHandlers)
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_Bitmap, LoadFile)
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->LoadFile(name, type);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, IsOk)
@@ -613,7 +613,7 @@ Gura_ImplementMethod(wx_Bitmap, IsOk)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Bitmap, RemoveHandler)
@@ -628,7 +628,7 @@ Gura_ImplementClassMethod(wx_Bitmap, RemoveHandler)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxBitmap::RemoveHandler(name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, SaveFile)
@@ -649,7 +649,7 @@ Gura_ImplementMethod(wx_Bitmap, SaveFile)
 	wxPalette *palette = (wxPalette *)(nullptr);
 	if (args.IsValid(2)) palette = Object_wx_Palette::GetObject(args, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(name, type, palette);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Bitmap, SetDepth)

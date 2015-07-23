@@ -53,11 +53,11 @@ Gura_ImplementFunction(BoxSizer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->CalcMin();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOrientation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

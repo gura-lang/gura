@@ -68,11 +68,11 @@ Gura_ImplementFunction(TextEntryDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextEntryDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextEntryDialog, SetValue)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, ShowModal)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

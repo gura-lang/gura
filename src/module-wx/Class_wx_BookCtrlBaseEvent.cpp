@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOldSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetSelection)
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetSelection)
 	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetOldSelection)

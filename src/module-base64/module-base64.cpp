@@ -29,7 +29,7 @@ Gura_ImplementFunction(decode)
 	AutoPtr<Stream> pStreamDst(new Stream_Binary(env, sig,
 									Object_binary::Reference(pObjBinary.get()), true));
 	if (!pStreamSrc->ReadToStream(env, sig, *pStreamDst)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
 // base64.encode(stream:stream:r, linelen:number => 76) {block?}
@@ -54,7 +54,7 @@ Gura_ImplementFunction(encode)
 	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(env, sig,
 		new Stream_Binary(env, sig, Object_binary::Reference(pObjBinary.get()), true), nCharsPerLine));
 	if (!streamSrc.ReadToStream(env, sig, *pStreamDst)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
 // base64.reader(stream:stream:r) {block?}
@@ -74,7 +74,7 @@ Gura_ImplementFunction(reader)
 {
 	Stream &stream = args.GetStream(0);
 	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream.release())));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
 // base64.writer(stream:stream:w, linelen:number => 76) {block?}
@@ -100,7 +100,7 @@ Gura_ImplementFunction(writer)
 	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
 	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
 								stream.Reference(), nCharsPerLine));
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream.release())));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ Gura_ImplementMethod(stream, reader_base64)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream.release())));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
 // stream#writer@base64(linelen:number => 76) {block?}
@@ -147,7 +147,7 @@ Gura_ImplementMethod(stream, writer_base64)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
 								stream.Reference(), nCharsPerLine));
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream.release())));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
 // Module entry

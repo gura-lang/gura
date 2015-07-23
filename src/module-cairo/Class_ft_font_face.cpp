@@ -29,7 +29,7 @@ Gura_ImplementClassMethod(ft_font_face, create_for_ft_face)
 	int load_flag = args.GetInt(1);
 	cairo_font_face_t *font_face = ::cairo_ft_font_face_create_for_ft_face(face, load_flags);
 	Object_ft_font_face *pObjFontFace = new Object_ft_font_face(font_face);
-	return ReturnValue(env, sig, args, Value(pObjFontFace));
+	return ReturnValue(env, args, Value(pObjFontFace));
 }
 #endif
 

@@ -51,11 +51,11 @@ Gura_ImplementFunction(FTPEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FTP(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FTP, Abort)
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_FTP, Abort)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Abort();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, CheckCommand)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_FTP, CheckCommand)
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	char ret = args.GetChar(1);
 	bool rtn = pThis->GetEntity()->CheckCommand(command, ret);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, SendCommand)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_FTP, SendCommand)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	char rtn = pThis->GetEntity()->SendCommand(command);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, GetLastResult)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_FTP, GetLastResult)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLastResult();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FTP, ChDir)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_FTP, ChDir)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->ChDir(dir);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, MkDir)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_FTP, MkDir)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->MkDir(dir);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, RmDir)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_FTP, RmDir)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->RmDir(dir);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, Pwd)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_FTP, Pwd)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->Pwd();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FTP, Rename)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_FTP, Rename)
 	wxString src = wxString::FromUTF8(args.GetString(0));
 	wxString dst = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->Rename(src, dst);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, RmFile)
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_FTP, RmFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->RmFile(path);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, SetAscii)
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_FTP, SetAscii)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->SetAscii();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, SetBinary)
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_FTP, SetBinary)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->SetBinary();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, SetPassive)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_FTP, SetTransferMode)
 	Object_wx_FTP *pThis = Object_wx_FTP::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->SetTransferMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_FTP, FileExists)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->FileExists(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, GetFileSize)
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_FTP, GetFileSize)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	int rtn = pThis->GetEntity()->GetFileSize(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, GetDirList)
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_FTP, GetDirList)
 	wxString wildcard = wxT("");
 	if (args.IsValid(1)) wildcard = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->GetDirList(*files, wildcard);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, GetFilesList)
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_FTP, GetFilesList)
 	wxString wildcard = wxT("");
 	if (args.IsValid(1)) wildcard = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->GetFilesList(*files, wildcard);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FTP, GetOutputStream)
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_FTP, GetOutputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	wxOutputStream *rtn = (wxOutputStream *)pThis->GetEntity()->GetOutputStream(file);
-	return ReturnValue(env, sig, args, Value(new Object_wx_OutputStream(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_OutputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_FTP, GetInputStream)
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_FTP, GetInputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

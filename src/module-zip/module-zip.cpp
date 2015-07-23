@@ -133,7 +133,7 @@ Gura_ImplementMethod(reader, entry)
 		sig.SetError(ERR_NameError, "entry not found");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObjStream.release()));
+	return ReturnValue(env, args, Value(pObjStream.release()));
 }
 
 // zip.reader#entries() {block?}
@@ -154,7 +154,7 @@ Gura_ImplementMethod(reader, entries)
 		return Value::Null;
 	}
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // implementation of class zip.reader
@@ -507,7 +507,7 @@ Gura_ImplementFunction(reader)
 	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
 	if (!pObjZipR->ReadDirectory(env, sig)) return Value::Null;
 	Value result(pObjZipR.release());
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // zip.writer(stream:stream:w, compression?:symbol) {block?}
@@ -540,7 +540,7 @@ Gura_ImplementFunction(writer)
 	}
 	Object_writer *pObjZipW = new Object_writer(sig, streamDst.Reference(), compressionMethod);
 	Value result(pObjZipW);
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // zip.test(stream:stream:r)

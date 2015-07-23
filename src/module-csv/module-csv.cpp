@@ -150,7 +150,7 @@ Gura_DeclareFunction(parse)
 Gura_ImplementFunction(parse)
 {
 	Iterator *pIterator = new Iterator_reader(new ReaderString(args.GetStringSTL(0)));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // csv.read(stream:stream:r) {block?}
@@ -169,7 +169,7 @@ Gura_ImplementFunction(read)
 	Object_stream *pObjStream = Object_stream::GetObject(args, 0);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
 									pObjStream->GetStream().Reference()));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // csv.writer(stream:stream:w, format?:string) {block?}
@@ -191,7 +191,7 @@ Gura_ImplementFunction(writer)
 	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(
 						pObjStream->GetStream().Reference(), format);
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
@@ -212,7 +212,7 @@ Gura_ImplementMethod(stream, read_csv)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
 							pThis->GetStream().Reference()));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // stream#writer@csv(format?:string) {block?}
@@ -231,7 +231,7 @@ Gura_ImplementMethod(stream, writer_csv)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(pThis->GetStream().Reference(), format);
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // Module entry

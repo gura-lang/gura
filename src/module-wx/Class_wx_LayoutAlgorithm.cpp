@@ -51,11 +51,11 @@ Gura_ImplementFunction(LayoutAlgorithm)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LayoutAlgorithm(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutFrame)
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutFrame(frame, mainWindow);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(1)) rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutMDIFrame(frame, rect);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutWindow)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutWindow(parent, mainWindow);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

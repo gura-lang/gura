@@ -58,11 +58,11 @@ Gura_ImplementFunction(StaticBitmapEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBitmap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticBitmap)
@@ -107,11 +107,11 @@ Gura_ImplementFunction(StaticBitmap)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBitmap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticBitmap, Create)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_StaticBitmap, Create)
 	wxString name = wxT("staticBitmap");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *label, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StaticBitmap, GetBitmap)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_StaticBitmap, GetBitmap)
 	Object_wx_StaticBitmap *pThis = Object_wx_StaticBitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_StaticBitmap, GetIcon)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_StaticBitmap, GetIcon)
 	Object_wx_StaticBitmap *pThis = Object_wx_StaticBitmap::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon rtn = pThis->GetEntity()->GetIcon();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_StaticBitmap, SetBitmap)

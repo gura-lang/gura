@@ -47,7 +47,7 @@ Gura_ImplementClassMethod(image_surface, create)
 		return Value::Null;
 	}
 	Object_image_surface *pObjSurface = new Object_image_surface(surface, pImage);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 // cairo.image_surface.create_from_png(stream:stream:r) {block?}
@@ -65,7 +65,7 @@ Gura_ImplementClassMethod(image_surface, create_from_png)
 	cairo_surface_t *surface = ::cairo_image_surface_create_from_png_stream(
 										Reader_Stream::read_func, pReader.get());
 	Object_image_surface *pObjSurface = new Object_image_surface(surface, nullptr);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 //#unsigned char *cairo_image_surface_get_data(cairo_surface_t *surface);

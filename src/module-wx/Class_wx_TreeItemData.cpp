@@ -38,11 +38,11 @@ Gura_ImplementFunction(TreeItemData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeItemData(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TreeItemData, GetId)
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_TreeItemData, GetId)
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxTreeItemId &rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeItemData, SetId)

@@ -53,11 +53,11 @@ Gura_ImplementFunction(PrintDialogDataEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PrintDialogData)
@@ -77,11 +77,11 @@ Gura_ImplementFunction(PrintDialogData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PrintDialogData_1)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(PrintDialogData_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, EnableHelp)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetAllPages)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetAllPages();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetCollate)
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetCollate)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetCollate();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetFromPage)
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetFromPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFromPage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetMaxPage)
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetMaxPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMaxPage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetMinPage)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetMinPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMinPage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetNoCopies)
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetNoCopies)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetNoCopies();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetPrintData)
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetPrintData)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintData &rtn = pThis->GetEntity()->GetPrintData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetPrintToFile)
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetPrintToFile)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetPrintToFile();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetSelection)
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetSelection)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, GetToPage)
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_PrintDialogData, GetToPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetToPage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, IsOk)
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_PrintDialogData, IsOk)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintDialogData, SetCollate)

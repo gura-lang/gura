@@ -36,7 +36,7 @@ Gura_ImplementFunction(rational)
 	if (denom < 0) {
 		numer = -numer, denom = -denom;
 	}
-	return ReturnValue(env, sig, args, Value(Rational(numer, denom)));
+	return ReturnValue(env, args, Value(Rational(numer, denom)));
 }
 
 //-----------------------------------------------------------------------------

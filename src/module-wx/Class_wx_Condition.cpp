@@ -53,11 +53,11 @@ Gura_ImplementFunction(Condition)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Condition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Condition, Broadcast)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_Condition, IsOk)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Condition, Signal)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_Condition, Wait)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCondError rtn = pThis->GetEntity()->Wait();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Condition, WaitTimeout)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_Condition, WaitTimeout)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned milliseconds = args.GetInt(0);
 	wxCondError rtn = pThis->GetEntity()->WaitTimeout(milliseconds);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

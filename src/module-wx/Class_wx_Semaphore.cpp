@@ -57,11 +57,11 @@ Gura_ImplementFunction(Semaphore)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Semaphore(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Semaphore, Post)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Semaphore, Post)
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->Post();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Semaphore, TryWait)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Semaphore, TryWait)
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->TryWait();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Semaphore, Wait)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_Semaphore, Wait)
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->Wait();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned timeout_millis = args.GetInt(0);
 	wxSemaError rtn = pThis->GetEntity()->WaitTimeout(timeout_millis);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

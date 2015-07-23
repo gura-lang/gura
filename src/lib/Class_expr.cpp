@@ -295,7 +295,7 @@ Gura_ImplementFunction(expr)
 	Parser parser(stream.GetName());
 	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
 	if (pExprRoot.IsNull()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
+	return ReturnValue(env, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
 // expr#eval(env?:environment)
@@ -340,7 +340,7 @@ Gura_ImplementClassMethod(expr, parse)
 	Parser parser(SRCNAME_string);
 	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
 								args.GetString(0), true)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
+	return ReturnValue(env, args, Value(new Object_expr(env, pExpr.release())));
 }
 
 // expr#textize(style?:symbol, indent?:string)

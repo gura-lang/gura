@@ -81,11 +81,11 @@ Gura_ImplementFunction(ToolTip)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolTip(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ToolTip, SetTip)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_ToolTip, GetTip)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTip();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ToolTip, GetWindow)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_ToolTip, GetWindow)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

@@ -60,11 +60,11 @@ Gura_ImplementFunction(Command)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Command(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_Command, CanUndo)
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanUndo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Command, Do)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Command, Do)
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Do();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Command, GetName)
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_Command, GetName)
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Command, Undo)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_Command, Undo)
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Undo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

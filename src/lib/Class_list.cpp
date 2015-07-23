@@ -768,7 +768,7 @@ Gura_ImplementClassMethod(list, zip)
 		foreach_const (ValueList, pValue, args.GetList(0)) {
 			valList.push_back(*pValue);
 		}
-		return ReturnValue(env, sig, args, result);
+		return ReturnValue(env, args, result);
 	}
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		Iterator *pIteratorArg = nullptr;
@@ -781,9 +781,9 @@ Gura_ImplementClassMethod(list, zip)
 		iterOwner.push_back(pIteratorArg);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_Zipv(iterOwner));
-	if (iteratorFlag) return ReturnIterator(env, sig, args, pIterator.release());
+	if (iteratorFlag) return ReturnIterator(env, args, pIterator.release());
 	Value result = pIterator->ToList(env, sig, true, false);
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 //-----------------------------------------------------------------------------
@@ -884,7 +884,7 @@ Gura_ImplementMethod(list, combination)
 	}
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorCombination(pObj, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#erase(idx*:number):reduce
@@ -1041,7 +1041,7 @@ Gura_ImplementMethod(list, permutation)
 	}
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorPermutation(pObj, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#put(index:number, value:nomap):reduce:map
@@ -1128,7 +1128,7 @@ Gura_ImplementMethod(list, after)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(pIteratorSrc->Since(env, sig, args.GetValue(0), false));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#align(n:number, value?):map {block?}
@@ -1147,7 +1147,7 @@ Gura_ImplementMethod(list, align)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_Align(pIterator, args.GetInt(0), args.GetValue(1));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#and()
@@ -1201,7 +1201,7 @@ Gura_ImplementMethod(list, before)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, sig, args.GetValue(0), false));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#contains(value)
@@ -1256,7 +1256,7 @@ Gura_ImplementMethod(list, cycle)
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorCycle(pObj, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#each() {block?}
@@ -1272,7 +1272,7 @@ Gura_ImplementMethod(list, each)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#filter(criteria?) {block?}
@@ -1296,7 +1296,7 @@ Gura_ImplementMethod(list, filter)
 	} else {
 		pIterator.reset(new Iterator_SkipFalse(pIteratorSrc));
 	}
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#find(criteria?):[index]
@@ -1345,7 +1345,7 @@ Gura_ImplementMethod(list, flat)
 									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
 	pIterator->SetInfiniteFlag(false);
 	//return pIterator->ToList(env, sig, true, false);
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
@@ -1370,7 +1370,7 @@ Gura_ImplementMethod(list, fold)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorFold(pObj,
 									cnt, cntStep, listItemFlag, neatFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#format(format:string):map {block?}
@@ -1385,7 +1385,7 @@ Gura_DeclareMethod(list, format)
 Gura_ImplementMethod(list, format)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 					   Value(Formatter::FormatValueList(sig, args.GetString(0), pThis->GetList())));
 }
 
@@ -1404,7 +1404,7 @@ Gura_ImplementMethod(list, head)
 	Object_list *pObj = Object_list::Reference(pThis);
 	int cnt = args.GetInt(0);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj, 0, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#join(sep?:string):map
@@ -1469,7 +1469,7 @@ Gura_ImplementMethod(list, map)
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env), sig, pIteratorSrc,
 			Object_function::Reference(Object_function::GetObject(args, 0)));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#max():[index,last_index,indices]
@@ -1527,7 +1527,7 @@ Gura_ImplementMethod(list, nilto)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_ReplaceInvalid(pIterator, args.GetValue(0));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#offset(n:number):map {block?}
@@ -1546,7 +1546,7 @@ Gura_ImplementMethod(list, offset)
 	size_t offset = args.GetSizeT(0);
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj, offset);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#or()
@@ -1607,7 +1607,7 @@ Gura_ImplementMethod(list, pingpong)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator =
 		new Object_list::IteratorPingpong(pObj, cnt, stickyFlagTop, stickyFlagBtm);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#print(stream?:stream:w):void
@@ -1694,7 +1694,7 @@ Gura_ImplementMethod(list, rank)
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#reduce(accum) {block}
@@ -1737,7 +1737,7 @@ Gura_ImplementMethod(list, replace)
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_Replace(pIterator,
 								args.GetValue(0), args.GetValue(1));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#reverse() {block?}
@@ -1753,7 +1753,7 @@ Gura_ImplementMethod(list, reverse)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorReverse(pObj);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#roundoff(threshold:number => 1e-10) {block?}
@@ -1772,7 +1772,7 @@ Gura_ImplementMethod(list, roundoff)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_RoundOff(pIterator, args.GetNumber(0));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#runlength() {block?}
@@ -1789,7 +1789,7 @@ Gura_ImplementMethod(list, runlength)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_RunLength(pIterator);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#since(criteria) {block?}
@@ -1808,7 +1808,7 @@ Gura_ImplementMethod(list, since)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(pIteratorSrc->Since(env, sig, args.GetValue(0), true));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#skip(n:number):map {block?}
@@ -1826,7 +1826,7 @@ Gura_ImplementMethod(list, skip)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_Skip(pIterator, static_cast<int>(args.GetSizeT(0)));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#skipnil() {block?}
@@ -1843,7 +1843,7 @@ Gura_ImplementMethod(list, skipnil)
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	pIterator = new Iterator_SkipInvalid(pIterator);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#sort(directive?, keys[]?):[stable] {block?}
@@ -1865,7 +1865,7 @@ Gura_ImplementMethod(list, sort)
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#stddev()
@@ -1921,7 +1921,7 @@ Gura_ImplementMethod(list, tail)
 	int cntMax = static_cast<int>(pObj->GetList().size());
 	size_t offset = (cntMax > cnt)? cntMax - cnt : cntMax;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj, offset);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // list#until(criteria) {block?}
@@ -1940,7 +1940,7 @@ Gura_ImplementMethod(list, until)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, sig, args.GetValue(0), true));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#variance()
@@ -1982,7 +1982,7 @@ Gura_ImplementMethod(list, walk)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(new Iterator_Walk(
 									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // list#while(criteria) {block?}
@@ -2001,7 +2001,7 @@ Gura_ImplementMethod(list, while_)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Iterator> pIterator(pIteratorSrc->While(env, sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------

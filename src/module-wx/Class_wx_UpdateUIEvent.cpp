@@ -54,11 +54,11 @@ Gura_ImplementFunction(UpdateUIEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_UpdateUIEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, CanUpdate)
@@ -73,7 +73,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, CanUpdate)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = wxUpdateUIEvent::CanUpdate(window);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, Check)
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetChecked)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetChecked();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetEnabled)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetEnabled)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnabled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetShown)
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetShown)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetShown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetChecked)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetChecked)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSetChecked();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetEnabled)
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetEnabled)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSetEnabled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetShown)
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetShown)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSetShown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetSetText)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetText)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSetText();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_UpdateUIEvent, GetText)
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetText)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, GetMode)
@@ -243,7 +243,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, GetMode)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUpdateUIMode rtn = wxUpdateUIEvent::GetMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
@@ -256,7 +256,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxUpdateUIEvent::GetUpdateInterval();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_UpdateUIEvent, ResetUpdateTime)

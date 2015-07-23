@@ -54,11 +54,11 @@ Gura_ImplementFunction(URLDataObject)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_URLDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_URLDataObject, GetURL)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_URLDataObject, GetURL)
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URLDataObject, SetURL)

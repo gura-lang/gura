@@ -1457,7 +1457,7 @@ Gura_ImplementFunction(content)
 			return Value::Null;
 		}
 	}
-	return ReturnValue(env, sig, args, Value(pObjContent));
+	return ReturnValue(env, args, Value(pObjContent));
 }
 
 // Module entry

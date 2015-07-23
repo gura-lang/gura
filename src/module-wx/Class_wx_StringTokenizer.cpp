@@ -52,11 +52,11 @@ Gura_ImplementFunction(StringTokenizerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StringTokenizer)
@@ -82,11 +82,11 @@ Gura_ImplementFunction(StringTokenizer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->CountTokens();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasMoreTokens();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar rtn = pThis->GetEntity()->GetLastDelimiter();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetNextToken();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, GetString)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_StringTokenizer, GetString)
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StringTokenizer, SetString)

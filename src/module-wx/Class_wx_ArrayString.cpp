@@ -54,11 +54,11 @@ Gura_ImplementFunction(ArrayStringEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(ArrayString)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString_1)
@@ -104,11 +104,11 @@ Gura_ImplementFunction(ArrayString_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString_2)
@@ -130,11 +130,11 @@ Gura_ImplementFunction(ArrayString_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ArrayString, Add)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_ArrayString, Add)
 	size_t copies = 1;
 	if (args.IsValid(1)) copies = args.GetSizeT(1);
 	size_t rtn = pThis->GetEntity()->Add(str, copies);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Alloc)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_ArrayString, Count)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->Count();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Empty)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_ArrayString, GetCount)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Index)
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_ArrayString, Index)
 	bool bFromEnd = false;
 	if (args.IsValid(2)) bFromEnd = args.GetBoolean(2);
 	int rtn = pThis->GetEntity()->Index(sz, bCase, bFromEnd);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Insert)
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_ArrayString, IsEmpty)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Item)
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_ArrayString, Item)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nIndex = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->Item(nIndex);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Last)
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_ArrayString, Last)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->Last();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ArrayString, Remove)

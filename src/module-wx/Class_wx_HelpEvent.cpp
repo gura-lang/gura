@@ -60,11 +60,11 @@ Gura_ImplementFunction(HelpEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HelpEvent, SetOrigin)

@@ -68,11 +68,11 @@ Gura_ImplementFunction(RichTextFormattingDialogFactoryEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialogFactory(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CreateButtons(dialog);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePage)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 	wxString title = wxString::FromUTF8(args.GetString(1));
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 2)->GetEntity();
 	wxPanel *rtn = (wxPanel *)pThis->GetEntity()->CreatePage(page, title, dialog);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Panel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Panel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePages)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePages)
 	long pages = args.GetLong(0);
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->CreatePages(pages, dialog);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageId)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageId)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetPageId(i);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPageIdCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetPageImage(id);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetSheetStyle(dialog);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
 	int page = args.GetInt(0);
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->ShowHelp(page, dialog);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

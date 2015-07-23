@@ -250,7 +250,7 @@ ClassCustom::Constructor::Constructor(Environment &envScope,
 
 Value ClassCustom::Constructor::DoEval(Environment &env, Signal &sig, Args &args) const
 {
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args, false));
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, false));
 	if (pEnvLocal.IsNull()) return Value::Null;
 	Value valueRtn(args.GetThis());
 	if (!valueRtn.IsObject()) {
@@ -280,7 +280,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Signal &sig, Args &args
 	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	GetExprBody()->Exec2(*pEnvLocal, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, valueRtn);
+	return ReturnValue(env, args, valueRtn);
 }
 
 

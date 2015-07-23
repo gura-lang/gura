@@ -113,7 +113,7 @@ Gura_ImplementFunction(DynamicCast)
 	Class *pClass = args.GetClass(1);
 	Object_wx_Object *pObjNew = new Object_wx_Object(Class::Reference(pClass),
 											pObj->GetEntity(), nullptr, OwnerFalse);
-	return ReturnValue(env, sig, args, Value(pObjNew));
+	return ReturnValue(env, args, Value(pObjNew));
 }
 #endif
 
@@ -131,7 +131,7 @@ Gura_ImplementFunction(CHECK_GCC_VERSION)
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
 	bool rtn = wxCHECK_GCC_VERSION(major, minor);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(CHECK_VERSION)
@@ -150,7 +150,7 @@ Gura_ImplementFunction(CHECK_VERSION)
 	int minor = args.GetInt(1);
 	int release = args.GetInt(2);
 	bool rtn = wxCHECK_VERSION(major, minor, release);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(CHECK_VERSION_FULL)
@@ -171,7 +171,7 @@ Gura_ImplementFunction(CHECK_VERSION_FULL)
 	int release = args.GetInt(2);
 	int subrel = args.GetInt(3);
 	bool rtn = wxCHECK_VERSION_FULL(major, minor, release, subrel);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(CHECK_W32API_VERSION)
@@ -188,7 +188,7 @@ Gura_ImplementFunction(CHECK_W32API_VERSION)
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
 	bool rtn = wxCHECK_W32API_VERSION(major, minor);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Entry)
@@ -206,7 +206,7 @@ Gura_ImplementFunction(Entry)
 	int argc = args.GetInt(0);
 	wxChar argv = static_cast<wxChar>(args.GetInt(1));
 	int rtn = wxEntry(argc, argv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -229,7 +229,7 @@ Gura_ImplementFunction(Entry_1)
 	int nCmdShow = SW_SHOWNORMAL;
 	if (args.IsValid(3)) nCmdShow = args.GetInt(3);
 	int rtn = wxEntry(, , pCmdLine, nCmdShow);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -262,7 +262,7 @@ Gura_ImplementFunction(EntryStart)
 	int argc = args.GetInt(0);
 	wxChar argv = static_cast<wxChar>(args.GetInt(1));
 	bool rtn = wxEntryStart(argc, argv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -282,7 +282,7 @@ Gura_ImplementFunction(HandleFatalExceptions)
 	bool doIt = true;
 	if (args.IsValid(0)) doIt = args.GetBoolean(0);
 	bool rtn = wxHandleFatalExceptions(doIt);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -311,7 +311,7 @@ Gura_ImplementFunction(Initialize)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxInitialize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(SafeYield)
@@ -330,7 +330,7 @@ Gura_ImplementFunction(SafeYield)
 	bool onlyIfNeeded = false;
 	if (args.IsValid(1)) onlyIfNeeded = args.GetBoolean(1);
 	bool rtn = wxSafeYield(win, onlyIfNeeded);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Uninitialize)
@@ -355,7 +355,7 @@ Gura_ImplementFunction(Yield)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxYield();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(WakeUpIdle)
@@ -388,7 +388,7 @@ Gura_ImplementFunction(Execute)
 	wxProcess *callback = (wxProcess *)(nullptr);
 	if (args.IsValid(2)) callback = Object_wx_Process::GetObject(args, 2)->GetEntity();
 	long rtn = wxExecute(command, sync, callback);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Execute_1)
@@ -410,7 +410,7 @@ Gura_ImplementFunction(Execute_1)
 	wxProcess *callback = (wxProcess *)(nullptr);
 	if (args.IsValid(2)) callback = Object_wx_Process::GetObject(args, 2)->GetEntity();
 	long rtn = wxExecute(argv, flags, callback);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -434,7 +434,7 @@ Gura_ImplementFunction(Execute_2)
 	int flags = 0;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	long rtn = wxExecute(command, *output, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Execute_3)
@@ -456,7 +456,7 @@ Gura_ImplementFunction(Execute_3)
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
 	long rtn = wxExecute(command, *output, *errors, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Exit)
@@ -493,7 +493,7 @@ Gura_ImplementFunction(Kill)
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
 	int rtn = wxKill(pid, sig, *rc, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -509,7 +509,7 @@ Gura_ImplementFunction(GetProcessId)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned rtn = wxGetProcessId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Shell)
@@ -526,7 +526,7 @@ Gura_ImplementFunction(Shell)
 	wxString command = nullptr;
 	if (args.IsValid(0)) command = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxShell(command);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -547,7 +547,7 @@ Gura_ImplementFunction(Shutdown)
 #if 0
 	wxShutdownFlags *flags = Object_wx_ShutdownFlags::GetObject(args, 0)->GetEntity();
 	bool rtn = wxShutdown(*flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -642,7 +642,7 @@ Gura_ImplementFunction(IsMainThread)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	bool rtn = wxIsMainThread();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -717,7 +717,7 @@ Gura_ImplementFunction(FileExists)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFileExists(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(FileModificationTime)
@@ -749,7 +749,7 @@ Gura_ImplementFunction(FileNameFromPath)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxFileNameFromPath(path);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(FileNameFromPath_1)
@@ -765,7 +765,7 @@ Gura_ImplementFunction(FileNameFromPath_1)
 #if 0
 	char path = args.GetChar(0);
 	char rtn = wxFileNameFromPath(path);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -787,7 +787,7 @@ Gura_ImplementFunction(FindFirstFile_)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wxString rtn = wxFindFirstFile(spec, flags);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -803,7 +803,7 @@ Gura_ImplementFunction(FindNextFile_)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxFindNextFile();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetDiskSpace)
@@ -825,7 +825,7 @@ Gura_ImplementFunction(GetDiskSpace)
 	wxLongLong **free = (wxLongLong *)(&nullptr);
 	if (args.IsValid(2)) *free = Object_wx_LongLong::GetObject(args, 2)->GetEntity();
 	bool rtn = wxGetDiskSpace(path, **total, **free);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -844,7 +844,7 @@ Gura_ImplementFunction(GetFileKind)
 #if 0
 	int fd = args.GetInt(0);
 	wxFileKind rtn = wxGetFileKind(fd);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileKind(new wxFileKind(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_FileKind(new wxFileKind(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -861,7 +861,7 @@ Gura_ImplementFunction(GetFileKind_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFileKind rtn = wxGetFileKind();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileKind(new wxFileKind(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_FileKind(new wxFileKind(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -877,7 +877,7 @@ Gura_ImplementFunction(GetOSDirectory)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetOSDirectory();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(IsAbsolutePath)
@@ -892,7 +892,7 @@ Gura_ImplementFunction(IsAbsolutePath)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxIsAbsolutePath(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(DirExists)
@@ -907,7 +907,7 @@ Gura_ImplementFunction(DirExists)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxDirExists(dirname);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(PathOnly)
@@ -922,7 +922,7 @@ Gura_ImplementFunction(PathOnly)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxPathOnly(path);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(Unix2DosFilename)
@@ -973,7 +973,7 @@ Gura_ImplementFunction(ConcatFiles)
 	wxString file2 = wxString::FromUTF8(args.GetString(1));
 	wxString file3 = wxString::FromUTF8(args.GetString(2));
 	bool rtn = wxConcatFiles(file1, file2, file3);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunctionAlias(CopyFile_, "CopyFile")
@@ -993,7 +993,7 @@ Gura_ImplementFunction(CopyFile_)
 	bool overwrite = true;
 	if (args.IsValid(2)) overwrite = args.GetBoolean(2);
 	bool rtn = wxCopyFile(file1, file2, overwrite);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetCwd)
@@ -1006,7 +1006,7 @@ Gura_ImplementFunction(GetCwd)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetCwd();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(IsWild)
@@ -1021,7 +1021,7 @@ Gura_ImplementFunction(IsWild)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString pattern = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxIsWild(pattern);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(MatchWild)
@@ -1040,7 +1040,7 @@ Gura_ImplementFunction(MatchWild)
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	bool dot_special = args.GetBoolean(2);
 	bool rtn = wxMatchWild(pattern, text, dot_special);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Mkdir)
@@ -1058,7 +1058,7 @@ Gura_ImplementFunction(Mkdir)
 	int perm = 0777;
 	if (args.IsValid(1)) perm = args.GetInt(1);
 	bool rtn = wxMkdir(dir, perm);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(ParseCommonDialogsFilter)
@@ -1077,7 +1077,7 @@ Gura_ImplementFunction(ParseCommonDialogsFilter)
 	std::unique_ptr<wxArrayString> descriptions(CreateArrayString(args.GetList(1)));
 	std::unique_ptr<wxArrayString> filters(CreateArrayString(args.GetList(2)));
 	int rtn = wxParseCommonDialogsFilter(wildCard, *descriptions, *filters);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(RemoveFile)
@@ -1092,7 +1092,7 @@ Gura_ImplementFunction(RemoveFile)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxRemoveFile(file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(RenameFile)
@@ -1112,7 +1112,7 @@ Gura_ImplementFunction(RenameFile)
 	bool overwrite = true;
 	if (args.IsValid(2)) overwrite = args.GetBoolean(2);
 	bool rtn = wxRenameFile(file1, file2, overwrite);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Rmdir)
@@ -1130,7 +1130,7 @@ Gura_ImplementFunction(Rmdir)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = wxRmdir(dir, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(SetWorkingDirectory)
@@ -1145,7 +1145,7 @@ Gura_ImplementFunction(SetWorkingDirectory)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxSetWorkingDirectory(dir);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(SplitPath)
@@ -1182,7 +1182,7 @@ Gura_ImplementFunction(TransferFileToStream)
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	Stream & stream = args.GetStream(1);
 	bool rtn = wxTransferFileToStream(filename, stream);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1201,7 +1201,7 @@ Gura_ImplementFunction(TransferStreamToFile)
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(1));
 	bool rtn = wxTransferStreamToFile(, filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1217,7 +1217,7 @@ Gura_ImplementFunction(GetEmailAddress)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetEmailAddress();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetEmailAddress_1)
@@ -1235,7 +1235,7 @@ Gura_ImplementFunction(GetEmailAddress_1)
 	char buf = args.GetChar(0);
 	int sz = args.GetInt(1);
 	bool rtn = wxGetEmailAddress(buf, sz);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1252,7 +1252,7 @@ Gura_ImplementFunction(GetFreeMemory)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxMemorySize rtn = wxGetFreeMemory();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MemorySize(new wxMemorySize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_MemorySize(new wxMemorySize(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1268,7 +1268,7 @@ Gura_ImplementFunction(GetFullHostName)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetFullHostName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetHomeDir)
@@ -1281,7 +1281,7 @@ Gura_ImplementFunction(GetHomeDir)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetHomeDir();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetHostName)
@@ -1294,7 +1294,7 @@ Gura_ImplementFunction(GetHostName)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetHostName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetOsDescription)
@@ -1307,7 +1307,7 @@ Gura_ImplementFunction(GetOsDescription)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetOsDescription();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetOsVersion)
@@ -1322,7 +1322,7 @@ Gura_ImplementFunction(GetOsVersion)
 	int major = 0;
 	int minor = 0;
 	wxOperatingSystemId rtn = wxGetOsVersion(&major, &minor);
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 			Value::CreateList(env, Value(rtn), Value(major), Value(minor)));
 }
 
@@ -1336,7 +1336,7 @@ Gura_ImplementFunction(IsPlatformLittleEndian)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxIsPlatformLittleEndian();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(IsPlatform64Bit)
@@ -1349,7 +1349,7 @@ Gura_ImplementFunction(IsPlatform64Bit)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxIsPlatform64Bit();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetUserHome)
@@ -1366,7 +1366,7 @@ Gura_ImplementFunction(GetUserHome)
 	wxString user = wxT("");
 	if (args.IsValid(0)) user = wxString::FromUTF8(args.GetString(0));
 	wxChar rtn = wxGetUserHome(user);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1382,7 +1382,7 @@ Gura_ImplementFunction(GetUserId)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetUserId();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetUserId_1)
@@ -1400,7 +1400,7 @@ Gura_ImplementFunction(GetUserId_1)
 	char buf = args.GetChar(0);
 	int sz = args.GetInt(1);
 	bool rtn = wxGetUserId(buf, sz);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1416,7 +1416,7 @@ Gura_ImplementFunction(GetUserName_)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxGetUserName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetUserName__1)
@@ -1434,7 +1434,7 @@ Gura_ImplementFunction(GetUserName__1)
 	char buf = args.GetChar(0);
 	int sz = args.GetInt(1);
 	bool rtn = wxGetUserName(buf, sz);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1453,7 +1453,7 @@ Gura_ImplementFunction(copystring)
 #if 0
 	char s = args.GetChar(0);
 	char rtn = copystring(s);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1478,7 +1478,7 @@ Gura_ImplementFunction(GetTranslation)
 		domain = _domain;
 	}
 	wxString rtn = wxGetTranslation(str, domain);
-	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
+	return ReturnValue(env, args, Value(rtn.ToUTF8()));
 }
 
 Gura_DeclareFunction(GetTranslation_1)
@@ -1505,7 +1505,7 @@ Gura_ImplementFunction(GetTranslation_1)
 		domain = _domain;
 	}
 	wxChar rtn = wxGetTranslation(str, strPlural, n, domain);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1524,7 +1524,7 @@ Gura_ImplementFunction(IsEmpty)
 #if 0
 	char p = args.GetChar(0);
 	bool rtn = wxIsEmpty(p);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1545,7 +1545,7 @@ Gura_ImplementFunction(Strcmp)
 	char p1 = args.GetChar(0);
 	char p2 = args.GetChar(1);
 	int rtn = wxStrcmp(p1, p2);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1566,7 +1566,7 @@ Gura_ImplementFunction(Stricmp)
 	char p1 = args.GetChar(0);
 	char p2 = args.GetChar(1);
 	int rtn = wxStricmp(p1, p2);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1587,7 +1587,7 @@ Gura_ImplementFunction(StringEq)
 	wxString s1 = wxString::FromUTF8(args.GetString(0));
 	wxString s2 = wxString::FromUTF8(args.GetString(1));
 	bool rtn = wxStringEq(s1, s2);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1614,7 +1614,7 @@ Gura_ImplementFunction(StringMatch)
 	bool exact = false;
 	if (args.IsValid(3)) exact = args.GetBoolean(3);
 	bool rtn = wxStringMatch(s1, s2, subString, exact);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1638,7 +1638,7 @@ Gura_ImplementFunction(StringTokenize)
 	wxStringTokenizerMode mode = wxTOKEN_DEFAULT;
 	if (args.IsValid(2)) mode = static_cast<wxStringTokenizerMode>(args.GetInt(2));
 	wxArrayString rtn = wxStringTokenize(str, delims, mode);
-	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 }
 
 Gura_DeclareFunction(Strlen)
@@ -1654,7 +1654,7 @@ Gura_ImplementFunction(Strlen)
 #if 0
 	char p = args.GetChar(0);
 	size_t rtn = wxStrlen(p);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1677,7 +1677,7 @@ Gura_ImplementFunction(Snprintf)
 	size_t len = args.GetSizeT(1);
 	wxString format = wxString::FromUTF8(args.GetString(2));
 	int rtn = wxSnprintf(buf, len, format, );
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1696,9 +1696,9 @@ Gura_ImplementFunction(TRANSLATE)
 #if defined(__WXMSW__)
 	wxString s = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxTRANSLATE(s);
-	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
+	return ReturnValue(env, args, Value(rtn.ToUTF8()));
 #else
-	return ReturnValue(env, sig, args, args.GetValue(0));
+	return ReturnValue(env, args, args.GetValue(0));
 #endif	
 }
 
@@ -1719,7 +1719,7 @@ Gura_ImplementFunction(Vsnprintf)
 	size_t len = args.GetSizeT(1);
 	wxString format = wxString::FromUTF8(args.GetString(2));
 	int rtn = wxVsnprintf(buf, len, format, );
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1742,7 +1742,7 @@ Gura_ImplementFunction(PLURAL)
 	size_t n = args.GetSizeT(2);
 	//wxString rtn = wxPLURAL(sing, plur, n);
 	wxString rtn = wxGetTranslation(sing, plur, n);
-	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
+	return ReturnValue(env, args, Value(rtn.ToUTF8()));
 }
 
 Gura_DeclareFunction(AboutBox)
@@ -1800,7 +1800,7 @@ Gura_ImplementFunction(CreateFileTipProvider)
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	size_t currentTip = args.GetSizeT(1);
 	wxTipProvider *rtn = (wxTipProvider *)wxCreateFileTipProvider(filename, currentTip);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TipProvider(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_TipProvider(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(DirSelector)
@@ -1828,7 +1828,7 @@ Gura_ImplementFunction(DirSelector)
 	wxWindow *parent = (wxWindow *)(nullptr);
 	if (args.IsValid(4)) parent = Object_wx_Window::GetObject(args, 4)->GetEntity();
 	wxString rtn = wxDirSelector(message, default_path, style, *pos, parent);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(FileSelector)
@@ -1867,7 +1867,7 @@ Gura_ImplementFunction(FileSelector)
 	int y = -1;
 	if (args.IsValid(8)) y = args.GetInt(8);
 	wxString rtn = wxFileSelector(message, default_path, default_filename, default_extension, wildcard, flags, parent, x, y);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(EndBusyCursor)
@@ -1919,7 +1919,7 @@ Gura_ImplementFunction(GetColourFromUser)
 	wxString caption = wxEmptyString;
 	if (args.IsValid(2)) caption = wxString::FromUTF8(args.GetString(2));
 	wxColour rtn = wxGetColourFromUser(parent, *colInit, caption);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(GetFontFromUser)
@@ -1941,7 +1941,7 @@ Gura_ImplementFunction(GetFontFromUser)
 	wxString caption = wxEmptyString;
 	if (args.IsValid(2)) caption = wxString::FromUTF8(args.GetString(2));
 	wxFont rtn = wxGetFontFromUser(parent, *fontInit, caption);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(GetMultipleChoices)
@@ -1979,7 +1979,7 @@ Gura_ImplementFunction(GetMultipleChoices)
 	int height = 200;
 	if (args.IsValid(8)) height = args.GetInt(8);
 	size_t rtn = wxGetMultipleChoices(selections, message, caption, *aChoices, parent, x, y, centre, width, height);
-	return ReturnValue(env, sig, args, ArrayIntToValue(env, selections));
+	return ReturnValue(env, args, ArrayIntToValue(env, selections));
 }
 
 Gura_DeclareFunction(GetNumberFromUser)
@@ -2012,7 +2012,7 @@ Gura_ImplementFunction(GetNumberFromUser)
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(7)) pos = Object_wx_Point::GetObject(args, 7)->GetEntity();
 	long rtn = wxGetNumberFromUser(message, prompt, caption, value, min, max, parent, *pos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetPasswordFromUser)
@@ -2045,7 +2045,7 @@ Gura_ImplementFunction(GetPasswordFromUser)
 	bool centre = true;
 	if (args.IsValid(6)) centre = args.GetBoolean(6);
 	wxString rtn = wxGetPasswordFromUser(message, caption, default_value, parent, x, y, centre);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetTextFromUser)
@@ -2078,7 +2078,7 @@ Gura_ImplementFunction(GetTextFromUser)
 	bool centre = true;
 	if (args.IsValid(6)) centre = args.GetBoolean(6);
 	wxString rtn = wxGetTextFromUser(message, caption, default_value, parent, x, y, centre);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetSingleChoice)
@@ -2115,7 +2115,7 @@ Gura_ImplementFunction(GetSingleChoice)
 	int height = 200;
 	if (args.IsValid(8)) height = args.GetInt(8);
 	wxString rtn = wxGetSingleChoice(message, caption, *aChoices, parent, x, y, centre, width, height);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetSingleChoiceIndex)
@@ -2152,7 +2152,7 @@ Gura_ImplementFunction(GetSingleChoiceIndex)
 	int height = 200;
 	if (args.IsValid(8)) height = args.GetInt(8);
 	int rtn = wxGetSingleChoiceIndex(message, caption, *aChoices, parent, x, y, centre, width, height);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetSingleChoiceData)
@@ -2192,7 +2192,7 @@ Gura_ImplementFunction(GetSingleChoiceData)
 	int height = 200;
 	if (args.IsValid(9)) height = args.GetInt(9);
 	wxString rtn = wxGetSingleChoiceData(message, caption, *aChoices, client_data[], parent, x, y, centre, width, height);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2237,7 +2237,7 @@ Gura_ImplementFunction(GetSingleChoiceData_1)
 	int height = 200;
 	if (args.IsValid(10)) height = args.GetInt(10);
 	wxString rtn = wxGetSingleChoiceData(message, caption, n, choices[], client_data[], parent, x, y, centre, width, height);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2253,7 +2253,7 @@ Gura_ImplementFunction(IsBusy)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxIsBusy();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunctionAlias(MessageBox_, "MessageBox")
@@ -2283,7 +2283,7 @@ Gura_ImplementFunction(MessageBox_)
 	int y = -1;
 	if (args.IsValid(5)) y = args.GetInt(5);
 	int rtn = wxMessageBox(message, caption, style, parent, x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(ShowTip)
@@ -2303,7 +2303,7 @@ Gura_ImplementFunction(ShowTip)
 	bool showAtStartup = true;
 	if (args.IsValid(2)) showAtStartup = args.GetBoolean(2);
 	bool rtn = wxShowTip(parent, tipProvider, showAtStartup);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Finite)
@@ -2318,7 +2318,7 @@ Gura_ImplementFunction(Finite)
 	if (!CheckWxReady(sig)) return Value::Null;
 	double x = args.GetDouble(0);
 	int rtn = wxFinite(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(IsNaN)
@@ -2333,7 +2333,7 @@ Gura_ImplementFunction(IsNaN)
 	if (!CheckWxReady(sig)) return Value::Null;
 	double x = args.GetDouble(0);
 	bool rtn = wxIsNaN(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(BITMAP)
@@ -2386,7 +2386,7 @@ Gura_ImplementFunction(GetClientDisplayRect)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRect rtn = wxGetClientDisplayRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(ColourDisplay)
@@ -2399,7 +2399,7 @@ Gura_ImplementFunction(ColourDisplay)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxColourDisplay();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(DisplayDepth)
@@ -2412,7 +2412,7 @@ Gura_ImplementFunction(DisplayDepth)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxDisplayDepth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(DisplaySize)
@@ -2445,7 +2445,7 @@ Gura_ImplementFunction(GetDisplaySize)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize rtn = wxGetDisplaySize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(DisplaySizeMM)
@@ -2478,7 +2478,7 @@ Gura_ImplementFunction(GetDisplaySizeMM)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize rtn = wxGetDisplaySizeMM();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(DROP_ICON)
@@ -2494,7 +2494,7 @@ Gura_ImplementFunction(DROP_ICON)
 #if 0
 	char name = args.GetChar(0);
 	wxIconOrCursor rtn = wxDROP_ICON(name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_IconOrCursor(new wxIconOrCursor(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_IconOrCursor(new wxIconOrCursor(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2540,7 +2540,7 @@ Gura_ImplementFunction(MakeMetafilePlaceable)
 	float scale = 1.0;
 	if (args.IsValid(5)) scale = args.GetFloat(5);
 	bool rtn = wxMakeMetafilePlaceable(filename, minX, minY, maxX, maxY, scale);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2571,7 +2571,7 @@ Gura_ImplementFunction(GetPrinterCommand)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxGetPrinterCommand();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2588,7 +2588,7 @@ Gura_ImplementFunction(GetPrinterFile)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxGetPrinterFile();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2605,7 +2605,7 @@ Gura_ImplementFunction(GetPrinterMode)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int rtn = wxGetPrinterMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2622,7 +2622,7 @@ Gura_ImplementFunction(GetPrinterOptions)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxGetPrinterOptions();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2639,7 +2639,7 @@ Gura_ImplementFunction(GetPrinterOrientation)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int rtn = wxGetPrinterOrientation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2656,7 +2656,7 @@ Gura_ImplementFunction(GetPrinterPreviewCommand)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxGetPrinterPreviewCommand();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2861,7 +2861,7 @@ Gura_ImplementFunction(ClipboardOpen)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	bool rtn = wxClipboardOpen();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -2879,7 +2879,7 @@ Gura_ImplementFunction(CloseClipboard)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	bool rtn = wxCloseClipboard();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -2897,7 +2897,7 @@ Gura_ImplementFunction(EmptyClipboard)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	bool rtn = wxEmptyClipboard();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -2917,7 +2917,7 @@ Gura_ImplementFunction(EnumClipboardFormats)
 #if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	int rtn = wxEnumClipboardFormats(dataFormat);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -2937,7 +2937,7 @@ Gura_ImplementFunction(GetClipboardData)
 #if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	wxObject *rtn = (wxObject *)wxGetClipboardData(dataFormat);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -2962,7 +2962,7 @@ Gura_ImplementFunction(GetClipboardFormatName_)
 	wxString formatName = wxString::FromUTF8(args.GetString(1));
 	int maxCount = args.GetInt(2);
 	bool rtn = wxGetClipboardFormatName(dataFormat, formatName, maxCount);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -2985,7 +2985,7 @@ Gura_ImplementFunction(IsClipboardFormatAvailable)
 #if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	bool rtn = wxIsClipboardFormatAvailable(dataFormat);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -3003,7 +3003,7 @@ Gura_ImplementFunction(OpenClipboard)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	bool rtn = wxOpenClipboard();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -3024,7 +3024,7 @@ Gura_ImplementFunction(RegisterClipboardFormat_)
 #if 0
 	wxString formatName = wxString::FromUTF8(args.GetString(0));
 	int rtn = wxRegisterClipboardFormat(formatName);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3053,7 +3053,7 @@ Gura_ImplementFunction(SetClipboardData)
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	bool rtn = wxSetClipboardData(dataFormat, data, width, height);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -3104,7 +3104,7 @@ Gura_ImplementFunction(GetKeyState)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxKeyCode key = static_cast<wxKeyCode>(args.GetInt(0));
 	bool rtn = wxGetKeyState(key);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(LL)
@@ -3118,7 +3118,7 @@ Gura_ImplementFunction(LL)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxLongLong_t rtn = wxLL();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3134,7 +3134,7 @@ Gura_ImplementFunction(NewId)
 {
 	//if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxNewId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(NewIds)
@@ -3147,7 +3147,7 @@ Gura_ImplementFunction(NewIds)
 {
 	//if (!CheckWxReady(sig)) return Value::Null;
 	Iterator *pIterator = new Iterator_NewIds();
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 Gura_DeclareFunction(ON_BLOCK_EXIT0)
@@ -3325,7 +3325,7 @@ Gura_ImplementFunction(FindMenuItemId)
 	wxString menuString = wxString::FromUTF8(args.GetString(1));
 	wxString itemString = wxString::FromUTF8(args.GetString(2));
 	int rtn = wxFindMenuItemId(frame, menuString, itemString);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(FindWindowByLabel)
@@ -3343,7 +3343,7 @@ Gura_ImplementFunction(FindWindowByLabel)
 	wxWindow *parent = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxWindow *rtn = (wxWindow *)wxFindWindowByLabel(label, parent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(FindWindowByName)
@@ -3361,7 +3361,7 @@ Gura_ImplementFunction(FindWindowByName)
 	wxWindow *parent = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxWindow *rtn = (wxWindow *)wxFindWindowByName(name, parent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(FindWindowAtPoint)
@@ -3376,7 +3376,7 @@ Gura_ImplementFunction(FindWindowAtPoint)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxWindow *rtn = (wxWindow *)wxFindWindowAtPoint(*pt);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(FindWindowAtPointer)
@@ -3391,7 +3391,7 @@ Gura_ImplementFunction(FindWindowAtPointer)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxWindow *rtn = (wxWindow *)wxFindWindowAtPointer(*pt);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(GetActiveWindow)
@@ -3404,7 +3404,7 @@ Gura_ImplementFunction(GetActiveWindow)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)wxGetActiveWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(GetBatteryState)
@@ -3417,7 +3417,7 @@ Gura_ImplementFunction(GetBatteryState)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBatteryState rtn = wxGetBatteryState();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetDisplayName)
@@ -3431,7 +3431,7 @@ Gura_ImplementFunction(GetDisplayName)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxGetDisplayName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3447,7 +3447,7 @@ Gura_ImplementFunction(GetPowerType)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPowerType rtn = wxGetPowerType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetMousePosition)
@@ -3460,7 +3460,7 @@ Gura_ImplementFunction(GetMousePosition)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint rtn = wxGetMousePosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(GetMouseState)
@@ -3473,7 +3473,7 @@ Gura_ImplementFunction(GetMouseState)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMouseState rtn = wxGetMouseState();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MouseState(new wxMouseState(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_MouseState(new wxMouseState(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(GetResource)
@@ -3496,7 +3496,7 @@ Gura_ImplementFunction(GetResource)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxGetResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3522,7 +3522,7 @@ Gura_ImplementFunction(GetResource_1)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxGetResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3548,7 +3548,7 @@ Gura_ImplementFunction(GetResource_2)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxGetResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3574,7 +3574,7 @@ Gura_ImplementFunction(GetResource_3)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxGetResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3595,7 +3595,7 @@ Gura_ImplementFunction(GetStockLabel)
 	long flags = wxSTOCK_WITH_MNEMONIC;
 	if (args.IsValid(1)) flags = args.GetLong(1);
 	wxString rtn = wxGetStockLabel(id, flags);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(GetTopLevelParent)
@@ -3610,7 +3610,7 @@ Gura_ImplementFunction(GetTopLevelParent)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindow *rtn = (wxWindow *)wxGetTopLevelParent(win);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareFunction(LaunchDefaultBrowser)
@@ -3628,7 +3628,7 @@ Gura_ImplementFunction(LaunchDefaultBrowser)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = wxLaunchDefaultBrowser(url, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(LoadUserResource)
@@ -3647,7 +3647,7 @@ Gura_ImplementFunction(LoadUserResource)
 	wxString resourceType = wxT("TEXT");
 	if (args.IsValid(1)) resourceType = wxString::FromUTF8(args.GetString(1));
 	wxString rtn = wxLoadUserResource(resourceName, resourceType);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -3721,7 +3721,7 @@ Gura_ImplementFunction(StripMenuCodes)
 	int flags = wxStrip_All;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wxString rtn = wxStripMenuCodes(str, flags);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(STRINGIZE)
@@ -3783,7 +3783,7 @@ Gura_ImplementFunction(ULL)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxLongLong_t rtn = wxULL();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3825,7 +3825,7 @@ Gura_ImplementFunction(WriteResource)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxWriteResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3851,7 +3851,7 @@ Gura_ImplementFunction(WriteResource_1)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxWriteResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3877,7 +3877,7 @@ Gura_ImplementFunction(WriteResource_2)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxWriteResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3903,7 +3903,7 @@ Gura_ImplementFunction(WriteResource_3)
 	wxString file = nullptr;
 	if (args.IsValid(3)) file = wxString::FromUTF8(args.GetString(3));
 	bool rtn = wxWriteResource(section, entry, value, file);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -3921,7 +3921,7 @@ Gura_ImplementFunction(INT32_SWAP_ALWAYS)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt32 value = static_cast<wxInt32>(args.GetULong(0));
 	wxInt32 rtn = wxINT32_SWAP_ALWAYS(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT32_SWAP_ALWAYS)
@@ -3936,7 +3936,7 @@ Gura_ImplementFunction(UINT32_SWAP_ALWAYS)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint32 value = static_cast<wxUint32>(args.GetULong(0));
 	wxUint32 rtn = wxUINT32_SWAP_ALWAYS(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(INT16_SWAP_ALWAYS)
@@ -3951,7 +3951,7 @@ Gura_ImplementFunction(INT16_SWAP_ALWAYS)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt16 value = static_cast<wxInt16>(args.GetUShort(0));
 	wxInt16 rtn = wxINT16_SWAP_ALWAYS(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT16_SWAP_ALWAYS)
@@ -3966,7 +3966,7 @@ Gura_ImplementFunction(UINT16_SWAP_ALWAYS)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint16 value = static_cast<wxUint16>(args.GetUShort(0));
 	wxUint16 rtn = wxUINT16_SWAP_ALWAYS(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(INT32_SWAP_ON_BE)
@@ -3981,7 +3981,7 @@ Gura_ImplementFunction(INT32_SWAP_ON_BE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt32 value = static_cast<wxInt32>(args.GetULong(0));
 	wxInt32 rtn = wxINT32_SWAP_ON_BE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT32_SWAP_ON_BE)
@@ -3996,7 +3996,7 @@ Gura_ImplementFunction(UINT32_SWAP_ON_BE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint32 value = static_cast<wxUint32>(args.GetULong(0));
 	wxUint32 rtn = wxUINT32_SWAP_ON_BE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(INT16_SWAP_ON_BE)
@@ -4011,7 +4011,7 @@ Gura_ImplementFunction(INT16_SWAP_ON_BE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt16 value = static_cast<wxInt16>(args.GetUShort(0));
 	wxInt16 rtn = wxINT16_SWAP_ON_BE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT16_SWAP_ON_BE)
@@ -4026,7 +4026,7 @@ Gura_ImplementFunction(UINT16_SWAP_ON_BE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint16 value = static_cast<wxUint16>(args.GetUShort(0));
 	wxUint16 rtn = wxUINT16_SWAP_ON_BE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(INT32_SWAP_ON_LE)
@@ -4041,7 +4041,7 @@ Gura_ImplementFunction(INT32_SWAP_ON_LE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt32 value = static_cast<wxInt32>(args.GetULong(0));
 	wxInt32 rtn = wxINT32_SWAP_ON_LE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT32_SWAP_ON_LE)
@@ -4056,7 +4056,7 @@ Gura_ImplementFunction(UINT32_SWAP_ON_LE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint32 value = static_cast<wxUint32>(args.GetULong(0));
 	wxUint32 rtn = wxUINT32_SWAP_ON_LE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(INT16_SWAP_ON_LE)
@@ -4071,7 +4071,7 @@ Gura_ImplementFunction(INT16_SWAP_ON_LE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInt16 value = static_cast<wxInt16>(args.GetUShort(0));
 	wxInt16 rtn = wxINT16_SWAP_ON_LE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UINT16_SWAP_ON_LE)
@@ -4086,7 +4086,7 @@ Gura_ImplementFunction(UINT16_SWAP_ON_LE)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint16 value = static_cast<wxUint16>(args.GetUShort(0));
 	wxUint16 rtn = wxUINT16_SWAP_ON_LE(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(DebugMsg)
@@ -4389,7 +4389,7 @@ Gura_ImplementFunction(SysErrorCode)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned rtn = wxSysErrorCode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(SysErrorMsg)
@@ -4406,7 +4406,7 @@ Gura_ImplementFunction(SysErrorMsg)
 	unsigned errCode = 0;
 	if (args.IsValid(0)) errCode = args.GetInt(0);
 	wxChar rtn = wxSysErrorMsg(errCode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -4464,7 +4464,7 @@ Gura_ImplementFunction(GetElapsedTime)
 	bool resetTimer = true;
 	if (args.IsValid(0)) resetTimer = args.GetBoolean(0);
 	long rtn = wxGetElapsedTime(resetTimer);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -4480,7 +4480,7 @@ Gura_ImplementFunction(GetLocalTime)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxGetLocalTime();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetLocalTimeMillis)
@@ -4493,7 +4493,7 @@ Gura_ImplementFunction(GetLocalTimeMillis)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxLongLong rtn = wxGetLocalTimeMillis();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareFunction(GetUTCTime)
@@ -4506,7 +4506,7 @@ Gura_ImplementFunction(GetUTCTime)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxGetUTCTime();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(MicroSleep)
@@ -4547,7 +4547,7 @@ Gura_ImplementFunction(Now)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxNow();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareFunction(Sleep)
@@ -4829,7 +4829,7 @@ Gura_ImplementFunction(IsDebuggerRunning)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxIsDebuggerRunning();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(GetEnv)
@@ -4849,7 +4849,7 @@ Gura_ImplementFunction(GetEnv)
 	if (rtn) {
 		valueRtn = Value(value.ToUTF8());
 	}
-	return ReturnValue(env, sig, args, valueRtn);
+	return ReturnValue(env, args, valueRtn);
 }
 
 Gura_DeclareFunction(SetEnv)
@@ -4866,7 +4866,7 @@ Gura_ImplementFunction(SetEnv)
 	wxString var = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
 	bool rtn = wxSetEnv(var, value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(UnsetEnv)
@@ -4881,7 +4881,7 @@ Gura_ImplementFunction(UnsetEnv)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString var = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxUnsetEnv(var);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isalnum)
@@ -4896,7 +4896,7 @@ Gura_ImplementFunction(Isalnum)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsalnum(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isalpha)
@@ -4911,7 +4911,7 @@ Gura_ImplementFunction(Isalpha)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsalpha(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Iscntrl)
@@ -4926,7 +4926,7 @@ Gura_ImplementFunction(Iscntrl)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIscntrl(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isdigit)
@@ -4941,7 +4941,7 @@ Gura_ImplementFunction(Isdigit)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsdigit(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isgraph)
@@ -4956,7 +4956,7 @@ Gura_ImplementFunction(Isgraph)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsgraph(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Islower)
@@ -4971,7 +4971,7 @@ Gura_ImplementFunction(Islower)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIslower(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isprint)
@@ -4986,7 +4986,7 @@ Gura_ImplementFunction(Isprint)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsprint(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Ispunct)
@@ -5001,7 +5001,7 @@ Gura_ImplementFunction(Ispunct)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIspunct(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isspace)
@@ -5016,7 +5016,7 @@ Gura_ImplementFunction(Isspace)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsspace(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isupper)
@@ -5031,7 +5031,7 @@ Gura_ImplementFunction(Isupper)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsupper(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Isxdigit)
@@ -5046,7 +5046,7 @@ Gura_ImplementFunction(Isxdigit)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	bool rtn = wxIsxdigit(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Tolower)
@@ -5061,7 +5061,7 @@ Gura_ImplementFunction(Tolower)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	wxChar rtn = wxTolower(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareFunction(Toupper)
@@ -5076,7 +5076,7 @@ Gura_ImplementFunction(Toupper)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int c = args.GetInt(0);
 	wxChar rtn = wxToupper(c);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

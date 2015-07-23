@@ -59,11 +59,11 @@ Gura_ImplementFunction(MemoryInputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -86,11 +86,11 @@ Gura_ImplementFunction(MemoryInputStream_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MemoryInputStream, GetInputStreamBuffer)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

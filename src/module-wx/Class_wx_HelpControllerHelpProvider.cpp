@@ -54,11 +54,11 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpControllerHelpProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHelpControllerBase *rtn = (wxHelpControllerBase *)pThis->GetEntity()->GetHelpController();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HelpControllerBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HelpControllerBase(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

@@ -222,7 +222,7 @@ Gura_ImplementFunction(binary)
 			return Value::Null;
 		}
 	}
-	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -271,7 +271,7 @@ Gura_ImplementClassMethod(binary, alloc)
 	UChar data = args.IsValid(1)? args.GetUChar(1) : 0;
 	buff.reserve(bytes);
 	buff.insert(0, bytes, static_cast<char>(data));
-	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
 // binary#decode(codec:codec)
@@ -331,7 +331,7 @@ Gura_ImplementMethod(binary, each)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis);
 	Iterator *pIterator = new Object_binary::IteratorByte(pObj, -1);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // binary#encodeuri()
@@ -476,7 +476,7 @@ Gura_ImplementClassMethod(binary, pack)
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), args.GetList(1));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
 // binary#pointer(offset:number => 0) {block?}
@@ -496,7 +496,7 @@ Gura_ImplementMethod(binary, pointer)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_binary *pObjBinary = Object_binary::Reference(pThis);
 	size_t offset = args.GetSizeT(0);
-	return ReturnValue(env, sig, args, Value(new Object_pointer(env, pObjBinary, offset)));
+	return ReturnValue(env, args, Value(new Object_pointer(env, pObjBinary, offset)));
 }
 
 // binary#reader() {block?}
@@ -513,7 +513,7 @@ Gura_ImplementMethod(binary, reader)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
 // binary#store(offset:number, buff+:binary):map:reduce
@@ -591,7 +591,7 @@ Gura_ImplementMethod(binary, unpacks)
 	size_t offset = 0;
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
 							args.GetString(0), args.GetList(1), offset);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // binary#writer() {block?}
@@ -608,7 +608,7 @@ Gura_ImplementMethod(binary, writer)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), true);
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
 //-----------------------------------------------------------------------------

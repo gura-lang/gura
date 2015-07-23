@@ -54,11 +54,11 @@ Gura_ImplementFunction(SocketEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SocketEvent, GetClientData)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_SocketEvent, GetSocket)
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketBase *rtn = (wxSocketBase *)pThis->GetEntity()->GetSocket();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_SocketEvent, GetSocketEvent)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_SocketEvent, GetSocketEvent)
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketNotify rtn = pThis->GetEntity()->GetSocketEvent();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SocketNotify(new wxSocketNotify(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SocketNotify(new wxSocketNotify(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

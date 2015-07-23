@@ -72,11 +72,11 @@ Gura_ImplementFunction(VListBox)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -100,11 +100,11 @@ Gura_ImplementFunction(VListBoxEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_VListBox, Create)
 	wxString name = wxVListBoxNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, DeselectAll)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_VListBox, DeselectAll)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DeselectAll();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetFirstSelected)
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_VListBox, GetFirstSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned long cookie = args.GetULong(0);
 	int rtn = pThis->GetEntity()->GetFirstSelected(cookie);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetItemCount)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_VListBox, GetItemCount)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetItemCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetMargins)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_VListBox, GetMargins)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMargins();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetNextSelected)
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_VListBox, GetNextSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned long cookie = args.GetULong(0);
 	int rtn = pThis->GetEntity()->GetNextSelected(cookie);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetSelectedCount)
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelectedCount)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetSelectedCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetSelection)
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelection)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, GetSelectionBackground)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_VListBox, GetSelectionBackground)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetSelectionBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_VListBox, HasMultipleSelection)
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_VListBox, HasMultipleSelection)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasMultipleSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, IsCurrent)
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_VListBox, IsCurrent)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t item = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->IsCurrent(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, IsSelected)
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_VListBox, IsSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t item = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->IsSelected(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, OnDrawBackground)
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_VListBox, OnMeasureItem)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxCoord rtn = pThis->GetEntity()->OnMeasureItem(n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_VListBox, Select)
 	bool select = true;
 	if (args.IsValid(1)) select = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Select(item, select);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, SelectAll)
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_VListBox, SelectAll)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->SelectAll();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, SelectRange)
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_VListBox, SelectRange)
 	size_t from = args.GetSizeT(0);
 	size_t to = args.GetSizeT(1);
 	bool rtn = pThis->GetEntity()->SelectRange(from, to);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VListBox, SetItemCount)

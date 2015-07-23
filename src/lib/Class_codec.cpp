@@ -55,7 +55,7 @@ Gura_ImplementFunction(codec)
 {
 	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, args.GetString(0), true, false));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_codec(env, pCodec.release())));
+	return ReturnValue(env, args, Value(new Object_codec(env, pCodec.release())));
 }
 
 //-----------------------------------------------------------------------------

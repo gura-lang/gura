@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains)
 	int fillStyle = wxODDEVEN_RULE;
 	if (args.IsValid(1)) fillStyle = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Contains(*c, fillStyle);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, Contains_1)
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains_1)
 	int fillStyle = wxODDEVEN_RULE;
 	if (args.IsValid(2)) fillStyle = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->Contains(*x, *y, fillStyle);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetBox)
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox)
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect2DDouble rtn = pThis->GetEntity()->GetBox();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect2DDouble(new wxRect2DDouble(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect2DDouble(new wxRect2DDouble(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetBox_1)
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint2DDouble rtn = pThis->GetEntity()->GetCurrentPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point2DDouble(new wxPoint2DDouble(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point2DDouble(new wxPoint2DDouble(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, Transform)

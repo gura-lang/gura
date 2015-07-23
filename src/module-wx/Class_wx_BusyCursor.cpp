@@ -54,11 +54,11 @@ Gura_ImplementFunction(BusyCursor_)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BusyCursor(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

@@ -53,11 +53,11 @@ Gura_ImplementFunction(PaletteEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Palette)
@@ -77,11 +77,11 @@ Gura_ImplementFunction(Palette)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Palette_1)
@@ -110,11 +110,11 @@ Gura_ImplementFunction(Palette_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_Palette, Create)
 	unsigned char green = args.GetUChar(2);
 	unsigned char blue = args.GetUChar(3);
 	bool rtn = pThis->GetEntity()->Create(n, red, green, blue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Palette, GetColoursCount)
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColoursCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Palette, GetPixel)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_Palette, GetPixel)
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
 	int rtn = pThis->GetEntity()->GetPixel(red, green, blue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Palette, GetRGB)
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_Palette, GetRGB)
 	unsigned char green = args.GetUChar(2);
 	unsigned char blue = args.GetUChar(3);
 	bool rtn = pThis->GetEntity()->GetRGB(pixel, red, green, blue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_Palette, IsOk)
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

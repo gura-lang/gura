@@ -51,11 +51,11 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ClientDataContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClientData *rtn = (wxClientData *)pThis->GetEntity()->GetClientObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

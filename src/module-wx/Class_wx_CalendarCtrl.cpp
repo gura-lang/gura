@@ -52,11 +52,11 @@ Gura_ImplementFunction(CalendarCtrlEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(CalendarCtrl)
@@ -93,11 +93,11 @@ Gura_ImplementFunction(CalendarCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, Create)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, Create)
 	wxString name = wxCalendarNameStr;
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *date, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, SetDate)
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetDate)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDateTime &rtn = pThis->GetEntity()->GetDate();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 #if 0
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourFg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHeaderColourFg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, GetHeaderColourBg)
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourBg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHeaderColourBg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, SetHighlightColours)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourFg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHighlightColourFg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, GetHighlightColourBg)
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourBg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHighlightColourBg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, SetHolidayColours)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourFg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHolidayColourFg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, GetHolidayColourBg)
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourBg)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetHolidayColourBg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, GetAttr)
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetAttr)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t day = args.GetSizeT(0);
 	wxCalendarDateAttr *rtn = (wxCalendarDateAttr *)pThis->GetEntity()->GetAttr(day);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CalendarDateAttr(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_CalendarDateAttr(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_CalendarCtrl, SetAttr)
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, HitTest)
 	wxDateTime *wd = (wxDateTime *)(&nullptr);
 	if (args.IsValid(2)) wd = Object_wx_DateTime::GetObject(args, 2)->GetEntity();
 	wxCalendarHitTestResult rtn = pThis->GetEntity()->HitTest(*pos, date, *wd);
-	return ReturnValue(env, sig, args, Value(new Object_wx_CalendarHitTestResult(new wxCalendarHitTestResult(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_CalendarHitTestResult(new wxCalendarHitTestResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

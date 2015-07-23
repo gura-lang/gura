@@ -46,7 +46,7 @@ Gura_ImplementClassMethod(pattern, create_rgb)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_rgba(red:number, green:number, blue:number, alpha:number) {block?}
@@ -73,7 +73,7 @@ Gura_ImplementClassMethod(pattern, create_rgba)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_color(color:color, alpha?:number) {block?}
@@ -105,7 +105,7 @@ Gura_ImplementClassMethod(pattern, create_color)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_for_surface(surface:cairo.surface) {block?}
@@ -127,7 +127,7 @@ Gura_ImplementClassMethod(pattern, create_for_surface)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_linear(x0:number, y0:number, x1:number, y1:number) {block?}
@@ -156,7 +156,7 @@ Gura_ImplementClassMethod(pattern, create_linear)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_radial(cx0:number, cy0:number, radius0:number, cx1:number, cy1:number, radius1:number) {block?}
@@ -188,7 +188,7 @@ Gura_ImplementClassMethod(pattern, create_radial)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern#add_color_stop_rgb(offset:number, red:number, green:number, blue:number):reduce

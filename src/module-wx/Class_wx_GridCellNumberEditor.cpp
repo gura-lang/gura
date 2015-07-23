@@ -65,11 +65,11 @@ Gura_ImplementFunction(GridCellNumberEditor)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellNumberEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, GetString)
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, GetString)
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = dynamic_cast<wx_GridCellNumberEditor *>(pThis->GetEntity())->_GetString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, HasRange)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, HasRange)
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = dynamic_cast<wx_GridCellNumberEditor *>(pThis->GetEntity())->_HasRange();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridCellNumberEditor, SetParameters)

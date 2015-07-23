@@ -40,7 +40,7 @@ glutInit(argv[]:string) {block?} = R'''
 		}
 		delete[] _argv;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, args, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
 	`glutInit` is used to initialize the GLUT library.
@@ -249,7 +249,7 @@ glutCreateMenu(func:function):int {block?} = R'''
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 ''' % {`en, 'markdown',
 	R'''
 	'''

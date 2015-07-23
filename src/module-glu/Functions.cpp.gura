@@ -533,7 +533,7 @@ cbridge_glcmn.AddTypeConvs {
 			nil,
 			R'''
 			GLUnurbs *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));
+			return ReturnValue(env, args, Value(new Object_Nurbs(_rtn)));
 			''')
 	'GLUtesselator@' => TypeConv(
 			'Tesselator', 'Once', [],
@@ -543,7 +543,7 @@ cbridge_glcmn.AddTypeConvs {
 			nil,
 			R'''
 			GLUtesselator *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
+			return ReturnValue(env, args, Value(new Object_Tesselator(_rtn)));
 			''')
 	'GLUquadric@' => TypeConv(
 			'Quadric', 'Once', [],
@@ -553,7 +553,7 @@ cbridge_glcmn.AddTypeConvs {
 			nil,
 			R'''
 			GLUquadric *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
+			return ReturnValue(env, args, Value(new Object_Quadric(_rtn)));
 			''')
 	'Object_Nurbs@' => TypeConv(
 			'Nurbs', 'Once', [],

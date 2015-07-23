@@ -138,11 +138,11 @@ Gura_ImplementFunction(DropTarget)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DropTarget, GetData)
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_DropTarget, OnData)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnData(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDrop)
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->OnDrop(x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DropTarget, OnEnter)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnEnter(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxDragResult *def = Object_wx_DragResult::GetObject(args, 2)->GetEntity();
 	wxDragResult rtn = pThis->GetEntity()->OnDragOver(x, y, *def);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

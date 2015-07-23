@@ -64,11 +64,11 @@ Gura_ImplementFunction(GenericValidator)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GenericValidator_1)
@@ -91,11 +91,11 @@ Gura_ImplementFunction(GenericValidator_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -121,11 +121,11 @@ Gura_ImplementFunction(GenericValidator_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -151,11 +151,11 @@ Gura_ImplementFunction(GenericValidator_3)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -181,11 +181,11 @@ Gura_ImplementFunction(GenericValidator_4)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_GenericValidator, Clone)
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GenericValidator, TransferFromWindow)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_GenericValidator, TransferFromWindow)
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GenericValidator, TransferToWindow)
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_GenericValidator, TransferToWindow)
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

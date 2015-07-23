@@ -76,11 +76,11 @@ Gura_ImplementFunction(DocMDIChildFrame)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocMDIChildFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetDocument)
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->GetDocument();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, GetView)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetView)
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxView *rtn = (wxView *)pThis->GetEntity()->GetView();
-	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
 }
 
 #if 0

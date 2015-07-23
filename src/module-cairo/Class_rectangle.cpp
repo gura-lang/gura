@@ -103,7 +103,7 @@ Gura_ImplementFunction(rectangle)
 	rectangle.width = args.Is_number(2)? args.GetDouble(2) : 0;
 	rectangle.height = args.Is_number(3)? args.GetDouble(3) : 0;
 	AutoPtr<Object_rectangle> pObj(new Object_rectangle(rectangle));
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // implementation of class rectangle

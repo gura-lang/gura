@@ -67,11 +67,11 @@ Gura_ImplementFunction(TextOutputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TextOutputStream, GetMode)
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEOL rtn = pThis->GetEntity()->GetMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

@@ -1219,7 +1219,7 @@ Gura_ImplementMethod(sequence, track)
 		}
 	}
 	Track *pTrack = trackOwner[index];
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
@@ -1920,7 +1920,7 @@ Gura_ImplementMethod(soundfont, synthesizer)
 	SoundFont::Synthesizer *pSynthesizer =
 				soundFont.CreateSynthesizer(sig, wPreset, wBank, key, velocity);
 	if (pSynthesizer == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_synthesizer(env, pSynthesizer)));
+	return ReturnValue(env, args, Value(new Object_synthesizer(env, pSynthesizer)));
 }
 
 // midi.soundfont#print():void
@@ -2125,7 +2125,7 @@ Gura_ImplementFunction(sequence)
 	if (args.Is_stream(0)) {
 		if (!sequence.Read(env, sig, args.GetStream(0))) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // midi.port(id?:number) {block?}
@@ -2148,7 +2148,7 @@ Gura_ImplementFunction(port)
 		sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // midi.controller(symbol:symbol) {block?}
@@ -2171,7 +2171,7 @@ Gura_ImplementFunction(controller)
 		return Value::Null;
 	}
 	AutoPtr<Object_controller> pObj(new Object_controller(env, controller));
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // midi.program(symbol:symbol) {block?}
@@ -2194,7 +2194,7 @@ Gura_ImplementFunction(program)
 		return Value::Null;
 	}
 	AutoPtr<Object_program> pObj(new Object_program(env, program));
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // midi.soundfont(stream:stream) {block?}
@@ -2213,7 +2213,7 @@ Gura_ImplementFunction(soundfont)
 {
 	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, args.GetStream(0).Reference()));
 	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // midi.test(stream:stream)

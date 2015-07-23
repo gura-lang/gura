@@ -54,11 +54,11 @@ Gura_ImplementFunction(CSConv)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(CSConv_1)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(CSConv_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CSConv, IsOk)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_CSConv, IsOk)
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CSConv, MB2WC)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_CSConv, MB2WC)
 	char psz = args.GetChar(1);
 	size_t n = args.GetSizeT(2);
 	size_t rtn = pThis->GetEntity()->MB2WC(buf, psz, n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_CSConv, WC2MB)
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));
 	size_t n = args.GetSizeT(2);
 	size_t rtn = pThis->GetEntity()->WC2MB(buf, psz, n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

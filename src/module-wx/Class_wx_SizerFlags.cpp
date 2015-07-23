@@ -54,11 +54,11 @@ Gura_ImplementFunction(SizerFlags)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerFlags(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Align)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SizerFlags, Align)
 	int align = 0;
 	if (args.IsValid(0)) align = args.GetInt(0);
 	wxSizerFlags &rtn = pThis->GetEntity()->Align(align);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Border)
@@ -92,13 +92,13 @@ Gura_ImplementMethod(wx_SizerFlags, Border)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	if (args.IsInvalid(0)) {
 		wxSizerFlags &rtn = pThis->GetEntity()->Border();
-		return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+		return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 	}
 	int direction = args.GetInt(0);
 	int borderinpixels = -1;
 	if (args.IsValid(1)) borderinpixels = args.GetInt(1);
 	wxSizerFlags &rtn = pThis->GetEntity()->Border(direction, borderinpixels);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Center)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_SizerFlags, Center)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Center();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Centre)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_SizerFlags, Centre)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Centre();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, DoubleBorder)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleBorder)
 	int direction = wxALL;
 	if (args.IsValid(0)) direction = args.GetInt(0);
 	wxSizerFlags &rtn = pThis->GetEntity()->DoubleBorder(direction);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, DoubleHorzBorder)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleHorzBorder)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->DoubleHorzBorder();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Expand)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_SizerFlags, Expand)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Expand();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_SizerFlags, GetDefaultBorder)
@@ -184,7 +184,7 @@ Gura_ImplementClassMethod(wx_SizerFlags, GetDefaultBorder)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxSizerFlags::GetDefaultBorder();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Left)
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_SizerFlags, Left)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Left();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, FixedMinSize)
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_SizerFlags, FixedMinSize)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->FixedMinSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Proportion)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_SizerFlags, Proportion)
 	int proportion = 0;
 	if (args.IsValid(0)) proportion = args.GetInt(0);
 	wxSizerFlags &rtn = pThis->GetEntity()->Proportion(proportion);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->ReserveSpaceEvenIfHidden();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Right)
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_SizerFlags, Right)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Right();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, Shaped)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_SizerFlags, Shaped)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Shaped();
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_SizerFlags, TripleBorder)
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_SizerFlags, TripleBorder)
 	int direction = wxALL;
 	if (args.IsValid(0)) direction = args.GetInt(0);
 	wxSizerFlags &rtn = pThis->GetEntity()->TripleBorder(direction);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SizerFlags(new wxSizerFlags(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

@@ -271,7 +271,7 @@ Gura_ImplementFunction(content)
 		if (!pObj->Read(env, sig, stream, format)) return Value::Null;
 	}
 	Value result(pObj);
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // Module entry

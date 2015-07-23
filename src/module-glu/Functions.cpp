@@ -412,7 +412,7 @@ Gura_ImplementFunction(__gluErrorString)
 {
 	GLenum error = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = gluErrorString(error);
-	return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // glu.gluGetNurbsProperty
@@ -451,7 +451,7 @@ Gura_ImplementFunction(__gluGetString)
 {
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = gluGetString(name);
-	return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // glu.gluGetTessProperty
@@ -547,7 +547,7 @@ Gura_DeclareFunctionAlias(__gluNewNurbsRenderer, "gluNewNurbsRenderer")
 Gura_ImplementFunction(__gluNewNurbsRenderer)
 {
 	GLUnurbs *_rtn = gluNewNurbsRenderer();
-	return ReturnValue(env, sig, args, Value(new Object_Nurbs(_rtn)));
+	return ReturnValue(env, args, Value(new Object_Nurbs(_rtn)));
 }
 
 // glu.gluNewQuadric
@@ -562,7 +562,7 @@ Gura_DeclareFunctionAlias(__gluNewQuadric, "gluNewQuadric")
 Gura_ImplementFunction(__gluNewQuadric)
 {
 	GLUquadric *_rtn = gluNewQuadric();
-	return ReturnValue(env, sig, args, Value(new Object_Quadric(_rtn)));
+	return ReturnValue(env, args, Value(new Object_Quadric(_rtn)));
 }
 
 // glu.gluNewTess
@@ -577,7 +577,7 @@ Gura_DeclareFunctionAlias(__gluNewTess, "gluNewTess")
 Gura_ImplementFunction(__gluNewTess)
 {
 	GLUtesselator *_rtn = gluNewTess();
-	return ReturnValue(env, sig, args, Value(new Object_Tesselator(_rtn)));
+	return ReturnValue(env, args, Value(new Object_Tesselator(_rtn)));
 }
 
 // glu.gluNextContour
@@ -899,7 +899,7 @@ Gura_ImplementFunction(__gluProject)
 	Array<double> *_winZ = Object_array<double>::GetObject(args, 8)->GetArray();
 	GLdouble *winZ = reinterpret_cast<GLdouble *>(_winZ->GetPointer());
 	GLint _rtn = gluProject(objX, objY, objZ, model, proj, view, winX, winY, winZ);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glu.gluPwlCurve
@@ -1304,7 +1304,7 @@ Gura_ImplementFunction(__gluUnProject)
 	Array<double> *_objZ = Object_array<double>::GetObject(args, 8)->GetArray();
 	GLdouble *objZ = reinterpret_cast<GLdouble *>(_objZ->GetPointer());
 	GLint _rtn = gluUnProject(winX, winY, winZ, model, proj, view, objX, objY, objZ);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 

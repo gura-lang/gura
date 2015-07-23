@@ -184,7 +184,7 @@ Gura_ImplementFunction(image)
 		}
 		if (!pImage->Read(env, sig, stream, imageType)) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -241,7 +241,7 @@ Gura_ImplementMethod(image, blur)
 	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
 	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#clear():reduce
@@ -302,7 +302,7 @@ Gura_ImplementMethod(image, crop)
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	AutoPtr<Image> pImage(pThis->GetImage()->Crop(sig, x, y, width, height));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#delpalette():reduce
@@ -463,7 +463,7 @@ Gura_ImplementMethod(image, flip)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	AutoPtr<Image> pImage(pThis->GetImage()->Flip(sig, horzFlag, vertFlag));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#getpixel(x:number, y:number):map {block?}
@@ -489,7 +489,7 @@ Gura_ImplementMethod(image, getpixel)
 	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	Color color;
 	pThis->GetImage()->GetPixel(p, color);
-	return ReturnValue(env, sig, args, Value(new Object_color(env, color)));
+	return ReturnValue(env, args, Value(new Object_color(env, color)));
 }
 
 // image#grayscale() {block?}
@@ -509,7 +509,7 @@ Gura_ImplementMethod(image, grayscale)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#mapcolorlevel(map@r[]:number, map@g?[]:number, map@b?[]:number) {block?}
@@ -583,7 +583,7 @@ Gura_ImplementMethod(image, mapcolorlevel)
 	delete[] mapBuffG;
 	delete[] mapBuffB;
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
@@ -721,7 +721,7 @@ Gura_ImplementMethod(image, reducecolor)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pPalette));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
@@ -824,7 +824,7 @@ Gura_ImplementMethod(image, resize)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Resize(sig, width, height));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#rotate(angle:number, background?:color):map {block?}
@@ -860,7 +860,7 @@ Gura_ImplementMethod(image, rotate)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
@@ -913,7 +913,7 @@ Gura_ImplementMethod(image, scan)
 	}
 	Iterator *pIterator = new Image::IteratorScan(
 			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // image#setalpha(a:number, color?:color, tolerance?:number):reduce
@@ -1039,7 +1039,7 @@ Gura_ImplementMethod(image, thumbnail)
 				if (sig.IsSignalled()) return Value::Null;
 				pObj = new Object_image(env, pImage.release());
 			}
-			return ReturnValue(env, sig, args, Value(pObj));
+			return ReturnValue(env, args, Value(pObj));
 		}
 	} else if (!args.Is_number(0) && args.Is_number(1)) {
 		height = args.GetSizeT(1);
@@ -1054,7 +1054,7 @@ Gura_ImplementMethod(image, thumbnail)
 				if (sig.IsSignalled()) return Value::Null;
 				pObj = new Object_image(env, pImage.release());
 			}
-			return ReturnValue(env, sig, args, Value(pObj));
+			return ReturnValue(env, args, Value(pObj));
 		}
 	} else {
 		width = args.GetSizeT(0);
@@ -1073,7 +1073,7 @@ Gura_ImplementMethod(image, thumbnail)
 		if (sig.IsSignalled()) return Value::Null;
 		pObj = new Object_image(env, pImage.release());
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // image#write(stream:stream:w, imagetype?:string):map:reduce

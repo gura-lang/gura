@@ -56,11 +56,11 @@ Gura_ImplementFunction(LongLongEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -86,11 +86,11 @@ Gura_ImplementFunction(LongLong)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -118,11 +118,11 @@ Gura_ImplementFunction(LongLong_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_LongLong, Abs)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLongLong rtn = pThis->GetEntity()->Abs();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_LongLong, Abs_1)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLongLong &rtn = pThis->GetEntity()->Abs();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_LongLong, Assign)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_LongLong, Assign)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double d = args.GetDouble(0);
 	wxLongLong &rtn = pThis->GetEntity()->Assign(d);
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong(new wxLongLong(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_LongLong, GetHi)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetHi();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LongLong, GetLo)
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_LongLong, GetLo)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetLo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LongLong, GetValue)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_LongLong, GetValue)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLongLong_t rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_LongLong_t(new wxLongLong_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_LongLong, ToDouble)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double rtn = pThis->GetEntity()->ToDouble();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LongLong, ToLong)
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_LongLong, ToLong)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->ToLong();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_LongLong, ToString)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_LongLong, ToString)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ToString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

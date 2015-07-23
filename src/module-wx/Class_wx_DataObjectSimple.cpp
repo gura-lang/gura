@@ -61,11 +61,11 @@ Gura_ImplementFunction(DataObjectSimple)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDataFormat &rtn = pThis->GetEntity()->GetFormat();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetDataSize)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetDataSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetDataHere)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetDataHere)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int *buf = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->GetDataHere(*buf);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, SetData)
 	size_t len = args.GetSizeT(0);
 	int *buf = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SetData(len, *buf);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

@@ -410,7 +410,7 @@ Gura_ImplementFunction(font)
 	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
 	AutoPtr<Object_font> pObjFont(
 		new Object_font(Object_Face::Reference(pObjFace), new Object_color(env)));
-	return ReturnValue(env, sig, args, Value(pObjFont.release()));
+	return ReturnValue(env, args, Value(pObjFont.release()));
 }
 
 // freetype.font#cleardeco()

@@ -27,7 +27,7 @@ Gura_ImplementFunction(reader)
 	Stream &stream = args.GetStream(0);
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // bzip2.writer(stream:stream:w, blockSize100k?:number) {block?}
@@ -60,7 +60,7 @@ Gura_ImplementFunction(writer)
 	}
 	Object_stream *pObjStream = GenerateCompressor(env, sig, stream, blockSize100k);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 //-----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ Gura_ImplementMethod(stream, reader_bzip2)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // stream#writer_bzip2(blockSize100k?:number) {block?}
@@ -116,7 +116,7 @@ Gura_ImplementMethod(stream, writer_bzip2)
 	}
 	Object_stream *pObjStream = GenerateCompressor(env, sig, stream, blockSize100k);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjStream));
+	return ReturnValue(env, args, Value(pObjStream));
 }
 
 // Module entry

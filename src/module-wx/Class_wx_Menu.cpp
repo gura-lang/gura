@@ -60,11 +60,11 @@ Gura_ImplementFunction(Menu)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Menu_1)
@@ -84,11 +84,11 @@ Gura_ImplementFunction(Menu_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Menu, Append)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Menu, Append)
 	wxItemKind kind = wxITEM_NORMAL;
 	if (args.IsValid(3)) kind = static_cast<wxItemKind>(args.GetInt(3));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Append(id, item, helpString, kind);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethodAlias(wx_Menu, AppendMenu_, "AppendMenu")
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_Menu, AppendMenu_)
 	wxString helpString = wxT("");
 	if (args.IsValid(3)) helpString = wxString::FromUTF8(args.GetString(3));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Append(id, item, subMenu, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, AppendItem)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_Menu, AppendItem)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItem *menuItem = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Append(menuItem);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, AppendCheckItem)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Menu, AppendCheckItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(2)) helpString = wxString::FromUTF8(args.GetString(2));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->AppendCheckItem(id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, AppendRadioItem)
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_Menu, AppendRadioItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(2)) helpString = wxString::FromUTF8(args.GetString(2));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->AppendRadioItem(id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, AppendSeparator)
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_Menu, AppendSeparator)
 	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->AppendSeparator();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, AppendSubMenu)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_Menu, AppendSubMenu)
 	wxString help = wxEmptyString;
 	if (args.IsValid(2)) help = wxString::FromUTF8(args.GetString(2));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->AppendSubMenu(submenu, text, help);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, Break)
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_Menu, FindItem)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString itemString = wxString::FromUTF8(args.GetString(0));
 	int rtn = pThis->GetEntity()->FindItem(itemString);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Menu, FindItemById)
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_Menu, FindItemById)
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->FindItem(id, menu);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Menu, FindItemByPosition)
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_Menu, FindItemByPosition)
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->FindItemByPosition(position);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Menu, GetHelpString)
@@ -405,7 +405,7 @@ Gura_ImplementMethod(wx_Menu, GetHelpString)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetHelpString(id);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Menu, GetLabel)
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_Menu, GetLabel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabel(id);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Menu, GetLabelText)
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_Menu, GetLabelText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabelText(id);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Menu, GetMenuItemCount)
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_Menu, GetMenuItemCount)
 	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetMenuItemCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Menu, GetMenuItems)
@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_Menu, GetMenuItems)
 	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItemList &rtn = pThis->GetEntity()->GetMenuItems();
-	return ReturnValue(env, sig, args, MenuItemListToValue(env, rtn));
+	return ReturnValue(env, args, MenuItemListToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Menu, GetTitle)
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_Menu, GetTitle)
 	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTitle();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Menu, InsertItem)
@@ -497,7 +497,7 @@ Gura_ImplementMethod(wx_Menu, InsertItem)
 	size_t pos = args.GetSizeT(0);
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 1)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Insert(pos, item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, Insert)
@@ -524,7 +524,7 @@ Gura_ImplementMethod(wx_Menu, Insert)
 	wxItemKind kind = wxITEM_NORMAL;
 	if (args.IsValid(4)) kind = static_cast<wxItemKind>(args.GetInt(4));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Insert(pos, id, item, helpString, kind);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, InsertCheckItem)
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_Menu, InsertCheckItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(3)) helpString = wxString::FromUTF8(args.GetString(3));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->InsertCheckItem(pos, id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, InsertRadioItem)
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_Menu, InsertRadioItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(3)) helpString = wxString::FromUTF8(args.GetString(3));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->InsertRadioItem(pos, id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, InsertSeparator)
@@ -586,7 +586,7 @@ Gura_ImplementMethod(wx_Menu, InsertSeparator)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->InsertSeparator(pos);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, IsChecked)
@@ -602,7 +602,7 @@ Gura_ImplementMethod(wx_Menu, IsChecked)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsChecked(id);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Menu, IsEnabled)
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_Menu, IsEnabled)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsEnabled(id);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Menu, PrependItem)
@@ -634,7 +634,7 @@ Gura_ImplementMethod(wx_Menu, PrependItem)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Prepend(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, Prepend)
@@ -659,7 +659,7 @@ Gura_ImplementMethod(wx_Menu, Prepend)
 	wxItemKind kind = wxITEM_NORMAL;
 	if (args.IsValid(3)) kind = static_cast<wxItemKind>(args.GetInt(3));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Prepend(id, item, helpString, kind);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, PrependCheckItem)
@@ -680,7 +680,7 @@ Gura_ImplementMethod(wx_Menu, PrependCheckItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(2)) helpString = wxString::FromUTF8(args.GetString(2));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->PrependCheckItem(id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, PrependRadioItem)
@@ -701,7 +701,7 @@ Gura_ImplementMethod(wx_Menu, PrependRadioItem)
 	wxString helpString = wxT("");
 	if (args.IsValid(2)) helpString = wxString::FromUTF8(args.GetString(2));
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->PrependRadioItem(id, item, helpString);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, PrependSeparator)
@@ -715,7 +715,7 @@ Gura_ImplementMethod(wx_Menu, PrependSeparator)
 	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->PrependSeparator();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, Remove)
@@ -731,7 +731,7 @@ Gura_ImplementMethod(wx_Menu, Remove)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Remove(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, RemoveItem)
@@ -747,7 +747,7 @@ Gura_ImplementMethod(wx_Menu, RemoveItem)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Remove(item);
-	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Menu, SetHelpString)

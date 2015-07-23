@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_DC, Blit)
 	wxCoord ysrcMask = -1;
 	if (args.IsValid(10)) ysrcMask = static_cast<wxCoord>(args.GetInt(10));
 	bool rtn = pThis->GetEntity()->Blit(xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc, useMask, xsrcMask, ysrcMask);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_DC, CacheEnabled)
@@ -91,7 +91,7 @@ Gura_ImplementClassMethod(wx_DC, CacheEnabled)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxDC::CacheEnabled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalX)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->DeviceToLogicalX(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalXRel)
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalXRel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->DeviceToLogicalXRel(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalY)
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalY)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord y = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->DeviceToLogicalY(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, DeviceToLogicalYRel)
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalYRel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord y = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->DeviceToLogicalYRel(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, DrawArc)
@@ -884,7 +884,7 @@ Gura_ImplementMethod(wx_DC, FloodFill)
 	wxFloodFillStyle style = wxFLOOD_SURFACE;
 	if (args.IsValid(3)) style = static_cast<wxFloodFillStyle>(args.GetInt(3));
 	bool rtn = pThis->GetEntity()->FloodFill(x, y, *colour, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetBackground)
@@ -898,7 +898,7 @@ Gura_ImplementMethod(wx_DC, GetBackground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBrush &rtn = pThis->GetEntity()->GetBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetBackgroundMode)
@@ -912,7 +912,7 @@ Gura_ImplementMethod(wx_DC, GetBackgroundMode)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBackgroundMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetBrush)
@@ -926,7 +926,7 @@ Gura_ImplementMethod(wx_DC, GetBrush)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBrush &rtn = pThis->GetEntity()->GetBrush();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Brush(new wxBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetCharHeight)
@@ -940,7 +940,7 @@ Gura_ImplementMethod(wx_DC, GetCharHeight)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetCharHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetCharWidth)
@@ -954,7 +954,7 @@ Gura_ImplementMethod(wx_DC, GetCharWidth)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetCharWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetClippingBox)
@@ -972,7 +972,7 @@ Gura_ImplementMethod(wx_DC, GetClippingBox)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetClippingBox(&x, &y, &width, &height);
-	return ReturnValue(env, sig, args, Value::CreateList(env, x, y, width, height));
+	return ReturnValue(env, args, Value::CreateList(env, x, y, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetFont)
@@ -986,7 +986,7 @@ Gura_ImplementMethod(wx_DC, GetFont)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetLayoutDirection)
@@ -1000,7 +1000,7 @@ Gura_ImplementMethod(wx_DC, GetLayoutDirection)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutDirection rtn = pThis->GetEntity()->GetLayoutDirection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetLogicalFunction)
@@ -1014,7 +1014,7 @@ Gura_ImplementMethod(wx_DC, GetLogicalFunction)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLogicalFunction();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetMapMode)
@@ -1028,7 +1028,7 @@ Gura_ImplementMethod(wx_DC, GetMapMode)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMapMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetMultiLineTextExtent)
@@ -1050,7 +1050,7 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
 	wxCoord h;
 	wxCoord heightLine;
 	pThis->GetEntity()->GetMultiLineTextExtent(string, &w, &h, &heightLine, font);
-	return ReturnValue(env, sig, args, Value::CreateList(env, w, h, heightLine));
+	return ReturnValue(env, args, Value::CreateList(env, w, h, heightLine));
 }
 
 Gura_DeclareMethod(wx_DC, GetPartialTextExtents)
@@ -1068,7 +1068,7 @@ Gura_ImplementMethod(wx_DC, GetPartialTextExtents)
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	std::unique_ptr<wxArrayInt> widths(CreateArrayInt(args.GetList(1)));
 	bool rtn = pThis->GetEntity()->GetPartialTextExtents(text, *widths);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetPen)
@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(wx_DC, GetPen)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxPen &rtn = pThis->GetEntity()->GetPen();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetPixel)
@@ -1102,7 +1102,7 @@ Gura_ImplementMethod(wx_DC, GetPixel)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxColour *colour = Object_wx_Colour::GetObject(args, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetPixel(x, y, colour);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, GetPPI)
@@ -1116,7 +1116,7 @@ Gura_ImplementMethod(wx_DC, GetPPI)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetPPI();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeAsList)
@@ -1132,7 +1132,7 @@ Gura_ImplementMethod(wx_DC, GetSizeAsList)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetSize(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
+	return ReturnValue(env, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetSize)
@@ -1146,7 +1146,7 @@ Gura_ImplementMethod(wx_DC, GetSize)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeMMAsList)
@@ -1162,7 +1162,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMMAsList)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetSizeMM(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
+	return ReturnValue(env, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeMM)
@@ -1176,7 +1176,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMM)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSizeMM();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextBackground)
@@ -1190,7 +1190,7 @@ Gura_ImplementMethod(wx_DC, GetTextBackground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextExtent)
@@ -1213,7 +1213,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent)
 	wxCoord descent;
 	wxCoord externalLeading;
 	pThis->GetEntity()->GetTextExtent(string, &w, &h, &descent, &externalLeading, font);
-	return ReturnValue(env, sig, args, Value::CreateList(env, w, h, descent, externalLeading));
+	return ReturnValue(env, args, Value::CreateList(env, w, h, descent, externalLeading));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextExtent_1)
@@ -1229,7 +1229,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
 	wxSize rtn = pThis->GetEntity()->GetTextExtent(string);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextForeground)
@@ -1243,7 +1243,7 @@ Gura_ImplementMethod(wx_DC, GetTextForeground)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextForeground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DC, GetUserScale)
@@ -1259,7 +1259,7 @@ Gura_ImplementMethod(wx_DC, GetUserScale)
 	double x;
 	double y;
 	pThis->GetEntity()->GetUserScale(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
+	return ReturnValue(env, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_DC, GradientFillConcentric)
@@ -1345,7 +1345,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceX)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->LogicalToDeviceX(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceXRel)
@@ -1361,7 +1361,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceXRel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->LogicalToDeviceXRel(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceY)
@@ -1377,7 +1377,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceY)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord y = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->LogicalToDeviceY(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, LogicalToDeviceYRel)
@@ -1393,7 +1393,7 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceYRel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord y = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord rtn = pThis->GetEntity()->LogicalToDeviceYRel(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, MaxX)
@@ -1407,7 +1407,7 @@ Gura_ImplementMethod(wx_DC, MaxX)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->MaxX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, MaxY)
@@ -1421,7 +1421,7 @@ Gura_ImplementMethod(wx_DC, MaxY)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->MaxY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, MinX)
@@ -1435,7 +1435,7 @@ Gura_ImplementMethod(wx_DC, MinX)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->MinX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, MinY)
@@ -1449,7 +1449,7 @@ Gura_ImplementMethod(wx_DC, MinY)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->MinY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 #if 0
@@ -1464,7 +1464,7 @@ Gura_ImplementMethod(wx_DC, Ok)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Ok();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 #endif
 
@@ -1778,7 +1778,7 @@ Gura_ImplementMethod(wx_DC, StartDoc)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->StartDoc(message);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DC, StartPage)
@@ -1793,7 +1793,7 @@ Gura_ImplementMethod(wx_DC, StartPage)
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->StartPage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

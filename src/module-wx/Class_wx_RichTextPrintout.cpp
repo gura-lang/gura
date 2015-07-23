@@ -54,11 +54,11 @@ Gura_ImplementFunction(RichTextPrintout)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextPrintout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextPrintout, CalculateScaling)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetHeaderFooterData)
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxRichTextHeaderFooterData &rtn = pThis->GetEntity()->GetHeaderFooterData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextHeaderFooterData(new wxRichTextHeaderFooterData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextHeaderFooterData(new wxRichTextHeaderFooterData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrintout, GetPageInfo)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetRichTextBuffer)
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *rtn = (wxRichTextBuffer *)pThis->GetEntity()->GetRichTextBuffer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextBuffer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextBuffer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextPrintout, HasPage)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, HasPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->HasPage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextPrintout, OnPreparePrinting)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, OnPrintPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->OnPrintPage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextPrintout, SetHeaderFooterData)

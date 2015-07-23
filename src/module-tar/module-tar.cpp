@@ -217,7 +217,7 @@ Gura_ImplementMethod(reader, entries)
 {
 	Object_reader *pThis = Object_reader::GetThisObj(args);
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // implementation of class reader
@@ -746,7 +746,7 @@ Gura_ImplementFunction(reader)
 	if (!pObj->Open(env, sig, streamSrc.Reference(), compressionType)) {
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // tar.writer(stream:stream:w, compression?:symbol) {block?}
@@ -775,7 +775,7 @@ Gura_ImplementFunction(writer)
 	if (!pObj->Open(env, streamDst.Reference(), compressionType)) {
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // tar.test(stream:stream:r)

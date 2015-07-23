@@ -361,14 +361,10 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value ReturnValue(Environment &env, Signal &sig,
-					Args &args, const Value &result) const;
-	Value ReturnValues(Environment &env, Signal &sig,
-					Args &args, const ValueList &valListArg) const;
-	Value ReturnIterator(Environment &env, Signal &sig,
-					Args &args, Iterator *pIterator) const;
-	Environment *PrepareEnvironment(Environment &env, Signal &sig,
-									Args &args, bool thisAssignFlag) const;
+	Value ReturnValue(Environment &env, Args &args, const Value &result) const;
+	Value ReturnValues(Environment &env, Args &args, const ValueList &valListArg) const;
+	Value ReturnIterator(Environment &env, Args &args, Iterator *pIterator) const;
+	Environment *PrepareEnvironment(Environment &env, Args &args, bool thisAssignFlag) const;
 private:
 	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const = 0;
 };

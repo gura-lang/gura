@@ -56,11 +56,11 @@ Gura_ImplementFunction(DataFormat)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DataFormat_1)
@@ -83,11 +83,11 @@ Gura_ImplementFunction(DataFormat_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_DataFormat, GetId)
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DataFormat, GetType)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_DataFormat, GetType)
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat::NativeFormat rtn = pThis->GetEntity()->GetType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

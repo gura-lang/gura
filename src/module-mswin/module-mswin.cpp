@@ -57,7 +57,7 @@ Gura_ImplementMethod(regkey, createkey)
 		return Value::Null;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // mswin.regkey#openkey(subkey:string, samDesired?:number):map {block?}
@@ -87,7 +87,7 @@ Gura_ImplementMethod(regkey, openkey)
 		return Value::Null;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // mswin.regkey#deletekey(subkey:string):map:void
@@ -136,7 +136,7 @@ Gura_ImplementMethod(regkey, enumkey)
 	}
 	Iterator *pIterator =
 			new Iterator_RegEnumKey(Object_regkey::Reference(pThis), samDesired);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // mswin.regkey#setvalue(valueName:string, data:nomap):map
@@ -248,7 +248,7 @@ Gura_ImplementMethod(regkey, enumvalue)
 	HKEY hKey = pThis->GetKey();
 	Iterator *pIterator =
 			new Iterator_RegEnumValue(Object_regkey::Reference(pThis));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // implementation of class RegKey
@@ -1014,7 +1014,7 @@ Gura_ImplementFunction(ole)
 		pObj->ImportConstant(*pObj, sig);
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 Gura_DeclareFunction(GetACP)

@@ -54,11 +54,11 @@ Gura_ImplementFunction(MemoryBuffer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MemoryBuffer_1)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(MemoryBuffer_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetData)
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetBufSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_MemoryBuffer, GetDataLen)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetDataLen();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_MemoryBuffer, SetBufSize)

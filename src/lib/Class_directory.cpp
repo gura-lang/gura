@@ -53,7 +53,7 @@ Gura_ImplementFunction(directory)
 								pathName, PathMgr::NF_Signal));
 	if (sig.IsSignalled()) return Value::Null;
 	Object_directory *pObj = new Object_directory(env, pDirectory.release());
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------

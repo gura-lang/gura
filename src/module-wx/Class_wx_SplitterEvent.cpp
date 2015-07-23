@@ -57,11 +57,11 @@ Gura_ImplementFunction(SplitterEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplitterEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SplitterEvent, GetSashPosition)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSashPosition();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SplitterEvent, GetX)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetX)
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SplitterEvent, GetY)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetY)
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SplitterEvent, GetWindowBeingRemoved)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindowBeingRemoved();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_SplitterEvent, SetSashPosition)

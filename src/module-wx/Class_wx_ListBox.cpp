@@ -53,11 +53,11 @@ Gura_ImplementFunction(ListBoxEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ListBox)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(ListBox)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ListBox, Create)
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_ListBox, Create)
 	wxString name = wxT("listBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListBox, Deselect)
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_ListBox, GetSelections)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt selections;
 	int rtn = pThis->GetEntity()->GetSelections(selections);
-	return ReturnValue(env, sig, args, ArrayIntToValue(env, selections));
+	return ReturnValue(env, args, ArrayIntToValue(env, selections));
 }
 
 Gura_DeclareMethod(wx_ListBox, InsertItems)
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_ListBox, HitTest)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int rtn = pThis->GetEntity()->HitTest(*point);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListBox, IsSelected)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_ListBox, IsSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsSelected(n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListBox, Set)

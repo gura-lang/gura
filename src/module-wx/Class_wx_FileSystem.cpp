@@ -51,11 +51,11 @@ Gura_ImplementFunction(FileSystem)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileSystem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_FileSystem, AddHandler)
@@ -84,7 +84,7 @@ Gura_ImplementClassMethod(wx_FileSystem, HasHandlerForPath)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFileSystem::HasHandlerForPath(location);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileSystem, ChangePathTo)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_FileSystem, GetPath)
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileSystem, FileNameToURL)
@@ -131,7 +131,7 @@ Gura_ImplementClassMethod(wx_FileSystem, FileNameToURL)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wxString rtn = wxFileSystem::FileNameToURL(*filename);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 	bool rtn = pThis->GetEntity()->FindFileInPath(&str, path, file);
 	Value value;
 	if (rtn) value = Value(str.ToUTF8());
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_FileSystem, FindFirst)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFirst)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->FindFirst(wildcard, flags);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, FindNext)
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_FileSystem, FindNext)
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FindNext();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, OpenFile)
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_FileSystem, OpenFile)
 	int flags = wxFS_READ;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wxFSFile *rtn = (wxFSFile *)pThis->GetEntity()->OpenFile(location, flags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FSFile(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_FSFile(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_FileSystem, URLToFileName)
@@ -219,7 +219,7 @@ Gura_ImplementClassMethod(wx_FileSystem, URLToFileName)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxFileName rtn = wxFileSystem::URLToFileName(url);
-	return ReturnValue(env, sig, args, Value(new Object_wx_FileName(new wxFileName(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_FileName(new wxFileName(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

@@ -119,7 +119,7 @@ Gura_ImplementFunction(operator_)
 		return Value::Null;
 	}
 	Object_operator *pObj = new Object_operator(env, opTypeUnary, opTypeBinary);
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------

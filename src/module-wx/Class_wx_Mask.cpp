@@ -54,11 +54,11 @@ Gura_ImplementFunction(MaskEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(Mask)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask_1)
@@ -104,11 +104,11 @@ Gura_ImplementFunction(Mask_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask_2)
@@ -130,11 +130,11 @@ Gura_ImplementFunction(Mask_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Mask, Create)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_Mask, Create)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(*bitmap);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Mask, Create_1)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Mask, Create_1)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(*bitmap, *colour);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Mask, Create_2)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_Mask, Create_2)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Create(*bitmap, index);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -65,11 +65,11 @@ Gura_ImplementFunction(StatusBarEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StatusBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StatusBar)
@@ -98,11 +98,11 @@ Gura_ImplementFunction(StatusBar)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StatusBar(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StatusBar, Create)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_StatusBar, Create)
 	wxString name = wxT("statusBar");
 	if (args.IsValid(3)) name = wxString::FromUTF8(args.GetString(3));
 	bool rtn = pThis->GetEntity()->Create(parent, id, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StatusBar, GetFieldRect)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldRect)
 	if (rtn) {
 		value = Value(new Object_wx_Rect(new wxRect(rect), nullptr, OwnerTrue));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_StatusBar, GetFieldsCount)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldsCount)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFieldsCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StatusBar, GetStatusText)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusText)
 	int i = 0;
 	if (args.IsValid(0)) i = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetStatusText(i);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StatusBar, PopStatusText)

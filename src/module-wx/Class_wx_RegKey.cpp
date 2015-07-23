@@ -53,11 +53,11 @@ Gura_ImplementFunction(RegKeyEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RegKey)
@@ -77,11 +77,11 @@ Gura_ImplementFunction(RegKey)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RegKey_1)
@@ -103,11 +103,11 @@ Gura_ImplementFunction(RegKey_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RegKey, Close)
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_RegKey, Create)
 	bool bOkIfExists = true;
 	if (args.IsValid(0)) bOkIfExists = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->Create(bOkIfExists);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, DeleteSelf)
@@ -194,7 +194,7 @@ Gura_ImplementClassMethod(wx_RegKey, Exists)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxRegKey::Exists();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RegKey, GetName)
 	bool bShortPrefix = true;
 	if (args.IsValid(0)) bShortPrefix = args.GetBoolean(0);
 	wxString rtn = pThis->GetEntity()->GetName(bShortPrefix);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RegKey, GetFirstKey)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_RegKey, GetFirstKey)
 	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetFirstKey(strKeyName, lIndex);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, GetFirstValue)
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_RegKey, GetFirstValue)
 	wxString strValueName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetFirstValue(strValueName, lIndex);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, Exists_1)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_RegKey, Exists_1)
 	size_t pnValues = args.GetSizeT(1);
 	size_t pnMaxValueLen = args.GetSizeT(2);
 	bool rtn = pThis->GetEntity()->Exists(pnSubKeys, pnValues, pnMaxValueLen);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_RegKey, GetNextKey)
 	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetNextKey(strKeyName, lIndex);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, GetNextValue)
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_RegKey, GetNextValue)
 	wxString strValueName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetNextValue(strValueName, lIndex);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, HasValue)
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_RegKey, HasValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasValue(szValue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, HasValues)
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_RegKey, HasValues)
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasValues();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, HasSubKey)
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_RegKey, HasSubKey)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString szKey = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasSubKey(szKey);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, HasSubKeys)
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_RegKey, HasSubKeys)
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasSubKeys();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_RegKey, IsEmpty)
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, IsOpened)
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_RegKey, IsOpened)
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, Open)
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_RegKey, Open)
 	wxRegKey::AccessMode mode = Write;
 	if (args.IsValid(0)) mode = static_cast<wxRegKey::AccessMode>(args.GetInt(0));
 	bool rtn = pThis->GetEntity()->Open(mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_RegKey, QueryValue)
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxString strValue = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->QueryValue(szValue, strValue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, QueryValue_1)
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_RegKey, QueryValue_1)
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	long plValue = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->QueryValue(szValue, plValue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_RegKey, Rename)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString szNewName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Rename(szNewName);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, RenameValue)
@@ -503,7 +503,7 @@ Gura_ImplementMethod(wx_RegKey, RenameValue)
 	wxString szValueOld = wxString::FromUTF8(args.GetString(0));
 	wxString szValueNew = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->RenameValue(szValueOld, szValueNew);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, SetValue)
@@ -521,7 +521,7 @@ Gura_ImplementMethod(wx_RegKey, SetValue)
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	long lValue = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->SetValue(szValue, lValue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, SetValue_1)
@@ -539,7 +539,7 @@ Gura_ImplementMethod(wx_RegKey, SetValue_1)
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxString strValue = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetValue(szValue, strValue);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegKey, SetValue_2)
@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_RegKey, SetValue_2)
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxMemoryBuffer *buf = Object_wx_MemoryBuffer::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetValue(szValue, *buf);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

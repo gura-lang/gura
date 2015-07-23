@@ -281,7 +281,7 @@ Gura_ImplementFunction(md5)
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // hash.sha1(stream?:stream:r) {block?}
@@ -302,7 +302,7 @@ Gura_ImplementFunction(sha1)
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // hash.crc32(stream?:stream:r) {block?}
@@ -323,7 +323,7 @@ Gura_ImplementFunction(crc32)
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // Module entry

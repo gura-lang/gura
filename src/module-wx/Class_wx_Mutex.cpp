@@ -54,11 +54,11 @@ Gura_ImplementFunction(Mutex)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mutex(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Mutex, Lock)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_Mutex, Lock)
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->Lock();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Mutex, TryLock)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Mutex, TryLock)
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->TryLock();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Mutex, Unlock)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_Mutex, Unlock)
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->Unlock();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

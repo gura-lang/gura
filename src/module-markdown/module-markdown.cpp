@@ -2915,7 +2915,7 @@ Gura_ImplementFunction(document)
 		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Null;
 	}
 	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // markdown.setpresenter():void {block}

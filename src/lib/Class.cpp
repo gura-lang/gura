@@ -199,7 +199,7 @@ Gura_DeclareFunction(object)
 Gura_ImplementFunction(object)
 {
 	Object *pObj = new Object(env.LookupClass(VTYPE_object));
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
@@ -272,7 +272,7 @@ Gura_ImplementMethod(Object, nomap)
 {
 	Value rtn(args.GetThis());
 	rtn.AddFlags(VFLAG_NoMap);
-	return ReturnValue(env, sig, args, rtn);
+	return ReturnValue(env, args, rtn);
 }
 
 // object#tonumber():[strict,raise,zero,nil]

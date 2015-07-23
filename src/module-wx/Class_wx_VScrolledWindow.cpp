@@ -79,11 +79,11 @@ Gura_ImplementFunction(VScrolledWindow)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -107,11 +107,11 @@ Gura_ImplementFunction(VScrolledWindowEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, Create)
 	wxString name = wxPanelNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, EstimateTotalHeight)
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, EstimateTotalHeight)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->EstimateTotalHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, GetFirstVisibleLine)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetFirstVisibleLine();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, GetLastVisibleLine)
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, GetLastVisibleLine)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetLastVisibleLine();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, GetLineCount)
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, GetLineCount)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetLineCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, GetVisibleBegin)
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, GetVisibleBegin)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetVisibleBegin();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, GetVisibleEnd)
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, GetVisibleEnd)
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetVisibleEnd();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, HitTest)
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, HitTest)
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	int rtn = pThis->GetEntity()->HitTest(x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, HitTest_1)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, HitTest_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int rtn = pThis->GetEntity()->HitTest(*pt);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, IsVisible)
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, IsVisible)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t line = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->IsVisible(line);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, OnGetLineHeight)
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, OnGetLineHeight)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxCoord rtn = pThis->GetEntity()->OnGetLineHeight(n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, ScrollLines)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int lines = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->ScrollLines(lines);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 #endif
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, ScrollPages)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pages = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->ScrollPages(pages);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 #endif
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, ScrollToLine)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t line = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->ScrollToLine(line);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_VScrolledWindow, SetLineCount)

@@ -54,11 +54,11 @@ Gura_ImplementFunction(MetafileDC)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MetafileDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MetafileDC, Close)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_MetafileDC, Close)
 	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMetafile *rtn = (wxMetafile *)pThis->GetEntity()->Close();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Metafile(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Metafile(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

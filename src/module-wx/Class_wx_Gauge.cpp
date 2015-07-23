@@ -52,11 +52,11 @@ Gura_ImplementFunction(GaugeEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Gauge(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Gauge)
@@ -95,11 +95,11 @@ Gura_ImplementFunction(Gauge)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Gauge(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Gauge, Create)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_Gauge, Create)
 	wxString name = wxT("gauge");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, range, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, GetBezelFace)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_Gauge, GetBezelFace)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBezelFace();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, GetRange)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_Gauge, GetRange)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRange();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, GetShadowWidth)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_Gauge, GetShadowWidth)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetShadowWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, GetValue)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_Gauge, GetValue)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, IsVertical)
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_Gauge, IsVertical)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsVertical();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Gauge, SetBezelFace)

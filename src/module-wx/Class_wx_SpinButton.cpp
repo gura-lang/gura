@@ -52,11 +52,11 @@ Gura_ImplementFunction(SpinButtonEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SpinButton)
@@ -90,11 +90,11 @@ Gura_ImplementFunction(SpinButton)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SpinButton, Create)
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_SpinButton, Create)
 	wxString name = wxT("spinButton");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinButton, GetMax)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_SpinButton, GetMax)
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMax();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinButton, GetMin)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_SpinButton, GetMin)
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMin();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinButton, GetValue)
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_SpinButton, GetValue)
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinButton, SetRange)

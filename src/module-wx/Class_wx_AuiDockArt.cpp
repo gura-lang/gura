@@ -83,11 +83,11 @@ Gura_ImplementFunction(AuiDockArtEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiDockArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColor)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColor(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetColour)
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColour(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetFont)
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxFont rtn = pThis->GetEntity()->GetFont(id);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetMetric(id);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AuiDockArt, SetColor)

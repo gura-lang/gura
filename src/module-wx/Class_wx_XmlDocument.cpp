@@ -54,11 +54,11 @@ Gura_ImplementFunction(XmlDocumentEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(XmlDocument)
@@ -87,11 +87,11 @@ Gura_ImplementFunction(XmlDocument)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -123,11 +123,11 @@ Gura_ImplementFunction(XmlDocument_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -150,11 +150,11 @@ Gura_ImplementFunction(XmlDocument_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlDocument(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_XmlDocument, DetachRoot)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->DetachRoot();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
 
 #if 0
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetEncoding();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetFileEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFileEncoding();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, GetRoot)
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetRoot)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetRoot();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, GetVersion)
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetVersion)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVersion();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, IsOk)
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_XmlDocument, IsOk)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, Load)
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load)
 	int flags = wxXMLDOC_NONE;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->Load(filename, encoding, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, Load_1)
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load_1)
 	int flags = wxXMLDOC_NONE;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->Load(*stream, encoding, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, Save)
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save)
 	int indentstep = 1;
 	if (args.IsValid(1)) indentstep = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Save(filename, indentstep);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, Save_1)
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save_1)
 	int indentstep = 1;
 	if (args.IsValid(1)) indentstep = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Save(*stream, indentstep);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 #if 0

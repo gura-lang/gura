@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_IPV4address, Hostname)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString hostname = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Hostname(hostname);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPV4address, Hostname_1)
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_IPV4address, Hostname_1)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->Hostname();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPV4address, IPAddress)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_IPV4address, IPAddress)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->IPAddress();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPV4address, Service)
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_IPV4address, Service)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString service = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Service(service);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPV4address, Service_1)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_IPV4address, Service_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned service = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->Service(service);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPV4address, Service_2)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_IPV4address, Service_2)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Service();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPV4address, AnyAddress)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_IPV4address, AnyAddress)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->AnyAddress();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPV4address, LocalHost)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_IPV4address, LocalHost)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->LocalHost();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

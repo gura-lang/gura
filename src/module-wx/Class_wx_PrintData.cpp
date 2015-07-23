@@ -52,11 +52,11 @@ Gura_ImplementFunction(PrintDataEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PrintData)
@@ -76,11 +76,11 @@ Gura_ImplementFunction(PrintData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PrintData, GetCollate)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_PrintData, GetCollate)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetCollate();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetBin)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_PrintData, GetBin)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintBin rtn = pThis->GetEntity()->GetBin();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetColour)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_PrintData, GetColour)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetDuplex)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_PrintData, GetDuplex)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDuplexMode rtn = pThis->GetEntity()->GetDuplex();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetNoCopies)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_PrintData, GetNoCopies)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetNoCopies();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetOrientation)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_PrintData, GetOrientation)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOrientation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetPaperId)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_PrintData, GetPaperId)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPaperSize rtn = pThis->GetEntity()->GetPaperId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetPrinterName)
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_PrintData, GetPrinterName)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPrinterName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_PrintData, GetQuality)
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_PrintData, GetQuality)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintQuality rtn = pThis->GetEntity()->GetQuality();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, IsOk)
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_PrintData, IsOk)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PrintData, SetBin)

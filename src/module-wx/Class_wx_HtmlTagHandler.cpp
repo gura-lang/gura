@@ -61,11 +61,11 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTagHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetSupportedTags();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->HandleTag(*tag);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTagHandler, ParseInner)

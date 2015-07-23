@@ -1288,7 +1288,7 @@ Gura_ImplementMethod(Surface, ConvertSurface)
 	SDL_Surface *pSurfaceConv = ::SDL_ConvertSurface(pSurface,
 								const_cast<SDL_PixelFormat *>(fmt), flags);
 	if (pSurfaceConv == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 // sdl.Surface#FillRect(dstrect:sdl.Rect:nil, color:Color):map:void
@@ -1345,7 +1345,7 @@ Gura_ImplementMethod(Surface, DisplayFormat)
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormat(pSurface);
 	if (pSurfaceConv == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 // sdl.Surface#DisplayFormatAlpha() {block?}
@@ -1372,7 +1372,7 @@ Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormatAlpha(pSurface);
 	if (pSurfaceConv == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurfaceConv, nullptr));
 }
 
 //-----------------------------------------------------------------------------
@@ -2422,7 +2422,7 @@ Gura_ImplementFunction(GetVideoSurface)
 {
 	SDL_Surface *pSurface = ::SDL_GetVideoSurface();
 	if (pSurface == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.GetVideoInfo()
@@ -2562,7 +2562,7 @@ Gura_ImplementFunction(SetVideoMode)
 	SDL_Surface *pSurface = ::SDL_SetVideoMode(
 		args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetULong(3));
 	if (pSurface == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.SetGamma(redgamma:number, greengamma:number, bluegamma:number)
@@ -2738,7 +2738,7 @@ Gura_ImplementFunction(CreateRGBSurface)
 		args.GetULong(0), args.GetInt(1), args.GetInt(2), args.GetInt(3),
 		args.GetULong(4), args.GetULong(5), args.GetULong(6), args.GetULong(7));
 	if (pSurface == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.CreateRGBSurfaceFrom(image:image) {block?}
@@ -2763,7 +2763,7 @@ Gura_ImplementFunction(CreateRGBSurfaceFrom)
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObj = Object_Surface::CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 // sdl.LoadBMP(file:string) {block?}
@@ -2787,7 +2787,7 @@ Gura_ImplementFunction(LoadBMP)
 		sig.SetError(ERR_RuntimeError, "failed to load an image %s", file);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, nullptr));
+	return ReturnValue(env, args, Object_Surface::CreateValue(pSurface, nullptr));
 }
 
 // sdl.BlitSurface(src:sdl.Surface, srcrect:sdl.Rect:nil, dst:sdl.Surface, dstrect:sdl.Rect:nil)
@@ -4123,7 +4123,7 @@ Gura_ImplementFunction(Rect)
 	rect.y = args.GetInt(1);
 	rect.w = args.GetInt(2);
 	rect.h = args.GetInt(3);
-	return ReturnValue(env, sig, args, Object_Rect::CreateValue(rect));
+	return ReturnValue(env, args, Object_Rect::CreateValue(rect));
 }
 
 // sdl.Color(r:number, g:number, b:number):map {block?}
@@ -4147,7 +4147,7 @@ Gura_ImplementFunction(Color)
 	color.g = args.GetUChar(1);
 	color.b = args.GetUChar(2);
 	color.unused = 0;
-	return ReturnValue(env, sig, args, Object_Color::CreateValue(color));
+	return ReturnValue(env, args, Object_Color::CreateValue(color));
 }
 
 // sdl.AudioSpec(freq:number => 22050, format:number => AUDIO_S16,
@@ -4192,7 +4192,7 @@ Gura_ImplementFunction(AudioSpec)
 	Object_AudioSpec *pObj =
 			new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, nullptr, 0);
 	pAudioSpec->userdata = pObj;
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------

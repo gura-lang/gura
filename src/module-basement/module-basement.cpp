@@ -194,7 +194,7 @@ Gura_ImplementFunction(cross)
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 				skipInvalidFlag, genIterFlag, args.GetList(0));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // for (`expr+) {block}
@@ -224,7 +224,7 @@ Gura_ImplementFunction(for_)
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 				skipInvalidFlag, genIterFlag, args.GetList(0));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // repeat (n?:number) {block}
@@ -253,7 +253,7 @@ Gura_ImplementFunction(repeat)
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 			skipInvalidFlag, genIterFlag, args.Is_number(0)? args.GetInt(0) : -1);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // while (`cond) {block}
@@ -281,7 +281,7 @@ Gura_ImplementFunction(while_)
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 			skipInvalidFlag, genIterFlag, Expr::Reference(args.GetExpr(0)));
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 //-----------------------------------------------------------------------------
@@ -317,7 +317,7 @@ Gura_ImplementFunction(consts)
 	} else {
 		pIterator = new Iterator_Constant(args.GetValue(0));
 	}
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // dim(n+:number) {block?}
@@ -465,7 +465,7 @@ Gura_ImplementFunction(interval)
 	}
 	Iterator *pIterator =
 		new Iterator_Interval(numBegin, numEnd, numSamples, numDenom, iFactor);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // range(num:number, num_end?:number, step?:number):map {block?}
@@ -545,7 +545,7 @@ Gura_ImplementFunction(range)
 		}
 		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
 	}
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -1223,7 +1223,7 @@ Gura_ImplementFunction(classref)
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Null;
 	Value result(Class::Reference(pValueTypeInfo->GetClass()));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, args, result);
 }
 
 // struct(`args*):[loose] {block?}
@@ -1319,7 +1319,7 @@ Gura_ImplementFunction(super)
 		return Value::Null;
 	}
 	rtn.SetSuperSkipCount(cntSuperSkip);
-	return ReturnValue(env, sig, args, rtn);
+	return ReturnValue(env, args, rtn);
 }
 
 //-----------------------------------------------------------------------------
@@ -1411,7 +1411,7 @@ Gura_ImplementFunction(locals)
 	} else {
 		value = Value(new Object_environment(env));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 // outers() {block?}
@@ -1428,7 +1428,7 @@ Gura_ImplementFunction(outers)
 {
 	AutoPtr<Environment> pEnvOuter(new Environment(env.GetSignal()));
 	pEnvOuter->AddOuterFrame(env.GetFrameOwner());
-	return ReturnValue(env, sig, args, Value(new Object_environment(*pEnvOuter)));
+	return ReturnValue(env, args, Value(new Object_environment(*pEnvOuter)));
 }
 
 // public():void {block}
@@ -1983,7 +1983,7 @@ Gura_ImplementFunction(rand)
 		Number result = static_cast<ULong>(Random::Real2() * num);
 		return Value(result);
 	}
-	return ReturnValue(env, sig, args, Value(Random::Real2()));
+	return ReturnValue(env, args, Value(Random::Real2()));
 }
 
 // rands(range?:number, num?:number) {block?}
@@ -2015,7 +2015,7 @@ Gura_ImplementFunction(rands)
 	Iterator *pIterator = new Iterator_Rand(
 				args.Is_number(0)? args.GetInt(0) : 0,
 				args.Is_number(1)? args.GetInt(1) : -1);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // randseed(seed:number):void

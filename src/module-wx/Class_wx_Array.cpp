@@ -257,11 +257,11 @@ Gura_ImplementFunction(ArrayEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Array(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Array, wxObjArray)
@@ -309,11 +309,11 @@ Gura_ImplementFunction(Array)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Array(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Array, wxSortedArray_1)
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_Array, Count)
 	Object_wx_Array *pThis = Object_wx_Array::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->Count();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Array, Detach)
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_Array, GetCount)
 	Object_wx_Array *pThis = Object_wx_Array::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Array, Index)
@@ -488,7 +488,7 @@ Gura_ImplementMethod(wx_Array, Index)
 	bool searchFromEnd = false;
 	if (args.IsValid(1)) searchFromEnd = args.GetBoolean(1);
 	int rtn = pThis->GetEntity()->Index(, searchFromEnd);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Array, Index_1)
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_Array, Index_1)
 	Object_wx_Array *pThis = Object_wx_Array::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->Index();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Array, Insert)
@@ -567,7 +567,7 @@ Gura_ImplementMethod(wx_Array, IsEmpty)
 	Object_wx_Array *pThis = Object_wx_Array::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Array, Item)

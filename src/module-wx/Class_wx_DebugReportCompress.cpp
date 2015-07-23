@@ -51,11 +51,11 @@ Gura_ImplementFunction(DebugReportCompressEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportCompress(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_DebugReportCompress, GetCompressedFileName)
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCompressedFileName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontMapper *rtn = (wxFontMapper *)pThis->GetEntity()->CreateFontMapper();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_FontMapper(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)pThis->GetEntity()->CreateLogTarget();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Log(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMessageOutput *rtn = (wxMessageOutput *)pThis->GetEntity()->CreateMessageOutput();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MessageOutput(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MessageOutput(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->CreateRenderer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDesktopEnvironment();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_AppTraits, GetStandardPaths)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStandardPaths &rtn = pThis->GetEntity()->GetStandardPaths();
-	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPaths(new wxStandardPaths(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_StandardPaths(new wxStandardPaths(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
 	int minor = nullptr;
 	if (args.IsValid(1)) minor = args.GetInt(1);
 	wxPortId rtn = pThis->GetEntity()->GetToolkitVersion(major, minor);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_AppTraits, HasStderr)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasStderr();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AppTraits, IsUsingUniversalWidgets)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsUsingUniversalWidgets();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AppTraits, ShowAssertDialog)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString msg = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->ShowAssertDialog(msg);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

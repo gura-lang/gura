@@ -61,11 +61,11 @@ Gura_ImplementFunction(TextDataObject)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetTextLength();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextDataObject, GetText)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_TextDataObject, GetText)
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextDataObject, SetText)

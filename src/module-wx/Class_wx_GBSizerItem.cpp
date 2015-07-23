@@ -67,11 +67,11 @@ Gura_ImplementFunction(GBSizerItem)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GBSizerItem_1)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(GBSizerItem_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GBSizerItem_2)
@@ -135,11 +135,11 @@ Gura_ImplementFunction(GBSizerItem_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, GetEndPos)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetPos)
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition rtn = pThis->GetEntity()->GetPos();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GBPosition(new wxGBPosition(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_GBPosition(new wxGBPosition(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, GetPos_1)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_GBSizerItem, GetSpan)
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSpan rtn = pThis->GetEntity()->GetSpan();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GBSpan(new wxGBSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_GBSpan(new wxGBSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, GetSpan_1)
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSizerItem *other = Object_wx_GBSizerItem::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Intersects(*other);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, Intersects_1)
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects_1)
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Intersects(*pos, *span);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, SetPos)
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_GBSizerItem, SetPos)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetPos(*pos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GBSizerItem, SetSpan)
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_GBSizerItem, SetSpan)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetSpan(*span);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -166,7 +166,7 @@ Gura_ImplementFunction(readlines)
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
 	Iterator *pIterator = new Object_stream::IteratorLine(
 				Object_stream::Reference(pObjStream), -1, includeEOLFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 //-----------------------------------------------------------------------------
@@ -669,7 +669,7 @@ Gura_ImplementMethod(stream, readlines)
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
 	Iterator *pIterator = new Object_stream::IteratorLine(
 				Object_stream::Reference(pThis), nLinesMax, includeEOLFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // stream#readtext()

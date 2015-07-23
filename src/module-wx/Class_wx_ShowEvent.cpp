@@ -57,11 +57,11 @@ Gura_ImplementFunction(ShowEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ShowEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ShowEvent, SetShow)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ShowEvent, IsShown)
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsShown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ShowEvent, GetShow)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_ShowEvent, GetShow)
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetShow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

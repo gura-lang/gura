@@ -19,7 +19,7 @@ Gura_ImplementMethod(wx_EventFactory, GetEventType)
 	Object_wx_EventFactory *pThis = Object_wx_EventFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEventType rtn = pThis->GetEventType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_EventFactory, GetName)
@@ -33,7 +33,7 @@ Gura_ImplementMethod(wx_EventFactory, GetName)
 	Object_wx_EventFactory *pThis = Object_wx_EventFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const char *rtn = pThis->GetName();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

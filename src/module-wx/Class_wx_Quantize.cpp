@@ -51,11 +51,11 @@ Gura_ImplementFunction(QuantizeEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Quantize(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Quantize, Quantize)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 	int flags = wxQUANTIZE_INCLUDE_WINDOWS_COLOURS|wxQUANTIZE_FILL_DESTINATION_IMAGE|wxQUANTIZE_RETURN_8BIT_DATA;
 	if (args.IsValid(5)) flags = args.GetInt(5);
 	bool rtn = pThis->GetEntity()->Quantize(*src, *dest, *pPalette, desiredNoColours, eightBitData, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 	int flags = wxQUANTIZE_INCLUDE_WINDOWS_COLOURS|wxQUANTIZE_FILL_DESTINATION_IMAGE|wxQUANTIZE_RETURN_8BIT_DATA;
 	if (args.IsValid(4)) flags = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->Quantize(*src, *dest, desiredNoColours, eightBitData, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

@@ -63,11 +63,11 @@ Gura_ImplementFunction(File)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_File(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 
@@ -84,7 +84,7 @@ Gura_ImplementClassMethod(wx_File, Access)
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxFile::OpenMode mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
 	bool rtn = wxFile::Access(name, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Attach)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_File, Create)
 	int access = wxS_DEFAULT;
 	if (args.IsValid(2)) access = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->Create(filename, overwrite, access);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Detach)
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_File, fd)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->fd();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Eof)
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_File, Eof)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Eof();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_File, Exists)
@@ -196,7 +196,7 @@ Gura_ImplementClassMethod(wx_File, Exists)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFile::Exists(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Flush)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_File, Flush)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Flush();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, GetKind)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_File, GetKind)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileKind rtn = pThis->GetEntity()->GetKind();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, IsOpened)
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_File, IsOpened)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Length)
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_File, Length)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Length();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Open)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_File, Open)
 	wxFile::OpenMode mode = wxFile::read;
 	if (args.IsValid(1)) mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->Open(filename, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Read)
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_File, Read)
 	int buffer = args.GetInt(0);
 	size_t count = args.GetSizeT(1);
 	size_t rtn = pThis->GetEntity()->Read(buffer, count);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_File, Seek)
 	wxSeekMode mode = wxFromStart;
 	if (args.IsValid(1)) mode = static_cast<wxSeekMode>(args.GetInt(1));
 	wxFileOffset rtn = pThis->GetEntity()->Seek(ofs, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, SeekEnd)
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_File, SeekEnd)
 	wxFileOffset ofs = 0;
 	if (args.IsValid(0)) ofs = static_cast<wxFileOffset>(args.GetInt64(0));
 	wxFileOffset rtn = pThis->GetEntity()->SeekEnd(ofs);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Tell)
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_File, Tell)
 	Object_wx_File *pThis = Object_wx_File::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Tell();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Write)
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_File, Write)
 	const void *buffer = binary.data();
 	size_t count = binary.size();
 	size_t rtn = pThis->GetEntity()->Write(buffer, count);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_File, Write_1)
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_File, Write_1)
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Write(s, *conv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

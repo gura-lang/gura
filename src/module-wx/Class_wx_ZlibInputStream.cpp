@@ -56,11 +56,11 @@ Gura_ImplementFunction(ZlibInputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_ZlibInputStream, CanHandleGZip)
@@ -73,7 +73,7 @@ Gura_ImplementClassMethod(wx_ZlibInputStream, CanHandleGZip)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxZlibInputStream::CanHandleGZip();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

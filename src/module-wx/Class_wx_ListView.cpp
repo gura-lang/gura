@@ -70,11 +70,11 @@ Gura_ImplementFunction(ListView)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListView(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ListView, ClearColumnImage)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_ListView, GetFirstSelected)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetFirstSelected();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListView, GetFocusedItem)
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_ListView, GetFocusedItem)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetFocusedItem();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListView, GetNextSelected)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_ListView, GetNextSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	long rtn = pThis->GetEntity()->GetNextSelected(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListView, IsSelected)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_ListView, IsSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long index = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->IsSelected(index);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListView, Select)

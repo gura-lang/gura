@@ -164,7 +164,7 @@ Gura_DeclareFunction(version)
 Gura_ImplementFunction(version)
 {
 	const char *rtn = ::curl_version();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 // curl.easy_init() {block?}
@@ -180,7 +180,7 @@ Gura_DeclareFunction(easy_init)
 Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
-	return ReturnValue(env, sig, args, Value(new Object_easy_handle(curl)));
+	return ReturnValue(env, args, Value(new Object_easy_handle(curl)));
 }
 
 // curl.test()

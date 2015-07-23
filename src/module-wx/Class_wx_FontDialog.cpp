@@ -53,11 +53,11 @@ Gura_ImplementFunction(FontDialogEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(FontDialog)
@@ -85,11 +85,11 @@ Gura_ImplementFunction(FontDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontDialog, Create)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_FontDialog, Create)
 	} else {
 		rtn = pThis->GetEntity()->Create(parent);
 	}
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FontDialog, GetFontData)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_FontDialog, GetFontData)
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFontData &rtn = pThis->GetEntity()->GetFontData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FontData(new wxFontData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_FontData(new wxFontData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontDialog, ShowModal)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_FontDialog, ShowModal)
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

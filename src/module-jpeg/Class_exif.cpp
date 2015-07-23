@@ -275,7 +275,7 @@ Gura_ImplementFunction(exif)
 		Object_exif *pObj = new Object_exif();
 		value = Value(pObj);
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 // jpeg.exif#each() {block?}
@@ -295,7 +295,7 @@ Gura_ImplementMethod(exif, each)
 {
 	Object_exif *pThis = Object_exif::GetThisObj(args);
 	Object_ifd *pObj0thIFD = pThis->GetObj0thIFD();
-	return ReturnIterator(env, sig, args,
+	return ReturnIterator(env, args,
 					new IteratorTag(Object_ifd::Reference(pObj0thIFD)));
 }
 

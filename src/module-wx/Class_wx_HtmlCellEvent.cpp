@@ -62,11 +62,11 @@ Gura_ImplementFunction(HtmlCellEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlCellEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetCell();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool linkclicked = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->SetLinkClicked(linkclicked);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetLinkClicked)
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetLinkClicked();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

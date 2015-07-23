@@ -52,11 +52,11 @@ Gura_ImplementFunction(ToggleButtonEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ToggleButton)
@@ -95,11 +95,11 @@ Gura_ImplementFunction(ToggleButton)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ToggleButton, Create)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ToggleButton, Create)
 	wxString name = wxT("checkBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *val, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ToggleButton, GetValue)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_ToggleButton, GetValue)
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ToggleButton, SetValue)

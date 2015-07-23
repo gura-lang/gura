@@ -54,11 +54,11 @@ Gura_ImplementFunction(Metafile)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Metafile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Metafile, Ok)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_Metafile, Ok)
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Ok();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Metafile, Play)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_Metafile, Play)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Play(dc);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Metafile, SetClipboard)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_Metafile, SetClipboard)
 	int height = 0;
 	if (args.IsValid(1)) height = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SetClipboard(width, height);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

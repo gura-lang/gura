@@ -120,7 +120,7 @@ Gura_ImplementFunction(uri)
 	if (args.Is_string(0)) {
 		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 //-----------------------------------------------------------------------------

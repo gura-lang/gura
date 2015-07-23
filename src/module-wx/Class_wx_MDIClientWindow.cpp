@@ -51,11 +51,11 @@ Gura_ImplementFunction(MDIClientWindowEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
 	long style = 0;
 	if (args.IsValid(1)) style = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->CreateClient(parent, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

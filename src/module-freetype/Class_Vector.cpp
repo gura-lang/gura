@@ -89,7 +89,7 @@ Gura_ImplementFunction(Vector)
 	vector.x = static_cast<FT_Pos>(args.GetInt(0));
 	vector.y = static_cast<FT_Pos>(args.GetInt(1));
 	AutoPtr<Object_Vector> pObjRtn(new Object_Vector(vector));
-	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+	return ReturnValue(env, args, Value(pObjRtn.release()));
 }
 
 // freetype.Vector#Length()

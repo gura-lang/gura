@@ -59,11 +59,11 @@ Gura_ImplementFunction(WizardEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Wizard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Wizard)
@@ -99,11 +99,11 @@ Gura_ImplementFunction(Wizard)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Wizard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Wizard, Create)
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_Wizard, Create)
 	long style = wxDEFAULT_DIALOG_STYLE;
 	if (args.IsValid(5)) style = args.GetLong(5);
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, *bitmap, *pos, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, FitToPage)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmap)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmap();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetBitmapBackgroundColour)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmapBackgroundColour)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBitmapBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetBitmapPlacement)
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Wizard, GetBitmapPlacement)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBitmapPlacement();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetCurrentPage)
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_Wizard, GetCurrentPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetCurrentPage();
 	if (rtn == nullptr) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetMinimumBitmapWidth)
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_Wizard, GetMinimumBitmapWidth)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMinimumBitmapWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetPageAreaSizer)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_Wizard, GetPageAreaSizer)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetPageAreaSizer();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetPageSize)
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_Wizard, GetPageSize)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetPageSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Wizard, HasNextPage)
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Wizard, HasNextPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->HasNextPage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, HasPrevPage)
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_Wizard, HasPrevPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->HasPrevPage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, RunWizard)
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_Wizard, RunWizard)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *firstPage = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->RunWizard(firstPage);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, SetBitmap)
@@ -405,7 +405,7 @@ Gura_ImplementMethod(wx_Wizard, ShowPage)
 	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
 	bool goingForward = args.IsValid(1)? args.GetBoolean(1) : true;
 	bool rtn = pThis->GetEntity()->ShowPage(page, goingForward);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

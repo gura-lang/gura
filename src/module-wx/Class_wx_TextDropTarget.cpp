@@ -83,11 +83,11 @@ Gura_ImplementFunction(TextDropTarget)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 	int *data = args.GetInt(2);
 	size_t size = args.GetSizeT(3);
 	bool rtn = pThis->GetEntity()->OnDrop(x, y, *data, size);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxString data = wxString::FromUTF8(args.GetString(2));
 	bool rtn = pThis->GetEntity()->OnDropText(x, y, data);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

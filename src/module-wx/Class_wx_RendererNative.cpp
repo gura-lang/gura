@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawHeaderButton)
 	wxHeaderButtonParams *params = (wxHeaderButtonParams *)(nullptr);
 	if (args.IsValid(5)) params = Object_wx_HeaderButtonParams::GetObject(args, 5)->GetEntity();
 	int rtn = pThis->GetEntity()->DrawHeaderButton(win, *dc, *rect, flags, *sortArrow, params);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_RendererNative, Get)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative &rtn = pThis->GetEntity()->Get();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_RendererNative, GetDefault)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative &rtn = pThis->GetEntity()->GetDefault();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_RendererNative, GetGeneric)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative &rtn = pThis->GetEntity()->GetGeneric();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_RendererNative, GetHeaderButtonHeight)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int rtn = pThis->GetEntity()->GetHeaderButtonHeight(win);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_RendererNative, GetSplitterParams)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxSplitterRenderParams rtn = pThis->GetEntity()->GetSplitterParams(win);
-	return ReturnValue(env, sig, args, Value(new Object_wx_SplitterRenderParams(new wxSplitterRenderParams(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_SplitterRenderParams(new wxSplitterRenderParams(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_RendererNative, GetVersion)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererVersion rtn = pThis->GetEntity()->GetVersion();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererVersion(new wxRendererVersion(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererVersion(new wxRendererVersion(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RendererNative, Load)
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_RendererNative, Load)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->Load(name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_RendererNative, Set)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative *renderer = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->Set(renderer);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RendererNative(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

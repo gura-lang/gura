@@ -52,11 +52,11 @@ Gura_ImplementFunction(SpinCtrlEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SpinCtrl)
@@ -103,11 +103,11 @@ Gura_ImplementFunction(SpinCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SpinCtrl, Create)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_SpinCtrl, Create)
 	wxString name = _T("wxSpinCtrl");
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	bool rtn = pThis->GetEntity()->Create(parent, id, value, *pos, *size, style, min, max, initial, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinCtrl, SetValue)
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_SpinCtrl, GetValue)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinCtrl, SetRange)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_SpinCtrl, GetMin)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMin();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinCtrl, GetMax)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_SpinCtrl, GetMax)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMax();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

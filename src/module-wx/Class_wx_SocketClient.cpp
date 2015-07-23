@@ -54,11 +54,11 @@ Gura_ImplementFunction(SocketClient)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SocketClient, Connect)
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_SocketClient, Connect)
 	bool wait = true;
 	if (args.IsValid(1)) wait = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Connect(*address, wait);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketClient, Connect_1)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_SocketClient, Connect_1)
 	bool wait = true;
 	if (args.IsValid(2)) wait = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->Connect(*address, *local, wait);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SocketClient, WaitOnConnect)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_SocketClient, WaitOnConnect)
 	long milliseconds = 0;
 	if (args.IsValid(1)) milliseconds = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->WaitOnConnect(seconds, milliseconds);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -53,11 +53,11 @@ Gura_ImplementFunction(ChoiceEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Choice)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(Choice)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Choice, Create)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 	wxString name = wxT("choice");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, GetColumns)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_Choice, GetColumns)
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColumns();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, SetColumns)

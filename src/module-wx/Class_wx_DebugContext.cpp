@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_DebugContext, Check)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->Check();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, Dump)
@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_DebugContext, Dump)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Dump();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, GetCheckPrevious)
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_DebugContext, GetCheckPrevious)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetCheckPrevious();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, GetDebugMode)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_DebugContext, GetDebugMode)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetDebugMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, GetLevel)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_DebugContext, GetLevel)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLevel();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, GetStream)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_DebugContext, GetStream)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	Stream & rtn = pThis->GetEntity()->GetStream();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, GetStreamBuf)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DebugContext, HasStream)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasStream();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, PrintClasses)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DebugContext, PrintClasses)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->PrintClasses();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, PrintStatistics)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DebugContext, PrintStatistics)
 	bool detailed = true;
 	if (args.IsValid(0)) detailed = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->PrintStatistics(detailed);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, SetCheckpoint)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_DebugContext, SetFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetFile(filename);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, SetLevel)
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_DebugContext, SetStandardError)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->SetStandardError();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DebugContext, SetStream)

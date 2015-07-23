@@ -81,11 +81,11 @@ Gura_ImplementFunction(DataViewCtrlEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DataViewCtrl)
@@ -119,11 +119,11 @@ Gura_ImplementFunction(DataViewCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendColumn)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendColumn)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *col = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AppendColumn(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn)
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendBitmapColumn(label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendBitmapColumn(*label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn)
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendDateColumn(label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn_1)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn_1)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendDateColumn(*label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn)
 	int width = 80;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendProgressColumn(label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn_1)
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn_1)
 	int width = 80;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendProgressColumn(*label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn)
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendTextColumn(label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn_1)
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn_1)
 	int width = -1;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendTextColumn(*label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn)
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn)
 	int width = 30;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendToggleColumn(label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn_1)
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn_1)
 	int width = 30;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendToggleColumn(*label, model_column, mode, width);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AssociateModel)
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, AssociateModel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AssociateModel(model);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, Create)
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, Create)
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
 	if (args.IsValid(5)) validator = Object_wx_Validator::GetObject(args, 5)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, *validator);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearColumns)
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, ClearColumns)
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ClearColumns();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearSelection)
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, DeleteColumn)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned pos = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->DeleteColumn(pos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetColumn)
@@ -484,7 +484,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetColumn)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned pos = args.GetInt(0);
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetColumn(pos);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetModel)
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetModel)
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModel *rtn = (wxDataViewListModel *)pThis->GetEntity()->GetModel();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetNumberOfColumns)
@@ -512,7 +512,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetNumberOfColumns)
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetNumberOfColumns();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelection)
@@ -526,7 +526,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelection)
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelections)
@@ -542,7 +542,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelections)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
 	int rtn = pThis->GetEntity()->GetSelections(*aSelections);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, IsSelected)
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, IsSelected)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsSelected(row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelection)

@@ -52,11 +52,11 @@ Gura_ImplementFunction(MemoryDCEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MemoryDC)
@@ -76,11 +76,11 @@ Gura_ImplementFunction(MemoryDC)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MemoryDC, SelectObject)

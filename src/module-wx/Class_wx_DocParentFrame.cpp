@@ -52,11 +52,11 @@ Gura_ImplementFunction(DocParentFrameEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DocParentFrame)
@@ -94,11 +94,11 @@ Gura_ImplementFunction(DocParentFrame)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DocParentFrame, Create)
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_DocParentFrame, Create)
 	wxString name = wxT("frame");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(manager, parent, id, title, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DocParentFrame, GetDocumentManager)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_DocParentFrame, GetDocumentManager)
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
 }
 
 #if 0

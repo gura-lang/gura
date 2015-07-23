@@ -330,7 +330,7 @@ Gura_ImplementFunction(__glutInit)
 		}
 		delete[] _argv;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, args, _rtnVal);
 }
 
 // glut.glutInitDisplayMode
@@ -435,7 +435,7 @@ Gura_ImplementFunction(__glutCreateWindow)
 {
 	const char *title = args.GetString(0);
 	int _rtn = glutCreateWindow(title);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutCreateSubWindow
@@ -461,7 +461,7 @@ Gura_ImplementFunction(__glutCreateSubWindow)
 	int width = args.GetInt(3);
 	int height = args.GetInt(4);
 	int _rtn = glutCreateSubWindow(win, x, y, width, height);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutDestroyWindow
@@ -541,7 +541,7 @@ Gura_DeclareFunctionAlias(__glutGetWindow, "glutGetWindow")
 Gura_ImplementFunction(__glutGetWindow)
 {
 	int _rtn = glutGetWindow();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutSetWindow
@@ -889,7 +889,7 @@ Gura_ImplementFunction(__glutCreateMenu)
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutDestroyMenu
@@ -922,7 +922,7 @@ Gura_DeclareFunctionAlias(__glutGetMenu, "glutGetMenu")
 Gura_ImplementFunction(__glutGetMenu)
 {
 	int _rtn = glutGetMenu();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutSetMenu
@@ -1694,7 +1694,7 @@ Gura_ImplementFunction(__glutGetColor)
 	int ndx = args.GetInt(0);
 	int component = args.GetInt(1);
 	GLfloat _rtn = glutGetColor(ndx, component);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutCopyColormap
@@ -1729,7 +1729,7 @@ Gura_ImplementFunction(__glutGet)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	int _rtn = glutGet(type);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutDeviceGet
@@ -1747,7 +1747,7 @@ Gura_ImplementFunction(__glutDeviceGet)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	int _rtn = glutDeviceGet(type);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutExtensionSupported
@@ -1765,7 +1765,7 @@ Gura_ImplementFunction(__glutExtensionSupported)
 {
 	const char *name = args.GetString(0);
 	int _rtn = glutExtensionSupported(name);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutGetModifiers
@@ -1781,7 +1781,7 @@ Gura_DeclareFunctionAlias(__glutGetModifiers, "glutGetModifiers")
 Gura_ImplementFunction(__glutGetModifiers)
 {
 	int _rtn = glutGetModifiers();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutLayerGet
@@ -1799,7 +1799,7 @@ Gura_ImplementFunction(__glutLayerGet)
 {
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	int _rtn = glutLayerGet(type);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutGetProcAddress
@@ -1860,7 +1860,7 @@ Gura_ImplementFunction(__glutBitmapWidth)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	int character = args.GetInt(1);
 	int _rtn = glutBitmapWidth(font, character);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutStrokeCharacter
@@ -1899,7 +1899,7 @@ Gura_ImplementFunction(__glutStrokeWidth)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	int character = args.GetInt(1);
 	int _rtn = glutStrokeWidth(font, character);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutBitmapLength
@@ -1919,7 +1919,7 @@ Gura_ImplementFunction(__glutBitmapLength)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
 	int _rtn = glutBitmapLength(font, string);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutStrokeLength
@@ -1939,7 +1939,7 @@ Gura_ImplementFunction(__glutStrokeLength)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
 	int _rtn = glutStrokeLength(font, string);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutWireSphere
@@ -2279,7 +2279,7 @@ Gura_ImplementFunction(__glutVideoResizeGet)
 {
 	GLenum param = static_cast<GLenum>(args.GetInt(0));
 	int _rtn = glutVideoResizeGet(param);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutSetupVideoResizing
@@ -2452,7 +2452,7 @@ Gura_DeclareFunctionAlias(__glutEnterGameMode, "glutEnterGameMode")
 Gura_ImplementFunction(__glutEnterGameMode)
 {
 	int _rtn = glutEnterGameMode();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // glut.glutLeaveGameMode
@@ -2485,7 +2485,7 @@ Gura_ImplementFunction(__glutGameModeGet)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	int _rtn = glutGameModeGet(mode);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 

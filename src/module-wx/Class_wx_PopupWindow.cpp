@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_PopupWindow, IsTopLevel)
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxPopupWindow::IsTopLevel();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

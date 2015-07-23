@@ -52,11 +52,11 @@ Gura_ImplementFunction(XmlPropertyEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(XmlProperty)
@@ -81,11 +81,11 @@ Gura_ImplementFunction(XmlProperty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_XmlProperty, GetName)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetName)
 	Object_wx_XmlProperty *pThis = Object_wx_XmlProperty::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlProperty, GetNext)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetNext)
 	Object_wx_XmlProperty *pThis = Object_wx_XmlProperty::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlProperty *rtn = (wxXmlProperty *)pThis->GetEntity()->GetNext();
-	return ReturnValue(env, sig, args, Value(new Object_wx_XmlProperty(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_XmlProperty(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlProperty, GetValue)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_XmlProperty, GetValue)
 	Object_wx_XmlProperty *pThis = Object_wx_XmlProperty::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlProperty, SetName)

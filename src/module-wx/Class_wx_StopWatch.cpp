@@ -51,11 +51,11 @@ Gura_ImplementFunction(StopWatch)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StopWatch(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StopWatch, Pause)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_StopWatch, Time)
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->Time();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

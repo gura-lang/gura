@@ -78,7 +78,7 @@ Gura_ImplementFunction(template_)
 		if (!pTemplate->Read(env, sig, args.GetStream(0),
 					autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	}
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
 }
 

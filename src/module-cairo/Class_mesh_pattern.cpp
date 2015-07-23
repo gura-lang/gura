@@ -31,7 +31,7 @@ Gura_ImplementClassMethod(mesh_pattern, create)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mesh_pattern(pattern)));
+	return ReturnValue(env, args, Value(new Object_mesh_pattern(pattern)));
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
 	return Value::Null;

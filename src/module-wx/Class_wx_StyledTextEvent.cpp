@@ -56,11 +56,11 @@ Gura_ImplementFunction(StyledTextEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StyledTextEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetPosition)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetKey)
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetKey)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetKey();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetModifiers)
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetModifiers)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetModifiers();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetModificationType)
@@ -460,7 +460,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetModificationType)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetModificationType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetText)
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetText)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLength)
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLength)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLength();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLinesAdded)
@@ -499,7 +499,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLinesAdded)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLinesAdded();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLine)
@@ -512,7 +512,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLine)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLine();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetFoldLevelNow)
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelNow)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFoldLevelNow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetFoldLevelPrev)
@@ -538,7 +538,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetFoldLevelPrev)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFoldLevelPrev();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetMargin)
@@ -551,7 +551,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetMargin)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMargin();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetMessage)
@@ -564,7 +564,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetMessage)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMessage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetWParam)
@@ -577,7 +577,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetWParam)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWParam();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetLParam)
@@ -590,7 +590,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetLParam)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLParam();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetListType)
@@ -603,7 +603,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetListType)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetListType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetX)
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetX)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetY)
@@ -629,7 +629,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetY)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetToken)
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetToken)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetToken();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetAnnotationsLinesAdded)
@@ -655,7 +655,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetAnnotationsLinesAdded)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetAnnotationsLinesAdded();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetUpdated)
@@ -668,7 +668,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetUpdated)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetUpdated();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragText)
@@ -681,7 +681,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragText)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDragText();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragFlags)
@@ -694,7 +694,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragFlags)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDragFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetDragResult)
@@ -707,7 +707,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetDragResult)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDragResult rtn = pThis->GetEntity()->GetDragResult();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetShift)
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetShift)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetShift();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetControl)
@@ -733,7 +733,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetControl)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetControl();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetAlt)
@@ -746,7 +746,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, GetAlt)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetAlt();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -63,11 +63,11 @@ Gura_ImplementFunction(Locale)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Locale(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 #if 0
@@ -103,11 +103,11 @@ Gura_ImplementFunction(Locale_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Locale(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Locale, AddCatalog)
 		const char *szDomain = args.GetString(0);
 		rtn = pThis->GetEntity()->AddCatalog(szDomain);
 	}
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -189,7 +189,7 @@ Gura_ImplementClassMethod(wx_Locale, FindLanguageInfo)
 	if (rtn != nullptr) {
 		value = Value(new Object_wx_LanguageInfo(rtn, nullptr, OwnerFalse));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Locale, GetCanonicalName)
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Locale, GetCanonicalName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCanonicalName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetLanguage)
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Locale, GetLanguage)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLanguage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetLanguageInfo)
@@ -236,7 +236,7 @@ Gura_ImplementClassMethod(wx_Locale, GetLanguageInfo)
 	if (rtn != nullptr) {
 		value = Value(new Object_wx_LanguageInfo(rtn, nullptr, OwnerFalse));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetLanguageName)
@@ -251,7 +251,7 @@ Gura_ImplementClassMethod(wx_Locale, GetLanguageName)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	wxString rtn = wxLocale::GetLanguageName(lang);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetLocale)
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Locale, GetLocale)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = wxString(pThis->GetEntity()->GetLocale());
-	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
+	return ReturnValue(env, args, Value(rtn.ToUTF8()));
 }
 
 Gura_DeclareMethod(wx_Locale, GetName)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Locale, GetName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetString)
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_Locale, GetString)
 	char *szDomain = nullptr;
 	if (args.IsValid(1)) *szDomain = args.GetChar(1);
 	char rtn = pThis->GetEntity()->GetString(*szOrigString, *szDomain);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_Locale, GetString_1)
 	char *szDomain = nullptr;
 	if (args.IsValid(3)) *szDomain = args.GetChar(3);
 	char rtn = pThis->GetEntity()->GetString(*szOrigString, *szOrigString2, n, *szDomain);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 	const char *szDomain = nullptr;
 	if (args.IsValid(1)) szDomain = args.GetString(1);
 	wxString rtn = pThis->GetEntity()->GetHeaderValue(szHeader, szDomain);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_Locale, GetSysName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetSysName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemEncoding)
@@ -384,7 +384,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemEncoding)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding rtn = wxLocale::GetSystemEncoding();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemEncodingName)
@@ -397,7 +397,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemEncodingName)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxLocale::GetSystemEncodingName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemLanguage)
@@ -410,7 +410,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemLanguage)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxLocale::GetSystemLanguage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Locale, Init)
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_Locale, Init)
 	int flags = wxLOCALE_LOAD_DEFAULT | wxLOCALE_CONV_ENCODING;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Init(language, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Locale, Init_1)
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_Locale, Init_1)
 	bool bConvertEncoding = false;
 	if (args.IsValid(4)) bConvertEncoding = args.GetBoolean(4);
 	bool rtn = pThis->GetEntity()->Init(*szName, *szShort, *szLocale, bLoadDefault, bConvertEncoding);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -479,7 +479,7 @@ Gura_ImplementClassMethod(wx_Locale, IsAvailable)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	bool rtn = wxLocale::IsAvailable(lang);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Locale, IsLoaded)
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_Locale, IsLoaded)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const char *domain = args.GetString(0);
 	bool rtn = pThis->GetEntity()->IsLoaded(domain);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -514,7 +514,7 @@ Gura_ImplementMethod(wx_Locale, IsOk)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

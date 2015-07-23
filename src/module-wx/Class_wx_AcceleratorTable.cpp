@@ -56,11 +56,11 @@ Gura_ImplementFunction(AcceleratorTableEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(AcceleratorTable)
@@ -80,11 +80,11 @@ Gura_ImplementFunction(AcceleratorTable)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 #if 0
@@ -105,11 +105,11 @@ Gura_ImplementFunction(AcceleratorTable_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 #endif
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

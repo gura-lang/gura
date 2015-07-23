@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_HtmlLinkEvent, GetLinkInfo)
 	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlLinkInfo &rtn = pThis->GetEntity()->GetLinkInfo();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

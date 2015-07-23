@@ -133,11 +133,11 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SimpleHtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, n, choices[], style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

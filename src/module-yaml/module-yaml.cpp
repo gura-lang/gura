@@ -39,7 +39,7 @@ Gura_ImplementFunction(parse)
 {
 	Iterator_FromString *pIterator = new Iterator_FromString(args.GetString(0));
 	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, sig, args, pIterator);
+		return ReturnIterator(env, args, pIterator);
 	}
 	Value value;
 	pIterator->Next(env, sig, value);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(read)
 	Stream &stream = args.GetStream(0);
 	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
 	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, sig, args, pIterator);
+		return ReturnIterator(env, args, pIterator);
 	}
 	Value value;
 	pIterator->Next(env, sig, value);

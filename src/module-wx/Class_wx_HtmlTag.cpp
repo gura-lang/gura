@@ -66,11 +66,11 @@ Gura_ImplementFunction(HtmlTag)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTag(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetAllParams)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetAllParams();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetBeginPos)
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetBeginPos)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBeginPos();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos1)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos1)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetEndPos1();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos2)
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos2)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetEndPos2();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetName)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetName)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetParam)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParam)
 	bool with_commas = false;
 	if (args.IsValid(1)) with_commas = args.GetBoolean(1);
 	wxString rtn = pThis->GetEntity()->GetParam(par, with_commas);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetParamAsColour)
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsColour)
 	wxString par = wxString::FromUTF8(args.GetString(0));
 	wxColour *clr = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetParamAsColour(par, clr);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetParamAsInt)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsInt)
 	wxString par = wxString::FromUTF8(args.GetString(0));
 	int value = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->GetParamAsInt(par, value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_HtmlTag, HasEnding)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasEnding();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, HasParam)
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_HtmlTag, HasParam)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString par = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasParam(par);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlTag, ScanParam)
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_HtmlTag, ScanParam)
 	wxString format = wxString::FromUTF8(args.GetString(1));
 	int value = args.GetInt(2);
 	wxString rtn = pThis->GetEntity()->ScanParam(par, format, value);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

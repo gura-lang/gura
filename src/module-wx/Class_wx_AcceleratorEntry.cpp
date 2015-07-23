@@ -54,11 +54,11 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(AcceleratorEntry)
@@ -83,11 +83,11 @@ Gura_ImplementFunction(AcceleratorEntry)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCommand();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetKeyCode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, Set)

@@ -51,11 +51,11 @@ Gura_ImplementFunction(BrushListEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BrushList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BrushList, FindOrCreateBrush)
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
 	int style = wxSOLID;
 	if (args.IsValid(1)) style = args.GetInt(1);
 	wxBrush *rtn = (wxBrush *)pThis->GetEntity()->FindOrCreateBrush(*colour, style);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Brush(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

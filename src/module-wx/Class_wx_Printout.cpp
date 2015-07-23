@@ -57,11 +57,11 @@ Gura_ImplementFunction(Printout)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Printout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Printout, GetDC)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Printout, GetPageInfo)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_Printout, GetPaperRectPixels)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetPaperRectPixels();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printout, GetPPIPrinter)
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_Printout, GetTitle)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTitle();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Printout, HasPage)
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_Printout, HasPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pageNum = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->HasPage(pageNum);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Printout, IsPreview)
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_Printout, IsPreview)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsPreview();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Printout, FitThisSizeToPaper)
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPaperRect)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetLogicalPaperRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printout, GetLogicalPageRect)
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageRect)
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetLogicalPageRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printout, GetLogicalPageMarginsRect)
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageMarginsRect)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPageSetupDialogData *pageSetupData = Object_wx_PageSetupDialogData::GetObject(args, 0)->GetEntity();
 	wxRect rtn = pThis->GetEntity()->GetLogicalPageMarginsRect(*pageSetupData);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printout, SetLogicalOrigin)
@@ -452,7 +452,7 @@ Gura_ImplementMethod(wx_Printout, OnBeginDocument)
 	int startPage = args.GetInt(0);
 	int endPage = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->OnBeginDocument(startPage, endPage);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Printout, OnEndDocument)
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_Printout, OnPrintPage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pageNum = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->OnPrintPage(pageNum);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

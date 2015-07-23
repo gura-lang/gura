@@ -51,11 +51,11 @@ Gura_ImplementFunction(DebugReportPreviewStdEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportPreviewStd(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DebugReportPreviewStd, Show)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_DebugReportPreviewStd, Show)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDebugReport *dbgrpt = Object_wx_DebugReport::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Show(*dbgrpt);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

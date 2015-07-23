@@ -45,7 +45,7 @@ Gura_ImplementClassMethod(wx_DllLoader, GetDllExt)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxDllLoader::GetDllExt();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DllLoader, GetProgramHandle)
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_DllLoader, GetProgramHandle)
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDllType rtn = pThis->GetEntity()->GetProgramHandle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DllLoader, GetSymbol)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DllLoader, LoadLibrary)
 	bool success = nullptr;
 	if (args.IsValid(1)) success = args.GetBoolean(1);
 	wxDllType rtn = pThis->GetEntity()->LoadLibrary(libname, success);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DllLoader, UnloadLibrary)

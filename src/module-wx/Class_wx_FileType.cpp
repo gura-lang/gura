@@ -54,11 +54,11 @@ Gura_ImplementFunction(FileTypeEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileType(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString mimeType = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetMimeType(mimeType);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> mimeTypes(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetMimeType(*mimeTypes);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_FileType, GetExtensions)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> extensions(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetExtensions(*extensions);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileType, GetIcon)
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_FileType, GetIcon)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIconLocation *iconLoc = Object_wx_IconLocation::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetIcon(iconLoc);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileType, GetDescription)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FileType, GetDescription)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString desc = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetDescription(desc);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetOpenCommand(command, );
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOpenCommand(filename);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileType, GetPrintCommand)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_FileType, GetPrintCommand)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetPrintCommand(command, );
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -237,7 +237,7 @@ Gura_ImplementClassMethod(wx_FileType, ExpandCommand)
 #if 0
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxFileType::ExpandCommand(command, );
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

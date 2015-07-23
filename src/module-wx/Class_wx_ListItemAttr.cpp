@@ -52,11 +52,11 @@ Gura_ImplementFunction(ListItemAttrEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItemAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ListItemAttr)
@@ -80,11 +80,11 @@ Gura_ImplementFunction(ListItemAttr)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItemAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, GetBackgroundColour)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetBackgroundColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, GetFont)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetFont)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, GetTextColour)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_ListItemAttr, GetTextColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, HasBackgroundColour)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasBackgroundColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBackgroundColour();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, HasFont)
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasFont)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFont();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, HasTextColour)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_ListItemAttr, HasTextColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasTextColour();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItemAttr, SetBackgroundColour)

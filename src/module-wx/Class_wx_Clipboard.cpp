@@ -51,11 +51,11 @@ Gura_ImplementFunction(Clipboard)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Clipboard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Clipboard, AddData)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_Clipboard, AddData)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AddData(data);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, Clear)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_Clipboard, Flush)
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Flush();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, GetData)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_Clipboard, GetData)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetData(*data);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, IsOpened)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Clipboard, IsOpened)
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, IsSupported)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Clipboard, IsSupported)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat *format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsSupported(*format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, Open)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_Clipboard, Open)
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Open();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, SetData)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Clipboard, SetData)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetData(data);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Clipboard, UsePrimarySelection)

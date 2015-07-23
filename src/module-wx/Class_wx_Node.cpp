@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_Node, IndexOf)
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->IndexOf();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

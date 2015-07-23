@@ -51,11 +51,11 @@ Gura_ImplementFunction(FontListEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
 	wxFont *rtn = (wxFont *)pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

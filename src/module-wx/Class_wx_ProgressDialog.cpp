@@ -69,11 +69,11 @@ Gura_ImplementFunction(ProgressDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ProgressDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ProgressDialog, Resume)
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ProgressDialog, Update)
 	if (args.IsValid(1)) newmsg = wxString::FromUTF8(args.GetString(1));
 	bool skip = false;
 	bool rtn = pThis->GetEntity()->Update(value, newmsg, &skip);
-	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, skip));
+	return ReturnValue(env, args, Value::CreateList(env, rtn, skip));
 }
 
 Gura_DeclareMethod(wx_ProgressDialog, Pulse)
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_ProgressDialog, Pulse)
 	if (args.IsValid(0)) newmsg = wxString::FromUTF8(args.GetString(0));
 	bool skip = false;
 	bool rtn = pThis->GetEntity()->Pulse(newmsg, &skip);
-	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, skip));
+	return ReturnValue(env, args, Value::CreateList(env, rtn, skip));
 }
 
 //----------------------------------------------------------------------------

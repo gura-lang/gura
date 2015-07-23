@@ -37,7 +37,7 @@ Gura_ImplementClassMethod(region, create)
 		::cairo_region_destroy(region);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+	return ReturnValue(env, args, Value(new Object_region(region)));
 }
 
 // cairo.region.create_rectangle(rectangle:cairo.rectangle_int) {block?}
@@ -57,7 +57,7 @@ Gura_ImplementClassMethod(region, create_rectangle)
 		::cairo_region_destroy(region);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+	return ReturnValue(env, args, Value(new Object_region(region)));
 }
 
 // cairo.region.create_rectangles(rectangle[]:cairo.rectangle_int) {block?}
@@ -83,7 +83,7 @@ Gura_ImplementClassMethod(region, create_rectangles)
 		::cairo_region_destroy(region);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+	return ReturnValue(env, args, Value(new Object_region(region)));
 }
 
 // cairo.region#copy() {block?}
@@ -102,7 +102,7 @@ Gura_ImplementMethod(region, copy)
 		::cairo_region_destroy(region);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+	return ReturnValue(env, args, Value(new Object_region(region)));
 }
 
 //#cairo_region_t *cairo_region_reference(cairo_region_t *region);

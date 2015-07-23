@@ -161,7 +161,7 @@ Gura_ImplementMethod(string, each)
 		Class_string::IteratorEach::ATTR_None;
 	Iterator *pIterator = new Class_string::IteratorEach(
 								args.GetThis().GetStringSTL(), -1, attr);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // string#eachline(nlines?:number):[chop] {block?}
@@ -186,7 +186,7 @@ Gura_ImplementMethod(string, eachline)
 {
 	int maxSplit = args.Is_number(0)? args.GetInt(0) : -1;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
-	return ReturnIterator(env, sig, args, new Class_string::IteratorLine(
+	return ReturnIterator(env, args, new Class_string::IteratorLine(
 					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
 }
 
@@ -362,7 +362,7 @@ Gura_ImplementMethod(string, fold)
 	bool neatFlag = args.IsSet(Gura_Symbol(neat));
 	Iterator *pIterator = new Class_string::IteratorFold(
 		args.GetThis().GetStringSTL(), cntPerFold, cntStep, neatFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // string#foldw(width:number):[padding] {block?}
@@ -388,7 +388,7 @@ Gura_ImplementMethod(string, foldw)
 	bool paddingFlag = args.IsSet(Gura_Symbol(padding));
 	Iterator *pIterator = new Class_string::IteratorFoldw(
 		args.GetThis().GetStringSTL(), widthPerFold, paddingFlag);
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // string#format(values*):map
@@ -602,7 +602,7 @@ Gura_DeclareMethod(string, reader)
 
 Gura_ImplementMethod(string, reader)
 {
-	return ReturnValue(env, sig, args, Value(new Object_stream(env,
+	return ReturnValue(env, args, Value(new Object_stream(env,
 		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
 }
 
@@ -641,7 +641,7 @@ Gura_ImplementMethod(string, replace)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
-	return ReturnValues(env, sig, args, valListArg);
+	return ReturnValues(env, args, valListArg);
 }
 
 // string#replaces(map[]:string, count?:number):map:[icase] {block?}
@@ -685,7 +685,7 @@ Gura_ImplementMethod(string, replaces)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
-	return ReturnValues(env, sig, args, valListArg);
+	return ReturnValues(env, args, valListArg);
 }
 
 // string#right(len?:number):map
@@ -736,7 +736,7 @@ Gura_ImplementMethod(string, split)
 		pIterator = new Class_string::IteratorEach(args.GetThis().GetStringSTL(),
 							maxSplit, Class_string::IteratorEach::ATTR_None);
 	}
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
@@ -816,7 +816,7 @@ Gura_ImplementMethod(string, template_)
 	//String strSrc = args.GetThis().GetStringSTL();
 	//SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
 	//if (!pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Null;
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
 }
 

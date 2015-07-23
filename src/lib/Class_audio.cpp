@@ -148,7 +148,7 @@ Gura_ImplementFunction(audio)
 		}
 		if (!pAudio->Read(env, sig, stream, audioType)) return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_audio(env, pAudio.release())));
+	return ReturnValue(env, args, Value(new Object_audio(env, pAudio.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -177,7 +177,7 @@ Gura_ImplementMethod(audio, each)
 	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
 	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
 								pAudio->Reference(), iChannel, offset));
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // audio#get(channel:number, offset:number):map

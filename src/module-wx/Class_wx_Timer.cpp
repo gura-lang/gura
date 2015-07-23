@@ -52,11 +52,11 @@ Gura_ImplementFunction(TimerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Timer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Timer)
@@ -79,11 +79,11 @@ Gura_ImplementFunction(Timer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Timer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Timer, GetInterval)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_Timer, GetInterval)
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetInterval();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Timer, IsOneShot)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_Timer, IsOneShot)
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOneShot();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Timer, IsRunning)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_Timer, IsRunning)
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsRunning();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Timer, Notify)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_Timer, Start)
 	bool oneShot = false;
 	if (args.IsValid(1)) oneShot = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Start(milliseconds, oneShot);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Timer, Stop)

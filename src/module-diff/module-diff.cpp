@@ -702,7 +702,7 @@ Gura_ImplementMethod(diff_at_line, eachhunk)
 	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
 	AutoPtr<DiffLine::IteratorHunk> pIterator(
 		new DiffLine::IteratorHunk(pDiffLine->Reference(), format, nLinesCommon));
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return ReturnIterator(env, args, pIterator.release());
 }
 
 // diff.diff@line#render(out?:stream:w, format?:symbol, lines?:number)
@@ -1262,7 +1262,7 @@ Gura_ImplementFunction(compose)
 	} else {
 		value = Value(new Object_diff_at_line(pDiffLine.release()));
 	}
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 // diff.compose@char(src1:string, src2:string):[icase] {block?}
@@ -1291,7 +1291,7 @@ Gura_ImplementFunction(compose_at_char)
 	pDiffChar->FeedString(0, args.GetString(0));
 	pDiffChar->FeedString(1, args.GetString(1));
 	pDiffChar->Compose();
-	return ReturnValue(env, sig, args, Value(new Object_diff_at_char(pDiffChar.release())));
+	return ReturnValue(env, args, Value(new Object_diff_at_char(pDiffChar.release())));
 }
 
 //-----------------------------------------------------------------------------

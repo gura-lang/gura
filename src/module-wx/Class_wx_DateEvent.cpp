@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_DateEvent, GetDate)
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDateTime &rtn = pThis->GetEntity()->GetDate();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateEvent, SetDate)

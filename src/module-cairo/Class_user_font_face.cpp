@@ -69,7 +69,7 @@ Gura_ImplementClassMethod(user_font_face, create)
 	::cairo_user_font_face_set_render_glyph_func(font_face, Object_user_font_face::render_glyph_func);
 	::cairo_user_font_face_set_unicode_to_glyph_func(font_face, Object_user_font_face::unicode_to_glyph_func);
 	::cairo_user_font_face_set_text_to_glyphs_func(font_face, Object_user_font_face::text_to_glyphs_func);
-	return ReturnValue(env, sig, args, Value(pObjFontFace));
+	return ReturnValue(env, args, Value(pObjFontFace));
 }
 
 //#cairo_user_scaled_font_init_func_t cairo_user_font_face_get_init_func(cairo_font_face_t *font_face);

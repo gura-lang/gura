@@ -54,11 +54,11 @@ Gura_ImplementFunction(FindReplaceData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFindString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FindReplaceData, GetReplaceString)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetReplaceString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FindReplaceData, GetFlags)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FindReplaceData, SetFlags)

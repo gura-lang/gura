@@ -56,11 +56,11 @@ Gura_ImplementFunction(FileConfig)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileConfig(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FileConfig, Save)
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_FileConfig, Save)
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Save(*os, *conv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileConfig, SetUmask)

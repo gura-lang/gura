@@ -58,11 +58,11 @@ Gura_ImplementFunction(DataViewEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DataViewEvent_1)
@@ -82,11 +82,11 @@ Gura_ImplementFunction(DataViewEvent_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, Clone)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_DataViewEvent, Clone)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetColumn)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetColumn)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColumn();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetDataViewColumn)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetDataViewColumn();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetModel)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetModel)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewModel *rtn = (wxDataViewModel *)pThis->GetEntity()->GetModel();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewModel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DataViewModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetRow)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetRow)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, GetValue)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_DataViewEvent, GetValue)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxVariant &rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, IsEditCancelled)
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_DataViewEvent, IsEditCancelled)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEditCancelled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewEvent, SetColumn)

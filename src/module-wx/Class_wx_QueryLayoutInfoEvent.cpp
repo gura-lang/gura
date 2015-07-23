@@ -54,11 +54,11 @@ Gura_ImplementFunction(QueryLayoutInfoEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_QueryLayoutInfoEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetAlignment)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetFlags)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetOrientation)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetOrientation)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutOrientation rtn = pThis->GetEntity()->GetOrientation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRequestedLength();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetSize)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetSize)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetAlignment)

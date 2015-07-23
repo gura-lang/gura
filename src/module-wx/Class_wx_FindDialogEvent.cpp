@@ -57,11 +57,11 @@ Gura_ImplementFunction(FindDialogEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindDialogEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FindDialogEvent, GetFlags)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetFlags)
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FindDialogEvent, GetFindString)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetFindString)
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFindString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FindDialogEvent, GetReplaceString)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetReplaceString)
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetReplaceString();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FindDialogEvent, GetDialog)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetDialog)
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFindReplaceDialog *rtn = (wxFindReplaceDialog *)pThis->GetEntity()->GetDialog();
-	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceDialog(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_FindReplaceDialog(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

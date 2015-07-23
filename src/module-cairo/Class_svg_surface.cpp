@@ -28,7 +28,7 @@ Gura_ImplementClassMethod(svg_surface, create)
 	cairo_surface_t *surface = ::cairo_svg_surface_create_for_stream(
 					Writer_Stream::write_func, pWriter, width, height);
 	Object_surface *pObjSurface = new Object_svg_surface(surface, pWriter);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 // cairo.svg_surface#restrict_to_version(version:number):reduce

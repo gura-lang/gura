@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 	int row = args.GetInt(3);
 	int col = args.GetInt(4);
 	wxSize rtn = pThis->GetEntity()->GetBestSize(*grid, *attr, *dc, row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridCellRenderer, Clone)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

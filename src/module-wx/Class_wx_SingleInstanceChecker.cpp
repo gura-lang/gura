@@ -52,11 +52,11 @@ Gura_ImplementFunction(SingleInstanceCheckerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SingleInstanceChecker)
@@ -79,11 +79,11 @@ Gura_ImplementFunction(SingleInstanceChecker)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SingleInstanceChecker, Create)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->Create(name, path);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SingleInstanceChecker, IsAnotherRunning)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsAnotherRunning();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

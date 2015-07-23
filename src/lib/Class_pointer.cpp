@@ -150,7 +150,7 @@ Gura_ImplementMethod(pointer, unpacks)
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
 						args.GetString(0), args.GetList(1), pThis->GetOffset());
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 //-----------------------------------------------------------------------------

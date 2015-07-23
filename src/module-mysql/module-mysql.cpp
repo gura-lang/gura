@@ -128,7 +128,7 @@ Gura_ImplementMethod(mysql, query)
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	// Object_mysql::Query() may return nullptr even if no error occurs.
 	if (pIterator == nullptr) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // assignment

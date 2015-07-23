@@ -53,11 +53,11 @@ Gura_ImplementFunction(PageSetupDialogDataEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PageSetupDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PageSetupDialogData)
@@ -77,11 +77,11 @@ Gura_ImplementFunction(PageSetupDialogData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PageSetupDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PageSetupDialogData_1)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(PageSetupDialogData_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PageSetupDialogData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, EnableHelp)
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetDefaultMinMargins)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetDefaultMinMargins();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableMargins)
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableMargins)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnableMargins();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableOrientation)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableOrientation)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnableOrientation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnablePaper)
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnablePaper)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnablePaper();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnablePrinter)
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnablePrinter)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnablePrinter();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetEnableHelp)
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetEnableHelp)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetEnableHelp();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetDefaultInfo)
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetDefaultInfo)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetDefaultInfo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMarginTopLeft)
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMarginTopLeft)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMarginTopLeft();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMarginBottomRight)
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMarginBottomRight)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMarginBottomRight();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMinMarginTopLeft)
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMinMarginTopLeft)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMinMarginTopLeft();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetMinMarginBottomRight)
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetMinMarginBottomRight)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetMinMarginBottomRight();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPaperId)
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPaperId)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPaperSize rtn = pThis->GetEntity()->GetPaperId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPaperSize)
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPaperSize)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetPaperSize();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, GetPrintData)
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, GetPrintData)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintData &rtn = pThis->GetEntity()->GetPrintData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_PrintData(new wxPrintData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, IsOk)
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_PageSetupDialogData, IsOk)
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialogData, SetDefaultInfo)

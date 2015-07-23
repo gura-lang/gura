@@ -57,11 +57,11 @@ Gura_ImplementFunction(NotifyEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_NotifyEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_NotifyEvent, Allow)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_NotifyEvent, IsAllowed)
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsAllowed();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_NotifyEvent, Veto)

@@ -58,11 +58,11 @@ Gura_ImplementFunction(EmptyIcon)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Icon)
@@ -90,11 +90,11 @@ Gura_ImplementFunction(Icon)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(IconFromXPMData)
@@ -119,11 +119,11 @@ Gura_ImplementFunction(IconFromXPMData)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Icon_1)
@@ -155,11 +155,11 @@ Gura_ImplementFunction(Icon_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -192,11 +192,11 @@ Gura_ImplementFunction(Icon_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -227,11 +227,11 @@ Gura_ImplementFunction(Icon_3)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -255,11 +255,11 @@ Gura_ImplementFunction(Icon_5)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -282,11 +282,11 @@ Gura_ImplementFunction(Icon_7)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Icon, CopyFromBitmap)
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_Icon, GetDepth)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDepth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Icon, GetHeight)
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_Icon, GetHeight)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Icon, GetWidth)
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_Icon, GetWidth)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Icon, LoadFile)
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_Icon, LoadFile)
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->LoadFile(name, type);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Icon, IsOk)
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_Icon, IsOk)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Icon, SaveFile)
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_Icon, SaveFile)
 	wxPalette *palette = (wxPalette *)(nullptr);
 	if (args.IsValid(2)) palette = Object_wx_Palette::GetObject(args, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(name, type, palette);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

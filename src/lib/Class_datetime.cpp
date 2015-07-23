@@ -207,7 +207,7 @@ Gura_ImplementFunction(datetime)
 	} else {
 		secsOffset = OAL::GetSecsOffsetTZ();
 	}
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
@@ -347,7 +347,7 @@ Gura_ImplementClassMethod(datetime, monthdays)
 {
 	int year = args.GetInt(0);
 	int month = args.GetInt(1);
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 			Value(static_cast<Number>(DateTime::GetDaysOfMonth(year, month))));
 }
 
@@ -370,7 +370,7 @@ Gura_DeclareClassMethod(datetime, now)
 Gura_ImplementClassMethod(datetime, now)
 {
 	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
-	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
+	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime.parse(str:string):map {block?}
@@ -402,7 +402,7 @@ Gura_ImplementClassMethod(datetime, parse)
 		sig.SetError(ERR_FormatError, "invalid time format");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
+	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime#settzoff(mins:number):reduce
@@ -448,7 +448,7 @@ Gura_ImplementClassMethod(datetime, time)
 						args.GetNumber(1) * 60 + args.GetNumber(2));
 	long usec = args.GetLong(3);
 	long secsOffset = OAL::GetSecsOffsetTZ();
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementClassMethod(datetime, today)
 {
 	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
 	dateTime.ClearTime();
-	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
+	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime#utc()

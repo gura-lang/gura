@@ -51,11 +51,11 @@ Gura_ImplementFunction(ScreenDCEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScreenDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->StartDrawingOnTop(window);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop_1)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(0)) rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->StartDrawingOnTop(rect);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ScreenDC, EndDrawingOnTop)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->EndDrawingOnTop();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

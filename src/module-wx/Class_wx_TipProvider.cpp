@@ -59,11 +59,11 @@ Gura_ImplementFunction(TipProvider)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TipProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_TipProvider, GetTip)
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTip();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TipProvider, PreProcessTip)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TipProvider, PreProcessTip)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->PreProcessTip(tip);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetCurrentTip();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

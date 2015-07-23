@@ -52,11 +52,11 @@ Gura_ImplementFunction(TextFileEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TextFile)
@@ -76,11 +76,11 @@ Gura_ImplementFunction(TextFile)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextFile, AddLine)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_TextFile, Close)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Close();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_TextFile, Create)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Create();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_TextFile, Create_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString strFile = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Create(strFile);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_TextFile, Exists)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Exists();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_TextFile, IsOpened)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_TextFile, GetLineCount)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetLineCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_TextFile, GetLine)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetLine(n);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_TextFile, GetCurrentLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetCurrentLine();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_TextFile, Eof)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Eof();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -314,7 +314,7 @@ Gura_ImplementClassMethod(wx_TextFile, GetEOL)
 	wxTextFileType *type = (wxTextFileType *)(&typeDefault);
 	if (args.IsValid(0)) type = Object_wx_TextFileType::GetObject(args, 0)->GetEntity();
 	char rtn = wxTextFile::GetEOL(*type);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_TextFile, GetFirstLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFirstLine();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_TextFile, GetNextLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetNextLine();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_TextFile, GetPrevLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPrevLine();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_TextFile, GetLastLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLastLine();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_TextFile, GetLineType)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxTextFileType rtn = pThis->GetEntity()->GetLineType(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_TextFile, GuessType)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextFileType rtn = pThis->GetEntity()->GuessType();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_TextFileType(new wxTextFileType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_TextFile, GetName)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_TextFile, Open)
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(0)) conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Open(*conv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -518,7 +518,7 @@ Gura_ImplementMethod(wx_TextFile, Open_1)
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Open(strFile, *conv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_TextFile, Write)
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Write(*typeNew, *conv);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

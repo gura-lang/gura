@@ -52,11 +52,11 @@ Gura_ImplementFunction(RegExEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegEx(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RegEx)
@@ -79,11 +79,11 @@ Gura_ImplementFunction(RegEx)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegEx(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RegEx, Compile)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_RegEx, Compile)
 	int flags = wxRE_DEFAULT;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Compile(pattern, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, IsValid)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_RegEx, IsValid)
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsValid();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, GetMatch)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatch)
 	size_t index = 0;
 	if (args.IsValid(2)) index = args.GetSizeT(2);
 	bool rtn = pThis->GetEntity()->GetMatch(start, len, index);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 	size_t index = 0;
 	if (args.IsValid(1)) index = args.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->GetMatch(text, index);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RegEx, GetMatchCount)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatchCount)
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetMatchCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, Matches)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RegEx, Matches)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Matches(text, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, Matches_1)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_RegEx, Matches_1)
 	int flags = args.GetInt(1);
 	size_t len = args.GetSizeT(2);
 	bool rtn = pThis->GetEntity()->Matches(text, flags, len);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, Matches_2)
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_RegEx, Matches_2)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Matches(text, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegEx, Replace)
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_RegEx, Replace)
 	size_t maxMatches = 0;
 	if (args.IsValid(2)) maxMatches = args.GetSizeT(2);
 	int rtn = pThis->GetEntity()->Replace(text, replacement, maxMatches);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_RegEx, ReplaceAll)
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString replacement = wxString::FromUTF8(args.GetString(1));
 	int rtn = pThis->GetEntity()->ReplaceAll(text, replacement);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_RegEx, ReplaceFirst)
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString replacement = wxString::FromUTF8(args.GetString(1));
 	int rtn = pThis->GetEntity()->ReplaceFirst(text, replacement);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

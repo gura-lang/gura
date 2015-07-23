@@ -57,11 +57,11 @@ Gura_ImplementFunction(TarInputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TarInputStream_1)
@@ -84,11 +84,11 @@ Gura_ImplementFunction(TarInputStream_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_TarInputStream, CloseEntry)
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CloseEntry();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_TarInputStream, GetNextEntry)
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTarEntry *rtn = (wxTarEntry *)pThis->GetEntity()->GetNextEntry();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TarEntry(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_TarEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_TarInputStream, OpenEntry)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->OpenEntry(*entry);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

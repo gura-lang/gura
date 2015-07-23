@@ -147,7 +147,7 @@ Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal &sig, Args &ar
 		const Declaration *pDecl = *ppDecl;
 		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	return ReturnValue(env, sig, args, valueRtn);
+	return ReturnValue(env, args, valueRtn);
 }
 
 }

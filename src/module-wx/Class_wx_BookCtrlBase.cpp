@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, AddPage)
 	int imageId = -1;
 	if (args.IsValid(3)) imageId = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->AddPage(page, text, select, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, AdvanceSelection)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, ChangeSelection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->ChangeSelection(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, Create)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, Create)
 	wxString name = wxNotebookNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, DeleteAllPages)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, DeleteAllPages)
 	Object_wx_BookCtrlBase *pThis = Object_wx_BookCtrlBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DeleteAllPages();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, DeletePage)
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, DeletePage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->DeletePage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetCurrentPage)
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetCurrentPage)
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCurrentPage();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetImageList)
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetImageList)
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPage)
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPage)
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPage(page);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_Window(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageCount)
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageCount)
 	Object_wx_BookCtrlBase *pThis = Object_wx_BookCtrlBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetPageCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageImage)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageImage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nPage = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->GetPageImage(nPage);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetPageText)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetPageText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nPage = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetPageText(nPage);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, GetSelection)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, GetSelection)
 	Object_wx_BookCtrlBase *pThis = Object_wx_BookCtrlBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, HitTest)
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, HitTest)
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	long flags = 0;
 	int rtn = pThis->GetEntity()->HitTest(*pt, &flags);
-	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, flags));
+	return ReturnValue(env, args, Value::CreateList(env, rtn, flags));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, InsertPage)
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, InsertPage)
 	int imageId = -1;
 	if (args.IsValid(4)) imageId = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->InsertPage(index, page, text, select, imageId);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, RemovePage)
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, RemovePage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->RemovePage(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetImageList)
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetPageImage)
 	size_t page = args.GetSizeT(0);
 	int image = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SetPageImage(page, image);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetPageText)
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetPageText)
 	size_t page = args.GetSizeT(0);
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetPageText(page, text);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBase, SetSelection)
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_BookCtrlBase, SetSelection)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	int rtn = pThis->GetEntity()->SetSelection(page);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

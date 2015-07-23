@@ -53,11 +53,11 @@ Gura_ImplementFunction(BufferedOutputStream)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
 	off_t pos = static_cast<off_t>(args.GetLong(0));
 	wxSeekMode mode = static_cast<wxSeekMode>(args.GetInt(1));
 	off_t rtn = pThis->GetEntity()->SeekO(pos, mode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BufferedOutputStream, Sync)

@@ -51,11 +51,11 @@ Gura_ImplementFunction(SystemOptions)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SystemOptions(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SystemOptions, GetOption)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_SystemOptions, GetOption)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOption(name);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_SystemOptions, GetOptionInt)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_SystemOptions, GetOptionInt)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int rtn = pThis->GetEntity()->GetOptionInt(name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SystemOptions, HasOption)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_SystemOptions, HasOption)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasOption(name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SystemOptions, IsFalse)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_SystemOptions, IsFalse)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->IsFalse(name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SystemOptions, SetOption)

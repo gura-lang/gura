@@ -232,7 +232,7 @@ Gura_ImplementFunction(getwinsize)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 		Value::CreateList(env,
 				Value(csbi.srWindow.Right + 1 - csbi.srWindow.Left),
 				Value(csbi.srWindow.Bottom + 1 - csbi.srWindow.Top)));
@@ -374,7 +374,7 @@ Gura_ImplementFunction(getwinsize)
 {
 	struct winsize ws;
 	::ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 		Value::CreateList(env, Value(ws.ws_col), Value(ws.ws_row)));
 }
 

@@ -51,11 +51,11 @@ Gura_ImplementFunction(HtmlHelpDataEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, AddBook)
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString book_url = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->AddBook(book_url);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, FindPageById)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->FindPageById(id);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString page = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindPageByName(page);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlBookRecArray &rtn = pThis->GetEntity()->GetBookRecArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlBookRecArray(new wxHtmlBookRecArray(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlBookRecArray(new wxHtmlBookRecArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlHelpDataItems &rtn = pThis->GetEntity()->GetContentsArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlHelpDataItems &rtn = pThis->GetEntity()->GetIndexArray();
-	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpDataItems(new wxHtmlHelpDataItems(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

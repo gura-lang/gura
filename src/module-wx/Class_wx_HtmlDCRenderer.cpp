@@ -51,11 +51,11 @@ Gura_ImplementFunction(HtmlDCRendererEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlDCRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetDC)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 	int dont_render = false;
 	if (args.IsValid(3)) dont_render = args.GetInt(3);
 	int rtn = pThis->GetEntity()->Render(x, y, from, dont_render);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTotalHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

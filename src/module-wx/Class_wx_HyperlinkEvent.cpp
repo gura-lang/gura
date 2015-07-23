@@ -57,11 +57,11 @@ Gura_ImplementFunction(HyperlinkEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HyperlinkEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)

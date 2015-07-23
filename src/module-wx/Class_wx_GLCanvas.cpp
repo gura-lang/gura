@@ -80,11 +80,11 @@ Gura_ImplementFunction(GLCanvas)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 #if 0
@@ -129,11 +129,11 @@ Gura_ImplementFunction(GLCanvas_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 #endif
 
@@ -179,11 +179,11 @@ Gura_ImplementFunction(GLCanvas_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 #endif
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_GLCanvas, GetContext)
 	wxGLContext *rtn = (wxGLContext *)pThis->GetEntity()->GetContext();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GLContext(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_GLCanvas, SetCurrent)

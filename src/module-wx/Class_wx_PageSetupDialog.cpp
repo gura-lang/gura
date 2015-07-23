@@ -56,11 +56,11 @@ Gura_ImplementFunction(PageSetupDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PageSetupDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, GetPageSetupData)
 	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPageSetupDialogData &rtn = pThis->GetEntity()->GetPageSetupData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(new wxPageSetupDialogData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_PageSetupDialogData(new wxPageSetupDialogData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_PageSetupDialog, IsOk)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, IsOk)
 	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, ShowModal)
 	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

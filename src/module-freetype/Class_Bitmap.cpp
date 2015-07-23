@@ -85,7 +85,7 @@ Gura_ImplementFunction(Bitmap)
 	FT_Bitmap *pBitmap = new FT_Bitmap;
 	::FT_Bitmap_New(pBitmap);
 	AutoPtr<Object_Bitmap> pObjRtn(new Object_Bitmap(nullptr, pBitmap));
-	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+	return ReturnValue(env, args, Value(pObjRtn.release()));
 }
 
 // freetype.Bitmap#Embolden(xStrength:number, yStrength:number):reduce

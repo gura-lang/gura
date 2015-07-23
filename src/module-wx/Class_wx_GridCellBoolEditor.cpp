@@ -51,11 +51,11 @@ Gura_ImplementFunction(GridCellBoolEditor)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellBoolEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_GridCellBoolEditor, IsTrueValue)
@@ -70,7 +70,7 @@ Gura_ImplementClassMethod(wx_GridCellBoolEditor, IsTrueValue)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxGridCellBoolEditor::IsTrueValue(value);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_GridCellBoolEditor, UseStringValues)

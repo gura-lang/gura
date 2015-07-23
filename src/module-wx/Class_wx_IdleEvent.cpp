@@ -51,11 +51,11 @@ Gura_ImplementFunction(IdleEventEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IdleEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 #if 0
@@ -71,7 +71,7 @@ Gura_ImplementClassMethod(wx_IdleEvent, CanSend)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = wxIdleEvent::CanSend(window);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 #endif
 
@@ -85,7 +85,7 @@ Gura_ImplementClassMethod(wx_IdleEvent, GetMode)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxIdleMode rtn = wxIdleEvent::GetMode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IdleEvent, RequestMore)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MoreRequested();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethodAlias(wx_IdleEvent, SetMode_, "SetMode")

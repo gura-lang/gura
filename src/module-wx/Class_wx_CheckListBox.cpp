@@ -53,11 +53,11 @@ Gura_ImplementFunction(CheckListBoxEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(CheckListBox)
@@ -101,11 +101,11 @@ Gura_ImplementFunction(CheckListBox)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CheckListBox, Check)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_CheckListBox, IsChecked)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsChecked(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

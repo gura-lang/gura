@@ -52,11 +52,11 @@ Gura_ImplementFunction(ObjectRefDataEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ObjectRefDataEmpty_1)
@@ -74,11 +74,11 @@ Gura_ImplementFunction(ObjectRefDataEmpty_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_ObjectRefData, GetRefCount)
 	Object_wx_ObjectRefData *pThis = Object_wx_ObjectRefData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRefCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

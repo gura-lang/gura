@@ -93,11 +93,11 @@ Gura_ImplementFunction(Accessible)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Accessible(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Accessible, DoDefaultAction)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Accessible, DoDefaultAction)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int childId = args.GetInt(0);
 	wxAccStatus rtn = pThis->GetEntity()->DoDefaultAction(childId);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetChild)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Accessible, GetChild)
 	int childId = args.GetInt(0);
 	wxAccessible *child = Object_wx_Accessible::GetObject(args, 1)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->GetChild(childId, *child);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetChildCount)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_Accessible, GetChildCount)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int childCount = args.GetInt(0);
 	wxAccStatus rtn = pThis->GetEntity()->GetChildCount(childCount);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetDefaultAction)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_Accessible, GetDefaultAction)
 	int childId = args.GetInt(0);
 	wxString actionName = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetDefaultAction(childId, actionName);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetDescription)
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_Accessible, GetDescription)
 	int childId = args.GetInt(0);
 	wxString description = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetDescription(childId, description);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetFocus)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Accessible, GetFocus)
 	int childId = args.GetInt(0);
 	wxAccessible *child = Object_wx_Accessible::GetObject(args, 1)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->GetFocus(childId, *child);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetHelpText)
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_Accessible, GetHelpText)
 	int childId = args.GetInt(0);
 	wxString helpText = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetHelpText(childId, helpText);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetKeyboardShortcut)
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_Accessible, GetKeyboardShortcut)
 	int childId = args.GetInt(0);
 	wxString shortcut = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetKeyboardShortcut(childId, shortcut);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetLocation)
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_Accessible, GetLocation)
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	int elementId = args.GetInt(1);
 	wxAccStatus rtn = pThis->GetEntity()->GetLocation(*rect, elementId);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetName)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_Accessible, GetName)
 	int childId = args.GetInt(0);
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetName(childId, name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetParent)
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_Accessible, GetParent)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAccessible *parent = Object_wx_Accessible::GetObject(args, 0)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->GetParent(*parent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetRole)
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_Accessible, GetRole)
 	int childId = args.GetInt(0);
 	wxAccRole *role = Object_wx_AccRole::GetObject(args, 1)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->GetRole(childId, role);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetSelections)
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_Accessible, GetSelections)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVariant *selections = Object_wx_Variant::GetObject(args, 0)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->GetSelections(selections);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetState)
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Accessible, GetState)
 	int childId = args.GetInt(0);
 	long state = args.GetLong(1);
 	wxAccStatus rtn = pThis->GetEntity()->GetState(childId, state);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetValue)
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_Accessible, GetValue)
 	int childId = args.GetInt(0);
 	wxString strValue = wxString::FromUTF8(args.GetString(1));
 	wxAccStatus rtn = pThis->GetEntity()->GetValue(childId, strValue);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, GetWindow)
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_Accessible, GetWindow)
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Accessible, HitTest)
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_Accessible, HitTest)
 	int childId = args.GetInt(1);
 	wxAccessible *childObject = Object_wx_Accessible::GetObject(args, 2)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->HitTest(*pt, childId, *childObject);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, Navigate)
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_Accessible, Navigate)
 	int toId = args.GetInt(2);
 	wxAccessible *toObject = Object_wx_Accessible::GetObject(args, 3)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->Navigate(*navDir, fromId, toId, *toObject);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, NotifyEvent)
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_Accessible, Select)
 	int childId = args.GetInt(0);
 	wxAccSelectionFlags *selectFlags = Object_wx_AccSelectionFlags::GetObject(args, 1)->GetEntity();
 	wxAccStatus rtn = pThis->GetEntity()->Select(childId, *selectFlags);
-	return ReturnValue(env, sig, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_AccStatus(new wxAccStatus(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Accessible, SetWindow)

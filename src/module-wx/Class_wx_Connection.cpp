@@ -67,11 +67,11 @@ Gura_ImplementFunction(ConnectionEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Connection)
@@ -96,11 +96,11 @@ Gura_ImplementFunction(Connection)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Connection, Advise)
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
 	bool rtn = pThis->GetEntity()->Advise(item, data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Connection, Execute)
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
 	bool rtn = pThis->GetEntity()->Execute(data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Connection, Disconnect)
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Disconnect();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Connection, OnAdvise)
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Connection, OnAdvise)
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
 	bool rtn = pThis->GetEntity()->OnAdvise(topic, item, data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_Connection, OnDisconnect)
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->OnDisconnect();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Connection, OnExecute)
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_Connection, OnExecute)
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
 	bool rtn = pThis->GetEntity()->OnExecute(topic, data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_Connection, OnPoke)
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
 	bool rtn = pThis->GetEntity()->OnPoke(topic, item, data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_Connection, OnRequest)
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
 	char rtn = pThis->GetEntity()->OnRequest(topic, item, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_Connection, OnStartAdvise)
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->OnStartAdvise(topic, item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Connection, OnStopAdvise)
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Connection, OnStopAdvise)
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->OnStopAdvise(topic, item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Connection, Poke)
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_Connection, Poke)
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
 	bool rtn = pThis->GetEntity()->Poke(item, data, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_Connection, Request)
 	wxIPCFormat format = wxIPC_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
 	char rtn = pThis->GetEntity()->Request(item, size, format);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_Connection, StartAdvise)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->StartAdvise(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Connection, StopAdvise)
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_Connection, StopAdvise)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->StopAdvise(item);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

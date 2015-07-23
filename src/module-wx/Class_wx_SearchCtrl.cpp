@@ -65,11 +65,11 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SearchCtrl)
@@ -109,11 +109,11 @@ Gura_ImplementFunction(SearchCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsSearchButtonVisible();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_SearchCtrl, IsCancelButtonVisible)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCancelButtonVisible();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

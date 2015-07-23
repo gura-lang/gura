@@ -73,11 +73,11 @@ Gura_ImplementFunction(FontPickerCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, Create)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 	wxString name = wxT("fontpickerctrl");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *font, *pos, *size, style, *validator, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedFont)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetSelectedFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedFont)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned int rtn = pThis->GetEntity()->GetMaxPointSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, SetMaxPointSize)

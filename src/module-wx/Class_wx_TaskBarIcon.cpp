@@ -54,11 +54,11 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TaskBarIcon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->CreatePopupMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsIconInstalled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->PopupMenu(menu);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->RemoveIcon();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wxString tooltip = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetIcon(*icon, tooltip);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

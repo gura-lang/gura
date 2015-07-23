@@ -78,11 +78,11 @@ Gura_ImplementFunction(FileDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetDirectory)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_FileDialog, GetDirectory)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDirectory();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetFilename)
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilename)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilename();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetFilenames)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilenames)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString filenames;
 	pThis->GetEntity()->GetFilenames(filenames);
-	return ReturnValue(env, sig, args, ArrayStringToValue(env, filenames));
+	return ReturnValue(env, args, ArrayStringToValue(env, filenames));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetFilterIndex)
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilterIndex)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFilterIndex();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetMessage)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_FileDialog, GetMessage)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetMessage();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetPath)
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_FileDialog, GetPath)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetPaths)
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_FileDialog, GetPaths)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString paths;
 	pThis->GetEntity()->GetPaths(paths);
-	return ReturnValue(env, sig, args, ArrayStringToValue(env, paths));
+	return ReturnValue(env, args, ArrayStringToValue(env, paths));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetWildcard)
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_FileDialog, GetWildcard)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetWildcard();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, SetDirectory)
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_FileDialog, ShowModal)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

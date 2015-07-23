@@ -52,11 +52,11 @@ Gura_ImplementFunction(CheckBoxEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(CheckBox)
@@ -95,11 +95,11 @@ Gura_ImplementFunction(CheckBox)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CheckBox, Create)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_CheckBox, Create)
 	wxString name = wxT("checkBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *val, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, GetValue)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_CheckBox, GetValue)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, Get3StateValue)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_CheckBox, Get3StateValue)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCheckBoxState rtn = pThis->GetEntity()->Get3StateValue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, Is3rdStateAllowedForUser)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_CheckBox, Is3rdStateAllowedForUser)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Is3rdStateAllowedForUser();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, Is3State)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_CheckBox, Is3State)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Is3State();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, IsChecked)
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_CheckBox, IsChecked)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsChecked();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CheckBox, SetValue)

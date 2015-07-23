@@ -71,11 +71,11 @@ Gura_ImplementFunction(CommandProcessor)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CommandProcessor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, CanUndo)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_CommandProcessor, CanUndo)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanUndo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, ClearCommands)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Redo)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Redo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetCommands)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetCommands)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxList &rtn = pThis->GetEntity()->GetCommands();
-	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetMaxCommands)
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetMaxCommands)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMaxCommands();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetEditMenu)
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetEditMenu)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetEditMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoAccelerator)
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoAccelerator)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetRedoAccelerator();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoMenuLabel)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoMenuLabel)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetRedoMenuLabel();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoAccelerator)
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoAccelerator)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUndoAccelerator();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoMenuLabel)
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoMenuLabel)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUndoMenuLabel();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, Initialize)
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_CommandProcessor, IsDirty)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDirty();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, MarkAsSaved)
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Submit)
 	bool storeIt = true;
 	if (args.IsValid(1)) storeIt = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Submit(command, storeIt);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, Undo)
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_CommandProcessor, Undo)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Undo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

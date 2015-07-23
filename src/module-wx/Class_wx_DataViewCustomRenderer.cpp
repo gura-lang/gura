@@ -266,11 +266,11 @@ Gura_ImplementFunction(DataViewCustomRenderer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCustomRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 	unsigned col = args.GetInt(2);
 	unsigned row = args.GetInt(3);
 	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::Activate(*cell, model, col, row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDC)
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDC)
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->wxDataViewCustomRenderer::GetDC();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::LeftClick(*cursor, *cell, model, col, row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, RightClick)
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, RightClick)
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::RightClick(*cursor, *cell, model, col, row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
 	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::StartDrag(*cursor, *cell, model, col, row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

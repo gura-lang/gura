@@ -52,11 +52,11 @@ Gura_ImplementFunction(StaticLineEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticLine)
@@ -91,11 +91,11 @@ Gura_ImplementFunction(StaticLine)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticLine, Create)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_StaticLine, Create)
 	wxString name = wxT("staticLine");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StaticLine, IsVertical)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_StaticLine, IsVertical)
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsVertical();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StaticLine, GetDefaultSize)
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

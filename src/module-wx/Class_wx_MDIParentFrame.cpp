@@ -61,11 +61,11 @@ Gura_ImplementFunction(MDIParentFrameEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MDIParentFrame)
@@ -102,11 +102,11 @@ Gura_ImplementFunction(MDIParentFrame)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, ActivateNext)
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, Create)
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, GetClientSize)
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetActiveChild)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIChildFrame *rtn = (wxMDIChildFrame *)pThis->GetEntity()->GetActiveChild();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MDIChildFrame(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MDIChildFrame(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, GetClientWindow)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetClientWindow)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIClientWindow *rtn = (wxMDIClientWindow *)pThis->GetEntity()->GetClientWindow();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MDIClientWindow(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MDIClientWindow(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, GetToolBar)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetToolBar)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->GetToolBar();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, GetWindowMenu)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetWindowMenu)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetWindowMenu();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, OnCreateClient)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIClientWindow *rtn = (wxMDIClientWindow *)pThis->GetEntity()->OnCreateClient();
-	return ReturnValue(env, sig, args, Value(new Object_wx_MDIClientWindow(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_MDIClientWindow(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, SetToolBar)

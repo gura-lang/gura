@@ -54,11 +54,11 @@ Gura_ImplementFunction(PostScriptDC)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PostScriptDC_1)
@@ -83,11 +83,11 @@ Gura_ImplementFunction(PostScriptDC_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_PostScriptDC, SetResolution)
@@ -114,7 +114,7 @@ Gura_ImplementClassMethod(wx_PostScriptDC, GetResolution)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxPostScriptDC::GetResolution();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

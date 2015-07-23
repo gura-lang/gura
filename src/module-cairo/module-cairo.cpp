@@ -34,7 +34,7 @@ Gura_ImplementMethod(image, cairo)
 	}
 	Object_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	cairo_t *cr = ::cairo_create(surface);
-	return ReturnValue(env, sig, args, Value(new Object_context(cr, pObjSurface)));
+	return ReturnValue(env, args, Value(new Object_context(cr, pObjSurface)));
 }
 
 //-----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Gura_ImplementFunction(create)
 {
 	Object_surface *pObjSurface = Object_surface::GetObject(args, 0);
 	cairo_t *cr = ::cairo_create(pObjSurface->GetEntity());
-	return ReturnValue(env, sig, args,
+	return ReturnValue(env, args,
 		Value(new Object_context(cr, Object_surface::Reference(pObjSurface))));
 }
 

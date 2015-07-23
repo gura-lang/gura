@@ -71,11 +71,11 @@ Gura_ImplementFunction(RichTextFormattingDialog)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RichTextFormattingDialogEmpty)
@@ -93,11 +93,11 @@ Gura_ImplementFunction(RichTextFormattingDialogEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, ApplyStyle)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, ApplyStyle)
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO|wxRICHTEXT_SETSTYLE_OPTIMIZE;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->ApplyStyle(ctrl, *range, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, Create)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, Create)
 	long style = wxDEFAULT_DIALOG_STYLE;
 	if (args.IsValid(6)) style = args.GetLong(6);
 	bool rtn = pThis->GetEntity()->Create(flags, parent, title, id, *pos, *sz, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetAttributes)
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetAttributes)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxTextAttrEx &rtn = pThis->GetEntity()->GetAttributes();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetAttributes_1)
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetAttributes_1)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrEx &rtn = pThis->GetEntity()->GetAttributes();
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialog)
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxRichTextFormattingDialog *rtn = (wxRichTextFormattingDialog *)pThis->GetEntity()->GetDialog(win);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFormattingDialog(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextFormattingDialog(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialogAttributes)
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialogAttributes)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxTextAttrEx *rtn = (wxTextAttrEx *)pThis->GetEntity()->GetDialogAttributes(win);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextAttrEx(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_TextAttrEx(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetDialogStyleDefinition)
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetDialogStyleDefinition)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxRichTextStyleDefinition *rtn = (wxRichTextStyleDefinition *)pThis->GetEntity()->GetDialogStyleDefinition(win);
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetFormattingDialogFactory)
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetFormattingDialogFactory)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextFormattingDialogFactory *rtn = (wxRichTextFormattingDialogFactory *)pThis->GetEntity()->GetFormattingDialogFactory();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFormattingDialogFactory(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextFormattingDialogFactory(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetImageList)
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetImageList)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyle)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyle)
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyle(ctrl, *range);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyleDefinition)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyleDefinition)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleDefinition *rtn = (wxRichTextStyleDefinition *)pThis->GetEntity()->GetStyleDefinition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, GetStyleSheet)
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, GetStyleSheet)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetAttributes)
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetStyle)
 	bool update = true;
 	if (args.IsValid(1)) update = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->SetStyle(*style, update);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetStyleDefinition)
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetStyleDefinition)
 	bool update = true;
 	if (args.IsValid(2)) update = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->SetStyleDefinition(*styleDef, sheet, update);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, UpdateDisplay)
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, UpdateDisplay)
 	Object_wx_RichTextFormattingDialog *pThis = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->UpdateDisplay();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

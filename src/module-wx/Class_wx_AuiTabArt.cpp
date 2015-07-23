@@ -54,11 +54,11 @@ Gura_ImplementFunction(AuiTabArtEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiTabArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_AuiTabArt, Clone)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiTabArt *rtn = (wxAuiTabArt *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_AuiTabArt, DrawBackground)
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxAuiNotebookPageArray *pages = Object_wx_AuiNotebookPageArray::GetObject(args, 1)->GetEntity();
 	int rtn = pThis->GetEntity()->GetBestTabCtrlSize(wnd, *pages);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetIndentSize)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetIndentSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AuiTabArt, GetTabSize)
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetTabSize)
 	int close_button_state = args.GetInt(5);
 	int x_extent = args.GetInt(6);
 	wxSize rtn = pThis->GetEntity()->GetTabSize(*dc, wnd, caption, *bitmap, active, close_button_state, x_extent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_AuiTabArt, ShowWindowList)
 	std::unique_ptr<wxArrayString> items(CreateArrayString(args.GetList(1)));
 	int active_idx = args.GetInt(2);
 	int rtn = pThis->GetEntity()->ShowWindowList(wnd, *items, active_idx);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

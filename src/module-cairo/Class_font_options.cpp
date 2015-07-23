@@ -34,7 +34,7 @@ Gura_ImplementClassMethod(font_options, create)
 {
 	cairo_font_options_t *font_options = ::cairo_font_options_create();
 	Object_font_options *pObjFontOptions = new Object_font_options(font_options);
-	return ReturnValue(env, sig, args, Value(pObjFontOptions));
+	return ReturnValue(env, args, Value(pObjFontOptions));
 }
 
 //#cairo_font_options_t *cairo_font_options_copy(const cairo_font_options_t *original);

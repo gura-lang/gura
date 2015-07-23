@@ -57,11 +57,11 @@ Gura_ImplementFunction(ListEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheFrom)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ListEvent, GetCacheFrom)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetCacheFrom();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheTo)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ListEvent, GetCacheTo)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetCacheTo();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetKeyCode)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_ListEvent, GetKeyCode)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetKeyCode();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetIndex)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_ListEvent, GetIndex)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetIndex();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetColumn)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_ListEvent, GetColumn)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColumn();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetPoint)
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_ListEvent, GetPoint)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetLabel)
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_ListEvent, GetLabel)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetText)
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_ListEvent, GetText)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetImage)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_ListEvent, GetImage)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetImage();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetData)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ListEvent, GetData)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetData();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetMask)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ListEvent, GetMask)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetMask();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetItem)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ListEvent, GetItem)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxListItem &rtn = pThis->GetEntity()->GetItem();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ListItem(new wxListItem(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_ListItem(new wxListItem(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_ListEvent, IsEditCancelled)
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEditCancelled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

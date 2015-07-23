@@ -254,8 +254,9 @@ Value Function::Call(Environment &env, Signal &sig, Args &args) const
 	return Sequence::Return(sig, pSequence);
 }
 
-Environment *Function::PrepareEnvironment(Environment &env, Signal &sig, Args &args, bool thisAssignFlag) const
+Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thisAssignFlag) const
 {
+	Signal &sig = env.GetSignal();
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
 							&env : const_cast<Environment *>(_pEnvScope.get());
@@ -346,9 +347,10 @@ Value Function::EvalMap(Environment &env, Signal &sig, Args &args) const
 	return result;
 }
 
-Value Function::ReturnValue(Environment &env, Signal &sig,
+Value Function::ReturnValue(Environment &env,
 									Args &args, const Value &result) const
 {
+	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return result;
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
@@ -364,9 +366,10 @@ Value Function::ReturnValue(Environment &env, Signal &sig,
 	return value;
 }
 
-Value Function::ReturnValues(Environment &env, Signal &sig,
+Value Function::ReturnValues(Environment &env,
 								Args &args, const ValueList &valListArg) const
 {
+	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return valListArg.front();
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
@@ -382,9 +385,10 @@ Value Function::ReturnValues(Environment &env, Signal &sig,
 	return value;
 }
 
-Value Function::ReturnIterator(Environment &env, Signal &sig,
+Value Function::ReturnIterator(Environment &env,
 								Args &args, Iterator *pIterator) const
 {
+	Signal &sig = env.GetSignal();
 	if (pIterator == nullptr) return Value::Null;
 	if (sig.IsSignalled()) {
 		Iterator::Delete(pIterator);

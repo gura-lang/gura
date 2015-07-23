@@ -64,11 +64,11 @@ Gura_ImplementFunction(ClassInfo)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ClassInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_ClassInfo, CreateObject)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->CreateObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareClassMethod(wx_ClassInfo, FindClass)
@@ -100,7 +100,7 @@ Gura_ImplementClassMethod(wx_ClassInfo, FindClass)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxClassInfo *rtn = (wxClassInfo *)wxClassInfo::FindClass(name);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ClassInfo(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ClassInfo, GetBaseClassName1)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_ClassInfo, GetBaseClassName1)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar rtn = pThis->GetEntity()->GetBaseClassName1();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_ClassInfo, GetBaseClassName2)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar rtn = pThis->GetEntity()->GetBaseClassName2();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_ClassInfo, GetClassName)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar rtn = pThis->GetEntity()->GetClassName();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_ClassInfo, GetSize)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_ClassInfo, InitializeClasses)
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_ClassInfo, IsDynamic)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDynamic();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ClassInfo, IsKindOf)
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_ClassInfo, IsKindOf)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *info = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsKindOf(info);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

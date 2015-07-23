@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_MBConvUTF16, MB2WC)
 	char psz = args.GetChar(1);
 	size_t n = args.GetSizeT(2);
 	size_t rtn = pThis->GetEntity()->MB2WC(buf, psz, n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_MBConvUTF16, WC2MB)
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));
 	size_t n = args.GetSizeT(2);
 	size_t rtn = pThis->GetEntity()->WC2MB(buf, psz, n);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

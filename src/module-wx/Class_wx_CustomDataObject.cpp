@@ -67,11 +67,11 @@ Gura_ImplementFunction(CustomDataObject)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CustomDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, Alloc)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, GetData)

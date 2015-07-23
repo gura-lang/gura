@@ -63,11 +63,11 @@ Gura_ImplementFunction(DateSpan)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DateSpan(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DateSpan, Add)
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_DateSpan, Add)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *other = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateSpan rtn = pThis->GetEntity()->Add(*other);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Add_1)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_DateSpan, Add_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *other = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateSpan &rtn = pThis->GetEntity()->Add(*other);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Day)
@@ -112,7 +112,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Day)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateSpan rtn = wxDateSpan::Day();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Days)
@@ -127,7 +127,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Days)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int days = args.GetInt(0);
 	wxDateSpan rtn = wxDateSpan::Days(days);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, GetDays)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_DateSpan, GetDays)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDays();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DateSpan, GetMonths)
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_DateSpan, GetMonths)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMonths();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DateSpan, GetTotalDays)
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_DateSpan, GetTotalDays)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTotalDays();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DateSpan, GetWeeks)
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_DateSpan, GetWeeks)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWeeks();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DateSpan, GetYears)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_DateSpan, GetYears)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetYears();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Month)
@@ -210,7 +210,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Month)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateSpan rtn = wxDateSpan::Month();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Months)
@@ -225,7 +225,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Months)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int mon = args.GetInt(0);
 	wxDateSpan rtn = wxDateSpan::Months(mon);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Multiply)
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_DateSpan, Multiply)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int factor = args.GetInt(0);
 	wxDateSpan rtn = pThis->GetEntity()->Multiply(factor);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Multiply_1)
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_DateSpan, Multiply_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int factor = args.GetInt(0);
 	wxDateSpan &rtn = pThis->GetEntity()->Multiply(factor);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Negate)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_DateSpan, Negate)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan rtn = pThis->GetEntity()->Negate();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Neg)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_DateSpan, Neg)
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan &rtn = pThis->GetEntity()->Neg();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, SetDays)
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_DateSpan, SetDays)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	wxDateSpan &rtn = pThis->GetEntity()->SetDays(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, SetYears)
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_DateSpan, SetYears)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	wxDateSpan &rtn = pThis->GetEntity()->SetYears(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, SetMonths)
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_DateSpan, SetMonths)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	wxDateSpan &rtn = pThis->GetEntity()->SetMonths(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, SetWeeks)
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_DateSpan, SetWeeks)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	wxDateSpan &rtn = pThis->GetEntity()->SetWeeks(n);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Subtract)
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_DateSpan, Subtract)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *other = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateSpan rtn = pThis->GetEntity()->Subtract(*other);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_DateSpan, Subtract_1)
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_DateSpan, Subtract_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateSpan *other = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateSpan &rtn = pThis->GetEntity()->Subtract(*other);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Week)
@@ -394,7 +394,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Week)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateSpan rtn = wxDateSpan::Week();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Weeks)
@@ -409,7 +409,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Weeks)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int weeks = args.GetInt(0);
 	wxDateSpan rtn = wxDateSpan::Weeks(weeks);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Year)
@@ -422,7 +422,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Year)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateSpan rtn = wxDateSpan::Year();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_DateSpan, Years)
@@ -437,7 +437,7 @@ Gura_ImplementClassMethod(wx_DateSpan, Years)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int years = args.GetInt(0);
 	wxDateSpan rtn = wxDateSpan::Years(years);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DateSpan(new wxDateSpan(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

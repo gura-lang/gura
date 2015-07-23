@@ -54,11 +54,11 @@ Gura_ImplementFunction(BitmapHandlerEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BitmapHandler, Create)
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_BitmapHandler, Create)
 	int depth = -1;
 	if (args.IsValid(5)) depth = args.GetInt(5);
 	bool rtn = pThis->GetEntity()->Create(bitmap, data, type, width, height, depth);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetName)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_BitmapHandler, GetExtension)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExtension();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_BitmapHandler, GetType)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetType)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BitmapHandler, LoadFile)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	long type = args.GetLong(2);
 	bool rtn = pThis->GetEntity()->LoadFile(bitmap, name, type);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 	wxPalette *palette = (wxPalette *)(nullptr);
 	if (args.IsValid(3)) palette = Object_wx_Palette::GetObject(args, 3)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(bitmap, name, type, palette);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BitmapHandler, SetName)

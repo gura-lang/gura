@@ -257,7 +257,7 @@ Gura_ImplementMethod(db, query)
 	Object_db *pObj = Object_db::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, args, pIterator);
 }
 
 // sqlite3.db#transaction() {block}
@@ -324,7 +324,7 @@ Gura_ImplementFunction(db)
 {
 	AutoPtr<Object_db> pObj(new Object_db(env));
 	if (!pObj->Open(sig, args.GetString(0))) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObj.release()));
+	return ReturnValue(env, args, Value(pObj.release()));
 }
 
 // Module entry

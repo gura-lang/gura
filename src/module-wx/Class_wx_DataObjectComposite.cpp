@@ -51,11 +51,11 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectComposite(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataObjectComposite, Add)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat rtn = pThis->GetEntity()->GetReceivedFormat();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

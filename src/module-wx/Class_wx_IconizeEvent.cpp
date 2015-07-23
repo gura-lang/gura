@@ -57,11 +57,11 @@ Gura_ImplementFunction(IconizeEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_IconizeEvent, Iconized)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_IconizeEvent, Iconized)
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Iconized();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

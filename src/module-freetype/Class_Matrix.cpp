@@ -108,7 +108,7 @@ Gura_ImplementFunction(Matrix)
 	const Gura::Matrix *pMat = Object_matrix::GetObject(args, 0)->GetMatrix();
 	AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
 	if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
-	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+	return ReturnValue(env, args, Value(pObjRtn.release()));
 }
 
 // freetype.Matrix#Multiply(matrix:freetype.Matrix):reduce

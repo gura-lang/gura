@@ -40,7 +40,7 @@ Gura_ImplementClassMethod(win32_surface, create_emf)
 	Writer_EnhMetaFile *pWriter = new Writer_EnhMetaFile(sig, width, height, hdc);
 	cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
 	Object_surface *pObjSurface = new Object_win32_surface(surface, pWriter);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 // cairo.win32_surface.create_printing(printer_name:string, width_in_points:number, height_in_points:number) {block?}
@@ -97,7 +97,7 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 	Writer_WindowsDC *pWriter = new Writer_WindowsDC(sig, width, height, hdc);
 	cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
 	Object_surface *pObjSurface = new Object_win32_surface(surface, pWriter);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 #endif
 

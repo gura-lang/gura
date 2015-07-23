@@ -55,11 +55,11 @@ Gura_ImplementFunction(DynamicLibraryEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -88,11 +88,11 @@ Gura_ImplementFunction(DynamicLibrary)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -116,7 +116,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizeName)
 	wxDynamicLibraryCategory *cat = (wxDynamicLibraryCategory *)(&wxDL_LIBRARY);
 	if (args.IsValid(1)) cat = Object_wx_DynamicLibraryCategory::GetObject(args, 1)->GetEntity();
 	wxString rtn = wxDynamicLibrary::CanonicalizeName(name, *cat);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -140,7 +140,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 	wxPluginCategory *cat = (wxPluginCategory *)(&wxDL_PLUGIN_GUI);
 	if (args.IsValid(1)) cat = Object_wx_PluginCategory::GetObject(args, 1)->GetEntity();
 	wxString rtn = wxDynamicLibrary::CanonicalizePluginName(name, *cat);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Detach)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDllType rtn = pThis->GetEntity()->Detach();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -210,7 +210,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, GetProgramHandle)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType rtn = wxDynamicLibrary::GetProgramHandle();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, HasSymbol)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasSymbol(name);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DynamicLibrary, IsLoaded)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, IsLoaded)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsLoaded();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, ListLoaded)
@@ -257,7 +257,7 @@ Gura_ImplementClassMethod(wx_DynamicLibrary, ListLoaded)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDynamicLibraryDetailsArray rtn = wxDynamicLibrary::ListLoaded();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DynamicLibraryDetailsArray(new wxDynamicLibraryDetailsArray(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_DynamicLibraryDetailsArray(new wxDynamicLibraryDetailsArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, Load)
 	int flags = wxDL_DEFAULT;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Load(name, flags);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

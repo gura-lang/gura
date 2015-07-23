@@ -28,7 +28,7 @@ Gura_ImplementClassMethod(pdf_surface, create)
 	cairo_surface_t *surface = ::cairo_pdf_surface_create_for_stream(
 					Writer_Stream::write_func, pWriter, width, height);
 	Object_surface *pObjSurface = new Object_pdf_surface(surface, pWriter);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 // cairo.pdf_surface#restrict_to_version(version:number):reduce

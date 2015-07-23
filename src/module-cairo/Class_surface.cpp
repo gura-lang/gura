@@ -85,7 +85,7 @@ Gura_ImplementClassMethod(surface, create_similar)
 	int height = args.GetInt(3);
 	cairo_surface_t *surface = ::cairo_surface_create_similar(other, content, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 // cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
@@ -116,7 +116,7 @@ Gura_ImplementClassMethod(surface, create_similar_image)
 	int height = args.GetInt(3);
 	cairo_surface_t *surface = ::cairo_surface_create_similar_image(other, format, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
 	return Value::Null;
@@ -153,7 +153,7 @@ Gura_ImplementClassMethod(surface, create_for_rectangle)
 	double height = args.GetDouble(4);
 	cairo_surface_t *surface = ::cairo_surface_create_for_rectangle(target, x, y, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, sig, args, Value(pObjSurface));
+	return ReturnValue(env, args, Value(pObjSurface));
 }
 
 //#cairo_surface_t *cairo_surface_reference(cairo_surface_t *surface);

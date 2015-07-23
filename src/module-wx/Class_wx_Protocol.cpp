@@ -46,7 +46,7 @@ Gura_ImplementMethod(wx_Protocol, Reconnect)
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Reconnect();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetInputStream)
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_Protocol, GetInputStream)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Protocol, Abort)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_Protocol, Abort)
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Abort();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetError)
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_Protocol, GetError)
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxProtocolError rtn = pThis->GetEntity()->GetError();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetContentType)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Protocol, GetContentType)
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetContentType();
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Protocol, SetUser)

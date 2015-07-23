@@ -40,7 +40,7 @@ Gura_ImplementClassMethod(toy_font_face, create)
 	cairo_font_weight_t weight = static_cast<cairo_font_weight_t>(args.GetInt(2));
 	cairo_font_face_t *font_face = ::cairo_toy_font_face_create(family, slant, weight);
 	Object_toy_font_face *pObjFontFace = new Object_toy_font_face(font_face);
-	return ReturnValue(env, sig, args, Value(pObjFontFace));
+	return ReturnValue(env, args, Value(pObjFontFace));
 }
 
 // cairo.toy_font_face#get_family()

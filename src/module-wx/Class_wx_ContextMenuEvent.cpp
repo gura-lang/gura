@@ -60,11 +60,11 @@ Gura_ImplementFunction(ContextMenuEvent)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ContextMenuEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ContextMenuEvent, GetPosition)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ContextMenuEvent, SetPosition)

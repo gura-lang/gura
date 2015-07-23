@@ -52,11 +52,11 @@ Gura_ImplementFunction(GBPositionEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GBPosition)
@@ -78,11 +78,11 @@ Gura_ImplementFunction(GBPosition)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GBPosition, GetCol)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_GBPosition, GetCol)
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GBPosition, GetRow)
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_GBPosition, GetRow)
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GBPosition, SetCol)

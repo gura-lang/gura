@@ -51,11 +51,11 @@ Gura_ImplementFunction(DDEClientEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DDEClient, MakeConnection)
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_DDEClient, MakeConnection)
 	wxString service = wxString::FromUTF8(args.GetString(1));
 	wxString topic = wxString::FromUTF8(args.GetString(2));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->MakeConnection(host, service, topic);
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DDEClient, OnMakeConnection)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DDEClient, OnMakeConnection)
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnMakeConnection();
-	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DDEClient, ValidHost)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_DDEClient, ValidHost)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString host = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->ValidHost(host);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -52,11 +52,11 @@ Gura_ImplementFunction(RegionIteratorEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegionIterator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RegionIterator)
@@ -76,11 +76,11 @@ Gura_ImplementFunction(RegionIterator)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegionIterator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetX)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetX)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetY)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetY)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetW)
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetW)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetW();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetHeight)
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetHeight)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetH)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetH)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetH();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetRect)
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetRect)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetRect();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, GetWidth)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_RegionIterator, GetWidth)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord rtn = pThis->GetEntity()->GetWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, HaveRects)
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RegionIterator, HaveRects)
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HaveRects();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RegionIterator, Reset)

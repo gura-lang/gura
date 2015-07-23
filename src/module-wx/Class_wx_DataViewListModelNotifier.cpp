@@ -54,11 +54,11 @@ Gura_ImplementFunction(DataViewListModelNotifierEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewListModelNotifier(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, Cleared)
 	Object_wx_DataViewListModelNotifier *pThis = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Cleared();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, GetOwner)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, GetOwner)
 	Object_wx_DataViewListModelNotifier *pThis = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModel *rtn = (wxDataViewListModel *)pThis->GetEntity()->GetOwner();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowAppended)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowAppended)
 	Object_wx_DataViewListModelNotifier *pThis = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->RowAppended();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowChanged)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowChanged)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->RowChanged(row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowDeleted)
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowDeleted)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->RowDeleted(row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowInserted)
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowInserted)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned before = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->RowInserted(before);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowPrepended)
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowPrepended)
 	Object_wx_DataViewListModelNotifier *pThis = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->RowPrepended();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewListModelNotifier, RowsReordered)
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, RowsReordered)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned int new_order = args.GetUInt(0);
 	bool rtn = pThis->GetEntity()->RowsReordered(new_order);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_DataViewListModelNotifier, ValueChanged)
 	unsigned col = args.GetInt(0);
 	unsigned row = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->ValueChanged(col, row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

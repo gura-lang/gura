@@ -47,7 +47,7 @@ Gura_ImplementClassMethod(wx_RendererVersion, IsCompatible)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRendererVersion *ver = Object_wx_RendererVersion::GetObject(args, 0)->GetEntity();
 	bool rtn = wxRendererVersion::IsCompatible(*ver);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

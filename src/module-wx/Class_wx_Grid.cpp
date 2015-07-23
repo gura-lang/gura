@@ -86,11 +86,11 @@ Gura_ImplementFunction(GridEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Grid(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Grid)
@@ -124,11 +124,11 @@ Gura_ImplementFunction(Grid)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Grid(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Grid, AppendCols)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_Grid, AppendCols)
 	bool updateLabels = true;
 	if (args.IsValid(1)) updateLabels = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->AppendCols(numCols, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, AppendRows)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Grid, AppendRows)
 	bool updateLabels = true;
 	if (args.IsValid(1)) updateLabels = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->AppendRows(numRows, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, AutoSize)
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_Grid, BlockToDeviceRect)
 	wxGridCellCoords *topLeft = Object_wx_GridCellCoords::GetObject(args, 0)->GetEntity();
 	wxGridCellCoords *bottomRight = Object_wx_GridCellCoords::GetObject(args, 1)->GetEntity();
 	wxRect rtn = pThis->GetEntity()->BlockToDeviceRect(*topLeft, *bottomRight);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, CanDragColMove)
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Grid, CanDragColMove)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanDragColMove();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanDragColSize)
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_Grid, CanDragColSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanDragColSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanDragRowSize)
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_Grid, CanDragRowSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanDragRowSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanDragGridSize)
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_Grid, CanDragGridSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanDragGridSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanEnableCellControl)
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_Grid, CanEnableCellControl)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanEnableCellControl();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanHaveAttributes)
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_Grid, CanHaveAttributes)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_CanHaveAttributes();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CellToRect)
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_Grid, CellToRect)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxRect rtn = pThis->GetEntity()->CellToRect(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, CellToRect_1)
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_Grid, CellToRect_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords *coords = Object_wx_GridCellCoords::GetObject(args, 0)->GetEntity();
 	wxRect rtn = pThis->GetEntity()->CellToRect(*coords);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, ClearGrid)
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_Grid, CreateGrid)
 	wxGrid::wxGridSelectionModes selmode = wxGrid::wxGridSelectCells;
 	if (args.IsValid(2)) selmode = static_cast<wxGrid::wxGridSelectionModes>(args.GetInt(2));
 	bool rtn = pThis->GetEntity()->CreateGrid(numRows, numCols, selmode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, DeleteCols)
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_Grid, DeleteCols)
 	bool updateLabels = true;
 	if (args.IsValid(2)) updateLabels = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->DeleteCols(pos, numCols, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, DeleteRows)
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_Grid, DeleteRows)
 	bool updateLabels = true;
 	if (args.IsValid(2)) updateLabels = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->DeleteRows(pos, numRows, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, DeselectCell)
@@ -767,7 +767,7 @@ Gura_ImplementMethod(wx_Grid, GetBatchCount)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBatchCount();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellOverflow)
@@ -785,7 +785,7 @@ Gura_ImplementMethod(wx_Grid, GetCellOverflow)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->GetCellOverflow(row, col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellAlignment)
@@ -805,7 +805,7 @@ Gura_ImplementMethod(wx_Grid, GetCellAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetCellAlignment(row, col, &horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
+	return ReturnValue(env, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellBackgroundColour)
@@ -823,7 +823,7 @@ Gura_ImplementMethod(wx_Grid, GetCellBackgroundColour)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxColour rtn = pThis->GetEntity()->GetCellBackgroundColour(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellEditor)
@@ -841,7 +841,7 @@ Gura_ImplementMethod(wx_Grid, GetCellEditor)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->GetCellEditor(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellFont)
@@ -859,7 +859,7 @@ Gura_ImplementMethod(wx_Grid, GetCellFont)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxFont rtn = pThis->GetEntity()->GetCellFont(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellHighlightPenWidth)
@@ -873,7 +873,7 @@ Gura_ImplementMethod(wx_Grid, GetCellHighlightPenWidth)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCellHighlightPenWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellHighlightROPenWidth)
@@ -887,7 +887,7 @@ Gura_ImplementMethod(wx_Grid, GetCellHighlightROPenWidth)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCellHighlightROPenWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellRenderer)
@@ -907,7 +907,7 @@ Gura_ImplementMethod(wx_Grid, GetCellRenderer)
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->GetCellRenderer(row, col);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellTextColour)
@@ -925,7 +925,7 @@ Gura_ImplementMethod(wx_Grid, GetCellTextColour)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxColour rtn = pThis->GetEntity()->GetCellTextColour(row, col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellValue)
@@ -943,7 +943,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->GetCellValue(row, col);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellValue_1)
@@ -959,7 +959,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords *coords = Object_wx_GridCellCoords::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetCellValue(*coords);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColAt)
@@ -975,7 +975,7 @@ Gura_ImplementMethod(wx_Grid, GetColAt)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int colPos = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetColAt(colPos);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColLeft)
@@ -991,7 +991,7 @@ Gura_ImplementMethod(wx_Grid, GetColLeft)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_GetColLeft(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColLabelAlignment)
@@ -1007,7 +1007,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetColLabelAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
+	return ReturnValue(env, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColLabelSize)
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColLabelSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColLabelValue)
@@ -1037,7 +1037,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetColLabelValue(col);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColMinimalAcceptableWidth)
@@ -1051,7 +1051,7 @@ Gura_ImplementMethod(wx_Grid, GetColMinimalAcceptableWidth)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColMinimalAcceptableWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColMinimalWidth)
@@ -1067,7 +1067,7 @@ Gura_ImplementMethod(wx_Grid, GetColMinimalWidth)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_GetColMinimalWidth(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColPos)
@@ -1083,7 +1083,7 @@ Gura_ImplementMethod(wx_Grid, GetColPos)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int colID = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetColPos(colID);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColRight)
@@ -1099,7 +1099,7 @@ Gura_ImplementMethod(wx_Grid, GetColRight)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_GetColRight(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColSize)
@@ -1115,7 +1115,7 @@ Gura_ImplementMethod(wx_Grid, GetColSize)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetColSize(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellAlignment)
@@ -1131,7 +1131,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetDefaultCellAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
+	return ReturnValue(env, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellBackgroundColour)
@@ -1145,7 +1145,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellBackgroundColour)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetDefaultCellBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellFont)
@@ -1159,7 +1159,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellFont)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetDefaultCellFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellOverflow)
@@ -1173,7 +1173,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellOverflow)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetDefaultCellOverflow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellTextColour)
@@ -1187,7 +1187,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellTextColour)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetDefaultCellTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultColLabelSize)
@@ -1201,7 +1201,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultColLabelSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultColLabelSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultColSize)
@@ -1215,7 +1215,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultColSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultColSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditor)
@@ -1231,7 +1231,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditor)
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->GetDefaultEditor();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForCell)
@@ -1251,7 +1251,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForCell)
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->GetDefaultEditorForCell(row, col);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForCell_1)
@@ -1269,7 +1269,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForCell_1)
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->GetDefaultEditorForCell(*c);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultEditorForType)
@@ -1287,7 +1287,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultEditorForType)
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->GetDefaultEditorForType(typeName);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellEditor(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRenderer)
@@ -1303,7 +1303,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRenderer)
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->GetDefaultRenderer();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRendererForCell)
@@ -1323,7 +1323,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRendererForCell)
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->GetDefaultRendererForCell(row, col);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRendererForType)
@@ -1341,7 +1341,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRendererForType)
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->GetDefaultRendererForType(typeName);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRowLabelSize)
@@ -1355,7 +1355,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRowLabelSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultRowLabelSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultRowSize)
@@ -1369,7 +1369,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultRowSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultRowSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetGridCursorCol)
@@ -1383,7 +1383,7 @@ Gura_ImplementMethod(wx_Grid, GetGridCursorCol)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetGridCursorCol();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetGridCursorRow)
@@ -1397,7 +1397,7 @@ Gura_ImplementMethod(wx_Grid, GetGridCursorRow)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetGridCursorRow();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetGridLineColour)
@@ -1411,7 +1411,7 @@ Gura_ImplementMethod(wx_Grid, GetGridLineColour)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetGridLineColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultGridLinePen)
@@ -1425,7 +1425,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultGridLinePen)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPen rtn = pThis->GetEntity()->GetDefaultGridLinePen();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowGridLinePen)
@@ -1441,7 +1441,7 @@ Gura_ImplementMethod(wx_Grid, GetRowGridLinePen)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	wxPen rtn = pThis->GetEntity()->GetRowGridLinePen(row);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColGridLinePen)
@@ -1457,7 +1457,7 @@ Gura_ImplementMethod(wx_Grid, GetColGridLinePen)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	wxPen rtn = pThis->GetEntity()->GetColGridLinePen(col);
-	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Pen(new wxPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GridLinesEnabled)
@@ -1471,7 +1471,7 @@ Gura_ImplementMethod(wx_Grid, GridLinesEnabled)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GridLinesEnabled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetLabelBackgroundColour)
@@ -1485,7 +1485,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelBackgroundColour)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetLabelBackgroundColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetLabelFont)
@@ -1499,7 +1499,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelFont)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetLabelFont();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetLabelTextColour)
@@ -1513,7 +1513,7 @@ Gura_ImplementMethod(wx_Grid, GetLabelTextColour)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetLabelTextColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetNumberCols)
@@ -1527,7 +1527,7 @@ Gura_ImplementMethod(wx_Grid, GetNumberCols)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetNumberCols();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetNumberRows)
@@ -1541,7 +1541,7 @@ Gura_ImplementMethod(wx_Grid, GetNumberRows)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetNumberRows();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetOrCreateCellAttr)
@@ -1561,7 +1561,7 @@ Gura_ImplementMethod(wx_Grid, GetOrCreateCellAttr)
 	wxGridCellAttr *rtn = (wxGridCellAttr *)pThis->GetEntity()->GetOrCreateCellAttr(row, col);
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridCellAttr(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowMinimalAcceptableHeight)
@@ -1575,7 +1575,7 @@ Gura_ImplementMethod(wx_Grid, GetRowMinimalAcceptableHeight)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRowMinimalAcceptableHeight();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowMinimalHeight)
@@ -1591,7 +1591,7 @@ Gura_ImplementMethod(wx_Grid, GetRowMinimalHeight)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_GetRowMinimalHeight(col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelAlignment)
@@ -1607,7 +1607,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetRowLabelAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
+	return ReturnValue(env, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelSize)
@@ -1621,7 +1621,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelSize)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRowLabelSize();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelValue)
@@ -1637,7 +1637,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetRowLabelValue(row);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowSize)
@@ -1653,7 +1653,7 @@ Gura_ImplementMethod(wx_Grid, GetRowSize)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetRowSize(row);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetScrollLineX)
@@ -1667,7 +1667,7 @@ Gura_ImplementMethod(wx_Grid, GetScrollLineX)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetScrollLineX();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetScrollLineY)
@@ -1681,7 +1681,7 @@ Gura_ImplementMethod(wx_Grid, GetScrollLineY)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetScrollLineY();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectionMode)
@@ -1707,7 +1707,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedCells)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoordsArray rtn = pThis->GetEntity()->GetSelectedCells();
-	return ReturnValue(env, sig, args, GridCellCoordsArrayToValue(env, rtn));
+	return ReturnValue(env, args, GridCellCoordsArrayToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectedCols)
@@ -1721,7 +1721,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedCols)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt rtn = pThis->GetEntity()->GetSelectedCols();
-	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
+	return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectedRows)
@@ -1735,7 +1735,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectedRows)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt rtn = pThis->GetEntity()->GetSelectedRows();
-	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
+	return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBackground)
@@ -1749,7 +1749,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBackground)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetSelectionBackground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBlockTopLeft)
@@ -1763,7 +1763,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBlockTopLeft)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoordsArray rtn = pThis->GetEntity()->GetSelectionBlockTopLeft();
-	return ReturnValue(env, sig, args, GridCellCoordsArrayToValue(env, rtn));
+	return ReturnValue(env, args, GridCellCoordsArrayToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectionBlockBottomRight)
@@ -1777,7 +1777,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionBlockBottomRight)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoordsArray rtn = pThis->GetEntity()->GetSelectionBlockBottomRight();
-	return ReturnValue(env, sig, args, GridCellCoordsArrayToValue(env, rtn));
+	return ReturnValue(env, args, GridCellCoordsArrayToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, GetSelectionForeground)
@@ -1791,7 +1791,7 @@ Gura_ImplementMethod(wx_Grid, GetSelectionForeground)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetSelectionForeground();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Grid, GetTable)
@@ -1807,7 +1807,7 @@ Gura_ImplementMethod(wx_Grid, GetTable)
 	wxGridTableBase *rtn = (wxGridTableBase *)pThis->GetEntity()->GetTable();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GridTableBase(rtn, nullptr, OwnerFalse));
-	return ReturnValue(env, sig, args, value);
+	return ReturnValue(env, args, value);
 }
 
 Gura_DeclareMethod(wx_Grid, GetViewWidth)
@@ -1821,7 +1821,7 @@ Gura_ImplementMethod(wx_Grid, GetViewWidth)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetViewWidth();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, HideCellEditControl)
@@ -1883,7 +1883,7 @@ Gura_ImplementMethod(wx_Grid, InsertCols)
 	bool updateLabels = true;
 	if (args.IsValid(2)) updateLabels = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->InsertCols(pos, numCols, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, InsertRows)
@@ -1906,7 +1906,7 @@ Gura_ImplementMethod(wx_Grid, InsertRows)
 	bool updateLabels = true;
 	if (args.IsValid(2)) updateLabels = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->InsertRows(pos, numRows, updateLabels);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsCellEditControlEnabled)
@@ -1920,7 +1920,7 @@ Gura_ImplementMethod(wx_Grid, IsCellEditControlEnabled)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCellEditControlEnabled();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsCurrentCellReadOnly)
@@ -1934,7 +1934,7 @@ Gura_ImplementMethod(wx_Grid, IsCurrentCellReadOnly)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCurrentCellReadOnly();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsEditable)
@@ -1948,7 +1948,7 @@ Gura_ImplementMethod(wx_Grid, IsEditable)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEditable();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsInSelection)
@@ -1966,7 +1966,7 @@ Gura_ImplementMethod(wx_Grid, IsInSelection)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->IsInSelection(row, col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsInSelection_1)
@@ -1982,7 +1982,7 @@ Gura_ImplementMethod(wx_Grid, IsInSelection_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords *coords = Object_wx_GridCellCoords::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsInSelection(*coords);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsReadOnly)
@@ -2000,7 +2000,7 @@ Gura_ImplementMethod(wx_Grid, IsReadOnly)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->IsReadOnly(row, col);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsSelection)
@@ -2014,7 +2014,7 @@ Gura_ImplementMethod(wx_Grid, IsSelection)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsSelection();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsVisible)
@@ -2035,7 +2035,7 @@ Gura_ImplementMethod(wx_Grid, IsVisible)
 	bool wholeCellVisible = true;
 	if (args.IsValid(2)) wholeCellVisible = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->IsVisible(row, col, wholeCellVisible);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, IsVisible_1)
@@ -2054,7 +2054,7 @@ Gura_ImplementMethod(wx_Grid, IsVisible_1)
 	bool wholeCellVisible = true;
 	if (args.IsValid(1)) wholeCellVisible = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->IsVisible(*coords, wholeCellVisible);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MakeCellVisible)
@@ -2102,7 +2102,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorDown)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorDown(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorLeft)
@@ -2118,7 +2118,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorLeft)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorLeft(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorRight)
@@ -2134,7 +2134,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorRight)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorRight(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorUp)
@@ -2150,7 +2150,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorUp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorUp(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorDownBlock)
@@ -2166,7 +2166,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorDownBlock)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorDownBlock(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorLeftBlock)
@@ -2182,7 +2182,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorLeftBlock)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorLeftBlock(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorRightBlock)
@@ -2198,7 +2198,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorRightBlock)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorRightBlock(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MoveCursorUpBlock)
@@ -2214,7 +2214,7 @@ Gura_ImplementMethod(wx_Grid, MoveCursorUpBlock)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool expandSelection = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->MoveCursorUpBlock(expandSelection);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MovePageDown)
@@ -2228,7 +2228,7 @@ Gura_ImplementMethod(wx_Grid, MovePageDown)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MovePageDown();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, MovePageUp)
@@ -2242,7 +2242,7 @@ Gura_ImplementMethod(wx_Grid, MovePageUp)
 	Object_wx_Grid *pThis = Object_wx_Grid::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MovePageUp();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, RegisterDataType)
@@ -3117,7 +3117,7 @@ Gura_ImplementMethod(wx_Grid, SetOrCalcColumnSizes)
 	bool setAsMin = true;
 	if (args.IsValid(1)) setAsMin = args.GetBoolean(1);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_SetOrCalcColumnSizes(calcOnly, setAsMin);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, SetOrCalcRowSizes)
@@ -3136,7 +3136,7 @@ Gura_ImplementMethod(wx_Grid, SetOrCalcRowSizes)
 	bool setAsMin = true;
 	if (args.IsValid(1)) setAsMin = args.GetBoolean(1);
 	int rtn = dynamic_cast<wx_Grid *>(pThis->GetEntity())->_SetOrCalcRowSizes(calcOnly, setAsMin);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, SetReadOnly)
@@ -3369,7 +3369,7 @@ Gura_ImplementMethod(wx_Grid, SetTable)
 	wxGrid::wxGridSelectionModes selmode = wxGrid::wxGridSelectCells;
 	if (args.IsValid(2)) selmode = static_cast<wxGrid::wxGridSelectionModes>(args.GetInt(2));
 	bool rtn = pThis->GetEntity()->SetTable(table, takeOwnership, selmode);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, ShowCellEditControl)
@@ -3401,7 +3401,7 @@ Gura_ImplementMethod(wx_Grid, XToCol)
 	bool clipToMinMax = false;
 	if (args.IsValid(1)) clipToMinMax = args.GetBoolean(1);
 	int rtn = pThis->GetEntity()->XToCol(x, clipToMinMax);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, XToEdgeOfCol)
@@ -3417,7 +3417,7 @@ Gura_ImplementMethod(wx_Grid, XToEdgeOfCol)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int rtn = pThis->GetEntity()->XToEdgeOfCol(x);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, YToEdgeOfRow)
@@ -3433,7 +3433,7 @@ Gura_ImplementMethod(wx_Grid, YToEdgeOfRow)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int y = args.GetInt(0);
 	int rtn = pThis->GetEntity()->YToEdgeOfRow(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, YToRow)
@@ -3449,7 +3449,7 @@ Gura_ImplementMethod(wx_Grid, YToRow)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int y = args.GetInt(0);
 	int rtn = pThis->GetEntity()->YToRow(y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

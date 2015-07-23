@@ -54,11 +54,11 @@ Gura_ImplementFunction(Printer)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Printer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Printer, CreateAbortWindow)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Printer, GetAbort)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetAbort();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_Printer, GetLastError)
@@ -102,7 +102,7 @@ Gura_ImplementClassMethod(wx_Printer, GetLastError)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrinterError rtn = wxPrinter::GetLastError();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Printer, GetPrintDialogData)
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintDialogData &rtn = pThis->GetEntity()->GetPrintDialogData();
-	return ReturnValue(env, sig, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Printer, Print)
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_Printer, Print)
 	bool prompt = true;
 	if (args.IsValid(2)) prompt = args.GetBoolean(2);
 	bool rtn = pThis->GetEntity()->Print(parent, printout, prompt);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Printer, PrintDialog)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Printer, PrintDialog)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->PrintDialog(parent);
-	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Printer, ReportError)
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Printer, Setup)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Setup(parent);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

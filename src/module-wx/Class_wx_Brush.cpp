@@ -55,11 +55,11 @@ Gura_ImplementFunction(BrushEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush)
@@ -82,11 +82,11 @@ Gura_ImplementFunction(Brush)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_1)
@@ -108,11 +108,11 @@ Gura_ImplementFunction(Brush_1)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_2)
@@ -132,11 +132,11 @@ Gura_ImplementFunction(Brush_2)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_3)
@@ -156,11 +156,11 @@ Gura_ImplementFunction(Brush_3)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Brush, GetColour)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_Brush, GetColour)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetColour();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_Brush, GetStipple)
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Brush, GetStipple)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *rtn = (wxBitmap *)pThis->GetEntity()->GetStipple();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Brush, GetStyle)
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Brush, GetStyle)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetStyle();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Brush, IsHatch)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_Brush, IsHatch)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsHatch();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Brush, IsOk)
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_Brush, IsOk)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Brush, SetColour)

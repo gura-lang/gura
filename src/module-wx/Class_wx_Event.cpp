@@ -63,11 +63,11 @@ Gura_ImplementFunction(Event)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Event(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_Event, Clone)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventObject)
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_Event, GetEventObject)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetEventObject();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventType)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_Event, GetEventType)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEventType rtn = pThis->GetEntity()->GetEventType();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetId)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_Event, GetId)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetSkipped)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_Event, GetSkipped)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSkipped();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetTimestamp)
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Event, GetTimestamp)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetTimestamp();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, IsCommandEvent)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Event, IsCommandEvent)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCommandEvent();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, ResumePropagation)
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_Event, ShouldPropagate)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ShouldPropagate();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, Skip)
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_Event, StopPropagation)
 	Object_wx_Event *pThis = Object_wx_Event::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->StopPropagation();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

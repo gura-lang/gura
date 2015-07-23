@@ -54,11 +54,11 @@ Gura_ImplementFunction(ColourEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Colour)
@@ -85,11 +85,11 @@ Gura_ImplementFunction(Colour)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(NamedColour)
@@ -109,11 +109,11 @@ Gura_ImplementFunction(NamedColour)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Colour, Alpha)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_Colour, Alpha)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Alpha();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Colour, Blue)
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Colour, Blue)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Blue();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Colour, GetAsString)
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Colour, GetAsString)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetAsString(flags);
-	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 #if 0
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_Colour, GetPixel)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetPixel();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 #endif
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Colour, Green)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Green();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Colour, IsOk)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Colour, IsOk)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Colour, Red)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Colour, Red)
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Red();
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Colour, Set)
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Colour, SetFromName)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Set(str);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 // operator ==

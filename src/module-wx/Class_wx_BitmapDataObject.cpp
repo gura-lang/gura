@@ -59,11 +59,11 @@ Gura_ImplementFunction(BitmapDataObject)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)

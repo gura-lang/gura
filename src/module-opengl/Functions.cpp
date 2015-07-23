@@ -70,7 +70,7 @@ Gura_ImplementFunction(__glAreTexturesResident)
 	for (GLsizei i = 0; i < n; i++) {
 		valList.push_back(residences[i] != 0);
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, args, _rtnVal);
 }
 
 // opengl.glArrayElement
@@ -2095,7 +2095,7 @@ Gura_ImplementFunction(__glGenLists)
 {
 	GLsizei range = args.GetInt(0);
 	GLuint _rtn = glGenLists(range);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // opengl.glGenTextures
@@ -2141,7 +2141,7 @@ Gura_ImplementFunction(__glGetBooleanv)
 	for (GLsizei i = 0; i < n; i++) {
 		valList.push_back(params[i] != 0);
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, args, _rtnVal);
 }
 
 // opengl.glGetClipPlane
@@ -2159,7 +2159,7 @@ Gura_ImplementFunction(__glGetClipPlane)
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
 	GLdouble equation[4];
 	glGetClipPlane(plane, equation);
-	return ReturnValue(env, sig, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
+	return ReturnValue(env, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
 }
 
 // opengl.glGetDoublev
@@ -2180,7 +2180,7 @@ Gura_ImplementFunction(__glGetDoublev)
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetError
@@ -2196,7 +2196,7 @@ Gura_DeclareFunctionAlias(__glGetError, "glGetError")
 Gura_ImplementFunction(__glGetError)
 {
 	GLenum _rtn = glGetError();
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // opengl.glGetFloatv
@@ -2217,7 +2217,7 @@ Gura_ImplementFunction(__glGetFloatv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetIntegerv
@@ -2238,7 +2238,7 @@ Gura_ImplementFunction(__glGetIntegerv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetLightfv
@@ -2261,7 +2261,7 @@ Gura_ImplementFunction(__glGetLightfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetLightiv
@@ -2284,7 +2284,7 @@ Gura_ImplementFunction(__glGetLightiv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMapdv
@@ -2385,7 +2385,7 @@ Gura_ImplementFunction(__glGetMaterialfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetMaterialiv
@@ -2408,7 +2408,7 @@ Gura_ImplementFunction(__glGetMaterialiv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetPixelMapfv
@@ -2524,7 +2524,7 @@ Gura_ImplementFunction(__glGetString)
 		sig.SetError(ERR_ValueError, "invalid name");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // opengl.glGetTexEnvfv
@@ -2547,7 +2547,7 @@ Gura_ImplementFunction(__glGetTexEnvfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexEnviv
@@ -2570,7 +2570,7 @@ Gura_ImplementFunction(__glGetTexEnviv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGendv
@@ -2593,7 +2593,7 @@ Gura_ImplementFunction(__glGetTexGendv)
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGenfv
@@ -2616,7 +2616,7 @@ Gura_ImplementFunction(__glGetTexGenfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexGeniv
@@ -2639,7 +2639,7 @@ Gura_ImplementFunction(__glGetTexGeniv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexLevelParameterfv
@@ -2664,7 +2664,7 @@ Gura_ImplementFunction(__glGetTexLevelParameterfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexLevelParameteriv
@@ -2689,7 +2689,7 @@ Gura_ImplementFunction(__glGetTexLevelParameteriv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexParameterfv
@@ -2712,7 +2712,7 @@ Gura_ImplementFunction(__glGetTexParameterfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glGetTexParameteriv
@@ -2735,7 +2735,7 @@ Gura_ImplementFunction(__glGetTexParameteriv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
-	return ReturnValue(env, sig, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, args, Value::CreateList(env, params, n));
 }
 
 // opengl.glHint
@@ -2979,7 +2979,7 @@ Gura_ImplementFunction(__glIsEnabled)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	GLboolean _rtn = glIsEnabled(cap);
-	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsList
@@ -2997,7 +2997,7 @@ Gura_ImplementFunction(__glIsList)
 {
 	GLuint list = args.GetUInt(0);
 	GLboolean _rtn = glIsList(list);
-	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glIsTexture
@@ -3015,7 +3015,7 @@ Gura_ImplementFunction(__glIsTexture)
 {
 	GLuint texture = args.GetUInt(0);
 	GLboolean _rtn = glIsTexture(texture);
-	return ReturnValue(env, sig, args, Value(_rtn != GL_FALSE));
+	return ReturnValue(env, args, Value(_rtn != GL_FALSE));
 }
 
 // opengl.glLightModelf
@@ -4984,7 +4984,7 @@ Gura_ImplementFunction(__glReadPixels)
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
-	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
 
 // opengl.glRectd
@@ -5210,7 +5210,7 @@ Gura_ImplementFunction(__glRenderMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	GLint _rtn = glRenderMode(mode);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 }
 
 // opengl.glRotated
@@ -7374,7 +7374,7 @@ Gura_ImplementFunction(__glGetUniformLocation)
 	Array<char> *_name = Object_array<char>::GetObject(args, 1)->GetArray();
 	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
 	GLint _rtn = glGetUniformLocation(program, name);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformLocation");
 	return Value::Null;
@@ -7580,7 +7580,7 @@ Gura_ImplementFunction(__glGetAttribLocation)
 	Array<char> *_name = Object_array<char>::GetObject(args, 1)->GetArray();
 	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
 	GLint _rtn = glGetAttribLocation(program, name);
-	return ReturnValue(env, sig, args, Value(_rtn));
+	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetAttribLocation");
 	return Value::Null;

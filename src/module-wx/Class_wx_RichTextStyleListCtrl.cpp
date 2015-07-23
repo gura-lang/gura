@@ -66,11 +66,11 @@ Gura_ImplementFunction(RichTextStyleListCtrl)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleListCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RichTextStyleListCtrlEmpty)
@@ -88,11 +88,11 @@ Gura_ImplementFunction(RichTextStyleListCtrlEmpty)
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleListCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
+	return ReturnValue(env, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, Create)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, Create)
 	long style = 0;
 	if (args.IsValid(4)) style = args.GetLong(4);
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pThis->GetEntity()->GetRichTextCtrl();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChoice *rtn = (wxChoice *)pThis->GetEntity()->GetStyleChoice();
-	return ReturnValue(env, sig, args, Value(new Object_wx_Choice(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_Choice(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleListBox *rtn = (wxRichTextStyleListBox *)pThis->GetEntity()->GetStyleListBox();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleListBox(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleListBox(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
-	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleType)
