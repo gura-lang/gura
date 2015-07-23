@@ -249,8 +249,8 @@ public:
 		virtual ~FrameCache();
 	};
 protected:
+	Signal &_sig;	// this must be placed at top.
 	int _cntRef;
-	Signal &_sig;
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
 public:
@@ -263,8 +263,8 @@ protected:
 	virtual ~Environment();
 public:
 	inline Signal &GetSignal() const { return _sig; }
-	bool InitializeAsRoot(Signal &sig, int &argc, const char *argv[],
-								const Option::Info *optInfoTbl, int cntOptInfo);
+	bool InitializeAsRoot(int &argc, const char *argv[],
+						  const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
 	inline const FrameOwner &GetFrameOwner() const { return _frameOwner;					}
 	inline FrameCache *GetFrameCache()			{ return _pFrameCache.get();				}

@@ -82,7 +82,7 @@ Value Expr::Exec(Environment &env, Signal &sig,
 	if (_bridgeFunction == nullptr) {
 		result = DoExec(env, sig, pSeqPostHandler.get());
 	} else {
-		(*_bridgeFunction)(env, sig, Value::Null, result);
+		(*_bridgeFunction)(env, Value::Null, result);
 	}
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);

@@ -9,8 +9,9 @@ Gura_BeginModuleBody(llvm)
 // Gura Stub Functions
 //-----------------------------------------------------------------------------
 extern "C" bool GuraStub_LookupValue(
-	Environment &env, Signal &sig, Value &valueResult, const Symbol *pSymbol)
+	Environment &env, Value &valueResult, const Symbol *pSymbol)
 {
+	Signal &sig = env.GetSignal();
 	Value *pValue = env.LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
 		sig.SetError(ERR_ValueError, "undefined variable %s", pSymbol->GetName());
@@ -21,9 +22,10 @@ extern "C" bool GuraStub_LookupValue(
 }
 
 extern "C" bool GuraStub_LookupValueInMember(
-	Environment &env, Signal &sig, Value &valueThis, Value &valueResult,
+	Environment &env, Value &valueThis, Value &valueResult,
 	const Symbol *pSymbol, Expr_Member::Mode mode)
 {
+	Signal &sig = env.GetSignal();
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
 	if (pFund == nullptr) return false;
@@ -61,16 +63,17 @@ extern "C" bool GuraStub_LookupValueInMember(
 	return true;
 }
 
-extern "C" bool GuraStub_AssignValue(Environment &env, Signal &sig,
+extern "C" bool GuraStub_AssignValue(Environment &env,
 									 const Symbol *pSymbol, const Value &value, ULong extra)
 {
 	env.AssignValue(pSymbol, value, extra);
 	return true;
 }
 
-extern "C" bool GuraStub_AddValueList(Environment &env, Signal &sig,
+extern "C" bool GuraStub_AddValueList(Environment &env,
 									  ValueList &valList, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
@@ -112,25 +115,28 @@ extern "C" ValueList *GuraStub_CreateValueList(Environment &env, Value &value)
 }
 
 #define ImplementPrefixedUnaryOpStub(name) \
-extern "C" bool GuraStub_UnaryOp_##name(Environment &env, Signal &sig, \
+extern "C" bool GuraStub_UnaryOp_##name(Environment &env, \
 									Value &valueResult, const Value &value)	\
 { \
+	Signal &sig = env.GetSignal(); \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, false)); \
 	return sig.IsNoSignalled(); \
 }
 
 #define ImplementSuffixedUnaryOpStub(name) \
-extern "C" bool GuraStub_UnaryOp_##name(Environment &env, Signal &sig, \
+extern "C" bool GuraStub_UnaryOp_##name(Environment &env, \
 									Value &valueResult, const Value &value)	\
 { \
+	Signal &sig = env.GetSignal(); \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, true)); \
 	return sig.IsNoSignalled(); \
 }
 
 #define ImplementBinaryOpStub(name) \
-extern "C" bool GuraStub_BinaryOp_##name(Environment &env, Signal &sig, \
+extern "C" bool GuraStub_BinaryOp_##name(Environment &env, \
 					Value &valueResult, const Value &valueLeft, const Value &valueRight) \
 { \
+	Signal &sig = env.GetSignal(); \
 	Gura_CopyValue(valueResult, Operator::name->EvalMapBinary(env, sig, valueLeft, valueRight)); \
 	return sig.IsNoSignalled(); \
 }
@@ -167,9 +173,9 @@ ImplementBinaryOpStub(Seq)
 ImplementBinaryOpStub(Pair)
 
 extern "C" bool GuraStub_IndexGet(
-	Environment &env, Signal &sig,
-	ValueList &valList, const Value &valueCar, const Value &valueIdx)
+	Environment &env, ValueList &valList, const Value &valueCar, const Value &valueIdx)
 {
+	Signal &sig = env.GetSignal();
 	if (valueIdx.IsListOrIterator()) {
 		AutoPtr<Iterator> pIterator(valueIdx.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
@@ -193,9 +199,9 @@ extern "C" bool GuraStub_IndexGet(
 }
 
 extern "C" bool GuraStub_IndexSet(
-	Environment &env, Signal &sig,
-	Value &valueCar, const Value &valueIdx, const Value &valueAssigned)
+	Environment &env, Value &valueCar, const Value &valueIdx, const Value &valueAssigned)
 {
+	Signal &sig = env.GetSignal();
 	if (!valueIdx.IsListOrIterator()) {
 		valueCar.IndexSet(env, sig, valueIdx, valueAssigned);
 		return sig.IsNoSignalled();
@@ -232,9 +238,9 @@ extern "C" bool GuraStub_IndexSet(
 }
 
 extern "C" bool GuraStub_IndexSetByIterator(
-	Environment &env, Signal &sig,
-	Value &valueCar, const Value &valueIdx, Iterator *pIteratorAssigned)
+	Environment &env, Value &valueCar, const Value &valueIdx, Iterator *pIteratorAssigned)
 {
+	Signal &sig = env.GetSignal();
 	if (valueIdx.IsListOrIterator()) {
 		AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
@@ -259,24 +265,27 @@ extern "C" bool GuraStub_IndexSetByIterator(
 }
 
 extern "C" bool GuraStub_EmptyIndexGet(
-	Environment &env, Signal &sig, Value &valueResult, const Value &valueCar)
+	Environment &env, Value &valueResult, const Value &valueCar)
 {
+	Signal &sig = env.GetSignal();
 	valueResult = valueCar.EmptyIndexGet(env, sig);
 	return sig.IsNoSignalled();
 }
 
 extern "C" bool GuraStub_EmptyIndexSet(
-	Environment &env, Signal &sig, Value &valueCar, const Value &value)
+	Environment &env, Value &valueCar, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	valueCar.EmptyIndexSet(env, sig, value);
 	return sig.IsNoSignalled();
 }
 
 extern "C" bool GuraStub_CallFunction(
-	Environment &env, Signal &sig, Value &valueThis,
+	Environment &env, Value &valueThis,
 	Value &valueResult, const Value &valueCar,
 	BridgeFunctionT bridgeFuncBlockParam, BridgeFunctionT bridgeFuncBlock, ...)
 {
+	Signal &sig = env.GetSignal();
 	if (!valueCar.Is_function()) {
 		sig.SetError(ERR_TypeError, "object is not a function");
 		Gura_CopyValue(valueResult, Value::Null);
@@ -289,7 +298,7 @@ extern "C" bool GuraStub_CallFunction(
 	pArgs->SetThis(valueThis);
 	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
 		Value valueResult;
-		bridgeFuncArg(env, sig, valueThis, valueResult);
+		bridgeFuncArg(env, valueThis, valueResult);
 		if (sig.IsSignalled()) return false;
 		pArgs->AddValue(valueResult);
 	}
@@ -297,9 +306,10 @@ extern "C" bool GuraStub_CallFunction(
 	return sig.IsNoSignalled();
 }
 
-extern "C" bool GuraStub_CreateIterator(Environment &env, Signal &sig,
-										Value &value, Iterator **ppIterator)
+extern "C" bool GuraStub_CreateIterator(
+	Environment &env, Value &value, Iterator **ppIterator)
 {
+	Signal &sig = env.GetSignal();
 	*ppIterator = value.CreateIterator(sig);
 	return *ppIterator != nullptr;
 }
@@ -309,8 +319,9 @@ extern "C" void GuraStub_ReleaseIterator(Iterator *pIterator)
 	Iterator::Delete(pIterator);
 }
 
-extern "C" bool GuraStub_NextIterator(Environment &env, Signal &sig, Iterator *pIterator, Value &value)
+extern "C" bool GuraStub_NextIterator(Environment &env, Iterator *pIterator, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	return pIterator->Next(env, sig, value);
 }
 
@@ -356,8 +367,8 @@ private:
 public:
 	CodeGeneratorLLVM();
 	inline llvm::Module *GetModule() { return _pModule.get(); }
-	bool Generate(Environment &env, Signal &sig, const Expr *pExpr);
-	Value Run(Environment &env, Signal &sig);
+	bool Generate(Environment &env, const Expr *pExpr);
+	Value Run(Environment &env);
 private:
 	inline llvm::Function *GetFunctionCur() {
 		return _builder.GetInsertBlock()->getParent();
@@ -374,8 +385,7 @@ private:
 	inline llvm::BasicBlock *GetBasicBlockRelease() {
 		return _contextStack.back()->GetBasicBlockRelease();
 	}
-	llvm::Function *CreateBridgeFunction(Environment &env, Signal &sig,
-										 const Expr *pExpr, const char *name);
+	llvm::Function *CreateBridgeFunction(Environment &env, const Expr *pExpr, const char *name);
 private:
 	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExprValue);
 	virtual bool GenCode_Identifier(Environment &env, const Expr_Identifier *pExpr);
@@ -436,7 +446,7 @@ CodeGeneratorLLVM::CodeGeneratorLLVM() :
 {
 }
 
-bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExpr)
+bool CodeGeneratorLLVM::Generate(Environment &env, const Expr *pExpr)
 {
 	_pModule.reset(new llvm::Module("gura", llvm::getGlobalContext()));
 	do {
@@ -450,35 +460,35 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		// %struct.ValueList = type { i32 }
 		_pStructType_ValueList = llvm::StructType::create(
 			"struct.ValueList",
-			_builder.getInt32Ty(),		// (dummy)
-			nullptr);
-	} while (0);
-	do {
-		// %struct.Environment = type { i32 }
-		_pStructType_Environment = llvm::StructType::create(
-			"struct.Environment",
-			_builder.getInt32Ty(),		// (dummy)
+			_builder.getInt32Ty(),					// (dummy)
 			nullptr);
 	} while (0);
 	do {
 		// %struct.Signal = type { i32 }
 		_pStructType_Signal = llvm::StructType::create(
 			"struct.Signal",
-			_builder.getInt32Ty(),		// sigType
+			_builder.getInt32Ty(),					// sigType
+			nullptr);
+	} while (0);
+	do {
+		// %struct.Environment = type { %struct.Signal* }
+		_pStructType_Environment = llvm::StructType::create(
+			"struct.Environment",
+			_pStructType_Signal->getPointerTo(),	// *sig
 			nullptr);
 	} while (0);
 	do {
 		// %struct.Symbol = type { i32 }
 		_pStructType_Symbol = llvm::StructType::create(
 			"struct.Symbol",
-			_builder.getInt32Ty(),		// uniqNum
+			_builder.getInt32Ty(),					// uniqNum
 			nullptr);
 	} while (0);
 	do {
 		// %struct.Iterator = type { i32 }
 		_pStructType_Iterator = llvm::StructType::create(
 			"struct.Iterator",
-			_builder.getInt32Ty(),		// (dummy)
+			_builder.getInt32Ty(),					// (dummy)
 			nullptr);
 	} while (0);
 	do {
@@ -573,12 +583,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_LookupValue(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_LookupValue(%struct.Environment*,
 		//                                  %struct.Value*, %struct.Symbol*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
 		bool isVarArg = false;
@@ -589,13 +598,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_LookupValueInMember(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_LookupValueInMember(%struct.Environment*,
 		//                      %struct.Value*, %struct.Value*, %struct.Symbol*, i32)
 		//                                         
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
@@ -609,11 +617,10 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 
 	do {
-		// declare i1 @GuraStub_AssignValue(%struct.Environment*, %struct.Signal*, i8*, %struct.Value*, i32)
+		// declare i1 @GuraStub_AssignValue(%struct.Environment*, i8*, %struct.Value*, i32)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		typeArgs.push_back(_builder.getInt32Ty());						// extra
@@ -625,12 +632,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_AddValueList(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_AddValueList(%struct.Environment*,
 		//                                   %struct.ValueList*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_ValueList->getPointerTo());		// valList
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		bool isVarArg = false;
@@ -642,12 +648,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 	} while (0);
 	for (const char *opName : {
 				"Pos", "Neg", "Inv", "Not", "SeqInf", "Question", "Each" }) {
-		// declare i1 @GuraStub_UnaryOp_*(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_UnaryOp_*(%struct.Environment*,
 		//                                %struct.Value*, %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		bool isVarArg = false;
@@ -662,12 +667,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 				"Eq", "Ne", "Gt", "lt", "Ge", "Lt", "Ge", "Le", "Cmp", "Contains",
 				"And", "Or", "Xor",	"Shl", "Shr", "OrOr", "AndAnd",
 				"Seq", "Pair" }) {
-		// declare i1 @GuraStub_BinaryOp_*(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_BinaryOp_*(%struct.Environment*,
 		//                                 %struct.Value*, %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueLeft
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueRight
@@ -679,12 +683,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	}
 	do {
-		// declare i1 @GuraStub_IndexGet(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_IndexGet(%struct.Environment*,
 		//                               %struct.ValueList*, %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_ValueList->getPointerTo());		// valList
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueIdx
@@ -696,12 +699,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_IndexSet(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_IndexSet(%struct.Environment*,
 		//                               %struct.Value*, %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueIdx
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
@@ -713,12 +715,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_IndexSetByIterator(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_IndexSetByIterator(%struct.Environment*,
 		//                               %struct.Value*, %struct.Value*, %struct.Iterator*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueIdx
 		typeArgs.push_back(_pStructType_Iterator->getPointerTo());		// pIterator
@@ -730,12 +731,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_EmptyIndexGet(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_EmptyIndexGet(%struct.Environment*,
 		//                                    %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		bool isVarArg = false;
@@ -746,12 +746,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_EmptyIndexSet(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_EmptyIndexSet(%struct.Environment*,
 		//                                    %struct.Value*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
 		bool isVarArg = false;
@@ -762,12 +761,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_CallFunction(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_CallFunction(%struct.Environment*,
 		//                                   %struct.Value*, %struct.Value*, %struct.Value*, ...)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueCar
@@ -782,12 +780,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 		//pFunction->setCallingConv(llvm::CallingConv::C);
 	} while (0);
 	do {
-		// declare i1 @GuraStub_CreateIterator(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_CreateIterator(%struct.Environment*,
 		//                                     %struct.Value*, %struct.Iterator**)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		typeArgs.push_back(_pStructType_Iterator->getPointerTo()->getPointerTo()); // ppIterator
 		bool isVarArg = false;
@@ -810,12 +807,11 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_NextIterator(%struct.Environment*, %struct.Signal*,
+		// declare i1 @GuraStub_NextIterator(%struct.Environment*,
 		//                                   %struct.Iterator*, %struct.Value*)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
 		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-		typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 		typeArgs.push_back(_pStructType_Iterator->getPointerTo());		// pIterator
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// value
 		bool isVarArg = false;
@@ -825,12 +821,12 @@ bool CodeGeneratorLLVM::Generate(Environment &env, Signal &sig, const Expr *pExp
 			"GuraStub_NextIterator",
 			_pModule.get());
 	} while (0);
-	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExpr, "GuraEntry");
+	llvm::Function *pFunction = CreateBridgeFunction(env, pExpr, "GuraEntry");
 	if (pFunction == nullptr) return false;
 	return true;
 }
 
-Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
+Value CodeGeneratorLLVM::Run(Environment &env)
 {
 	llvm::InitializeNativeTarget();
 	llvm::InitializeNativeTargetAsmPrinter();
@@ -861,20 +857,18 @@ Value CodeGeneratorLLVM::Run(Environment &env, Signal &sig)
 	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value valueResult;
-	bridgeFuncGuraEntry(env, sig, Value::Null, valueResult);
+	bridgeFuncGuraEntry(env, Value::Null, valueResult);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 	return valueResult;
 }
 
 llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
-	Environment &env, Signal &sig, const Expr *pExpr, const char *name)
+	Environment &env, const Expr *pExpr, const char *name)
 {
-	// define void @BridgeFunction(%struct.Environment*, %struct.Signal*,
-	//                             %struct.Value*, %struct.Value*)
+	// define void @BridgeFunction(%struct.Environment*, %struct.Value*, %struct.Value*)
 	llvm::Type *pTypeResult = _builder.getVoidTy();					// return
 	std::vector<llvm::Type *> typeArgs;
 	typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
-	typeArgs.push_back(_pStructType_Signal->getPointerTo());		// sig
 	typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 	typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 	bool isVarArg = false;
@@ -886,8 +880,6 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	llvm::Function::arg_iterator pArg = pFunction->arg_begin();
 	pArg->setName("env");
 	llvm::Value *plv_env = pArg++;
-	pArg->setName("sig");
-	llvm::Value *plv_sig = pArg++;
 	pArg->setName("valueThis");
 	llvm::Value *plv_valueThis = pArg++;
 	pArg->setName("valueResult");
@@ -903,9 +895,10 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 		llvm::BasicBlock::Create(_context, "bb.Function.release");
 	llvm::Value *plv_valueResultSaved = _plv_valueResult;
 	_plv_valueResult = nullptr;
+	_builder.SetInsertPoint(pBasicBlockBody);
+	llvm::Value *plv_sig = _builder.CreateLoad(_builder.CreateStructGEP(plv_env, 0), "p_sig");
 	_contextStack.push_back(new Context(plv_env, plv_sig,
 										pBasicBlockEntry, pBasicBlockExit, pBasicBlockRelease));
-	_builder.SetInsertPoint(pBasicBlockBody);
 	if (pExpr->GenerateCode(env, *this)) {
 		llvm::Value *plv_valueRtn = _plv_valueResult;
 		pFunction->getBasicBlockList().push_back(pBasicBlockExit);
@@ -980,7 +973,6 @@ bool CodeGeneratorLLVM::GenCode_Identifier(Environment &env, const Expr_Identifi
 	_plv_valueResult = GenCode_AllocaValue(std::string("value.") + pExpr->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(_plv_valueResult);
 	args.push_back(GenCode_CastCPointerToPtr(
 					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
@@ -1001,7 +993,6 @@ bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
 										   pExprSelector->GetSymbol()->GetName());
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(plv_valueThis);
 	args.push_back(_plv_valueResult);
 	args.push_back(GenCode_CastCPointerToPtr(
@@ -1021,7 +1012,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 	ULong extra = EXTRA_None;
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(GenCode_CastCPointerToPtr(
 					   pExpr->GetSymbol(), _pStructType_Symbol->getPointerTo()));
 	args.push_back(plv_valueAssigned);
@@ -1076,7 +1066,6 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, const Expr_Lister *pExp
 		llvm::Value *plv_valueElem = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valList);
 		args.push_back(plv_valueElem);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1156,7 +1145,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 				const Expr *pExprElem = *ppExprElem;
 				std::vector<llvm::Value *> args;
 				args.push_back(Get_env());
-				args.push_back(Get_sig());
 				args.push_back(plv_pIteratorAssigned);
 				args.push_back(plv_valueAssignedElem);
 				llvm::Value *plv_continueFlag = _builder.CreateCall(
@@ -1219,7 +1207,6 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, const Expr_Indexer *pE
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valueResult);
 		args.push_back(plv_valueCar);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1241,7 +1228,6 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, const Expr_Indexer *pE
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valList);
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueIdx);
@@ -1263,7 +1249,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	if (pExpr->GetExprOwner().empty()) {
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueAssigned);
 		llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1294,7 +1279,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
 				args.push_back(Get_env());
-				args.push_back(Get_sig());
 				args.push_back(plv_valueCar);
 				args.push_back(plv_valueIdx);
 				args.push_back(plv_valueAssigned);
@@ -1315,7 +1299,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 		llvm::Value *plv_valueIdx = _plv_valueResult;
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valueCar);
 		args.push_back(plv_valueIdx);
 		args.push_back(plv_valueAssigned);
@@ -1337,7 +1320,6 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 				llvm::Value *plv_valueIdx = _plv_valueResult;
 				std::vector<llvm::Value *> args;
 				args.push_back(Get_env());
-				args.push_back(Get_sig());
 				args.push_back(plv_valueCar);
 				args.push_back(plv_valueIdx);
 				args.push_back(plv_pIteratorAssigned);
@@ -1384,7 +1366,6 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 										   pExprSelector->GetSymbol()->GetName());
 		std::vector<llvm::Value *> args;
 		args.push_back(Get_env());
-		args.push_back(Get_sig());
 		args.push_back(plv_valueThis);
 		args.push_back(plv_valueCar);
 		args.push_back(GenCode_CastCPointerToPtr(
@@ -1418,7 +1399,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
 			const Expr *pExprArg = *ppExprArg;
 			if (!pExprArg->GenerateCode(env, *this)) return false;
-			//llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
+			//llvm::Function *pFunction = CreateBridgeFunction(env, pExprArg, "Arg");
 			//if (pFunction == nullptr) return false;
 			//args.push_back(llvm::ConstantExpr::getBitCast(
 			//				   pFunction, _builder.getInt8Ty()->getPointerTo()));
@@ -1455,7 +1436,6 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(plv_valueThis);
 	args.push_back(plv_valueResult);
 	args.push_back(plv_valueCar);
@@ -1465,14 +1445,14 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 	} else {
 		args.push_back(llvm::ConstantPointerNull::get(_builder.getInt8Ty()->getPointerTo()));
 		llvm::Function *pFunction = CreateBridgeFunction(
-			env, sig, pExpr->GetBlock(), "Block");
+			env, pExpr->GetBlock(), "Block");
 		if (pFunction == nullptr) return false;
 		args.push_back(llvm::ConstantExpr::getBitCast(
 						   pFunction, _builder.getInt8Ty()->getPointerTo()));
 	}
 	foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
 		const Expr *pExprArg = *ppExprArg;
-		llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprArg, "Arg");
+		llvm::Function *pFunction = CreateBridgeFunction(env, pExprArg, "Arg");
 		if (pFunction == nullptr) return false;
 		args.push_back(llvm::ConstantExpr::getBitCast(
 						   pFunction, _builder.getInt8Ty()->getPointerTo()));
@@ -1491,7 +1471,7 @@ bool CodeGeneratorLLVM::GenCode_AssignToCaller(
 	const Expr_Caller *pExpr, const Expr *pExprAssigned)
 {
 	Signal &sig = env.GetSignal();
-	llvm::Function *pFunction = CreateBridgeFunction(env, sig, pExprAssigned, "FunctionBody");
+	llvm::Function *pFunction = CreateBridgeFunction(env, pExprAssigned, "FunctionBody");
 	if (pFunction == nullptr) return false;
 	_plv_valueResult = nullptr;
 	if (pExpr->GetCar()->IsMember()) {
@@ -1619,7 +1599,6 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CallUnaryOp(
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(plv_valueResult);
 	args.push_back(plv_valueChild);
 	llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1639,7 +1618,6 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CallBinaryOp(
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("value");
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(plv_valueResult);
 	args.push_back(plv_valueLeft);
 	args.push_back(plv_valueRight);
@@ -1728,7 +1706,6 @@ llvm::Value *CodeGeneratorLLVM::GenCode_CreateIterator(
 		_pStructType_Iterator->getPointerTo(), nullptr, nameForPP);
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
-	args.push_back(Get_sig());
 	args.push_back(plv_value);
 	args.push_back(plv_ppIterator);
 	llvm::Value *plv_successFlag = _builder.CreateCall(
@@ -1761,9 +1738,9 @@ Gura_ImplementFunction(gencode)
 {
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	CodeGeneratorLLVM codeGeneratorLLVM;
-	codeGeneratorLLVM.Generate(env, sig, pExprBlock);
+	codeGeneratorLLVM.Generate(env, pExprBlock);
 	codeGeneratorLLVM.GetModule()->dump();
-	return codeGeneratorLLVM.Run(env, sig);
+	return codeGeneratorLLVM.Run(env);
 }
 
 // llvm.test()

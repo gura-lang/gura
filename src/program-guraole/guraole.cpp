@@ -31,7 +31,7 @@ CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
 {
 	int argc = 0;
 	const char **argv = nullptr;
-	_pEnv->InitializeAsRoot(_sig, argc, argv, nullptr, 0);
+	_pEnv->InitializeAsRoot(argc, argv, nullptr, 0);
 }
 
 STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)

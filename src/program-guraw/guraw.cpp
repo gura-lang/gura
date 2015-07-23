@@ -53,7 +53,7 @@ int MainW(int argc, const char *argv[])
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment(sig));
 	Environment &env = *pEnv;
-	if (!env.InitializeAsRoot(sig, argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
+	if (!env.InitializeAsRoot(argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
 		sig.PrintSignal(*env.GetConsoleErr());
 		return 1;
 	}

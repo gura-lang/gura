@@ -51,11 +51,11 @@ void PathMgrOwner::Clear()
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-Environment::Environment(Signal &sig) : _cntRef(1), _sig(sig)
+Environment::Environment(Signal &sig) : _sig(sig), _cntRef(1)
 {
 }
 
-Environment::Environment(const Environment &env) : _cntRef(1), _sig(env.GetSignal())
+Environment::Environment(const Environment &env) : _sig(env.GetSignal()), _cntRef(1)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -65,7 +65,7 @@ Environment::Environment(const Environment &env) : _cntRef(1), _sig(env.GetSigna
 }
 
 Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
-	_cntRef(1), _sig(pEnvOuter->GetSignal())
+	_sig(pEnvOuter->GetSignal()), _cntRef(1)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	//if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != nullptr) {
@@ -83,10 +83,11 @@ Environment::~Environment()
 	// virtual destructor
 }
 
-bool Environment::InitializeAsRoot(Signal &sig, int &argc, const char *argv[],
-									const Option::Info *optInfoTbl, int cntOptInfo)
+bool Environment::InitializeAsRoot(int &argc, const char *argv[],
+								   const Option::Info *optInfoTbl, int cntOptInfo)
 {
 	Environment &env = *this;
+	Signal &sig = GetSignal();
 #if defined(_MSC_VER)
 	::_set_output_format(_TWO_DIGIT_EXPONENT);
 #endif
