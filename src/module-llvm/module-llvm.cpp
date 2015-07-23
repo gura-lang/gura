@@ -1396,6 +1396,51 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, Signal &sig, const Expr
 		if (!pExpr->GetCar()->GenerateCode(env, sig, *this)) return false;
 		plv_valueCar = _plv_valueResult;
 	}
+	llvm::Value *plv_valTypeCar = _builder.CreateLoad(
+		_builder.CreatePointerCast(
+			plv_valueCar, _builder.getInt16Ty()->getPointerTo()), "valTypeCar");
+	llvm::BasicBlock *pBasicBlockContinue =
+		llvm::BasicBlock::Create(_context, "bb.caller.continue");
+	llvm::BasicBlock *pBasicBlockFunction =
+		llvm::BasicBlock::Create(_context, "bb.caller.function", GetFunctionCur());
+	llvm::BasicBlock *pBasicBlockCheckIfOperator =
+		llvm::BasicBlock::Create(_context, "bb.caller.checkIfOperator");
+	_builder.CreateCondBr(
+		_builder.CreateICmpEQ(
+			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_function), plv_valTypeCar),
+		pBasicBlockFunction, pBasicBlockCheckIfOperator);
+	_builder.SetInsertPoint(pBasicBlockFunction);
+	do {
+		// declaration
+	} while (0);
+	_builder.CreateBr(pBasicBlockContinue);
+	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockCheckIfOperator);
+	_builder.SetInsertPoint(pBasicBlockCheckIfOperator);
+	llvm::BasicBlock *pBasicBlockOperator =
+		llvm::BasicBlock::Create(_context, "bb.caller.operator", GetFunctionCur());
+	llvm::BasicBlock *pBasicBlockOthers =
+		llvm::BasicBlock::Create(_context, "bb.caller.others");
+	_builder.CreateCondBr(
+		_builder.CreateICmpEQ(
+			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_operator), plv_valTypeCar),
+		pBasicBlockOperator, pBasicBlockOthers);
+	_builder.SetInsertPoint(pBasicBlockOperator);
+	do {
+		// one or two arguments
+	} while (0);
+	_builder.CreateBr(pBasicBlockContinue);
+	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockOthers);
+	_builder.SetInsertPoint(pBasicBlockOthers);
+	do {
+		// evaluate all the argument
+	} while (0);
+	_builder.CreateBr(pBasicBlockContinue);
+	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockContinue);
+	_builder.SetInsertPoint(pBasicBlockContinue);
+
+
+
+
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
