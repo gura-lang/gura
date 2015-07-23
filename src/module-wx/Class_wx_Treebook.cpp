@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Treebook: public wxTreebook, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Treebook *_pObj;
 public:
-	inline wx_Treebook() : wxTreebook(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Treebook() : wxTreebook(), _pObj(nullptr) {}
+	inline wx_Treebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxTreebook(parent, id, pos, size, style, name), _pObj(nullptr) {}
 	~wx_Treebook();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Treebook *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Treebook *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(TreebookEmpty)
 	Object_wx_Treebook *pObj = Object_wx_Treebook::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -89,11 +89,11 @@ Gura_ImplementFunction(Treebook)
 	Object_wx_Treebook *pObj = Object_wx_Treebook::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Treebook(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

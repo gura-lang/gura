@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FFileOutputStream: public wxFFileOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FFileOutputStream *_pObj;
 public:
-	inline wx_FFileOutputStream(const wxString& filename, const wxChar * mode) : wxFFileOutputStream(filename, mode), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FFileOutputStream(wxFFile& file) : wxFFileOutputStream(file), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FFileOutputStream(FILE * fp) : wxFFileOutputStream(fp), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FFileOutputStream(const wxString& filename, const wxChar * mode) : wxFFileOutputStream(filename, mode), _pObj(nullptr) {}
+	inline wx_FFileOutputStream(wxFFile& file) : wxFFileOutputStream(file), _pObj(nullptr) {}
+	//inline wx_FFileOutputStream(FILE * fp) : wxFFileOutputStream(fp), _pObj(nullptr) {}
 	~wx_FFileOutputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FFileOutputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FFileOutputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -61,11 +61,11 @@ Gura_ImplementFunction(FFileOutputStream)
 	Object_wx_FFileOutputStream *pObj = Object_wx_FFileOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -85,11 +85,11 @@ Gura_ImplementFunction(FFileOutputStream_1)
 	Object_wx_FFileOutputStream *pObj = Object_wx_FFileOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -110,11 +110,11 @@ Gura_ImplementFunction(FFileOutputStream_2)
 	Object_wx_FFileOutputStream *pObj = Object_wx_FFileOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

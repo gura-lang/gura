@@ -14,17 +14,17 @@ Gura_DeclarePrivUserSymbol(SetIcon);
 //----------------------------------------------------------------------------
 class wx_StaticBitmap: public wxStaticBitmap, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_StaticBitmap *_pObj;
 public:
-	inline wx_StaticBitmap() : wxStaticBitmap(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_StaticBitmap(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBitmap(parent, id, label, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_StaticBitmap(wxWindow* parent, wxWindowID id, const wxIcon& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBitmap(parent, id, label, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StaticBitmap() : wxStaticBitmap(), _pObj(nullptr) {}
+	inline wx_StaticBitmap(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBitmap(parent, id, label, pos, size, style, name), _pObj(nullptr) {}
+	inline wx_StaticBitmap(wxWindow* parent, wxWindowID id, const wxIcon& label, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxStaticBitmap(parent, id, label, pos, size, style, name), _pObj(nullptr) {}
 	//virtual void SetBitmap(const wxBitmap& label);
 	//virtual void SetIcon(const wxIcon& label);
 	~wx_StaticBitmap();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StaticBitmap *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_StaticBitmap *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(StaticBitmapEmpty)
 	Object_wx_StaticBitmap *pObj = Object_wx_StaticBitmap::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBitmap(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -106,11 +106,11 @@ Gura_ImplementFunction(StaticBitmap)
 	Object_wx_StaticBitmap *pObj = Object_wx_StaticBitmap::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBitmap(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

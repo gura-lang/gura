@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellFloatRenderer: public wxGridCellFloatRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridCellFloatRenderer *_pObj;
 public:
-	inline wx_GridCellFloatRenderer(int width, int precision) : wxGridCellFloatRenderer(width, precision), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellFloatRenderer(int width, int precision) : wxGridCellFloatRenderer(width, precision), _pObj(nullptr) {}
 	~wx_GridCellFloatRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellFloatRenderer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridCellFloatRenderer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(GridCellFloatRenderer)
 	Object_wx_GridCellFloatRenderer *pObj = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellFloatRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

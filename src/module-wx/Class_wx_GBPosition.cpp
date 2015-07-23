@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GBPosition: public wxGBPosition, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GBPosition *_pObj;
 public:
-	inline wx_GBPosition() : wxGBPosition(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GBPosition(int row, int col) : wxGBPosition(row, col), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GBPosition() : wxGBPosition(), _pObj(nullptr) {}
+	inline wx_GBPosition(int row, int col) : wxGBPosition(row, col), _pObj(nullptr) {}
 	~wx_GBPosition();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBPosition *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GBPosition *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(GBPositionEmpty)
 	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(GBPosition)
 	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

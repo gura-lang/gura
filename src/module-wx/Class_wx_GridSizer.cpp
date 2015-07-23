@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridSizer: public wxGridSizer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridSizer *_pObj;
 public:
-	inline wx_GridSizer(int rows, int cols, int vgap, int hgap) : wxGridSizer(rows, cols, vgap, hgap), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GridSizer(int cols, int vgap, int hgap) : wxGridSizer(cols, vgap, hgap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridSizer(int rows, int cols, int vgap, int hgap) : wxGridSizer(rows, cols, vgap, hgap), _pObj(nullptr) {}
+	inline wx_GridSizer(int cols, int vgap, int hgap) : wxGridSizer(cols, vgap, hgap), _pObj(nullptr) {}
 	~wx_GridSizer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridSizer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridSizer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -67,11 +67,11 @@ Gura_ImplementFunction(GridSizer)
 	Object_wx_GridSizer *pObj = Object_wx_GridSizer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridSizer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

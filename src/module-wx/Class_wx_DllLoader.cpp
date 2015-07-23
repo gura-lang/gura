@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DllLoader: public wxDllLoader, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DllLoader *_pObj;
 public:
 	~wx_DllLoader();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DllLoader *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DllLoader *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

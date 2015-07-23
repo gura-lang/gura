@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(CreateBookCtrl);
 //----------------------------------------------------------------------------
 class wx_PropertySheetDialog: public wxPropertySheetDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PropertySheetDialog *_pObj;
 public:
-	inline wx_PropertySheetDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPropertySheetDialog(parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PropertySheetDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPropertySheetDialog(parent, id, title, pos, size, style, name), _pObj(nullptr) {}
 	//virtual void AddBookCtrl(wxSizer* sizer);
 	//virtual wxBookCtrlBase* CreateBookCtrl();
 	~wx_PropertySheetDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PropertySheetDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PropertySheetDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -74,11 +74,11 @@ Gura_ImplementFunction(PropertySheetDialog)
 	Object_wx_PropertySheetDialog *pObj = Object_wx_PropertySheetDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PropertySheetDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

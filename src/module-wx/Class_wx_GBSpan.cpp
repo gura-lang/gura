@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GBSpan: public wxGBSpan, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GBSpan *_pObj;
 public:
-	inline wx_GBSpan() : wxGBSpan(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GBSpan() : wxGBSpan(), _pObj(nullptr) {}
+	inline wx_GBSpan(int rowspan, int colspan) : wxGBSpan(rowspan, colspan), _pObj(nullptr) {}
 	~wx_GBSpan();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBSpan *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GBSpan *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(GBSpanEmpty)
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(GBSpan)
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

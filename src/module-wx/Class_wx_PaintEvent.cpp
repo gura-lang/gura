@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PaintEvent: public wxPaintEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PaintEvent *_pObj;
 public:
-	inline wx_PaintEvent(int id) : wxPaintEvent(id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PaintEvent(int id) : wxPaintEvent(id), _pObj(nullptr) {}
 	~wx_PaintEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PaintEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PaintEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(PaintEvent)
 	Object_wx_PaintEvent *pObj = Object_wx_PaintEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PaintEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

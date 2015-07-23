@@ -11,20 +11,20 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Cursor: public wxCursor, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Cursor *_pObj;
 public:
-	inline wx_Cursor() : wxCursor(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor() : wxCursor(), _pObj(nullptr) {}
+	//inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _pObj(nullptr) {}
 #endif
-	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Cursor(const wxImage& image) : wxCursor(image), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Cursor(const wxCursor& cursor) : wxCursor(cursor), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _pObj(nullptr) {}
+	inline wx_Cursor(const wxImage& image) : wxCursor(image), _pObj(nullptr) {}
+	inline wx_Cursor(const wxCursor& cursor) : wxCursor(cursor), _pObj(nullptr) {}
 	~wx_Cursor();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Cursor *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Cursor *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(CursorEmpty)
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -114,11 +114,11 @@ Gura_ImplementFunction(Cursor)
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -150,11 +150,11 @@ Gura_ImplementFunction(NamedCursor)
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
@@ -178,11 +178,11 @@ Gura_ImplementFunction(StockCursor)
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -202,11 +202,11 @@ Gura_ImplementFunction(Cursor_3)
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

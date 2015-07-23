@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Colour: public wxColour, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Colour *_pObj;
 public:
-	inline wx_Colour() : wxColour(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Colour(const wxColour& colour) : wxColour(colour), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Colour() : wxColour(), _pObj(nullptr) {}
+	inline wx_Colour(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) : wxColour(red, green, blue, alpha), _pObj(nullptr) {}
+	inline wx_Colour(const wxString& colourNname) : wxColour(colourNname), _pObj(nullptr) {}
+	inline wx_Colour(const wxColour& colour) : wxColour(colour), _pObj(nullptr) {}
 	~wx_Colour();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Colour *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Colour *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(ColourEmpty)
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(Colour)
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -108,11 +108,11 @@ Gura_ImplementFunction(NamedColour)
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementCastFrom(wx_Colour)
 		const Color &color = Object_color::GetObject(value)->GetColor();
 		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		value = Value(pObj);
 		return true;
 	} else if (value.Is_string()) {
@@ -349,7 +349,7 @@ Gura_ImplementCastFrom(wx_Colour)
 		if (sig.IsSignalled()) return false;
 		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		value = Value(pObj);
 		return true;
 	}

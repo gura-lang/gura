@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ColourPickerCtrl: public wxColourPickerCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ColourPickerCtrl *_pObj;
 public:
-	inline wx_ColourPickerCtrl(wxWindow * parent, wxWindowID id, const wxColour& colour, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxColourPickerCtrl(parent, id, colour, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ColourPickerCtrl(wxWindow * parent, wxWindowID id, const wxColour& colour, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxColourPickerCtrl(parent, id, colour, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_ColourPickerCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourPickerCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ColourPickerCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -72,11 +72,11 @@ Gura_ImplementFunction(ColourPickerCtrl)
 	Object_wx_ColourPickerCtrl *pObj = Object_wx_ColourPickerCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourPickerCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

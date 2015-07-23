@@ -11,19 +11,19 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Pen: public wxPen, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Pen *_pObj;
 public:
-	inline wx_Pen() : wxPen(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Pen(const wxColour& colour, int width, int style) : wxPen(colour, width, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Pen(const wxString& colourName, int width, int style) : wxPen(colourName, width, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Pen() : wxPen(), _pObj(nullptr) {}
+	inline wx_Pen(const wxColour& colour, int width, int style) : wxPen(colour, width, style), _pObj(nullptr) {}
+	inline wx_Pen(const wxString& colourName, int width, int style) : wxPen(colourName, width, style), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_Pen(const wxBitmap& stipple, int width) : wxPen(stipple, width), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Pen(const wxBitmap& stipple, int width) : wxPen(stipple, width), _pObj(nullptr) {}
 #endif
-	inline wx_Pen(const wxPen& pen) : wxPen(pen), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Pen(const wxPen& pen) : wxPen(pen), _pObj(nullptr) {}
 	~wx_Pen();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Pen *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Pen *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(PenEmpty)
 	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -86,11 +86,11 @@ Gura_ImplementFunction(Pen)
 	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -114,11 +114,11 @@ Gura_ImplementFunction(Pen_1)
 	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -141,11 +141,11 @@ Gura_ImplementFunction(Pen_2)
 	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
@@ -169,11 +169,11 @@ Gura_ImplementFunction(Pen_3)
 	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

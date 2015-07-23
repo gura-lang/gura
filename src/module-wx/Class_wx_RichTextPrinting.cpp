@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextPrinting: public wxRichTextPrinting, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextPrinting *_pObj;
 public:
-	inline wx_RichTextPrinting(const wxString& name, wxWindow* parentWindow) : wxRichTextPrinting(name, parentWindow), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextPrinting(const wxString& name, wxWindow* parentWindow) : wxRichTextPrinting(name, parentWindow), _pObj(nullptr) {}
 	~wx_RichTextPrinting();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextPrinting *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextPrinting *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(RichTextPrinting)
 	Object_wx_RichTextPrinting *pObj = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextPrinting(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

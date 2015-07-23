@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(OnAcceptConnection);
 //----------------------------------------------------------------------------
 class wx_Server: public wxServer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Server *_pObj;
 public:
-	inline wx_Server() : wxServer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Server() : wxServer(), _pObj(nullptr) {}
 	//virtual wxConnectionBase * OnAcceptConnection(const wxString& topic);
 	~wx_Server();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Server *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Server *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(ServerEmpty)
 	Object_wx_Server *pObj = Object_wx_Server::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Server(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

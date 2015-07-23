@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_WindowDisabler: public wxWindowDisabler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_WindowDisabler *_pObj;
 public:
-	inline wx_WindowDisabler(wxWindow * winToSkip) : wxWindowDisabler(winToSkip), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_WindowDisabler(wxWindow * winToSkip) : wxWindowDisabler(winToSkip), _pObj(nullptr) {}
 	~wx_WindowDisabler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WindowDisabler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_WindowDisabler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

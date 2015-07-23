@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MemoryFSHandler: public wxMemoryFSHandler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MemoryFSHandler *_pObj;
 public:
-	inline wx_MemoryFSHandler() : wxMemoryFSHandler(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MemoryFSHandler() : wxMemoryFSHandler(), _pObj(nullptr) {}
 	~wx_MemoryFSHandler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryFSHandler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MemoryFSHandler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(MemoryFSHandler)
 	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryFSHandler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

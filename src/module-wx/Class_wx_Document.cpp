@@ -34,10 +34,10 @@ Gura_DeclarePrivUserSymbol(SetCommandProcessor);
 //----------------------------------------------------------------------------
 class wx_Document: public wxDocument, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Document *_pObj;
 public:
-	inline wx_Document() : wxDocument(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Document() : wxDocument(), _pObj(nullptr) {}
 	//virtual bool AddView(wxView * view);
 	//virtual bool Close();
 	//virtual bool DeleteAllViews();
@@ -61,8 +61,8 @@ public:
 	//virtual wxOutputStream& SaveObject(wxOutputStream& stream);
 	//virtual void SetCommandProcessor(wxCommandProcessor * processor);
 	~wx_Document();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Document *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Document *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -95,11 +95,11 @@ Gura_ImplementFunction(DocumentEmpty)
 	Object_wx_Document *pObj = Object_wx_Document::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Document(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

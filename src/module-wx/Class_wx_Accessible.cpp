@@ -31,10 +31,10 @@ Gura_DeclarePrivUserSymbol(Select);
 //----------------------------------------------------------------------------
 class wx_Accessible: public wxAccessible, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Accessible *_pObj;
 public:
-	inline wx_Accessible(wxWindow* win) : wxAccessible(win), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Accessible(wxWindow* win) : wxAccessible(win), _pObj(nullptr) {}
 	//virtual wxAccStatus DoDefaultAction(int childId);
 	//virtual wxAccStatus GetChild(int childId, wxAccessible** child);
 	//virtual wxAccStatus GetChildCount(int* childCount);
@@ -55,8 +55,8 @@ public:
 	//virtual static void NotifyEvent(int eventType, wxWindow* window, wxAccObject objectType, int objectType);
 	//virtual wxAccStatus Select(int childId, wxAccSelectionFlags selectFlags);
 	~wx_Accessible();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Accessible *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Accessible *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -92,11 +92,11 @@ Gura_ImplementFunction(Accessible)
 	Object_wx_Accessible *pObj = Object_wx_Accessible::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Accessible(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

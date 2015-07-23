@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ConnectionBase: public wxConnectionBase, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ConnectionBase *_pObj;
 public:
 	~wx_ConnectionBase();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ConnectionBase *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ConnectionBase *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

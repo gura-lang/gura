@@ -17,13 +17,13 @@ Gura_DeclarePrivUserSymbol(Description);
 //----------------------------------------------------------------------------
 class wx_LanguageInfo: public wxLanguageInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_LanguageInfo *_pObj;
 public:
-	inline wx_LanguageInfo() : wxLanguageInfo(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_LanguageInfo() : wxLanguageInfo(), _pObj(nullptr) {}
 	~wx_LanguageInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LanguageInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_LanguageInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
 	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LanguageInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

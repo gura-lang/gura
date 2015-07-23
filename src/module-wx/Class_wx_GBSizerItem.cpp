@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GBSizerItem: public wxGBSizerItem, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GBSizerItem *_pObj;
 public:
-	inline wx_GBSizerItem(int width, int height, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(width, height, pos, span, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GBSizerItem(wxWindow* window, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(window, pos, span, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GBSizerItem(wxSizer* sizer, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(sizer, pos, span, flag, border, userData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GBSizerItem(int width, int height, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(width, height, pos, span, flag, border, userData), _pObj(nullptr) {}
+	inline wx_GBSizerItem(wxWindow* window, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(window, pos, span, flag, border, userData), _pObj(nullptr) {}
+	inline wx_GBSizerItem(wxSizer* sizer, const wxGBPosition& pos, const wxGBSpan& span, int flag, int border, wxObject* userData) : wxGBSizerItem(sizer, pos, span, flag, border, userData), _pObj(nullptr) {}
 	~wx_GBSizerItem();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GBSizerItem *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GBSizerItem *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -66,11 +66,11 @@ Gura_ImplementFunction(GBSizerItem)
 	Object_wx_GBSizerItem *pObj = Object_wx_GBSizerItem::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -100,11 +100,11 @@ Gura_ImplementFunction(GBSizerItem_1)
 	Object_wx_GBSizerItem *pObj = Object_wx_GBSizerItem::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -134,11 +134,11 @@ Gura_ImplementFunction(GBSizerItem_2)
 	Object_wx_GBSizerItem *pObj = Object_wx_GBSizerItem::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBSizerItem(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_File: public wxFile, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_File *_pObj;
 public:
-	inline wx_File() : wxFile(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_File(const wxString& filename, wxFile::OpenMode mode) : wxFile(filename, mode), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_File(int fd) : wxFile(fd), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_File() : wxFile(), _pObj(nullptr) {}
+	inline wx_File(const wxString& filename, wxFile::OpenMode mode) : wxFile(filename, mode), _pObj(nullptr) {}
+	//inline wx_File(int fd) : wxFile(fd), _pObj(nullptr) {}
 	~wx_File();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_File *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_File *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(File)
 	Object_wx_File *pObj = Object_wx_File::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_File(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

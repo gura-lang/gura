@@ -14,14 +14,14 @@ Gura_DeclarePrivUserSymbol(DrawLabel);
 //----------------------------------------------------------------------------
 class wx_DC: public wxDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DC *_pObj;
 public:
 	//virtual void ComputeScaleAndOrigin();
 	//virtual void DrawLabel(const wxString& text, const wxBitmap& image, const wxRect& rect, int alignment, int indexAccel, wxRect * rectBounding);
 	~wx_DC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

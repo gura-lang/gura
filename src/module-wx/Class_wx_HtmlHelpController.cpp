@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(CreateHelpFrame);
 //----------------------------------------------------------------------------
 class wx_HtmlHelpController: public wxHtmlHelpController, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlHelpController *_pObj;
 public:
-	inline wx_HtmlHelpController(int style, wxWindow* parentWindow) : wxHtmlHelpController(style, parentWindow), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpController(int style, wxWindow* parentWindow) : wxHtmlHelpController(style, parentWindow), _pObj(nullptr) {}
 	//virtual wxHtmlHelpDialog* CreateHelpDialog(wxHtmlHelpData * data);
 	//virtual wxHtmlHelpFrame* CreateHelpFrame(wxHtmlHelpData * data);
 	~wx_HtmlHelpController();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpController *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlHelpController *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -61,11 +61,11 @@ Gura_ImplementFunction(HtmlHelpController)
 	Object_wx_HtmlHelpController *pObj = Object_wx_HtmlHelpController::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpController(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

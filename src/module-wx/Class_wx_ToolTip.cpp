@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ToolTip: public wxToolTip, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ToolTip *_pObj;
 public:
-	inline wx_ToolTip(const wxString& tip) : wxToolTip(tip), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ToolTip(const wxString& tip) : wxToolTip(tip), _pObj(nullptr) {}
 	~wx_ToolTip();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToolTip *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ToolTip *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -80,11 +80,11 @@ Gura_ImplementFunction(ToolTip)
 	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolTip(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

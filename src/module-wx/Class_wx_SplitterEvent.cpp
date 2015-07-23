@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SplitterEvent: public wxSplitterEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SplitterEvent *_pObj;
 public:
-	inline wx_SplitterEvent(wxEventType eventType, wxSplitterWindow * splitter) : wxSplitterEvent(eventType, splitter), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SplitterEvent(wxEventType eventType, wxSplitterWindow * splitter) : wxSplitterEvent(eventType, splitter), _pObj(nullptr) {}
 	~wx_SplitterEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SplitterEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SplitterEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(SplitterEvent)
 	Object_wx_SplitterEvent *pObj = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplitterEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

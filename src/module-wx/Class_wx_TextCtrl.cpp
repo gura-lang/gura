@@ -37,11 +37,11 @@ Gura_DeclarePrivUserSymbol(Undo);
 //----------------------------------------------------------------------------
 class wx_TextCtrl: public wxTextCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextCtrl *_pObj;
 public:
-	inline wx_TextCtrl() : wxTextCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextCtrl() : wxTextCtrl(), _pObj(nullptr) {}
+	inline wx_TextCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTextCtrl(parent, id, value, pos, size, style, validator, name), _pObj(nullptr) {}
 	//virtual bool CanCopy();
 	//virtual bool CanCut();
 	//virtual bool CanPaste();
@@ -68,8 +68,8 @@ public:
 	//virtual void ChangeValue(const wxString& value);
 	//virtual void Undo();
 	~wx_TextCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -102,11 +102,11 @@ Gura_ImplementFunction(TextCtrlEmpty)
 	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -146,11 +146,11 @@ Gura_ImplementFunction(TextCtrl)
 	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

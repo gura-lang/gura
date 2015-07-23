@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ColourPickerEvent: public wxColourPickerEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ColourPickerEvent *_pObj;
 public:
-	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ColourPickerEvent(wxObject * generator, int id, const wxColour& colour) : wxColourPickerEvent(generator, id, colour), _pObj(nullptr) {}
 	~wx_ColourPickerEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourPickerEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ColourPickerEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(ColourPickerEvent)
 	Object_wx_ColourPickerEvent *pObj = Object_wx_ColourPickerEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourPickerEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

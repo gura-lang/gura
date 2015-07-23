@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StringBuffer: public wxStringBuffer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_StringBuffer *_pObj;
 public:
-	inline wx_StringBuffer(wxString& str, size_t len) : wxStringBuffer(str, len), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StringBuffer(wxString& str, size_t len) : wxStringBuffer(str, len), _pObj(nullptr) {}
 	~wx_StringBuffer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StringBuffer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_StringBuffer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(StringBuffer)
 	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringBuffer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

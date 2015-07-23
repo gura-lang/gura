@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ContextMenuEvent: public wxContextMenuEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ContextMenuEvent *_pObj;
 public:
-	inline wx_ContextMenuEvent(WXTYPE type, int id, const wxPoint& pos) : wxContextMenuEvent(type, id, pos), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ContextMenuEvent(WXTYPE type, int id, const wxPoint& pos) : wxContextMenuEvent(type, id, pos), _pObj(nullptr) {}
 	~wx_ContextMenuEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ContextMenuEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ContextMenuEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,11 +59,11 @@ Gura_ImplementFunction(ContextMenuEvent)
 	Object_wx_ContextMenuEvent *pObj = Object_wx_ContextMenuEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ContextMenuEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

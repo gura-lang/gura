@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ChildFocusEvent: public wxChildFocusEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ChildFocusEvent *_pObj;
 public:
-	inline wx_ChildFocusEvent(wxWindow * win) : wxChildFocusEvent(win), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ChildFocusEvent(wxWindow * win) : wxChildFocusEvent(win), _pObj(nullptr) {}
 	~wx_ChildFocusEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ChildFocusEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ChildFocusEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(ChildFocusEvent)
 	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ChildFocusEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

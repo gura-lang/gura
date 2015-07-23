@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(OnInit);
 //----------------------------------------------------------------------------
 class wx_Module: public wxModule, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Module *_pObj;
 public:
-	//inline wx_Module() : wxModule(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Module() : wxModule(), _pObj(nullptr) {}
 	//virtual void OnExit();
 	//virtual bool OnInit();
 	~wx_Module();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Module *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Module *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -58,11 +58,11 @@ Gura_ImplementFunction(ModuleEmpty)
 	Object_wx_Module *pObj = Object_wx_Module::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Module(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

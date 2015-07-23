@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GraphicsPen: public wxGraphicsPen, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GraphicsPen *_pObj;
 public:
 	~wx_GraphicsPen();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GraphicsPen *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GraphicsPen *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

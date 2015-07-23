@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridEditorCreatedEvent: public wxGridEditorCreatedEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridEditorCreatedEvent *_pObj;
 public:
-	//inline wx_GridEditorCreatedEvent() : wxGridEditorCreatedEvent(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_GridEditorCreatedEvent(int id, wxEventType type, wxObject* obj, int row, int col, wxControl* ctrl) : wxGridEditorCreatedEvent(id, type, obj, row, col, ctrl), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_GridEditorCreatedEvent() : wxGridEditorCreatedEvent(), _pObj(nullptr) {}
+	//inline wx_GridEditorCreatedEvent(int id, wxEventType type, wxObject* obj, int row, int col, wxControl* ctrl) : wxGridEditorCreatedEvent(id, type, obj, row, col, ctrl), _pObj(nullptr) {}
 	~wx_GridEditorCreatedEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridEditorCreatedEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridEditorCreatedEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 	Object_wx_GridEditorCreatedEvent *pObj = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -94,11 +94,11 @@ Gura_ImplementFunction(GridEditorCreatedEvent)
 	Object_wx_GridEditorCreatedEvent *pObj = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEditorCreatedEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

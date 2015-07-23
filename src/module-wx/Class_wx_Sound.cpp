@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Sound: public wxSound, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Sound *_pObj;
 public:
-	inline wx_Sound() : wxSound(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Sound() : wxSound(), _pObj(nullptr) {}
+	inline wx_Sound(const wxString& fileName, bool isResource) : wxSound(fileName, isResource), _pObj(nullptr) {}
 	~wx_Sound();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Sound *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Sound *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(SoundEmpty)
 	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -78,11 +78,11 @@ Gura_ImplementFunction(Sound)
 	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

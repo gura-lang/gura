@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Protocol: public wxProtocol, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Protocol *_pObj;
 public:
 	~wx_Protocol();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Protocol *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Protocol *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

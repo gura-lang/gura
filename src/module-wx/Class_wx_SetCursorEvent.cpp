@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SetCursorEvent: public wxSetCursorEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SetCursorEvent *_pObj;
 public:
-	inline wx_SetCursorEvent(wxCoord x, wxCoord y) : wxSetCursorEvent(x, y), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SetCursorEvent(wxCoord x, wxCoord y) : wxSetCursorEvent(x, y), _pObj(nullptr) {}
 	~wx_SetCursorEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SetCursorEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SetCursorEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(SetCursorEvent)
 	Object_wx_SetCursorEvent *pObj = Object_wx_SetCursorEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SetCursorEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

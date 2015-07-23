@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlLinkInfo: public wxHtmlLinkInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlLinkInfo *_pObj;
 public:
-	inline wx_HtmlLinkInfo() : wxHtmlLinkInfo(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_HtmlLinkInfo(const wxString& href, const wxString& target) : wxHtmlLinkInfo(href, target), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlLinkInfo() : wxHtmlLinkInfo(), _pObj(nullptr) {}
+	inline wx_HtmlLinkInfo(const wxString& href, const wxString& target) : wxHtmlLinkInfo(href, target), _pObj(nullptr) {}
 	~wx_HtmlLinkInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlLinkInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlLinkInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(HtmlLinkInfoEmpty)
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlLinkInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -78,11 +78,11 @@ Gura_ImplementFunction(HtmlLinkInfo)
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlLinkInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

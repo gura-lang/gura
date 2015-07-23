@@ -18,11 +18,11 @@ Gura_DeclarePrivUserSymbol(SetStatusWidths);
 //----------------------------------------------------------------------------
 class wx_Frame: public wxFrame, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Frame *_pObj;
 public:
-	inline wx_Frame() : wxFrame(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxFrame(parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Frame() : wxFrame(), _pObj(nullptr) {}
+	inline wx_Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxFrame(parent, id, title, pos, size, style, name), _pObj(nullptr) {}
 	//virtual wxStatusBar* CreateStatusBar(int number, long style, wxWindowID id, const wxString& name);
 	//virtual wxToolBar* CreateToolBar(long style, wxWindowID id, const wxString& name);
 	//virtual wxStatusBar* OnCreateStatusBar(int number, long style, wxWindowID id, const wxString& name);
@@ -30,8 +30,8 @@ public:
 	//virtual void SetStatusText(const wxString& text, int number);
 	//virtual void SetStatusWidths(int n, int * widths);
 	~wx_Frame();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Frame *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Frame *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(FrameEmpty)
 	Object_wx_Frame *pObj = Object_wx_Frame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Frame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -112,11 +112,11 @@ Gura_ImplementFunction(Frame)
 	Object_wx_Frame *pObj = Object_wx_Frame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Frame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

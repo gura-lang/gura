@@ -16,17 +16,17 @@ Gura_DeclarePrivUserSymbol(OnFontEncoding);
 //----------------------------------------------------------------------------
 class wx_FontEnumerator: public wxFontEnumerator, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FontEnumerator *_pObj;
 public:
-	inline wx_FontEnumerator() : wxFontEnumerator(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FontEnumerator() : wxFontEnumerator(), _pObj(nullptr) {}
 	virtual bool EnumerateFacenames(wxFontEncoding encoding, bool fixedWidthOnly);
 	virtual bool EnumerateEncodings(const wxString& font);
 	virtual bool OnFacename(const wxString& font);
 	virtual bool OnFontEncoding(const wxString& font, const wxString& encoding);
 	~wx_FontEnumerator();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontEnumerator *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FontEnumerator *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,8 +50,8 @@ bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWi
 	valList.reserve(2);
 	valList.push_back(Value(static_cast<int>(encoding)));
 	valList.push_back(Value(fixedWidthOnly));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -63,8 +63,8 @@ bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(font.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -76,8 +76,8 @@ bool wx_FontEnumerator::OnFacename(const wxString& font)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(font.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -90,8 +90,8 @@ bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& enc
 	valList.reserve(2);
 	valList.push_back(Value(font.ToUTF8()));
 	valList.push_back(Value(encoding.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -112,11 +112,11 @@ Gura_ImplementFunction(FontEnumerator)
 	Object_wx_FontEnumerator *pObj = Object_wx_FontEnumerator::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontEnumerator(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

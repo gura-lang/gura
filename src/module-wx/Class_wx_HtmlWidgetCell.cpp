@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlWidgetCell: public wxHtmlWidgetCell, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlWidgetCell *_pObj;
 public:
-	inline wx_HtmlWidgetCell(wxWindow* wnd, int w) : wxHtmlWidgetCell(wnd, w), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlWidgetCell(wxWindow* wnd, int w) : wxHtmlWidgetCell(wnd, w), _pObj(nullptr) {}
 	~wx_HtmlWidgetCell();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlWidgetCell *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlWidgetCell *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(HtmlWidgetCell)
 	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWidgetCell(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

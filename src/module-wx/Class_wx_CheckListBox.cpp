@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CheckListBox: public wxCheckListBox, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CheckListBox *_pObj;
 public:
-	inline wx_CheckListBox() : wxCheckListBox(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxCheckListBox(parent, id, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_CheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxCheckListBox(parent, id, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CheckListBox() : wxCheckListBox(), _pObj(nullptr) {}
+	//inline wx_CheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxCheckListBox(parent, id, pos, size, n, choices[], style, validator, name), _pObj(nullptr) {}
+	inline wx_CheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxCheckListBox(parent, id, pos, size, choices, style, validator, name), _pObj(nullptr) {}
 	~wx_CheckListBox();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CheckListBox *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CheckListBox *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(CheckListBoxEmpty)
 	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -100,11 +100,11 @@ Gura_ImplementFunction(CheckListBox)
 	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

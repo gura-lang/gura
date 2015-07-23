@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_NativeFontInfo: public wxNativeFontInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_NativeFontInfo *_pObj;
 public:
 	~wx_NativeFontInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_NativeFontInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_NativeFontInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

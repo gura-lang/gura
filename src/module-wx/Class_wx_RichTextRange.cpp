@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextRange: public wxRichTextRange, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextRange *_pObj;
 public:
-	inline wx_RichTextRange(long start, long end) : wxRichTextRange(start, end), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextRange(const wxRichTextRange& range) : wxRichTextRange(range), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextRange() : wxRichTextRange(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextRange(long start, long end) : wxRichTextRange(start, end), _pObj(nullptr) {}
+	inline wx_RichTextRange(const wxRichTextRange& range) : wxRichTextRange(range), _pObj(nullptr) {}
+	inline wx_RichTextRange() : wxRichTextRange(), _pObj(nullptr) {}
 	~wx_RichTextRange();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextRange *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextRange *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(RichTextRange)
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextRange(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -80,11 +80,11 @@ Gura_ImplementFunction(RichTextRange_1)
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextRange(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -102,11 +102,11 @@ Gura_ImplementFunction(RichTextRangeEmpty)
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextRange(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

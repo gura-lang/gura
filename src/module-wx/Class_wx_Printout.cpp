@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Printout: public wxPrintout, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Printout *_pObj;
 public:
-	//inline wx_Printout(const wxString& title) : wxPrintout(title), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Printout(const wxString& title) : wxPrintout(title), _pObj(nullptr) {}
 	~wx_Printout();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Printout *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Printout *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(Printout)
 	Object_wx_Printout *pObj = Object_wx_Printout::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Printout(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

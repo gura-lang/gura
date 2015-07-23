@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_EraseEvent: public wxEraseEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_EraseEvent *_pObj;
 public:
-	inline wx_EraseEvent(int id, wxDC* dc) : wxEraseEvent(id, dc), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_EraseEvent(int id, wxDC* dc) : wxEraseEvent(id, dc), _pObj(nullptr) {}
 	~wx_EraseEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_EraseEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_EraseEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(EraseEvent)
 	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_EraseEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -13,13 +13,13 @@ Gura_DeclarePrivUserSymbol(FillHandlersTable);
 //----------------------------------------------------------------------------
 class wx_HtmlTagsModule: public wxHtmlTagsModule, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlTagsModule *_pObj;
 public:
 	//virtual void FillHandlersTable(wxHtmlWinParser *parser);
 	~wx_HtmlTagsModule();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlTagsModule *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlTagsModule *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

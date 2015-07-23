@@ -16,13 +16,13 @@ Value SizerItemListToValue(Environment &env, const wxSizerItemList &list);
 //----------------------------------------------------------------------------
 class wx_Sizer: public wxSizer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Sizer *_pObj;
 public:
-	//inline wx_Sizer() : wxSizer(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Sizer() : wxSizer(), _pObj(nullptr) {}
 	~wx_Sizer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Sizer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Sizer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

@@ -13,12 +13,12 @@ Gura_DeclarePrivUserSymbol(GetAttr);
 //----------------------------------------------------------------------------
 class wx_GridCellAttrProvider: public wxGridCellAttrProvider, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	AutoPtr<Object_wx_GridCellAttrProvider> _pObj;
 public:
 	~wx_GridCellAttrProvider();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellAttrProvider *pObj) {
-		_pSig = &sig, _pObj.reset(Object_wx_GridCellAttrProvider::Reference(pObj));
+	inline void AssocWithGura(Object_wx_GridCellAttrProvider *pObj) {
+		_pObj.reset(Object_wx_GridCellAttrProvider::Reference(pObj));
 	}
 	virtual wxGridCellAttr *GetAttr(int row, int col,
 									wxGridCellAttr::wxAttrKind kind) const;
@@ -44,8 +44,8 @@ wxGridCellAttr *wx_GridCellAttrProvider::GetAttr(int row, int col, wxGridCellAtt
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(kind));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_GridCellAttr, true)) return nullptr;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_GridCellAttr, true)) return nullptr;
 	return rtn.IsValid()? Object_wx_GridCellAttr::GetObject(rtn)->GetEntity() : nullptr;
 }
 
@@ -70,11 +70,11 @@ Gura_ImplementFunction(GridCellAttrProvider)
 	Object_wx_GridCellAttrProvider *pObj = Object_wx_GridCellAttrProvider::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellAttrProvider(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

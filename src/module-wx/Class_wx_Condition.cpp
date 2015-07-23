@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Condition: public wxCondition, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Condition *_pObj;
 public:
-	inline wx_Condition(wxMutex& mutex) : wxCondition(mutex), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Condition(wxMutex& mutex) : wxCondition(mutex), _pObj(nullptr) {}
 	~wx_Condition();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Condition *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Condition *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(Condition)
 	Object_wx_Condition *pObj = Object_wx_Condition::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Condition(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_NotebookEvent: public wxNotebookEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_NotebookEvent *_pObj;
 public:
-	inline wx_NotebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxNotebookEvent(eventType, id, sel, oldSel), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_NotebookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxNotebookEvent(eventType, id, sel, oldSel), _pObj(nullptr) {}
 	~wx_NotebookEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_NotebookEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_NotebookEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(NotebookEvent)
 	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_NotebookEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

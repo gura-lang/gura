@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellChoiceEditor: public wxGridCellChoiceEditor, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridCellChoiceEditor *_pObj;
 public:
-	inline wx_GridCellChoiceEditor(size_t count, const wxString choices[], bool allowOthers) : wxGridCellChoiceEditor(count, choices, allowOthers), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GridCellChoiceEditor(const wxArrayString& choices, bool allowOthers) : wxGridCellChoiceEditor(choices, allowOthers), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellChoiceEditor(size_t count, const wxString choices[], bool allowOthers) : wxGridCellChoiceEditor(count, choices, allowOthers), _pObj(nullptr) {}
+	inline wx_GridCellChoiceEditor(const wxArrayString& choices, bool allowOthers) : wxGridCellChoiceEditor(choices, allowOthers), _pObj(nullptr) {}
 	~wx_GridCellChoiceEditor();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellChoiceEditor *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridCellChoiceEditor *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(GridCellChoiceEditor)
 	Object_wx_GridCellChoiceEditor *pObj = Object_wx_GridCellChoiceEditor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellChoiceEditor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AuiNotebook: public wxAuiNotebook, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AuiNotebook *_pObj;
 public:
-	inline wx_AuiNotebook() : wxAuiNotebook(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_AuiNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxAuiNotebook(parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiNotebook() : wxAuiNotebook(), _pObj(nullptr) {}
+	inline wx_AuiNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxAuiNotebook(parent, id, pos, size, style), _pObj(nullptr) {}
 	~wx_AuiNotebook();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiNotebook *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AuiNotebook *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(AuiNotebookEmpty)
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiNotebook(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -87,11 +87,11 @@ Gura_ImplementFunction(AuiNotebook)
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiNotebook(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

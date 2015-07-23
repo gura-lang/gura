@@ -20,10 +20,10 @@ Gura_DeclarePrivUserSymbol(Undo);
 //----------------------------------------------------------------------------
 class wx_CommandProcessor: public wxCommandProcessor, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CommandProcessor *_pObj;
 public:
-	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CommandProcessor(int maxCommands) : wxCommandProcessor(maxCommands), _pObj(nullptr) {}
 	//virtual bool CanUndo();
 	//virtual void ClearCommands();
 	//virtual bool Redo();
@@ -33,8 +33,8 @@ public:
 	//virtual bool Submit(wxCommand * command, bool storeIt);
 	//virtual bool Undo();
 	~wx_CommandProcessor();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CommandProcessor *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CommandProcessor *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -70,11 +70,11 @@ Gura_ImplementFunction(CommandProcessor)
 	Object_wx_CommandProcessor *pObj = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CommandProcessor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

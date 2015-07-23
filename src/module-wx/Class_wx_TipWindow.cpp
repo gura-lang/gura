@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TipWindow: public wxTipWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TipWindow *_pObj;
 public:
-	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TipWindow(wxWindow* parent, const wxString& text, wxCoord maxLength, wxTipWindow** windowPtr, wxRect * rectBounds) : wxTipWindow(parent, text, maxLength, windowPtr, rectBounds), _pObj(nullptr) {}
 	~wx_TipWindow();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TipWindow *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TipWindow *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -65,11 +65,11 @@ Gura_ImplementFunction(TipWindow)
 	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TipWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

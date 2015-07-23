@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextFile: public wxTextFile, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextFile *_pObj;
 public:
-	inline wx_TextFile() : wxTextFile(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_TextFile(const wxString& strFile) : wxTextFile(strFile), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextFile() : wxTextFile(), _pObj(nullptr) {}
+	inline wx_TextFile(const wxString& strFile) : wxTextFile(strFile), _pObj(nullptr) {}
 	~wx_TextFile();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextFile *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextFile *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(TextFileEmpty)
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -75,11 +75,11 @@ Gura_ImplementFunction(TextFile)
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextFile(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DatePickerCtrl: public wxDatePickerCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DatePickerCtrl *_pObj;
 public:
-	inline wx_DatePickerCtrl(wxWindow * parent, wxWindowID id, const wxDateTime& dt, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDatePickerCtrl(parent, id, dt, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DatePickerCtrl(wxWindow * parent, wxWindowID id, const wxDateTime& dt, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDatePickerCtrl(parent, id, dt, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_DatePickerCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DatePickerCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DatePickerCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -72,11 +72,11 @@ Gura_ImplementFunction(DatePickerCtrl)
 	Object_wx_DatePickerCtrl *pObj = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DatePickerCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

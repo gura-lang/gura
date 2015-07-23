@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(SetData);
 //----------------------------------------------------------------------------
 class wx_DataObjectSimple: public wxDataObjectSimple, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataObjectSimple *_pObj;
 public:
-	inline wx_DataObjectSimple(const wxDataFormat& format) : wxDataObjectSimple(format), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataObjectSimple(const wxDataFormat& format) : wxDataObjectSimple(format), _pObj(nullptr) {}
 	//virtual size_t GetDataSize();
 	//virtual bool GetDataHere(void *buf);
 	//virtual bool SetData(size_t len, const void *buf);
 	~wx_DataObjectSimple();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataObjectSimple *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataObjectSimple *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(DataObjectSimple)
 	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectSimple(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

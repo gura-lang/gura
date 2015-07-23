@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewBitmapRenderer: public wxDataViewBitmapRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewBitmapRenderer *_pObj;
 public:
-	inline wx_DataViewBitmapRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewBitmapRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewBitmapRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewBitmapRenderer(varianttype, mode), _pObj(nullptr) {}
 	~wx_DataViewBitmapRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewBitmapRenderer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewBitmapRenderer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(DataViewBitmapRenderer)
 	Object_wx_DataViewBitmapRenderer *pObj = Object_wx_DataViewBitmapRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewBitmapRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ClientDataContainer: public wxClientDataContainer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ClientDataContainer *_pObj;
 public:
-	inline wx_ClientDataContainer() : wxClientDataContainer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ClientDataContainer() : wxClientDataContainer(), _pObj(nullptr) {}
 	~wx_ClientDataContainer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ClientDataContainer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ClientDataContainer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ClientDataContainer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

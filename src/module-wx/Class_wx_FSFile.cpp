@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FSFile: public wxFSFile, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FSFile *_pObj;
 public:
-	//inline wx_FSFile(wxInputStream *stream, const wxString& loc, const wxString& mimetype, const wxString& anchor, wxDateTime modif) : wxFSFile(*stream, loc, mimetype, anchor, modif), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FSFile(wxInputStream *stream, const wxString& loc, const wxString& mimetype, const wxString& anchor, wxDateTime modif) : wxFSFile(*stream, loc, mimetype, anchor, modif), _pObj(nullptr) {}
 	~wx_FSFile();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FSFile *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FSFile *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -63,11 +63,11 @@ Gura_ImplementFunction(FSFile)
 	Object_wx_FSFile *pObj = Object_wx_FSFile::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FSFile(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

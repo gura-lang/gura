@@ -13,16 +13,16 @@ Gura_DeclarePrivUserSymbol(GetLastPosition);
 //----------------------------------------------------------------------------
 class wx_ComboBox: public wxComboBox, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ComboBox *_pObj;
 public:
-	inline wx_ComboBox() : wxComboBox(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboBox() : wxComboBox(), _pObj(nullptr) {}
+	//inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pObj(nullptr) {}
+	inline wx_ComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxComboBox(parent, id, value, pos, size, choices, style, validator, name), _pObj(nullptr) {}
 	//virtual wxTextPos GetLastPosition();
 	~wx_ComboBox();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboBox *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ComboBox *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(ComboBoxEmpty)
 	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -106,11 +106,11 @@ Gura_ImplementFunction(ComboBox)
 	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

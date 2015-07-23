@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MetafileDC: public wxMetafileDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MetafileDC *_pObj;
 public:
-	inline wx_MetafileDC(const wxString& filename) : wxMetafileDC(filename), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MetafileDC(const wxString& filename) : wxMetafileDC(filename), _pObj(nullptr) {}
 	~wx_MetafileDC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MetafileDC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MetafileDC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MetafileDC)
 	Object_wx_MetafileDC *pObj = Object_wx_MetafileDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MetafileDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

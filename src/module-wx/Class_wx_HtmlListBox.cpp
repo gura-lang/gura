@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(OnLinkClicked);
 //----------------------------------------------------------------------------
 class wx_HtmlListBox: public wxHtmlListBox, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlListBox *_pObj;
 public:
-	//inline wx_HtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlListBox(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_HtmlListBox() : wxHtmlListBox(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxHtmlListBox(parent, id, pos, size, style, name), _pObj(nullptr) {}
+	//inline wx_HtmlListBox() : wxHtmlListBox(), _pObj(nullptr) {}
 	//virtual void OnLinkClicked(size_t n, const wxHtmlLinkInfo& link);
 	~wx_HtmlListBox();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlListBox *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlListBox *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -74,11 +74,11 @@ Gura_ImplementFunction(HtmlListBox)
 	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -102,11 +102,11 @@ Gura_ImplementFunction(HtmlListBoxEmpty)
 	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

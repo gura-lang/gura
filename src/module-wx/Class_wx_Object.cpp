@@ -36,11 +36,11 @@ Gura_ImplementFunction(ObjectEmpty)
 	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -60,11 +60,11 @@ Gura_ImplementFunction(Object)
 	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -82,11 +82,11 @@ Gura_ImplementFunction(ObjectEmpty_1)
 	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

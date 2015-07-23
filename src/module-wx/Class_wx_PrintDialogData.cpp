@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PrintDialogData: public wxPrintDialogData, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PrintDialogData *_pObj;
 public:
-	inline wx_PrintDialogData() : wxPrintDialogData(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PrintDialogData() : wxPrintDialogData(), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintDialogData& dialogData) : wxPrintDialogData(dialogData), _pObj(nullptr) {}
+	inline wx_PrintDialogData(wxPrintData& printData) : wxPrintDialogData(printData), _pObj(nullptr) {}
 	~wx_PrintDialogData();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrintDialogData *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PrintDialogData *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(PrintDialogDataEmpty)
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -76,11 +76,11 @@ Gura_ImplementFunction(PrintDialogData)
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -100,11 +100,11 @@ Gura_ImplementFunction(PrintDialogData_1)
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintDialogData(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

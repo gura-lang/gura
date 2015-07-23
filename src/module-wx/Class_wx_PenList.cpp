@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PenList: public wxPenList, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PenList *_pObj;
 public:
-	inline wx_PenList() : wxPenList(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PenList() : wxPenList(), _pObj(nullptr) {}
 	~wx_PenList();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PenList *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PenList *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(PenListEmpty)
 	Object_wx_PenList *pObj = Object_wx_PenList::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PenList(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

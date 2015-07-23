@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogChain: public wxLogChain, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_LogChain *_pObj;
 public:
-	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_LogChain(wxLog * logger) : wxLogChain(logger), _pObj(nullptr) {}
 	~wx_LogChain();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogChain *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_LogChain *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(LogChain)
 	Object_wx_LogChain *pObj = Object_wx_LogChain::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogChain(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

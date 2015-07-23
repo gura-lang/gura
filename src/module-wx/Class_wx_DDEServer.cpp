@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(OnAcceptConnection);
 //----------------------------------------------------------------------------
 class wx_DDEServer: public wxDDEServer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DDEServer *_pObj;
 public:
-	inline wx_DDEServer() : wxDDEServer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DDEServer() : wxDDEServer(), _pObj(nullptr) {}
 	//virtual wxConnectionBase * OnAcceptConnection(const wxString& topic);
 	~wx_DDEServer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DDEServer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DDEServer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(DDEServerEmpty)
 	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEServer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

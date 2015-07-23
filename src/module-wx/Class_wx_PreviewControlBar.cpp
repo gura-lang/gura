@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PreviewControlBar: public wxPreviewControlBar, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PreviewControlBar *_pObj;
 public:
-	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PreviewControlBar(wxPrintPreview* preview, long buttons, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPreviewControlBar(preview, buttons, parent, pos, size, style, name), _pObj(nullptr) {}
 	~wx_PreviewControlBar();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PreviewControlBar *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PreviewControlBar *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -68,11 +68,11 @@ Gura_ImplementFunction(PreviewControlBar)
 	Object_wx_PreviewControlBar *pObj = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewControlBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

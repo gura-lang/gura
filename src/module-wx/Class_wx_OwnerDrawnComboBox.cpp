@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_OwnerDrawnComboBox: public wxOwnerDrawnComboBox, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_OwnerDrawnComboBox *_pObj;
 public:
-	inline wx_OwnerDrawnComboBox() : wxOwnerDrawnComboBox(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_OwnerDrawnComboBox() : wxOwnerDrawnComboBox(), _pObj(nullptr) {}
+	//inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _pObj(nullptr) {}
+	inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name), _pObj(nullptr) {}
 	~wx_OwnerDrawnComboBox();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_OwnerDrawnComboBox *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_OwnerDrawnComboBox *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -95,11 +95,11 @@ Gura_ImplementFunction(OwnerDrawnComboBox)
 	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(Pulse);
 //----------------------------------------------------------------------------
 class wx_ProgressDialog: public wxProgressDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ProgressDialog *_pObj;
 public:
-	inline wx_ProgressDialog(const wxString& title, const wxString& message, int maximum, wxWindow * parent, int style) : wxProgressDialog(title, message, maximum, parent, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ProgressDialog(const wxString& title, const wxString& message, int maximum, wxWindow * parent, int style) : wxProgressDialog(title, message, maximum, parent, style), _pObj(nullptr) {}
 	//virtual bool Update(int value, const wxString& newmsg, bool * skip);
 	//virtual bool Pulse(const wxString& newmsg, bool * skip);
 	~wx_ProgressDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ProgressDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ProgressDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -68,11 +68,11 @@ Gura_ImplementFunction(ProgressDialog)
 	Object_wx_ProgressDialog *pObj = Object_wx_ProgressDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ProgressDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

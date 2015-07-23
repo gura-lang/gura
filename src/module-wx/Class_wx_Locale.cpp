@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Locale: public wxLocale, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Locale *_pObj;
 public:
-	inline wx_Locale() : wxLocale(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Locale(int language, int flags) : wxLocale(language, flags), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Locale(const char *szName, const char *szShort, const char *szLocale, bool bLoadDefault, bool bConvertEncoding) : wxLocale(*szName, *szShort, *szLocale, bLoadDefault, bConvertEncoding), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Locale() : wxLocale(), _pObj(nullptr) {}
+	inline wx_Locale(int language, int flags) : wxLocale(language, flags), _pObj(nullptr) {}
+	//inline wx_Locale(const char *szName, const char *szShort, const char *szLocale, bool bLoadDefault, bool bConvertEncoding) : wxLocale(*szName, *szShort, *szLocale, bLoadDefault, bConvertEncoding), _pObj(nullptr) {}
 	~wx_Locale();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Locale *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Locale *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(Locale)
 	Object_wx_Locale *pObj = Object_wx_Locale::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Locale(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -102,11 +102,11 @@ Gura_ImplementFunction(Locale_1)
 	Object_wx_Locale *pObj = Object_wx_Locale::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Locale(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

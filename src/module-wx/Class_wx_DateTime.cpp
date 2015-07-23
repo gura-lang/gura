@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DateTime: public wxDateTime, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DateTime *_pObj;
 public:
-	//inline wx_DateTime() : wxDateTime(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DateTime() : wxDateTime(), _pObj(nullptr) {}
+	//inline wx_DateTime(time_t timet) : wxDateTime(timet), _pObj(nullptr) {}
+	//inline wx_DateTime(const struct tm& tm) : wxDateTime(tm), _pObj(nullptr) {}
+	//inline wx_DateTime(double jdn) : wxDateTime(jdn), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(hour, minute, second, millisec), _pObj(nullptr) {}
+	//inline wx_DateTime(wxDateTime_t day, Month month, int Inv_Year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec) : wxDateTime(day, month, Inv_Year, hour, minute, second, millisec), _pObj(nullptr) {}
 	~wx_DateTime();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DateTime *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DateTime *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -407,11 +407,11 @@ Gura_ImplementFunction(DateTime)
 	Object_wx_DateTime *pObj = Object_wx_DateTime::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DateTime(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

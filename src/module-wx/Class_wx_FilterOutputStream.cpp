@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FilterOutputStream: public wxFilterOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FilterOutputStream *_pObj;
 public:
-	inline wx_FilterOutputStream(wxOutputStream& stream) : wxFilterOutputStream(stream), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FilterOutputStream(wxOutputStream* stream) : wxFilterOutputStream(stream), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FilterOutputStream(wxOutputStream& stream) : wxFilterOutputStream(stream), _pObj(nullptr) {}
+	inline wx_FilterOutputStream(wxOutputStream* stream) : wxFilterOutputStream(stream), _pObj(nullptr) {}
 	~wx_FilterOutputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FilterOutputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FilterOutputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(FilterOutputStream)
 	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(FilterOutputStream_1)
 	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

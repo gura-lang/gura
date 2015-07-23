@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_URI: public wxURI, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_URI *_pObj;
 public:
-	inline wx_URI() : wxURI(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxString& uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxChar* uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_URI(const wxURI& uri) : wxURI(uri), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_URI() : wxURI(), _pObj(nullptr) {}
+	inline wx_URI(const wxString& uri) : wxURI(uri), _pObj(nullptr) {}
+	inline wx_URI(const wxChar* uri) : wxURI(uri), _pObj(nullptr) {}
+	inline wx_URI(const wxURI& uri) : wxURI(uri), _pObj(nullptr) {}
 	~wx_URI();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_URI *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_URI *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(URIEmpty)
 	Object_wx_URI *pObj = Object_wx_URI::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_URI(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(URI)
 	Object_wx_URI *pObj = Object_wx_URI::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_URI(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -101,11 +101,11 @@ Gura_ImplementFunction(URI_1)
 	Object_wx_URI *pObj = Object_wx_URI::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_URI(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

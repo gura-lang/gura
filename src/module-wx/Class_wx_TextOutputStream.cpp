@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(WriteString);
 //----------------------------------------------------------------------------
 class wx_TextOutputStream: public wxTextOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextOutputStream *_pObj;
 public:
-	//inline wx_TextOutputStream(wxOutputStream& stream, wxEOL mode, wxMBConv& conv) : wxTextOutputStream(stream, mode, conv), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TextOutputStream(wxOutputStream& stream, wxEOL mode, wxMBConv& conv) : wxTextOutputStream(stream, mode, conv), _pObj(nullptr) {}
 	//virtual void WriteDouble();
 	//virtual void WriteString();
 	~wx_TextOutputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextOutputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextOutputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -66,11 +66,11 @@ Gura_ImplementFunction(TextOutputStream)
 	Object_wx_TextOutputStream *pObj = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

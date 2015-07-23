@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_URL: public wxURL, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_URL *_pObj;
 public:
-	inline wx_URL(const wxString& url) : wxURL(url), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_URL(const wxString& url) : wxURL(url), _pObj(nullptr) {}
 	~wx_URL();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_URL *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_URL *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(URL)
 	Object_wx_URL *pObj = Object_wx_URL::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_URL(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

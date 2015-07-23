@@ -13,14 +13,14 @@ Value MenuItemListToValue(Environment &env, const wxMenuItemList &list);
 //----------------------------------------------------------------------------
 class wx_Menu: public wxMenu, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Menu *_pObj;
 public:
-	inline wx_Menu(const wxString& title, long style) : wxMenu(title, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Menu(long style) : wxMenu(style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Menu(const wxString& title, long style) : wxMenu(title, style), _pObj(nullptr) {}
+	inline wx_Menu(long style) : wxMenu(style), _pObj(nullptr) {}
 	~wx_Menu();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Menu *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Menu *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,11 +59,11 @@ Gura_ImplementFunction(Menu)
 	Object_wx_Menu *pObj = Object_wx_Menu::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -83,11 +83,11 @@ Gura_ImplementFunction(Menu_1)
 	Object_wx_Menu *pObj = Object_wx_Menu::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

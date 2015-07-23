@@ -16,17 +16,17 @@ Gura_DeclarePrivUserSymbol(ToWChar);
 //----------------------------------------------------------------------------
 class wx_MBConv: public wxMBConv, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MBConv *_pObj;
 public:
-	//inline wx_MBConv() : wxMBConv(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_MBConv() : wxMBConv(), _pObj(nullptr) {}
 	//virtual size_t MB2WC(wchar_t * out, const char * in, size_t outLen);
 	//virtual size_t WC2MB(char* buf, const wchar_t* psz, size_t n);
 	//virtual size_t FromWChar(char_t * dst, size_t dstLen, const wchar_t * src, size_t srcLen);
 	//virtual size_t ToWChar(wchar_t * dst, size_t dstLen, const char_t * src, size_t srcLen);
 	~wx_MBConv();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MBConv *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MBConv *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -63,11 +63,11 @@ Gura_ImplementFunction(MBConvEmpty)
 	Object_wx_MBConv *pObj = Object_wx_MBConv::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MBConv(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

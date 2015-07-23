@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(PreProcessTip);
 //----------------------------------------------------------------------------
 class wx_TipProvider: public wxTipProvider, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TipProvider *_pObj;
 public:
-	//inline wx_TipProvider(size_t currentTip) : wxTipProvider(currentTip), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TipProvider(size_t currentTip) : wxTipProvider(currentTip), _pObj(nullptr) {}
 	//virtual wxString PreProcessTip(const wxString& tip);
 	~wx_TipProvider();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TipProvider *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TipProvider *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -58,11 +58,11 @@ Gura_ImplementFunction(TipProvider)
 	Object_wx_TipProvider *pObj = Object_wx_TipProvider::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TipProvider(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

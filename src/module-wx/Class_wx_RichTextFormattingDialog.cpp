@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextFormattingDialog: public wxRichTextFormattingDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextFormattingDialog *_pObj;
 public:
-	inline wx_RichTextFormattingDialog(long flags, wxWindow* parent, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& sz, long style) : wxRichTextFormattingDialog(flags, parent, title, id, pos, sz, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextFormattingDialog() : wxRichTextFormattingDialog(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextFormattingDialog(long flags, wxWindow* parent, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& sz, long style) : wxRichTextFormattingDialog(flags, parent, title, id, pos, sz, style), _pObj(nullptr) {}
+	inline wx_RichTextFormattingDialog() : wxRichTextFormattingDialog(), _pObj(nullptr) {}
 	~wx_RichTextFormattingDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextFormattingDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextFormattingDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -70,11 +70,11 @@ Gura_ImplementFunction(RichTextFormattingDialog)
 	Object_wx_RichTextFormattingDialog *pObj = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -92,11 +92,11 @@ Gura_ImplementFunction(RichTextFormattingDialogEmpty)
 	Object_wx_RichTextFormattingDialog *pObj = Object_wx_RichTextFormattingDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Palette: public wxPalette, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Palette *_pObj;
 public:
-	inline wx_Palette() : wxPalette(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Palette(const wxPalette& palette) : wxPalette(palette), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Palette(int n, const unsigned char* red, const unsigned char* green, const unsigned char* blue) : wxPalette(n, red, green, blue), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Palette() : wxPalette(), _pObj(nullptr) {}
+	inline wx_Palette(const wxPalette& palette) : wxPalette(palette), _pObj(nullptr) {}
+	//inline wx_Palette(int n, const unsigned char* red, const unsigned char* green, const unsigned char* blue) : wxPalette(n, red, green, blue), _pObj(nullptr) {}
 	~wx_Palette();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Palette *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Palette *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(PaletteEmpty)
 	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -76,11 +76,11 @@ Gura_ImplementFunction(Palette)
 	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -109,11 +109,11 @@ Gura_ImplementFunction(Palette_1)
 	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

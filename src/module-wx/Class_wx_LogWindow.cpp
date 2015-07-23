@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(OnFrameDelete);
 //----------------------------------------------------------------------------
 class wx_LogWindow: public wxLogWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_LogWindow *_pObj;
 public:
-	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_LogWindow(wxFrame *parent, const wxChar *title, bool show, bool passToOld) : wxLogWindow(*parent, *title, show, passToOld), _pObj(nullptr) {}
 	//virtual void OnFrameCreate(wxFrame *frame);
 	//virtual bool OnFrameClose(wxFrame *frame);
 	//virtual void OnFrameDelete(wxFrame *frame);
 	~wx_LogWindow();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogWindow *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_LogWindow *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -70,11 +70,11 @@ Gura_ImplementFunction(LogWindow)
 	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

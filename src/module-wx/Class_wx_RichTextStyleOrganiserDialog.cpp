@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextStyleOrganiserDialog: public wxRichTextStyleOrganiserDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextStyleOrganiserDialog *_pObj;
 public:
-	inline wx_RichTextStyleOrganiserDialog(int flags, wxRichTextStyleSheet* sheet, wxRichTextCtrl* ctrl, wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleOrganiserDialog(flags, sheet, ctrl, parent, id, caption, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextStyleOrganiserDialog() : wxRichTextStyleOrganiserDialog(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextStyleOrganiserDialog(int flags, wxRichTextStyleSheet* sheet, wxRichTextCtrl* ctrl, wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleOrganiserDialog(flags, sheet, ctrl, parent, id, caption, pos, size, style), _pObj(nullptr) {}
+	inline wx_RichTextStyleOrganiserDialog() : wxRichTextStyleOrganiserDialog(), _pObj(nullptr) {}
 	~wx_RichTextStyleOrganiserDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleOrganiserDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextStyleOrganiserDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -75,11 +75,11 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialog)
 	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleOrganiserDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -97,11 +97,11 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialogEmpty)
 	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleOrganiserDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

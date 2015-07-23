@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_IconizeEvent: public wxIconizeEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_IconizeEvent *_pObj;
 public:
-	inline wx_IconizeEvent(int id, bool iconized) : wxIconizeEvent(id, iconized), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IconizeEvent(int id, bool iconized) : wxIconizeEvent(id, iconized), _pObj(nullptr) {}
 	~wx_IconizeEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IconizeEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_IconizeEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(IconizeEvent)
 	Object_wx_IconizeEvent *pObj = Object_wx_IconizeEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconizeEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

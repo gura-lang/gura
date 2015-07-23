@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileInputStream: public wxFileInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FileInputStream *_pObj;
 public:
-	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileInputStream(const wxString& ifileName) : wxFileInputStream(ifileName), _pObj(nullptr) {}
+	inline wx_FileInputStream(wxFile& file) : wxFileInputStream(file), _pObj(nullptr) {}
+	inline wx_FileInputStream(int fd) : wxFileInputStream(fd), _pObj(nullptr) {}
 	~wx_FileInputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileInputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FileInputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(FileInputStream)
 	Object_wx_FileInputStream *pObj = Object_wx_FileInputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileInputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

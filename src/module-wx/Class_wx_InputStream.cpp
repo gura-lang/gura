@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_InputStream: public wxInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_InputStream *_pObj;
 public:
-	//inline wx_InputStream() : wxInputStream(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_InputStream() : wxInputStream(), _pObj(nullptr) {}
 	~wx_InputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_InputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_InputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(InputStreamEmpty)
 	Object_wx_InputStream *pObj = Object_wx_InputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_InputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

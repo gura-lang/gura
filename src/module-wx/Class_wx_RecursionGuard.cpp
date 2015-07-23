@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RecursionGuard: public wxRecursionGuard, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RecursionGuard *_pObj;
 public:
-	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_RecursionGuard(wxRecursionGuardFlag& flag) : wxRecursionGuard(flag), _pObj(nullptr) {}
 	~wx_RecursionGuard();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RecursionGuard *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RecursionGuard *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(RecursionGuard)
 	Object_wx_RecursionGuard *pObj = Object_wx_RecursionGuard::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RecursionGuard(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

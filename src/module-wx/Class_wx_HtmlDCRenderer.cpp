@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlDCRenderer: public wxHtmlDCRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlDCRenderer *_pObj;
 public:
-	inline wx_HtmlDCRenderer() : wxHtmlDCRenderer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlDCRenderer() : wxHtmlDCRenderer(), _pObj(nullptr) {}
 	~wx_HtmlDCRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlDCRenderer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlDCRenderer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(HtmlDCRendererEmpty)
 	Object_wx_HtmlDCRenderer *pObj = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlDCRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

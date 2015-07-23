@@ -11,21 +11,21 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Icon: public wxIcon, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Icon *_pObj;
 public:
-	inline wx_Icon() : wxIcon(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(char** bits) : wxIcon(bits), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const char** bits) : wxIcon(bits), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Icon() : wxIcon(), _pObj(nullptr) {}
+	inline wx_Icon(const wxIcon& icon) : wxIcon(icon), _pObj(nullptr) {}
+	//inline wx_Icon(void* data, int type, int width, int height, int depth) : wxIcon(data, type, width, height, depth), _pObj(nullptr) {}
+	//inline wx_Icon(const char bits[], int width, int height, int depth) : wxIcon(bits[], width, height, depth), _pObj(nullptr) {}
+	//inline wx_Icon(int width, int height, int depth) : wxIcon(width, height, depth), _pObj(nullptr) {}
+	inline wx_Icon(char** bits) : wxIcon(bits), _pObj(nullptr) {}
+	inline wx_Icon(const char** bits) : wxIcon(bits), _pObj(nullptr) {}
+	inline wx_Icon(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight) : wxIcon(name, type, desiredWidth, desiredHeight), _pObj(nullptr) {}
+	inline wx_Icon(const wxIconLocation& loc) : wxIcon(loc), _pObj(nullptr) {}
 	~wx_Icon();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Icon *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Icon *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(EmptyIcon)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -89,11 +89,11 @@ Gura_ImplementFunction(Icon)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -118,11 +118,11 @@ Gura_ImplementFunction(IconFromXPMData)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -154,11 +154,11 @@ Gura_ImplementFunction(Icon_1)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -191,11 +191,11 @@ Gura_ImplementFunction(Icon_2)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -226,11 +226,11 @@ Gura_ImplementFunction(Icon_3)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -254,11 +254,11 @@ Gura_ImplementFunction(Icon_5)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -281,11 +281,11 @@ Gura_ImplementFunction(Icon_7)
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Icon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

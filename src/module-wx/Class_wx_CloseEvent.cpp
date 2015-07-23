@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CloseEvent: public wxCloseEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CloseEvent *_pObj;
 public:
-	inline wx_CloseEvent(WXTYPE commandEventType, int id) : wxCloseEvent(commandEventType, id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CloseEvent(WXTYPE commandEventType, int id) : wxCloseEvent(commandEventType, id), _pObj(nullptr) {}
 	~wx_CloseEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CloseEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CloseEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(CloseEvent)
 	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CloseEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

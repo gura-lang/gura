@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CSConv: public wxCSConv, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CSConv *_pObj;
 public:
-	inline wx_CSConv(const wxChar* charset) : wxCSConv(charset), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_CSConv(wxFontEncoding encoding) : wxCSConv(encoding), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CSConv(const wxChar* charset) : wxCSConv(charset), _pObj(nullptr) {}
+	inline wx_CSConv(wxFontEncoding encoding) : wxCSConv(encoding), _pObj(nullptr) {}
 	~wx_CSConv();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CSConv *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CSConv *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(CSConv)
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(CSConv_1)
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

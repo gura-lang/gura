@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Animation: public wxAnimation, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Animation *_pObj;
 public:
-	inline wx_Animation() : wxAnimation(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Animation() : wxAnimation(), _pObj(nullptr) {}
+	inline wx_Animation(const wxAnimation& anim) : wxAnimation(anim), _pObj(nullptr) {}
+	inline wx_Animation(const wxString& name, wxAnimationType type) : wxAnimation(name, type), _pObj(nullptr) {}
 	~wx_Animation();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Animation *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Animation *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(AnimationEmpty)
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -76,11 +76,11 @@ Gura_ImplementFunction(Animation)
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -103,11 +103,11 @@ Gura_ImplementFunction(Animation_1)
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

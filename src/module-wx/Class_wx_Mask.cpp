@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Mask: public wxMask, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Mask *_pObj;
 public:
-	inline wx_Mask() : wxMask(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Mask() : wxMask(), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap) : wxMask(bitmap), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, const wxColour& colour) : wxMask(bitmap, colour), _pObj(nullptr) {}
+	inline wx_Mask(const wxBitmap& bitmap, int index) : wxMask(bitmap, index), _pObj(nullptr) {}
 	~wx_Mask();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Mask *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Mask *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MaskEmpty)
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(Mask)
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -103,11 +103,11 @@ Gura_ImplementFunction(Mask_1)
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -129,11 +129,11 @@ Gura_ImplementFunction(Mask_2)
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

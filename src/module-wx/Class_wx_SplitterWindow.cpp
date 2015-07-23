@@ -15,17 +15,17 @@ Gura_DeclarePrivUserSymbol(OnSashPositionChange);
 //----------------------------------------------------------------------------
 class wx_SplitterWindow: public wxSplitterWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SplitterWindow *_pObj;
 public:
-	inline wx_SplitterWindow() : wxSplitterWindow(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_SplitterWindow(wxWindow* parent, wxWindowID id, const wxPoint& point, const wxSize& size, long style, const wxString& name) : wxSplitterWindow(parent, id, point, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SplitterWindow() : wxSplitterWindow(), _pObj(nullptr) {}
+	inline wx_SplitterWindow(wxWindow* parent, wxWindowID id, const wxPoint& point, const wxSize& size, long style, const wxString& name) : wxSplitterWindow(parent, id, point, size, style, name), _pObj(nullptr) {}
 	//virtual void OnDoubleClickSash(int x, int y);
 	//virtual void OnUnsplit(wxWindow* removed);
 	//virtual bool OnSashPositionChange(int newSashPosition);
 	~wx_SplitterWindow();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SplitterWindow *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SplitterWindow *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -58,11 +58,11 @@ Gura_ImplementFunction(SplitterWindowEmpty)
 	Object_wx_SplitterWindow *pObj = Object_wx_SplitterWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplitterWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -97,11 +97,11 @@ Gura_ImplementFunction(SplitterWindow)
 	Object_wx_SplitterWindow *pObj = Object_wx_SplitterWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplitterWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

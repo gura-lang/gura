@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(Clone);
 //----------------------------------------------------------------------------
 class wx_Event: public wxEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Event *_pObj;
 public:
-	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Event(int id, wxEventType eventType) : wxEvent(id, eventType), _pObj(nullptr) {}
 	//virtual wxEvent* Clone();
 	~wx_Event();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Event *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Event *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(Event)
 	Object_wx_Event *pObj = Object_wx_Event::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Event(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

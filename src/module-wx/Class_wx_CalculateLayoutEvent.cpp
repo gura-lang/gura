@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CalculateLayoutEvent: public wxCalculateLayoutEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CalculateLayoutEvent *_pObj;
 public:
-	inline wx_CalculateLayoutEvent(wxWindowID id) : wxCalculateLayoutEvent(id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CalculateLayoutEvent(wxWindowID id) : wxCalculateLayoutEvent(id), _pObj(nullptr) {}
 	~wx_CalculateLayoutEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalculateLayoutEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CalculateLayoutEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(CalculateLayoutEvent)
 	Object_wx_CalculateLayoutEvent *pObj = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalculateLayoutEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

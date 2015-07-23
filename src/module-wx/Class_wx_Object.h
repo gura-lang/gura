@@ -56,15 +56,14 @@ public:
 
 class wx_Object: public wxObject, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
 	Object_wx_Object *_pObj;
 public:
-	inline wx_Object() : wxObject(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Object(const wxObject& other) : wxObject(other), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Object() : wxObject(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Object() : wxObject(), _pObj(nullptr) {}
+	inline wx_Object(const wxObject& other) : wxObject(other), _pObj(nullptr) {}
+	//inline wx_Object() : wxObject(), _pObj(nullptr) {}
 	~wx_Object();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Object *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Object *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

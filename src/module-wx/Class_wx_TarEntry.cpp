@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TarEntry: public wxTarEntry, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TarEntry *_pObj;
 public:
-	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TarEntry(const wxString& name, const wxDateTime& dt, wxFileOffset size) : wxTarEntry(name, dt, size), _pObj(nullptr) {}
+	inline wx_TarEntry(const wxTarEntry& entry) : wxTarEntry(entry), _pObj(nullptr) {}
 	~wx_TarEntry();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TarEntry *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TarEntry *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(TarEntry)
 	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(TarEntry_1)
 	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

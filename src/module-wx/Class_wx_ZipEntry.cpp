@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ZipEntry: public wxZipEntry, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ZipEntry *_pObj;
 public:
-	inline wx_ZipEntry(const wxString& name, const wxDateTime& dt, off_t size) : wxZipEntry(name, dt, size), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ZipEntry(const wxZipEntry& entry) : wxZipEntry(entry), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ZipEntry(const wxString& name, const wxDateTime& dt, off_t size) : wxZipEntry(name, dt, size), _pObj(nullptr) {}
+	inline wx_ZipEntry(const wxZipEntry& entry) : wxZipEntry(entry), _pObj(nullptr) {}
 	~wx_ZipEntry();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZipEntry *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ZipEntry *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(ZipEntry)
 	Object_wx_ZipEntry *pObj = Object_wx_ZipEntry::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipEntry(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(ZipEntry_1)
 	Object_wx_ZipEntry *pObj = Object_wx_ZipEntry::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipEntry(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

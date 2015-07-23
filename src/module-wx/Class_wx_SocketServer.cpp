@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SocketServer: public wxSocketServer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SocketServer *_pObj;
 public:
-	inline wx_SocketServer(const wxSockAddress& address, wxSocketFlags flags) : wxSocketServer(address, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SocketServer(const wxSockAddress& address, wxSocketFlags flags) : wxSocketServer(address, flags), _pObj(nullptr) {}
 	~wx_SocketServer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SocketServer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SocketServer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(SocketServer)
 	Object_wx_SocketServer *pObj = Object_wx_SocketServer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketServer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

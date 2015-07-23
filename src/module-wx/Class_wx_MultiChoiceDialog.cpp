@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MultiChoiceDialog: public wxMultiChoiceDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MultiChoiceDialog *_pObj;
 public:
-	//inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, int n, const wxString* choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, n, choices, style, pos), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, choices, style, pos), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, int n, const wxString* choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, n, choices, style, pos), _pObj(nullptr) {}
+	inline wx_MultiChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, long style, const wxPoint& pos) : wxMultiChoiceDialog(parent, message, caption, choices, style, pos), _pObj(nullptr) {}
 	~wx_MultiChoiceDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MultiChoiceDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MultiChoiceDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(MultiChoiceDialog)
 	Object_wx_MultiChoiceDialog *pObj = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -111,11 +111,11 @@ Gura_ImplementFunction(MultiChoiceDialog_1)
 	Object_wx_MultiChoiceDialog *pObj = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MultiChoiceDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(CreatePopupMenu);
 //----------------------------------------------------------------------------
 class wx_TaskBarIcon: public wxTaskBarIcon, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TaskBarIcon *_pObj;
 public:
-	inline wx_TaskBarIcon() : wxTaskBarIcon(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TaskBarIcon() : wxTaskBarIcon(), _pObj(nullptr) {}
 	//virtual wxMenu* CreatePopupMenu();
 	~wx_TaskBarIcon();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TaskBarIcon *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TaskBarIcon *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TaskBarIcon(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

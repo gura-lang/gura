@@ -15,15 +15,15 @@ Gura_DeclarePrivUserSymbol(Flush);
 //----------------------------------------------------------------------------
 class wx_Log: public wxLog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Log *_pObj;
 public:
 	//virtual void DoLog(wxLogLevel level, const wxChar *msg, time_t timestamp);
 	//virtual void DoLogString(const wxChar *msg, time_t timestamp);
 	//virtual void Flush();
 	~wx_Log();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Log *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Log *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

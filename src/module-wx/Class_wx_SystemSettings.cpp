@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SystemSettings: public wxSystemSettings, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SystemSettings *_pObj;
 public:
-	inline wx_SystemSettings() : wxSystemSettings(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SystemSettings() : wxSystemSettings(), _pObj(nullptr) {}
 	~wx_SystemSettings();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SystemSettings *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SystemSettings *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(SystemSettings)
 	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SystemSettings(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

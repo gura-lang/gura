@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ActiveXContainer: public wxActiveXContainer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ActiveXContainer *_pObj;
 public:
-	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_ActiveXContainer(wxWindow* parent, REFIID iid, IUnknown* pUnk) : wxActiveXContainer(parent, iid, pUnk), _pObj(nullptr) {}
 	~wx_ActiveXContainer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ActiveXContainer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ActiveXContainer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(ActiveXContainer)
 	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ActiveXContainer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

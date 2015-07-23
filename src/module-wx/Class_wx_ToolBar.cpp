@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ToolBar: public wxToolBar, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ToolBar *_pObj;
 public:
-	inline wx_ToolBar() : wxToolBar(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxToolBar(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ToolBar() : wxToolBar(), _pObj(nullptr) {}
+	inline wx_ToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxToolBar(parent, id, pos, size, style, name), _pObj(nullptr) {}
 	~wx_ToolBar();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToolBar *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ToolBar *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(ToolBarEmpty)
 	Object_wx_ToolBar *pObj = Object_wx_ToolBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -89,11 +89,11 @@ Gura_ImplementFunction(ToolBar)
 	Object_wx_ToolBar *pObj = Object_wx_ToolBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

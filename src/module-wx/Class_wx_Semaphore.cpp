@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Semaphore: public wxSemaphore, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Semaphore *_pObj;
 public:
-	inline wx_Semaphore(int initialcount, int maxcount) : wxSemaphore(initialcount, maxcount), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Semaphore(int initialcount, int maxcount) : wxSemaphore(initialcount, maxcount), _pObj(nullptr) {}
 	~wx_Semaphore();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Semaphore *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Semaphore *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(Semaphore)
 	Object_wx_Semaphore *pObj = Object_wx_Semaphore::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Semaphore(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

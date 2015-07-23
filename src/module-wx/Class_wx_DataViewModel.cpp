@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewModel: public wxDataViewModel, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewModel *_pObj;
 public:
-	//inline wx_DataViewModel() : wxDataViewModel(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DataViewModel() : wxDataViewModel(), _pObj(nullptr) {}
 	~wx_DataViewModel();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewModel *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewModel *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(DataViewModelEmpty)
 	Object_wx_DataViewModel *pObj = Object_wx_DataViewModel::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewModel(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

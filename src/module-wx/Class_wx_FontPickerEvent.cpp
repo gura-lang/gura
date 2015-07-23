@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FontPickerEvent: public wxFontPickerEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FontPickerEvent *_pObj;
 public:
-	inline wx_FontPickerEvent(wxObject * generator, int id, const wxFont& font) : wxFontPickerEvent(generator, id, font), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FontPickerEvent(wxObject * generator, int id, const wxFont& font) : wxFontPickerEvent(generator, id, font), _pObj(nullptr) {}
 	~wx_FontPickerEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontPickerEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FontPickerEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(FontPickerEvent)
 	Object_wx_FontPickerEvent *pObj = Object_wx_FontPickerEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

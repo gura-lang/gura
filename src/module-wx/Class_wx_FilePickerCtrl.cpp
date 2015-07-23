@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FilePickerCtrl: public wxFilePickerCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FilePickerCtrl *_pObj;
 public:
-	inline wx_FilePickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxString& wildcard, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFilePickerCtrl(parent, id, path, message, wildcard, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FilePickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxString& wildcard, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFilePickerCtrl(parent, id, path, message, wildcard, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_FilePickerCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FilePickerCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FilePickerCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -78,11 +78,11 @@ Gura_ImplementFunction(FilePickerCtrl)
 	Object_wx_FilePickerCtrl *pObj = Object_wx_FilePickerCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilePickerCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

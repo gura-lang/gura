@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ImageHandler: public wxImageHandler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ImageHandler *_pObj;
 public:
-	//inline wx_ImageHandler() : wxImageHandler(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_ImageHandler() : wxImageHandler(), _pObj(nullptr) {}
 	~wx_ImageHandler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ImageHandler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ImageHandler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(ImageHandlerEmpty)
 	Object_wx_ImageHandler *pObj = Object_wx_ImageHandler::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ImageHandler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

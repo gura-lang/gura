@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(AddToolbarButtons);
 //----------------------------------------------------------------------------
 class wx_HtmlHelpWindow: public wxHtmlHelpWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlHelpWindow *_pObj;
 public:
-	inline wx_HtmlHelpWindow(wxHtmlHelpData* data) : wxHtmlHelpWindow(data), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_HtmlHelpWindow(wxWindow* parent, int wxWindowID, const wxPoint& pos, const wxSize& size, int style, int helpStyle, wxHtmlHelpData* data) : wxHtmlHelpWindow(parent, wxWindowID, pos, size, style, helpStyle, data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpWindow(wxHtmlHelpData* data) : wxHtmlHelpWindow(data), _pObj(nullptr) {}
+	inline wx_HtmlHelpWindow(wxWindow* parent, int wxWindowID, const wxPoint& pos, const wxSize& size, int style, int helpStyle, wxHtmlHelpData* data) : wxHtmlHelpWindow(parent, wxWindowID, pos, size, style, helpStyle, data), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpWindow();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpWindow *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlHelpWindow *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(HtmlHelpWindow)
 	Object_wx_HtmlHelpWindow *pObj = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -98,11 +98,11 @@ Gura_ImplementFunction(HtmlHelpWindow_1)
 	Object_wx_HtmlHelpWindow *pObj = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

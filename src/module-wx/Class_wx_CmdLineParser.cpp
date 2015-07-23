@@ -11,19 +11,19 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CmdLineParser: public wxCmdLineParser, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CmdLineParser *_pObj;
 public:
-	//inline wx_CmdLineParser() : wxCmdLineParser(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_CmdLineParser() : wxCmdLineParser(), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, char** argv) : wxCmdLineParser(argc, argv), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(int argc, wchar_t** argv) : wxCmdLineParser(argc, argv), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxString& cmdline) : wxCmdLineParser(cmdline), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc) : wxCmdLineParser(desc), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv) : wxCmdLineParser(desc, argc, argv), _pObj(nullptr) {}
+	//inline wx_CmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline) : wxCmdLineParser(desc, cmdline), _pObj(nullptr) {}
 	~wx_CmdLineParser();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CmdLineParser *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CmdLineParser *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,11 +59,11 @@ Gura_ImplementFunction(CmdLineParserEmpty)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -91,11 +91,11 @@ Gura_ImplementFunction(CmdLineParser)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -123,11 +123,11 @@ Gura_ImplementFunction(CmdLineParser_1)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -153,11 +153,11 @@ Gura_ImplementFunction(CmdLineParser_2)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -183,11 +183,11 @@ Gura_ImplementFunction(CmdLineParser_3)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -217,11 +217,11 @@ Gura_ImplementFunction(CmdLineParser_4)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -249,11 +249,11 @@ Gura_ImplementFunction(CmdLineParser_5)
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CmdLineParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

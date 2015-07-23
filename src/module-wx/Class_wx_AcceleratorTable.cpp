@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AcceleratorTable: public wxAcceleratorTable, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AcceleratorTable *_pObj;
 public:
-	inline wx_AcceleratorTable() : wxAcceleratorTable(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_AcceleratorTable(const wxAcceleratorTable& table) : wxAcceleratorTable(table), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_AcceleratorTable(int n, wxAcceleratorEntry entries[]) : wxAcceleratorTable(n, entries), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable() : wxAcceleratorTable(), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(const wxAcceleratorTable& table) : wxAcceleratorTable(table), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(int n, wxAcceleratorEntry entries[]) : wxAcceleratorTable(n, entries), _pObj(nullptr) {}
 #if defined(__WXMSW__)
-	inline wx_AcceleratorTable(const wxString& resource) : wxAcceleratorTable(resource), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AcceleratorTable(const wxString& resource) : wxAcceleratorTable(resource), _pObj(nullptr) {}
 #endif
 	~wx_AcceleratorTable();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AcceleratorTable *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AcceleratorTable *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(AcceleratorTableEmpty)
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -79,11 +79,11 @@ Gura_ImplementFunction(AcceleratorTable)
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -104,11 +104,11 @@ Gura_ImplementFunction(AcceleratorTable_2)
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorTable(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 #endif

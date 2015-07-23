@@ -15,18 +15,17 @@ class Object_wx_TreeItemData;
 class wx_TreeItemData: public wxTreeItemData, public GuraObjectObserver {
 private:
 	Value _value;
-	Gura::Signal *_pSig;
 	Object_wx_TreeItemData *_pObj;
 public:
 	inline wx_TreeItemData(const Value &value) : wxTreeItemData(),
-						_value(value), _pSig(nullptr), _pObj(nullptr) {}
+						_value(value), _pObj(nullptr) {}
 	inline wx_TreeItemData(const wx_TreeItemData &itemData) : wxTreeItemData(itemData),
-						_value(itemData._value), _pSig(itemData._pSig), _pObj(nullptr) {}
+						_value(itemData._value), _pObj(nullptr) {}
 	~wx_TreeItemData();
 	inline const Value &GetValue() { return _value; }
 	inline void SetValue(const Value &value) { _value = value; }
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TreeItemData *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TreeItemData *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

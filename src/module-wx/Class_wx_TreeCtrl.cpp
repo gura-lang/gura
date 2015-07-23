@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(OnCompareItems);
 class wx_TreeCtrl: public wxTreeCtrl, public GuraObjectObserver {
 private:
 	DECLARE_DYNAMIC_CLASS(wx_TreeCtrl)
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	AutoPtr<Object_wx_TreeCtrl> _pObj;
 public:
-	inline wx_TreeCtrl() : wxTreeCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TreeCtrl() : wxTreeCtrl(), _pObj(nullptr) {}
+	inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pObj(nullptr) {}
+	//inline wx_TreeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxTreeCtrl(parent, id, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_TreeCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TreeCtrl *pObj) {
-		_pSig = &sig, _pObj.reset(Object_wx_TreeCtrl::Reference(pObj));
+	inline void AssocWithGura(Object_wx_TreeCtrl *pObj) {
+		_pObj.reset(Object_wx_TreeCtrl::Reference(pObj));
 	}
 	virtual int OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& item2);
 	// virtual function of GuraObjectObserver
@@ -47,8 +47,8 @@ int wx_TreeCtrl::OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& i
 	valList.reserve(2);
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item1), nullptr, OwnerTrue)));
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item2), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -114,11 +114,11 @@ Gura_ImplementFunction(TreeCtrlEmpty)
 	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -155,11 +155,11 @@ Gura_ImplementFunction(TreeCtrl)
 	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

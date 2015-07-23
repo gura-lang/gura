@@ -13,14 +13,14 @@ Gura_DeclarePrivUserSymbol(IsOk);
 //----------------------------------------------------------------------------
 class wx_StreamBase: public wxStreamBase, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_StreamBase *_pObj;
 public:
-	//inline wx_StreamBase() : wxStreamBase(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_StreamBase() : wxStreamBase(), _pObj(nullptr) {}
 	//virtual bool IsOk();
 	~wx_StreamBase();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StreamBase *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_StreamBase *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(StreamBaseEmpty)
 	Object_wx_StreamBase *pObj = Object_wx_StreamBase::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamBase(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

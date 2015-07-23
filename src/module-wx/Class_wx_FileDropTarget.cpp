@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(OnDropFiles);
 //----------------------------------------------------------------------------
 class wx_FileDropTarget: public wxFileDropTarget, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FileDropTarget *_pObj;
 public:
-	inline wx_FileDropTarget() : wxFileDropTarget(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileDropTarget() : wxFileDropTarget(), _pObj(nullptr) {}
 	virtual bool OnDrop(wxCoord x, wxCoord y);
 	virtual bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 	~wx_FileDropTarget();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDropTarget *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FileDropTarget *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -46,8 +46,8 @@ bool wx_FileDropTarget::OnDrop(wxCoord x, wxCoord y)
 	ValueList valList;
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -60,8 +60,8 @@ bool wx_FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(ArrayStringToValue(env, filenames));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -82,11 +82,11 @@ Gura_ImplementFunction(FileDropTarget)
 	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDropTarget(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BookCtrlBase: public wxBookCtrlBase, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_BookCtrlBase *_pObj;
 public:
 	~wx_BookCtrlBase();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BookCtrlBase *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_BookCtrlBase *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

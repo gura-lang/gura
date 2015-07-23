@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ImageList: public wxImageList, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ImageList *_pObj;
 public:
-	inline wx_ImageList() : wxImageList(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ImageList(int width, int height, bool mask, int initialCount) : wxImageList(width, height, mask, initialCount), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ImageList() : wxImageList(), _pObj(nullptr) {}
+	inline wx_ImageList(int width, int height, bool mask, int initialCount) : wxImageList(width, height, mask, initialCount), _pObj(nullptr) {}
 	~wx_ImageList();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ImageList *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ImageList *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(ImageListEmpty)
 	Object_wx_ImageList *pObj = Object_wx_ImageList::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ImageList(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -83,11 +83,11 @@ Gura_ImplementFunction(ImageList)
 	Object_wx_ImageList *pObj = Object_wx_ImageList::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ImageList(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

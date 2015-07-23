@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ScopedTiedPtr: public wxScopedTiedPtr, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ScopedTiedPtr *_pObj;
 public:
-	inline wx_ScopedTiedPtr(T ** ppTie, T * ptr) : wxScopedTiedPtr(ppTie, ptr), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ScopedTiedPtr(T ** ppTie, T * ptr) : wxScopedTiedPtr(ppTie, ptr), _pObj(nullptr) {}
 	~wx_ScopedTiedPtr();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScopedTiedPtr *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ScopedTiedPtr *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(ScopedTiedPtr)
 	Object_wx_ScopedTiedPtr *pObj = Object_wx_ScopedTiedPtr::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedTiedPtr(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

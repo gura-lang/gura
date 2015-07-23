@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataFormat: public wxDataFormat, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataFormat *_pObj;
 public:
-	inline wx_DataFormat(NativeFormat format) : wxDataFormat(format), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DataFormat(const wxChar *format) : wxDataFormat(*format), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataFormat(NativeFormat format) : wxDataFormat(format), _pObj(nullptr) {}
+	//inline wx_DataFormat(const wxChar *format) : wxDataFormat(*format), _pObj(nullptr) {}
 	~wx_DataFormat();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataFormat *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataFormat *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(DataFormat)
 	Object_wx_DataFormat *pObj = Object_wx_DataFormat::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -82,11 +82,11 @@ Gura_ImplementFunction(DataFormat_1)
 	Object_wx_DataFormat *pObj = Object_wx_DataFormat::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataFormat(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ColourDialog: public wxColourDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ColourDialog *_pObj;
 public:
-	inline wx_ColourDialog(wxWindow* parent, wxColourData* data) : wxColourDialog(parent, data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ColourDialog(wxWindow* parent, wxColourData* data) : wxColourDialog(parent, data), _pObj(nullptr) {}
 	~wx_ColourDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ColourDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(ColourDialog)
 	Object_wx_ColourDialog *pObj = Object_wx_ColourDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

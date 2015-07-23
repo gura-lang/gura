@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlProperty: public wxXmlProperty, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_XmlProperty *_pObj;
 public:
-	inline wx_XmlProperty() : wxXmlProperty(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_XmlProperty() : wxXmlProperty(), _pObj(nullptr) {}
+	inline wx_XmlProperty(const wxString& name, const wxString& value, wxXmlProperty* next) : wxXmlProperty(name, value, next), _pObj(nullptr) {}
 	~wx_XmlProperty();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlProperty *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_XmlProperty *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(XmlPropertyEmpty)
 	Object_wx_XmlProperty *pObj = Object_wx_XmlProperty::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -80,11 +80,11 @@ Gura_ImplementFunction(XmlProperty)
 	Object_wx_XmlProperty *pObj = Object_wx_XmlProperty::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlProperty(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

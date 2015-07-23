@@ -10,12 +10,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GIFHandler: public wxGIFHandler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GIFHandler *_pObj;
 public:
 	~wx_GIFHandler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GIFHandler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GIFHandler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -48,11 +48,11 @@ Gura_ImplementFunction(GIFHandler)
 	Object_wx_GIFHandler *pObj = Object_wx_GIFHandler::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GIFHandler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

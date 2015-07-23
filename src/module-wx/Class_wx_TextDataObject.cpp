@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(SetText);
 //----------------------------------------------------------------------------
 class wx_TextDataObject: public wxTextDataObject, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextDataObject *_pObj;
 public:
-	inline wx_TextDataObject(const wxString& text) : wxTextDataObject(text), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextDataObject(const wxString& text) : wxTextDataObject(text), _pObj(nullptr) {}
 	//virtual size_t GetTextLength();
 	//virtual wxString GetText();
 	//virtual void SetText(const wxString& strText);
 	~wx_TextDataObject();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextDataObject *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextDataObject *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(TextDataObject)
 	Object_wx_TextDataObject *pObj = Object_wx_TextDataObject::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDataObject(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

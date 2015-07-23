@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextInputStream: public wxTextInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextInputStream *_pObj;
 public:
-	inline wx_TextInputStream(wxInputStream& stream, const wxString& sep) : wxTextInputStream(stream, sep), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_TextInputStream(wxInputStream& stream, const wxString& sep, wxMBConv& conv) : wxTextInputStream(stream, sep, conv), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextInputStream(wxInputStream& stream, const wxString& sep) : wxTextInputStream(stream, sep), _pObj(nullptr) {}
+	//inline wx_TextInputStream(wxInputStream& stream, const wxString& sep, wxMBConv& conv) : wxTextInputStream(stream, sep, conv), _pObj(nullptr) {}
 	~wx_TextInputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextInputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextInputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(TextInputStream)
 	Object_wx_TextInputStream *pObj = Object_wx_TextInputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextInputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

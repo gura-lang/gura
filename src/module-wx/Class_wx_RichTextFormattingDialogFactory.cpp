@@ -20,10 +20,10 @@ Gura_DeclarePrivUserSymbol(ShowHelp);
 //----------------------------------------------------------------------------
 class wx_RichTextFormattingDialogFactory: public wxRichTextFormattingDialogFactory, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextFormattingDialogFactory *_pObj;
 public:
-	inline wx_RichTextFormattingDialogFactory() : wxRichTextFormattingDialogFactory(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextFormattingDialogFactory() : wxRichTextFormattingDialogFactory(), _pObj(nullptr) {}
 	//virtual bool CreateButtons(wxRichTextFormattingDialog* dialog);
 	//virtual wxPanel* CreatePage(int page, wxString& title, wxRichTextFormattingDialog* dialog);
 	//virtual bool CreatePages(long pages, wxRichTextFormattingDialog* dialog);
@@ -33,8 +33,8 @@ public:
 	//virtual bool SetSheetStyle(wxRichTextFormattingDialog* dialog);
 	//virtual bool ShowHelp(int page, wxRichTextFormattingDialog* dialog);
 	~wx_RichTextFormattingDialogFactory();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextFormattingDialogFactory *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextFormattingDialogFactory *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -67,11 +67,11 @@ Gura_ImplementFunction(RichTextFormattingDialogFactoryEmpty)
 	Object_wx_RichTextFormattingDialogFactory *pObj = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextFormattingDialogFactory(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

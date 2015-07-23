@@ -26,11 +26,11 @@ Gura_DeclarePrivUserSymbol(Unselect);
 //----------------------------------------------------------------------------
 class wx_DataViewCtrl: public wxDataViewCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewCtrl *_pObj;
 public:
-	inline wx_DataViewCtrl() : wxDataViewCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewCtrl() : wxDataViewCtrl(), _pObj(nullptr) {}
+	inline wx_DataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator) : wxDataViewCtrl(parent, id, pos, size, style, validator), _pObj(nullptr) {}
 	//virtual bool AppendColumn(wxDataViewColumn* col);
 	//virtual bool AssociateModel(wxDataViewListModel* model);
 	//virtual bool ClearColumns();
@@ -46,8 +46,8 @@ public:
 	//virtual void SetSelections(const wxArrayInt& aSelections);
 	//virtual void Unselect(unsigned int row);
 	~wx_DataViewCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -80,11 +80,11 @@ Gura_ImplementFunction(DataViewCtrlEmpty)
 	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -118,11 +118,11 @@ Gura_ImplementFunction(DataViewCtrl)
 	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

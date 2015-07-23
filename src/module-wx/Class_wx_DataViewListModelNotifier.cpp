@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewListModelNotifier: public wxDataViewListModelNotifier, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewListModelNotifier *_pObj;
 public:
-	//inline wx_DataViewListModelNotifier() : wxDataViewListModelNotifier(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DataViewListModelNotifier() : wxDataViewListModelNotifier(), _pObj(nullptr) {}
 	~wx_DataViewListModelNotifier();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewListModelNotifier *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewListModelNotifier *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(DataViewListModelNotifierEmpty)
 	Object_wx_DataViewListModelNotifier *pObj = Object_wx_DataViewListModelNotifier::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewListModelNotifier(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewSortedListModel: public wxDataViewSortedListModel, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewSortedListModel *_pObj;
 public:
-	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _pObj(nullptr) {}
 	~wx_DataViewSortedListModel();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewSortedListModel *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewSortedListModel *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(DataViewSortedListModel)
 	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewSortedListModel(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

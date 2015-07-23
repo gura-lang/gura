@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DCClipper: public wxDCClipper, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DCClipper *_pObj;
 public:
-	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, const wxRegion& r) : wxDCClipper(dc, r), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, const wxRect& rect) : wxDCClipper(dc, rect), _pObj(nullptr) {}
+	inline wx_DCClipper(wxDC& dc, int x, int y, int w, int h) : wxDCClipper(dc, x, y, w, h), _pObj(nullptr) {}
 	~wx_DCClipper();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DCClipper *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DCClipper *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(DCClipper)
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -82,11 +82,11 @@ Gura_ImplementFunction(DCClipper_1)
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -114,11 +114,11 @@ Gura_ImplementFunction(DCClipper_2)
 	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

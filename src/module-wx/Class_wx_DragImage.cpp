@@ -14,21 +14,21 @@ Gura_DeclarePrivUserSymbol(GetImageRect);
 //----------------------------------------------------------------------------
 class wx_DragImage: public wxDragImage, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DragImage *_pObj;
 public:
-	inline wx_DragImage() : wxDragImage(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DragImage(const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(cursor, cursorHotspot), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DragImage() : wxDragImage(), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _pObj(nullptr) {}
+	//inline wx_DragImage(const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(cursor, cursorHotspot), _pObj(nullptr) {}
 	//virtual bool DoDrawImage(wxDC& dc, const wxPoint& pos);
 	//virtual wxRect GetImageRect(const wxPoint& pos);
 	~wx_DragImage();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DragImage *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DragImage *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -61,11 +61,11 @@ Gura_ImplementFunction(DragImageEmpty)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -92,11 +92,11 @@ Gura_ImplementFunction(DragImage)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -122,11 +122,11 @@ Gura_ImplementFunction(DragImage_1)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -152,11 +152,11 @@ Gura_ImplementFunction(DragImage_2)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -178,11 +178,11 @@ Gura_ImplementFunction(DragImage_3)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -204,11 +204,11 @@ Gura_ImplementFunction(DragImage_4)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -235,11 +235,11 @@ Gura_ImplementFunction(DragImage_5)
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

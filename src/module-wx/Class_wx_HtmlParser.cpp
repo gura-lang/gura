@@ -18,10 +18,10 @@ Gura_DeclarePrivUserSymbol(OpenURL);
 //----------------------------------------------------------------------------
 class wx_HtmlParser: public wxHtmlParser, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlParser *_pObj;
 public:
-	//inline wx_HtmlParser() : wxHtmlParser(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlParser() : wxHtmlParser(), _pObj(nullptr) {}
 	//virtual void AddTagHandler(wxHtmlTagHandler *handler);
 	//virtual void AddWord(const char* txt);
 	//virtual void DoneParser();
@@ -29,8 +29,8 @@ public:
 	//virtual void InitParser(const wxString& source);
 	//virtual wxFSFile* OpenURL(wxHtmlURLType type, const wxString& url);
 	~wx_HtmlParser();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlParser *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlParser *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -66,11 +66,11 @@ Gura_ImplementFunction(HtmlParserEmpty)
 	Object_wx_HtmlParser *pObj = Object_wx_HtmlParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

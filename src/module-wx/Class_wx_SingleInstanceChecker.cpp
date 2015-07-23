@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SingleInstanceChecker: public wxSingleInstanceChecker, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SingleInstanceChecker *_pObj;
 public:
-	inline wx_SingleInstanceChecker() : wxSingleInstanceChecker(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_SingleInstanceChecker(const wxString& name, const wxString& path) : wxSingleInstanceChecker(name, path), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SingleInstanceChecker() : wxSingleInstanceChecker(), _pObj(nullptr) {}
+	inline wx_SingleInstanceChecker(const wxString& name, const wxString& path) : wxSingleInstanceChecker(name, path), _pObj(nullptr) {}
 	~wx_SingleInstanceChecker();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SingleInstanceChecker *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SingleInstanceChecker *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(SingleInstanceCheckerEmpty)
 	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -78,11 +78,11 @@ Gura_ImplementFunction(SingleInstanceChecker)
 	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

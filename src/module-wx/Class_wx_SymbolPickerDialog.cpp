@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SymbolPickerDialog: public wxSymbolPickerDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SymbolPickerDialog *_pObj;
 public:
-	inline wx_SymbolPickerDialog(const wxString& symbol, const wxString& initialFont, const wxString& normalTextFont, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxSymbolPickerDialog(symbol, initialFont, normalTextFont, parent, id, title, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_SymbolPickerDialog() : wxSymbolPickerDialog(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SymbolPickerDialog(const wxString& symbol, const wxString& initialFont, const wxString& normalTextFont, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxSymbolPickerDialog(symbol, initialFont, normalTextFont, parent, id, title, pos, size, style), _pObj(nullptr) {}
+	inline wx_SymbolPickerDialog() : wxSymbolPickerDialog(), _pObj(nullptr) {}
 	~wx_SymbolPickerDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SymbolPickerDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SymbolPickerDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -74,11 +74,11 @@ Gura_ImplementFunction(SymbolPickerDialog)
 	Object_wx_SymbolPickerDialog *pObj = Object_wx_SymbolPickerDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SymbolPickerDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -96,11 +96,11 @@ Gura_ImplementFunction(SymbolPickerDialogEmpty)
 	Object_wx_SymbolPickerDialog *pObj = Object_wx_SymbolPickerDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SymbolPickerDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

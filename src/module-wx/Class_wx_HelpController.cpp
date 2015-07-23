@@ -29,13 +29,13 @@ Gura_DeclarePrivUserSymbol(Quit);
 //----------------------------------------------------------------------------
 class wx_HelpController: public wxHelpController, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HelpController *_pObj;
 public:
 #if defined(__WXMSW__)
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _pObj(nullptr) {}
 #else
-	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _pObj(nullptr) {}
 #endif
 	//virtual bool Initialize(const wxString& file);
 	//virtual bool Initialize(const wxString& file, int server);
@@ -55,8 +55,8 @@ public:
 	//virtual void SetViewer(const wxString& viewer, long flags);
 	//virtual bool Quit();
 	~wx_HelpController();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpController *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HelpController *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -92,11 +92,11 @@ Gura_ImplementFunction(HelpController)
 	Object_wx_HelpController *pObj = Object_wx_HelpController::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpController(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

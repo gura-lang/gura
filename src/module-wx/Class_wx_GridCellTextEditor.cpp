@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellTextEditor: public wxGridCellTextEditor, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridCellTextEditor *_pObj;
 public:
-	inline wx_GridCellTextEditor() : wxGridCellTextEditor(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellTextEditor() : wxGridCellTextEditor(), _pObj(nullptr) {}
 	~wx_GridCellTextEditor();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellTextEditor *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridCellTextEditor *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(GridCellTextEditor)
 	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellTextEditor(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

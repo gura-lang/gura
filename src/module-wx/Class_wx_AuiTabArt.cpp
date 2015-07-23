@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AuiTabArt: public wxAuiTabArt, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AuiTabArt *_pObj;
 public:
-	//inline wx_AuiTabArt() : wxAuiTabArt(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_AuiTabArt() : wxAuiTabArt(), _pObj(nullptr) {}
 	~wx_AuiTabArt();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiTabArt *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AuiTabArt *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(AuiTabArtEmpty)
 	Object_wx_AuiTabArt *pObj = Object_wx_AuiTabArt::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiTabArt(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

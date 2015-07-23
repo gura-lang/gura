@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TreeItemId: public wxTreeItemId, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TreeItemId *_pObj;
 public:
-	inline wx_TreeItemId() : wxTreeItemId(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TreeItemId() : wxTreeItemId(), _pObj(nullptr) {}
 	~wx_TreeItemId();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TreeItemId *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TreeItemId *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(TreeItemId)
 	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeItemId(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

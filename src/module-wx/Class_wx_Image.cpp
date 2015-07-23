@@ -11,22 +11,22 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Image: public wxImage, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Image *_pObj;
 public:
-	inline wx_Image() : wxImage(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxImage& image) : wxImage(image), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Image(const wxBitmap& bitmap) : wxImage(bitmap), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(int width, int height, bool clear) : wxImage(width, height, clear), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Image(int width, int height, unsigned char* data, bool static_data) : wxImage(width, height, data, static_data), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxString& name, long type, int index) : wxImage(name, type, index), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const wxString& name, const wxString& mimetype, int index) : wxImage(name, mimetype, index), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(wxInputStream& stream, long type, int index) : wxImage(stream, type, index), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(wxInputStream& stream, const wxString& mimetype, int index) : wxImage(stream, mimetype, index), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Image(const char* const* xpmData) : wxImage(xpmData), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Image() : wxImage(), _pObj(nullptr) {}
+	inline wx_Image(const wxImage& image) : wxImage(image), _pObj(nullptr) {}
+	//inline wx_Image(const wxBitmap& bitmap) : wxImage(bitmap), _pObj(nullptr) {}
+	inline wx_Image(int width, int height, bool clear) : wxImage(width, height, clear), _pObj(nullptr) {}
+	//inline wx_Image(int width, int height, unsigned char* data, bool static_data) : wxImage(width, height, data, static_data), _pObj(nullptr) {}
+	inline wx_Image(const wxString& name, long type, int index) : wxImage(name, type, index), _pObj(nullptr) {}
+	inline wx_Image(const wxString& name, const wxString& mimetype, int index) : wxImage(name, mimetype, index), _pObj(nullptr) {}
+	inline wx_Image(wxInputStream& stream, long type, int index) : wxImage(stream, type, index), _pObj(nullptr) {}
+	inline wx_Image(wxInputStream& stream, const wxString& mimetype, int index) : wxImage(stream, mimetype, index), _pObj(nullptr) {}
+	inline wx_Image(const char* const* xpmData) : wxImage(xpmData), _pObj(nullptr) {}
 	~wx_Image();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Image *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Image *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,11 +59,11 @@ Gura_ImplementFunction(ImageEmpty)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -83,11 +83,11 @@ Gura_ImplementFunction(Image)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -110,11 +110,11 @@ Gura_ImplementFunction(Image_1)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -142,11 +142,11 @@ Gura_ImplementFunction(Image_2)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -176,11 +176,11 @@ Gura_ImplementFunction(Image_3)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -209,11 +209,11 @@ Gura_ImplementFunction(Image_4)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -238,11 +238,11 @@ Gura_ImplementFunction(Image_5)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -268,11 +268,11 @@ Gura_ImplementFunction(Image_6)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -297,11 +297,11 @@ Gura_ImplementFunction(Image_7)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -322,11 +322,11 @@ Gura_ImplementFunction(Image_8)
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Image(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -1914,7 +1914,7 @@ Gura_ImplementCastFrom(wx_Image)
 									pObjImage->GetImage()->GetHeight(), false);
 		ConvertToWxImage(pObjImage->GetImage(), pImage);
 		Object_wx_Image *pObj = new Object_wx_Image(pImage, pImage, OwnerTrue);
-		pImage->AssocWithGura(sig, pObj);
+		pImage->AssocWithGura(pObj);
 		value = Value(pObj);
 		return true;
 	}

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StreamToTextRedirector: public wxStreamToTextRedirector, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_StreamToTextRedirector *_pObj;
 public:
-	inline wx_StreamToTextRedirector(wxTextCtrl *text, ostream * ostr) : wxStreamToTextRedirector(*text, ostr), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_StreamToTextRedirector(wxTextCtrl *text, ostream * ostr) : wxStreamToTextRedirector(*text, ostr), _pObj(nullptr) {}
 	~wx_StreamToTextRedirector();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StreamToTextRedirector *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_StreamToTextRedirector *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(StreamToTextRedirector)
 	Object_wx_StreamToTextRedirector *pObj = Object_wx_StreamToTextRedirector::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamToTextRedirector(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_StackWalker: public wxStackWalker, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_StackWalker *_pObj;
 public:
-	//inline wx_StackWalker() : wxStackWalker(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_StackWalker() : wxStackWalker(), _pObj(nullptr) {}
 	~wx_StackWalker();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StackWalker *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_StackWalker *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(StackWalkerEmpty)
 	Object_wx_StackWalker *pObj = Object_wx_StackWalker::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StackWalker(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

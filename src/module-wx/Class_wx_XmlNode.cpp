@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_XmlNode: public wxXmlNode, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_XmlNode *_pObj;
 public:
-	//inline wx_XmlNode(wxXmlNode* parent, wxXmlNodeType type, const wxString& name, const wxString& content, wxXmlProperty* props, wxXmlNode* next) : wxXmlNode(parent, type, name, content, props, next), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlNode(const wxXmlNode& node) : wxXmlNode(node), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_XmlNode(wxXmlNodeType type, const wxString& name, const wxString& content) : wxXmlNode(type, name, content), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_XmlNode(wxXmlNode* parent, wxXmlNodeType type, const wxString& name, const wxString& content, wxXmlProperty* props, wxXmlNode* next) : wxXmlNode(parent, type, name, content, props, next), _pObj(nullptr) {}
+	inline wx_XmlNode(const wxXmlNode& node) : wxXmlNode(node), _pObj(nullptr) {}
+	inline wx_XmlNode(wxXmlNodeType type, const wxString& name, const wxString& content) : wxXmlNode(type, name, content), _pObj(nullptr) {}
 	~wx_XmlNode();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_XmlNode *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_XmlNode *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -70,11 +70,11 @@ Gura_ImplementFunction(XmlNode)
 	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -97,11 +97,11 @@ Gura_ImplementFunction(XmlNode_1)
 	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -126,11 +126,11 @@ Gura_ImplementFunction(XmlNode_2)
 	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

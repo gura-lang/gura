@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AuiManager: public wxAuiManager, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AuiManager *_pObj;
 public:
-	inline wx_AuiManager(wxWindow* managed_wnd, unsigned int flags) : wxAuiManager(managed_wnd, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiManager(wxWindow* managed_wnd, unsigned int flags) : wxAuiManager(managed_wnd, flags), _pObj(nullptr) {}
 	~wx_AuiManager();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiManager *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AuiManager *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(AuiManager)
 	Object_wx_AuiManager *pObj = Object_wx_AuiManager::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiManager(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

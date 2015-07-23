@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(SetScrollbar);
 //----------------------------------------------------------------------------
 class wx_ScrollBar: public wxScrollBar, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ScrollBar *_pObj;
 public:
-	inline wx_ScrollBar() : wxScrollBar(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxScrollBar(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ScrollBar() : wxScrollBar(), _pObj(nullptr) {}
+	inline wx_ScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxScrollBar(parent, id, pos, size, style, validator, name), _pObj(nullptr) {}
 	//virtual void SetScrollbar(int position, int thumbSize, int range, int pageSize, const bool refresh);
 	~wx_ScrollBar();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrollBar *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ScrollBar *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(ScrollBarEmpty)
 	Object_wx_ScrollBar *pObj = Object_wx_ScrollBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -95,11 +95,11 @@ Gura_ImplementFunction(ScrollBar)
 	Object_wx_ScrollBar *pObj = Object_wx_ScrollBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

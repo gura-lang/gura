@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ScopedArray: public wxScopedArray, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ScopedArray *_pObj;
 public:
-	inline wx_ScopedArray(type * T) : wxScopedArray(* T), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ScopedArray(type * T) : wxScopedArray(* T), _pObj(nullptr) {}
 	~wx_ScopedArray();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScopedArray *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ScopedArray *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(ScopedArray)
 	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedArray(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

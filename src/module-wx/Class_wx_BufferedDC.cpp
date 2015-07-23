@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_BufferedDC: public wxBufferedDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_BufferedDC *_pObj;
 public:
-	inline wx_BufferedDC() : wxBufferedDC(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_BufferedDC(wxDC * dc, const wxSize& area, int style) : wxBufferedDC(dc, area, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_BufferedDC(wxDC * dc, wxBitmap& buffer, int style) : wxBufferedDC(dc, buffer, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_BufferedDC() : wxBufferedDC(), _pObj(nullptr) {}
+	inline wx_BufferedDC(wxDC * dc, const wxSize& area, int style) : wxBufferedDC(dc, area, style), _pObj(nullptr) {}
+	inline wx_BufferedDC(wxDC * dc, wxBitmap& buffer, int style) : wxBufferedDC(dc, buffer, style), _pObj(nullptr) {}
 	~wx_BufferedDC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_BufferedDC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_BufferedDC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(BufferedDCEmpty)
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -81,11 +81,11 @@ Gura_ImplementFunction(BufferedDC)
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -110,11 +110,11 @@ Gura_ImplementFunction(BufferedDC_1)
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -15,16 +15,16 @@ Gura_DeclarePrivUserSymbol(SetParser);
 //----------------------------------------------------------------------------
 class wx_HtmlTagHandler: public wxHtmlTagHandler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlTagHandler *_pObj;
 public:
-	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlTagHandler() : wxHtmlTagHandler(), _pObj(nullptr) {}
 	//virtual wxString GetSupportedTags();
 	//virtual bool HandleTag(const wxHtmlTag& tag);
 	//virtual void SetParser(wxHtmlParser *parser);
 	~wx_HtmlTagHandler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlTagHandler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlTagHandler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTagHandler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

@@ -26,10 +26,10 @@ Gura_DeclarePrivUserSymbol(SetMetric);
 //----------------------------------------------------------------------------
 class wx_AuiDockArt: public wxAuiDockArt, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AuiDockArt *_pObj;
 public:
-	//inline wx_AuiDockArt() : wxAuiDockArt(), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_AuiDockArt() : wxAuiDockArt(), _pObj(nullptr) {}
 	//virtual void DrawBackground(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect);
 	//virtual void DrawBorder(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane);
 	//virtual void DrawCaption(wxDC& dc, wxWindow* window, const wxString& text, const wxRect& rect, wxAuiPaneInfo& pane);
@@ -45,8 +45,8 @@ public:
 	//virtual void SetFont(int id, const wxFont& font);
 	//virtual void SetMetric(int id, int new_val);
 	~wx_AuiDockArt();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiDockArt *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AuiDockArt *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -82,11 +82,11 @@ Gura_ImplementFunction(AuiDockArtEmpty)
 	Object_wx_AuiDockArt *pObj = Object_wx_AuiDockArt::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiDockArt(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ZlibOutputStream: public wxZlibOutputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ZlibOutputStream *_pObj;
 public:
-	inline wx_ZlibOutputStream(wxOutputStream* stream, int level, int flags) : wxZlibOutputStream(stream, level, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ZlibOutputStream(wxOutputStream* stream, int level, int flags) : wxZlibOutputStream(stream, level, flags), _pObj(nullptr) {}
 	~wx_ZlibOutputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZlibOutputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ZlibOutputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -58,11 +58,11 @@ Gura_ImplementFunction(ZlibOutputStream)
 	Object_wx_ZlibOutputStream *pObj = Object_wx_ZlibOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibOutputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,18 +11,18 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileName: public wxFileName, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FileName *_pObj;
 public:
-	//inline wx_FileName() : wxFileName(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_FileName() : wxFileName(), _pObj(nullptr) {}
+	//inline wx_FileName(const wxFileName& filename) : wxFileName(filename), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& fullpath, wxPathFormat format) : wxFileName(fullpath, format), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, wxPathFormat format) : wxFileName(path, name, format), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(path, name, ext, format), _pObj(nullptr) {}
+	//inline wx_FileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format) : wxFileName(volume, path, name, ext, format), _pObj(nullptr) {}
 	~wx_FileName();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileName *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FileName *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -58,11 +58,11 @@ Gura_ImplementFunction(FileNameEmpty)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -88,11 +88,11 @@ Gura_ImplementFunction(FileName)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -121,11 +121,11 @@ Gura_ImplementFunction(FileName_1)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -156,11 +156,11 @@ Gura_ImplementFunction(FileName_2)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -193,11 +193,11 @@ Gura_ImplementFunction(FileName_3)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -232,11 +232,11 @@ Gura_ImplementFunction(FileName_4)
 	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

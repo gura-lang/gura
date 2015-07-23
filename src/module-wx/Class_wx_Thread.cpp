@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(TestDestroy);
 //----------------------------------------------------------------------------
 class wx_Thread: public wxThread, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Thread *_pObj;
 public:
-	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _pObj(nullptr) {}
 	virtual ExitCode Entry();
 	virtual bool TestDestroy();
 	~wx_Thread();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Thread *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Thread *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(Thread)
 	Object_wx_Thread *pObj = Object_wx_Thread::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Thread(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

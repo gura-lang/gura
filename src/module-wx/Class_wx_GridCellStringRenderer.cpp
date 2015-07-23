@@ -11,16 +11,16 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridCellStringRenderer: public wxGridCellStringRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	AutoPtr<Object_wx_GridCellStringRenderer> _pObj;
 public:
-	inline wx_GridCellStringRenderer() : wxGridCellStringRenderer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridCellStringRenderer() : wxGridCellStringRenderer(), _pObj(nullptr) {}
 	inline wx_GridCellStringRenderer(const wx_GridCellStringRenderer &renderer) :
-		wxGridCellStringRenderer(), _pSig(renderer._pSig),
+		wxGridCellStringRenderer(),
 		_pObj(Object_wx_GridCellStringRenderer::Reference(renderer._pObj.get())) {}
 	~wx_GridCellStringRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridCellStringRenderer *pObj) {
-		_pSig = &sig, _pObj.reset(Object_wx_GridCellStringRenderer::Reference(pObj));
+	inline void AssocWithGura(Object_wx_GridCellStringRenderer *pObj) {
+		_pObj.reset(Object_wx_GridCellStringRenderer::Reference(pObj));
 	}
 	virtual void Draw(wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 					const wxRect &rect, int row, int col, bool isSelected);
@@ -42,7 +42,7 @@ void wx_GridCellStringRenderer::Draw(wxGrid &grid, wxGridCellAttr &attr, wxDC &d
 					const wxRect &rect, int row, int col, bool isSelected)
 {
 	bool evaluatedFlag = false;
-	_pObj->EvalMethod_Draw(*_pSig, evaluatedFlag,
+	_pObj->EvalMethod_Draw(_pObj->GetSignal(), evaluatedFlag,
 							grid, attr, dc, rect, row, col, isSelected);
 	if (!evaluatedFlag) wxGridCellStringRenderer::Draw(grid, attr, dc, rect, row, col, isSelected);
 }
@@ -73,11 +73,11 @@ Gura_ImplementFunction(GridCellStringRenderer)
 	Object_wx_GridCellStringRenderer *pObj = Object_wx_GridCellStringRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellStringRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

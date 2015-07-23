@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Joystick: public wxJoystick, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Joystick *_pObj;
 public:
-	inline wx_Joystick(int joystick) : wxJoystick(joystick), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Joystick(int joystick) : wxJoystick(joystick), _pObj(nullptr) {}
 	~wx_Joystick();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Joystick *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Joystick *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(Joystick)
 	Object_wx_Joystick *pObj = Object_wx_Joystick::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Joystick(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

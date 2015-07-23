@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SocketEvent: public wxSocketEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SocketEvent *_pObj;
 public:
-	inline wx_SocketEvent(int id) : wxSocketEvent(id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SocketEvent(int id) : wxSocketEvent(id), _pObj(nullptr) {}
 	~wx_SocketEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SocketEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SocketEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(SocketEvent)
 	Object_wx_SocketEvent *pObj = Object_wx_SocketEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MenuBar: public wxMenuBar, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MenuBar *_pObj;
 public:
-	inline wx_MenuBar(long style) : wxMenuBar(style), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MenuBar(long style) : wxMenuBar(style), _pObj(nullptr) {}
+	//inline wx_MenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style) : wxMenuBar(n, menus[], titles[], style), _pObj(nullptr) {}
 	~wx_MenuBar();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MenuBar *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MenuBar *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(MenuBar)
 	Object_wx_MenuBar *pObj = Object_wx_MenuBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -88,11 +88,11 @@ Gura_ImplementFunction(MenuBar_1)
 	Object_wx_MenuBar *pObj = Object_wx_MenuBar::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuBar(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

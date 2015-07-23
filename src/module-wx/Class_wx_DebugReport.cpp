@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DebugReport: public wxDebugReport, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DebugReport *_pObj;
 public:
-	inline wx_DebugReport() : wxDebugReport(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DebugReport() : wxDebugReport(), _pObj(nullptr) {}
 	~wx_DebugReport();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DebugReport *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DebugReport *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(DebugReportEmpty)
 	Object_wx_DebugReport *pObj = Object_wx_DebugReport::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReport(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

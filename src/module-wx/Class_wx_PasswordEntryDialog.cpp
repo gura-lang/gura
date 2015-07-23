@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PasswordEntryDialog: public wxPasswordEntryDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PasswordEntryDialog *_pObj;
 public:
-	inline wx_PasswordEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxPasswordEntryDialog(parent, message, caption, defaultValue, style, pos), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PasswordEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxString& defaultValue, long style, const wxPoint& pos) : wxPasswordEntryDialog(parent, message, caption, defaultValue, style, pos), _pObj(nullptr) {}
 	~wx_PasswordEntryDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PasswordEntryDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PasswordEntryDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -67,11 +67,11 @@ Gura_ImplementFunction(PasswordEntryDialog)
 	Object_wx_PasswordEntryDialog *pObj = Object_wx_PasswordEntryDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PasswordEntryDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

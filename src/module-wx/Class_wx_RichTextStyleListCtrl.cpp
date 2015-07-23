@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextStyleListCtrl: public wxRichTextStyleListCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextStyleListCtrl *_pObj;
 public:
-	inline wx_RichTextStyleListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListCtrl(parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextStyleListCtrl() : wxRichTextStyleListCtrl(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextStyleListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListCtrl(parent, id, pos, size, style), _pObj(nullptr) {}
+	inline wx_RichTextStyleListCtrl() : wxRichTextStyleListCtrl(), _pObj(nullptr) {}
 	~wx_RichTextStyleListCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleListCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextStyleListCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -65,11 +65,11 @@ Gura_ImplementFunction(RichTextStyleListCtrl)
 	Object_wx_RichTextStyleListCtrl *pObj = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleListCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -87,11 +87,11 @@ Gura_ImplementFunction(RichTextStyleListCtrlEmpty)
 	Object_wx_RichTextStyleListCtrl *pObj = Object_wx_RichTextStyleListCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleListCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

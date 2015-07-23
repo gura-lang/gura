@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridRangeSelectEvent: public wxGridRangeSelectEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridRangeSelectEvent *_pObj;
 public:
-	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridRangeSelectEvent() : wxGridRangeSelectEvent(), _pObj(nullptr) {}
+	inline wx_GridRangeSelectEvent(int id, wxEventType type, wxObject* obj, const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, bool sel, bool control, bool shift, bool alt, bool meta) : wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, control, shift, alt, meta), _pObj(nullptr) {}
 	~wx_GridRangeSelectEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridRangeSelectEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridRangeSelectEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(GridRangeSelectEventEmpty)
 	Object_wx_GridRangeSelectEvent *pObj = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -98,11 +98,11 @@ Gura_ImplementFunction(GridRangeSelectEvent)
 	Object_wx_GridRangeSelectEvent *pObj = Object_wx_GridRangeSelectEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridRangeSelectEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

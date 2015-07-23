@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AuiPaneInfo: public wxAuiPaneInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AuiPaneInfo *_pObj;
 public:
-	inline wx_AuiPaneInfo() : wxAuiPaneInfo(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_AuiPaneInfo(const wxAuiPaneInfo& c) : wxAuiPaneInfo(c), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AuiPaneInfo() : wxAuiPaneInfo(), _pObj(nullptr) {}
+	inline wx_AuiPaneInfo(const wxAuiPaneInfo& c) : wxAuiPaneInfo(c), _pObj(nullptr) {}
 	~wx_AuiPaneInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AuiPaneInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AuiPaneInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(AuiPaneInfoEmpty)
 	Object_wx_AuiPaneInfo *pObj = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiPaneInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -75,11 +75,11 @@ Gura_ImplementFunction(AuiPaneInfo)
 	Object_wx_AuiPaneInfo *pObj = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiPaneInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

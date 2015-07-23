@@ -13,13 +13,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_IndividualLayoutConstraint: public wxIndividualLayoutConstraint, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_IndividualLayoutConstraint *_pObj;
 public:
-	inline wx_IndividualLayoutConstraint() : wxIndividualLayoutConstraint(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IndividualLayoutConstraint() : wxIndividualLayoutConstraint(), _pObj(nullptr) {}
 	~wx_IndividualLayoutConstraint();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IndividualLayoutConstraint *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_IndividualLayoutConstraint *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(IndividualLayoutConstraintEmpty)
 	Object_wx_IndividualLayoutConstraint *pObj = Object_wx_IndividualLayoutConstraint::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IndividualLayoutConstraint(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

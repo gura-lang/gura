@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LongLong: public wxLongLong, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_LongLong *_pObj;
 public:
-	//inline wx_LongLong() : wxLongLong(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_LongLong(wxLongLong_t ll) : wxLongLong(ll), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_LongLong(long hi, unsigned long lo) : wxLongLong(hi, lo), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_LongLong() : wxLongLong(), _pObj(nullptr) {}
+	//inline wx_LongLong(wxLongLong_t ll) : wxLongLong(ll), _pObj(nullptr) {}
+	//inline wx_LongLong(long hi, unsigned long lo) : wxLongLong(hi, lo), _pObj(nullptr) {}
 	~wx_LongLong();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LongLong *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_LongLong *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(LongLongEmpty)
 	Object_wx_LongLong *pObj = Object_wx_LongLong::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -85,11 +85,11 @@ Gura_ImplementFunction(LongLong)
 	Object_wx_LongLong *pObj = Object_wx_LongLong::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -117,11 +117,11 @@ Gura_ImplementFunction(LongLong_1)
 	Object_wx_LongLong *pObj = Object_wx_LongLong::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LongLong(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

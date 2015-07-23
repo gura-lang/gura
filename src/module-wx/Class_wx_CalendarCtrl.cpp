@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CalendarCtrl: public wxCalendarCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CalendarCtrl *_pObj;
 public:
-	inline wx_CalendarCtrl() : wxCalendarCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_CalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxCalendarCtrl(parent, id, date, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CalendarCtrl() : wxCalendarCtrl(), _pObj(nullptr) {}
+	inline wx_CalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxCalendarCtrl(parent, id, date, pos, size, style, name), _pObj(nullptr) {}
 	~wx_CalendarCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CalendarCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CalendarCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(CalendarCtrlEmpty)
 	Object_wx_CalendarCtrl *pObj = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -92,11 +92,11 @@ Gura_ImplementFunction(CalendarCtrl)
 	Object_wx_CalendarCtrl *pObj = Object_wx_CalendarCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalendarCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

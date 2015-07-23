@@ -16,18 +16,18 @@ Gura_DeclarePrivUserSymbol(Validate);
 //----------------------------------------------------------------------------
 class wx_TextValidator: public wxTextValidator, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextValidator *_pObj;
 public:
-	inline wx_TextValidator(const wxTextValidator& validator) : wxTextValidator(validator), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_TextValidator(long style, wxString* valPtr) : wxTextValidator(style, valPtr), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextValidator(const wxTextValidator& validator) : wxTextValidator(validator), _pObj(nullptr) {}
+	//inline wx_TextValidator(long style, wxString* valPtr) : wxTextValidator(style, valPtr), _pObj(nullptr) {}
 	//virtual wxValidator* Clone();
 	//virtual bool TransferFromWindow();
 	//virtual bool TransferToWindow();
 	//virtual bool Validate(wxWindow* parent);
 	~wx_TextValidator();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextValidator *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextValidator *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(TextValidator_1)
 	Object_wx_TextValidator *pObj = Object_wx_TextValidator::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextValidator(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -91,11 +91,11 @@ Gura_ImplementFunction(TextValidator)
 	Object_wx_TextValidator *pObj = Object_wx_TextValidator::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextValidator(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

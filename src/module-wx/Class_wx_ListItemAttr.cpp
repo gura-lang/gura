@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ListItemAttr: public wxListItemAttr, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ListItemAttr *_pObj;
 public:
-	inline wx_ListItemAttr() : wxListItemAttr(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ListItemAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font) : wxListItemAttr(colText, colBack, font), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ListItemAttr() : wxListItemAttr(), _pObj(nullptr) {}
+	inline wx_ListItemAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font) : wxListItemAttr(colText, colBack, font), _pObj(nullptr) {}
 	~wx_ListItemAttr();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListItemAttr *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ListItemAttr *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(ListItemAttrEmpty)
 	Object_wx_ListItemAttr *pObj = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItemAttr(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -79,11 +79,11 @@ Gura_ImplementFunction(ListItemAttr)
 	Object_wx_ListItemAttr *pObj = Object_wx_ListItemAttr::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItemAttr(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextParagraphStyleDefinition: public wxRichTextParagraphStyleDefinition, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextParagraphStyleDefinition *_pObj;
 public:
-	inline wx_RichTextParagraphStyleDefinition(const wxString& name) : wxRichTextParagraphStyleDefinition(name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextParagraphStyleDefinition(const wxString& name) : wxRichTextParagraphStyleDefinition(name), _pObj(nullptr) {}
 	~wx_RichTextParagraphStyleDefinition();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextParagraphStyleDefinition *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextParagraphStyleDefinition *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(RichTextParagraphStyleDefinition)
 	Object_wx_RichTextParagraphStyleDefinition *pObj = Object_wx_RichTextParagraphStyleDefinition::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextParagraphStyleDefinition(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

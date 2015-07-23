@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_IdleEvent: public wxIdleEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_IdleEvent *_pObj;
 public:
-	inline wx_IdleEvent() : wxIdleEvent(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_IdleEvent() : wxIdleEvent(), _pObj(nullptr) {}
 	~wx_IdleEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IdleEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_IdleEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(IdleEventEmpty)
 	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IdleEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

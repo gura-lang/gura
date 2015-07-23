@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(GiveFeedback);
 //----------------------------------------------------------------------------
 class wx_DropSource: public wxDropSource, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DropSource *_pObj;
 public:
-	//inline wx_DropSource(wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(win, iconCopy, iconMove, iconNone), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DropSource(wxDataObject& data, wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(data, win, iconCopy, iconMove, iconNone), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DropSource(wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(win, iconCopy, iconMove, iconNone), _pObj(nullptr) {}
+	//inline wx_DropSource(wxDataObject& data, wxWindow* win, const wxIconOrCursor& iconCopy, const wxIconOrCursor& iconMove, const wxIconOrCursor& iconNone) : wxDropSource(data, win, iconCopy, iconMove, iconNone), _pObj(nullptr) {}
 	//virtual wxDragResult DoDragDrop(int flags);
 	//virtual bool GiveFeedback(wxDragResult effect);
 	~wx_DropSource();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DropSource *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DropSource *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(DropSource)
 	Object_wx_DropSource *pObj = Object_wx_DropSource::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropSource(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -113,11 +113,11 @@ Gura_ImplementFunction(DropSource_1)
 	Object_wx_DropSource *pObj = Object_wx_DropSource::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropSource(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

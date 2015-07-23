@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ArchiveIterator: public wxArchiveIterator, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ArchiveIterator *_pObj;
 public:
 	~wx_ArchiveIterator();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ArchiveIterator *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ArchiveIterator *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

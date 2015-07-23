@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CriticalSection: public wxCriticalSection, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CriticalSection *_pObj;
 public:
-	inline wx_CriticalSection() : wxCriticalSection(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CriticalSection() : wxCriticalSection(), _pObj(nullptr) {}
 	~wx_CriticalSection();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CriticalSection *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CriticalSection *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(CriticalSectionEmpty)
 	Object_wx_CriticalSection *pObj = Object_wx_CriticalSection::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CriticalSection(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

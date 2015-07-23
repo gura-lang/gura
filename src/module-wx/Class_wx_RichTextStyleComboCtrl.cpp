@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextStyleComboCtrl: public wxRichTextStyleComboCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextStyleComboCtrl *_pObj;
 public:
-	inline wx_RichTextStyleComboCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleComboCtrl(parent, id, pos, size, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextStyleComboCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleComboCtrl(parent, id, pos, size, style), _pObj(nullptr) {}
 	~wx_RichTextStyleComboCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleComboCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextStyleComboCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -64,11 +64,11 @@ Gura_ImplementFunction(RichTextStyleComboCtrl)
 	Object_wx_RichTextStyleComboCtrl *pObj = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleComboCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

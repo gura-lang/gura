@@ -19,7 +19,7 @@ Gura_DeclarePrivUserSymbol(ShouldPreventAppExit);
 //----------------------------------------------------------------------------
 class wx_TopLevelWindow: public wxTopLevelWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TopLevelWindow *_pObj;
 public:
 	//virtual bool CanSetTransparent();
@@ -30,8 +30,8 @@ public:
 	//virtual bool SetTransparent(int alpha);
 	//virtual bool ShouldPreventAppExit();
 	~wx_TopLevelWindow();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TopLevelWindow *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TopLevelWindow *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

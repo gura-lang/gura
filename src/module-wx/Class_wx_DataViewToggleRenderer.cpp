@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewToggleRenderer: public wxDataViewToggleRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewToggleRenderer *_pObj;
 public:
-	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewToggleRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewToggleRenderer(varianttype, mode), _pObj(nullptr) {}
 	~wx_DataViewToggleRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewToggleRenderer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewToggleRenderer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(DataViewToggleRenderer)
 	Object_wx_DataViewToggleRenderer *pObj = Object_wx_DataViewToggleRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewToggleRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

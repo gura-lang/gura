@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FontPickerCtrl: public wxFontPickerCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FontPickerCtrl *_pObj;
 public:
-	inline wx_FontPickerCtrl(wxWindow * parent, wxWindowID id, const wxFont& font, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFontPickerCtrl(parent, id, font, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FontPickerCtrl(wxWindow * parent, wxWindowID id, const wxFont& font, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxFontPickerCtrl(parent, id, font, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_FontPickerCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontPickerCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FontPickerCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -72,11 +72,11 @@ Gura_ImplementFunction(FontPickerCtrl)
 	Object_wx_FontPickerCtrl *pObj = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

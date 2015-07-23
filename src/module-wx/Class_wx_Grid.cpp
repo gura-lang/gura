@@ -16,14 +16,14 @@ Value GridCellCoordsArrayToValue(Environment &env, const wxGridCellCoordsArray &
 //----------------------------------------------------------------------------
 class wx_Grid: public wxGrid, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Grid *_pObj;
 public:
-	inline wx_Grid() : wxGrid(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Grid(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxGrid(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Grid() : wxGrid(), _pObj(nullptr) {}
+	inline wx_Grid(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxGrid(parent, id, pos, size, style, name), _pObj(nullptr) {}
 	~wx_Grid();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Grid *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Grid *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -85,11 +85,11 @@ Gura_ImplementFunction(GridEmpty)
 	Object_wx_Grid *pObj = Object_wx_Grid::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Grid(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -123,11 +123,11 @@ Gura_ImplementFunction(Grid)
 	Object_wx_Grid *pObj = Object_wx_Grid::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Grid(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,29 +11,29 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Variant: public wxVariant, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Variant *_pObj;
 public:
-	inline wx_Variant() : wxVariant(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(const wxVariant& variant) : wxVariant(variant), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(const wxChar* value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(const wxString& value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(wxChar value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(long value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(bool value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(double value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(void* value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(wxObject* value, const wxString& name) : wxVariant(value, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(wxVariantData* data, const wxString& name) : wxVariant(data, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(wxDateTime& val, const wxString& name) : wxVariant(val, name), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Variant(wxArrayString& val, const wxString& name) : wxVariant(val, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Variant(DATE_STRUCT* val, const wxString& name) : wxVariant(val, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Variant(TIME_STRUCT* val, const wxString& name) : wxVariant(val, name), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_Variant(TIMESTAMP_STRUCT* val, const wxString& name) : wxVariant(val, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Variant() : wxVariant(), _pObj(nullptr) {}
+	inline wx_Variant(const wxVariant& variant) : wxVariant(variant), _pObj(nullptr) {}
+	inline wx_Variant(const wxChar* value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(const wxString& value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(wxChar value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(long value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(bool value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(double value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	//inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(void* value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(wxObject* value, const wxString& name) : wxVariant(value, name), _pObj(nullptr) {}
+	inline wx_Variant(wxVariantData* data, const wxString& name) : wxVariant(data, name), _pObj(nullptr) {}
+	inline wx_Variant(wxDateTime& val, const wxString& name) : wxVariant(val, name), _pObj(nullptr) {}
+	inline wx_Variant(wxArrayString& val, const wxString& name) : wxVariant(val, name), _pObj(nullptr) {}
+	//inline wx_Variant(DATE_STRUCT* val, const wxString& name) : wxVariant(val, name), _pObj(nullptr) {}
+	//inline wx_Variant(TIME_STRUCT* val, const wxString& name) : wxVariant(val, name), _pObj(nullptr) {}
+	//inline wx_Variant(TIMESTAMP_STRUCT* val, const wxString& name) : wxVariant(val, name), _pObj(nullptr) {}
 	~wx_Variant();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Variant *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Variant *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -66,11 +66,11 @@ Gura_ImplementFunction(VariantEmpty)
 	Object_wx_Variant *pObj = Object_wx_Variant::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Variant(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -131,11 +131,11 @@ Gura_ImplementFunction(Variant)
 	Object_wx_Variant *pObj = Object_wx_Variant::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Variant(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

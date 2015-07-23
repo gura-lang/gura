@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FTP: public wxFTP, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FTP *_pObj;
 public:
-	inline wx_FTP() : wxFTP(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FTP() : wxFTP(), _pObj(nullptr) {}
 	~wx_FTP();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FTP *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FTP *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(FTPEmpty)
 	Object_wx_FTP *pObj = Object_wx_FTP::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FTP(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

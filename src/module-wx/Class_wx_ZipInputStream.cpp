@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ZipInputStream: public wxZipInputStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ZipInputStream *_pObj;
 public:
-	inline wx_ZipInputStream(wxInputStream& stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ZipInputStream(wxInputStream* stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ZipInputStream(wxInputStream& stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _pObj(nullptr) {}
+	inline wx_ZipInputStream(wxInputStream* stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _pObj(nullptr) {}
+	//inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _pObj(nullptr) {}
 	~wx_ZipInputStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZipInputStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ZipInputStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(ZipInputStream)
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(ZipInputStream_1)
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -111,11 +111,11 @@ Gura_ImplementFunction(ZipInputStream_2)
 	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 #endif

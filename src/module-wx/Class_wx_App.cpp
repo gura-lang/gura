@@ -27,10 +27,10 @@ static Environment *_pEnv = nullptr;
 //----------------------------------------------------------------------------
 class wx_App: public wxApp, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	AutoPtr<Object_wx_App> _pObj;
 public:
-	inline wx_App() : wxApp(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_App() : wxApp(), _pObj(nullptr) {}
 	//virtual wxLog* CreateLogTarget();
 	//virtual wxAppTraits * CreateTraits();
 	//virtual void Dispatch();
@@ -45,8 +45,8 @@ public:
 	//virtual bool Pending();
 	virtual void HandleEvent(wxEvtHandler *handler, wxEventFunction func, wxEvent& event);
 	~wx_App();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_App *pObj) {
-		_pSig = &sig, _pObj.reset(Object_wx_App::Reference(pObj));
+	inline void AssocWithGura(Object_wx_App *pObj) {
+		_pObj.reset(Object_wx_App::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -75,8 +75,8 @@ bool wx_App::OnInit()
 	if (pFunc == nullptr) return wxApp::OnInit();
 	Environment &env = *_pObj;
 	ValueList valList;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_boolean)) return false;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
 
@@ -84,8 +84,8 @@ int wx_App::OnExit()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnExit);
 	if (pFunc == nullptr) return wxApp::OnExit();
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -96,14 +96,14 @@ void wx_App::OnUnhandledException()
 		wxApp::OnUnhandledException();
 		return;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
-	CheckMethodResult(*_pSig);
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	CheckMethodResult(_pObj->GetSignal());
 }
 
 void wx_App::HandleEvent(wxEvtHandler *handler, wxEventFunction func, wxEvent& event)
 {
 	wxApp::HandleEvent(handler, func, event);
-	if (_pSig->IsSignalled()) {
+	if (_pObj->GetSignal().IsSignalled()) {
 		const_cast<wx_App *>(this)->ExitMainLoop();
 	}
 }
@@ -125,11 +125,11 @@ Gura_ImplementFunction(App)
 	Object_wx_App *pObj = Object_wx_App::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_App(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

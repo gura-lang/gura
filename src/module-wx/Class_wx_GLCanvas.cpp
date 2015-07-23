@@ -13,16 +13,16 @@ int *MakeAttribList(const ValueList &valList);
 //----------------------------------------------------------------------------
 class wx_GLCanvas: public wxGLCanvas, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GLCanvas *_pObj;
 public:
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pObj(nullptr) {}
 	~wx_GLCanvas();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GLCanvas *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GLCanvas *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -79,11 +79,11 @@ Gura_ImplementFunction(GLCanvas)
 	Object_wx_GLCanvas *pObj = Object_wx_GLCanvas::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -128,11 +128,11 @@ Gura_ImplementFunction(GLCanvas_1)
 	Object_wx_GLCanvas *pObj = Object_wx_GLCanvas::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 #endif
@@ -178,11 +178,11 @@ Gura_ImplementFunction(GLCanvas_2)
 	Object_wx_GLCanvas *pObj = Object_wx_GLCanvas::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 #endif

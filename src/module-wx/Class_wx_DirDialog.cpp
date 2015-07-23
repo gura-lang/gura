@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DirDialog: public wxDirDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DirDialog *_pObj;
 public:
-	inline wx_DirDialog(wxWindow* parent, const wxString& message, const wxString& defaultPath, long style, const wxPoint& pos, const wxSize& size, const wxString& name) : wxDirDialog(parent, message, defaultPath, style, pos, size, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DirDialog(wxWindow* parent, const wxString& message, const wxString& defaultPath, long style, const wxPoint& pos, const wxSize& size, const wxString& name) : wxDirDialog(parent, message, defaultPath, style, pos, size, name), _pObj(nullptr) {}
 	~wx_DirDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DirDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DirDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(DirDialog)
 	Object_wx_DirDialog *pObj = Object_wx_DirDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DirDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

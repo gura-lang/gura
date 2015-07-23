@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(DoShowPopup);
 //----------------------------------------------------------------------------
 class wx_ComboCtrl: public wxComboCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ComboCtrl *_pObj;
 public:
-	inline wx_ComboCtrl() : wxComboCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ComboCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxComboCtrl(parent, id, value, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ComboCtrl() : wxComboCtrl(), _pObj(nullptr) {}
+	inline wx_ComboCtrl(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxComboCtrl(parent, id, value, pos, size, style, validator, name), _pObj(nullptr) {}
 	//virtual bool AnimateShow(const wxRect& rect, int flags);
 	//virtual void DoShowPopup(const wxRect& rect, int flags);
 	~wx_ComboCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ComboCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ComboCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -67,11 +67,11 @@ Gura_ImplementFunction(ComboCtrlEmpty)
 	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -111,11 +111,11 @@ Gura_ImplementFunction(ComboCtrl)
 	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

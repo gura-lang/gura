@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DirPickerCtrl: public wxDirPickerCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DirPickerCtrl *_pObj;
 public:
-	inline wx_DirPickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDirPickerCtrl(parent, id, path, message, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DirPickerCtrl(wxWindow * parent, wxWindowID id, const wxString& path, const wxString& message, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxDirPickerCtrl(parent, id, path, message, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_DirPickerCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DirPickerCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DirPickerCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -75,11 +75,11 @@ Gura_ImplementFunction(DirPickerCtrl)
 	Object_wx_DirPickerCtrl *pObj = Object_wx_DirPickerCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DirPickerCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewColumn: public wxDataViewColumn, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewColumn *_pObj;
 public:
-	inline wx_DataViewColumn(const wxString& title, wxDataViewRenderer* renderer, unsigned int model_column, int width, int flags) : wxDataViewColumn(title, renderer, model_column, width, flags), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DataViewColumn(const wxBitmap& bitmap, wxDataViewRenderer* renderer, unsigned int model_column, int width, int flags) : wxDataViewColumn(bitmap, renderer, model_column, width, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewColumn(const wxString& title, wxDataViewRenderer* renderer, unsigned int model_column, int width, int flags) : wxDataViewColumn(title, renderer, model_column, width, flags), _pObj(nullptr) {}
+	inline wx_DataViewColumn(const wxBitmap& bitmap, wxDataViewRenderer* renderer, unsigned int model_column, int width, int flags) : wxDataViewColumn(bitmap, renderer, model_column, width, flags), _pObj(nullptr) {}
 	~wx_DataViewColumn();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewColumn *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewColumn *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -72,11 +72,11 @@ Gura_ImplementFunction(DataViewColumn)
 	Object_wx_DataViewColumn *pObj = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewColumn(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

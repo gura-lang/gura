@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GenericDirCtrl: public wxGenericDirCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GenericDirCtrl *_pObj;
 public:
-	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GenericDirCtrl() : wxGenericDirCtrl(), _pObj(nullptr) {}
+	inline wx_GenericDirCtrl(wxWindow* parent, const wxWindowID id, const wxString& dir, const wxPoint& pos, const wxSize& size, long style, const wxString& filter, int defaultFilter, const wxString& name) : wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name), _pObj(nullptr) {}
 	~wx_GenericDirCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GenericDirCtrl *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GenericDirCtrl *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(GenericDirCtrlEmpty)
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericDirCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -99,11 +99,11 @@ Gura_ImplementFunction(GenericDirCtrl)
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericDirCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

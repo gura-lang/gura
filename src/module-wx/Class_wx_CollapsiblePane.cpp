@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_CollapsiblePane: public wxCollapsiblePane, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_CollapsiblePane *_pObj;
 public:
-	inline wx_CollapsiblePane(wxWindow * parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxCollapsiblePane(parent, id, label, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_CollapsiblePane(wxWindow * parent, wxWindowID id, const wxString& label, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxCollapsiblePane(parent, id, label, pos, size, style, validator, name), _pObj(nullptr) {}
 	~wx_CollapsiblePane();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_CollapsiblePane *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_CollapsiblePane *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -71,11 +71,11 @@ Gura_ImplementFunction(CollapsiblePane)
 	Object_wx_CollapsiblePane *pObj = Object_wx_CollapsiblePane::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CollapsiblePane(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

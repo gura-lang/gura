@@ -19,11 +19,11 @@ Gura_DeclarePrivUserSymbol(OnStopAdvise);
 //----------------------------------------------------------------------------
 class wx_DDEConnection: public wxDDEConnection, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DDEConnection *_pObj;
 public:
-	inline wx_DDEConnection() : wxDDEConnection(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DDEConnection(char* buffer, int size) : wxDDEConnection(buffer, size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DDEConnection() : wxDDEConnection(), _pObj(nullptr) {}
+	//inline wx_DDEConnection(char* buffer, int size) : wxDDEConnection(buffer, size), _pObj(nullptr) {}
 	//virtual bool OnAdvise(const wxString& topic, const wxString& item, char* data, int size, wxIPCFormat format);
 	//virtual bool OnDisconnect();
 	//virtual bool OnExecute(const wxString& topic, char* data, int size, wxIPCFormat format);
@@ -32,8 +32,8 @@ public:
 	//virtual bool OnStartAdvise(const wxString& topic, const wxString& item);
 	//virtual bool OnStopAdvise(const wxString& topic, const wxString& item);
 	~wx_DDEConnection();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DDEConnection *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DDEConnection *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -66,11 +66,11 @@ Gura_ImplementFunction(DDEConnectionEmpty)
 	Object_wx_DDEConnection *pObj = Object_wx_DDEConnection::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEConnection(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -95,11 +95,11 @@ Gura_ImplementFunction(DDEConnection)
 	Object_wx_DDEConnection *pObj = Object_wx_DDEConnection::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEConnection(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

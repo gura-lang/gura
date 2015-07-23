@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextBuffer: public wxRichTextBuffer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextBuffer *_pObj;
 public:
-	inline wx_RichTextBuffer(const wxRichTextBuffer& obj) : wxRichTextBuffer(obj), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RichTextBuffer() : wxRichTextBuffer(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RichTextBuffer(const wxRichTextBuffer& obj) : wxRichTextBuffer(obj), _pObj(nullptr) {}
+	inline wx_RichTextBuffer() : wxRichTextBuffer(), _pObj(nullptr) {}
 	~wx_RichTextBuffer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextBuffer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextBuffer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(RichTextBuffer)
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextBuffer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -75,11 +75,11 @@ Gura_ImplementFunction(RichTextBufferEmpty)
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextBuffer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

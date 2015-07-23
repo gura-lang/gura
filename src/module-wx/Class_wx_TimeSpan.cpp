@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TimeSpan: public wxTimeSpan, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TimeSpan *_pObj;
 public:
-	//inline wx_TimeSpan() : wxTimeSpan(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_TimeSpan(long hours, long min, long sec, long msec) : wxTimeSpan(hours, min, sec, msec), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_TimeSpan() : wxTimeSpan(), _pObj(nullptr) {}
+	//inline wx_TimeSpan(long hours, long min, long sec, long msec) : wxTimeSpan(hours, min, sec, msec), _pObj(nullptr) {}
 	~wx_TimeSpan();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TimeSpan *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TimeSpan *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -657,11 +657,11 @@ Gura_ImplementFunction(TimeSpanEmpty)
 	Object_wx_TimeSpan *pObj = Object_wx_TimeSpan::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TimeSpan(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -693,11 +693,11 @@ Gura_ImplementFunction(TimeSpan)
 	Object_wx_TimeSpan *pObj = Object_wx_TimeSpan::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TimeSpan(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

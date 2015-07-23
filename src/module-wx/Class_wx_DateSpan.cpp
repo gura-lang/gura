@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DateSpan: public wxDateSpan, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DateSpan *_pObj;
 public:
-	inline wx_DateSpan(int years, int months, int weeks, int days) : wxDateSpan(years, months, weeks, days), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DateSpan(int years, int months, int weeks, int days) : wxDateSpan(years, months, weeks, days), _pObj(nullptr) {}
 	~wx_DateSpan();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DateSpan *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DateSpan *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(DateSpan)
 	Object_wx_DateSpan *pObj = Object_wx_DateSpan::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DateSpan(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

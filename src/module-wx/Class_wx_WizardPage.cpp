@@ -14,15 +14,15 @@ Gura_DeclarePrivUserSymbol(GetPrev);
 //----------------------------------------------------------------------------
 class wx_WizardPage: public wxWizardPage, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_WizardPage *_pObj;
 public:
-	inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap) : wxWizardPage(parent, bitmap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap) : wxWizardPage(parent, bitmap), _pObj(nullptr) {}
 	virtual wxWizardPage *GetNext() const;
 	virtual wxWizardPage *GetPrev() const;
 	~wx_WizardPage();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardPage *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_WizardPage *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -42,9 +42,9 @@ wxWizardPage *wx_WizardPage::GetNext() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNext);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_WizardPage)) return 0;
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
 }
 
@@ -52,9 +52,9 @@ wxWizardPage *wx_WizardPage::GetPrev() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetPrev);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_WizardPage)) return 0;
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
 }
 
@@ -80,11 +80,11 @@ Gura_ImplementFunction(WizardPage)
 	Object_wx_WizardPage *pObj = Object_wx_WizardPage::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardPage(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

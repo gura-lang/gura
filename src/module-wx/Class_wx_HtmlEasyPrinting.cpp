@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlEasyPrinting: public wxHtmlEasyPrinting, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlEasyPrinting *_pObj;
 public:
-	inline wx_HtmlEasyPrinting(const wxString& name, wxWindow* parentWindow) : wxHtmlEasyPrinting(name, parentWindow), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlEasyPrinting(const wxString& name, wxWindow* parentWindow) : wxHtmlEasyPrinting(name, parentWindow), _pObj(nullptr) {}
 	~wx_HtmlEasyPrinting();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlEasyPrinting *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlEasyPrinting *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(HtmlEasyPrinting)
 	Object_wx_HtmlEasyPrinting *pObj = Object_wx_HtmlEasyPrinting::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlEasyPrinting(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

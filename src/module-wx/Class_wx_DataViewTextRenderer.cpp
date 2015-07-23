@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewTextRenderer: public wxDataViewTextRenderer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewTextRenderer *_pObj;
 public:
-	inline wx_DataViewTextRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewTextRenderer(varianttype, mode), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewTextRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewTextRenderer(varianttype, mode), _pObj(nullptr) {}
 	~wx_DataViewTextRenderer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewTextRenderer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewTextRenderer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(DataViewTextRenderer)
 	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewTextRenderer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

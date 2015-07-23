@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_SpinEvent: public wxSpinEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_SpinEvent *_pObj;
 public:
-	inline wx_SpinEvent(wxEventType commandType, int id) : wxSpinEvent(commandType, id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_SpinEvent(wxEventType commandType, int id) : wxSpinEvent(commandType, id), _pObj(nullptr) {}
 	~wx_SpinEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SpinEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_SpinEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(SpinEvent)
 	Object_wx_SpinEvent *pObj = Object_wx_SpinEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

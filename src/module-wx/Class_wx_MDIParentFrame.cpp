@@ -16,18 +16,18 @@ Gura_DeclarePrivUserSymbol(SetToolBar);
 //----------------------------------------------------------------------------
 class wx_MDIParentFrame: public wxMDIParentFrame, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MDIParentFrame *_pObj;
 public:
-	inline wx_MDIParentFrame() : wxMDIParentFrame(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_MDIParentFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxMDIParentFrame(parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MDIParentFrame() : wxMDIParentFrame(), _pObj(nullptr) {}
+	inline wx_MDIParentFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxMDIParentFrame(parent, id, title, pos, size, style, name), _pObj(nullptr) {}
 	//virtual void GetClientSize(int* width, int* height);
 	//virtual wxWindow* GetToolBar();
 	//virtual wxMDIClientWindow* OnCreateClient();
 	//virtual void SetToolBar(wxWindow* toolbar);
 	~wx_MDIParentFrame();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MDIParentFrame *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MDIParentFrame *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(MDIParentFrameEmpty)
 	Object_wx_MDIParentFrame *pObj = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIParentFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -101,11 +101,11 @@ Gura_ImplementFunction(MDIParentFrame)
 	Object_wx_MDIParentFrame *pObj = Object_wx_MDIParentFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIParentFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DynamicLibrary: public wxDynamicLibrary, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DynamicLibrary *_pObj;
 public:
-	//inline wx_DynamicLibrary() : wxDynamicLibrary(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_DynamicLibrary(const wxString& name, int flags) : wxDynamicLibrary(name, flags), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_DynamicLibrary() : wxDynamicLibrary(), _pObj(nullptr) {}
+	//inline wx_DynamicLibrary(const wxString& name, int flags) : wxDynamicLibrary(name, flags), _pObj(nullptr) {}
 	~wx_DynamicLibrary();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DynamicLibrary *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DynamicLibrary *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(DynamicLibraryEmpty)
 	Object_wx_DynamicLibrary *pObj = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -87,11 +87,11 @@ Gura_ImplementFunction(DynamicLibrary)
 	Object_wx_DynamicLibrary *pObj = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DynamicLibrary(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

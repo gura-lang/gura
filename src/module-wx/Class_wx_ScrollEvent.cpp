@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ScrollEvent: public wxScrollEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ScrollEvent *_pObj;
 public:
-	inline wx_ScrollEvent(WXTYPE commandType, int id, int pos, int orientation) : wxScrollEvent(commandType, id, pos, orientation), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ScrollEvent(WXTYPE commandType, int id, int pos, int orientation) : wxScrollEvent(commandType, id, pos, orientation), _pObj(nullptr) {}
 	~wx_ScrollEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScrollEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ScrollEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -62,11 +62,11 @@ Gura_ImplementFunction(ScrollEvent)
 	Object_wx_ScrollEvent *pObj = Object_wx_ScrollEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

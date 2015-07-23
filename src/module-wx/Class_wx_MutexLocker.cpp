@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MutexLocker: public wxMutexLocker, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MutexLocker *_pObj;
 public:
-	inline wx_MutexLocker(wxMutex& mutex) : wxMutexLocker(mutex), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MutexLocker(wxMutex& mutex) : wxMutexLocker(mutex), _pObj(nullptr) {}
 	~wx_MutexLocker();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MutexLocker *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MutexLocker *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(MutexLocker)
 	Object_wx_MutexLocker *pObj = Object_wx_MutexLocker::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MutexLocker(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

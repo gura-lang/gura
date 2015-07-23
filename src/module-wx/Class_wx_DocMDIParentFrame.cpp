@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DocMDIParentFrame: public wxDocMDIParentFrame, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DocMDIParentFrame *_pObj;
 public:
-	inline wx_DocMDIParentFrame() : wxDocMDIParentFrame(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DocMDIParentFrame(wxDocManager* manager, wxFrame * parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocMDIParentFrame(manager, parent, id, title, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DocMDIParentFrame() : wxDocMDIParentFrame(), _pObj(nullptr) {}
+	inline wx_DocMDIParentFrame(wxDocManager* manager, wxFrame * parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxDocMDIParentFrame(manager, parent, id, title, pos, size, style, name), _pObj(nullptr) {}
 	~wx_DocMDIParentFrame();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocMDIParentFrame *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DocMDIParentFrame *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(DocMDIParentFrameEmpty)
 	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocMDIParentFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -93,11 +93,11 @@ Gura_ImplementFunction(DocMDIParentFrame)
 	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocMDIParentFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

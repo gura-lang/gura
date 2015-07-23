@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RealPoint: public wxRealPoint, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RealPoint *_pObj;
 public:
-	inline wx_RealPoint() : wxRealPoint(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_RealPoint(double x, double y) : wxRealPoint(x, y), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_RealPoint() : wxRealPoint(), _pObj(nullptr) {}
+	inline wx_RealPoint(double x, double y) : wxRealPoint(x, y), _pObj(nullptr) {}
 	~wx_RealPoint();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RealPoint *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RealPoint *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(RealPointEmpty)
 	Object_wx_RealPoint *pObj = Object_wx_RealPoint::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RealPoint(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(RealPoint)
 	Object_wx_RealPoint *pObj = Object_wx_RealPoint::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RealPoint(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_LogStream: public wxLogStream, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_LogStream *_pObj;
 public:
-	inline wx_LogStream(std::ostream *ostr) : wxLogStream(*ostr), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_LogStream(std::ostream *ostr) : wxLogStream(*ostr), _pObj(nullptr) {}
 	~wx_LogStream();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_LogStream *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_LogStream *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(LogStream)
 	Object_wx_LogStream *pObj = Object_wx_LogStream::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogStream(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

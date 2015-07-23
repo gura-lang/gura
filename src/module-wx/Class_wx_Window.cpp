@@ -104,11 +104,11 @@ Gura_DeclarePrivUserSymbol(WindowToClientSize);
 //----------------------------------------------------------------------------
 class wx_Window: public wxWindow, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Window *_pObj;
 public:
-	inline wx_Window() : wxWindow(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Window(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxWindow(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Window() : wxWindow(), _pObj(nullptr) {}
+	inline wx_Window(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxWindow(parent, id, pos, size, style, name), _pObj(nullptr) {}
 	//virtual void AddChild(wxWindow* child);
 	//virtual void CaptureMouse();
 	//virtual void ClientToScreen(int* x, int* y);
@@ -202,8 +202,8 @@ public:
 	//virtual bool Validate();
 	//virtual wxSize WindowToClientSize(const wxSize& size);
 	~wx_Window();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Window *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Window *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -222,10 +222,10 @@ void wx_Window::GuraObjectDeleted()
 bool wx_Window::TransferDataFromWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
 		Gura_UserSymbol(TransferDataFromWindow), ValueList::Null, evaluatedFlag);
-	if (_pSig->IsSignalled()) {
-		SetLogError(*_pSig);
+	if (_pObj->GetSignal().IsSignalled()) {
+		SetLogError(_pObj->GetSignal());
 		return false;
 	}
 	return rtn.GetBoolean();
@@ -234,10 +234,10 @@ bool wx_Window::TransferDataFromWindow()
 bool wx_Window::TransferDataToWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
 		Gura_UserSymbol(TransferDataToWindow), ValueList::Null, evaluatedFlag);
-	if (_pSig->IsSignalled()) {
-		SetLogError(*_pSig);
+	if (_pObj->GetSignal().IsSignalled()) {
+		SetLogError(_pObj->GetSignal());
 		return false;
 	}
 	return rtn.GetBoolean();
@@ -260,11 +260,11 @@ Gura_ImplementFunction(WindowEmpty)
 	Object_wx_Window *pObj = Object_wx_Window::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Window(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -298,11 +298,11 @@ Gura_ImplementFunction(Window)
 	Object_wx_Window *pObj = Object_wx_Window::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Window(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

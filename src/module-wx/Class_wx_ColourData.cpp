@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ColourData: public wxColourData, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ColourData *_pObj;
 public:
-	inline wx_ColourData() : wxColourData(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ColourData() : wxColourData(), _pObj(nullptr) {}
 	~wx_ColourData();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ColourData *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ColourData *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(ColourData)
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourData(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MemoryBuffer: public wxMemoryBuffer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MemoryBuffer *_pObj;
 public:
-	inline wx_MemoryBuffer(const wxMemoryBuffer& src) : wxMemoryBuffer(src), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_MemoryBuffer(size_t size) : wxMemoryBuffer(size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MemoryBuffer(const wxMemoryBuffer& src) : wxMemoryBuffer(src), _pObj(nullptr) {}
+	inline wx_MemoryBuffer(size_t size) : wxMemoryBuffer(size), _pObj(nullptr) {}
 	~wx_MemoryBuffer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MemoryBuffer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MemoryBuffer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MemoryBuffer)
 	Object_wx_MemoryBuffer *pObj = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryBuffer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -77,11 +77,11 @@ Gura_ImplementFunction(MemoryBuffer_1)
 	Object_wx_MemoryBuffer *pObj = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryBuffer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

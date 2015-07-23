@@ -21,7 +21,7 @@ Gura_DeclarePrivUserSymbol(IsLocalHost);
 //----------------------------------------------------------------------------
 class wx_IPaddress: public wxIPaddress, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_IPaddress *_pObj;
 public:
 	//virtual bool Hostname(const wxString& hostname);
@@ -34,8 +34,8 @@ public:
 	//virtual bool LocalHost();
 	//virtual bool IsLocalHost();
 	~wx_IPaddress();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_IPaddress *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_IPaddress *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

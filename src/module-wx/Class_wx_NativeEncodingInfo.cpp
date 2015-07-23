@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_NativeEncodingInfo: public wxNativeEncodingInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_NativeEncodingInfo *_pObj;
 public:
 	~wx_NativeEncodingInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_NativeEncodingInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_NativeEncodingInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

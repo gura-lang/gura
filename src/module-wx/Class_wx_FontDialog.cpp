@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FontDialog: public wxFontDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FontDialog *_pObj;
 public:
-	inline wx_FontDialog() : wxFontDialog(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FontDialog(wxWindow* parent) : wxFontDialog(parent), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FontDialog(wxWindow* parent, const wxFontData& data) : wxFontDialog(parent, data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FontDialog() : wxFontDialog(), _pObj(nullptr) {}
+	inline wx_FontDialog(wxWindow* parent) : wxFontDialog(parent), _pObj(nullptr) {}
+	inline wx_FontDialog(wxWindow* parent, const wxFontData& data) : wxFontDialog(parent, data), _pObj(nullptr) {}
 	~wx_FontDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FontDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FontDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(FontDialogEmpty)
 	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(FontDialog)
 	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

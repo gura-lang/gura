@@ -10,12 +10,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TGAHandler: public wxTGAHandler, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TGAHandler *_pObj;
 public:
 	~wx_TGAHandler();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TGAHandler *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TGAHandler *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -48,11 +48,11 @@ Gura_ImplementFunction(TGAHandler)
 	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TGAHandler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileDialog: public wxFileDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FileDialog *_pObj;
 public:
-	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileDialog(wxWindow* parent, const wxString& message, const wxString& defaultDir, const wxString& defaultFile, const wxString& wildcard, long style, const wxPoint& pos, const wxSize& sz, const wxString& name) : wxFileDialog(parent, message, defaultDir, defaultFile, wildcard, style, pos, sz, name), _pObj(nullptr) {}
 	~wx_FileDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FileDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -77,11 +77,11 @@ Gura_ImplementFunction(FileDialog)
 	Object_wx_FileDialog *pObj = Object_wx_FileDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

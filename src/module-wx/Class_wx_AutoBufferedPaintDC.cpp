@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_AutoBufferedPaintDC: public wxAutoBufferedPaintDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_AutoBufferedPaintDC *_pObj;
 public:
-	inline wx_AutoBufferedPaintDC(wxWindow * window) : wxAutoBufferedPaintDC(window), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_AutoBufferedPaintDC(wxWindow * window) : wxAutoBufferedPaintDC(window), _pObj(nullptr) {}
 	~wx_AutoBufferedPaintDC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AutoBufferedPaintDC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_AutoBufferedPaintDC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(AutoBufferedPaintDC)
 	Object_wx_AutoBufferedPaintDC *pObj = Object_wx_AutoBufferedPaintDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AutoBufferedPaintDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

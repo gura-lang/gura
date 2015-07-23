@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HtmlColourCell: public wxHtmlColourCell, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlColourCell *_pObj;
 public:
-	inline wx_HtmlColourCell(wxColour clr, int flags) : wxHtmlColourCell(clr, flags), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlColourCell(wxColour clr, int flags) : wxHtmlColourCell(clr, flags), _pObj(nullptr) {}
 	~wx_HtmlColourCell();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlColourCell *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlColourCell *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(HtmlColourCell)
 	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlColourCell(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

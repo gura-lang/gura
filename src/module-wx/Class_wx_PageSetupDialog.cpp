@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PageSetupDialog: public wxPageSetupDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PageSetupDialog *_pObj;
 public:
-	inline wx_PageSetupDialog(wxWindow* parent, wxPageSetupDialogData* data) : wxPageSetupDialog(parent, data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PageSetupDialog(wxWindow* parent, wxPageSetupDialogData* data) : wxPageSetupDialog(parent, data), _pObj(nullptr) {}
 	~wx_PageSetupDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PageSetupDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PageSetupDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -55,11 +55,11 @@ Gura_ImplementFunction(PageSetupDialog)
 	Object_wx_PageSetupDialog *pObj = Object_wx_PageSetupDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PageSetupDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

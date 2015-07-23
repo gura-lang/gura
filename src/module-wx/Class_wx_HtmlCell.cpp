@@ -21,10 +21,10 @@ Gura_DeclarePrivUserSymbol(ProcessMouseClick);
 //----------------------------------------------------------------------------
 class wx_HtmlCell: public wxHtmlCell, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlCell *_pObj;
 public:
-	inline wx_HtmlCell() : wxHtmlCell(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlCell() : wxHtmlCell(), _pObj(nullptr) {}
 	//virtual bool AdjustPagebreak(int * pagebreak);
 	//virtual void Draw(wxDC& dc, int x, int y, int view_y1, int view_y2);
 	//virtual void DrawInvisible(wxDC& dc, int x, int y);
@@ -35,8 +35,8 @@ public:
 	//virtual void Layout(int w);
 	//virtual bool ProcessMouseClick(wxHtmlWindowInterface* window, const wxPoint& pos, const wxMouseEvent& event);
 	~wx_HtmlCell();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlCell *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlCell *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -69,11 +69,11 @@ Gura_ImplementFunction(HtmlCellEmpty)
 	Object_wx_HtmlCell *pObj = Object_wx_HtmlCell::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlCell(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

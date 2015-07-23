@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MessageDialog: public wxMessageDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MessageDialog *_pObj;
 public:
-	inline wx_MessageDialog(wxWindow* parent, const wxString& message, const wxString& caption, long style, const wxPoint& pos) : wxMessageDialog(parent, message, caption, style, pos), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MessageDialog(wxWindow* parent, const wxString& message, const wxString& caption, long style, const wxPoint& pos) : wxMessageDialog(parent, message, caption, style, pos), _pObj(nullptr) {}
 	~wx_MessageDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MessageDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MessageDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -64,11 +64,11 @@ Gura_ImplementFunction(MessageDialog)
 	Object_wx_MessageDialog *pObj = Object_wx_MessageDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MessageDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FindReplaceDialog: public wxFindReplaceDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FindReplaceDialog *_pObj;
 public:
-	inline wx_FindReplaceDialog() : wxFindReplaceDialog(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_FindReplaceDialog(wxWindow * parent, wxFindReplaceData* data, const wxString& title, int style) : wxFindReplaceDialog(parent, data, title, style), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FindReplaceDialog() : wxFindReplaceDialog(), _pObj(nullptr) {}
+	inline wx_FindReplaceDialog(wxWindow * parent, wxFindReplaceData* data, const wxString& title, int style) : wxFindReplaceDialog(parent, data, title, style), _pObj(nullptr) {}
 	~wx_FindReplaceDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FindReplaceDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FindReplaceDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(FindReplaceDialogEmpty)
 	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -83,11 +83,11 @@ Gura_ImplementFunction(FindReplaceDialog)
 	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

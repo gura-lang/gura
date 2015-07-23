@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HyperlinkEvent: public wxHyperlinkEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HyperlinkEvent *_pObj;
 public:
-	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HyperlinkEvent(wxObject * generator, int id, const wxString & url) : wxHyperlinkEvent(generator, id, url), _pObj(nullptr) {}
 	~wx_HyperlinkEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HyperlinkEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HyperlinkEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(HyperlinkEvent)
 	Object_wx_HyperlinkEvent *pObj = Object_wx_HyperlinkEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HyperlinkEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

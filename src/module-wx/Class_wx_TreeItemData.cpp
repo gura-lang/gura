@@ -37,11 +37,11 @@ Gura_ImplementFunction(TreeItemData)
 	Object_wx_TreeItemData *pObj = Object_wx_TreeItemData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeItemData(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

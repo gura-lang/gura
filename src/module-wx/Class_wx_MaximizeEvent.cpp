@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MaximizeEvent: public wxMaximizeEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MaximizeEvent *_pObj;
 public:
-	inline wx_MaximizeEvent(int id) : wxMaximizeEvent(id), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MaximizeEvent(int id) : wxMaximizeEvent(id), _pObj(nullptr) {}
 	~wx_MaximizeEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MaximizeEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MaximizeEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MaximizeEvent)
 	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MaximizeEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

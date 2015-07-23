@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(SetDC);
 //----------------------------------------------------------------------------
 class wx_HtmlWinParser: public wxHtmlWinParser, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlWinParser *_pObj;
 public:
-	inline wx_HtmlWinParser() : wxHtmlWinParser(), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_HtmlWinParser(wxHtmlWindowInterface *wndIface) : wxHtmlWinParser(*wndIface), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlWinParser() : wxHtmlWinParser(), _pObj(nullptr) {}
+	//inline wx_HtmlWinParser(wxHtmlWindowInterface *wndIface) : wxHtmlWinParser(*wndIface), _pObj(nullptr) {}
 	//virtual wxFont* CreateCurrentFont();
 	//virtual void SetDC(wxDC *dc, double pixel_scale);
 	~wx_HtmlWinParser();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlWinParser *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlWinParser *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(HtmlWinParserEmpty)
 	Object_wx_HtmlWinParser *pObj = Object_wx_HtmlWinParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWinParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -83,11 +83,11 @@ Gura_ImplementFunction(HtmlWinParser)
 	Object_wx_HtmlWinParser *pObj = Object_wx_HtmlWinParser::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWinParser(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

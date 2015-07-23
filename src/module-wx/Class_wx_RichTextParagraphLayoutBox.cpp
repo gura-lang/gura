@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_RichTextParagraphLayoutBox: public wxRichTextParagraphLayoutBox, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_RichTextParagraphLayoutBox *_pObj;
 public:
 	~wx_RichTextParagraphLayoutBox();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextParagraphLayoutBox *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_RichTextParagraphLayoutBox *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

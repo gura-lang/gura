@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_FileSystem: public wxFileSystem, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_FileSystem *_pObj;
 public:
-	inline wx_FileSystem() : wxFileSystem(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_FileSystem() : wxFileSystem(), _pObj(nullptr) {}
 	~wx_FileSystem();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_FileSystem *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_FileSystem *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(FileSystem)
 	Object_wx_FileSystem *pObj = Object_wx_FileSystem::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileSystem(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

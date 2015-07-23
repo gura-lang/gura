@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ScreenDC: public wxScreenDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ScreenDC *_pObj;
 public:
-	inline wx_ScreenDC() : wxScreenDC(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ScreenDC() : wxScreenDC(), _pObj(nullptr) {}
 	~wx_ScreenDC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ScreenDC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ScreenDC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -50,11 +50,11 @@ Gura_ImplementFunction(ScreenDCEmpty)
 	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScreenDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

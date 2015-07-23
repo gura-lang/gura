@@ -67,14 +67,14 @@ void Object_wx_EventFactory::Connect(Environment &env, Signal &sig,
 {
 	wxEventType eventType = GetEventType();
 	if (eventType != wxEVT_NULL) {
-		EventHandlerPack *pEventHandlerPack = new EventHandlerPack(env, sig,
+		EventHandlerPack *pEventHandlerPack = new EventHandlerPack(env,
 							pObjFunc, Object_wx_EventFactory::Reference(this));
 		pEvtHandler->Connect(id, lastId, eventType, function, pEventHandlerPack, eventSink);
 		return;
 	}
 	for (int i = 0; i < _cntEventTypes; i++) {
 		wxEventType eventType = _eventTypes[i];
-		EventHandlerPack *pEventHandlerPack = new EventHandlerPack(env, sig,
+		EventHandlerPack *pEventHandlerPack = new EventHandlerPack(env,
 			Object_function::Reference(pObjFunc), Object_wx_EventFactory::Reference(this));
 		pEvtHandler->Connect(id, lastId, eventType, function, pEventHandlerPack, eventSink);
 	}
@@ -209,7 +209,7 @@ void EventHandlerPack::Eval(wxEvent &event)
 	Object_wx_Event *pObj = _pEventFactory->CreateEventObject(event);
 	ValueList valListArg;
 	valListArg.push_back(Value(pObj));
-	_pObjFunc->Eval(*_pEnv, *_pSig, valListArg);
+	_pObjFunc->Eval(*_pEnv, _pEnv->GetSignal(), valListArg);
 }
 
 Gura_EndModuleScope(wx)

@@ -11,20 +11,20 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Region: public wxRegion, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Region *_pObj;
 public:
-	inline wx_Region() : wxRegion(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxRect& rect) : wxRegion(rect), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxRegion& region) : wxRegion(region), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Region() : wxRegion(), _pObj(nullptr) {}
+	inline wx_Region(wxCoord x, wxCoord y, wxCoord width, wxCoord height) : wxRegion(x, y, width, height), _pObj(nullptr) {}
+	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _pObj(nullptr) {}
+	inline wx_Region(const wxRect& rect) : wxRegion(rect), _pObj(nullptr) {}
+	inline wx_Region(const wxRegion& region) : wxRegion(region), _pObj(nullptr) {}
+	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _pObj(nullptr) {}
+	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _pObj(nullptr) {}
 	~wx_Region();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Region *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Region *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(RegionEmpty)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -87,11 +87,11 @@ Gura_ImplementFunction(Region)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -113,11 +113,11 @@ Gura_ImplementFunction(Region_1)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -137,11 +137,11 @@ Gura_ImplementFunction(RegionRect)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -170,11 +170,11 @@ Gura_ImplementFunction(RegionPoints)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -204,11 +204,11 @@ Gura_ImplementFunction(RegionFromBitmap)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -234,11 +234,11 @@ Gura_ImplementFunction(Region_6)
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 #endif

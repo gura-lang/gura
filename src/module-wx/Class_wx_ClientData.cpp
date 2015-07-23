@@ -37,11 +37,11 @@ Gura_ImplementFunction(ClientData)
 	Object_wx_ClientData *pObj = Object_wx_ClientData::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ClientData(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

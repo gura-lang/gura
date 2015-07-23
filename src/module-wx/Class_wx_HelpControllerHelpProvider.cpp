@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_HelpControllerHelpProvider: public wxHelpControllerHelpProvider, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HelpControllerHelpProvider *_pObj;
 public:
-	inline wx_HelpControllerHelpProvider(wxHelpControllerBase* hc) : wxHelpControllerHelpProvider(hc), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HelpControllerHelpProvider(wxHelpControllerBase* hc) : wxHelpControllerHelpProvider(hc), _pObj(nullptr) {}
 	~wx_HelpControllerHelpProvider();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpControllerHelpProvider *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HelpControllerHelpProvider *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 	Object_wx_HelpControllerHelpProvider *pObj = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpControllerHelpProvider(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

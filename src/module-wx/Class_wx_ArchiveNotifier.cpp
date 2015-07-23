@@ -11,12 +11,12 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ArchiveNotifier: public wxArchiveNotifier, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ArchiveNotifier *_pObj;
 public:
 	~wx_ArchiveNotifier();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ArchiveNotifier *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ArchiveNotifier *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

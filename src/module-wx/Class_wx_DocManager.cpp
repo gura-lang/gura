@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DocManager: public wxDocManager, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DocManager *_pObj;
 public:
-	inline wx_DocManager(long flags, bool initialize) : wxDocManager(flags, initialize), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DocManager(long flags, bool initialize) : wxDocManager(flags, initialize), _pObj(nullptr) {}
 	~wx_DocManager();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DocManager *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DocManager *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(DocManager)
 	Object_wx_DocManager *pObj = Object_wx_DocManager::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocManager(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

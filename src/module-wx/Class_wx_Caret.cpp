@@ -11,15 +11,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Caret: public wxCaret, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Caret *_pObj;
 public:
-	inline wx_Caret() : wxCaret(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Caret() : wxCaret(), _pObj(nullptr) {}
+	inline wx_Caret(wxWindow* window, int width, int height) : wxCaret(window, width, height), _pObj(nullptr) {}
+	inline wx_Caret(wxWindowBase* window, const wxSize& size) : wxCaret(window, size), _pObj(nullptr) {}
 	~wx_Caret();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Caret *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Caret *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -52,11 +52,11 @@ Gura_ImplementFunction(CaretEmpty)
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -80,11 +80,11 @@ Gura_ImplementFunction(Caret)
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -106,11 +106,11 @@ Gura_ImplementFunction(Caret_1)
 	Object_wx_Caret *pObj = Object_wx_Caret::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Caret(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

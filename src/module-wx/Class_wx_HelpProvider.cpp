@@ -18,7 +18,7 @@ Gura_DeclarePrivUserSymbol(ShowHelp);
 //----------------------------------------------------------------------------
 class wx_HelpProvider: public wxHelpProvider, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HelpProvider *_pObj;
 public:
 	//virtual void AddHelp(wxWindowBase* window, const wxString& text);
@@ -28,8 +28,8 @@ public:
 	//virtual bool ShowHelpAtPoint(wxWindowBase* window, const wxPoint & point, wxHelpEvent::Origin origin);
 	//virtual bool ShowHelp(wxWindowBase* window);
 	~wx_HelpProvider();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HelpProvider *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HelpProvider *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

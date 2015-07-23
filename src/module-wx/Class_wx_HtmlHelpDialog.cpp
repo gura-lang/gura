@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(AddToolbarButtons);
 //----------------------------------------------------------------------------
 class wx_HtmlHelpDialog: public wxHtmlHelpDialog, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlHelpDialog *_pObj;
 public:
-	//inline wx_HtmlHelpDialog(wxHtmlHelpData* data) : wxHtmlHelpDialog(data), _pSig(nullptr), _pObj(nullptr) {}
-	//inline wx_HtmlHelpDialog(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpDialog(parent, wxWindowID, title, style, data), _pSig(nullptr), _pObj(nullptr) {}
+	//inline wx_HtmlHelpDialog(wxHtmlHelpData* data) : wxHtmlHelpDialog(data), _pObj(nullptr) {}
+	//inline wx_HtmlHelpDialog(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpDialog(parent, wxWindowID, title, style, data), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpDialog();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpDialog *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlHelpDialog *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -60,11 +60,11 @@ Gura_ImplementFunction(HtmlHelpDialog)
 	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
@@ -101,11 +101,11 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);

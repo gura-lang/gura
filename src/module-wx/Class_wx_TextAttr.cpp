@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_TextAttr: public wxTextAttr, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_TextAttr *_pObj;
 public:
-	inline wx_TextAttr() : wxTextAttr(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_TextAttr() : wxTextAttr(), _pObj(nullptr) {}
+	inline wx_TextAttr(const wxColour& colText, const wxColour& colBack, const wxFont& font, wxTextAttrAlignment alignment) : wxTextAttr(colText, colBack, font, alignment), _pObj(nullptr) {}
 	~wx_TextAttr();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextAttr *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_TextAttr *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -51,11 +51,11 @@ Gura_ImplementFunction(TextAttr)
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(TextAttr_1)
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

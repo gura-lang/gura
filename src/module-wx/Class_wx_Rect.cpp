@@ -11,17 +11,17 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_Rect: public wxRect, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Rect *_pObj;
 public:
-	inline wx_Rect() : wxRect(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(int x, int y, int width, int height) : wxRect(x, y, width, height), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRect(topLeft, bottomRight), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxPoint& pos, const wxSize& size) : wxRect(pos, size), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Rect(const wxSize& size) : wxRect(size), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Rect() : wxRect(), _pObj(nullptr) {}
+	inline wx_Rect(int x, int y, int width, int height) : wxRect(x, y, width, height), _pObj(nullptr) {}
+	inline wx_Rect(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRect(topLeft, bottomRight), _pObj(nullptr) {}
+	inline wx_Rect(const wxPoint& pos, const wxSize& size) : wxRect(pos, size), _pObj(nullptr) {}
+	inline wx_Rect(const wxSize& size) : wxRect(size), _pObj(nullptr) {}
 	~wx_Rect();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Rect *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Rect *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -54,11 +54,11 @@ Gura_ImplementFunction(RectEmpty)
 	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -84,11 +84,11 @@ Gura_ImplementFunction(Rect)
 	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -110,11 +110,11 @@ Gura_ImplementFunction(Rect_1)
 	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -136,11 +136,11 @@ Gura_ImplementFunction(Rect_2)
 	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -160,11 +160,11 @@ Gura_ImplementFunction(Rect_3)
 	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_PostScriptDC: public wxPostScriptDC, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_PostScriptDC *_pObj;
 public:
-	inline wx_PostScriptDC(const wxPrintData& printData) : wxPostScriptDC(printData), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_PostScriptDC(const wxString& output, bool interactive, wxWindow * parent) : wxPostScriptDC(output, interactive, parent), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_PostScriptDC(const wxPrintData& printData) : wxPostScriptDC(printData), _pObj(nullptr) {}
+	inline wx_PostScriptDC(const wxString& output, bool interactive, wxWindow * parent) : wxPostScriptDC(output, interactive, parent), _pObj(nullptr) {}
 	~wx_PostScriptDC();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PostScriptDC *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_PostScriptDC *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(PostScriptDC)
 	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -82,11 +82,11 @@ Gura_ImplementFunction(PostScriptDC_1)
 	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

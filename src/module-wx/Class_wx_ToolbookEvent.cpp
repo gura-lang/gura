@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_ToolbookEvent: public wxToolbookEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_ToolbookEvent *_pObj;
 public:
-	inline wx_ToolbookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxToolbookEvent(eventType, id, sel, oldSel), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ToolbookEvent(wxEventType eventType, int id, int sel, int oldSel) : wxToolbookEvent(eventType, id, sel, oldSel), _pObj(nullptr) {}
 	~wx_ToolbookEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ToolbookEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_ToolbookEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();

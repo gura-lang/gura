@@ -10,15 +10,15 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_VersionInfo: public wxVersionInfo, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_VersionInfo *_pObj;
 public:
-	inline wx_VersionInfo() : wxVersionInfo(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_VersionInfo() : wxVersionInfo(), _pObj(nullptr) {}
 	inline wx_VersionInfo(const wxString &name, int major, int minor, int micro, const wxString &description, const wxString &copyright) :
 				wxVersionInfo(name, major, minor, micro, description, copyright) {}
 	~wx_VersionInfo();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_VersionInfo *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_VersionInfo *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -69,11 +69,11 @@ Gura_ImplementFunction(VersionInfo)
 	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VersionInfo(pEntity, pEntity, OwnerTrue);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

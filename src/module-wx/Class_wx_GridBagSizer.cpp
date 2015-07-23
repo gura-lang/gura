@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_GridBagSizer: public wxGridBagSizer, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_GridBagSizer *_pObj;
 public:
-	inline wx_GridBagSizer(int vgap, int hgap) : wxGridBagSizer(vgap, hgap), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_GridBagSizer(int vgap, int hgap) : wxGridBagSizer(vgap, hgap), _pObj(nullptr) {}
 	~wx_GridBagSizer();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GridBagSizer *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_GridBagSizer *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(GridBagSizer)
 	Object_wx_GridBagSizer *pObj = Object_wx_GridBagSizer::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridBagSizer(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

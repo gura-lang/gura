@@ -16,17 +16,17 @@ Gura_DeclarePrivUserSymbol(Validate);
 //----------------------------------------------------------------------------
 class wx_Validator: public wxValidator, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Validator *_pObj;
 public:
-	inline wx_Validator() : wxValidator(), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Validator() : wxValidator(), _pObj(nullptr) {}
 	//virtual wxObject* Clone();
 	virtual bool TransferFromWindow();
 	virtual bool TransferToWindow();
 	//virtual bool Validate(wxWindow* parent);
 	~wx_Validator();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Validator *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Validator *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -45,10 +45,10 @@ void wx_Validator::GuraObjectDeleted()
 bool wx_Validator::TransferFromWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
 		Gura_UserSymbol(TransferFromWindow), ValueList::Null, evaluatedFlag);
-	if (_pSig->IsSignalled()) {
-		SetLogError(*_pSig);
+	if (_pObj->GetSignal().IsSignalled()) {
+		SetLogError(_pObj->GetSignal());
 		return false;
 	}
 	return rtn.GetBoolean();
@@ -57,10 +57,10 @@ bool wx_Validator::TransferFromWindow()
 bool wx_Validator::TransferToWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
 		Gura_UserSymbol(TransferToWindow), ValueList::Null, evaluatedFlag);
-	if (_pSig->IsSignalled()) {
-		SetLogError(*_pSig);
+	if (_pObj->GetSignal().IsSignalled()) {
+		SetLogError(_pObj->GetSignal());
 		return false;
 	}
 	return rtn.GetBoolean();
@@ -88,11 +88,11 @@ Gura_ImplementFunction(Validator)
 	Object_wx_Validator *pObj = Object_wx_Validator::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Validator(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

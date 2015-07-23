@@ -14,16 +14,16 @@ Gura_DeclarePrivUserSymbol(SetFocusIgnoringChildren);
 //----------------------------------------------------------------------------
 class wx_Panel: public wxPanel, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_Panel *_pObj;
 public:
-	inline wx_Panel() : wxPanel(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_Panel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPanel(parent, id, pos, size, style, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_Panel() : wxPanel(), _pObj(nullptr) {}
+	inline wx_Panel(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name) : wxPanel(parent, id, pos, size, style, name), _pObj(nullptr) {}
 	//virtual void SetFocus();
 	//virtual void SetFocusIgnoringChildren();
 	~wx_Panel();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Panel *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_Panel *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -56,11 +56,11 @@ Gura_ImplementFunction(PanelEmpty)
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -95,11 +95,11 @@ Gura_ImplementFunction(Panel)
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

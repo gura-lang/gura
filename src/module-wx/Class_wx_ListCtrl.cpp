@@ -16,18 +16,18 @@ Gura_DeclarePrivUserSymbol(OnGetItemText);
 //----------------------------------------------------------------------------
 class wx_ListCtrl: public wxListCtrl, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	AutoPtr<Object_wx_ListCtrl> _pObj;
 public:
-	inline wx_ListCtrl() : wxListCtrl(), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_ListCtrl() : wxListCtrl(), _pObj(nullptr) {}
+	inline wx_ListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxListCtrl(parent, id, pos, size, style, validator, name), _pObj(nullptr) {}
 	virtual wxListItemAttr *OnGetItemAttr(long item) const;
 	virtual int OnGetItemImage(long item) const;
 	virtual int OnGetItemColumnImage(long item, long column) const;
 	virtual wxString OnGetItemText(long item, long column) const;
 	~wx_ListCtrl();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ListCtrl *pObj) {
-		_pSig = &sig, _pObj.reset(Object_wx_ListCtrl::Reference(pObj));
+	inline void AssocWithGura(Object_wx_ListCtrl *pObj) {
+		_pObj.reset(Object_wx_ListCtrl::Reference(pObj));
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -59,8 +59,8 @@ wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_wx_ListItemAttr, true)) return nullptr;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_ListItemAttr, true)) return nullptr;
 	return rtn.IsValid()? Object_wx_ListItemAttr::GetObject(rtn)->GetEntity() : nullptr;
 }
 
@@ -72,8 +72,8 @@ int wx_ListCtrl::OnGetItemImage(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -86,8 +86,8 @@ int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_number)) return 0;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
 
@@ -100,8 +100,8 @@ wxString wx_ListCtrl::OnGetItemText(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(*_pObj, *_pSig, pFunc, valList);
-	if (!CheckMethodResult(*_pSig, rtn, VTYPE_string)) return wxEmptyString;
+	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
 
@@ -126,11 +126,11 @@ Gura_ImplementFunction(ListCtrlEmpty)
 	Object_wx_ListCtrl *pObj = Object_wx_ListCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -167,11 +167,11 @@ Gura_ImplementFunction(ListCtrl)
 	Object_wx_ListCtrl *pObj = Object_wx_ListCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListCtrl(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -1404,11 +1404,10 @@ Gura_DeclareMethod(wx_ListCtrl, SortItems)
 class wxListCompareFunction {
 private:
 	Environment &_env;
-	Signal *_pSig;
 	const Function *_pFunc;
 public:
-	inline wxListCompareFunction(Environment &env, Signal &sig, const Function *pFunc) :
-											_env(env), _pSig(&sig), _pFunc(pFunc) {}
+	inline wxListCompareFunction(Environment &env, const Function *pFunc) :
+											_env(env), _pFunc(pFunc) {}
 	int Body(long item1, long item2);
 	static int wxCALLBACK Stub(long item1, long item2, long sortData);
 };
@@ -1421,7 +1420,7 @@ int wxListCompareFunction::Body(long item1, long item2)
 	//valList.push_back(Value(item2));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(item1), Value(item2));
-	Value rtn = _pFunc->Eval(_env, *_pSig, *pArgs);
+	Value rtn = _pFunc->Eval(_env, _env.GetSignal(), *pArgs);
 	return rtn.GetInt();
 }
 
@@ -1435,7 +1434,7 @@ Gura_ImplementMethod(wx_ListCtrl, SortItems)
 {
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxListCompareFunction listCompareFunction(env, sig, args.GetFunction(0));
+	wxListCompareFunction listCompareFunction(env, args.GetFunction(0));
 	long sortData = reinterpret_cast<long>(&listCompareFunction);
 	bool rtn = pThis->GetEntity()->SortItems(wxListCompareFunction::Stub, sortData);
 	return Value(rtn);

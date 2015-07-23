@@ -13,15 +13,15 @@ Gura_DeclarePrivUserSymbol(AddToolbarButtons);
 //----------------------------------------------------------------------------
 class wx_HtmlHelpFrame: public wxHtmlHelpFrame, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_HtmlHelpFrame *_pObj;
 public:
-	inline wx_HtmlHelpFrame(wxHtmlHelpData* data) : wxHtmlHelpFrame(data), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_HtmlHelpFrame(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpFrame(parent, wxWindowID, title, style, data), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_HtmlHelpFrame(wxHtmlHelpData* data) : wxHtmlHelpFrame(data), _pObj(nullptr) {}
+	inline wx_HtmlHelpFrame(wxWindow* parent, int wxWindowID, const wxString& title, int style, wxHtmlHelpData* data) : wxHtmlHelpFrame(parent, wxWindowID, title, style, data), _pObj(nullptr) {}
 	//virtual void AddToolbarButtons(wxToolBar * toolBar, int style);
 	~wx_HtmlHelpFrame();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_HtmlHelpFrame *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_HtmlHelpFrame *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(HtmlHelpFrame)
 	Object_wx_HtmlHelpFrame *pObj = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -92,11 +92,11 @@ Gura_ImplementFunction(HtmlHelpFrame_1)
 	Object_wx_HtmlHelpFrame *pObj = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlHelpFrame(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

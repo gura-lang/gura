@@ -11,13 +11,13 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_MouseCaptureLostEvent: public wxMouseCaptureLostEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_MouseCaptureLostEvent *_pObj;
 public:
-	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_MouseCaptureLostEvent(wxWindowID windowId) : wxMouseCaptureLostEvent(windowId), _pObj(nullptr) {}
 	~wx_MouseCaptureLostEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MouseCaptureLostEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_MouseCaptureLostEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -53,11 +53,11 @@ Gura_ImplementFunction(MouseCaptureLostEvent)
 	Object_wx_MouseCaptureLostEvent *pObj = Object_wx_MouseCaptureLostEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MouseCaptureLostEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 

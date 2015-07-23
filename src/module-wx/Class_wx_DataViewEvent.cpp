@@ -11,14 +11,14 @@ Gura_BeginModuleScope(wx)
 //----------------------------------------------------------------------------
 class wx_DataViewEvent: public wxDataViewEvent, public GuraObjectObserver {
 private:
-	Gura::Signal *_pSig;
+	//Gura::Signal *_pSig;
 	Object_wx_DataViewEvent *_pObj;
 public:
-	inline wx_DataViewEvent(wxEventType commandType, int winid) : wxDataViewEvent(commandType, winid), _pSig(nullptr), _pObj(nullptr) {}
-	inline wx_DataViewEvent(const wxDataViewEvent& event) : wxDataViewEvent(event), _pSig(nullptr), _pObj(nullptr) {}
+	inline wx_DataViewEvent(wxEventType commandType, int winid) : wxDataViewEvent(commandType, winid), _pObj(nullptr) {}
+	inline wx_DataViewEvent(const wxDataViewEvent& event) : wxDataViewEvent(event), _pObj(nullptr) {}
 	~wx_DataViewEvent();
-	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewEvent *pObj) {
-		_pSig = &sig, _pObj = pObj;
+	inline void AssocWithGura(Object_wx_DataViewEvent *pObj) {
+		_pObj = pObj;
 	}
 	// virtual function of GuraObjectObserver
 	virtual void GuraObjectDeleted();
@@ -57,11 +57,11 @@ Gura_ImplementFunction(DataViewEvent)
 	Object_wx_DataViewEvent *pObj = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
@@ -81,11 +81,11 @@ Gura_ImplementFunction(DataViewEvent_1)
 	Object_wx_DataViewEvent *pObj = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewEvent(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
+		pEntity->AssocWithGura(pObj);
 		return ReturnValue(env, args, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
+	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, args, args.GetThis());
 }
 
