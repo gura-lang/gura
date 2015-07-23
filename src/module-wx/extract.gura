@@ -451,39 +451,39 @@ FuncInfo = class {
 		} elsif (m = this.typeName == 'wxString') {
 			R'''
 			${funcInfo.typeName} rtn = ${funcCall};
-			return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+			return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 			'''.template().render()
 		} elsif (m = this.typeName == 'wxArrayString') {
 			R'''
 			${funcInfo.typeName} rtn = ${funcCall};
-			return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+			return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 			'''.template().render()
 		} elsif (m = this.typeName == 'wxArrayInt') {
 			R'''
 			${funcInfo.typeName} rtn = ${funcCall}
-			return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
+			return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 			'''.template().render()
 		} elsif (accessor = accessorMap.get(this.typeName)) {
 			R'''
 			${accessor.typeNameActual} rtn = ${funcCall};
-			return ReturnValue(env, sig, args, Value(rtn));
+			return ReturnValue(env, args, Value(rtn));
 			'''.template().render()
 		} elsif (m = this.typeName.match(r'wx(\w+)')) {
 			guraClassName = ClassNameToGuraClassName(this.typeName)
 			if (!this.typeRef) {
 				R'''
 				${funcInfo.typeName} rtn = ${funcCall};
-				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
+				return ReturnValue(env, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
 				'''.template().render()
 			} elsif (this.typeRef == '&') {
 				R'''
 				${varAccessStr}${funcInfo.typeName} &rtn = ${funcCall};
-				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
+				return ReturnValue(env, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
 				'''.template().render()
 			} elsif (this.typeRef == '*') {
 				R'''
 				${funcInfo.typeName} *rtn = (${funcInfo.typeName} *)${funcCall};
-				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(rtn, NULL, OwnerFalse)));
+				return ReturnValue(env, args, Value(new Object_${guraClassName}(rtn, NULL, OwnerFalse)));
 				'''.template().render()
 			} else {
 				sys.stderr.printf('can\'t handle "%s" in %s\'s return value\n', this.typeName, this.funcName)
