@@ -554,7 +554,7 @@ Gura_ImplementUserClass(Nurbs)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeAndPrepareUserClass(Quadric,		env.LookupClass(VTYPE_object));
+	Gura_RealizeAndPrepareUserClass(Quadric,	env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(Tesselator,	env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(Nurbs,		env.LookupClass(VTYPE_object));
 	AssignValues(env);

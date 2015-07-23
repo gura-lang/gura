@@ -6,13 +6,11 @@ Gura_BeginModuleScope(glut)
 class FunctionPack {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal *_pSig;
 	AutoPtr<Function> _pFunc;
 public:
 	inline FunctionPack() {}
-	inline void SetFunc(Environment &env, Signal &sig, Function *pFunc) {
+	inline void SetFunc(Environment &env, Function *pFunc) {
 		_pEnv.reset(new Environment(env));
-		_pSig = &sig;
 		_pFunc.reset(pFunc);
 	}
 	inline void ClearFunc() {
@@ -21,9 +19,9 @@ public:
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
-		Value result = _pFunc->Eval(*_pEnv, *_pSig, args);
-		if (_pSig->IsSignalled()) {
-			_pSig->PrintSignal(*_pEnv->GetConsoleErr());
+		Value result = _pFunc->Eval(*_pEnv, _pEnv->GetSignal(), args);
+		if (_pEnv->GetSignal().IsSignalled()) {
+			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);
 		}
 		return result;
@@ -887,7 +885,7 @@ Gura_ImplementFunction(__glutCreateMenu)
 		sig.SetError(ERR_OutOfRangeError, "too many menus");
 		return Value::Null;
 	}
-	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
+	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -1090,7 +1088,7 @@ Gura_ImplementFunction(__glutDisplayFunc)
 		g_pContext->funcPackOnDisplay.ClearFunc();
 		glutDisplayFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnDisplay.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnDisplay.SetFunc(env, func->Reference());
 		glutDisplayFunc(OnDisplay);
 	}
 	return Value::Null;
@@ -1113,7 +1111,7 @@ Gura_ImplementFunction(__glutReshapeFunc)
 		g_pContext->funcPackOnReshape.ClearFunc();
 		glutReshapeFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnReshape.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnReshape.SetFunc(env, func->Reference());
 		glutReshapeFunc(OnReshape);
 	}
 	return Value::Null;
@@ -1136,7 +1134,7 @@ Gura_ImplementFunction(__glutKeyboardFunc)
 		g_pContext->funcPackOnKeyboard.ClearFunc();
 		glutKeyboardFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnKeyboard.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnKeyboard.SetFunc(env, func->Reference());
 		glutKeyboardFunc(OnKeyboard);
 	}
 	return Value::Null;
@@ -1159,7 +1157,7 @@ Gura_ImplementFunction(__glutMouseFunc)
 		g_pContext->funcPackOnMouse.ClearFunc();
 		glutMouseFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnMouse.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnMouse.SetFunc(env, func->Reference());
 		glutMouseFunc(OnMouse);
 	}
 	return Value::Null;
@@ -1182,7 +1180,7 @@ Gura_ImplementFunction(__glutMotionFunc)
 		g_pContext->funcPackOnMotion.ClearFunc();
 		glutMotionFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnMotion.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnMotion.SetFunc(env, func->Reference());
 		glutMotionFunc(OnMotion);
 	}
 	return Value::Null;
@@ -1205,7 +1203,7 @@ Gura_ImplementFunction(__glutPassiveMotionFunc)
 		g_pContext->funcPackOnPassiveMotion.ClearFunc();
 		glutPassiveMotionFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnPassiveMotion.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnPassiveMotion.SetFunc(env, func->Reference());
 		glutPassiveMotionFunc(OnPassiveMotion);
 	}
 	return Value::Null;
@@ -1228,7 +1226,7 @@ Gura_ImplementFunction(__glutEntryFunc)
 		g_pContext->funcPackOnEntry.ClearFunc();
 		glutEntryFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnEntry.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnEntry.SetFunc(env, func->Reference());
 		glutEntryFunc(OnEntry);
 	}
 	return Value::Null;
@@ -1251,7 +1249,7 @@ Gura_ImplementFunction(__glutVisibilityFunc)
 		g_pContext->funcPackOnVisibility.ClearFunc();
 		glutVisibilityFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnVisibility.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnVisibility.SetFunc(env, func->Reference());
 		glutVisibilityFunc(OnVisibility);
 	}
 	return Value::Null;
@@ -1274,7 +1272,7 @@ Gura_ImplementFunction(__glutIdleFunc)
 		g_pContext->funcPackOnIdle.ClearFunc();
 		glutIdleFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnIdle.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnIdle.SetFunc(env, func->Reference());
 		glutIdleFunc(OnIdle);
 	}
 	return Value::Null;
@@ -1301,7 +1299,7 @@ Gura_ImplementFunction(__glutTimerFunc)
 		g_pContext->funcPackOnTimer.ClearFunc();
 		glutTimerFunc(millis, nullptr, value);
 	} else {
-		g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnTimer.SetFunc(env, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
 	}
 	return Value::Null;
@@ -1324,7 +1322,7 @@ Gura_ImplementFunction(__glutMenuStateFunc)
 		g_pContext->funcPackOnMenuState.ClearFunc();
 		glutMenuStateFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnMenuState.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnMenuState.SetFunc(env, func->Reference());
 		glutMenuStateFunc(OnMenuState);
 	}
 	return Value::Null;
@@ -1347,7 +1345,7 @@ Gura_ImplementFunction(__glutSpecialFunc)
 		g_pContext->funcPackOnSpecial.ClearFunc();
 		glutSpecialFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnSpecial.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnSpecial.SetFunc(env, func->Reference());
 		glutSpecialFunc(OnSpecial);
 	}
 	return Value::Null;
@@ -1370,7 +1368,7 @@ Gura_ImplementFunction(__glutSpaceballMotionFunc)
 		g_pContext->funcPackOnSpaceballMotion.ClearFunc();
 		glutSpaceballMotionFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnSpaceballMotion.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnSpaceballMotion.SetFunc(env, func->Reference());
 		glutSpaceballMotionFunc(OnSpaceballMotion);
 	}
 	return Value::Null;
@@ -1393,7 +1391,7 @@ Gura_ImplementFunction(__glutSpaceballRotateFunc)
 		g_pContext->funcPackOnSpaceballRotate.ClearFunc();
 		glutSpaceballRotateFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnSpaceballRotate.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnSpaceballRotate.SetFunc(env, func->Reference());
 		glutSpaceballRotateFunc(OnSpaceballRotate);
 	}
 	return Value::Null;
@@ -1416,7 +1414,7 @@ Gura_ImplementFunction(__glutSpaceballButtonFunc)
 		g_pContext->funcPackOnSpaceballButton.ClearFunc();
 		glutSpaceballButtonFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnSpaceballButton.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnSpaceballButton.SetFunc(env, func->Reference());
 		glutSpaceballButtonFunc(OnSpaceballButton);
 	}
 	return Value::Null;
@@ -1439,7 +1437,7 @@ Gura_ImplementFunction(__glutButtonBoxFunc)
 		g_pContext->funcPackOnButtonBox.ClearFunc();
 		glutButtonBoxFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnButtonBox.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnButtonBox.SetFunc(env, func->Reference());
 		glutButtonBoxFunc(OnButtonBox);
 	}
 	return Value::Null;
@@ -1462,7 +1460,7 @@ Gura_ImplementFunction(__glutDialsFunc)
 		g_pContext->funcPackOnDials.ClearFunc();
 		glutDialsFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnDials.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnDials.SetFunc(env, func->Reference());
 		glutDialsFunc(OnDials);
 	}
 	return Value::Null;
@@ -1485,7 +1483,7 @@ Gura_ImplementFunction(__glutTabletMotionFunc)
 		g_pContext->funcPackOnTabletMotion.ClearFunc();
 		glutTabletMotionFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnTabletMotion.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnTabletMotion.SetFunc(env, func->Reference());
 		glutTabletMotionFunc(OnTabletMotion);
 	}
 	return Value::Null;
@@ -1508,7 +1506,7 @@ Gura_ImplementFunction(__glutTabletButtonFunc)
 		g_pContext->funcPackOnTabletButton.ClearFunc();
 		glutTabletButtonFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnTabletButton.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnTabletButton.SetFunc(env, func->Reference());
 		glutTabletButtonFunc(OnTabletButton);
 	}
 	return Value::Null;
@@ -1531,7 +1529,7 @@ Gura_ImplementFunction(__glutMenuStatusFunc)
 		g_pContext->funcPackOnMenuStatus.ClearFunc();
 		glutMenuStatusFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnMenuStatus.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnMenuStatus.SetFunc(env, func->Reference());
 		glutMenuStatusFunc(OnMenuStatus);
 	}
 	return Value::Null;
@@ -1554,7 +1552,7 @@ Gura_ImplementFunction(__glutOverlayDisplayFunc)
 		g_pContext->funcPackOnOverlayDisplay.ClearFunc();
 		glutOverlayDisplayFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnOverlayDisplay.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnOverlayDisplay.SetFunc(env, func->Reference());
 		glutOverlayDisplayFunc(OnOverlayDisplay);
 	}
 	return Value::Null;
@@ -1577,7 +1575,7 @@ Gura_ImplementFunction(__glutWindowStatusFunc)
 		g_pContext->funcPackOnWindowStatus.ClearFunc();
 		glutWindowStatusFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnWindowStatus.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnWindowStatus.SetFunc(env, func->Reference());
 		glutWindowStatusFunc(OnWindowStatus);
 	}
 	return Value::Null;
@@ -1600,7 +1598,7 @@ Gura_ImplementFunction(__glutKeyboardUpFunc)
 		g_pContext->funcPackOnKeyboardUp.ClearFunc();
 		glutKeyboardUpFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnKeyboardUp.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnKeyboardUp.SetFunc(env, func->Reference());
 		glutKeyboardUpFunc(OnKeyboardUp);
 	}
 	return Value::Null;
@@ -1623,7 +1621,7 @@ Gura_ImplementFunction(__glutSpecialUpFunc)
 		g_pContext->funcPackOnSpecialUp.ClearFunc();
 		glutSpecialUpFunc(nullptr);
 	} else {
-		g_pContext->funcPackOnSpecialUp.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnSpecialUp.SetFunc(env, func->Reference());
 		glutSpecialUpFunc(OnSpecialUp);
 	}
 	return Value::Null;
@@ -1648,7 +1646,7 @@ Gura_ImplementFunction(__glutJoystickFunc)
 		g_pContext->funcPackOnJoystick.ClearFunc();
 		glutJoystickFunc(nullptr, pollInterval);
 	} else {
-		g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnJoystick.SetFunc(env, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);
 	}
 	return Value::Null;

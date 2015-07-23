@@ -7,7 +7,7 @@ tmplCallbackHandler = R'''
 		g_pContext->funcPackOn${eventName}.ClearFunc();
 		glut${eventName}Func(nullptr);
 	} else {
-		g_pContext->funcPackOn${eventName}.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOn${eventName}.SetFunc(env, func->Reference());
 		glut${eventName}Func(On${eventName});
 	}
 	return Value::Null;
@@ -193,7 +193,7 @@ glutWarpPointer(x:int, y:int):void:map = `auto % {`en, 'markdown',
 //}
 
 //glutWMCloseFunc(func:function):void = R'''
-//	g_pContext->funcPackOnWMClose.SetFunc(env, sig, func->Reference());
+//	g_pContext->funcPackOnWMClose.SetFunc(env, func->Reference());
 //	glutWMCloseFunc(OnWMClose);
 //	return Value::Null;
 //''' % {`en, 'markdown',
@@ -247,7 +247,7 @@ glutCreateMenu(func:function):int {block?} = R'''
 		sig.SetError(ERR_OutOfRangeError, "too many menus");
 		return Value::Null;
 	}
-	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, sig, func->Reference());
+	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
 	return ReturnValue(env, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -355,7 +355,7 @@ glutTimerFunc(millis:unsigned_int, func:function:nil, value:int):void = R'''
 		g_pContext->funcPackOnTimer.ClearFunc();
 		glutTimerFunc(millis, nullptr, value);
 	} else {
-		g_pContext->funcPackOnTimer.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnTimer.SetFunc(env, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
 	}
 	return Value::Null;
@@ -439,7 +439,7 @@ glutJoystickFunc(func:function:nil, pollInterval:int):void = R'''
 		g_pContext->funcPackOnJoystick.ClearFunc();
 		glutJoystickFunc(nullptr, pollInterval);
 	} else {
-		g_pContext->funcPackOnJoystick.SetFunc(env, sig, func->Reference());
+		g_pContext->funcPackOnJoystick.SetFunc(env, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);
 	}
 	return Value::Null;
@@ -700,13 +700,11 @@ Gura_BeginModuleScope(${renderer.moduleName})
 class FunctionPack {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal *_pSig;
 	AutoPtr<Function> _pFunc;
 public:
 	inline FunctionPack() {}
-	inline void SetFunc(Environment &env, Signal &sig, Function *pFunc) {
+	inline void SetFunc(Environment &env, Function *pFunc) {
 		_pEnv.reset(new Environment(env));
-		_pSig = &sig;
 		_pFunc.reset(pFunc);
 	}
 	inline void ClearFunc() {
@@ -715,9 +713,9 @@ public:
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
-		Value result = _pFunc->Eval(*_pEnv, *_pSig, args);
-		if (_pSig->IsSignalled()) {
-			_pSig->PrintSignal(*_pEnv->GetConsoleErr());
+		Value result = _pFunc->Eval(*_pEnv, _pEnv->GetSignal(), args);
+		if (_pEnv->GetSignal().IsSignalled()) {
+			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);
 		}
 		return result;
