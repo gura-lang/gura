@@ -143,7 +143,7 @@ Gura_DeclareMethod(reader, entries)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns stream instances for each entry in the zip file.");
+		"Creates an iterator that returns stream instances for each entry in the ZIP file.");
 }
 
 Gura_ImplementMethod(reader, entries)

@@ -322,7 +322,7 @@ bool DeclarationList::Compensate(Environment &env, Signal &sig, ValueList &valLi
 			value = Value(pSymbol);
 		} else {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			value = pExprArg->Exec2(env, sig, pSeqPostHandler);
+			value = pExprArg->Exec2(env, pSeqPostHandler);
 			if (sig.IsSignalled()) return false;
 		}
 		valList.push_back(value);

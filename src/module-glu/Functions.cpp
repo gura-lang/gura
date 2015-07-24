@@ -26,7 +26,7 @@ Gura_ImplementFunction(__gluBeginCurve)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndCurve(nurb);
 	}
 	return Value::Null;
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__gluBeginPolygon)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__gluBeginSurface)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndSurface(nurb);
 	}
 	return Value::Null;
@@ -103,7 +103,7 @@ Gura_ImplementFunction(__gluBeginTrim)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndTrim(nurb);
 	}
 	return Value::Null;
@@ -1105,7 +1105,7 @@ Gura_ImplementFunction(__gluTessBeginContour)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndContour(tess);
 	}
 	return Value::Null;
@@ -1133,7 +1133,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}

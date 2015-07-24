@@ -109,7 +109,7 @@ Gura_ImplementFunction(__glBegin)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
 	}
 	return Value::Null;
@@ -3734,7 +3734,7 @@ Gura_ImplementFunction(__glNewList)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
 	}
 	return Value::Null;
@@ -4342,7 +4342,7 @@ Gura_ImplementFunction(__glPushAttrib)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
 	}
 	return Value::Null;
@@ -4367,7 +4367,7 @@ Gura_ImplementFunction(__glPushClientAttrib)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
 	}
 	return Value::Null;
@@ -4390,7 +4390,7 @@ Gura_ImplementFunction(__glPushMatrix)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
 	}
 	return Value::Null;
@@ -4415,7 +4415,7 @@ Gura_ImplementFunction(__glPushName)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
 	}
 	return Value::Null;

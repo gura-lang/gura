@@ -544,7 +544,7 @@ Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 	Value value;
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	foreach_const (ExprList, ppExpr, GetExprOwner()) {
-		value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+		value = (*ppExpr)->Exec2(env, pSeqPostHandlerEach, true);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (value.IsInvalid()) return Value::Null;

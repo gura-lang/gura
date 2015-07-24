@@ -344,7 +344,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal &sig, Args &a
 		return Value::Null;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value value = args.GetExprListArg().front()->Exec2(env, sig, pSeqPostHandler);
+	Value value = args.GetExprListArg().front()->Exec2(env, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
 	if (!value.Is_symbol()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
@@ -653,12 +653,12 @@ bool Class::BuildContent(Environment &env, Signal &sig, const Value &valueThis,
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Assign *pExprAssign =
 								dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->Exec(*pEnvLocal, sig, *this, pSymbolsAssignable, pSeqPostHandler);
+			pExprAssign->Exec(*pEnvLocal, *this, pSymbolsAssignable, pSeqPostHandler);
 		} else if (pExpr->IsCaller()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Caller *pExprCaller =
 								dynamic_cast<const Expr_Caller *>(pExpr);
-			Value valueCar = pExprCaller->GetCar()->Exec2(*pEnvLocal, sig, pSeqPostHandler);
+			Value valueCar = pExprCaller->GetCar()->Exec2(*pEnvLocal, pSeqPostHandler);
 			if (sig.IsSignalled()) return false;
 			Callable *pCallable = valueCar.GetObject();
 			if (pCallable == nullptr) {

@@ -689,7 +689,7 @@ Gura_ImplementFunction(chdir)
 		}
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
 		OAL::ChangeCurDir(pathNameOrg.c_str());
 		return rtn;
 	} else if (!OAL::ChangeCurDir(args.GetString(0))) {

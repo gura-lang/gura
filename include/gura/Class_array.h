@@ -124,7 +124,7 @@ public:
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
 					return Value::Null;
 				}
-				Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
+				Value value = pExpr->Exec2(env, pSeqPostHandler);
 				if (!value.Is_number() && !value.Is_boolean()) {
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
 					return Value::Null;

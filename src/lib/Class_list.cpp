@@ -710,7 +710,7 @@ Gura_ImplementFunction(ListInit)
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
+			Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;
@@ -727,7 +727,7 @@ Gura_ImplementFunction(ListInit)
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		result = pExprBlock->Exec(*pEnvLister, sig, nullptr);
+		result = pExprBlock->Exec(*pEnvLister, nullptr);
 	}
 	return result;
 }

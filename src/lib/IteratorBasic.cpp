@@ -722,10 +722,10 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal &sig, Value &value)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		value = pExprIdentifier->Exec(*pFundEach, sig, valueThisEach, pSeqPostHandler);
+		value = pExprIdentifier->Exec(*pFundEach, valueThisEach, pSeqPostHandler);
 	} else {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);
+		value = _pExpr->Exec2(*pFundEach, pSeqPostHandler);
 	}
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(env,
@@ -2091,7 +2091,7 @@ bool Iterator_while::DoNext(Environment &env, Signal &sig, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			if (!_pExpr->Exec2(*_pEnv, sig, pSeqPostHandler).GetBoolean()) return false;
+			if (!_pExpr->Exec2(*_pEnv, pSeqPostHandler).GetBoolean()) return false;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
@@ -2172,7 +2172,7 @@ bool Iterator_for::DoNext(Environment &env, Signal &sig, Value &value)
 					break;
 				}
 				// same effect as assign operator
-				(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, nullptr, false);
+				(*ppExprLeft)->Assign(*_pEnv, valueVar, nullptr, false);
 				if (sig.IsSignalled()) return false;
 				ppExprLeft++;
 			}
@@ -2255,7 +2255,7 @@ Iterator_cross::Iterator_cross(Environment *pEnv, Signal &sig, Function *pFuncBl
 			_valListArg.push_back(Value::Null);
 			Iterator::Delete(pIterator);
 		}
-		(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, nullptr, false);
+		(*ppExprLeft)->Assign(*_pEnv, valueVar, nullptr, false);
 		if (sig.IsSignalled()) return;
 		ppExprLeft++;
 	}
@@ -2340,7 +2340,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal &sig)
 		if (pIterator != nullptr) {
 			if (pIterator->Next(env, sig, valueVar)) {
 				*pValueArg = Value(pValueArg->GetNumber() + 1);
-				(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, nullptr, false);
+				(*ppExprLeft)->Assign(*_pEnv, valueVar, nullptr, false);
 				if (sig.IsSignalled()) return false;
 				break;
 			}
@@ -2349,7 +2349,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal &sig)
 			pIterator = (*ppIteratorOrg)->Clone();
 			pIterator->Next(env, sig, valueVar);
 			if (sig.IsSignalled()) return false;
-			(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, nullptr, false);
+			(*ppExprLeft)->Assign(*_pEnv, valueVar, nullptr, false);
 			if (sig.IsSignalled()) return false;
 			*pValueArg = Value(0);
 			*ppIterator = pIterator;
@@ -2384,7 +2384,7 @@ bool PrepareRepeaterIterators(Environment &env,
 		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 		const Expr_BinaryOp *pExprBin =
 						dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		value = pExprBin->GetRight()->Exec2(env, sig, pSeqPostHandlerLeft);
+		value = pExprBin->GetRight()->Exec2(env, pSeqPostHandlerLeft);
 		if (sig.IsSignalled()) return false;
 		Iterator *pIterator = value.CreateIterator(sig);
 		if (pIterator == nullptr) return false;

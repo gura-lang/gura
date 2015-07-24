@@ -55,7 +55,7 @@ Gura_ImplementFunction(BusyInfo)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
+	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
 	return rtn;
 }
 

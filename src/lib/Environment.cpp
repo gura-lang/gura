@@ -562,7 +562,7 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 		} else if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) {
 			// import(&foo)
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value rtn = pExprEx->GetChild()->Exec2(*this, sig, pSeqPostHandler);
+			Value rtn = pExprEx->GetChild()->Exec2(*this, pSeqPostHandler);
 			if (sig.IsSignalled()) return nullptr;
 			if (rtn.Is_string()) {
 				const char *p = rtn.GetString();

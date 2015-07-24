@@ -208,7 +208,7 @@ Gura_ImplementFunction(MatrixInit)
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
+		Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(*ppExpr);
 			return Value::Null;

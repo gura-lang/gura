@@ -744,12 +744,12 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal &sig, Args &argsE
 				goto error_done;
 			}
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value value = pExprBinaryOp->GetRight()->Exec2(env, sig, pSeqPostHandler);
+			Value value = pExprBinaryOp->GetRight()->Exec2(env, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
 		} else {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
+			Value value = pExpr->Exec2(env, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgs.push_back(value);
 		}

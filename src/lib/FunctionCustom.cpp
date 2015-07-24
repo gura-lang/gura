@@ -43,7 +43,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal &sig, Args &args) const
 	return Sequence::Return(sig, pSequence);
 #else
 	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value result = GetExprBody()->Exec(*pEnvLocal, sig, pSeqPostHandler);
+	Value result = GetExprBody()->Exec(*pEnvLocal, pSeqPostHandler);
 	EnvType envType = pEnvLocal->GetEnvType();
 	if (envType == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
@@ -171,7 +171,7 @@ bool FunctionCustom::SequenceEx::DoStep(Signal &sig, Value &result)
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Environment &env = *_pEnv;
 	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, sig, pSeqPostHandler, true);
+	result = pExpr->Exec(env, pSeqPostHandler, true);
 	if (env.GetEnvType() == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
 	} else if (!sig.IsSignalled()) {

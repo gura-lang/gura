@@ -208,13 +208,13 @@ public:
 	inline const char *GetTypeName() const { return GetExprTypeName(_exprType); }
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
-	Value Exec(Environment &env, Signal &sig,
-		AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag = false) const;
-	Value Assign(Environment &env, Signal &sig, Value &valueAssigned,
+	Value Exec(Environment &env,
+			   AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag = false) const;
+	Value Assign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	inline Value Exec2(Environment &env, Signal &sig,
+	inline Value Exec2(Environment &env,
 			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
-		return Exec(env, sig, pSeqPostHandler, evalSymFuncFlag);
+		return Exec(env, pSeqPostHandler, evalSymFuncFlag);
 	}
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
 		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
@@ -416,7 +416,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	Value Exec(Environment &env, Signal &sig, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
+	Value Exec(Environment &env, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
@@ -890,7 +890,7 @@ public:
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	Value Exec(Environment &env, Signal &sig, Environment &envDst,
+	Value Exec(Environment &env, Environment &envDst,
 		const SymbolSet *pSymbolsAssignable, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *Clone() const;
 	virtual bool IsAssign() const;

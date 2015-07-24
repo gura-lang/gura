@@ -827,7 +827,7 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
 							env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
 							valueKey));
-				result = pExprRight->Exec(env, sig, pSeqPostHandler.release());
+				result = pExprRight->Exec(env, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
@@ -838,7 +838,7 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
 					env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
-			result = pExprUnaryOp->GetChild()->Exec(env, sig, pSeqPostHandler.release());
+			result = pExprUnaryOp->GetChild()->Exec(env, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
@@ -854,12 +854,12 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
 						env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
-				result = pExprUnaryOp->GetChild()->Exec(env, sig, pSeqPostHandler.release());
+				result = pExprUnaryOp->GetChild()->Exec(env, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 			} else {
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 					env.Reference(), dynamic_cast<SequenceEx *>(Reference()), true));
-				result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
+				result = pExprArg->Exec(env, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
@@ -907,7 +907,7 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 		} else {
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
-			result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
+			result = pExprArg->Exec(env, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
 		}
 		break;
@@ -939,7 +939,7 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 		_iterExprMap++;
 		AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValDictArg(
 				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), pSymbol));
-		result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
+		result = pExprArg->Exec(env, pSeqPostHandler.release());
 		if (sig.IsSignalled()) return false;
 		break;
 	}

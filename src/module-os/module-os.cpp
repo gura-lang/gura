@@ -157,7 +157,7 @@ Gura_ImplementFunction(redirect)
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		result = pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+		result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
 		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
 		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, EXTRA_Public);

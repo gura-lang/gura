@@ -1459,7 +1459,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (!sig.IsSignalled()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 	}
 	::wglMakeCurrent(nullptr, nullptr);
 	::wglDeleteContext(hglrc);
@@ -1499,7 +1499,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (!sig.IsSignalled()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			pExprBlock->Exec2(env, sig, pSeqPostHandler);
+			pExprBlock->Exec2(env, pSeqPostHandler);
 		}
 	}
 	do {
@@ -1524,7 +1524,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 	::glXMakeCurrent(nullptr, xid, ctx);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (!sig.IsSignalled()) {
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env);
 	}
 	::glReadPixels(0, 0, width, height, GL_BGRA_EXT,
 									GL_UNSIGNED_BYTE, pImage->GetBuffer());
