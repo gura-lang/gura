@@ -40,7 +40,7 @@ class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
+	virtual Expr *MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -107,7 +107,7 @@ Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &ar
 Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &args) const
 
 #define Gura_ImplementMathDiff(name) \
-Expr *Func_##name::MathDiff(Environment &env, Signal &sig, const Expr *pExprArg, const Symbol *pSymbol) const
+Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
 
 #define Gura_Function(name) Func_##name
 
@@ -356,9 +356,9 @@ public:
 	void SetError_InvalidFunctionExpression(Signal &sig) const;
 	void SetError_MathDiffError(Signal &sig) const;
 	void SetError_MathOptimizeError(Signal &sig) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig,
+	virtual Expr *MathDiff(Environment &env,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig, Expr *pExprOpt) const;
+	virtual Expr *MathOptimize(Environment &env, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
 	Value ReturnValue(Environment &env, Args &args, const Value &result) const;

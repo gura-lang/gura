@@ -129,15 +129,17 @@ Value Expr::DoAssign(Environment &env, Value &valueAssigned,
 	return Value::Null;
 }
 
-Expr *Expr::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
+	Signal &sig = env.GetSignal();
 	SetError(sig, ERR_ValueError,
 				"differential operation is not supported for this expression");
 	return nullptr;
 }
 
-Expr *Expr::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr::MathOptimize(Environment &env) const
 {
+	Signal &sig = env.GetSignal();
 	SetError(sig, ERR_ValueError,
 				"mathematical optimization is not supported for this expression");
 	return nullptr;
@@ -732,12 +734,12 @@ Value Expr_Value::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 	return result;
 }
 
-Expr *Expr_Value::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_Value::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
 	return new Expr_Value(0);
 }
 
-Expr *Expr_Value::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr_Value::MathOptimize(Environment &env) const
 {
 	return Clone();
 }
@@ -937,13 +939,13 @@ void Expr_Identifier::Accept(ExprVisitor &visitor)
 	visitor.Visit(this);
 }
 
-Expr *Expr_Identifier::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_Identifier::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
 	Number num = GetSymbol()->IsIdentical(pSymbol)? 1 : 0;
 	return new Expr_Value(num);
 }
 
-Expr *Expr_Identifier::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr_Identifier::MathOptimize(Environment &env) const
 {
 	return Clone();
 }
@@ -1309,11 +1311,11 @@ Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 #endif
 }
 
-Expr *Expr_Block::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_Block::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
 	return (GetExprOwner().size() == 1)?
-			GetExprOwner().front()->MathDiff(env, sig, pSymbol) :
-			Expr::MathDiff(env, sig, pSymbol);
+			GetExprOwner().front()->MathDiff(env, pSymbol) :
+			Expr::MathDiff(env, pSymbol);
 }
 
 void Expr_Block::Accept(ExprVisitor &visitor)
@@ -2196,8 +2198,9 @@ bool Expr_Caller::IsParentOf(const Expr *pExpr) const
 	return false;
 }
 
-Expr *Expr_Caller::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_Caller::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
+	Signal &sig = env.GetSignal();
 	// f(g(x))' = f(u)'g(x)'
 	if (GetExprOwner().size() != 1) return nullptr;
 	SeqPostHandler *pSeqPostHandler = nullptr;
@@ -2211,12 +2214,12 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol
 		SetError(sig, ERR_ValueError, "object must be a function");
 		return nullptr;
 	}
-	Expr *pExprArgDiff = pExprArg->MathDiff(env, sig, pSymbol);
+	Expr *pExprArgDiff = pExprArg->MathDiff(env, pSymbol);
 	if (pExprArgDiff == nullptr) return nullptr;
 	if (pExprArgDiff->IsConstNumber(0)) {
 		return pExprArgDiff;
 	}
-	Expr *pExprFuncDiff = value.GetFunction()->MathDiff(env, sig, pExprArg, pSymbol);
+	Expr *pExprFuncDiff = value.GetFunction()->MathDiff(env, pExprArg, pSymbol);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
@@ -2225,10 +2228,10 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol
 		Expr::Delete(pExprArgDiff);
 		return pExprFuncDiff;
 	}
-	return Operator_Mul::MathOptimize(env, sig, pExprFuncDiff, pExprArgDiff);
+	return Operator_Mul::MathOptimize(env, pExprFuncDiff, pExprArgDiff);
 }
 
-Expr *Expr_Caller::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr_Caller::MathOptimize(Environment &env) const
 {
 	return Clone();
 }
@@ -2379,19 +2382,20 @@ Value Expr_UnaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 	return result;
 }
 
-Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_UnaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
-	return _pOperator->MathDiffUnary(env, sig, GetChild(), pSymbol);
+	return _pOperator->MathDiffUnary(env, GetChild(), pSymbol);
 }
 
-Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr_UnaryOp::MathOptimize(Environment &env) const
 {
-	Expr *pExprOpt = GetChild()->MathOptimize(env, sig);
+	Signal &sig = env.GetSignal();
+	Expr *pExprOpt = GetChild()->MathOptimize(env);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return _pOperator->MathOptimizeUnary(env, sig, pExprOpt);
+	return _pOperator->MathOptimizeUnary(env, pExprOpt);
 }
 
 bool Expr_UnaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
@@ -2500,24 +2504,25 @@ Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 	return result;
 }
 
-Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const
+Expr *Expr_BinaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
-	return _pOperator->MathDiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
+	return _pOperator->MathDiffBinary(env, GetLeft(), GetRight(), pSymbol);
 }
 
-Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal &sig) const
+Expr *Expr_BinaryOp::MathOptimize(Environment &env) const
 {
-	AutoPtr<Expr> pExprOpt1(GetLeft()->MathOptimize(env, sig));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprOpt1(GetLeft()->MathOptimize(env));
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	AutoPtr<Expr> pExprOpt2(GetRight()->MathOptimize(env, sig));
+	AutoPtr<Expr> pExprOpt2(GetRight()->MathOptimize(env));
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return _pOperator->MathOptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
+	return _pOperator->MathOptimizeBinary(env, pExprOpt1.release(), pExprOpt2.release());
 }
 
 bool Expr_BinaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const

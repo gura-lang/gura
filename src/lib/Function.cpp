@@ -425,15 +425,17 @@ Value Function::ReturnIterator(Environment &env,
 	return result;
 }
 
-Expr *Function::MathDiff(Environment &env, Signal &sig,
+Expr *Function::MathDiff(Environment &env,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Function::MathOptimize(Environment &env, Signal &sig, Expr *pExprOpt) const
+Expr *Function::MathOptimize(Environment &env, Expr *pExprOpt) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathOptimizeError(sig);
 	return nullptr;
 }

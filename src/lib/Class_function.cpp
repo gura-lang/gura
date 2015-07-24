@@ -429,7 +429,7 @@ Gura_ImplementMethod(function, mathdiff)
 		pSymbol = declOwner.front()->GetSymbol();
 	}
 	AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
-	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
+	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, pExprArg.get(), pSymbol));
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 				Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));

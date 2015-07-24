@@ -61,10 +61,11 @@ Value FunctionCustom::DoEval(Environment &env, Signal &sig, Args &args) const
 #endif
 }
 
-Expr *FunctionCustom::MathDiff(Environment &env, Signal &sig,
+Expr *FunctionCustom::MathDiff(Environment &env,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExpr(GetExprBody()->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExpr(GetExprBody()->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	ExprVisitor_Replace visitor(pSymbol, pExprArg);
 	pExpr->Accept(visitor);

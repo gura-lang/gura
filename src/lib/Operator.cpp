@@ -98,23 +98,26 @@ const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRi
 	return nullptr;
 }
 
-Expr *Operator::MathDiffUnary(Environment &env, Signal &sig,
+Expr *Operator::MathDiffUnary(Environment &env,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathDiffError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
+Expr *Operator::MathOptimizeConst(Environment &env,
 								Expr_Value *pExprChild, bool suffixFlag) const
 {
+	Signal &sig = env.GetSignal();
 	Value value = pExprChild->GetValue();
 	Expr::Delete(pExprChild);
 	Value result = EvalUnary(env, sig, value, suffixFlag);
@@ -122,9 +125,10 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
 	return new Expr_Value(result);
 }
 
-Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
+Expr *Operator::MathOptimizeConst(Environment &env,
 								Expr_Value *pExprLeft, Expr_Value *pExprRight) const
 {
+	Signal &sig = env.GetSignal();
 	Value valueLeft = pExprLeft->GetValue();
 	Value valueRight = pExprRight->GetValue();
 	Expr::Delete(pExprLeft);
@@ -134,15 +138,17 @@ Expr *Operator::MathOptimizeConst(Environment &env, Signal &sig,
 	return new Expr_Value(result);
 }
 
-Expr *Operator::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
+Expr *Operator::MathOptimizeUnary(Environment &env, Expr *pExprChild) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathOptimizeError(sig);
 	return nullptr;
 }
 
-Expr *Operator::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator::MathOptimizeBinary(Environment &env,
 										Expr *pExprLeft, Expr *pExprRight) const
 {
+	Signal &sig = env.GetSignal();
 	SetError_MathOptimizeError(sig);
 	return nullptr;
 }
@@ -264,8 +270,9 @@ void Operator::SetError_MathOptimizeError(Signal &sig)
 //-----------------------------------------------------------------------------
 // Operator_Pos
 //-----------------------------------------------------------------------------
-Expr *Operator_Pos::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild)
+Expr *Operator_Pos::MathOptimize(Environment &env, Expr *pExprChild)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
 		return nullptr;
@@ -273,44 +280,47 @@ Expr *Operator_Pos::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild
 	return pExprChild;
 }
 
-Expr *Operator_Pos::MathDiffUnary(Environment &env, Signal &sig,
+Expr *Operator_Pos::MathDiffUnary(Environment &env,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	return Operator_Pos::MathOptimize(env, sig, pExprDiff.release());
+	return Operator_Pos::MathOptimize(env, pExprDiff.release());
 }
 
-Expr *Operator_Pos::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
+Expr *Operator_Pos::MathOptimizeUnary(Environment &env, Expr *pExprChild) const
 {
-	return Operator_Pos::MathOptimize(env, sig, pExprChild);
+	return Operator_Pos::MathOptimize(env, pExprChild);
 }
 
 //-----------------------------------------------------------------------------
 // Operator_Neg
 //-----------------------------------------------------------------------------
-Expr *Operator_Neg::MathDiffUnary(Environment &env, Signal &sig,
+Expr *Operator_Neg::MathDiffUnary(Environment &env,
 							const Expr *pExprChild, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff(pExprChild->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	return Operator_Neg::MathOptimize(env, sig, pExprDiff.release());
+	return Operator_Neg::MathOptimize(env, pExprDiff.release());
 }
 
-Expr *Operator_Neg::MathOptimizeUnary(Environment &env, Signal &sig, Expr *pExprChild) const
+Expr *Operator_Neg::MathOptimizeUnary(Environment &env, Expr *pExprChild) const
 {
-	return Operator_Neg::MathOptimize(env, sig, pExprChild);
+	return Operator_Neg::MathOptimize(env, pExprChild);
 }
 
-Expr *Operator_Neg::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild)
+Expr *Operator_Neg::MathOptimize(Environment &env, Expr *pExprChild)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprChild);
 		return nullptr;
 	}
 	if (pExprChild->IsValue()) {
 		bool suffixFlag = false;
-		return env.GetOperator(OPTYPE_Neg)->MathOptimizeConst(env, sig,
+		return env.GetOperator(OPTYPE_Neg)->MathOptimizeConst(env,
 							dynamic_cast<Expr_Value *>(pExprChild), suffixFlag);
 	} else if (pExprChild->IsUnaryOp(OPTYPE_Neg)) {
 		// -(-n) = n
@@ -346,26 +356,28 @@ Expr *Operator_Neg::MathOptimize(Environment &env, Signal &sig, Expr *pExprChild
 //-----------------------------------------------------------------------------
 // Operator_Add
 //-----------------------------------------------------------------------------
-Expr *Operator_Add::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator_Add::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
+	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	// (f(x) + g(x))' = f'(x) + g'(x)
 	return Operator_Add::MathOptimize(
-		env, sig, pExprDiff1.release(), pExprDiff2.release());
+		env, pExprDiff1.release(), pExprDiff2.release());
 }
 
-Expr *Operator_Add::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator_Add::MathOptimizeBinary(Environment &env,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
-	return Operator_Add::MathOptimize(env, sig, pExprLeft, pExprRight);
+	return Operator_Add::MathOptimize(env, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Add::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
@@ -373,7 +385,7 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v + v = v
-		return env.GetOperator(OPTYPE_Add)->MathOptimizeConst(env, sig,
+		return env.GetOperator(OPTYPE_Add)->MathOptimizeConst(env,
 					dynamic_cast<Expr_Value *>(pExprLeft),
 					dynamic_cast<Expr_Value *>(pExprRight));
 	} else if (pExprLeft->IsConstNumber(0)) {
@@ -389,7 +401,7 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprRight);
-		return Operator_Sub::MathOptimize(env, sig, pExprLeft, pExpr);
+		return Operator_Sub::MathOptimize(env, pExprLeft, pExpr);
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n + n = n * 2
 		const Expr_Identifier *pExprIdentifierL =
@@ -398,7 +410,7 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 							dynamic_cast<const Expr_Identifier *>(pExprRight);
 		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprRight);
-			return Operator_Mul::MathOptimize(env, sig, pExprLeft, new Expr_Value(2));
+			return Operator_Mul::MathOptimize(env, pExprLeft, new Expr_Value(2));
 		}
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
 		const Expr_Identifier *pExprIdentifierL =
@@ -413,9 +425,9 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprMulR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprLeft,
-					Operator_Add::MathOptimize(env, sig, new Expr_Value(1), pExprMulR));
+					Operator_Add::MathOptimize(env, new Expr_Value(1), pExprMulR));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsIdentifier()) {
@@ -431,9 +443,9 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprMulL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprRight,
-					Operator_Add::MathOptimize(env, sig, pExprMulL, new Expr_Value(1)));
+					Operator_Add::MathOptimize(env, pExprMulL, new Expr_Value(1)));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
@@ -454,9 +466,9 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprBase,
-					Operator_Add::MathOptimize(env, sig, pExprMulL, pExprMulR));
+					Operator_Add::MathOptimize(env, pExprMulL, pExprMulR));
 			}
 		}
 	}
@@ -466,26 +478,28 @@ Expr *Operator_Add::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 //-----------------------------------------------------------------------------
 // Operator_Sub
 //-----------------------------------------------------------------------------
-Expr *Operator_Sub::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator_Sub::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
+	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	// (f(x) - g(x))' = f'(x) - g'(x)
 	return Operator_Sub::MathOptimize(
-		env, sig, pExprDiff1.release(), pExprDiff2.release());
+		env, pExprDiff1.release(), pExprDiff2.release());
 }
 
-Expr *Operator_Sub::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator_Sub::MathOptimizeBinary(Environment &env,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
-	return Operator_Sub::MathOptimize(env, sig, pExprLeft, pExprRight);
+	return Operator_Sub::MathOptimize(env, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Sub::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
@@ -493,13 +507,13 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v - v = v
-		return env.GetOperator(OPTYPE_Sub)->MathOptimizeConst(env, sig,
+		return env.GetOperator(OPTYPE_Sub)->MathOptimizeConst(env,
 					dynamic_cast<Expr_Value *>(pExprLeft),
 					dynamic_cast<Expr_Value *>(pExprRight));
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 - m = -m
 		Expr::Delete(pExprLeft);
-		return Operator_Neg::MathOptimize(env, sig, pExprRight);
+		return Operator_Neg::MathOptimize(env, pExprRight);
 	} else if (pExprRight->IsConstNumber(0)) {
 		// n - 0 = n
 		Expr::Delete(pExprRight);
@@ -509,7 +523,7 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprRight);
-		return Operator_Add::MathOptimize(env, sig, pExprLeft, pExpr);
+		return Operator_Add::MathOptimize(env, pExprLeft, pExpr);
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n - n = 0
 		const Expr_Identifier *pExprIdentifierL =
@@ -534,9 +548,9 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprMulR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprLeft,
-					Operator_Sub::MathOptimize(env, sig, new Expr_Value(1), pExprMulR));
+					Operator_Sub::MathOptimize(env, new Expr_Value(1), pExprMulR));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsIdentifier()) {
@@ -552,9 +566,9 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprMulL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprRight,
-					Operator_Sub::MathOptimize(env, sig, pExprMulL, new Expr_Value(1)));
+					Operator_Sub::MathOptimize(env, pExprMulL, new Expr_Value(1)));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
@@ -575,9 +589,9 @@ Expr *Operator_Sub::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Mul::MathOptimize(
-					env, sig,
+					env,
 					pExprBase,
-					Operator_Sub::MathOptimize(env, sig, pExprMulL, pExprMulR));
+					Operator_Sub::MathOptimize(env, pExprMulL, pExprMulR));
 			}
 		}
 	}
@@ -635,30 +649,32 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal &sig,
 	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
-Expr *Operator_Mul::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator_Mul::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
+	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	// (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
 	return Operator_Add::MathOptimize(
-		env, sig,
+		env,
 		Operator_Mul::MathOptimize(
-			env, sig, pExprDiff1.release(), pExprRight->Clone()),
+			env, pExprDiff1.release(), pExprRight->Clone()),
 		Operator_Mul::MathOptimize(
-			env, sig, pExprLeft->Clone(), pExprDiff2.release()));
+			env, pExprLeft->Clone(), pExprDiff2.release()));
 }
 
-Expr *Operator_Mul::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator_Mul::MathOptimizeBinary(Environment &env,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
-	return Operator_Mul::MathOptimize(env, sig, pExprLeft, pExprRight);
+	return Operator_Mul::MathOptimize(env, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Mul::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
@@ -666,7 +682,7 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v * v = v
-		return env.GetOperator(OPTYPE_Mul)->MathOptimizeConst(env, sig,
+		return env.GetOperator(OPTYPE_Mul)->MathOptimizeConst(env,
 					dynamic_cast<Expr_Value *>(pExprLeft),
 					dynamic_cast<Expr_Value *>(pExprRight));
 	} else if (pExprLeft->IsConstNumber(0)) {
@@ -688,11 +704,11 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	} else if (pExprLeft->IsConstNumber(-1)) {
 		// -1 * m = -m
 		Expr::Delete(pExprLeft);
-		return Operator_Neg::MathOptimize(env, sig, pExprRight);
+		return Operator_Neg::MathOptimize(env, pExprRight);
 	} else if (pExprRight->IsConstNumber(-1)) {
 		// n * (-1) = -n
 		Expr::Delete(pExprRight);
-		return Operator_Neg::MathOptimize(env, sig, pExprLeft);
+		return Operator_Neg::MathOptimize(env, pExprLeft);
 	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) * (-m) = n * m
 		Expr *pExpr1 =
@@ -701,23 +717,23 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return Operator_Mul::MathOptimize(env, sig, pExpr1, pExpr2);
+		return Operator_Mul::MathOptimize(env, pExpr1, pExpr2);
 	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) * m = -(n * m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Neg::MathOptimize(
-			env, sig,
-			Operator_Mul::MathOptimize(env, sig, pExpr, pExprRight));
+			env,
+			Operator_Mul::MathOptimize(env, pExpr, pExprRight));
 	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n * (-m) = -(n * m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprRight);
 		return Operator_Neg::MathOptimize(
-			env, sig,
-			Operator_Mul::MathOptimize(env, sig, pExprLeft, pExpr));
+			env,
+			Operator_Mul::MathOptimize(env, pExprLeft, pExpr));
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n * n = n ** 2
 		const Expr_Identifier *pExprIdentifierL =
@@ -726,7 +742,7 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 							dynamic_cast<const Expr_Identifier *>(pExprRight);
 		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprRight);
-			return Operator_Pow::MathOptimize(env, sig, pExprLeft, new Expr_Value(2));
+			return Operator_Pow::MathOptimize(env, pExprLeft, new Expr_Value(2));
 		}
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
 		const Expr_Identifier *pExprIdentifierL =
@@ -741,9 +757,9 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprPowR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprLeft,
-					Operator_Add::MathOptimize(env, sig, pExprPowR, new Expr_Value(1)));
+					Operator_Add::MathOptimize(env, pExprPowR, new Expr_Value(1)));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Div)) {
@@ -754,8 +770,8 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 		Expr *pExprLeftR = pExprBinOpL->GetRight()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Div::MathOptimize(
-			env, sig,
-			Operator_Mul::MathOptimize(env, sig, pExprLeftL, pExprRight),
+			env,
+			Operator_Mul::MathOptimize(env, pExprLeftL, pExprRight),
 			pExprLeftR);
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
@@ -770,9 +786,9 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprPowL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprRight,
-					Operator_Add::MathOptimize(env, sig, pExprPowL, new Expr_Value(1)));
+					Operator_Add::MathOptimize(env, pExprPowL, new Expr_Value(1)));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
@@ -793,9 +809,9 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprBase,
-					Operator_Add::MathOptimize(env, sig, pExprPowL, pExprPowR));
+					Operator_Add::MathOptimize(env, pExprPowL, pExprPowR));
 			}
 		}
 	}
@@ -805,34 +821,36 @@ Expr *Operator_Mul::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 //-----------------------------------------------------------------------------
 // Operator_Div
 //-----------------------------------------------------------------------------
-Expr *Operator_Div::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator_Div::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
+	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	// (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / {g(x)}^2
 	return Operator_Div::MathOptimize(
-		env, sig,
+		env,
 		Operator_Sub::MathOptimize(
-			env, sig,
+			env,
 			Operator_Mul::MathOptimize(
-				env, sig, pExprDiff1.release(), pExprRight->Clone()),
+				env, pExprDiff1.release(), pExprRight->Clone()),
 			Operator_Mul::MathOptimize(
-				env, sig, pExprLeft->Clone(), pExprDiff2.release())),
+				env, pExprLeft->Clone(), pExprDiff2.release())),
 		Operator_Pow::MathOptimize(
-			env, sig, pExprRight->Clone(), new Expr_Value(2)));
+			env, pExprRight->Clone(), new Expr_Value(2)));
 }
 
-Expr *Operator_Div::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator_Div::MathOptimizeBinary(Environment &env,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
-	return Operator_Div::MathOptimize(env, sig, pExprLeft, pExprRight);
+	return Operator_Div::MathOptimize(env, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Div::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
@@ -849,7 +867,7 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	} else if (pExprRight->IsConstNumber(-1)) {
 		// n / (-1) = -n
 		Expr::Delete(pExprRight);
-		return Operator_Neg::MathOptimize(env, sig, pExprLeft);
+		return Operator_Neg::MathOptimize(env, pExprLeft);
 	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) / (-m) = n / m
 		Expr *pExpr1 =
@@ -858,23 +876,23 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
-		return Operator_Div::MathOptimize(env, sig, pExpr1, pExpr2);
+		return Operator_Div::MathOptimize(env, pExpr1, pExpr2);
 	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) / m = -(n / m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Neg::MathOptimize(
-			env, sig,
-			Operator_Div::MathOptimize(env, sig, pExpr, pExprRight));
+			env,
+			Operator_Div::MathOptimize(env, pExpr, pExprRight));
 	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n / (-m) = -(n / m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
 		Expr::Delete(pExprRight);
 		return Operator_Neg::MathOptimize(
-			env, sig,
-			Operator_Div::MathOptimize(env, sig, pExprLeft, pExpr));
+			env,
+			Operator_Div::MathOptimize(env, pExprLeft, pExpr));
 	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n / n = 1
 		const Expr_Identifier *pExprIdentifierL =
@@ -899,9 +917,9 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprPowR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprLeft,
-					Operator_Sub::MathOptimize(env, sig, new Expr_Value(1), pExprPowR));
+					Operator_Sub::MathOptimize(env, new Expr_Value(1), pExprPowR));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsIdentifier()) {
@@ -917,9 +935,9 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr *pExprPowL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprRight,
-					Operator_Sub::MathOptimize(env, sig, pExprPowL, new Expr_Value(1)));
+					Operator_Sub::MathOptimize(env, pExprPowL, new Expr_Value(1)));
 			}
 		}
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
@@ -940,9 +958,9 @@ Expr *Operator_Div::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Pow::MathOptimize(
-					env, sig,
+					env,
 					pExprBase,
-					Operator_Sub::MathOptimize(env, sig, pExprPowL, pExprPowR));
+					Operator_Sub::MathOptimize(env, pExprPowL, pExprPowR));
 			}
 		}
 	}
@@ -1011,44 +1029,46 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal &sig,
 //-----------------------------------------------------------------------------
 // Operator_Pow
 //-----------------------------------------------------------------------------
-Expr *Operator_Pow::MathDiffBinary(Environment &env, Signal &sig,
+Expr *Operator_Pow::MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const
 {
-	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, sig, pSymbol));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprDiff1(pExprLeft->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, sig, pSymbol));
+	AutoPtr<Expr> pExprDiff2(pExprRight->MathDiff(env, pSymbol));
 	if (sig.IsSignalled()) return nullptr;
 	// (f(x) ** g(x))' = f'(x)g(x)(f(x) ** (g(x) - 1)) + g'(x)log(f(x))(f(x) ** g(x))
 	return Operator_Add::MathOptimize(
-		env, sig,
+		env,
 		Operator_Mul::MathOptimize(
-			env, sig,
+			env,
 			Operator_Mul::MathOptimize(
-				env, sig, pExprDiff1.release(), pExprRight->Clone()),
+				env, pExprDiff1.release(), pExprRight->Clone()),
 			Operator_Pow::MathOptimize(
-				env, sig,
+				env,
 				pExprLeft->Clone(),
 				Operator_Sub::MathOptimize(
-					env, sig, pExprRight->Clone(), new Expr_Value(1)))),
+					env, pExprRight->Clone(), new Expr_Value(1)))),
 		Operator_Mul::MathOptimize(
-			env, sig,
+			env,
 			Operator_Mul::MathOptimize(
-				env, sig,
+				env,
 				pExprDiff2.release(),
 				Expr_Caller::Create(
 					Gura_Symbol(math), Gura_Symbol(log), pExprLeft->Clone())),
 			Operator_Pow::MathOptimize(
-				env, sig, pExprLeft->Clone(), pExprRight->Clone())));
+				env, pExprLeft->Clone(), pExprRight->Clone())));
 }
 
-Expr *Operator_Pow::MathOptimizeBinary(Environment &env, Signal &sig,
+Expr *Operator_Pow::MathOptimizeBinary(Environment &env,
 									Expr *pExprLeft, Expr *pExprRight) const
 {
-	return Operator_Pow::MathOptimize(env, sig, pExprLeft, pExprRight);
+	return Operator_Pow::MathOptimize(env, pExprLeft, pExprRight);
 }
 
-Expr *Operator_Pow::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft, Expr *pExprRight)
+Expr *Operator_Pow::MathOptimize(Environment &env, Expr *pExprLeft, Expr *pExprRight)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) {
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
@@ -1056,7 +1076,7 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
 		// v ** v = v
-		return env.GetOperator(OPTYPE_Pow)->MathOptimizeConst(env, sig,
+		return env.GetOperator(OPTYPE_Pow)->MathOptimizeConst(env,
 					dynamic_cast<Expr_Value *>(pExprLeft),
 					dynamic_cast<Expr_Value *>(pExprRight));
 	} else if (pExprLeft->IsConstNumber(0)) {
@@ -1079,12 +1099,12 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 	} else if (pExprRight->IsConstNumber(-1)) {
 		// n ** (-1) = 1 / n
 		Expr::Delete(pExprRight);
-		return Operator_Div::MathOptimize(env, sig, new Expr_Value(1), pExprLeft);
+		return Operator_Div::MathOptimize(env, new Expr_Value(1), pExprLeft);
 	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsConstEvenNumber()) {
 		// (-n) ** (2m) = n ** (2m)
 		Expr *pExpr = dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
-		return Operator_Pow::MathOptimize(env, sig, pExpr, pExprRight);
+		return Operator_Pow::MathOptimize(env, pExpr, pExprRight);
 	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow)) {
 		// n ** m ** l = n ** (m * l)
 		const Expr_BinaryOp *pExprBinOpL =
@@ -1093,9 +1113,9 @@ Expr *Operator_Pow::MathOptimize(Environment &env, Signal &sig, Expr *pExprLeft,
 		Expr *pExprLeftR = pExprBinOpL->GetRight()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Pow::MathOptimize(
-			env, sig,
+			env,
 			pExprLeftL,
-			Operator_Mul::MathOptimize(env, sig, pExprLeftR, pExprRight));
+			Operator_Mul::MathOptimize(env, pExprLeftR, pExprRight));
 	}
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
 }

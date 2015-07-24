@@ -238,8 +238,8 @@ private:
 public:
 	virtual void Accept(ExprVisitor &visitor) = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	virtual const Expr *Unquote() const;
 	// type chekers - Unary and descendants
 	virtual bool IsUnary() const;
@@ -388,8 +388,8 @@ public:
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
@@ -420,8 +420,8 @@ public:
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline SymbolSet &GetAttrs() { return _attrs; }
@@ -583,7 +583,7 @@ public:
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
@@ -733,8 +733,8 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
@@ -796,8 +796,8 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	virtual bool IsUnaryOp() const;
 	virtual bool IsUnaryOpSuffix() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
@@ -833,8 +833,8 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
-	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
+	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
+	virtual Expr *MathOptimize(Environment &env) const;
 	virtual bool IsBinaryOp() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
