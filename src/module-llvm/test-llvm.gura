@@ -55,7 +55,7 @@ rtn = llvm.gencode {
 	//3 + 4
 	//repeat(3) {
 	//}
-	println('hello', 3, 4)
+	//println('hello', 3, 4)
 	//bar = 'hello 3'
 	//foo = 3
 	//a = 3
@@ -74,7 +74,7 @@ rtn = llvm.gencode {
 	//people::name
 	//people:*age.sum()
 	//'1234'.len()
-	
+	[a, b, c] = [1, 2, 3]
 }
-println('rtn = ', rtn)
-println(x)
+//println('rtn = ', rtn)
+//println(x)

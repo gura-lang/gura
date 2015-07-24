@@ -232,8 +232,8 @@ public:
 	virtual Expr *Clone() const = 0;
 	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
 private:
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const = 0;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const = 0;
+	virtual Value DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 public:
 	virtual void Accept(ExprVisitor &visitor) = 0;
@@ -387,7 +387,7 @@ public:
 	}
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
 	virtual void Accept(ExprVisitor &visitor);
@@ -415,9 +415,9 @@ public:
 	virtual bool IsIdentifier() const;
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	Value Exec(Environment &env, Signal &sig, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &value,
+	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
@@ -461,7 +461,7 @@ public:
 	}
 	virtual bool IsSuffixed() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
@@ -560,7 +560,7 @@ public:
 	}
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
@@ -582,7 +582,7 @@ public:
 	virtual ~Expr_Block();
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
@@ -614,8 +614,8 @@ public:
 	}
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &value,
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
@@ -644,7 +644,7 @@ public:
 	}
 	virtual bool IsIterer() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
@@ -692,8 +692,8 @@ public:
 	}
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &value,
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
@@ -728,8 +728,8 @@ public:
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &value,
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
@@ -766,7 +766,7 @@ public:
 		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();
 	}
 private:
-	Value DoExec(Environment &env, Signal &sig, TrailCtrlHolder *pTrailCtrlHolder) const;
+	Value DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -795,7 +795,7 @@ public:
 		return dynamic_cast<Expr_UnaryOp *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
 	virtual bool IsUnaryOp() const;
@@ -832,7 +832,7 @@ public:
 		return dynamic_cast<Expr_BinaryOp *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal &sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal &sig) const;
 	virtual bool IsBinaryOp() const;
@@ -859,7 +859,7 @@ public:
 		return dynamic_cast<Expr_Quote *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
@@ -889,7 +889,7 @@ public:
 		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	Value Exec(Environment &env, Signal &sig, Environment &envDst,
 		const SymbolSet *pSymbolsAssignable, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *Clone() const;
@@ -928,8 +928,8 @@ public:
 		return dynamic_cast<Expr_Member *>(Expr::Reference(pExpr));
 	}
 	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual Value DoAssign(Environment &env, Signal &sig, Value &value,
+	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
+	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;

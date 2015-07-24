@@ -411,16 +411,16 @@ private:
 		llvm::Value *plv_valueAssigned);
 	bool GenCode_AssignToLister(
 		Environment &env, const Expr_Lister *pExpr,
-		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+		llvm::Value *plv_valueAssigned, ValueType valTypeAssigned);
 	bool GenCode_AssignToIndexer(
 		Environment &env, const Expr_Indexer *pExpr,
-		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+		llvm::Value *plv_valueAssigned, ValueType valTypeAssigned);
 	bool GenCode_AssignToCaller(
 		Environment &env, const Expr_Caller *pExpr, const Expr *pExprAssigned);
 	bool GenCode_AssignToIdentifierInMember(
 		Environment &env, const Expr *pExprThis,
 		const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
-		llvm::Value *plv_valueAssigned, bool alwaysIterableFlag);
+		llvm::Value *plv_valueAssigned, ValueType valTypeAssigned);
 private:
 	void GenCode_CondBrExitWhenSignalled(const llvm::Twine &nameForContinueBB);
 	void GenCode_CondBrContinueOrExit(llvm::Value *plv_successFlag, const llvm::Twine &nameForContinueBB);
@@ -896,9 +896,11 @@ llvm::Function *CodeGeneratorLLVM::CreateBridgeFunction(
 	llvm::Value *plv_valueResultSaved = _plv_valueResult;
 	_plv_valueResult = nullptr;
 	_builder.SetInsertPoint(pBasicBlockBody);
-	llvm::Value *plv_sig = _builder.CreateLoad(_builder.CreateStructGEP(plv_env, 0), "p_sig");
-	_contextStack.push_back(new Context(plv_env, plv_sig,
-										pBasicBlockEntry, pBasicBlockExit, pBasicBlockRelease));
+	llvm::Value *plv_sig = _builder.CreateLoad(
+		_builder.CreateStructGEP(plv_env, 0, "p_sig"), "sig");
+	_contextStack.push_back(new Context(
+								plv_env, plv_sig,
+								pBasicBlockEntry, pBasicBlockExit, pBasicBlockRelease));
 	if (pExpr->GenerateCode(env, *this)) {
 		llvm::Value *plv_valueRtn = _plv_valueResult;
 		pFunction->getBasicBlockList().push_back(pBasicBlockExit);
@@ -1026,7 +1028,7 @@ bool CodeGeneratorLLVM::GenCode_AssignToIdentifier(
 bool CodeGeneratorLLVM::GenCode_AssignToIdentifierInMember(
 	Environment &env, const Expr *pExprThis,
 	const Expr_Identifier *pExprSelector, Expr_Member::Mode mode,
-	llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+	llvm::Value *plv_valueAssigned, ValueType valTypeAssigned)
 {
 	if (!pExprThis->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueThis = _plv_valueResult;
@@ -1079,15 +1081,20 @@ bool CodeGeneratorLLVM::GenCode_Lister(Environment &env, const Expr_Lister *pExp
 
 bool CodeGeneratorLLVM::GenCode_AssignToLister(
 	Environment &env, const Expr_Lister *pExpr,
-	llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+	llvm::Value *plv_valueAssigned, ValueType valTypeAssigned)
 {
 	Signal &sig = env.GetSignal();
 	if (pExpr->GetExprOwner().empty()) {
 		// .....
 	}
+	bool scalarFlag =
+		(valTypeAssigned == VTYPE_boolean) || (valTypeAssigned == VTYPE_number) ||
+		(valTypeAssigned == VTYPE_string);
+	bool iterableFlag =
+		(valTypeAssigned == VTYPE_list) || (valTypeAssigned == VTYPE_iterator);
 	llvm::BasicBlock *pBasicBlockDone =
 		llvm::BasicBlock::Create(_context, "bb.assignToLister.done");
-	if (!alwaysIterableFlag) {
+	if (!iterableFlag) {
 		llvm::BasicBlock *pBasicBlockScalar =
 			llvm::BasicBlock::Create(_context, "bb.assignToLister.scalar");
 		llvm::BasicBlock *pBasicBlockIterable =
@@ -1242,7 +1249,7 @@ bool CodeGeneratorLLVM::GenCode_Indexer(Environment &env, const Expr_Indexer *pE
 
 bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 	Environment &env,
-	const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned, bool alwaysIterableFlag)
+	const Expr_Indexer *pExpr, llvm::Value *plv_valueAssigned, ValueType valTypeAssigned)
 {
 	if (!pExpr->GetCar()->GenerateCode(env, *this)) return false;
 	llvm::Value *plv_valueCar = _plv_valueResult;
@@ -1258,9 +1265,10 @@ bool CodeGeneratorLLVM::GenCode_AssignToIndexer(
 		_plv_valueResult = plv_valueAssigned;
 		return true;
 	}
+	bool iterableFlag = (valTypeAssigned == VTYPE_list) || (valTypeAssigned == VTYPE_iterator);
 	llvm::BasicBlock *pBasicBlockDone =
 		llvm::BasicBlock::Create(_context, "bb.assignToIndexer.done");
-	if (!alwaysIterableFlag) {
+	if (!iterableFlag) {
 		llvm::BasicBlock *pBasicBlockScalar =
 			llvm::BasicBlock::Create(_context, "bb.assignToIndexer.scalar");
 		llvm::BasicBlock *pBasicBlockIterable =
@@ -1531,48 +1539,63 @@ bool CodeGeneratorLLVM::GenCode_Assign(Environment &env, const Expr_Assign *pExp
 	} else if (pExpr->GetLeft()->IsMember()) {
 		const Expr_Member *pExprEx = dynamic_cast<const Expr_Member *>(pExpr->GetLeft());
 		if (pExprEx->GetRight()->IsIdentifier()) {
-			bool alwaysIterableFlag = false;
+			ValueType valTypeAssigned = VTYPE_any;
 			llvm::Value *plv_valueAssigned = nullptr;
 			if (pExpr->GetOperatorToApply() == nullptr) {
 				if (!pExpr->GetRight()->GenerateCode(env, *this)) return false;
 				plv_valueAssigned = _plv_valueResult;
-				alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
+				valTypeAssigned =
+					pExpr->GetRight()->IsLister()? VTYPE_list :
+					pExpr->GetRight()->IsIterer()? VTYPE_iterator :
+					pExpr->GetRight()->IsValue()? dynamic_cast<const Expr_Value *>(
+						pExpr->GetRight())->GetValue().GetValueType() :
+					VTYPE_any;
 			} else {
 				plv_valueAssigned = GenCode_CallBinaryOp(env, pExpr->GetOperatorToApply(),
 														 pExpr->GetLeft(), pExpr->GetRight());
 				if (plv_valueAssigned == nullptr) return false;
-				alwaysIterableFlag = (pExprEx->GetMode() != Expr_Member::MODE_Normal);
+				valTypeAssigned =
+					(pExprEx->GetMode() == Expr_Member::MODE_MapToList)? VTYPE_list :
+					(pExprEx->GetMode() == Expr_Member::MODE_MapToIter)? VTYPE_iterator :
+					VTYPE_any;
 			}
 			return GenCode_AssignToIdentifierInMember(
 				env, pExprEx->GetLeft(),
 				dynamic_cast<const Expr_Identifier *>(pExprEx->GetRight()),
-				pExprEx->GetMode(), plv_valueAssigned, alwaysIterableFlag);
+				pExprEx->GetMode(), plv_valueAssigned, valTypeAssigned);
 		} else {
 			// error
 			return false;
 		}
 	}
-	bool alwaysIterableFlag = false;
+	ValueType valTypeAssigned = VTYPE_any;
 	llvm::Value *plv_valueAssigned = nullptr;
 	if (pExpr->GetOperatorToApply() == nullptr) {
 		if (!pExpr->GetRight()->GenerateCode(env, *this)) return false;
 		plv_valueAssigned = _plv_valueResult;
-		alwaysIterableFlag = pExpr->GetRight()->IsLister() || pExpr->GetRight()->IsIterer();
+		valTypeAssigned =
+			pExpr->GetRight()->IsLister()? VTYPE_list :
+			pExpr->GetRight()->IsIterer()? VTYPE_iterator :
+			pExpr->GetRight()->IsValue()? dynamic_cast<const Expr_Value *>(
+				pExpr->GetRight())->GetValue().GetValueType() :
+			VTYPE_any;
 	} else {
 		plv_valueAssigned = GenCode_CallBinaryOp(env, pExpr->GetOperatorToApply(),
 												 pExpr->GetLeft(), pExpr->GetRight());
 		if (plv_valueAssigned == nullptr) return false;
-		alwaysIterableFlag = pExpr->GetLeft()->IsLister();
+		valTypeAssigned =
+			pExpr->GetLeft()->IsLister()? VTYPE_list :
+			VTYPE_any;
 	}
 	if (pExpr->GetLeft()->IsIdentifier()) {
 		const Expr_Identifier *pExprEx = dynamic_cast<const Expr_Identifier *>(pExpr->GetLeft());
 		if (!GenCode_AssignToIdentifier(env, pExprEx, plv_valueAssigned)) return false;
 	} else if (pExpr->GetLeft()->IsIndexer()) {
 		const Expr_Indexer *pExprEx = dynamic_cast<const Expr_Indexer *>(pExpr->GetLeft());
-		if (!GenCode_AssignToIndexer(env, pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
+		if (!GenCode_AssignToIndexer(env, pExprEx, plv_valueAssigned, valTypeAssigned)) return false;
 	} else if (pExpr->GetLeft()->IsLister()) {
 		const Expr_Lister *pExprEx = dynamic_cast<const Expr_Lister *>(pExpr->GetLeft());
-		if (!GenCode_AssignToLister(env, pExprEx, plv_valueAssigned, alwaysIterableFlag)) return false;
+		if (!GenCode_AssignToLister(env, pExprEx, plv_valueAssigned, valTypeAssigned)) return false;
 	}
 	_plv_valueResult = plv_valueAssigned;
 	return true;
@@ -1656,7 +1679,7 @@ void CodeGeneratorLLVM::GenCode_CondBrExitWhenSignalled(const llvm::Twine &nameF
 {
 	GenCode_CondBrContinueOrExit(
 		_builder.CreateICmpULE(
-			_builder.CreateLoad(_builder.CreateStructGEP(Get_sig(), 0), "sigType"),
+			_builder.CreateLoad(_builder.CreateStructGEP(Get_sig(), 0, "p_sigType"), "sigType"),
 			llvm::ConstantInt::get(_builder.getInt32Ty(), SIGTYPE_ErrorSuspended)),
 		nameForContinueBB);
 }

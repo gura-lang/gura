@@ -80,7 +80,7 @@ Value Expr::Exec(Environment &env, Signal &sig,
 {
 	Value result;
 	if (_bridgeFunction == nullptr) {
-		result = DoExec(env, sig, pSeqPostHandler.get());
+		result = DoExec(env, pSeqPostHandler.get());
 	} else {
 		(*_bridgeFunction)(env, Value::Null, result);
 	}
@@ -111,7 +111,7 @@ Value Expr::Exec(Environment &env, Signal &sig,
 Value Expr::Assign(Environment &env, Signal &sig, Value &valueAssigned,
 				const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
-	Value result = DoAssign(env, sig, valueAssigned, pSymbolsAssignable, escalateFlag);
+	Value result = DoAssign(env, valueAssigned, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -119,9 +119,10 @@ Value Expr::Assign(Environment &env, Signal &sig, Value &valueAssigned,
 	return result;
 }
 
-Value Expr::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	SetError(sig, ERR_SyntaxError, "l-value is required");
 	return Value::Null;
 }
@@ -716,8 +717,9 @@ Expr *Expr_Value::Clone() const
 	return new Expr_Value(*this);
 }
 
-Value Expr_Value::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Value::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	if (_value.Is_expr()) {
 		result = _value.GetExpr()->Exec(env, sig, pSeqPostHandler);
@@ -813,8 +815,9 @@ Callable *Expr_Identifier::LookupCallable(Environment &env, Signal &sig) const
 	return rtn.GetObject();
 }
 
-Value Expr_Identifier::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Identifier::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
@@ -842,9 +845,10 @@ Value Expr_Identifier::Exec(Environment &env, Signal &sig,
 	return rtn;
 }
 
-Value Expr_Identifier::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	bool evaluatedFlag = false;
 	const SymbolSet &attrs = SymbolSet::Null;
 	Value result = env.DoSetProp(env, sig, GetSymbol(), valueAssigned, attrs, evaluatedFlag);
@@ -1019,8 +1023,9 @@ Expr *Expr_Suffixed::Clone() const
 	return new Expr_Suffixed(*this);
 }
 
-Value Expr_Suffixed::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Suffixed::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	SuffixMgrEntry *pSuffixMgrEntry = _numberFlag?
 				SuffixMgr::LookupForNumber(env, _pSymbolSuffix) :
@@ -1204,7 +1209,7 @@ Expr *Expr_Root::Clone() const
 	return new Expr_Root(*this);
 }
 
-Value Expr_Root::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Root::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
 	//AutoPtr<Processor> pProcessor(new Processor());
 	//pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
@@ -1267,8 +1272,9 @@ Expr *Expr_Block::Clone() const
 	return new Expr_Block(*this);
 }
 
-Value Expr_Block::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 #if 1
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
@@ -1387,8 +1393,9 @@ Expr *Expr_Lister::Clone() const
 	return new Expr_Lister(*this);
 }
 
-Value Expr_Lister::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 #if 1
 	Value result;
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
@@ -1422,9 +1429,10 @@ Value Expr_Lister::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 #endif
 }
 
-Value Expr_Lister::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	const ExprList &exprList = GetExprOwner();
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		ValueList *pValList = nullptr;
@@ -1545,8 +1553,9 @@ Expr *Expr_Iterer::Clone() const
 	return new Expr_Iterer(*this);
 }
 
-Value Expr_Iterer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Iterer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
 	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
@@ -1654,8 +1663,9 @@ Expr *Expr_Indexer::Clone() const
 	return new Expr_Indexer(*this);
 }
 
-Value Expr_Indexer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	Value valueCar = GetCar()->Exec2(env, sig, pSeqPostHandlerCar);
 	if (sig.IsSignalled()) return Value::Null;
@@ -1718,9 +1728,10 @@ Value Expr_Indexer::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-Value Expr_Indexer::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	Value valueCar = GetCar()->Exec2(env, sig, pSeqPostHandlerCar);
 	if (sig.IsSignalled()) return Value::Null;
@@ -1932,13 +1943,14 @@ Callable *Expr_Caller::LookupCallable(Environment &env, Signal &sig) const
 	return valueCar.GetObject();
 }
 
-Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Caller::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	AutoPtr<TrailCtrlHolder> pTrailCtrlHolder(new TrailCtrlHolder(TRAILCTRL_Continue));
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != nullptr;
 									pExprCaller = pExprCaller->GetTrailer()) {
-		result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
+		result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
 		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
 		if (trailCtrl == TRAILCTRL_Quit) break;
 		if (trailCtrl == TRAILCTRL_Finalize) {
@@ -1955,7 +1967,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 				Callable *pCallable = pExprCaller->LookupCallable(env, sig);
 				if (sig.IsSignalled()) return Value::Null;
 				if (pCallable != nullptr && pCallable->IsFinalizer()) {
-					result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
+					result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
 					if (sig.IsSignalled()) return Value::Null;
 					sig.SetType(sigType);
 					sig.SetValue(valueSig);
@@ -1975,8 +1987,9 @@ Value Expr_Caller::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-Value Expr_Caller::DoExec(Environment &env, Signal &sig, TrailCtrlHolder *pTrailCtrlHolder) const
+Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const
 {
+	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
 	if (_pExprCar->IsMember()) {
@@ -2087,9 +2100,10 @@ Value Expr_Caller::EvalEach(Environment &env, Signal &sig, const Value &valueThi
 	return pCallable->DoCall(env, sig, *pArgs);
 }
 
-Value Expr_Caller::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	if (!valueAssigned.Is_expr()) {
 		SetError(sig, ERR_SyntaxError, "invalid function expression");
 		return Value::Null;
@@ -2350,8 +2364,9 @@ Expr *Expr_UnaryOp::Clone() const
 	return new Expr_UnaryOp(*this);
 }
 
-Value Expr_UnaryOp::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_UnaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerChild = nullptr;
 	Value value = GetChild()->Exec2(env, sig, pSeqPostHandlerChild);
 	if (sig.IsSignalled()) return Value::Null;
@@ -2435,8 +2450,9 @@ Expr *Expr_BinaryOp::Clone() const
 	return new Expr_BinaryOp(*this);
 }
 
-Value Expr_BinaryOp::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	OpType opType = _pOperator->GetOpType();
 	const Expr *pExprLeft = GetLeft();
 	const Expr *pExprRight = GetRight();
@@ -2572,8 +2588,9 @@ const Expr *Expr_Quote::Unquote() const
 	return GetChild();
 }
 
-Value Expr_Quote::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Quote::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	if (GetChild()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
@@ -2634,8 +2651,9 @@ Expr *Expr_Assign::Clone() const
 	return new Expr_Assign(*this);
 }
 
-Value Expr_Assign::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Assign::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	Value result = Exec(env, sig, env, nullptr, pSeqPostHandler);
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -2729,8 +2747,9 @@ Expr *Expr_Member::Clone() const
 	return new Expr_Member(*this);
 }
 
-Value Expr_Member::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
@@ -2782,9 +2801,10 @@ Value Expr_Member::DoExec(Environment &env, Signal &sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-Value Expr_Member::DoAssign(Environment &env, Signal &sig, Value &valueAssigned,
+Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
+	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
 	SeqPostHandler *pSeqPostHandlerLeft = nullptr;
