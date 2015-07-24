@@ -210,7 +210,7 @@ Gura_DeclareMethod(reader, entries)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
+		"Creates an iterator that returns stream instances for each entry in the tar file.");
 }
 
 Gura_ImplementMethod(reader, entries)
@@ -341,7 +341,10 @@ Gura_DeclareMethod(writer, add)
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
+		"Adds an entry to the tar archive with a content from `stream` and a name of `filename`.\n"
+		"\n"
+		"If the argument `filename` is omitted, an identifier associated with the `stream`\n"
+		"would be used as the entry name.\n");
 }
 
 Gura_ImplementMethod(writer, add)
@@ -368,7 +371,7 @@ Gura_DeclareMethod(writer, close)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
+		"Flushes all the unfinished writing processes and invalidates the `tar.writer` instance.");
 }
 
 Gura_ImplementMethod(writer, close)
@@ -730,7 +733,15 @@ Gura_DeclareFunction(reader)
 	SetClassToConstruct(Gura_UserClass(reader));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
+		"Reads a tar file from `stream` and returns a `tar.reader` instance\n"
+		"that is to be used to read contents from the archive.\n"
+		"\n"
+		"The argument `compression` specifies the compression format of the tar file\n"
+		"and takes one of the following symbols:\n"
+		"\n"
+		"- `` `auto`` .. determins the format from a suffix name of the stream.\n"
+		"- `` `gzip`` .. gzip format\n"
+		"- `` `bzip2`` .. bzip2 format\n");
 }
 
 Gura_ImplementFunction(reader)
@@ -759,7 +770,15 @@ Gura_DeclareFunction(writer)
 	SetClassToConstruct(Gura_UserClass(writer));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"");
+		"Creates a tar file on `stream` and returns a `tar.writer` instance\n"
+		"that is to be used to write contents to the archive.\n"
+		"\n"
+		"The argument `compression` specifies the compression format of the tar file\n"
+		"and takes one of the following symbols:\n"
+		"\n"
+		"- `` `auto`` .. determins the format from a suffix name of the stream.\n"
+		"- `` `gzip`` .. gzip format\n"
+		"- `` `bzip2`` .. bzip2 format\n");
 }
 
 Gura_ImplementFunction(writer)
