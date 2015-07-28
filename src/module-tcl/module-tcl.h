@@ -23,15 +23,14 @@ class Handler {
 private:
 	AutoPtr<Object_interp> _pObjInterp;
 	AutoPtr<Object_function> _pObjFunc;
-	Signal _sig;
 public:
-	inline Handler(Object_interp *pObjInterp, Object_function *pObjFunc, Signal &sig) :
-					_pObjInterp(pObjInterp), _pObjFunc(pObjFunc), _sig(sig) {}
+	inline Handler(Object_interp *pObjInterp, Object_function *pObjFunc) :
+					_pObjInterp(pObjInterp), _pObjFunc(pObjFunc) {}
 	~Handler();
 	Value Eval(ValueList &valListArg);
 	Value Eval(int argc, const char *argv[]);
 	inline Object_interp *GetInterpObj() { return _pObjInterp.get(); }
-	inline Signal &GetSignal() { return _sig; }
+	//inline Signal &GetSignal() { return _pObjInterp->GetSignal(); }
 };
 
 //-----------------------------------------------------------------------------

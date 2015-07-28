@@ -1408,6 +1408,7 @@ Gura_ImplementUserClassWithCast(Surface)
 
 Gura_ImplementCastFrom(Surface)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_image()) {
 		Image *pImage = Object_image::GetObject(value)->GetImage();
 		Object_Surface *pObjSurface =
@@ -3832,7 +3833,7 @@ Gura_ImplementFunction(OpenAudio)
 		::free(obtained);
 		return Value::Null;
 	}
-	return Object_AudioSpec::CreateValue(obtained, sig, nullptr, nullptr, 0);
+	return Object_AudioSpec::CreateValue(obtained, nullptr, nullptr, 0);
 }
 
 // sdl.PauseAudio(pause_on:number):void
@@ -3887,7 +3888,7 @@ Gura_ImplementFunction(LoadWAV)
 	}
 	pAudioSpec->callback = Object_AudioSpec::CallbackStub;
 	pAudioSpec->userdata = nullptr;
-	return Object_AudioSpec::CreateValue(pAudioSpec, sig, nullptr, audio_buf, audio_len);
+	return Object_AudioSpec::CreateValue(pAudioSpec, nullptr, audio_buf, audio_len);
 }
 
 // sdl.BuildAudioCVT(src_format:number, src_channels:number, src_rate:number,
@@ -4104,7 +4105,7 @@ Gura_ImplementFunction(AddTimer)
 		return Value::Null;
 	}
 	bool threadFlag = args.IsSet(Gura_UserSymbol(thread_));
-	Object_Timer *pObj = new Object_Timer(sig, pObjFunc, threadFlag);
+	Object_Timer *pObj = new Object_Timer(pObjFunc, threadFlag);
 	pObj->AddTimer(args.GetULong(0));
 	return Value(pObj);
 }
@@ -4201,7 +4202,7 @@ Gura_ImplementFunction(AudioSpec)
 		pFuncCallback = Function::Reference(args.GetFunction(4));
 	}
 	Object_AudioSpec *pObj =
-			new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, nullptr, 0);
+			new Object_AudioSpec(pAudioSpec, pFuncCallback, nullptr, 0);
 	pAudioSpec->userdata = pObj;
 	return ReturnValue(env, args, Value(pObj));
 }

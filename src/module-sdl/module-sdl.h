@@ -124,14 +124,13 @@ public:
 	Gura_DeclareObjectAccessor(Timer)
 private:
 	SDL_TimerID _timerID;
-	Signal _sig;
 	Object_function *_pObjFunc;
 	bool _threadFlag;
 	bool _contFlag;
 public:
-	inline Object_Timer(Signal &sig, Object_function *pObjFunc, bool threadFlag) :
+	inline Object_Timer(Object_function *pObjFunc, bool threadFlag) :
 		Object(Gura_UserClass(Timer)), _timerID(nullptr),
-		_sig(sig), _pObjFunc(pObjFunc), _threadFlag(threadFlag), _contFlag(false) {}
+		_pObjFunc(pObjFunc), _threadFlag(threadFlag), _contFlag(false) {}
 	virtual ~Object_Timer();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -413,15 +412,14 @@ public:
 	Gura_DeclareObjectAccessor(AudioSpec)
 private:
 	SDL_AudioSpec *_pAudioSpec;
-	Signal _sig;
 	Function *_pFuncCallback;
 	Uint8 *_audio_buf;
 	Uint32 _audio_len;
 public:
 	inline Object_AudioSpec(SDL_AudioSpec *pAudioSpec,
-		Signal &sig, Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) :
+		Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) :
 			Object(Gura_UserClass(AudioSpec)),
-			_pAudioSpec(pAudioSpec), _sig(sig), _pFuncCallback(pFuncCallback),
+			_pAudioSpec(pAudioSpec), _pFuncCallback(pFuncCallback),
 			_audio_buf(audio_buf), _audio_len(audio_len) {}
 	inline Object_AudioSpec(const Object_AudioSpec &obj) : Object(obj) {}
 	virtual ~Object_AudioSpec();
@@ -431,8 +429,8 @@ public:
 	inline Uint8 *GetAudioBuf() { return _audio_buf; }
 	inline Uint32 GetAudioLen() { return _audio_len; }
 	inline static Value CreateValue(SDL_AudioSpec *pAudioSpec,
-			Signal &sig,  Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) {
-		return Value(new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, audio_buf, audio_len));
+			Function *pFuncCallback, Uint8 *audio_buf, Uint32 audio_len) {
+		return Value(new Object_AudioSpec(pAudioSpec, pFuncCallback, audio_buf, audio_len));
 	}
 	void Callback(Uint8 *stream, int len);
 	static void CallbackStub(void *userdata, Uint8 *stream, int len);

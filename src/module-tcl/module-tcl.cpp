@@ -69,7 +69,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal &sig, const Value 
 		return ::Tcl_NewStringObj(str, static_cast<int>(::strlen(str)));
 	} else if (value.Is_function()) {
 		Handler *pHandler = new Handler(Object_interp::Reference(this),
-				Object_function::Reference(Object_function::GetObject(value)), sig);
+				Object_function::Reference(Object_function::GetObject(value)));
 		String cmdName = NewCommandName();
 		::Tcl_CreateCommand(_interp, cmdName.c_str(), CommandProc,
 											pHandler, CommandDeleteProc);
@@ -210,7 +210,7 @@ int Object_interp::CommandProc(ClientData clientData,
 	Handler *pHandler = reinterpret_cast<Handler *>(clientData);
 	Object_interp *pObjInterp = pHandler->GetInterpObj();
 	Environment &env = *pObjInterp;
-	Signal &sig = pHandler->GetSignal();
+	Signal &sig = env.GetSignal();
 	if (argc > 0) {
 		// skip the first argument
 		argc--, argv++;
@@ -303,7 +303,7 @@ Gura_ImplementMethod(interp, command)
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	Tcl_Interp *interp = pThis->GetInterp();
 	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
-			Object_function::Reference(Object_function::GetObject(args, 0)), sig);
+			Object_function::Reference(Object_function::GetObject(args, 0)));
 	String cmdName = pThis->NewCommandName();
 	::Tcl_CreateCommand(interp, cmdName.c_str(), Object_interp::CommandProc,
 									pHandler, Object_interp::CommandDeleteProc);
@@ -422,8 +422,9 @@ Value Handler::Eval(ValueList &valListArg)
 {
 	Function *pFunc = _pObjFunc->GetFunction();
 	Environment &env = pFunc->GetEnvScope();
-	Value result = _pObjFunc->Eval(env, _sig, valListArg);
-	if (_sig.IsSignalled()) {
+	Signal &sig = env.GetSignal();
+	Value result = _pObjFunc->Eval(env, sig, valListArg);
+	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
 		return Value::Null;
 	}
@@ -434,6 +435,7 @@ Value Handler::Eval(int argc, const char *argv[])
 {
 	Function *pFunc = _pObjFunc->GetFunction();
 	Environment &env = pFunc->GetEnvScope();
+	Signal &sig = env.GetSignal();
 	ValueList valListArg;
 	//argc = ChooseMin(argc, static_cast<int>(pFunc->GetDeclList().size()));
 	if (argc > 0) {
@@ -442,8 +444,8 @@ Value Handler::Eval(int argc, const char *argv[])
 			valListArg.push_back(Value(argv[i]));
 		}
 	}
-	Value result = _pObjFunc->Eval(env, _sig, valListArg);
-	if (_sig.IsSignalled()) {
+	Value result = _pObjFunc->Eval(env, sig, valListArg);
+	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
 		return Value::Null;
 	}
@@ -616,7 +618,7 @@ void Object_timer::Start(Signal &sig, const Function *pFunc,
 	Object::Reference(this);
 	_token = ::Tcl_CreateTimerHandler(msec, TimerProcStub, this);
 	Object_function *pObjFunc = new Object_function(env, Function::Reference(pFunc));
-	_pHandler.reset(new Handler(Object_interp::Reference(_pObjInterp.get()), pObjFunc, sig));
+	_pHandler.reset(new Handler(Object_interp::Reference(_pObjInterp.get()), pObjFunc));
 }
 
 void Object_timer::Cancel()
