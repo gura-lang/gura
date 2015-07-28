@@ -15,67 +15,67 @@ static ControllerInfo g_controllerInfos[] = {
 	{ "bank_select",					nullptr }, // 0
 	{ "modulation_wheel",				nullptr }, // 1
 	{ "breath_controller",				nullptr }, // 2
-	{ nullptr,								nullptr }, // 3
+	{ nullptr,							nullptr }, // 3
 	{ "foot_pedal",						nullptr }, // 4
 	{ "portamento_time",				nullptr }, // 5
 	{ "data_entry",						nullptr }, // 6
 	{ "volume",							nullptr }, // 7
 	{ "balance",						nullptr }, // 8
-	{ nullptr,								nullptr }, // 9
+	{ nullptr,							nullptr }, // 9
 	{ "pan_position",					nullptr }, // 10
 	{ "expression",						nullptr }, // 11
 	{ "effect_control_1",				nullptr }, // 12
 	{ "effect_control_2",				nullptr }, // 13
-	{ nullptr,								nullptr }, // 14
-	{ nullptr,								nullptr }, // 15
+	{ nullptr,							nullptr }, // 14
+	{ nullptr,							nullptr }, // 15
 	{ "general_purpose_slider_1",		nullptr }, // 16
 	{ "general_purpose_slider_2",		nullptr }, // 17
 	{ "general_purpose_slider_3",		nullptr }, // 18
 	{ "general_purpose_slider_4",		nullptr }, // 19
-	{ nullptr,								nullptr }, // 20
-	{ nullptr,								nullptr }, // 21
-	{ nullptr,								nullptr }, // 22
-	{ nullptr,								nullptr }, // 23
-	{ nullptr,								nullptr }, // 24
-	{ nullptr,								nullptr }, // 25
-	{ nullptr,								nullptr }, // 26
-	{ nullptr,								nullptr }, // 27
-	{ nullptr,								nullptr }, // 28
-	{ nullptr,								nullptr }, // 29
-	{ nullptr,								nullptr }, // 30
-	{ nullptr,								nullptr }, // 31
+	{ nullptr,							nullptr }, // 20
+	{ nullptr,							nullptr }, // 21
+	{ nullptr,							nullptr }, // 22
+	{ nullptr,							nullptr }, // 23
+	{ nullptr,							nullptr }, // 24
+	{ nullptr,							nullptr }, // 25
+	{ nullptr,							nullptr }, // 26
+	{ nullptr,							nullptr }, // 27
+	{ nullptr,							nullptr }, // 28
+	{ nullptr,							nullptr }, // 29
+	{ nullptr,							nullptr }, // 30
+	{ nullptr,							nullptr }, // 31
 	{ "bank_select_fine",				nullptr }, // 32
 	{ "modulation_wheel_fine",			nullptr }, // 33
 	{ "breath_controller_fine",			nullptr }, // 34
-	{ nullptr,								nullptr }, // 35
+	{ nullptr,							nullptr }, // 35
 	{ "foot_pedal_fine",				nullptr }, // 36
 	{ "portamento_time_fine",			nullptr }, // 37
 	{ "data_entry_fine",				nullptr }, // 38
 	{ "volume_fine",					nullptr }, // 39
 	{ "balance_fine",					nullptr }, // 40
-	{ nullptr,								nullptr }, // 41
+	{ nullptr,							nullptr }, // 41
 	{ "pan_position_fine",				nullptr }, // 42
 	{ "expression_fine",				nullptr }, // 43
 	{ "effect_control_1_fine",			nullptr }, // 44
 	{ "effect_control_2_fine",			nullptr }, // 45
-	{ nullptr,								nullptr }, // 46
-	{ nullptr,								nullptr }, // 47
-	{ nullptr,								nullptr }, // 48
-	{ nullptr,								nullptr }, // 49
-	{ nullptr,								nullptr }, // 50
-	{ nullptr,								nullptr }, // 51
-	{ nullptr,								nullptr }, // 52
-	{ nullptr,								nullptr }, // 53
-	{ nullptr,								nullptr }, // 54
-	{ nullptr,								nullptr }, // 55
-	{ nullptr,								nullptr }, // 56
-	{ nullptr,								nullptr }, // 57
-	{ nullptr,								nullptr }, // 58
-	{ nullptr,								nullptr }, // 59
-	{ nullptr,								nullptr }, // 60
-	{ nullptr,								nullptr }, // 61
-	{ nullptr,								nullptr }, // 62
-	{ nullptr,								nullptr }, // 63
+	{ nullptr,							nullptr }, // 46
+	{ nullptr,							nullptr }, // 47
+	{ nullptr,							nullptr }, // 48
+	{ nullptr,							nullptr }, // 49
+	{ nullptr,							nullptr }, // 50
+	{ nullptr,							nullptr }, // 51
+	{ nullptr,							nullptr }, // 52
+	{ nullptr,							nullptr }, // 53
+	{ nullptr,							nullptr }, // 54
+	{ nullptr,							nullptr }, // 55
+	{ nullptr,							nullptr }, // 56
+	{ nullptr,							nullptr }, // 57
+	{ nullptr,							nullptr }, // 58
+	{ nullptr,							nullptr }, // 59
+	{ nullptr,							nullptr }, // 60
+	{ nullptr,							nullptr }, // 61
+	{ nullptr,							nullptr }, // 62
+	{ nullptr,							nullptr }, // 63
 	{ "hold_pedal",						nullptr }, // 64
 	{ "portamento",						nullptr }, // 65
 	{ "sustenuto_pedal",				nullptr }, // 66
@@ -96,13 +96,13 @@ static ControllerInfo g_controllerInfos[] = {
 	{ "general_purpose_button_2",		nullptr }, // 81
 	{ "general_purpose_button_3",		nullptr }, // 82
 	{ "general_purpose_button_4",		nullptr }, // 83
-	{ nullptr,								nullptr }, // 84
-	{ nullptr,								nullptr }, // 85
-	{ nullptr,								nullptr }, // 86
-	{ nullptr,								nullptr }, // 87
-	{ nullptr,								nullptr }, // 88
-	{ nullptr,								nullptr }, // 89
-	{ nullptr,								nullptr }, // 90
+	{ nullptr,							nullptr }, // 84
+	{ nullptr,							nullptr }, // 85
+	{ nullptr,							nullptr }, // 86
+	{ nullptr,							nullptr }, // 87
+	{ nullptr,							nullptr }, // 88
+	{ nullptr,							nullptr }, // 89
+	{ nullptr,							nullptr }, // 90
 	{ "effects_level",					nullptr }, // 91
 	{ "tremulo_level",					nullptr }, // 92
 	{ "chorus_level",					nullptr }, // 93
@@ -114,24 +114,24 @@ static ControllerInfo g_controllerInfos[] = {
 	{ "non_registered_parameter",		nullptr }, // 99
 	{ "registered_parameter_fine",		nullptr }, // 100
 	{ "registered_parameter",			nullptr }, // 101
-	{ nullptr,								nullptr }, // 102
-	{ nullptr,								nullptr }, // 103
-	{ nullptr,								nullptr }, // 104
-	{ nullptr,								nullptr }, // 105
-	{ nullptr,								nullptr }, // 106
-	{ nullptr,								nullptr }, // 107
-	{ nullptr,								nullptr }, // 108
-	{ nullptr,								nullptr }, // 109
-	{ nullptr,								nullptr }, // 110
-	{ nullptr,								nullptr }, // 111
-	{ nullptr,								nullptr }, // 112
-	{ nullptr,								nullptr }, // 113
-	{ nullptr,								nullptr }, // 114
-	{ nullptr,								nullptr }, // 115
-	{ nullptr,								nullptr }, // 116
-	{ nullptr,								nullptr }, // 117
-	{ nullptr,								nullptr }, // 118
-	{ nullptr,								nullptr }, // 119
+	{ nullptr,							nullptr }, // 102
+	{ nullptr,							nullptr }, // 103
+	{ nullptr,							nullptr }, // 104
+	{ nullptr,							nullptr }, // 105
+	{ nullptr,							nullptr }, // 106
+	{ nullptr,							nullptr }, // 107
+	{ nullptr,							nullptr }, // 108
+	{ nullptr,							nullptr }, // 109
+	{ nullptr,							nullptr }, // 110
+	{ nullptr,							nullptr }, // 111
+	{ nullptr,							nullptr }, // 112
+	{ nullptr,							nullptr }, // 113
+	{ nullptr,							nullptr }, // 114
+	{ nullptr,							nullptr }, // 115
+	{ nullptr,							nullptr }, // 116
+	{ nullptr,							nullptr }, // 117
+	{ nullptr,							nullptr }, // 118
+	{ nullptr,							nullptr }, // 119
 	{ "all_sound_off",					nullptr }, // 120
 	{ "all_controllers_off",			nullptr }, // 121
 	{ "local_keyboard",					nullptr }, // 122
