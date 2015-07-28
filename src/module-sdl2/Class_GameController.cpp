@@ -20,19 +20,19 @@ String Object_GameController::ToString(bool exprFlag)
 	return String("<sdl2.GameController>");
 }
 
-bool Object_GameController::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_GameController::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_GameController::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_GameController::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_GameController::DoSetProp(Environment &env, Signal &sig,
+Value Object_GameController::DoSetProp(Environment &env, Signal &__to_delete__,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

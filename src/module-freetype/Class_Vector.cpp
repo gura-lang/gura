@@ -32,15 +32,16 @@ String Object_Vector::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Vector::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_Vector::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
 	return true;
 }
 
-Value Object_Vector::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_Vector::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -53,9 +54,10 @@ Value Object_Vector::DoGetProp(Environment &env, Signal &sig, const Symbol *pSym
 	return Value::Null;
 }
 
-Value Object_Vector::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_Vector::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		if (!value.MustBe_number(sig)) return Value::Null;

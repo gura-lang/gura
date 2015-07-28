@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_pointer : public Class {
 public:
 	Class_pointer(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_pointer : public Object {

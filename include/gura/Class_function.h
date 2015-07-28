@@ -16,8 +16,8 @@ class GURA_DLLDECLARE Class_function : public Class {
 public:
 	Class_function(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
@@ -44,10 +44,10 @@ public:
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value GetThis() const { return _valueThis; }
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;

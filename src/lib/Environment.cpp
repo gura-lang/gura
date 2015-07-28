@@ -428,13 +428,13 @@ ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
 	return pValueTypeInfo;
 }
 
-Value Environment::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Environment::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Environment::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Environment::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;

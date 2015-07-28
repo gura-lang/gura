@@ -19,8 +19,9 @@ String Object_AudioSpec::ToString(bool exprFlag)
 	return String("<sdl2.AudioSpec>");
 }
 
-bool Object_AudioSpec::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_AudioSpec::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(freq));
 	symbols.insert(Gura_UserSymbol(format));
@@ -33,7 +34,7 @@ bool Object_AudioSpec::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbo
 	return true;
 }
 
-Value Object_AudioSpec::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_AudioSpec::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -58,7 +59,7 @@ Value Object_AudioSpec::DoGetProp(Environment &env, Signal &sig, const Symbol *p
 	return Value::Null;
 }
 
-Value Object_AudioSpec::DoSetProp(Environment &env, Signal &sig,
+Value Object_AudioSpec::DoSetProp(Environment &env, Signal &__to_delete__,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

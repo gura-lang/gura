@@ -15,8 +15,8 @@ class GURA_DLLDECLARE Class_palette : public Class {
 public:
 	Class_palette(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -37,8 +37,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Iterator *CreateIterator(Signal &sig);
-	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value);
 	inline Palette *GetPalette() { return _pPalette.get(); }
 	inline const Palette *GetPalette() const { return _pPalette.get(); }
 };

@@ -16,15 +16,16 @@ Object_mpq::Object_mpq(const mpq_class &num) : Object(Gura_UserClass(mpq)), _num
 {
 }
 
-bool Object_mpq::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_mpq::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(numer));
 	symbols.insert(Gura_Symbol(denom));
 	return true;
 }
 
-Value Object_mpq::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_mpq::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -161,6 +162,7 @@ Gura_ImplementUserClassWithCast(mpq)
 
 Gura_ImplementCastFrom(mpq)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_number()) {
 		mpq_class num = value.GetDouble();
 		value = Value(new Object_mpq(num));
@@ -191,28 +193,32 @@ Gura_ImplementCastTo(mpq)
 	return false;
 }
 
-bool Gura_ClassName(mpq)::Format_d(Signal &sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_d(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return _Format_d(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
-bool Gura_ClassName(mpq)::Format_b(Signal &sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_b(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	//return _Format_b(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
-bool Gura_ClassName(mpq)::Format_o(Signal &sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_o(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return _Format_o(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
-bool Gura_ClassName(mpq)::Format_x(Signal &sig, Formatter *pFormatter,
+bool Gura_ClassName(mpq)::Format_x(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return _Format_x(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 

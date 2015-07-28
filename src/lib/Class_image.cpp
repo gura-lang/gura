@@ -28,8 +28,9 @@ Object *Object_image::Clone() const
 	return new Object_image(*this);
 }
 
-bool Object_image::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_image::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(height));
@@ -38,7 +39,7 @@ bool Object_image::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_image::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_image::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -57,9 +58,10 @@ Value Object_image::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_image::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_image::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		if (value.Is_palette()) {
 			GetImage()->SetPalette(Palette::Reference(Object_palette::GetObject(value)->GetPalette()));
@@ -1138,8 +1140,9 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, write);
 }
 
-bool Class_image::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_image::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));

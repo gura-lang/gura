@@ -5,8 +5,9 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_image_surface implementation
 //-----------------------------------------------------------------------------
-bool Object_image_surface::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_image_surface::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object_surface::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_UserSymbol(image));
 	symbols.insert(Gura_UserSymbol(width));
@@ -14,9 +15,10 @@ bool Object_image_surface::DoDirProp(Environment &env, Signal &sig, SymbolSet &s
 	return true;
 }
 
-Value Object_image_surface::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_image_surface::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
 		return Value(::cairo_image_surface_get_width(_surface));

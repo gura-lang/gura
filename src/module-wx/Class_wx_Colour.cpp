@@ -337,6 +337,7 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 
 Gura_ImplementCastFrom(wx_Colour)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_color()) {
 		const Color &color = Object_color::GetObject(value)->GetColor();
 		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());

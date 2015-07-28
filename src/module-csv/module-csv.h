@@ -24,10 +24,10 @@ public:
 	Object_writer(Stream *pStreamDst, const char *format);
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool PutValue(Environment &env, Signal &sig, const Value &value);

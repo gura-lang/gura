@@ -17,8 +17,9 @@ String Object_FTC_CMapCache::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_FTC_CMapCache::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_FTC_CMapCache::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 #if 0
 	symbols.insert(Gura_Symbol(x));
@@ -27,7 +28,7 @@ bool Object_FTC_CMapCache::DoDirProp(Environment &env, Signal &sig, SymbolSet &s
 	return true;
 }
 
-Value Object_FTC_CMapCache::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_FTC_CMapCache::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -42,9 +43,10 @@ Value Object_FTC_CMapCache::DoGetProp(Environment &env, Signal &sig, const Symbo
 	return Value::Null;
 }
 
-Value Object_FTC_CMapCache::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_FTC_CMapCache::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {

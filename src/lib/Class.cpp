@@ -53,8 +53,9 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
-Value Object::EmptyIndexGet(Environment &env, Signal &sig)
+Value Object::EmptyIndexGet(Environment &env, Signal &__to_delete__)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
@@ -66,8 +67,9 @@ Value Object::EmptyIndexGet(Environment &env, Signal &sig)
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-void Object::EmptyIndexSet(Environment &env, Signal &sig, const Value &value)
+void Object::EmptyIndexSet(Environment &env, Signal &__to_delete__, const Value &value)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitemx__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
@@ -80,8 +82,9 @@ void Object::EmptyIndexSet(Environment &env, Signal &sig, const Value &value)
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
-Value Object::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
@@ -94,8 +97,9 @@ Value Object::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-void Object::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
+void Object::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitem__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
@@ -108,8 +112,9 @@ void Object::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, cons
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
-bool Object::DirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 		const Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_object)) {
@@ -121,8 +126,9 @@ bool Object::DirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return DoDirProp(env, sig, symbols);
 }
 
-Value Object::EvalMethod(Environment &env, Signal &sig, const Function *pFunc, const ValueList &valListArg)
+Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Function *pFunc, const ValueList &valListArg)
 {
+	Signal &sig = GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
@@ -130,9 +136,10 @@ Value Object::EvalMethod(Environment &env, Signal &sig, const Function *pFunc, c
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
-Value Object::EvalMethod(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
@@ -144,9 +151,10 @@ Value Object::EvalMethod(Environment &env, Signal &sig, const Symbol *pSymbol,
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
-Value Object::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
 	evaluatedFlag = true;
@@ -157,9 +165,10 @@ Value Object::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-Value Object::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
@@ -459,13 +468,14 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 {
 }
 
-Object *Class::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return new Object((pClass == nullptr)? this : pClass);
 }
 
-bool Class::DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool escalateFlag)
+bool Class::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols, bool escalateFlag)
 {
+	Signal &sig = GetSignal();
 	if (escalateFlag) {
 		foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 			const Frame *pFrame = *ppFrame;
@@ -483,32 +493,34 @@ bool Class::DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool esca
 	return DoDirProp(env, sig, symbols);
 }
 
-Value Class::GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
+Value Class::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	return Value::Null;
 }
 
 
-Value Class::EmptyIndexGetPrimitive(Environment &env, Signal &sig, const Value &valueThis) const
+Value Class::EmptyIndexGetPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 	return Value::Null;
 }
 
-Value Class::IndexGetPrimitive(Environment &env, Signal &sig,
+Value Class::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
 									const Value &valueThis, const Value &valueIdx) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 	return Value::Null;
 }
 
-bool Class::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
 	return false;
 }
 
-bool Class::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl)
+bool Class::CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl)
 {
 	return false;
 }
@@ -543,100 +555,112 @@ void Class::Prepare(Environment &env)
 	Gura_AssignMethod(Object, setprop_X);
 }
 
-bool Class::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_IOError, "can't serialize class or module");
 	return false;
 }
 
-bool Class::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
 }
 
-bool Class::Format_d(Signal &sig, Formatter *pFormatter,
+bool Class::Format_d(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%d qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_u(Signal &sig, Formatter *pFormatter,
+bool Class::Format_u(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%u qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_b(Signal &sig, Formatter *pFormatter,
+bool Class::Format_b(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%b qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_o(Signal &sig, Formatter *pFormatter,
+bool Class::Format_o(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%o qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_x(Signal &sig, Formatter *pFormatter,
+bool Class::Format_x(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%x qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_e(Signal &sig, Formatter *pFormatter,
+bool Class::Format_e(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%e qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_f(Signal &sig, Formatter *pFormatter,
+bool Class::Format_f(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%f qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_g(Signal &sig, Formatter *pFormatter,
+bool Class::Format_g(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%g qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
 
-bool Class::Format_s(Signal &sig, Formatter *pFormatter,
+bool Class::Format_s(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return pFormatter->PutAlignedString(sig, flags,
 							value.ToString(false).c_str(), flags.precision);
 }
 
-bool Class::Format_c(Signal &sig, Formatter *pFormatter,
+bool Class::Format_c(Signal &__to_delete__, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%c qualifier",
 			MakeValueTypeName().c_str());

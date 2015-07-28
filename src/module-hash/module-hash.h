@@ -47,8 +47,8 @@ public:
 	Object_accumulator(Environment &env, AccumulatorBase *pAccumulator, const char *name);
 	Object_accumulator(Class *pClass, AccumulatorBase *pAccumulator, const char *name);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline AccumulatorBase &GetAccumulator() {

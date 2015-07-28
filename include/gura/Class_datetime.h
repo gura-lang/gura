@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_datetime : public Class {
 public:
 	Class_datetime(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_datetime : public Object {
@@ -32,10 +32,10 @@ public:
 	Object_datetime(const Object_datetime &obj);
 	virtual ~Object_datetime();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DateTime &GetDateTime() { return _dateTime; }

@@ -13,8 +13,9 @@ Object *Object_dict::Clone() const
 	return new Object_dict(*this);
 }
 
-Value Object_dict::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_dict::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	const Value *pValue = GetDict().Find(sig, valueIdx);
 	if (sig.IsSignalled()) {
 		return Value::Null;
@@ -25,8 +26,9 @@ Value Object_dict::IndexGet(Environment &env, Signal &sig, const Value &valueIdx
 	return *pValue;
 }
 
-void Object_dict::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
+void Object_dict::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return;
@@ -587,22 +589,24 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, values);
 }
 
-bool Class_dict::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_dict::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	bool ignoreCaseFlag = Object_dict::GetObject(value)->GetIgnoreCaseFlag();
 	if (!stream.SerializeBoolean(sig, ignoreCaseFlag)) return false;
 	return value.GetDict().Serialize(env, sig, stream);
 }
 
-bool Class_dict::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_dict::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	bool ignoreCaseFlag = false;
 	if (!stream.DeserializeBoolean(sig, ignoreCaseFlag)) return false;
 	ValueDict &valDict = value.InitAsDict(env, ignoreCaseFlag);
 	return valDict.Deserialize(env, sig, stream);
 }
 
-Object *Class_dict::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_dict::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict());
 }

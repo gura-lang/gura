@@ -17,8 +17,9 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
-bool Object_color::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_color::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(r));
 	symbols.insert(Gura_Symbol(g));
@@ -27,7 +28,7 @@ bool Object_color::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_color::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_color::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -44,9 +45,10 @@ Value Object_color::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-Value Object_color::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_color::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
 		if (!value.MustBe_number(sig)) return Value::Null;
 		evaluatedFlag = true;
@@ -254,8 +256,9 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
 }
 
-bool Class_color::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_color::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
 		Color color = Color::CreateNamedColor(sig, value.GetSymbol()->GetName(), 255);
 		if (sig.IsSignalled()) return false;
@@ -277,7 +280,7 @@ bool Class_color::CastFrom(Environment &env, Signal &sig, Value &value, const De
 	return false;
 }
 
-Object *Class_color::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_color::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

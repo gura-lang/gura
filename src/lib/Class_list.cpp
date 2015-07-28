@@ -31,8 +31,9 @@ Object *Object_list::Clone() const
 	return new Object_list(*this);
 }
 
-Value Object_list::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_list::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return Value::Null;
@@ -46,8 +47,9 @@ Value Object_list::IndexGet(Environment &env, Signal &sig, const Value &valueIdx
 	return GetList()[idx];
 }
 
-void Object_list::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
+void Object_list::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return;
@@ -2085,8 +2087,9 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, while_);
 }
 
-bool Class_list::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_list::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	if (value.IsType(VTYPE_nil)) {
 		value.InitAsList(env);
 		return true;
@@ -2111,18 +2114,20 @@ bool Class_list::CastFrom(Environment &env, Signal &sig, Value &value, const Dec
 	return false;
 }
 
-bool Class_list::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_list::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return value.GetList().Serialize(env, sig, stream);
 }
 
-bool Class_list::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_list::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	ValueList &valList = value.InitAsList(env);
 	return valList.Deserialize(env, sig, stream);
 }
 
-Object *Class_list::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_list::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return (pClass == nullptr)? new Object_list(env) : new Object_list(pClass);
 }

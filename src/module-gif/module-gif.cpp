@@ -13,15 +13,16 @@ Object *Object_Header::Clone() const
 	return new Object_Header(*this);
 }
 
-bool Object_Header::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_Header::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(Signature));
 	symbols.insert(Gura_UserSymbol(Version));
 	return true;
 }
 
-Value Object_Header::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_Header::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -53,8 +54,9 @@ Object *Object_LogicalScreenDescriptor::Clone() const
 	return new Object_LogicalScreenDescriptor(*this);
 }
 
-bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(LogicalScreenWidth));
 	symbols.insert(Gura_UserSymbol(LogicalScreenHeight));
@@ -68,7 +70,7 @@ bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal &sig, Sy
 	return true;
 }
 
-Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -119,14 +121,15 @@ Object *Object_CommentExtension::Clone() const
 	return new Object_CommentExtension(*this);
 }
 
-bool Object_CommentExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_CommentExtension::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(CommentData));
 	return true;
 }
 
-Value Object_CommentExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_CommentExtension::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -158,8 +161,9 @@ Object *Object_PlainTextExtension::Clone() const
 	return new Object_PlainTextExtension(*this);
 }
 
-bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(TextGridLeftPosition));
 	symbols.insert(Gura_UserSymbol(TextGridTopPosition));
@@ -173,7 +177,7 @@ bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal &sig, SymbolS
 	return true;
 }
 
-Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -221,8 +225,9 @@ Object *Object_ApplicationExtension::Clone() const
 	return new Object_ApplicationExtension(*this);
 }
 
-bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ApplicationIdentifier));
 	symbols.insert(Gura_UserSymbol(AuthenticationCode));
@@ -230,7 +235,7 @@ bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal &sig, Symbo
 	return true;
 }
 
-Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF &gif = _pObjContent->GetGIF();
@@ -1074,8 +1079,9 @@ Object *Object_content::Clone() const
 	return nullptr;
 }
 
-bool Object_content::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(images));
 	symbols.insert(Gura_UserSymbol(Header));
@@ -1086,7 +1092,7 @@ bool Object_content::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_content::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GIF::Extensions &exts = _gif.GetExtensions();
@@ -1214,8 +1220,9 @@ Object *Object_GraphicControl::Clone() const
 	return nullptr;
 }
 
-bool Object_GraphicControl::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_GraphicControl::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(DisposalMethod));
 	symbols.insert(Gura_UserSymbol(UserInputFlag));
@@ -1225,7 +1232,7 @@ bool Object_GraphicControl::DoDirProp(Environment &env, Signal &sig, SymbolSet &
 	return true;
 }
 
-Value Object_GraphicControl::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_GraphicControl::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1269,8 +1276,9 @@ Object *Object_ImageDescriptor::Clone() const
 	return nullptr;
 }
 
-bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ImageLeftPosition));
 	symbols.insert(Gura_UserSymbol(ImageTopPosition));
@@ -1283,7 +1291,7 @@ bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal &sig, SymbolSet 
 	return true;
 }
 
-Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1333,15 +1341,16 @@ Object *Object_imgprop::Clone() const
 	return nullptr;
 }
 
-bool Object_imgprop::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_imgprop::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(GraphicControl));
 	symbols.insert(Gura_UserSymbol(ImageDescriptor));
 	return true;
 }
 
-Value Object_imgprop::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_imgprop::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

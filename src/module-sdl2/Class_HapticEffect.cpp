@@ -20,7 +20,7 @@ String Object_HapticEffect::ToString(bool exprFlag)
 	return String("<sdl2.HapticEffect>");
 }
 
-bool Object_HapticEffect::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_HapticEffect::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
 	Uint16 type = _pHapticEffect->type;
 	if (type == SDL_HAPTIC_CONSTANT) {
@@ -46,7 +46,7 @@ bool Object_HapticEffect::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_HapticEffect::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_HapticEffect::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -75,7 +75,7 @@ Value Object_HapticEffect::DoGetProp(Environment &env, Signal &sig, const Symbol
 	return Value::Null;
 }
 
-Value Object_HapticEffect::DoSetProp(Environment &env, Signal &sig,
+Value Object_HapticEffect::DoSetProp(Environment &env, Signal &__to_delete__,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

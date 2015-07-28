@@ -27,8 +27,9 @@ Iterator *Object_palette::CreateIterator(Signal &sig)
 	return new Palette::IteratorEach(Palette::Reference(GetPalette()));
 }
 
-Value Object_palette::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_palette::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number");
 		return Value::Null;
@@ -41,8 +42,9 @@ Value Object_palette::IndexGet(Environment &env, Signal &sig, const Value &value
 	return _pPalette->GetColorValue(env, idx);
 }
 
-void Object_palette::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
+void Object_palette::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number");
 		return;
@@ -253,8 +255,9 @@ void Class_palette::Prepare(Environment &env)
 	Gura_AssignMethod(palette, updateby);
 }
 
-bool Class_palette::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_palette::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
 		AutoPtr<Palette> pPalette(new Palette());
 		if (!pPalette->Prepare(sig, value.GetSymbol())) return false;
@@ -264,7 +267,7 @@ bool Class_palette::CastFrom(Environment &env, Signal &sig, Value &value, const 
 	return false;
 }
 
-Object *Class_palette::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_palette::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

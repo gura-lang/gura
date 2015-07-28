@@ -16,8 +16,8 @@ class GURA_DLLDECLARE Class_stream : public Class {
 public:
 	Class_stream(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -51,8 +51,8 @@ public:
 						Object(pClass), _pStream(pStream) {}
 	inline Stream &GetStream() { return *_pStream; }
 	virtual Iterator *CreateIterator(Signal &sig);
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };

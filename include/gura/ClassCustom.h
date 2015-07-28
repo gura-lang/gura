@@ -33,11 +33,11 @@ public:
 				ValueType valType, Expr_Block *pExprContent);
 	virtual ~ClassCustom();
 	virtual bool IsCustom() const;
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 	Function *PrepareConstructor(Environment &env, Signal &sig);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual bool CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl);
-	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual bool CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl);
+	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
 	virtual bool Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_u(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;

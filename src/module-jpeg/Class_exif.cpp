@@ -24,14 +24,16 @@ Object *Object_exif::Clone() const
 	return nullptr;
 }
 
-Value Object_exif::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_exif::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
 }
 
-bool Object_exif::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_exif::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	if (_pObj0thIFD.IsNull()) return true;
 	symbols.insert(Gura_UserSymbol(endian));
@@ -42,9 +44,10 @@ bool Object_exif::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return _pObj0thIFD->DoDirProp(env, sig, symbols);
 }
 
-Value Object_exif::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_exif::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {

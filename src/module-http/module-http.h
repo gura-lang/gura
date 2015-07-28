@@ -193,7 +193,7 @@ public:
 	bool GetField(const char *fieldName, StringList **ppStringList) const;
 	Value GetField(Environment &env, Signal &sig, const char *fieldName, bool signalFlag) const;
 	Value GetFieldNames(Environment &env, Signal &sig) const;
-	Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const;
+	Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx) const;
 	bool GetTimeField(Environment &env, Signal &sig, const Symbol *pSymbol, Value &value) const;
 	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = nullptr) const;
 	inline static void SetError_InvalidFormat(Signal &sig) {
@@ -447,10 +447,10 @@ public:
 				Object(obj), _header(obj._header) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
 	virtual String ToString(bool exprFlag);
 	Header &GetHeader() { return _header; }
 };
@@ -470,10 +470,10 @@ public:
 	inline Object_request(Object_session *pObjSession) :
 			Object(Gura_UserClass(request)), _pObjSession(pObjSession) {}
 	virtual ~Object_request();
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	bool SendResponse(Signal &sig,
@@ -499,10 +499,10 @@ public:
 	inline Object_response(Object_client *pObjClient) :
 			Object(Gura_UserClass(response)), _pObjClient(pObjClient) {}
 	virtual ~Object_response();
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
+	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline Object_client *GetClientObj() { return _pObjClient.get(); }
@@ -537,8 +537,8 @@ public:
 		_localIP(localIP), _localHost(localHost), _dateTime(dateTime) {}
 	inline Object_session(const Object_session &obj) : Object(obj) {}
 	virtual ~Object_session();
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -572,8 +572,8 @@ public:
 	Object_server();
 	virtual ~Object_server();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	bool Prepare(Signal &sig, const char *addr, short port);

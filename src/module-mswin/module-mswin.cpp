@@ -470,8 +470,9 @@ Iterator *Object_ole::CreateIterator(Signal &sig)
 	return pIterator;
 }
 
-bool Object_ole::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_ole::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	HRESULT hr;
 	//hr = _pDispatch->GetTypeInfoCount(&cnt); // 0 or 1
@@ -562,9 +563,10 @@ bool Object_ole::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ole::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_ole::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	DISPID dispid;
 	do {
 		HRESULT hr = GetDispID(pSymbol->GetName(), dispid);
@@ -590,9 +592,10 @@ Value Object_ole::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol
 	return result;
 }
 
-Value Object_ole::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_ole::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	DISPID dispid;
 	do {

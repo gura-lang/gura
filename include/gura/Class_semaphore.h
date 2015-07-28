@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_semaphore : public Class {
 public:
 	Class_semaphore(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------

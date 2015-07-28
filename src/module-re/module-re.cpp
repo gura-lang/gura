@@ -237,15 +237,17 @@ Object *Object_match::Clone() const
 	return new Object_match(*this);
 }
 
-Value Object_match::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_match::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	const Group *pGroup = GetGroup(sig, valueIdx);
 	if (pGroup == nullptr) return Value::Null;
 	return Value(pGroup->GetString());
 }
 
-bool Object_match::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_match::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(string));
@@ -254,7 +256,7 @@ bool Object_match::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_match::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_match::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -383,7 +385,7 @@ Gura_DeclareMethod(match, group)
 		"Below is an example:\n"
 		"\n"
 		"    str = '12:34:56'\n"
-		"    m = str.match(r'(\d\d):(\d\d):(\d\d)')\n"
+		"    m = str.match(r'(\\d\\d):(\\d\\d):(\\d\\d)')\n"
 		"    m.group(0).string // returns the whole region of matching: 12:34:56\n"
 		"    m.group(1).string // returns the 1st group: 12\n"
 		"    m.group(2).string // returns the 2nd group: 34\n"
@@ -395,7 +397,7 @@ Gura_DeclareMethod(match, group)
 		"Below is an example:\n"
 		"\n"
 		"    str = '12:34:56'\n"
-		"    m = str.match(r'(?<hour>\d\d):(?<min>\d\d):(?<sec>\d\d)')\n"
+		"    m = str.match(r'(?<hour>\\d\\d):(?<min>\\d\\d):(?<sec>\\d\\d)')\n"
 		"    m.group('hour').string // returns the group named 'hour': 12\n"
 		"    m.group('min').string  // returns the group named 'min': 34\n"
 		"    m.group('sec').string  // returns the group named 'sec': 56\n");
@@ -450,8 +452,9 @@ Object *Object_group::Clone() const
 	return new Object_group(*this);
 }
 
-bool Object_group::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_group::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(begin));
@@ -459,7 +462,7 @@ bool Object_group::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_group::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_group::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -661,6 +664,7 @@ Gura_ImplementUserClassWithCast(pattern)
 
 Gura_ImplementCastFrom(pattern)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_string()) {
 		Object_pattern *pObjPattern = new Object_pattern();
 		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Null)) {

@@ -22,8 +22,9 @@ Object *Object_datetime::Clone() const
 	return new Object_datetime(*this);
 }
 
-bool Object_datetime::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_datetime::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(year));
 	symbols.insert(Gura_Symbol(month));
@@ -39,7 +40,7 @@ bool Object_datetime::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_datetime::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_datetime::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -80,9 +81,10 @@ Value Object_datetime::DoGetProp(Environment &env, Signal &sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_datetime::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_datetime::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(year))) {
 		long num = value.GetLong();
@@ -547,7 +549,7 @@ void Class_datetime::Prepare(Environment &env)
 	Gura_AssignMethod(datetime, weekday);
 }
 
-Object *Class_datetime::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_datetime::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

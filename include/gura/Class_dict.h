@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
 };
@@ -85,8 +85,8 @@ public:
 	inline ValueDict &GetDict() { return *_pValDict; }
 	inline const ValueDict &GetDict() const { return *_pValDict; }
 	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
-	virtual Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
+	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	const Value *Find(Signal &sig, const Value &valueIdx) const;

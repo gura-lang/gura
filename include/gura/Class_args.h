@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_args : public Class {
 public:
 	Class_args(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -33,8 +33,8 @@ public:
 	inline Object_args(Class *pClass, Args *pArgs) :
 					Object(pClass), _pArgs(pArgs) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Args *GetArgs() { return _pArgs.get(); }

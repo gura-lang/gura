@@ -23,8 +23,9 @@ Object *Object_help::Clone() const
 	return nullptr; //new Object_help(*this);
 }
 
-bool Object_help::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_help::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(lang));
@@ -32,7 +33,7 @@ bool Object_help::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_help::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_help::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -47,9 +48,10 @@ Value Object_help::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_help::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_help::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 

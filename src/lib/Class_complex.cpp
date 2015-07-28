@@ -122,7 +122,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(j);
 }
 
-Value Class_complex::GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
+Value Class_complex::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -148,7 +148,7 @@ Value Class_complex::GetPropPrimitive(Environment &env, Signal &sig, const Value
 	return Value::Null;
 }
 
-bool Class_complex::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_complex::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to complex
 		return true;
@@ -164,16 +164,18 @@ bool Class_complex::CastFrom(Environment &env, Signal &sig, Value &value, const 
 	return false;
 }
 
-bool Class_complex::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_complex::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	const Complex *pComp = value.GetComplexPtr();
 	if (!stream.SerializeDouble(sig, pComp->real())) return false;
 	if (!stream.SerializeDouble(sig, pComp->imag())) return false;
 	return true;
 }
 
-bool Class_complex::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	double re = 0, im = 0;
 	if (!stream.DeserializeDouble(sig, re)) return false;
 	if (!stream.DeserializeDouble(sig, im)) return false;
@@ -181,8 +183,9 @@ bool Class_complex::Deserialize(Environment &env, Signal &sig, Stream &stream, V
 	return true;
 }
 
-bool Class_complex::Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_e(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	char buff[128];
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_e(flags,
@@ -195,8 +198,9 @@ bool Class_complex::Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flag
 	return true;
 }
 
-bool Class_complex::Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_f(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	char buff[128];
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_f(flags,
@@ -209,8 +213,9 @@ bool Class_complex::Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flag
 	return true;
 }
 
-bool Class_complex::Format_g(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_g(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	char buff[128];
 	const Complex &num = value.GetComplex();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_g(flags,

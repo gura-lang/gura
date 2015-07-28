@@ -88,7 +88,7 @@ void Class_rational::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(r);
 }
 
-Value Class_rational::GetPropPrimitive(Environment &env, Signal &sig, const Value &valueThis,
+Value Class_rational::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -103,7 +103,7 @@ Value Class_rational::GetPropPrimitive(Environment &env, Signal &sig, const Valu
 	return Value::Null;
 }
 
-bool Class_rational::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_rational::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to rational
 		return true;
@@ -111,16 +111,18 @@ bool Class_rational::CastFrom(Environment &env, Signal &sig, Value &value, const
 	return false;
 }
 
-bool Class_rational::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_rational::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	const Rational *pRatio = value.GetRationalPtr();
 	if (!stream.SerializeDouble(sig, pRatio->numer)) return false;
 	if (!stream.SerializeDouble(sig, pRatio->denom)) return false;
 	return true;
 }
 
-bool Class_rational::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_rational::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	double numer = 0, denom = 0;
 	if (!stream.DeserializeDouble(sig, numer)) return false;
 	if (!stream.DeserializeDouble(sig, denom)) return false;
@@ -132,8 +134,9 @@ bool Class_rational::Deserialize(Environment &env, Signal &sig, Stream &stream, 
 	return true;
 }
 
-bool Class_rational::Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_rational::Format_d(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	char buff[128];
 	const Rational &num = value.GetRational();
 	if (!pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,

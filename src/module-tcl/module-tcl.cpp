@@ -476,8 +476,9 @@ String Object_variable::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_variable::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_variable::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(boolean));
 	symbols.insert(Gura_Symbol(string));
@@ -485,9 +486,10 @@ bool Object_variable::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_variable::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_variable::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -531,9 +533,10 @@ Value Object_variable::DoGetProp(Environment &env, Signal &sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_variable::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_variable::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Set(env, sig, value);
 		if (sig.IsSignalled()) return Value::Null;

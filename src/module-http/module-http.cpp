@@ -204,6 +204,9 @@ bool Chunk::ParseChar(Signal &sig, char ch)
 		}
 		break;
 	}
+	case STAT_Complete: {
+		break;
+	}
 	}
 	Gura_EndPushbackRegion();
 	return true;
@@ -614,8 +617,9 @@ Value Header::GetFieldNames(Environment &env, Signal &sig) const
 	return valueRtn;
 }
 
-Value Header::IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const
+Value Header::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx) const
 {
+	Signal &sig = env.GetSignal();
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_KeyError, "index must be a string");
 		return Value::Null;
@@ -1178,7 +1182,7 @@ size_t Stream_Chunked::DoRead(Signal &sig, void *buff, size_t bytes)
 size_t Stream_Chunked::DoWrite(Signal &sig, const void *buff, size_t bytes)
 {
 	char buffChunkSep[32];
-	::sprintf(buffChunkSep, "%x\r\n", bytes);
+	::sprintf(buffChunkSep, "%zx\r\n", bytes);
 	_pStream->Write(sig, buffChunkSep, ::strlen(buffChunkSep));
 	_pStream->Write(sig, buff, bytes);
 	return bytes;
@@ -1369,16 +1373,18 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	Value value;
 	if (_header.GetTimeField(env, sig, pSymbol, value)) {
@@ -1388,8 +1394,9 @@ Value Object_stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_stat::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_stat::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	return _header.IndexGet(env, sig, valueIdx);
 }
 
@@ -1433,8 +1440,9 @@ Object_session::~Object_session()
 	if (_sock >= 0) ::closesocket(_sock);
 }
 
-bool Object_session::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_session::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(server));
 	symbols.insert(Gura_UserSymbol(remote_ip));
@@ -1446,7 +1454,7 @@ bool Object_session::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_session::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_session::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1527,8 +1535,9 @@ Object_request::~Object_request()
 {
 }
 
-bool Object_request::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_request::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(session));
 	symbols.insert(Gura_UserSymbol(method));
@@ -1544,9 +1553,10 @@ bool Object_request::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_request::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_request::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	Request &request = _pObjSession->GetRequest();
 	Header &header = request.GetHeader();
@@ -1599,8 +1609,9 @@ Value Object_request::DoGetProp(Environment &env, Signal &sig, const Symbol *pSy
 	return Value::Null;
 }
 
-Value Object_request::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_request::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	Request &request = _pObjSession->GetRequest();
 	return request.GetHeader().IndexGet(env, sig, valueIdx);
 }
@@ -1765,8 +1776,9 @@ Object_response::~Object_response()
 {
 }
 
-bool Object_response::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_response::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
 	symbols.insert(Gura_UserSymbol(code));
@@ -1776,9 +1788,10 @@ bool Object_response::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_response::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_response::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	Status &status = _pObjClient->GetStatus();
 	Header &header = status.GetHeader();
@@ -1802,8 +1815,9 @@ Value Object_response::DoGetProp(Environment &env, Signal &sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_response::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_response::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	Status &status = _pObjClient->GetStatus();
 	return status.GetHeader().IndexGet(env, sig, valueIdx);
 }
@@ -1877,14 +1891,15 @@ Object *Object_server::Clone() const
 	return nullptr; //new Object_server(*this);
 }
 
-bool Object_server::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_server::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(sessions));
 	return true;
 }
 
-Value Object_server::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_server::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

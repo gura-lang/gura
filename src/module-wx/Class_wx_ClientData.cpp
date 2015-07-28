@@ -91,14 +91,15 @@ Object *Object_wx_ClientData::Clone() const
 	return nullptr;
 }
 
-bool Object_wx_ClientData::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_wx_ClientData::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(value));
 	return true;
 }
 
-Value Object_wx_ClientData::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_wx_ClientData::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
@@ -108,7 +109,7 @@ Value Object_wx_ClientData::DoGetProp(Environment &env, Signal &sig, const Symbo
 	return Value::Null;
 }
 
-Value Object_wx_ClientData::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_wx_ClientData::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {

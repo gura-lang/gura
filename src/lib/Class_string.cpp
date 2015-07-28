@@ -978,9 +978,10 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForString($);
 }
 
-Value Class_string::IndexGetPrimitive(Environment &env, Signal &sig,
+Value Class_string::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
 						const Value &valueThis, const Value &valueIdx) const
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for string");
 		return Value::Null;
@@ -1002,26 +1003,29 @@ Value Class_string::IndexGetPrimitive(Environment &env, Signal &sig,
 	}
 }
 
-bool Class_string::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_string::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	value = Value(value.ToString(false));
 	return !sig.IsSignalled();
 }
 
-bool Class_string::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_string::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_string::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	String str;
 	if (!stream.DeserializeString(sig, str)) return false;
 	value = Value(str);
 	return true;
 }
 
-Object *Class_string::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_string::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return nullptr;
 }

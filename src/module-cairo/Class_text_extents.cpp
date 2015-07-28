@@ -14,8 +14,9 @@ Object *Object_text_extents::Clone() const
 	return nullptr;
 }
 
-bool Object_text_extents::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_text_extents::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(x_bearing));
 	symbols.insert(Gura_UserSymbol(y_bearing));
@@ -26,7 +27,7 @@ bool Object_text_extents::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_text_extents::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_text_extents::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

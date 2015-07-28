@@ -36,8 +36,9 @@ Object *Object_Stat::Clone() const
 	return new Object_Stat(*this);
 }
 
-bool Object_Stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_Stat::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(pathname));
 	symbols.insert(Gura_UserSymbol(dirname));
@@ -58,7 +59,7 @@ bool Object_Stat::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Stat::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_Stat::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

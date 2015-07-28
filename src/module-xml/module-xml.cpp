@@ -885,15 +885,16 @@ Object_attribute::Object_attribute(Attribute *pAttribute) :
 {
 }
 
-bool Object_attribute::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_attribute::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value Object_attribute::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_attribute::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -934,8 +935,9 @@ Object_element::Object_element(Element *pElement) :
 {
 }
 
-Value Object_element::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_element::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_ValueError, "index must be a string");
 		return Value::Null;
@@ -950,8 +952,9 @@ Value Object_element::IndexGet(Environment &env, Signal &sig, const Value &value
 	return Value(pAttribute->GetValue());
 }
 
-bool Object_element::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_element::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(tagname));
 	symbols.insert(Gura_UserSymbol(text));
@@ -961,7 +964,7 @@ bool Object_element::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols
 	return true;
 }
 
-Value Object_element::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_element::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1117,8 +1120,9 @@ Object_document::Object_document(Document *pDocument) :
 {
 }
 
-bool Object_document::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_document::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
 	symbols.insert(Gura_UserSymbol(encoding));
@@ -1126,7 +1130,7 @@ bool Object_document::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbol
 	return true;
 }
 
-Value Object_document::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_document::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1142,9 +1146,10 @@ Value Object_document::DoGetProp(Environment &env, Signal &sig, const Symbol *pS
 	return Value::Null;
 }
 
-Value Object_document::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_document::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
 		if (!value.IsInstanceOf(VTYPE_element)) {

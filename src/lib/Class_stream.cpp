@@ -8,8 +8,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-bool Object_stream::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_stream::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(stat));
 	symbols.insert(Gura_Symbol(name));
@@ -20,9 +21,10 @@ bool Object_stream::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stream::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_stream::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(stat))) {
 		Object *pObj = GetStream().GetStatObj(sig);
@@ -867,8 +869,9 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, write);
 }
 
-bool Class_stream::CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl)
+bool Class_stream::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 {
+	Signal &sig = GetSignal();
 	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
 		if (pDecl != nullptr) {
@@ -891,7 +894,7 @@ bool Class_stream::CastFrom(Environment &env, Signal &sig, Value &value, const D
 	return false;
 }
 
-Object *Class_stream::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_stream::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return nullptr;
 }

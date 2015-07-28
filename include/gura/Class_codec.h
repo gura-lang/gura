@@ -16,8 +16,8 @@ class GURA_DLLDECLARE Class_codec : public Class {
 public:
 	Class_codec(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------

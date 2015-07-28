@@ -16,7 +16,7 @@ class GURA_DLLDECLARE Class_formatter : public Class {
 public:
 	Class_formatter(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_formatter : public Object {
@@ -32,8 +32,8 @@ public:
 	Object_formatter(const Object_formatter &obj);
 	virtual ~Object_formatter();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const Formatter::Flags &GetFlags() const { return _flags; }

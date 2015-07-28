@@ -389,11 +389,11 @@ public:
 	const Expr *GetExpr() const;
 	//-----------------------
 	bool Is(const Value &value) const;
-	Value EmptyIndexGet(Environment &env, Signal &sig) const;
+	Value EmptyIndexGet(Environment &env, Signal &__to_delete__) const;
 	void EmptyIndexSet(Environment &env, Signal &sig, const Value &value);
-	Value IndexGet(Environment &env, Signal &sig, const Value &valueIdx) const;
+	Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx) const;
 	void IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value);
-	bool DirProp(Environment &env, Signal &sig, SymbolSet &symbols, bool escalateFlag);
+	bool DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols, bool escalateFlag);
 	void DirValueType(SymbolSet &symbols, bool escalateFlag);
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
@@ -454,8 +454,8 @@ public:
 	static Value CreateList(Environment &env, const float *buff, size_t n);
 	static Value CreateList(Environment &env, const double *buff, size_t n);
 	static Value CreateList(Environment &env, const char *strs[], size_t n);
-	static bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value);
-	static bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value, bool mustBeValidFlag);
+	static bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value);
+	static bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value, bool mustBeValidFlag);
 public:
 	friend void Gura_CopyValue(Value &valueDst, const Value &valueSrc);
 	friend void Gura_ReleaseValue(Value &value);
@@ -521,7 +521,7 @@ public:
 	bool ToStringList(Signal &sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal &sig,
 					const ValueList &valList1, const ValueList &valList2);
-	bool Serialize(Environment &env, Signal &sig, Stream &stream) const;
+	bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream) const;
 	bool Deserialize(Environment &env, Signal &sig, Stream &stream);
 };
 
@@ -588,7 +588,7 @@ public:
 	bool Store(Signal &sig, const ValueDict &valDict, StoreMode storeMode);
 	bool Store(Signal &sig, const Value &valueIdx, const Value &value, StoreMode storeMode);
 	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
-	bool Serialize(Environment &env, Signal &sig, Stream &stream) const;
+	bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream) const;
 	bool Deserialize(Environment &env, Signal &sig, Stream &stream);
 };
 

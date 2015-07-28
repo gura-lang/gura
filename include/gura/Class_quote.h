@@ -15,8 +15,8 @@ class GURA_DLLDECLARE Class_quote : public Class {
 public:
 	Class_quote(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const;
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
 };
 

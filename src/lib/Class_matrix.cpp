@@ -27,8 +27,9 @@ Object *Object_matrix::Clone() const
 	return new Object_matrix(*this);
 }
 
-Value Object_matrix::EmptyIndexGet(Environment &env, Signal &sig)
+Value Object_matrix::EmptyIndexGet(Environment &env, Signal &__to_delete__)
 {
+	Signal &sig = GetSignal();
 	if (_pMat->GetIndexForColFlag()) {
 		sig.SetError(ERR_IndexError, "only one empty index should be applied");
 		return Value::Null;
@@ -40,8 +41,9 @@ Value Object_matrix::EmptyIndexGet(Environment &env, Signal &sig)
 	return Value(new Object_matrix(env, pMat.release()));
 }
 
-Value Object_matrix::IndexGet(Environment &env, Signal &sig, const Value &valueIdx)
+Value Object_matrix::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return Value::Null;
@@ -86,8 +88,9 @@ Value Object_matrix::IndexGet(Environment &env, Signal &sig, const Value &valueI
 	}
 }
 
-void Object_matrix::IndexSet(Environment &env, Signal &sig, const Value &valueIdx, const Value &value)
+void Object_matrix::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
 {
+	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return;
@@ -800,8 +803,9 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, transpose);
 }
 
-bool Class_matrix::Serialize(Environment &env, Signal &sig, Stream &stream, const Value &value) const
+bool Class_matrix::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
 {
+	Signal &sig = GetSignal();
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
 	if (!pMat->GetList().Serialize(env, sig, stream)) return false;
@@ -814,8 +818,9 @@ bool Class_matrix::Serialize(Environment &env, Signal &sig, Stream &stream, cons
 	return true;
 }
 
-bool Class_matrix::Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const
+bool Class_matrix::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
 {
+	Signal &sig = GetSignal();
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
 	if (!pElements->GetList().Deserialize(env, sig, stream)) return false;
 	ULong iRowOff = 0, iColOff = 0;
@@ -841,7 +846,7 @@ bool Class_matrix::Deserialize(Environment &env, Signal &sig, Stream &stream, Va
 	return true;
 }
 
-Object *Class_matrix::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_matrix::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return nullptr;
 }

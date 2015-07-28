@@ -655,6 +655,7 @@ Gura_ImplementUserClassWithCast(pattern)
 
 Gura_ImplementCastFrom(pattern)
 {
+	Signal &sig = GetSignal();
 	Value valueCast(value);
 	env.LookupClass(VTYPE_surface)->CastFrom(env, sig, valueCast, pDecl);
 	if (valueCast.GetValueType() == VTYPE_surface) {

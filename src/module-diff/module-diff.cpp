@@ -625,8 +625,9 @@ Object *Object_diff_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_diff_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_diff_at_line::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
 	symbols.insert(Gura_UserSymbol(edits));
@@ -635,7 +636,7 @@ bool Object_diff_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_diff_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_diff_at_line::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -769,8 +770,9 @@ Object *Object_hunk_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_hunk_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_hunk_at_line::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
 	symbols.insert(Gura_UserSymbol(type));
@@ -782,7 +784,7 @@ bool Object_hunk_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_hunk_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_hunk_at_line::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -867,8 +869,9 @@ Object *Object_edit_at_line::Clone() const
 	return nullptr;
 }
 
-bool Object_edit_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_edit_at_line::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(mark_at_normal));
@@ -881,7 +884,7 @@ bool Object_edit_at_line::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_edit_at_line::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_edit_at_line::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const DiffLine::Edit &edit = _pDiffLine->GetEdit(_idxEdit);
@@ -968,8 +971,9 @@ Object *Object_diff_at_char::Clone() const
 	return nullptr;
 }
 
-bool Object_diff_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_diff_at_char::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(distance));
 	symbols.insert(Gura_UserSymbol(edits));
@@ -978,7 +982,7 @@ bool Object_diff_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_diff_at_char::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_diff_at_char::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1028,8 +1032,9 @@ Object *Object_edit_at_char::Clone() const
 	return nullptr;
 }
 
-bool Object_edit_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_edit_at_char::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(mark_at_normal));
@@ -1040,7 +1045,7 @@ bool Object_edit_at_char::DoDirProp(Environment &env, Signal &sig, SymbolSet &sy
 	return true;
 }
 
-Value Object_edit_at_char::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_edit_at_char::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1096,15 +1101,16 @@ Object *Object_sync::Clone() const
 	return nullptr;
 }
 
-bool Object_sync::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_sync::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(synclines_at_org));
 	symbols.insert(Gura_UserSymbol(synclines_at_new));
 	return true;
 }
 
-Value Object_sync::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_sync::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1142,14 +1148,15 @@ Object *Object_syncline::Clone() const
 	return nullptr;
 }
 
-bool Object_syncline::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_syncline::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(edits));
 	return true;
 }
 
-Value Object_syncline::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_syncline::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

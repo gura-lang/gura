@@ -22,8 +22,9 @@ Object *Object_timedelta::Clone() const
 	return new Object_timedelta(*this);
 }
 
-bool Object_timedelta::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_timedelta::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(days));
 	symbols.insert(Gura_Symbol(secs));
@@ -31,7 +32,7 @@ bool Object_timedelta::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbo
 	return true;
 }
 
-Value Object_timedelta::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_timedelta::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -46,9 +47,10 @@ Value Object_timedelta::DoGetProp(Environment &env, Signal &sig, const Symbol *p
 	return Value::Null;
 }
 
-Value Object_timedelta::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_timedelta::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(days))) {
 		_timeDelta = TimeDelta(value.GetLong(), _timeDelta.GetSecs(), _timeDelta.GetUSecs());
@@ -111,7 +113,7 @@ void Class_timedelta::Prepare(Environment &env)
 	Gura_AssignFunction(timedelta);
 }
 
-Object *Class_timedelta::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_timedelta::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

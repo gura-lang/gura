@@ -34,8 +34,9 @@ String Object_Face::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_Face::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
+bool Object_Face::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
 {
+	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(num_faces));
 	symbols.insert(Gura_UserSymbol(face_index));
@@ -55,7 +56,7 @@ bool Object_Face::DoDirProp(Environment &env, Signal &sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Face::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Object_Face::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -142,9 +143,10 @@ Value Object_Face::DoGetProp(Environment &env, Signal &sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-Value Object_Face::DoSetProp(Environment &env, Signal &sig, const Symbol *pSymbol, const Value &value,
+Value Object_Face::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
@@ -442,6 +444,7 @@ Gura_ImplementUserClassWithCast(Face)
 
 Gura_ImplementCastFrom(Face)
 {
+	Signal &sig = GetSignal();
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.Is_stream()) {
 		int index = 0;

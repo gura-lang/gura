@@ -170,7 +170,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, unpacks);
 }
 
-Object *Class_pointer::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_pointer::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 {
 	return nullptr;
 }
