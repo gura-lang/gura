@@ -16,8 +16,8 @@ public:
 	Class_dict(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
 	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_dict : public Object {

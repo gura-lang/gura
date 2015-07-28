@@ -543,8 +543,9 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 	}
 }
 
-int Value::Compare(Environment &env, Signal &sig, const Value &value1, const Value &value2)
+int Value::Compare(Environment &env, const Value &value1, const Value &value2)
 {
+	Signal &sig = env.GetSignal();
 	if (value1.IsInvalid() && value2.IsInvalid()) return 0;
 	const OperatorEntry *pOperatorEntry = env.GetOperator(OPTYPE_Cmp)->
 						Lookup(value1.GetValueType(), value2.GetValueType());
@@ -661,8 +662,9 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 	return pObj->GetDict();
 }
 
-bool Value::CastType(Environment &env, Signal &sig, ValueType valType, Value &valueCasted) const
+bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) const
 {
+	Signal &sig = env.GetSignal();
 	valueCasted = *this;
 	if (IsType(valType)) return true;
 	AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(nil), valType));
@@ -897,7 +899,7 @@ bool ValueList::IsFlat() const
 bool ValueList::DoesContain(Environment &env, Signal &sig, const Value &value) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		int rtn = Value::Compare(env, sig, *pValue, value);
+		int rtn = Value::Compare(env, *pValue, value);
 		if (sig.IsSignalled()) return false;
 		if (rtn == 0) return true;
 	}

@@ -71,10 +71,10 @@ void Class_##name::Prepare(Environment &env)
 bool Class_##name::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
 
 #define Gura_ImplementCastTo(name) \
-bool Class_##name::CastTo(Environment &env, Signal &sig, Value &value, const Declaration &decl)
+bool Class_##name::CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl)
 
 #define Gura_ImplementDescendantCreator(name) \
-Object *Class_##name::CreateDescendant(Environment &env, Signal &sig, Class *pClass)
+Object *Class_##name::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
 
 #define Gura_RealizeUserClassAlias(name, str, pClassBase) do { \
 	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
@@ -207,24 +207,24 @@ public:
 	bool DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols, bool escalateFlag);
 	virtual Value GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
-	virtual Value EmptyIndexGetPrimitive(Environment &env, Signal &sig, const Value &valueThis) const;
-	virtual Value IndexGetPrimitive(Environment &env, Signal &sig,
+	virtual Value EmptyIndexGetPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis) const;
+	virtual Value IndexGetPrimitive(Environment &env, Signal &__to_delete__,
 									const Value &valueThis, const Value &valueIdx) const;
-	virtual bool CastFrom(Environment &env, Signal &sig, Value &value, const Declaration *pDecl);
+	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
 	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
-	virtual bool Format_d(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_u(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_b(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_o(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_x(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_g(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_s(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_c(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	bool BuildContent(Environment &env, Signal &sig, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 };

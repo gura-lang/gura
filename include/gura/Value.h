@@ -422,9 +422,9 @@ public:
 	ValueList &InitAsList(Environment &env, const ValueList &valList);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
-	bool CastType(Environment &env, Signal &sig, ValueType valType, Value &valueCasted) const;
+	bool CastType(Environment &env, ValueType valType, Value &valueCasted) const;
 public:
-	static int Compare(Environment &env, Signal &sig, const Value &value1, const Value &value2);
+	static int Compare(Environment &env, const Value &value1, const Value &value2);
 	static int CompareBoolean(bool flag1, bool flag2);
 	static int CompareComplex(const Complex &comp1, const Complex &comp2);
 	static int CompareNumber(Number num1, Number num2);

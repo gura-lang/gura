@@ -160,7 +160,7 @@ Value Iterator::MinMax(Environment &env, Signal &sig,
 		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, valueHit, value);
+			int cmp = Value::Compare(env, valueHit, value);
 			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
@@ -174,7 +174,7 @@ Value Iterator::MinMax(Environment &env, Signal &sig,
 		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, valueHit, value);
+			int cmp = Value::Compare(env, valueHit, value);
 			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp >= 0) {
@@ -190,7 +190,7 @@ Value Iterator::MinMax(Environment &env, Signal &sig,
 		resultList.push_back(Value(idxHit));
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, valueHit, value);
+			int cmp = Value::Compare(env, valueHit, value);
 			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
@@ -207,7 +207,7 @@ Value Iterator::MinMax(Environment &env, Signal &sig,
 	} else {
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, valueHit, value);
+			int cmp = Value::Compare(env, valueHit, value);
 			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
@@ -454,7 +454,7 @@ size_t Iterator::Find(Environment &env, Signal &sig, const Value &criteria, Valu
 		return InvalidSize;
 	} else {
 		while (Next(env, sig, value)) {
-			//int cmp = Value::Compare(env, sig, value, criteria);
+			//int cmp = Value::Compare(env, value, criteria);
 			//if (sig.IsSignalled()) return InvalidSize;
 			//if (cmp == 0) return GetIndexCur();
 			if (value.Is(criteria)) return GetIndexCur();
@@ -496,7 +496,7 @@ size_t Iterator::Count(Environment &env, Signal &sig, const Value &criteria)
 	} else {
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, value, criteria);
+			int cmp = Value::Compare(env, value, criteria);
 			if (sig.IsSignalled()) return 0;
 			if (cmp == 0) cnt++;
 		}
@@ -592,7 +592,7 @@ bool Iterator::DoesContain(Environment &env, Signal &sig, const Value &value)
 	}
 	Value valueToFind;
 	while (Next(env, sig, valueToFind)) {
-		int cmp = Value::Compare(env, sig, value, valueToFind);
+		int cmp = Value::Compare(env, value, valueToFind);
 		if (sig.IsSignalled()) return false;
 		if (cmp == 0) return true;
 	}

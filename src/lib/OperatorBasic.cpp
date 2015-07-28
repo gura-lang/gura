@@ -1343,7 +1343,7 @@ ImplementArrayOperators(Pow)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Eq, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp == 0);
 }
@@ -1353,7 +1353,7 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ne, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp != 0);
 }
@@ -1363,7 +1363,7 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Gt, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp > 0);
 }
@@ -1373,7 +1373,7 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Lt, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp < 0);
 }
@@ -1383,7 +1383,7 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ge, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp >= 0);
 }
@@ -1393,7 +1393,7 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Le, any, any)
 {
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp <= 0);
 }
@@ -1477,7 +1477,7 @@ Gura_ImplementBinaryOperator(Cmp, list, list)
 	ValueList::const_iterator pValue1 = valList1.begin();
 	ValueList::const_iterator pValue2 = valList2.begin();
 	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
-		int cmp = Value::Compare(env, sig, *pValue1, *pValue2);
+		int cmp = Value::Compare(env, *pValue1, *pValue2);
 		if (sig.IsSignalled()) return Value::Null;
 		if (cmp < 0) return Value(-1);
 		if (cmp > 0) return Value(+1);
@@ -1526,7 +1526,7 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(foundFlag);
 	} else {
-		int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+		int cmp = Value::Compare(env, valueLeft, valueRight);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(cmp == 0);
 	}

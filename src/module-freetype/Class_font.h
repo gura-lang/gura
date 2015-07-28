@@ -56,7 +56,7 @@ public:
 	}
 	inline double GetRotate() const { return _rotate.deg; }
 	void ClearDeco();
-	bool CalcSize(Environment &env, Signal &sig, const String &str,
+	bool CalcSize(Environment &env, const String &str,
 					size_t &width, size_t &height, const Function *pFuncDeco);
 	bool DrawOnImage(Environment &env, Signal &sig, Image *pImage, int x, int y,
 					const String &str, const Function *pFuncDeco);

@@ -136,21 +136,21 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 	}
 	if (stableFlag) {
 		if (mode == MODE_Ascend) {
-			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env, sig));
+			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env));
 		} else if (mode == MODE_Descend) {
-			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env, sig));
+			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env));
 		} else { // mode == MODE_Custom
 			std::stable_sort(valPtrList.begin(), valPtrList.end(),
-											Comparator_Custom(env, sig, pFunc));
+											Comparator_Custom(env, pFunc));
 		}
 	} else {
 		if (mode == MODE_Ascend) {
-			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env, sig));
+			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env));
 		} else if (mode == MODE_Descend) {
-			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env, sig));
+			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env));
 		} else { // mode == MODE_Custom
 			std::sort(valPtrList.begin(), valPtrList.end(),
-											Comparator_Custom(env, sig, pFunc));
+											Comparator_Custom(env, pFunc));
 		}
 	}
 	Value result;
@@ -159,7 +159,7 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 		foreach_const (ValueList, pValue, valList) {
 			ValuePtrList::iterator ppValue = valPtrList.begin();
 			for ( ; ppValue != valPtrList.end(); ppValue++) {
-				int rtn = Value::Compare(env, sig, *pValue, **ppValue);
+				int rtn = Value::Compare(env, *pValue, **ppValue);
 				if (sig.IsSignalled()) return nullptr;
 				if (rtn == 0) break;
 			}
@@ -491,10 +491,11 @@ void Object_list::IteratorCombination::GatherFollower(Environment::Frame *pFrame
 bool Object_list::Comparator_Custom::
 				operator()(const Value *pValue1, const Value *pValue2) const
 {
-	if (_sig.IsSignalled()) return false;
+	Signal &sig = _env.GetSignal();
+	if (sig.IsSignalled()) return false;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValues(*pValue1, *pValue2);
-	Value value = _pFunc->Eval(_env, _sig, *pArgsSub);
+	Value value = _pFunc->Eval(_env, sig, *pArgsSub);
 	return value.GetNumber() < 0;
 }
 

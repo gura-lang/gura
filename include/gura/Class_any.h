@@ -17,7 +17,7 @@ public:
 	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const;
 };
 
 }

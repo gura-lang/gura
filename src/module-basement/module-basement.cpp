@@ -1931,7 +1931,7 @@ Gura_ImplementFunction(max)
 	ValueList::const_iterator pValue = valList.begin();
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
-		int cmp = Value::Compare(env, sig, result, *pValue);
+		int cmp = Value::Compare(env, result, *pValue);
 		if (sig.IsSignalled()) return Value::Null;
 		if (cmp < 0) result = *pValue;
 	}
@@ -1954,7 +1954,7 @@ Gura_ImplementFunction(min)
 	ValueList::const_iterator pValue = valList.begin();
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
-		int cmp = Value::Compare(env, sig, result, *pValue);
+		int cmp = Value::Compare(env, result, *pValue);
 		if (sig.IsSignalled()) return Value::Null;
 		if (cmp > 0) result = *pValue;
 	}

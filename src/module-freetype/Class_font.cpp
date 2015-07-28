@@ -67,7 +67,7 @@ Value Object_font::DoSetProp(Environment &env, Signal &__to_delete__, const Symb
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
 		Value valueCasted;
-		if (!value.CastType(env, sig, VTYPE_color, valueCasted)) {
+		if (!value.CastType(env, VTYPE_color, valueCasted)) {
 			sig.SetError(ERR_ValueError, "value must be color");
 			return Value::Null;
 		}
@@ -130,9 +130,10 @@ void Object_font::ClearDeco()
 	_rotate.cosNum = 1., _rotate.sinNum = 0.;
 }
 
-bool Object_font::CalcSize(Environment &env, Signal &sig, const String &str,
+bool Object_font::CalcSize(Environment &env, const String &str,
 					size_t &width, size_t &height, const Function *pFuncDeco)
 {
+	Signal &sig = env.GetSignal();
 	int xShifted = 0, yShifted = 0;
 	String::const_iterator p = str.begin();
 	int xMin = 0, xMax = 0, yMin = 0, yMax = 0;
@@ -469,7 +470,7 @@ Gura_ImplementMethod(font, calcsize)
 	Object_font *pThis = Object_font::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
-	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
+	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Null;
 	return Value::CreateList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
@@ -493,7 +494,7 @@ Gura_ImplementMethod(font, calcbbox)
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
 	size_t width, height;
-	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
+	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Null;
 	return Value::CreateList(env,
 			Value(x), Value(y - pThis->GetFace()->ascender / 4),
 			Value(width), Value(height));

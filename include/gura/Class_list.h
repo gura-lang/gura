@@ -17,8 +17,8 @@ public:
 	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal &sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal &sig, Class *pClass);
+	virtual bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -151,31 +151,28 @@ public:
 	class Comparator_Ascend {
 	private:
 		Environment &_env;
-		Signal &_sig;
 	public:
-		inline Comparator_Ascend(Environment &env, Signal &sig) : _env(env), _sig(sig) {}
+		inline Comparator_Ascend(Environment &env) : _env(env) {}
 		inline bool operator()(const Value *pValue1, const Value *pValue2) const {
-			return Value::Compare(_env, _sig, *pValue1, *pValue2) < 0;
+			return Value::Compare(_env, *pValue1, *pValue2) < 0;
 		}
 	};
 	class Comparator_Descend {
 	private:
 		Environment &_env;
-		Signal &_sig;
 	public:
-		inline Comparator_Descend(Environment &env, Signal &sig) : _env(env), _sig(sig) {}
+		inline Comparator_Descend(Environment &env) : _env(env) {}
 		inline bool operator()(const Value *pValue1, const Value *pValue2) const {
-			return Value::Compare(_env, _sig, *pValue1, *pValue2) > 0;
+			return Value::Compare(_env, *pValue1, *pValue2) > 0;
 		}
 	};
 	class Comparator_Custom {
 	private:
 		Environment &_env;
-		Signal &_sig;
 		const Function *_pFunc;
 	public:
-		inline Comparator_Custom(Environment &env, Signal &sig, const Function *pFunc) :
-										_env(env), _sig(sig), _pFunc(pFunc) {}
+		inline Comparator_Custom(Environment &env, const Function *pFunc) :
+										_env(env), _pFunc(pFunc) {}
 		bool operator()(const Value *pValue1, const Value *pValue2) const;
 	};
 public:

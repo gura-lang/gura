@@ -1456,7 +1456,7 @@ Iterator *Iterator_Replace::GetSource()
 bool Iterator_Replace::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
-	int cmp = Value::Compare(env, sig, value, _value);
+	int cmp = Value::Compare(env, value, _value);
 	if (sig.IsSignalled()) return false;
 	if (cmp == 0) value = _valueReplace;
 	return true;
@@ -1632,7 +1632,7 @@ bool Iterator_RunLength::DoNext(Environment &env, Signal &sig, Value &value)
 			_cnt = 1;
 			_valuePrev = valueCur;
 		} else {
-			int cmp = Value::Compare(env, sig, _valuePrev, valueCur);
+			int cmp = Value::Compare(env, _valuePrev, valueCur);
 			if (sig.IsSignalled()) return false;
 			if (cmp == 0) {
 				_cnt++;
