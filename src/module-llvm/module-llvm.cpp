@@ -203,7 +203,7 @@ extern "C" bool GuraStub_IndexSet(
 {
 	Signal &sig = env.GetSignal();
 	if (!valueIdx.IsListOrIterator()) {
-		valueCar.IndexSet(env, valueIdx, valueAsned);
+		valueCar.IndexSet(env, valueIdx, valueAssigned);
 		return sig.IsNoSignalled();
 	} else if (valueAssigned.IsListOrIterator()) {
 		AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
@@ -217,7 +217,7 @@ extern "C" bool GuraStub_IndexSet(
 		Value valueIdxElem, valueAssignedElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem) &&
 			   pIteratorAssigned->Next(env, sig, valueAssignedElem)) {
-			valueCar.IndexSet(env, valueIdxElem, valueAsnedElem);
+			valueCar.IndexSet(env, valueIdxElem, valueAssignedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
@@ -230,7 +230,7 @@ extern "C" bool GuraStub_IndexSet(
 		}
 		Value valueIdxElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
-			valueCar.IndexSet(env, valueIdxElem, valueAsned);
+			valueCar.IndexSet(env, valueIdxElem, valueAssigned);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
@@ -251,14 +251,14 @@ extern "C" bool GuraStub_IndexSetByIterator(
 		Value valueIdxElem, valueAssignedElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
 			if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
-			valueCar.IndexSet(env, valueIdxElem, valueAsnedElem);
+			valueCar.IndexSet(env, valueIdxElem, valueAssignedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
 	} else {
 		Value valueAssignedElem;
 		if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
-		valueCar.IndexSet(env, valueIdx, valueAsnedElem);
+		valueCar.IndexSet(env, valueIdx, valueAssignedElem);
 		return sig.IsNoSignalled();
 	}
 	return true;

@@ -97,7 +97,7 @@ bool Iterator_CallerInMember::DoNext(Environment &env, Signal &sig, Value &value
 		sig.SetError(ERR_ValueError, "undefined member variable %s", _pSymbol->GetName());
 		return false;
 	}
-	(*_bridgeFunc)(env, sig, valueThis, value);
+	(*_bridgeFunc)(env, valueThis, value);
 	return true;
 }
 
