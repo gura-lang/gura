@@ -46,6 +46,7 @@ Gura_DeclareFunction(CalculateLayoutEvent)
 
 Gura_ImplementFunction(CalculateLayoutEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowID id = 0;
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlags();
@@ -83,6 +85,7 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect rtn = pThis->GetEntity()->GetRect();
@@ -97,6 +100,7 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = args.GetInt(0);
@@ -112,6 +116,7 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetRect)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetRect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();

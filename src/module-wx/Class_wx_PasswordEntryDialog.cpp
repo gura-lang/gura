@@ -51,6 +51,7 @@ Gura_DeclareFunction(PasswordEntryDialog)
 
 Gura_ImplementFunction(PasswordEntryDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;

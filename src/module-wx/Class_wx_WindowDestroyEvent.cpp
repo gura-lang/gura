@@ -46,6 +46,7 @@ Gura_DeclareFunction(WindowDestroyEvent)
 
 Gura_ImplementFunction(WindowDestroyEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();

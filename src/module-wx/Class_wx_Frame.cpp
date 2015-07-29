@@ -66,6 +66,7 @@ Gura_DeclareFunction(FrameEmpty)
 
 Gura_ImplementFunction(FrameEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Frame *pEntity = new wx_Frame();
 	Object_wx_Frame *pObj = Object_wx_Frame::GetThisObj(args);
@@ -95,6 +96,7 @@ Gura_DeclareFunction(Frame)
 
 Gura_ImplementFunction(Frame)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -128,6 +130,7 @@ Gura_DeclareMethod(wx_Frame, Centre)
 
 Gura_ImplementMethod(wx_Frame, Centre)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxBOTH;
@@ -151,6 +154,7 @@ Gura_DeclareMethod(wx_Frame, Create)
 
 Gura_ImplementMethod(wx_Frame, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
@@ -181,6 +185,7 @@ Gura_DeclareMethod(wx_Frame, CreateStatusBar)
 
 Gura_ImplementMethod(wx_Frame, CreateStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int number = 1;
@@ -206,6 +211,7 @@ Gura_DeclareMethod(wx_Frame, CreateToolBar)
 
 Gura_ImplementMethod(wx_Frame, CreateToolBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long style = wxNO_BORDER | wxTB_HORIZONTAL;
@@ -226,6 +232,7 @@ Gura_DeclareMethod(wx_Frame, GetClientAreaOrigin)
 
 Gura_ImplementMethod(wx_Frame, GetClientAreaOrigin)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetClientAreaOrigin();
@@ -240,6 +247,7 @@ Gura_DeclareMethod(wx_Frame, GetMenuBar)
 
 Gura_ImplementMethod(wx_Frame, GetMenuBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuBar *rtn = (wxMenuBar *)pThis->GetEntity()->GetMenuBar();
@@ -258,6 +266,7 @@ Gura_DeclareMethod(wx_Frame, GetStatusBar)
 
 Gura_ImplementMethod(wx_Frame, GetStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStatusBar *rtn = (wxStatusBar *)pThis->GetEntity()->GetStatusBar();
@@ -276,6 +285,7 @@ Gura_DeclareMethod(wx_Frame, GetStatusBarPane)
 
 Gura_ImplementMethod(wx_Frame, GetStatusBarPane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetStatusBarPane();
@@ -290,6 +300,7 @@ Gura_DeclareMethod(wx_Frame, GetToolBar)
 
 Gura_ImplementMethod(wx_Frame, GetToolBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->GetToolBar();
@@ -312,6 +323,7 @@ Gura_DeclareMethod(wx_Frame, OnCreateStatusBar)
 
 Gura_ImplementMethod(wx_Frame, OnCreateStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int number = args.GetInt(0);
@@ -333,6 +345,7 @@ Gura_DeclareMethod(wx_Frame, OnCreateToolBar)
 
 Gura_ImplementMethod(wx_Frame, OnCreateToolBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long style = args.GetLong(0);
@@ -350,6 +363,7 @@ Gura_DeclareMethod(wx_Frame, ProcessCommand)
 
 Gura_ImplementMethod(wx_Frame, ProcessCommand)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -364,6 +378,7 @@ Gura_DeclareMethod(wx_Frame, SendSizeEvent)
 
 Gura_ImplementMethod(wx_Frame, SendSizeEvent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SendSizeEvent();
@@ -378,6 +393,7 @@ Gura_DeclareMethod(wx_Frame, SetMenuBar)
 
 Gura_ImplementMethod(wx_Frame, SetMenuBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuBar *menuBar = Object_wx_MenuBar::GetObject(args, 0)->GetEntity();
@@ -393,6 +409,7 @@ Gura_DeclareMethod(wx_Frame, SetStatusBar)
 
 Gura_ImplementMethod(wx_Frame, SetStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStatusBar *statusBar = args.IsValid(0)?
@@ -409,6 +426,7 @@ Gura_DeclareMethod(wx_Frame, SetStatusBarPane)
 
 Gura_ImplementMethod(wx_Frame, SetStatusBarPane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -425,6 +443,7 @@ Gura_DeclareMethod(wx_Frame, SetStatusText)
 
 Gura_ImplementMethod(wx_Frame, SetStatusText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -442,6 +461,7 @@ Gura_DeclareMethod(wx_Frame, SetStatusWidths)
 
 Gura_ImplementMethod(wx_Frame, SetStatusWidths)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	CArrayOfInt widths(args.GetList(0));
@@ -457,6 +477,7 @@ Gura_DeclareMethod(wx_Frame, SetToolBar)
 
 Gura_ImplementMethod(wx_Frame, SetToolBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *toolBar = Object_wx_ToolBar::GetObject(args, 0)->GetEntity();
@@ -471,6 +492,7 @@ Gura_DeclareMethod(wx_Frame, PositionMenuBar)
 
 Gura_ImplementMethod(wx_Frame, PositionMenuBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	dynamic_cast<wx_Frame *>(pThis->GetEntity())->_PositionMenuBar();
@@ -484,6 +506,7 @@ Gura_DeclareMethod(wx_Frame, DetachMenuBar)
 
 Gura_ImplementMethod(wx_Frame, DetachMenuBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	dynamic_cast<wx_Frame *>(pThis->GetEntity())->_DetachMenuBar();
@@ -498,6 +521,7 @@ Gura_DeclareMethod(wx_Frame, AttachMenuBar)
 
 Gura_ImplementMethod(wx_Frame, AttachMenuBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuBar *menuBar = Object_wx_MenuBar::GetObject(args, 0)->GetEntity();
@@ -512,6 +536,7 @@ Gura_DeclareMethod(wx_Frame, PositionStatusBar)
 
 Gura_ImplementMethod(wx_Frame, PositionStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	dynamic_cast<wx_Frame *>(pThis->GetEntity())->_PositionStatusBar();
@@ -525,6 +550,7 @@ Gura_DeclareMethod(wx_Frame, PositionToolBar)
 
 Gura_ImplementMethod(wx_Frame, PositionToolBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	dynamic_cast<wx_Frame *>(pThis->GetEntity())->_PositionToolBar();

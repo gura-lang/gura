@@ -131,6 +131,7 @@ Gura_DeclareFunction(image)
 
 Gura_ImplementFunction(image)
 {
+	Signal &sig = env.GetSignal();
 	if (sig.IsSignalled()) return Value::Null;
 	ValueList valList = args.GetList(0);
 	AutoPtr<Image> pImage;
@@ -214,6 +215,7 @@ Gura_DeclareMethod(image, allocbuff)
 
 Gura_ImplementMethod(image, allocbuff)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckEmpty(sig)) return Value::Null;
 	pThis->GetImage()->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
@@ -237,6 +239,7 @@ Gura_DeclareMethod(image, blur)
 
 Gura_ImplementMethod(image, blur)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	int radius = args.GetInt(0);
 	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
@@ -260,6 +263,7 @@ Gura_DeclareMethod(image, clear)
 
 Gura_ImplementMethod(image, clear)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	pThis->GetImage()->Fill(Color::zero);
@@ -293,6 +297,7 @@ Gura_DeclareMethod(image, crop)
 
 Gura_ImplementMethod(image, crop)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	size_t x = args.GetSizeT(0);
@@ -357,6 +362,7 @@ Gura_DeclareMethod(image, extract)
 
 Gura_ImplementMethod(image, extract)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	size_t x = args.GetSizeT(0), y = args.GetSizeT(1);
@@ -391,6 +397,7 @@ Gura_DeclareMethod(image, fill)
 
 Gura_ImplementMethod(image, fill)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	pThis->GetImage()->Fill(Object_color::GetObject(args, 0)->GetColor());
@@ -418,6 +425,7 @@ Gura_DeclareMethod(image, fillrect)
 
 Gura_ImplementMethod(image, fillrect)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	int x = args.GetInt(0), y = args.GetInt(1);
@@ -448,6 +456,7 @@ Gura_DeclareMethod(image, flip)
 
 Gura_ImplementMethod(image, flip)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	const Symbol *pSymbol = args.GetSymbol(0);
 	bool horzFlag = false, vertFlag = false;
@@ -483,6 +492,7 @@ Gura_DeclareMethod(image, getpixel)
 
 Gura_ImplementMethod(image, getpixel)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	int x = args.GetInt(0), y = args.GetInt(1);
@@ -507,6 +517,7 @@ Gura_DeclareMethod(image, grayscale)
 
 Gura_ImplementMethod(image, grayscale)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
 	if (sig.IsSignalled()) return Value::Null;
@@ -553,6 +564,7 @@ UChar *ValueListToMapTable(Signal &sig, const ValueList &valList)
 
 Gura_ImplementMethod(image, mapcolorlevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	UChar *mapBuffR = ValueListToMapTable(sig, args.GetList(0));
 	if (mapBuffR == nullptr) return Value::Null;
@@ -615,6 +627,7 @@ Gura_DeclareMethod(image, paste)
 
 Gura_ImplementMethod(image, paste)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	Object_image *pObjImg = Object_image::GetObject(args, 2);
@@ -657,6 +670,7 @@ Gura_DeclareMethod(image, putpixel)
 
 Gura_ImplementMethod(image, putpixel)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	int x = args.GetInt(0), y = args.GetInt(1);
@@ -686,6 +700,7 @@ Gura_DeclareMethod(image, read)
 
 Gura_ImplementMethod(image, read)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;
@@ -712,6 +727,7 @@ Gura_DeclareMethod(image, reducecolor)
 
 Gura_ImplementMethod(image, reducecolor)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	const Palette *pPalette = pThis->GetImage()->GetPalette();
 	if (args.Is_palette(0)) {
@@ -744,6 +760,7 @@ Gura_DeclareMethod(image, replacecolor)
 
 Gura_ImplementMethod(image, replacecolor)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
@@ -783,6 +800,7 @@ Gura_DeclareMethod(image, resize)
 
 Gura_ImplementMethod(image, resize)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
@@ -853,6 +871,7 @@ Gura_DeclareMethod(image, rotate)
 
 Gura_ImplementMethod(image, rotate)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	Color color;
@@ -899,6 +918,7 @@ Gura_DeclareMethod(image, scan)
 
 Gura_ImplementMethod(image, scan)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
 	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
@@ -931,6 +951,7 @@ Gura_DeclareMethod(image, setalpha)
 
 Gura_ImplementMethod(image, setalpha)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	if (pThis->GetImage()->GetFormat() != Image::FORMAT_RGBA) {
@@ -983,6 +1004,7 @@ Gura_DeclareMethod(image, store)
 
 Gura_ImplementMethod(image, store)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	size_t x = args.GetSizeT(0), y = args.GetSizeT(1);
@@ -1018,6 +1040,7 @@ Gura_DeclareMethod(image, thumbnail)
 
 Gura_ImplementMethod(image, thumbnail)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
@@ -1096,6 +1119,7 @@ Gura_DeclareMethod(image, write)
 
 Gura_ImplementMethod(image, write)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Write(env, sig, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;

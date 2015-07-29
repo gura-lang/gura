@@ -45,6 +45,7 @@ Gura_DeclareFunction(DebugReportCompressEmpty)
 
 Gura_ImplementFunction(DebugReportCompressEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReportCompress *pEntity = new wx_DebugReportCompress();
 	Object_wx_DebugReportCompress *pObj = Object_wx_DebugReportCompress::GetThisObj(args);
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
 
 Gura_ImplementMethod(wx_DebugReportCompress, GetCompressedFileName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCompressedFileName();

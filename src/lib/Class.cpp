@@ -245,6 +245,7 @@ Gura_DeclareMethodPrimitive(Object, istype)
 
 Gura_ImplementMethod(Object, istype)
 {
+	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Null;
 	ValueType valType = args.GetThis().GetValueType();
@@ -264,6 +265,7 @@ Gura_DeclareMethodPrimitive(Object, isinstance)
 
 Gura_ImplementMethod(Object, isinstance)
 {
+	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Null;
 	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
@@ -295,6 +297,7 @@ Gura_DeclareMethodPrimitive(Object, tonumber)
 
 Gura_ImplementMethod(Object, tonumber)
 {
+	Signal &sig = env.GetSignal();
 	bool allowPartFlag = !args.IsSet(Gura_Symbol(strict));
 	bool successFlag;
 	Number num = args.GetThis().ToNumber(allowPartFlag, successFlag);
@@ -318,6 +321,7 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 
 Gura_ImplementMethod(Object, tostring)
 {
+	Signal &sig = env.GetSignal();
 	String str = args.GetThis().ToString(false);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(str);
@@ -398,6 +402,7 @@ Gura_DeclareMethod(Object, __iter__)
 
 Gura_ImplementMethod(Object, __iter__)
 {
+	Signal &sig = env.GetSignal();
 	Iterator *pIterator = args.GetThis().CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_iterator(env, pIterator));
@@ -410,6 +415,7 @@ Gura_DeclareMethod(Object, clone)
 
 Gura_ImplementMethod(Object, clone)
 {
+	Signal &sig = env.GetSignal();
 	Object *pObj = args.GetThisObj()->Clone();
 	if (pObj == nullptr) {
 		sig.SetError(ERR_ValueError, "failed to create a clone object");
@@ -428,6 +434,7 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
+	Signal &sig = env.GetSignal();
 	Fundamental *pThis = args.GetThisFundamental();
 	const SymbolSet &attrs = SymbolSet::Null;
 	if (args.IsDefined(1)) {

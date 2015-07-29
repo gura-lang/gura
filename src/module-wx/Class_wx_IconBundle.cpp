@@ -48,6 +48,7 @@ Gura_DeclareFunction(IconBundleEmpty)
 
 Gura_ImplementFunction(IconBundleEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IconBundle *pEntity = new wx_IconBundle();
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetThisObj(args);
@@ -72,6 +73,7 @@ Gura_DeclareFunction(IconBundle)
 
 Gura_ImplementFunction(IconBundle)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	long type = args.GetLong(1);
@@ -97,6 +99,7 @@ Gura_DeclareFunction(IconBundle_1)
 
 Gura_ImplementFunction(IconBundle_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*icon);
@@ -121,6 +124,7 @@ Gura_DeclareFunction(IconBundle_2)
 
 Gura_ImplementFunction(IconBundle_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxIconBundle *ic = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*ic);
@@ -144,6 +148,7 @@ Gura_DeclareMethod(wx_IconBundle, AddIcon)
 
 Gura_ImplementMethod(wx_IconBundle, AddIcon)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
@@ -160,6 +165,7 @@ Gura_DeclareMethod(wx_IconBundle, AddIcon_1)
 
 Gura_ImplementMethod(wx_IconBundle, AddIcon_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
@@ -176,6 +182,7 @@ Gura_DeclareMethod(wx_IconBundle, GetIcon)
 
 Gura_ImplementMethod(wx_IconBundle, GetIcon)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -192,6 +199,7 @@ Gura_DeclareMethod(wx_IconBundle, GetIcon_1)
 
 Gura_ImplementMethod(wx_IconBundle, GetIcon_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord size = -1;

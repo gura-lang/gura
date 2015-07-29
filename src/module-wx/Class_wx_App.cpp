@@ -120,6 +120,7 @@ Gura_DeclareFunction(App)
 
 Gura_ImplementFunction(App)
 {
+	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_App *pEntity = new wx_App();
 	Object_wx_App *pObj = Object_wx_App::GetThisObj(args);
@@ -141,6 +142,7 @@ Gura_DeclareMethod(wx_App, CreateLogTarget)
 
 Gura_ImplementMethod(wx_App, CreateLogTarget)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -159,6 +161,7 @@ Gura_DeclareMethod(wx_App, CreateTraits)
 
 Gura_ImplementMethod(wx_App, CreateTraits)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -176,6 +179,7 @@ Gura_DeclareMethod(wx_App, Dispatch)
 
 Gura_ImplementMethod(wx_App, Dispatch)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Dispatch();
@@ -189,6 +193,7 @@ Gura_DeclareMethod(wx_App, ExitMainLoop)
 
 Gura_ImplementMethod(wx_App, ExitMainLoop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->ExitMainLoop();
@@ -204,6 +209,7 @@ Gura_DeclareMethod(wx_App, FilterEvent)
 
 Gura_ImplementMethod(wx_App, FilterEvent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *event = Object_wx_Event::GetObject(args, 0)->GetEntity();
@@ -219,6 +225,7 @@ Gura_DeclareMethod(wx_App, GetAppName)
 
 Gura_ImplementMethod(wx_App, GetAppName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetAppName();
@@ -233,6 +240,7 @@ Gura_DeclareMethod(wx_App, GetClassName)
 
 Gura_ImplementMethod(wx_App, GetClassName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetClassName();
@@ -247,6 +255,7 @@ Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetExitOnFrameDelete();
@@ -261,6 +270,7 @@ Gura_DeclareClassMethod(wx_App, GetInstance)
 
 Gura_ImplementClassMethod(wx_App, GetInstance)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxAppConsole *rtn = (wxAppConsole *)wxApp::GetInstance();
 	wxApp *rtnEx = wxDynamicCast(rtn, wxApp);
@@ -278,6 +288,7 @@ Gura_DeclareMethod(wx_App, GetTopWindow)
 
 Gura_ImplementMethod(wx_App, GetTopWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetTopWindow();
@@ -294,6 +305,7 @@ Gura_DeclareMethod(wx_App, GetTraits)
 
 Gura_ImplementMethod(wx_App, GetTraits)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAppTraits *rtn = (wxAppTraits *)pThis->GetEntity()->GetTraits();
@@ -310,6 +322,7 @@ Gura_DeclareMethod(wx_App, GetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, GetUseBestVisual)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetUseBestVisual();
@@ -324,6 +337,7 @@ Gura_DeclareMethod(wx_App, GetVendorName)
 
 Gura_ImplementMethod(wx_App, GetVendorName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVendorName();
@@ -338,6 +352,7 @@ Gura_DeclareMethod(wx_App, IsActive)
 
 Gura_ImplementMethod(wx_App, IsActive)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsActive();
@@ -352,6 +367,7 @@ Gura_DeclareClassMethod(wx_App, IsMainLoopRunning)
 
 Gura_ImplementClassMethod(wx_App, IsMainLoopRunning)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxApp::IsMainLoopRunning();
 	return ReturnValue(env, args, Value(rtn));
@@ -365,6 +381,7 @@ Gura_DeclareMethod(wx_App, MainLoop)
 
 Gura_ImplementMethod(wx_App, MainLoop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxApp::SetInstance(pThis->GetEntity());
@@ -384,6 +401,7 @@ Gura_DeclareMethod(wx_App, OnActivate)
 
 Gura_ImplementMethod(wx_App, OnActivate)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -405,6 +423,7 @@ Gura_DeclareMethod(wx_App, OnCharHook)
 
 Gura_ImplementMethod(wx_App, OnCharHook)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -430,6 +449,7 @@ Gura_DeclareMethod(wx_App, OnAssertFailure)
 
 Gura_ImplementMethod(wx_App, OnAssertFailure)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -454,6 +474,7 @@ Gura_DeclareMethod(wx_App, OnCmdLineError)
 
 Gura_ImplementMethod(wx_App, OnCmdLineError)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
@@ -470,6 +491,7 @@ Gura_DeclareMethod(wx_App, OnCmdLineHelp)
 
 Gura_ImplementMethod(wx_App, OnCmdLineHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
@@ -486,6 +508,7 @@ Gura_DeclareMethod(wx_App, OnCmdLineParsed)
 
 Gura_ImplementMethod(wx_App, OnCmdLineParsed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
@@ -501,6 +524,7 @@ Gura_DeclareMethod(wx_App, OnExceptionInMainLoop)
 
 Gura_ImplementMethod(wx_App, OnExceptionInMainLoop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxApp::OnExceptionInMainLoop();
@@ -515,6 +539,7 @@ Gura_DeclareMethod(wx_App, OnExit)
 
 Gura_ImplementMethod(wx_App, OnExit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->wxApp::OnExit();
@@ -528,6 +553,7 @@ Gura_DeclareMethod(wx_App, OnFatalException)
 
 Gura_ImplementMethod(wx_App, OnFatalException)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->wxApp::OnFatalException();
@@ -543,6 +569,7 @@ Gura_DeclareMethod(wx_App, OnIdle)
 
 Gura_ImplementMethod(wx_App, OnIdle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIdleEvent *event = Object_wx_IdleEvent::GetObject(args, 0)->GetEntity();
@@ -559,6 +586,7 @@ Gura_DeclareMethod(wx_App, OnEndSession)
 
 Gura_ImplementMethod(wx_App, OnEndSession)
 {
+	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -579,6 +607,7 @@ Gura_DeclareMethod(wx_App, OnInit)
 
 Gura_ImplementMethod(wx_App, OnInit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxApp::OnInit();
@@ -593,6 +622,7 @@ Gura_DeclareMethod(wx_App, OnInitCmdLine)
 
 Gura_ImplementMethod(wx_App, OnInitCmdLine)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
@@ -608,6 +638,7 @@ Gura_DeclareMethod(wx_App, OnRun)
 
 Gura_ImplementMethod(wx_App, OnRun)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->wxApp::OnRun();
@@ -621,6 +652,7 @@ Gura_DeclareMethod(wx_App, OnUnhandledException)
 
 Gura_ImplementMethod(wx_App, OnUnhandledException)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->wxApp::OnUnhandledException();
@@ -637,6 +669,7 @@ Gura_DeclareMethod(wx_App, ProcessMessage)
 
 Gura_ImplementMethod(wx_App, ProcessMessage)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -655,6 +688,7 @@ Gura_DeclareMethod(wx_App, Pending)
 
 Gura_ImplementMethod(wx_App, Pending)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxApp::Pending();
@@ -672,6 +706,7 @@ Gura_DeclareMethod(wx_App, SendIdleEvents)
 
 Gura_ImplementMethod(wx_App, SendIdleEvents)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -689,6 +724,7 @@ Gura_DeclareMethod(wx_App, SetAppName)
 
 Gura_ImplementMethod(wx_App, SetAppName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -704,6 +740,7 @@ Gura_DeclareMethod(wx_App, SetClassName)
 
 Gura_ImplementMethod(wx_App, SetClassName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -719,6 +756,7 @@ Gura_DeclareMethod(wx_App, SetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
@@ -734,6 +772,7 @@ Gura_DeclareClassMethod(wx_App, SetInstance)
 
 Gura_ImplementClassMethod(wx_App, SetInstance)
 {
+	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wxAppConsole *app = Object_wx_AppConsole::GetObject(args, 0)->GetEntity();
 	wxApp::SetInstance(app);
@@ -748,6 +787,7 @@ Gura_DeclareMethod(wx_App, SetTopWindow)
 
 Gura_ImplementMethod(wx_App, SetTopWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -763,6 +803,7 @@ Gura_DeclareMethod(wx_App, SetVendorName)
 
 Gura_ImplementMethod(wx_App, SetVendorName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -779,6 +820,7 @@ Gura_DeclareMethod(wx_App, SetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, SetUseBestVisual)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
@@ -800,6 +842,7 @@ Gura_DeclareMethod(wx_App, HandleEvent)
 
 Gura_ImplementMethod(wx_App, HandleEvent)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -822,6 +865,7 @@ Gura_DeclareMethod(wx_App, Yield)
 
 Gura_ImplementMethod(wx_App, Yield)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool onlyIfNeeded = false;

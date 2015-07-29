@@ -110,6 +110,7 @@ Gura_DeclareMethod(reader, entry)
 
 Gura_ImplementMethod(reader, entry)
 {
+	Signal &sig = env.GetSignal();
 	Object_reader *pThis = Object_reader::GetThisObj(args);
 	Stream *pStreamSrc = pThis->GetStreamSrc();
 	if (pStreamSrc == nullptr) {
@@ -148,6 +149,7 @@ Gura_DeclareMethod(reader, entries)
 
 Gura_ImplementMethod(reader, entries)
 {
+	Signal &sig = env.GetSignal();
 	Object_reader *pThis = Object_reader::GetThisObj(args);
 	if (pThis->GetStreamSrc() == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
@@ -394,6 +396,7 @@ Gura_DeclareMethod(writer, add)
 
 Gura_ImplementMethod(writer, add)
 {
+	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
 	if (args.Is_string(1)) {
@@ -503,6 +506,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
+	Signal &sig = env.GetSignal();
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
 	if (!pObjZipR->ReadDirectory(env, sig)) return Value::Null;
@@ -531,6 +535,7 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
+	Signal &sig = env.GetSignal();
 	Stream &streamDst = args.GetStream(0);
 	UShort compressionMethod = args.Is_symbol(1)?
 			SymbolToCompressionMethod(args.GetSymbol(1)) : METHOD_Deflate;

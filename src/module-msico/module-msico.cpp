@@ -191,6 +191,7 @@ Gura_DeclareMethod(content, write)
 
 Gura_ImplementMethod(content, write)
 {
+	Signal &sig = env.GetSignal();
 	Object_content *pThis = Object_content::GetThisObj(args);
 	Stream &stream = args.GetStream(0);
 	if (!pThis->Write(env, sig, stream)) return Value::Null;
@@ -239,6 +240,7 @@ Gura_DeclareMethodAlias(image, read_msico, "read@msico")
 
 Gura_ImplementMethod(image, read_msico)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_ICO::ReadStream(env, sig, pThis->GetImage(),
 					args.GetStream(0), args.GetInt(1))) return Value::Null;
@@ -264,6 +266,7 @@ Gura_DeclareFunction(content)
 
 Gura_ImplementFunction(content)
 {
+	Signal &sig = env.GetSignal();
 	Object_content *pObj = new Object_content();
 	if (args.Is_stream(0)) {
 		Stream &stream = args.GetStream(0);

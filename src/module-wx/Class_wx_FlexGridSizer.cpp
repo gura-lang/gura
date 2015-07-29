@@ -50,6 +50,7 @@ Gura_DeclareFunction(FlexGridSizer)
 
 Gura_ImplementFunction(FlexGridSizer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rows = 0;
 	int cols = args.GetInt(1);
@@ -84,6 +85,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableCol)
 
 Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
@@ -102,6 +104,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableRow)
 
 Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
@@ -119,6 +122,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, GetFlexibleDirection)
 
 Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFlexibleDirection();
@@ -133,6 +137,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 
 Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetNonFlexibleGrowMode();
@@ -147,6 +152,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableCol)
 
 Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
@@ -162,6 +168,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableRow)
 
 Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
@@ -177,6 +184,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, SetFlexibleDirection)
 
 Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
@@ -192,6 +200,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 
 Gura_ImplementMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFlexSizerGrowMode mode = static_cast<wxFlexSizerGrowMode>(args.GetInt(0));

@@ -40,6 +40,7 @@ Gura_DeclareClassMethod(pattern, create_rgb)
 
 Gura_ImplementClassMethod(pattern, create_rgb)
 {
+	Signal &sig = env.GetSignal();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_rgb(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
 	if (Is_error(sig, pattern)) {
@@ -67,6 +68,7 @@ Gura_DeclareClassMethod(pattern, create_rgba)
 
 Gura_ImplementClassMethod(pattern, create_rgba)
 {
+	Signal &sig = env.GetSignal();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_rgba(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
 	if (Is_error(sig, pattern)) {
@@ -90,6 +92,7 @@ Gura_DeclareClassMethod(pattern, create_color)
 
 Gura_ImplementClassMethod(pattern, create_color)
 {
+	Signal &sig = env.GetSignal();
 	const Color &color = Object_color::GetObject(args, 0)->GetColor();
 	double red = static_cast<double>(color.GetR()) / 255;
 	double green = static_cast<double>(color.GetG()) / 255;
@@ -121,6 +124,7 @@ Gura_DeclareClassMethod(pattern, create_for_surface)
 
 Gura_ImplementClassMethod(pattern, create_for_surface)
 {
+	Signal &sig = env.GetSignal();
 	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
 	if (Is_error(sig, pattern)) {
@@ -150,6 +154,7 @@ Gura_DeclareClassMethod(pattern, create_linear)
 
 Gura_ImplementClassMethod(pattern, create_linear)
 {
+	Signal &sig = env.GetSignal();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_linear(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
 	if (Is_error(sig, pattern)) {
@@ -181,6 +186,7 @@ Gura_DeclareClassMethod(pattern, create_radial)
 
 Gura_ImplementClassMethod(pattern, create_radial)
 {
+	Signal &sig = env.GetSignal();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_radial(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2),
 			args.GetDouble(3), args.GetDouble(4), args.GetDouble(5));
@@ -218,6 +224,7 @@ Gura_DeclareMethod(pattern, add_color_stop_rgb)
 
 Gura_ImplementMethod(pattern, add_color_stop_rgb)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_pattern_add_color_stop_rgb(pattern, args.GetDouble(0),
@@ -254,6 +261,7 @@ Gura_DeclareMethod(pattern, add_color_stop_rgba)
 
 Gura_ImplementMethod(pattern, add_color_stop_rgba)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_pattern_add_color_stop_rgba(pattern, args.GetDouble(0),
@@ -273,6 +281,7 @@ Gura_DeclareMethod(pattern, get_color_stop_count)
 
 Gura_ImplementMethod(pattern, get_color_stop_count)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	int count;
@@ -294,6 +303,7 @@ Gura_DeclareMethod(pattern, get_color_stop_rgba)
 
 Gura_ImplementMethod(pattern, get_color_stop_rgba)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double offset, red, green, blue, alpha;
@@ -314,6 +324,7 @@ Gura_DeclareMethod(pattern, get_rgba)
 
 Gura_ImplementMethod(pattern, get_rgba)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double red, green, blue, alpha;
@@ -336,6 +347,7 @@ Gura_DeclareMethod(pattern, get_surface)
 
 Gura_ImplementMethod(pattern, get_surface)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_surface_t *surface = nullptr;
@@ -409,6 +421,7 @@ Gura_DeclareMethod(pattern, get_linear_points)
 
 Gura_ImplementMethod(pattern, get_linear_points)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double x0, y0, x1, y1;
@@ -429,6 +442,7 @@ Gura_DeclareMethod(pattern, get_radial_circles)
 
 Gura_ImplementMethod(pattern, get_radial_circles)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double x0, y0, r0, x1, y1, r1;
@@ -473,6 +487,7 @@ Gura_DeclareMethod(pattern, set_extend)
 
 Gura_ImplementMethod(pattern, set_extend)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_extend_t extend = static_cast<cairo_extend_t>(args.GetInt(0));
@@ -494,6 +509,7 @@ Gura_DeclareMethod(pattern, get_extend)
 
 Gura_ImplementMethod(pattern, get_extend)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_extend_t extend = ::cairo_pattern_get_extend(pattern);
@@ -520,6 +536,7 @@ Gura_DeclareMethod(pattern, set_filter)
 
 Gura_ImplementMethod(pattern, set_filter)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_filter_t filter = static_cast<cairo_filter_t>(args.GetInt(0));
@@ -540,6 +557,7 @@ Gura_DeclareMethod(pattern, get_filter)
 
 Gura_ImplementMethod(pattern, get_filter)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_filter_t filter = ::cairo_pattern_get_filter(pattern);
@@ -574,6 +592,7 @@ Gura_DeclareMethod(pattern, set_matrix)
 
 Gura_ImplementMethod(pattern, set_matrix)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
@@ -595,6 +614,7 @@ Gura_DeclareMethod(pattern, get_matrix)
 
 Gura_ImplementMethod(pattern, get_matrix)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_matrix_t matrix;
@@ -615,6 +635,7 @@ Gura_DeclareMethod(pattern, get_type)
 
 Gura_ImplementMethod(pattern, get_type)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_pattern_type_t rtn = ::cairo_pattern_get_type(pattern);

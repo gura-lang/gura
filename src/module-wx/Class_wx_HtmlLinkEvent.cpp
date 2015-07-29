@@ -46,6 +46,7 @@ Gura_DeclareMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 
 Gura_ImplementMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_HtmlLinkEvent, GetLinkInfo)
 
 Gura_ImplementMethod(wx_HtmlLinkEvent, GetLinkInfo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxHtmlLinkInfo &rtn = pThis->GetEntity()->GetLinkInfo();

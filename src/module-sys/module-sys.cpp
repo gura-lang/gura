@@ -55,6 +55,7 @@ Gura_DeclareFunction(required_version)
 
 Gura_ImplementFunction(required_version)
 {
+	Signal &sig = env.GetSignal();
 	int verMajor = args.GetInt(0);
 	int verMinor = args.GetInt(1);
 	int verPatch = args.GetInt(2);

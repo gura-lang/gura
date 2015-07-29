@@ -70,6 +70,7 @@ Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
 
 Gura_ImplementMethod(environment, getprop_X)
 {
+	Signal &sig = env.GetSignal();
 	Object_environment *pThis = Object_environment::GetThisObj(args);
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, ENVREF_NoEscalate);

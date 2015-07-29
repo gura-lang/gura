@@ -53,6 +53,7 @@ Gura_DeclareFunction(HyperlinkCtrl)
 
 Gura_ImplementFunction(HyperlinkCtrl)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -94,6 +95,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, Create)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -120,6 +122,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetHoverColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetHoverColour();
@@ -134,6 +137,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetHoverColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetHoverColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -149,6 +153,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetNormalColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetNormalColour();
@@ -163,6 +168,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetNormalColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetNormalColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -178,6 +184,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisitedColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour rtn = pThis->GetEntity()->GetVisitedColour();
@@ -192,6 +199,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisitedColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisitedColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -207,6 +215,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisited)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisited)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetVisited();
@@ -221,6 +230,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisited)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisited)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visited = true;
@@ -237,6 +247,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetURL)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
@@ -251,6 +262,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetURL)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString url = wxString::FromUTF8(args.GetString(0));

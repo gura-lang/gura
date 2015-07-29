@@ -47,6 +47,7 @@ Gura_DeclareFunction(DocManager)
 
 Gura_ImplementFunction(DocManager)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	long flags = wxDEFAULT_DOCMAN_FLAGS;
 	if (args.IsValid(0)) flags = args.GetLong(0);
@@ -73,6 +74,7 @@ Gura_DeclareMethod(wx_DocManager, ActivateView)
 
 Gura_ImplementMethod(wx_DocManager, ActivateView)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxView *doc = Object_wx_View::GetObject(args, 0)->GetEntity();
@@ -90,6 +92,7 @@ Gura_DeclareMethod(wx_DocManager, AddDocument)
 
 Gura_ImplementMethod(wx_DocManager, AddDocument)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
@@ -105,6 +108,7 @@ Gura_DeclareMethod(wx_DocManager, AddFileToHistory)
 
 Gura_ImplementMethod(wx_DocManager, AddFileToHistory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -120,6 +124,7 @@ Gura_DeclareMethod(wx_DocManager, AssociateTemplate)
 
 Gura_ImplementMethod(wx_DocManager, AssociateTemplate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocTemplate *temp = Object_wx_DocTemplate::GetObject(args, 0)->GetEntity();
@@ -136,6 +141,7 @@ Gura_DeclareMethod(wx_DocManager, CloseDocuments)
 
 Gura_ImplementMethod(wx_DocManager, CloseDocuments)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool force = true;
@@ -154,6 +160,7 @@ Gura_DeclareMethod(wx_DocManager, CreateDocument)
 
 Gura_ImplementMethod(wx_DocManager, CreateDocument)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -172,6 +179,7 @@ Gura_DeclareMethod(wx_DocManager, CreateView)
 
 Gura_ImplementMethod(wx_DocManager, CreateView)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
@@ -188,6 +196,7 @@ Gura_DeclareMethod(wx_DocManager, DisassociateTemplate)
 
 Gura_ImplementMethod(wx_DocManager, DisassociateTemplate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocTemplate *temp = Object_wx_DocTemplate::GetObject(args, 0)->GetEntity();
@@ -202,6 +211,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu)
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->FileHistoryAddFilesToMenu();
@@ -216,6 +226,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
@@ -231,6 +242,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistoryLoad)
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryLoad)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -246,6 +258,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistoryRemoveMenu)
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryRemoveMenu)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
@@ -261,6 +274,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistorySave)
 
 Gura_ImplementMethod(wx_DocManager, FileHistorySave)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *resourceFile = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -276,6 +290,7 @@ Gura_DeclareMethod(wx_DocManager, FileHistoryUseMenu)
 
 Gura_ImplementMethod(wx_DocManager, FileHistoryUseMenu)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
@@ -292,6 +307,7 @@ Gura_DeclareMethod(wx_DocManager, FindTemplateForPath)
 
 Gura_ImplementMethod(wx_DocManager, FindTemplateForPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -307,6 +323,7 @@ Gura_DeclareMethod(wx_DocManager, GetCurrentDocument)
 
 Gura_ImplementMethod(wx_DocManager, GetCurrentDocument)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->GetCurrentDocument();
@@ -321,6 +338,7 @@ Gura_DeclareMethod(wx_DocManager, GetCurrentView)
 
 Gura_ImplementMethod(wx_DocManager, GetCurrentView)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxView *rtn = (wxView *)pThis->GetEntity()->GetCurrentView();
@@ -335,6 +353,7 @@ Gura_DeclareMethod(wx_DocManager, GetDocuments)
 
 Gura_ImplementMethod(wx_DocManager, GetDocuments)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxList &rtn = pThis->GetEntity()->GetDocuments();
@@ -349,6 +368,7 @@ Gura_DeclareMethod(wx_DocManager, GetFileHistory)
 
 Gura_ImplementMethod(wx_DocManager, GetFileHistory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileHistory *rtn = (wxFileHistory *)pThis->GetEntity()->GetFileHistory();
@@ -363,6 +383,7 @@ Gura_DeclareMethod(wx_DocManager, GetLastDirectory)
 
 Gura_ImplementMethod(wx_DocManager, GetLastDirectory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLastDirectory();
@@ -377,6 +398,7 @@ Gura_DeclareMethod(wx_DocManager, GetMaxDocsOpen)
 
 Gura_ImplementMethod(wx_DocManager, GetMaxDocsOpen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMaxDocsOpen();
@@ -391,6 +413,7 @@ Gura_DeclareMethod(wx_DocManager, GetHistoryFilesCount)
 
 Gura_ImplementMethod(wx_DocManager, GetHistoryFilesCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetHistoryFilesCount();
@@ -405,6 +428,7 @@ Gura_DeclareMethod(wx_DocManager, GetTemplates)
 
 Gura_ImplementMethod(wx_DocManager, GetTemplates)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxList &rtn = pThis->GetEntity()->GetTemplates();
@@ -419,6 +443,7 @@ Gura_DeclareMethod(wx_DocManager, Initialize)
 
 Gura_ImplementMethod(wx_DocManager, Initialize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Initialize();
@@ -434,6 +459,7 @@ Gura_DeclareMethod(wx_DocManager, MakeDefaultName)
 
 Gura_ImplementMethod(wx_DocManager, MakeDefaultName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString buf = wxString::FromUTF8(args.GetString(0));
@@ -449,6 +475,7 @@ Gura_DeclareMethod(wx_DocManager, MakeNewDocumentName)
 
 Gura_ImplementMethod(wx_DocManager, MakeNewDocumentName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->MakeNewDocumentName();
@@ -463,6 +490,7 @@ Gura_DeclareMethod(wx_DocManager, OnCreateFileHistory)
 
 Gura_ImplementMethod(wx_DocManager, OnCreateFileHistory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileHistory *rtn = (wxFileHistory *)pThis->GetEntity()->OnCreateFileHistory();
@@ -477,6 +505,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileClose)
 
 Gura_ImplementMethod(wx_DocManager, OnFileClose)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -492,6 +521,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileCloseAll)
 
 Gura_ImplementMethod(wx_DocManager, OnFileCloseAll)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -507,6 +537,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileNew)
 
 Gura_ImplementMethod(wx_DocManager, OnFileNew)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -522,6 +553,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileOpen)
 
 Gura_ImplementMethod(wx_DocManager, OnFileOpen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -537,6 +569,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileRevert)
 
 Gura_ImplementMethod(wx_DocManager, OnFileRevert)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -552,6 +585,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileSave)
 
 Gura_ImplementMethod(wx_DocManager, OnFileSave)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -567,6 +601,7 @@ Gura_DeclareMethod(wx_DocManager, OnFileSaveAs)
 
 Gura_ImplementMethod(wx_DocManager, OnFileSaveAs)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -582,6 +617,7 @@ Gura_DeclareMethod(wx_DocManager, RemoveDocument)
 
 Gura_ImplementMethod(wx_DocManager, RemoveDocument)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
@@ -604,6 +640,7 @@ Gura_DeclareMethod(wx_DocManager, SelectDocumentPath)
 
 Gura_ImplementMethod(wx_DocManager, SelectDocumentPath)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -632,6 +669,7 @@ Gura_DeclareMethod(wx_DocManager, SelectDocumentType)
 
 Gura_ImplementMethod(wx_DocManager, SelectDocumentType)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -659,6 +697,7 @@ Gura_DeclareMethod(wx_DocManager, SelectViewType)
 
 Gura_ImplementMethod(wx_DocManager, SelectViewType)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -681,6 +720,7 @@ Gura_DeclareMethod(wx_DocManager, SetLastDirectory)
 
 Gura_ImplementMethod(wx_DocManager, SetLastDirectory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
@@ -696,6 +736,7 @@ Gura_DeclareMethod(wx_DocManager, SetMaxDocsOpen)
 
 Gura_ImplementMethod(wx_DocManager, SetMaxDocsOpen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);

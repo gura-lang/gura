@@ -96,6 +96,7 @@ Gura_DeclareFunction(dir)
 
 Gura_ImplementFunction(dir)
 {
+	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = args.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
@@ -146,6 +147,7 @@ Gura_DeclareFunction(exists)
 
 Gura_ImplementFunction(exists)
 {
+	Signal &sig = env.GetSignal();
 	bool existFlag = PathMgr::DoesExist(env, sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(existFlag);
@@ -203,6 +205,7 @@ Gura_DeclareFunction(glob)
 
 Gura_ImplementFunction(glob)
 {
+	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = args.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
@@ -341,6 +344,7 @@ Gura_DeclareFunction(stat)
 
 Gura_ImplementFunction(stat)
 {
+	Signal &sig = env.GetSignal();
 	Directory *pDirectory = Object_directory::GetObject(args, 0)->GetDirectory();
 	AutoPtr<Object> pObj(pDirectory->GetStatObj(sig));
 	if (sig.IsSignalled()) return Value::Null;
@@ -367,6 +371,7 @@ Gura_DeclareFunction(walk)
 
 Gura_ImplementFunction(walk)
 {
+	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = args.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;

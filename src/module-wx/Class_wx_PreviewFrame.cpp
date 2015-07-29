@@ -52,6 +52,7 @@ Gura_DeclareFunction(PreviewFrame)
 
 Gura_ImplementFunction(PreviewFrame)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -83,6 +84,7 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->CreateControlBar();
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->CreateCanvas();
@@ -109,6 +112,7 @@ Gura_DeclareMethod(wx_PreviewFrame, Initialize)
 
 Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Initialize();
@@ -123,6 +127,7 @@ Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
 
 Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();

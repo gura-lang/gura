@@ -48,6 +48,7 @@ Gura_DeclareFunction(PrintPreview)
 
 Gura_ImplementFunction(PrintPreview)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintout *printout = Object_wx_Printout::GetObject(args, 0)->GetEntity();
 	wxPrintout *printoutForPrinting = Object_wx_Printout::GetObject(args, 1)->GetEntity();
@@ -73,6 +74,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetCanvas)
 
 Gura_ImplementMethod(wx_PrintPreview, GetCanvas)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPreviewCanvas *rtn = (wxPreviewCanvas *)pThis->GetEntity()->GetCanvas();
@@ -87,6 +89,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetCurrentPage)
 
 Gura_ImplementMethod(wx_PrintPreview, GetCurrentPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCurrentPage();
@@ -101,6 +104,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetFrame)
 
 Gura_ImplementMethod(wx_PrintPreview, GetFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrame();
@@ -115,6 +119,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetMaxPage)
 
 Gura_ImplementMethod(wx_PrintPreview, GetMaxPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMaxPage();
@@ -129,6 +134,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetMinPage)
 
 Gura_ImplementMethod(wx_PrintPreview, GetMinPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMinPage();
@@ -143,6 +149,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetPrintout)
 
 Gura_ImplementMethod(wx_PrintPreview, GetPrintout)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintout *rtn = (wxPrintout *)pThis->GetEntity()->GetPrintout();
@@ -157,6 +164,7 @@ Gura_DeclareMethod(wx_PrintPreview, GetPrintoutForPrinting)
 
 Gura_ImplementMethod(wx_PrintPreview, GetPrintoutForPrinting)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintout *rtn = (wxPrintout *)pThis->GetEntity()->GetPrintoutForPrinting();
@@ -171,6 +179,7 @@ Gura_DeclareMethod(wx_PrintPreview, Ok)
 
 Gura_ImplementMethod(wx_PrintPreview, Ok)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Ok();
@@ -187,6 +196,7 @@ Gura_DeclareMethod(wx_PrintPreview, PaintPage)
 
 Gura_ImplementMethod(wx_PrintPreview, PaintPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPreviewCanvas *canvas = Object_wx_PreviewCanvas::GetObject(args, 0)->GetEntity();
@@ -204,6 +214,7 @@ Gura_DeclareMethod(wx_PrintPreview, Print)
 
 Gura_ImplementMethod(wx_PrintPreview, Print)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool prompt = args.GetBoolean(0);
@@ -220,6 +231,7 @@ Gura_DeclareMethod(wx_PrintPreview, RenderPage)
 
 Gura_ImplementMethod(wx_PrintPreview, RenderPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pageNum = args.GetInt(0);
@@ -235,6 +247,7 @@ Gura_DeclareMethod(wx_PrintPreview, SetCanvas)
 
 Gura_ImplementMethod(wx_PrintPreview, SetCanvas)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPreviewCanvas *window = Object_wx_PreviewCanvas::GetObject(args, 0)->GetEntity();
@@ -250,6 +263,7 @@ Gura_DeclareMethod(wx_PrintPreview, SetCurrentPage)
 
 Gura_ImplementMethod(wx_PrintPreview, SetCurrentPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pageNum = args.GetInt(0);
@@ -265,6 +279,7 @@ Gura_DeclareMethod(wx_PrintPreview, SetFrame)
 
 Gura_ImplementMethod(wx_PrintPreview, SetFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
@@ -280,6 +295,7 @@ Gura_DeclareMethod(wx_PrintPreview, SetPrintout)
 
 Gura_ImplementMethod(wx_PrintPreview, SetPrintout)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintout *printout = Object_wx_Printout::GetObject(args, 0)->GetEntity();
@@ -295,6 +311,7 @@ Gura_DeclareMethod(wx_PrintPreview, SetZoom)
 
 Gura_ImplementMethod(wx_PrintPreview, SetZoom)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int percent = args.GetInt(0);

@@ -52,6 +52,7 @@ Gura_DeclareFunction(ClassInfo)
 
 Gura_ImplementFunction(ClassInfo)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString className = wxString::FromUTF8(args.GetString(0));
@@ -82,6 +83,7 @@ Gura_DeclareMethod(wx_ClassInfo, CreateObject)
 
 Gura_ImplementMethod(wx_ClassInfo, CreateObject)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->CreateObject();
@@ -97,6 +99,7 @@ Gura_DeclareClassMethod(wx_ClassInfo, FindClass)
 
 Gura_ImplementClassMethod(wx_ClassInfo, FindClass)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxClassInfo *rtn = (wxClassInfo *)wxClassInfo::FindClass(name);
@@ -111,6 +114,7 @@ Gura_DeclareMethod(wx_ClassInfo, GetBaseClassName1)
 
 Gura_ImplementMethod(wx_ClassInfo, GetBaseClassName1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -129,6 +133,7 @@ Gura_DeclareMethod(wx_ClassInfo, GetBaseClassName2)
 
 Gura_ImplementMethod(wx_ClassInfo, GetBaseClassName2)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -147,6 +152,7 @@ Gura_DeclareMethod(wx_ClassInfo, GetClassName)
 
 Gura_ImplementMethod(wx_ClassInfo, GetClassName)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -165,6 +171,7 @@ Gura_DeclareMethod(wx_ClassInfo, GetSize)
 
 Gura_ImplementMethod(wx_ClassInfo, GetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSize();
@@ -178,6 +185,7 @@ Gura_DeclareClassMethod(wx_ClassInfo, InitializeClasses)
 
 Gura_ImplementClassMethod(wx_ClassInfo, InitializeClasses)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxClassInfo::InitializeClasses();
@@ -195,6 +203,7 @@ Gura_DeclareMethod(wx_ClassInfo, IsDynamic)
 
 Gura_ImplementMethod(wx_ClassInfo, IsDynamic)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDynamic();
@@ -210,6 +219,7 @@ Gura_DeclareMethod(wx_ClassInfo, IsKindOf)
 
 Gura_ImplementMethod(wx_ClassInfo, IsKindOf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *info = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();

@@ -46,6 +46,7 @@ Gura_DeclareFunction(BufferedOutputStream)
 
 Gura_ImplementFunction(BufferedOutputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *parent = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_BufferedOutputStream *pEntity = new wx_BufferedOutputStream(*parent);
@@ -70,6 +71,7 @@ Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
 
 Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	off_t pos = static_cast<off_t>(args.GetLong(0));
@@ -85,6 +87,7 @@ Gura_DeclareMethod(wx_BufferedOutputStream, Sync)
 
 Gura_ImplementMethod(wx_BufferedOutputStream, Sync)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Sync();

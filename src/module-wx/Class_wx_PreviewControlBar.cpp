@@ -52,6 +52,7 @@ Gura_DeclareFunction(PreviewControlBar)
 
 Gura_ImplementFunction(PreviewControlBar)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	long buttons = args.GetLong(1);
@@ -83,6 +84,7 @@ Gura_DeclareMethod(wx_PreviewControlBar, CreateButtons)
 
 Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->CreateButtons();
@@ -97,6 +99,7 @@ Gura_DeclareMethod(wx_PreviewControlBar, GetPrintPreview)
 
 Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintPreview *rtn = (wxPrintPreview *)pThis->GetEntity()->GetPrintPreview();
@@ -111,6 +114,7 @@ Gura_DeclareMethod(wx_PreviewControlBar, GetZoomControl)
 
 Gura_ImplementMethod(wx_PreviewControlBar, GetZoomControl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetZoomControl();
@@ -125,6 +129,7 @@ Gura_DeclareMethod(wx_PreviewControlBar, SetZoomControl)
 
 Gura_ImplementMethod(wx_PreviewControlBar, SetZoomControl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int percent = args.GetInt(0);

@@ -47,6 +47,7 @@ Gura_DeclareFunction(PaletteEmpty)
 
 Gura_ImplementFunction(PaletteEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Palette *pEntity = new wx_Palette();
 	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Palette)
 
 Gura_ImplementFunction(Palette)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
 	wx_Palette *pEntity = new wx_Palette(*palette);
@@ -99,6 +101,7 @@ Gura_DeclareFunction(Palette_1)
 
 Gura_ImplementFunction(Palette_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int n = args.GetInt(0);
@@ -134,6 +137,7 @@ Gura_DeclareMethod(wx_Palette, Create)
 
 Gura_ImplementMethod(wx_Palette, Create)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -156,6 +160,7 @@ Gura_DeclareMethod(wx_Palette, GetColoursCount)
 
 Gura_ImplementMethod(wx_Palette, GetColoursCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColoursCount();
@@ -173,6 +178,7 @@ Gura_DeclareMethod(wx_Palette, GetPixel)
 
 Gura_ImplementMethod(wx_Palette, GetPixel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
@@ -196,6 +202,7 @@ Gura_DeclareMethod(wx_Palette, GetRGB)
 
 Gura_ImplementMethod(wx_Palette, GetRGB)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -218,6 +225,7 @@ Gura_DeclareMethod(wx_Palette, IsOk)
 
 Gura_ImplementMethod(wx_Palette, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();

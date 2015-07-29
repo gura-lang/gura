@@ -21,6 +21,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
@@ -43,6 +44,7 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	int level = args.Is_number(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
@@ -67,6 +69,7 @@ Gura_DeclareMethodAlias(stream, reader_gzip, "reader@gzip")
 
 Gura_ImplementMethod(stream, reader_gzip)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
@@ -88,6 +91,7 @@ Gura_DeclareMethodAlias(stream, writer_gzip, "writer@gzip")
 
 Gura_ImplementMethod(stream, writer_gzip)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int level = args.Is_number(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;

@@ -46,6 +46,7 @@ Gura_DeclareFunction(Metafile)
 
 Gura_ImplementFunction(Metafile)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxT("");
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_Metafile, Ok)
 
 Gura_ImplementMethod(wx_Metafile, Ok)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Ok();
@@ -84,6 +86,7 @@ Gura_DeclareMethod(wx_Metafile, Play)
 
 Gura_ImplementMethod(wx_Metafile, Play)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
@@ -101,6 +104,7 @@ Gura_DeclareMethod(wx_Metafile, SetClipboard)
 
 Gura_ImplementMethod(wx_Metafile, SetClipboard)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = 0;

@@ -59,6 +59,7 @@ Gura_DeclareFunction(CustomDataObject)
 
 Gura_ImplementFunction(CustomDataObject)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
@@ -82,6 +83,7 @@ Gura_DeclareMethod(wx_CustomDataObject, Alloc)
 
 Gura_ImplementMethod(wx_CustomDataObject, Alloc)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_CustomDataObject, Free)
 
 Gura_ImplementMethod(wx_CustomDataObject, Free)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Free();
@@ -110,6 +113,7 @@ Gura_DeclareMethod(wx_CustomDataObject, GetSize)
 
 Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetSize();
@@ -123,6 +127,7 @@ Gura_DeclareMethod(wx_CustomDataObject, GetData)
 
 Gura_ImplementMethod(wx_CustomDataObject, GetData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->GetData();
@@ -140,6 +145,7 @@ Gura_DeclareMethod(wx_CustomDataObject, SetData)
 
 Gura_ImplementMethod(wx_CustomDataObject, SetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -163,6 +169,7 @@ Gura_DeclareMethod(wx_CustomDataObject, TakeData)
 
 Gura_ImplementMethod(wx_CustomDataObject, TakeData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

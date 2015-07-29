@@ -53,6 +53,7 @@ Gura_DeclareFunction(TextDataObject)
 
 Gura_ImplementFunction(TextDataObject)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxEmptyString;
 	if (args.IsValid(0)) text = wxString::FromUTF8(args.GetString(0));
@@ -76,6 +77,7 @@ Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
 
 Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetTextLength();
@@ -90,6 +92,7 @@ Gura_DeclareMethod(wx_TextDataObject, GetText)
 
 Gura_ImplementMethod(wx_TextDataObject, GetText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetText();
@@ -104,6 +107,7 @@ Gura_DeclareMethod(wx_TextDataObject, SetText)
 
 Gura_ImplementMethod(wx_TextDataObject, SetText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString strText = wxString::FromUTF8(args.GetString(0));

@@ -44,6 +44,7 @@ Gura_DeclareMethod(wx_GridCellEditor, IsCreated)
 
 Gura_ImplementMethod(wx_GridCellEditor, IsCreated)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCreated();
@@ -60,6 +61,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Create)
 
 Gura_ImplementMethod(wx_GridCellEditor, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -77,6 +79,7 @@ Gura_DeclareMethod(wx_GridCellEditor, SetSize)
 
 Gura_ImplementMethod(wx_GridCellEditor, SetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
@@ -93,6 +96,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Show)
 
 Gura_ImplementMethod(wx_GridCellEditor, Show)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
@@ -112,6 +116,7 @@ Gura_DeclareMethod(wx_GridCellEditor, PaintBackground)
 
 Gura_ImplementMethod(wx_GridCellEditor, PaintBackground)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
@@ -131,6 +136,7 @@ Gura_DeclareMethod(wx_GridCellEditor, BeginEdit)
 
 Gura_ImplementMethod(wx_GridCellEditor, BeginEdit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
@@ -152,6 +158,7 @@ Gura_DeclareMethod(wx_GridCellEditor, EndEdit)
 
 Gura_ImplementMethod(wx_GridCellEditor, EndEdit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
@@ -169,6 +176,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Reset)
 
 Gura_ImplementMethod(wx_GridCellEditor, Reset)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Reset();
@@ -183,6 +191,7 @@ Gura_DeclareMethod(wx_GridCellEditor, StartingKey)
 
 Gura_ImplementMethod(wx_GridCellEditor, StartingKey)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
@@ -197,6 +206,7 @@ Gura_DeclareMethod(wx_GridCellEditor, StartingClick)
 
 Gura_ImplementMethod(wx_GridCellEditor, StartingClick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->StartingClick();
@@ -211,6 +221,7 @@ Gura_DeclareMethod(wx_GridCellEditor, HandleReturn)
 
 Gura_ImplementMethod(wx_GridCellEditor, HandleReturn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
@@ -225,6 +236,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Destroy)
 
 Gura_ImplementMethod(wx_GridCellEditor, Destroy)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Destroy();
@@ -239,6 +251,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Clone)
 
 Gura_ImplementMethod(wx_GridCellEditor, Clone)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellEditor *rtn = (wxGridCellEditor *)pThis->GetEntity()->Clone();

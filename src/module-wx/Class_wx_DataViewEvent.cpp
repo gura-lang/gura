@@ -48,6 +48,7 @@ Gura_DeclareFunction(DataViewEvent)
 
 Gura_ImplementFunction(DataViewEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
@@ -75,6 +76,7 @@ Gura_DeclareFunction(DataViewEvent_1)
 
 Gura_ImplementFunction(DataViewEvent_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewEvent *event = Object_wx_DataViewEvent::GetObject(args, 0)->GetEntity();
 	wx_DataViewEvent *pEntity = new wx_DataViewEvent(*event);
@@ -97,6 +99,7 @@ Gura_DeclareMethod(wx_DataViewEvent, Clone)
 
 Gura_ImplementMethod(wx_DataViewEvent, Clone)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
@@ -111,6 +114,7 @@ Gura_DeclareMethod(wx_DataViewEvent, GetColumn)
 
 Gura_ImplementMethod(wx_DataViewEvent, GetColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColumn();
@@ -125,6 +129,7 @@ Gura_DeclareMethod(wx_DataViewEvent, GetDataViewColumn)
 
 Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetDataViewColumn();
@@ -139,6 +144,7 @@ Gura_DeclareMethod(wx_DataViewEvent, GetModel)
 
 Gura_ImplementMethod(wx_DataViewEvent, GetModel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewModel *rtn = (wxDataViewModel *)pThis->GetEntity()->GetModel();
@@ -153,6 +159,7 @@ Gura_DeclareMethod(wx_DataViewEvent, GetRow)
 
 Gura_ImplementMethod(wx_DataViewEvent, GetRow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRow();
@@ -167,6 +174,7 @@ Gura_DeclareMethod(wx_DataViewEvent, GetValue)
 
 Gura_ImplementMethod(wx_DataViewEvent, GetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxVariant &rtn = pThis->GetEntity()->GetValue();
@@ -181,6 +189,7 @@ Gura_DeclareMethod(wx_DataViewEvent, IsEditCancelled)
 
 Gura_ImplementMethod(wx_DataViewEvent, IsEditCancelled)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEditCancelled();
@@ -195,6 +204,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetColumn)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
@@ -210,6 +220,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetDataViewColumn)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetDataViewColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *col = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
@@ -225,6 +236,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetEditCanceled)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetEditCanceled)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool editCancelled = args.GetBoolean(0);
@@ -240,6 +252,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetModel)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetModel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewModel *model = Object_wx_DataViewModel::GetObject(args, 0)->GetEntity();
@@ -255,6 +268,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetRow)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetRow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
@@ -270,6 +284,7 @@ Gura_DeclareMethod(wx_DataViewEvent, SetValue)
 
 Gura_ImplementMethod(wx_DataViewEvent, SetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();

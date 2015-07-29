@@ -42,6 +42,7 @@ Gura_DeclareMethod(wx_ScopedPtr, explicit wxScopedPtr)
 
 Gura_ImplementMethod(wx_ScopedPtr, explicit wxScopedPtr)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->explicit wxScopedPtr();
@@ -56,6 +57,7 @@ Gura_DeclareMethod(wx_ScopedPtr, release)
 
 Gura_ImplementMethod(wx_ScopedPtr, release)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -67,6 +69,7 @@ Gura_DeclareMethod(wx_ScopedPtr, reset)
 
 Gura_ImplementMethod(wx_ScopedPtr, reset)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->reset();
@@ -81,6 +84,7 @@ Gura_DeclareMethod(wx_ScopedPtr, get)
 
 Gura_ImplementMethod(wx_ScopedPtr, get)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -93,6 +97,7 @@ Gura_DeclareMethod(wx_ScopedPtr, swap)
 
 Gura_ImplementMethod(wx_ScopedPtr, swap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxScopedPtr *& other = Object_wx_ScopedPtr::GetObject(args, 0)->GetEntity();

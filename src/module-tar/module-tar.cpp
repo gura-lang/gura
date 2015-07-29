@@ -349,6 +349,7 @@ Gura_DeclareMethod(writer, add)
 
 Gura_ImplementMethod(writer, add)
 {
+	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
 	if (args.Is_string(1)) {
@@ -747,6 +748,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
+	Signal &sig = env.GetSignal();
 	Stream &streamSrc = args.GetStream(0);
 	CompressionType compressionType = args.Is_symbol(1)?
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
@@ -784,6 +786,7 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
+	Signal &sig = env.GetSignal();
 	Stream &streamDst = args.GetStream(0);
 	CompressionType compressionType = args.Is_symbol(1)?
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;

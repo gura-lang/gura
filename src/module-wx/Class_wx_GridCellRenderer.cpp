@@ -65,6 +65,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, Draw)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
@@ -92,6 +93,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
 
 Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
@@ -111,6 +113,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, Clone)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->Clone();

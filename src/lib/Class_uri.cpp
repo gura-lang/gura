@@ -117,6 +117,7 @@ Gura_DeclareFunction(uri)
 
 Gura_ImplementFunction(uri)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_uri> pObj(new Object_uri(env));
 	if (args.Is_string(0)) {
 		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Null;

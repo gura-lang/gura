@@ -47,6 +47,7 @@ Gura_DeclareFunction(BufferedDCEmpty)
 
 Gura_ImplementFunction(BufferedDCEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BufferedDC *pEntity = new wx_BufferedDC();
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
@@ -72,6 +73,7 @@ Gura_DeclareFunction(BufferedDC)
 
 Gura_ImplementFunction(BufferedDC)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxSize *area = Object_wx_Size::GetObject(args, 1)->GetEntity();
@@ -101,6 +103,7 @@ Gura_DeclareFunction(BufferedDC_1)
 
 Gura_ImplementFunction(BufferedDC_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
@@ -128,6 +131,7 @@ Gura_DeclareMethod(wx_BufferedDC, Init)
 
 Gura_ImplementMethod(wx_BufferedDC, Init)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
@@ -148,6 +152,7 @@ Gura_DeclareMethod(wx_BufferedDC, Init_1)
 
 Gura_ImplementMethod(wx_BufferedDC, Init_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();

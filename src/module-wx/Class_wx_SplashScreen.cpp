@@ -53,6 +53,7 @@ Gura_DeclareFunction(SplashScreen)
 
 Gura_ImplementFunction(SplashScreen)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	long splashStyle = args.GetLong(1);
@@ -85,6 +86,7 @@ Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
 
 Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
@@ -100,6 +102,7 @@ Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
 
 Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetSplashStyle();
@@ -114,6 +117,7 @@ Gura_DeclareMethod(wx_SplashScreen, GetSplashWindow)
 
 Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -132,6 +136,7 @@ Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
 
 Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTimeout();

@@ -49,6 +49,7 @@ Gura_DeclareFunction(Command)
 
 Gura_ImplementFunction(Command)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool canUndo = false;
@@ -78,6 +79,7 @@ Gura_DeclareMethod(wx_Command, CanUndo)
 
 Gura_ImplementMethod(wx_Command, CanUndo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanUndo();
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_Command, Do)
 
 Gura_ImplementMethod(wx_Command, Do)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Do();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_Command, GetName)
 
 Gura_ImplementMethod(wx_Command, GetName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
@@ -120,6 +124,7 @@ Gura_DeclareMethod(wx_Command, Undo)
 
 Gura_ImplementMethod(wx_Command, Undo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Undo();

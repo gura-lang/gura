@@ -48,6 +48,7 @@ Gura_DeclareFunction(DatagramSocket)
 
 Gura_ImplementFunction(DatagramSocket)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxSocketFlags flags = wxSOCKET_NONE;
@@ -80,6 +81,7 @@ Gura_DeclareMethod(wx_DatagramSocket, ReceiveFrom)
 
 Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -106,6 +108,7 @@ Gura_DeclareMethod(wx_DatagramSocket, SendTo)
 
 Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

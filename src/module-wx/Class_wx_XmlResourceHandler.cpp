@@ -47,6 +47,7 @@ Gura_DeclareFunction(XmlResourceHandlerEmpty)
 
 Gura_ImplementFunction(XmlResourceHandlerEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_XmlResourceHandler *pEntity = new wx_XmlResourceHandler();
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, AddStyle)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, AddStyle)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -94,6 +96,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, AddWindowStyles)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, AddWindowStyles)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -115,6 +118,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, CanHandle)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, CanHandle)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -137,6 +141,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, CreateChildren)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, CreateChildren)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -161,6 +166,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, CreateChildrenPrivately)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, CreateChildrenPrivately)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -187,6 +193,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, CreateResFromNode)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, CreateResFromNode)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -214,6 +221,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, CreateResource)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, CreateResource)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -235,6 +243,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, DoCreateResource)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, DoCreateResource)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -257,6 +266,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetBitmap)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetBitmap)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -283,6 +293,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetBool)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetBool)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -308,6 +319,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetColour)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetColour)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -329,6 +341,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetCurFileSystem)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetCurFileSystem)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -351,6 +364,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetDimension)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetDimension)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -375,6 +389,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetFont)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetFont)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -395,6 +410,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetID)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetID)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -417,6 +433,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetIcon)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetIcon)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -443,6 +460,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetLong)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetLong)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -464,6 +482,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetName)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetName)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -485,6 +504,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetNodeContent)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetNodeContent)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -507,6 +527,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetParamNode)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetParamNode)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -529,6 +550,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetParamValue)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetParamValue)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -551,6 +573,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetPosition)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -574,6 +597,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetSize)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetSize)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -598,6 +622,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetStyle)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetStyle)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -623,6 +648,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, GetText)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, GetText)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -645,6 +671,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, HasParam)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, HasParam)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -668,6 +695,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, IsOfClass)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, IsOfClass)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -690,6 +718,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, SetParentResource)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, SetParentResource)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -711,6 +740,7 @@ Gura_DeclareMethod(wx_XmlResourceHandler, SetupWindow)
 
 Gura_ImplementMethod(wx_XmlResourceHandler, SetupWindow)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

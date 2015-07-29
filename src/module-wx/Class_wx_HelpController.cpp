@@ -85,6 +85,7 @@ Gura_DeclareFunction(HelpController)
 
 Gura_ImplementFunction(HelpController)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -109,6 +110,7 @@ Gura_DeclareMethod(wx_HelpController, Initialize)
 
 Gura_ImplementMethod(wx_HelpController, Initialize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
@@ -126,6 +128,7 @@ Gura_DeclareMethod(wx_HelpController, Initialize_1)
 
 Gura_ImplementMethod(wx_HelpController, Initialize_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
@@ -143,6 +146,7 @@ Gura_DeclareMethod(wx_HelpController, DisplayBlock)
 
 Gura_ImplementMethod(wx_HelpController, DisplayBlock)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long blockNo = args.GetLong(0);
@@ -158,6 +162,7 @@ Gura_DeclareMethod(wx_HelpController, DisplayContents)
 
 Gura_ImplementMethod(wx_HelpController, DisplayContents)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DisplayContents();
@@ -173,6 +178,7 @@ Gura_DeclareMethod(wx_HelpController, DisplayContextPopup)
 
 Gura_ImplementMethod(wx_HelpController, DisplayContextPopup)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int contextId = args.GetInt(0);
@@ -189,6 +195,7 @@ Gura_DeclareMethod(wx_HelpController, DisplaySection)
 
 Gura_ImplementMethod(wx_HelpController, DisplaySection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString section = wxString::FromUTF8(args.GetString(0));
@@ -205,6 +212,7 @@ Gura_DeclareMethod(wx_HelpController, DisplaySection_1)
 
 Gura_ImplementMethod(wx_HelpController, DisplaySection_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int sectionNo = args.GetInt(0);
@@ -222,6 +230,7 @@ Gura_DeclareMethod(wx_HelpController, DisplayTextPopup)
 
 Gura_ImplementMethod(wx_HelpController, DisplayTextPopup)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -243,6 +252,7 @@ Gura_DeclareMethod(wx_HelpController, GetFrameParameters)
 
 Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -267,6 +277,7 @@ Gura_DeclareMethod(wx_HelpController, GetParentWindow)
 
 Gura_ImplementMethod(wx_HelpController, GetParentWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
@@ -283,6 +294,7 @@ Gura_DeclareMethod(wx_HelpController, KeywordSearch)
 
 Gura_ImplementMethod(wx_HelpController, KeywordSearch)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString keyWord = wxString::FromUTF8(args.GetString(0));
@@ -301,6 +313,7 @@ Gura_DeclareMethod(wx_HelpController, LoadFile)
 
 Gura_ImplementMethod(wx_HelpController, LoadFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxT("");
@@ -317,6 +330,7 @@ Gura_DeclareMethod(wx_HelpController, OnQuit)
 
 Gura_ImplementMethod(wx_HelpController, OnQuit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->OnQuit();
@@ -334,6 +348,7 @@ Gura_DeclareMethod(wx_HelpController, SetFrameParameters)
 
 Gura_ImplementMethod(wx_HelpController, SetFrameParameters)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
@@ -354,6 +369,7 @@ Gura_DeclareMethod(wx_HelpController, SetParentWindow)
 
 Gura_ImplementMethod(wx_HelpController, SetParentWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -370,6 +386,7 @@ Gura_DeclareMethod(wx_HelpController, SetViewer)
 
 Gura_ImplementMethod(wx_HelpController, SetViewer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString viewer = wxString::FromUTF8(args.GetString(0));
@@ -386,6 +403,7 @@ Gura_DeclareMethod(wx_HelpController, Quit)
 
 Gura_ImplementMethod(wx_HelpController, Quit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Quit();

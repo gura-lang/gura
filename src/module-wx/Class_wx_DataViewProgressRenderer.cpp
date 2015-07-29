@@ -48,6 +48,7 @@ Gura_DeclareFunction(DataViewProgressRenderer)
 
 Gura_ImplementFunction(DataViewProgressRenderer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString label = wxEmptyString;
 	if (args.IsValid(0)) label = wxString::FromUTF8(args.GetString(0));

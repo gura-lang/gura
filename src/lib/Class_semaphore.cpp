@@ -83,6 +83,7 @@ Gura_DeclareMethod(semaphore, session)
 
 Gura_ImplementMethod(semaphore, session)
 {
+	Signal &sig = env.GetSignal();
 	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());

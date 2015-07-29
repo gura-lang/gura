@@ -81,6 +81,7 @@ Gura_DeclareFunction(Stroker)
 
 Gura_ImplementFunction(Stroker)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_Stroker> pObj(new Object_Stroker());
 	FT_Error err = ::FT_Stroker_New(g_lib, &pObj->GetEntity());
 	if (err != 0) {
@@ -100,6 +101,7 @@ Gura_DeclareMethod(Stroker, BeginSubPath)
 
 Gura_ImplementMethod(Stroker, BeginSubPath)
 {
+	Signal &sig = env.GetSignal();
 	FT_Stroker stroker = Object_Stroker::GetThisObj(args)->GetEntity();
 	FT_Vector *to = Object_Vector::GetObject(args, 0)->GetEntity();
 	bool open = args.GetBoolean(1);

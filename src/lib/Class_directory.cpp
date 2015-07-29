@@ -48,6 +48,7 @@ Gura_DeclareFunction(directory)
 
 Gura_ImplementFunction(directory)
 {
+	Signal &sig = env.GetSignal();
 	const char *pathName = args.GetString(0);
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
 								pathName, PathMgr::NF_Signal));

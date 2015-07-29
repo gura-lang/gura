@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_ZipNotifier, OnEntryUpdated)
 
 Gura_ImplementMethod(wx_ZipNotifier, OnEntryUpdated)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipNotifier *pThis = Object_wx_ZipNotifier::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();

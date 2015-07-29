@@ -48,6 +48,7 @@ Gura_DeclareFunction(ActiveXContainer)
 
 Gura_ImplementFunction(ActiveXContainer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();

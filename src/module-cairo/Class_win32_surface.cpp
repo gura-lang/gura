@@ -22,6 +22,7 @@ Gura_DeclareClassMethod(win32_surface, create_emf)
 
 Gura_ImplementClassMethod(win32_surface, create_emf)
 {
+	Signal &sig = env.GetSignal();
 	double width = args.GetDouble(1);
 	double height = args.GetDouble(2);
 	RECT rc;
@@ -55,6 +56,7 @@ Gura_DeclareClassMethod(win32_surface, create_printing)
 
 Gura_ImplementClassMethod(win32_surface, create_printing)
 {
+	Signal &sig = env.GetSignal();
 	const char *driverName = nullptr;
 	const char *printerName = args.GetString(0);
 	char printerNameDefault[MAX_PATH];

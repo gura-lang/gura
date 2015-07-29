@@ -52,6 +52,7 @@ Gura_DeclareFunction(Listbook)
 
 Gura_ImplementFunction(Listbook)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

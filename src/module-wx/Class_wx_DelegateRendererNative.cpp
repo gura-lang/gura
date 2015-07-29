@@ -46,6 +46,7 @@ Gura_DeclareFunction(DelegateRendererNativeEmpty)
 
 Gura_ImplementFunction(DelegateRendererNativeEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
 	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareFunction(DelegateRendererNative)
 
 Gura_ImplementFunction(DelegateRendererNative)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawXXX)
 
 Gura_ImplementMethod(wx_DelegateRendererNative, DrawXXX)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

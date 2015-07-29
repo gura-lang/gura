@@ -53,6 +53,7 @@ Gura_DeclareFunction(FontPickerCtrl)
 
 Gura_ImplementFunction(FontPickerCtrl)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -96,6 +97,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, Create)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -124,6 +126,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedFont)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->GetSelectedFont();
@@ -138,6 +141,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedFont)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
@@ -153,6 +157,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, GetMaxPointSize)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned int rtn = pThis->GetEntity()->GetMaxPointSize();
@@ -167,6 +172,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, SetMaxPointSize)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, SetMaxPointSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned max = args.GetInt(0);

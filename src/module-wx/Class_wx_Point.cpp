@@ -46,6 +46,7 @@ Gura_DeclareFunction(PointEmpty)
 
 Gura_ImplementFunction(PointEmpty)
 {
+	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_Point *pEntity = new wx_Point();
 	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Point)
 
 Gura_ImplementFunction(Point)
 {
+	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Null;
 	int x = 0;
 	if (args.IsValid(0)) x = args.GetInt(0);

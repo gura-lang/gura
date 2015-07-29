@@ -47,6 +47,7 @@ Gura_DeclareFunction(AnimationEmpty)
 
 Gura_ImplementFunction(AnimationEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Animation *pEntity = new wx_Animation();
 	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Animation)
 
 Gura_ImplementFunction(Animation)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
 	wx_Animation *pEntity = new wx_Animation(*anim);
@@ -95,6 +97,7 @@ Gura_DeclareFunction(Animation_1)
 
 Gura_ImplementFunction(Animation_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxAnimationType type = wxANIMATION_TYPE_ANY;
@@ -120,6 +123,7 @@ Gura_DeclareMethod(wx_Animation, GetDelay)
 
 Gura_ImplementMethod(wx_Animation, GetDelay)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned i = args.GetInt(0);
@@ -135,6 +139,7 @@ Gura_DeclareMethod(wx_Animation, GetFrameCount)
 
 Gura_ImplementMethod(wx_Animation, GetFrameCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetFrameCount();
@@ -150,6 +155,7 @@ Gura_DeclareMethod(wx_Animation, GetFrame)
 
 Gura_ImplementMethod(wx_Animation, GetFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned i = args.GetInt(0);
@@ -165,6 +171,7 @@ Gura_DeclareMethod(wx_Animation, GetSize)
 
 Gura_ImplementMethod(wx_Animation, GetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetSize();
@@ -179,6 +186,7 @@ Gura_DeclareMethod(wx_Animation, IsOk)
 
 Gura_ImplementMethod(wx_Animation, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -195,6 +203,7 @@ Gura_DeclareMethod(wx_Animation, Load)
 
 Gura_ImplementMethod(wx_Animation, Load)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -214,6 +223,7 @@ Gura_DeclareMethod(wx_Animation, LoadFile)
 
 Gura_ImplementMethod(wx_Animation, LoadFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));

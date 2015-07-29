@@ -45,6 +45,7 @@ Gura_DeclareFunction(QuantizeEmpty)
 
 Gura_ImplementFunction(QuantizeEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Quantize *pEntity = new wx_Quantize();
 	Object_wx_Quantize *pObj = Object_wx_Quantize::GetThisObj(args);
@@ -74,6 +75,7 @@ Gura_DeclareMethod(wx_Quantize, Quantize)
 
 Gura_ImplementMethod(wx_Quantize, Quantize)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -108,6 +110,7 @@ Gura_DeclareMethod(wx_Quantize, Quantize_1)
 
 Gura_ImplementMethod(wx_Quantize, Quantize_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -141,6 +144,7 @@ Gura_DeclareMethod(wx_Quantize, DoQuantize)
 
 Gura_ImplementMethod(wx_Quantize, DoQuantize)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

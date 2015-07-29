@@ -23,6 +23,7 @@ Gura_DeclareMethodAlias(image, read_xpm, "read@xpm")
 
 Gura_ImplementMethod(image, read_xpm)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
@@ -41,6 +42,7 @@ Gura_DeclareMethodAlias(image, write_xpm, "write@xpm")
 
 Gura_ImplementMethod(image, write_xpm)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
@@ -58,6 +60,7 @@ Gura_DeclareMethod(image, xpmdata)
 
 Gura_ImplementMethod(image, xpmdata)
 {
+	Signal &sig = env.GetSignal();
 	typedef std::map<String, Color> ColorMap;
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();

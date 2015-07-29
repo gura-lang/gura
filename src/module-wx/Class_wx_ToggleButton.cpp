@@ -46,6 +46,7 @@ Gura_DeclareFunction(ToggleButtonEmpty)
 
 Gura_ImplementFunction(ToggleButtonEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ToggleButton *pEntity = new wx_ToggleButton();
 	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
@@ -76,6 +77,7 @@ Gura_DeclareFunction(ToggleButton)
 
 Gura_ImplementFunction(ToggleButton)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -118,6 +120,7 @@ Gura_DeclareMethod(wx_ToggleButton, Create)
 
 Gura_ImplementMethod(wx_ToggleButton, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -145,6 +148,7 @@ Gura_DeclareMethod(wx_ToggleButton, GetValue)
 
 Gura_ImplementMethod(wx_ToggleButton, GetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetValue();
@@ -159,6 +163,7 @@ Gura_DeclareMethod(wx_ToggleButton, SetValue)
 
 Gura_ImplementMethod(wx_ToggleButton, SetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool state = args.GetBoolean(0);

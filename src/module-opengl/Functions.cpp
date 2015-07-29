@@ -103,6 +103,7 @@ Gura_DeclareFunctionAlias(__glBegin, "glBegin")
 
 Gura_ImplementFunction(__glBegin)
 {
+	Signal &sig = env.GetSignal();
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
@@ -152,6 +153,7 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 
 Gura_ImplementFunction(__glBitmap)
 {
+	Signal &sig = env.GetSignal();
 	GLsizei width = args.GetInt(0);
 	GLsizei height = args.GetInt(1);
 	GLfloat xorig = args.GetFloat(2);
@@ -220,6 +222,7 @@ Gura_DeclareFunctionAlias(__glCallLists, "glCallLists")
 
 Gura_ImplementFunction(__glCallLists)
 {
+	Signal &sig = env.GetSignal();
 	GLenum type = static_cast<GLenum>(args.GetInt(0));
 	const ValueList & lists = args.GetList(1);
 	const ValueList &lists_in = args.GetList(1);
@@ -417,6 +420,7 @@ Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 
 Gura_ImplementFunction(__glClipPlane)
 {
+	Signal &sig = env.GetSignal();
 	GLenum plane = static_cast<GLenum>(args.GetInt(0));
 	Array<double> *_equation = Object_array<double>::GetObject(args, 1)->GetArray();
 	GLdouble *equation = reinterpret_cast<GLdouble *>(_equation->GetPointer());
@@ -461,6 +465,7 @@ Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 
 Gura_ImplementFunction(__glColor3bv)
 {
+	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(args, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -504,6 +509,7 @@ Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 
 Gura_ImplementFunction(__glColor3dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -547,6 +553,7 @@ Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 
 Gura_ImplementFunction(__glColor3fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -590,6 +597,7 @@ Gura_DeclareFunctionAlias(__glColor3iv, "glColor3iv")
 
 Gura_ImplementFunction(__glColor3iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -633,6 +641,7 @@ Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 
 Gura_ImplementFunction(__glColor3sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -676,6 +685,7 @@ Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 
 Gura_ImplementFunction(__glColor3ubv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UChar> *_v = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -719,6 +729,7 @@ Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 
 Gura_ImplementFunction(__glColor3uiv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UInt> *_v = Object_array<UInt>::GetObject(args, 0)->GetArray();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -762,6 +773,7 @@ Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 
 Gura_ImplementFunction(__glColor3usv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UShort> *_v = Object_array<UShort>::GetObject(args, 0)->GetArray();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -807,6 +819,7 @@ Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 
 Gura_ImplementFunction(__glColor4bv)
 {
+	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(args, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -852,6 +865,7 @@ Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 
 Gura_ImplementFunction(__glColor4dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -897,6 +911,7 @@ Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 
 Gura_ImplementFunction(__glColor4fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -942,6 +957,7 @@ Gura_DeclareFunctionAlias(__glColor4iv, "glColor4iv")
 
 Gura_ImplementFunction(__glColor4iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -987,6 +1003,7 @@ Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 
 Gura_ImplementFunction(__glColor4sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -1032,6 +1049,7 @@ Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 
 Gura_ImplementFunction(__glColor4ubv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UChar> *_v = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -1077,6 +1095,7 @@ Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 
 Gura_ImplementFunction(__glColor4uiv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UInt> *_v = Object_array<UInt>::GetObject(args, 0)->GetArray();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -1122,6 +1141,7 @@ Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 
 Gura_ImplementFunction(__glColor4usv)
 {
+	Signal &sig = env.GetSignal();
 	Array<UShort> *_v = Object_array<UShort>::GetObject(args, 0)->GetArray();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -1513,6 +1533,7 @@ Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 
 Gura_ImplementFunction(__glDrawPixels)
 {
+	Signal &sig = env.GetSignal();
 	GLsizei width = args.GetInt(0);
 	GLsizei height = args.GetInt(1);
 	GLenum format = static_cast<GLenum>(args.GetInt(2));
@@ -1537,6 +1558,7 @@ Gura_DeclareFunctionAlias(__glDrawPixelsFromImage, "glDrawPixelsFromImage")
 
 Gura_ImplementFunction(__glDrawPixelsFromImage)
 {
+	Signal &sig = env.GetSignal();
 	Image *image = Object_image::GetObject(args, 0)->GetImage();
 	
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
@@ -1579,6 +1601,7 @@ Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 
 Gura_ImplementFunction(__glEdgeFlagv)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLboolean> > _flag(CreateArrayFromList<GLboolean>(args.GetList(0)));
 	GLboolean *flag = _flag->GetPointer();
 	if (_flag->GetSize() != 1) {
@@ -1682,6 +1705,7 @@ Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 
 Gura_ImplementFunction(__glEvalCoord1dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_u = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
@@ -1721,6 +1745,7 @@ Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 
 Gura_ImplementFunction(__glEvalCoord1fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_u = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
@@ -1762,6 +1787,7 @@ Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 
 Gura_ImplementFunction(__glEvalCoord2dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_u = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
@@ -1803,6 +1829,7 @@ Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 
 Gura_ImplementFunction(__glEvalCoord2fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_u = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
@@ -1980,6 +2007,7 @@ Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 
 Gura_ImplementFunction(__glFogfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	Array<float> *_params = Object_array<float>::GetObject(args, 1)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
@@ -2024,6 +2052,7 @@ Gura_DeclareFunctionAlias(__glFogiv, "glFogiv")
 
 Gura_ImplementFunction(__glFogiv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	Array<int> *_params = Object_array<int>::GetObject(args, 1)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
@@ -2301,6 +2330,7 @@ Gura_DeclareFunctionAlias(__glGetMapdv, "glGetMapdv")
 
 Gura_ImplementFunction(__glGetMapdv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum query = static_cast<GLenum>(args.GetInt(1));
@@ -2327,6 +2357,7 @@ Gura_DeclareFunctionAlias(__glGetMapfv, "glGetMapfv")
 
 Gura_ImplementFunction(__glGetMapfv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum query = static_cast<GLenum>(args.GetInt(1));
@@ -2353,6 +2384,7 @@ Gura_DeclareFunctionAlias(__glGetMapiv, "glGetMapiv")
 
 Gura_ImplementFunction(__glGetMapiv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum query = static_cast<GLenum>(args.GetInt(1));
@@ -2424,6 +2456,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapfv, "glGetPixelMapfv")
 
 Gura_ImplementFunction(__glGetPixelMapfv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	Array<float> *_values = Object_array<float>::GetObject(args, 1)->GetArray();
@@ -2448,6 +2481,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapuiv, "glGetPixelMapuiv")
 
 Gura_ImplementFunction(__glGetPixelMapuiv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	Array<UInt> *_values = Object_array<UInt>::GetObject(args, 1)->GetArray();
@@ -2472,6 +2506,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapusv, "glGetPixelMapusv")
 
 Gura_ImplementFunction(__glGetPixelMapusv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(args.GetInt(0));
 	Array<UShort> *_values = Object_array<UShort>::GetObject(args, 1)->GetArray();
@@ -2495,6 +2530,7 @@ Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 
 Gura_ImplementFunction(__glGetPolygonStipple)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Array<UChar> *_mask = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
@@ -2518,6 +2554,7 @@ Gura_DeclareFunctionAlias(__glGetString, "glGetString")
 
 Gura_ImplementFunction(__glGetString)
 {
+	Signal &sig = env.GetSignal();
 	GLenum name = static_cast<GLenum>(args.GetInt(0));
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == nullptr) {
@@ -3050,6 +3087,7 @@ Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 
 Gura_ImplementFunction(__glLightModelfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	Array<float> *_params = Object_array<float>::GetObject(args, 1)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
@@ -3094,6 +3132,7 @@ Gura_DeclareFunctionAlias(__glLightModeliv, "glLightModeliv")
 
 Gura_ImplementFunction(__glLightModeliv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	Array<int> *_params = Object_array<int>::GetObject(args, 1)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
@@ -3141,6 +3180,7 @@ Gura_DeclareFunctionAlias(__glLightfv, "glLightfv")
 
 Gura_ImplementFunction(__glLightfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
@@ -3189,6 +3229,7 @@ Gura_DeclareFunctionAlias(__glLightiv, "glLightiv")
 
 Gura_ImplementFunction(__glLightiv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum light = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
@@ -3282,6 +3323,7 @@ Gura_DeclareFunctionAlias(__glLoadMatrixd, "glLoadMatrixd")
 
 Gura_ImplementFunction(__glLoadMatrixd)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
 	GLdouble *m = _m->GetPointer();
@@ -3301,6 +3343,7 @@ Gura_DeclareFunctionAlias(__glLoadMatrixf, "glLoadMatrixf")
 
 Gura_ImplementFunction(__glLoadMatrixf)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
 	GLfloat *m = _m->GetPointer();
@@ -3597,6 +3640,7 @@ Gura_DeclareFunctionAlias(__glMaterialfv, "glMaterialfv")
 
 Gura_ImplementFunction(__glMaterialfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
@@ -3645,6 +3689,7 @@ Gura_DeclareFunctionAlias(__glMaterialiv, "glMaterialiv")
 
 Gura_ImplementFunction(__glMaterialiv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
@@ -3687,6 +3732,7 @@ Gura_DeclareFunctionAlias(__glMultMatrixd, "glMultMatrixd")
 
 Gura_ImplementFunction(__glMultMatrixd)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
 	GLdouble *m = _m->GetPointer();
@@ -3706,6 +3752,7 @@ Gura_DeclareFunctionAlias(__glMultMatrixf, "glMultMatrixf")
 
 Gura_ImplementFunction(__glMultMatrixf)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
 	GLfloat *m = _m->GetPointer();
@@ -3727,6 +3774,7 @@ Gura_DeclareFunctionAlias(__glNewList, "glNewList")
 
 Gura_ImplementFunction(__glNewList)
 {
+	Signal &sig = env.GetSignal();
 	GLuint list = args.GetUInt(0);
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glNewList(list, mode);
@@ -3773,6 +3821,7 @@ Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 
 Gura_ImplementFunction(__glNormal3bv)
 {
+	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(args, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -3816,6 +3865,7 @@ Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 
 Gura_ImplementFunction(__glNormal3dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -3859,6 +3909,7 @@ Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 
 Gura_ImplementFunction(__glNormal3fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -3902,6 +3953,7 @@ Gura_DeclareFunctionAlias(__glNormal3iv, "glNormal3iv")
 
 Gura_ImplementFunction(__glNormal3iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -3945,6 +3997,7 @@ Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 
 Gura_ImplementFunction(__glNormal3sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -4227,6 +4280,7 @@ Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 
 Gura_ImplementFunction(__glPolygonStipple)
 {
+	Signal &sig = env.GetSignal();
 	Array<UChar> *_mask = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
 	if (_mask->GetSize() != 32 * 4) {
@@ -4310,6 +4364,7 @@ Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 
 Gura_ImplementFunction(__glPrioritizeTextures)
 {
+	Signal &sig = env.GetSignal();
 	Array<UInt> *_textures = Object_array<UInt>::GetObject(args, 0)->GetArray();
 	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
 	Array<float> *_priorities = Object_array<float>::GetObject(args, 1)->GetArray();
@@ -4336,6 +4391,7 @@ Gura_DeclareFunctionAlias(__glPushAttrib, "glPushAttrib")
 
 Gura_ImplementFunction(__glPushAttrib)
 {
+	Signal &sig = env.GetSignal();
 	GLbitfield mask = args.GetUInt(0);
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
@@ -4361,6 +4417,7 @@ Gura_DeclareFunctionAlias(__glPushClientAttrib, "glPushClientAttrib")
 
 Gura_ImplementFunction(__glPushClientAttrib)
 {
+	Signal &sig = env.GetSignal();
 	GLbitfield mask = args.GetUInt(0);
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
@@ -4385,6 +4442,7 @@ Gura_DeclareFunctionAlias(__glPushMatrix, "glPushMatrix")
 
 Gura_ImplementFunction(__glPushMatrix)
 {
+	Signal &sig = env.GetSignal();
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
@@ -4409,6 +4467,7 @@ Gura_DeclareFunctionAlias(__glPushName, "glPushName")
 
 Gura_ImplementFunction(__glPushName)
 {
+	Signal &sig = env.GetSignal();
 	GLuint name = args.GetUInt(0);
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
@@ -4452,6 +4511,7 @@ Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 
 Gura_ImplementFunction(__glRasterPos2dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -4493,6 +4553,7 @@ Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 
 Gura_ImplementFunction(__glRasterPos2fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -4534,6 +4595,7 @@ Gura_DeclareFunctionAlias(__glRasterPos2iv, "glRasterPos2iv")
 
 Gura_ImplementFunction(__glRasterPos2iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -4575,6 +4637,7 @@ Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 
 Gura_ImplementFunction(__glRasterPos2sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -4618,6 +4681,7 @@ Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 
 Gura_ImplementFunction(__glRasterPos3dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -4661,6 +4725,7 @@ Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 
 Gura_ImplementFunction(__glRasterPos3fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -4704,6 +4769,7 @@ Gura_DeclareFunctionAlias(__glRasterPos3iv, "glRasterPos3iv")
 
 Gura_ImplementFunction(__glRasterPos3iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -4747,6 +4813,7 @@ Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 
 Gura_ImplementFunction(__glRasterPos3sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -4792,6 +4859,7 @@ Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 
 Gura_ImplementFunction(__glRasterPos4dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -4837,6 +4905,7 @@ Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 
 Gura_ImplementFunction(__glRasterPos4fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -4882,6 +4951,7 @@ Gura_DeclareFunctionAlias(__glRasterPos4iv, "glRasterPos4iv")
 
 Gura_ImplementFunction(__glRasterPos4iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -4927,6 +4997,7 @@ Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 
 Gura_ImplementFunction(__glRasterPos4sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -4971,6 +5042,7 @@ Gura_DeclareFunctionAlias(__glReadPixels, "glReadPixels")
 
 Gura_ImplementFunction(__glReadPixels)
 {
+	Signal &sig = env.GetSignal();
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
 	GLsizei width = args.GetInt(2);
@@ -5023,6 +5095,7 @@ Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 
 Gura_ImplementFunction(__glRectdv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v1 = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v1 = reinterpret_cast<GLdouble *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
@@ -5075,6 +5148,7 @@ Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 
 Gura_ImplementFunction(__glRectfv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v1 = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v1 = reinterpret_cast<GLfloat *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
@@ -5127,6 +5201,7 @@ Gura_DeclareFunctionAlias(__glRectiv, "glRectiv")
 
 Gura_ImplementFunction(__glRectiv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v1 = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v1 = reinterpret_cast<GLint *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
@@ -5179,6 +5254,7 @@ Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 
 Gura_ImplementFunction(__glRectsv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v1 = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v1 = reinterpret_cast<GLshort *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
@@ -5450,6 +5526,7 @@ Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 
 Gura_ImplementFunction(__glTexCoord1dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
@@ -5489,6 +5566,7 @@ Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 
 Gura_ImplementFunction(__glTexCoord1fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
@@ -5528,6 +5606,7 @@ Gura_DeclareFunctionAlias(__glTexCoord1iv, "glTexCoord1iv")
 
 Gura_ImplementFunction(__glTexCoord1iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
@@ -5567,6 +5646,7 @@ Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 
 Gura_ImplementFunction(__glTexCoord1sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
@@ -5608,6 +5688,7 @@ Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 
 Gura_ImplementFunction(__glTexCoord2dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -5649,6 +5730,7 @@ Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 
 Gura_ImplementFunction(__glTexCoord2fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -5690,6 +5772,7 @@ Gura_DeclareFunctionAlias(__glTexCoord2iv, "glTexCoord2iv")
 
 Gura_ImplementFunction(__glTexCoord2iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -5731,6 +5814,7 @@ Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 
 Gura_ImplementFunction(__glTexCoord2sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -5774,6 +5858,7 @@ Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 
 Gura_ImplementFunction(__glTexCoord3dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -5817,6 +5902,7 @@ Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 
 Gura_ImplementFunction(__glTexCoord3fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -5860,6 +5946,7 @@ Gura_DeclareFunctionAlias(__glTexCoord3iv, "glTexCoord3iv")
 
 Gura_ImplementFunction(__glTexCoord3iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -5903,6 +5990,7 @@ Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 
 Gura_ImplementFunction(__glTexCoord3sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -5948,6 +6036,7 @@ Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 
 Gura_ImplementFunction(__glTexCoord4dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -5993,6 +6082,7 @@ Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 
 Gura_ImplementFunction(__glTexCoord4fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -6038,6 +6128,7 @@ Gura_DeclareFunctionAlias(__glTexCoord4iv, "glTexCoord4iv")
 
 Gura_ImplementFunction(__glTexCoord4iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -6083,6 +6174,7 @@ Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 
 Gura_ImplementFunction(__glTexCoord4sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -6128,6 +6220,7 @@ Gura_DeclareFunctionAlias(__glTexEnvfv, "glTexEnvfv")
 
 Gura_ImplementFunction(__glTexEnvfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
@@ -6176,6 +6269,7 @@ Gura_DeclareFunctionAlias(__glTexEnviv, "glTexEnviv")
 
 Gura_ImplementFunction(__glTexEnviv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
@@ -6224,6 +6318,7 @@ Gura_DeclareFunctionAlias(__glTexGendv, "glTexGendv")
 
 Gura_ImplementFunction(__glTexGendv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<double> *_params = Object_array<double>::GetObject(args, 2)->GetArray();
@@ -6272,6 +6367,7 @@ Gura_DeclareFunctionAlias(__glTexGenfv, "glTexGenfv")
 
 Gura_ImplementFunction(__glTexGenfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
@@ -6320,6 +6416,7 @@ Gura_DeclareFunctionAlias(__glTexGeniv, "glTexGeniv")
 
 Gura_ImplementFunction(__glTexGeniv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
@@ -6352,6 +6449,7 @@ Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 
 Gura_ImplementFunction(__glTexImage1D)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -6383,6 +6481,7 @@ Gura_DeclareFunctionAlias(__glTexImage1DFromImage, "glTexImage1DFromImage")
 
 Gura_ImplementFunction(__glTexImage1DFromImage)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -6417,6 +6516,7 @@ Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 
 Gura_ImplementFunction(__glTexImage2D)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -6449,6 +6549,7 @@ Gura_DeclareFunctionAlias(__glTexImage2DFromImage, "glTexImage2DFromImage")
 
 Gura_ImplementFunction(__glTexImage2DFromImage)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -6499,6 +6600,7 @@ Gura_DeclareFunctionAlias(__glTexParameterfv, "glTexParameterfv")
 
 Gura_ImplementFunction(__glTexParameterfv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
@@ -6547,6 +6649,7 @@ Gura_DeclareFunctionAlias(__glTexParameteriv, "glTexParameteriv")
 
 Gura_ImplementFunction(__glTexParameteriv)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
@@ -6578,6 +6681,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 
 Gura_ImplementFunction(__glTexSubImage1D)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
@@ -6607,6 +6711,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage1DFromImage, "glTexSubImage1DFromImage"
 
 Gura_ImplementFunction(__glTexSubImage1DFromImage)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
@@ -6640,6 +6745,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 
 Gura_ImplementFunction(__glTexSubImage2D)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
@@ -6672,6 +6778,7 @@ Gura_DeclareFunctionAlias(__glTexSubImage2DFromImage, "glTexSubImage2DFromImage"
 
 Gura_ImplementFunction(__glTexSubImage2DFromImage)
 {
+	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
@@ -6760,6 +6867,7 @@ Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 
 Gura_ImplementFunction(__glVertex2dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -6801,6 +6909,7 @@ Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 
 Gura_ImplementFunction(__glVertex2fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -6842,6 +6951,7 @@ Gura_DeclareFunctionAlias(__glVertex2iv, "glVertex2iv")
 
 Gura_ImplementFunction(__glVertex2iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -6883,6 +6993,7 @@ Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 
 Gura_ImplementFunction(__glVertex2sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
@@ -6926,6 +7037,7 @@ Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 
 Gura_ImplementFunction(__glVertex3dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -6969,6 +7081,7 @@ Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 
 Gura_ImplementFunction(__glVertex3fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -7012,6 +7125,7 @@ Gura_DeclareFunctionAlias(__glVertex3iv, "glVertex3iv")
 
 Gura_ImplementFunction(__glVertex3iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -7055,6 +7169,7 @@ Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 
 Gura_ImplementFunction(__glVertex3sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
@@ -7100,6 +7215,7 @@ Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 
 Gura_ImplementFunction(__glVertex4dv)
 {
+	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -7145,6 +7261,7 @@ Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 
 Gura_ImplementFunction(__glVertex4fv)
 {
+	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -7190,6 +7307,7 @@ Gura_DeclareFunctionAlias(__glVertex4iv, "glVertex4iv")
 
 Gura_ImplementFunction(__glVertex4iv)
 {
+	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -7235,6 +7353,7 @@ Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 
 Gura_ImplementFunction(__glVertex4sv)
 {
+	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
@@ -7283,6 +7402,7 @@ Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 
 Gura_ImplementFunction(__glGetAttachedShaders)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLsizei maxCount = args.GetInt(1);
@@ -7312,6 +7432,7 @@ Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 
 Gura_ImplementFunction(__glGetShaderInfoLog)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint shader = args.GetUInt(0);
 	GLsizei bufSize = args.GetInt(1);
@@ -7341,6 +7462,7 @@ Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 
 Gura_ImplementFunction(__glGetProgramInfoLog)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLsizei bufSize = args.GetInt(1);
@@ -7369,6 +7491,7 @@ Gura_DeclareFunctionAlias(__glGetUniformLocation, "glGetUniformLocation")
 
 Gura_ImplementFunction(__glGetUniformLocation)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	Array<char> *_name = Object_array<char>::GetObject(args, 1)->GetArray();
@@ -7398,6 +7521,7 @@ Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 
 Gura_ImplementFunction(__glGetActiveUniform)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLuint index = args.GetUInt(1);
@@ -7431,6 +7555,7 @@ Gura_DeclareFunctionAlias(__glGetUniformfv, "glGetUniformfv")
 
 Gura_ImplementFunction(__glGetUniformfv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLint location = args.GetInt(1);
@@ -7457,6 +7582,7 @@ Gura_DeclareFunctionAlias(__glGetUniformiv, "glGetUniformiv")
 
 Gura_ImplementFunction(__glGetUniformiv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLint location = args.GetInt(1);
@@ -7484,6 +7610,7 @@ Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 
 Gura_ImplementFunction(__glGetShaderSource)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint shader = args.GetUInt(0);
 	GLsizei bufSize = args.GetInt(1);
@@ -7512,6 +7639,7 @@ Gura_DeclareFunctionAlias(__glBindAttribLocation, "glBindAttribLocation")
 
 Gura_ImplementFunction(__glBindAttribLocation)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLuint index = args.GetUInt(1);
@@ -7542,6 +7670,7 @@ Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 
 Gura_ImplementFunction(__glGetActiveAttrib)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	GLuint index = args.GetUInt(1);
@@ -7575,6 +7704,7 @@ Gura_DeclareFunctionAlias(__glGetAttribLocation, "glGetAttribLocation")
 
 Gura_ImplementFunction(__glGetAttribLocation)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = args.GetUInt(0);
 	Array<char> *_name = Object_array<char>::GetObject(args, 1)->GetArray();
@@ -7601,6 +7731,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x3fv, "glUniformMatrix2x3fv")
 
 Gura_ImplementFunction(__glUniformMatrix2x3fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
@@ -7629,6 +7760,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x2fv, "glUniformMatrix3x2fv")
 
 Gura_ImplementFunction(__glUniformMatrix3x2fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
@@ -7657,6 +7789,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x4fv, "glUniformMatrix2x4fv")
 
 Gura_ImplementFunction(__glUniformMatrix2x4fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
@@ -7685,6 +7818,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x2fv, "glUniformMatrix4x2fv")
 
 Gura_ImplementFunction(__glUniformMatrix4x2fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
@@ -7713,6 +7847,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x4fv, "glUniformMatrix3x4fv")
 
 Gura_ImplementFunction(__glUniformMatrix3x4fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);
@@ -7741,6 +7876,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x3fv, "glUniformMatrix4x3fv")
 
 Gura_ImplementFunction(__glUniformMatrix4x3fv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = args.GetInt(0);
 	GLsizei count = args.GetInt(1);

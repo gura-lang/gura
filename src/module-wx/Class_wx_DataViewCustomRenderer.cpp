@@ -256,6 +256,7 @@ Gura_DeclareFunction(DataViewCustomRenderer)
 
 Gura_ImplementFunction(DataViewCustomRenderer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString varianttype = wxT("string");
 	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));
@@ -285,6 +286,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *cell = Object_wx_Rect::GetObject(args, 0)->GetEntity();
@@ -303,6 +305,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDC)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->wxDataViewCustomRenderer::GetDC();
@@ -322,6 +325,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -346,6 +350,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, RightClick)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, RightClick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -370,6 +375,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();

@@ -47,6 +47,7 @@ Gura_DeclareFunction(CSConv)
 
 Gura_ImplementFunction(CSConv)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	wx_CSConv *pEntity = new wx_CSConv(charset);
@@ -71,6 +72,7 @@ Gura_DeclareFunction(CSConv_1)
 
 Gura_ImplementFunction(CSConv_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wx_CSConv *pEntity = new wx_CSConv(encoding);
@@ -93,6 +95,7 @@ Gura_DeclareMethod(wx_CSConv, IsOk)
 
 Gura_ImplementMethod(wx_CSConv, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -112,6 +115,7 @@ Gura_DeclareMethod(wx_CSConv, MB2WC)
 
 Gura_ImplementMethod(wx_CSConv, MB2WC)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -138,6 +142,7 @@ Gura_DeclareMethod(wx_CSConv, WC2MB)
 
 Gura_ImplementMethod(wx_CSConv, WC2MB)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

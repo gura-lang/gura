@@ -16,6 +16,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	Signal &sig = env.GetSignal();
 	const char *addrToConnect = "127.0.0.1";
 	short portToConnect = 12345;
 	int sock = static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0)); //IPPROTO_TCP);

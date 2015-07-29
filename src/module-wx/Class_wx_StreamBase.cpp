@@ -50,6 +50,7 @@ Gura_DeclareFunction(StreamBaseEmpty)
 
 Gura_ImplementFunction(StreamBaseEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_StreamBase *pEntity = new wx_StreamBase();
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_StreamBase, GetLength)
 
 Gura_ImplementMethod(wx_StreamBase, GetLength)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->GetLength();
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_StreamBase, GetLastError)
 
 Gura_ImplementMethod(wx_StreamBase, GetLastError)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -107,6 +110,7 @@ Gura_DeclareMethod(wx_StreamBase, GetSize)
 
 Gura_ImplementMethod(wx_StreamBase, GetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetSize();
@@ -121,6 +125,7 @@ Gura_DeclareMethod(wx_StreamBase, IsOk)
 
 Gura_ImplementMethod(wx_StreamBase, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -135,6 +140,7 @@ Gura_DeclareMethod(wx_StreamBase, IsSeekable)
 
 Gura_ImplementMethod(wx_StreamBase, IsSeekable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsSeekable();
@@ -153,6 +159,7 @@ Gura_DeclareMethod(wx_StreamBase, OnSysRead)
 
 Gura_ImplementMethod(wx_StreamBase, OnSysRead)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -177,6 +184,7 @@ Gura_DeclareMethod(wx_StreamBase, OnSysSeek)
 
 Gura_ImplementMethod(wx_StreamBase, OnSysSeek)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -197,6 +205,7 @@ Gura_DeclareMethod(wx_StreamBase, OnSysTell)
 
 Gura_ImplementMethod(wx_StreamBase, OnSysTell)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -219,6 +228,7 @@ Gura_DeclareMethod(wx_StreamBase, OnSysWrite)
 
 Gura_ImplementMethod(wx_StreamBase, OnSysWrite)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

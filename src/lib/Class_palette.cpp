@@ -118,6 +118,7 @@ Gura_DeclareFunction(palette)
 
 Gura_ImplementFunction(palette)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Palette> pPalette(new Palette());
 	if (args.Is_symbol(0)) {
 		if (!pPalette->Prepare(sig, args.GetSymbol(0))) return Value::Null;
@@ -216,6 +217,7 @@ Gura_DeclareMethod(palette, updateby)
 
 Gura_ImplementMethod(palette, updateby)
 {
+	Signal &sig = env.GetSignal();
 	Object_palette *pThis = Object_palette::GetThisObj(args);
 	Palette::ShrinkMode shrinkMode = Palette::ShrinkNone;
 	if (args.IsSet(Gura_Symbol(shrink))) {

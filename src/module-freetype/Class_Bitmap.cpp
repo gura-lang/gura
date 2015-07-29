@@ -99,6 +99,7 @@ Gura_DeclareMethod(Bitmap, Embolden)
 
 Gura_ImplementMethod(Bitmap, Embolden)
 {
+	Signal &sig = env.GetSignal();
 	FT_Bitmap *bitmap = Object_Bitmap::GetThisObj(args)->GetEntity();
 	FT_Pos xStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
 	FT_Pos yStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6

@@ -167,6 +167,7 @@ Gura_DeclareFunction(HtmlWindowEmpty)
 
 Gura_ImplementFunction(HtmlWindowEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlWindow *pEntity = new wx_HtmlWindow();
 	Object_wx_HtmlWindow *pObj = Object_wx_HtmlWindow::GetThisObj(args);
@@ -195,6 +196,7 @@ Gura_DeclareFunction(HtmlWindow)
 
 Gura_ImplementFunction(HtmlWindow)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
@@ -227,6 +229,7 @@ Gura_DeclareClassMethod(wx_HtmlWindow, AddFilter)
 
 Gura_ImplementClassMethod(wx_HtmlWindow, AddFilter)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlFilter *filter = Object_wx_HtmlFilter::GetObject(args, 0)->GetEntity();
 	wxHtmlWindow::AddFilter(filter);
@@ -242,6 +245,7 @@ Gura_DeclareMethod(wx_HtmlWindow, AppendToPage)
 
 Gura_ImplementMethod(wx_HtmlWindow, AppendToPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString source = wxString::FromUTF8(args.GetString(0));
@@ -257,6 +261,7 @@ Gura_DeclareMethod(wx_HtmlWindow, GetInternalRepresentation)
 
 Gura_ImplementMethod(wx_HtmlWindow, GetInternalRepresentation)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->GetInternalRepresentation();
@@ -271,6 +276,7 @@ Gura_DeclareMethod(wx_HtmlWindow, GetOpenedAnchor)
 
 Gura_ImplementMethod(wx_HtmlWindow, GetOpenedAnchor)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedAnchor();
@@ -285,6 +291,7 @@ Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPage)
 
 Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedPage();
@@ -299,6 +306,7 @@ Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPageTitle)
 
 Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPageTitle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedPageTitle();
@@ -313,6 +321,7 @@ Gura_DeclareMethod(wx_HtmlWindow, GetRelatedFrame)
 
 Gura_ImplementMethod(wx_HtmlWindow, GetRelatedFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetRelatedFrame();
@@ -327,6 +336,7 @@ Gura_DeclareMethod(wx_HtmlWindow, HistoryBack)
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryBack)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HistoryBack();
@@ -341,6 +351,7 @@ Gura_DeclareMethod(wx_HtmlWindow, HistoryCanBack)
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryCanBack)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HistoryCanBack();
@@ -355,6 +366,7 @@ Gura_DeclareMethod(wx_HtmlWindow, HistoryCanForward)
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryCanForward)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HistoryCanForward();
@@ -368,6 +380,7 @@ Gura_DeclareMethod(wx_HtmlWindow, HistoryClear)
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryClear)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->HistoryClear();
@@ -382,6 +395,7 @@ Gura_DeclareMethod(wx_HtmlWindow, HistoryForward)
 
 Gura_ImplementMethod(wx_HtmlWindow, HistoryForward)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HistoryForward();
@@ -397,6 +411,7 @@ Gura_DeclareMethod(wx_HtmlWindow, LoadFile)
 
 Gura_ImplementMethod(wx_HtmlWindow, LoadFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
@@ -413,6 +428,7 @@ Gura_DeclareMethod(wx_HtmlWindow, LoadPage)
 
 Gura_ImplementMethod(wx_HtmlWindow, LoadPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
@@ -432,6 +448,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnCellClicked)
 
 Gura_ImplementMethod(wx_HtmlWindow, OnCellClicked)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *cell = Object_wx_HtmlCell::GetObject(args, 0)->GetEntity();
@@ -452,6 +469,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnCellMouseHover)
 
 Gura_ImplementMethod(wx_HtmlWindow, OnCellMouseHover)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *cell = Object_wx_HtmlCell::GetObject(args, 0)->GetEntity();
@@ -469,6 +487,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnLinkClicked)
 
 Gura_ImplementMethod(wx_HtmlWindow, OnLinkClicked)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlLinkInfo *link = Object_wx_HtmlLinkInfo::GetObject(args, 0)->GetEntity();
@@ -486,6 +505,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnOpeningURL)
 
 Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlURLType type = static_cast<wxHtmlURLType>(args.GetInt(0));
@@ -504,6 +524,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnSetTitle)
 
 Gura_ImplementMethod(wx_HtmlWindow, OnSetTitle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
@@ -520,6 +541,7 @@ Gura_DeclareMethod(wx_HtmlWindow, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlWindow, ReadCustomization)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -536,6 +558,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SelectAll)
 
 Gura_ImplementMethod(wx_HtmlWindow, SelectAll)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SelectAll();
@@ -550,6 +573,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SelectionToText)
 
 Gura_ImplementMethod(wx_HtmlWindow, SelectionToText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->SelectionToText();
@@ -564,6 +588,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SelectLine)
 
 Gura_ImplementMethod(wx_HtmlWindow, SelectLine)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -579,6 +604,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SelectWord)
 
 Gura_ImplementMethod(wx_HtmlWindow, SelectWord)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -594,6 +620,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetBorders)
 
 Gura_ImplementMethod(wx_HtmlWindow, SetBorders)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int b = args.GetInt(0);
@@ -611,6 +638,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetFonts)
 
 Gura_ImplementMethod(wx_HtmlWindow, SetFonts)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
@@ -642,6 +670,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetPage)
 
 Gura_ImplementMethod(wx_HtmlWindow, SetPage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString source = wxString::FromUTF8(args.GetString(0));
@@ -658,6 +687,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetRelatedFrame)
 
 Gura_ImplementMethod(wx_HtmlWindow, SetRelatedFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
@@ -674,6 +704,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetRelatedStatusBar)
 
 Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int bar = args.GetInt(0);
@@ -689,6 +720,7 @@ Gura_DeclareMethod(wx_HtmlWindow, ToText)
 
 Gura_ImplementMethod(wx_HtmlWindow, ToText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ToText();
@@ -704,6 +736,7 @@ Gura_DeclareMethod(wx_HtmlWindow, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlWindow, WriteCustomization)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();

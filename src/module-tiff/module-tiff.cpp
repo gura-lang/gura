@@ -73,6 +73,7 @@ Gura_DeclareMethodAlias(image, read_tiff, "read@tiff")
 
 Gura_ImplementMethod(image, read_tiff)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_TIFF::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
 		return Value::Null;

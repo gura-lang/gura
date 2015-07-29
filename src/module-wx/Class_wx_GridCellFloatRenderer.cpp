@@ -47,6 +47,7 @@ Gura_DeclareFunction(GridCellFloatRenderer)
 
 Gura_ImplementFunction(GridCellFloatRenderer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int width = -1;
 	if (args.IsValid(0)) width = args.GetInt(0);
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, GetPrecision)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, GetPrecision)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPrecision();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, GetWidth)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, GetWidth)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWidth();
@@ -100,6 +103,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetParameters)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString params = wxString::FromUTF8(args.GetString(0));
@@ -115,6 +119,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetPrecision)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetPrecision)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int precision = args.GetInt(0);
@@ -130,6 +135,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetWidth)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetWidth)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);

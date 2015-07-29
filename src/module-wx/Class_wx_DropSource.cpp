@@ -57,6 +57,7 @@ Gura_DeclareFunction(DropSource)
 
 Gura_ImplementFunction(DropSource)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *win = (wxWindow *)(nullptr);
@@ -98,6 +99,7 @@ Gura_DeclareFunction(DropSource_1)
 
 Gura_ImplementFunction(DropSource_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
@@ -134,6 +136,7 @@ Gura_DeclareMethod(wx_DropSource, SetData)
 
 Gura_ImplementMethod(wx_DropSource, SetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -156,6 +159,7 @@ Gura_DeclareMethod(wx_DropSource, DoDragDrop)
 
 Gura_ImplementMethod(wx_DropSource, DoDragDrop)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -176,6 +180,7 @@ Gura_DeclareMethod(wx_DropSource, GetDataObject)
 
 Gura_ImplementMethod(wx_DropSource, GetDataObject)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -197,6 +202,7 @@ Gura_DeclareMethod(wx_DropSource, GiveFeedback)
 
 Gura_ImplementMethod(wx_DropSource, GiveFeedback)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -219,6 +225,7 @@ Gura_DeclareMethod(wx_DropSource, SetCursor)
 
 Gura_ImplementMethod(wx_DropSource, SetCursor)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

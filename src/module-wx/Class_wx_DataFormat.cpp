@@ -48,6 +48,7 @@ Gura_DeclareFunction(DataFormat)
 
 Gura_ImplementFunction(DataFormat)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataFormatId format = wxDF_INVALID;
 	if (args.IsValid(0)) format = static_cast<wxDataFormat::NativeFormat>(args.GetInt(0));
@@ -75,6 +76,7 @@ Gura_DeclareFunction(DataFormat_1)
 
 Gura_ImplementFunction(DataFormat_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxChar *format = static_cast<wxChar>(args.GetInt(0));
@@ -102,6 +104,7 @@ Gura_DeclareMethod(wx_DataFormat, GetId)
 
 Gura_ImplementMethod(wx_DataFormat, GetId)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetId();
@@ -116,6 +119,7 @@ Gura_DeclareMethod(wx_DataFormat, GetType)
 
 Gura_ImplementMethod(wx_DataFormat, GetType)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -136,6 +140,7 @@ Gura_DeclareMethod(wx_DataFormat, SetId)
 
 Gura_ImplementMethod(wx_DataFormat, SetId)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -155,6 +160,7 @@ Gura_DeclareMethod(wx_DataFormat, SetType)
 
 Gura_ImplementMethod(wx_DataFormat, SetType)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

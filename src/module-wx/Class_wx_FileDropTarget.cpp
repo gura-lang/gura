@@ -77,6 +77,7 @@ Gura_DeclareFunction(FileDropTarget)
 
 Gura_ImplementFunction(FileDropTarget)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDropTarget *pEntity = new wx_FileDropTarget();
 	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetThisObj(args);
@@ -104,6 +105,7 @@ Gura_DeclareMethod(wx_FileDropTarget, OnDrop)
 
 Gura_ImplementMethod(wx_FileDropTarget, OnDrop)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -129,6 +131,7 @@ Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
 
 Gura_ImplementMethod(wx_FileDropTarget, OnDropFiles)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));

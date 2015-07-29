@@ -44,6 +44,7 @@ Gura_DeclareMethod(wx_PopupWindow, Position)
 
 Gura_ImplementMethod(wx_PopupWindow, Position)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *ptOrigin = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -60,6 +61,7 @@ Gura_DeclareMethod(wx_PopupWindow, IsTopLevel)
 
 Gura_ImplementMethod(wx_PopupWindow, IsTopLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxPopupWindow::IsTopLevel();

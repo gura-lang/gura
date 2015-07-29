@@ -49,6 +49,7 @@ Gura_DeclareFunction(ZipOutputStream)
 
 Gura_ImplementFunction(ZipOutputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int level = -1;
@@ -79,6 +80,7 @@ Gura_DeclareFunction(ZipOutputStream_1)
 
 Gura_ImplementFunction(ZipOutputStream_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int level = -1;
@@ -105,6 +107,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, Close)
 
 Gura_ImplementMethod(wx_ZipOutputStream, Close)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Close();
@@ -119,6 +122,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CloseEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CloseEntry();
@@ -134,6 +138,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipInputStream *inputStream = Object_wx_ZipInputStream::GetObject(args, 0)->GetEntity();
@@ -151,6 +156,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CopyEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
@@ -167,6 +173,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, GetLevel)
 
 Gura_ImplementMethod(wx_ZipOutputStream, GetLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLevel();
@@ -181,6 +188,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetLevel)
 
 Gura_ImplementMethod(wx_ZipOutputStream, SetLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int level = args.GetInt(0);
@@ -198,6 +206,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextDirEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextDirEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -216,6 +225,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
@@ -234,6 +244,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry_1)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -253,6 +264,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetComment)
 
 Gura_ImplementMethod(wx_ZipOutputStream, SetComment)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString comment = wxString::FromUTF8(args.GetString(0));

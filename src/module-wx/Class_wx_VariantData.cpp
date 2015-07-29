@@ -47,6 +47,7 @@ Gura_DeclareFunction(VariantDataEmpty)
 
 Gura_ImplementFunction(VariantDataEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_VariantData *pEntity = new wx_VariantData();
@@ -71,6 +72,7 @@ Gura_DeclareMethod(wx_VariantData, DecRef)
 
 Gura_ImplementMethod(wx_VariantData, DecRef)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->DecRef();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_VariantData, Eq)
 
 Gura_ImplementMethod(wx_VariantData, Eq)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVariantData *data = Object_wx_VariantData::GetObject(args, 0)->GetEntity();
@@ -101,6 +104,7 @@ Gura_DeclareMethod(wx_VariantData, GetType)
 
 Gura_ImplementMethod(wx_VariantData, GetType)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetType();
@@ -115,6 +119,7 @@ Gura_DeclareMethod(wx_VariantData, GetValueClassInfo)
 
 Gura_ImplementMethod(wx_VariantData, GetValueClassInfo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetValueClassInfo();
@@ -128,6 +133,7 @@ Gura_DeclareMethod(wx_VariantData, IncRef)
 
 Gura_ImplementMethod(wx_VariantData, IncRef)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->IncRef();
@@ -145,6 +151,7 @@ Gura_DeclareMethod(wx_VariantData, Read)
 
 Gura_ImplementMethod(wx_VariantData, Read)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -165,6 +172,7 @@ Gura_DeclareMethod(wx_VariantData, Read_1)
 
 Gura_ImplementMethod(wx_VariantData, Read_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
@@ -183,6 +191,7 @@ Gura_DeclareMethod(wx_VariantData, Write)
 
 Gura_ImplementMethod(wx_VariantData, Write)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -203,6 +212,7 @@ Gura_DeclareMethod(wx_VariantData, Write_1)
 
 Gura_ImplementMethod(wx_VariantData, Write_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
@@ -218,6 +228,7 @@ Gura_DeclareMethod(wx_VariantData, wxGetVariantCast)
 
 Gura_ImplementMethod(wx_VariantData, wxGetVariantCast)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }

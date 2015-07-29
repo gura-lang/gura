@@ -57,6 +57,7 @@ Gura_DeclareFunction(HtmlListBox)
 
 Gura_ImplementFunction(HtmlListBox)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -96,6 +97,7 @@ Gura_DeclareFunction(HtmlListBoxEmpty)
 
 Gura_ImplementFunction(HtmlListBoxEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox();
@@ -127,6 +129,7 @@ Gura_DeclareMethod(wx_HtmlListBox, Create)
 
 Gura_ImplementMethod(wx_HtmlListBox, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -152,6 +155,7 @@ Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem)
 
 Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -170,6 +174,7 @@ Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem_1)
 
 Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -191,6 +196,7 @@ Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 
 Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -213,6 +219,7 @@ Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextColour)
 
 Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -235,6 +242,7 @@ Gura_DeclareMethod(wx_HtmlListBox, OnGetItem)
 
 Gura_ImplementMethod(wx_HtmlListBox, OnGetItem)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -257,6 +265,7 @@ Gura_DeclareMethod(wx_HtmlListBox, OnGetItemMarkup)
 
 Gura_ImplementMethod(wx_HtmlListBox, OnGetItemMarkup)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -279,6 +288,7 @@ Gura_DeclareMethod(wx_HtmlListBox, OnLinkClicked)
 
 Gura_ImplementMethod(wx_HtmlListBox, OnLinkClicked)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

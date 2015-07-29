@@ -48,6 +48,7 @@ Gura_DeclareMethod(wx_MBConvUTF7, MB2WC)
 
 Gura_ImplementMethod(wx_MBConvUTF7, MB2WC)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MBConvUTF7 *pThis = Object_wx_MBConvUTF7::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -74,6 +75,7 @@ Gura_DeclareMethod(wx_MBConvUTF7, WC2MB)
 
 Gura_ImplementMethod(wx_MBConvUTF7, WC2MB)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MBConvUTF7 *pThis = Object_wx_MBConvUTF7::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

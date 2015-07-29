@@ -51,6 +51,7 @@ Gura_DeclareFunction(DataViewColumn)
 
 Gura_ImplementFunction(DataViewColumn)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewRenderer *renderer = Object_wx_DataViewRenderer::GetObject(args, 1)->GetEntity();
 	unsigned model_column = args.GetInt(2);
@@ -88,6 +89,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetBitmap)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmap();
@@ -102,6 +104,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetModelColumn)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetModelColumn();
@@ -116,6 +119,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetOwner)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewCtrl *rtn = (wxDataViewCtrl *)pThis->GetEntity()->GetOwner();
@@ -130,6 +134,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetRenderer)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewRenderer *rtn = (wxDataViewRenderer *)pThis->GetEntity()->GetRenderer();
@@ -144,6 +149,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetSortable)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetSortable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetSortable();
@@ -158,6 +164,7 @@ Gura_DeclareMethod(wx_DataViewColumn, GetWidth)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetWidth)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetWidth();
@@ -172,6 +179,7 @@ Gura_DeclareMethod(wx_DataViewColumn, IsSortOrderAscending)
 
 Gura_ImplementMethod(wx_DataViewColumn, IsSortOrderAscending)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsSortOrderAscending();
@@ -186,6 +194,7 @@ Gura_DeclareMethod(wx_DataViewColumn, SetAlignment)
 
 Gura_ImplementMethod(wx_DataViewColumn, SetAlignment)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAlignment align = static_cast<wxAlignment>(args.GetInt(0));
@@ -201,6 +210,7 @@ Gura_DeclareMethod(wx_DataViewColumn, SetBitmap)
 
 Gura_ImplementMethod(wx_DataViewColumn, SetBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -216,6 +226,7 @@ Gura_DeclareMethod(wx_DataViewColumn, SetSortOrder)
 
 Gura_ImplementMethod(wx_DataViewColumn, SetSortOrder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool ascending = args.GetBoolean(0);
@@ -231,6 +242,7 @@ Gura_DeclareMethod(wx_DataViewColumn, SetSortable)
 
 Gura_ImplementMethod(wx_DataViewColumn, SetSortable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool sortable = args.GetBoolean(0);
@@ -246,6 +258,7 @@ Gura_DeclareMethod(wx_DataViewColumn, SetTitle)
 
 Gura_ImplementMethod(wx_DataViewColumn, SetTitle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));

@@ -50,6 +50,7 @@ Gura_DeclareFunction(MemoryInputStream)
 
 Gura_ImplementFunction(MemoryInputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char data = args.GetChar(0);
@@ -79,6 +80,7 @@ Gura_DeclareFunction(MemoryInputStream_1)
 
 Gura_ImplementFunction(MemoryInputStream_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMemoryOutputStream *stream = Object_wx_MemoryOutputStream::GetObject(args, 0)->GetEntity();
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(*stream);
@@ -101,6 +103,7 @@ Gura_DeclareMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 
 Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();

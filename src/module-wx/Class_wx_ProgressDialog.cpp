@@ -55,6 +55,7 @@ Gura_DeclareFunction(ProgressDialog)
 
 Gura_ImplementFunction(ProgressDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
 	wxString message = wxString::FromUTF8(args.GetString(1));
@@ -83,6 +84,7 @@ Gura_DeclareMethod(wx_ProgressDialog, Resume)
 
 Gura_ImplementMethod(wx_ProgressDialog, Resume)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Resume();
@@ -99,6 +101,7 @@ Gura_DeclareMethod(wx_ProgressDialog, Update)
 
 Gura_ImplementMethod(wx_ProgressDialog, Update)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int value = args.GetInt(0);
@@ -118,6 +121,7 @@ Gura_DeclareMethod(wx_ProgressDialog, Pulse)
 
 Gura_ImplementMethod(wx_ProgressDialog, Pulse)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString newmsg = wxT("");

@@ -50,6 +50,7 @@ Gura_DeclareFunction(HtmlHelpWindow)
 
 Gura_ImplementFunction(HtmlHelpWindow)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
@@ -81,6 +82,7 @@ Gura_DeclareFunction(HtmlHelpWindow_1)
 
 Gura_ImplementFunction(HtmlHelpWindow_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int wxWindowID = args.GetInt(1);
@@ -121,6 +123,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Create)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Create)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -150,6 +153,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateContents)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateContents)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -167,6 +171,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateIndex)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateIndex)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -184,6 +189,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateSearch)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateSearch)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -203,6 +209,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Display)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Display)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString x = wxString::FromUTF8(args.GetString(0));
@@ -219,6 +226,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Display_1)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Display_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -234,6 +242,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayContents)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayContents)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DisplayContents();
@@ -248,6 +257,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayIndex)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayIndex)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->DisplayIndex();
@@ -262,6 +272,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, GetData)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, GetData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *rtn = (wxHtmlHelpData *)pThis->GetEntity()->GetData();
@@ -278,6 +289,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, KeywordSearch)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, KeywordSearch)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString keyword = wxString::FromUTF8(args.GetString(0));
@@ -296,6 +308,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, ReadCustomization)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -312,6 +325,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, RefreshLists)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, RefreshLists)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->RefreshLists();
@@ -326,6 +340,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, SetTitleFormat)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, SetTitleFormat)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -346,6 +361,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, UseConfig)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, UseConfig)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -364,6 +380,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, WriteCustomization)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
@@ -382,6 +399,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, AddToolbarButtons)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, AddToolbarButtons)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

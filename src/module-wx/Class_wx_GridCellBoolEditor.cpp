@@ -45,6 +45,7 @@ Gura_DeclareFunction(GridCellBoolEditor)
 
 Gura_ImplementFunction(GridCellBoolEditor)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellBoolEditor *pEntity = new wx_GridCellBoolEditor();
 	Object_wx_GridCellBoolEditor *pObj = Object_wx_GridCellBoolEditor::GetThisObj(args);
@@ -67,6 +68,7 @@ Gura_DeclareClassMethod(wx_GridCellBoolEditor, IsTrueValue)
 
 Gura_ImplementClassMethod(wx_GridCellBoolEditor, IsTrueValue)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxGridCellBoolEditor::IsTrueValue(value);
@@ -82,6 +84,7 @@ Gura_DeclareClassMethod(wx_GridCellBoolEditor, UseStringValues)
 
 Gura_ImplementClassMethod(wx_GridCellBoolEditor, UseStringValues)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString valueTrue = _T("1");
 	if (args.IsValid(0)) valueTrue = wxString::FromUTF8(args.GetString(0));

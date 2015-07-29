@@ -47,6 +47,7 @@ Gura_DeclareFunction(IconizeEvent)
 
 Gura_ImplementFunction(IconizeEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_IconizeEvent, Iconized)
 
 Gura_ImplementMethod(wx_IconizeEvent, Iconized)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Iconized();

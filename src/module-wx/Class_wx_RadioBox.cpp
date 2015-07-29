@@ -56,6 +56,7 @@ Gura_DeclareFunction(RadioBoxEmpty)
 
 Gura_ImplementFunction(RadioBoxEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RadioBox *pEntity = new wx_RadioBox();
 	Object_wx_RadioBox *pObj = Object_wx_RadioBox::GetThisObj(args);
@@ -88,6 +89,7 @@ Gura_DeclareFunction(RadioBox)
 
 Gura_ImplementFunction(RadioBox)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -140,6 +142,7 @@ Gura_DeclareMethod(wx_RadioBox, Create)
 
 Gura_ImplementMethod(wx_RadioBox, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -169,6 +172,7 @@ Gura_DeclareMethod(wx_RadioBox, Enable)
 
 Gura_ImplementMethod(wx_RadioBox, Enable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool enable = true;
@@ -187,6 +191,7 @@ Gura_DeclareMethod(wx_RadioBox, EnableItem)
 
 Gura_ImplementMethod(wx_RadioBox, EnableItem)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -205,6 +210,7 @@ Gura_DeclareMethod(wx_RadioBox, FindString)
 
 Gura_ImplementMethod(wx_RadioBox, FindString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
@@ -220,6 +226,7 @@ Gura_DeclareMethod(wx_RadioBox, GetColumnCount)
 
 Gura_ImplementMethod(wx_RadioBox, GetColumnCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetColumnCount();
@@ -235,6 +242,7 @@ Gura_DeclareMethod(wx_RadioBox, GetItemHelpText)
 
 Gura_ImplementMethod(wx_RadioBox, GetItemHelpText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
@@ -251,6 +259,7 @@ Gura_DeclareMethod(wx_RadioBox, GetItemToolTip)
 
 Gura_ImplementMethod(wx_RadioBox, GetItemToolTip)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
@@ -267,6 +276,7 @@ Gura_DeclareMethod(wx_RadioBox, GetItemFromPoint)
 
 Gura_ImplementMethod(wx_RadioBox, GetItemFromPoint)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -282,6 +292,7 @@ Gura_DeclareMethod(wx_RadioBox, GetLabel)
 
 Gura_ImplementMethod(wx_RadioBox, GetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
@@ -296,6 +307,7 @@ Gura_DeclareMethod(wx_RadioBox, GetRowCount)
 
 Gura_ImplementMethod(wx_RadioBox, GetRowCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetRowCount();
@@ -310,6 +322,7 @@ Gura_DeclareMethod(wx_RadioBox, GetSelection)
 
 Gura_ImplementMethod(wx_RadioBox, GetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
@@ -324,6 +337,7 @@ Gura_DeclareMethod(wx_RadioBox, GetStringSelection)
 
 Gura_ImplementMethod(wx_RadioBox, GetStringSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
@@ -339,6 +353,7 @@ Gura_DeclareMethod(wx_RadioBox, GetString)
 
 Gura_ImplementMethod(wx_RadioBox, GetString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -355,6 +370,7 @@ Gura_DeclareMethod(wx_RadioBox, IsItemEnabled)
 
 Gura_ImplementMethod(wx_RadioBox, IsItemEnabled)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -371,6 +387,7 @@ Gura_DeclareMethod(wx_RadioBox, IsItemShown)
 
 Gura_ImplementMethod(wx_RadioBox, IsItemShown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -387,6 +404,7 @@ Gura_DeclareMethod(wx_RadioBox, SetItemHelpText)
 
 Gura_ImplementMethod(wx_RadioBox, SetItemHelpText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
@@ -403,6 +421,7 @@ Gura_DeclareMethod(wx_RadioBox, SetLabel)
 
 Gura_ImplementMethod(wx_RadioBox, SetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
@@ -418,6 +437,7 @@ Gura_DeclareMethod(wx_RadioBox, SetSelection)
 
 Gura_ImplementMethod(wx_RadioBox, SetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -433,6 +453,7 @@ Gura_DeclareMethod(wx_RadioBox, SetStringSelection)
 
 Gura_ImplementMethod(wx_RadioBox, SetStringSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
@@ -449,6 +470,7 @@ Gura_DeclareMethod(wx_RadioBox, SetItemToolTip)
 
 Gura_ImplementMethod(wx_RadioBox, SetItemToolTip)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
@@ -466,6 +488,7 @@ Gura_DeclareMethod(wx_RadioBox, Show)
 
 Gura_ImplementMethod(wx_RadioBox, Show)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = true;
@@ -484,6 +507,7 @@ Gura_DeclareMethod(wx_RadioBox, ShowItem)
 
 Gura_ImplementMethod(wx_RadioBox, ShowItem)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);

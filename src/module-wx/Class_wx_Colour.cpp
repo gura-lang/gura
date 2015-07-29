@@ -48,6 +48,7 @@ Gura_DeclareFunction(ColourEmpty)
 
 Gura_ImplementFunction(ColourEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Colour *pEntity = new wx_Colour();
 	Object_wx_Colour *pObj = Object_wx_Colour::GetThisObj(args);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(Colour)
 
 Gura_ImplementFunction(Colour)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
@@ -102,6 +104,7 @@ Gura_DeclareFunction(NamedColour)
 
 Gura_ImplementFunction(NamedColour)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wx_Colour *pEntity = new wx_Colour(colourName);
@@ -124,6 +127,7 @@ Gura_DeclareMethod(wx_Colour, Alpha)
 
 Gura_ImplementMethod(wx_Colour, Alpha)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Alpha();
@@ -138,6 +142,7 @@ Gura_DeclareMethod(wx_Colour, Blue)
 
 Gura_ImplementMethod(wx_Colour, Blue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Blue();
@@ -153,6 +158,7 @@ Gura_DeclareMethod(wx_Colour, GetAsString)
 
 Gura_ImplementMethod(wx_Colour, GetAsString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
@@ -169,6 +175,7 @@ Gura_DeclareMethod(wx_Colour, GetPixel)
 
 Gura_ImplementMethod(wx_Colour, GetPixel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetPixel();
@@ -184,6 +191,7 @@ Gura_DeclareMethod(wx_Colour, Green)
 
 Gura_ImplementMethod(wx_Colour, Green)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Green();
@@ -198,6 +206,7 @@ Gura_DeclareMethod(wx_Colour, IsOk)
 
 Gura_ImplementMethod(wx_Colour, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -212,6 +221,7 @@ Gura_DeclareMethod(wx_Colour, Red)
 
 Gura_ImplementMethod(wx_Colour, Red)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->Red();
@@ -229,6 +239,7 @@ Gura_DeclareMethod(wx_Colour, Set)
 
 Gura_ImplementMethod(wx_Colour, Set)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
@@ -248,6 +259,7 @@ Gura_DeclareMethod(wx_Colour, SetRGB)
 
 Gura_ImplementMethod(wx_Colour, SetRGB)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned RGB = args.GetInt(0);
@@ -264,6 +276,7 @@ Gura_DeclareMethod(wx_Colour, SetFromName)
 
 Gura_ImplementMethod(wx_Colour, SetFromName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));

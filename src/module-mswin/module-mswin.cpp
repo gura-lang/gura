@@ -42,6 +42,7 @@ Gura_DeclareMethod(regkey, createkey)
 
 Gura_ImplementMethod(regkey, createkey)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
@@ -74,6 +75,7 @@ Gura_DeclareMethod(regkey, openkey)
 
 Gura_ImplementMethod(regkey, openkey)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
@@ -102,6 +104,7 @@ Gura_DeclareMethod(regkey, deletekey)
 
 Gura_ImplementMethod(regkey, deletekey)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
@@ -152,6 +155,7 @@ Gura_DeclareMethod(regkey, setvalue)
 
 Gura_ImplementMethod(regkey, setvalue)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.GetString(0);
@@ -183,6 +187,7 @@ Gura_DeclareMethod(regkey, deletevalue)
 
 Gura_ImplementMethod(regkey, deletevalue)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.GetString(0);
@@ -206,6 +211,7 @@ Gura_DeclareMethod(regkey, queryvalue)
 
 Gura_ImplementMethod(regkey, queryvalue)
 {
+	Signal &sig = env.GetSignal();
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.Is_string(0)? args.GetString(0) : nullptr;
@@ -1007,6 +1013,7 @@ Gura_DeclareFunction(ole)
 
 Gura_ImplementFunction(ole)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_ole> pObj(new Object_ole(env));
 	if (args.IsSet(Gura_UserSymbol(connect))) {
 		if (!pObj->Connect(sig, args.GetString(0))) return Value::Null;

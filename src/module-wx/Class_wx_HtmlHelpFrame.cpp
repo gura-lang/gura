@@ -50,6 +50,7 @@ Gura_DeclareFunction(HtmlHelpFrame)
 
 Gura_ImplementFunction(HtmlHelpFrame)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
@@ -79,6 +80,7 @@ Gura_DeclareFunction(HtmlHelpFrame_1)
 
 Gura_ImplementFunction(HtmlHelpFrame_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int wxWindowID = args.GetInt(1);
@@ -109,6 +111,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, AddToolbarButtons)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, AddToolbarButtons)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *toolBar = Object_wx_ToolBar::GetObject(args, 0)->GetEntity();
@@ -129,6 +132,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, Create)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -149,6 +153,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, GetController)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, GetController)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
@@ -164,6 +169,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, ReadCustomization)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -185,6 +191,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, SetController)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, SetController)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *contoller = Object_wx_HtmlHelpController::GetObject(args, 0)->GetEntity();
@@ -200,6 +207,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, SetTitleFormat)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, SetTitleFormat)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString format = wxString::FromUTF8(args.GetString(0));
@@ -216,6 +224,7 @@ Gura_DeclareMethod(wx_HtmlHelpFrame, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, WriteCustomization)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

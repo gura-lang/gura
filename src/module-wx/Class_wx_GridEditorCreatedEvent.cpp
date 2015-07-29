@@ -48,6 +48,7 @@ Gura_DeclareFunction(GridEditorCreatedEventEmpty)
 
 Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_GridEditorCreatedEvent *pEntity = new wx_GridEditorCreatedEvent();
@@ -82,6 +83,7 @@ Gura_DeclareFunction(GridEditorCreatedEvent)
 
 Gura_ImplementFunction(GridEditorCreatedEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int id = args.GetInt(0);
@@ -113,6 +115,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetCol)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetCol)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -131,6 +134,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetControl)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -149,6 +153,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetRow)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetRow)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -169,6 +174,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetCol)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetCol)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -190,6 +196,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetControl)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetControl)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -211,6 +218,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetRow)
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetRow)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

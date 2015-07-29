@@ -86,6 +86,7 @@ Gura_DeclareFunction(mpf)
 
 Gura_ImplementFunction(mpf)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	ULong prec = args.Is_number(1)? args.GetInt(1) : ::mpf_get_default_prec();
 	if (args.IsInvalid(0)) {
@@ -186,6 +187,7 @@ Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 
 Gura_ImplementMethod(string, cast_mpf)
 {
+	Signal &sig = env.GetSignal();
 	const char *strThis = args.GetThis().GetString();
 	int base = 0;
 	ULong prec = args.Is_number(0)? args.GetInt(0) : ::mpf_get_default_prec();

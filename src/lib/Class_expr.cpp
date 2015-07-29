@@ -20,7 +20,7 @@ namespace Gura {
 // Object_expr
 //-----------------------------------------------------------------------------
 Object_expr::Object_expr(const Object_expr &obj) :
-							Object(obj), _pExpr(obj.GetExpr()->Reference())
+	Object(obj), _pExpr(obj.GetExpr()->Reference())
 {
 }
 
@@ -292,6 +292,7 @@ Gura_DeclareFunction(expr)
 
 Gura_ImplementFunction(expr)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
 	Parser parser(stream.GetName());
 	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
@@ -314,6 +315,7 @@ Gura_DeclareMethod(expr, eval)
 
 Gura_ImplementMethod(expr, eval)
 {
+	Signal &sig = env.GetSignal();
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Environment *pEnv = args.Is_environment(0)?
 			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
@@ -337,6 +339,7 @@ Gura_DeclareClassMethod(expr, parse)
 
 Gura_ImplementClassMethod(expr, parse)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
 	Parser parser(SRCNAME_string);
 	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
@@ -367,6 +370,7 @@ Gura_DeclareMethod(expr, textize)
 
 Gura_ImplementMethod(expr, textize)
 {
+	Signal &sig = env.GetSignal();
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
 	if (args.Is_symbol(0)) {
@@ -403,6 +407,7 @@ Gura_DeclareMethod(expr, tofunction)
 
 Gura_ImplementMethod(expr, tofunction)
 {
+	Signal &sig = env.GetSignal();
 	Expr_Block *pExprBlock = Object_expr::GetThisObj(args)->GetExpr()->ToExprBlock();
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
@@ -465,6 +470,7 @@ Gura_DeclareMethod(expr, write)
 
 Gura_ImplementMethod(expr, write)
 {
+	Signal &sig = env.GetSignal();
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
 	if (args.Is_symbol(1)) {

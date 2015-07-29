@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_Protocol, Reconnect)
 
 Gura_ImplementMethod(wx_Protocol, Reconnect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Reconnect();
@@ -58,6 +59,7 @@ Gura_DeclareMethod(wx_Protocol, GetInputStream)
 
 Gura_ImplementMethod(wx_Protocol, GetInputStream)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -73,6 +75,7 @@ Gura_DeclareMethod(wx_Protocol, Abort)
 
 Gura_ImplementMethod(wx_Protocol, Abort)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Abort();
@@ -87,6 +90,7 @@ Gura_DeclareMethod(wx_Protocol, GetError)
 
 Gura_ImplementMethod(wx_Protocol, GetError)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxProtocolError rtn = pThis->GetEntity()->GetError();
@@ -101,6 +105,7 @@ Gura_DeclareMethod(wx_Protocol, GetContentType)
 
 Gura_ImplementMethod(wx_Protocol, GetContentType)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetContentType();
@@ -115,6 +120,7 @@ Gura_DeclareMethod(wx_Protocol, SetUser)
 
 Gura_ImplementMethod(wx_Protocol, SetUser)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString user = wxString::FromUTF8(args.GetString(0));
@@ -130,6 +136,7 @@ Gura_DeclareMethod(wx_Protocol, SetPassword)
 
 Gura_ImplementMethod(wx_Protocol, SetPassword)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString user = wxString::FromUTF8(args.GetString(0));

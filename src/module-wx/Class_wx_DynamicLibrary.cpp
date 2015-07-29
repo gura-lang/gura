@@ -48,6 +48,7 @@ Gura_DeclareFunction(DynamicLibraryEmpty)
 
 Gura_ImplementFunction(DynamicLibraryEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DynamicLibrary *pEntity = new wx_DynamicLibrary();
@@ -78,6 +79,7 @@ Gura_DeclareFunction(DynamicLibrary)
 
 Gura_ImplementFunction(DynamicLibrary)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -110,6 +112,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizeName)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizeName)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -134,6 +137,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -154,6 +158,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, Detach)
 
 Gura_ImplementMethod(wx_DynamicLibrary, Detach)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -172,6 +177,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, GetSymbol)
 
 Gura_ImplementMethod(wx_DynamicLibrary, GetSymbol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -187,6 +193,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, GetSymbolAorW)
 
 Gura_ImplementMethod(wx_DynamicLibrary, GetSymbolAorW)
 {
+	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -207,6 +214,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, GetProgramHandle)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, GetProgramHandle)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType rtn = wxDynamicLibrary::GetProgramHandle();
@@ -225,6 +233,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, HasSymbol)
 
 Gura_ImplementMethod(wx_DynamicLibrary, HasSymbol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -240,6 +249,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, IsLoaded)
 
 Gura_ImplementMethod(wx_DynamicLibrary, IsLoaded)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsLoaded();
@@ -254,6 +264,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, ListLoaded)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, ListLoaded)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDynamicLibraryDetailsArray rtn = wxDynamicLibrary::ListLoaded();
@@ -275,6 +286,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, Load)
 
 Gura_ImplementMethod(wx_DynamicLibrary, Load)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -295,6 +307,7 @@ Gura_DeclareMethod(wx_DynamicLibrary, Unload)
 
 Gura_ImplementMethod(wx_DynamicLibrary, Unload)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -315,6 +328,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, Unload_1)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, Unload_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType *handle = Object_wx_DllType::GetObject(args, 0)->GetEntity();

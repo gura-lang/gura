@@ -48,6 +48,7 @@ Gura_DeclareFunction(TCPServerEmpty)
 
 Gura_ImplementFunction(TCPServerEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPServer *pEntity = new wx_TCPServer();
 	Object_wx_TCPServer *pObj = Object_wx_TCPServer::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareMethod(wx_TCPServer, Create)
 
 Gura_ImplementMethod(wx_TCPServer, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString service = wxString::FromUTF8(args.GetString(0));
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_TCPServer, OnAcceptConnection)
 
 Gura_ImplementMethod(wx_TCPServer, OnAcceptConnection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));

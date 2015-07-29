@@ -72,6 +72,7 @@ Gura_DeclareFunction(suffixmgr)
 
 Gura_ImplementFunction(suffixmgr)
 {
+	Signal &sig = env.GetSignal();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	AutoPtr<Object_suffixmgr> pObj;
 	if (pSymbol->IsIdentical(Gura_Symbol(number))) {
@@ -109,6 +110,7 @@ Gura_DeclareMethod(suffixmgr, assign)
 
 Gura_ImplementMethod(suffixmgr, assign)
 {
+	Signal &sig = env.GetSignal();
 	SuffixMgr &suffixMgr = Object_suffixmgr::GetThisObj(args)->GetSuffixMgr();
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;

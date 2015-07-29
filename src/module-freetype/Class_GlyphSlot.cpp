@@ -88,6 +88,7 @@ Gura_DeclareMethod(GlyphSlot, Get_Glyph)
 
 Gura_ImplementMethod(GlyphSlot, Get_Glyph)
 {
+	Signal &sig = env.GetSignal();
 	FT_GlyphSlot glyphSlot = Object_GlyphSlot::GetThisObj(args)->GetEntity();
 	std::unique_ptr<FT_Glyph> pGlyph(new FT_Glyph);
 	FT_Error err = ::FT_Get_Glyph(glyphSlot, pGlyph.get());
@@ -107,6 +108,7 @@ Gura_DeclareMethod(GlyphSlot, Render)
 
 Gura_ImplementMethod(GlyphSlot, Render)
 {
+	Signal &sig = env.GetSignal();
 	FT_GlyphSlot glyphSlot = Object_GlyphSlot::GetThisObj(args)->GetEntity();
 	FT_Render_Mode render_mode = static_cast<FT_Render_Mode>(args.GetInt(0));
 	FT_Error err = ::FT_Render_Glyph(glyphSlot, render_mode);

@@ -46,6 +46,7 @@ Gura_DeclareFunction(LogStderr)
 
 Gura_ImplementFunction(LogStderr)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogStderr *pEntity = new wx_LogStderr();
 	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetThisObj(args);

@@ -46,6 +46,7 @@ Gura_DeclareFunction(RadioButtonEmpty)
 
 Gura_ImplementFunction(RadioButtonEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RadioButton *pEntity = new wx_RadioButton();
 	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetThisObj(args);
@@ -76,6 +77,7 @@ Gura_DeclareFunction(RadioButton)
 
 Gura_ImplementFunction(RadioButton)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -118,6 +120,7 @@ Gura_DeclareMethod(wx_RadioButton, Create)
 
 Gura_ImplementMethod(wx_RadioButton, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -145,6 +148,7 @@ Gura_DeclareMethod(wx_RadioButton, GetValue)
 
 Gura_ImplementMethod(wx_RadioButton, GetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetValue();
@@ -159,6 +163,7 @@ Gura_DeclareMethod(wx_RadioButton, SetValue)
 
 Gura_ImplementMethod(wx_RadioButton, SetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool value = args.GetBoolean(0);

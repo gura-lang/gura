@@ -45,6 +45,7 @@ Gura_DeclareFunction(TreeItemId)
 
 Gura_ImplementFunction(TreeItemId)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TreeItemId *pEntity = new wx_TreeItemId();
 	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetThisObj(args);
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_TreeItemId, IsOk)
 
 Gura_ImplementMethod(wx_TreeItemId, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();

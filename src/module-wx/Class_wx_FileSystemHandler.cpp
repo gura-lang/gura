@@ -56,6 +56,7 @@ Gura_DeclareFunction(FileSystemHandlerEmpty)
 
 Gura_ImplementFunction(FileSystemHandlerEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FileSystemHandler *pEntity = new wx_FileSystemHandler();
@@ -82,6 +83,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, CanOpen)
 
 Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
@@ -100,6 +102,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetAnchor)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -122,6 +125,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetLeftLocation)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -144,6 +148,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -166,6 +171,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetProtocol)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -188,6 +194,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetRightLocation)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -209,6 +216,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindFirst)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString wildcard = wxString::FromUTF8(args.GetString(0));
@@ -226,6 +234,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindNext)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FindNext();
@@ -242,6 +251,7 @@ Gura_DeclareMethod(wx_FileSystemHandler, OpenFile)
 
 Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileSystem *fs = Object_wx_FileSystem::GetObject(args, 0)->GetEntity();

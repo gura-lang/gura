@@ -42,6 +42,7 @@ Gura_DeclareClassMethod(image_surface, create)
 
 Gura_ImplementClassMethod(image_surface, create)
 {
+	Signal &sig = env.GetSignal();
 	Image *pImage = Image::Reference(Object_image::GetObject(args, 0)->GetImage());
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
@@ -62,6 +63,7 @@ Gura_DeclareClassMethod(image_surface, create_from_png)
 
 Gura_ImplementClassMethod(image_surface, create_from_png)
 {
+	Signal &sig = env.GetSignal();
 	std::unique_ptr<Reader_Stream> pReader(new Reader_Stream(sig,
 										args.GetStream(0).Reference()));
 	cairo_surface_t *surface = ::cairo_image_surface_create_from_png_stream(

@@ -117,6 +117,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	ULong nBytes = 0;
 	ULong nRecords = 0;

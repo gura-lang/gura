@@ -1415,6 +1415,7 @@ Gura_DeclareMethod(image, opengl)
 
 Gura_ImplementMethod(image, opengl)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	if (!DoGLSection(env, sig, args, pThis->GetImage())) return Value::Null;

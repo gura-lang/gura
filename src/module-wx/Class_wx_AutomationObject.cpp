@@ -46,6 +46,7 @@ Gura_DeclareFunction(AutomationObject)
 
 Gura_ImplementFunction(AutomationObject)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AutomationObject *pEntity = new wx_AutomationObject();
 	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetThisObj(args);
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_AutomationObject, CallMethod)
 
 Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_AutomationObject, CallMethod_1)
 
 Gura_ImplementMethod(wx_AutomationObject, CallMethod_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -118,6 +121,7 @@ Gura_DeclareMethod(wx_AutomationObject, CreateInstance)
 
 Gura_ImplementMethod(wx_AutomationObject, CreateInstance)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -137,6 +141,7 @@ Gura_DeclareMethod(wx_AutomationObject, GetDispatchPtr)
 
 Gura_ImplementMethod(wx_AutomationObject, GetDispatchPtr)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -156,6 +161,7 @@ Gura_DeclareMethod(wx_AutomationObject, GetInstance)
 
 Gura_ImplementMethod(wx_AutomationObject, GetInstance)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -181,6 +187,7 @@ Gura_DeclareMethod(wx_AutomationObject, GetObject)
 
 Gura_ImplementMethod(wx_AutomationObject, GetObject)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -210,6 +217,7 @@ Gura_DeclareMethod(wx_AutomationObject, GetProperty)
 
 Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -234,6 +242,7 @@ Gura_DeclareMethod(wx_AutomationObject, GetProperty_1)
 
 Gura_ImplementMethod(wx_AutomationObject, GetProperty_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -261,6 +270,7 @@ Gura_DeclareMethod(wx_AutomationObject, Invoke)
 
 Gura_ImplementMethod(wx_AutomationObject, Invoke)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -291,6 +301,7 @@ Gura_DeclareMethod(wx_AutomationObject, PutProperty)
 
 Gura_ImplementMethod(wx_AutomationObject, PutProperty)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -315,6 +326,7 @@ Gura_DeclareMethod(wx_AutomationObject, PutProperty_1)
 
 Gura_ImplementMethod(wx_AutomationObject, PutProperty_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -335,6 +347,7 @@ Gura_DeclareMethod(wx_AutomationObject, SetDispatchPtr)
 
 Gura_ImplementMethod(wx_AutomationObject, SetDispatchPtr)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

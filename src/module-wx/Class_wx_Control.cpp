@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_Control, Command)
 
 Gura_ImplementMethod(wx_Control, Command)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
@@ -58,6 +59,7 @@ Gura_DeclareMethod(wx_Control, GetLabel)
 
 Gura_ImplementMethod(wx_Control, GetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
@@ -72,6 +74,7 @@ Gura_DeclareMethod(wx_Control, GetLabelText)
 
 Gura_ImplementMethod(wx_Control, GetLabelText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabelText();
@@ -87,6 +90,7 @@ Gura_DeclareClassMethod(wx_Control, GetLabelText_1)
 
 Gura_ImplementClassMethod(wx_Control, GetLabelText_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxControl::GetLabelText(label);
@@ -101,6 +105,7 @@ Gura_DeclareMethod(wx_Control, SetLabel)
 
 Gura_ImplementMethod(wx_Control, SetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));

@@ -46,6 +46,7 @@ Gura_DeclareFunction(ToolBarEmpty)
 
 Gura_ImplementFunction(ToolBarEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ToolBar *pEntity = new wx_ToolBar();
 	Object_wx_ToolBar *pObj = Object_wx_ToolBar::GetThisObj(args);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(ToolBar)
 
 Gura_ImplementFunction(ToolBar)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -107,6 +109,7 @@ Gura_DeclareMethod(wx_ToolBar, AddControl)
 
 Gura_ImplementMethod(wx_ToolBar, AddControl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxControl *control = Object_wx_Control::GetObject(args, 0)->GetEntity();
@@ -123,6 +126,7 @@ Gura_DeclareMethod(wx_ToolBar, AddSeparator)
 
 Gura_ImplementMethod(wx_ToolBar, AddSeparator)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBarToolBase *rtn = pThis->GetEntity()->AddSeparator();
@@ -136,6 +140,7 @@ Gura_DeclareMethod(wx_ToolBar, AddStretchableSpace)
 
 Gura_ImplementMethod(wx_ToolBar, AddStretchableSpace)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBarToolBase *rtn = pThis->GetEntity()->AddStretchableSpace();
@@ -155,6 +160,7 @@ Gura_DeclareMethod(wx_ToolBar, AddTool_1)
 
 Gura_ImplementMethod(wx_ToolBar, AddTool_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -184,6 +190,7 @@ Gura_DeclareMethod(wx_ToolBar, AddTool)
 
 Gura_ImplementMethod(wx_ToolBar, AddTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -212,6 +219,7 @@ Gura_DeclareMethod(wx_ToolBar, AddTool_2)
 
 Gura_ImplementMethod(wx_ToolBar, AddTool_2)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBarToolBase *tool = Object_wx_ToolBarToolBase::GetObject(args, 0)->GetEntity();
@@ -234,6 +242,7 @@ Gura_DeclareMethod(wx_ToolBar, AddCheckTool)
 
 Gura_ImplementMethod(wx_ToolBar, AddCheckTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -265,6 +274,7 @@ Gura_DeclareMethod(wx_ToolBar, AddRadioTool)
 
 Gura_ImplementMethod(wx_ToolBar, AddRadioTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -288,6 +298,7 @@ Gura_DeclareMethod(wx_ToolBar, ClearTools)
 
 Gura_ImplementMethod(wx_ToolBar, ClearTools)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->ClearTools();
@@ -303,6 +314,7 @@ Gura_DeclareMethod(wx_ToolBar, DeleteTool)
 
 Gura_ImplementMethod(wx_ToolBar, DeleteTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -319,6 +331,7 @@ Gura_DeclareMethod(wx_ToolBar, DeleteToolByPos)
 
 Gura_ImplementMethod(wx_ToolBar, DeleteToolByPos)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
@@ -335,6 +348,7 @@ Gura_DeclareMethod(wx_ToolBar, EnableTool)
 
 Gura_ImplementMethod(wx_ToolBar, EnableTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -352,6 +366,7 @@ Gura_DeclareMethod(wx_ToolBar, FindById)
 
 Gura_ImplementMethod(wx_ToolBar, FindById)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -368,6 +383,7 @@ Gura_DeclareMethod(wx_ToolBar, FindControl)
 
 Gura_ImplementMethod(wx_ToolBar, FindControl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -385,6 +401,7 @@ Gura_DeclareMethod(wx_ToolBar, FindToolForPosition)
 
 Gura_ImplementMethod(wx_ToolBar, FindToolForPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
@@ -401,6 +418,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolsCount)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolsCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetToolsCount();
@@ -415,6 +433,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolSize)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetToolSize();
@@ -429,6 +448,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolBitmapSize)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolBitmapSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetToolBitmapSize();
@@ -443,6 +463,7 @@ Gura_DeclareMethod(wx_ToolBar, GetMargins)
 
 Gura_ImplementMethod(wx_ToolBar, GetMargins)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetMargins();
@@ -458,6 +479,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolClientData)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolClientData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -477,6 +499,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolEnabled)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolEnabled)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -493,6 +516,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolLongHelp)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolLongHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -508,6 +532,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolPacking)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolPacking)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetToolPacking();
@@ -523,6 +548,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolPos)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolPos)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -538,6 +564,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolSeparation)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolSeparation)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetToolSeparation();
@@ -553,6 +580,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolShortHelp)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolShortHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -569,6 +597,7 @@ Gura_DeclareMethod(wx_ToolBar, GetToolState)
 
 Gura_ImplementMethod(wx_ToolBar, GetToolState)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -586,6 +615,7 @@ Gura_DeclareMethod(wx_ToolBar, InsertControl)
 
 Gura_ImplementMethod(wx_ToolBar, InsertControl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
@@ -603,6 +633,7 @@ Gura_DeclareMethod(wx_ToolBar, InsertSeparator)
 
 Gura_ImplementMethod(wx_ToolBar, InsertSeparator)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
@@ -626,6 +657,7 @@ Gura_DeclareMethod(wx_ToolBar, InsertTool)
 
 Gura_ImplementMethod(wx_ToolBar, InsertTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
@@ -655,6 +687,7 @@ Gura_DeclareMethod(wx_ToolBar, InsertTool_1)
 
 Gura_ImplementMethod(wx_ToolBar, InsertTool_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
@@ -673,6 +706,7 @@ Gura_DeclareMethod(wx_ToolBar, OnLeftClick)
 
 Gura_ImplementMethod(wx_ToolBar, OnLeftClick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -689,6 +723,7 @@ Gura_DeclareMethod(wx_ToolBar, OnMouseEnter)
 
 Gura_ImplementMethod(wx_ToolBar, OnMouseEnter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -706,6 +741,7 @@ Gura_DeclareMethod(wx_ToolBar, OnRightClick)
 
 Gura_ImplementMethod(wx_ToolBar, OnRightClick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -723,6 +759,7 @@ Gura_DeclareMethod(wx_ToolBar, Realize)
 
 Gura_ImplementMethod(wx_ToolBar, Realize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Realize();
@@ -738,6 +775,7 @@ Gura_DeclareMethod(wx_ToolBar, RemoveTool)
 
 Gura_ImplementMethod(wx_ToolBar, RemoveTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -755,6 +793,7 @@ Gura_DeclareMethod(wx_ToolBar, SetBitmapResource)
 
 Gura_ImplementMethod(wx_ToolBar, SetBitmapResource)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -774,6 +813,7 @@ Gura_DeclareMethod(wx_ToolBar, SetMargins)
 
 Gura_ImplementMethod(wx_ToolBar, SetMargins)
 {
+	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -795,6 +835,7 @@ Gura_DeclareMethod(wx_ToolBar, SetMargins_1)
 
 Gura_ImplementMethod(wx_ToolBar, SetMargins_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -811,6 +852,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolBitmapSize)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolBitmapSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -827,6 +869,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolClientData)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolClientData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -844,6 +887,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolDisabledBitmap)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolDisabledBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -861,6 +905,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolLongHelp)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolLongHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -877,6 +922,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolPacking)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolPacking)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int packing = args.GetInt(0);
@@ -893,6 +939,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolShortHelp)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolShortHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
@@ -910,6 +957,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolNormalBitmap)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolNormalBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -926,6 +974,7 @@ Gura_DeclareMethod(wx_ToolBar, SetToolSeparation)
 
 Gura_ImplementMethod(wx_ToolBar, SetToolSeparation)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int separation = args.GetInt(0);
@@ -942,6 +991,7 @@ Gura_DeclareMethod(wx_ToolBar, ToggleTool)
 
 Gura_ImplementMethod(wx_ToolBar, ToggleTool)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);

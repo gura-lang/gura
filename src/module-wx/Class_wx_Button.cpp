@@ -46,6 +46,7 @@ Gura_DeclareFunction(ButtonEmpty)
 
 Gura_ImplementFunction(ButtonEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Button *pEntity = new wx_Button();
 	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
@@ -94,6 +95,7 @@ Gura_DeclareFunction(Button)
 
 Gura_ImplementFunction(Button)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -137,6 +139,7 @@ Gura_DeclareMethod(wx_Button, Create)
 
 Gura_ImplementMethod(wx_Button, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -170,6 +173,7 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 
 Gura_ImplementMethod(wx_Button, GetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
@@ -189,6 +193,7 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 
 Gura_ImplementMethod(wx_Button, GetDefaultSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->GetDefaultSize();
@@ -202,6 +207,7 @@ Gura_DeclareMethod(wx_Button, SetDefault)
 
 Gura_ImplementMethod(wx_Button, SetDefault)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SetDefault();
@@ -223,6 +229,7 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 
 Gura_ImplementMethod(wx_Button, SetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));

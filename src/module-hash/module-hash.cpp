@@ -98,6 +98,7 @@ Gura_DeclareMethod(accumulator, update)
 
 Gura_ImplementMethod(accumulator, update)
 {
+	Signal &sig = env.GetSignal();
 	AccumulatorBase &accumulator = Object_accumulator::GetThisObj(args)->GetAccumulator();
 	args.GetStream(0).ReadToStream(env, sig, accumulator, 0x10000, false);
 	return args.GetThis();
@@ -278,6 +279,7 @@ Gura_DeclareFunction(md5)
 
 Gura_ImplementFunction(md5)
 {
+	Signal &sig = env.GetSignal();
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_MD5(env, sig), "md5");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);
@@ -299,6 +301,7 @@ Gura_DeclareFunction(sha1)
 
 Gura_ImplementFunction(sha1)
 {
+	Signal &sig = env.GetSignal();
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_SHA1(env, sig), "sha1");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);
@@ -320,6 +323,7 @@ Gura_DeclareFunction(crc32)
 
 Gura_ImplementFunction(crc32)
 {
+	Signal &sig = env.GetSignal();
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_CRC32(env, sig), "crc32");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetAccumulator(), 0x10000, false);

@@ -46,6 +46,7 @@ Gura_DeclareFunction(Mutex)
 
 Gura_ImplementFunction(Mutex)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutexType type = wxMUTEX_DEFAULT;
 	if (args.IsValid(0)) type = static_cast<wxMutexType>(args.GetInt(0));
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_Mutex, Lock)
 
 Gura_ImplementMethod(wx_Mutex, Lock)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->Lock();
@@ -83,6 +85,7 @@ Gura_DeclareMethod(wx_Mutex, TryLock)
 
 Gura_ImplementMethod(wx_Mutex, TryLock)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->TryLock();
@@ -97,6 +100,7 @@ Gura_DeclareMethod(wx_Mutex, Unlock)
 
 Gura_ImplementMethod(wx_Mutex, Unlock)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMutexError rtn = pThis->GetEntity()->Unlock();

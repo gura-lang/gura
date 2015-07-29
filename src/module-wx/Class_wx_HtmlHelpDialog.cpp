@@ -52,6 +52,7 @@ Gura_DeclareFunction(HtmlHelpDialog)
 
 Gura_ImplementFunction(HtmlHelpDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
@@ -87,6 +88,7 @@ Gura_DeclareFunction(HtmlHelpDialog_1)
 
 Gura_ImplementFunction(HtmlHelpDialog_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -123,6 +125,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -149,6 +152,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, Create)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -173,6 +177,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, GetController)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
@@ -190,6 +195,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, ReadCustomization)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -213,6 +219,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, SetController)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, SetController)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -234,6 +241,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, SetTitleFormat)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, SetTitleFormat)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -256,6 +264,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, WriteCustomization)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

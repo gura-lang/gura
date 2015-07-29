@@ -176,6 +176,7 @@ Gura_DeclareFunction(waitkey)
 #if defined(GURA_ON_MSWIN)
 Gura_ImplementFunction(clear)
 {
+	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
@@ -240,6 +241,7 @@ Gura_ImplementFunction(getwinsize)
 
 Gura_ImplementFunction(setcolor)
 {
+	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
@@ -264,6 +266,7 @@ Gura_ImplementFunction(setcolor)
 
 Gura_ImplementFunction(moveto)
 {
+	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
@@ -283,6 +286,7 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(waitkey)
 {
+	Signal &sig = env.GetSignal();
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
 	int chRtn = 0;
 	enum {
@@ -348,6 +352,7 @@ Gura_ImplementFunction(waitkey)
 
 Gura_ImplementFunction(clear)
 {
+	Signal &sig = env.GetSignal();
 	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : nullptr;
 	if (pSymbol == nullptr) {
 		::printf("\033[2J");
@@ -382,6 +387,7 @@ StringList g_attrStack;
 
 Gura_ImplementFunction(setcolor)
 {
+	Signal &sig = env.GetSignal();
 	int fg = 0, bg = 0;
 	String str;
 	if (!args.Is_symbol(0)) {
@@ -430,6 +436,7 @@ Gura_ImplementFunction(setcolor)
 
 Gura_ImplementFunction(moveto)
 {
+	Signal &sig = env.GetSignal();
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	if (args.IsBlockSpecified()) {
@@ -448,6 +455,7 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(waitkey)
 {
+	Signal &sig = env.GetSignal();
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
 	struct termios termios_org, termios_new;
 	::tcgetattr(STDIN_FILENO, &termios_org);

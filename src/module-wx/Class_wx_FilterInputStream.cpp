@@ -49,6 +49,7 @@ Gura_DeclareFunction(FilterInputStream)
 
 Gura_ImplementFunction(FilterInputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -79,6 +80,7 @@ Gura_DeclareFunction(FilterInputStream_1)
 
 Gura_ImplementFunction(FilterInputStream_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();

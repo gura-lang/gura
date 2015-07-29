@@ -50,6 +50,7 @@ Gura_DeclareFunction(run)
 
 Gura_ImplementFunction(run)
 {
+	Signal &sig = env.GetSignal();
 	RandomGenerator::Initialize(0);
 	UChar buff[1024];
 	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, sig, 256));

@@ -48,6 +48,7 @@ Gura_DeclareFunction(RichTextXMLHandler)
 
 Gura_ImplementFunction(RichTextXMLHandler)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxT("XML");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanLoad)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanLoad)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanLoad();
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanSave)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanSave)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanSave();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CreateStyle)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CreateStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
@@ -128,6 +132,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoLoadFile)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -152,6 +157,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoSaveFile)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoSaveFile)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -175,6 +181,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ExportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ExportXML)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -194,6 +201,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetNodeContent)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetNodeContent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -213,6 +221,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamNode)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamNode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -233,6 +242,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamValue)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -254,6 +264,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetStyle)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
@@ -277,6 +288,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetText)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -300,6 +312,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, HasParam)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, HasParam)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -320,6 +333,7 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ImportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ImportXML)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();

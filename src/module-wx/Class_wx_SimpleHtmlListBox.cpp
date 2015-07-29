@@ -54,6 +54,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -97,6 +98,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -127,6 +129,7 @@ Gura_DeclareFunction(SimpleHtmlListBoxEmpty)
 
 Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SimpleHtmlListBox *pEntity = new wx_SimpleHtmlListBox();
 	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetThisObj(args);
@@ -159,6 +162,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -200,6 +204,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();

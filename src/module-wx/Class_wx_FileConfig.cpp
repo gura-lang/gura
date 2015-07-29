@@ -47,6 +47,7 @@ Gura_DeclareFunction(FileConfig)
 
 Gura_ImplementFunction(FileConfig)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *is = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
@@ -73,6 +74,7 @@ Gura_DeclareMethod(wx_FileConfig, Save)
 
 Gura_ImplementMethod(wx_FileConfig, Save)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *os = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -90,6 +92,7 @@ Gura_DeclareMethod(wx_FileConfig, SetUmask)
 
 Gura_ImplementMethod(wx_FileConfig, SetUmask)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int mode = args.GetInt(0);

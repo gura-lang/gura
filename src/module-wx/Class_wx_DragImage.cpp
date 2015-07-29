@@ -56,6 +56,7 @@ Gura_DeclareFunction(DragImageEmpty)
 
 Gura_ImplementFunction(DragImageEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DragImage *pEntity = new wx_DragImage();
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
@@ -82,6 +83,7 @@ Gura_DeclareFunction(DragImage)
 
 Gura_ImplementFunction(DragImage)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *image = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
@@ -112,6 +114,7 @@ Gura_DeclareFunction(DragImage_1)
 
 Gura_ImplementFunction(DragImage_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxIcon *image = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
@@ -142,6 +145,7 @@ Gura_DeclareFunction(DragImage_2)
 
 Gura_ImplementFunction(DragImage_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
@@ -171,6 +175,7 @@ Gura_DeclareFunction(DragImage_3)
 
 Gura_ImplementFunction(DragImage_3)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxTreeCtrl *treeCtrl = Object_wx_TreeCtrl::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *id = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
@@ -197,6 +202,7 @@ Gura_DeclareFunction(DragImage_4)
 
 Gura_ImplementFunction(DragImage_4)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxListCtrl *treeCtrl = Object_wx_ListCtrl::GetObject(args, 0)->GetEntity();
 	long id = args.GetLong(1);
@@ -225,6 +231,7 @@ Gura_DeclareFunction(DragImage_5)
 
 Gura_ImplementFunction(DragImage_5)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
@@ -259,6 +266,7 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *hotspot = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -282,6 +290,7 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag_1)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *hotspot = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -303,6 +312,7 @@ Gura_DeclareMethod(wx_DragImage, DoDrawImage)
 
 Gura_ImplementMethod(wx_DragImage, DoDrawImage)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -323,6 +333,7 @@ Gura_DeclareMethod(wx_DragImage, EndDrag)
 
 Gura_ImplementMethod(wx_DragImage, EndDrag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->EndDrag();
@@ -340,6 +351,7 @@ Gura_DeclareMethod(wx_DragImage, GetImageRect)
 
 Gura_ImplementMethod(wx_DragImage, GetImageRect)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -359,6 +371,7 @@ Gura_DeclareMethod(wx_DragImage, Hide)
 
 Gura_ImplementMethod(wx_DragImage, Hide)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Hide();
@@ -374,6 +387,7 @@ Gura_DeclareMethod(wx_DragImage, Move)
 
 Gura_ImplementMethod(wx_DragImage, Move)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -389,6 +403,7 @@ Gura_DeclareMethod(wx_DragImage, Show)
 
 Gura_ImplementMethod(wx_DragImage, Show)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Show();
@@ -409,6 +424,7 @@ Gura_DeclareMethod(wx_DragImage, UpdateBackingFromWindow)
 
 Gura_ImplementMethod(wx_DragImage, UpdateBackingFromWindow)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

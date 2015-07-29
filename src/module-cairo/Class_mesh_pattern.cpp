@@ -25,6 +25,7 @@ Gura_DeclareClassMethod(mesh_pattern, create)
 
 Gura_ImplementClassMethod(mesh_pattern, create)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	cairo_pattern_t *pattern = ::cairo_pattern_create_mesh();
 	if (Is_error(sig, pattern)) {
@@ -49,6 +50,7 @@ Gura_DeclareMethod(mesh_pattern, begin_patch)
 
 Gura_ImplementMethod(mesh_pattern, begin_patch)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -72,6 +74,7 @@ Gura_DeclareMethod(mesh_pattern, end_patch)
 
 Gura_ImplementMethod(mesh_pattern, end_patch)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -97,6 +100,7 @@ Gura_DeclareMethod(mesh_pattern, move_to)
 
 Gura_ImplementMethod(mesh_pattern, move_to)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -124,6 +128,7 @@ Gura_DeclareMethod(mesh_pattern, line_to)
 
 Gura_ImplementMethod(mesh_pattern, line_to)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -155,6 +160,7 @@ Gura_DeclareMethod(mesh_pattern, curve_to)
 
 Gura_ImplementMethod(mesh_pattern, curve_to)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -187,6 +193,7 @@ Gura_DeclareMethod(mesh_pattern, set_control_point)
 
 Gura_ImplementMethod(mesh_pattern, set_control_point)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -218,6 +225,7 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgb)
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -251,6 +259,7 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgba)
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 {
+	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
@@ -281,6 +290,7 @@ Gura_DeclareMethod(mesh_pattern, )
 
 Gura_ImplementMethod(mesh_pattern, )
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_(pattern);

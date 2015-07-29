@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_DialUpManager, Create)
 
 Gura_ImplementMethod(wx_DialUpManager, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDialUpManager *rtn = (wxDialUpManager *)pThis->GetEntity()->Create();
@@ -57,6 +58,7 @@ Gura_DeclareMethod(wx_DialUpManager, IsOk)
 
 Gura_ImplementMethod(wx_DialUpManager, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -72,6 +74,7 @@ Gura_DeclareMethod(wx_DialUpManager, GetISPNames)
 
 Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> names(CreateArrayString(args.GetList(0)));
@@ -91,6 +94,7 @@ Gura_DeclareMethod(wx_DialUpManager, Dial)
 
 Gura_ImplementMethod(wx_DialUpManager, Dial)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString nameOfISP = wxEmptyString;
@@ -113,6 +117,7 @@ Gura_DeclareMethod(wx_DialUpManager, IsDialing)
 
 Gura_ImplementMethod(wx_DialUpManager, IsDialing)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDialing();
@@ -127,6 +132,7 @@ Gura_DeclareMethod(wx_DialUpManager, CancelDialing)
 
 Gura_ImplementMethod(wx_DialUpManager, CancelDialing)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CancelDialing();
@@ -141,6 +147,7 @@ Gura_DeclareMethod(wx_DialUpManager, HangUp)
 
 Gura_ImplementMethod(wx_DialUpManager, HangUp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HangUp();
@@ -155,6 +162,7 @@ Gura_DeclareMethod(wx_DialUpManager, IsAlwaysOnline)
 
 Gura_ImplementMethod(wx_DialUpManager, IsAlwaysOnline)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsAlwaysOnline();
@@ -169,6 +177,7 @@ Gura_DeclareMethod(wx_DialUpManager, IsOnline)
 
 Gura_ImplementMethod(wx_DialUpManager, IsOnline)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOnline();
@@ -183,6 +192,7 @@ Gura_DeclareMethod(wx_DialUpManager, SetOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, SetOnlineStatus)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool isOnline = true;
@@ -200,6 +210,7 @@ Gura_DeclareMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nSeconds = 60;
@@ -215,6 +226,7 @@ Gura_DeclareMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->DisableAutoCheckOnlineStatus();
@@ -230,6 +242,7 @@ Gura_DeclareMethod(wx_DialUpManager, SetWellKnownHost)
 
 Gura_ImplementMethod(wx_DialUpManager, SetWellKnownHost)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString hostname = wxString::FromUTF8(args.GetString(0));
@@ -248,6 +261,7 @@ Gura_DeclareMethod(wx_DialUpManager, SetConnectCommand)
 
 Gura_ImplementMethod(wx_DialUpManager, SetConnectCommand)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString commandDial = wxT("/usr/bin/pon");

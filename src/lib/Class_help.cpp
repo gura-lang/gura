@@ -100,6 +100,7 @@ Gura_DeclareClassMethod(help, gettext_block_en)
 
 Gura_ImplementClassMethod(help, gettext_block_en)
 {
+	Signal &sig = env.GetSignal();
 	const char *varName = args.GetString(0);
 	const char *typeName = args.GetString(1);
 	String buff = Formatter::Format(

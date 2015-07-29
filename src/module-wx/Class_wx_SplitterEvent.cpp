@@ -47,6 +47,7 @@ Gura_DeclareFunction(SplitterEvent)
 
 Gura_ImplementFunction(SplitterEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType eventType = wxEVT_NULL;
 	if (args.IsValid(0)) eventType = static_cast<wxEventType>(args.GetInt(0));
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_SplitterEvent, GetSashPosition)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSashPosition();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_SplitterEvent, GetX)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetX)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetX();
@@ -100,6 +103,7 @@ Gura_DeclareMethod(wx_SplitterEvent, GetY)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetY)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetY();
@@ -114,6 +118,7 @@ Gura_DeclareMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindowBeingRemoved();
@@ -128,6 +133,7 @@ Gura_DeclareMethod(wx_SplitterEvent, SetSashPosition)
 
 Gura_ImplementMethod(wx_SplitterEvent, SetSashPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);

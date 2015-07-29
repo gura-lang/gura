@@ -436,6 +436,7 @@ Gura_DeclareMethod(track, seek)
 
 Gura_ImplementMethod(track, seek)
 {
+	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	if (!args.Is_symbol(1)) {
 		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
@@ -479,6 +480,7 @@ Gura_DeclareMethod(track, erase)
 
 Gura_ImplementMethod(track, erase)
 {
+	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	size_t cnt = args.Is_number(0)? args.GetSizeT(0) : 1;
 	if (!pTrack->Erase(sig, cnt)) return Value::Null;
@@ -501,6 +503,7 @@ Gura_DeclareMethod(track, mml)
 
 Gura_ImplementMethod(track, mml)
 {
+	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
@@ -600,6 +603,7 @@ Gura_DeclareMethod(track, control_change)
 
 Gura_ImplementMethod(track, control_change)
 {
+	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	UChar channel = args.GetUChar(0) & 0x0f;
 	UChar controller = 0;
@@ -638,6 +642,7 @@ Gura_DeclareMethod(track, program_change)
 
 Gura_ImplementMethod(track, program_change)
 {
+	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	UChar channel = args.GetUChar(0) & 0x0f;
 	UChar program = 0;
@@ -1154,6 +1159,7 @@ Gura_DeclareMethod(sequence, read)
 
 Gura_ImplementMethod(sequence, read)
 {
+	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	if (!pThis->GetSequence().Read(env, sig, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
@@ -1171,6 +1177,7 @@ Gura_DeclareMethod(sequence, write)
 
 Gura_ImplementMethod(sequence, write)
 {
+	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	if (!pThis->GetSequence().Write(env, sig, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
@@ -1193,6 +1200,7 @@ Gura_DeclareMethod(sequence, play)
 
 Gura_ImplementMethod(sequence, play)
 {
+	Signal &sig = env.GetSignal();
 	Sequence &sequence = Object_sequence::GetThisObj(args)->GetSequence();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	double speed = args.Is_number(1)? args.GetDouble(1) : 1;
@@ -1241,6 +1249,7 @@ Gura_DeclareMethod(sequence, mml)
 
 Gura_ImplementMethod(sequence, mml)
 {
+	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
@@ -1261,6 +1270,7 @@ Gura_DeclareMethod(sequence, readmml)
 
 Gura_ImplementMethod(sequence, readmml)
 {
+	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
@@ -1402,6 +1412,7 @@ Gura_DeclareMethod(port, send)
 
 Gura_ImplementMethod(port, send)
 {
+	Signal &sig = env.GetSignal();
 	Object_port *pThis = Object_port::GetThisObj(args);
 	const ValueList &valList = args.GetList(0);
 	size_t nArgs = valList.size();
@@ -1439,6 +1450,7 @@ Gura_DeclareMethod(port, play)
 
 Gura_ImplementMethod(port, play)
 {
+	Signal &sig = env.GetSignal();
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence &sequence = Object_sequence::GetObject(args, 0)->GetSequence();
 	double speed = args.Is_number(1)? args.GetDouble(1) : 1;
@@ -1461,6 +1473,7 @@ Gura_DeclareMethod(port, mml)
 
 Gura_ImplementMethod(port, mml)
 {
+	Signal &sig = env.GetSignal();
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
@@ -1486,6 +1499,7 @@ Gura_DeclareMethod(port, readmml)
 
 Gura_ImplementMethod(port, readmml)
 {
+	Signal &sig = env.GetSignal();
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
@@ -1926,6 +1940,7 @@ Gura_DeclareMethod(soundfont, synthesizer)
 
 Gura_ImplementMethod(soundfont, synthesizer)
 {
+	Signal &sig = env.GetSignal();
 	SoundFont &soundFont = Object_soundfont::GetThisObj(args)->GetSoundFont();
 	UShort wPreset = args.GetUShort(0);
 	UShort wBank = args.GetUShort(1);
@@ -2135,6 +2150,7 @@ Gura_DeclareFunction(sequence)
 
 Gura_ImplementFunction(sequence)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 	Sequence &sequence = pObj->GetSequence();
 	if (args.Is_stream(0)) {
@@ -2157,6 +2173,7 @@ Gura_DeclareFunction(port)
 
 Gura_ImplementFunction(port)
 {
+	Signal &sig = env.GetSignal();
 	int id = args.Is_number(0)? args.GetInt(0) : 0;
 	AutoPtr<Object_port> pObj(new Object_port(env));
 	if (!pObj->GetPort()->Open(id)) {
@@ -2180,6 +2197,7 @@ Gura_DeclareFunction(controller)
 
 Gura_ImplementFunction(controller)
 {
+	Signal &sig = env.GetSignal();
 	int controller = ControllerIdBySymbol(args.GetSymbol(0));
 	if (controller < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi controller");
@@ -2203,6 +2221,7 @@ Gura_DeclareFunction(program)
 
 Gura_ImplementFunction(program)
 {
+	Signal &sig = env.GetSignal();
 	int program = ProgramIdBySymbol(args.GetSymbol(0));
 	if (program < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi program");
@@ -2226,6 +2245,7 @@ Gura_DeclareFunction(soundfont)
 
 Gura_ImplementFunction(soundfont)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, args.GetStream(0).Reference()));
 	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Null;
 	return ReturnValue(env, args, Value(pObj.release()));
@@ -2240,6 +2260,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	Signal &sig = env.GetSignal();
 	SoundFont sf(args.GetStream(0).Reference());
 	::printf("check\n");
 	sf.ReadChunks(env, sig);

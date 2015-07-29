@@ -24,6 +24,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
@@ -52,6 +53,7 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	int blockSize100k = args.Is_number(1)? args.GetInt(1) : 9;
 	if (blockSize100k < 1 || 9 < blockSize100k) {
@@ -81,6 +83,7 @@ Gura_DeclareMethodAlias(stream, reader_bzip2, "reader@bzip2")
 
 Gura_ImplementMethod(stream, reader_bzip2)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
@@ -108,6 +111,7 @@ Gura_DeclareMethodAlias(stream, writer_bzip2, "writer@bzip2")
 
 Gura_ImplementMethod(stream, writer_bzip2)
 {
+	Signal &sig = env.GetSignal();
 	int blockSize100k = args.Is_number(0)? args.GetInt(0) : 9;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (blockSize100k < 1 || 9 < blockSize100k) {

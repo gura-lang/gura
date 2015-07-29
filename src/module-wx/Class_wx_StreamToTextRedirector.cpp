@@ -47,6 +47,7 @@ Gura_DeclareFunction(StreamToTextRedirector)
 
 Gura_ImplementFunction(StreamToTextRedirector)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextCtrl **text = Object_wx_TextCtrl::GetObject(args, 0)->GetEntity();
 	Stream & ostr = nullptr;

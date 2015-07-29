@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_DateEvent, GetDate)
 
 Gura_ImplementMethod(wx_DateEvent, GetDate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDateTime &rtn = pThis->GetEntity()->GetDate();
@@ -57,6 +58,7 @@ Gura_DeclareMethod(wx_DateEvent, SetDate)
 
 Gura_ImplementMethod(wx_DateEvent, SetDate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime *date = Object_wx_DateTime::GetObject(args, 0)->GetEntity();

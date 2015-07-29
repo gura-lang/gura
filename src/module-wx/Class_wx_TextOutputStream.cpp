@@ -55,6 +55,7 @@ Gura_DeclareFunction(TextOutputStream)
 
 Gura_ImplementFunction(TextOutputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -85,6 +86,7 @@ Gura_DeclareMethod(wx_TextOutputStream, GetMode)
 
 Gura_ImplementMethod(wx_TextOutputStream, GetMode)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -102,6 +104,7 @@ Gura_DeclareMethod(wx_TextOutputStream, PutChar)
 
 Gura_ImplementMethod(wx_TextOutputStream, PutChar)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -119,6 +122,7 @@ Gura_DeclareMethodAlias(wx_TextOutputStream, SetMode_, "SetMode")
 
 Gura_ImplementMethod(wx_TextOutputStream, SetMode_)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SetMode();
@@ -132,6 +136,7 @@ Gura_DeclareMethod(wx_TextOutputStream, Write8)
 
 Gura_ImplementMethod(wx_TextOutputStream, Write8)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -149,6 +154,7 @@ Gura_DeclareMethod(wx_TextOutputStream, Write16)
 
 Gura_ImplementMethod(wx_TextOutputStream, Write16)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -166,6 +172,7 @@ Gura_DeclareMethod(wx_TextOutputStream, Write32)
 
 Gura_ImplementMethod(wx_TextOutputStream, Write32)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -183,6 +190,7 @@ Gura_DeclareMethod(wx_TextOutputStream, WriteDouble)
 
 Gura_ImplementMethod(wx_TextOutputStream, WriteDouble)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -200,6 +208,7 @@ Gura_DeclareMethod(wx_TextOutputStream, WriteString)
 
 Gura_ImplementMethod(wx_TextOutputStream, WriteString)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

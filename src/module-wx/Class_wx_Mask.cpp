@@ -48,6 +48,7 @@ Gura_DeclareFunction(MaskEmpty)
 
 Gura_ImplementFunction(MaskEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Mask *pEntity = new wx_Mask();
 	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
@@ -71,6 +72,7 @@ Gura_DeclareFunction(Mask)
 
 Gura_ImplementFunction(Mask)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap);
@@ -96,6 +98,7 @@ Gura_DeclareFunction(Mask_1)
 
 Gura_ImplementFunction(Mask_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -122,6 +125,7 @@ Gura_DeclareFunction(Mask_2)
 
 Gura_ImplementFunction(Mask_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
@@ -146,6 +150,7 @@ Gura_DeclareMethod(wx_Mask, Create)
 
 Gura_ImplementMethod(wx_Mask, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -163,6 +168,7 @@ Gura_DeclareMethod(wx_Mask, Create_1)
 
 Gura_ImplementMethod(wx_Mask, Create_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -181,6 +187,7 @@ Gura_DeclareMethod(wx_Mask, Create_2)
 
 Gura_ImplementMethod(wx_Mask, Create_2)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();

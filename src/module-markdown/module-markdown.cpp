@@ -2756,6 +2756,7 @@ Gura_DeclareMethod(document, parse)
 
 Gura_ImplementMethod(document, parse)
 {
+	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
 	pDocument->ParseString(sig, args.GetString(0));
 	return Value::Null;
@@ -2773,6 +2774,7 @@ Gura_DeclareMethod(document, read)
 
 Gura_ImplementMethod(document, read)
 {
+	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
 	pDocument->ParseStream(sig, args.GetStream(0));
 	return Value::Null;
@@ -2878,6 +2880,7 @@ Gura_DeclareMethod(item, print)
 
 Gura_ImplementMethod(item, print)
 {
+	Signal &sig = env.GetSignal();
 	Item *pItem = Object_item::GetThisObj(args)->GetItem();
 	int indentLevel = args.Is_number(0)? args.GetInt(0) : 0;
 	pItem->Print(sig, *env.GetConsole(), indentLevel);
@@ -2912,6 +2915,7 @@ Gura_DeclareFunction(document)
 
 Gura_ImplementFunction(document)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Document> pDocument(new Document());
 	if (args.Is_stream(0)) {
 		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Null;
@@ -2935,6 +2939,7 @@ Gura_DeclareFunction(setpresenter)
 
 Gura_ImplementFunction(setpresenter)
 {
+	Signal &sig = env.GetSignal();
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;

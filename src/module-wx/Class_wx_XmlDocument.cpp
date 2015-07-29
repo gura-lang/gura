@@ -48,6 +48,7 @@ Gura_DeclareFunction(XmlDocumentEmpty)
 
 Gura_ImplementFunction(XmlDocumentEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XmlDocument *pEntity = new wx_XmlDocument();
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
@@ -75,6 +76,7 @@ Gura_DeclareFunction(XmlDocument)
 
 Gura_ImplementFunction(XmlDocument)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -111,6 +113,7 @@ Gura_DeclareFunction(XmlDocument_1)
 
 Gura_ImplementFunction(XmlDocument_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -143,6 +146,7 @@ Gura_DeclareFunction(XmlDocument_2)
 
 Gura_ImplementFunction(XmlDocument_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxXmlDocument *doc = Object_wx_XmlDocument::GetObject(args, 0)->GetEntity();
 	wx_XmlDocument *pEntity = new wx_XmlDocument(*doc);
@@ -165,6 +169,7 @@ Gura_DeclareMethod(wx_XmlDocument, DetachRoot)
 
 Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->DetachRoot();
@@ -180,6 +185,7 @@ Gura_DeclareMethod(wx_XmlDocument, GetEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 {
+	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -200,6 +206,7 @@ Gura_DeclareMethod(wx_XmlDocument, GetFileEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, GetFileEncoding)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFileEncoding();
@@ -214,6 +221,7 @@ Gura_DeclareMethod(wx_XmlDocument, GetRoot)
 
 Gura_ImplementMethod(wx_XmlDocument, GetRoot)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetRoot();
@@ -228,6 +236,7 @@ Gura_DeclareMethod(wx_XmlDocument, GetVersion)
 
 Gura_ImplementMethod(wx_XmlDocument, GetVersion)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVersion();
@@ -242,6 +251,7 @@ Gura_DeclareMethod(wx_XmlDocument, IsOk)
 
 Gura_ImplementMethod(wx_XmlDocument, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -259,6 +269,7 @@ Gura_DeclareMethod(wx_XmlDocument, Load)
 
 Gura_ImplementMethod(wx_XmlDocument, Load)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -281,6 +292,7 @@ Gura_DeclareMethod(wx_XmlDocument, Load_1)
 
 Gura_ImplementMethod(wx_XmlDocument, Load_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -302,6 +314,7 @@ Gura_DeclareMethod(wx_XmlDocument, Save)
 
 Gura_ImplementMethod(wx_XmlDocument, Save)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -321,6 +334,7 @@ Gura_DeclareMethod(wx_XmlDocument, Save_1)
 
 Gura_ImplementMethod(wx_XmlDocument, Save_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -339,6 +353,7 @@ Gura_DeclareMethod(wx_XmlDocument, SetEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, SetEncoding)
 {
+	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -360,6 +375,7 @@ Gura_DeclareMethod(wx_XmlDocument, SetFileEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, SetFileEncoding)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString encoding = wxString::FromUTF8(args.GetString(0));
@@ -375,6 +391,7 @@ Gura_DeclareMethod(wx_XmlDocument, SetRoot)
 
 Gura_ImplementMethod(wx_XmlDocument, SetRoot)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
@@ -390,6 +407,7 @@ Gura_DeclareMethod(wx_XmlDocument, SetVersion)
 
 Gura_ImplementMethod(wx_XmlDocument, SetVersion)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString version = wxString::FromUTF8(args.GetString(0));

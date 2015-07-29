@@ -52,6 +52,7 @@ Gura_DeclareFunction(ListView)
 
 Gura_ImplementFunction(ListView)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -85,6 +86,7 @@ Gura_DeclareMethod(wx_ListView, ClearColumnImage)
 
 Gura_ImplementMethod(wx_ListView, ClearColumnImage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
@@ -100,6 +102,7 @@ Gura_DeclareMethod(wx_ListView, Focus)
 
 Gura_ImplementMethod(wx_ListView, Focus)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long index = args.GetLong(0);
@@ -115,6 +118,7 @@ Gura_DeclareMethod(wx_ListView, GetFirstSelected)
 
 Gura_ImplementMethod(wx_ListView, GetFirstSelected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetFirstSelected();
@@ -129,6 +133,7 @@ Gura_DeclareMethod(wx_ListView, GetFocusedItem)
 
 Gura_ImplementMethod(wx_ListView, GetFocusedItem)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetFocusedItem();
@@ -144,6 +149,7 @@ Gura_DeclareMethod(wx_ListView, GetNextSelected)
 
 Gura_ImplementMethod(wx_ListView, GetNextSelected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
@@ -160,6 +166,7 @@ Gura_DeclareMethod(wx_ListView, IsSelected)
 
 Gura_ImplementMethod(wx_ListView, IsSelected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long index = args.GetLong(0);
@@ -175,6 +182,7 @@ Gura_DeclareMethod(wx_ListView, Select)
 
 Gura_ImplementMethod(wx_ListView, Select)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool on = true;
@@ -192,6 +200,7 @@ Gura_DeclareMethod(wx_ListView, SetColumnImage)
 
 Gura_ImplementMethod(wx_ListView, SetColumnImage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListView *pThis = Object_wx_ListView::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);

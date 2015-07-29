@@ -47,6 +47,7 @@ Gura_DeclareFunction(CloseEvent)
 
 Gura_ImplementFunction(CloseEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE commandEventType = 0;
 	if (args.IsValid(0)) commandEventType = static_cast<WXTYPE>(args.GetInt(0));
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_CloseEvent, CanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, CanVeto)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CanVeto();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetLoggingOff();
@@ -100,6 +103,7 @@ Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool canVeto = args.GetBoolean(0);
@@ -117,6 +121,7 @@ Gura_DeclareMethod(wx_CloseEvent, SetForce)
 
 Gura_ImplementMethod(wx_CloseEvent, SetForce)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -136,6 +141,7 @@ Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool loggingOff = args.GetBoolean(0);
@@ -151,6 +157,7 @@ Gura_DeclareMethod(wx_CloseEvent, Veto)
 
 Gura_ImplementMethod(wx_CloseEvent, Veto)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool veto = true;

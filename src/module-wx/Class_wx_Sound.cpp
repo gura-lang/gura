@@ -46,6 +46,7 @@ Gura_DeclareFunction(SoundEmpty)
 
 Gura_ImplementFunction(SoundEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Sound *pEntity = new wx_Sound();
 	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Sound)
 
 Gura_ImplementFunction(Sound)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	bool isResource = false;
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_Sound, Create)
 
 Gura_ImplementMethod(wx_Sound, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
@@ -113,6 +116,7 @@ Gura_DeclareMethod(wx_Sound, IsOk)
 
 Gura_ImplementMethod(wx_Sound, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -127,6 +131,7 @@ Gura_DeclareClassMethod(wx_Sound, IsPlaying)
 
 Gura_ImplementClassMethod(wx_Sound, IsPlaying)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxSound::IsPlaying();
@@ -145,6 +150,7 @@ Gura_DeclareMethod(wx_Sound, Play)
 
 Gura_ImplementMethod(wx_Sound, Play)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned flags = wxSOUND_ASYNC;
@@ -163,6 +169,7 @@ Gura_DeclareClassMethod(wx_Sound, Play_1)
 
 Gura_ImplementClassMethod(wx_Sound, Play_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	unsigned flags = wxSOUND_ASYNC;
@@ -178,6 +185,7 @@ Gura_DeclareClassMethod(wx_Sound, Stop)
 
 Gura_ImplementClassMethod(wx_Sound, Stop)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSound::Stop();
 	return Value::Null;

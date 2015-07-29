@@ -18,7 +18,7 @@ class Func_##name : public Function {
 #define Gura_DeclareFunctionEnd(name) \
 public: \
 	Func_##name(Environment &env, const char *name = #name); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -27,7 +27,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -39,7 +39,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 	virtual Expr *MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
@@ -53,7 +53,7 @@ Gura_DeclareFunctionWithMathDiffAlias(name, #name)
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -66,7 +66,7 @@ Gura_DeclareFunctionTrailerAlias(name, #name)
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Instance, FLAG_None)
@@ -78,7 +78,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -90,7 +90,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const; \
+	virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
@@ -98,13 +98,13 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 #define Gura_DeclareClassMethod(className, name) Gura_DeclareClassMethodAlias(className, name, #name)
 
 #define Gura_ImplementFunction(name) \
-Value Func_##name::DoEval(Environment &env, Signal &sig, Args &args) const
+Value Func_##name::DoEval(Environment &env, Signal &__to_delete__, Args &args) const
 
 #define Gura_ImplementMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Signal &__to_delete__, Args &args) const
 
 #define Gura_ImplementClassMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Signal &sig, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Signal &__to_delete__, Args &args) const
 
 #define Gura_ImplementMathDiff(name) \
 Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const

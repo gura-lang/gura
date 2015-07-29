@@ -46,6 +46,7 @@ Gura_DeclareFunction(TempFileEmpty)
 
 Gura_ImplementFunction(TempFileEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TempFile *pEntity = new wx_TempFile();
 	Object_wx_TempFile *pObj = Object_wx_TempFile::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareFunction(TempFile)
 
 Gura_ImplementFunction(TempFile)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFile *pEntity = new wx_TempFile(strName);
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_TempFile, Open)
 
 Gura_ImplementMethod(wx_TempFile, Open)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
@@ -107,6 +110,7 @@ Gura_DeclareMethod(wx_TempFile, IsOpened)
 
 Gura_ImplementMethod(wx_TempFile, IsOpened)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
@@ -121,6 +125,7 @@ Gura_DeclareMethod(wx_TempFile, Length)
 
 Gura_ImplementMethod(wx_TempFile, Length)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Length();
@@ -137,6 +142,7 @@ Gura_DeclareMethod(wx_TempFile, Seek)
 
 Gura_ImplementMethod(wx_TempFile, Seek)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset ofs = static_cast<wxFileOffset>(args.GetInt64(0));
@@ -154,6 +160,7 @@ Gura_DeclareMethod(wx_TempFile, Tell)
 
 Gura_ImplementMethod(wx_TempFile, Tell)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Tell();
@@ -172,6 +179,7 @@ Gura_DeclareMethod(wx_TempFile, Write)
 
 Gura_ImplementMethod(wx_TempFile, Write)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -194,6 +202,7 @@ Gura_DeclareMethod(wx_TempFile, Write_1)
 
 Gura_ImplementMethod(wx_TempFile, Write_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
@@ -211,6 +220,7 @@ Gura_DeclareMethod(wx_TempFile, Commit)
 
 Gura_ImplementMethod(wx_TempFile, Commit)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Commit();
@@ -224,6 +234,7 @@ Gura_DeclareMethod(wx_TempFile, Discard)
 
 Gura_ImplementMethod(wx_TempFile, Discard)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Discard();

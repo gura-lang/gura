@@ -51,6 +51,7 @@ Gura_DeclareFunction(PanelEmpty)
 
 Gura_ImplementFunction(PanelEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Panel *pEntity = new wx_Panel();
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
@@ -79,6 +80,7 @@ Gura_DeclareFunction(Panel)
 
 Gura_ImplementFunction(Panel)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -117,6 +119,7 @@ Gura_DeclareMethod(wx_Panel, Create)
 
 Gura_ImplementMethod(wx_Panel, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -141,6 +144,7 @@ Gura_DeclareMethod(wx_Panel, InitDialog)
 
 Gura_ImplementMethod(wx_Panel, InitDialog)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->InitDialog();
@@ -155,6 +159,7 @@ Gura_DeclareMethod(wx_Panel, OnSysColourChanged)
 
 Gura_ImplementMethod(wx_Panel, OnSysColourChanged)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
@@ -169,6 +174,7 @@ Gura_DeclareMethod(wx_Panel, SetFocus)
 
 Gura_ImplementMethod(wx_Panel, SetFocus)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SetFocus();
@@ -182,6 +188,7 @@ Gura_DeclareMethod(wx_Panel, SetFocusIgnoringChildren)
 
 Gura_ImplementMethod(wx_Panel, SetFocusIgnoringChildren)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SetFocusIgnoringChildren();

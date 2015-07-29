@@ -46,6 +46,7 @@ Gura_DeclareMethod(string, align)
 
 Gura_ImplementMethod(string, align)
 {
+	Signal &sig = env.GetSignal();
 	size_t width = args.GetSizeT(0);
 	const char *padding = args.GetString(1);
 	if (Length(padding) != 1) {
@@ -210,6 +211,7 @@ Gura_DeclareMethod(string, embed)
 
 Gura_ImplementMethod(string, embed)
 {
+	Signal &sig = env.GetSignal();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
@@ -239,6 +241,7 @@ Gura_DeclareMethodPrimitive(string, encode)
 
 Gura_ImplementMethod(string, encode)
 {
+	Signal &sig = env.GetSignal();
 	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	Binary buff;
 	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
@@ -333,6 +336,7 @@ Gura_DeclareMethod(string, find)
 
 Gura_ImplementMethod(string, find)
 {
+	Signal &sig = env.GetSignal();
 	return FindString(env, sig, args.GetThis().GetString(), args.GetString(0),
 									args.GetInt(1), args.GetAttrs());
 }
@@ -404,6 +408,7 @@ Gura_DeclareMethod(string, format)
 
 Gura_ImplementMethod(string, format)
 {
+	Signal &sig = env.GetSignal();
 	return Value(Formatter::FormatValueList(sig, args.GetThis().GetString(), args.GetList(0)));
 }
 
@@ -562,6 +567,7 @@ Gura_DeclareMethodPrimitive(string, print)
 
 Gura_ImplementMethod(string, print)
 {
+	Signal &sig = env.GetSignal();
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	pStream->Print(sig, args.GetThis().GetString());
@@ -582,6 +588,7 @@ Gura_DeclareMethodPrimitive(string, println)
 
 Gura_ImplementMethod(string, println)
 {
+	Signal &sig = env.GetSignal();
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	pStream->Println(sig, args.GetThis().GetString());
@@ -602,6 +609,7 @@ Gura_DeclareMethod(string, reader)
 
 Gura_ImplementMethod(string, reader)
 {
+	Signal &sig = env.GetSignal();
 	return ReturnValue(env, args, Value(new Object_stream(env,
 		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
 }
@@ -672,6 +680,7 @@ Gura_DeclareMethod(string, replaces)
 
 Gura_ImplementMethod(string, replaces)
 {
+	Signal &sig = env.GetSignal();
 	const ValueList &valList = args.GetList(0);
 	if (valList.size() & 1) {
 		sig.SetError(ERR_ValueError, "the list must contain match-sub pairs");
@@ -808,6 +817,7 @@ Gura_DeclareMethodAlias(string, template_, "template")
 
 Gura_ImplementMethod(string, template_)
 {
+	Signal &sig = env.GetSignal();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
@@ -852,6 +862,7 @@ Gura_DeclareClassMethod(string, translator)
 
 Gura_ImplementClassMethod(string, translator)
 {
+	Signal &sig = env.GetSignal();
 	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;

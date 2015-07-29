@@ -47,6 +47,7 @@ Gura_DeclareFunction(ClipboardTextEvent)
 
 Gura_ImplementFunction(ClipboardTextEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));

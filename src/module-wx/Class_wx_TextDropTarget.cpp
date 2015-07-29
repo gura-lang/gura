@@ -77,6 +77,7 @@ Gura_DeclareFunction(TextDropTarget)
 
 Gura_ImplementFunction(TextDropTarget)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
 	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetThisObj(args);
@@ -104,6 +105,7 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
 
 Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -129,6 +131,7 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 
 Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));

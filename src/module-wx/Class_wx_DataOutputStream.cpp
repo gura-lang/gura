@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataOutputStream)
 
 Gura_ImplementFunction(DataOutputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_DataOutputStream *pEntity = new wx_DataOutputStream(*stream);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(DataOutputStream_1)
 
 Gura_ImplementFunction(DataOutputStream_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -102,6 +104,7 @@ Gura_DeclareMethod(wx_DataOutputStream, BigEndianOrdered)
 
 Gura_ImplementMethod(wx_DataOutputStream, BigEndianOrdered)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool be_order = args.GetBoolean(0);
@@ -116,6 +119,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write8)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write8)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -137,6 +141,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write8_1)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write8_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -156,6 +161,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write16)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write16)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -177,6 +183,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write16_1)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write16_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -196,6 +203,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write32)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write32)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -217,6 +225,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write32_1)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write32_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -236,6 +245,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write64)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write64)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -257,6 +267,7 @@ Gura_DeclareMethod(wx_DataOutputStream, Write64_1)
 
 Gura_ImplementMethod(wx_DataOutputStream, Write64_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -276,6 +287,7 @@ Gura_DeclareMethod(wx_DataOutputStream, WriteDouble)
 
 Gura_ImplementMethod(wx_DataOutputStream, WriteDouble)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -297,6 +309,7 @@ Gura_DeclareMethod(wx_DataOutputStream, WriteDouble_1)
 
 Gura_ImplementMethod(wx_DataOutputStream, WriteDouble_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -316,6 +329,7 @@ Gura_DeclareMethod(wx_DataOutputStream, WriteString)
 
 Gura_ImplementMethod(wx_DataOutputStream, WriteString)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

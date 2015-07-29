@@ -47,6 +47,7 @@ Gura_DeclareFunction(ContextHelp)
 
 Gura_ImplementFunction(ContextHelp)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -73,6 +74,7 @@ Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
 
 Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = (wxWindow *)(nullptr);
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
 
 Gura_ImplementMethod(wx_ContextHelp, EndContextHelp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->EndContextHelp();

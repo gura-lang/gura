@@ -47,6 +47,7 @@ Gura_DeclareFunction(ChoiceEmpty)
 
 Gura_ImplementFunction(ChoiceEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Choice *pEntity = new wx_Choice();
 	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(Choice)
 
 Gura_ImplementFunction(Choice)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -124,6 +126,7 @@ Gura_DeclareMethod(wx_Choice, Create)
 
 Gura_ImplementMethod(wx_Choice, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -149,6 +152,7 @@ Gura_DeclareMethod(wx_Choice, GetColumns)
 
 Gura_ImplementMethod(wx_Choice, GetColumns)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColumns();
@@ -163,6 +167,7 @@ Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
 
 Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
@@ -177,6 +182,7 @@ Gura_DeclareMethod(wx_Choice, SetColumns)
 
 Gura_ImplementMethod(wx_Choice, SetColumns)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = 1;

@@ -46,6 +46,7 @@ Gura_DeclareFunction(MetafileDC)
 
 Gura_ImplementFunction(MetafileDC)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxT("");
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_MetafileDC, Close)
 
 Gura_ImplementMethod(wx_MetafileDC, Close)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMetafile *rtn = (wxMetafile *)pThis->GetEntity()->Close();

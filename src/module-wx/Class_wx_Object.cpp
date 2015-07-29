@@ -31,6 +31,7 @@ Gura_DeclareFunction(ObjectEmpty)
 
 Gura_ImplementFunction(ObjectEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Object *pEntity = new wx_Object();
 	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
@@ -54,6 +55,7 @@ Gura_DeclareFunction(Object)
 
 Gura_ImplementFunction(Object)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *other = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	wx_Object *pEntity = new wx_Object(*other);
@@ -77,6 +79,7 @@ Gura_DeclareFunction(ObjectEmpty_1)
 
 Gura_ImplementFunction(ObjectEmpty_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Object *pEntity = new wx_Object();
 	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
@@ -100,6 +103,7 @@ Gura_DeclareMethod(wx_Object, Dump)
 
 Gura_ImplementMethod(wx_Object, Dump)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -119,6 +123,7 @@ Gura_DeclareMethod(wx_Object, GetClassInfo)
 
 Gura_ImplementMethod(wx_Object, GetClassInfo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetClassInfo();
@@ -133,6 +138,7 @@ Gura_DeclareMethod(wx_Object, GetRefData)
 
 Gura_ImplementMethod(wx_Object, GetRefData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObjectRefData *rtn = (wxObjectRefData *)pThis->GetEntity()->GetRefData();
@@ -148,6 +154,7 @@ Gura_DeclareMethod(wx_Object, IsKindOf)
 
 Gura_ImplementMethod(wx_Object, IsKindOf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *info = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
@@ -164,6 +171,7 @@ Gura_DeclareMethod(wx_Object, IsSameAs)
 
 Gura_ImplementMethod(wx_Object, IsSameAs)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *obj = Object_wx_Object::GetObject(args, 0)->GetEntity();
@@ -179,6 +187,7 @@ Gura_DeclareMethod(wx_Object, Ref)
 
 Gura_ImplementMethod(wx_Object, Ref)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *clone = Object_wx_Object::GetObject(args, 0)->GetEntity();
@@ -194,6 +203,7 @@ Gura_DeclareMethod(wx_Object, SetRefData)
 
 Gura_ImplementMethod(wx_Object, SetRefData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObjectRefData *data = Object_wx_ObjectRefData::GetObject(args, 0)->GetEntity();
@@ -208,6 +218,7 @@ Gura_DeclareMethod(wx_Object, UnRef)
 
 Gura_ImplementMethod(wx_Object, UnRef)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->UnRef();
@@ -221,6 +232,7 @@ Gura_DeclareMethod(wx_Object, UnShare)
 
 Gura_ImplementMethod(wx_Object, UnShare)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->UnShare();

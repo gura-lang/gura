@@ -45,6 +45,7 @@ Gura_DeclareFunction(GridCellAutoWrapStringEditor)
 
 Gura_ImplementFunction(GridCellAutoWrapStringEditor)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAutoWrapStringEditor *pEntity = new wx_GridCellAutoWrapStringEditor();
 	Object_wx_GridCellAutoWrapStringEditor *pObj = Object_wx_GridCellAutoWrapStringEditor::GetThisObj(args);

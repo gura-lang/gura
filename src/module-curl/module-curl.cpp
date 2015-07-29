@@ -194,6 +194,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	Signal &sig = env.GetSignal();
 	CURLcode code;
 	CURL *curl = ::curl_easy_init();
 	if (curl == nullptr) return Value::Null;
@@ -882,6 +883,7 @@ Gura_DeclareMethod(easy_handle, getinfo)
 
 Gura_ImplementMethod(easy_handle, getinfo)
 {
+	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	CURLcode code;
 	CURLINFO info = static_cast<CURLINFO>(args.GetInt(0));
@@ -948,6 +950,7 @@ Gura_DeclareMethod(easy_handle, perform)
 
 Gura_ImplementMethod(easy_handle, perform)
 {
+	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	Stream *pStreamOut = args.Is_stream(0)?
 			&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
@@ -971,6 +974,7 @@ Gura_DeclareMethod(easy_handle, recv)
 
 Gura_ImplementMethod(easy_handle, recv)
 {
+	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	size_t buflen = args.GetSizeT(0);
 	if (buflen == 0) return Value::Null;
@@ -1012,6 +1016,7 @@ Gura_DeclareMethod(easy_handle, send)
 
 Gura_ImplementMethod(easy_handle, send)
 {
+	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	const Binary &buffer = args.GetBinary(0);
 	size_t n = 0;
@@ -1036,6 +1041,7 @@ Gura_DeclareMethod(easy_handle, setopt)
 
 Gura_ImplementMethod(easy_handle, setopt)
 {
+	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	CURLcode code;
 	CURLoption option = static_cast<CURLoption>(args.GetInt(0));

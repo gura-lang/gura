@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextCharacterStyleDefinition)
 
 Gura_ImplementFunction(RichTextCharacterStyleDefinition)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));

@@ -46,6 +46,7 @@ Gura_DeclareFunction(RegExEmpty)
 
 Gura_ImplementFunction(RegExEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegEx *pEntity = new wx_RegEx();
 	Object_wx_RegEx *pObj = Object_wx_RegEx::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(RegEx)
 
 Gura_ImplementFunction(RegEx)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString expr = wxString::FromUTF8(args.GetString(0));
 	int flags = wxRE_DEFAULT;
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_RegEx, Compile)
 
 Gura_ImplementMethod(wx_RegEx, Compile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString pattern = wxString::FromUTF8(args.GetString(0));
@@ -113,6 +116,7 @@ Gura_DeclareMethod(wx_RegEx, IsValid)
 
 Gura_ImplementMethod(wx_RegEx, IsValid)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsValid();
@@ -132,6 +136,7 @@ Gura_DeclareMethod(wx_RegEx, GetMatch)
 
 Gura_ImplementMethod(wx_RegEx, GetMatch)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -156,6 +161,7 @@ Gura_DeclareMethod(wx_RegEx, GetMatch_1)
 
 Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -173,6 +179,7 @@ Gura_DeclareMethod(wx_RegEx, GetMatchCount)
 
 Gura_ImplementMethod(wx_RegEx, GetMatchCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetMatchCount();
@@ -189,6 +196,7 @@ Gura_DeclareMethod(wx_RegEx, Matches)
 
 Gura_ImplementMethod(wx_RegEx, Matches)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -209,6 +217,7 @@ Gura_DeclareMethod(wx_RegEx, Matches_1)
 
 Gura_ImplementMethod(wx_RegEx, Matches_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -228,6 +237,7 @@ Gura_DeclareMethod(wx_RegEx, Matches_2)
 
 Gura_ImplementMethod(wx_RegEx, Matches_2)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -250,6 +260,7 @@ Gura_DeclareMethod(wx_RegEx, Replace)
 
 Gura_ImplementMethod(wx_RegEx, Replace)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -276,6 +287,7 @@ Gura_DeclareMethod(wx_RegEx, ReplaceAll)
 
 Gura_ImplementMethod(wx_RegEx, ReplaceAll)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -300,6 +312,7 @@ Gura_DeclareMethod(wx_RegEx, ReplaceFirst)
 
 Gura_ImplementMethod(wx_RegEx, ReplaceFirst)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

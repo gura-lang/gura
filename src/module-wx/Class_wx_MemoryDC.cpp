@@ -46,6 +46,7 @@ Gura_DeclareFunction(MemoryDCEmpty)
 
 Gura_ImplementFunction(MemoryDCEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MemoryDC *pEntity = new wx_MemoryDC();
 	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareFunction(MemoryDC)
 
 Gura_ImplementFunction(MemoryDC)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_MemoryDC *pEntity = new wx_MemoryDC(*bitmap);
@@ -91,6 +93,7 @@ Gura_DeclareMethod(wx_MemoryDC, SelectObject)
 
 Gura_ImplementMethod(wx_MemoryDC, SelectObject)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_MemoryDC, SelectObjectAsSource)
 
 Gura_ImplementMethod(wx_MemoryDC, SelectObjectAsSource)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();

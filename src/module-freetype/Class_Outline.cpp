@@ -107,6 +107,7 @@ Gura_DeclareMethod(Outline, Embolden)
 
 Gura_ImplementMethod(Outline, Embolden)
 {
+	Signal &sig = env.GetSignal();
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
 	FT_Pos strength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
 	FT_Error err = ::FT_Outline_Embolden(outline, strength);
@@ -128,6 +129,7 @@ Gura_DeclareMethod(Outline, EmboldenXY)
 
 Gura_ImplementMethod(Outline, EmboldenXY)
 {
+	Signal &sig = env.GetSignal();
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
 	FT_Pos xstrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
 	FT_Pos ystrength = static_cast<FT_Pos>(args.GetDouble(1) * (1 << 6)); // 26.6

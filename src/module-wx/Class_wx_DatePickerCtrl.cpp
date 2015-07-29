@@ -53,6 +53,7 @@ Gura_DeclareFunction(DatePickerCtrl)
 
 Gura_ImplementFunction(DatePickerCtrl)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -96,6 +97,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, Create)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -128,6 +130,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, GetRange)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, GetRange)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -148,6 +151,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, GetValue)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, GetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime rtn = pThis->GetEntity()->GetValue();
@@ -164,6 +168,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, SetFormat)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, SetFormat)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -184,6 +189,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, SetRange)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, SetRange)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime *dt1 = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
@@ -200,6 +206,7 @@ Gura_DeclareMethod(wx_DatePickerCtrl, SetValue)
 
 Gura_ImplementMethod(wx_DatePickerCtrl, SetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();

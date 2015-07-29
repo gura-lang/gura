@@ -117,6 +117,7 @@ Gura_DeclareFunction(color)
 
 Gura_ImplementFunction(color)
 {
+	Signal &sig = env.GetSignal();
 	const ValueList &valList = args.GetList(0);
 	if (valList[0].Is_string() || valList[0].Is_symbol()) {
 		UChar a = 255;

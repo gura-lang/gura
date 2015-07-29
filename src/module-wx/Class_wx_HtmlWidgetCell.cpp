@@ -47,6 +47,7 @@ Gura_DeclareFunction(HtmlWidgetCell)
 
 Gura_ImplementFunction(HtmlWidgetCell)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int w = 0;

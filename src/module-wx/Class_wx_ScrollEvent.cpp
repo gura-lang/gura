@@ -49,6 +49,7 @@ Gura_DeclareFunction(ScrollEvent)
 
 Gura_ImplementFunction(ScrollEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE commandType = 0;
 	if (args.IsValid(0)) commandType = static_cast<WXTYPE>(args.GetInt(0));
@@ -78,6 +79,7 @@ Gura_DeclareMethod(wx_ScrollEvent, GetOrientation)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetOrientation)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOrientation();
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_ScrollEvent, GetPosition)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPosition();

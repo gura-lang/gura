@@ -49,6 +49,7 @@ Gura_DeclareFunction(TextInputStream)
 
 Gura_ImplementFunction(TextInputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString sep = wxT(" \t");
@@ -77,6 +78,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read8)
 
 Gura_ImplementMethod(wx_TextInputStream, Read8)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -94,6 +96,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read8S)
 
 Gura_ImplementMethod(wx_TextInputStream, Read8S)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -111,6 +114,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read16)
 
 Gura_ImplementMethod(wx_TextInputStream, Read16)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -128,6 +132,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read16S)
 
 Gura_ImplementMethod(wx_TextInputStream, Read16S)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -145,6 +150,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read32)
 
 Gura_ImplementMethod(wx_TextInputStream, Read32)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -162,6 +168,7 @@ Gura_DeclareMethod(wx_TextInputStream, Read32S)
 
 Gura_ImplementMethod(wx_TextInputStream, Read32S)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int base = 10;
@@ -178,6 +185,7 @@ Gura_DeclareMethod(wx_TextInputStream, GetChar)
 
 Gura_ImplementMethod(wx_TextInputStream, GetChar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar rtn = pThis->GetEntity()->GetChar();
@@ -192,6 +200,7 @@ Gura_DeclareMethod(wx_TextInputStream, ReadDouble)
 
 Gura_ImplementMethod(wx_TextInputStream, ReadDouble)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double rtn = pThis->GetEntity()->ReadDouble();
@@ -206,6 +215,7 @@ Gura_DeclareMethod(wx_TextInputStream, ReadLine)
 
 Gura_ImplementMethod(wx_TextInputStream, ReadLine)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadLine();
@@ -221,6 +231,7 @@ Gura_DeclareMethod(wx_TextInputStream, ReadString)
 
 Gura_ImplementMethod(wx_TextInputStream, ReadString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadString();
@@ -236,6 +247,7 @@ Gura_DeclareMethod(wx_TextInputStream, ReadWord)
 
 Gura_ImplementMethod(wx_TextInputStream, ReadWord)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadWord();
@@ -250,6 +262,7 @@ Gura_DeclareMethod(wx_TextInputStream, SetStringSeparators)
 
 Gura_ImplementMethod(wx_TextInputStream, SetStringSeparators)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString sep = wxString::FromUTF8(args.GetString(0));

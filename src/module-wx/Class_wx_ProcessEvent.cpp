@@ -48,6 +48,7 @@ Gura_DeclareFunction(ProcessEvent)
 
 Gura_ImplementFunction(ProcessEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_ProcessEvent, GetPid)
 
 Gura_ImplementMethod(wx_ProcessEvent, GetPid)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPid();
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
 
 Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetExitCode();

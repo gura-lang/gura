@@ -54,6 +54,7 @@ Gura_DeclareFunction(FileDialog)
 
 Gura_ImplementFunction(FileDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -93,6 +94,7 @@ Gura_DeclareMethod(wx_FileDialog, GetDirectory)
 
 Gura_ImplementMethod(wx_FileDialog, GetDirectory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDirectory();
@@ -107,6 +109,7 @@ Gura_DeclareMethod(wx_FileDialog, GetFilename)
 
 Gura_ImplementMethod(wx_FileDialog, GetFilename)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilename();
@@ -121,6 +124,7 @@ Gura_DeclareMethod(wx_FileDialog, GetFilenames)
 
 Gura_ImplementMethod(wx_FileDialog, GetFilenames)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString filenames;
@@ -136,6 +140,7 @@ Gura_DeclareMethod(wx_FileDialog, GetFilterIndex)
 
 Gura_ImplementMethod(wx_FileDialog, GetFilterIndex)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFilterIndex();
@@ -150,6 +155,7 @@ Gura_DeclareMethod(wx_FileDialog, GetMessage)
 
 Gura_ImplementMethod(wx_FileDialog, GetMessage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetMessage();
@@ -164,6 +170,7 @@ Gura_DeclareMethod(wx_FileDialog, GetPath)
 
 Gura_ImplementMethod(wx_FileDialog, GetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
@@ -178,6 +185,7 @@ Gura_DeclareMethod(wx_FileDialog, GetPaths)
 
 Gura_ImplementMethod(wx_FileDialog, GetPaths)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString paths;
@@ -193,6 +201,7 @@ Gura_DeclareMethod(wx_FileDialog, GetWildcard)
 
 Gura_ImplementMethod(wx_FileDialog, GetWildcard)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetWildcard();
@@ -207,6 +216,7 @@ Gura_DeclareMethod(wx_FileDialog, SetDirectory)
 
 Gura_ImplementMethod(wx_FileDialog, SetDirectory)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString directory = wxString::FromUTF8(args.GetString(0));
@@ -222,6 +232,7 @@ Gura_DeclareMethod(wx_FileDialog, SetFilename)
 
 Gura_ImplementMethod(wx_FileDialog, SetFilename)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString setfilename = wxString::FromUTF8(args.GetString(0));
@@ -237,6 +248,7 @@ Gura_DeclareMethod(wx_FileDialog, SetFilterIndex)
 
 Gura_ImplementMethod(wx_FileDialog, SetFilterIndex)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int filterIndex = args.GetInt(0);
@@ -252,6 +264,7 @@ Gura_DeclareMethod(wx_FileDialog, SetMessage)
 
 Gura_ImplementMethod(wx_FileDialog, SetMessage)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString message = wxString::FromUTF8(args.GetString(0));
@@ -267,6 +280,7 @@ Gura_DeclareMethod(wx_FileDialog, SetPath)
 
 Gura_ImplementMethod(wx_FileDialog, SetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -282,6 +296,7 @@ Gura_DeclareMethod(wx_FileDialog, SetWildcard)
 
 Gura_ImplementMethod(wx_FileDialog, SetWildcard)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString wildCard = wxString::FromUTF8(args.GetString(0));
@@ -297,6 +312,7 @@ Gura_DeclareMethod(wx_FileDialog, ShowModal)
 
 Gura_ImplementMethod(wx_FileDialog, ShowModal)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();

@@ -680,6 +680,7 @@ Gura_DeclareFunction(chdir)
 
 Gura_ImplementFunction(chdir)
 {
+	Signal &sig = env.GetSignal();
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		String pathNameOrg = OAL::GetCurDir();
@@ -751,6 +752,7 @@ Gura_DeclareFunction(chmod)
 
 Gura_ImplementFunction(chmod)
 {
+	Signal &sig = env.GetSignal();
 	bool rtn = false;
 	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
 	if (args.Is_string(0)) {
@@ -790,6 +792,7 @@ Gura_DeclareFunction(copy)
 
 Gura_ImplementFunction(copy)
 {
+	Signal &sig = env.GetSignal();
 	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
 	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
 	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag, followLinkFlag)) {
@@ -816,6 +819,7 @@ Gura_DeclareFunction(cpdir)
 
 Gura_ImplementFunction(cpdir)
 {
+	Signal &sig = env.GetSignal();
 	const char *dirNameSrc = args.GetString(0);
 	const char *dirNameDst = args.GetString(1);
 	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
@@ -859,6 +863,7 @@ Gura_DeclareFunction(mkdir)
 
 Gura_ImplementFunction(mkdir)
 {
+	Signal &sig = env.GetSignal();
 	const char *pathName = args.GetString(0);
 	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
 				OAL::MakeDirTree(pathName) :
@@ -881,6 +886,7 @@ Gura_DeclareFunction(remove)
 
 Gura_ImplementFunction(remove)
 {
+	Signal &sig = env.GetSignal();
 	if (!OAL::Remove(args.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to remove a file");
 	}
@@ -900,6 +906,7 @@ Gura_DeclareFunction(rename)
 
 Gura_ImplementFunction(rename)
 {
+	Signal &sig = env.GetSignal();
 	if (!OAL::Rename(args.GetString(0), args.GetString(1))) {
 		sig.SetError(ERR_IOError, "failed to rename a file or directory");
 	}
@@ -922,6 +929,7 @@ Gura_DeclareFunction(rmdir)
 
 Gura_ImplementFunction(rmdir)
 {
+	Signal &sig = env.GetSignal();
 	const char *pathName = args.GetString(0);
 	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
 				OAL::RemoveDirTree(pathName) :

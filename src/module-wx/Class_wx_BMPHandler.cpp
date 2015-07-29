@@ -43,6 +43,7 @@ Gura_DeclareFunction(BMPHandler)
 
 Gura_ImplementFunction(BMPHandler)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BMPHandler *pEntity = new wx_BMPHandler();
 	Object_wx_BMPHandler *pObj = Object_wx_BMPHandler::GetThisObj(args);

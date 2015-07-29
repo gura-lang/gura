@@ -27,6 +27,7 @@ Gura_DeclareFunction(rational)
 
 Gura_ImplementFunction(rational)
 {
+	Signal &sig = env.GetSignal();
 	int numer = args.GetInt(0);
 	int denom = args.Is_number(1)? args.GetInt(1) : 1;
 	if (denom == 0) {

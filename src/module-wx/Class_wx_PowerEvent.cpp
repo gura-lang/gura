@@ -42,6 +42,7 @@ Gura_DeclareMethod(wx_PowerEvent, Veto)
 
 Gura_ImplementMethod(wx_PowerEvent, Veto)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Veto();

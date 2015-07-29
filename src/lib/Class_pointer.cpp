@@ -65,6 +65,7 @@ Gura_DeclareMethod(pointer, forward)
 
 Gura_ImplementMethod(pointer, forward)
 {
+	Signal &sig = env.GetSignal();
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool exeedErrorFlag = true;
 	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
@@ -85,6 +86,7 @@ Gura_DeclareMethod(pointer, pack)
 
 Gura_ImplementMethod(pointer, pack)
 {
+	Signal &sig = env.GetSignal();
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
@@ -126,6 +128,7 @@ Gura_DeclareMethod(pointer, unpack)
 
 Gura_ImplementMethod(pointer, unpack)
 {
+	Signal &sig = env.GetSignal();
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
 	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));

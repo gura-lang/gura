@@ -47,6 +47,7 @@ Gura_DeclareFunction(MemoryBuffer)
 
 Gura_ImplementFunction(MemoryBuffer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMemoryBuffer *src = Object_wx_MemoryBuffer::GetObject(args, 0)->GetEntity();
 	wx_MemoryBuffer *pEntity = new wx_MemoryBuffer(*src);
@@ -71,6 +72,7 @@ Gura_DeclareFunction(MemoryBuffer_1)
 
 Gura_ImplementFunction(MemoryBuffer_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
 	wx_MemoryBuffer *pEntity = new wx_MemoryBuffer(size);
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetData)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->GetData();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetBufSize)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetBufSize();
@@ -120,6 +124,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetDataLen)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetDataLen();
@@ -134,6 +139,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, SetBufSize)
 
 Gura_ImplementMethod(wx_MemoryBuffer, SetBufSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
@@ -149,6 +155,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, SetDataLen)
 
 Gura_ImplementMethod(wx_MemoryBuffer, SetDataLen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
@@ -164,6 +171,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetWriteBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetWriteBuf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t sizeNeeded = args.GetSizeT(0);
@@ -179,6 +187,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, UngetWriteBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, UngetWriteBuf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t sizeUsed = args.GetSizeT(0);
@@ -194,6 +203,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetAppendBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetAppendBuf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t sizeNeeded = args.GetSizeT(0);
@@ -209,6 +219,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, UngetAppendBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, UngetAppendBuf)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t sizeUsed = args.GetSizeT(0);
@@ -224,6 +235,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, AppendByte)
 
 Gura_ImplementMethod(wx_MemoryBuffer, AppendByte)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char data = args.GetChar(0);
@@ -242,6 +254,7 @@ Gura_DeclareMethod(wx_MemoryBuffer, AppendData)
 
 Gura_ImplementMethod(wx_MemoryBuffer, AppendData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

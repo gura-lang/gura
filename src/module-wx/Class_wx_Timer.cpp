@@ -46,6 +46,7 @@ Gura_DeclareFunction(TimerEmpty)
 
 Gura_ImplementFunction(TimerEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Timer *pEntity = new wx_Timer();
 	Object_wx_Timer *pObj = Object_wx_Timer::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Timer)
 
 Gura_ImplementFunction(Timer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEvtHandler *owner = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	int id = -1;
@@ -94,6 +96,7 @@ Gura_DeclareMethod(wx_Timer, GetInterval)
 
 Gura_ImplementMethod(wx_Timer, GetInterval)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetInterval();
@@ -108,6 +111,7 @@ Gura_DeclareMethod(wx_Timer, IsOneShot)
 
 Gura_ImplementMethod(wx_Timer, IsOneShot)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOneShot();
@@ -122,6 +126,7 @@ Gura_DeclareMethod(wx_Timer, IsRunning)
 
 Gura_ImplementMethod(wx_Timer, IsRunning)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsRunning();
@@ -135,6 +140,7 @@ Gura_DeclareMethod(wx_Timer, Notify)
 
 Gura_ImplementMethod(wx_Timer, Notify)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Notify();
@@ -150,6 +156,7 @@ Gura_DeclareMethod(wx_Timer, SetOwner)
 
 Gura_ImplementMethod(wx_Timer, SetOwner)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler *owner = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
@@ -169,6 +176,7 @@ Gura_DeclareMethod(wx_Timer, Start)
 
 Gura_ImplementMethod(wx_Timer, Start)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int milliseconds = -1;
@@ -186,6 +194,7 @@ Gura_DeclareMethod(wx_Timer, Stop)
 
 Gura_ImplementMethod(wx_Timer, Stop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Timer *pThis = Object_wx_Timer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Stop();

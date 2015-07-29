@@ -46,6 +46,7 @@ Gura_DeclareFunction(WindowUpdateLocker)
 
 Gura_ImplementFunction(WindowUpdateLocker)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowUpdateLocker *pEntity = new wx_WindowUpdateLocker(win);

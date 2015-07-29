@@ -51,6 +51,7 @@ Gura_DeclareFunction(BitmapDataObject)
 
 Gura_ImplementFunction(BitmapDataObject)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -74,6 +75,7 @@ Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
 
 Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
@@ -88,6 +90,7 @@ Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
 
 Gura_ImplementMethod(wx_BitmapDataObject, SetBitmap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();

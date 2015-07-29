@@ -60,6 +60,7 @@ Gura_DeclareFunction(DataObject)
 
 Gura_ImplementFunction(DataObject)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DataObject *pEntity = new wx_DataObject();
@@ -86,6 +87,7 @@ Gura_DeclareMethod(wx_DataObject, GetAllFormats)
 
 Gura_ImplementMethod(wx_DataObject, GetAllFormats)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataObject::Direction dir = wxDataObject::Get;
@@ -115,6 +117,7 @@ Gura_DeclareMethod(wx_DataObject, GetDataHere)
 
 Gura_ImplementMethod(wx_DataObject, GetDataHere)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -136,6 +139,7 @@ Gura_DeclareMethod(wx_DataObject, GetDataSize)
 
 Gura_ImplementMethod(wx_DataObject, GetDataSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat *format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
@@ -151,6 +155,7 @@ Gura_DeclareMethod(wx_DataObject, GetFormatCount)
 
 Gura_ImplementMethod(wx_DataObject, GetFormatCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetFormatCount();
@@ -165,6 +170,7 @@ Gura_DeclareMethod(wx_DataObject, GetPreferredFormat)
 
 Gura_ImplementMethod(wx_DataObject, GetPreferredFormat)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat rtn = pThis->GetEntity()->GetPreferredFormat();
@@ -184,6 +190,7 @@ Gura_DeclareMethod(wx_DataObject, SetData)
 
 Gura_ImplementMethod(wx_DataObject, SetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataObject *pThis = Object_wx_DataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

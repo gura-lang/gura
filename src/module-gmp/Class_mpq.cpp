@@ -75,6 +75,7 @@ Gura_DeclareFunction(mpq)
 
 Gura_ImplementFunction(mpq)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	if (args.IsInvalid(0)) {
 		// nothing to do
@@ -118,6 +119,7 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 
 Gura_ImplementMethod(mpq, cast_mpf)
 {
+	Signal &sig = env.GetSignal();
 	const mpq_class &num = Object_mpq::GetThisEntity(args);
 	mpf_class numCasted = MpfFromMpq(sig, num);
 	if (sig.IsSignalled()) return Value::Null;
@@ -138,6 +140,7 @@ Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 
 Gura_ImplementMethod(string, cast_mpq)
 {
+	Signal &sig = env.GetSignal();
 	const char *strThis = args.GetThis().GetString();
 	int base = 0;
 	mpq_class num;

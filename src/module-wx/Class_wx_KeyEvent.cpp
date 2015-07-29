@@ -46,6 +46,7 @@ Gura_DeclareFunction(KeyEvent)
 
 Gura_ImplementFunction(KeyEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE keyEventType = static_cast<WXTYPE>(args.GetInt(0));
 	wx_KeyEvent *pEntity = new wx_KeyEvent(keyEventType);
@@ -68,6 +69,7 @@ Gura_DeclareMethod(wx_KeyEvent, AltDown)
 
 Gura_ImplementMethod(wx_KeyEvent, AltDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->AltDown();
@@ -82,6 +84,7 @@ Gura_DeclareMethod(wx_KeyEvent, CmdDown)
 
 Gura_ImplementMethod(wx_KeyEvent, CmdDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CmdDown();
@@ -96,6 +99,7 @@ Gura_DeclareMethod(wx_KeyEvent, ControlDown)
 
 Gura_ImplementMethod(wx_KeyEvent, ControlDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ControlDown();
@@ -110,6 +114,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetKeyCode)
 
 Gura_ImplementMethod(wx_KeyEvent, GetKeyCode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetKeyCode();
@@ -124,6 +129,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetModifiers)
 
 Gura_ImplementMethod(wx_KeyEvent, GetModifiers)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetModifiers();
@@ -138,6 +144,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetPosition)
 
 Gura_ImplementMethod(wx_KeyEvent, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
@@ -155,6 +162,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetPosition_1)
 
 Gura_ImplementMethod(wx_KeyEvent, GetPosition_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -175,6 +183,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetRawKeyCode)
 
 Gura_ImplementMethod(wx_KeyEvent, GetRawKeyCode)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 rtn = pThis->GetEntity()->GetRawKeyCode();
@@ -189,6 +198,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetRawKeyFlags)
 
 Gura_ImplementMethod(wx_KeyEvent, GetRawKeyFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 rtn = pThis->GetEntity()->GetRawKeyFlags();
@@ -203,6 +213,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetUnicodeKey)
 
 Gura_ImplementMethod(wx_KeyEvent, GetUnicodeKey)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -221,6 +232,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetX)
 
 Gura_ImplementMethod(wx_KeyEvent, GetX)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetX();
@@ -235,6 +247,7 @@ Gura_DeclareMethod(wx_KeyEvent, GetY)
 
 Gura_ImplementMethod(wx_KeyEvent, GetY)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetY();
@@ -249,6 +262,7 @@ Gura_DeclareMethod(wx_KeyEvent, HasModifiers)
 
 Gura_ImplementMethod(wx_KeyEvent, HasModifiers)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasModifiers();
@@ -263,6 +277,7 @@ Gura_DeclareMethod(wx_KeyEvent, MetaDown)
 
 Gura_ImplementMethod(wx_KeyEvent, MetaDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MetaDown();
@@ -277,6 +292,7 @@ Gura_DeclareMethod(wx_KeyEvent, ShiftDown)
 
 Gura_ImplementMethod(wx_KeyEvent, ShiftDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ShiftDown();

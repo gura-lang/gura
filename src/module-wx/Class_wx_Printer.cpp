@@ -46,6 +46,7 @@ Gura_DeclareFunction(Printer)
 
 Gura_ImplementFunction(Printer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintDialogData *data = (wxPrintDialogData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_PrintDialogData::GetObject(args, 0)->GetEntity();
@@ -70,6 +71,7 @@ Gura_DeclareMethod(wx_Printer, CreateAbortWindow)
 
 Gura_ImplementMethod(wx_Printer, CreateAbortWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_Printer, GetAbort)
 
 Gura_ImplementMethod(wx_Printer, GetAbort)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetAbort();
@@ -100,6 +103,7 @@ Gura_DeclareClassMethod(wx_Printer, GetLastError)
 
 Gura_ImplementClassMethod(wx_Printer, GetLastError)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrinterError rtn = wxPrinter::GetLastError();
 	return ReturnValue(env, args, Value(rtn));
@@ -113,6 +117,7 @@ Gura_DeclareMethod(wx_Printer, GetPrintDialogData)
 
 Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPrintDialogData &rtn = pThis->GetEntity()->GetPrintDialogData();
@@ -130,6 +135,7 @@ Gura_DeclareMethod(wx_Printer, Print)
 
 Gura_ImplementMethod(wx_Printer, Print)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -149,6 +155,7 @@ Gura_DeclareMethod(wx_Printer, PrintDialog)
 
 Gura_ImplementMethod(wx_Printer, PrintDialog)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -166,6 +173,7 @@ Gura_DeclareMethod(wx_Printer, ReportError)
 
 Gura_ImplementMethod(wx_Printer, ReportError)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -184,6 +192,7 @@ Gura_DeclareMethod(wx_Printer, Setup)
 
 Gura_ImplementMethod(wx_Printer, Setup)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Printer *pThis = Object_wx_Printer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();

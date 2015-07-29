@@ -254,6 +254,7 @@ Gura_DeclareFunction(dict)
 
 Gura_ImplementFunction(dict)
 {
+	Signal &sig = env.GetSignal();
 	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
@@ -316,6 +317,7 @@ Gura_DeclareMethod(dict, append)
 
 Gura_ImplementMethod(dict, append)
 {
+	Signal &sig = env.GetSignal();
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	ValueDict::StoreMode storeMode =
 		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
@@ -418,6 +420,7 @@ Gura_DeclareMethod(dict, get)
 
 Gura_ImplementMethod(dict, get)
 {
+	Signal &sig = env.GetSignal();
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
@@ -445,6 +448,7 @@ Gura_DeclareMethod(dict, haskey)
 
 Gura_ImplementMethod(dict, haskey)
 {
+	Signal &sig = env.GetSignal();
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	const Value *pValue = valDict.Find(sig, valueIdx);
@@ -535,6 +539,7 @@ Gura_DeclareMethod(dict, put)
 
 Gura_ImplementMethod(dict, put)
 {
+	Signal &sig = env.GetSignal();
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	const Value &value = args.GetValue(1);

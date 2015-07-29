@@ -45,6 +45,7 @@ Gura_DeclareFunction(StdDialogButtonSizer)
 
 Gura_ImplementFunction(StdDialogButtonSizer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StdDialogButtonSizer *pEntity = new wx_StdDialogButtonSizer();
 	Object_wx_StdDialogButtonSizer *pObj = Object_wx_StdDialogButtonSizer::GetThisObj(args);
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, AddButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, AddButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
@@ -80,6 +82,7 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, Realize)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, Realize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Realize();
@@ -94,6 +97,7 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
@@ -109,6 +113,7 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetCancelButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetCancelButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
@@ -124,6 +129,7 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetNegativeButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetNegativeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();

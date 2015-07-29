@@ -1421,6 +1421,7 @@ Gura_DeclareMethod(stat, field)
 
 Gura_ImplementMethod(stat, field)
 {
+	Signal &sig = env.GetSignal();
 	Object_stat *pThis = Object_stat::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
@@ -1683,6 +1684,7 @@ Gura_DeclareMethod(request, field)
 
 Gura_ImplementMethod(request, field)
 {
+	Signal &sig = env.GetSignal();
 	Object_request *pThis = Object_request::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetSessionObj()->GetRequest().
@@ -1707,6 +1709,7 @@ Gura_DeclareMethod(request, response)
 
 Gura_ImplementMethod(request, response)
 {
+	Signal &sig = env.GetSignal();
 	Object_request *pThis = Object_request::GetThisObj(args);
 	if (!pThis->SendResponse(sig,
 			args.GetString(0), args.Is_string(1)? args.GetString(1) : nullptr,
@@ -1735,6 +1738,7 @@ Gura_DeclareMethod(request, respchunk)
 
 Gura_ImplementMethod(request, respchunk)
 {
+	Signal &sig = env.GetSignal();
 	Object_request *pThis = Object_request::GetThisObj(args);
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
 			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
@@ -1856,6 +1860,7 @@ Gura_DeclareMethod(response, field)
 
 Gura_ImplementMethod(response, field)
 {
+	Signal &sig = env.GetSignal();
 	Object_response *pThis = Object_response::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetClientObj()->GetStatus().
@@ -2073,6 +2078,7 @@ Gura_DeclareMethod(server, wait)
 
 Gura_ImplementMethod(server, wait)
 {
+	Signal &sig = env.GetSignal();
 	Object_server *pThis = Object_server::GetThisObj(args);
 	if (!args.IsBlockSpecified()) {
 		Object_request *pObjRequest = pThis->Wait(sig);
@@ -2293,6 +2299,7 @@ Gura_DeclareMethod(client, request)
 
 Gura_ImplementMethod(client, request)
 {
+	Signal &sig = env.GetSignal();
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
@@ -2320,6 +2327,7 @@ Gura_DeclareMethod(client, _request)
 
 Gura_ImplementMethod(client, _request)
 {
+	Signal &sig = env.GetSignal();
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
@@ -2340,6 +2348,7 @@ Gura_DeclareMethod(client, cleanup)
 
 Gura_ImplementMethod(client, cleanup)
 {
+	Signal &sig = env.GetSignal();
 	Object_client *pThis = Object_client::GetThisObj(args);
 	if (!pThis->CleanupResponse(sig)) return Value::Null;
 	return args.GetThis();
@@ -2421,6 +2430,7 @@ Gura_DeclareFunction(addproxy)
 
 Gura_ImplementFunction(addproxy)
 {
+	Signal &sig = env.GetSignal();
 	ValueList *pValList = nullptr;
 	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
 	if (pValue == nullptr || !pValue->Is_list()) {
@@ -2455,6 +2465,7 @@ Gura_DeclareFunction(server)
 
 Gura_ImplementFunction(server)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_server> pObjServer(new Object_server());
 	if (!pObjServer->Prepare(sig,
 				args.Is_string(0)? args.GetString(0) : nullptr, args.GetShort(1))) {
@@ -2485,6 +2496,7 @@ Gura_DeclareFunction(client)
 
 Gura_ImplementFunction(client)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	const char *addrProxy = nullptr;
 	short portProxy = 0;

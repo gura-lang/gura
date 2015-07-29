@@ -125,6 +125,7 @@ Gura_DeclareMethod(writer, write)
 
 Gura_ImplementMethod(writer, write)
 {
+	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	if (!pThis->PutLine(env, sig, args.GetList(0))) return Value::Null;
 	return args.GetThis();

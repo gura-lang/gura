@@ -71,6 +71,7 @@ Gura_DeclareFunctionAlias(template_, "template")
 
 Gura_ImplementFunction(template_)
 {
+	Signal &sig = env.GetSignal();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
@@ -104,6 +105,7 @@ Gura_DeclareMethod(template_, parse)
 
 Gura_ImplementMethod(template_, parse)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
@@ -132,6 +134,7 @@ Gura_DeclareMethod(template_, read)
 
 Gura_ImplementMethod(template_, read)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
@@ -153,6 +156,7 @@ Gura_DeclareMethod(template_, render)
 
 Gura_ImplementMethod(template_, render)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
@@ -223,6 +227,7 @@ Gura_DeclareMethod(template_, block)
 
 Gura_ImplementMethod(template_, block)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
@@ -257,6 +262,7 @@ Gura_DeclareMethod(template_, call)
 
 Gura_ImplementMethod(template_, call)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
@@ -325,6 +331,7 @@ Gura_DeclareMethod(template_, embed)
 
 Gura_ImplementMethod(template_, embed)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateEmbedded = Object_template::GetObject(args, 0)->GetTemplate();
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
@@ -413,6 +420,7 @@ Gura_DeclareMethod(template_, super)
 
 Gura_ImplementMethod(template_, super)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
@@ -437,6 +445,7 @@ Gura_DeclareMethod(template_, init_block)
 
 Gura_ImplementMethod(template_, init_block)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
@@ -480,6 +489,7 @@ Gura_DeclareMethod(template_, init_define)
 
 Gura_ImplementMethod(template_, init_define)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);

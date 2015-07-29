@@ -48,6 +48,7 @@ Gura_DeclareFunction(FileDataObjectEmpty)
 
 Gura_ImplementFunction(FileDataObjectEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDataObject *pEntity = new wx_FileDataObject();
 	Object_wx_FileDataObject *pObj = Object_wx_FileDataObject::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_FileDataObject, AddFile)
 
 Gura_ImplementMethod(wx_FileDataObject, AddFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
@@ -84,6 +86,7 @@ Gura_DeclareMethod(wx_FileDataObject, GetFilenames)
 
 Gura_ImplementMethod(wx_FileDataObject, GetFilenames)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString rtn = pThis->GetEntity()->GetFilenames();

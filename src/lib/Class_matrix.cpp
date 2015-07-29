@@ -205,6 +205,7 @@ Gura_DeclareFunction(MatrixInit)
 
 Gura_ImplementFunction(MatrixInit)
 {
+	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
@@ -253,6 +254,7 @@ Gura_DeclareMethod(matrix, col)
 
 Gura_ImplementMethod(matrix, col)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	return pThis->GetMatrix()->GetCol(env, sig, args.GetSizeT(0));
 }
@@ -354,6 +356,7 @@ Gura_DeclareMethod(matrix, invert)
 
 Gura_ImplementMethod(matrix, invert)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
 	return pThis->GetMatrix()->Invert(env, sig);
@@ -591,6 +594,7 @@ Gura_DeclareMethod(matrix, roundoff)
 
 Gura_ImplementMethod(matrix, roundoff)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	Value value = pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
 	if (sig.IsSignalled()) return Value::Null;
@@ -610,6 +614,7 @@ Gura_DeclareMethod(matrix, row)
 
 Gura_ImplementMethod(matrix, row)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	return pThis->GetMatrix()->GetRow(env, sig, args.GetSizeT(0));
 }
@@ -641,6 +646,7 @@ Gura_DeclareMethod(matrix, set)
 
 Gura_ImplementMethod(matrix, set)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(0) || args.Is_iterator(0))?
 								args.GetValue(0).CreateIterator(sig) :
@@ -663,6 +669,7 @@ Gura_DeclareMethod(matrix, setcol)
 
 Gura_ImplementMethod(matrix, setcol)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
@@ -685,6 +692,7 @@ Gura_DeclareMethod(matrix, setrow)
 
 Gura_ImplementMethod(matrix, setrow)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
@@ -764,6 +772,7 @@ Gura_DeclareMethod(matrix, transpose)
 
 Gura_ImplementMethod(matrix, transpose)
 {
+	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
 	return pThis->GetMatrix()->Transpose(env, sig);

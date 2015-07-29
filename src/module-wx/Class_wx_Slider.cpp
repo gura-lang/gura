@@ -46,6 +46,7 @@ Gura_DeclareFunction(SliderEmpty)
 
 Gura_ImplementFunction(SliderEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Slider *pEntity = new wx_Slider();
 	Object_wx_Slider *pObj = Object_wx_Slider::GetThisObj(args);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(Slider)
 
 Gura_ImplementFunction(Slider)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -113,6 +115,7 @@ Gura_DeclareMethod(wx_Slider, ClearSel)
 
 Gura_ImplementMethod(wx_Slider, ClearSel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->ClearSel();
@@ -126,6 +129,7 @@ Gura_DeclareMethod(wx_Slider, ClearTicks)
 
 Gura_ImplementMethod(wx_Slider, ClearTicks)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->ClearTicks();
@@ -150,6 +154,7 @@ Gura_DeclareMethod(wx_Slider, Create)
 
 Gura_ImplementMethod(wx_Slider, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -179,6 +184,7 @@ Gura_DeclareMethod(wx_Slider, GetLineSize)
 
 Gura_ImplementMethod(wx_Slider, GetLineSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLineSize();
@@ -193,6 +199,7 @@ Gura_DeclareMethod(wx_Slider, GetMax)
 
 Gura_ImplementMethod(wx_Slider, GetMax)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMax();
@@ -207,6 +214,7 @@ Gura_DeclareMethod(wx_Slider, GetMin)
 
 Gura_ImplementMethod(wx_Slider, GetMin)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetMin();
@@ -221,6 +229,7 @@ Gura_DeclareMethod(wx_Slider, GetPageSize)
 
 Gura_ImplementMethod(wx_Slider, GetPageSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPageSize();
@@ -235,6 +244,7 @@ Gura_DeclareMethod(wx_Slider, GetSelEnd)
 
 Gura_ImplementMethod(wx_Slider, GetSelEnd)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelEnd();
@@ -249,6 +259,7 @@ Gura_DeclareMethod(wx_Slider, GetSelStart)
 
 Gura_ImplementMethod(wx_Slider, GetSelStart)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelStart();
@@ -263,6 +274,7 @@ Gura_DeclareMethod(wx_Slider, GetThumbLength)
 
 Gura_ImplementMethod(wx_Slider, GetThumbLength)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetThumbLength();
@@ -277,6 +289,7 @@ Gura_DeclareMethod(wx_Slider, GetTickFreq)
 
 Gura_ImplementMethod(wx_Slider, GetTickFreq)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTickFreq();
@@ -291,6 +304,7 @@ Gura_DeclareMethod(wx_Slider, GetValue)
 
 Gura_ImplementMethod(wx_Slider, GetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetValue();
@@ -305,6 +319,7 @@ Gura_DeclareMethod(wx_Slider, SetLineSize)
 
 Gura_ImplementMethod(wx_Slider, SetLineSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int lineSize = args.GetInt(0);
@@ -320,6 +335,7 @@ Gura_DeclareMethod(wx_Slider, SetPageSize)
 
 Gura_ImplementMethod(wx_Slider, SetPageSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pageSize = args.GetInt(0);
@@ -336,6 +352,7 @@ Gura_DeclareMethod(wx_Slider, SetRange)
 
 Gura_ImplementMethod(wx_Slider, SetRange)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int minValue = args.GetInt(0);
@@ -353,6 +370,7 @@ Gura_DeclareMethod(wx_Slider, SetSelection)
 
 Gura_ImplementMethod(wx_Slider, SetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int startPos = args.GetInt(0);
@@ -369,6 +387,7 @@ Gura_DeclareMethod(wx_Slider, SetThumbLength)
 
 Gura_ImplementMethod(wx_Slider, SetThumbLength)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int len = args.GetInt(0);
@@ -384,6 +403,7 @@ Gura_DeclareMethod(wx_Slider, SetTick)
 
 Gura_ImplementMethod(wx_Slider, SetTick)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int tickPos = args.GetInt(0);
@@ -400,6 +420,7 @@ Gura_DeclareMethod(wx_Slider, SetTickFreq)
 
 Gura_ImplementMethod(wx_Slider, SetTickFreq)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -416,6 +437,7 @@ Gura_DeclareMethod(wx_Slider, SetValue)
 
 Gura_ImplementMethod(wx_Slider, SetValue)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Slider *pThis = Object_wx_Slider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int value = args.GetInt(0);

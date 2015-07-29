@@ -45,6 +45,7 @@ Gura_DeclareFunction(StopWatch)
 
 Gura_ImplementFunction(StopWatch)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StopWatch *pEntity = new wx_StopWatch();
 	Object_wx_StopWatch *pObj = Object_wx_StopWatch::GetThisObj(args);
@@ -65,6 +66,7 @@ Gura_DeclareMethod(wx_StopWatch, Pause)
 
 Gura_ImplementMethod(wx_StopWatch, Pause)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Pause();
@@ -78,6 +80,7 @@ Gura_DeclareMethod(wx_StopWatch, Resume)
 
 Gura_ImplementMethod(wx_StopWatch, Resume)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Resume();
@@ -92,6 +95,7 @@ Gura_DeclareMethod(wx_StopWatch, Start)
 
 Gura_ImplementMethod(wx_StopWatch, Start)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long milliseconds = 0;
@@ -108,6 +112,7 @@ Gura_DeclareMethod(wx_StopWatch, Time)
 
 Gura_ImplementMethod(wx_StopWatch, Time)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->Time();

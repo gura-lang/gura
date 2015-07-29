@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataViewModelEmpty)
 
 Gura_ImplementFunction(DataViewModelEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DataViewModel *pEntity = new wx_DataViewModel();

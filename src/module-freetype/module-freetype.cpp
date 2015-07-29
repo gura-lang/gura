@@ -76,6 +76,7 @@ Gura_DeclareMethod(image, drawtext)
 
 Gura_ImplementMethod(image, drawtext)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pObjImage = Object_image::GetThisObj(args);
 	Object_font *pObjFont = Object_font::GetObject(args, 0);
 	int x = args.GetInt(1);
@@ -103,6 +104,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	FT_Face face;
 	FT_Error err = ::FT_New_Face(g_lib, "arial.ttf", 0, &face);

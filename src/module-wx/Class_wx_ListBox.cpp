@@ -47,6 +47,7 @@ Gura_DeclareFunction(ListBoxEmpty)
 
 Gura_ImplementFunction(ListBoxEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListBox *pEntity = new wx_ListBox();
 	Object_wx_ListBox *pObj = Object_wx_ListBox::GetThisObj(args);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(ListBox)
 
 Gura_ImplementFunction(ListBox)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -124,6 +126,7 @@ Gura_DeclareMethod(wx_ListBox, Create)
 
 Gura_ImplementMethod(wx_ListBox, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -156,6 +159,7 @@ Gura_DeclareMethod(wx_ListBox, Deselect)
 
 Gura_ImplementMethod(wx_ListBox, Deselect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -171,6 +175,7 @@ Gura_DeclareMethod(wx_ListBox, GetSelections)
 
 Gura_ImplementMethod(wx_ListBox, GetSelections)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt selections;
@@ -187,6 +192,7 @@ Gura_DeclareMethod(wx_ListBox, InsertItems)
 
 Gura_ImplementMethod(wx_ListBox, InsertItems)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> items(CreateArrayString(args.GetList(0)));
@@ -204,6 +210,7 @@ Gura_DeclareMethod(wx_ListBox, HitTest)
 
 Gura_ImplementMethod(wx_ListBox, HitTest)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -220,6 +227,7 @@ Gura_DeclareMethod(wx_ListBox, IsSelected)
 
 Gura_ImplementMethod(wx_ListBox, IsSelected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -236,6 +244,7 @@ Gura_DeclareMethod(wx_ListBox, Set)
 
 Gura_ImplementMethod(wx_ListBox, Set)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
@@ -253,6 +262,7 @@ Gura_DeclareMethod(wx_ListBox, SetFirstItem)
 
 Gura_ImplementMethod(wx_ListBox, SetFirstItem)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -268,6 +278,7 @@ Gura_DeclareMethod(wx_ListBox, SetFirstItemString)
 
 Gura_ImplementMethod(wx_ListBox, SetFirstItemString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));

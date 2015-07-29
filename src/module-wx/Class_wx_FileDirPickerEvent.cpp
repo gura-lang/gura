@@ -49,6 +49,7 @@ Gura_DeclareFunction(FileDirPickerEvent)
 
 Gura_ImplementFunction(FileDirPickerEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType type = static_cast<wxEventType>(args.GetInt(0));
 	wxObject *generator = Object_wx_Object::GetObject(args, 1)->GetEntity();
@@ -74,6 +75,7 @@ Gura_DeclareMethod(wx_FileDirPickerEvent, GetPath)
 
 Gura_ImplementMethod(wx_FileDirPickerEvent, GetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
@@ -88,6 +90,7 @@ Gura_DeclareMethod(wx_FileDirPickerEvent, SetPath)
 
 Gura_ImplementMethod(wx_FileDirPickerEvent, SetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));

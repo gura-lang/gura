@@ -47,6 +47,7 @@ Gura_DeclareFunction(RichTextAttr)
 
 Gura_ImplementFunction(RichTextAttr)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextAttr *pEntity = new wx_RichTextAttr();
 	Object_wx_RichTextAttr *pObj = Object_wx_RichTextAttr::GetThisObj(args);
@@ -73,6 +74,7 @@ Gura_DeclareFunction(RichTextAttr_2)
 
 Gura_ImplementFunction(RichTextAttr_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = (wxColour *)(&wxNullColour);
@@ -102,6 +104,7 @@ Gura_DeclareFunction(RichTextAttr_1)
 
 Gura_ImplementFunction(RichTextAttr_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	wx_RichTextAttr *pEntity = new wx_RichTextAttr(*attr);
@@ -126,6 +129,7 @@ Gura_DeclareMethod(wx_RichTextAttr, Apply)
 
 Gura_ImplementMethod(wx_RichTextAttr, Apply)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 0)->GetEntity();
@@ -146,6 +150,7 @@ Gura_DeclareMethod(wx_RichTextAttr, Combine)
 
 Gura_ImplementMethod(wx_RichTextAttr, Combine)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 0)->GetEntity();
@@ -165,6 +170,7 @@ Gura_DeclareMethod(wx_RichTextAttr, CreateFont)
 
 Gura_ImplementMethod(wx_RichTextAttr, CreateFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont rtn = pThis->GetEntity()->CreateFont();
@@ -180,6 +186,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetAlignment)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetAlignment)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrAlignment rtn = pThis->GetEntity()->GetAlignment();
@@ -194,6 +201,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBackgroundColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBackgroundColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
@@ -208,6 +216,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBulletFont)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBulletFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletFont();
@@ -222,6 +231,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBulletName)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBulletName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletName();
@@ -236,6 +246,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBulletNumber)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBulletNumber)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBulletNumber();
@@ -250,6 +261,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBulletStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBulletStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetBulletStyle();
@@ -264,6 +276,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetBulletText)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetBulletText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletText();
@@ -278,6 +291,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetCharacterStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetCharacterStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCharacterStyleName();
@@ -292,6 +306,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFlags)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetFlags();
@@ -307,6 +322,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontAttributes)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontAttributes)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
@@ -322,6 +338,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontFaceName)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontFaceName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFontFaceName();
@@ -336,6 +353,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontSize)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFontSize();
@@ -350,6 +368,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFontStyle();
@@ -364,6 +383,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontUnderlined)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontUnderlined)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetFontUnderlined();
@@ -378,6 +398,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetFontWeight)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetFontWeight)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFontWeight();
@@ -392,6 +413,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetLeftIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetLeftIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetLeftIndent();
@@ -406,6 +428,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetLeftSubIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetLeftSubIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetLeftSubIndent();
@@ -420,6 +443,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetLineSpacing)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetLineSpacing)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetLineSpacing();
@@ -434,6 +458,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetListStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetListStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetListStyleName();
@@ -448,6 +473,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetOutlineLevel)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetOutlineLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOutlineLevel();
@@ -462,6 +488,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetParagraphSpacingAfter)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetParagraphSpacingAfter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetParagraphSpacingAfter();
@@ -476,6 +503,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetParagraphSpacingBefore)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetParagraphSpacingBefore)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetParagraphSpacingBefore();
@@ -490,6 +518,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetParagraphStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetParagraphStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetParagraphStyleName();
@@ -504,6 +533,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetRightIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetRightIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetRightIndent();
@@ -518,6 +548,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetTabs)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetTabs)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt rtn = pThis->GetEntity()->GetTabs();
@@ -532,6 +563,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetTextColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetTextColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
@@ -546,6 +578,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetTextEffectFlags)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetTextEffectFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTextEffectFlags();
@@ -560,6 +593,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetTextEffects)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetTextEffects)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTextEffects();
@@ -574,6 +608,7 @@ Gura_DeclareMethod(wx_RichTextAttr, GetURL)
 
 Gura_ImplementMethod(wx_RichTextAttr, GetURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
@@ -588,6 +623,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasAlignment)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasAlignment)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasAlignment();
@@ -602,6 +638,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasBackgroundColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasBackgroundColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBackgroundColour();
@@ -616,6 +653,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasBulletName)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasBulletName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBulletName();
@@ -630,6 +668,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasBulletNumber)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasBulletNumber)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBulletNumber();
@@ -644,6 +683,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasBulletStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasBulletStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBulletStyle();
@@ -658,6 +698,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasBulletText)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasBulletText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBulletText();
@@ -672,6 +713,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasCharacterStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasCharacterStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasCharacterStyleName();
@@ -686,6 +728,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFontFaceName)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFontFaceName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFontFaceName();
@@ -701,6 +744,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFlag)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFlag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flag = args.GetLong(0);
@@ -716,6 +760,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFont)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFont();
@@ -730,6 +775,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFontItalic)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFontItalic)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFontItalic();
@@ -744,6 +790,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasLeftIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasLeftIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasLeftIndent();
@@ -758,6 +805,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasLineSpacing)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasLineSpacing)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasLineSpacing();
@@ -772,6 +820,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasListStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasListStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasListStyleName();
@@ -786,6 +835,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasOutlineLevel)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasOutlineLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasOutlineLevel();
@@ -800,6 +850,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasPageBreak)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasPageBreak)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasPageBreak();
@@ -814,6 +865,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasParagraphSpacingAfter)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasParagraphSpacingAfter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasParagraphSpacingAfter();
@@ -828,6 +880,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasParagraphSpacingBefore)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasParagraphSpacingBefore)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasParagraphSpacingBefore();
@@ -842,6 +895,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasParagraphStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasParagraphStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasParagraphStyleName();
@@ -856,6 +910,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasRightIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasRightIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasRightIndent();
@@ -870,6 +925,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFontSize)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFontSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFontSize();
@@ -884,6 +940,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasTabs)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasTabs)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasTabs();
@@ -898,6 +955,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasTextColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasTextColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasTextColour();
@@ -912,6 +970,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasTextEffects)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasTextEffects)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasTextEffects();
@@ -926,6 +985,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFontUnderlined)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFontUnderlined)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFontUnderlined();
@@ -940,6 +1000,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasURL)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasURL();
@@ -954,6 +1015,7 @@ Gura_DeclareMethod(wx_RichTextAttr, HasFontWeight)
 
 Gura_ImplementMethod(wx_RichTextAttr, HasFontWeight)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasFontWeight();
@@ -968,6 +1030,7 @@ Gura_DeclareMethod(wx_RichTextAttr, IsCharacterStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, IsCharacterStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsCharacterStyle();
@@ -982,6 +1045,7 @@ Gura_DeclareMethod(wx_RichTextAttr, IsDefault)
 
 Gura_ImplementMethod(wx_RichTextAttr, IsDefault)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDefault();
@@ -996,6 +1060,7 @@ Gura_DeclareMethod(wx_RichTextAttr, IsParagraphStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, IsParagraphStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsParagraphStyle();
@@ -1010,6 +1075,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetAlignment)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetAlignment)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrAlignment alignment = static_cast<wxTextAttrAlignment>(args.GetInt(0));
@@ -1025,6 +1091,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBackgroundColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBackgroundColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colBack = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -1040,6 +1107,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBulletFont)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBulletFont)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString font = wxString::FromUTF8(args.GetString(0));
@@ -1055,6 +1123,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBulletName)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBulletName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -1070,6 +1139,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBulletNumber)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBulletNumber)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -1085,6 +1155,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBulletStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBulletStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int style = args.GetInt(0);
@@ -1100,6 +1171,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetBulletText)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetBulletText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
@@ -1115,6 +1187,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetCharacterStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetCharacterStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -1130,6 +1203,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFlags)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
@@ -1145,6 +1219,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFontFaceName)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFontFaceName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString faceName = wxString::FromUTF8(args.GetString(0));
@@ -1160,6 +1235,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFontSize)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFontSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pointSize = args.GetInt(0);
@@ -1175,6 +1251,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFontStyle)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFontStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontStyle fontStyle = static_cast<wxFontStyle>(args.GetInt(0));
@@ -1190,6 +1267,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFontUnderlined)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFontUnderlined)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool underlined = args.GetBoolean(0);
@@ -1205,6 +1283,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetFontWeight)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetFontWeight)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontWeight fontWeight = static_cast<wxFontWeight>(args.GetInt(0));
@@ -1221,6 +1300,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetLeftIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetLeftIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int indent = args.GetInt(0);
@@ -1238,6 +1318,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetLineSpacing)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetLineSpacing)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int spacing = args.GetInt(0);
@@ -1253,6 +1334,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetListStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetListStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -1268,6 +1350,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetOutlineLevel)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetOutlineLevel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int level = args.GetInt(0);
@@ -1283,6 +1366,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetPageBreak)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetPageBreak)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool pageBreak = true;
@@ -1299,6 +1383,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetParagraphSpacingAfter)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetParagraphSpacingAfter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int spacing = args.GetInt(0);
@@ -1314,6 +1399,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetParagraphSpacingBefore)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetParagraphSpacingBefore)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int spacing = args.GetInt(0);
@@ -1329,6 +1415,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetParagraphStyleName)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetParagraphStyleName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -1344,6 +1431,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetRightIndent)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetRightIndent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int indent = args.GetInt(0);
@@ -1359,6 +1447,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetTabs)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetTabs)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayInt> tabs(CreateArrayInt(args.GetList(0)));
@@ -1374,6 +1463,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetTextColour)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetTextColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -1389,6 +1479,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetTextEffectFlags)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetTextEffectFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = args.GetInt(0);
@@ -1404,6 +1495,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetTextEffects)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetTextEffects)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int effects = args.GetInt(0);
@@ -1419,6 +1511,7 @@ Gura_DeclareMethod(wx_RichTextAttr, SetURL)
 
 Gura_ImplementMethod(wx_RichTextAttr, SetURL)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString url = wxString::FromUTF8(args.GetString(0));
@@ -1435,6 +1528,7 @@ Gura_DeclareMethod(wx_RichTextAttr, wxTextAttrEx)
 
 Gura_ImplementMethod(wx_RichTextAttr, wxTextAttrEx)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }

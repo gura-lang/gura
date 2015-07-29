@@ -83,6 +83,7 @@ Gura_DeclareFunction(Validator)
 
 Gura_ImplementFunction(Validator)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Validator *pEntity = new wx_Validator();
 	Object_wx_Validator *pObj = Object_wx_Validator::GetThisObj(args);
@@ -104,6 +105,7 @@ Gura_DeclareMethod(wx_Validator, Clone)
 
 Gura_ImplementMethod(wx_Validator, Clone)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Clone();
@@ -118,6 +120,7 @@ Gura_DeclareMethod(wx_Validator, GetWindow)
 
 Gura_ImplementMethod(wx_Validator, GetWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
@@ -159,6 +162,7 @@ Gura_DeclareMethod(wx_Validator, SetWindow)
 
 Gura_ImplementMethod(wx_Validator, SetWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -174,6 +178,7 @@ Gura_DeclareMethod(wx_Validator, TransferToWindow)
 
 Gura_ImplementMethod(wx_Validator, TransferToWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
@@ -188,6 +193,7 @@ Gura_DeclareMethod(wx_Validator, TransferToWindow_1)
 
 Gura_ImplementMethod(wx_Validator, TransferToWindow_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
@@ -203,6 +209,7 @@ Gura_DeclareMethod(wx_Validator, Validate)
 
 Gura_ImplementMethod(wx_Validator, Validate)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();

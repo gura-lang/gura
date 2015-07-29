@@ -47,6 +47,7 @@ Gura_DeclareFunction(Semaphore)
 
 Gura_ImplementFunction(Semaphore)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int initialcount = 0;
 	if (args.IsValid(0)) initialcount = args.GetInt(0);
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_Semaphore, Post)
 
 Gura_ImplementMethod(wx_Semaphore, Post)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->Post();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_Semaphore, TryWait)
 
 Gura_ImplementMethod(wx_Semaphore, TryWait)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->TryWait();
@@ -100,6 +103,7 @@ Gura_DeclareMethod(wx_Semaphore, Wait)
 
 Gura_ImplementMethod(wx_Semaphore, Wait)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSemaError rtn = pThis->GetEntity()->Wait();
@@ -115,6 +119,7 @@ Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
 
 Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned timeout_millis = args.GetInt(0);

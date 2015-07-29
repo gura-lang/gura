@@ -49,6 +49,7 @@ Gura_DeclareFunction(NotebookEvent)
 
 Gura_ImplementFunction(NotebookEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType eventType = wxEVT_NULL;
 	if (args.IsValid(0)) eventType = static_cast<wxEventType>(args.GetInt(0));
@@ -78,6 +79,7 @@ Gura_DeclareMethod(wx_NotebookEvent, GetOldSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, GetOldSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOldSelection();
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_NotebookEvent, GetSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, GetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_NotebookEvent, SetOldSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, SetOldSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);
@@ -121,6 +125,7 @@ Gura_DeclareMethod(wx_NotebookEvent, SetSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, SetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);

@@ -45,6 +45,7 @@ Gura_DeclareFunction(DataObjectCompositeEmpty)
 
 Gura_ImplementFunction(DataObjectCompositeEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataObjectComposite *pEntity = new wx_DataObjectComposite();
 	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_DataObjectComposite, Add)
 
 Gura_ImplementMethod(wx_DataObjectComposite, Add)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -90,6 +92,7 @@ Gura_DeclareMethod(wx_DataObjectComposite, GetReceivedFormat)
 
 Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat rtn = pThis->GetEntity()->GetReceivedFormat();

@@ -61,6 +61,7 @@ Gura_DeclareFunction(ConnectionEmpty)
 
 Gura_ImplementFunction(ConnectionEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Connection *pEntity = new wx_Connection();
 	Object_wx_Connection *pObj = Object_wx_Connection::GetThisObj(args);
@@ -87,6 +88,7 @@ Gura_DeclareFunction(Connection)
 
 Gura_ImplementFunction(Connection)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buffer = args.GetChar(0);
@@ -120,6 +122,7 @@ Gura_DeclareMethod(wx_Connection, Advise)
 
 Gura_ImplementMethod(wx_Connection, Advise)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -149,6 +152,7 @@ Gura_DeclareMethod(wx_Connection, Execute)
 
 Gura_ImplementMethod(wx_Connection, Execute)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -172,6 +176,7 @@ Gura_DeclareMethod(wx_Connection, Disconnect)
 
 Gura_ImplementMethod(wx_Connection, Disconnect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Disconnect();
@@ -193,6 +198,7 @@ Gura_DeclareMethod(wx_Connection, OnAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnAdvise)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -216,6 +222,7 @@ Gura_DeclareMethod(wx_Connection, OnDisconnect)
 
 Gura_ImplementMethod(wx_Connection, OnDisconnect)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->OnDisconnect();
@@ -236,6 +243,7 @@ Gura_DeclareMethod(wx_Connection, OnExecute)
 
 Gura_ImplementMethod(wx_Connection, OnExecute)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -265,6 +273,7 @@ Gura_DeclareMethod(wx_Connection, OnPoke)
 
 Gura_ImplementMethod(wx_Connection, OnPoke)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -294,6 +303,7 @@ Gura_DeclareMethod(wx_Connection, OnRequest)
 
 Gura_ImplementMethod(wx_Connection, OnRequest)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -318,6 +328,7 @@ Gura_DeclareMethod(wx_Connection, OnStartAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStartAdvise)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
@@ -336,6 +347,7 @@ Gura_DeclareMethod(wx_Connection, OnStopAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStopAdvise)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
@@ -358,6 +370,7 @@ Gura_DeclareMethod(wx_Connection, Poke)
 
 Gura_ImplementMethod(wx_Connection, Poke)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -387,6 +400,7 @@ Gura_DeclareMethod(wx_Connection, Request)
 
 Gura_ImplementMethod(wx_Connection, Request)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -410,6 +424,7 @@ Gura_DeclareMethod(wx_Connection, StartAdvise)
 
 Gura_ImplementMethod(wx_Connection, StartAdvise)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
@@ -426,6 +441,7 @@ Gura_DeclareMethod(wx_Connection, StopAdvise)
 
 Gura_ImplementMethod(wx_Connection, StopAdvise)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));

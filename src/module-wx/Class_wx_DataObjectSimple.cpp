@@ -53,6 +53,7 @@ Gura_DeclareFunction(DataObjectSimple)
 
 Gura_ImplementFunction(DataObjectSimple)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
@@ -76,6 +77,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
 
 Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxDataFormat &rtn = pThis->GetEntity()->GetFormat();
@@ -90,6 +92,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
 
 Gura_ImplementMethod(wx_DataObjectSimple, SetFormat)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat *format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
@@ -105,6 +108,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetDataSize)
 
 Gura_ImplementMethod(wx_DataObjectSimple, GetDataSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetDataSize();
@@ -122,6 +126,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetDataHere)
 
 Gura_ImplementMethod(wx_DataObjectSimple, GetDataHere)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -145,6 +150,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, SetData)
 
 Gura_ImplementMethod(wx_DataObjectSimple, SetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

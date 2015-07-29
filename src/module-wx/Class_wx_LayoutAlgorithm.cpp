@@ -45,6 +45,7 @@ Gura_DeclareFunction(LayoutAlgorithm)
 
 Gura_ImplementFunction(LayoutAlgorithm)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LayoutAlgorithm *pEntity = new wx_LayoutAlgorithm();
 	Object_wx_LayoutAlgorithm *pObj = Object_wx_LayoutAlgorithm::GetThisObj(args);
@@ -68,6 +69,7 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutFrame)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
@@ -87,6 +89,7 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIParentFrame *frame = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
@@ -106,6 +109,7 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutWindow)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();

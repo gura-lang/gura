@@ -21,6 +21,7 @@ Gura_DeclareClassMethod(pdf_surface, create)
 
 Gura_ImplementClassMethod(pdf_surface, create)
 {
+	Signal &sig = env.GetSignal();
 	double width = args.GetDouble(1);
 	double height = args.GetDouble(2);
 	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
@@ -40,6 +41,7 @@ Gura_DeclareMethod(pdf_surface, restrict_to_version)
 
 Gura_ImplementMethod(pdf_surface, restrict_to_version)
 {
+	Signal &sig = env.GetSignal();
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
@@ -58,6 +60,7 @@ Gura_DeclareMethod(pdf_surface, set_size)
 
 Gura_ImplementMethod(pdf_surface, set_size)
 {
+	Signal &sig = env.GetSignal();
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_pdf_surface_set_size(surface, args.GetDouble(0), args.GetDouble(1));

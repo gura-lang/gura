@@ -48,6 +48,7 @@ Gura_DeclareFunction(ActivateEvent)
 
 Gura_ImplementFunction(ActivateEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE eventType = 0;
 	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_ActivateEvent, GetActive)
 
 Gura_ImplementMethod(wx_ActivateEvent, GetActive)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ActivateEvent *pThis = Object_wx_ActivateEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetActive();

@@ -124,6 +124,7 @@ Gura_DeclareMethod(mysql, query)
 
 Gura_ImplementMethod(mysql, query)
 {
+	Signal &sig = env.GetSignal();
 	Object_mysql *pObj = Object_mysql::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	// Object_mysql::Query() may return nullptr even if no error occurs.
@@ -156,6 +157,7 @@ Gura_DeclareFunction(connect)
 
 Gura_ImplementFunction(connect)
 {
+	Signal &sig = env.GetSignal();
 	const char *host = args.Is_string(0)? args.GetString(0) : nullptr;
 	const char *user = args.Is_string(1)? args.GetString(1) : nullptr;
 	const char *passwd = args.Is_string(2)? args.GetString(2) : nullptr;

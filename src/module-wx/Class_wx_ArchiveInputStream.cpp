@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_ArchiveInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->CloseEntry();
@@ -57,6 +58,7 @@ Gura_DeclareMethod(wx_ArchiveInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->GetNextEntry();
@@ -72,6 +74,7 @@ Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, OpenEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *entry = Object_wx_ArchiveEntry::GetObject(args, 0)->GetEntity();

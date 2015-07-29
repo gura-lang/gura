@@ -58,6 +58,7 @@ Gura_DeclareFunction(GLCanvas)
 
 Gura_ImplementFunction(GLCanvas)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
@@ -106,6 +107,7 @@ Gura_DeclareFunction(GLCanvas_1)
 
 Gura_ImplementFunction(GLCanvas_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLContext *sharedContext = Object_wx_GLContext::GetObject(args, 1)->GetEntity();
@@ -156,6 +158,7 @@ Gura_DeclareFunction(GLCanvas_2)
 
 Gura_ImplementFunction(GLCanvas_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLCanvas *sharedCanvas = Object_wx_GLCanvas::GetObject(args, 1)->GetEntity();
@@ -195,6 +198,7 @@ Gura_DeclareMethod(wx_GLCanvas, GetContext)
 
 Gura_ImplementMethod(wx_GLCanvas, GetContext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGLContext *rtn = (wxGLContext *)pThis->GetEntity()->GetContext();
@@ -211,6 +215,7 @@ Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
 
 Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	if (args.IsInstanceOf(0, VTYPE_wx_GLContext)) {
@@ -235,6 +240,7 @@ Gura_DeclareMethod(wx_GLCanvas, SetColour)
 
 Gura_ImplementMethod(wx_GLCanvas, SetColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString colour = wxString::FromUTF8(args.GetString(0));
@@ -249,6 +255,7 @@ Gura_DeclareMethod(wx_GLCanvas, SwapBuffers)
 
 Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->SwapBuffers();

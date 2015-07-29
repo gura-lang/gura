@@ -46,6 +46,7 @@ Gura_DeclareFunction(BoxSizer)
 
 Gura_ImplementFunction(BoxSizer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int orient = args.GetInt(0);
 	wx_BoxSizer *pEntity = new wx_BoxSizer(orient);
@@ -67,6 +68,7 @@ Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->RecalcSizes();
@@ -81,6 +83,7 @@ Gura_DeclareMethod(wx_BoxSizer, CalcMin)
 
 Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize rtn = pThis->GetEntity()->CalcMin();
@@ -95,6 +98,7 @@ Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
 
 Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetOrientation();

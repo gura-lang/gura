@@ -47,6 +47,7 @@ Gura_DeclareFunction(SpinEvent)
 
 Gura_ImplementFunction(SpinEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_SpinEvent, GetPosition)
 
 Gura_ImplementMethod(wx_SpinEvent, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetPosition();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_SpinEvent, SetPosition)
 
 Gura_ImplementMethod(wx_SpinEvent, SetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);

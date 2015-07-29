@@ -1759,6 +1759,7 @@ Gura_DeclareFunction(gencode)
 
 Gura_ImplementFunction(gencode)
 {
+	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	CodeGeneratorLLVM codeGeneratorLLVM;
 	codeGeneratorLLVM.Generate(env, pExprBlock);

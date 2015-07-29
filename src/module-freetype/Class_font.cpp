@@ -443,6 +443,7 @@ Gura_DeclareMethod(font, drawtext)
 
 Gura_ImplementMethod(font, drawtext)
 {
+	Signal &sig = env.GetSignal();
 	Object_font *pThis = Object_font::GetThisObj(args);
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	int x = args.GetInt(1);

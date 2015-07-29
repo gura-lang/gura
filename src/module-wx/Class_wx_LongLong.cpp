@@ -49,6 +49,7 @@ Gura_DeclareFunction(LongLongEmpty)
 
 Gura_ImplementFunction(LongLongEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_LongLong *pEntity = new wx_LongLong();
@@ -78,6 +79,7 @@ Gura_DeclareFunction(LongLong)
 
 Gura_ImplementFunction(LongLong)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxLongLong_t *ll = Object_wx_LongLong_t::GetObject(args, 0)->GetEntity();
@@ -109,6 +111,7 @@ Gura_DeclareFunction(LongLong_1)
 
 Gura_ImplementFunction(LongLong_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long hi = args.GetLong(0);
@@ -136,6 +139,7 @@ Gura_DeclareMethod(wx_LongLong, Abs)
 
 Gura_ImplementMethod(wx_LongLong, Abs)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -154,6 +158,7 @@ Gura_DeclareMethod(wx_LongLong, Abs_1)
 
 Gura_ImplementMethod(wx_LongLong, Abs_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLongLong &rtn = pThis->GetEntity()->Abs();
@@ -171,6 +176,7 @@ Gura_DeclareMethod(wx_LongLong, Assign)
 
 Gura_ImplementMethod(wx_LongLong, Assign)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -190,6 +196,7 @@ Gura_DeclareMethod(wx_LongLong, GetHi)
 
 Gura_ImplementMethod(wx_LongLong, GetHi)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->GetHi();
@@ -204,6 +211,7 @@ Gura_DeclareMethod(wx_LongLong, GetLo)
 
 Gura_ImplementMethod(wx_LongLong, GetLo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetLo();
@@ -218,6 +226,7 @@ Gura_DeclareMethod(wx_LongLong, GetValue)
 
 Gura_ImplementMethod(wx_LongLong, GetValue)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -236,6 +245,7 @@ Gura_DeclareMethod(wx_LongLong, ToDouble)
 
 Gura_ImplementMethod(wx_LongLong, ToDouble)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	double rtn = pThis->GetEntity()->ToDouble();
@@ -250,6 +260,7 @@ Gura_DeclareMethod(wx_LongLong, ToLong)
 
 Gura_ImplementMethod(wx_LongLong, ToLong)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long rtn = pThis->GetEntity()->ToLong();
@@ -264,6 +275,7 @@ Gura_DeclareMethod(wx_LongLong, ToString)
 
 Gura_ImplementMethod(wx_LongLong, ToString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ToString();

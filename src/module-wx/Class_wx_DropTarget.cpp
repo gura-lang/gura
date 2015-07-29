@@ -130,6 +130,7 @@ Gura_DeclareFunction(DropTarget)
 
 Gura_ImplementFunction(DropTarget)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataObject *data = (wxDataObject *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
@@ -152,6 +153,7 @@ Gura_DeclareMethod(wx_DropTarget, GetData)
 
 Gura_ImplementMethod(wx_DropTarget, GetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -175,6 +177,7 @@ Gura_DeclareMethod(wx_DropTarget, OnData)
 
 Gura_ImplementMethod(wx_DropTarget, OnData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -200,6 +203,7 @@ Gura_DeclareMethod(wx_DropTarget, OnDrop)
 
 Gura_ImplementMethod(wx_DropTarget, OnDrop)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -225,6 +229,7 @@ Gura_DeclareMethod(wx_DropTarget, OnEnter)
 
 Gura_ImplementMethod(wx_DropTarget, OnEnter)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -251,6 +256,7 @@ Gura_DeclareMethod(wx_DropTarget, OnDragOver)
 
 Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -271,6 +277,7 @@ Gura_DeclareMethod(wx_DropTarget, OnLeave)
 
 Gura_ImplementMethod(wx_DropTarget, OnLeave)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -291,6 +298,7 @@ Gura_DeclareMethod(wx_DropTarget, SetDataObject)
 
 Gura_ImplementMethod(wx_DropTarget, SetDataObject)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

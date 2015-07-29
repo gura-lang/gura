@@ -879,6 +879,7 @@ Gura_DeclareFunctionAlias(__glutCreateMenu, "glutCreateMenu")
 
 Gura_ImplementFunction(__glutCreateMenu)
 {
+	Signal &sig = env.GetSignal();
 	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
@@ -1813,6 +1814,7 @@ Gura_DeclareFunctionAlias(__glutGetProcAddress, "glutGetProcAddress")
 
 Gura_ImplementFunction(__glutGetProcAddress)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	const char *procName = args.GetString(0);
 	glutGetProcAddress(procName);

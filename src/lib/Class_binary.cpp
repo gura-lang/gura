@@ -212,6 +212,7 @@ Gura_DeclareFunction(binary)
 
 Gura_ImplementFunction(binary)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &binary = pObjBinary->GetBinary();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
@@ -242,6 +243,7 @@ Gura_DeclareMethod(binary, add)
 
 Gura_ImplementMethod(binary, add)
 {
+	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
@@ -288,6 +290,7 @@ Gura_DeclareMethodPrimitive(binary, decode)
 
 Gura_ImplementMethod(binary, decode)
 {
+	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	String str;
@@ -310,6 +313,7 @@ Gura_DeclareMethod(binary, dump)
 
 Gura_ImplementMethod(binary, dump)
 {
+	Signal &sig = env.GetSignal();
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
@@ -474,6 +478,7 @@ Gura_DeclareClassMethod(binary, pack)
 
 Gura_ImplementClassMethod(binary, pack)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), args.GetList(1));
@@ -513,6 +518,7 @@ Gura_DeclareMethod(binary, reader)
 
 Gura_ImplementMethod(binary, reader)
 {
+	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
@@ -531,6 +537,7 @@ Gura_DeclareMethod(binary, store)
 
 Gura_ImplementMethod(binary, store)
 {
+	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
@@ -608,6 +615,7 @@ Gura_DeclareMethod(binary, writer)
 
 Gura_ImplementMethod(binary, writer)
 {
+	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), true);
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));

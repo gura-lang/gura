@@ -1938,6 +1938,7 @@ Gura_DeclareMethod(AudioSpec, MixAudio)
 
 Gura_ImplementMethod(AudioSpec, MixAudio)
 {
+	Signal &sig = env.GetSignal();
 	Object_AudioSpec *pDst = Object_AudioSpec::GetThisObj(args);
 	Object_AudioSpec *pSrc =dynamic_cast<Object_AudioSpec *>(args.GetObject(0));
 	int volume = args.GetInt(1);
@@ -2273,6 +2274,7 @@ Gura_DeclareMethod(CD, GetTrack)
 
 Gura_ImplementMethod(CD, GetTrack)
 {
+	Signal &sig = env.GetSignal();
 	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	int n = args.GetInt(0);
 	if (n < 0 || n > pCD->numtracks) {
@@ -2772,6 +2774,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
 {
+	Signal &sig = env.GetSignal();
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObj = Object_Surface::CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
@@ -2793,6 +2796,7 @@ Gura_DeclareFunction(LoadBMP)
 
 Gura_ImplementFunction(LoadBMP)
 {
+	Signal &sig = env.GetSignal();
 	const char *file = args.GetString(0);
 	SDL_Surface *pSurface = ::SDL_LoadBMP(file);
 	if (pSurface == nullptr) {
@@ -2905,6 +2909,7 @@ Gura_DeclareFunction(CreateCursor)
 
 Gura_ImplementFunction(CreateCursor)
 {
+	Signal &sig = env.GetSignal();
 	const Binary &data = args.GetBinary(0);
 	const Binary &mask = args.GetBinary(1);
 	int w = args.GetInt(2), h = args.GetInt(3);
@@ -2942,6 +2947,7 @@ Gura_DeclareFunction(SetCursor)
 
 Gura_ImplementFunction(SetCursor)
 {
+	Signal &sig = env.GetSignal();
 	SDL_Cursor *pCursor =
 			dynamic_cast<Object_Cursor *>(args.GetObject(0))->GetCursor();
 	if (pCursor == nullptr) {
@@ -3824,6 +3830,7 @@ Gura_DeclareFunction(OpenAudio)
 
 Gura_ImplementFunction(OpenAudio)
 {
+	Signal &sig = env.GetSignal();
 	SDL_AudioSpec *desired =
 		dynamic_cast<Object_AudioSpec *>(args.GetObject(0))->GetAudioSpec();
 	SDL_AudioSpec *obtained =
@@ -3878,6 +3885,7 @@ Gura_DeclareFunction(LoadWAV)
 
 Gura_ImplementFunction(LoadWAV)
 {
+	Signal &sig = env.GetSignal();
 	SDL_AudioSpec *pAudioSpec =
 		reinterpret_cast<SDL_AudioSpec *>(::malloc(sizeof(SDL_AudioSpec)));
 	Uint8 *audio_buf = nullptr;
@@ -4012,6 +4020,7 @@ Gura_DeclareFunction(CDOpen)
 
 Gura_ImplementFunction(CDOpen)
 {
+	Signal &sig = env.GetSignal();
 	SDL_CD *pCD = ::SDL_CDOpen(args.GetInt(0));
 	if (pCD == nullptr) {
 		sig.SetError(ERR_IOError, "can't open CD drive #%d", args.GetInt(0));
@@ -4093,6 +4102,7 @@ Gura_DeclareFunction(AddTimer)
 
 Gura_ImplementFunction(AddTimer)
 {
+	Signal &sig = env.GetSignal();
 	Object_function *pObjFunc;
 	if (args.Is_function(1)) {
 		pObjFunc = Object_function::Reference(Object_function::GetObject(args, 1));

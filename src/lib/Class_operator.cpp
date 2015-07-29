@@ -110,6 +110,7 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 
 Gura_ImplementFunction(operator_)
 {
+	Signal &sig = env.GetSignal();
 	const Symbol *pSymbolOp = args.GetSymbol(0);
 	OpType opTypeUnary = Operator::LookupUnaryOpType(pSymbolOp->GetName());
 	OpType opTypeBinary = Operator::LookupBinaryOpType(pSymbolOp->GetName());
@@ -165,6 +166,7 @@ Gura_DeclareMethod(operator_, assign)
 
 Gura_ImplementMethod(operator_, assign)
 {
+	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetThisObj(args);
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
@@ -223,6 +225,7 @@ Gura_DeclareMethod(operator_, entries)
 
 Gura_ImplementMethod(operator_, entries)
 {
+	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetThisObj(args);
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);

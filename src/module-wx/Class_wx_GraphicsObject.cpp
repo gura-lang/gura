@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_GraphicsObject, GetRenderer)
 
 Gura_ImplementMethod(wx_GraphicsObject, GetRenderer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsRenderer *rtn = (wxGraphicsRenderer *)pThis->GetEntity()->GetRenderer();
@@ -57,6 +58,7 @@ Gura_DeclareMethod(wx_GraphicsObject, IsNull)
 
 Gura_ImplementMethod(wx_GraphicsObject, IsNull)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsNull();

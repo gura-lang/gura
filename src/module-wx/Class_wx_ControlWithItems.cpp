@@ -45,6 +45,7 @@ Gura_DeclareMethod(wx_ControlWithItems, Append)
 
 Gura_ImplementMethod(wx_ControlWithItems, Append)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
@@ -65,6 +66,7 @@ Gura_DeclareMethod(wx_ControlWithItems, Clear)
 
 Gura_ImplementMethod(wx_ControlWithItems, Clear)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Clear();
@@ -79,6 +81,7 @@ Gura_DeclareMethod(wx_ControlWithItems, Delete)
 
 Gura_ImplementMethod(wx_ControlWithItems, Delete)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -96,6 +99,7 @@ Gura_DeclareMethod(wx_ControlWithItems, FindString)
 
 Gura_ImplementMethod(wx_ControlWithItems, FindString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
@@ -113,6 +117,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetClientData)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetClientData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -129,6 +134,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetClientObject)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetClientObject)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -145,6 +151,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetCount)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned rtn = pThis->GetEntity()->GetCount();
@@ -159,6 +166,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetSelection)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
@@ -174,6 +182,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetString)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -189,6 +198,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetStrings)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetStrings)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayString rtn = pThis->GetEntity()->GetStrings();
@@ -203,6 +213,7 @@ Gura_DeclareMethod(wx_ControlWithItems, GetStringSelection)
 
 Gura_ImplementMethod(wx_ControlWithItems, GetStringSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
@@ -220,6 +231,7 @@ Gura_DeclareMethod(wx_ControlWithItems, Insert)
 
 Gura_ImplementMethod(wx_ControlWithItems, Insert)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
@@ -242,6 +254,7 @@ Gura_DeclareMethod(wx_ControlWithItems, IsEmpty)
 
 Gura_ImplementMethod(wx_ControlWithItems, IsEmpty)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEmpty();
@@ -256,6 +269,7 @@ Gura_DeclareMethod(wx_ControlWithItems, Select)
 
 Gura_ImplementMethod(wx_ControlWithItems, Select)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -272,6 +286,7 @@ Gura_DeclareMethod(wx_ControlWithItems, SetClientObject)
 
 Gura_ImplementMethod(wx_ControlWithItems, SetClientObject)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -288,6 +303,7 @@ Gura_DeclareMethod(wx_ControlWithItems, SetSelection)
 
 Gura_ImplementMethod(wx_ControlWithItems, SetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -304,6 +320,7 @@ Gura_DeclareMethod(wx_ControlWithItems, SetString)
 
 Gura_ImplementMethod(wx_ControlWithItems, SetString)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
@@ -321,6 +338,7 @@ Gura_DeclareMethod(wx_ControlWithItems, SetStringSelection)
 
 Gura_ImplementMethod(wx_ControlWithItems, SetStringSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ControlWithItems *pThis = Object_wx_ControlWithItems::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));

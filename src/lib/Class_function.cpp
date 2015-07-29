@@ -168,6 +168,7 @@ Gura_DeclareFunction(function)
 
 Gura_ImplementFunction(function)
 {
+	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
@@ -417,6 +418,7 @@ Gura_DeclareMethod(function, mathdiff)
 
 Gura_ImplementMethod(function, mathdiff)
 {
+	Signal &sig = env.GetSignal();
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();

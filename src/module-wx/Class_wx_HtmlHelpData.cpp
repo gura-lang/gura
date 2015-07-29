@@ -45,6 +45,7 @@ Gura_DeclareFunction(HtmlHelpDataEmpty)
 
 Gura_ImplementFunction(HtmlHelpDataEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlHelpData *pEntity = new wx_HtmlHelpData();
 	Object_wx_HtmlHelpData *pObj = Object_wx_HtmlHelpData::GetThisObj(args);
@@ -67,6 +68,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, AddBook)
 
 Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString book_url = wxString::FromUTF8(args.GetString(0));
@@ -83,6 +85,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, FindPageById)
 
 Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
@@ -99,6 +102,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
 
 Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString page = wxString::FromUTF8(args.GetString(0));
@@ -114,6 +118,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -132,6 +137,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetContentsArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -150,6 +156,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetIndexArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -168,6 +175,7 @@ Gura_DeclareMethod(wx_HtmlHelpData, SetTempDir)
 
 Gura_ImplementMethod(wx_HtmlHelpData, SetTempDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));

@@ -46,6 +46,7 @@ Gura_DeclareFunction(AuiPaneInfoEmpty)
 
 Gura_ImplementFunction(AuiPaneInfoEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AuiPaneInfo *pEntity = new wx_AuiPaneInfo();
 	Object_wx_AuiPaneInfo *pObj = Object_wx_AuiPaneInfo::GetThisObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareFunction(AuiPaneInfo)
 
 Gura_ImplementFunction(AuiPaneInfo)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxAuiPaneInfo *c = Object_wx_AuiPaneInfo::GetObject(args, 0)->GetEntity();
 	wx_AuiPaneInfo *pEntity = new wx_AuiPaneInfo(*c);
@@ -92,6 +94,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, BestSize)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, BestSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -109,6 +112,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, BestSize_1)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, BestSize_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -125,6 +129,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Bottom)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Bottom)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Bottom();
@@ -140,6 +145,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, BottomDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, BottomDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -157,6 +163,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Caption)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Caption)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString c = wxString::FromUTF8(args.GetString(0));
@@ -173,6 +180,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, CaptionVisible)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, CaptionVisible)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -189,6 +197,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Centre)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Centre)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Centre();
@@ -203,6 +212,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Center)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Center)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Center();
@@ -217,6 +227,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, CentrePane)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, CentrePane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->CentrePane();
@@ -231,6 +242,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, CenterPane)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, CenterPane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->CenterPane();
@@ -246,6 +258,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, CloseButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, CloseButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -262,6 +275,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, DefaultPane)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, DefaultPane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->DefaultPane();
@@ -277,6 +291,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, DestroyOnClose)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, DestroyOnClose)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -294,6 +309,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Direction)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Direction)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
@@ -309,6 +325,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Dock)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Dock)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Dock();
@@ -324,6 +341,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, DockFixed)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, DockFixed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -341,6 +359,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Dockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Dockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -357,6 +376,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Fixed)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Fixed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Fixed();
@@ -371,6 +391,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Float)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Float)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Float();
@@ -386,6 +407,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Floatable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Floatable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -403,6 +425,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
@@ -420,6 +443,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition_1)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -437,6 +461,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -454,6 +479,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize_1)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -471,6 +497,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Gripper)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Gripper)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -488,6 +515,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, GripperTop)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, GripperTop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool attop = true;
@@ -504,6 +532,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasBorder)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasBorder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasBorder();
@@ -518,6 +547,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasCaption)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasCaption)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasCaption();
@@ -532,6 +562,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasCloseButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasCloseButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasCloseButton();
@@ -547,6 +578,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasFlag)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasFlag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned flag = args.GetInt(0);
@@ -562,6 +594,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasGripper)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasGripper)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasGripper();
@@ -576,6 +609,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasGripperTop)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasGripperTop)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasGripperTop();
@@ -590,6 +624,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasMaximizeButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasMaximizeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasMaximizeButton();
@@ -604,6 +639,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasMinimizeButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasMinimizeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasMinimizeButton();
@@ -618,6 +654,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, HasPinButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, HasPinButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->HasPinButton();
@@ -632,6 +669,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Hide)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Hide)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Hide();
@@ -646,6 +684,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsBottomDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsBottomDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsBottomDockable();
@@ -660,6 +699,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsDocked)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsDocked)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDocked();
@@ -674,6 +714,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsFixed)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsFixed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsFixed();
@@ -688,6 +729,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsFloatable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsFloatable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsFloatable();
@@ -702,6 +744,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsFloating)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsFloating)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsFloating();
@@ -716,6 +759,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsLeftDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsLeftDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsLeftDockable();
@@ -730,6 +774,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsMovable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsMovable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsMovable();
@@ -744,6 +789,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsOk)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -758,6 +804,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsResizable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsResizable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsResizable();
@@ -772,6 +819,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsRightDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsRightDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsRightDockable();
@@ -786,6 +834,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsShown)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsShown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsShown();
@@ -800,6 +849,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsToolbar)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsToolbar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsToolbar();
@@ -814,6 +864,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, IsTopDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, IsTopDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsTopDockable();
@@ -829,6 +880,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Layer)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Layer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int layer = args.GetInt(0);
@@ -844,6 +896,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Left)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Left)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Left();
@@ -859,6 +912,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, LeftDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, LeftDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -876,6 +930,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -893,6 +948,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize_1)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -910,6 +966,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MaximizeButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MaximizeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -927,6 +984,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MinSize)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MinSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
@@ -944,6 +1002,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MinSize_1)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MinSize_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
@@ -961,6 +1020,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, MinimizeButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, MinimizeButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -978,6 +1038,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Movable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Movable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -995,6 +1056,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Name)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Name)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString n = wxString::FromUTF8(args.GetString(0));
@@ -1011,6 +1073,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, PaneBorder)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, PaneBorder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -1028,6 +1091,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, PinButton)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, PinButton)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool visible = true;
@@ -1045,6 +1109,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Position)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Position)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);
@@ -1061,6 +1126,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Resizable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Resizable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool resizable = true;
@@ -1077,6 +1143,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Right)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Right)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Right();
@@ -1092,6 +1159,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, RightDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, RightDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -1109,6 +1177,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Row)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Row)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
@@ -1124,6 +1193,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, SafeSet)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, SafeSet)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo *source = Object_wx_AuiPaneInfo::GetObject(args, 0)->GetEntity();
@@ -1141,6 +1211,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, SetFlag)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, SetFlag)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned flag = args.GetInt(0);
@@ -1158,6 +1229,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Show)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Show)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = true;
@@ -1174,6 +1246,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, ToolbarPane)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, ToolbarPane)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->ToolbarPane();
@@ -1188,6 +1261,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Top)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Top)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo &rtn = pThis->GetEntity()->Top();
@@ -1203,6 +1277,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, TopDockable)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, TopDockable)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool b = true;
@@ -1220,6 +1295,7 @@ Gura_DeclareMethod(wx_AuiPaneInfo, Window)
 
 Gura_ImplementMethod(wx_AuiPaneInfo, Window)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *w = Object_wx_Window::GetObject(args, 0)->GetEntity();

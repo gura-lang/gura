@@ -46,6 +46,7 @@ Gura_DeclareFunction(MouseCaptureLostEvent)
 
 Gura_ImplementFunction(MouseCaptureLostEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowID windowId = 0;
 	if (args.IsValid(0)) windowId = static_cast<wxWindowID>(args.GetInt(0));

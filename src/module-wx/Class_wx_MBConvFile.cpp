@@ -46,6 +46,7 @@ Gura_DeclareMethod(wx_MBConvFile, MB2WC)
 
 Gura_ImplementMethod(wx_MBConvFile, MB2WC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConvFile *pThis = Object_wx_MBConvFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_MBConvFile, WC2MB)
 
 Gura_ImplementMethod(wx_MBConvFile, WC2MB)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConvFile *pThis = Object_wx_MBConvFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char buf = args.GetChar(0);

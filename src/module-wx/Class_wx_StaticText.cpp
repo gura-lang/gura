@@ -49,6 +49,7 @@ Gura_DeclareFunction(StaticTextEmpty)
 
 Gura_ImplementFunction(StaticTextEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticText *pEntity = new wx_StaticText();
 	Object_wx_StaticText *pObj = Object_wx_StaticText::GetThisObj(args);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(StaticText)
 
 Gura_ImplementFunction(StaticText)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -117,6 +119,7 @@ Gura_DeclareMethod(wx_StaticText, Create)
 
 Gura_ImplementMethod(wx_StaticText, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -142,6 +145,7 @@ Gura_DeclareMethod(wx_StaticText, GetLabel)
 
 Gura_ImplementMethod(wx_StaticText, GetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
@@ -156,6 +160,7 @@ Gura_DeclareMethod(wx_StaticText, SetLabel)
 
 Gura_ImplementMethod(wx_StaticText, SetLabel)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
@@ -171,6 +176,7 @@ Gura_DeclareMethod(wx_StaticText, Wrap)
 
 Gura_ImplementMethod(wx_StaticText, Wrap)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
@@ -186,6 +192,7 @@ Gura_DeclareMethod(wx_StaticText, IsEllipsized)
 
 Gura_ImplementMethod(wx_StaticText, IsEllipsized)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsEllipsized();

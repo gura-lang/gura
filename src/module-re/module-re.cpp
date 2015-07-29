@@ -361,6 +361,7 @@ Gura_DeclareFunction(match)
 
 Gura_ImplementFunction(match)
 {
+	Signal &sig = env.GetSignal();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	Value result = DoMatch(env, sig, pRegEx, args.GetString(1),
 			args.GetInt(2), args.Is_number(3)? args.GetInt(3) : -1);
@@ -405,6 +406,7 @@ Gura_DeclareMethod(match, group)
 
 Gura_ImplementMethod(match, group)
 {
+	Signal &sig = env.GetSignal();
 	Object_match *pThis = Object_match::GetThisObj(args);
 	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == nullptr) return Value::Null;
@@ -546,6 +548,7 @@ Gura_DeclareFunction(pattern)
 
 Gura_ImplementFunction(pattern)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pObjPattern = new Object_pattern();
 	if (!pObjPattern->SetPattern(sig, args.GetString(0), args.GetAttrs())) {
 		delete pObjPattern;
@@ -567,6 +570,7 @@ Gura_DeclareMethod(pattern, match)
 
 Gura_ImplementMethod(pattern, match)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	Value result = DoMatch(env, sig, pThis->GetRegEx(), args.GetString(0),
 			args.GetInt(1), args.Is_number(2)? args.GetInt(2) : -1);
@@ -587,6 +591,7 @@ Gura_DeclareMethod(pattern, sub)
 
 Gura_ImplementMethod(pattern, sub)
 {
+	Signal &sig = env.GetSignal();
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
 	String result;
@@ -709,6 +714,7 @@ Gura_DeclareMethod(string, match)
 
 Gura_ImplementMethod(string, match)
 {
+	Signal &sig = env.GetSignal();
 	const char *strThis = args.GetThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	Value result = DoMatch(env, sig, pRegEx, strThis,
@@ -745,6 +751,7 @@ Gura_DeclareMethod(string, sub)
 
 Gura_ImplementMethod(string, sub)
 {
+	Signal &sig = env.GetSignal();
 	const char *strThis = args.GetThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
@@ -842,6 +849,7 @@ Gura_DeclareMethod(list, grep)
 
 Gura_ImplementMethod(list, grep)
 {
+	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->CreateIterator(sig));
@@ -864,6 +872,7 @@ Gura_DeclareMethod(iterator, grep)
 
 Gura_ImplementMethod(iterator, grep)
 {
+	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
@@ -890,6 +899,7 @@ Gura_DeclareFunction(sub)
 
 Gura_ImplementFunction(sub)
 {
+	Signal &sig = env.GetSignal();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.Is_number(3)? static_cast<int>(args.GetNumber(3)) : -1;
 	String result;

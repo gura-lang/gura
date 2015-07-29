@@ -51,6 +51,7 @@ Gura_DeclareFunction(SingleChoiceDialog)
 
 Gura_ImplementFunction(SingleChoiceDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -82,6 +83,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
 
 Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetSelection();
@@ -96,6 +98,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 
 Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -114,6 +117,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, GetStringSelection)
 
 Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
@@ -128,6 +132,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
 
 Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int selection = args.GetInt(0);
@@ -143,6 +148,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, ShowModal)
 
 Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();

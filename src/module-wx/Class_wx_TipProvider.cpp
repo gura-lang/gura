@@ -51,6 +51,7 @@ Gura_DeclareFunction(TipProvider)
 
 Gura_ImplementFunction(TipProvider)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	size_t currentTip = args.GetSizeT(0);
@@ -77,6 +78,7 @@ Gura_DeclareMethod(wx_TipProvider, GetTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetTip)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTip();
@@ -94,6 +96,7 @@ Gura_DeclareMethod(wx_TipProvider, PreProcessTip)
 
 Gura_ImplementMethod(wx_TipProvider, PreProcessTip)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -113,6 +116,7 @@ Gura_DeclareMethod(wx_TipProvider, GetCurrentTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetCurrentTip();

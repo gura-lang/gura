@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_Node, GetData)
 
 Gura_ImplementMethod(wx_Node, GetData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -55,6 +56,7 @@ Gura_DeclareMethod(wx_Node, GetNext)
 
 Gura_ImplementMethod(wx_Node, GetNext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -67,6 +69,7 @@ Gura_DeclareMethod(wx_Node, GetPrevious)
 
 Gura_ImplementMethod(wx_Node, GetPrevious)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -80,6 +83,7 @@ Gura_DeclareMethod(wx_Node, SetData)
 
 Gura_ImplementMethod(wx_Node, SetData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -98,6 +102,7 @@ Gura_DeclareMethod(wx_Node, IndexOf)
 
 Gura_ImplementMethod(wx_Node, IndexOf)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

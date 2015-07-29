@@ -49,6 +49,7 @@ Gura_DeclareFunction(WizardPageSimple)
 
 Gura_ImplementFunction(WizardPageSimple)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWizard *parent = (wxWizard *)(nullptr);
 	if (args.IsValid(0)) parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
@@ -78,6 +79,7 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
 
 Gura_ImplementMethod(wx_WizardPageSimple, SetPrev)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	Object_wx_WizardPage *prev = Object_wx_WizardPage::GetObject(args, 0);
@@ -93,6 +95,7 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetNext)
 
 Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	Object_wx_WizardPage *next = Object_wx_WizardPage::GetObject(args, 0);
@@ -108,6 +111,7 @@ Gura_DeclareMethod(wx_WizardPageSimple, Chain)
 
 Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	Object_wx_WizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0);
@@ -125,6 +129,7 @@ Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
 
 Gura_ImplementClassMethod(wx_WizardPageSimple, ChainBoth)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	Object_wx_WizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0);
 	Object_wx_WizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1);

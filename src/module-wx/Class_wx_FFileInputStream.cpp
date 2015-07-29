@@ -51,6 +51,7 @@ Gura_DeclareFunction(FFileInputStream)
 
 Gura_ImplementFunction(FFileInputStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -87,6 +88,7 @@ Gura_DeclareFunction(FFileInputStream_1)
 
 Gura_ImplementFunction(FFileInputStream_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFFile *file = Object_wx_FFile::GetObject(args, 0)->GetEntity();
@@ -116,6 +118,7 @@ Gura_DeclareFunction(FFileInputStream_2)
 
 Gura_ImplementFunction(FFileInputStream_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream();
@@ -141,6 +144,7 @@ Gura_DeclareMethod(wx_FFileInputStream, IsOk)
 
 Gura_ImplementMethod(wx_FFileInputStream, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();

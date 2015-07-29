@@ -41,6 +41,7 @@ Gura_DeclareFunction(exec)
 
 Gura_ImplementFunction(exec)
 {
+	Signal &sig = env.GetSignal();
 	bool forkFlag = args.IsSet(Gura_Symbol(fork));
 	const char *pathName = args.GetString(0);
 	if (forkFlag) {
@@ -133,6 +134,7 @@ Gura_DeclareFunction(redirect)
 
 Gura_ImplementFunction(redirect)
 {
+	Signal &sig = env.GetSignal();
 	Value *pValue = nullptr;
 	Value value_stdin, value_stdout, value_stderr;
 	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != nullptr) {
@@ -194,6 +196,7 @@ Gura_DeclareFunction(symlink)
 
 Gura_ImplementFunction(symlink)
 {
+	Signal &sig = env.GetSignal();
 #if defined(GURA_ON_MSWIN)
 	sig.SetError(ERR_NotImplementedError, "unsupported function");
 	return Value::Null;

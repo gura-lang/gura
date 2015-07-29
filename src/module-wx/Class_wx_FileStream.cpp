@@ -46,6 +46,7 @@ Gura_DeclareFunction(FileStream)
 
 Gura_ImplementFunction(FileStream)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString iofileName = wxString::FromUTF8(args.GetString(0));

@@ -43,6 +43,7 @@ Gura_DeclareClassMethod(wx_StandardPaths, Get)
 
 Gura_ImplementClassMethod(wx_StandardPaths, Get)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxStandardPathsBase &rtn = wxStandardPaths::Get();
@@ -60,6 +61,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetConfigDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetConfigDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetConfigDir();
@@ -74,6 +76,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetDataDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetDataDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDataDir();
@@ -88,6 +91,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetDocumentsDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetDocumentsDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDocumentsDir();
@@ -102,6 +106,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetExecutablePath)
 
 Gura_ImplementMethod(wx_StandardPaths, GetExecutablePath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExecutablePath();
@@ -116,6 +121,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetInstallPrefix)
 
 Gura_ImplementMethod(wx_StandardPaths, GetInstallPrefix)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -134,6 +140,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetLocalDataDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetLocalDataDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLocalDataDir();
@@ -151,6 +158,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetLocalizedResourcesDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetLocalizedResourcesDir)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -170,6 +178,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetPluginsDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetPluginsDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPluginsDir();
@@ -184,6 +193,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetResourcesDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetResourcesDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetResourcesDir();
@@ -198,6 +208,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetTempDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetTempDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTempDir();
@@ -212,6 +223,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetUserConfigDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetUserConfigDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserConfigDir();
@@ -226,6 +238,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetUserDataDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetUserDataDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserDataDir();
@@ -240,6 +253,7 @@ Gura_DeclareMethod(wx_StandardPaths, GetUserLocalDataDir)
 
 Gura_ImplementMethod(wx_StandardPaths, GetUserLocalDataDir)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserLocalDataDir();
@@ -256,6 +270,7 @@ Gura_DeclareMethod(wx_StandardPaths, SetInstallPrefix)
 
 Gura_ImplementMethod(wx_StandardPaths, SetInstallPrefix)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

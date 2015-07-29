@@ -21,6 +21,7 @@ Gura_DeclareClassMethod(svg_surface, create)
 
 Gura_ImplementClassMethod(svg_surface, create)
 {
+	Signal &sig = env.GetSignal();
 	double width = args.GetDouble(1);
 	double height = args.GetDouble(2);
 	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
@@ -40,6 +41,7 @@ Gura_DeclareMethod(svg_surface, restrict_to_version)
 
 Gura_ImplementMethod(svg_surface, restrict_to_version)
 {
+	Signal &sig = env.GetSignal();
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));

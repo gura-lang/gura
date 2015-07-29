@@ -46,6 +46,7 @@ Gura_DeclareFunction(HtmlLinkInfoEmpty)
 
 Gura_ImplementFunction(HtmlLinkInfoEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlLinkInfo *pEntity = new wx_HtmlLinkInfo();
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(HtmlLinkInfo)
 
 Gura_ImplementFunction(HtmlLinkInfo)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString href = wxString::FromUTF8(args.GetString(0));
 	wxString target = wxEmptyString;
@@ -94,6 +96,7 @@ Gura_DeclareMethod(wx_HtmlLinkInfo, GetEvent)
 
 Gura_ImplementMethod(wx_HtmlLinkInfo, GetEvent)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMouseEvent *rtn = (wxMouseEvent *)pThis->GetEntity()->GetEvent();
@@ -108,6 +111,7 @@ Gura_DeclareMethod(wx_HtmlLinkInfo, GetHtmlCell)
 
 Gura_ImplementMethod(wx_HtmlLinkInfo, GetHtmlCell)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetHtmlCell();
@@ -122,6 +126,7 @@ Gura_DeclareMethod(wx_HtmlLinkInfo, GetHref)
 
 Gura_ImplementMethod(wx_HtmlLinkInfo, GetHref)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetHref();
@@ -136,6 +141,7 @@ Gura_DeclareMethod(wx_HtmlLinkInfo, GetTarget)
 
 Gura_ImplementMethod(wx_HtmlLinkInfo, GetTarget)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTarget();

@@ -46,6 +46,7 @@ Gura_DeclareFunction(GenericDirCtrlEmpty)
 
 Gura_ImplementFunction(GenericDirCtrlEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GenericDirCtrl *pEntity = new wx_GenericDirCtrl();
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetThisObj(args);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(GenericDirCtrl)
 
 Gura_ImplementFunction(GenericDirCtrl)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
@@ -124,6 +126,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, Create)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -154,6 +157,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, Init)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, Init)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Init();
@@ -167,6 +171,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, CollapseTree)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, CollapseTree)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->CollapseTree();
@@ -182,6 +187,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, ExpandPath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, ExpandPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -198,6 +204,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, CollapsePath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, CollapsePath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -213,6 +220,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetDefaultPath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetDefaultPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDefaultPath();
@@ -227,6 +235,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetPath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
@@ -241,6 +250,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetFilePath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilePath();
@@ -255,6 +265,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetFilter)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetFilter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilter();
@@ -269,6 +280,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterIndex)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterIndex)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetFilterIndex();
@@ -283,6 +295,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -301,6 +314,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetRootId)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetRootId)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeItemId rtn = pThis->GetEntity()->GetRootId();
@@ -315,6 +329,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, GetTreeCtrl)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, GetTreeCtrl)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeCtrl *rtn = (wxTreeCtrl *)pThis->GetEntity()->GetTreeCtrl();
@@ -328,6 +343,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, ReCreateTree)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, ReCreateTree)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->ReCreateTree();
@@ -342,6 +358,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, SetDefaultPath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, SetDefaultPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -357,6 +374,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, SetFilter)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, SetFilter)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filter = wxString::FromUTF8(args.GetString(0));
@@ -372,6 +390,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, SetFilterIndex)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, SetFilterIndex)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
@@ -387,6 +406,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, SetPath)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, SetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -402,6 +422,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, ShowHidden)
 
 Gura_ImplementMethod(wx_GenericDirCtrl, ShowHidden)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);

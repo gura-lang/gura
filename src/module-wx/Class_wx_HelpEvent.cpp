@@ -48,6 +48,7 @@ Gura_DeclareFunction(HelpEvent)
 
 Gura_ImplementFunction(HelpEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE eventType = 0;
 	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
@@ -75,6 +76,7 @@ Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
 
 Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -87,6 +89,7 @@ Gura_DeclareMethod(wx_HelpEvent, GetPosition)
 
 Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
@@ -103,6 +106,7 @@ Gura_DeclareMethod(wx_HelpEvent, SetOrigin)
 
 Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -122,6 +126,7 @@ Gura_DeclareMethod(wx_HelpEvent, SetPosition)
 
 Gura_ImplementMethod(wx_HelpEvent, SetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();

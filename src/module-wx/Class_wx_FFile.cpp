@@ -49,6 +49,7 @@ Gura_DeclareFunction(FFileEmpty)
 
 Gura_ImplementFunction(FFileEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FFile *pEntity = new wx_FFile();
@@ -79,6 +80,7 @@ Gura_DeclareFunction(FFile)
 
 Gura_ImplementFunction(FFile)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char filename = args.GetChar(0);
@@ -110,6 +112,7 @@ Gura_DeclareFunction(FFile_1)
 
 Gura_ImplementFunction(FFile_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FFile *pEntity = new wx_FFile();
@@ -136,6 +139,7 @@ Gura_DeclareMethod(wx_FFile, Attach)
 
 Gura_ImplementMethod(wx_FFile, Attach)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -154,6 +158,7 @@ Gura_DeclareMethod(wx_FFile, Close)
 
 Gura_ImplementMethod(wx_FFile, Close)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -171,6 +176,7 @@ Gura_DeclareMethod(wx_FFile, Detach)
 
 Gura_ImplementMethod(wx_FFile, Detach)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -189,6 +195,7 @@ Gura_DeclareMethod(wx_FFile, fp)
 
 Gura_ImplementMethod(wx_FFile, fp)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
@@ -201,6 +208,7 @@ Gura_DeclareMethod(wx_FFile, Eof)
 
 Gura_ImplementMethod(wx_FFile, Eof)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Eof();
@@ -215,6 +223,7 @@ Gura_DeclareMethod(wx_FFile, Flush)
 
 Gura_ImplementMethod(wx_FFile, Flush)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -233,6 +242,7 @@ Gura_DeclareMethod(wx_FFile, GetKind)
 
 Gura_ImplementMethod(wx_FFile, GetKind)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -251,6 +261,7 @@ Gura_DeclareMethod(wx_FFile, IsOpened)
 
 Gura_ImplementMethod(wx_FFile, IsOpened)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOpened();
@@ -265,6 +276,7 @@ Gura_DeclareMethod(wx_FFile, Length)
 
 Gura_ImplementMethod(wx_FFile, Length)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Length();
@@ -283,6 +295,7 @@ Gura_DeclareMethod(wx_FFile, Open)
 
 Gura_ImplementMethod(wx_FFile, Open)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -308,6 +321,7 @@ Gura_DeclareMethod(wx_FFile, Read)
 
 Gura_ImplementMethod(wx_FFile, Read)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -332,6 +346,7 @@ Gura_DeclareMethod(wx_FFile, ReadAll)
 
 Gura_ImplementMethod(wx_FFile, ReadAll)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -357,6 +372,7 @@ Gura_DeclareMethod(wx_FFile, Seek)
 
 Gura_ImplementMethod(wx_FFile, Seek)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -381,6 +397,7 @@ Gura_DeclareMethod(wx_FFile, SeekEnd)
 
 Gura_ImplementMethod(wx_FFile, SeekEnd)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -401,6 +418,7 @@ Gura_DeclareMethod(wx_FFile, Tell)
 
 Gura_ImplementMethod(wx_FFile, Tell)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileOffset rtn = pThis->GetEntity()->Tell();
@@ -419,6 +437,7 @@ Gura_DeclareMethod(wx_FFile, Write)
 
 Gura_ImplementMethod(wx_FFile, Write)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -443,6 +462,7 @@ Gura_DeclareMethod(wx_FFile, Write_1)
 
 Gura_ImplementMethod(wx_FFile, Write_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_FFile *pThis = Object_wx_FFile::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

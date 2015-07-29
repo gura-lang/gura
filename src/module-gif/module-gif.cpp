@@ -1147,6 +1147,7 @@ Gura_DeclareMethod(content, write)
 
 Gura_ImplementMethod(content, write)
 {
+	Signal &sig = env.GetSignal();
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
 	UShort loopCount = 0;
@@ -1193,6 +1194,7 @@ Gura_DeclareMethod(content, addimage)
 
 Gura_ImplementMethod(content, addimage)
 {
+	Signal &sig = env.GetSignal();
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Null;
@@ -1394,6 +1396,7 @@ Gura_DeclareMethodAlias(image, read_gif, "read@gif")
 
 Gura_ImplementMethod(image, read_gif)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Null;
@@ -1418,6 +1421,7 @@ Gura_DeclareMethodAlias(image, write_gif, "write@gif")
 
 Gura_ImplementMethod(image, write_gif)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckValid(sig)) return Value::Null;
@@ -1453,6 +1457,7 @@ Gura_DeclareFunction(content)
 
 Gura_ImplementFunction(content)
 {
+	Signal &sig = env.GetSignal();
 	Object_content *pObjContent = new Object_content();
 	if (args.Is_stream(0)) {
 		Stream &stream = args.GetStream(0);

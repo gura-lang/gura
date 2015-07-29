@@ -57,6 +57,7 @@ Gura_DeclareFunction(MBConvEmpty)
 
 Gura_ImplementFunction(MBConvEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_MBConv *pEntity = new wx_MBConv();
@@ -85,6 +86,7 @@ Gura_DeclareMethod(wx_MBConv, MB2WC)
 
 Gura_ImplementMethod(wx_MBConv, MB2WC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t out = static_cast<wchar_t>(args.GetUShort(0));
@@ -105,6 +107,7 @@ Gura_DeclareMethod(wx_MBConv, WC2MB)
 
 Gura_ImplementMethod(wx_MBConv, WC2MB)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char buf = args.GetChar(0);
@@ -123,6 +126,7 @@ Gura_DeclareMethod(wx_MBConv, cMB2WC)
 
 Gura_ImplementMethod(wx_MBConv, cMB2WC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char in = args.GetChar(0);
@@ -141,6 +145,7 @@ Gura_DeclareMethod(wx_MBConv, cMB2WC_1)
 
 Gura_ImplementMethod(wx_MBConv, cMB2WC_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char in = args.GetChar(0);
@@ -159,6 +164,7 @@ Gura_DeclareMethod(wx_MBConv, cWC2MB)
 
 Gura_ImplementMethod(wx_MBConv, cWC2MB)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t in = static_cast<wchar_t>(args.GetUShort(0));
@@ -177,6 +183,7 @@ Gura_DeclareMethod(wx_MBConv, cWC2MB_1)
 
 Gura_ImplementMethod(wx_MBConv, cWC2MB_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t in = static_cast<wchar_t>(args.GetUShort(0));
@@ -195,6 +202,7 @@ Gura_DeclareMethod(wx_MBConv, cMB2WX)
 
 Gura_ImplementMethod(wx_MBConv, cMB2WX)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char psz = args.GetChar(0);
@@ -211,6 +219,7 @@ Gura_DeclareMethod(wx_MBConv, cMB2WX_1)
 
 Gura_ImplementMethod(wx_MBConv, cMB2WX_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	char psz = args.GetChar(0);
@@ -227,6 +236,7 @@ Gura_DeclareMethod(wx_MBConv, cWX2MB)
 
 Gura_ImplementMethod(wx_MBConv, cWX2MB)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
@@ -243,6 +253,7 @@ Gura_DeclareMethod(wx_MBConv, cWX2MB_1)
 
 Gura_ImplementMethod(wx_MBConv, cWX2MB_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
@@ -259,6 +270,7 @@ Gura_DeclareMethod(wx_MBConv, cWC2WX)
 
 Gura_ImplementMethod(wx_MBConv, cWC2WX)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(0));
@@ -275,6 +287,7 @@ Gura_DeclareMethod(wx_MBConv, cWC2WX_1)
 
 Gura_ImplementMethod(wx_MBConv, cWC2WX_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(0));
@@ -291,6 +304,7 @@ Gura_DeclareMethod(wx_MBConv, cWX2WC)
 
 Gura_ImplementMethod(wx_MBConv, cWX2WC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
@@ -307,6 +321,7 @@ Gura_DeclareMethod(wx_MBConv, cWX2WC_1)
 
 Gura_ImplementMethod(wx_MBConv, cWX2WC_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString psz = wxString::FromUTF8(args.GetString(0));
@@ -325,6 +340,7 @@ Gura_DeclareMethod(wx_MBConv, FromWChar)
 
 Gura_ImplementMethod(wx_MBConv, FromWChar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t dstLen = args.GetSizeT(1);
@@ -343,6 +359,7 @@ Gura_DeclareMethod(wx_MBConv, GetMaxMBNulLen)
 
 Gura_ImplementMethod(wx_MBConv, GetMaxMBNulLen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetMaxMBNulLen();
@@ -357,6 +374,7 @@ Gura_DeclareMethod(wx_MBConv, GetMBNulLen)
 
 Gura_ImplementMethod(wx_MBConv, GetMBNulLen)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t rtn = pThis->GetEntity()->GetMBNulLen();
@@ -374,6 +392,7 @@ Gura_DeclareMethod(wx_MBConv, ToWChar)
 
 Gura_ImplementMethod(wx_MBConv, ToWChar)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t dst = static_cast<wchar_t>(args.GetUShort(0));

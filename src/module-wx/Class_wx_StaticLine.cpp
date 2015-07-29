@@ -46,6 +46,7 @@ Gura_DeclareFunction(StaticLineEmpty)
 
 Gura_ImplementFunction(StaticLineEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticLine *pEntity = new wx_StaticLine();
 	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetThisObj(args);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(StaticLine)
 
 Gura_ImplementFunction(StaticLine)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -112,6 +114,7 @@ Gura_DeclareMethod(wx_StaticLine, Create)
 
 Gura_ImplementMethod(wx_StaticLine, Create)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -137,6 +140,7 @@ Gura_DeclareMethod(wx_StaticLine, IsVertical)
 
 Gura_ImplementMethod(wx_StaticLine, IsVertical)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsVertical();
@@ -151,6 +155,7 @@ Gura_DeclareMethod(wx_StaticLine, GetDefaultSize)
 
 Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetDefaultSize();

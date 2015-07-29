@@ -46,6 +46,7 @@ Gura_DeclareFunction(GBSpanEmpty)
 
 Gura_ImplementFunction(GBSpanEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBSpan *pEntity = new wx_GBSpan();
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(GBSpan)
 
 Gura_ImplementFunction(GBSpan)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rowspan = args.GetInt(0);
 	int colspan = args.GetInt(1);
@@ -93,6 +95,7 @@ Gura_DeclareMethod(wx_GBSpan, GetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetColspan)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetColspan();
@@ -107,6 +110,7 @@ Gura_DeclareMethod(wx_GBSpan, GetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetRowspan)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRowspan();
@@ -121,6 +125,7 @@ Gura_DeclareMethod(wx_GBSpan, SetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetColspan)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int colspan = args.GetInt(0);
@@ -136,6 +141,7 @@ Gura_DeclareMethod(wx_GBSpan, SetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetRowspan)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rowspan = args.GetInt(0);

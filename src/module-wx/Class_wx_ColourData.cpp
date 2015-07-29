@@ -45,6 +45,7 @@ Gura_DeclareFunction(ColourData)
 
 Gura_ImplementFunction(ColourData)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ColourData *pEntity = new wx_ColourData();
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetThisObj(args);
@@ -66,6 +67,7 @@ Gura_DeclareMethod(wx_ColourData, GetChooseFull)
 
 Gura_ImplementMethod(wx_ColourData, GetChooseFull)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetChooseFull();
@@ -80,6 +82,7 @@ Gura_DeclareMethod(wx_ColourData, GetColour)
 
 Gura_ImplementMethod(wx_ColourData, GetColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour &rtn = pThis->GetEntity()->GetColour();
@@ -95,6 +98,7 @@ Gura_DeclareMethod(wx_ColourData, GetCustomColour)
 
 Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
@@ -110,6 +114,7 @@ Gura_DeclareMethod(wx_ColourData, SetChooseFull)
 
 Gura_ImplementMethod(wx_ColourData, SetChooseFull)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
@@ -125,6 +130,7 @@ Gura_DeclareMethod(wx_ColourData, SetColour)
 
 Gura_ImplementMethod(wx_ColourData, SetColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
@@ -141,6 +147,7 @@ Gura_DeclareMethod(wx_ColourData, SetCustomColour)
 
 Gura_ImplementMethod(wx_ColourData, SetCustomColour)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);

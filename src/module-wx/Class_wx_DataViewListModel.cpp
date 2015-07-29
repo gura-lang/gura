@@ -240,6 +240,7 @@ Gura_DeclareFunction(DataViewListModel)
 
 Gura_ImplementFunction(DataViewListModel)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewListModel *pEntity = new wx_DataViewListModel();
 	Object_wx_DataViewListModel *pObj = Object_wx_DataViewListModel::GetThisObj(args);
@@ -261,6 +262,7 @@ Gura_DeclareMethod(wx_DataViewListModel, AddNotifier)
 
 Gura_ImplementMethod(wx_DataViewListModel, AddNotifier)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModelNotifier *notifier = Object_wx_DataViewListModelNotifier::GetObject(args, 0)->GetEntity();
@@ -277,6 +279,7 @@ Gura_DeclareMethod(wx_DataViewListModel, AddViewingColumn)
 
 Gura_ImplementMethod(wx_DataViewListModel, AddViewingColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *view_column = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
@@ -293,6 +296,7 @@ Gura_DeclareMethod(wx_DataViewListModel, Cleared)
 
 Gura_ImplementMethod(wx_DataViewListModel, Cleared)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Cleared();
@@ -307,6 +311,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RemoveNotifier)
 
 Gura_ImplementMethod(wx_DataViewListModel, RemoveNotifier)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModelNotifier *notifier = Object_wx_DataViewListModelNotifier::GetObject(args, 0)->GetEntity();
@@ -322,6 +327,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RemoveViewingColumn)
 
 Gura_ImplementMethod(wx_DataViewListModel, RemoveViewingColumn)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *column = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
@@ -337,6 +343,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowAppended)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowAppended)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowAppended();
@@ -352,6 +359,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowChanged)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowChanged)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
@@ -368,6 +376,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowDeleted)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowDeleted)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
@@ -384,6 +393,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowInserted)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowInserted)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned before = args.GetInt(0);
@@ -399,6 +409,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowPrepended)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowPrepended)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowPrepended();
@@ -414,6 +425,7 @@ Gura_DeclareMethod(wx_DataViewListModel, RowsReordered)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowsReordered)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	CArrayOfInt new_order(args.GetList(0));
@@ -432,6 +444,7 @@ Gura_DeclareMethod(wx_DataViewListModel, ValueChanged)
 
 Gura_ImplementMethod(wx_DataViewListModel, ValueChanged)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned col = args.GetInt(0);

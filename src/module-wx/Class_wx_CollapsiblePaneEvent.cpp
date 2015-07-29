@@ -48,6 +48,7 @@ Gura_DeclareFunction(CollapsiblePaneEvent)
 
 Gura_ImplementFunction(CollapsiblePaneEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
@@ -72,6 +73,7 @@ Gura_DeclareMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 
 Gura_ImplementMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->GetCollapsed();
@@ -86,6 +88,7 @@ Gura_DeclareMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 
 Gura_ImplementMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool collapsed = args.GetBoolean(0);

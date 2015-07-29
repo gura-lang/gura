@@ -46,6 +46,7 @@ Gura_DeclareFunction(RealPointEmpty)
 
 Gura_ImplementFunction(RealPointEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RealPoint *pEntity = new wx_RealPoint();
 	Object_wx_RealPoint *pObj = Object_wx_RealPoint::GetThisObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(RealPoint)
 
 Gura_ImplementFunction(RealPoint)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	double x = args.GetDouble(0);
 	double y = args.GetDouble(1);

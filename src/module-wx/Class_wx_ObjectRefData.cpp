@@ -46,6 +46,7 @@ Gura_DeclareFunction(ObjectRefDataEmpty)
 
 Gura_ImplementFunction(ObjectRefDataEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
 	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetThisObj(args);
@@ -68,6 +69,7 @@ Gura_DeclareFunction(ObjectRefDataEmpty_1)
 
 Gura_ImplementFunction(ObjectRefDataEmpty_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
 	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetThisObj(args);
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
 
 Gura_ImplementMethod(wx_ObjectRefData, GetRefCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ObjectRefData *pThis = Object_wx_ObjectRefData::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRefCount();

@@ -265,6 +265,7 @@ Gura_DeclareMethod(datetime, format)
 
 Gura_ImplementMethod(datetime, format)
 {
+	Signal &sig = env.GetSignal();
 	static const char *weekNames[] = {
 		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
 	};
@@ -398,6 +399,7 @@ Gura_DeclareClassMethod(datetime, parse)
 
 Gura_ImplementClassMethod(datetime, parse)
 {
+	Signal &sig = env.GetSignal();
 	DateTime dateTime;
 	if (!dateTime.Parse(args.GetString(0))) {
 		sig.SetError(ERR_FormatError, "invalid time format");
@@ -488,6 +490,7 @@ Gura_DeclareMethod(datetime, utc)
 
 Gura_ImplementMethod(datetime, utc)
 {
+	Signal &sig = env.GetSignal();
 	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	if (!dateTime.HasTZOffset()) {
 		sig.SetError(ERR_ValueError, "datetime has no timezone offset");

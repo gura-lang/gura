@@ -57,6 +57,7 @@ Gura_DeclareFunction(GenericValidator)
 
 Gura_ImplementFunction(GenericValidator)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxGenericValidator *validator = Object_wx_GenericValidator::GetObject(args, 0)->GetEntity();
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*validator);
@@ -83,6 +84,7 @@ Gura_DeclareFunction(GenericValidator_1)
 
 Gura_ImplementFunction(GenericValidator_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool valPtr = args.GetBoolean(0);
@@ -113,6 +115,7 @@ Gura_DeclareFunction(GenericValidator_2)
 
 Gura_ImplementFunction(GenericValidator_2)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString valPtr = wxString::FromUTF8(args.GetString(0));
@@ -143,6 +146,7 @@ Gura_DeclareFunction(GenericValidator_3)
 
 Gura_ImplementFunction(GenericValidator_3)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int valPtr = args.GetInt(0);
@@ -173,6 +177,7 @@ Gura_DeclareFunction(GenericValidator_4)
 
 Gura_ImplementFunction(GenericValidator_4)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	std::unique_ptr<wxArrayInt> valPtr(CreateArrayInt(args.GetList(0)));
@@ -199,6 +204,7 @@ Gura_DeclareMethod(wx_GenericValidator, Clone)
 
 Gura_ImplementMethod(wx_GenericValidator, Clone)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
@@ -213,6 +219,7 @@ Gura_DeclareMethod(wx_GenericValidator, TransferFromWindow)
 
 Gura_ImplementMethod(wx_GenericValidator, TransferFromWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
@@ -227,6 +234,7 @@ Gura_DeclareMethod(wx_GenericValidator, TransferToWindow)
 
 Gura_ImplementMethod(wx_GenericValidator, TransferToWindow)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->TransferToWindow();

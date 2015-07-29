@@ -43,6 +43,7 @@ Gura_DeclareFunction(TGAHandler)
 
 Gura_ImplementFunction(TGAHandler)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TGAHandler *pEntity = new wx_TGAHandler();
 	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetThisObj(args);

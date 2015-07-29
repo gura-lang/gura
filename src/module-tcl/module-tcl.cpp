@@ -322,6 +322,7 @@ Gura_DeclareMethod(interp, eval)
 
 Gura_ImplementMethod(interp, eval)
 {
+	Signal &sig = env.GetSignal();
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	return pThis->TclEval(env, sig, args.GetList(0));
 }
@@ -329,6 +330,7 @@ Gura_ImplementMethod(interp, eval)
 #if 0
 Gura_ImplementMethod(interp, eval)
 {
+	Signal &sig = env.GetSignal();
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	return pThis->InvokeTclThread(env, sig, args.GetList(0));
 }
@@ -346,6 +348,7 @@ Gura_DeclareMethod(interp, evalscript)
 
 Gura_ImplementMethod(interp, evalscript)
 {
+	Signal &sig = env.GetSignal();
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	Tcl_Interp *interp = pThis->GetInterp();
 	int rtn = ::Tcl_Eval(interp, args.GetString(0));
@@ -386,6 +389,7 @@ Gura_DeclareMethod(interp, variable)
 
 Gura_ImplementMethod(interp, variable)
 {
+	Signal &sig = env.GetSignal();
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	String varName;
@@ -686,6 +690,7 @@ Gura_DeclareMethod(timer, start)
 
 Gura_ImplementMethod(timer, start)
 {
+	Signal &sig = env.GetSignal();
 	Object_timer *pThis = Object_timer::GetThisObj(args);
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
@@ -720,6 +725,7 @@ Gura_DeclareMethodAlias(image, read_tcl, "read@tcl")
 
 Gura_ImplementMethod(image, read_tcl)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Null;
@@ -761,6 +767,7 @@ Gura_DeclareMethodAlias(image, write_tcl, "write@tcl")
 
 Gura_ImplementMethod(image, write_tcl)
 {
+	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckValid(sig)) return Value::Null;
@@ -804,6 +811,7 @@ Gura_DeclareFunction(interp)
 
 Gura_ImplementFunction(interp)
 {
+	Signal &sig = env.GetSignal();
 	Tcl_Interp *interp = ::Tcl_CreateInterp();
 	if (::Tcl_Init(interp) != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));

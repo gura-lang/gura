@@ -45,6 +45,7 @@ Gura_DeclareFunction(LogGuiEmpty)
 
 Gura_ImplementFunction(LogGuiEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogGui *pEntity = new wx_LogGui();
 	Object_wx_LogGui *pObj = Object_wx_LogGui::GetThisObj(args);

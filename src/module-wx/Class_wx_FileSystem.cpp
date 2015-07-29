@@ -45,6 +45,7 @@ Gura_DeclareFunction(FileSystem)
 
 Gura_ImplementFunction(FileSystem)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileSystem *pEntity = new wx_FileSystem();
 	Object_wx_FileSystem *pObj = Object_wx_FileSystem::GetThisObj(args);
@@ -66,6 +67,7 @@ Gura_DeclareClassMethod(wx_FileSystem, AddHandler)
 
 Gura_ImplementClassMethod(wx_FileSystem, AddHandler)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFileSystemHandler *handler = Object_wx_FileSystemHandler::GetObject(args, 0)->GetEntity();
 	wxFileSystem::AddHandler(handler);
@@ -81,6 +83,7 @@ Gura_DeclareClassMethod(wx_FileSystem, HasHandlerForPath)
 
 Gura_ImplementClassMethod(wx_FileSystem, HasHandlerForPath)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFileSystem::HasHandlerForPath(location);
@@ -96,6 +99,7 @@ Gura_DeclareMethod(wx_FileSystem, ChangePathTo)
 
 Gura_ImplementMethod(wx_FileSystem, ChangePathTo)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
@@ -113,6 +117,7 @@ Gura_DeclareMethod(wx_FileSystem, GetPath)
 
 Gura_ImplementMethod(wx_FileSystem, GetPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
@@ -128,6 +133,7 @@ Gura_DeclareClassMethod(wx_FileSystem, FileNameToURL)
 
 Gura_ImplementClassMethod(wx_FileSystem, FileNameToURL)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wxString rtn = wxFileSystem::FileNameToURL(*filename);
@@ -144,6 +150,7 @@ Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
 
 Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str;
@@ -165,6 +172,7 @@ Gura_DeclareMethod(wx_FileSystem, FindFirst)
 
 Gura_ImplementMethod(wx_FileSystem, FindFirst)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString wildcard = wxString::FromUTF8(args.GetString(0));
@@ -182,6 +190,7 @@ Gura_DeclareMethod(wx_FileSystem, FindNext)
 
 Gura_ImplementMethod(wx_FileSystem, FindNext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FindNext();
@@ -198,6 +207,7 @@ Gura_DeclareMethod(wx_FileSystem, OpenFile)
 
 Gura_ImplementMethod(wx_FileSystem, OpenFile)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
@@ -216,6 +226,7 @@ Gura_DeclareClassMethod(wx_FileSystem, URLToFileName)
 
 Gura_ImplementClassMethod(wx_FileSystem, URLToFileName)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxFileName rtn = wxFileSystem::URLToFileName(url);

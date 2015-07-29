@@ -47,6 +47,7 @@ Gura_DeclareFunction(StringBufferLength)
 
 Gura_ImplementFunction(StringBufferLength)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t len = args.GetSizeT(1);
@@ -70,6 +71,7 @@ Gura_DeclareMethod(wx_StringBufferLength, SetLength)
 
 Gura_ImplementMethod(wx_StringBufferLength, SetLength)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nLength = args.GetSizeT(0);

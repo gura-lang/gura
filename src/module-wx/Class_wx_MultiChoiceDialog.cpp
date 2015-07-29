@@ -55,6 +55,7 @@ Gura_DeclareFunction(MultiChoiceDialog)
 
 Gura_ImplementFunction(MultiChoiceDialog)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = args.IsValid(0)?
@@ -97,6 +98,7 @@ Gura_DeclareFunction(MultiChoiceDialog_1)
 
 Gura_ImplementFunction(MultiChoiceDialog_1)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -127,6 +129,7 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, GetSelections)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt rtn = pThis->GetEntity()->GetSelections();
@@ -141,6 +144,7 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::unique_ptr<wxArrayInt> selections(CreateArrayInt(args.GetList(0)));
@@ -156,6 +160,7 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, ShowModal)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();

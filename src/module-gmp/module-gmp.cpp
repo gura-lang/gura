@@ -66,6 +66,7 @@ Gura_DeclareFunction(sqrt)
 
 Gura_ImplementFunction(sqrt)
 {
+	Signal &sig = env.GetSignal();
 	if (args.IsType(0, VTYPE_mpz)) {
 		mpf_class num(Object_mpz::GetEntity(args, 0));
 		mpf_class result = ::sqrt(num);

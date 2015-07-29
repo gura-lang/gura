@@ -46,6 +46,7 @@ Gura_DeclareFunction(Condition)
 
 Gura_ImplementFunction(Condition)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_Condition *pEntity = new wx_Condition(*mutex);
@@ -67,6 +68,7 @@ Gura_DeclareMethod(wx_Condition, Broadcast)
 
 Gura_ImplementMethod(wx_Condition, Broadcast)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Broadcast();
@@ -81,6 +83,7 @@ Gura_DeclareMethod(wx_Condition, IsOk)
 
 Gura_ImplementMethod(wx_Condition, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -94,6 +97,7 @@ Gura_DeclareMethod(wx_Condition, Signal)
 
 Gura_ImplementMethod(wx_Condition, Signal)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Signal();
@@ -108,6 +112,7 @@ Gura_DeclareMethod(wx_Condition, Wait)
 
 Gura_ImplementMethod(wx_Condition, Wait)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCondError rtn = pThis->GetEntity()->Wait();
@@ -123,6 +128,7 @@ Gura_DeclareMethod(wx_Condition, WaitTimeout)
 
 Gura_ImplementMethod(wx_Condition, WaitTimeout)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned milliseconds = args.GetInt(0);

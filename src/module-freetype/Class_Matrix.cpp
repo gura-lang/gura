@@ -107,6 +107,7 @@ Gura_DeclareFunction(Matrix)
 
 Gura_ImplementFunction(Matrix)
 {
+	Signal &sig = env.GetSignal();
 	const Gura::Matrix *pMat = Object_matrix::GetObject(args, 0)->GetMatrix();
 	AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
 	if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
@@ -136,6 +137,7 @@ Gura_DeclareMethod(Matrix, Invert)
 
 Gura_ImplementMethod(Matrix, Invert)
 {
+	Signal &sig = env.GetSignal();
 	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
 	FT_Error err = ::FT_Matrix_Invert(matrixThis);
 	if (err != 0) {

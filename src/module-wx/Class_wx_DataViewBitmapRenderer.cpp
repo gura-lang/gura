@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataViewBitmapRenderer)
 
 Gura_ImplementFunction(DataViewBitmapRenderer)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString varianttype = wxT("wxBitmap");
 	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));

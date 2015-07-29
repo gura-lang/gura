@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextParagraphStyleDefinition)
 
 Gura_ImplementFunction(RichTextParagraphStyleDefinition)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
@@ -69,6 +70,7 @@ Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetNextStyle();
@@ -83,6 +85,7 @@ Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));

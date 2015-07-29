@@ -46,6 +46,7 @@ Gura_DeclareFunction(ClientDC)
 
 Gura_ImplementFunction(ClientDC)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ClientDC *pEntity = new wx_ClientDC(window);

@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, GetConv)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, GetConv)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -61,6 +62,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, SetConv)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, SetConv)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
@@ -78,6 +80,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, CanHandle)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, CanHandle)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString protocol = wxString::FromUTF8(args.GetString(0));
@@ -97,6 +100,7 @@ Gura_DeclareClassMethod(wx_ArchiveClassFactory, Find)
 
 Gura_ImplementClassMethod(wx_ArchiveClassFactory, Find)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString protocol = wxString::FromUTF8(args.GetString(0));
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
@@ -113,6 +117,7 @@ Gura_DeclareClassMethod(wx_ArchiveClassFactory, GetFirst)
 
 Gura_ImplementClassMethod(wx_ArchiveClassFactory, GetFirst)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)wxArchiveClassFactory::GetFirst();
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
@@ -126,6 +131,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, GetNext)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, GetNext)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)pThis->GetEntity()->GetNext();
@@ -142,6 +148,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, GetInternalName)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, GetInternalName)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
@@ -159,6 +166,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocol)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetProtocol();
@@ -176,6 +184,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocols)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocols)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -196,6 +205,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, NewEntry)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, NewEntry)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->NewEntry();
@@ -211,6 +221,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -227,6 +238,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_1)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_1)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -243,6 +255,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_2)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_2)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
@@ -259,6 +272,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, NewStream_3)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_3)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
@@ -273,6 +287,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, PushFront)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, PushFront)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->PushFront();
@@ -286,6 +301,7 @@ Gura_DeclareMethod(wx_ArchiveClassFactory, Remove)
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, Remove)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->Remove();

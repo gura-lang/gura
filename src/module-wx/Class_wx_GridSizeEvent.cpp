@@ -46,6 +46,7 @@ Gura_DeclareFunction(GridSizeEventEmpty)
 
 Gura_ImplementFunction(GridSizeEventEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent();
 	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetThisObj(args);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(GridSizeEvent)
 
 Gura_ImplementFunction(GridSizeEvent)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxEventType type = static_cast<wxEventType>(args.GetInt(1));
@@ -116,6 +118,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, AltDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->AltDown();
@@ -130,6 +133,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, ControlDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, ControlDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ControlDown();
@@ -144,6 +148,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetPosition)
 
 Gura_ImplementMethod(wx_GridSizeEvent, GetPosition)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
@@ -158,6 +163,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
 
 Gura_ImplementMethod(wx_GridSizeEvent, GetRowOrCol)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetRowOrCol();
@@ -172,6 +178,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, MetaDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, MetaDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->MetaDown();
@@ -186,6 +193,7 @@ Gura_DeclareMethod(wx_GridSizeEvent, ShiftDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, ShiftDown)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->ShiftDown();

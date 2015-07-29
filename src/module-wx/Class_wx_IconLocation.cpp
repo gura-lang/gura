@@ -43,6 +43,7 @@ Gura_DeclareMethod(wx_IconLocation, IsOk)
 
 Gura_ImplementMethod(wx_IconLocation, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();

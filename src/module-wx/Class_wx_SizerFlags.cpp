@@ -46,6 +46,7 @@ Gura_DeclareFunction(SizerFlags)
 
 Gura_ImplementFunction(SizerFlags)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int proportion = 0;
 	if (args.IsValid(0)) proportion = args.GetInt(0);
@@ -70,6 +71,7 @@ Gura_DeclareMethod(wx_SizerFlags, Align)
 
 Gura_ImplementMethod(wx_SizerFlags, Align)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int align = 0;
@@ -88,6 +90,7 @@ Gura_DeclareMethod(wx_SizerFlags, Border)
 
 Gura_ImplementMethod(wx_SizerFlags, Border)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	if (args.IsInvalid(0)) {
@@ -109,6 +112,7 @@ Gura_DeclareMethod(wx_SizerFlags, Center)
 
 Gura_ImplementMethod(wx_SizerFlags, Center)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Center();
@@ -123,6 +127,7 @@ Gura_DeclareMethod(wx_SizerFlags, Centre)
 
 Gura_ImplementMethod(wx_SizerFlags, Centre)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Centre();
@@ -138,6 +143,7 @@ Gura_DeclareMethod(wx_SizerFlags, DoubleBorder)
 
 Gura_ImplementMethod(wx_SizerFlags, DoubleBorder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxALL;
@@ -154,6 +160,7 @@ Gura_DeclareMethod(wx_SizerFlags, DoubleHorzBorder)
 
 Gura_ImplementMethod(wx_SizerFlags, DoubleHorzBorder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->DoubleHorzBorder();
@@ -168,6 +175,7 @@ Gura_DeclareMethod(wx_SizerFlags, Expand)
 
 Gura_ImplementMethod(wx_SizerFlags, Expand)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Expand();
@@ -182,6 +190,7 @@ Gura_DeclareClassMethod(wx_SizerFlags, GetDefaultBorder)
 
 Gura_ImplementClassMethod(wx_SizerFlags, GetDefaultBorder)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxSizerFlags::GetDefaultBorder();
 	return ReturnValue(env, args, Value(rtn));
@@ -195,6 +204,7 @@ Gura_DeclareMethod(wx_SizerFlags, Left)
 
 Gura_ImplementMethod(wx_SizerFlags, Left)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Left();
@@ -209,6 +219,7 @@ Gura_DeclareMethod(wx_SizerFlags, FixedMinSize)
 
 Gura_ImplementMethod(wx_SizerFlags, FixedMinSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->FixedMinSize();
@@ -224,6 +235,7 @@ Gura_DeclareMethod(wx_SizerFlags, Proportion)
 
 Gura_ImplementMethod(wx_SizerFlags, Proportion)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int proportion = 0;
@@ -240,6 +252,7 @@ Gura_DeclareMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 
 Gura_ImplementMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->ReserveSpaceEvenIfHidden();
@@ -254,6 +267,7 @@ Gura_DeclareMethod(wx_SizerFlags, Right)
 
 Gura_ImplementMethod(wx_SizerFlags, Right)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Right();
@@ -268,6 +282,7 @@ Gura_DeclareMethod(wx_SizerFlags, Shaped)
 
 Gura_ImplementMethod(wx_SizerFlags, Shaped)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizerFlags &rtn = pThis->GetEntity()->Shaped();
@@ -283,6 +298,7 @@ Gura_DeclareMethod(wx_SizerFlags, TripleBorder)
 
 Gura_ImplementMethod(wx_SizerFlags, TripleBorder)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxALL;

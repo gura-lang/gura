@@ -47,6 +47,7 @@ Gura_DeclareFunction(SocketBaseEmpty)
 
 Gura_ImplementFunction(SocketBaseEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_SocketBase *pEntity = new wx_SocketBase();
@@ -71,6 +72,7 @@ Gura_DeclareMethod(wx_SocketBase, Close)
 
 Gura_ImplementMethod(wx_SocketBase, Close)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -89,6 +91,7 @@ Gura_DeclareMethod(wx_SocketBase, Destroy)
 
 Gura_ImplementMethod(wx_SocketBase, Destroy)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -107,6 +110,7 @@ Gura_DeclareMethod(wx_SocketBase, Discard)
 
 Gura_ImplementMethod(wx_SocketBase, Discard)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -125,6 +129,7 @@ Gura_DeclareMethod(wx_SocketBase, Error)
 
 Gura_ImplementMethod(wx_SocketBase, Error)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->Error();
@@ -138,6 +143,7 @@ Gura_DeclareMethod(wx_SocketBase, GetClientData)
 
 Gura_ImplementMethod(wx_SocketBase, GetClientData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	pThis->GetEntity()->GetClientData();
@@ -153,6 +159,7 @@ Gura_DeclareMethod(wx_SocketBase, GetLocal)
 
 Gura_ImplementMethod(wx_SocketBase, GetLocal)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSockAddress *addr = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
@@ -168,6 +175,7 @@ Gura_DeclareMethod(wx_SocketBase, GetFlags)
 
 Gura_ImplementMethod(wx_SocketBase, GetFlags)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketFlags rtn = pThis->GetEntity()->GetFlags();
@@ -183,6 +191,7 @@ Gura_DeclareMethod(wx_SocketBase, GetPeer)
 
 Gura_ImplementMethod(wx_SocketBase, GetPeer)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSockAddress *addr = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
@@ -197,6 +206,7 @@ Gura_DeclareMethod(wx_SocketBase, InterruptWait)
 
 Gura_ImplementMethod(wx_SocketBase, InterruptWait)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -215,6 +225,7 @@ Gura_DeclareMethod(wx_SocketBase, IsConnected)
 
 Gura_ImplementMethod(wx_SocketBase, IsConnected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsConnected();
@@ -229,6 +240,7 @@ Gura_DeclareMethod(wx_SocketBase, IsData)
 
 Gura_ImplementMethod(wx_SocketBase, IsData)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsData();
@@ -243,6 +255,7 @@ Gura_DeclareMethod(wx_SocketBase, IsDisconnected)
 
 Gura_ImplementMethod(wx_SocketBase, IsDisconnected)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsDisconnected();
@@ -257,6 +270,7 @@ Gura_DeclareMethod(wx_SocketBase, LastCount)
 
 Gura_ImplementMethod(wx_SocketBase, LastCount)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 rtn = pThis->GetEntity()->LastCount();
@@ -271,6 +285,7 @@ Gura_DeclareMethod(wx_SocketBase, LastError)
 
 Gura_ImplementMethod(wx_SocketBase, LastError)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -291,6 +306,7 @@ Gura_DeclareMethod(wx_SocketBase, Notify)
 
 Gura_ImplementMethod(wx_SocketBase, Notify)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -310,6 +326,7 @@ Gura_DeclareMethod(wx_SocketBase, IsOk)
 
 Gura_ImplementMethod(wx_SocketBase, IsOk)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsOk();
@@ -323,6 +340,7 @@ Gura_DeclareMethod(wx_SocketBase, RestoreState)
 
 Gura_ImplementMethod(wx_SocketBase, RestoreState)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -340,6 +358,7 @@ Gura_DeclareMethod(wx_SocketBase, SaveState)
 
 Gura_ImplementMethod(wx_SocketBase, SaveState)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -360,6 +379,7 @@ Gura_DeclareMethod(wx_SocketBase, SetClientData)
 
 Gura_ImplementMethod(wx_SocketBase, SetClientData)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -382,6 +402,7 @@ Gura_DeclareMethod(wx_SocketBase, SetEventHandler)
 
 Gura_ImplementMethod(wx_SocketBase, SetEventHandler)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -405,6 +426,7 @@ Gura_DeclareMethod(wx_SocketBase, SetFlags)
 
 Gura_ImplementMethod(wx_SocketBase, SetFlags)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -427,6 +449,7 @@ Gura_DeclareMethod(wx_SocketBase, SetLocal)
 
 Gura_ImplementMethod(wx_SocketBase, SetLocal)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -448,6 +471,7 @@ Gura_DeclareMethod(wx_SocketBase, SetNotify)
 
 Gura_ImplementMethod(wx_SocketBase, SetNotify)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -469,6 +493,7 @@ Gura_DeclareMethod(wx_SocketBase, SetTimeout)
 
 Gura_ImplementMethod(wx_SocketBase, SetTimeout)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -492,6 +517,7 @@ Gura_DeclareMethod(wx_SocketBase, Peek)
 
 Gura_ImplementMethod(wx_SocketBase, Peek)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -516,6 +542,7 @@ Gura_DeclareMethod(wx_SocketBase, Read)
 
 Gura_ImplementMethod(wx_SocketBase, Read)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -540,6 +567,7 @@ Gura_DeclareMethod(wx_SocketBase, ReadMsg)
 
 Gura_ImplementMethod(wx_SocketBase, ReadMsg)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -564,6 +592,7 @@ Gura_DeclareMethod(wx_SocketBase, Unread)
 
 Gura_ImplementMethod(wx_SocketBase, Unread)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -588,6 +617,7 @@ Gura_DeclareMethod(wx_SocketBase, Wait)
 
 Gura_ImplementMethod(wx_SocketBase, Wait)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -614,6 +644,7 @@ Gura_DeclareMethod(wx_SocketBase, Wait_1)
 
 Gura_ImplementMethod(wx_SocketBase, Wait_1)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -640,6 +671,7 @@ Gura_DeclareMethod(wx_SocketBase, WaitForRead)
 
 Gura_ImplementMethod(wx_SocketBase, WaitForRead)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -666,6 +698,7 @@ Gura_DeclareMethod(wx_SocketBase, WaitForWrite)
 
 Gura_ImplementMethod(wx_SocketBase, WaitForWrite)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -692,6 +725,7 @@ Gura_DeclareMethod(wx_SocketBase, Write)
 
 Gura_ImplementMethod(wx_SocketBase, Write)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -716,6 +750,7 @@ Gura_DeclareMethod(wx_SocketBase, WriteMsg)
 
 Gura_ImplementMethod(wx_SocketBase, WriteMsg)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;

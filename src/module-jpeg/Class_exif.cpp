@@ -264,6 +264,7 @@ Gura_DeclareFunction(exif)
 
 Gura_ImplementFunction(exif)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	if (args.Is_stream(0)) {
 		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));

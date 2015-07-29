@@ -57,6 +57,7 @@ Gura_DeclareFunction(mpz)
 
 Gura_ImplementFunction(mpz)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	if (args.IsInvalid(0)) {
 		value = Value(new Object_mpz(mpz_class(0)));
@@ -102,6 +103,7 @@ Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 
 Gura_ImplementMethod(string, cast_mpz)
 {
+	Signal &sig = env.GetSignal();
 	const char *strThis = args.GetThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
 	mpz_class num;

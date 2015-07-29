@@ -45,6 +45,7 @@ Gura_DeclareFunction(HtmlDCRendererEmpty)
 
 Gura_ImplementFunction(HtmlDCRendererEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlDCRenderer *pEntity = new wx_HtmlDCRenderer();
 	Object_wx_HtmlDCRenderer *pObj = Object_wx_HtmlDCRenderer::GetThisObj(args);
@@ -67,6 +68,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetDC)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
@@ -88,6 +90,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -111,6 +114,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetSize)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
@@ -129,6 +133,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString html = wxString::FromUTF8(args.GetString(0));
@@ -154,6 +159,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 {
+	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
@@ -178,6 +184,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalHeight)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
 {
+	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetTotalHeight();

@@ -48,6 +48,7 @@ Gura_DeclareFunction(ContextHelpButtonEmpty)
 
 Gura_ImplementFunction(ContextHelpButtonEmpty)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_ContextHelpButton *pEntity = new wx_ContextHelpButton();
@@ -79,6 +80,7 @@ Gura_DeclareFunction(ContextHelpButton)
 
 Gura_ImplementFunction(ContextHelpButton)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_CONTEXT_HELP;
