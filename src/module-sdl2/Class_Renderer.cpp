@@ -20,19 +20,19 @@ String Object_Renderer::ToString(bool exprFlag)
 	return String("<sdl2.Renderer>");
 }
 
-bool Object_Renderer::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Renderer::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_Renderer::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Renderer::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_Renderer::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_Renderer::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

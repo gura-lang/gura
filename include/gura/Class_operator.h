@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_operator : public Class {
 public:
 	Class_operator(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_operator : public Object {
@@ -32,8 +32,8 @@ public:
 					Object(pClass), _opTypeUnary(opTypeUnary), _opTypeBinary(opTypeBinary) {}
 	Object_operator(const Object_operator &obj);
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoCall(Environment &env, Signal &sig, Args &args);
 	virtual String ToString(bool exprFlag);

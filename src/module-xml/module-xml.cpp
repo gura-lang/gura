@@ -641,7 +641,7 @@ void Object_parser::Parse(Environment &env, Signal &sig, Stream &stream)
 void Object_parser::CallHandler(const Symbol *pSymbol, const ValueList argList)
 {
 	bool evaluatedFlag;
-	Value rtn = EvalMethod(*this, *_pSig, pSymbol, argList, evaluatedFlag);
+	Value rtn = EvalMethod(*this, pSymbol, argList, evaluatedFlag);
 	if (_pSig->IsSignalled()) {
 		_parser.StopParser();
 	}
@@ -885,16 +885,16 @@ Object_attribute::Object_attribute(Attribute *pAttribute) :
 {
 }
 
-bool Object_attribute::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_attribute::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value Object_attribute::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_attribute::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -935,7 +935,7 @@ Object_element::Object_element(Element *pElement) :
 {
 }
 
-Value Object_element::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_element::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_string()) {
@@ -952,10 +952,10 @@ Value Object_element::IndexGet(Environment &env, Signal &__to_delete__, const Va
 	return Value(pAttribute->GetValue());
 }
 
-bool Object_element::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_element::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(tagname));
 	symbols.insert(Gura_UserSymbol(text));
 	symbols.insert(Gura_UserSymbol(comment));
@@ -964,7 +964,7 @@ bool Object_element::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSe
 	return true;
 }
 
-Value Object_element::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_element::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1120,17 +1120,17 @@ Object_document::Object_document(Document *pDocument) :
 {
 }
 
-bool Object_document::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
 	symbols.insert(Gura_UserSymbol(encoding));
 	symbols.insert(Gura_UserSymbol(root));
 	return true;
 }
 
-Value Object_document::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1146,7 +1146,7 @@ Value Object_document::DoGetProp(Environment &env, Signal &__to_delete__, const 
 	return Value::Null;
 }
 
-Value Object_document::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();

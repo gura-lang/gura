@@ -13,15 +13,14 @@ Object *Object_args::Clone() const
 	return new Object_args(*this);
 }
 
-bool Object_args::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_args::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(values));
 	return true;
 }
 
-Value Object_args::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_args::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -120,7 +119,7 @@ void Class_args::Prepare(Environment &env)
 	Gura_AssignMethod(args, quit_trailer);
 }
 
-Object *Class_args::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_args::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

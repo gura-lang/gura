@@ -23,15 +23,14 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
-bool Object_binary::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(writable));
 	return true;
 }
 
-Value Object_binary::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
@@ -41,7 +40,7 @@ Value Object_binary::DoGetProp(Environment &env, Signal &__to_delete__, const Sy
 	return Value::Null;
 }
 
-Value Object_binary::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
@@ -65,7 +64,7 @@ Value Object_binary::IndexGet(Environment &env, Signal &__to_delete__, const Val
 	}
 }
 
-void Object_binary::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Object_binary::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
 	if (!IsWritable()) {
@@ -641,7 +640,7 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, writer);
 }
 
-bool Class_binary::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_binary::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		Object_binary *pObjBinary = new Object_binary(env, value.GetStringSTL(), true);
@@ -651,17 +650,17 @@ bool Class_binary::CastFrom(Environment &env, Signal &__to_delete__, Value &valu
 	return false;
 }
 
-bool Class_binary::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_binary::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_binary::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_binary::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	return false;
 }
 
-Object *Class_binary::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_binary::CreateDescendant(Environment &env, Class *pClass)
 {
 	return new Object_binary((pClass == nullptr)? this : pClass);
 }

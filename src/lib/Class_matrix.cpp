@@ -27,7 +27,7 @@ Object *Object_matrix::Clone() const
 	return new Object_matrix(*this);
 }
 
-Value Object_matrix::EmptyIndexGet(Environment &env, Signal &__to_delete__)
+Value Object_matrix::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();
 	if (_pMat->GetIndexForColFlag()) {
@@ -41,7 +41,7 @@ Value Object_matrix::EmptyIndexGet(Environment &env, Signal &__to_delete__)
 	return Value(new Object_matrix(env, pMat.release()));
 }
 
-Value Object_matrix::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_matrix::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
@@ -88,7 +88,7 @@ Value Object_matrix::IndexGet(Environment &env, Signal &__to_delete__, const Val
 	}
 }
 
-void Object_matrix::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Object_matrix::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
@@ -803,12 +803,12 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, transpose);
 }
 
-bool Class_matrix::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
-	if (!pMat->GetList().Serialize(env, sig, stream)) return false;
+	if (!pMat->GetList().Serialize(env, stream)) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRowOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetColOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRows()))) return false;
@@ -818,11 +818,11 @@ bool Class_matrix::Serialize(Environment &env, Signal &__to_delete__, Stream &st
 	return true;
 }
 
-bool Class_matrix::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_matrix::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
-	if (!pElements->GetList().Deserialize(env, sig, stream)) return false;
+	if (!pElements->GetList().Deserialize(env, stream)) return false;
 	ULong iRowOff = 0, iColOff = 0;
 	ULong nRows = 0, nCols = 0;
 	ULong nFold = 0;
@@ -846,7 +846,7 @@ bool Class_matrix::Deserialize(Environment &env, Signal &__to_delete__, Stream &
 	return true;
 }
 
-Object *Class_matrix::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_matrix::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

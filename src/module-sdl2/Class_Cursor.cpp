@@ -20,19 +20,19 @@ String Object_Cursor::ToString(bool exprFlag)
 	return String("<sdl2.Cursor>");
 }
 
-bool Object_Cursor::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Cursor::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_Cursor::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Cursor::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_Cursor::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_Cursor::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

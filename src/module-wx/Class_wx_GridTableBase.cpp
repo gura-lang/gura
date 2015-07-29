@@ -74,7 +74,7 @@ int wx_GridTableBase::GetNumberRows()
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -87,7 +87,7 @@ int wx_GridTableBase::GetNumberCols()
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -104,7 +104,7 @@ bool wx_GridTableBase::IsEmptyCell(int row, int col)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -120,7 +120,7 @@ wxString wx_GridTableBase::GetValue(int row, int col)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal())) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
@@ -138,7 +138,7 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(value.ToUTF8()));
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	_pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -150,7 +150,7 @@ wxString wx_GridTableBase::GetTypeName(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
@@ -165,7 +165,7 @@ bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(typeName.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -180,7 +180,7 @@ bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(typeName.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -193,7 +193,7 @@ long wx_GridTableBase::GetValueAsLong(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetLong();
 }
@@ -206,7 +206,7 @@ double wx_GridTableBase::GetValueAsDouble(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return false;
 	return rtn.GetDouble();
 }
@@ -219,7 +219,7 @@ bool wx_GridTableBase::GetValueAsBool(int row, int col)
 	valList.reserve(2);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -233,7 +233,7 @@ void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	_pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -249,7 +249,7 @@ void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	_pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -265,7 +265,7 @@ void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(value));
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	_pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -277,7 +277,7 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal())) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
@@ -290,7 +290,7 @@ wxString wx_GridTableBase::GetColLabelValue(int col)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal())) return wxEmptyString;
 	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }

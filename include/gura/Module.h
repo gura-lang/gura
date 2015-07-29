@@ -105,7 +105,7 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	Expr *MakeExpr() const;
-	bool DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	bool DirProp(Environment &env, SymbolSet &symbols);
 	void DirValueType(SymbolSet &symbols) const;
 	virtual bool IsModule() const;
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);

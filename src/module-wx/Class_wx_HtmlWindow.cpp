@@ -79,7 +79,7 @@ bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const 
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(new Object_wx_MouseEvent(const_cast<wxMouseEvent *>(&event), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -97,7 +97,7 @@ void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 	valList.push_back(Value(new Object_wx_HtmlCell(cell, nullptr, OwnerFalse)));
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -112,7 +112,7 @@ void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_HtmlLinkInfo(const_cast<wxHtmlLinkInfo *>(&link), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -125,7 +125,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 	valList.reserve(2);
 	valList.push_back(Value(type));
 	valList.push_back(Value(url.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_list)) return wxHTML_OPEN;
 	ValueList &valListRtn = rtn.GetList();
 	if (valListRtn.size() != 2) {
@@ -151,7 +151,7 @@ void wx_HtmlWindow::OnSetTitle(const wxString& title)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(title.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 

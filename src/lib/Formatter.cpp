@@ -107,46 +107,46 @@ bool Formatter::DoFormat(Signal &sig, const char *format, Source &source)
 				// just ignore it
 			} else if (ch == 'd' || ch == 'i') {
 				Value value = source.GetInt();
-				if (!value.GetClass()->Format_d(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_d(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'u') {
 				Value value = source.GetInt();
-				if (!value.GetClass()->Format_u(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_u(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'b') {
 				Value value = source.GetInt();
-				if (!value.GetClass()->Format_b(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_b(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'o') {
 				Value value = source.GetInt();
-				if (!value.GetClass()->Format_o(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_o(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'x' || ch == 'X') {
 				Value value = source.GetInt();
 				flags.upperCaseFlag = (ch == 'X');
-				if (!value.GetClass()->Format_x(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_x(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'e' || ch == 'E') {
 				Value value = source.GetDouble();
 				flags.upperCaseFlag = (ch == 'E');
-				if (!value.GetClass()->Format_e(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_e(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'f' || ch == 'F') {
 				Value value = source.GetDouble();
-				if (!value.GetClass()->Format_f(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_f(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'g' || ch == 'G') {
 				Value value = source.GetDouble();
 				flags.upperCaseFlag = (ch == 'G');
-				if (!value.GetClass()->Format_g(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_g(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 's') {
 				Value value = source.GetString();
-				if (!value.GetClass()->Format_s(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_s(this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'c') {
 				Value value = source.GetInt();
-				if (!value.GetClass()->Format_c(sig, this, flags, value)) break;
+				if (!value.GetClass()->Format_c(this, flags, value)) break;
 				stat = STAT_Start;
 			} else {
 				SetError_WrongFormat(sig);

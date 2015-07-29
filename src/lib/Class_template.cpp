@@ -23,14 +23,13 @@ Object *Object_template::Clone() const
 	return nullptr;
 }
 
-bool Object_template::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_template::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	return true;
 }
 
-Value Object_template::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_template::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
@@ -580,10 +579,10 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, init_super);
 }
 
-bool Class_template::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_template::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
-	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		bool autoIndentFlag = true;
 		bool appendLastEOLFlag = false;
@@ -596,7 +595,7 @@ bool Class_template::CastFrom(Environment &env, Signal &__to_delete__, Value &va
 	return false;
 }
 
-Object *Class_template::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_template::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

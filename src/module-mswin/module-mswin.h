@@ -95,10 +95,10 @@ public:
 	HRESULT GetDispIDOfNamedArg(
 				const char *nameMethod, const char *name, DISPID &dispid);
 	virtual Iterator *CreateIterator(Signal &sig);
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
 	virtual String ToString(bool exprFlag);

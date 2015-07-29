@@ -60,7 +60,7 @@ void wx_PopupTransientWindow::Popup(wxWindow *focus)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_Window(focus, nullptr, OwnerFalse)));
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	_pObj->EvalMethod(*_pObj, pFunc, valList);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -71,7 +71,7 @@ void wx_PopupTransientWindow::Dismiss()
 		wxPopupTransientWindow::Dismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -79,7 +79,7 @@ bool wx_PopupTransientWindow::CanDismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanDismiss);
 	if (pFunc == nullptr) return wxPopupTransientWindow::CanDismiss();
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -91,7 +91,7 @@ bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(new Object_wx_MouseEvent(new wxMouseEvent(event), nullptr, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -103,7 +103,7 @@ bool wx_PopupTransientWindow::Show(bool show)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(show));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -115,7 +115,7 @@ void wx_PopupTransientWindow::OnDismiss()
 		wxPopupTransientWindow::OnDismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	CheckMethodResult(_pObj->GetSignal());
 }
 

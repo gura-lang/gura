@@ -42,7 +42,7 @@ wxWizardPage *wx_WizardPage::GetNext() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNext);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
@@ -52,7 +52,7 @@ wxWizardPage *wx_WizardPage::GetPrev() const
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetPrev);
 	if (pFunc == nullptr) return nullptr;
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (rtn.IsInvalid()) return nullptr;
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_WizardPage)) return 0;
 	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();

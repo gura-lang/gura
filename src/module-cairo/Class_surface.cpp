@@ -18,15 +18,15 @@ Object *Object_surface::Clone() const
 	return nullptr;
 }
 
-bool Object_surface::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_surface::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	return true;
 }
 
-Value Object_surface::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_surface::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -694,7 +694,7 @@ Gura_ImplementCastFrom(surface)
 {
 	Signal &sig = GetSignal();
 	Value valueCast(value);
-	env.LookupClass(VTYPE_image)->CastFrom(env, sig, valueCast, pDecl);
+	env.LookupClass(VTYPE_image)->CastFrom(env, valueCast, pDecl);
 	if (valueCast.Is_image()) {
 		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
 		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);

@@ -338,7 +338,7 @@ Object *Object_ifd::Clone() const
 	return nullptr;
 }
 
-Value Object_ifd::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (valueIdx.Is_number()) {
@@ -362,10 +362,10 @@ Value Object_ifd::IndexGet(Environment &env, Signal &__to_delete__, const Value 
 	return Value::Null;
 }
 
-bool Object_ifd::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_ifd::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(symbol));
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
@@ -379,7 +379,7 @@ bool Object_ifd::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &s
 	return true;
 }
 
-Value Object_ifd::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_ifd::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -31,7 +31,7 @@ Value Fundamental::DoCall(Environment &env, Signal &sig, Args &args)
 	return Value::Null;
 }
 
-bool Fundamental::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Fundamental::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }

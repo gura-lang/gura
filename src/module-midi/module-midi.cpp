@@ -297,10 +297,10 @@ Object *Object_event::Clone() const
 	return nullptr;
 }
 
-bool Object_event::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_event::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(timestamp));
 	symbols.insert(Gura_UserSymbol(status));
@@ -310,7 +310,7 @@ bool Object_event::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet 
 	return true;
 }
 
-Value Object_event::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_event::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -337,10 +337,10 @@ Value Object_event::DoGetProp(Environment &env, Signal &__to_delete__, const Sym
 		return Value(_pEvent->GetArgsName());
 	}
 	evaluatedFlag = false;
-	return _pEvent->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return _pEvent->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value Object_event::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_event::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -384,15 +384,15 @@ Object *Object_track::Clone() const
 	return nullptr;
 }
 
-bool Object_track::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_track::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(events));
 	return true;
 }
 
-Value Object_track::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_track::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1069,17 +1069,17 @@ Object *Object_sequence::Clone() const
 	return nullptr;
 }
 
-bool Object_sequence::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_sequence::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(tracks));
 	symbols.insert(Gura_UserSymbol(division));
 	return true;
 }
 
-Value Object_sequence::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_sequence::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1100,7 +1100,7 @@ Value Object_sequence::DoGetProp(Environment &env, Signal &__to_delete__, const 
 	return Value::Null;
 }
 
-Value Object_sequence::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_sequence::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -1285,7 +1285,7 @@ Gura_ImplementCastFrom(sequence)
 {
 	Signal &sig = GetSignal();
 	Value valueCast(value);
-	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, valueCast, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, valueCast, pDecl);
 	if (valueCast.Is_stream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 		pObj->GetSequence().Read(env, sig, valueCast.GetStream());
@@ -1310,15 +1310,15 @@ Object *Object_portinfo::Clone() const
 	return nullptr;
 }
 
-bool Object_portinfo::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_portinfo::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	//symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_portinfo::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_portinfo::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -1358,15 +1358,15 @@ Object *Object_port::Clone() const
 	return nullptr;
 }
 
-bool Object_port::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_port::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	//symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_port::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_port::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -1693,10 +1693,10 @@ Object *Object_player::Clone() const
 	return nullptr;
 }
 
-bool Object_player::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_player::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(speed));
 	symbols.insert(Gura_UserSymbol(count));
 	symbols.insert(Gura_UserSymbol(repeat));
@@ -1704,7 +1704,7 @@ bool Object_player::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet
 	return true;
 }
 
-Value Object_player::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_player::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1721,7 +1721,7 @@ Value Object_player::DoGetProp(Environment &env, Signal &__to_delete__, const Sy
 	return Value::Null;
 }
 
-Value Object_player::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_player::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -1767,16 +1767,16 @@ Object *Object_controller::Clone() const
 	return nullptr;
 }
 
-bool Object_controller::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_controller::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(name));
 	return true;
 }
 
-Value Object_controller::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_controller::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1817,17 +1817,17 @@ Object *Object_program::Clone() const
 	return nullptr;
 }
 
-bool Object_program::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_program::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(dispname));
 	return true;
 }
 
-Value Object_program::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_program::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1870,10 +1870,10 @@ Object *Object_soundfont::Clone() const
 	return nullptr;
 }
 
-bool Object_soundfont::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_soundfont::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 #if 0
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(name));
@@ -1882,7 +1882,7 @@ bool Object_soundfont::DoDirProp(Environment &env, Signal &__to_delete__, Symbol
 	return true;
 }
 
-Value Object_soundfont::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_soundfont::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -1970,15 +1970,15 @@ Object *Object_synthesizer::Clone() const
 	return nullptr;
 }
 
-bool Object_synthesizer::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_synthesizer::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(audio));
 	return true;
 }
 
-Value Object_synthesizer::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_synthesizer::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

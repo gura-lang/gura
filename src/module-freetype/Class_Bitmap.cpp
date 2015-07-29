@@ -25,10 +25,10 @@ String Object_Bitmap::ToString(bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Bitmap::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Bitmap::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 #if 0
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
@@ -36,7 +36,7 @@ bool Object_Bitmap::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet
 	return true;
 }
 
-Value Object_Bitmap::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Bitmap::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -51,7 +51,7 @@ Value Object_Bitmap::DoGetProp(Environment &env, Signal &__to_delete__, const Sy
 	return Value::Null;
 }
 
-Value Object_Bitmap::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_Bitmap::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();

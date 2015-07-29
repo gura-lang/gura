@@ -16,18 +16,18 @@ Event::~Event()
 	// virtual destructor
 }
 
-bool Event::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Event::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Event::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Event::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Event::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Event::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -116,13 +116,13 @@ bool MIDIEvent::Write(Signal &sig, Stream &stream, const Event *pEventPrev) cons
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-bool MIDIEvent::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(channel));
 	return true;
 }
 
-Value MIDIEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -133,7 +133,7 @@ Value MIDIEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol
 	return Value::Null;
 }
 
-Value MIDIEvent::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -160,16 +160,16 @@ Event *MIDIEvent_NoteOff::Clone() const
 	return new MIDIEvent_NoteOff(*this);
 }
 
-bool MIDIEvent_NoteOff::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_NoteOff::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
 	symbols.insert(Gura_UserSymbol(velocity));
 	return true;
 }
 
-Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_NoteOff::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -180,10 +180,10 @@ Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal &__to_delete__, cons
 		return Value(GetVelocity());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_NoteOff::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_NoteOff::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -198,7 +198,7 @@ Value MIDIEvent_NoteOff::DoSetProp(Environment &env, Signal &__to_delete__, cons
 		return Value(GetVelocity());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -222,16 +222,16 @@ Event *MIDIEvent_NoteOn::Clone() const
 	return new MIDIEvent_NoteOn(*this);
 }
 
-bool MIDIEvent_NoteOn::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_NoteOn::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
 	symbols.insert(Gura_UserSymbol(velocity));
 	return true;
 }
 
-Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_NoteOn::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -242,10 +242,10 @@ Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal &__to_delete__, const
 		return Value(GetVelocity());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_NoteOn::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_NoteOn::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -260,7 +260,7 @@ Value MIDIEvent_NoteOn::DoSetProp(Environment &env, Signal &__to_delete__, const
 		return Value(GetVelocity());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -284,16 +284,16 @@ Event *MIDIEvent_PolyPressure::Clone() const
 	return new MIDIEvent_PolyPressure(*this);
 }
 
-bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(note));
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -304,10 +304,10 @@ Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal &__to_delete__,
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -322,7 +322,7 @@ Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, Signal &__to_delete__,
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -348,16 +348,16 @@ Event *MIDIEvent_ControlChange::Clone() const
 	return new MIDIEvent_ControlChange(*this);
 }
 
-bool MIDIEvent_ControlChange::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_ControlChange::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(controller));
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_ControlChange::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -377,10 +377,10 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal &__to_delete__
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ControlChange::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ControlChange::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -395,7 +395,7 @@ Value MIDIEvent_ControlChange::DoSetProp(Environment &env, Signal &__to_delete__
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -420,15 +420,15 @@ Event *MIDIEvent_ProgramChange::Clone() const
 	return new MIDIEvent_ProgramChange(*this);
 }
 
-bool MIDIEvent_ProgramChange::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_ProgramChange::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(program));
 	return true;
 }
 
-Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -437,10 +437,10 @@ Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal &__to_delete__
 		return Value(GetProgram());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -451,7 +451,7 @@ Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, Signal &__to_delete__
 		return Value(GetProgram());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -474,15 +474,15 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 	return new MIDIEvent_ChannelPressure(*this);
 }
 
-bool MIDIEvent_ChannelPressure::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_ChannelPressure::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(pressure));
 	return true;
 }
 
-Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -491,10 +491,10 @@ Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal &__to_delete
 		return Value(GetPressure());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -505,7 +505,7 @@ Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, Signal &__to_delete
 		return Value(GetPressure());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -528,15 +528,15 @@ Event *MIDIEvent_PitchBend::Clone() const
 	return new MIDIEvent_PitchBend(*this);
 }
 
-bool MIDIEvent_PitchBend::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MIDIEvent_PitchBend::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = env.GetSignal();
-	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	if (!MIDIEvent::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(value));
 	return true;
 }
 
-Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MIDIEvent_PitchBend::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -545,10 +545,10 @@ Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal &__to_delete__, co
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return MIDIEvent::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
-Value MIDIEvent_PitchBend::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MIDIEvent_PitchBend::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -559,7 +559,7 @@ Value MIDIEvent_PitchBend::DoSetProp(Environment &env, Signal &__to_delete__, co
 		return Value(GetValue());
 	}
 	evaluatedFlag = false;
-	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+	return MIDIEvent::DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -580,7 +580,7 @@ const Symbol *SysExEvent::GetSymbol() const
 String SysExEvent::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "%dbytes", _binary.size());
+	::sprintf(str, "%lubytes", _binary.size());
 	return String(str);
 }
 
@@ -599,13 +599,13 @@ Event *SysExEvent::Clone() const
 	return new SysExEvent(*this);
 }
 
-bool SysExEvent::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool SysExEvent::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value SysExEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value SysExEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -616,7 +616,7 @@ Value SysExEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbo
 	return Value::Null;
 }
 
-Value SysExEvent::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value SysExEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -731,7 +731,7 @@ const Symbol *MetaEvent_Unknown::GetSymbol() const
 String MetaEvent_Unknown::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "%dbytes", _binary.size());
+	::sprintf(str, "%lubytes", _binary.size());
 	return String(str);
 }
 
@@ -740,13 +740,13 @@ Event *MetaEvent_Unknown::Clone() const
 	return new MetaEvent_Unknown(*this);
 }
 
-bool MetaEvent_Unknown::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_Unknown::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_Unknown::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -757,7 +757,7 @@ Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal &__to_delete__, cons
 	return Value::Null;
 }
 
-Value MetaEvent_Unknown::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_Unknown::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -819,13 +819,13 @@ Event *MetaEvent_SequenceNumber::Clone() const
 	return new MetaEvent_SequenceNumber(*this);
 }
 
-bool MetaEvent_SequenceNumber::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_SequenceNumber::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(number));
 	return true;
 }
 
-Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -836,7 +836,7 @@ Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal &__to_delete_
 	return Value::Null;
 }
 
-Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -888,13 +888,13 @@ Event *MetaEvent_TextEvent::Clone() const
 	return new MetaEvent_TextEvent(*this);
 }
 
-bool MetaEvent_TextEvent::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_TextEvent::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_TextEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -905,7 +905,7 @@ Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal &__to_delete__, co
 	return Value::Null;
 }
 
-Value MetaEvent_TextEvent::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TextEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -957,13 +957,13 @@ Event *MetaEvent_CopyrightNotice::Clone() const
 	return new MetaEvent_CopyrightNotice(*this);
 }
 
-bool MetaEvent_CopyrightNotice::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_CopyrightNotice::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -974,7 +974,7 @@ Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal &__to_delete
 	return Value::Null;
 }
 
-Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1026,13 +1026,13 @@ Event *MetaEvent_SequenceOrTrackName::Clone() const
 	return new MetaEvent_SequenceOrTrackName(*this);
 }
 
-bool MetaEvent_SequenceOrTrackName::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_SequenceOrTrackName::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1043,7 +1043,7 @@ Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal &__to_de
 	return Value::Null;
 }
 
-Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1095,13 +1095,13 @@ Event *MetaEvent_InstrumentName::Clone() const
 	return new MetaEvent_InstrumentName(*this);
 }
 
-bool MetaEvent_InstrumentName::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_InstrumentName::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_InstrumentName::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1112,7 +1112,7 @@ Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal &__to_delete_
 	return Value::Null;
 }
 
-Value MetaEvent_InstrumentName::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_InstrumentName::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1164,13 +1164,13 @@ Event *MetaEvent_LyricText::Clone() const
 	return new MetaEvent_LyricText(*this);
 }
 
-bool MetaEvent_LyricText::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_LyricText::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_LyricText::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1181,7 +1181,7 @@ Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal &__to_delete__, co
 	return Value::Null;
 }
 
-Value MetaEvent_LyricText::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_LyricText::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1233,13 +1233,13 @@ Event *MetaEvent_MarkerText::Clone() const
 	return new MetaEvent_MarkerText(*this);
 }
 
-bool MetaEvent_MarkerText::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_MarkerText::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_MarkerText::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1250,7 +1250,7 @@ Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal &__to_delete__, c
 	return Value::Null;
 }
 
-Value MetaEvent_MarkerText::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_MarkerText::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1302,13 +1302,13 @@ Event *MetaEvent_CuePoint::Clone() const
 	return new MetaEvent_CuePoint(*this);
 }
 
-bool MetaEvent_CuePoint::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_CuePoint::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(text));
 	return true;
 }
 
-Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_CuePoint::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1319,7 +1319,7 @@ Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal &__to_delete__, con
 	return Value::Null;
 }
 
-Value MetaEvent_CuePoint::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_CuePoint::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1378,13 +1378,13 @@ Event *MetaEvent_MIDIChannelPrefixAssignment::Clone() const
 	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_MIDIChannelPrefixAssignment::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(channel));
 	return true;
 }
 
-Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1395,7 +1395,7 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal 
 	return Value::Null;
 }
 
-Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1447,18 +1447,18 @@ Event *MetaEvent_EndOfTrack::Clone() const
 	return new MetaEvent_EndOfTrack(*this);
 }
 
-bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -1506,7 +1506,7 @@ const Symbol *MetaEvent_TempoSetting::GetSymbol() const
 String MetaEvent_TempoSetting::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "mpqn:%d", _mpqn);
+	::sprintf(str, "mpqn:%lu", _mpqn);
 	return String(str);
 }
 
@@ -1515,13 +1515,13 @@ Event *MetaEvent_TempoSetting::Clone() const
 	return new MetaEvent_TempoSetting(*this);
 }
 
-bool MetaEvent_TempoSetting::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_TempoSetting::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(mpqn));
 	return true;
 }
 
-Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_TempoSetting::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1532,7 +1532,7 @@ Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal &__to_delete__,
 	return Value::Null;
 }
 
-Value MetaEvent_TempoSetting::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TempoSetting::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1600,7 +1600,7 @@ Event *MetaEvent_SMPTEOffset::Clone() const
 	return new MetaEvent_SMPTEOffset(*this);
 }
 
-bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(hour));
 	symbols.insert(Gura_UserSymbol(minute));
@@ -1610,7 +1610,7 @@ bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal &__to_delete__, S
 	return true;
 }
 
-Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1629,7 +1629,7 @@ Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal &__to_delete__, 
 	return Value::Null;
 }
 
-Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1711,7 +1711,7 @@ Event *MetaEvent_TimeSignature::Clone() const
 	return new MetaEvent_TimeSignature(*this);
 }
 
-bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_TimeSignature::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(numerator));
 	symbols.insert(Gura_UserSymbol(denominator));
@@ -1720,7 +1720,7 @@ bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal &__to_delete__,
 	return true;
 }
 
-Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_TimeSignature::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1737,7 +1737,7 @@ Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal &__to_delete__
 	return Value::Null;
 }
 
-Value MetaEvent_TimeSignature::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_TimeSignature::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1810,14 +1810,14 @@ Event *MetaEvent_KeySignature::Clone() const
 	return new MetaEvent_KeySignature(*this);
 }
 
-bool MetaEvent_KeySignature::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_KeySignature::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(key));
 	symbols.insert(Gura_UserSymbol(scale));
 	return true;
 }
 
-Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_KeySignature::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1830,7 +1830,7 @@ Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal &__to_delete__,
 	return Value::Null;
 }
 
-Value MetaEvent_KeySignature::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_KeySignature::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -1877,7 +1877,7 @@ const Symbol *MetaEvent_SequencerSpecificEvent::GetSymbol() const
 String MetaEvent_SequencerSpecificEvent::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "%dbytes", _binary.size());
+	::sprintf(str, "%lubytes", _binary.size());
 	return String(str);
 }
 
@@ -1886,13 +1886,13 @@ Event *MetaEvent_SequencerSpecificEvent::Clone() const
 	return new MetaEvent_SequencerSpecificEvent(*this);
 }
 
-bool MetaEvent_SequencerSpecificEvent::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool MetaEvent_SequencerSpecificEvent::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(binary));
 	return true;
 }
 
-Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1903,7 +1903,7 @@ Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal &__to
 	return Value::Null;
 }
 
-Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = env.GetSignal();

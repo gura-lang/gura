@@ -237,7 +237,7 @@ Object *Object_match::Clone() const
 	return new Object_match(*this);
 }
 
-Value Object_match::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_match::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	const Group *pGroup = GetGroup(sig, valueIdx);
@@ -245,10 +245,10 @@ Value Object_match::IndexGet(Environment &env, Signal &__to_delete__, const Valu
 	return Value(pGroup->GetString());
 }
 
-bool Object_match::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_match::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(begin));
@@ -256,7 +256,7 @@ bool Object_match::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet 
 	return true;
 }
 
-Value Object_match::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_match::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -452,17 +452,17 @@ Object *Object_group::Clone() const
 	return new Object_group(*this);
 }
 
-bool Object_group::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_group::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(begin));
 	symbols.insert(Gura_Symbol(end));
 	return true;
 }
 
-Value Object_group::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_group::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -29,10 +29,9 @@ Object *Object_expr::Clone() const
 	return new Object_expr(*this);
 }
 
-bool Object_expr::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_expr::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(attrs));
 	symbols.insert(Gura_Symbol(attrsopt));
 	symbols.insert(Gura_Symbol(block));
@@ -58,7 +57,7 @@ bool Object_expr::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &
 	return true;
 }
 
-Value Object_expr::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -547,7 +546,7 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	issuffixed);
 }
 
-bool Class_expr::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
@@ -556,7 +555,7 @@ bool Class_expr::CastFrom(Environment &env, Signal &__to_delete__, Value &value,
 		value = Value(new Object_expr(env, new Expr_Identifier(pSymbol)));
 		return true;
 	}
-	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		Stream &stream = value.GetStream();
 		Parser parser(stream.GetName());
@@ -569,7 +568,7 @@ bool Class_expr::CastFrom(Environment &env, Signal &__to_delete__, Value &value,
 	return false;
 }
 
-Object *Class_expr::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_expr::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

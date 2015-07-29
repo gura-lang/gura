@@ -20,19 +20,19 @@ String Object_Palette::ToString(bool exprFlag)
 	return String("<sdl2.Palette>");
 }
 
-bool Object_Palette::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Palette::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_Palette::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Palette::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_Palette::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_Palette::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

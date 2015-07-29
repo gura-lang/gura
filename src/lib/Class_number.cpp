@@ -41,7 +41,7 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
 
-Value Class_number::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
+Value Class_number::GetPropPrimitive(Environment &env, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -63,7 +63,7 @@ Value Class_number::GetPropPrimitive(Environment &env, Signal &__to_delete__, co
 	return Value::Null;
 }
 
-bool Class_number::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	bool allowPartFlag = false;
 	bool successFlag = false;
@@ -76,13 +76,13 @@ bool Class_number::CastFrom(Environment &env, Signal &__to_delete__, Value &valu
 	return false;
 }
 
-bool Class_number::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_number::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeDouble(sig, value.GetDouble());
 }
 
-bool Class_number::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_number::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	double num = 0;
@@ -91,7 +91,7 @@ bool Class_number::Deserialize(Environment &env, Signal &__to_delete__, Stream &
 	return true;
 }
 
-bool Class_number::Format_d(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -99,7 +99,7 @@ bool Class_number::Format_d(Signal &__to_delete__, Formatter *pFormatter, Format
 						static_cast<int>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_u(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_u(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -107,7 +107,7 @@ bool Class_number::Format_u(Signal &__to_delete__, Formatter *pFormatter, Format
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_b(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_b(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -115,7 +115,7 @@ bool Class_number::Format_b(Signal &__to_delete__, Formatter *pFormatter, Format
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_o(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_o(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -123,7 +123,7 @@ bool Class_number::Format_o(Signal &__to_delete__, Formatter *pFormatter, Format
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_x(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_x(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -131,7 +131,7 @@ bool Class_number::Format_x(Signal &__to_delete__, Formatter *pFormatter, Format
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_e(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -140,7 +140,7 @@ bool Class_number::Format_e(Signal &__to_delete__, Formatter *pFormatter, Format
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_f(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_f(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -149,7 +149,7 @@ bool Class_number::Format_f(Signal &__to_delete__, Formatter *pFormatter, Format
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_g(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -158,7 +158,7 @@ bool Class_number::Format_g(Signal &__to_delete__, Formatter *pFormatter, Format
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_c(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return pFormatter->PutChar(sig, static_cast<char>(value.GetNumber()));

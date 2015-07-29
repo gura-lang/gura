@@ -14,10 +14,10 @@ Object *Object_rectangle::Clone() const
 	return nullptr;
 }
 
-bool Object_rectangle::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_rectangle::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
 	symbols.insert(Gura_Symbol(width));
@@ -25,7 +25,7 @@ bool Object_rectangle::DoDirProp(Environment &env, Signal &__to_delete__, Symbol
 	return true;
 }
 
-Value Object_rectangle::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_rectangle::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -42,7 +42,7 @@ Value Object_rectangle::DoGetProp(Environment &env, Signal &__to_delete__, const
 	return Value::Null;
 }
 
-Value Object_rectangle::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_rectangle::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();

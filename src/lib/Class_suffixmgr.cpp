@@ -23,24 +23,22 @@ Object *Object_suffixmgr::Clone() const
 	return nullptr; //new Object_suffixmgr(*this);
 }
 
-bool Object_suffixmgr::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_suffixmgr::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	return true;
 }
 
-Value Object_suffixmgr::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_suffixmgr::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Object_suffixmgr::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_suffixmgr::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_suffixmgr::ToString(bool exprFlag)

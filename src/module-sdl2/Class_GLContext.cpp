@@ -20,19 +20,19 @@ String Object_GLContext::ToString(bool exprFlag)
 	return String("<sdl2.GLContext>");
 }
 
-bool Object_GLContext::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_GLContext::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;
 }
 
-Value Object_GLContext::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_GLContext::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_GLContext::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_GLContext::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

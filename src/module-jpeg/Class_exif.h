@@ -29,9 +29,9 @@ public:
 	virtual ~Object_exif();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual Value IndexGet(Environment &env, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }
 	inline Object_ifd *GetObj1stIFD() { return _pObj1stIFD.get(); }

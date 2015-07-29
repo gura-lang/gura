@@ -347,8 +347,8 @@ public:
 	inline Object_diff_at_line(DiffLine *pDiffLine) :
 		Object(Gura_UserClass(diff_at_line)), _pDiffLine(pDiffLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffLine *GetDiffLine() { return _pDiffLine.get(); }
@@ -370,8 +370,8 @@ public:
 	inline Object_hunk_at_line(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
 		Object(Gura_UserClass(hunk_at_line)), _pDiffLine(pDiffLine), _hunk(hunk) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	const DiffChar *GetDiffChar();
@@ -394,8 +394,8 @@ public:
 	inline Object_edit_at_line(DiffLine *pDiffLine, size_t idxEdit) :
 		Object(Gura_UserClass(edit_at_line)), _pDiffLine(pDiffLine), _idxEdit(idxEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffLine *GetDiffLine() { return _pDiffLine.get(); }
@@ -416,8 +416,8 @@ public:
 	inline Object_diff_at_char(DiffChar *pDiffChar) :
 		Object(Gura_UserClass(diff_at_char)), _pDiffChar(pDiffChar) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline DiffChar *GetDiffChar() { return _pDiffChar.get(); }
@@ -437,8 +437,8 @@ public:
 	inline Object_edit_at_char(DiffChar::Edit *pEdit) :
 		Object(Gura_UserClass(edit_at_char)), _pEdit(pEdit) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	DiffChar::Edit *GetEdit() { return _pEdit.get(); }
@@ -457,8 +457,8 @@ public:
 public:
 	inline Object_sync(Sync *pSync) : Object(Gura_UserClass(sync)), _pSync(pSync) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	Sync *GetSync() { return _pSync.get(); }
@@ -478,8 +478,8 @@ public:
 	inline Object_syncline(SyncLine *pSyncLine) :
 			Object(Gura_UserClass(syncline)), _pSyncLine(pSyncLine) {}
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	SyncLine *GetSyncLine() { return _pSyncLine.get(); }

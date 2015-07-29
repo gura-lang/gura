@@ -27,7 +27,7 @@ Iterator *Object_palette::CreateIterator(Signal &sig)
 	return new Palette::IteratorEach(Palette::Reference(GetPalette()));
 }
 
-Value Object_palette::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_palette::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
@@ -42,7 +42,7 @@ Value Object_palette::IndexGet(Environment &env, Signal &__to_delete__, const Va
 	return _pPalette->GetColorValue(env, idx);
 }
 
-void Object_palette::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Object_palette::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
@@ -58,7 +58,7 @@ void Object_palette::IndexSet(Environment &env, Signal &__to_delete__, const Val
 		_pPalette->SetColor(idx, Object_color::GetObject(value)->GetColor());
 	} else {
 		Value valueCasted = value;
-		if (!env.LookupClass(VTYPE_color)->CastFrom(env, sig, valueCasted, nullptr)) {
+		if (!env.LookupClass(VTYPE_color)->CastFrom(env, valueCasted, nullptr)) {
 			sig.SetError(ERR_ValueError, "color must be specified");
 			return;
 		}
@@ -255,7 +255,7 @@ void Class_palette::Prepare(Environment &env)
 	Gura_AssignMethod(palette, updateby);
 }
 
-bool Class_palette::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_palette::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
@@ -267,7 +267,7 @@ bool Class_palette::CastFrom(Environment &env, Signal &__to_delete__, Value &val
 	return false;
 }
 
-Object *Class_palette::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_palette::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

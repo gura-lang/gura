@@ -8,10 +8,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-bool Object_stream::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_stream::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(stat));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(identifier));
@@ -21,7 +20,7 @@ bool Object_stream::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet
 	return true;
 }
 
-Value Object_stream::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_stream::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -413,7 +412,7 @@ Gura_ImplementMethod(stream, deserialize)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Null;
 	Value value;
-	if (!Value::Deserialize(env, sig, stream, value, false)) return Value::Null;
+	if (!Value::Deserialize(env, stream, value, false)) return Value::Null;
 	return value;
 }
 
@@ -742,7 +741,7 @@ Gura_ImplementMethod(stream, serialize)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	const Value &value = args.GetValue(0);
-	Value::Serialize(env, sig, stream, value);
+	Value::Serialize(env, stream, value);
 	return Value::Null;
 }
 
@@ -869,7 +868,7 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, write);
 }
 
-bool Class_stream::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_string()) {
@@ -894,7 +893,7 @@ bool Class_stream::CastFrom(Environment &env, Signal &__to_delete__, Value &valu
 	return false;
 }
 
-Object *Class_stream::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_stream::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

@@ -35,10 +35,10 @@ void Object_tag::Print(int indentLevel) const
 	}
 }
 
-bool Object_tag::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_tag::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(symbol));
@@ -48,7 +48,7 @@ bool Object_tag::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &s
 	return true;
 }
 
-Value Object_tag::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_tag::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

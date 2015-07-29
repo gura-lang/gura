@@ -50,7 +50,7 @@ bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWi
 	valList.reserve(2);
 	valList.push_back(Value(static_cast<int>(encoding)));
 	valList.push_back(Value(fixedWidthOnly));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -63,7 +63,7 @@ bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(font.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -76,7 +76,7 @@ bool wx_FontEnumerator::OnFacename(const wxString& font)
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(font.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -90,7 +90,7 @@ bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& enc
 	valList.reserve(2);
 	valList.push_back(Value(font.ToUTF8()));
 	valList.push_back(Value(encoding.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }

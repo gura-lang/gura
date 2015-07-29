@@ -16,10 +16,10 @@ Object *Object_font::Clone() const
 	return nullptr; //new Object_font(*this);
 }
 
-bool Object_font::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_font::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(face));
 	symbols.insert(Gura_UserSymbol(color));
 	symbols.insert(Gura_UserSymbol(mode));
@@ -31,7 +31,7 @@ bool Object_font::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &
 	return true;
 }
 
-Value Object_font::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_font::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -60,7 +60,7 @@ Value Object_font::DoGetProp(Environment &env, Signal &__to_delete__, const Symb
 	return Value::Null;
 }
 
-Value Object_font::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_font::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();

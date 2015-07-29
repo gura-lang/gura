@@ -16,15 +16,15 @@ Object_mpf::Object_mpf(const mpf_class &num) : Object(Gura_UserClass(mpf)), _num
 {
 }
 
-bool Object_mpf::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_mpf::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(prec));
 	return true;
 }
 
-Value Object_mpf::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_mpf::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -35,7 +35,7 @@ Value Object_mpf::DoGetProp(Environment &env, Signal &__to_delete__, const Symbo
 	return Value::Null;
 }
 
-Value Object_mpf::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_mpf::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -252,7 +252,7 @@ Gura_ImplementCastTo(mpf)
 	return false;
 }
 
-bool Gura_ClassName(mpf)::Format_d(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_d(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -260,7 +260,7 @@ bool Gura_ClassName(mpf)::Format_d(Signal &__to_delete__, Formatter *pFormatter,
 	return _Format_d(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_u(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_u(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -268,16 +268,16 @@ bool Gura_ClassName(mpf)::Format_u(Signal &__to_delete__, Formatter *pFormatter,
 	return _Format_u(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_b(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_b(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	//mpz_class num(Object_mpf::GetEntity(value));
 	//return _Format_b(sig, pFormatter, flags, num);
-	return Class::Format_b(sig, pFormatter, flags, value);
+	return Class::Format_b(pFormatter, flags, value);
 }
 
-bool Gura_ClassName(mpf)::Format_o(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_o(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -285,7 +285,7 @@ bool Gura_ClassName(mpf)::Format_o(Signal &__to_delete__, Formatter *pFormatter,
 	return _Format_o(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_x(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_x(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -293,21 +293,21 @@ bool Gura_ClassName(mpf)::Format_x(Signal &__to_delete__, Formatter *pFormatter,
 	return _Format_x(sig, pFormatter, flags, num);
 }
 
-bool Gura_ClassName(mpf)::Format_e(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_e(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return _Format_e(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
-bool Gura_ClassName(mpf)::Format_f(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_f(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return _Format_f(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
-bool Gura_ClassName(mpf)::Format_g(Signal &__to_delete__, Formatter *pFormatter,
+bool Gura_ClassName(mpf)::Format_g(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();

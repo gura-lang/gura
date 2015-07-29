@@ -53,7 +53,7 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
-Value Object::EmptyIndexGet(Environment &env, Signal &__to_delete__)
+Value Object::EmptyIndexGet(Environment &env)
 {
 	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
@@ -67,7 +67,7 @@ Value Object::EmptyIndexGet(Environment &env, Signal &__to_delete__)
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-void Object::EmptyIndexSet(Environment &env, Signal &__to_delete__, const Value &value)
+void Object::EmptyIndexSet(Environment &env, const Value &value)
 {
 	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitemx__), ENVREF_Escalate);
@@ -82,7 +82,7 @@ void Object::EmptyIndexSet(Environment &env, Signal &__to_delete__, const Value 
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
-Value Object::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
@@ -97,7 +97,7 @@ Value Object::IndexGet(Environment &env, Signal &__to_delete__, const Value &val
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-void Object::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setitem__), ENVREF_Escalate);
@@ -112,9 +112,8 @@ void Object::IndexSet(Environment &env, Signal &__to_delete__, const Value &valu
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
-bool Object::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object::DirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
 	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 		const Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_object)) {
@@ -123,10 +122,10 @@ bool Object::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols
 			}
 		}
 	}
-	return DoDirProp(env, sig, symbols);
+	return DoDirProp(env, symbols);
 }
 
-Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Function *pFunc, const ValueList &valListArg)
+Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueList &valListArg)
 {
 	Signal &sig = GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
@@ -136,7 +135,7 @@ Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Function
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
-Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -151,7 +150,7 @@ Value Object::EvalMethod(Environment &env, Signal &__to_delete__, const Symbol *
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
-Value Object::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -165,7 +164,7 @@ Value Object::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *p
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
-Value Object::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -184,7 +183,7 @@ String Object::ToString(bool exprFlag)
 {
 	Signal sig;
 	bool evaluatedFlag = false;
-	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
+	Value value = EvalMethod(*this, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
 	if (sig.IsSignalled()) return String("");
 	if (evaluatedFlag) return value.ToString(false);
@@ -468,14 +467,13 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 {
 }
 
-Object *Class::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class::CreateDescendant(Environment &env, Class *pClass)
 {
 	return new Object((pClass == nullptr)? this : pClass);
 }
 
-bool Class::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols, bool escalateFlag)
+bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 {
-	Signal &sig = GetSignal();
 	if (escalateFlag) {
 		foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 			const Frame *pFrame = *ppFrame;
@@ -490,24 +488,24 @@ bool Class::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols,
 			symbols.insert(iter->first);
 		}
 	}
-	return DoDirProp(env, sig, symbols);
+	return DoDirProp(env, symbols);
 }
 
-Value Class::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
+Value Class::GetPropPrimitive(Environment &env, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	return Value::Null;
 }
 
 
-Value Class::EmptyIndexGetPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis) const
+Value Class::EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 	return Value::Null;
 }
 
-Value Class::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
+Value Class::IndexGetPrimitive(Environment &env,
 									const Value &valueThis, const Value &valueIdx) const
 {
 	Signal &sig = GetSignal();
@@ -515,12 +513,12 @@ Value Class::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
 	return Value::Null;
 }
 
-bool Class::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	return false;
 }
 
-bool Class::CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl)
+bool Class::CastTo(Environment &env, Value &value, const Declaration &decl)
 {
 	return false;
 }
@@ -555,21 +553,21 @@ void Class::Prepare(Environment &env)
 	Gura_AssignMethod(Object, setprop_X);
 }
 
-bool Class::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_IOError, "can't serialize class or module");
 	return false;
 }
 
-bool Class::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
 }
 
-bool Class::Format_d(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_d(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -579,7 +577,7 @@ bool Class::Format_d(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_u(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_u(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -589,7 +587,7 @@ bool Class::Format_u(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_b(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_b(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -599,7 +597,7 @@ bool Class::Format_b(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_o(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_o(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -609,7 +607,7 @@ bool Class::Format_o(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_x(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_x(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -619,7 +617,7 @@ bool Class::Format_x(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_e(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_e(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -629,7 +627,7 @@ bool Class::Format_e(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_f(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_f(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -639,7 +637,7 @@ bool Class::Format_f(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_g(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_g(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -649,7 +647,7 @@ bool Class::Format_g(Signal &__to_delete__, Formatter *pFormatter,
 	return false;
 }
 
-bool Class::Format_s(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_s(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
@@ -657,7 +655,7 @@ bool Class::Format_s(Signal &__to_delete__, Formatter *pFormatter,
 							value.ToString(false).c_str(), flags.precision);
 }
 
-bool Class::Format_c(Signal &__to_delete__, Formatter *pFormatter,
+bool Class::Format_c(Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();

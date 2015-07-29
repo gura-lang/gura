@@ -42,7 +42,7 @@ void Class_symbol::Prepare(Environment &env)
 	Gura_AssignMethod(symbol, eval);	// primitive method
 }
 
-bool Class_symbol::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_symbol::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_string()) {
 		value = Value(Symbol::Add(value.GetString()));
@@ -51,13 +51,13 @@ bool Class_symbol::CastFrom(Environment &env, Signal &__to_delete__, Value &valu
 	return false;
 }
 
-bool Class_symbol::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_symbol::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeSymbol(sig, value.GetSymbol());
 }
 
-bool Class_symbol::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_symbol::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	const Symbol *pSymbol = nullptr;

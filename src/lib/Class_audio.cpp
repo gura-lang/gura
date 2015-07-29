@@ -23,10 +23,9 @@ Object *Object_audio::Clone() const
 	return nullptr; //new Object_audio(*this);
 }
 
-bool Object_audio::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_audio::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(channels));
 	symbols.insert(Gura_Symbol(samples));
@@ -35,7 +34,7 @@ bool Object_audio::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet 
 	return true;
 }
 
-Value Object_audio::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_audio::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -54,11 +53,10 @@ Value Object_audio::DoGetProp(Environment &env, Signal &__to_delete__, const Sym
 	return Value::Null;
 }
 
-Value Object_audio::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_audio::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_audio::ToString(bool exprFlag)
@@ -312,12 +310,12 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, store);
 }
 
-bool Class_audio::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_audio::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	size_t nChannels = 1;
 	size_t nSamplesPerSec = 10000;
-	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		pAudio->Read(env, sig, value.GetStream(), nullptr);

@@ -24,27 +24,27 @@ Object *Object_exif::Clone() const
 	return nullptr;
 }
 
-Value Object_exif::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_exif::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	if (_pObj0thIFD.IsNull()) return Value::Null;
-	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
+	return _pObj0thIFD->IndexGet(env, valueIdx);
 }
 
-bool Object_exif::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_exif::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	if (_pObj0thIFD.IsNull()) return true;
 	symbols.insert(Gura_UserSymbol(endian));
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
 	symbols.insert(Gura_UserSymbol(thumbnail));
 	symbols.insert(Gura_UserSymbol(thumbnail_at_jpeg));
-	return _pObj0thIFD->DoDirProp(env, sig, symbols);
+	return _pObj0thIFD->DoDirProp(env, symbols);
 }
 
-Value Object_exif::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -93,7 +93,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal &__to_delete__, const Symb
 		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Null;
 		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
-	return _pObj0thIFD->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return _pObj0thIFD->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_exif::ToString(bool exprFlag)

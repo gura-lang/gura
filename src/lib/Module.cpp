@@ -54,13 +54,12 @@ Expr *Module::MakeExpr() const
 	return new Expr_Identifier(_pSymbol);
 }
 
-bool Module::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Module::DirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
 	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
 		symbols.insert(iter->first);
 	}
-	return DoDirProp(env, sig, symbols);
+	return DoDirProp(env, symbols);
 }
 
 void Module::DirValueType(SymbolSet &symbols) const

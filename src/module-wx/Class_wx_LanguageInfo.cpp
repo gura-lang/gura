@@ -94,10 +94,10 @@ Object *Object_wx_LanguageInfo::Clone() const
 	return nullptr;
 }
 
-bool Object_wx_LanguageInfo::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_wx_LanguageInfo::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(Language));
 	symbols.insert(Gura_UserSymbol(CanonicalName));
 	symbols.insert(Gura_UserSymbol(Description));
@@ -108,7 +108,7 @@ bool Object_wx_LanguageInfo::DoDirProp(Environment &env, Signal &__to_delete__, 
 	return true;
 }
 
-Value Object_wx_LanguageInfo::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_wx_LanguageInfo::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -129,7 +129,7 @@ Value Object_wx_LanguageInfo::DoGetProp(Environment &env, Signal &__to_delete__,
 	return Value::Null;
 }
 
-Value Object_wx_LanguageInfo::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();

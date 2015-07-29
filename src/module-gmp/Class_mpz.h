@@ -11,14 +11,14 @@ Gura_BeginModuleScope(gmp)
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClassBegin(mpz)
 public:
-	virtual bool Format_d(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_u(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_b(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_o(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_x(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_e(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_f(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	virtual bool Format_g(Signal &sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 Gura_DeclareUserClassEnd(mpz)
 
 class Object_mpz : public Object {
@@ -29,8 +29,8 @@ public:
 public:
 	Object_mpz(mpz_t num);
 	Object_mpz(const mpz_class &num);
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const mpz_class &GetEntity() const { return _num; }

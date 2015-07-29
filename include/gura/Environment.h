@@ -309,9 +309,9 @@ public:
 	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
 	ValueTypeInfo *LookupValueType(Signal &sig, const ValueList &valList);
 	ValueTypeInfo *LookupValueType(Signal &sig, const Expr *pExpr);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal &sig, const Symbol *pSymbol,

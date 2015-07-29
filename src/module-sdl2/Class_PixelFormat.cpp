@@ -20,10 +20,10 @@ String Object_PixelFormat::ToString(bool exprFlag)
 	return String("<sdl2.PixelFormat>");
 }
 
-bool Object_PixelFormat::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_PixelFormat::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(palette));
 	symbols.insert(Gura_UserSymbol(BitsPerPixel));
 	symbols.insert(Gura_UserSymbol(BytesPerPixel));
@@ -34,7 +34,7 @@ bool Object_PixelFormat::DoDirProp(Environment &env, Signal &__to_delete__, Symb
 	return true;
 }
 
-Value Object_PixelFormat::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_PixelFormat::DoGetProp(Environment &env, const Symbol *pSymbol,
 									const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

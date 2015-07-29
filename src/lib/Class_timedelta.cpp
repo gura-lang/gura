@@ -22,17 +22,16 @@ Object *Object_timedelta::Clone() const
 	return new Object_timedelta(*this);
 }
 
-bool Object_timedelta::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_timedelta::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(days));
 	symbols.insert(Gura_Symbol(secs));
 	symbols.insert(Gura_Symbol(usecs));
 	return true;
 }
 
-Value Object_timedelta::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_timedelta::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -47,10 +46,9 @@ Value Object_timedelta::DoGetProp(Environment &env, Signal &__to_delete__, const
 	return Value::Null;
 }
 
-Value Object_timedelta::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_timedelta::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(days))) {
 		_timeDelta = TimeDelta(value.GetLong(), _timeDelta.GetSecs(), _timeDelta.GetUSecs());
@@ -63,7 +61,7 @@ Value Object_timedelta::DoSetProp(Environment &env, Signal &__to_delete__, const
 		return Value(static_cast<Number>(_timeDelta.GetUSecs()));
 	}
 	evaluatedFlag = false;
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_timedelta::ToString(bool exprFlag)
@@ -113,7 +111,7 @@ void Class_timedelta::Prepare(Environment &env)
 	Gura_AssignFunction(timedelta);
 }
 
-Object *Class_timedelta::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_timedelta::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

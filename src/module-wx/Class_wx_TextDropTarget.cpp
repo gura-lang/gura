@@ -46,7 +46,7 @@ bool wx_TextDropTarget::OnDrop(wxCoord x, wxCoord y)
 	ValueList valList;
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -60,7 +60,7 @@ bool wx_TextDropTarget::OnDropText(wxCoord x, wxCoord y, const wxString& data)
 	valList.push_back(Value(x));
 	valList.push_back(Value(y));
 	valList.push_back(Value(data.ToUTF8()));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }

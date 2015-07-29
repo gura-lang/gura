@@ -75,7 +75,7 @@ bool wx_App::OnInit()
 	if (pFunc == nullptr) return wxApp::OnInit();
 	Environment &env = *_pObj;
 	ValueList valList;
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -84,7 +84,7 @@ int wx_App::OnExit()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnExit);
 	if (pFunc == nullptr) return wxApp::OnExit();
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -96,7 +96,7 @@ void wx_App::OnUnhandledException()
 		wxApp::OnUnhandledException();
 		return;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	CheckMethodResult(_pObj->GetSignal());
 }
 

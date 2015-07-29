@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_error : public Class {
 public:
 	Class_error(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
+	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_error : public Object {
@@ -31,8 +31,8 @@ public:
 	Object_error(const Object_error &obj);
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline const Gura::Error &GetError() const { return _err; }
 };

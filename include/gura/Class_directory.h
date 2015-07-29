@@ -16,8 +16,8 @@ class GURA_DLLDECLARE Class_directory : public Class {
 public:
 	Class_directory(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
@@ -34,8 +34,8 @@ public:
 	inline Object_directory(Class *pClass, Directory *pDirectory) :
 						Object(pClass), _pDirectory(pDirectory) {}
 	inline Directory *GetDirectory() { return _pDirectory.get(); }
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 };

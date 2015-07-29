@@ -17,10 +17,9 @@ Object *Object_uri::Clone() const
 	return new Object_uri(*this);
 }
 
-bool Object_uri::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_uri::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(scheme));
 	symbols.insert(Gura_Symbol(user));
 	symbols.insert(Gura_Symbol(password));
@@ -31,7 +30,7 @@ bool Object_uri::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &s
 	return true;
 }
 
-Value Object_uri::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_uri::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -54,7 +53,7 @@ Value Object_uri::DoGetProp(Environment &env, Signal &__to_delete__, const Symbo
 	return Value::Null;
 }
 
-Value Object_uri::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_uri::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -88,7 +87,7 @@ Value Object_uri::DoSetProp(Environment &env, Signal &__to_delete__, const Symbo
 		_uri.SetMisc(value.GetString());
 		return value;
 	}
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_uri::ToString(bool exprFlag)
@@ -211,7 +210,7 @@ void Class_uri::Prepare(Environment &env)
 	Gura_AssignMethod(uri, parsequery);
 }
 
-bool Class_uri::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_uri::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_string()) {
@@ -223,7 +222,7 @@ bool Class_uri::CastFrom(Environment &env, Signal &__to_delete__, Value &value, 
 	return false;
 }
 
-Object *Class_uri::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_uri::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

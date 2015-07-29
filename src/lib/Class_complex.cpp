@@ -122,7 +122,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(j);
 }
 
-Value Class_complex::GetPropPrimitive(Environment &env, Signal &__to_delete__, const Value &valueThis,
+Value Class_complex::GetPropPrimitive(Environment &env, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
@@ -148,7 +148,7 @@ Value Class_complex::GetPropPrimitive(Environment &env, Signal &__to_delete__, c
 	return Value::Null;
 }
 
-bool Class_complex::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_number()) {		// cast number to complex
 		return true;
@@ -164,7 +164,7 @@ bool Class_complex::CastFrom(Environment &env, Signal &__to_delete__, Value &val
 	return false;
 }
 
-bool Class_complex::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_complex::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	const Complex *pComp = value.GetComplexPtr();
@@ -173,7 +173,7 @@ bool Class_complex::Serialize(Environment &env, Signal &__to_delete__, Stream &s
 	return true;
 }
 
-bool Class_complex::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	double re = 0, im = 0;
@@ -183,7 +183,7 @@ bool Class_complex::Deserialize(Environment &env, Signal &__to_delete__, Stream 
 	return true;
 }
 
-bool Class_complex::Format_e(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -198,7 +198,7 @@ bool Class_complex::Format_e(Signal &__to_delete__, Formatter *pFormatter, Forma
 	return true;
 }
 
-bool Class_complex::Format_f(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_f(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];
@@ -213,7 +213,7 @@ bool Class_complex::Format_f(Signal &__to_delete__, Formatter *pFormatter, Forma
 	return true;
 }
 
-bool Class_complex::Format_g(Signal &__to_delete__, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	char buff[128];

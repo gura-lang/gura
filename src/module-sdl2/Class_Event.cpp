@@ -183,10 +183,10 @@ String Object_Event::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_Event::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Event::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	if (_event.type == SDL_QUIT) {
 		symbols.insert(Gura_UserSymbol(timestamp));
@@ -348,7 +348,7 @@ bool Object_Event::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet 
 	return true;
 }
 
-Value Object_Event::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Event::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

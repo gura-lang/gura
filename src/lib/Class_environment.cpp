@@ -22,14 +22,13 @@ Object *Object_environment::Clone() const
 	return new Object_environment(*this);
 }
 
-bool Object_environment::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_environment::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	return true;
 }
 
-Value Object_environment::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_environment::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Value *pValue = GetEnv().LookupValue(pSymbol, ENVREF_Escalate);
@@ -38,7 +37,7 @@ Value Object_environment::DoGetProp(Environment &env, Signal &__to_delete__, con
 	return *pValue;
 }
 
-Value Object_environment::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_environment::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GetEnv().AssignValue(pSymbol, value, EXTRA_Public);
@@ -140,7 +139,7 @@ void Class_environment::Prepare(Environment &env)
 	Gura_AssignMethod(environment, setprop_X);
 }
 
-Object *Class_environment::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_environment::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

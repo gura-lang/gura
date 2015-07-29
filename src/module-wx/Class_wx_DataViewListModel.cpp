@@ -70,7 +70,7 @@ wxString wx_DataViewListModel::GetColType(unsigned int col)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(col));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
@@ -84,7 +84,7 @@ unsigned int wx_DataViewListModel::GetNumberOfCols()
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetUInt();
 }
@@ -98,7 +98,7 @@ unsigned int wx_DataViewListModel::GetNumberOfRows()
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return 0;
 	}
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_number)) return 0;
 	return rtn.GetUInt();
 }
@@ -116,7 +116,7 @@ void wx_DataViewListModel::GetValue(wxVariant& variant, unsigned int col, unsign
 	valListArg.reserve(2);
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_Variant)) return;
 	variant = *Object_wx_Variant::GetObject(rtn)->GetEntity();
 }
@@ -125,7 +125,7 @@ bool wx_DataViewListModel::RowAppended()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowAppended);
 	if (pFunc == nullptr) return wxDataViewListModel::RowAppended();
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -137,7 +137,7 @@ bool wx_DataViewListModel::RowChanged(unsigned int row)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -149,7 +149,7 @@ bool wx_DataViewListModel::RowDeleted(unsigned int row)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -161,7 +161,7 @@ bool wx_DataViewListModel::RowInserted(unsigned int before)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(before));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -170,7 +170,7 @@ bool wx_DataViewListModel::RowPrepended()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, RowPrepended);
 	if (pFunc == nullptr) return wxDataViewListModel::RowPrepended();
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -191,7 +191,7 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(v);
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -210,7 +210,7 @@ bool wx_DataViewListModel::SetValue(wxVariant& variant, unsigned int col, unsign
 	valListArg.push_back(Value(new Object_wx_Variant(new wxVariant(variant), nullptr, OwnerTrue)));
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -223,7 +223,7 @@ bool wx_DataViewListModel::ValueChanged(unsigned int col, unsigned int row)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(col));
 	valListArg.push_back(Value(row));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valListArg);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valListArg);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }

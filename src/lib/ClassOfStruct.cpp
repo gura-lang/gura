@@ -25,7 +25,7 @@ String ObjectOfStruct::ToString(bool exprFlag)
 {
 	Signal sig;
 	bool evaluatedFlag = false;
-	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
+	Value value = EvalMethod(*this, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
 	if (sig.IsSignalled()) return "";
 	if (evaluatedFlag) return value.ToString(false);
@@ -100,7 +100,7 @@ void ClassOfStruct::Prepare(Environment &env)
 	Gura_AssignMethod(Struct, tolist);
 }
 
-bool ClassOfStruct::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_list()) {
@@ -116,7 +116,7 @@ bool ClassOfStruct::CastFrom(Environment &env, Signal &__to_delete__, Value &val
 	return false;
 }
 
-Object *ClassOfStruct::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *ClassOfStruct::CreateDescendant(Environment &env, Class *pClass)
 {
 	return new ObjectOfStruct((pClass == nullptr)? this : pClass);
 }
@@ -138,7 +138,7 @@ Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal &sig, Args &ar
 	if (valueRtn.IsObject()) {
 		pObjThis = valueRtn.GetObject();
 	} else {
-		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
+		pObjThis = _pClassToConstruct->CreateDescendant(env, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);
 	}
 	ValueList::const_iterator pValue = args.GetValueListArg().begin();

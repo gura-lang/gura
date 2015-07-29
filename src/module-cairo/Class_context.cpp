@@ -15,17 +15,17 @@ Object *Object_context::Clone() const
 	return nullptr;
 }
 
-bool Object_context::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_context::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(surface));
 	symbols.insert(Gura_UserSymbol(width));
 	symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
-Value Object_context::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_context::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -19,17 +19,17 @@ String Object_Keysym::ToString(bool exprFlag)
 	return String("<sdl2.Keysym>");
 }
 
-bool Object_Keysym::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Keysym::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(scancode));
 	symbols.insert(Gura_UserSymbol(sym));
 	symbols.insert(Gura_UserSymbol(mod));
 	return true;
 }
 
-Value Object_Keysym::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Keysym::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -44,7 +44,7 @@ Value Object_Keysym::DoGetProp(Environment &env, Signal &__to_delete__, const Sy
 	return Value::Null;
 }
 
-Value Object_Keysym::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_Keysym::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

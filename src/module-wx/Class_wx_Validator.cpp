@@ -45,7 +45,7 @@ void wx_Validator::GuraObjectDeleted()
 bool wx_Validator::TransferFromWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
+	Value rtn = _pObj->EvalMethod(*_pObj,
 		Gura_UserSymbol(TransferFromWindow), ValueList::Null, evaluatedFlag);
 	if (_pObj->GetSignal().IsSignalled()) {
 		SetLogError(_pObj->GetSignal());
@@ -57,7 +57,7 @@ bool wx_Validator::TransferFromWindow()
 bool wx_Validator::TransferToWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(),
+	Value rtn = _pObj->EvalMethod(*_pObj,
 		Gura_UserSymbol(TransferToWindow), ValueList::Null, evaluatedFlag);
 	if (_pObj->GetSignal().IsSignalled()) {
 		SetLogError(_pObj->GetSignal());

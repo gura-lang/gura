@@ -36,7 +36,7 @@ public:
 		str += ">";
 		return str;
 	}
-	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx) {
+	virtual Value IndexGet(Environment &env, const Value &valueIdx) {
 		Signal &sig = GetSignal();
 		if (!valueIdx.Is_number()) {
 			sig.SetError(ERR_ValueError, "index must be a number");
@@ -49,7 +49,7 @@ public:
 		}
 		return Value(_pArray->GetPointer()[idx]);
 	}
-	virtual void IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value) {
+	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value) {
 		Signal &sig = GetSignal();
 		if (!valueIdx.Is_number()) {
 			sig.SetError(ERR_ValueError, "index must be a number");
@@ -156,7 +156,7 @@ public:
 				"where `elem` is the element value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
 			return ReturnIterator(env, args, pIterator.release());
@@ -202,7 +202,7 @@ public:
 				"Fills array with a specified value.\n"
 			);
 		}
-		virtual Value DoEval(Environment &env, Signal &__to_delete__, Args &args) const {
+		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const {
 			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			pArray->Fill(static_cast<T_Elem>(args.GetNumber(0)));
 			return Value::Null;
@@ -366,7 +366,7 @@ public:
 		AssignFunction(new Func_paste(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
 	}
-	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl) {
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
 		Signal &sig = GetSignal();
 		if (value.Is_list()) {
 			AutoPtr<Array<T_Elem> > pArray(CreateArrayFromList<T_Elem>(sig, value.GetList()));
@@ -376,7 +376,7 @@ public:
 		}
 		return false;
 	}
-	virtual bool CastTo(Environment &env, Signal &__to_delete__, Value &value, const Declaration &decl) {
+	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl) {
 		if (decl.IsType(VTYPE_list)) {
 			AutoPtr<Array<T_Elem> > pArray(
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());

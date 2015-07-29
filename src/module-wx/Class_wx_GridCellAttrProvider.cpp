@@ -44,7 +44,7 @@ wxGridCellAttr *wx_GridCellAttrProvider::GetAttr(int row, int col, wxGridCellAtt
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(kind));
-	Value rtn = _pObj->EvalMethod(*_pObj, _pObj->GetSignal(), pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_GridCellAttr, true)) return nullptr;
 	return rtn.IsValid()? Object_wx_GridCellAttr::GetObject(rtn)->GetEntity() : nullptr;
 }

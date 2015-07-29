@@ -113,7 +113,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal &sig,
 									Value &value, bool listElemFlag) const
 {
 	if (!listElemFlag && GetListFlag()) {
-		env.LookupClass(VTYPE_list)->CastFrom(env, sig, value, this);
+		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
 		if (sig.IsSignalled()) return false;
 		if (value.Is_list()) {
 			foreach (ValueList, pValue, value.GetList()) {
@@ -158,12 +158,12 @@ bool Declaration::ValidateAndCast(Environment &env, Signal &sig,
 				sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
 				return false;
 			}
-			if (pClass->CastFrom(env, sig, value, this)) goto done;
+			if (pClass->CastFrom(env, value, this)) goto done;
 			if (sig.IsSignalled()) return false;
 		}
 		pClass = env.LookupClass(value.GetValueType());
 		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
-			if (pClass->CastTo(env, sig, value, *this)) goto done;
+			if (pClass->CastTo(env, value, *this)) goto done;
 			if (sig.IsSignalled()) return false;
 		}
 	}

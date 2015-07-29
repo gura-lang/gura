@@ -657,7 +657,7 @@ Gura_ImplementCastFrom(pattern)
 {
 	Signal &sig = GetSignal();
 	Value valueCast(value);
-	env.LookupClass(VTYPE_surface)->CastFrom(env, sig, valueCast, pDecl);
+	env.LookupClass(VTYPE_surface)->CastFrom(env, valueCast, pDecl);
 	if (valueCast.GetValueType() == VTYPE_surface) {
 		cairo_surface_t *surface = Object_surface::GetObject(valueCast)->GetEntity();
 		cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);

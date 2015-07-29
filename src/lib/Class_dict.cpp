@@ -13,7 +13,7 @@ Object *Object_dict::Clone() const
 	return new Object_dict(*this);
 }
 
-Value Object_dict::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx)
+Value Object_dict::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	const Value *pValue = GetDict().Find(sig, valueIdx);
@@ -26,7 +26,7 @@ Value Object_dict::IndexGet(Environment &env, Signal &__to_delete__, const Value
 	return *pValue;
 }
 
-void Object_dict::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Object_dict::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
 	if (!valueIdx.IsValidKey()) {
@@ -190,7 +190,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Signal &sig, Value &valu
 		return false;
 	} else {
 		value = _valDefault;
-		if (_setDefaultFlag) _pObj->IndexSet(env, sig, valueIdx, value);
+		if (_setDefaultFlag) _pObj->IndexSet(env, valueIdx, value);
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
@@ -589,24 +589,24 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, values);
 }
 
-bool Class_dict::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_dict::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	bool ignoreCaseFlag = Object_dict::GetObject(value)->GetIgnoreCaseFlag();
 	if (!stream.SerializeBoolean(sig, ignoreCaseFlag)) return false;
-	return value.GetDict().Serialize(env, sig, stream);
+	return value.GetDict().Serialize(env, stream);
 }
 
-bool Class_dict::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_dict::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	bool ignoreCaseFlag = false;
 	if (!stream.DeserializeBoolean(sig, ignoreCaseFlag)) return false;
 	ValueDict &valDict = value.InitAsDict(env, ignoreCaseFlag);
-	return valDict.Deserialize(env, sig, stream);
+	return valDict.Deserialize(env, stream);
 }
 
-Object *Class_dict::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_dict::CreateDescendant(Environment &env, Class *pClass)
 {
 	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict());
 }

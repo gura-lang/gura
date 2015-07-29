@@ -14,12 +14,11 @@ Object_function::~Object_function()
 {
 }
 
-bool Object_function::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_function::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
 	Class *pClass = GetFunction()->GetClassToConstruct();
-	if (pClass != nullptr) return pClass->DoDirProp(env, sig, symbols);
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (pClass != nullptr) return pClass->DoDirProp(env, symbols);
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(decls));
 	symbols.insert(Gura_Symbol(expr));
 	symbols.insert(Gura_Symbol(format));
@@ -29,7 +28,7 @@ bool Object_function::DoDirProp(Environment &env, Signal &__to_delete__, SymbolS
 	return true;
 }
 
-Value Object_function::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_function::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -54,7 +53,7 @@ Value Object_function::DoGetProp(Environment &env, Signal &__to_delete__, const 
 	return Value::Null;
 }
 
-Value Object_function::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_function::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -83,7 +82,7 @@ Value Object_function::DoSetProp(Environment &env, Signal &__to_delete__, const 
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
 		return value;
 	}
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 bool Object_function::IsLeader() const
@@ -475,7 +474,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignUnaryOperator(Inv, function);
 }
 
-bool Class_function::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_function::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_expr()) {
@@ -489,17 +488,17 @@ bool Class_function::CastFrom(Environment &env, Signal &__to_delete__, Value &va
 	return false;
 }
 
-bool Class_function::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_function::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_function::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_function::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	return false;
 }
 
-Object *Class_function::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_function::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

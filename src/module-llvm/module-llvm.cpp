@@ -185,13 +185,13 @@ extern "C" bool GuraStub_IndexGet(
 		}
 		Value valueIdxElem;
 		while (pIterator->Next(env, sig, valueIdxElem)) {
-			Value value = valueCar.IndexGet(env, sig, valueIdxElem);
+			Value value = valueCar.IndexGet(env, valueIdxElem);
 			if (sig.IsSignalled()) return false;
 			valList.push_back(value);
 		}
 		return sig.IsNoSignalled();
 	} else {
-		Value value = valueCar.IndexGet(env, sig, valueIdx);
+		Value value = valueCar.IndexGet(env, valueIdx);
 		if (sig.IsSignalled()) return false;
 		valList.push_back(value);
 	}
@@ -203,7 +203,7 @@ extern "C" bool GuraStub_IndexSet(
 {
 	Signal &sig = env.GetSignal();
 	if (!valueIdx.IsListOrIterator()) {
-		valueCar.IndexSet(env, sig, valueIdx, valueAssigned);
+		valueCar.IndexSet(env, valueIdx, valueAsned);
 		return sig.IsNoSignalled();
 	} else if (valueAssigned.IsListOrIterator()) {
 		AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
@@ -217,7 +217,7 @@ extern "C" bool GuraStub_IndexSet(
 		Value valueIdxElem, valueAssignedElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem) &&
 			   pIteratorAssigned->Next(env, sig, valueAssignedElem)) {
-			valueCar.IndexSet(env, sig, valueIdxElem, valueAssignedElem);
+			valueCar.IndexSet(env, valueIdxElem, valueAsnedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
@@ -230,7 +230,7 @@ extern "C" bool GuraStub_IndexSet(
 		}
 		Value valueIdxElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
-			valueCar.IndexSet(env, sig, valueIdxElem, valueAssigned);
+			valueCar.IndexSet(env, valueIdxElem, valueAsned);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
@@ -251,14 +251,14 @@ extern "C" bool GuraStub_IndexSetByIterator(
 		Value valueIdxElem, valueAssignedElem;
 		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
 			if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
-			valueCar.IndexSet(env, sig, valueIdxElem, valueAssignedElem);
+			valueCar.IndexSet(env, valueIdxElem, valueAsnedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
 	} else {
 		Value valueAssignedElem;
 		if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
-		valueCar.IndexSet(env, sig, valueIdx, valueAssignedElem);
+		valueCar.IndexSet(env, valueIdx, valueAsnedElem);
 		return sig.IsNoSignalled();
 	}
 	return true;
@@ -268,7 +268,7 @@ extern "C" bool GuraStub_EmptyIndexGet(
 	Environment &env, Value &valueResult, const Value &valueCar)
 {
 	Signal &sig = env.GetSignal();
-	valueResult = valueCar.EmptyIndexGet(env, sig);
+	valueResult = valueCar.EmptyIndexGet(env);
 	return sig.IsNoSignalled();
 }
 
@@ -276,7 +276,7 @@ extern "C" bool GuraStub_EmptyIndexSet(
 	Environment &env, Value &valueCar, const Value &value)
 {
 	Signal &sig = env.GetSignal();
-	valueCar.EmptyIndexSet(env, sig, value);
+	valueCar.EmptyIndexSet(env, value);
 	return sig.IsNoSignalled();
 }
 

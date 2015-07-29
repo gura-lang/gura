@@ -13,17 +13,16 @@ Object *Object_declaration::Clone() const
 	return new Object_declaration(*this);
 }
 
-bool Object_declaration::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_declaration::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(symbol));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(default_));
 	return true;
 }
 
-Value Object_declaration::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_declaration::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -835,7 +835,7 @@ Value Expr_Identifier::Exec(Environment &env,
 	if (valueThis.IsPrimitive()) {
 		bool evaluatedFlag = false;
 		Class *pClass = valueThis.GetValueTypeInfo()->GetClass();
-		Value rtn = pClass->GetPropPrimitive(env, sig,
+		Value rtn = pClass->GetPropPrimitive(env,
 						valueThis, GetSymbol(), GetAttrs(), evaluatedFlag);
 		if (evaluatedFlag) return rtn;
 	}
@@ -856,7 +856,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 	Signal &sig = env.GetSignal();
 	bool evaluatedFlag = false;
 	const SymbolSet &attrs = SymbolSet::Null;
-	Value result = env.DoSetProp(env, sig, GetSymbol(), valueAssigned, attrs, evaluatedFlag);
+	Value result = env.DoSetProp(env, GetSymbol(), valueAssigned, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (evaluatedFlag) return result;
 	if (pSymbolsAssignable != nullptr && !pSymbolsAssignable->IsSet(GetSymbol())) {
@@ -1677,7 +1677,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 	const ExprList &exprList = GetExprOwner();
 	Value result;
 	if (exprList.empty()) {
-		result = valueCar.EmptyIndexGet(env, sig);
+		result = valueCar.EmptyIndexGet(env);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		SeqPostHandler *pSeqPostHandlerEach = nullptr;
@@ -1698,7 +1698,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 		if (valIdxList.size() > 0) {
 			if (valIdxList.size() == 1 && !valIdxList.front().IsListOrIterator()) {
 				// obj[idx]
-				result = valueCar.IndexGet(env, sig, valIdxList.front());
+				result = valueCar.IndexGet(env, valIdxList.front());
 				if (sig.IsSignalled()) return Value::Null;
 			} else {
 				// obj[idx, idx, ..]
@@ -1709,7 +1709,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 						if (sig.IsSignalled()) break;
 						Value valueIdxEach;
 						while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
-							Value value = valueCar.IndexGet(env, sig, valueIdxEach);
+							Value value = valueCar.IndexGet(env, valueIdxEach);
 							if (sig.IsSignalled()) {
 								if (sig.GetError().GetType() == ERR_IndexError &&
 														pIteratorIdx->IsInfinite()) {
@@ -1721,7 +1721,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 						}
 						if (sig.IsSignalled()) return Value::Null;
 					} else {
-						Value value = valueCar.IndexGet(env, sig, *pValueIdx);
+						Value value = valueCar.IndexGet(env, *pValueIdx);
 						if (sig.IsSignalled()) break;
 						valListDst.push_back(value);
 					}
@@ -1742,7 +1742,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 	if (sig.IsSignalled()) return Value::Null;
 	const ExprList &exprList = GetExprOwner();
 	if (exprList.empty()) {
-		valueCar.EmptyIndexSet(env, sig, valueAssigned);
+		valueCar.EmptyIndexSet(env, valueAssigned);
 		if (sig.IsSignalled()) return Value::Null;
 		return valueAssigned;
 	}
@@ -1760,17 +1760,17 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				Value valueIdxEach, valueEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach) &&
 											pIterator->Next(env, sig, valueEach)) {
-					valueCar.IndexSet(env, sig, valueIdxEach, valueEach);
+					valueCar.IndexSet(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
-					valueCar.IndexSet(env, sig, valueIdxEach, valueAssigned);
+					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
 				}
 			}
 		} else {
-			valueCar.IndexSet(env, sig, valueIdx, valueAssigned);
+			valueCar.IndexSet(env, valueIdx, valueAssigned);
 		}
 	} else if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		SeqPostHandler *pSeqPostHandlerCdr = nullptr;
@@ -1786,13 +1786,13 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				Value valueIdxEach, valueEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach) &&
 											pIterator->Next(env, sig, valueEach)) {
-					valueCar.IndexSet(env, sig, valueIdxEach, valueEach);
+					valueCar.IndexSet(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				Value valueEach;
 				if (!pIterator->Next(env, sig, valueEach)) break;
-				valueCar.IndexSet(env, sig, valueIdx, valueEach);
+				valueCar.IndexSet(env, valueIdx, valueEach);
 				if (sig.IsSignalled()) break;
 			}
 		}
@@ -1807,12 +1807,12 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				if (sig.IsSignalled()) break;
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
-					valueCar.IndexSet(env, sig, valueIdxEach, valueAssigned);
+					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
 					if (sig.IsSignalled()) break;
 				}
 				if (sig.IsSignalled()) break;
 			} else {
-				valueCar.IndexSet(env, sig, valueIdx, valueAssigned);
+				valueCar.IndexSet(env, valueIdx, valueAssigned);
 				if (sig.IsSignalled()) break;
 			}
 		}

@@ -16,20 +16,20 @@ Gura_BeginModuleHeader(gmp)
 mpq_class MpqFromRational(const Rational &ratio);
 mpf_class MpfFromRational(Signal &sig, const Rational &ratio);
 mpf_class MpfFromMpq(Signal &sig, const mpq_class &num);
-bool _Format_d(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
-bool _Format_u(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
-bool _Format_b(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
-bool _Format_o(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
-bool _Format_x(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
+bool _Format_d(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
+bool _Format_u(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
+bool _Format_b(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
+bool _Format_o(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
+bool _Format_x(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
 
-bool _Format_e(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
-bool _Format_f(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
-bool _Format_g(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
+bool _Format_e(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
+bool _Format_f(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
+bool _Format_g(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpf_class &num);
 
-bool _Format_d(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
-bool _Format_b(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
-bool _Format_o(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
-bool _Format_x(Signal &__to_delete__, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
+bool _Format_d(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
+bool _Format_b(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
+bool _Format_o(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
+bool _Format_x(Signal &sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpq_class &num);
 
 Gura_EndModuleHeader(gmp)
 

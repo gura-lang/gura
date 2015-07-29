@@ -978,7 +978,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForString($);
 }
 
-Value Class_string::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
+Value Class_string::IndexGetPrimitive(Environment &env,
 						const Value &valueThis, const Value &valueIdx) const
 {
 	Signal &sig = GetSignal();
@@ -1003,20 +1003,20 @@ Value Class_string::IndexGetPrimitive(Environment &env, Signal &__to_delete__,
 	}
 }
 
-bool Class_string::CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl)
+bool Class_string::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	value = Value(value.ToString(false));
 	return !sig.IsSignalled();
 }
 
-bool Class_string::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const
+bool Class_string::Serialize(Environment &env, Stream &stream, const Value &value) const
 {
 	Signal &sig = GetSignal();
 	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const
+bool Class_string::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
 	Signal &sig = GetSignal();
 	String str;
@@ -1025,7 +1025,7 @@ bool Class_string::Deserialize(Environment &env, Signal &__to_delete__, Stream &
 	return true;
 }
 
-Object *Class_string::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_string::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
 }

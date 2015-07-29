@@ -22,10 +22,9 @@ Object *Object_datetime::Clone() const
 	return new Object_datetime(*this);
 }
 
-bool Object_datetime::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_datetime::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(year));
 	symbols.insert(Gura_Symbol(month));
 	symbols.insert(Gura_Symbol(day));
@@ -40,7 +39,7 @@ bool Object_datetime::DoDirProp(Environment &env, Signal &__to_delete__, SymbolS
 	return true;
 }
 
-Value Object_datetime::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_datetime::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -81,7 +80,7 @@ Value Object_datetime::DoGetProp(Environment &env, Signal &__to_delete__, const 
 	return Value::Null;
 }
 
-Value Object_datetime::DoSetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol, const Value &value,
+Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -143,7 +142,7 @@ Value Object_datetime::DoSetProp(Environment &env, Signal &__to_delete__, const 
 		_dateTime.SetUSec(num);
 		return Value(num);
 	}
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_datetime::ToString(bool exprFlag)
@@ -549,7 +548,7 @@ void Class_datetime::Prepare(Environment &env)
 	Gura_AssignMethod(datetime, weekday);
 }
 
-Object *Class_datetime::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_datetime::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;

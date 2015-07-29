@@ -15,17 +15,17 @@ Object_Writer_surface::~Object_Writer_surface()
 	_pWriter = nullptr;
 }
 
-bool Object_Writer_surface::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_Writer_surface::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object_surface::DoDirProp(env, sig, symbols)) return false;
+	if (!Object_surface::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(stream));
 	symbols.insert(Gura_UserSymbol(width));
 	symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
-Value Object_Writer_surface::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_Writer_surface::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
@@ -41,7 +41,7 @@ Value Object_Writer_surface::DoGetProp(Environment &env, Signal &__to_delete__, 
 		return Value(_pWriter->GetHeight());
 	}
 	evaluatedFlag = false;
-	return Object_surface::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return Object_surface::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 Gura_EndModuleScope(cairo)

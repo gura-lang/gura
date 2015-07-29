@@ -19,10 +19,10 @@ String Object_AudioCVT::ToString(bool exprFlag)
 	return String("<sdl2.AudioCVT>");
 }
 
-bool Object_AudioCVT::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_AudioCVT::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(needed));
 	symbols.insert(Gura_UserSymbol(src_format));
 	symbols.insert(Gura_UserSymbol(dst_format));
@@ -35,7 +35,7 @@ bool Object_AudioCVT::DoDirProp(Environment &env, Signal &__to_delete__, SymbolS
 	return true;
 }
 
-Value Object_AudioCVT::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_AudioCVT::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -62,7 +62,7 @@ Value Object_AudioCVT::DoGetProp(Environment &env, Signal &__to_delete__, const 
 	return Value::Null;
 }
 
-Value Object_AudioCVT::DoSetProp(Environment &env, Signal &__to_delete__,
+Value Object_AudioCVT::DoSetProp(Environment &env,
 							  const Symbol *pSymbol, const Value &value,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {

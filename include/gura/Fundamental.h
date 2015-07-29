@@ -21,7 +21,7 @@ protected:
 public:
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal &sig);
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoCall(Environment &env, Signal &sig, Args &args);
 	virtual String ToString(bool exprFlag) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

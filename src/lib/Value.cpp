@@ -307,66 +307,65 @@ bool Value::Is(const Value &value) const
 	return false;
 }
 
-Value Value::EmptyIndexGet(Environment &env, Signal &__to_delete__) const
+Value Value::EmptyIndexGet(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
-		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, sig, *this);
+		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, *this);
 	} else if (IsObject()) {
-		return GetObject()->EmptyIndexGet(env, sig);
+		return GetObject()->EmptyIndexGet(env);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 	return Value::Null;
 }
 
-void Value::EmptyIndexSet(Environment &env, Signal &__to_delete__, const Value &value)
+void Value::EmptyIndexSet(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (IsObject()) {
-		GetObject()->EmptyIndexSet(env, sig, value);
+		GetObject()->EmptyIndexSet(env, value);
 		return;
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
 
-Value Value::IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx) const
+Value Value::IndexGet(Environment &env, const Value &valueIdx) const
 {
 	Signal &sig = env.GetSignal();
 	if (IsPrimitive()) {
-		return env.LookupClass(_valType)->IndexGetPrimitive(env, sig, *this, valueIdx);
+		return env.LookupClass(_valType)->IndexGetPrimitive(env, *this, valueIdx);
 	} else if (IsObject()) {
-		return GetObject()->IndexGet(env, sig, valueIdx);
+		return GetObject()->IndexGet(env, valueIdx);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 	return Value::Null;
 }
 
-void Value::IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value)
+void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (IsObject()) {
-		GetObject()->IndexSet(env, sig, valueIdx, value);
+		GetObject()->IndexSet(env, valueIdx, value);
 		return;
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
 
-bool Value::DirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols, bool escalateFlag)
+bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 {
-	Signal &sig = env.GetSignal();
 	if (IsModule()) {
-		return GetModule()->DirProp(env, sig, symbols);
+		return GetModule()->DirProp(env, symbols);
 	} else if (IsClass()) {
-		return GetClassItself()->DirProp(env, sig, symbols, escalateFlag);
+		return GetClassItself()->DirProp(env, symbols, escalateFlag);
 	} else if (Is_function()) {
 		Class *pClass = GetFunction()->GetClassToConstruct();
 		if (pClass != nullptr) {
-			return pClass->DirProp(env, sig, symbols, escalateFlag);
+			return pClass->DirProp(env, symbols, escalateFlag);
 		}
 	} else if (IsObject()) {
-		return GetObject()->DirProp(env, sig, symbols);
+		return GetObject()->DirProp(env, symbols);
 	}
-	return env.LookupClass(_valType)->DirProp(env, sig, symbols, escalateFlag);
+	return env.LookupClass(_valType)->DirProp(env, symbols, escalateFlag);
 }
 
 void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)
@@ -664,11 +663,10 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 
 bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) const
 {
-	Signal &sig = env.GetSignal();
 	valueCasted = *this;
 	if (IsType(valType)) return true;
 	AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(nil), valType));
-	return env.LookupClass(valType)->CastFrom(env, sig, valueCasted, pDecl.get());
+	return env.LookupClass(valType)->CastFrom(env, valueCasted, pDecl.get());
 }
 
 Value Value::CreateList(Environment &env, const Value &v1)
@@ -819,16 +817,16 @@ Value Value::CreateList(Environment &env, const char *buff[], size_t n)
 	return CreateListTmpl(env, buff, n);
 }
 
-bool Value::Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value)
+bool Value::Serialize(Environment &env, Stream &stream, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
 	ULong valType = static_cast<ULong>(value.GetValueType());
 	if (!stream.SerializePackedULong(sig, valType)) return false;
-	return pValueTypeInfo->GetClass()->Serialize(env, sig, stream, value);
+	return pValueTypeInfo->GetClass()->Serialize(env, stream, value);
 }
 
-bool Value::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value, bool mustBeValidFlag)
+bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mustBeValidFlag)
 {
 	Signal &sig = env.GetSignal();
 	ULong valType = static_cast<ULong>(VTYPE_nil);
@@ -843,7 +841,7 @@ bool Value::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream,
 		sig.SetError(ERR_IOError, "invalid value type in the stream");
 		return false;
 	}
-	return pValueTypeInfo->GetClass()->Deserialize(env, sig, stream, value);
+	return pValueTypeInfo->GetClass()->Deserialize(env, stream, value);
 }
 
 bool Value::KeyCompare::operator()(const Value &value1, const Value &value2) const
@@ -1065,18 +1063,18 @@ bool ValueList::ToStringList(Signal &sig, StringList &strList) const
 	return true;
 }
 
-bool ValueList::Serialize(Environment &env, Signal &__to_delete__, Stream &stream) const
+bool ValueList::Serialize(Environment &env, Stream &stream) const
 {
 	Signal &sig = env.GetSignal();
 	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueList, pValue, *this) {
-		if (!Value::Serialize(env, sig, stream, *pValue)) return false;
+		if (!Value::Serialize(env, stream, *pValue)) return false;
 	}
 	return true;
 }
 
-bool ValueList::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream)
+bool ValueList::Deserialize(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
 	ULong num = 0;
@@ -1084,7 +1082,7 @@ bool ValueList::Deserialize(Environment &env, Signal &__to_delete__, Stream &str
 	reserve(num);
 	Value value;
 	while (num-- > 0) {
-		if (!Value::Deserialize(env, sig, stream, value, false)) return false;
+		if (!Value::Deserialize(env, stream, value, false)) return false;
 		push_back(value);
 	}
 	return true;
@@ -1211,27 +1209,27 @@ bool ValueDict::Store(Signal &sig, const Value &valueIdx, const Value &value, St
 	return true;
 }
 
-bool ValueDict::Serialize(Environment &env, Signal &__to_delete__, Stream &stream) const
+bool ValueDict::Serialize(Environment &env, Stream &stream) const
 {
 	Signal &sig = env.GetSignal();
 	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueDict, iter, *this) {
-		if (!Value::Serialize(env, sig, stream, iter->first)) return false;
-		if (!Value::Serialize(env, sig, stream, iter->second)) return false;
+		if (!Value::Serialize(env, stream, iter->first)) return false;
+		if (!Value::Serialize(env, stream, iter->second)) return false;
 	}
 	return true;
 }
 
-bool ValueDict::Deserialize(Environment &env, Signal &__to_delete__, Stream &stream)
+bool ValueDict::Deserialize(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
 	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	Value valueIdx, value;
 	while (num-- > 0) {
-		if (!Value::Deserialize(env, sig, stream, valueIdx, false)) return false;
-		if (!Value::Deserialize(env, sig, stream, value, false)) return false;
+		if (!Value::Deserialize(env, stream, valueIdx, false)) return false;
+		if (!Value::Deserialize(env, stream, value, false)) return false;
 		insert(ValueDict::value_type(valueIdx, value));
 	}
 	return true;

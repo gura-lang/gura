@@ -15,10 +15,10 @@ class GURA_DLLDECLARE Class_binary : public Class {
 public:
 	Class_binary(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal &__to_delete__, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal &__to_delete__, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_binary : public Object {
@@ -66,11 +66,11 @@ public:
 	Object_binary(const Object_binary &obj);
 	virtual ~Object_binary();
 	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value IndexGet(Environment &env, Signal &__to_delete__, const Value &valueIdx);
-	virtual void IndexSet(Environment &env, Signal &__to_delete__, const Value &valueIdx, const Value &value);
+	virtual Value IndexGet(Environment &env, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	inline Binary &GetBinary() { return _binary; }

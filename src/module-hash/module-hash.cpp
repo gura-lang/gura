@@ -26,17 +26,17 @@ Object *Object_accumulator::Clone() const
 	return nullptr;
 }
 
-bool Object_accumulator::DoDirProp(Environment &env, Signal &__to_delete__, SymbolSet &symbols)
+bool Object_accumulator::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(digest));
 	symbols.insert(Gura_UserSymbol(hexdigest));
 	symbols.insert(Gura_Symbol(number));
 	return true;
 }
 
-Value Object_accumulator::DoGetProp(Environment &env, Signal &__to_delete__, const Symbol *pSymbol,
+Value Object_accumulator::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {

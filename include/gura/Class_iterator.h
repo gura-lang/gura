@@ -15,8 +15,8 @@ class GURA_DLLDECLARE Class_iterator : public Class {
 public:
 	Class_iterator(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Signal &__to_delete__, Value &value, const Declaration *pDecl);
-	virtual Object *CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 class GURA_DLLDECLARE Object_iterator : public Object {

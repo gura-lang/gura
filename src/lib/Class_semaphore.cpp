@@ -127,7 +127,7 @@ void Class_semaphore::Prepare(Environment &env)
 	Gura_AssignMethod(semaphore, wait);
 }
 
-Object *Class_semaphore::CreateDescendant(Environment &env, Signal &__to_delete__, Class *pClass)
+Object *Class_semaphore::CreateDescendant(Environment &env, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;
