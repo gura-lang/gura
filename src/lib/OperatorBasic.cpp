@@ -1516,13 +1516,13 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		}
 		return pIterator->ToList(env, sig, true, false);
 	} else if (valueRight.Is_list()) {
-		bool foundFlag = valueRight.GetList().DoesContain(env, sig, valueLeft);
+		bool foundFlag = valueRight.GetList().DoesContain(env, valueLeft);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(foundFlag);
 	} else if (valueRight.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
 		if (pIteratorToFind.IsNull()) return Value::Null;
-		bool foundFlag = pIteratorToFind->DoesContain(env, sig, valueLeft);
+		bool foundFlag = pIteratorToFind->DoesContain(env, valueLeft);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(foundFlag);
 	} else {

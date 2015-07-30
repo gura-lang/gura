@@ -268,7 +268,7 @@ Gura_DeclareMethod(iterator, average)
 		"Calculates an average of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of type that supports addition and division operators.\n"
-		"Below is a list of such value types:\n"
+		"Below is a list of acceptable value types:\n"
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
@@ -332,7 +332,7 @@ Gura_ImplementMethod(iterator, contains)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	bool result = pIterator->DoesContain(env, sig, args.GetValue(0));
+	bool result = pIterator->DoesContain(env, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(result);
 }
@@ -991,10 +991,9 @@ Gura_DeclareMethod(iterator, print)
 
 Gura_ImplementMethod(iterator, print)
 {
-	Signal &sig = env.GetSignal();
 	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pIterator->PrintEach(env, sig, pStream);
+	pIterator->PrintEach(env, pStream);
 	return Value::Null;
 }
 
@@ -1011,11 +1010,10 @@ Gura_DeclareMethod(iterator, printf)
 
 Gura_ImplementMethod(iterator, printf)
 {
-	Signal &sig = env.GetSignal();
 	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
 	const char *format = args.GetString(0);
 	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
-	pIterator->PrintfEach(env, sig, pStream, format);
+	pIterator->PrintfEach(env, pStream, format);
 	return Value::Null;
 }
 
@@ -1031,10 +1029,9 @@ Gura_DeclareMethod(iterator, println)
 
 Gura_ImplementMethod(iterator, println)
 {
-	Signal &sig = env.GetSignal();
 	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pIterator->PrintlnEach(env, sig, pStream);
+	pIterator->PrintlnEach(env, pStream);
 	return Value::Null;
 }
 
@@ -1047,7 +1044,7 @@ Gura_DeclareMethod(iterator, prod)
 		"Calculates a product of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of a value type that supports multiplier operator.\n"
-		"Below is a list of such value types:\n"
+		"Below is a list of acceptable value types:\n"
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"
@@ -1403,7 +1400,7 @@ Gura_DeclareMethod(iterator, sum)
 		"Calculates a summation of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of a value type that supports addition operator.\n"
-		"Below is a list of such value types:\n"
+		"Below is a list of acceptable value types:\n"
 		"\n"
 		"- `number`\n"
 		"- `complex`\n"

@@ -685,14 +685,14 @@ bool Function::ResultComposer::Store(Environment &env, Signal &sig, const Value 
 			if (_pValList == nullptr) {
 				_pValList = &_result.InitAsList(env, _cnt, Value::Null);
 			}
-			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
+			if (!_setFlag || !_pValList->DoesContain(env, value)) {
 				_pValList->push_back(value);
 			}
 			if (sig.IsSignalled()) return false;
 		} else if (_excludeNilFlag) {
 			// nothing to do
 		} else if (_pValList != nullptr) {
-			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
+			if (!_setFlag || !_pValList->DoesContain(env, value)) {
 				_pValList->push_back(value);
 			}
 			if (sig.IsSignalled()) return false;

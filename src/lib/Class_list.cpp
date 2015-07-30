@@ -590,7 +590,7 @@ Gura_ImplementFunction(set_xset)
 		for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-										!valList1.DoesContain(env, sig, value)) {
+										!valList1.DoesContain(env, value)) {
 				valList1.push_back(value);
 			}
 			if (sig.IsSignalled()) return Value::Null;
@@ -604,8 +604,8 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->DoesContain(env, sig, value) &&
-								!pValListWork->DoesContain(env, sig, value)) {
+				if (pValListAnd->DoesContain(env, value) &&
+								!pValListWork->DoesContain(env, value)) {
 					pValListWork->push_back(value);
 				}
 				if (sig.IsSignalled()) return Value::Null;
@@ -625,10 +625,10 @@ Gura_ImplementFunction(set_xset)
 		Value value;
 		for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-			if (!valList1.DoesContain(env, sig, value)) valList1.push_back(value);
+			if (!valList1.DoesContain(env, value)) valList1.push_back(value);
 			if (sig.IsSignalled()) return Value::Null;
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-										!valListOr.DoesContain(env, sig, value)) {
+										!valListOr.DoesContain(env, value)) {
 				valListOr.push_back(value);
 			}
 			if (sig.IsSignalled()) return Value::Null;
@@ -641,10 +641,10 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->DoesContain(env, sig, value)) pValListWork->push_back(value);
+				if (pValListAnd->DoesContain(env, value)) pValListWork->push_back(value);
 				if (sig.IsSignalled()) return Value::Null;
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-										!valListOr.DoesContain(env, sig, value)) {
+										!valListOr.DoesContain(env, value)) {
 					valListOr.push_back(value);
 				}
 				if (sig.IsSignalled()) return Value::Null;
@@ -655,7 +655,7 @@ Gura_ImplementFunction(set_xset)
 			pValListWork->clear();
 		}
 		foreach_const (ValueList, pValue, valListOr) {
-			if (!pValListAnd->DoesContain(env, sig, *pValue)) {
+			if (!pValListAnd->DoesContain(env, *pValue)) {
 				valList.push_back(*pValue);
 			}
 			if (sig.IsSignalled()) return Value::Null;
@@ -666,7 +666,7 @@ Gura_ImplementFunction(set_xset)
 			for (Iterator *pIterator = pValue->GetIterator();
 												pIterator->Next(env, sig, value); ) {
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valList.DoesContain(env, sig, value)) {
+											!valList.DoesContain(env, value)) {
 					valList.push_back(value);
 				}
 				if (sig.IsSignalled()) return Value::Null;
@@ -1237,7 +1237,7 @@ Gura_ImplementMethod(list, contains)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	bool result = pIterator->DoesContain(env, sig, args.GetValue(0));
+	bool result = pIterator->DoesContain(env, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(result);
 }
@@ -1651,10 +1651,9 @@ Gura_DeclareMethod(list, print)
 
 Gura_ImplementMethod(list, print)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pThis->GetList().PrintEach(env, sig, pStream);
+	pThis->GetList().PrintEach(env, pStream);
 	return Value::Null;
 }
 
@@ -1669,11 +1668,10 @@ Gura_DeclareMethod(list, printf)
 
 Gura_ImplementMethod(list, printf)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetThisObj(args);
 	const char *format = args.GetString(0);
 	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
-	pThis->GetList().PrintfEach(env, sig, pStream, format);
+	pThis->GetList().PrintfEach(env, pStream, format);
 	return Value::Null;
 }
 
@@ -1687,10 +1685,9 @@ Gura_DeclareMethod(list, println)
 
 Gura_ImplementMethod(list, println)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
-	pThis->GetList().PrintlnEach(env, sig, pStream);
+	pThis->GetList().PrintlnEach(env, pStream);
 	return Value::Null;
 }
 

@@ -902,7 +902,7 @@ bool Iterator_Contains::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Value valueElem;
 	if (!_pIterator->Next(env, sig, valueElem)) return false;
-	value = Value(_valListToFind.DoesContain(env, sig, valueElem));
+	value = Value(_valListToFind.DoesContain(env, valueElem));
 	return !sig.IsSignalled();
 }
 

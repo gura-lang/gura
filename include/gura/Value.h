@@ -505,7 +505,7 @@ public:
 	}
 	ValueList(const ValueList &valList);
 	bool IsFlat() const;
-	bool DoesContain(Environment &env, Signal &sig, const Value &value) const;
+	bool DoesContain(Environment &env, const Value &value) const;
 	bool DoesContainIterator() const;
 	bool CheckMatrix(size_t *pnRow, size_t *pnCol) const;
 	void ExtractFlat(ValueList &valList) const;
@@ -515,9 +515,9 @@ public:
 	String Join(const char *sep) const;
 	Binary Joinb(Signal &sig) const;
 	void Print(Signal &sig, int indentLevel = 0) const;
-	void PrintEach(Environment &env, Signal &sig, Stream *pStream) const;
-	void PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format) const;
-	void PrintlnEach(Environment &env, Signal &sig, Stream *pStream) const;
+	void PrintEach(Environment &env, Stream *pStream) const;
+	void PrintfEach(Environment &env, Stream *pStream, const char *format) const;
+	void PrintlnEach(Environment &env, Stream *pStream) const;
 	bool ToStringList(Signal &sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal &sig,
 					const ValueList &valList1, const ValueList &valList2);

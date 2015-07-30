@@ -894,8 +894,9 @@ bool ValueList::IsFlat() const
 	return true;
 }
 
-bool ValueList::DoesContain(Environment &env, Signal &sig, const Value &value) const
+bool ValueList::DoesContain(Environment &env, const Value &value) const
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, *this) {
 		int rtn = Value::Compare(env, *pValue, value);
 		if (sig.IsSignalled()) return false;
@@ -1022,8 +1023,9 @@ void ValueList::Print(Signal &sig, int indentLevel) const
 	}
 }
 
-void ValueList::PrintEach(Environment &env, Signal &sig, Stream *pStream) const
+void ValueList::PrintEach(Environment &env, Stream *pStream) const
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
 		pStream->Print(sig, value.ToString(false).c_str());
@@ -1031,8 +1033,9 @@ void ValueList::PrintEach(Environment &env, Signal &sig, Stream *pStream) const
 	}
 }
 
-void ValueList::PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format) const
+void ValueList::PrintfEach(Environment &env, Stream *pStream, const char *format) const
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
 		if (value.Is_list()) {
@@ -1044,8 +1047,9 @@ void ValueList::PrintfEach(Environment &env, Signal &sig, Stream *pStream, const
 	}
 }
 
-void ValueList::PrintlnEach(Environment &env, Signal &sig, Stream *pStream) const
+void ValueList::PrintlnEach(Environment &env, Stream *pStream) const
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, *this) {
 		const Value &value = *pValue;
 		pStream->Println(sig, value.ToString(false).c_str());

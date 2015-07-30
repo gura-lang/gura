@@ -96,12 +96,12 @@ public:
 	Iterator *While(Environment &env, Signal &sig, const Value &criteria);
 	Iterator *Since(Environment &env, Signal &sig, const Value &criteria, bool containFirstFlag);
 	Iterator *Until(Environment &env, Signal &sig, const Value &criteria, bool containLastFlag);
-	bool DoesContain(Environment &env, Signal &sig, const Value &value);
+	bool DoesContain(Environment &env, const Value &value);
 	String Join(Environment &env, Signal &sig, const char *sep);
 	Binary Joinb(Environment &env, Signal &sig);
-	void PrintEach(Environment &env, Signal &sig, Stream *pStream);
-	void PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format);
-	void PrintlnEach(Environment &env, Signal &sig, Stream *pStream);
+	void PrintEach(Environment &env, Stream *pStream);
+	void PrintfEach(Environment &env, Stream *pStream, const char *format);
+	void PrintlnEach(Environment &env, Stream *pStream);
 	virtual String ToString() const;
 	static void SetError_InvalidDataTypeOfElement(Signal &sig);
 	static void SetError_InfiniteNotAllowed(Signal &sig);

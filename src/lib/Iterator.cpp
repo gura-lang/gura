@@ -584,8 +584,9 @@ Iterator *Iterator::Until(Environment &env, Signal &sig,
 	}
 }
 
-bool Iterator::DoesContain(Environment &env, Signal &sig, const Value &value)
+bool Iterator::DoesContain(Environment &env, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return false;
@@ -635,8 +636,9 @@ Binary Iterator::Joinb(Environment &env, Signal &sig)
 	return rtn;
 }
 
-void Iterator::PrintEach(Environment &env, Signal &sig, Stream *pStream)
+void Iterator::PrintEach(Environment &env, Stream *pStream)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	while (Next(env, sig, value)) {
 		pStream->Print(sig, value.ToString(false).c_str());
@@ -644,8 +646,9 @@ void Iterator::PrintEach(Environment &env, Signal &sig, Stream *pStream)
 	}
 }
 
-void Iterator::PrintfEach(Environment &env, Signal &sig, Stream *pStream, const char *format)
+void Iterator::PrintfEach(Environment &env, Stream *pStream, const char *format)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	while (Next(env, sig, value)) {
 		if (value.Is_list()) {
@@ -657,8 +660,9 @@ void Iterator::PrintfEach(Environment &env, Signal &sig, Stream *pStream, const 
 	}
 }
 
-void Iterator::PrintlnEach(Environment &env, Signal &sig, Stream *pStream)
+void Iterator::PrintlnEach(Environment &env, Stream *pStream)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	while (Next(env, sig, value)) {
 		pStream->Println(sig, value.ToString(false).c_str());
