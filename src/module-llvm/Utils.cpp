@@ -5,16 +5,16 @@ Gura_BeginModuleScope(llvm)
 //-----------------------------------------------------------------------------
 // Iterator_IdentifierInMember
 //-----------------------------------------------------------------------------
-Iterator_IdentifierInMember::Iterator_IdentifierInMember(Environment *pEnv, Signal &sig,
+Iterator_IdentifierInMember::Iterator_IdentifierInMember(Environment *pEnv,
 									   Iterator *pIterator, const Symbol *pSymbol) :
-		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig),
+		Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 		_pIterator(pIterator), _pSymbol(pSymbol)
 {
 }
 
 Iterator_IdentifierInMember::~Iterator_IdentifierInMember()
 {
-	if (IsVirgin()) Consume(*_pEnv, _sig);
+	if (IsVirgin()) Consume(*_pEnv);
 }
 
 Iterator *Iterator_IdentifierInMember::GetSource()
@@ -68,16 +68,16 @@ void Iterator_IdentifierInMember::GatherFollower(Environment::Frame *pFrame, Env
 // Iterator_CallerInMember
 //-----------------------------------------------------------------------------
 Iterator_CallerInMember::Iterator_CallerInMember(
-	Environment *pEnv, Signal &sig,
+	Environment *pEnv,
 	Iterator *pIterator, const Symbol *pSymbol, const BridgeFunctionT bridgeFunc) :
-	Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig),
+	Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 	_pIterator(pIterator), _pSymbol(pSymbol), _bridgeFunc(bridgeFunc)
 {
 }
 
 Iterator_CallerInMember::~Iterator_CallerInMember()
 {
-	if (IsVirgin()) Consume(*_pEnv, _sig);
+	if (IsVirgin()) Consume(*_pEnv);
 }
 
 Iterator *Iterator_CallerInMember::GetSource()

@@ -84,6 +84,7 @@ public:
 	void SetCodec(Codec *pCodec);
 	void CopyCodec(Stream *pStream);
 	void CopyCodec(const Codec *pCodec);
+	inline Signal &GetSignal() { return _sig; }
 	inline Codec *GetCodec() { return _pCodec.get(); }
 	String ReadChar(Signal &sig);
 	virtual int GetChar(Signal &sig);

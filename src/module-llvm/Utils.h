@@ -25,11 +25,10 @@ public:
 class GURA_DLLDECLARE Iterator_IdentifierInMember : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Iterator> _pIterator;
 	const Symbol *_pSymbol;
 public:
-	Iterator_IdentifierInMember(Environment *pEnv, Signal &sig, Iterator *pIterator, const Symbol *pSymbol);
+	Iterator_IdentifierInMember(Environment *pEnv, Iterator *pIterator, const Symbol *pSymbol);
 	virtual ~Iterator_IdentifierInMember();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
@@ -43,13 +42,12 @@ public:
 class GURA_DLLDECLARE Iterator_CallerInMember : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Iterator> _pIterator;
 	const Symbol *_pSymbol;
 	const BridgeFunctionT _bridgeFunc;
 public:
 	Iterator_CallerInMember(
-		Environment *pEnv, Signal &sig,
+		Environment *pEnv,
 		Iterator *pIterator, const Symbol *pSymbol, const BridgeFunctionT bridgeFunc);
 	virtual ~Iterator_CallerInMember();
 	virtual Iterator *GetSource();

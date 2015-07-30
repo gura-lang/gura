@@ -51,7 +51,7 @@ extern "C" bool GuraStub_LookupValueInMember(
 		if (!pIterator.IsNull()) {
 			AutoPtr<Iterator> pIteratorMap(
 				new Iterator_IdentifierInMember(
-					new Environment(env), sig, pIterator.release(), pSymbol));
+					new Environment(env), pIterator.release(), pSymbol));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
 			} else { // Expr_Member::MODE_MapToList
