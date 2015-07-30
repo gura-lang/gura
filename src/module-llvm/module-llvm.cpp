@@ -321,7 +321,6 @@ extern "C" void GuraStub_ReleaseIterator(Iterator *pIterator)
 
 extern "C" bool GuraStub_NextIterator(Environment &env, Iterator *pIterator, Value &value)
 {
-	Signal &sig = env.GetSignal();
 	return pIterator->Next(env, value);
 }
 
@@ -1475,8 +1474,7 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 }
 
 bool CodeGeneratorLLVM::GenCode_AssignToCaller(
-	Environment &env,
-	const Expr_Caller *pExpr, const Expr *pExprAssigned)
+	Environment &env, const Expr_Caller *pExpr, const Expr *pExprAssigned)
 {
 	Signal &sig = env.GetSignal();
 	llvm::Function *pFunction = CreateBridgeFunction(env, pExprAssigned, "FunctionBody");
