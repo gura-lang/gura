@@ -136,10 +136,9 @@ Gura_DeclareMethod(iterator, next)
 
 Gura_ImplementMethod(iterator, next)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Value value;
-	if (pThis->GetIterator()->Next(env, sig, value)) return value;
+	if (pThis->GetIterator()->Next(env, value)) return value;
 	return Value::Null;
 }
 
@@ -689,7 +688,7 @@ Gura_ImplementMethod(iterator, len)
 	Value value;
 	int cnt;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	for (cnt = 0; pIterator->Next(env, sig, value); cnt++) ;
+	for (cnt = 0; pIterator->Next(env, value); cnt++) ;
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(static_cast<Number>(cnt));
 }
@@ -710,9 +709,8 @@ Gura_DeclareMethod(iterator, map)
 
 Gura_ImplementMethod(iterator, map)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env), sig,
+	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env),
 			pThis->GetIterator()->Clone(),
 			Object_function::Reference(Object_function::GetObject(args, 0)));
 	return ReturnIterator(env, args, pIterator);
@@ -817,12 +815,11 @@ Gura_DeclareMethod(iterator, offset)
 
 Gura_ImplementMethod(iterator, offset)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	for (int cnt = static_cast<int>(args.GetNumber(0)); cnt > 0; cnt--) {
 		Value value;
-		pIterator->Next(env, sig, value);
+		pIterator->Next(env, value);
 	}
 	return ReturnIterator(env, args, pIterator);
 }

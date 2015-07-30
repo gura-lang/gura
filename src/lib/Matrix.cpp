@@ -258,7 +258,7 @@ bool Matrix::Set(Environment &env, Signal &sig, Iterator &iterator)
 	for (size_t iRow = 0; iRow < _nRows; iRow++) {
 		ValueList::iterator pValueElem = GetPointer(iRow, 0);
 		Value value;
-		for (size_t iCol = 0; iCol < _nCols && iterator.Next(env, sig, value);
+		for (size_t iCol = 0; iCol < _nCols && iterator.Next(env, value);
 														iCol++, pValueElem++) {
 			*pValueElem = value;
 		}
@@ -275,7 +275,7 @@ bool Matrix::SetRow(Environment &env, Signal &sig, size_t iRow, Iterator &iterat
 	}
 	Value value;
 	ValueList::iterator pValueElem = GetPointer(iRow, 0);
-	for (size_t iCol = 0; iCol < _nCols && iterator.Next(env, sig, value);
+	for (size_t iCol = 0; iCol < _nCols && iterator.Next(env, value);
 												iCol++, pValueElem++) {
 		*pValueElem = value;
 	}
@@ -291,7 +291,7 @@ bool Matrix::SetCol(Environment &env, Signal &sig, size_t iCol, Iterator &iterat
 	Value value;
 	ValueList::iterator pValueElem = GetPointer(0, iCol);
 	size_t offset = 0;
-	for (size_t iRow = 0; iRow < _nRows && iterator.Next(env, sig, value);
+	for (size_t iRow = 0; iRow < _nRows && iterator.Next(env, value);
 												iRow++, offset += GetFold()) {
 		*(pValueElem + offset) = value;
 	}

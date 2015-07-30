@@ -978,7 +978,7 @@ bool ValueList::Append(Environment &env, Signal &sig, Iterator *pIterator)
 		return false;
 	}
 	Value value;
-	while (pIterator->Next(env, sig, value)) {
+	while (pIterator->Next(env, value)) {
 		push_back(value);
 	}
 	return !sig.IsSignalled();

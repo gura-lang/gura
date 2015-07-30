@@ -25,7 +25,7 @@ Iterator *Iterator_IdentifierInMember::GetSource()
 bool Iterator_IdentifierInMember::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Value valueThis;
-	if (!_pIterator->Next(env, sig, valueThis)) return false;
+	if (!_pIterator->Next(env, valueThis)) return false;
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
 	if (pFund == nullptr) return false;
@@ -88,7 +88,7 @@ Iterator *Iterator_CallerInMember::GetSource()
 bool Iterator_CallerInMember::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Value valueThis;
-	if (!_pIterator->Next(env, sig, valueThis)) return false;
+	if (!_pIterator->Next(env, valueThis)) return false;
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
 	if (pFund == nullptr) return false;

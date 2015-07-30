@@ -442,7 +442,7 @@ bool Element::AddChild(Environment &env, Signal &sig, const Value &value)
 			return false;
 		}
 		Value valueIter;
-		while (pIterator->Next(env, sig, valueIter)) {
+		while (pIterator->Next(env, valueIter)) {
 			if (!AddChild(env, sig, valueIter)) return false;
 		}
 		if (sig.IsSignalled()) return false;

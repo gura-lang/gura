@@ -768,9 +768,9 @@ Gura_ImplementFunction(least_square)
 	bool flagX = false, flagY = false;
 	for (;;) {
 		Value valueX, valueY;
-		flagX = pIterX->Next(env, sig, valueX);
+		flagX = pIterX->Next(env, valueX);
 		if (sig.IsSignalled()) return Value::Null;
-		flagY = pIterY->Next(env, sig, valueY);
+		flagY = pIterY->Next(env, valueY);
 		if (sig.IsSignalled()) return Value::Null;
 		if (!(flagX && flagY)) break;
 		if (!valueX.Is_number()) {
@@ -1169,7 +1169,7 @@ Gura_ImplementFunction(covariance)
 	Number averageA = valueAveA.GetNumber();
 	Number averageB = valueAveB.GetNumber();
 	Value valueA, valueB;
-	while (pIteratorA->Next(env, sig, valueA) && pIteratorB->Next(env, sig, valueB)) {
+	while (pIteratorA->Next(env, valueA) && pIteratorB->Next(env, valueB)) {
 		if (valueA.Is_number() && valueB.Is_number()) {
 			result +=
 				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);

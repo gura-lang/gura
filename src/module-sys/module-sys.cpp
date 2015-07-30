@@ -129,7 +129,7 @@ static bool ExpandWildCard(Environment &env, Signal &sig,
 	if (!pIterator->Init(env, sig, pattern)) return false;
 	Value value;
 	bool emptyFlag = true;
-	while (pIterator->Next(env, sig, value)) {
+	while (pIterator->Next(env, value)) {
 		valList.push_back(value);
 		emptyFlag  = false;
 	}

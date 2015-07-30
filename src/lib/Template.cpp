@@ -556,7 +556,7 @@ Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
 		Value valueElem;
-		while (pIterator->Next(env, sig, valueElem)) {
+		while (pIterator->Next(env, valueElem)) {
 			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {

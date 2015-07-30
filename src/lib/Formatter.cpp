@@ -259,7 +259,7 @@ Value Formatter::FormatIterator(Environment &env, Signal &sig,
 	Value result;
 	ValueList &valListResult = result.InitAsList(env);
 	ValueList valList;
-	while (iterOwner.Next(env, sig, valList)) {
+	while (iterOwner.Next(env, valList)) {
 		String str = FormatValueList(sig, format, valList);
 		if (sig.IsSignalled()) return Value::Null;
 		valListResult.push_back(Value(str));

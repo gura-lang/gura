@@ -700,7 +700,7 @@ bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal &sig, const Va
 			return false;
 		}
 		Value value;
-		while (pIterator->Next(env, sig, value)) {
+		while (pIterator->Next(env, value)) {
 			_valList.push_back(value);
 		}
 		if (sig.IsSignalled()) return false;
@@ -1417,7 +1417,7 @@ Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 				return Value::Null;
 			}
 			Value value;
-			while (pIterator->Next(env, sig, value)) {
+			while (pIterator->Next(env, value)) {
 				valList.push_back(value);
 			}
 			if (sig.IsSignalled()) return Value::Null;
@@ -1445,7 +1445,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 		AutoPtr<Iterator> pIterator(valueAssigned.CreateIterator(sig));
 		if (pIterator.IsNull()) return Value::Null;
 		Value valueElem;
-		while (pIterator->Next(env, sig, valueElem)) {
+		while (pIterator->Next(env, valueElem)) {
 			if (pValList != nullptr) {
 				pValList->push_back(valueElem);
 				continue;
@@ -1708,7 +1708,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 						AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
 						if (sig.IsSignalled()) break;
 						Value valueIdxEach;
-						while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
+						while (pIteratorIdx->Next(env, valueIdxEach)) {
 							Value value = valueCar.IndexGet(env, valueIdxEach);
 							if (sig.IsSignalled()) {
 								if (sig.GetError().GetType() == ERR_IndexError &&
@@ -1758,14 +1758,14 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				Iterator *pIterator = valueAssigned.CreateIterator(sig);
 				if (sig.IsSignalled()) return Value::Null;
 				Value valueIdxEach, valueEach;
-				while (pIteratorIdx->Next(env, sig, valueIdxEach) &&
-											pIterator->Next(env, sig, valueEach)) {
+				while (pIteratorIdx->Next(env, valueIdxEach) &&
+											pIterator->Next(env, valueEach)) {
 					valueCar.IndexSet(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				Value valueIdxEach;
-				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
+				while (pIteratorIdx->Next(env, valueIdxEach)) {
 					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
 				}
 			}
@@ -1784,14 +1784,14 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
 				if (sig.IsSignalled()) break;
 				Value valueIdxEach, valueEach;
-				while (pIteratorIdx->Next(env, sig, valueIdxEach) &&
-											pIterator->Next(env, sig, valueEach)) {
+				while (pIteratorIdx->Next(env, valueIdxEach) &&
+											pIterator->Next(env, valueEach)) {
 					valueCar.IndexSet(env, valueIdxEach, valueEach);
 					if (sig.IsSignalled()) break;
 				}
 			} else {
 				Value valueEach;
-				if (!pIterator->Next(env, sig, valueEach)) break;
+				if (!pIterator->Next(env, valueEach)) break;
 				valueCar.IndexSet(env, valueIdx, valueEach);
 				if (sig.IsSignalled()) break;
 			}
@@ -1806,7 +1806,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 				AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
 				if (sig.IsSignalled()) break;
 				Value valueIdxEach;
-				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
+				while (pIteratorIdx->Next(env, valueIdxEach)) {
 					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
 					if (sig.IsSignalled()) break;
 				}
@@ -2015,11 +2015,11 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				// nothing to do
 			} else if (mode == Expr_Member::MODE_MapAlong) {
 				Value valueThisEach;
-				if (!pIteratorThis->Next(env, sig, valueThisEach)) return Value::Null;
+				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Null;
 				return EvalEach(env, sig, valueThisEach,
 								pIteratorThis, valueThis.Is_list(), pTrailCtrlHolder);
 			} else {
-				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env), sig,
+				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
 									pIteratorThis, Expr_Caller::Reference(this)));
 				if (mode == Expr_Member::MODE_MapToIter) {
 					return Value(new Object_iterator(env, pIteratorMap.release()));
@@ -2797,7 +2797,7 @@ Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 		if (sig.IsSignalled()) return Value::Null;
 		if (pIterator != nullptr) {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-					   new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
+					   new Environment(env), pIterator, Expr::Reference(GetRight())));
 			if (mode == MODE_MapToIter) {
 				result = Value(new Object_iterator(env, pIteratorMap.release()));
 			} else {
@@ -2835,8 +2835,8 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		if (sig.IsSignalled()) return Value::Null;
 		Value value;
 		Value valueThisEach;
-		while (pIteratorThis->Next(env, sig, valueThisEach) &&
-								pIteratorValue->Next(env, sig, value)) {
+		while (pIteratorThis->Next(env, valueThisEach) &&
+								pIteratorValue->Next(env, value)) {
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
 			GetRight()->Assign(*pFundEach, value,
@@ -2846,7 +2846,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		Value valueThisEach;
-		while (pIteratorThis->Next(env, sig, valueThisEach)) {
+		while (pIteratorThis->Next(env, valueThisEach)) {
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
 			GetRight()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);

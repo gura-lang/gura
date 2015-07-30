@@ -260,11 +260,10 @@ public:
 class GURA_DLLDECLARE Iterator_ExplicitMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	Iterator_ExplicitMap(Environment *pEnv, Signal &sig,
+	Iterator_ExplicitMap(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc);
 	Iterator_ExplicitMap(const Iterator_ExplicitMap &iter);
 	virtual ~Iterator_ExplicitMap();
@@ -281,13 +280,12 @@ public:
 class GURA_DLLDECLARE Iterator_ImplicitMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Function> _pFunc;
 	AutoPtr<Args> _pArgs;
 	IteratorOwner _iterOwner;
 	bool _doneThisFlag;
 public:
-	Iterator_ImplicitMap(Environment *pEnv, Signal &sig,
+	Iterator_ImplicitMap(Environment *pEnv,
 					Function *pFunc, Args *pArgs, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	virtual Iterator *GetSource();
@@ -302,12 +300,11 @@ public:
 class GURA_DLLDECLARE Iterator_UnaryOperatorMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
 	bool _suffixFlag;
 public:
-	Iterator_UnaryOperatorMap(Environment *pEnv, Signal &sig,
+	Iterator_UnaryOperatorMap(Environment *pEnv,
 				const Operator *pOperator, const Value &value, bool suffixFlag);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
@@ -322,12 +319,11 @@ public:
 class GURA_DLLDECLARE Iterator_BinaryOperatorMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIteratorLeft;
 	AutoPtr<Iterator> _pIteratorRight;
 public:
-	Iterator_BinaryOperatorMap(Environment *pEnv, Signal &sig,
+	Iterator_BinaryOperatorMap(Environment *pEnv,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
 	virtual ~Iterator_BinaryOperatorMap();
 	virtual Iterator *GetSource();
@@ -342,11 +338,10 @@ public:
 class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Expr> _pExpr;
 public:
-	Iterator_MemberMap(Environment *pEnv, Signal &sig, Iterator *pIterator, Expr *pExpr);
+	Iterator_MemberMap(Environment *pEnv, Iterator *pIterator, Expr *pExpr);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
@@ -360,11 +355,10 @@ public:
 class GURA_DLLDECLARE Iterator_MethodMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	Signal &_sig;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Caller> _pExprCaller;
 public:
-	Iterator_MethodMap(Environment *pEnv, Signal &sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
+	Iterator_MethodMap(Environment *pEnv, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
 	virtual ~Iterator_MethodMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal &sig, Value &value);

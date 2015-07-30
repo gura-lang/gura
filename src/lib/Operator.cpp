@@ -180,7 +180,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal &sig, const Value &value, 
 		return EvalUnary(env, sig, value, suffixFlag);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
-							new Environment(env), sig, this, value, suffixFlag));
+							new Environment(env), this, value, suffixFlag));
 	if (value.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
@@ -194,7 +194,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal &sig,
 				(!valueRight.IsListOrIterator() || valueRight.GetNoMapFlag()))) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
-	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,
+	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env),
 									this, valueLeft, valueRight));
 	if (valueLeft.Is_iterator() || valueRight.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));

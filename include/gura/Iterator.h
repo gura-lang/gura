@@ -63,17 +63,17 @@ public:
 	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
-	inline bool Next(Environment &env, Signal &sig, Value &value) {
+	inline bool Next(Environment &env, Value &value) {
 		_idxCur = _idxNext;
 		_idxNext++;
-		return NextShared(env, sig, 0, value);
+		return NextShared(env, 0, value);
 	}
-	bool NextShared(Environment &env, Signal &sig, int id, Value &value);
+	bool NextShared(Environment &env, int id, Value &value);
 	virtual bool IsSequence() const;
 	virtual bool IsSequenceInf() const;
 	Iterator *_Clone();
 	virtual Iterator *Clone() const;
-	bool Consume(Environment &env, Signal &sig);
+	bool Consume(Environment &env);
 	Value ToList(Environment &env, Signal &sig,
 								bool alwaysListFlag, bool excludeNilFlag);
 	Value Eval(Environment &env, Signal &sig, Args &args);
@@ -120,7 +120,7 @@ public:
 	inline IteratorOwner() {}
 	IteratorOwner(const IteratorOwner &iterOwner);
 	virtual ~IteratorOwner();
-	bool Next(Environment &env, Signal &sig, ValueList &valList);
+	bool Next(Environment &env, ValueList &valList);
 	void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	bool IsInfinite() const;
 	bool PrepareForMap(Signal &sig, const DeclarationList &declList, const ValueList &valListArg);

@@ -111,7 +111,7 @@ bool Audio::StoreData(Environment &env, Signal &_sig,
 	UChar *buffp = pChain->GetPointer() + GetBytesPerSample() * iChannel + bytes;
 	size_t cntRest = (pChain->GetBytes() - bytes) / GetChannels() / GetBytesPerSample();
 	Value value;
-	while (pIterator->Next(env, sig, value)) {
+	while (pIterator->Next(env, value)) {
 		if (!value.Is_number()) {
 			sig.SetError(ERR_ValueError, "store only number values");
 			return false;

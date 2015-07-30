@@ -162,7 +162,7 @@ Iterator *IteratorGrep::GetSource()
 bool IteratorGrep::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	const int pos = 0, posEnd = -1;
-	while (_pIteratorSrc->Next(env, sig, value)) {
+	while (_pIteratorSrc->Next(env, value)) {
 		String str = value.ToString(false);
 		if (sig.IsSignalled()) return false;
 		value = DoMatch(env, sig,

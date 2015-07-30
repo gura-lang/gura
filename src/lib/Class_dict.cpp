@@ -181,7 +181,7 @@ Iterator *Object_dict::IteratorGet::GetSource()
 bool Object_dict::IteratorGet::DoNext(Environment &env, Signal &sig, Value &value)
 {
 	Value valueIdx;
-	if (!_pIteratorKey->Next(env, sig, valueIdx)) return false;
+	if (!_pIteratorKey->Next(env, valueIdx)) return false;
 	const Value *pValue = _pObj->GetDict().Find(sig, valueIdx);
 	if (pValue != nullptr) {
 		value = *pValue;

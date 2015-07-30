@@ -149,7 +149,7 @@ bool DiffLine::FeedIterator(Environment &env, Signal &sig, size_t iSeq, Iterator
 {
 	Sequence &seq = GetSequence(iSeq);
 	Value value;
-	while (pIterator->Next(env, sig, value)) {
+	while (pIterator->Next(env, value)) {
 		seq.push_back(value.ToString());
 	}
 	return !sig.IsSignalled();

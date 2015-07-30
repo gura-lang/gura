@@ -326,7 +326,7 @@ Value Function::Eval(Environment &env, Signal &sig, Args &args) const
 Value Function::EvalMap(Environment &env, Signal &sig, Args &args) const
 {
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
-				new Environment(env), sig,
+				new Environment(env),
 				Function::Reference(this), args.Reference(), false));
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
@@ -338,7 +338,7 @@ Value Function::EvalMap(Environment &env, Signal &sig, Args &args) const
 	ResultComposer resultComposer(env, args, result);
 	Value value;
 	size_t n = 0;
-	for ( ; pIterator->Next(env, sig, value); n++) {
+	for ( ; pIterator->Next(env, value); n++) {
 		if (!resultComposer.Store(env, sig, value)) return Value::Null;
 	}
 	if (n == 0 && !args.IsRsltVoid() && !args.IsRsltReduce() && !args.IsRsltXReduce()) {
@@ -416,7 +416,7 @@ Value Function::ReturnIterator(Environment &env,
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
 	} else if (pIterator->IsRepeater()) {
-		while (pIterator->Next(env, sig, result)) ;
+		while (pIterator->Next(env, result)) ;
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {

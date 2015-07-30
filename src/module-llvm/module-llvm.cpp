@@ -82,7 +82,7 @@ extern "C" bool GuraStub_AddValueList(Environment &env,
 			return false;
 		}
 		Value value;
-		while (pIterator->Next(env, sig, value)) {
+		while (pIterator->Next(env, value)) {
 			valList.push_back(value);
 		}
 		return sig.IsNoSignalled();
@@ -184,7 +184,7 @@ extern "C" bool GuraStub_IndexGet(
 			return false;
 		}
 		Value valueIdxElem;
-		while (pIterator->Next(env, sig, valueIdxElem)) {
+		while (pIterator->Next(env, valueIdxElem)) {
 			Value value = valueCar.IndexGet(env, valueIdxElem);
 			if (sig.IsSignalled()) return false;
 			valList.push_back(value);
@@ -215,8 +215,8 @@ extern "C" bool GuraStub_IndexSet(
 			return false;
 		}
 		Value valueIdxElem, valueAssignedElem;
-		while (pIteratorIdx->Next(env, sig, valueIdxElem) &&
-			   pIteratorAssigned->Next(env, sig, valueAssignedElem)) {
+		while (pIteratorIdx->Next(env, valueIdxElem) &&
+			   pIteratorAssigned->Next(env, valueAssignedElem)) {
 			valueCar.IndexSet(env, valueIdxElem, valueAssignedElem);
 			if (sig.IsSignalled()) return false;
 		}
@@ -229,7 +229,7 @@ extern "C" bool GuraStub_IndexSet(
 			return false;
 		}
 		Value valueIdxElem;
-		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
+		while (pIteratorIdx->Next(env, valueIdxElem)) {
 			valueCar.IndexSet(env, valueIdxElem, valueAssigned);
 			if (sig.IsSignalled()) return false;
 		}
@@ -249,15 +249,15 @@ extern "C" bool GuraStub_IndexSetByIterator(
 			return false;
 		}
 		Value valueIdxElem, valueAssignedElem;
-		while (pIteratorIdx->Next(env, sig, valueIdxElem)) {
-			if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
+		while (pIteratorIdx->Next(env, valueIdxElem)) {
+			if (!pIteratorAssigned->Next(env, valueAssignedElem)) return false;
 			valueCar.IndexSet(env, valueIdxElem, valueAssignedElem);
 			if (sig.IsSignalled()) return false;
 		}
 		return sig.IsNoSignalled();
 	} else {
 		Value valueAssignedElem;
-		if (!pIteratorAssigned->Next(env, sig, valueAssignedElem)) return false;
+		if (!pIteratorAssigned->Next(env, valueAssignedElem)) return false;
 		valueCar.IndexSet(env, valueIdx, valueAssignedElem);
 		return sig.IsNoSignalled();
 	}
@@ -322,7 +322,7 @@ extern "C" void GuraStub_ReleaseIterator(Iterator *pIterator)
 extern "C" bool GuraStub_NextIterator(Environment &env, Iterator *pIterator, Value &value)
 {
 	Signal &sig = env.GetSignal();
-	return pIterator->Next(env, sig, value);
+	return pIterator->Next(env, value);
 }
 
 //-----------------------------------------------------------------------------

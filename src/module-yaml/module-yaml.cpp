@@ -44,7 +44,7 @@ Gura_ImplementFunction(parse)
 		return ReturnIterator(env, args, pIterator);
 	}
 	Value value;
-	pIterator->Next(env, sig, value);
+	pIterator->Next(env, value);
 	Iterator::Delete(pIterator);
 	return value;
 }
@@ -68,7 +68,7 @@ Gura_ImplementFunction(read)
 		return ReturnIterator(env, args, pIterator);
 	}
 	Value value;
-	pIterator->Next(env, sig, value);
+	pIterator->Next(env, value);
 	Iterator::Delete(pIterator);
 	return value;
 }

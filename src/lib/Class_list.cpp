@@ -535,7 +535,7 @@ Gura_ImplementFunction(list_xlist)
 				return Value::Null;
 			}
 			Value value;
-			while (pIterator->Next(env, sig, value)) {
+			while (pIterator->Next(env, value)) {
 				if (_acceptInvalidFlag || value.IsValid()) {
 					valList.push_back(value);
 				}
@@ -588,7 +588,7 @@ Gura_ImplementFunction(set_xset)
 		ValueList::const_reverse_iterator pValueArg = args.GetList(0).rbegin();
 		Value value;
 		for (Iterator *pIterator = pValueArg->GetIterator();
-											pIterator->Next(env, sig, value); ) {
+											pIterator->Next(env, value); ) {
 			if ((_acceptInvalidFlag || value.IsValid()) &&
 										!valList1.DoesContain(env, value)) {
 				valList1.push_back(value);
@@ -603,7 +603,7 @@ Gura_ImplementFunction(set_xset)
 										!pValListAnd->empty(); pValueArg++) {
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
-											pIterator->Next(env, sig, value); ) {
+											pIterator->Next(env, value); ) {
 				if (pValListAnd->DoesContain(env, value) &&
 								!pValListWork->DoesContain(env, value)) {
 					pValListWork->push_back(value);
@@ -624,7 +624,7 @@ Gura_ImplementFunction(set_xset)
 		ValueList::const_iterator pValueArg = args.GetList(0).begin();
 		Value value;
 		for (Iterator *pIterator = pValueArg->GetIterator();
-										pIterator->Next(env, sig, value); ) {
+										pIterator->Next(env, value); ) {
 			if (!valList1.DoesContain(env, value)) valList1.push_back(value);
 			if (sig.IsSignalled()) return Value::Null;
 			if ((_acceptInvalidFlag || value.IsValid()) &&
@@ -640,7 +640,7 @@ Gura_ImplementFunction(set_xset)
 										!pValListAnd->empty(); pValueArg++) {
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
-										pIterator->Next(env, sig, value); ) {
+										pIterator->Next(env, value); ) {
 				if (pValListAnd->DoesContain(env, value)) pValListWork->push_back(value);
 				if (sig.IsSignalled()) return Value::Null;
 				if ((_acceptInvalidFlag || value.IsValid()) &&
@@ -664,7 +664,7 @@ Gura_ImplementFunction(set_xset)
 		foreach_const (ValueList, pValue, args.GetList(0)) {
 			Value value;
 			for (Iterator *pIterator = pValue->GetIterator();
-												pIterator->Next(env, sig, value); ) {
+												pIterator->Next(env, value); ) {
 				if ((_acceptInvalidFlag || value.IsValid()) &&
 											!valList.DoesContain(env, value)) {
 					valList.push_back(value);
@@ -841,7 +841,7 @@ Gura_ImplementMethod(list, append)
 				return Value::Null;
 			}
 			Value value;
-			while (pIterator->Next(env, sig, value)) {
+			while (pIterator->Next(env, value)) {
 				valList.push_back(value);
 			}
 			if (sig.IsSignalled()) return Value::Null;
@@ -1494,7 +1494,7 @@ Gura_ImplementMethod(list, map)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env), sig, pIteratorSrc,
+	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env), pIteratorSrc,
 			Object_function::Reference(Object_function::GetObject(args, 0)));
 	return ReturnIterator(env, args, pIterator);
 }

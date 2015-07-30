@@ -259,7 +259,7 @@ bool Image::Store(Environment &env, Signal &sig, size_t x, size_t y, size_t widt
 		UChar *pPixel = pLine + offPixel;
 		for (size_t iPixel = 0; iPixel < width; iPixel++, pPixel += bytesPerPixel) {
 			Value value;
-			if (!pIterator->Next(env, sig, value)) return false;
+			if (!pIterator->Next(env, value)) return false;
 			*pPixel = value.GetUChar();
 		}
 	}
