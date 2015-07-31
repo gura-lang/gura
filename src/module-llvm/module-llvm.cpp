@@ -1086,21 +1086,26 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 	if (pExpr->GetExprOwner().empty()) {
 		// .....
 	}
-	bool scalarFlag =
+	bool alwaysScalarFlag =
 		(valTypeAssigned == VTYPE_boolean) || (valTypeAssigned == VTYPE_number) ||
 		(valTypeAssigned == VTYPE_string);
-	bool iterableFlag =
+	bool alwaysIterableFlag =
 		(valTypeAssigned == VTYPE_list) || (valTypeAssigned == VTYPE_iterator);
 	llvm::BasicBlock *pBasicBlockDone =
 		llvm::BasicBlock::Create(_context, "bb.assignToLister.done");
-	if (!iterableFlag) {
+	if (!alwaysIterableFlag) {
 		llvm::BasicBlock *pBasicBlockScalar =
 			llvm::BasicBlock::Create(_context, "bb.assignToLister.scalar");
-		llvm::BasicBlock *pBasicBlockIterable =
-			llvm::BasicBlock::Create(_context, "bb.assignToLister.iterable");
-		_builder.CreateCondBr(
-			GenCode_CheckValTypeListOrIterator(plv_valueAssigned),
-			pBasicBlockIterable, pBasicBlockScalar);
+		llvm::BasicBlock *pBasicBlockIterator = nullptr;
+		if (alwaysScalarFlag) {
+			_builder.CreateBr(pBasicBlockScalar);
+		} else {
+			pBasicBlockIterator =
+				llvm::BasicBlock::Create(_context, "bb.assignToLister.iterator");
+			_builder.CreateCondBr(
+				GenCode_CheckValTypeListOrIterator(plv_valueAssigned),
+				pBasicBlockIterator, pBasicBlockScalar);
+		}
 		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockScalar);
 		_builder.SetInsertPoint(pBasicBlockScalar);
 		// [i] = scalar
@@ -1135,13 +1140,15 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 			}
 		}
 		_builder.CreateBr(pBasicBlockDone);
-		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockIterable);
-		_builder.SetInsertPoint(pBasicBlockIterable);
+		if (!alwaysScalarFlag) {
+			GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockIterator);
+			_builder.SetInsertPoint(pBasicBlockIterator);
+		}
 	}
-	do {
+	if (!alwaysScalarFlag) {
 		// [i, j, k] = iterable
-		llvm::BasicBlock *pBasicBlockDone =
-			llvm::BasicBlock::Create(_context, "bb.assignToLister.iterable.done");
+		llvm::BasicBlock *pBasicBlockContinue =
+			llvm::BasicBlock::Create(_context, "bb.assignToLister.iterable.continue");
 		llvm::Value *plv_pIteratorAssigned = GenCode_CreateIterator(
 			plv_valueAssigned, "ppIteratorAssigned", "pIteratorAssigned");
 		llvm::Value *plv_valueAssignedElem = GenCode_AllocaValue("valueAssigned");
@@ -1186,13 +1193,13 @@ bool CodeGeneratorLLVM::GenCode_AssignToLister(
 				}
 			}
 		} while (0);
-		_builder.CreateBr(pBasicBlockDone);
-		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
-		_builder.SetInsertPoint(pBasicBlockDone);
+		_builder.CreateBr(pBasicBlockContinue);
+		GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockContinue);
+		_builder.SetInsertPoint(pBasicBlockContinue);
 		GenCode_ReleaseIterator(plv_pIteratorAssigned);
 		GenCode_CondBrExitWhenSignalled("bb.assignToLister.continue");
-	} while (0);
-	_builder.CreateBr(pBasicBlockDone);
+		_builder.CreateBr(pBasicBlockDone);
+	}
 	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockDone);
 	_builder.SetInsertPoint(pBasicBlockDone);
 	_plv_valueResult = plv_valueAssigned;
