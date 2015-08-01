@@ -750,7 +750,7 @@ Iterator *Palette::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Palette::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
+bool Palette::IteratorEach::DoNext(Environment &env, Value &value)
 {
 	if (_idx >= _pPalette->CountEntries()) return false;
 	value = _pPalette->GetColorValue(env, _idx);

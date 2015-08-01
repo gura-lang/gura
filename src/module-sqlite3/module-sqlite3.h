@@ -26,7 +26,7 @@ public:
 							Iterator(false), _pObj(pObj), _pStmt(pStmt) {}
 		virtual ~IteratorQuery();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};

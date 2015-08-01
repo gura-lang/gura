@@ -29,7 +29,7 @@ public:
 			Iterator(pIterator->IsInfinite(), pIterator->IsSkipInvalid()),
 			_pIterator(pIterator), _id(id) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -46,7 +46,7 @@ public:
 										Iterator(true), _value(iter._value) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -67,7 +67,7 @@ public:
 				_idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -86,7 +86,7 @@ public:
 				Iterator(false), _value(iter._value), _doneFlag(iter._doneFlag) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -103,7 +103,7 @@ public:
 	inline Iterator_Rand(int range, int cnt) :
 					Iterator(cnt < 0), _range(range), _cnt(cnt), _idx(0) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -126,7 +126,7 @@ public:
 			_numBegin(iter._numBegin), _numEnd(iter._numEnd), _numStep(iter._numStep) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -150,7 +150,7 @@ public:
 	virtual bool IsSequence() const;
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	inline Number GetBegin() const { return _numBegin; }
@@ -174,7 +174,7 @@ public:
 	virtual bool IsSequenceInf() const;
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	inline Number GetBegin() const { return _numBegin; }
@@ -205,7 +205,7 @@ public:
 		_numDenom(iter._numDenom), _iFactor(iter._iFactor), _idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
@@ -246,7 +246,7 @@ public:
 	Iterator_Fork(Environment *pEnv, Signal &sig,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void Run();
 	void SwapList();
@@ -269,7 +269,7 @@ public:
 	virtual ~Iterator_ExplicitMap();
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -289,7 +289,7 @@ public:
 					Function *pFunc, Args *pArgs, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -308,7 +308,7 @@ public:
 				const Operator *pOperator, const Value &value, bool suffixFlag);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -327,7 +327,7 @@ public:
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
 	virtual ~Iterator_BinaryOperatorMap();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -344,7 +344,7 @@ public:
 	Iterator_MemberMap(Environment *pEnv, Iterator *pIterator, Expr *pExpr);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -361,7 +361,7 @@ public:
 	Iterator_MethodMap(Environment *pEnv, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
 	virtual ~Iterator_MethodMap();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -379,7 +379,7 @@ public:
 	Iterator_FuncBinder(Environment *pEnv,
 				Function *pFunc, const Value &valueThis, Iterator *pIterator);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -395,7 +395,7 @@ public:
 	inline Iterator_Delay(Iterator *pIterator, Number delay) : 
 		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _delay(delay) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -412,7 +412,7 @@ public:
 		Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
 	ValueList &GetValueListToFind() { return _valListToFind; }
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -429,7 +429,7 @@ public:
 	inline Iterator_Skip(Iterator *pIterator, int nSkip) :
 		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _nSkip(nSkip), _firstFlag(true) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -444,7 +444,7 @@ public:
 	inline Iterator_SkipInvalid(Iterator *pIterator) :
 				Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -459,7 +459,7 @@ public:
 	inline Iterator_SkipFalse(Iterator *pIterator) :
 				Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -475,7 +475,7 @@ public:
 	inline Iterator_RoundOff(Iterator *pIterator, Number threshold) :
 		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _threshold(threshold) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -492,7 +492,7 @@ public:
 	Iterator_FilterWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -509,7 +509,7 @@ public:
 			Iterator(pIterator->IsInfinite() && pIteratorCriteria->IsInfinite()),
 			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -526,7 +526,7 @@ public:
 	Iterator_WhileWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -542,7 +542,7 @@ public:
 	inline Iterator_WhileWithIter(Iterator *pIterator, Iterator *pIteratorCriteria) :
 			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -560,7 +560,7 @@ public:
 	Iterator_UntilWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containLastFlag);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -579,7 +579,7 @@ public:
 			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
 			_containLastFlag(containLastFlag) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -597,7 +597,7 @@ public:
 	Iterator_SinceWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containFirstFlag);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -617,7 +617,7 @@ public:
 			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
 			_containFirstFlag(containFirstFlag) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -636,7 +636,7 @@ public:
 			Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
 			_value(value), _valueReplace(valueReplace) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -653,7 +653,7 @@ public:
 			Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
 			_valueReplace(valueReplace) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -670,7 +670,7 @@ public:
 			Iterator(pIterator->IsInfinite()),
 			_pIterator(pIterator), _format(format) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -687,7 +687,7 @@ public:
 			Iterator(pIterator->IsInfinite()),
 			_pIterator(pIterator), _format(format) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -702,7 +702,7 @@ public:
 	inline Iterator_Zipv(const IteratorOwner &iterOwner) :
 		Iterator(iterOwner.IsInfinite()), _iterOwner(iterOwner) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -721,7 +721,7 @@ public:
 		Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
 		_cnt(0), _doneFlag(false) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -738,7 +738,7 @@ public:
 	inline Iterator_Align(Iterator *pIterator, int cnt, const Value &valueFill) :
 		Iterator(false), _pIterator(pIterator), _cnt(cnt), _valueFill(valueFill) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -754,7 +754,7 @@ public:
 	inline Iterator_Head(Iterator *pIterator, int cnt) :
 						Iterator(false), _pIterator(pIterator), _cnt(cnt) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -778,7 +778,7 @@ public:
 			_pIterator(pIterator), _cnt(cnt), _cntStep(cntStep),
 			_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -793,7 +793,7 @@ private:
 public:
 	inline Iterator_Concat() : Iterator(false), _ppIterator(_iterOwner.begin()) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	void Add(Iterator *pIterator);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -818,7 +818,7 @@ public:
 	Iterator_Walk(Iterator *pIterator, Mode mode, bool walkListFlag, bool walkIteratorFlag);
 	~Iterator_Walk();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -839,7 +839,7 @@ public:
 	Iterator_Repeater(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -860,7 +860,7 @@ public:
 	Iterator_repeat(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -881,7 +881,7 @@ public:
 	Iterator_while(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -903,7 +903,7 @@ public:
 	Iterator_for(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -927,7 +927,7 @@ public:
 	Iterator_cross(Environment *pEnv, Signal &sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 private:

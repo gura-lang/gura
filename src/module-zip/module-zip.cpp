@@ -462,8 +462,9 @@ Iterator *Iterator_Entry::GetSource()
 	return nullptr;
 }
 
-bool Iterator_Entry::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_Entry::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_ppHdr == _pObjZipR->GetHeaderList().end()) return false;
 	const CentralFileHeader *pHdr = *_ppHdr;
 	const CentralFileHeader::Fields &fields = pHdr->GetFields();
@@ -923,7 +924,7 @@ Directory_ZIP::~Directory_ZIP()
 {
 }
 
-Directory *Directory_ZIP::DoNext(Environment &env, Signal &sig)
+Directory *Directory_ZIP::DoNext(Environment &env)
 {
 	return _pRecord->Next(this);
 }

@@ -67,7 +67,7 @@ public:
 		Iterator(false), _pObj(pObj),
 		_item(item), _itemChild(itemChild), _cookie(cookie) {}
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -77,8 +77,9 @@ Iterator *Iterator_TreeCtrl_ItemChildren::GetSource()
 	return nullptr;
 }
 
-bool Iterator_TreeCtrl_ItemChildren::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_TreeCtrl_ItemChildren::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_pObj->IsInvalid(sig)) return false;
 	if (!_item.IsOk() || !_itemChild.IsOk()) return false;
 	value = Value(new Object_wx_TreeItemId(new wxTreeItemId(_itemChild), nullptr, true));

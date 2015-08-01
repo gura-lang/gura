@@ -1390,7 +1390,7 @@ Iterator *Image::IteratorScan::GetSource()
 	return nullptr;
 }
 
-bool Image::IteratorScan::DoNext(Environment &env, Signal &sig, Value &value)
+bool Image::IteratorScan::DoNext(Environment &env, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
 	if (_doneFlag) return false;

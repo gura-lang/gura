@@ -26,8 +26,9 @@ Iterator *IteratorSplit::GetSource()
 	return nullptr;
 }
 
-bool IteratorSplit::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorSplit::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	const char *str = _str.c_str();
 	if (_doneFlag) return false;
 	if (_cnt == 0) {
@@ -99,8 +100,9 @@ Iterator *IteratorScan::GetSource()
 	return nullptr;
 }
 
-bool IteratorScan::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorScan::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_idx >= _idxEnd) return false;
 	const char *str = _str.c_str();
 	int rtn = ::onig_search(_pObjPattern->GetRegEx(),
@@ -159,8 +161,9 @@ Iterator *IteratorGrep::GetSource()
 	return _pIteratorSrc.get();
 }
 
-bool IteratorGrep::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorGrep::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	const int pos = 0, posEnd = -1;
 	while (_pIteratorSrc->Next(env, value)) {
 		String str = value.ToString(false);
@@ -202,7 +205,7 @@ Iterator *IteratorGroup::GetSource()
 	return nullptr;
 }
 
-bool IteratorGroup::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorGroup::DoNext(Environment &env, Value &value)
 {
 	const GroupList &groupList = _pObjMatch->GetGroupList();
 	if (_iGroup < groupList.size()) {

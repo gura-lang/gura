@@ -356,8 +356,9 @@ Iterator *Iterator_reader::GetSource()
 	return nullptr;
 }
 
-bool Iterator_reader::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_reader::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	ValueList &valList = value.InitAsList(env);
 	if (_pReader->ReadLine(env, sig, valList)) return true;
 	value = Value::Null;

@@ -212,7 +212,7 @@ Iterator *Object_list::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorEach::DoNext(Environment &env, Value &value)
 {
 	if (_pValue == _pValueEnd) return false;
 	value = *_pValue;
@@ -241,7 +241,7 @@ Iterator *Object_list::IteratorReverse::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorReverse::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorReverse::DoNext(Environment &env, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_pValue == valList.rend()) return false;
@@ -271,7 +271,7 @@ Iterator *Object_list::IteratorCycle::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorCycle::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorCycle::DoNext(Environment &env, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_pValue == valList.end() || _cnt == 0) return false;
@@ -303,7 +303,7 @@ Iterator *Object_list::IteratorPingpong::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorPingpong::DoNext(Environment &env, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_forwardFlag) {
@@ -359,8 +359,9 @@ Iterator *Object_list::IteratorFold::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorFold::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorFold::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_doneFlag) return false;
 	ValueList &valList = _pObj->GetList();
 	if (_offset >= valList.size()) return false;
@@ -409,7 +410,7 @@ Iterator *Object_list::IteratorPermutation::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorPermutation::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
@@ -461,7 +462,7 @@ Iterator *Object_list::IteratorCombination::GetSource()
 	return nullptr;
 }
 
-bool Object_list::IteratorCombination::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_list::IteratorCombination::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
 	ValueList &valList = value.InitAsList(*_pObj);

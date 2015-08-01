@@ -30,10 +30,9 @@ Iterator *Iterator::Clone() const
 
 bool Iterator::NextShared(Environment &env, int id, Value &value)
 {
-	Signal &sig = env.GetSignal();
 	if (_pShare.get() == nullptr) {
 		for (;;) {
-			if (!DoNext(env, sig, value)) return false;
+			if (!DoNext(env, value)) return false;
 			if (!IsSkipInvalid() || value.IsValid()) break;
 		}
 	} else if (_pShare->Next(id, value)) {
@@ -42,7 +41,7 @@ bool Iterator::NextShared(Environment &env, int id, Value &value)
 		return false;
 	} else {
 		for (;;) {
-			if (!DoNext(env, sig, value)) {
+			if (!DoNext(env, value)) {
 				_pShare->SetDone();
 				return false;
 			}

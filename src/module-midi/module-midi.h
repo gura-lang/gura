@@ -338,7 +338,7 @@ private:
 public:
 	Iterator_track(TrackOwner *pTrackOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -354,7 +354,7 @@ private:
 public:
 	Iterator_eventAll(TrackOwner *pTrackOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -369,7 +369,7 @@ private:
 public:
 	Iterator_event(EventOwner *pEventOwner);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

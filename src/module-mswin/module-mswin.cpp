@@ -861,8 +861,9 @@ Iterator *Object_ole::IteratorEx::GetSource()
 	return nullptr;
 }
 
-bool Object_ole::IteratorEx::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_ole::IteratorEx::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	VARIANT var;
 	::VariantInit(&var);
 	if (_pEnum->Next(1, &var, nullptr) != S_OK) return false;
@@ -904,8 +905,9 @@ Iterator *Iterator_RegEnumKey::GetSource()
 	return nullptr;
 }
 
-bool Iterator_RegEnumKey::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_RegEnumKey::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	char name[256];
 	FILETIME ftLastWriteTime;
 	HKEY hKey = _pObjRegKey->GetKey();
@@ -953,8 +955,9 @@ Iterator *Iterator_RegEnumValue::GetSource()
 	return nullptr;
 }
 
-bool Iterator_RegEnumValue::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_RegEnumValue::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	char valueName[256];
 	DWORD cValueName = ArraySizeOf(valueName);
 	HKEY hKey = _pObjRegKey->GetKey();

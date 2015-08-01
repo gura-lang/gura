@@ -149,8 +149,9 @@ Iterator *Object_db::IteratorQuery::GetSource()
 	return nullptr;
 }
 
-bool Object_db::IteratorQuery::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_db::IteratorQuery::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (::sqlite3_step(_pStmt) != SQLITE_ROW) {
 		return false;
 	}

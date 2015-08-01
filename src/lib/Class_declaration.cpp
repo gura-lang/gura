@@ -119,7 +119,7 @@ Iterator *Iterator_declaration::GetSource()
 	return nullptr;
 }
 
-bool Iterator_declaration::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_declaration::DoNext(Environment &env, Value &value)
 {
 	if (_idx < _pDeclarationOwner->size()) {
 		Declaration *pDeclaration = (*_pDeclarationOwner)[_idx++];

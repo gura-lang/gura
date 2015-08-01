@@ -402,8 +402,9 @@ Iterator *Iterator_Entry::GetSource()
 	return nullptr;
 }
 
-bool Iterator_Entry::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_Entry::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	Stream *pStreamSrc = _pObjReader->GetStreamSrc();
 	if (_offsetNext != InvalidSize) {
 		pStreamSrc->Seek(sig, _offsetNext, Stream::SeekSet);
@@ -623,7 +624,7 @@ Directory_TAR::~Directory_TAR()
 {
 }
 
-Directory *Directory_TAR::DoNext(Environment &env, Signal &sig)
+Directory *Directory_TAR::DoNext(Environment &env)
 {
 	return _pRecord->Next(this);
 }

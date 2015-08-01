@@ -106,7 +106,7 @@ public:
 	static void SetError_InvalidDataTypeOfElement(Signal &sig);
 	static void SetError_InfiniteNotAllowed(Signal &sig);
 	virtual Iterator *GetSource() = 0;
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value) = 0;
+	virtual bool DoNext(Environment &env, Value &value) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) = 0;
 private:
 	inline void operator=(const Iterator &iterator) {}

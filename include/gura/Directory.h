@@ -46,7 +46,7 @@ public:
 				Directory *pDirectory, int depthMax, const StringList &patterns);
 		~Iterator_Walk();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -70,7 +70,7 @@ public:
 		~Iterator_Glob();
 		bool Init(Environment &env, Signal &sig, const char *pattern);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -103,7 +103,7 @@ public:
 	inline bool DoesMatchName(const char *pattern, bool ignoreCaseFlag) const {
 		return PathMgr::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
-	Directory *Next(Environment &env, Signal &sig);
+	Directory *Next(Environment &env);
 	inline Object *GetStatObj(Signal &sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = nullptr) const;
 	int CountDepth() const;
@@ -114,7 +114,7 @@ public:
 	static Directory *Open(Environment &env, Signal &sig, Directory *pParent,
 					const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 protected:
-	virtual Directory *DoNext(Environment &env, Signal &sig) = 0;
+	virtual Directory *DoNext(Environment &env) = 0;
 	virtual Object *DoGetStatObj(Signal &sig);
 };
 

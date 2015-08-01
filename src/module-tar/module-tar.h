@@ -225,7 +225,7 @@ public:
 	Directory_TAR(Directory *pParent, const char *name,
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
-	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
 	virtual Object *DoGetStatObj(Signal &sig);
 };
@@ -332,7 +332,7 @@ private:
 public:
 	inline Iterator_Entry(Object_reader *pObjReader);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

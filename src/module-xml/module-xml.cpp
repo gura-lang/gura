@@ -1285,7 +1285,7 @@ Iterator *Iterator_attribute::GetSource()
 	return nullptr;
 }
 
-bool Iterator_attribute::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_attribute::DoNext(Environment &env, Value &value)
 {
 	if (_idx < _pAttributeOwner->size()) {
 		Attribute *pAttribute = (*_pAttributeOwner)[_idx++];
@@ -1320,7 +1320,7 @@ Iterator *Iterator_element::GetSource()
 	return nullptr;
 }
 
-bool Iterator_element::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_element::DoNext(Environment &env, Value &value)
 {
 	if (_idx < _pElementOwner->size()) {
 		Element *pElement = (*_pElementOwner)[_idx++];

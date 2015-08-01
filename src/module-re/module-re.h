@@ -151,7 +151,7 @@ public:
 	IteratorSplit(Object_pattern *pObjPattern, const String &str, int cntMax);
 	virtual ~IteratorSplit();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -170,7 +170,7 @@ public:
 	IteratorScan(Object_pattern *pObjPattern, const String &str, int pos, int posEnd);
 	virtual ~IteratorScan();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -185,7 +185,7 @@ private:
 public:
 	IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -200,7 +200,7 @@ private:
 public:
 	IteratorGroup(Object_match *pObjMatch);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

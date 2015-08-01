@@ -2531,8 +2531,9 @@ Directory_Http::~Directory_Http()
 {
 }
 
-Directory *Directory_Http::DoNext(Environment &env, Signal &sig)
+Directory *Directory_Http::DoNext(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_SystemError, "");
 	return nullptr;
 }

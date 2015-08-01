@@ -48,7 +48,7 @@ public:
 					pObj->GetList().begin() + offset + cnt : pObj->GetList().end()) {}
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -61,7 +61,7 @@ public:
 			Iterator(false), _pObj(pObj), _pValue(pObj->GetList().rbegin()) {}
 		virtual ~IteratorReverse();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -75,7 +75,7 @@ public:
 			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
 		virtual ~IteratorCycle();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -94,7 +94,7 @@ public:
 			_pValueFwd(pObj->GetList().begin()), _pValueBwd(pObj->GetList().rbegin()) {}
 		virtual ~IteratorPingpong();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -112,7 +112,7 @@ public:
 					 size_t cntStep, bool listItemFlag, bool neatFlag);
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -128,7 +128,7 @@ public:
 		IteratorPermutation(Object_list *pObj, int cnt);
 		~IteratorPermutation();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -144,7 +144,7 @@ public:
 		IteratorCombination(Object_list *pObj, int cnt);
 		~IteratorCombination();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};

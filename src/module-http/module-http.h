@@ -659,7 +659,7 @@ private:
 public:
 	Directory_Http(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_Http();
-	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
 	inline void SetScheme(const char *scheme) { _scheme = scheme; }
 	inline void SetAuthority(const char *authority) { _authority = authority; }

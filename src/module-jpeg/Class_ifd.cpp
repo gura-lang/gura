@@ -303,7 +303,7 @@ Iterator *IteratorTag::GetSource()
 	return nullptr;
 }
 
-bool IteratorTag::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorTag::DoNext(Environment &env, Value &value)
 {
 	TagOwner &tagOwner = _pObjIFD->GetTagOwner();
 	if (_idx >= tagOwner.size()) return false;

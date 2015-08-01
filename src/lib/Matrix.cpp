@@ -915,7 +915,7 @@ Iterator *Matrix::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Matrix::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
+bool Matrix::IteratorEach::DoNext(Environment &env, Value &value)
 {
 	if (_transposeFlag) {
 		if (_iCol >= _pMat->GetCols()) return false;
@@ -956,8 +956,9 @@ Iterator *Matrix::IteratorEachRow::GetSource()
 	return nullptr;
 }
 
-bool Matrix::IteratorEachRow::DoNext(Environment &env, Signal &sig, Value &value)
+bool Matrix::IteratorEachRow::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_iRow >= _pMat->GetRows()) return false;
 	value = _pMat->GetRow(env, sig, _iRow);
 	_iRow++;
@@ -985,8 +986,9 @@ Iterator *Matrix::IteratorEachCol::GetSource()
 	return nullptr;
 }
 
-bool Matrix::IteratorEachCol::DoNext(Environment &env, Signal &sig, Value &value)
+bool Matrix::IteratorEachCol::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_iCol >= _pMat->GetCols()) return false;
 	value = _pMat->GetCol(env, sig, _iCol);
 	_iCol++;

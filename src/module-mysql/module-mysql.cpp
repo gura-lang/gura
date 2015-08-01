@@ -73,7 +73,7 @@ Object_mysql::IteratorQuery::~IteratorQuery()
 	::mysql_free_result(_pRes);
 }
 
-bool Object_mysql::IteratorQuery::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_mysql::IteratorQuery::DoNext(Environment &env, Value &value)
 {
 	//Environment &env = *_pObj;
 	unsigned int nFields = ::mysql_num_fields(_pRes);

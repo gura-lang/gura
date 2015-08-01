@@ -23,7 +23,7 @@ public:
 		inline IteratorQuery(Object_mysql *pObj, MYSQL_RES *pRes) :
 								Iterator(false), _pObj(pObj), _pRes(pRes) {}
 		virtual ~IteratorQuery();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 	};
 private:

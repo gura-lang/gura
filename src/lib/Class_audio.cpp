@@ -147,7 +147,7 @@ Gura_ImplementFunction(audio)
 			if (sig.IsSignalled()) return Value::Null;
 			audioType = valList[1].GetString();
 		}
-		if (!pAudio->Read(env, sig, stream, audioType)) return Value::Null;
+		if (!pAudio->Read(env, stream, audioType)) return Value::Null;
 	}
 	return ReturnValue(env, args, Value(new Object_audio(env, pAudio.release())));
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(audio, store)
 	}
 	size_t offset = args.GetSizeT(1);
 	Iterator *pIterator = args.GetIterator(2);
-	if (!pAudio->StoreData(env, sig, iChannel, offset, pIterator)) return Value::Null;
+	if (!pAudio->StoreData(env, iChannel, offset, pIterator)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -324,7 +324,7 @@ bool Class_audio::CastFrom(Environment &env, Value &value, const Declaration *pD
 	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
-		pAudio->Read(env, sig, value.GetStream(), nullptr);
+		pAudio->Read(env, value.GetStream(), nullptr);
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_audio(env, pAudio.release()));

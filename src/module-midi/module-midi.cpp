@@ -2037,7 +2037,7 @@ Iterator *Iterator_track::GetSource()
 	return nullptr;
 }
 
-bool Iterator_track::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_track::DoNext(Environment &env, Value &value)
 {
 	if (_idxTrack < _pTrackOwner->size()) {
 		Track *pTrack = (*_pTrackOwner)[_idxTrack++];
@@ -2072,7 +2072,7 @@ Iterator *Iterator_eventAll::GetSource()
 	return nullptr;
 }
 
-bool Iterator_eventAll::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_eventAll::DoNext(Environment &env, Value &value)
 {
 	for ( ; _idxTrack < _pTrackOwner->size(); _idxTrack++) {
 		Track *pTrack = (*_pTrackOwner)[_idxTrack];
@@ -2111,7 +2111,7 @@ Iterator *Iterator_event::GetSource()
 	return nullptr;
 }
 
-bool Iterator_event::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_event::DoNext(Environment &env, Value &value)
 {
 	if (_idxEvent < _pEventOwner->size()) {
 		Event *pEvent = (*_pEventOwner)[_idxEvent++];

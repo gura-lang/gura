@@ -146,7 +146,7 @@ Iterator *Object_binary::IteratorByte::GetSource()
 	return nullptr;
 }
 
-bool Object_binary::IteratorByte::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_binary::IteratorByte::DoNext(Environment &env, Value &value)
 {
 	const Binary &binary = _pObj->GetBinary();
 	if (_offset >= binary.size() || _cnt == 0) return false;
@@ -180,7 +180,7 @@ Iterator *Object_binary::IteratorUnpack::GetSource()
 	return nullptr;
 }
 
-bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_binary::IteratorUnpack::DoNext(Environment &env, Value &value)
 {
 	value = _pObj->GetBinary().Unpack(env, _offset, _format.c_str(), _valListArg, false);
 	return value.IsValid();

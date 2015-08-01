@@ -31,7 +31,7 @@ public:
 	Iterator_IdentifierInMember(Environment *pEnv, Iterator *pIterator, const Symbol *pSymbol);
 	virtual ~Iterator_IdentifierInMember();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
@@ -51,7 +51,7 @@ public:
 		Iterator *pIterator, const Symbol *pSymbol, const BridgeFunctionT bridgeFunc);
 	virtual ~Iterator_CallerInMember();
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

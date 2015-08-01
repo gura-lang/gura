@@ -40,7 +40,7 @@ public:
 							_iRow(0), _iCol(0), _transposeFlag(transposeFlag) {}
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -53,7 +53,7 @@ public:
 							Iterator(false), _pMat(pMat), _iRow(0) {}
 		virtual ~IteratorEachRow();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -66,7 +66,7 @@ public:
 							Iterator(false), _pMat(pMat), _iCol(0) {}
 		virtual ~IteratorEachCol();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};

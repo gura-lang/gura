@@ -78,7 +78,7 @@ Object_postgresql::IteratorTuple::~IteratorTuple()
 	::PQclear(_res);
 }
 
-bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Value &value)
 {
 	//Environment &env = *_pObj;
 	if (_iTuple >= ::PQntuples(_res)) return false;

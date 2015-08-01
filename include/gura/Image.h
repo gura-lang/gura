@@ -186,7 +186,7 @@ public:
 			Iterator(false),
 			_scanner(pImage, x, y, width, height, scanDir), _doneFlag(false) {}
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};

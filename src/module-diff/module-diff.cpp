@@ -283,7 +283,7 @@ Iterator *DiffLine::IteratorHunk::GetSource()
 	return nullptr;
 }
 
-bool DiffLine::IteratorHunk::DoNext(Environment &env, Signal &sig, Value &value)
+bool DiffLine::IteratorHunk::DoNext(Environment &env, Value &value)
 {
 	DiffLine::Hunk hunk;
 	if (_pDiffLine->NextHunk(&_idxEdit, _format, _nLinesCommon, &hunk)) {
@@ -324,7 +324,7 @@ Iterator *DiffLine::IteratorEdit::GetSource()
 	return nullptr;
 }
 
-bool DiffLine::IteratorEdit::DoNext(Environment &env, Signal &sig, Value &value)
+bool DiffLine::IteratorEdit::DoNext(Environment &env, Value &value)
 {
 	if (_idxEdit >= _idxEditEnd) return false;
 	value = Value(new Object_edit_at_line(_pDiffLine->Reference(), _idxEdit));
@@ -409,7 +409,7 @@ Iterator *DiffChar::IteratorEdit::GetSource()
 	return nullptr;
 }
 
-bool DiffChar::IteratorEdit::DoNext(Environment &env, Signal &sig, Value &value)
+bool DiffChar::IteratorEdit::DoNext(Environment &env, Value &value)
 {
 	for ( ; _idxEdit < _idxEditEnd; _idxEdit++) {
 		EditType editType = (*_pEditOwner)[_idxEdit]->GetEditType();
@@ -598,7 +598,7 @@ Iterator *IteratorSyncLine::GetSource()
 	return nullptr;
 }
 
-bool IteratorSyncLine::DoNext(Environment &env, Signal &sig, Value &value)
+bool IteratorSyncLine::DoNext(Environment &env, Value &value)
 {
 	if (_idxSyncLine >= _idxSyncLineEnd) return false;
 	value = Value(new Object_syncline(_syncLines[_idxSyncLine]->Reference()));

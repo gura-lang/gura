@@ -486,7 +486,7 @@ Directory_FileSys::~Directory_FileSys()
 	::FindClose(_hFind);
 }
 
-Directory *Directory_FileSys::DoNext(Environment &env, Signal &sig)
+Directory *Directory_FileSys::DoNext(Environment &env)
 {
 	WIN32_FIND_DATA findData;
 	if (_hFind == INVALID_HANDLE_VALUE) {
@@ -544,7 +544,7 @@ Directory_FileSys::~Directory_FileSys()
 	if (_pDir != nullptr) closedir(_pDir);
 }
 
-Directory *Directory_FileSys::DoNext(Environment &env, Signal &sig)
+Directory *Directory_FileSys::DoNext(Environment &env)
 {
 	if (_pDir == nullptr) {
 		String pathName(MakePathName(false));

@@ -87,7 +87,7 @@ private:
 public:
 	inline Iterator_Array(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
 	virtual Iterator *GetSource() { return nullptr; }
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value) {
+	virtual bool DoNext(Environment &env, Value &value) {
 		if (_idx >= _pArray->GetSize()) return false;
 		value = Value(*(_pArray->GetPointer() + _idx));
 		_idx++;

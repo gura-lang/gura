@@ -603,7 +603,7 @@ Iterator *ExprOwner::Iterator::GetSource()
 	return nullptr;
 }
 
-bool ExprOwner::Iterator::DoNext(Environment &env, Signal &sig, Value &value)
+bool ExprOwner::Iterator::DoNext(Environment &env, Value &value)
 {
 	if (_idx < _pExprOwner->size()) {
 		Expr *pExpr = (*_pExprOwner)[_idx++];

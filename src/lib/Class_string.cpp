@@ -1059,7 +1059,7 @@ Iterator *Class_string::IteratorEach::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorEach::DoNext(Environment &env, Signal &sig, Value &value)
+bool Class_string::IteratorEach::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _str.end()) return false;
 	if (_attr == ATTR_UTF8) {
@@ -1112,7 +1112,7 @@ Iterator *Class_string::IteratorLine::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorLine::DoNext(Environment &env, Signal &sig, Value &value)
+bool Class_string::IteratorLine::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _str.end() || _cnt == 0) return false;
 	String::const_iterator pLeft = _pCur;
@@ -1162,7 +1162,7 @@ Iterator *Class_string::IteratorSplit::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorSplit::DoNext(Environment &env, Signal &sig, Value &value)
+bool Class_string::IteratorSplit::DoNext(Environment &env, Value &value)
 {
 	if (_doneFlag) {
 		return false;
@@ -1217,7 +1217,7 @@ Iterator *Class_string::IteratorFold::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorFold::DoNext(Environment &env, Signal &sig, Value &value)
+bool Class_string::IteratorFold::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _str.end()) return false;
 	size_t lenForward = 0;
@@ -1265,7 +1265,7 @@ Iterator *Class_string::IteratorFoldw::GetSource()
 	return nullptr;
 }
 
-bool Class_string::IteratorFoldw::DoNext(Environment &env, Signal &sig, Value &value)
+bool Class_string::IteratorFoldw::DoNext(Environment &env, Value &value)
 {
 	ULong codeUTF32 = 0;
 	size_t width = 0; 

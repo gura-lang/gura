@@ -212,8 +212,9 @@ Iterator *Iterator_FromStream::GetSource()
 	return nullptr;
 }
 
-bool Iterator_FromStream::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_FromStream::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_doneFlag) return false;
 	value = ExecParser(env, sig, _parser, _anchorMap);
 	_doneFlag = value.IsInvalid();
@@ -262,8 +263,9 @@ Iterator *Iterator_FromString::GetSource()
 	return nullptr;
 }
 
-bool Iterator_FromString::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_FromString::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_doneFlag) return false;
 	value = ExecParser(env, sig, _parser, _anchorMap);
 	_doneFlag = value.IsInvalid();

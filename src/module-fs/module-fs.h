@@ -96,7 +96,7 @@ public:
 	static bool IsExist(Signal &sig, const char *pathName);
 	static bool IsDir(Signal &sig, const char *pathName);
 protected:
-	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
 };
 

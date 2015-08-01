@@ -78,7 +78,7 @@ public:
 	public:
 		IteratorEach(Audio *pAudio, size_t iChannel, size_t offset);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -193,10 +193,9 @@ public:
 	size_t GetBytes() const;
 	bool PutData(size_t iChannel, size_t offset, int data);
 	bool GetData(size_t iChannel, size_t offset, int *pData);
-	bool StoreData(Environment &env, Signal &sig,
-						size_t iChannel, size_t offset, Iterator *pIterator);
-	bool Read(Environment &env, Signal &sig, Stream &stream, const char *audioType);
-	bool Write(Environment &env, Signal &sig, Stream &stream, const char *audioType);
+	bool StoreData(Environment &env, size_t iChannel, size_t offset, Iterator *pIterator);
+	bool Read(Environment &env, Stream &stream, const char *audioType);
+	bool Write(Environment &env, Stream &stream, const char *audioType);
 	bool AddSineWave(Signal &sig, size_t iChannel,
 							double freq, size_t nSamples, int amplitude);
 	Audio *ConvertFormat(Format format) const;

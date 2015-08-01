@@ -25,7 +25,7 @@ public:
 		IteratorEach(const String &str, int maxSplit, Attr attr);
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -39,7 +39,7 @@ public:
 		IteratorLine(const String &str, int cntMax, bool includeEOLFlag);
 		virtual ~IteratorLine();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -56,7 +56,7 @@ public:
 						const char *sep, int cntMax, bool ignoreCaseFlag);
 		virtual ~IteratorSplit();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -71,7 +71,7 @@ public:
 		IteratorFold(const String &str, size_t lenPerFold, size_t lenStep, bool neatFlag);
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -85,7 +85,7 @@ public:
 		IteratorFoldw(const String &str, size_t widthPerFold, bool paddingFlag);
 		virtual ~IteratorFoldw();
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};

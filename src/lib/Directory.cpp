@@ -23,13 +23,14 @@ Directory::~Directory()
 {
 }
 
-Directory *Directory::Next(Environment &env, Signal &sig)
+Directory *Directory::Next(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (!IsContainer()) {
 		sig.SetError(ERR_ValueError, "not a container entry");
 		return nullptr;
 	}
-	return DoNext(env, sig);
+	return DoNext(env);
 }
 
 String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
@@ -131,12 +132,13 @@ Iterator *Directory::Iterator_Walk::GetSource()
 	return nullptr;
 }
 
-bool Directory::Iterator_Walk::DoNext(Environment &env, Signal &sig, Value &value)
+bool Directory::Iterator_Walk::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	for (;;) {
 		Directory *pDirectoryChild = nullptr;
 		while (_pDirectory.IsNull() ||
-				(pDirectoryChild = _pDirectory->Next(env, sig)) == nullptr) {
+				(pDirectoryChild = _pDirectory->Next(env)) == nullptr) {
 			if (_directoryQue.empty()) {
 				_pDirectory.reset(nullptr);
 				return false;
@@ -252,12 +254,13 @@ Iterator *Directory::Iterator_Glob::GetSource()
 	return nullptr;
 }
 
-bool Directory::Iterator_Glob::DoNext(Environment &env, Signal &sig, Value &value)
+bool Directory::Iterator_Glob::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	Directory *pDirectoryChild = nullptr;
 	for (;;) {
 		while (_pDirectory.IsNull() ||
-				(pDirectoryChild = _pDirectory->Next(env, sig)) == nullptr) {
+				(pDirectoryChild = _pDirectory->Next(env)) == nullptr) {
 			if (_directoryQue.empty()) {
 				_pDirectory.reset(nullptr);
 				return false;

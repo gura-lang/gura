@@ -84,7 +84,7 @@ Iterator *Object_dict::IteratorKeys::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_dict::IteratorKeys::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->first;
@@ -114,7 +114,7 @@ Iterator *Object_dict::IteratorValues::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorValues::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_dict::IteratorValues::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->second;
@@ -144,7 +144,7 @@ Iterator *Object_dict::IteratorItems::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorItems::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_dict::IteratorItems::DoNext(Environment &env, Value &value)
 {
 	if (_pCur == _pObj->GetDict().end()) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
@@ -178,8 +178,9 @@ Iterator *Object_dict::IteratorGet::GetSource()
 	return nullptr;
 }
 
-bool Object_dict::IteratorGet::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_dict::IteratorGet::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	Value valueIdx;
 	if (!_pIteratorKey->Next(env, valueIdx)) return false;
 	const Value *pValue = _pObj->GetDict().Find(sig, valueIdx);

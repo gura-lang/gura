@@ -2972,7 +2972,7 @@ Iterator *Iterator_item::GetSource()
 	return nullptr;
 }
 
-bool Iterator_item::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_item::DoNext(Environment &env, Value &value)
 {
 	if (_idxItem < _pItemOwner->size()) {
 		Item *pItem = (*_pItemOwner)[_idxItem++];

@@ -927,8 +927,9 @@ Iterator *Object_stream::IteratorLine::GetSource()
 	return nullptr;
 }
 
-bool Object_stream::IteratorLine::DoNext(Environment &env, Signal &sig, Value &value)
+bool Object_stream::IteratorLine::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = _pObj->GetStream();
 	if (_nLines == _nLinesMax) return false;
 	String str;

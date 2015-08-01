@@ -710,8 +710,9 @@ Directory_cURL::~Directory_cURL()
 {
 }
 
-Directory *Directory_cURL::DoNext(Environment &env, Signal &sig)
+Directory *Directory_cURL::DoNext(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (_pFileinfoOwner.get() == nullptr) {
 		_pFileinfoOwner.reset(DoBrowse(sig));
 		if (sig.IsSignalled()) return nullptr;

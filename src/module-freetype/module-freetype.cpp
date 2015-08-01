@@ -133,7 +133,7 @@ Gura_ImplementFunction(test)
 	Directory *pDirectoryParent = Directory::OpenDirectory(
 						env, sig, pathName.c_str(), Directory::NF_Signal);
 	Directory *pDirectory = nullptr;
-	while ((pDirectory = pDirectoryParent->Next(env, sig)) != nullptr) {
+	while ((pDirectory = pDirectoryParent->Next(env)) != nullptr) {
 		if (pDirectory->IsMatchName("*.ttf", true) ||
 								pDirectory->IsMatchName("*.ttc", true)) {
 			FT_Face face;

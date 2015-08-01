@@ -122,7 +122,7 @@ private:
 public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_cURL();
-	virtual Directory *DoNext(Environment &env, Signal &sig);
+	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
 	FileinfoOwner *DoBrowse(Signal &sig);
 };

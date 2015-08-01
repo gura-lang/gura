@@ -134,7 +134,7 @@ public:
 	public:
 		IteratorHunk(DiffLine *pDiffLine, Format format, size_t nLinesCommon);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -148,7 +148,7 @@ public:
 		IteratorEdit(DiffLine *pDiffLine);
 		IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -236,7 +236,7 @@ public:
 	public:
 		IteratorEdit(EditOwner *pEditOwner, FilterType filterType);
 		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
@@ -328,7 +328,7 @@ private:
 public:
 	IteratorSyncLine(Sync *pSync, Target target);
 	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal &sig, Value &value);
+	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

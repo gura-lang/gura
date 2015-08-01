@@ -23,7 +23,7 @@ Iterator *Iterator_GmpSeqInf::GetSource()
 	return nullptr;
 }
 
-bool Iterator_GmpSeqInf::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_GmpSeqInf::DoNext(Environment &env, Value &value)
 {
 	value = Value(new Object_mpz(_num));
 	_num += 1;
@@ -58,7 +58,7 @@ Iterator *Iterator_GmpSeq::GetSource()
 	return nullptr;
 }
 
-bool Iterator_GmpSeq::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_GmpSeq::DoNext(Environment &env, Value &value)
 {
 	if (!((_numStep > 0)? (_num <= _numEnd) : (_num >= _numEnd))) return false;
 	value = Value(new Object_mpz(_num));

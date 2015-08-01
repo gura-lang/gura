@@ -3582,7 +3582,7 @@ Iterator *Iterator_NewIds::GetSource()
 	return nullptr;
 }
 
-bool Iterator_NewIds::DoNext(Environment &env, Signal &sig, Value &value)
+bool Iterator_NewIds::DoNext(Environment &env, Value &value)
 {
 	value = Value(::wxNewId());
 	return true;
