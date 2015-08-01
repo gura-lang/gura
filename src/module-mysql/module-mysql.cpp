@@ -177,7 +177,7 @@ Gura_ImplementFunction(connect)
 		if (pFuncBlock == nullptr) return Value::Null;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);
-		pFuncBlock->Eval(env, sig, argsSub);
+		pFuncBlock->Eval(env, argsSub);
 		result = Value::Null; // object is destroyed here
 	}
 	return result;

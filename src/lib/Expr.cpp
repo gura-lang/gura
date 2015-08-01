@@ -1040,7 +1040,7 @@ Value Expr_Suffixed::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 				_pSymbolSuffix->GetName(), _numberFlag? "number" : "string");
 		return Value::Null;
 	}
-	result = pSuffixMgrEntry->DoEval(env, sig, _body.c_str());
+	result = pSuffixMgrEntry->DoEval(env, _body.c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -2016,7 +2016,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			} else if (mode == Expr_Member::MODE_MapAlong) {
 				Value valueThisEach;
 				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Null;
-				return EvalEach(env, sig, valueThisEach,
+				return EvalEach(env, valueThisEach,
 								pIteratorThis, valueThis.Is_list(), pTrailCtrlHolder);
 			} else {
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
@@ -2029,7 +2029,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				return result;
 			}
 		}
-		return EvalEach(env, sig, valueThis, nullptr, false, pTrailCtrlHolder);
+		return EvalEach(env, valueThis, nullptr, false, pTrailCtrlHolder);
 	} else {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		Value valueCar = _pExprCar->Exec2(env, pSeqPostHandler);
@@ -2049,9 +2049,10 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	}
 }
 
-Value Expr_Caller::EvalEach(Environment &env, Signal &sig, const Value &valueThis,
+Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const
 {
+	Signal &sig = env.GetSignal();
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr *pExprRight = pExprMember->GetRight();
 	Value valueCar;
@@ -2376,7 +2377,7 @@ Value Expr_UnaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 	SeqPostHandler *pSeqPostHandlerChild = nullptr;
 	Value value = GetChild()->Exec2(env, pSeqPostHandlerChild);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = _pOperator->EvalMapUnary(env, sig, value, _suffixFlag);
+	Value result = _pOperator->EvalMapUnary(env, value, _suffixFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -2474,7 +2475,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 		} else {
 			valueRight = pExprRight->Exec2(env, pSeqPostHandlerRight);
 			if (sig.IsSignalled()) return Value::Null;
-			result = _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
 			if (sig.IsSignalled()) return Value::Null;
 		}
 	} else if (opType == OPTYPE_AndAnd) {
@@ -2487,7 +2488,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 		} else {
 			valueRight = pExprRight->Exec2(env, pSeqPostHandlerRight);
 			if (sig.IsSignalled()) return Value::Null;
-			result = _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
 			if (sig.IsSignalled()) return Value::Null;
 		}
 	} else {
@@ -2497,7 +2498,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 		if (sig.IsSignalled()) return Value::Null;
 		valueRight = pExprRight->Exec2(env, pSeqPostHandlerRight);
 		if (sig.IsSignalled()) return Value::Null;
-		result = _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
+		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
@@ -2688,7 +2689,7 @@ Value Expr_Assign::Exec(Environment &env, Environment &envDst,
 			SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 			Value valueLeft = pExpr->Exec2(env, pSeqPostHandlerLeft);
 			if (sig.IsSignalled()) return Value::Null;
-			valueAssigned = _pOperatorToApply->EvalMapBinary(env, sig, valueLeft, valueAssigned);
+			valueAssigned = _pOperatorToApply->EvalMapBinary(env, valueLeft, valueAssigned);
 			if (sig.IsSignalled()) return Value::Null;
 		}
 	}

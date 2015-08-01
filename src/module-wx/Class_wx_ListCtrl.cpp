@@ -1491,7 +1491,7 @@ int wxListCompareFunction::Body(long item1, long item2)
 	//valList.push_back(Value(item2));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(item1), Value(item2));
-	Value rtn = _pFunc->Eval(_env, _env.GetSignal(), *pArgs);
+	Value rtn = _pFunc->Eval(_env, *pArgs);
 	return rtn.GetInt();
 }
 

@@ -2096,7 +2096,7 @@ Gura_ImplementMethod(server, wait)
 		//ValueList valListArg(value);
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->AddValue(Value(pObjRequest));
-		pFuncBlock->Eval(env, sig, *pArgsSub);
+		pFuncBlock->Eval(env, *pArgsSub);
 		if (sig.IsBreak()) {
 			sig.ClearSignal();
 			break;
@@ -2398,7 +2398,7 @@ bool Object_proxy::IsResponsible(Environment &env, Signal &sig, const char *addr
 	//ValueList valListArg(Value(env, addr));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Value(addr));
-	Value result = _pFuncCriteria->Eval(env, sig, *pArgs);
+	Value result = _pFuncCriteria->Eval(env, *pArgs);
 	if (sig.IsSignalled()) return false;
 	return result.GetBoolean();
 }

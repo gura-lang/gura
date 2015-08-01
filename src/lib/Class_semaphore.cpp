@@ -91,7 +91,7 @@ Gura_ImplementMethod(semaphore, session)
 	pThis->GetSemaphore().Wait();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
-	Value result = pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
+	Value result = pFuncBlock->Eval(*pEnvBlock, *pArgsSub);
 	pThis->GetSemaphore().Release();
 	return result;
 }

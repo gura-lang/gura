@@ -77,7 +77,7 @@ public:
 	String NewCommandName();
 	String NewVariableName();
 	void ExitMainLoop();
-	Value TclEval(Environment &env, Signal &sig, const ValueList &valList);
+	Value TclEval(Environment &env, const ValueList &valList);
 	static void DeleteTclObjArray(int objc, Tcl_Obj **objv);
 	static int CommandProc(ClientData clientData, Tcl_Interp *interp,
 										int argc, const char *argv[]);

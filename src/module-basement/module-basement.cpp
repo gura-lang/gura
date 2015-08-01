@@ -380,7 +380,7 @@ bool Func_dim_Sub(Environment &env, Signal &sig, const Function *pFuncBlock, Val
 				foreach (IntList, pIdxWk, idxList) {
 					pArgs->AddValue(Value(*pIdxWk));
 				}
-				Value result = pFuncBlock->Eval(env, sig, *pArgs);
+				Value result = pFuncBlock->Eval(env, *pArgs);
 				if (sig.IsSignalled()) return false;
 				valListParent.push_back(result);
 			}
@@ -903,7 +903,7 @@ Gura_ImplementFunction(catch_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(Value(pObj));
-	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
+	return pFuncBlock->Eval(*pEnvBlock, *pArgsSub);
 }
 
 // finally ():trailer:finalizer {block}
@@ -1696,7 +1696,7 @@ private:
 	ValueType _valType;
 public:
 	Gura_Function(istype_)(Environment &env, const char *name, ValueType valType);
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Args &args) const;
 };
 Gura_Function(istype_)::Gura_Function(istype_)(
 					Environment &env, const char *name, ValueType valType) :

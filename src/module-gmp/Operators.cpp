@@ -581,6 +581,7 @@ Gura_ImplementBinaryOperator(Mul, rational, mpf)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Div, mpz, mpz)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -593,6 +594,7 @@ Gura_ImplementBinaryOperator(Div, mpz, mpz)
 
 Gura_ImplementBinaryOperator(Div, mpz, mpq)
 {
+	Signal &sig = env.GetSignal();
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -605,6 +607,7 @@ Gura_ImplementBinaryOperator(Div, mpz, mpq)
 
 Gura_ImplementBinaryOperator(Div, mpz, mpf)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -617,6 +620,7 @@ Gura_ImplementBinaryOperator(Div, mpz, mpf)
 
 Gura_ImplementBinaryOperator(Div, mpz, number)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	if (numRight == 0) {
@@ -629,6 +633,7 @@ Gura_ImplementBinaryOperator(Div, mpz, number)
 
 Gura_ImplementBinaryOperator(Div, mpz, rational)
 {
+	Signal &sig = env.GetSignal();
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	if (numRight == 0) {
@@ -641,6 +646,7 @@ Gura_ImplementBinaryOperator(Div, mpz, rational)
 
 Gura_ImplementBinaryOperator(Div, mpq, mpz)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -653,6 +659,7 @@ Gura_ImplementBinaryOperator(Div, mpq, mpz)
 
 Gura_ImplementBinaryOperator(Div, mpq, mpq)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -665,6 +672,7 @@ Gura_ImplementBinaryOperator(Div, mpq, mpq)
 
 Gura_ImplementBinaryOperator(Div, mpq, mpf)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -677,6 +685,7 @@ Gura_ImplementBinaryOperator(Div, mpq, mpf)
 
 Gura_ImplementBinaryOperator(Div, mpq, number)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	if (numRight == 0) {
@@ -689,6 +698,7 @@ Gura_ImplementBinaryOperator(Div, mpq, number)
 
 Gura_ImplementBinaryOperator(Div, mpq, rational)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	if (numRight == 0) {
@@ -701,6 +711,7 @@ Gura_ImplementBinaryOperator(Div, mpq, rational)
 
 Gura_ImplementBinaryOperator(Div, mpf, mpz)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -713,6 +724,7 @@ Gura_ImplementBinaryOperator(Div, mpf, mpz)
 
 Gura_ImplementBinaryOperator(Div, mpf, mpq)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpq::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -725,6 +737,7 @@ Gura_ImplementBinaryOperator(Div, mpf, mpq)
 
 Gura_ImplementBinaryOperator(Div, mpf, mpf)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -737,6 +750,7 @@ Gura_ImplementBinaryOperator(Div, mpf, mpf)
 
 Gura_ImplementBinaryOperator(Div, mpf, number)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	if (numRight == 0) {
@@ -749,6 +763,7 @@ Gura_ImplementBinaryOperator(Div, mpf, number)
 
 Gura_ImplementBinaryOperator(Div, mpf, rational)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	if (numRight == 0) {
@@ -761,6 +776,7 @@ Gura_ImplementBinaryOperator(Div, mpf, rational)
 
 Gura_ImplementBinaryOperator(Div, number, mpz)
 {
+	Signal &sig = env.GetSignal();
 	double numLeft = valueLeft.GetDouble();
 	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -773,6 +789,7 @@ Gura_ImplementBinaryOperator(Div, number, mpz)
 
 Gura_ImplementBinaryOperator(Div, number, mpq)
 {
+	Signal &sig = env.GetSignal();
 	double numLeft = valueLeft.GetDouble();
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -785,6 +802,7 @@ Gura_ImplementBinaryOperator(Div, number, mpq)
 
 Gura_ImplementBinaryOperator(Div, number, mpf)
 {
+	Signal &sig = env.GetSignal();
 	double numLeft = valueLeft.GetDouble();
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -797,6 +815,7 @@ Gura_ImplementBinaryOperator(Div, number, mpf)
 
 Gura_ImplementBinaryOperator(Div, rational, mpz)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -809,6 +828,7 @@ Gura_ImplementBinaryOperator(Div, rational, mpz)
 
 Gura_ImplementBinaryOperator(Div, rational, mpq)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -821,6 +841,7 @@ Gura_ImplementBinaryOperator(Div, rational, mpq)
 
 Gura_ImplementBinaryOperator(Div, rational, mpf)
 {
+	Signal &sig = env.GetSignal();
 	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -836,6 +857,7 @@ Gura_ImplementBinaryOperator(Div, rational, mpf)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mod, mpz, mpz)
 {
+	Signal &sig = env.GetSignal();
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -848,6 +870,7 @@ Gura_ImplementBinaryOperator(Mod, mpz, mpz)
 
 Gura_ImplementBinaryOperator(Mod, mpz, number)
 {
+	Signal &sig = env.GetSignal();
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	if (numRight == 0) {
@@ -860,6 +883,7 @@ Gura_ImplementBinaryOperator(Mod, mpz, number)
 
 Gura_ImplementBinaryOperator(Mod, number, mpz)
 {
+	Signal &sig = env.GetSignal();
 	double numLeft = valueLeft.GetDouble();
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
@@ -2013,6 +2037,7 @@ Gura_ImplementBinaryOperator(Cmp, mpf, number)
 
 Gura_ImplementBinaryOperator(Cmp, mpf, rational)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = MpfFromRational(sig, valueRight.GetRational());
 	if (sig.IsSignalled()) return Value::Null;
@@ -2062,6 +2087,7 @@ Gura_ImplementBinaryOperator(Cmp, rational, mpq)
 
 Gura_ImplementBinaryOperator(Cmp, rational, mpf)
 {
+	Signal &sig = env.GetSignal();
 	mpf_class numLeft = MpfFromRational(sig, valueLeft.GetRational());
 	if (sig.IsSignalled()) return Value::Null;
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);

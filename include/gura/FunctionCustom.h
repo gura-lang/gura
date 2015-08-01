@@ -39,7 +39,7 @@ public:
 	static FunctionCustom *CreateBlockFunc(Environment &env, Signal &sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
 }

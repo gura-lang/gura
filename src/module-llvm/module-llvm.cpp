@@ -302,7 +302,7 @@ extern "C" bool GuraStub_CallFunction(
 		if (sig.IsSignalled()) return false;
 		pArgs->AddValue(valueResult);
 	}
-	Gura_CopyValue(valueResult, pFunc->Eval(env, sig, *pArgs));
+	Gura_CopyValue(valueResult, pFunc->Eval(env, *pArgs));
 	return sig.IsNoSignalled();
 }
 

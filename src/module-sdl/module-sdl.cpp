@@ -3418,7 +3418,7 @@ static int EventFilter(const SDL_Event *event)
 	//valList.push_back(Object_Event::CreateValue(*event));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->AddValue(Object_Event::CreateValue(*event));
-	Value result = _pFuncEventFilter->Eval(env, sig, *pArgs);
+	Value result = _pFuncEventFilter->Eval(env, *pArgs);
 	if (sig.IsSignalled()) return 0;
 	return result.GetBoolean()? 1 : 0;
 }

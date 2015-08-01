@@ -549,7 +549,7 @@ int Value::Compare(Environment &env, const Value &value1, const Value &value2)
 	const OperatorEntry *pOperatorEntry = env.GetOperator(OPTYPE_Cmp)->
 						Lookup(value1.GetValueType(), value2.GetValueType());
 	if (pOperatorEntry != nullptr) {
-		Value result = pOperatorEntry->DoEval(env, sig, value1, value2);
+		Value result = pOperatorEntry->DoEval(env, value1, value2);
 		if (sig.IsSignalled()) return -1;
 		if (!result.Is_number()) return -1;
 		return result.GetInt();

@@ -388,7 +388,7 @@ Gura_ImplementMethod(iterator, cycle)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value = pIterator->Eval(env, sig, args);
+	Value value = pIterator->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
@@ -965,7 +965,7 @@ Gura_ImplementMethod(iterator, pingpong)
 	bool stickyFlagBtm = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_at_btm));
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value = pIterator->Eval(env, sig, args);
+	Value value = pIterator->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
@@ -1098,7 +1098,7 @@ Gura_ImplementMethod(iterator, rank)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value = pIteratorSrc->Eval(env, sig, args);
+	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0), nullptr,
@@ -1184,7 +1184,7 @@ Gura_ImplementMethod(iterator, reverse)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value = pIterator->Eval(env, sig, args);
+	Value value = pIterator->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
@@ -1355,7 +1355,7 @@ Gura_ImplementMethod(iterator, sort)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value = pIteratorSrc->Eval(env, sig, args);
+	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled()) return Value::Null;
 	if (value.IsInvalid()) return args.GetThis();
 	GURA_ASSUME(env, value.Is_list());
@@ -1440,7 +1440,7 @@ Gura_ImplementMethod(iterator, tail)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value = pIteratorSrc->Eval(env, sig, args);
+	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));

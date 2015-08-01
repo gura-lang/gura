@@ -741,7 +741,7 @@ public:
 	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
 							   Expr *pExprArg1 = nullptr, Expr *pExprArg2 = nullptr,
 							   Expr *pExprArg3 = nullptr, Expr *pExprArg4 = nullptr);
-	Value EvalEach(Environment &env, Signal &sig, const Value &valueThis,
+	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }

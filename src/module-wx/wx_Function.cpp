@@ -21,7 +21,7 @@ Gura_ImplementFunction(IMPLEMENT_APP)
 	//if (!CheckWxReady(sig)) return Value::Null;
 	const Function *pFunc = args.GetFunction(0);
 	AutoPtr<Args> pArgsSub(new Args());
-	Value rtn = pFunc->Eval(env, sig, *pArgsSub);
+	Value rtn = pFunc->Eval(env, *pArgsSub);
 	if (!rtn.IsInstanceOf(VTYPE_wx_App)) {
 		sig.SetError(ERR_ValueError,
 				"constructructor must return an instance of wx.App");

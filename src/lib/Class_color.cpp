@@ -274,7 +274,7 @@ bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pD
 		if (pConstructor == nullptr) return false;
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetValueListArg(value.GetList());
-		value = pConstructor->Eval(env, sig, *pArgs);
+		value = pConstructor->Eval(env, *pArgs);
 		return !sig.IsSignalled();
 	}
 	return false;

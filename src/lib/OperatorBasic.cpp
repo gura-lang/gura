@@ -335,6 +335,7 @@ Gura_ImplementUnaryOperator(Pos, complex)
 
 Gura_ImplementUnaryOperator(Pos, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = value.GetRational();
 	if (a.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -428,6 +429,7 @@ Gura_ImplementUnaryOperator(Neg, complex)
 
 Gura_ImplementUnaryOperator(Neg, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = value.GetRational();
 	if (a.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
@@ -439,6 +441,7 @@ Gura_ImplementUnaryOperator(Neg, rational)
 
 Gura_ImplementUnaryOperator(Neg, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Neg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
 }
 
@@ -548,6 +551,7 @@ Gura_ImplementUnaryOperatorSuffix(Question, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperatorSuffix(Each, any)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 	if (pIterator.IsNull()) return Value::Null;
 	return Value(new Object_iterator(env, pIterator.release()));
@@ -568,6 +572,7 @@ Gura_ImplementBinaryOperator(Add, complex, complex)
 
 Gura_ImplementBinaryOperator(Add, rational, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -581,6 +586,7 @@ Gura_ImplementBinaryOperator(Add, rational, rational)
 
 Gura_ImplementBinaryOperator(Add, rational, number)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
@@ -594,6 +600,7 @@ Gura_ImplementBinaryOperator(Add, rational, number)
 
 Gura_ImplementBinaryOperator(Add, number, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -617,6 +624,7 @@ Gura_ImplementBinaryOperator(Add, complex, number)
 
 Gura_ImplementBinaryOperator(Add, matrix, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::AddSub(env, sig, OPTYPE_Add,
 		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
@@ -678,6 +686,7 @@ Gura_ImplementBinaryOperator(Add, string, binary)
 
 Gura_ImplementBinaryOperator(Add, pointer, number)
 {
+	Signal &sig = env.GetSignal();
 	Object_pointer *pObj = dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone());
 	pObj->UnpackForward(sig,
@@ -747,6 +756,7 @@ Gura_ImplementBinaryOperator(Sub, complex, complex)
 
 Gura_ImplementBinaryOperator(Sub, rational, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -760,6 +770,7 @@ Gura_ImplementBinaryOperator(Sub, rational, rational)
 
 Gura_ImplementBinaryOperator(Sub, rational, number)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
@@ -773,6 +784,7 @@ Gura_ImplementBinaryOperator(Sub, rational, number)
 
 Gura_ImplementBinaryOperator(Sub, number, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -796,6 +808,7 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 
 Gura_ImplementBinaryOperator(Sub, matrix, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::AddSub(env, sig, OPTYPE_Sub,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
@@ -809,6 +822,7 @@ Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 
 Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 {
+	Signal &sig = env.GetSignal();
 	const DateTime &dt1 = Object_datetime::GetObject(valueLeft)->GetDateTime();
 	const DateTime &dt2 = Object_datetime::GetObject(valueRight)->GetDateTime();
 	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
@@ -838,6 +852,7 @@ Gura_ImplementBinaryOperator(Sub, color, color)
 
 Gura_ImplementBinaryOperator(Sub, pointer, number)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_pointer> pObj(dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone()));
 	pObj->UnpackForward(sig,
@@ -848,6 +863,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, number)
 
 Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 {
+	Signal &sig = env.GetSignal();
 	const Object_pointer *pObj1 = Object_pointer::GetObject(valueLeft);
 	const Object_pointer *pObj2 = Object_pointer::GetObject(valueRight);
 	if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
@@ -907,6 +923,7 @@ Gura_ImplementBinaryOperator(Mul, complex, complex)
 
 Gura_ImplementBinaryOperator(Mul, rational, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -920,6 +937,7 @@ Gura_ImplementBinaryOperator(Mul, rational, rational)
 
 Gura_ImplementBinaryOperator(Mul, rational, number)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
@@ -933,6 +951,7 @@ Gura_ImplementBinaryOperator(Mul, rational, number)
 
 Gura_ImplementBinaryOperator(Mul, number, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
@@ -956,30 +975,35 @@ Gura_ImplementBinaryOperator(Mul, complex, number)
 
 Gura_ImplementBinaryOperator(Mul, matrix, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, list, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Mul(env, sig,
 			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, any, matrix)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Mul(env, sig,
 			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, list)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, any)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
@@ -1002,10 +1026,11 @@ Gura_ImplementBinaryOperator(Mul, number, timedelta)
 
 Gura_ImplementBinaryOperator(Mul, function, any)
 {
+	Signal &sig = env.GetSignal();
 	const Object_function *pObj = Object_function::GetObject(valueLeft);
 	if (pObj->GetFunction()->IsUnary()) {
 		ValueList valListArg(valueRight);
-		Value result = pObj->Eval(env, sig, valListArg);
+		Value result = pObj->Eval(env, valListArg);
 		if (sig.IsSignalled()) return Value::Null;
 		return result;
 	} else {
@@ -1087,6 +1112,7 @@ ImplementArrayOperators(Mul)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Div, number, number)
 {
+	Signal &sig = env.GetSignal();
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1097,6 +1123,7 @@ Gura_ImplementBinaryOperator(Div, number, number)
 
 Gura_ImplementBinaryOperator(Div, complex, complex)
 {
+	Signal &sig = env.GetSignal();
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
 		Operator::SetError_DivideByZero(sig);
@@ -1107,6 +1134,7 @@ Gura_ImplementBinaryOperator(Div, complex, complex)
 
 Gura_ImplementBinaryOperator(Div, rational, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.numer == 0) {
@@ -1120,6 +1148,7 @@ Gura_ImplementBinaryOperator(Div, rational, rational)
 
 Gura_ImplementBinaryOperator(Div, rational, number)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &a = valueLeft.GetRational();
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.numer == 0) {
@@ -1133,6 +1162,7 @@ Gura_ImplementBinaryOperator(Div, rational, number)
 
 Gura_ImplementBinaryOperator(Div, number, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational a = Rational::FromNumber(valueLeft.GetNumber());
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.numer == 0) {
@@ -1146,6 +1176,7 @@ Gura_ImplementBinaryOperator(Div, number, rational)
 
 Gura_ImplementBinaryOperator(Div, number, complex)
 {
+	Signal &sig = env.GetSignal();
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
 		Operator::SetError_DivideByZero(sig);
@@ -1156,6 +1187,7 @@ Gura_ImplementBinaryOperator(Div, number, complex)
 
 Gura_ImplementBinaryOperator(Div, complex, number)
 {
+	Signal &sig = env.GetSignal();
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1166,6 +1198,7 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 
 Gura_ImplementBinaryOperator(Div, matrix, any)
 {
+	Signal &sig = env.GetSignal();
 	return Matrix::Div(env, sig,
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
@@ -1228,6 +1261,7 @@ ImplementArrayOperators(Div)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mod, number, number)
 {
+	Signal &sig = env.GetSignal();
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1349,6 +1383,7 @@ ImplementArrayOperators(Pow)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Eq, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp == 0);
@@ -1359,6 +1394,7 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ne, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp != 0);
@@ -1369,6 +1405,7 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Gt, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp > 0);
@@ -1379,6 +1416,7 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Lt, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp < 0);
@@ -1389,6 +1427,7 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ge, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp >= 0);
@@ -1399,6 +1438,7 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Le, any, any)
 {
+	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(cmp <= 0);
@@ -1429,6 +1469,7 @@ Gura_ImplementBinaryOperator(Cmp, rational, rational)
 
 Gura_ImplementBinaryOperator(Cmp, number, rational)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &ratio = valueRight.GetRational();
 	if (ratio.denom == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1439,6 +1480,7 @@ Gura_ImplementBinaryOperator(Cmp, number, rational)
 
 Gura_ImplementBinaryOperator(Cmp, rational, number)
 {
+	Signal &sig = env.GetSignal();
 	const Rational &ratio = valueLeft.GetRational();
 	if (ratio.denom == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1476,6 +1518,7 @@ Gura_ImplementBinaryOperator(Cmp, datetime, datetime)
 
 Gura_ImplementBinaryOperator(Cmp, list, list)
 {
+	Signal &sig = env.GetSignal();
 	const ValueList &valList1 = valueLeft.GetList();
 	const ValueList &valList2 = valueRight.GetList();
 	if (valList1.size() < valList2.size()) return Value(-1);
@@ -1503,6 +1546,7 @@ Gura_ImplementBinaryOperator(Cmp, timedelta, timedelta)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Contains, any, any)
 {
+	Signal &sig = env.GetSignal();
 	if (valueLeft.Is_list() || valueLeft.Is_iterator()) {
 		AutoPtr<Iterator_Contains> pIterator(new Iterator_Contains(valueLeft.CreateIterator(sig)));
 		if (sig.IsSignalled()) return Value::Null;
@@ -1835,19 +1879,19 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 //-----------------------------------------------------------------------------
 // OperatorEntryCustom
 //-----------------------------------------------------------------------------
-Value OperatorEntryCustom::DoEval(Environment &env, Signal &sig, const Value &value) const
+Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(value);
-	return _pFunc->Eval(env, sig, *pArgs);
+	return _pFunc->Eval(env, *pArgs);
 }
 
-Value OperatorEntryCustom::DoEval(Environment &env, Signal &sig,
+Value OperatorEntryCustom::DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(valueLeft, valueRight);
-	return _pFunc->Eval(env, sig, *pArgs);
+	return _pFunc->Eval(env, *pArgs);
 }
 
 //-----------------------------------------------------------------------------

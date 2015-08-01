@@ -227,14 +227,13 @@ Gura_DeclareMethod(template_, block)
 
 Gura_ImplementMethod(template_, block)
 {
-	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(args.GetThis());
-		pValue->GetFunction()->Eval(env, sig, *pArgs);
+		pValue->GetFunction()->Eval(env, *pArgs);
 	}
 	return Value::Null;
 }
@@ -262,7 +261,6 @@ Gura_DeclareMethod(template_, call)
 
 Gura_ImplementMethod(template_, call)
 {
-	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
@@ -273,7 +271,7 @@ Gura_ImplementMethod(template_, call)
 	pArgs->SetThis(args.GetThis());
 	pArgs->SetValueListArg(args.GetList(1));
 	pTemplate->ClearLastChar();
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	pValue->GetFunction()->Eval(env, *pArgs);
 	return (pTemplate->GetLastChar() == '\n')? Value::Null : Value("");
 }
 
@@ -420,7 +418,6 @@ Gura_DeclareMethod(template_, super)
 
 Gura_ImplementMethod(template_, super)
 {
-	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
@@ -429,7 +426,7 @@ Gura_ImplementMethod(template_, super)
 	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(args.GetThis());
-		pValue->GetFunction()->Eval(env, sig, *pArgs);
+		pValue->GetFunction()->Eval(env, *pArgs);
 	}
 	return Value::Null;
 }

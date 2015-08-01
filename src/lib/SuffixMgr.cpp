@@ -15,11 +15,11 @@ SuffixMgrEntry::~SuffixMgrEntry()
 //-----------------------------------------------------------------------------
 // SuffixMgrEntryCustom
 //-----------------------------------------------------------------------------
-Value SuffixMgrEntryCustom::DoEval(Environment &env, Signal &sig, const char *body) const
+Value SuffixMgrEntryCustom::DoEval(Environment &env, const char *body) const
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(Value(body));
-	return _pFunc->Eval(env, sig, *pArgs);
+	return _pFunc->Eval(env, *pArgs);
 }
 
 //-----------------------------------------------------------------------------

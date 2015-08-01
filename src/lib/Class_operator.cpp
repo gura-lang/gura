@@ -60,7 +60,7 @@ Value Object_operator::DoCall(Environment &env, Signal &sig, Args &args)
 		Value value = exprList[0]->Exec2(env, pSeqPostHandler);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->EvalUnary(env, sig, value, suffixFlag);
+		return pOperator->EvalUnary(env, value, suffixFlag);
 	} else if (nArgs == 2) {
 		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 		SeqPostHandler *pSeqPostHandlerRight = nullptr;
@@ -74,7 +74,7 @@ Value Object_operator::DoCall(Environment &env, Signal &sig, Args &args)
 		Value valueRight = exprList[1]->Exec2(env, pSeqPostHandlerRight);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
-		return pOperator->EvalBinary(env, sig, valueLeft, valueRight);
+		return pOperator->EvalBinary(env, valueLeft, valueRight);
 	}
 	sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
 	return Value::Null;

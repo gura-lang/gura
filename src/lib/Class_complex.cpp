@@ -95,6 +95,7 @@ Gura_ImplementMethod(complex, roundoff)
 //-----------------------------------------------------------------------------
 Gura_ImplementSuffixMgrForNumber(j)
 {
+	Signal &sig = env.GetSignal();
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {

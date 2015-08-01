@@ -11,28 +11,28 @@ class OperatorEntry_##op##_##type : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##type, VTYPE_undefined) {} \
-	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const; \
+	virtual Value DoEval(Environment &env, const Value &value) const; \
 }; \
-Value OperatorEntry_##op##_##type::DoEval(Environment &env, Signal &sig, const Value &value) const
+Value OperatorEntry_##op##_##type::DoEval(Environment &env, const Value &value) const
 
 #define Gura_ImplementUnaryOperatorSuffix(op, type) \
 class OperatorEntry_##op##_##type##_suffix : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##type##_suffix() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_undefined, VTYPE_##type) {} \
-	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const; \
+	virtual Value DoEval(Environment &env, const Value &value) const; \
 }; \
-Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, Signal &sig, const Value &value) const
+Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, const Value &value) const
 
 #define Gura_ImplementBinaryOperator(op, typeL, typeR) \
 class OperatorEntry_##op##_##typeL##_##typeR : public OperatorEntry { \
 public: \
 	inline OperatorEntry_##op##_##typeL##_##typeR() : \
 					OperatorEntry(OPTYPE_##op, VTYPE_##typeL, VTYPE_##typeR) {} \
-	virtual Value DoEval(Environment &env, Signal &sig, \
+	virtual Value DoEval(Environment &env, \
 				const Value &valueLeft, const Value &valueRight) const; \
 }; \
-Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, Signal &sig, \
+Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, \
 					const Value &valueLeft, const Value &valueRight) const
 
 #define Gura_AssignUnaryOperator(op, type) \
@@ -187,12 +187,12 @@ public:
 									Expr *pExprLeft, Expr *pExprRight) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	Value EvalUnary(Environment &env, Signal &sig, const Value &value, bool suffixFlag) const;
-	Value EvalBinary(Environment &env, Signal &sig,
+	Value EvalUnary(Environment &env, const Value &value, bool suffixFlag) const;
+	Value EvalBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
-	virtual Value EvalMapUnary(Environment &env, Signal &sig,
+	virtual Value EvalMapUnary(Environment &env,
 									const Value &value, bool suffixFlag) const;
-	virtual Value EvalMapBinary(Environment &env, Signal &sig,
+	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 									const Value &value, bool suffixFlag);
@@ -302,7 +302,7 @@ public:
 class GURA_DLLDECLARE Operator_Mul : public Operator {
 public:
 	inline Operator_Mul() : Operator(OPTYPE_Mul) {}
-	virtual Value EvalMapBinary(Environment &env, Signal &sig,
+	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 	virtual Expr *MathDiffBinary(Environment &env,
 		const Expr *pExprLeft, const Expr *pExprRight, const Symbol *pSymbol) const;
@@ -330,7 +330,7 @@ public:
 class GURA_DLLDECLARE Operator_Mod : public Operator {
 public:
 	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
-	virtual Value EvalMapBinary(Environment &env, Signal &sig,
+	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -409,7 +409,7 @@ public:
 class GURA_DLLDECLARE Operator_Contains : public Operator {
 public:
 	inline Operator_Contains() : Operator(OPTYPE_Contains) {}
-	virtual Value EvalMapBinary(Environment &env, Signal &sig,
+	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -483,7 +483,7 @@ public:
 class GURA_DLLDECLARE Operator_Pair : public Operator {
 public:
 	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
-	virtual Value EvalMapBinary(Environment &env, Signal &sig,
+	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 };
 
@@ -507,8 +507,8 @@ public:
 	inline const Operator::SymbolInfo &GetSymbolInfo() const {
 		return Operator::GetSymbolInfo(_opType);
 	}
-	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal &sig,
+	virtual Value DoEval(Environment &env, const Value &value) const;
+	virtual Value DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
@@ -523,8 +523,8 @@ private:
 public:
 	inline OperatorEntryCustom(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
 					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
-	virtual Value DoEval(Environment &env, Signal &sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal &sig,
+	virtual Value DoEval(Environment &env, const Value &value) const;
+	virtual Value DoEval(Environment &env,
 				const Value &valueLeft, const Value &valueRight) const;
 };
 

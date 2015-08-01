@@ -63,6 +63,7 @@ Gura_ImplementMethod(rational, reduce)
 //-----------------------------------------------------------------------------
 Gura_ImplementSuffixMgrForNumber(r)
 {
+	Signal &sig = env.GetSignal();
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {

@@ -27,11 +27,10 @@ Object::~Object()
 	const Function *pFunc =
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
 	if (pFunc == nullptr) return;
-	Signal &sig = pClassCustom->GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
-	pFunc->Eval(*this, sig, *pArgs);
+	pFunc->Eval(*this, *pArgs);
 }
 
 Object *Object::Clone() const
@@ -64,7 +63,7 @@ Value Object::EmptyIndexGet(Environment &env)
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
-	return pFunc->Eval(*this, sig, *pArgs);
+	return pFunc->Eval(*this, *pArgs);
 }
 
 void Object::EmptyIndexSet(Environment &env, const Value &value)
@@ -79,7 +78,7 @@ void Object::EmptyIndexSet(Environment &env, const Value &value)
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(value);
 	pArgs->SetThis(valueThis);
-	pFunc->Eval(*this, sig, *pArgs);
+	pFunc->Eval(*this, *pArgs);
 }
 
 Value Object::IndexGet(Environment &env, const Value &valueIdx)
@@ -94,7 +93,7 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(valueIdx);
 	pArgs->SetThis(valueThis);
-	return pFunc->Eval(*this, sig, *pArgs);
+	return pFunc->Eval(*this, *pArgs);
 }
 
 void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
@@ -109,7 +108,7 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(valueIdx, value);
 	pArgs->SetThis(valueThis);
-	pFunc->Eval(*this, sig, *pArgs);
+	pFunc->Eval(*this, *pArgs);
 }
 
 bool Object::DirProp(Environment &env, SymbolSet &symbols)
@@ -127,18 +126,16 @@ bool Object::DirProp(Environment &env, SymbolSet &symbols)
 
 Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueList &valListArg)
 {
-	Signal &sig = GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
-	return pFunc->Eval(env, sig, *pArgs);
+	return pFunc->Eval(env, *pArgs);
 }
 
 Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
@@ -147,13 +144,12 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
-	return pFunc->Eval(env, sig, *pArgs);
+	return pFunc->Eval(env, *pArgs);
 }
 
 Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
 	evaluatedFlag = true;
@@ -161,20 +157,19 @@ Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(Value(pSymbol));
 	pArgs->SetThis(valueThis);
-	return pFunc->Eval(*this, sig, *pArgs);
+	return pFunc->Eval(*this, *pArgs);
 }
 
 Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Signal &sig = GetSignal();
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(pSymbol), value);
 	pArgs->SetThis(valueThis);
-	Value result = pFunc->Eval(*this, sig, *pArgs);
+	Value result = pFunc->Eval(*this, *pArgs);
 	evaluatedFlag = result.GetBoolean();
 	return value;
 }
@@ -335,7 +330,7 @@ class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
 	virtual Value Call(Environment &env, Signal &sig, Args &args) const;
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
 Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, const char *name) :
@@ -389,7 +384,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal &sig, Args &a
 	return pFunc->Call(env, sig, *pArgsSub);
 }
 
-Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal &sig, Args &args) const
+Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
 {
 	return Value::Null;
 }

@@ -93,6 +93,7 @@ Gura_ImplementFunction(sqrt)
 //-----------------------------------------------------------------------------
 Gura_ImplementSuffixMgrForNumber(L)
 {
+	Signal &sig = env.GetSignal();
 	if (::strchr(body, '.') != nullptr || ::strchr(body, 'e') != nullptr || ::strchr(body, 'E') != nullptr) {
 		mpf_t numf;
 		::mpf_init(numf);
@@ -110,6 +111,7 @@ Gura_ImplementSuffixMgrForNumber(L)
 
 Gura_ImplementSuffixMgrForNumber(Lr)
 {
+	Signal &sig = env.GetSignal();
 	mpq_t numq;
 	::mpq_init(numq);
 	if (::mpq_set_str(numq, body, 0) == 0) return Value(new Object_mpq(numq));

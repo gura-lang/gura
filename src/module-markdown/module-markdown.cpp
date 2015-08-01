@@ -2953,6 +2953,7 @@ Gura_ImplementFunction(setpresenter)
 // operator <<
 Gura_ImplementBinaryOperator(Shl, document, string)
 {
+	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetObject(valueLeft)->GetDocument();
 	const char *text = valueRight.GetString();
 	if (!pDocument->ParseString(sig, text)) return Value::Null;
@@ -3019,7 +3020,7 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal &sig,
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
 		pArgs->AddValue(Value(new Object_document(pDocument->Reference())));
 	}
-	g_pFunc_Presenter->Eval(env, sig, *pArgs);
+	g_pFunc_Presenter->Eval(env, *pArgs);
 	return !sig.IsSignalled();
 }
 

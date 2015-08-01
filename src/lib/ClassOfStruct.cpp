@@ -110,7 +110,7 @@ bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *
 		if (pConstructor == nullptr) return false;
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetValueListArg(value.GetList());
-		value = pConstructor->Eval(env, sig, *pArgs);
+		value = pConstructor->Eval(env, *pArgs);
 		return !sig.IsSignalled();
 	}
 	return false;
@@ -131,7 +131,7 @@ ClassOfStruct::Constructor::Constructor(Environment &env) :
 {
 }
 
-Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal &sig, Args &args) const
+Value ClassOfStruct::Constructor::DoEval(Environment &env, Args &args) const
 {
 	Object *pObjThis = nullptr;
 	Value valueRtn(args.GetThis());

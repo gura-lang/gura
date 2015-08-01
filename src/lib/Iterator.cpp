@@ -98,8 +98,9 @@ Value Iterator::ToList(Environment &env, Signal &sig,
 	return result;
 }
 
-Value Iterator::Eval(Environment &env, Signal &sig, Args &args)
+Value Iterator::Eval(Environment &env, Args &args)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -124,7 +125,7 @@ Value Iterator::Reduce(Environment &env, Signal &sig,
 	while (Next(env, value)) {
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetValues(value, valueAccum);
-		Value result = pFuncBlock->Eval(env, sig, *pArgsSub);
+		Value result = pFuncBlock->Eval(env, *pArgsSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
 		} else if (sig.IsBreak()) {
@@ -241,7 +242,7 @@ Value Iterator::Sum(Environment &env, Signal &sig, size_t &cnt)
 		Value valResult(value);
 		cnt = 1;
 		while (Next(env, value)) {
-			valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
+			valResult = pOperatorAdd->EvalBinary(env, valResult, value);
 			cnt++;
 			if (sig.IsSignalled()) return Value::Null;
 		}
@@ -257,7 +258,7 @@ Value Iterator::Sum(Environment &env, Signal &sig, size_t &cnt)
 			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
 			Value valResult(result);
 			do {
-				valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
+				valResult = pOperatorAdd->EvalBinary(env, valResult, value);
 				cnt++;
 				if (sig.IsSignalled()) return Value::Null;
 			} while (Next(env, value));
@@ -275,7 +276,7 @@ Value Iterator::Prod(Environment &env, Signal &sig)
 		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
 		Value valResult(value);
 		while (Next(env, value)) {
-			valResult = pOperatorMul->EvalBinary(env, sig, valResult, value);
+			valResult = pOperatorMul->EvalBinary(env, valResult, value);
 			if (sig.IsSignalled()) return Value::Null;
 		}
 		return valResult;
@@ -289,7 +290,7 @@ Value Iterator::Prod(Environment &env, Signal &sig)
 			const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
 			Value valResult(result);
 			do {
-				valResult = pOperatorMul->EvalBinary(env, sig, valResult, value);
+				valResult = pOperatorMul->EvalBinary(env, valResult, value);
 				if (sig.IsSignalled()) return Value::Null;
 			} while (Next(env, value));
 			return valResult;
@@ -313,7 +314,7 @@ Value Iterator::Average(Environment &env, Signal &sig, size_t &cnt)
 		return Value(valueSum.GetComplex() / static_cast<Number>(cnt));
 	} else {
 		const Operator *pOperatorDiv = env.GetOperator(OPTYPE_Div);
-		return pOperatorDiv->EvalBinary(env, sig, valueSum, Value(cnt));
+		return pOperatorDiv->EvalBinary(env, valueSum, Value(cnt));
 	}
 }
 
@@ -435,7 +436,7 @@ size_t Iterator::Find(Environment &env, Signal &sig, const Value &criteria, Valu
 		while (Next(env, value)) {
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(value);
-			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
+			Value valueFlag = pFunc->Eval(env, *pArgs);
 			if (sig.IsSignalled()) return InvalidSize;
 			if (valueFlag.GetBoolean()) return GetIndexCur();
 		}
@@ -489,7 +490,7 @@ size_t Iterator::Count(Environment &env, Signal &sig, const Value &criteria)
 		while (Next(env, value)) {
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(value);
-			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
+			Value valueFlag = pFunc->Eval(env, *pArgs);
 			if (sig.IsSignalled()) return 0;
 			if (valueFlag.GetBoolean()) cnt++;
 		}

@@ -48,7 +48,7 @@ bool Template::Render(Environment &env, Signal &sig, SimpleStream *pStreamDst)
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(Value(new Object_template(env, Reference())));
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
+	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, *pArgs);
 	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
 		pTemplate->SetStreamDst(nullptr);

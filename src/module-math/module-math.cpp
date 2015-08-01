@@ -863,7 +863,7 @@ private:
 	NumberList _nums;
 public:
 	Func_BezierPrototype(Environment &env, const ValueList &nums);
-	virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
+	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
 Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nums) :
@@ -893,7 +893,7 @@ Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nu
 	}
 }
 
-Value Func_BezierPrototype::DoEval(Environment &env, Signal &sig, Args &args) const
+Value Func_BezierPrototype::DoEval(Environment &env, Args &args) const
 {
 	Number t = args.GetNumber(0);
 	if (_nums.size() == 2) {
@@ -1057,11 +1057,11 @@ Gura_ImplementFunction(dot_product)
 	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
 		Value value;
 		do {
-			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, sig, *pValue1, *pValue2);
+			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 		do {
-			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, sig, valueSum, value);
+			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 	}
@@ -1124,17 +1124,17 @@ Value CalcCrossElem(Environment &env, Signal &sig,
 {
 	Value valueLeft;
 	do {
-		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, sig, ax, by);
+		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value valueRight;
 	do {
-		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, sig, ay, bx);
+		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value value;
 	do {
-		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, sig, valueLeft, valueRight);
+		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	return value;

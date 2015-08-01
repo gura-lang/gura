@@ -1101,6 +1101,7 @@ Gura_ImplementMethod(element, write)
 // operator <<
 Gura_ImplementBinaryOperator(Shl, element, any)
 {
+	Signal &sig = env.GetSignal();
 	Object_element *pObj = Object_element::GetObject(valueLeft);
 	if (!pObj->GetElement()->AddChild(env, sig, valueRight)) return Value::Null;
 	return valueLeft;

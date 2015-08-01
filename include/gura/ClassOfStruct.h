@@ -17,7 +17,7 @@ public:
 	public:
 		Constructor(Environment &env);
 		virtual bool IsConstructorOfStruct() const;
-		virtual Value DoEval(Environment &env, Signal &sig, Args &args) const;
+		virtual Value DoEval(Environment &env, Args &args) const;
 	};
 public:
 	ClassOfStruct(Environment *pEnvOuter);

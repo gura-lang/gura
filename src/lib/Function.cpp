@@ -311,20 +311,22 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 	return pEnvLocal.release();
 }
 
-Value Function::Eval(Environment &env, Signal &sig, Args &args) const
+Value Function::Eval(Environment &env, Args &args) const
 {
+	Signal &sig = env.GetSignal();
 	ValueList valListCasted;
 	if (!GetDeclOwner().ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
-	Value value = DoEval(env, sig, *pArgsCasted);
+	Value value = DoEval(env, *pArgsCasted);
 	if (args.IsRsltVoid()) return Value::Undefined;
 	return value;
 }
 
-Value Function::EvalMap(Environment &env, Signal &sig, Args &args) const
+Value Function::EvalMap(Environment &env, Args &args) const
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
 				new Environment(env),
 				Function::Reference(this), args.Reference(), false));
@@ -359,7 +361,7 @@ Value Function::ReturnValue(Environment &env,
 	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(result);
-	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
+	Value value = pFuncBlock->Eval(env, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();
 	}
@@ -378,7 +380,7 @@ Value Function::ReturnValues(Environment &env,
 	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValueListArg(valListArg);
-	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
+	Value value = pFuncBlock->Eval(env, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();
 	}
@@ -412,7 +414,7 @@ Value Function::ReturnIterator(Environment &env,
 		result = Value(new Object_iterator(env, pIterator));
 	} else if (args.IsRsltList() || args.IsRsltXList() ||
 									args.IsRsltSet() || args.IsRsltXSet()) {
-		result = pIterator->Eval(env, sig, args);
+		result = pIterator->Eval(env, args);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
 	} else if (pIterator->IsRepeater()) {
@@ -948,9 +950,9 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 	//-------------------------------------------------------------------------
 	case STAT_Exec: {
 		if (_mapFlag && _pFunc->GetDeclOwner().ShouldImplicitMap(*_pArgs)) {
-			result = _pFunc->EvalMap(env, sig, *_pArgs);
+			result = _pFunc->EvalMap(env, *_pArgs);
 		} else {
-			result = _pFunc->Eval(env, sig, *_pArgs);
+			result = _pFunc->Eval(env, *_pArgs);
 		}
 		_doneFlag = true;
 		break;

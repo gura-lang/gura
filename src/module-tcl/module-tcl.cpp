@@ -87,7 +87,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal &sig, const Value 
 			Value valueThis(pObj, VFLAG_NoOwner); // reference to self
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetThis(valueThis);
-			Value result = pFunc->Eval(*pObj, sig, *pArgs);
+			Value result = pFunc->Eval(*pObj, *pArgs);
 			if (!sig.IsSignalled()) {
 				return ConvToTclObj(env, sig, result);
 			}
@@ -163,8 +163,9 @@ void Object_interp::DeleteTclObjArray(int objc, Tcl_Obj **objv)
 	delete[] objv;
 }
 
-Value Object_interp::TclEval(Environment &env, Signal &sig, const ValueList &valList)
+Value Object_interp::TclEval(Environment &env, const ValueList &valList)
 {
+	Signal &sig = env.GetSignal();
 	int objc;
 	Tcl_Obj **objv = CreateTclObjArray(env, sig, valList, &objc);
 	if (sig.IsSignalled()) return Value::Null;
@@ -324,7 +325,7 @@ Gura_ImplementMethod(interp, eval)
 {
 	Signal &sig = env.GetSignal();
 	Object_interp *pThis = Object_interp::GetThisObj(args);
-	return pThis->TclEval(env, sig, args.GetList(0));
+	return pThis->TclEval(env, args.GetList(0));
 }
 
 #if 0
@@ -427,7 +428,7 @@ Value Handler::Eval(ValueList &valListArg)
 	Function *pFunc = _pObjFunc->GetFunction();
 	Environment &env = pFunc->GetEnvScope();
 	Signal &sig = env.GetSignal();
-	Value result = _pObjFunc->Eval(env, sig, valListArg);
+	Value result = _pObjFunc->Eval(env, valListArg);
 	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
 		return Value::Null;
@@ -448,7 +449,7 @@ Value Handler::Eval(int argc, const char *argv[])
 			valListArg.push_back(Value(argv[i]));
 		}
 	}
-	Value result = _pObjFunc->Eval(env, sig, valListArg);
+	Value result = _pObjFunc->Eval(env, valListArg);
 	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
 		return Value::Null;
@@ -565,14 +566,14 @@ Value Object_variable::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 bool Object_variable::Set(Environment &env, Signal &sig, const Value &value)
 {
 	ValueList valList(Value("set"), Value(GetVarName()), value);
-	_pObjInterp->TclEval(env, sig, valList);
+	_pObjInterp->TclEval(env, valList);
 	return !sig.IsSignalled();
 }
 
 Value Object_variable::Get(Environment &env, Signal &sig)
 {
 	ValueList valList(Value("set"), Value(GetVarName()));
-	return _pObjInterp->TclEval(env, sig, valList);
+	return _pObjInterp->TclEval(env, valList);
 }
 
 //-----------------------------------------------------------------------------

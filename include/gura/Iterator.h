@@ -76,7 +76,7 @@ public:
 	bool Consume(Environment &env);
 	Value ToList(Environment &env, Signal &sig,
 								bool alwaysListFlag, bool excludeNilFlag);
-	Value Eval(Environment &env, Signal &sig, Args &args);
+	Value Eval(Environment &env, Args &args);
 	Value Reduce(Environment &env, Signal &sig,
 								Value valueAccum, const Function *pFuncBlock);
 	Value MinMax(Environment &env, Signal &sig,

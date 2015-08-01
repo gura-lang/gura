@@ -247,7 +247,7 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal &sig,
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->AddValue(Value(codeUTF32));
 		pArgs->AddValue(Value(idx));
-		pFuncDeco->Eval(env, sig, *pArgs);
+		pFuncDeco->Eval(env, *pArgs);
 	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_strength == 0.) {

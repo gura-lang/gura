@@ -123,7 +123,7 @@ Value Device::Initialize(Environment &env, Signal &sig, const Function *pFuncBlo
 		//ValueList valList(result);
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->AddValue(result);
-		pFuncBlock->Eval(*pEnvBlock, sig, *pArgs);
+		pFuncBlock->Eval(*pEnvBlock, *pArgs);
 		
 		// temporary handling before GC is correctly implemented
 		pObj->Device().Close();

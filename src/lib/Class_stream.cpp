@@ -129,7 +129,7 @@ Gura_ImplementFunction(stream)
 		if (pFuncBlock == nullptr) return Value::Null;
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetValue(result);
-		pFuncBlock->Eval(env, sig, *pArgsSub);
+		pFuncBlock->Eval(env, *pArgsSub);
 		result = Value::Null;	// object is destroyed here
 	}
 	return result;
@@ -835,6 +835,7 @@ Gura_ImplementMethod(stream, write)
 // operator <<
 Gura_ImplementBinaryOperator(Shl, stream, any)
 {
+	Signal &sig = env.GetSignal();
 	Stream &stream = valueLeft.GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	if (valueRight.Is_binary()) {

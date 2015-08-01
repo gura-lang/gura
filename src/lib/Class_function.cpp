@@ -119,14 +119,15 @@ Value Object_function::DoCall(Environment &env, Signal &sig, Args &args)
 	return GetFunction()->Call(env, sig, args);
 }
 
-Value Object_function::Eval(Environment &env, Signal &sig, ValueList &valListArg) const
+Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 {
+	Signal &sig = env.GetSignal();
 	GetFunction()->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(_valueThis);
 	pArgs->SetValueListArg(valListArg);
-	return GetFunction()->Eval(env, sig, *pArgs);
+	return GetFunction()->Eval(env, *pArgs);
 }
 
 Object *Object_function::Clone() const
@@ -446,6 +447,7 @@ Gura_ImplementMethod(function, mathdiff)
 // operator ~
 Gura_ImplementUnaryOperator(Inv, function)
 {
+	Signal &sig = env.GetSignal();
 	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
 	const Symbol *pSymbol = env.GetLangCode();
 	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),

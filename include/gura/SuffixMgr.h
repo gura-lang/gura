@@ -10,16 +10,16 @@
 #define Gura_ImplementSuffixMgrForNumber(suffix)									\
 class SuffixMgrEntry_Number_##suffix : public SuffixMgrEntry {						\
 public:																				\
-	virtual Value DoEval(Environment &env, Signal &sig, const char *body) const;		\
+	virtual Value DoEval(Environment &env, const char *body) const;		\
 };																					\
-Value SuffixMgrEntry_Number_##suffix::DoEval(Environment &env, Signal &sig, const char *body) const
+Value SuffixMgrEntry_Number_##suffix::DoEval(Environment &env, const char *body) const
 
 #define Gura_ImplementSuffixMgrForString(suffix)									\
 class SuffixMgrEntry_String_##suffix : public SuffixMgrEntry {						\
 public:																				\
-	virtual Value DoEval(Environment &env, Signal &sig, const char *body) const;		\
+	virtual Value DoEval(Environment &env, const char *body) const;		\
 };																					\
-Value SuffixMgrEntry_String_##suffix::DoEval(Environment &env, Signal &sig, const char *body) const
+Value SuffixMgrEntry_String_##suffix::DoEval(Environment &env, const char *body) const
 
 #define Gura_AssignSuffixMgrForNumber(suffix)										\
 SuffixMgr::AssignForNumber(env, Symbol::Add(#suffix), new SuffixMgrEntry_Number_##suffix());
@@ -37,7 +37,7 @@ class Environment;
 class GURA_DLLDECLARE SuffixMgrEntry {
 public:
 	virtual ~SuffixMgrEntry();
-	virtual Value DoEval(Environment &env, Signal &sig, const char *body) const = 0;
+	virtual Value DoEval(Environment &env, const char *body) const = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ private:
 	AutoPtr<Function> _pFunc;
 public:
 	inline SuffixMgrEntryCustom(Function *pFunc) : _pFunc(pFunc) {}
-	virtual Value DoEval(Environment &env, Signal &sig, const char *body) const;
+	virtual Value DoEval(Environment &env, const char *body) const;
 };
 
 //-----------------------------------------------------------------------------

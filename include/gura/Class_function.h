@@ -56,7 +56,7 @@ public:
 	virtual OccurPattern GetBlockOccurPattern() const;
 	virtual Value DoCall(Environment &env, Signal &sig, Args &args);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	Value Eval(Environment &env, Signal &sig, ValueList &valListArg) const;
+	Value Eval(Environment &env, ValueList &valListArg) const;
 };
 
 }

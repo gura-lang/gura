@@ -33,8 +33,9 @@ FunctionCustom::~FunctionCustom()
 {
 }
 
-Value FunctionCustom::DoEval(Environment &env, Signal &sig, Args &args) const
+Value FunctionCustom::DoEval(Environment &env, Args &args) const
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, _funcType != FUNCTYPE_Block));
 	if (pEnvLocal.IsNull()) return Value::Null;
 #if 0

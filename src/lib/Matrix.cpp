@@ -494,7 +494,7 @@ Value Matrix::Neg(Environment &env, Signal &sig, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(pOperator->EvalUnary(env, sig, *pValueElem, suffixFlag));
+				valList.push_back(pOperator->EvalUnary(env, *pValueElem, suffixFlag));
 				if (sig.IsSignalled()) return Value::Null;
 			}
 		}
@@ -543,7 +543,7 @@ Value Matrix::AddSub(Environment &env, Signal &sig, OpType opType,
 			ValueList::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
 			ValueList::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
-				valList.push_back(pOperator->EvalBinary(env, sig, *pValueElem1, *pValueElem2));
+				valList.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2));
 				if (sig.IsSignalled()) return Value::Null;
 			}
 		}
@@ -609,11 +609,11 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 										iElem++, pValueElem1++, offset += nFold) {
 					Value valueElem;
 					do {
-						valueElem = pOperatorMul->EvalBinary(env, sig, *pValueElem1, *(pValueElem2 + offset));
+						valueElem = pOperatorMul->EvalBinary(env, *pValueElem1, *(pValueElem2 + offset));
 						if (sig.IsSignalled()) return Value::Null;
 					} while (0);
 					do {
-						valueAccum = pOperatorAdd->EvalBinary(env, sig, valueAccum, valueElem);
+						valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
 						if (sig.IsSignalled()) return Value::Null;
 					} while (0);
 				}
@@ -667,11 +667,11 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 			foreach_const (ValueList, pValue, valList) {
 				Value valueElem;
 				do {
-					valueElem = pOperatorMul->EvalBinary(env, sig, *pValueElem, *pValue);
+					valueElem = pOperatorMul->EvalBinary(env, *pValueElem, *pValue);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				do {
-					valueAccum = pOperatorAdd->EvalBinary(env, sig, valueAccum, valueElem);
+					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				pValueElem++;
@@ -713,7 +713,7 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				Value resultElem = pOperator->EvalBinary(env, sig, *pValueElem, value);
+				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
 				if (sig.IsSignalled()) return Value::Null;
 				valListResult.push_back(resultElem);
 			}
@@ -770,11 +770,11 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 			foreach_const (ValueList, pValue, valList) {
 				Value valueElem;
 				do {
-					valueElem = pOperatorMul->EvalBinary(env, sig, *(pValueElem + offset), *pValue);
+					valueElem = pOperatorMul->EvalBinary(env, *(pValueElem + offset), *pValue);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				do {
-					valueAccum = pOperatorAdd->EvalBinary(env, sig, valueAccum, valueElem);
+					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				offset += nFold;
@@ -817,7 +817,7 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				Value resultElem = pOperator->EvalBinary(env, sig, value, *pValueElem);
+				Value resultElem = pOperator->EvalBinary(env, value, *pValueElem);
 				if (sig.IsSignalled()) return Value::Null;
 				valListResult.push_back(resultElem);
 			}
@@ -865,7 +865,7 @@ Value Matrix::Div(Environment &env, Signal &sig,
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(pOperator->EvalBinary(env, sig, *pValueElem, value));
+				valList.push_back(pOperator->EvalBinary(env, *pValueElem, value));
 				if (sig.IsSignalled()) return Value::Null;
 			}
 		}

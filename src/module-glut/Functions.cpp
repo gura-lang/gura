@@ -19,7 +19,7 @@ public:
 	}
 	inline Value Eval(Args &args) {
 		if (_pFunc.IsNull()) return Value::Null;
-		Value result = _pFunc->Eval(*_pEnv, _pEnv->GetSignal(), args);
+		Value result = _pFunc->Eval(*_pEnv, args);
 		if (_pEnv->GetSignal().IsSignalled()) {
 			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);

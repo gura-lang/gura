@@ -108,6 +108,7 @@ Gura_ImplementBinaryOperator(Ne, wx_Point, wx_Point)
 // operator +
 Gura_ImplementBinaryOperator(Add, wx_Point, any)
 {
+	Signal &sig = env.GetSignal();
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
 	if (valueRight.IsInstanceOf(VTYPE_wx_Point)) {
@@ -126,6 +127,7 @@ Gura_ImplementBinaryOperator(Add, wx_Point, any)
 // operator -
 Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 {
+	Signal &sig = env.GetSignal();
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
 	if (valueRight.IsInstanceOf(VTYPE_wx_Point)) {
