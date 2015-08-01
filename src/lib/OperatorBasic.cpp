@@ -1506,7 +1506,7 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
 			if (pIteratorToFind.IsNull()) return Value::Null;
-			valListToFind.Append(env, sig, pIteratorToFind.get());
+			valListToFind.Append(env, pIteratorToFind.get());
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
 			valListToFind.push_back(valueRight);

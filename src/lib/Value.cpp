@@ -971,8 +971,9 @@ void ValueList::Append(const ValueList &valList)
 	}
 }
 
-bool ValueList::Append(Environment &env, Signal &sig, Iterator *pIterator)
+bool ValueList::Append(Environment &env, Iterator *pIterator)
 {
+	Signal &sig = env.GetSignal();
 	if (pIterator->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return false;

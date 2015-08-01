@@ -511,7 +511,7 @@ public:
 	void ExtractFlat(ValueList &valList) const;
 	bool Accept(ValueVisitor &visitor) const;
 	void Append(const ValueList &valList);
-	bool Append(Environment &env, Signal &sig, Iterator *pIterator);
+	bool Append(Environment &env, Iterator *pIterator);
 	String Join(const char *sep) const;
 	Binary Joinb(Signal &sig) const;
 	void Print(Signal &sig, int indentLevel = 0) const;
