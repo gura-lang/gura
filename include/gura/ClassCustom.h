@@ -49,7 +49,7 @@ public:
 	virtual bool Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_s(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	bool Format_X(Signal &__to_delete__, Formatter *pFormatter,
+	bool Format_X(Signal &sig, Formatter *pFormatter,
 			Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const;
 };
 
