@@ -115,7 +115,7 @@ Gura_ImplementFunction(audio)
 		if (sig.IsSignalled()) return Value::Null;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(channels), VTYPE_number));
-			pDecl->ValidateAndCast(env, sig, valList[1]);
+			pDecl->ValidateAndCast(env, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			nChannels = valList[1].GetSizeT();
 			if (nChannels != 1 && nChannels != 2) {
@@ -125,7 +125,7 @@ Gura_ImplementFunction(audio)
 		}
 		if (valList.size() >= 3) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(samplespersec), VTYPE_number));
-			pDecl->ValidateAndCast(env, sig, valList[2]);
+			pDecl->ValidateAndCast(env, valList[2]);
 			if (sig.IsSignalled()) return Value::Null;
 			nSamplesPerSec = valList[2].GetSizeT();
 			if (nSamplesPerSec == 0) {
@@ -136,14 +136,14 @@ Gura_ImplementFunction(audio)
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 	} else {
 		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
-		pDecl->ValidateAndCast(env, sig, valList[0]);
+		pDecl->ValidateAndCast(env, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
 		pAudio.reset(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		const char *audioType = nullptr;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(audiotype), VTYPE_string));
-			pDecl->ValidateAndCast(env, sig, valList[1]);
+			pDecl->ValidateAndCast(env, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			audioType = valList[1].GetString();
 		}

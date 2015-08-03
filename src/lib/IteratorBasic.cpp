@@ -358,7 +358,7 @@ void Iterator_Interval::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_Fork
 //-----------------------------------------------------------------------------
-Iterator_Fork::Iterator_Fork(Environment *pEnv, Signal &sig,
+Iterator_Fork::Iterator_Fork(Environment *pEnv,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg) :
 	Iterator(false), _pEnv(pEnv), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
 {
@@ -830,7 +830,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 	if (!_pIterator->Next(env, valueArg)) return false;
 	if (valueArg.Is_list()) {
 		ValueList valListComp = valueArg.GetList();
-		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
+		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
 		AutoPtr<Args> pArgs(new Args());
@@ -840,7 +840,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		if (sig.IsSignalled()) return false;
 	} else {
 		ValueList valListComp(valueArg);
-		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
+		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
 		AutoPtr<Args> pArgs(new Args());
@@ -1934,7 +1934,7 @@ void Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_Repeater
 //-----------------------------------------------------------------------------
-Iterator_Repeater::Iterator_Repeater(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+Iterator_Repeater::Iterator_Repeater(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc) :
 		Iterator(pIteratorSrc->IsInfinite(), skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
@@ -2022,7 +2022,7 @@ void Iterator_Repeater::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_repeat
 //-----------------------------------------------------------------------------
-Iterator_repeat::Iterator_repeat(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+Iterator_repeat::Iterator_repeat(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt) :
 		Iterator(cnt < 0, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
@@ -2093,7 +2093,7 @@ void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 // Iterator_while
 //-----------------------------------------------------------------------------
-Iterator_while::Iterator_while(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+Iterator_while::Iterator_while(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
@@ -2165,7 +2165,7 @@ void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Iterator_for
 //-----------------------------------------------------------------------------
-Iterator_for::Iterator_for(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+Iterator_for::Iterator_for(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
@@ -2252,12 +2252,13 @@ void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Iterator_cross
 //-----------------------------------------------------------------------------
-Iterator_cross::Iterator_cross(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+Iterator_cross::Iterator_cross(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
 		_pIteratorNest(nullptr), _idx(0), _doneFlag(true)
 {
+	Signal &sig = pEnv->GetSignal();
 	if (!PrepareRepeaterIterators(*_pEnv, valListArg,
 									_exprLeftList, _iteratorOwnerOrg)) return;
 	_valListArg.reserve(_iteratorOwnerOrg.size() + 1);
@@ -2314,7 +2315,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 				value = sig.GetValue();
 				sig.ClearSignal();
 				if (value.IsInvalid()) {
-					if (!AdvanceIterators(env, sig)) return false;
+					if (!AdvanceIterators(env)) return false;
 					continue;
 				}
 			} else if (sig.IsSignalled()) {
@@ -2322,7 +2323,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 			}
 			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) {
-				if (!AdvanceIterators(env, sig)) return false;
+				if (!AdvanceIterators(env)) return false;
 				break;
 			}
 			_pIteratorNest.reset(Reference(value.GetIterator()));
@@ -2331,7 +2332,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 		} else {
 			_pIteratorNest.reset(nullptr);
 			if (sig.IsSignalled()) return false;
-			if (!AdvanceIterators(env, sig)) return false;
+			if (!AdvanceIterators(env)) return false;
 		}
 	}
 	return true;
@@ -2353,8 +2354,9 @@ void Iterator_cross::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 	}
 }
 
-bool Iterator_cross::AdvanceIterators(Environment &env, Signal &sig)
+bool Iterator_cross::AdvanceIterators(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	ExprList::reverse_iterator ppExprLeft = _exprLeftList.rbegin();
 	ValueList::reverse_iterator pValueArg = _valListArg.rbegin();
 	IteratorOwner::reverse_iterator ppIteratorOrg = _iteratorOwnerOrg.rbegin();

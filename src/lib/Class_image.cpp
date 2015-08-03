@@ -137,7 +137,7 @@ Gura_ImplementFunction(image)
 	AutoPtr<Image> pImage;
 	if (valList[0].Is_symbol()) {
 		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(format), VTYPE_symbol));
-		pDecl->ValidateAndCast(env, sig, valList[0]);
+		pDecl->ValidateAndCast(env, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Image::Format format =
 					Image::SymbolToFormat(sig, valList[0].GetSymbol());
@@ -145,33 +145,33 @@ Gura_ImplementFunction(image)
 		pImage.reset(new Image(format));
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(width), VTYPE_number));
-			pDecl->ValidateAndCast(env, sig, valList[1]);
+			pDecl->ValidateAndCast(env, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			size_t width = valList[1].GetSizeT();
 			size_t height = width;
 			if (valList.size() >= 3) {
 				AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(height), VTYPE_number));
-				pDecl->ValidateAndCast(env, sig, valList[2]);
+				pDecl->ValidateAndCast(env, valList[2]);
 				if (sig.IsSignalled()) return Value::Null;
 				height = valList[2].GetSizeT();
 			}
 			if (!pImage->AllocBuffer(sig, width, height, 0x00)) return Value::Null;
 			if (valList.size() >= 4) {
 				AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(color), VTYPE_color));
-				pDecl->ValidateAndCast(env, sig, valList[3]);
+				pDecl->ValidateAndCast(env, valList[3]);
 				if (sig.IsSignalled()) return Value::Null;
 				pImage->Fill(Object_color::GetObject(valList[3])->GetColor());
 			}
 		}
 	} else {
 		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
-		pDecl->ValidateAndCast(env, sig, valList[0]);
+		pDecl->ValidateAndCast(env, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
 		Image::Format format = Image::FORMAT_RGBA;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(format), VTYPE_symbol));
-			pDecl->ValidateAndCast(env, sig, valList[1]);
+			pDecl->ValidateAndCast(env, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			format = Image::SymbolToFormat(sig, valList[1].GetSymbol());
 			if (sig.IsSignalled()) return Value::Null;
@@ -180,7 +180,7 @@ Gura_ImplementFunction(image)
 		const char *imageType = nullptr;
 		if (valList.size() >= 3) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(imagetype), VTYPE_string));
-			pDecl->ValidateAndCast(env, sig, valList[2]);
+			pDecl->ValidateAndCast(env, valList[2]);
 			if (sig.IsSignalled()) return Value::Null;
 			imageType = valList[2].GetString();
 		}

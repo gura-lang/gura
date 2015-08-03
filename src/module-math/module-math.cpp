@@ -1069,7 +1069,7 @@ Gura_ImplementFunction(dot_product)
 }
 
 // math.cross_product(a[], b[])
-static Value CalcCrossElem(Environment &env, Signal &sig,
+static Value CalcCrossElem(Environment &env,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by);
 
 Gura_DeclareFunction(cross_product)
@@ -1092,23 +1092,19 @@ Gura_ImplementFunction(cross_product)
 		return Value::Null;
 	}
 	if (valList1.size() == 2) {
-		return CalcCrossElem(env, sig,
-					valList1[0], valList1[1], valList2[0], valList2[1]);
+		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
 	} else if (valList1.size() == 3) {
 		Value result;
 		ValueList &valList = result.InitAsList(env);
 		valList.reserve(3);
 		Value value;
-		value = CalcCrossElem(env, sig,
-					valList1[1], valList1[2], valList2[1], valList2[2]);
+		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
 		if (sig.IsSignalled()) return Value::Null;
 		valList.push_back(value);
-		value = CalcCrossElem(env, sig,
-					valList1[2], valList1[0], valList2[2], valList2[0]);
+		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		valList.push_back(value);
-		value = CalcCrossElem(env, sig,
-					valList1[0], valList1[1], valList2[0], valList2[1]);
+		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
 		if (sig.IsSignalled()) return Value::Null;
 		valList.push_back(value);
 		return result;
@@ -1119,9 +1115,10 @@ Gura_ImplementFunction(cross_product)
 	}
 }
 
-Value CalcCrossElem(Environment &env, Signal &sig,
+Value CalcCrossElem(Environment &env,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by)
 {
+	Signal &sig = env.GetSignal();
 	Value valueLeft;
 	do {
 		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
@@ -1157,9 +1154,9 @@ Gura_ImplementFunction(covariance)
 	size_t cntA, cntB;
 	Iterator *pIteratorA = args.GetIterator(0);
 	Iterator *pIteratorB = args.GetIterator(1);
-	Value valueAveA = pIteratorA->Clone()->Average(env, sig, cntA);
+	Value valueAveA = pIteratorA->Clone()->Average(env, cntA);
 	if (!valueAveA.Is_number()) return Value::Null;
-	Value valueAveB = pIteratorB->Clone()->Average(env, sig, cntB);
+	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
 	if (!valueAveB.Is_number()) return Value::Null;
 	if (cntA != cntB) {
 		sig.SetError(ERR_ValueError, "different length of iterators");

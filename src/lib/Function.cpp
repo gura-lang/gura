@@ -75,7 +75,7 @@ bool Function::CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable,
 {
 	Signal &sig = env.GetSignal();
 	// delcaration of arguments
-	if (!GetDeclOwner().Declare(env, sig, args.GetExprListArg())) return false;
+	if (!GetDeclOwner().Declare(env, args.GetExprListArg())) return false;
 	// declaration of attributes
 	foreach_const (SymbolSet, ppSymbol, args.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
@@ -314,9 +314,8 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 
 Value Function::Eval(Environment &env, Args &args) const
 {
-	Signal &sig = env.GetSignal();
 	ValueList valListCasted;
-	if (!GetDeclOwner().ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
+	if (!GetDeclOwner().ValidateAndCast(env, args.GetValueListArg(), valListCasted)) {
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
@@ -342,7 +341,7 @@ Value Function::EvalMap(Environment &env, Args &args) const
 	Value value;
 	size_t n = 0;
 	for ( ; pIterator->Next(env, value); n++) {
-		if (!resultComposer.Store(env, sig, value)) return Value::Null;
+		if (!resultComposer.Store(env, value)) return Value::Null;
 	}
 	if (n == 0 && !args.IsRsltVoid() && !args.IsRsltReduce() && !args.IsRsltXReduce()) {
 		result.InitAsList(env);
@@ -350,8 +349,7 @@ Value Function::EvalMap(Environment &env, Args &args) const
 	return result;
 }
 
-Value Function::ReturnValue(Environment &env,
-									Args &args, const Value &result) const
+Value Function::ReturnValue(Environment &env, Args &args, const Value &result) const
 {
 	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return result;
@@ -369,8 +367,7 @@ Value Function::ReturnValue(Environment &env,
 	return value;
 }
 
-Value Function::ReturnValues(Environment &env,
-								Args &args, const ValueList &valListArg) const
+Value Function::ReturnValues(Environment &env, Args &args, const ValueList &valListArg) const
 {
 	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return valListArg.front();
@@ -388,8 +385,7 @@ Value Function::ReturnValues(Environment &env,
 	return value;
 }
 
-Value Function::ReturnIterator(Environment &env,
-								Args &args, Iterator *pIterator) const
+Value Function::ReturnIterator(Environment &env, Args &args, Iterator *pIterator) const
 {
 	Signal &sig = env.GetSignal();
 	if (pIterator == nullptr) return Value::Null;
@@ -405,7 +401,7 @@ Value Function::ReturnIterator(Environment &env,
 								args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 			if (pFuncBlock == nullptr) return Value::Null;
 			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
-			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
 								false, genIterFlag, pIterator);
 		}
 		bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
@@ -428,8 +424,7 @@ Value Function::ReturnIterator(Environment &env,
 	return result;
 }
 
-Expr *Function::MathDiff(Environment &env,
-							const Expr *pExprArg, const Symbol *pSymbol) const
+Expr *Function::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	Signal &sig = env.GetSignal();
 	SetError_MathDiffError(sig);
@@ -669,8 +664,9 @@ Function::ResultComposer::ResultComposer(Environment &env, Args &args, Value &re
 	}
 }
 
-bool Function::ResultComposer::Store(Environment &env, Signal &sig, const Value &value)
+bool Function::ResultComposer::Store(Environment &env, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (_args.IsRsltVoid()) {
 		// nothing to do
 	} else if (_args.IsRsltReduce()) {
@@ -679,7 +675,7 @@ bool Function::ResultComposer::Store(Environment &env, Signal &sig, const Value 
 		if (value.IsValid()) _result = value;
 	} else if (_args.IsRsltFlat() && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
-			if (!Store(env, sig, *pValue)) return false;
+			if (!Store(env, *pValue)) return false;
 		}
 	} else {
 		if (_args.IsRsltList()) {

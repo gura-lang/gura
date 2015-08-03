@@ -243,7 +243,7 @@ private:
 		OAL::Event event;
 	} _writeBlock;
 public:
-	Iterator_Fork(Environment *pEnv, Signal &sig,
+	Iterator_Fork(Environment *pEnv,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -836,7 +836,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_Repeater(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+	Iterator_Repeater(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -857,7 +857,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_repeat(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+	Iterator_repeat(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -878,7 +878,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_while(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+	Iterator_while(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -900,7 +900,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_for(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+	Iterator_for(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -924,14 +924,14 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_cross(Environment *pEnv, Signal &sig, Function *pFuncBlock,
+	Iterator_cross(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 private:
-	bool AdvanceIterators(Environment &env, Signal &sig);
+	bool AdvanceIterators(Environment &env);
 };
 
 }

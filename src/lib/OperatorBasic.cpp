@@ -441,8 +441,7 @@ Gura_ImplementUnaryOperator(Neg, rational)
 
 Gura_ImplementUnaryOperator(Neg, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Neg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
+	return Matrix::Neg(env, Object_matrix::GetObject(value)->GetMatrix());
 }
 
 Gura_ImplementUnaryOperator(Neg, timedelta)
@@ -624,8 +623,7 @@ Gura_ImplementBinaryOperator(Add, complex, number)
 
 Gura_ImplementBinaryOperator(Add, matrix, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::AddSub(env, sig, OPTYPE_Add,
+	return Matrix::AddSub(env, OPTYPE_Add,
 		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
@@ -808,8 +806,7 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 
 Gura_ImplementBinaryOperator(Sub, matrix, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::AddSub(env, sig, OPTYPE_Sub,
+	return Matrix::AddSub(env, OPTYPE_Sub,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
@@ -975,36 +972,31 @@ Gura_ImplementBinaryOperator(Mul, complex, number)
 
 Gura_ImplementBinaryOperator(Mul, matrix, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Mul(env, sig,
+	return Matrix::Mul(env,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, list, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Mul(env, sig,
+	return Matrix::Mul(env,
 			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, any, matrix)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Mul(env, sig,
+	return Matrix::Mul(env,
 			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, list)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Mul(env, sig,
+	return Matrix::Mul(env,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, any)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Mul(env, sig,
+	return Matrix::Mul(env,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
@@ -1198,8 +1190,7 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 
 Gura_ImplementBinaryOperator(Div, matrix, any)
 {
-	Signal &sig = env.GetSignal();
-	return Matrix::Div(env, sig,
+	return Matrix::Div(env,
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
@@ -1564,7 +1555,7 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		if (valueLeft.Is_iterator()) {
 			return Value(new Object_iterator(env, pIterator.release()));
 		}
-		return pIterator->ToList(env, sig, true, false);
+		return pIterator->ToList(env, true, false);
 	} else if (valueRight.Is_list()) {
 		bool foundFlag = valueRight.GetList().DoesContain(env, valueLeft);
 		if (sig.IsSignalled()) return Value::Null;

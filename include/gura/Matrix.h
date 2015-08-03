@@ -125,35 +125,28 @@ public:
 		*GetPointer(iRow, iCol) = value;
 	}
 	Value GetSub(Environment &env, size_t iRow, size_t iCol, size_t nRows, size_t nCols);
-	bool Set(Environment &env, Signal &sig, Iterator &iterator);
-	bool SetRow(Environment &env, Signal &sig, size_t iRow, Iterator &iterator);
-	bool SetCol(Environment &env, Signal &sig, size_t iCol, Iterator &iterator);
-	Value GetRow(Environment &env, Signal &sig, size_t iRow) const;
-	Value GetCol(Environment &env, Signal &sig, size_t iCol) const;
-	Value RoundOff(Environment &env, Signal &sig, Number threshold);
-	Value Transpose(Environment &env, Signal &sig);
-	Value Invert(Environment &env, Signal &sig);
-	static Value Neg(Environment &env, Signal &sig, const Matrix *pMat);
-	static Value AddSub(Environment &env, Signal &sig, OpType opType,
-				const Matrix *pMat1, const Matrix *pMat2);
-	static Value Mul(Environment &env, Signal &sig,
-				const Matrix *pMat1, const Matrix *pMat2);
-	static Value Mul(Environment &env, Signal &sig,
-				const Matrix *pMat, const ValueList &valList);
-	static Value Mul(Environment &env, Signal &sig,
-				const Matrix *pMat, const Value &value);
-	static Value Mul(Environment &env, Signal &sig,
-				const ValueList &valList, const Matrix *pMat);
-	static Value Mul(Environment &env, Signal &sig,
-				const Value &value, const Matrix *pMat);
-	static Value Div(Environment &env, Signal &sig,
-				const Matrix *pMat, const Value &value);
+	bool Set(Environment &env, Iterator &iterator);
+	bool SetRow(Environment &env, size_t iRow, Iterator &iterator);
+	bool SetCol(Environment &env, size_t iCol, Iterator &iterator);
+	Value GetRow(Environment &env, size_t iRow) const;
+	Value GetCol(Environment &env, size_t iCol) const;
+	Value RoundOff(Environment &env, Number threshold);
+	Value Transpose(Environment &env);
+	Value Invert(Environment &env);
+	static Value Neg(Environment &env, const Matrix *pMat);
+	static Value AddSub(Environment &env, OpType opType, const Matrix *pMat1, const Matrix *pMat2);
+	static Value Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2);
+	static Value Mul(Environment &env, const Matrix *pMat, const ValueList &valList);
+	static Value Mul(Environment &env, const Matrix *pMat, const Value &value);
+	static Value Mul(Environment &env, const ValueList &valList, const Matrix *pMat);
+	static Value Mul(Environment &env, const Value &value, const Matrix *pMat);
+	static Value Div(Environment &env, const Matrix *pMat, const Value &value);
 	static void SetError_MatrixSizeMismatch(Signal &sig);
 	static void SetError_IndexOutOfRange(Signal &sig);
 public:
 	static ValueType CheckValueType(const ValueList &valList);
 	static ValueType CheckValueType(const Matrix &mat);
-	static bool GetElemIndex(Environment &env, Signal &sig,
+	static bool GetElemIndex(Environment &env,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems);
 };
 

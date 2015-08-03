@@ -178,7 +178,6 @@ Value Operator::EvalBinary(Environment &env, const Value &valueLeft, const Value
 
 Value Operator::EvalMapUnary(Environment &env, const Value &value, bool suffixFlag) const
 {
-	Signal &sig = env.GetSignal();
 	if (!_mapFlag || !value.IsListOrIterator() || value.GetNoMapFlag()) {
 		return EvalUnary(env, value, suffixFlag);
 	}
@@ -187,13 +186,12 @@ Value Operator::EvalMapUnary(Environment &env, const Value &value, bool suffixFl
 	if (value.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
-	return pIterator->ToList(env, sig, true, false);
+	return pIterator->ToList(env, true, false);
 }
 
 Value Operator::EvalMapBinary(Environment &env,
 							const Value &valueLeft, const Value &valueRight) const
 {
-	Signal &sig = env.GetSignal();
 	if (!_mapFlag || ((!valueLeft.IsListOrIterator() || valueLeft.GetNoMapFlag()) &&
 				(!valueRight.IsListOrIterator() || valueRight.GetNoMapFlag()))) {
 		return EvalBinary(env, valueLeft, valueRight);
@@ -203,7 +201,7 @@ Value Operator::EvalMapBinary(Environment &env,
 	if (valueLeft.Is_iterator() || valueRight.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
-	return pIterator->ToList(env, sig, true, false);
+	return pIterator->ToList(env, true, false);
 }
 
 OpType Operator::LookupUnaryOpType(const char *str)
@@ -617,7 +615,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat()) {
 				ValueList valListComp = valList;
-				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
+				if (!pFunc->GetDeclOwner().Compensate(env, valListComp)) {
 					return Value::Null;
 				}
 				AutoPtr<Args> pArgsSub(new Args());

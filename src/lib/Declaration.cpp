@@ -33,8 +33,9 @@ Declaration::~Declaration()
 	// virtual destructor
 }
 
-Declaration *Declaration::Create(Environment &env, Signal &sig, const Expr *pExpr)
+Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 {
+	Signal &sig = env.GetSignal();
 	ULong flags = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
@@ -109,15 +110,15 @@ Declaration *Declaration::Create(Environment &env, Signal &sig, const Expr *pExp
 
 // value will be casted only when that is valid for declaration.
 // it will not be casted if validation fails.
-bool Declaration::ValidateAndCast(Environment &env, Signal &sig,
-									Value &value, bool listElemFlag) const
+bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemFlag) const
 {
+	Signal &sig = env.GetSignal();
 	if (!listElemFlag && GetListFlag()) {
 		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
 		if (sig.IsSignalled()) return false;
 		if (value.Is_list()) {
 			foreach (ValueList, pValue, value.GetList()) {
-				if (!ValidateAndCast(env, sig, *pValue, true)) {
+				if (!ValidateAndCast(env, *pValue, true)) {
 					SetError_ArgumentType(sig, *pValue);
 					return false;
 				}
@@ -288,8 +289,9 @@ void DeclarationList::SetAsLoose()
 	}
 }
 
-bool DeclarationList::Compensate(Environment &env, Signal &sig, ValueList &valList) const
+bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 {
+	Signal &sig = env.GetSignal();
 	if (valList.size() >= size()) return true;
 	DeclarationList::const_iterator ppDecl = begin() + valList.size();
 	for ( ; ppDecl != end(); ppDecl++) {
@@ -402,8 +404,9 @@ Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, 
 	return pDecl;
 }
 
-bool DeclarationOwner::Declare(Environment &env, Signal &sig, const ExprList &exprList)
+bool DeclarationOwner::Declare(Environment &env, const ExprList &exprList)
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ExprList, ppExpr, exprList) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsUnaryOpSuffix()) {
@@ -422,7 +425,7 @@ bool DeclarationOwner::Declare(Environment &env, Signal &sig, const ExprList &ex
 				continue;
 			}
 		}
-		AutoPtr<Declaration> pDecl(Declaration::Create(env, sig, pExpr));
+		AutoPtr<Declaration> pDecl(Declaration::Create(env, pExpr));
 		if (pDecl.IsNull()) return false;
 		if (IsVariableLength()) {
 			sig.SetError(ERR_TypeError,
@@ -440,9 +443,10 @@ bool DeclarationOwner::Declare(Environment &env, Signal &sig, const ExprList &ex
 	return true;
 }
 
-bool DeclarationOwner::ValidateAndCast(Environment &env, Signal &sig,
+bool DeclarationOwner::ValidateAndCast(Environment &env,
 						const ValueList &valList, ValueList &valListCasted) const
 {
+	Signal &sig = env.GetSignal();
 	ValueList::const_iterator pValue = valList.begin();
 	DeclarationList::const_iterator ppDecl = begin();
 	for ( ; ppDecl != end(); ppDecl++) {
@@ -454,7 +458,7 @@ bool DeclarationOwner::ValidateAndCast(Environment &env, Signal &sig,
 			valListCasted.push_back(value);
 			for ( ; pValue != valList.end(); pValue++) {
 				Value value = *pValue;
-				if (!pDecl->ValidateAndCast(env, sig, value)) return false;
+				if (!pDecl->ValidateAndCast(env, value)) return false;
 				valListElem.push_back(value);
 			}
 			if (occurPattern == OCCUR_OnceOrMore && valListElem.empty()) {
@@ -471,7 +475,7 @@ bool DeclarationOwner::ValidateAndCast(Environment &env, Signal &sig,
 			}
 		} else {
 			Value value = *pValue;
-			if (!pDecl->ValidateAndCast(env, sig, value)) return false;
+			if (!pDecl->ValidateAndCast(env, value)) return false;
 			valListCasted.push_back(value);
 			pValue++;
 		}

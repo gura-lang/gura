@@ -253,8 +253,9 @@ Value Matrix::GetSub(Environment &env, size_t iRow, size_t iCol, size_t nRows, s
 	return Value(new Object_matrix(env, pMat.release()));
 }
 
-bool Matrix::Set(Environment &env, Signal &sig, Iterator &iterator)
+bool Matrix::Set(Environment &env, Iterator &iterator)
 {
+	Signal &sig = env.GetSignal();
 	for (size_t iRow = 0; iRow < _nRows; iRow++) {
 		ValueList::iterator pValueElem = GetPointer(iRow, 0);
 		Value value;
@@ -267,8 +268,9 @@ bool Matrix::Set(Environment &env, Signal &sig, Iterator &iterator)
 	return true;
 }
 
-bool Matrix::SetRow(Environment &env, Signal &sig, size_t iRow, Iterator &iterator)
+bool Matrix::SetRow(Environment &env, size_t iRow, Iterator &iterator)
 {
+	Signal &sig = env.GetSignal();
 	if (iRow >= _nRows) {
 		SetError_IndexOutOfRange(sig);
 		return false;
@@ -282,8 +284,9 @@ bool Matrix::SetRow(Environment &env, Signal &sig, size_t iRow, Iterator &iterat
 	return true;
 }
 
-bool Matrix::SetCol(Environment &env, Signal &sig, size_t iCol, Iterator &iterator)
+bool Matrix::SetCol(Environment &env, size_t iCol, Iterator &iterator)
 {
+	Signal &sig = env.GetSignal();
 	if (iCol >= _nCols) {
 		SetError_IndexOutOfRange(sig);
 		return false;
@@ -298,8 +301,9 @@ bool Matrix::SetCol(Environment &env, Signal &sig, size_t iCol, Iterator &iterat
 	return true;
 }
 
-Value Matrix::GetRow(Environment &env, Signal &sig, size_t iRow) const
+Value Matrix::GetRow(Environment &env, size_t iRow) const
 {
+	Signal &sig = env.GetSignal();
 	if (iRow >= _nRows) {
 		SetError_IndexOutOfRange(sig);
 		return false;
@@ -314,8 +318,9 @@ Value Matrix::GetRow(Environment &env, Signal &sig, size_t iRow) const
 	return result;
 }
 
-Value Matrix::GetCol(Environment &env, Signal &sig, size_t iCol) const
+Value Matrix::GetCol(Environment &env, size_t iCol) const
 {
+	Signal &sig = env.GetSignal();
 	if (iCol >= _nCols) {
 		SetError_IndexOutOfRange(sig);
 		return false;
@@ -331,7 +336,7 @@ Value Matrix::GetCol(Environment &env, Signal &sig, size_t iCol) const
 	return result;
 }
 
-Value Matrix::RoundOff(Environment &env, Signal &sig, Number threshold)
+Value Matrix::RoundOff(Environment &env, Number threshold)
 {
 	size_t nRows = GetRows(), nCols = GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
@@ -348,7 +353,7 @@ Value Matrix::RoundOff(Environment &env, Signal &sig, Number threshold)
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Transpose(Environment &env, Signal &sig)
+Value Matrix::Transpose(Environment &env)
 {
 	size_t nRows = GetRows(), nCols = GetCols();
 	size_t nFold = GetFold();
@@ -364,8 +369,9 @@ Value Matrix::Transpose(Environment &env, Signal &sig)
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Invert(Environment &env, Signal &sig)
+Value Matrix::Invert(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	size_t nCols = GetCols(), nRows = GetRows();
 	if (nCols != nRows) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
@@ -432,9 +438,10 @@ Value Matrix::Invert(Environment &env, Signal &sig)
 	}
 }
 
-bool Matrix::GetElemIndex(Environment &env, Signal &sig,
+bool Matrix::GetElemIndex(Environment &env,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems)
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value valueIdx = pExprIdx->Exec2(env, pSeqPostHandler);
 	if (sig.IsSignalled()) return false;
@@ -468,8 +475,9 @@ bool Matrix::GetElemIndex(Environment &env, Signal &sig,
 	return true;
 }
 
-Value Matrix::Neg(Environment &env, Signal &sig, const Matrix *pMat)
+Value Matrix::Neg(Environment &env, const Matrix *pMat)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
@@ -502,9 +510,10 @@ Value Matrix::Neg(Environment &env, Signal &sig, const Matrix *pMat)
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::AddSub(Environment &env, Signal &sig, OpType opType,
+Value Matrix::AddSub(Environment &env, OpType opType,
 				const Matrix *pMat1, const Matrix *pMat2)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat1->GetRows(), nCols = pMat1->GetCols();
 	if (!(nRows == pMat2->GetRows() && nCols == pMat2->GetCols())) {
 		SetError_MatrixSizeMismatch(sig);
@@ -551,9 +560,9 @@ Value Matrix::AddSub(Environment &env, Signal &sig, OpType opType,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Mul(Environment &env, Signal &sig,
-				const Matrix *pMat1, const Matrix *pMat2)
+Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat1->GetRows(), nCols = pMat2->GetCols();
 	size_t nElems = pMat1->GetCols();
 	size_t nFold = pMat2->GetFold();
@@ -624,9 +633,9 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Mul(Environment &env, Signal &sig,
-							const Matrix *pMat, const ValueList &valList)
+Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	if (nCols != valList.size()) {
 		SetError_MatrixSizeMismatch(sig);
@@ -683,9 +692,9 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 	return result;
 }
 
-Value Matrix::Mul(Environment &env, Signal &sig,
-							const Matrix *pMat, const Value &value)
+Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valListResult = pMatRtn->GetList();
@@ -723,9 +732,9 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Mul(Environment &env, Signal &sig,
-							const ValueList &valList, const Matrix *pMat)
+Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	size_t nFold = pMat->GetFold();
 	if (nRows != valList.size()) {
@@ -786,9 +795,9 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 	return result;
 }
 
-Value Matrix::Mul(Environment &env, Signal &sig,
-							const Value &value, const Matrix *pMat)
+Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	//size_t nFold = pMat->GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
@@ -827,9 +836,9 @@ Value Matrix::Mul(Environment &env, Signal &sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Div(Environment &env, Signal &sig,
-							const Matrix *pMat, const Value &value)
+Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
@@ -958,9 +967,8 @@ Iterator *Matrix::IteratorEachRow::GetSource()
 
 bool Matrix::IteratorEachRow::DoNext(Environment &env, Value &value)
 {
-	Signal &sig = env.GetSignal();
 	if (_iRow >= _pMat->GetRows()) return false;
-	value = _pMat->GetRow(env, sig, _iRow);
+	value = _pMat->GetRow(env, _iRow);
 	_iRow++;
 	return true;
 }
@@ -988,9 +996,8 @@ Iterator *Matrix::IteratorEachCol::GetSource()
 
 bool Matrix::IteratorEachCol::DoNext(Environment &env, Value &value)
 {
-	Signal &sig = env.GetSignal();
 	if (_iCol >= _pMat->GetCols()) return false;
-	value = _pMat->GetCol(env, sig, _iCol);
+	value = _pMat->GetCol(env, _iCol);
 	_iCol++;
 	return true;
 }

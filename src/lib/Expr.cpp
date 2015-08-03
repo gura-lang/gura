@@ -923,7 +923,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 	if (valTypeCast != VTYPE_any) {
 		AutoPtr<Declaration> pDecl(
 				new Declaration(GetSymbol(), valTypeCast, OCCUR_Once, 0, nullptr));
-		pDecl->ValidateAndCast(env, sig, valueAssigned);
+		pDecl->ValidateAndCast(env, valueAssigned);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (escalateFlag) {
@@ -2024,7 +2024,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				if (mode == Expr_Member::MODE_MapToIter) {
 					return Value(new Object_iterator(env, pIteratorMap.release()));
 				}
-				Value result = pIteratorMap->ToList(env, sig, false, false);
+				Value result = pIteratorMap->ToList(env, false, false);
 				if (sig.IsSignalled()) return Value::Null;
 				return result;
 			}
@@ -2802,7 +2802,7 @@ Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 			if (mode == MODE_MapToIter) {
 				result = Value(new Object_iterator(env, pIteratorMap.release()));
 			} else {
-				result = pIteratorMap->ToList(env, sig, false, false);
+				result = pIteratorMap->ToList(env, false, false);
 				if (sig.IsSignalled()) return Value::Null;
 			}
 		}

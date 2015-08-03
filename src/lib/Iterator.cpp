@@ -64,9 +64,9 @@ bool Iterator::Consume(Environment &env)
 	return !sig.IsSignalled();
 }
 
-Value Iterator::ToList(Environment &env, Signal &sig,
-							bool alwaysListFlag, bool excludeNilFlag)
+Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFlag)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -108,15 +108,15 @@ Value Iterator::Eval(Environment &env, Args &args)
 	Value value, result;
 	Function::ResultComposer resultComposer(env, args, result);
 	while (Next(env, value)) {
-		if (!resultComposer.Store(env, sig, value)) return Value::Null;
+		if (!resultComposer.Store(env, value)) return Value::Null;
 	}
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
 }
 
-Value Iterator::Reduce(Environment &env, Signal &sig,
-							Value valueAccum, const Function *pFuncBlock)
+Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFuncBlock)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -148,9 +148,9 @@ Value Iterator::Reduce(Environment &env, Signal &sig,
 	return valueAccum;
 }
 
-Value Iterator::MinMax(Environment &env, Signal &sig,
-									bool maxFlag, const SymbolSet &attrs)
+Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -232,8 +232,9 @@ void Iterator::SetError_InfiniteNotAllowed(Signal &sig)
 	sig.SetError(ERR_IteratorError, "cannot evaluate infinite iterator");
 }
 
-Value Iterator::Sum(Environment &env, Signal &sig, size_t &cnt)
+Value Iterator::Sum(Environment &env, size_t &cnt)
 {
+	Signal &sig = env.GetSignal();
 	cnt = 0;
 	Value value;
 	if (!Next(env, value)) return Value::Null;
@@ -268,8 +269,9 @@ Value Iterator::Sum(Environment &env, Signal &sig, size_t &cnt)
 	return Value(result);
 }
 
-Value Iterator::Prod(Environment &env, Signal &sig)
+Value Iterator::Prod(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Value value;
 	if (!Next(env, value)) return Value::Null;
 	if (!value.Is_number()) {
@@ -299,13 +301,14 @@ Value Iterator::Prod(Environment &env, Signal &sig)
 	return Value(result);
 }
 
-Value Iterator::Average(Environment &env, Signal &sig, size_t &cnt)
+Value Iterator::Average(Environment &env, size_t &cnt)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
 	}
-	Value valueSum = Clone()->Sum(env, sig, cnt);
+	Value valueSum = Clone()->Sum(env, cnt);
 	if (valueSum.IsInvalid()) {
 		return Value::Null;
 	} else if (valueSum.Is_number()) {
@@ -318,15 +321,16 @@ Value Iterator::Average(Environment &env, Signal &sig, size_t &cnt)
 	}
 }
 
-Value Iterator::Variance(Environment &env, Signal &sig, size_t &cnt)
+Value Iterator::Variance(Environment &env, size_t &cnt)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
 	}
 	// this doesn't use a variance calculation formula V(x) = E(x**2) - E(x)**2
 	// to minimize calculation error.
-	Value valueAve = Clone()->Average(env, sig, cnt);
+	Value valueAve = Clone()->Average(env, cnt);
 	if (!valueAve.IsNumberOrComplex()) return Value::Null;
 	Value value;
 	if (!Next(env, value)) return Value::Null;
@@ -382,19 +386,21 @@ Value Iterator::Variance(Environment &env, Signal &sig, size_t &cnt)
 	}
 }
 
-Value Iterator::StandardDeviation(Environment &env, Signal &sig, size_t &cnt)
+Value Iterator::StandardDeviation(Environment &env, size_t &cnt)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
 	}
-	Value valueVar = Clone()->Variance(env, sig, cnt);
+	Value valueVar = Clone()->Variance(env, cnt);
 	if (!valueVar.Is_number()) return Value::Null;
 	return Value(::sqrt(valueVar.GetNumber()));
 }
 
-Value Iterator::And(Environment &env, Signal &sig)
+Value Iterator::And(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -409,8 +415,9 @@ Value Iterator::And(Environment &env, Signal &sig)
 	return Value(true);
 }
 
-Value Iterator::Or(Environment &env, Signal &sig)
+Value Iterator::Or(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return Value::Null;
@@ -425,8 +432,9 @@ Value Iterator::Or(Environment &env, Signal &sig)
 	return Value(false);
 }
 
-size_t Iterator::Find(Environment &env, Signal &sig, const Value &criteria, Value &value)
+size_t Iterator::Find(Environment &env, const Value &criteria, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (criteria.Is_function()) {
 		if (IsInfinite()) {
 			SetError_InfiniteNotAllowed(sig);
@@ -465,8 +473,9 @@ size_t Iterator::Find(Environment &env, Signal &sig, const Value &criteria, Valu
 	return InvalidSize;
 }
 
-size_t Iterator::FindTrue(Environment &env, Signal &sig, Value &value)
+size_t Iterator::FindTrue(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return 0;
@@ -477,8 +486,9 @@ size_t Iterator::FindTrue(Environment &env, Signal &sig, Value &value)
 	return InvalidSize;
 }
 
-size_t Iterator::Count(Environment &env, Signal &sig, const Value &criteria)
+size_t Iterator::Count(Environment &env, const Value &criteria)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return 0;
@@ -506,8 +516,9 @@ size_t Iterator::Count(Environment &env, Signal &sig, const Value &criteria)
 	return cnt;
 }
 
-size_t Iterator::CountTrue(Environment &env, Signal &sig)
+size_t Iterator::CountTrue(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return 0;
@@ -520,8 +531,9 @@ size_t Iterator::CountTrue(Environment &env, Signal &sig)
 	return cnt;
 }
 
-Iterator *Iterator::Filter(Environment &env, Signal &sig, const Value &criteria)
+Iterator *Iterator::Filter(Environment &env, const Value &criteria)
 {
+	Signal &sig = env.GetSignal();
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria =
 			Object_function::Reference(Object_function::GetObject(criteria));
@@ -536,8 +548,9 @@ Iterator *Iterator::Filter(Environment &env, Signal &sig, const Value &criteria)
 	}
 }
 
-Iterator *Iterator::While(Environment &env, Signal &sig, const Value &criteria)
+Iterator *Iterator::While(Environment &env, const Value &criteria)
 {
+	Signal &sig = env.GetSignal();
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
@@ -552,9 +565,9 @@ Iterator *Iterator::While(Environment &env, Signal &sig, const Value &criteria)
 	}
 }
 
-Iterator *Iterator::Since(Environment &env, Signal &sig,
-									const Value &criteria, bool containFirstFlag)
+Iterator *Iterator::Since(Environment &env, const Value &criteria, bool containFirstFlag)
 {
+	Signal &sig = env.GetSignal();
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
@@ -569,9 +582,9 @@ Iterator *Iterator::Since(Environment &env, Signal &sig,
 	}
 }
 
-Iterator *Iterator::Until(Environment &env, Signal &sig,
-									const Value &criteria, bool containLastFlag)
+Iterator *Iterator::Until(Environment &env, const Value &criteria, bool containLastFlag)
 {
+	Signal &sig = env.GetSignal();
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
@@ -602,8 +615,9 @@ bool Iterator::DoesContain(Environment &env, const Value &value)
 	return false;
 }
 
-String Iterator::Join(Environment &env, Signal &sig, const char *sep)
+String Iterator::Join(Environment &env, const char *sep)
 {
+	Signal &sig = env.GetSignal();
 	String rtn;
 	Value value;
 	if (IsInfinite()) {
@@ -620,8 +634,9 @@ String Iterator::Join(Environment &env, Signal &sig, const char *sep)
 	return rtn;
 }
 
-Binary Iterator::Joinb(Environment &env, Signal &sig)
+Binary Iterator::Joinb(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Binary rtn;
 	Value value;
 	if (IsInfinite()) {

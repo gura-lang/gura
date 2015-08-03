@@ -165,7 +165,7 @@ public:
 		bool _setFlag;
 	public:
 		ResultComposer(Environment &env, Args &args, Value &result);
-		bool Store(Environment &env, Signal &sig, const Value &value);
+		bool Store(Environment &env, const Value &value);
 	};
 	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
 	public:

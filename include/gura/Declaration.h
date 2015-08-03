@@ -35,9 +35,8 @@ public:
 private:
 	~Declaration();
 public:
-	static Declaration *Create(Environment &env, Signal &sig, const Expr *pExpr);
-	bool ValidateAndCast(Environment &env, Signal &sig,
-							Value &value, bool listElemFlag = false) const;
+	static Declaration *Create(Environment &env, const Expr *pExpr);
+	bool ValidateAndCast(Environment &env, Value &value, bool listElemFlag = false) const;
 	inline Declaration *Clone() const { return new Declaration(*this); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
@@ -93,7 +92,7 @@ public:
 	~DeclarationList();
 	bool IsVariableLength() const;
 	void SetAsLoose();
-	bool Compensate(Environment &env, Signal &sig, ValueList &valList) const;
+	bool Compensate(Environment &env, ValueList &valList) const;
 	bool ShouldImplicitMap(const ValueList &valList) const;
 	bool ShouldImplicitMap(const Args &args) const;
 	String ToString() const;
@@ -129,9 +128,9 @@ public:
 				Expr *pExprDefault = nullptr) {
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
-	bool Declare(Environment &env, Signal &sig, const ExprList &exprList);
-	bool ValidateAndCast(Environment &env, Signal &sig,
-		const ValueList &valList, ValueList &valListCasted) const;
+	bool Declare(Environment &env, const ExprList &exprList);
+	bool ValidateAndCast(Environment &env,
+						 const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;
 };
 
