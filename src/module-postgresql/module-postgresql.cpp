@@ -176,7 +176,7 @@ Gura_ImplementFunction(connect)
 	Value result(pObj);
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+						args.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Null;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);

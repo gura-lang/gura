@@ -25,7 +25,7 @@ Gura_ImplementFunction(__gluBeginCurve)
 	gluBeginCurve(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndCurve(nurb);
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__gluBeginPolygon)
 	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
@@ -79,7 +79,7 @@ Gura_ImplementFunction(__gluBeginSurface)
 	gluBeginSurface(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndSurface(nurb);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(__gluBeginTrim)
 	gluBeginTrim(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndTrim(nurb);
@@ -1117,7 +1117,7 @@ Gura_ImplementFunction(__gluTessBeginContour)
 	gluTessBeginContour(tess);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndContour(tess);
@@ -1146,7 +1146,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());

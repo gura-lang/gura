@@ -143,7 +143,7 @@ bool Audio::Read(Environment &env, Stream &stream, const char *audioType)
 		sig.SetError(ERR_FormatError, "unsupported audio type");
 		return false;
 	}
-	return pAudioStreamer->Read(env, sig, this, stream);
+	return pAudioStreamer->Read(env, this, stream);
 }
 
 bool Audio::Write(Environment &env, Stream &stream, const char *audioType)
@@ -156,7 +156,7 @@ bool Audio::Write(Environment &env, Stream &stream, const char *audioType)
 		sig.SetError(ERR_FormatError, "unsupported audio type");
 		return false;
 	}
-	return pAudioStreamer->Write(env, sig, this, stream);
+	return pAudioStreamer->Write(env, this, stream);
 }
 
 bool Audio::AddSineWave(Signal &sig, size_t iChannel,

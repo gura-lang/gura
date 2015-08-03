@@ -73,7 +73,7 @@ Expr *FunctionCustom::MathDiff(Environment &env,
 	return pExpr.release();
 }
 
-FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal &sig,
+FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env, pSymbol,
@@ -83,7 +83,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal &sig,
 	if (pExprOwnerParam != nullptr) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerParam->Reference());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
+		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) {
 			return nullptr;
 		}
 	}

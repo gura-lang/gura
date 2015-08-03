@@ -112,7 +112,7 @@ Gura_ImplementMethod(suffixmgr, assign)
 {
 	Signal &sig = env.GetSignal();
 	SuffixMgr &suffixMgr = Object_suffixmgr::GetThisObj(args)->GetSuffixMgr();
-	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(0);
 	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != nullptr) {

@@ -451,7 +451,7 @@ Gura_ImplementMethod(font, drawtext)
 	String str = args.GetStringSTL(3);
 	const Function *pFuncDeco = nullptr;
 	if (args.IsBlockSpecified()) {
-		pFuncDeco = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+		pFuncDeco = args.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncDeco == nullptr) return Value::Null;
 	}
 	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Null;

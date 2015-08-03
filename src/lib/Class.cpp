@@ -329,7 +329,7 @@ Gura_ImplementMethod(Object, tostring)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(Environment &env, Signal &sig, Args &args) const;
+	virtual Value Call(Environment &env, Args &args) const;
 	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
@@ -343,8 +343,9 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::Call(Environment &env, Signal &sig, Args &args) const
+Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
 {
+	Signal &sig = env.GetSignal();
 	const Fundamental *pThis = args.GetThisFundamental();
 	if (args.GetExprListArg().size() < 1) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
@@ -381,7 +382,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal &sig, Args &a
 		pExprOwnerArg->push_back(pExprArg->Reference());
 	}
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	return pFunc->Call(env, sig, *pArgsSub);
+	return pFunc->Call(env, *pArgsSub);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
@@ -667,9 +668,10 @@ bool Class::Format_c(Formatter *pFormatter,
 	return false;
 }
 
-bool Class::BuildContent(Environment &env, Signal &sig, const Value &valueThis,
+bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
@@ -694,7 +696,7 @@ bool Class::BuildContent(Environment &env, Signal &sig, const Value &valueThis,
 				pArgs->SetAttrs(pExprCaller->GetAttrs());
 				pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
 				pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
-				pCallable->DoCall(*this, sig, *pArgs);
+				pCallable->DoCall(*this, *pArgs);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

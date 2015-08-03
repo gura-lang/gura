@@ -71,9 +71,9 @@ void Function::SetClassToConstruct(Class *pClassToConstruct)
 	pClassToConstruct->SetConstructor(Function::Reference(this));
 }
 
-bool Function::CustomDeclare(Environment &env, Signal &sig,
-								const SymbolSet &attrsAcceptable, Args &args)
+bool Function::CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable, Args &args)
 {
+	Signal &sig = env.GetSignal();
 	// delcaration of arguments
 	if (!GetDeclOwner().Declare(env, sig, args.GetExprListArg())) return false;
 	// declaration of attributes
@@ -135,7 +135,7 @@ bool Function::CustomDeclare(Environment &env, Signal &sig,
 	_attrsOpt = args.GetAttrsOpt();
 	// declaration of a block
 	if (!args.IsBlockSpecified()) return true;
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return false;
 	const ExprList &exprList = pExprBlock->GetExprOwner();
 	if (exprList.size() != 1) {
@@ -248,8 +248,9 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, Signal &sig, Args &args) const
+Value Function::Call(Environment &env, Args &args) const
 {
+	Signal &sig = env.GetSignal();
 	Sequence *pSequence = new SequenceEx(env.Reference(), Reference(this), args);
 	return Sequence::Return(sig, pSequence);
 }
@@ -289,7 +290,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 	if (_blockInfo.pSymbol == nullptr) return pEnvLocal.release();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return nullptr;
 	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by
@@ -303,7 +304,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
 		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
 											FUNCTYPE_Function : FUNCTYPE_Block;
-		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv, sig,
+		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv,
 								_blockInfo.pSymbol, pExprBlock, funcType);
 		if (pFuncBlock == nullptr) return nullptr;
 		pEnvLocal->AssignFunction(pFuncBlock);
@@ -357,7 +358,7 @@ Value Function::ReturnValue(Environment &env,
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(result);
@@ -376,7 +377,7 @@ Value Function::ReturnValues(Environment &env,
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValueListArg(valListArg);
@@ -401,7 +402,7 @@ Value Function::ReturnIterator(Environment &env,
 		if (args.IsBlockSpecified()) {
 			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 			const Function *pFuncBlock =
-								args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+								args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 			if (pFuncBlock == nullptr) return Value::Null;
 			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
@@ -1086,8 +1087,9 @@ bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 	return false;
 }
 
-const Expr_Block *Args::GetBlock(Environment &env, Signal &sig) const
+const Expr_Block *Args::GetBlock(Environment &env) const
 {
+	Signal &sig = env.GetSignal();
 	// check if the block parameter specifies a delegated block information
 	// like "g() {|block|}"
 	// scope problem remains: 2010.11.02
@@ -1123,12 +1125,12 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal &sig) const
 }
 
 // return nullptr without error if block is not specified
-const Function *Args::GetBlockFunc(Environment &env, Signal &sig, const Symbol *pSymbol)
+const Function *Args::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 {
-	const Expr_Block *pExprBlock = GetBlock(env, sig);
+	const Expr_Block *pExprBlock = GetBlock(env);
 	if (pExprBlock == nullptr || pSymbol == nullptr) return nullptr;
 	if (_pFuncBlock.IsNull()) {
-		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env, sig,
+		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env,
 										pSymbol, pExprBlock, FUNCTYPE_Block));
 	}
 	return _pFuncBlock.get();

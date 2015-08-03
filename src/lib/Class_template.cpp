@@ -445,7 +445,7 @@ Gura_ImplementMethod(template_, init_block)
 	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
@@ -489,7 +489,7 @@ Gura_ImplementMethod(template_, init_define)
 	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
@@ -503,7 +503,7 @@ Gura_ImplementMethod(template_, init_define)
 		pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	} while (0);
 	//pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());

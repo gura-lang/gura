@@ -36,7 +36,7 @@ public:
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
 	virtual Expr *MathDiff(Environment &env,
 						const Expr *pExprArg, const Symbol *pSymbol) const;
-	static FunctionCustom *CreateBlockFunc(Environment &env, Signal &sig,
+	static FunctionCustom *CreateBlockFunc(Environment &env,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
 	virtual Value DoEval(Environment &env, Args &args) const;

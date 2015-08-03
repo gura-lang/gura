@@ -125,7 +125,7 @@ Gura_ImplementFunction(stream)
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+						args.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Null;
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetValue(result);
@@ -274,7 +274,7 @@ Gura_ImplementClassMethod(stream, copy)
 	Stream &streamDst = args.GetStream(1);
 	size_t bytesUnit = args.GetSizeT(2);
 	const Function *pFuncFilter =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+					args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
@@ -321,7 +321,7 @@ Gura_ImplementMethod(stream, copyfrom)
 	Stream &streamSrc = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);
 	const Function *pFuncFilter =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+					args.GetBlockFunc(env, GetSymbolForBlock());
 	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
 		return Value::Null;
@@ -369,7 +369,7 @@ Gura_ImplementMethod(stream, copyto)
 	Stream &streamDst = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);
 	const Function *pFuncFilter =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+					args.GetBlockFunc(env, GetSymbolForBlock());
 	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
 		return Value::Null;

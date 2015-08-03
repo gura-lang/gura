@@ -409,7 +409,7 @@ Gura_ImplementMethod(expr, tofunction)
 {
 	Signal &sig = env.GetSignal();
 	Expr_Block *pExprBlock = Object_expr::GetThisObj(args)->GetExpr()->ToExprBlock();
-	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
+	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 	if (sig.IsSignalled()) return Value::Null;
 	const ValueList &valListArg = args.GetList(0);
@@ -425,7 +425,7 @@ Gura_ImplementMethod(expr, tofunction)
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
 		pArgs->SetAttrs(args.GetAttrs());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) return Value::Null;
+		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) return Value::Null;
 	}
 	return Value(new Object_function(env, pFunc.release()));
 }

@@ -53,7 +53,7 @@ Gura_ImplementFunction(BusyInfo)
 	wxWindow *parent = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_BusyInfo busyInfo(msg, parent);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);

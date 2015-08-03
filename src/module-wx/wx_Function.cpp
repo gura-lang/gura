@@ -55,7 +55,7 @@ Gura_ImplementFunction(BusyCursor)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	::wxBeginBusyCursor();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(CaretSuspend)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxCaretSuspend cs(win);
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(ClipboardLocker)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxClipboardLocker clipboardLocker;
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);

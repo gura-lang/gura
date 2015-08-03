@@ -206,7 +206,7 @@ Gura_DeclareFunction(MatrixInit)
 Gura_ImplementFunction(MatrixInit)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 	ValueList valList;

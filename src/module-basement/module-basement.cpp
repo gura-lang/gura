@@ -193,7 +193,7 @@ Gura_ImplementFunction(cross)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
@@ -224,7 +224,7 @@ Gura_ImplementFunction(for_)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
@@ -254,7 +254,7 @@ Gura_ImplementFunction(repeat)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
@@ -283,7 +283,7 @@ Gura_ImplementFunction(while_)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
@@ -404,7 +404,7 @@ Gura_ImplementFunction(dim)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	const ValueList &valListArg = args.GetList(0);
 	size_t nArgs = valListArg.size();
 	IntList cntList, idxList;
@@ -667,7 +667,7 @@ Gura_ImplementFunction(if_)
 	if (value.GetBoolean()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		args.QuitTrailer();
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	}
@@ -699,7 +699,7 @@ Gura_ImplementFunction(elsif_)
 	Value value = args.GetExpr(0)->Exec2(*pEnvBlock, pSeqPostHandlerArg);
 	if (value.GetBoolean()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Null;
 		args.QuitTrailer();
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
@@ -724,7 +724,7 @@ Gura_ImplementFunction(else_)
 	// this function works as a terminater of if-else and try-catch
 	if (sig.IsErrorSuspended()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Null;
 	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 }
@@ -763,7 +763,7 @@ Gura_ImplementFunction(switch_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));;
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Null;
 	pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	if (sig.IsSwitchDone()) {
@@ -795,7 +795,7 @@ Gura_ImplementFunction(case_)
 	Value value = args.GetExpr(0)->Exec2(*pEnvBlock, pSeqPostHandlerArg);
 	if (value.GetBoolean()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Null;
 		Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 		if (sig.IsSignalled()) return Value::Null;
@@ -822,7 +822,7 @@ Gura_ImplementFunction(default_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
@@ -850,7 +850,7 @@ Gura_ImplementFunction(try_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	if (sig.IsError()) {
@@ -898,7 +898,7 @@ Gura_ImplementFunction(catch_)
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
@@ -921,7 +921,7 @@ Gura_ImplementFunction(finally_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Null;
 	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 }
@@ -1218,7 +1218,7 @@ Gura_DeclareFunctionAlias(class_, "class")
 Gura_ImplementFunction(class_)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	Class *pClassSuper = env.LookupClass(VTYPE_object);
 	const Value &valueSuper = args.GetValue(0);
@@ -1290,7 +1290,7 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 Gura_ImplementFunction(struct_)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
@@ -1306,7 +1306,7 @@ Gura_ImplementFunction(struct_)
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, *pArgsSub)) return false;
+	if (!pFunc->CustomDeclare(env, _attrsOpt, *pArgsSub)) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();
 	}
@@ -1483,7 +1483,7 @@ Gura_ImplementFunction(public_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsIdentifier()) {
@@ -1524,7 +1524,7 @@ Gura_ImplementFunction(scope)
 	if (args.IsInvalid(0)) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	} else {
@@ -1540,7 +1540,7 @@ Gura_ImplementFunction(scope)
 			pEnv = &Object_environment::GetObject(args, 0)->GetEnv();
 		}
 		if (pEnv != nullptr) {
-			const Expr_Block *pExprBlock = args.GetBlock(*pEnv, sig);
+			const Expr_Block *pExprBlock = args.GetBlock(*pEnv);
 			if (sig.IsSignalled()) return Value::Null;
 			return pExprBlock->Exec2(*pEnv, pSeqPostHandler);
 		}
@@ -1567,7 +1567,7 @@ Gura_ImplementFunction(module)
 {
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", nullptr, nullptr);
 	pExprBlock->Exec2(*pModule, pSeqPostHandler);
@@ -1627,7 +1627,7 @@ Gura_ImplementFunction(import_)
 	SymbolSet symbolsToMixIn;
 	SymbolSet *pSymbolsToMixIn = nullptr;
 	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			if (!(*ppExpr)->IsIdentifier()) {

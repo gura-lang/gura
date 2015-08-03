@@ -862,9 +862,8 @@ Gura_DeclareClassMethod(string, translator)
 
 Gura_ImplementClassMethod(string, translator)
 {
-	Signal &sig = env.GetSignal();
 	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
-	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	const Symbol *pSymbol = Gura_Symbol(Char_Dollar);
 	SuffixMgrEntryCustom *pSuffixMgrEntry =

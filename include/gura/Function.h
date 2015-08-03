@@ -281,7 +281,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, Signal &sig, Args &args) const;
+	virtual Value Call(Environment &env, Args &args) const;
 	Value Eval(Environment &env, Args &args) const;
 	Value EvalMap(Environment &env, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
@@ -315,8 +315,7 @@ public:
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
-	bool CustomDeclare(Environment &env, Signal &sig,
-			const SymbolSet &attrsAcceptable, Args &args);
+	bool CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable, Args &args);
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
@@ -623,8 +622,8 @@ public:
 	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
-	const Expr_Block *GetBlock(Environment &env, Signal &sig) const;
-	const Function *GetBlockFunc(Environment &env, Signal &sig, const Symbol *pSymbol);
+	const Expr_Block *GetBlock(Environment &env) const;
+	const Function *GetBlockFunc(Environment &env, const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------
@@ -632,7 +631,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	virtual Value DoCall(Environment &env, Signal &sig, Args &args) = 0;
+	virtual Value DoCall(Environment &env, Args &args) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;

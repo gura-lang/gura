@@ -110,13 +110,13 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 	return GetFunction()->GetBlockOccurPattern();
 }
 
-Value Object_function::DoCall(Environment &env, Signal &sig, Args &args)
+Value Object_function::DoCall(Environment &env, Args &args)
 {
 	if (args.GetThis().IsInvalid() ||
 					(args.GetThis().IsModule() && _valueThis.IsValid())) {
 		args.SetThis(_valueThis);
 	}
-	return GetFunction()->Call(env, sig, args);
+	return GetFunction()->Call(env, args);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const
@@ -170,7 +170,7 @@ Gura_DeclareFunction(function)
 Gura_ImplementFunction(function)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	ExprOwner *pExprOwnerArg = nullptr;
@@ -193,7 +193,7 @@ Gura_ImplementFunction(function)
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
 	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
 	return Value(new Object_function(env, pFunc.release()));
 }
 
@@ -483,7 +483,7 @@ bool Class_function::CastFrom(Environment &env, Value &value, const Declaration 
 	Signal &sig = GetSignal();
 	if (value.Is_expr()) {
 		Expr_Block *pExprBlock = value.GetExpr()->ToExprBlock();
-		AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
+		AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env,
 						Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_function(env, pFunc.release()));

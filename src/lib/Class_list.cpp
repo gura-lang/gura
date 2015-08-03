@@ -700,7 +700,7 @@ Gura_DeclareFunction(ListInit)
 Gura_ImplementFunction(ListInit)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Null;
 	const Value &valueFunc = args.GetValue(0);
 	Value result;
@@ -1748,7 +1748,7 @@ Gura_ImplementMethod(list, reduce)
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) {
 		return Value::Null;
 	}

@@ -4107,7 +4107,7 @@ Gura_ImplementFunction(AddTimer)
 	if (args.Is_function(1)) {
 		pObjFunc = Object_function::Reference(Object_function::GetObject(args, 1));
 	} else if (args.IsBlockSpecified()) {
-		const Function *pFunc = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+		const Function *pFunc = args.GetBlockFunc(env, GetSymbolForBlock());
 		if (sig.IsSignalled()) return Value::Null;
 		pObjFunc = new Object_function(env, Function::Reference(pFunc));
 	} else {

@@ -86,7 +86,7 @@ Gura_ImplementMethod(semaphore, session)
 	Signal &sig = env.GetSignal();
 	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	pThis->GetSemaphore().Wait();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));

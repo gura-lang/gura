@@ -283,7 +283,7 @@ Gura_ImplementMethod(db, transaction)
 	Signal &sig = env.GetSignal();
 	Object_db *pObj = Object_db::GetThisObj(args);
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	if (!pObj->ExecNoResult(sig, "BEGIN TRANSACTION")) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));

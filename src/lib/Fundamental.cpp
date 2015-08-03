@@ -25,8 +25,9 @@ Iterator *Fundamental::CreateIterator(Signal &sig)
 	return nullptr;
 }
 
-Value Fundamental::DoCall(Environment &env, Signal &sig, Args &args)
+Value Fundamental::DoCall(Environment &env, Args &args)
 {
+	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_TypeError, "object is not callable");
 	return Value::Null;
 }

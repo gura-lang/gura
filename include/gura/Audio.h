@@ -228,8 +228,8 @@ public:
 	inline AudioStreamer(const char *audioType) : _audioType(audioType) {}
 	inline const char *GetAudioType() const { return _audioType; }
 	virtual bool IsResponsible(Signal &sig, Stream &stream) = 0;
-	virtual bool Read(Environment &env, Signal &sig, Audio *pAudio, Stream &stream) = 0;
-	virtual bool Write(Environment &env, Signal &sig, Audio *pAudio, Stream &stream) = 0;
+	virtual bool Read(Environment &env, Audio *pAudio, Stream &stream) = 0;
+	virtual bool Write(Environment &env, Audio *pAudio, Stream &stream) = 0;
 public:
 	static void Register(AudioStreamer *pAudioStreamer);
 	static AudioStreamer *FindResponsible(Signal &sig, Stream &stream, const char *audioType);

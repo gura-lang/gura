@@ -100,7 +100,7 @@ Value Expr::Exec(Environment &env,
 		Object_function *pFuncObj = Object_function::GetObject(result);
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(pFuncObj->GetThis());
-		result = pFuncObj->GetFunction()->Call(env, sig, *pArgs);
+		result = pFuncObj->GetFunction()->Call(env, *pArgs);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2045,7 +2045,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 		pArgs->SetAttrs(GetAttrs());
 		pArgs->SetAttrsOpt(GetAttrsOpt());
 		pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
-		return pCallable->DoCall(env, sig, *pArgs);
+		return pCallable->DoCall(env, *pArgs);
 	}
 }
 
@@ -2103,7 +2103,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	pArgs->SetAttrs(GetAttrs());
 	pArgs->SetAttrsOpt(GetAttrsOpt());
 	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
-	return pCallable->DoCall(env, sig, *pArgs);
+	return pCallable->DoCall(env, *pArgs);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
@@ -2168,7 +2168,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	pArgs->SetAttrs(GetAttrs());
 	pArgs->SetAttrsOpt(GetAttrsOpt());
 	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
-	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
+	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) {
 		Function::Delete(pFunc);
 		return Value::Null;
 	}

@@ -2087,7 +2087,7 @@ Gura_ImplementMethod(server, wait)
 	}
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
@@ -2440,7 +2440,7 @@ Gura_ImplementFunction(addproxy)
 	} else {
 		pValList = &pValue->GetList();
 	}
-	const Function *pFuncCriteria = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	const Function *pFuncCriteria = args.GetBlockFunc(env, GetSymbolForBlock());
 	Value value(new Object_proxy(args.GetString(0), args.GetShort(1),
 				args.Is_string(2)? args.GetString(2) : "",
 				args.Is_string(3)? args.GetString(3) : "",

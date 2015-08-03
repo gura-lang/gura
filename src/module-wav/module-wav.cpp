@@ -96,15 +96,15 @@ bool AudioStreamer_WAV::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".wav");
 }
 
-bool AudioStreamer_WAV::Read(Environment &env, Signal &sig,
-									Audio *pAudio, Stream &stream)
+bool AudioStreamer_WAV::Read(Environment &env, Audio *pAudio, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return AudioStreamer_WAV::ReadStream(sig, pAudio, stream);
 }
 
-bool AudioStreamer_WAV::Write(Environment &env, Signal &sig,
-									Audio *pAudio, Stream &stream)
+bool AudioStreamer_WAV::Write(Environment &env, Audio *pAudio, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return AudioStreamer_WAV::WriteStream(sig, pAudio, stream);
 }
 

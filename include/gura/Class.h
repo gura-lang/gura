@@ -225,7 +225,7 @@ public:
 	virtual bool Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_s(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
-	bool BuildContent(Environment &env, Signal &sig, const Value &valueThis,
+	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 };
 

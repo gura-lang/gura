@@ -45,8 +45,9 @@ Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_operator::DoCall(Environment &env, Signal &sig, Args &args)
+Value Object_operator::DoCall(Environment &env, Args &args)
 {
+	Signal &sig = env.GetSignal();
 	const ExprList &exprList = args.GetExprListArg();
 	size_t nArgs = exprList.size();
 	if (nArgs == 1) {
@@ -168,7 +169,7 @@ Gura_ImplementMethod(operator_, assign)
 {
 	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetThisObj(args);
-	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Null;
 	OperatorEntryCustom *pOperatorEntry = nullptr;
 	if (args.IsValid(1)) {

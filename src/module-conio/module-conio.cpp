@@ -256,7 +256,7 @@ Gura_ImplementFunction(setcolor)
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
@@ -276,7 +276,7 @@ Gura_ImplementFunction(moveto)
 	::SetConsoleCursorPosition(hConsole, pos);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
@@ -417,7 +417,7 @@ Gura_ImplementFunction(setcolor)
 	}
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		g_attrStack.push_back(str);
 		pExprBlock->Exec2(env, pSeqPostHandler);
@@ -443,7 +443,7 @@ Gura_ImplementFunction(moveto)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::printf("\033[u");

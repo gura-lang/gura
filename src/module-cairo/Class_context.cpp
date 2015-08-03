@@ -135,7 +135,7 @@ Gura_ImplementMethod(context, save)
 	if (Is_error(sig, cr)) return Value::Null;
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlock(env);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::cairo_restore(cr);

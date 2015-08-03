@@ -694,7 +694,7 @@ Gura_ImplementMethod(timer, start)
 	Signal &sig = env.GetSignal();
 	Object_timer *pThis = Object_timer::GetThisObj(args);
 	const Function *pFuncBlock =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+					args.GetBlockFunc(env, GetSymbolForBlock());
 	int msec = args.GetInt(0);
 	int msecCont = args.Is_number(1)? args.GetInt(1) : msec;
 	int cnt = args.Is_number(2)? args.GetInt(2) : -1;
