@@ -593,8 +593,9 @@ Object *Directory_FileSys::DoGetStatObj(Signal &sig)
 	return new Object_Stat(*_pFileStat);
 }
 
-Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal &sig, ULong attr)
+Stream *Directory_FileSys::DoOpenStream(Environment &env, ULong attr)
 {
+	Signal &sig = env.GetSignal();
 	Stream_File *pStream = new Stream_File(env, sig);
 	if (!pStream->Open(sig, MakePathName(false).c_str(), attr)) {
 		return nullptr;
@@ -605,7 +606,7 @@ Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal &sig, ULong att
 //-----------------------------------------------------------------------------
 // PathMgr_FileSys implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_FileSys::IsResponsible(Environment &env, Signal &sig,
+bool PathMgr_FileSys::IsResponsible(Environment &env,
 								const Directory *pParent, const char *pathName)
 {
 	if (pParent != nullptr) return false;
@@ -613,9 +614,10 @@ bool PathMgr_FileSys::IsResponsible(Environment &env, Signal &sig,
 	return true;
 }
 
-Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal &sig,
+Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
+	Signal &sig = env.GetSignal();
 	Directory *pDirectory = nullptr;
 	String field;
 	String pathAccum;
@@ -943,6 +945,7 @@ Gura_ImplementFunction(rmdir)
 // Module entry
 Gura_ModuleEntry()
 {
+	Signal &sig = env.GetSignal();
 	// symbol realization
 	Gura_RealizeUserSymbol(pathname);
 	Gura_RealizeUserSymbol(dirname);

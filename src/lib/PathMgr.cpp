@@ -99,14 +99,15 @@ bool PathMgr::DoesMatchNameSub(const char *pattern, const char *fileName, bool i
 	}
 }
 
-PathMgr *PathMgr::FindResponsible(Environment &env, Signal &sig,
+PathMgr *PathMgr::FindResponsible(Environment &env,
 								const Directory *pParent, const char *pathName)
 {
+	Signal &sig = env.GetSignal();
 	PathMgrOwner &pathMgrOwner = env.GetGlobal()->GetPathMgrOwner();
 	// The last-registered PathMgr is searched first.
 	foreach_reverse (PathMgrOwner, ppPathMgr, pathMgrOwner) {
 		PathMgr *pPathMgr = *ppPathMgr;
-		if (pPathMgr->IsResponsible(env, sig, pParent, pathName)) {
+		if (pPathMgr->IsResponsible(env, pParent, pathName)) {
 			return pPathMgr;
 		}
 		if (sig.IsSignalled()) break;
@@ -114,17 +115,17 @@ PathMgr *PathMgr::FindResponsible(Environment &env, Signal &sig,
 	return nullptr;
 }
 
-bool PathMgr::DoesExist(Environment &env, Signal &sig, const char *pathName)
+bool PathMgr::DoesExist(Environment &env, const char *pathName)
 {
 	if (*pathName == '\0') return false;
-	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
+	AutoPtr<Directory> pDirectory(Directory::Open(env, pathName, NF_NoSignal));
 	return !pDirectory.IsNull();
 }
 
-bool PathMgr::IsContainer(Environment &env, Signal &sig, const char *pathName)
+bool PathMgr::IsContainer(Environment &env, const char *pathName)
 {
 	if (*pathName == '\0') return false;
-	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
+	AutoPtr<Directory> pDirectory(Directory::Open(env, pathName, NF_NoSignal));
 	return !pDirectory.IsNull() && pDirectory->IsContainer();
 }
 

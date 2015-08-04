@@ -79,15 +79,17 @@ bool ImageStreamer_BMP::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".bmp");
 }
 
-bool ImageStreamer_BMP::Read(Environment &env, Signal &sig,
+bool ImageStreamer_BMP::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ImageStreamer_BMP::ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_BMP::Write(Environment &env, Signal &sig,
+bool ImageStreamer_BMP::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ImageStreamer_BMP::WriteStream(env, sig, pImage, stream);
 }
 
@@ -112,7 +114,7 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Signal &sig, Image *pImage,
 	int biWidth = Gura_UnpackLong(bih.biWidth);
 	int biHeight = Gura_UnpackLong(bih.biHeight);
 	UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
-	if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
+	if (!pImage->ReadDIBPalette(env, stream, biBitCount)) return false;
 	if (bfOffBits != 0) {
 		stream.Seek(sig, bfOffBits, Stream::SeekSet);
 		if (sig.IsSignalled()) return false;
@@ -159,7 +161,7 @@ bool ImageStreamer_BMP::WriteStream(Environment &env, Signal &sig, Image *pImage
 			return false;
 		}
 	} while (0);
-	if (!pImage->WriteDIBPalette(env, sig, stream, biBitCount)) return false;
+	if (!pImage->WriteDIBPalette(env, stream, biBitCount)) return false;
 	return pImage->WriteDIB(sig, stream, biBitCount, false);
 }
 

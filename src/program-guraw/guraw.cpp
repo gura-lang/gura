@@ -87,7 +87,8 @@ int MainW(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd, true)) {
+			if (!Parser(SRCNAME_cmdline).ParseString(env, exprOwner, cmd, true)) {
+	Signal &sig = env.GetSignal();
 				sig.PrintSignal(*env.GetConsole());
 				return 1;
 			}

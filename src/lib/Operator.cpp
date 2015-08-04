@@ -1023,7 +1023,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 					}
 					iterOwner.push_back(pIterator.release());
 				}
-				return Formatter::FormatIterator(env, sig, format, iterOwner);
+				return Formatter::FormatIterator(env, format, iterOwner);
 			}
 		}
 	}

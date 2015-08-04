@@ -253,9 +253,10 @@ String Formatter::FormatValueList(Signal &sig, const char *format, const ValueLi
 	return formatter.GetStringSTL();
 }
 
-Value Formatter::FormatIterator(Environment &env, Signal &sig,
+Value Formatter::FormatIterator(Environment &env,
 						const char *format, IteratorOwner &iterOwner)
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	ValueList &valListResult = result.InitAsList(env);
 	ValueList valList;

@@ -363,7 +363,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
 		const SymbolSet &attrs = SymbolSet::Null;
-		valueFunc = pThis->GetProp(env, sig, pSymbol, attrs);
+		valueFunc = pThis->GetProp(env, pSymbol, attrs);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		valueFunc = *pValue;
@@ -430,14 +430,13 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
-	Signal &sig = env.GetSignal();
 	Fundamental *pThis = args.GetThisFundamental();
 	const SymbolSet &attrs = SymbolSet::Null;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
-		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs, &value);
+		return pThis->GetProp(env, args.GetSymbol(0), attrs, &value);
 	} else {
-		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs);
+		return pThis->GetProp(env, args.GetSymbol(0), attrs);
 	}
 }
 

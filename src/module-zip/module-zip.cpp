@@ -48,7 +48,7 @@ String Object_reader::ToString(bool exprFlag)
 bool Object_reader::ReadDirectory(Environment &env, Signal &sig)
 {
 	if (!_pStreamSrc->IsBwdSeekable()) {
-		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, _pStreamSrc.release(), true);
+		Stream *pStreamPrefetch = Stream::Prefetch(env, _pStreamSrc.release(), true);
 		if (sig.IsSignalled()) return false;
 		_pStreamSrc.reset(pStreamPrefetch);
 	}
@@ -929,14 +929,15 @@ Directory *Directory_ZIP::DoNext(Environment &env)
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal &sig, ULong attr)
+Stream *Directory_ZIP::DoOpenStream(Environment &env, ULong attr)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Stream> pStreamSrc;
 	for (Directory *pDirectory = this; pDirectory != nullptr;
 											pDirectory = pDirectory->GetParent()) {
 		if (pDirectory->IsBoundaryContainer()) {
 			pStreamSrc.reset(pDirectory->GetParent()->
-							DoOpenStream(env, sig, Stream::ATTR_Readable));
+							DoOpenStream(env, Stream::ATTR_Readable));
 			if (sig.IsSignalled()) return nullptr;
 			break;
 		}
@@ -954,7 +955,7 @@ Object *Directory_ZIP::DoGetStatObj(Signal &sig)
 //-----------------------------------------------------------------------------
 // PathMgr_ZIP implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_ZIP::IsResponsible(Environment &env, Signal &sig,
+bool PathMgr_ZIP::IsResponsible(Environment &env,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != nullptr && !pParent->IsContainer() &&
@@ -963,10 +964,11 @@ bool PathMgr_ZIP::IsResponsible(Environment &env, Signal &sig,
 			 EndsWith(pParent->GetName(), ".gurcw", true));
 }
 
-Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env, Signal &sig,
+Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return nullptr;
 	return CreateDirectory(env, sig,
 					pStreamSrc.get(), pParent, pPathName, notFoundMode);
@@ -1101,7 +1103,7 @@ Directory *CreateDirectory(Environment &env, Signal &sig, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	if (!pStreamSrc->IsBwdSeekable()) {
-		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, pStreamSrc, true);
+		Stream *pStreamPrefetch = Stream::Prefetch(env, pStreamSrc, true);
 		if (sig.IsSignalled()) return nullptr;
 		pStreamSrc = pStreamPrefetch;
 	}

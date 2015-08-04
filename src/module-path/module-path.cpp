@@ -109,7 +109,7 @@ Gura_ImplementFunction(dir)
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
-		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
+		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
@@ -148,7 +148,7 @@ Gura_DeclareFunction(exists)
 Gura_ImplementFunction(exists)
 {
 	Signal &sig = env.GetSignal();
-	bool existFlag = PathMgr::DoesExist(env, sig, args.GetString(0));
+	bool existFlag = PathMgr::DoesExist(env, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(existFlag);
 }
@@ -205,7 +205,6 @@ Gura_DeclareFunction(glob)
 
 Gura_ImplementFunction(glob)
 {
-	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = args.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
@@ -213,7 +212,7 @@ Gura_ImplementFunction(glob)
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
 	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
-	if (!pIterator->Init(env, sig, args.GetString(0))) {
+	if (!pIterator->Init(env, args.GetString(0))) {
 		return Value::Null;
 	}
 	return ReturnIterator(env, args, pIterator.release());
@@ -384,7 +383,7 @@ Gura_ImplementFunction(walk)
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
-		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
+		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(

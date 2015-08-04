@@ -126,7 +126,7 @@ static bool ExpandWildCard(Environment &env, Signal &sig,
 	bool dirFlag = true;
 	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
-	if (!pIterator->Init(env, sig, pattern)) return false;
+	if (!pIterator->Init(env, pattern)) return false;
 	Value value;
 	bool emptyFlag = true;
 	while (pIterator->Next(env, value)) {

@@ -167,7 +167,7 @@ bool Object_Face::Initialize(Environment &env, Signal &sig, Stream *pStream, int
 {
 	AutoPtr<Stream> pStreamRef(Stream::Reference(pStream));
 	if (!pStreamRef->IsBwdSeekable()) {
-		pStreamRef.reset(Stream::Prefetch(env, sig, pStreamRef.release(), true));
+		pStreamRef.reset(Stream::Prefetch(env, pStreamRef.release(), true));
 		if (sig.IsSignalled()) return false;
 	}
 	_pHandler.reset(new Handler(sig, pStreamRef.release()));

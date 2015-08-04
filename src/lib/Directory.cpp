@@ -80,26 +80,25 @@ Object *Directory::DoGetStatObj(Signal &sig)
 	return nullptr;
 }
 
-Directory *Directory::Open(Environment &env, Signal &sig,
+Directory *Directory::Open(Environment &env,
 				const char *pathName, PathMgr::NotFoundMode notFoundMode)
 {
-	return Open(env, sig, nullptr, &pathName, notFoundMode);
+	return Open(env, nullptr, &pathName, notFoundMode);
 }
 
-Directory *Directory::Open(Environment &env, Signal &sig, Directory *pParent,
+Directory *Directory::Open(Environment &env, Directory *pParent,
 				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
+	Signal &sig = env.GetSignal();
 	Directory *pDirectory = pParent;
 	do {
-		PathMgr *pPathMgr =
-				PathMgr::FindResponsible(env, sig, pDirectory, *pPathName);
+		PathMgr *pPathMgr = PathMgr::FindResponsible(env, pDirectory, *pPathName);
 		if (sig.IsSignalled()) return nullptr;
 		if (pPathMgr == nullptr) {
 			sig.SetError(ERR_ValueError, "unsupported directory name");
 			return nullptr;
 		}
-		pDirectory = pPathMgr->DoOpenDirectory(env, sig,
-									pDirectory, pPathName, notFoundMode);
+		pDirectory = pPathMgr->DoOpenDirectory(env, pDirectory, pPathName, notFoundMode);
 		if (sig.IsSignalled() || pDirectory == nullptr) return nullptr;
 	} while (**pPathName != '\0');
 	return pDirectory;
@@ -205,8 +204,9 @@ Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 {
 }
 
-bool Directory::Iterator_Glob::Init(Environment &env, Signal &sig, const char *pattern)
+bool Directory::Iterator_Glob::Init(Environment &env, const char *pattern)
 {
+	Signal &sig = env.GetSignal();
 	String pathName, field;
 	const char *patternTop = pattern;
 	for (const char *p = pattern; ; p++) {
@@ -234,7 +234,7 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal &sig, const char *p
 			field += ch;
 		}
 	}
-	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
+	AutoPtr<Directory> pDirectory(Directory::Open(env,
 									pathName.c_str(), PathMgr::NF_Signal));
 	if (sig.IsSignalled()) return false;
 	_directoryQue.push_back(pDirectory.release());

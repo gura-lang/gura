@@ -68,7 +68,7 @@ public:
 		Iterator_Glob(bool addSepFlag, bool statFlag,
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag);
 		~Iterator_Glob();
-		bool Init(Environment &env, Signal &sig, const char *pattern);
+		bool Init(Environment &env, const char *pattern);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
@@ -107,11 +107,11 @@ public:
 	inline Object *GetStatObj(Signal &sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = nullptr) const;
 	int CountDepth() const;
-	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr) = 0;
+	virtual Stream *DoOpenStream(Environment &env, ULong attr) = 0;
 public:
-	static Directory *Open(Environment &env, Signal &sig,
+	static Directory *Open(Environment &env,
 					const char *pathName, PathMgr::NotFoundMode notFoundMode);
-	static Directory *Open(Environment &env, Signal &sig, Directory *pParent,
+	static Directory *Open(Environment &env, Directory *pParent,
 					const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 protected:
 	virtual Directory *DoNext(Environment &env) = 0;

@@ -126,15 +126,17 @@ bool ImageStreamer_TIFF::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".tif") || stream.HasNameSuffix(".tiff");
 }
 
-bool ImageStreamer_TIFF::Read(Environment &env, Signal &sig,
+bool ImageStreamer_TIFF::Read(Environment &env,
 											Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_TIFF::Write(Environment &env, Signal &sig,
+bool ImageStreamer_TIFF::Write(Environment &env,
 											Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return WriteStream(env, sig, pImage, stream);
 }
 

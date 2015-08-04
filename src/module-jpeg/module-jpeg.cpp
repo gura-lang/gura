@@ -612,15 +612,17 @@ bool ImageStreamer_JPEG::IsResponsible(Signal &sig, Stream &stream)
 				stream.HasNameSuffix(".jpeg") || stream.HasNameSuffix(".jpe");
 }
 
-bool ImageStreamer_JPEG::Read(Environment &env, Signal &sig,
+bool ImageStreamer_JPEG::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_JPEG::Write(Environment &env, Signal &sig,
+bool ImageStreamer_JPEG::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return WriteStream(env, sig, pImage, stream, 75);
 }
 

@@ -274,9 +274,10 @@ GIF::~GIF()
 {
 }
 
-bool GIF::Read(Environment &env, Signal &sig, Stream &stream,
+bool GIF::Read(Environment &env, Stream &stream,
 								Image *pImageTgt, Image::Format format)
 {
+	Signal &sig = env.GetSignal();
 	if (!ReadBuff(sig, stream, &_header, 6)) return false;
 	if (::memcmp(_header.Signature, "GIF", 3) != 0) {
 		sig.SetError(ERR_FormatError, "Not a GIF file");
@@ -354,9 +355,10 @@ bool GIF::Read(Environment &env, Signal &sig, Stream &stream,
 	return !sig.IsSignalled();
 }
 
-bool GIF::Write(Environment &env, Signal &sig, Stream &stream,
+bool GIF::Write(Environment &env, Stream &stream,
 	const Color &colorBackground, bool validBackgroundFlag, UShort loopCount)
 {
+	Signal &sig = env.GetSignal();
 	if (GetList().empty()) {
 		sig.SetError(ERR_ValueError, "no image to write");
 		return false;
@@ -1123,7 +1125,7 @@ String Object_content::ToString(bool exprFlag)
 	do {
 		char buff[32];
 		const ValueList &valList = _gif.GetList();
-		::sprintf(buff, "%dimages", valList.size());
+		::sprintf(buff, "%luimages", valList.size());
 		str += buff;
 	} while (0);
 	str += ">";
@@ -1151,7 +1153,7 @@ Gura_ImplementMethod(content, write)
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
 	UShort loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::zero, false, loopCount)) {
+	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1401,7 +1403,7 @@ Gura_ImplementMethod(image, read_gif)
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Null;
 	Stream &stream = args.GetStream(0);
-	if (!GIF().Read(env, sig, stream, pImage, pImage->GetFormat())) {
+	if (!GIF().Read(env, stream, pImage, pImage->GetFormat())) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1429,7 +1431,7 @@ Gura_ImplementMethod(image, write_gif)
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
 	UShort loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::zero, false, loopCount)) {
+	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1467,7 +1469,7 @@ Gura_ImplementFunction(content)
 			format = Image::SymbolToFormat(sig, pSymbol);
 			if (sig.IsSignalled()) return Value::Null;
 		}
-		if (!pObjContent->GetGIF().Read(env, sig, stream, nullptr, format)) {
+		if (!pObjContent->GetGIF().Read(env, stream, nullptr, format)) {
 			return Value::Null;
 		}
 	}
@@ -1567,22 +1569,24 @@ bool ImageStreamer_GIF::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".gif");
 }
 
-bool ImageStreamer_GIF::Read(Environment &env, Signal &sig,
+bool ImageStreamer_GIF::Read(Environment &env,
 										Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
-	return GIF().Read(env, sig, stream, pImage, pImage->GetFormat());
+	return GIF().Read(env, stream, pImage, pImage->GetFormat());
 }
 
-bool ImageStreamer_GIF::Write(Environment &env, Signal &sig,
+bool ImageStreamer_GIF::Write(Environment &env,
 										Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckValid(sig)) return false;
 	GIF gif;
 	Value value(new Object_image(env, Image::Reference(pImage)));
 	gif.AddImage(value, 0, 0, 0, 1);
 	UShort loopCount = 0;
-	return gif.Write(env, sig, stream, Color::zero, false, loopCount);
+	return gif.Write(env, stream, Color::zero, false, loopCount);
 }
 
 Gura_EndModuleBody(gif, gif)

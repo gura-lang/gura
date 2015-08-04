@@ -1161,7 +1161,7 @@ Gura_ImplementMethod(sequence, read)
 {
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().Read(env, sig, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSequence().Read(env, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -1179,7 +1179,7 @@ Gura_ImplementMethod(sequence, write)
 {
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().Write(env, sig, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSequence().Write(env, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -1298,7 +1298,7 @@ Gura_ImplementCastFrom(sequence)
 	env.LookupClass(VTYPE_stream)->CastFrom(env, valueCast, pDecl);
 	if (valueCast.Is_stream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
-		pObj->GetSequence().Read(env, sig, valueCast.GetStream());
+		pObj->GetSequence().Read(env, valueCast.GetStream());
 		valueCast = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
@@ -2154,7 +2154,7 @@ Gura_ImplementFunction(sequence)
 	AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 	Sequence &sequence = pObj->GetSequence();
 	if (args.Is_stream(0)) {
-		if (!sequence.Read(env, sig, args.GetStream(0))) return Value::Null;
+		if (!sequence.Read(env, args.GetStream(0))) return Value::Null;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }

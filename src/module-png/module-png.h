@@ -17,8 +17,8 @@ class ImageStreamer_PNG : public ImageStreamer {
 public:
 	inline ImageStreamer_PNG() : ImageStreamer("png") {}
 	virtual bool IsResponsible(Signal &sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Read(Environment &env, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
 	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
 	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);

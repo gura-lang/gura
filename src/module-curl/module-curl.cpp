@@ -726,8 +726,9 @@ Directory *Directory_cURL::DoNext(Environment &env)
 										pFileinfo->GetFilename(), type);
 }
 
-Stream *Directory_cURL::DoOpenStream(Environment &env, Signal &sig, ULong attr)
+Stream *Directory_cURL::DoOpenStream(Environment &env, ULong attr)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
 	// pThread will automatically be deleted after the thread is done.
 	Thread *pThread = new Thread(sig, GetName(),
@@ -778,7 +779,7 @@ void Directory_cURL::Thread::Run()
 //-----------------------------------------------------------------------------
 // PathMgr_cURL implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_cURL::IsResponsible(Environment &env, Signal &sig,
+bool PathMgr_cURL::IsResponsible(Environment &env,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == nullptr && (
@@ -789,7 +790,7 @@ bool PathMgr_cURL::IsResponsible(Environment &env, Signal &sig,
 			StartsWith(pathName, "sftp:", 0, false));
 }
 
-Directory *PathMgr_cURL::DoOpenDirectory(Environment &env, Signal &sig,
+Directory *PathMgr_cURL::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;

@@ -468,7 +468,7 @@ public:
 class HelpPresenter_markdown : public HelpPresenter {
 public:
 	inline HelpPresenter_markdown() : HelpPresenter("markdown") {}
-	virtual bool DoPresent(Environment &env, Signal &sig, const char *title, const Help *pHelp) const;
+	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
 };
 
 Gura_EndModuleHeader(markdown)

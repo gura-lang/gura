@@ -77,8 +77,8 @@ class ImageStreamer_GIF : public ImageStreamer {
 public:
 	inline ImageStreamer_GIF() : ImageStreamer("gif") {}
 	virtual bool IsResponsible(Signal &sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Read(Environment &env, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -218,9 +218,9 @@ private:
 public:
 	GIF();
 	~GIF();
-	bool Read(Environment &env, Signal &sig, Stream &stream,
+	bool Read(Environment &env, Stream &stream,
 								Image *pImageTgt, Image::Format format);
-	bool Write(Environment &env, Signal &sig, Stream &stream,
+	bool Write(Environment &env, Stream &stream,
 		const Color &colorBackground, bool validBackgroundFlag, UShort loopCount);
 	bool ReadColorTable(Signal &sig, Stream &stream, Palette *pPalette);
 	bool WriteColorTable(Signal &sig, Stream &stream, const Palette *pPalette);

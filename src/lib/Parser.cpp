@@ -40,8 +40,9 @@ void Parser::InitStack()
 	_elemStack.push_back(Element(ETYPE_Begin, 0));
 }
 
-Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
+Expr *Parser::ParseChar(Environment &env, char ch)
 {
+	Signal &sig = env.GetSignal();
 	if (ch == '\r') return nullptr;
 	Expr *pExpr = nullptr;
 	if (_lineHeadFlag) {
@@ -114,10 +115,10 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 		} else if (ch == '\\') {
 			_stat = STAT_Escape;
 		} else if (ch == '\n') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '#') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else if (_cntLine == 0) {
@@ -128,20 +129,20 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 				_stat = STAT_CommentLine;
 			}
 		} else if (ch == '{') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_LBrace, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBrace, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_AfterLBrace;
 		} else if (ch == '(') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_LParenthesis, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LParenthesis, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '[') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_LBracket, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBracket, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '|' && _blockParamFlag && CheckBlockParamEnd()) {
 			_blockParamFlag = false;
-			pExpr = FeedElement(env, sig, Element(ETYPE_RBlockParam, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_RBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '`') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_Quote, GetLineNo()));
 			_stat = STAT_Start;
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
@@ -185,10 +186,10 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			} else if (_elemStack.back().IsType(ETYPE_Quote)) {
 				_token.clear();
 				_token.push_back(ch);
-				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				pExpr = FeedElement(env, sig, Element(tbl[i].elemType, GetLineNo()));
+				pExpr = FeedElement(env, Element(tbl[i].elemType, GetLineNo()));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 		}
@@ -253,7 +254,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
 		} else if (chFirst == '/' && ch == '/') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
 			if (_cntLine == 0 || (_cntLine == 1 && _appearShebangFlag)) {
 				_stat = STAT_MagicCommentLine;
 			} else {
@@ -279,10 +280,10 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 				if (elemType == ETYPE_TripleChars) {
 					_stat = STAT_TripleChars;
 				} else if (_elemStack.back().IsType(ETYPE_Quote)) {
-					pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+					pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
-					pExpr = FeedElement(env, sig, Element(elemType, GetLineNo()));
+					pExpr = FeedElement(env, Element(elemType, GetLineNo()));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				}
 				break;
@@ -327,10 +328,10 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 				break;
 			}
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
-				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				pExpr = FeedElement(env, sig, Element(elemType, GetLineNo()));
+				pExpr = FeedElement(env, Element(elemType, GetLineNo()));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 			break;
@@ -354,21 +355,21 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 	}
 	case STAT_Colon: {
 		if (ch == ':') {
-			pExpr = FeedElement(env, sig,
+			pExpr = FeedElement(env,
 								Element(ETYPE_ColonColon, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '*') {
-			pExpr = FeedElement(env, sig,
+			pExpr = FeedElement(env,
 								Element(ETYPE_ColonAsterisk, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '&') {
-			pExpr = FeedElement(env, sig,
+			pExpr = FeedElement(env,
 								Element(ETYPE_ColonAnd, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else {
 			ElemType elemType = _elemStack.back().IsSuffixElement()?
 									ETYPE_ColonAfterSuffix : ETYPE_Colon;
-			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo()));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo()));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -392,7 +393,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 	}
 	case STAT_AfterLBrace: {
 		if (ch == '|') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_LBlockParam, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -435,7 +436,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -449,7 +450,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -467,7 +468,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -477,16 +478,16 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 		if (ch == '.') {
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
 				_token.push_back(ch);
-				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 			} else {
-				pExpr = FeedElement(env, sig, Element(ETYPE_Seq, GetLineNo()));
+				pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
 			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
 			_token.push_back(ch);
 			_stat = STAT_Number;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Dot, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_Dot, GetLineNo()));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -499,9 +500,9 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			size_t pos = _token.find('.');
 			if (pos == _token.length() - 1) {
 				_token.resize(pos);
-				pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 				if (!sig.IsSignalled()) {
-					pExpr = FeedElement(env, sig, Element(ETYPE_Seq, GetLineNo()));
+					pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
 				}
 				_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			} else if (pos == String::npos) {
@@ -518,7 +519,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -555,7 +556,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -565,7 +566,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_NumberSuffixed,
+			pExpr = FeedElement(env, Element(ETYPE_NumberSuffixed,
 												GetLineNo(), _token, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -584,9 +585,9 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_stat = STAT_StringFirst;
 		} else {
 			if (_token == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
-				pExpr = FeedElement(env, sig, Element(ETYPE_Contains, GetLineNo()));
+				pExpr = FeedElement(env, Element(ETYPE_Contains, GetLineNo()));
 			} else {
-				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 			}
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -595,7 +596,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 	}
 	case STAT_SymbolExclamation: {
 		if (ch == '=' || ch == '!') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -710,7 +711,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -719,7 +720,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 	case STAT_String: {
 		if (ch == _stringInfo.chBorder) {
 			//ElemType elemType = ElemTypeForString(_stringInfo);
-			//pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			//pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
 			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			_stat = STAT_StringPost;
 		} else if (ch == '\\') {
@@ -874,7 +875,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 	case STAT_MStringEndSecond: {
 		if (ch == _stringInfo.chBorder) {
 			//ElemType elemType = ElemTypeForString(_stringInfo);
-			//pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			//pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
 			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			_stat = STAT_StringPost;
 		} else {
@@ -892,7 +893,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -902,7 +903,7 @@ Expr *Parser::ParseChar(Environment &env, Signal &sig, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_StringSuffixed,
+			pExpr = FeedElement(env, Element(ETYPE_StringSuffixed,
 												GetLineNo(), _token, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -970,8 +971,9 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 	return true;
 }
 
-Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, Stream &stream)
+Expr_Root *Parser::ParseStream(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	for (;;) {
@@ -982,7 +984,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, Stream &stream)
 			return nullptr;
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		Expr *pExpr = ParseChar(env, sig, ch);
+		Expr *pExpr = ParseChar(env, ch);
 		if (sig.IsSignalled()) {
 			if (!sig.IsDetectEncoding()) return nullptr;
 			sig.ClearSignal();
@@ -1001,8 +1003,9 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, Stream &stream)
 	return pExprRoot.release();
 }
 
-Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, const char *pathName, const char *encoding)
+Expr_Root *Parser::ParseStream(Environment &env, const char *pathName, const char *encoding)
 {
+	Signal &sig = env.GetSignal();
 	String pathNameMod;
 	do {
 		bool zippedFlag = false;
@@ -1023,22 +1026,23 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal &sig, const char *pathNa
 		}
 		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return nullptr;
 	} while (0);
-	AutoPtr<Stream> pStream(Stream::Open(env, sig,
+	AutoPtr<Stream> pStream(Stream::Open(env,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return nullptr;
 	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
 	if (sig.IsSignalled()) return nullptr;
 	pStream->SetCodec(pCodec.release());
-	return ParseStream(env, sig, *pStream);
+	return ParseStream(env, *pStream);
 }
 
-bool Parser::ParseString(Environment &env, Signal &sig, ExprOwner &exprOwner,
+bool Parser::ParseString(Environment &env, ExprOwner &exprOwner,
 									const char *str, size_t len, bool parseNullFlag)
 {
+	Signal &sig = env.GetSignal();
 	for ( ; ; str++, len--) {
 		if (!parseNullFlag && len == 0) break;
 		char ch = (len == 0)? '\0' : *str;
-		Expr *pExpr = ParseChar(env, sig, ch);
+		Expr *pExpr = ParseChar(env, ch);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
@@ -1053,15 +1057,16 @@ bool Parser::ParseString(Environment &env, Signal &sig, ExprOwner &exprOwner,
 	return true;
 }
 
-void Parser::EvalConsoleChar(Environment &env, Signal &sig,
+void Parser::EvalConsoleChar(Environment &env,
 						Expr_Root *pExprRoot, Stream *pConsole, char ch)
 {
+	Signal &sig = env.GetSignal();
 	char chConv = '\0';
 	Codec::Decoder *pDecoder = pConsole->GetCodec()->GetDecoder();
 	Codec::Result rtn = pDecoder->FeedChar(ch, chConv);
 	if (rtn != Codec::RESULT_Complete) return;
 	do {
-		Expr *pExpr = ParseChar(env, sig, chConv);
+		Expr *pExpr = ParseChar(env, chConv);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
@@ -1216,8 +1221,9 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 	return precTbl[indexLeft][indexRight - 1];
 }
 
-Expr *Parser::FeedElement(Environment &env, Signal &sig, const Element &elem)
+Expr *Parser::FeedElement(Environment &env, const Element &elem)
 {
+	Signal &sig = env.GetSignal();
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
 	Expr *pExpr = nullptr;
 	for (;;) {
@@ -1264,15 +1270,15 @@ Expr *Parser::FeedElement(Environment &env, Signal &sig, const Element &elem)
 			size_t cntElem = std::distance(_elemStack.rbegin(), pElemLeft) + 1;
 			bool rtn;
 			if (cntElem == 1) {
-				rtn = ReduceOneElem(env, sig);
+				rtn = ReduceOneElem(env);
 			} else if (cntElem == 2) {
-				rtn = ReduceTwoElems(env, sig);
+				rtn = ReduceTwoElems(env);
 			} else if (cntElem == 3) {
-				rtn = ReduceThreeElems(env, sig);
+				rtn = ReduceThreeElems(env);
 			} else if (cntElem == 4) {
-				rtn = ReduceFourElems(env, sig);
+				rtn = ReduceFourElems(env);
 			} else if (cntElem == 5) {
-				rtn = ReduceFiveElems(env, sig);
+				rtn = ReduceFiveElems(env);
 			} else {
 				SetError_InvalidElement(sig, __LINE__);
 				rtn = false;
@@ -1294,8 +1300,9 @@ Expr *Parser::FeedElement(Environment &env, Signal &sig, const Element &elem)
 	return pExpr;
 }
 
-bool Parser::ReduceOneElem(Environment &env, Signal &sig)
+bool Parser::ReduceOneElem(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_Number)) {
@@ -1343,8 +1350,9 @@ bool Parser::ReduceOneElem(Environment &env, Signal &sig)
 	return true;
 }
 
-bool Parser::ReduceTwoElems(Environment &env, Signal &sig)
+bool Parser::ReduceTwoElems(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(1);
 	Element &elem2 = _elemStack.Peek(0);
@@ -1534,8 +1542,9 @@ bool Parser::ReduceTwoElems(Environment &env, Signal &sig)
 	return true;
 }
 
-bool Parser::ReduceThreeElems(Environment &env, Signal &sig)
+bool Parser::ReduceThreeElems(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(2);
 	Element &elem2 = _elemStack.Peek(1);
@@ -1965,8 +1974,9 @@ bool Parser::ReduceThreeElems(Environment &env, Signal &sig)
 	return true;
 }
 
-bool Parser::ReduceFourElems(Environment &env, Signal &sig)
+bool Parser::ReduceFourElems(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(3);
 	Element &elem2 = _elemStack.Peek(2);
@@ -2133,8 +2143,9 @@ bool Parser::ReduceFourElems(Environment &env, Signal &sig)
 	return true;
 }
 
-bool Parser::ReduceFiveElems(Environment &env, Signal &sig)
+bool Parser::ReduceFiveElems(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(4);
 	Element &elem2 = _elemStack.Peek(3);

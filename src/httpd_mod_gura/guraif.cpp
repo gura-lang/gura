@@ -183,7 +183,7 @@ int Handler(request_rec *r)
 	Signal &sig = pContext->GetSignal();
 	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(env, sig, r))), false);
 	const char *fileName = "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura";
-	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, fileName, nullptr));
+	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, fileName, nullptr));
 	if (pExprRoot.IsNull()) {
 		OutputErrorMessage(r, sig);
 		sig.ClearSignal();

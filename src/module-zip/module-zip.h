@@ -844,7 +844,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_ZIP *pRecord);
 	virtual ~Directory_ZIP();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, ULong attr);
 	virtual Object *DoGetStatObj(Signal &sig);
 	inline Record_ZIP &GetRecord() { return *_pRecord; }
 };
@@ -854,9 +854,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_ZIP : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal &sig,
+	virtual bool IsResponsible(Environment &env,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
+	virtual Directory *DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 

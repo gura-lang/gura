@@ -51,8 +51,8 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool Read(Environment &env, Signal &sig, Stream &stream, Image::Format format);
-	bool Write(Environment &env, Signal &sig, Stream &stream);
+	bool Read(Environment &env, Stream &stream, Image::Format format);
+	bool Write(Environment &env, Stream &stream);
 	void AddImage(const Value &value);
 };
 
@@ -63,10 +63,10 @@ class ImageStreamer_ICO : public ImageStreamer {
 public:
 	inline ImageStreamer_ICO() : ImageStreamer("msico") {}
 	virtual bool IsResponsible(Signal &sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	virtual bool Read(Environment &env, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream, int idx);
+	static bool ReadStream(Environment &env, Image *pImage, Stream &stream, int idx);
 };
 
 Gura_EndModuleHeader(msico)

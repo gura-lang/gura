@@ -69,39 +69,39 @@ void Module::DirValueType(SymbolSet &symbols) const
 	}
 }
 
-bool Module::ImportBuiltIns(Environment &env, Signal &sig)
+bool Module::ImportBuiltIns(Environment &env)
 {
 	Module *pModule = nullptr;
 	// import(basement) {*}
-	if (!Gura_Module(basement)::MixIn(env, sig)) return false;
+	if (!Gura_Module(basement)::MixIn(env)) return false;
 	// import(sys) .. this module must be imported just after basement
-	if ((pModule = Gura_Module(sys)::Import(env, sig)) == nullptr) return false;
+	if ((pModule = Gura_Module(sys)::Import(env)) == nullptr) return false;
 	env.GetGlobal()->SetModule_sys(pModule);
 	// import(codecs)
-	if ((pModule = Gura_Module(codecs)::Import(env, sig)) == nullptr) return false;
+	if ((pModule = Gura_Module(codecs)::Import(env)) == nullptr) return false;
 	do {
 		Environment &env = *pModule;
 		// import(codecs.basic)
-		if (Gura_Module(codecs_basic)::Import(env, sig) == nullptr) return false;
+		if (Gura_Module(codecs_basic)::Import(env) == nullptr) return false;
 		// import(codecs.chinese)
-		if (Gura_Module(codecs_chinese)::Import(env, sig) == nullptr) return false;
+		if (Gura_Module(codecs_chinese)::Import(env) == nullptr) return false;
 		// import(codecs.iso8859)
-		if (Gura_Module(codecs_iso8859)::Import(env, sig) == nullptr) return false;
+		if (Gura_Module(codecs_iso8859)::Import(env) == nullptr) return false;
 		// import(codecs.japanese)
-		if (Gura_Module(codecs_japanese)::Import(env, sig) == nullptr) return false;
+		if (Gura_Module(codecs_japanese)::Import(env) == nullptr) return false;
 		// import(codecs.korean)
-		if (Gura_Module(codecs_korean)::Import(env, sig) == nullptr) return false;
+		if (Gura_Module(codecs_korean)::Import(env) == nullptr) return false;
 	} while (0);
 	// import(base64)
-	if (Gura_Module(base64)::Import(env, sig) == nullptr) return false;
+	if (Gura_Module(base64)::Import(env) == nullptr) return false;
 	// import(fs)
-	if (Gura_Module(fs)::Import(env, sig) == nullptr) return false;
+	if (Gura_Module(fs)::Import(env) == nullptr) return false;
 	// import(os)
-	if (Gura_Module(os)::Import(env, sig) == nullptr) return false;
+	if (Gura_Module(os)::Import(env) == nullptr) return false;
 	// import(path)
-	if (Gura_Module(path)::Import(env, sig) == nullptr) return false;
+	if (Gura_Module(path)::Import(env) == nullptr) return false;
 	// import(math)
-	if (Gura_Module(math)::Import(env, sig) == nullptr) return false;
+	if (Gura_Module(math)::Import(env) == nullptr) return false;
 	return true;
 }
 

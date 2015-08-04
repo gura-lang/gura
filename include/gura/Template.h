@@ -22,10 +22,10 @@ public:
 		ExprLeaderStack _exprLeaderStack;
 	public:
 		Parser(bool autoIndentFlag, bool appendLastEOLFlag);
-		bool ParseStream(Environment &env, Signal &sig,
+		bool ParseStream(Environment &env,
 							Template *pTemplate, SimpleStream &streamSrc);
 	private:
-		bool CreateTmplScript(Environment &env, Signal &sig,
+		bool CreateTmplScript(Environment &env,
 				const char *strIndent, const char *strTmplScript, const char *strPost,
 				Template *pTemplate, Expr_Block *pExprBlock,
 				StringRef *pSourceName, int cntLineTop, int cntLineBtm);
@@ -45,16 +45,16 @@ public:
 private:
 	inline ~Template() {}
 public:
-	bool Read(Environment &env, Signal &sig,
+	bool Read(Environment &env,
 			  SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Parse(Environment &env, Signal &sig,
+	bool Parse(Environment &env,
 			   String::const_iterator strSrc, String::const_iterator strSrcEnd,
 			   bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Parse(Environment &env, Signal &sig,
+	bool Parse(Environment &env,
 			   const char *strSrc, const char *strSrcEnd,
 			   bool autoIndentFlag, bool appendLastEOLFlag);
-	bool Render(Environment &env, Signal &sig, SimpleStream *pStreamDst);
-	bool Prepare(Environment &env, Signal &sig);
+	bool Render(Environment &env, SimpleStream *pStreamDst);
+	bool Prepare(Environment &env);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
 	void PutChar(Signal &sig, char ch);
 	void Print(Signal &sig, const char *str);

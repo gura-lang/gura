@@ -78,15 +78,17 @@ bool ImageStreamer_PNG::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".png");
 }
 
-bool ImageStreamer_PNG::Read(Environment &env, Signal &sig,
+bool ImageStreamer_PNG::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PNG::Write(Environment &env, Signal &sig,
+bool ImageStreamer_PNG::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return WriteStream(env, sig, pImage, stream);
 }
 

@@ -45,7 +45,7 @@ const bool OwnerFalse = false;
 
 static bool g_wxReadyFlag = false;
 
-void RegisterFunctions(Environment &env, Signal &sig);
+void RegisterFunctions(Environment &env);
 
 //-----------------------------------------------------------------------------
 // Gura module functions: wx
@@ -1212,7 +1212,7 @@ _MS(PrepareClass(ThreadHelper));
 	PrepareClass(RichTextRenderer);
 	PrepareClass(RichTextAction);
 	PrepareClass(VersionInfo);
-	RegisterFunctions(env, sig);
+	RegisterFunctions(env);
 	// value assignments
 	do {
 		Gura_AssignWxValue(ID_ANY);

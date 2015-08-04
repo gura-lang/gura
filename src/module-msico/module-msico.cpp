@@ -36,9 +36,10 @@ Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-bool Object_content::Read(Environment &env, Signal &sig,
+bool Object_content::Read(Environment &env,
 									Stream &stream, Image::Format format)
 {
+	Signal &sig = env.GetSignal();
 	int cntIcons = 0;
 	do {
 		IconDir iconDir;
@@ -70,7 +71,7 @@ bool Object_content::Read(Environment &env, Signal &sig,
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
 		UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
 		AutoPtr<Image> pImage(new Image(format));
-		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->ReadDIBPalette(env, stream, biBitCount)) return false;
 		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;
 		}
@@ -79,8 +80,9 @@ bool Object_content::Read(Environment &env, Signal &sig,
 	return true;
 }
 
-bool Object_content::Write(Environment &env, Signal &sig, Stream &stream)
+bool Object_content::Write(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	int cntIcons = static_cast<int>(_valList.size());
 	do {
 		IconDir iconDir;
@@ -141,7 +143,7 @@ bool Object_content::Write(Environment &env, Signal &sig, Stream &stream)
 		Gura_PackULong(bih.biClrImportant,	0);	// just set to zero
 		stream.Write(sig, &bih, Image::BitmapInfoHeader::Size);
 		if (sig.IsSignalled()) return false;
-		if (!pImage->WriteDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->WriteDIBPalette(env, stream, biBitCount)) return false;
 		if (!pImage->WriteDIB(sig, stream, biBitCount, true)) return false;
 	}
 	if (!stream.Flush(sig)) return false;
@@ -166,7 +168,7 @@ String Object_content::ToString(bool exprFlag)
 			Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 			char buff[64];
 			if (followFlag) str += ",";
-			::sprintf(buff, "%dx%d-%dbpp",
+			::sprintf(buff, "%lux%lu-%dbpp",
 				pImage->GetWidth(), pImage->GetHeight(), pImage->CalcDIBBitCount());
 			str += buff;
 			followFlag = true;
@@ -194,7 +196,7 @@ Gura_ImplementMethod(content, write)
 	Signal &sig = env.GetSignal();
 	Object_content *pThis = Object_content::GetThisObj(args);
 	Stream &stream = args.GetStream(0);
-	if (!pThis->Write(env, sig, stream)) return Value::Null;
+	if (!pThis->Write(env, stream)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -242,7 +244,7 @@ Gura_ImplementMethod(image, read_msico)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_ICO::ReadStream(env, sig, pThis->GetImage(),
+	if (!ImageStreamer_ICO::ReadStream(env, pThis->GetImage(),
 					args.GetStream(0), args.GetInt(1))) return Value::Null;
 	return args.GetThis();
 }
@@ -272,7 +274,7 @@ Gura_ImplementFunction(content)
 		Stream &stream = args.GetStream(0);
 		Image::Format format = Image::SymbolToFormat(sig, args.GetSymbol(1));
 		if (sig.IsSignalled()) return Value::Null;
-		if (!pObj->Read(env, sig, stream, format)) return Value::Null;
+		if (!pObj->Read(env, stream, format)) return Value::Null;
 	}
 	Value result(pObj);
 	return ReturnValue(env, args, result);
@@ -306,23 +308,26 @@ bool ImageStreamer_ICO::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".ico");
 }
 
-bool ImageStreamer_ICO::Read(Environment &env, Signal &sig,
+bool ImageStreamer_ICO::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
-	return ReadStream(env, sig, pImage, stream, 0);
+	Signal &sig = env.GetSignal();
+	return ReadStream(env, pImage, stream, 0);
 }
 
-bool ImageStreamer_ICO::Write(Environment &env, Signal &sig,
+bool ImageStreamer_ICO::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_SystemError, "not implemented yet");
 	return false;
 	//return pImage->WriteICO(sig, stream, false);
 }
 
-bool ImageStreamer_ICO::ReadStream(Environment &env, Signal &sig,
+bool ImageStreamer_ICO::ReadStream(Environment &env,
 						Image *pImage, Stream &stream, int idx)
 {
+	Signal &sig = env.GetSignal();
 	int cntIcons = 0;
 	do {
 		IconDir iconDir;
@@ -356,7 +361,7 @@ bool ImageStreamer_ICO::ReadStream(Environment &env, Signal &sig,
 		int biWidth = Gura_UnpackLong(bih.biWidth);
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
 		UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
-		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->ReadDIBPalette(env, stream, biBitCount)) return false;
 		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;
 		}

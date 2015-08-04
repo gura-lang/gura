@@ -47,9 +47,9 @@ enum CompressionType {
 // utilities
 //-----------------------------------------------------------------------------
 Header *ReadHeader(Signal &sig, Stream *pStream, void *buffBlock);
-Stream *DecorateReaderStream(Environment &env, Signal &sig, Stream *pStreamSrc,
+Stream *DecorateReaderStream(Environment &env, Stream *pStreamSrc,
 						const char *name, CompressionType compressionType);
-Stream *DecorateWriterStream(Environment &env, Signal &sig, Stream *pStreamDst,
+Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
 ULong OctetToULong(Signal &sig, const char *octet, size_t len);
 
@@ -226,7 +226,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, ULong attr);
 	virtual Object *DoGetStatObj(Signal &sig);
 };
 
@@ -235,9 +235,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_TAR : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal &sig,
+	virtual bool IsResponsible(Environment &env,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
+	virtual Directory *DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
@@ -294,7 +294,7 @@ public:
 	virtual ~Object_reader();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	bool Open(Environment &env, Signal &sig, Stream *pStreamSrc, CompressionType compressionType);
+	bool Open(Environment &env, Stream *pStreamSrc, CompressionType compressionType);
 	inline Stream *GetStreamSrc() { return _pStreamSrc.get(); }
 	Header *NextHeader(Signal &sig);
 };

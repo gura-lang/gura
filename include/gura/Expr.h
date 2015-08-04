@@ -230,7 +230,7 @@ public:
 	static bool NeedParenthesis(const Operator *pOperatorOuter,
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
-	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
+	virtual Callable *LookupCallable(Environment &env) const;
 private:
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const = 0;
 	virtual Value DoAssign(Environment &env, Value &valueAssigned,
@@ -414,7 +414,7 @@ public:
 	}
 	virtual bool IsIdentifier() const;
 	virtual Expr *Clone() const;
-	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
+	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	Value Exec(Environment &env, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Value &value,
@@ -727,7 +727,7 @@ public:
 	virtual ~Expr_Caller();
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
-	virtual Callable *LookupCallable(Environment &env, Signal &sig) const;
+	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;

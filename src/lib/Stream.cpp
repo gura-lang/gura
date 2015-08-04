@@ -420,9 +420,10 @@ bool Stream::Compare(Signal &sig, Stream &stream)
 	return sameFlag;
 }
 
-bool Stream::ReadToStream(Environment &env, Signal &sig, Stream &streamDst,
+bool Stream::ReadToStream(Environment &env, Stream &streamDst,
 			size_t bytesUnit, bool finalizeFlag, const Function *pFuncFilter)
 {
+	Signal &sig = env.GetSignal();
 	if (!CheckReadable(sig) || !streamDst.CheckWritable(sig)) return false;
 	Attribute attr;
 	bool validAttrFlag = false;
@@ -716,8 +717,9 @@ bool Stream::DeserializePackedULong(Signal &sig, ULong &num)
 	return true;
 }
 
-Stream *Stream::Open(Environment &env, Signal &sig, const char *pathName, ULong attr)
+Stream *Stream::Open(Environment &env, const char *pathName, ULong attr)
 {
+	Signal &sig = env.GetSignal();
 	if (*pathName == '>') {
 		pathName++;
 		attr = (attr & ~ATTR_Readable) | ATTR_Writable;
@@ -728,14 +730,15 @@ Stream *Stream::Open(Environment &env, Signal &sig, const char *pathName, ULong 
 	}
 	PathMgr::NotFoundMode notFoundMode = (attr & ATTR_Writable)?
 								PathMgr::NF_Wouldbe : PathMgr::NF_Signal;
-	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, notFoundMode));
+	AutoPtr<Directory> pDirectory(Directory::Open(env, pathName, notFoundMode));
 	if (sig.IsSignalled()) return nullptr;
-	return pDirectory->DoOpenStream(env, sig, attr);
+	return pDirectory->DoOpenStream(env, attr);
 }
 
-Stream *Stream::Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc,
+Stream *Stream::Prefetch(Environment &env, Stream *pStreamSrc,
 										bool deleteSrcFlag, size_t bytesUnit)
 {
+	Signal &sig = env.GetSignal();
 	Stream_Prefetch *pStreamPrefetch =
 			new Stream_Prefetch(env, sig, Stream::Reference(pStreamSrc), bytesUnit);
 	pStreamPrefetch->DoPrefetch(sig);

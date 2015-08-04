@@ -292,10 +292,9 @@ Gura_DeclareFunction(expr)
 
 Gura_ImplementFunction(expr)
 {
-	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
 	Parser parser(stream.GetName());
-	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
+	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
 	if (pExprRoot.IsNull()) return Value::Null;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExprRoot.release())));
 }
@@ -339,10 +338,9 @@ Gura_DeclareClassMethod(expr, parse)
 
 Gura_ImplementClassMethod(expr, parse)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
 	Parser parser(SRCNAME_string);
-	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
+	if (!parser.ParseString(env, pExpr->GetExprOwner(),
 								args.GetString(0), true)) return Value::Null;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExpr.release())));
 }
@@ -554,7 +552,6 @@ void Class_expr::Prepare(Environment &env)
 
 bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
-	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
 		// cast symbol to expr
 		const Symbol *pSymbol = value.GetSymbol();
@@ -565,7 +562,7 @@ bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDe
 	if (value.Is_stream()) {
 		Stream &stream = value.GetStream();
 		Parser parser(stream.GetName());
-		AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
+		AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
 		value = Value::Null; // delete stream instance
 		if (pExprRoot.IsNull()) return false;
 		value = Value(new Object_expr(env, pExprRoot.release()));

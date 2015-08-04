@@ -13,34 +13,35 @@ Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
 {
 }
 
-bool Template::Read(Environment &env, Signal &sig,
+bool Template::Read(Environment &env,
 			SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	Parser parser(autoIndentFlag, appendLastEOLFlag);
-	return parser.ParseStream(env, sig, this, streamSrc);
+	return parser.ParseStream(env, this, streamSrc);
 }
 
-bool Template::Parse(Environment &env, Signal &sig,
+bool Template::Parse(Environment &env,
 		String::const_iterator strSrc, String::const_iterator strSrcEnd,
 		bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	SimpleStream_StringReader streamSrc(strSrc, strSrcEnd);
-	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	return Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag);
 }
 
-bool Template::Parse(Environment &env, Signal &sig,
+bool Template::Parse(Environment &env,
 		const char *strSrc, const char *strSrcEnd, bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	SimpleStream_CStringReader streamSrc(strSrc, strSrcEnd);
-	return Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	return Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag);
 }
 
-bool Template::Render(Environment &env, Signal &sig, SimpleStream *pStreamDst)
+bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 {
+	Signal &sig = env.GetSignal();
 	Template *pTemplateTop = nullptr;
 	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
-		if (!pTemplate->Prepare(env, sig)) return false;
+		if (!pTemplate->Prepare(env)) return false;
 		pTemplate->SetStreamDst(pStreamDst);
 		pTemplateTop = pTemplate;
 	}
@@ -56,8 +57,9 @@ bool Template::Render(Environment &env, Signal &sig, SimpleStream *pStreamDst)
 	return !sig.IsSignalled();
 }
 
-bool Template::Prepare(Environment &env, Signal &sig)
+bool Template::Prepare(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Processor> pProcessor(new Processor());
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
@@ -101,9 +103,10 @@ Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 {
 }
 
-bool Template::Parser::ParseStream(Environment &env, Signal &sig,
+bool Template::Parser::ParseStream(Environment &env,
 								Template *pTemplate, SimpleStream &streamSrc)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<StringRef> pSourceName(new StringRef(streamSrc.GetName()));
 	char chMarker = '$';
 	enum {
@@ -240,7 +243,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal &sig,
 		}
 		case STAT_ScriptPost: {
 			const char *strPost = (ch == '\n')? "\n" : "";
-			if (!CreateTmplScript(env, sig,
+			if (!CreateTmplScript(env,
 								  strIndent.c_str(), strTmplScript.c_str(), strPost,
 								  pTemplate, pExprBlockRoot,
 								  pSourceName.get(), cntLineTop, cntLine)) return false;
@@ -334,7 +337,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal &sig,
 	}
 	if (!strTmplScript.empty()) {
 		const char *strPost = "";
-		if (!CreateTmplScript(env, sig,
+		if (!CreateTmplScript(env,
 				strIndent.c_str(), strTmplScript.c_str(), strPost,
 				pTemplate, pExprBlockRoot,
 				pSourceName.get(), cntLineTop, cntLine)) return false;
@@ -352,11 +355,12 @@ bool Template::Parser::ParseStream(Environment &env, Signal &sig,
 	return true;
 }
 
-bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
+bool Template::Parser::CreateTmplScript(Environment &env,
 			const char *strIndent, const char *strTmplScript, const char *strPost,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
+	Signal &sig = env.GetSignal();
 	Class *pClass = env.LookupClass(VTYPE_template);
 	Expr *pExprLast = nullptr;
 	AutoPtr<Expr_TmplScript> pExprTmplScript(new Expr_TmplScript(
@@ -370,16 +374,16 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
 			// Appends "this.init_" before the script string while parsing
 			// so that it generates an expression "this.init_foo()" from the directive "${=foo()}".
-			if (!parser.ParseString(env, sig, *pExprOwnerForInit, "this.init_", false)) return false;
-			if (!parser.ParseString(env, sig, *pExprOwnerForInit, strTmplScript, true)) return false;
+			if (!parser.ParseString(env, *pExprOwnerForInit, "this.init_", false)) return false;
+			if (!parser.ParseString(env, *pExprOwnerForInit, strTmplScript, true)) return false;
 		} while (0);
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
 			// Appends "this." before the script string while parsing
 			// so that it generates an expression "this.foo()" from the directive "${=foo()}".
-			if (!parser.ParseString(env, sig, exprOwner, "this.", false)) return false;
-			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
+			if (!parser.ParseString(env, exprOwner, "this.", false)) return false;
+			if (!parser.ParseString(env, exprOwner, strTmplScript, true)) return false;
 		} while (0);
 		do {
 			ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
@@ -404,10 +408,10 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
 				if (pExprCar->GetLeft()->IsIdentifier() &&
 						dynamic_cast<Expr_Identifier *>(pExprCar->GetLeft())->GetSymbol()->
 														IsIdentical(Gura_Symbol(this_))) {
-					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
+					pCallable = pExprCar->GetRight()->LookupCallable(*pClass);
 				}
 			} else {
-				pCallable = pExprLastCaller->LookupCallable(env, sig);
+				pCallable = pExprLastCaller->LookupCallable(env);
 			}
 			sig.ClearSignal();
 			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
@@ -422,13 +426,13 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
 		// Parsing a normal script other than template directive.
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+		if (!parser.ParseString(env, *pExprOwnerPart, strTmplScript, true)) return false;
 		ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 		//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
 		if (ppExpr != pExprOwnerPart->end()) {
 			// check if the first Expr is a trailer
 			Expr *pExpr = *ppExpr;
-			Callable *pCallable = pExpr->LookupCallable(env, sig);
+			Callable *pCallable = pExpr->LookupCallable(env);
 			sig.ClearSignal();
 			if (pCallable != nullptr && pCallable->IsTrailer()) {
 				pExprTmplScript->SetStringIndent("");
@@ -474,10 +478,10 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal &sig,
 				if (pExprCar->GetLeft()->IsIdentifier() &&
 						dynamic_cast<Expr_Identifier *>(pExprCar->GetLeft())->GetSymbol()->
 														IsIdentical(Gura_Symbol(this_))) {
-					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
+					pCallable = pExprCar->GetRight()->LookupCallable(*pClass);
 				}
 			} else {
-				pCallable = pExprLastCaller->LookupCallable(env, sig);
+				pCallable = pExprLastCaller->LookupCallable(env);
 			}
 			sig.ClearSignal();
 			if (pCallable != nullptr && pCallable->GetBlockOccurPattern() == OCCUR_Once) {

@@ -10,8 +10,9 @@ Sequence::Sequence() : _format(0),
 {
 }
 
-bool Sequence::Read(Environment &env, Signal &sig, Stream &stream)
+bool Sequence::Read(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	enum Stat {
 		STAT_EventStart,
 		STAT_DeltaTime,
@@ -198,8 +199,9 @@ bool Sequence::Read(Environment &env, Signal &sig, Stream &stream)
 	return true;
 }
 
-bool Sequence::Write(Environment &env, Signal &sig, Stream &stream)
+bool Sequence::Write(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	do {
 		HeaderChunkTop headerChunkTop;
 		::memcpy(headerChunkTop.MThd, "MThd", sizeof(headerChunkTop.MThd));

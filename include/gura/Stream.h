@@ -132,7 +132,7 @@ public:
 	bool CheckWritable(Signal &sig) const;
 	bool CheckBwdSeekable(Signal &sig) const;
 	bool Compare(Signal &sig, Stream &stream);
-	bool ReadToStream(Environment &env, Signal &sig, Stream &streamDst,
+	bool ReadToStream(Environment &env, Stream &streamDst,
 					size_t bytesUnit = 0x10000, bool finalizeFlag = true,
 					const Function *pFuncFilter = nullptr);
 	bool SerializeBoolean(Signal &sig, bool num);
@@ -160,8 +160,8 @@ public:
 	bool SerializePackedULong(Signal &sig, ULong num);
 	bool DeserializePackedULong(Signal &sig, ULong &num);
 public:
-	static Stream *Open(Environment &env, Signal &sig, const char *pathName, ULong attr);
-	static Stream *Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc,
+	static Stream *Open(Environment &env, const char *pathName, ULong attr);
+	static Stream *Prefetch(Environment &env, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
 	static ULong ParseOpenMode(Signal &sig, const char *mode);
 };

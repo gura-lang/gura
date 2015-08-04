@@ -301,7 +301,7 @@ void Expr::SetError_NotAssignableSymbol(Signal &sig, const Symbol *pSymbol) cons
 		"symbol '%s' cannot be assigned in this object", pSymbol->GetName());
 }
 
-Callable *Expr::LookupCallable(Environment &env, Signal &sig) const
+Callable *Expr::LookupCallable(Environment &env) const
 {
 	return nullptr;
 }
@@ -809,9 +809,10 @@ Expr *Expr_Identifier::Clone() const
 	return new Expr_Identifier(*this);
 }
 
-Callable *Expr_Identifier::LookupCallable(Environment &env, Signal &sig) const
+Callable *Expr_Identifier::LookupCallable(Environment &env) const
 {
-	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
+	Signal &sig = env.GetSignal();
+	Value rtn = env.GetProp(env, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
@@ -822,7 +823,7 @@ Callable *Expr_Identifier::LookupCallable(Environment &env, Signal &sig) const
 Value Expr_Identifier::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
 	Signal &sig = env.GetSignal();
-	Value result = env.GetProp(env, sig, GetSymbol(), GetAttrs());
+	Value result = env.GetProp(env, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -844,7 +845,7 @@ Value Expr_Identifier::Exec(Environment &env,
 			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
 			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
 	int cntSuperSkip = valueThis.GetSuperSkipCount();
-	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs(),
+	Value rtn = env.GetProp(env, GetSymbol(), GetAttrs(),
 										nullptr, envRefMode, cntSuperSkip);
 	if (sig.IsSignalled()) return Value::Null;
 	return rtn;
@@ -901,7 +902,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			//env.GetTopFrame()->AssignValueType(pValueTypeInfo);
 			env.AssignValueType(pValueTypeInfo);
-			Function *pFunc = pClass->PrepareConstructor(env, sig);
+			Function *pFunc = pClass->PrepareConstructor(env);
 			if (pFunc == nullptr) return Value::Null;
 			valueAssigned = Value(new Object_function(env, pFunc));
 		}
@@ -1936,8 +1937,9 @@ Expr *Expr_Caller::Clone() const
 	return new Expr_Caller(*this);
 }
 
-Callable *Expr_Caller::LookupCallable(Environment &env, Signal &sig) const
+Callable *Expr_Caller::LookupCallable(Environment &env) const
 {
+	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	if (_pExprCar->IsMember()) return nullptr;
 	Value valueCar = _pExprCar->Exec2(env, pSeqPostHandlerCar);
@@ -1969,7 +1971,7 @@ Value Expr_Caller::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 			}
 			sig.ClearSignal();
 			for ( ; pExprCaller != nullptr; pExprCaller = pExprCaller->GetTrailer()) {
-				Callable *pCallable = pExprCaller->LookupCallable(env, sig);
+				Callable *pCallable = pExprCaller->LookupCallable(env);
 				if (sig.IsSignalled()) return Value::Null;
 				if (pCallable != nullptr && pCallable->IsFinalizer()) {
 					result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());

@@ -303,7 +303,7 @@ public:
 	Gura_DeclareObjectAccessor(parser)
 public:
 	Object_parser(Class *pClass);
-	void Parse(Environment &env, Signal &sig, Stream &stream);
+	void Parse(Environment &env, Stream &stream);
 	void CallHandler(const Symbol *pSymbol, const ValueList argList);
 };
 

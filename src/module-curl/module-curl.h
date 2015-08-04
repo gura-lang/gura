@@ -123,7 +123,7 @@ public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, ULong attr);
 	FileinfoOwner *DoBrowse(Signal &sig);
 };
 
@@ -132,9 +132,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_cURL : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal &sig,
+	virtual bool IsResponsible(Environment &env,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
+	virtual Directory *DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 

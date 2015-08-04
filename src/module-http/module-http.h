@@ -644,7 +644,7 @@ public:
 	inline short GetPort() const { return _port; }
 	inline const char *GetUserId() const { return _userId.c_str(); }
 	inline const char *GetPassword() const { return _password.c_str(); }
-	bool IsResponsible(Environment &env, Signal &sig, const char *addr) const;
+	bool IsResponsible(Environment &env, const char *addr) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -660,7 +660,7 @@ public:
 	Directory_Http(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_Http();
 	virtual Directory *DoNext(Environment &env);
-	virtual Stream *DoOpenStream(Environment &env, Signal &sig, ULong attr);
+	virtual Stream *DoOpenStream(Environment &env, ULong attr);
 	inline void SetScheme(const char *scheme) { _scheme = scheme; }
 	inline void SetAuthority(const char *authority) { _authority = authority; }
 	inline void SetQuery(const char *query) { _query = query; }
@@ -676,9 +676,9 @@ public:
 //-----------------------------------------------------------------------------
 class PathMgr_Http : public PathMgr {
 public:
-	virtual bool IsResponsible(Environment &env, Signal &sig,
+	virtual bool IsResponsible(Environment &env,
 					const Directory *pParent, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal &sig,
+	virtual Directory *DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 

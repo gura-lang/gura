@@ -241,16 +241,16 @@ public:
 	~Parser();
 	void Reset();
 	void InitStack();
-	Expr *ParseChar(Environment &env, Signal &sig, char ch);
-	Expr_Root *ParseStream(Environment &env, Signal &sig, Stream &stream);
-	Expr_Root *ParseStream(Environment &env, Signal &sig, const char *pathName, const char *encoding);
-	bool ParseString(Environment &env, Signal &sig, ExprOwner &exprOwner,
+	Expr *ParseChar(Environment &env, char ch);
+	Expr_Root *ParseStream(Environment &env, Stream &stream);
+	Expr_Root *ParseStream(Environment &env, const char *pathName, const char *encoding);
+	bool ParseString(Environment &env, ExprOwner &exprOwner,
 							const char *str, size_t len, bool parseNullFlag);
-	inline bool ParseString(Environment &env, Signal &sig, ExprOwner &exprOwner,
+	inline bool ParseString(Environment &env, ExprOwner &exprOwner,
 							const char *str, bool parseNullFlag) {
-		return ParseString(env, sig, exprOwner, str, ::strlen(str), parseNullFlag);
+		return ParseString(env, exprOwner, str, ::strlen(str), parseNullFlag);
 	}
-	void EvalConsoleChar(Environment &env, Signal &sig, Expr_Root *pExprRoot, Stream *pConsole, char ch);
+	void EvalConsoleChar(Environment &env, Expr_Root *pExprRoot, Stream *pConsole, char ch);
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
 	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
 	inline int GetLineNo() const { return _cntLine + 1; }
@@ -273,12 +273,12 @@ private:
 	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
 		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
 	}
-	virtual Expr *FeedElement(Environment &env, Signal &sig, const Element &elem);
-	bool ReduceOneElem(Environment &env, Signal &sig);
-	bool ReduceTwoElems(Environment &env, Signal &sig);
-	bool ReduceThreeElems(Environment &env, Signal &sig);
-	bool ReduceFourElems(Environment &env, Signal &sig);
-	bool ReduceFiveElems(Environment &env, Signal &sig);
+	virtual Expr *FeedElement(Environment &env, const Element &elem);
+	bool ReduceOneElem(Environment &env);
+	bool ReduceTwoElems(Environment &env);
+	bool ReduceThreeElems(Environment &env);
+	bool ReduceFourElems(Environment &env);
+	bool ReduceFiveElems(Environment &env);
 };
 
 }

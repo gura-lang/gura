@@ -262,7 +262,7 @@ public:
 	void GetPixel(const UChar *buff, Color &color);
 	bool Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, const Matrix *pMat);
-	bool Store(Environment &env, Signal &sig, size_t x, size_t y, size_t width, size_t height,
+	bool Store(Environment &env, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, Iterator *pIterator);
 	bool Extract(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, Matrix *pMat);
@@ -301,15 +301,15 @@ public:
 		size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha);
 	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
 	void SetPalette(Palette *pPalette);
-	bool Read(Environment &env, Signal &sig, Stream &stream, const char *imageType);
-	bool Write(Environment &env, Signal &sig, Stream &stream, const char *imageType);
+	bool Read(Environment &env, Stream &stream, const char *imageType);
+	bool Write(Environment &env, Stream &stream, const char *imageType);
 	int CalcDIBBitCount() const;
 	static inline size_t CalcDIBPaletteSize(int biBitCount) {
 		return (biBitCount <= 8)? (1 << biBitCount) * 4 : 0;
 	}
 	size_t CalcDIBImageSize(int biBitCount, bool maskFlag) const;
-	bool ReadDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount);
-	bool WriteDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount);
+	bool ReadDIBPalette(Environment &env, Stream &stream, int biBitCount);
+	bool WriteDIBPalette(Environment &env, Stream &stream, int biBitCount);
 	bool ReadDIB(Signal &sig, Stream &stream,
 				int biWidth, int biHeight, int biBitCount, bool maskFlag);
 	bool WriteDIB(Signal &sig, Stream &stream, int biBitCount, bool maskFlag);
@@ -396,8 +396,8 @@ public:
 	inline ImageStreamer(const char *imageType) : _imageType(imageType) {}
 	inline const char *GetImageType() const { return _imageType; }
 	virtual bool IsResponsible(Signal &sig, Stream &stream) = 0;
-	virtual bool Read(Environment &env, Signal &sig, Image *pImage, Stream &stream) = 0;
-	virtual bool Write(Environment &env, Signal &sig, Image *pImage, Stream &stream) = 0;
+	virtual bool Read(Environment &env, Image *pImage, Stream &stream) = 0;
+	virtual bool Write(Environment &env, Image *pImage, Stream &stream) = 0;
 public:
 	static void Register(ImageStreamer *pImageStreamer);
 	static ImageStreamer *FindResponsible(Signal &sig, Stream &stream, const char *imageType);

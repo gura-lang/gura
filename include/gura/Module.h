@@ -16,8 +16,8 @@ namespace Gura { \
 namespace ModuleNS_##name {
 
 #define Gura_EndModuleHeader(name) \
-GURA_DLLEXPORT bool MixIn(Environment &env, Signal &sig); \
-GURA_DLLEXPORT Module *Import(Environment &env, Signal &sig); \
+GURA_DLLEXPORT bool MixIn(Environment &env); \
+GURA_DLLEXPORT Module *Import(Environment &env); \
 }}
 
 #define Gura_BeginModuleBody(name) \
@@ -29,11 +29,11 @@ GURA_DLLEXPORT void Terminate(Module *pModule) \
 { \
 	_Terminate(pModule); \
 } \
-GURA_DLLEXPORT Module *Import(Environment &env, Signal &sig) \
+GURA_DLLEXPORT Module *Import(Environment &env) \
 { \
 	Module *pModule = new Module(&env, Symbol::Add(#nameBase), \
 								 "<integrated>", nullptr, Terminate); \
-	if (!MixIn(*pModule, sig)) return nullptr; \
+	if (!MixIn(*pModule)) return nullptr; \
 	env.AssignIntegratedModule(pModule); \
 	return pModule; \
 } \
@@ -51,7 +51,7 @@ namespace ModuleNS_##name {
 extern "C" GURA_DLLEXPORT \
 bool GuraModuleEntry(Gura::Environment &env, Gura::Signal &sig) \
 { \
-	return Gura::ModuleNS_##name::MixIn(env, sig); \
+	return Gura::ModuleNS_##name::MixIn(env); \
 } \
 extern "C" GURA_DLLEXPORT \
 void GuraModuleTerminate(Gura::Module *pModule) \
@@ -68,7 +68,7 @@ namespace ModuleNS_##name { \
 //ModuleIntegrator s_integrator(#name, MixIn, Terminate);
 
 #define Gura_ModuleEntry() \
-GURA_DLLEXPORT bool MixIn(Environment &env, Signal &sig)
+GURA_DLLEXPORT bool MixIn(Environment &env)
 
 #define Gura_ModuleTerminate() \
 GURA_DLLEXPORT void _Terminate(Module *pModule)
@@ -112,7 +112,7 @@ public:
 	virtual Module *Clone() const;
 	virtual String ToString(bool exprFlag);
 public:
-	static bool ImportBuiltIns(Environment &env, Signal &sig);
+	static bool ImportBuiltIns(Environment &env);
 };
 
 }

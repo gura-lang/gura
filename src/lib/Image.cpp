@@ -247,9 +247,10 @@ bool Image::Store(Signal &sig, size_t x, size_t y, size_t width, size_t height,
 	return true;
 }
 
-bool Image::Store(Environment &env, Signal &sig, size_t x, size_t y, size_t width, size_t height,
+bool Image::Store(Environment &env, size_t x, size_t y, size_t width, size_t height,
 							const Symbol *pSymbol, Iterator *pIterator)
 {
+	Signal &sig = env.GetSignal();
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
 	UChar *pLine = GetPointer(x, y);
@@ -887,8 +888,9 @@ void Image::SetPalette(Palette *pPalette)
 	_pPalette.reset(pPalette);
 }
 
-bool Image::Read(Environment &env, Signal &sig, Stream &stream, const char *imageType)
+bool Image::Read(Environment &env, Stream &stream, const char *imageType)
 {
+	Signal &sig = env.GetSignal();
 	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
@@ -896,11 +898,12 @@ bool Image::Read(Environment &env, Signal &sig, Stream &stream, const char *imag
 		sig.SetError(ERR_FormatError, "unsupported image type");
 		return false;
 	}
-	return pImageStreamer->Read(env, sig, this, stream);
+	return pImageStreamer->Read(env, this, stream);
 }
 
-bool Image::Write(Environment &env, Signal &sig, Stream &stream, const char *imageType)
+bool Image::Write(Environment &env, Stream &stream, const char *imageType)
 {
+	Signal &sig = env.GetSignal();
 	ImageStreamer *pImageStreamer = nullptr;
 	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
@@ -908,7 +911,7 @@ bool Image::Write(Environment &env, Signal &sig, Stream &stream, const char *ima
 		sig.SetError(ERR_FormatError, "unsupported image type");
 		return false;
 	}
-	return pImageStreamer->Write(env, sig, this, stream);
+	return pImageStreamer->Write(env, this, stream);
 }
 
 int Image::CalcDIBBitCount() const
@@ -946,8 +949,9 @@ size_t Image::CalcDIBImageSize(int biBitCount, bool maskFlag) const
 	return bytes;
 }
 
-bool Image::ReadDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount)
+bool Image::ReadDIBPalette(Environment &env, Stream &stream, int biBitCount)
 {
+	Signal &sig = env.GetSignal();
 	if (biBitCount == 24 || biBitCount == 32) return true;
 	if (!(biBitCount == 1 || biBitCount == 4 || biBitCount == 8)) {
 		sig.SetError(ERR_FormatError, "unsupported pixel depth %d", biBitCount);
@@ -966,8 +970,9 @@ bool Image::ReadDIBPalette(Environment &env, Signal &sig, Stream &stream, int bi
 	return true;
 }
 
-bool Image::WriteDIBPalette(Environment &env, Signal &sig, Stream &stream, int biBitCount)
+bool Image::WriteDIBPalette(Environment &env, Stream &stream, int biBitCount)
 {
+	Signal &sig = env.GetSignal();
 	if (biBitCount == 24 || biBitCount == 32) return true;
 	if (!(biBitCount == 1 || biBitCount == 4 || biBitCount == 8)) {
 		sig.SetError(ERR_FormatError, "unsupported pixel depth %d", biBitCount);

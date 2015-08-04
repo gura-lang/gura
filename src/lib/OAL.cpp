@@ -562,10 +562,11 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 //=============================================================================
 // Windows API
 //=============================================================================
-int ExecProgram(Environment &env, Signal &sig, const char *pathName,
+int ExecProgram(Environment &env, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
+	Signal &sig = env.GetSignal();
 	String cmdLine;
 	AppendCmdLine(cmdLine, ToNativeString(pathName).c_str());
 	foreach_const (ValueList, pValue, valList) {
@@ -1245,10 +1246,11 @@ void Event::Notify()
 //=============================================================================
 // POSIX
 //=============================================================================
-int ExecProgram(Environment &env, Signal &sig, const char *pathName,
+int ExecProgram(Environment &env, const char *pathName,
 				const ValueList &valList, Stream *pStreamStdin,
 				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
+	Signal &sig = env.GetSignal();
 	int exitCode = 0;
 	pid_t pid = 0;
 	AutoPtr<Memory> pMemory(new MemoryHeap(32768));

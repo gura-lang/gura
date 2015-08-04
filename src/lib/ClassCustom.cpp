@@ -40,8 +40,9 @@ Object *ClassCustom::CreateDescendant(Environment &env, Class *pClass)
 	return pObj;
 }
 
-Function *ClassCustom::PrepareConstructor(Environment &env, Signal &sig)
+Function *ClassCustom::PrepareConstructor(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, valueThis, _pExprContent.get())) {

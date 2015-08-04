@@ -184,7 +184,7 @@ Gura_ImplementFunction(image)
 			if (sig.IsSignalled()) return Value::Null;
 			imageType = valList[2].GetString();
 		}
-		if (!pImage->Read(env, sig, stream, imageType)) return Value::Null;
+		if (!pImage->Read(env, stream, imageType)) return Value::Null;
 	}
 	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
@@ -700,9 +700,8 @@ Gura_DeclareMethod(image, read)
 
 Gura_ImplementMethod(image, read)
 {
-	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
+	if (!pThis->GetImage()->Read(env, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;
 	return args.GetThis();
 }
@@ -1017,7 +1016,7 @@ Gura_ImplementMethod(image, store)
 							Object_matrix::GetObject(args, 5)->GetMatrix());
 	} else if (args.Is_list(5) || args.Is_iterator(5)) {
 		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
-		pThis->GetImage()->Store(env, sig, x, y, width, height, pSymbol, pIterator.get());
+		pThis->GetImage()->Store(env, x, y, width, height, pSymbol, pIterator.get());
 	} else {
 		sig.SetError(ERR_ValueError, "invalid object for image's source");
 		return Value::Null;
@@ -1119,9 +1118,8 @@ Gura_DeclareMethod(image, write)
 
 Gura_ImplementMethod(image, write)
 {
-	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->Write(env, sig, args.GetStream(0),
+	if (!pThis->GetImage()->Write(env, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Null;
 	return args.GetThis();
 }
@@ -1169,7 +1167,7 @@ bool Class_image::CastFrom(Environment &env, Value &value, const Declaration *pD
 	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));
-		pImage->Read(env, sig, value.GetStream(), nullptr);
+		pImage->Read(env, value.GetStream(), nullptr);
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_image(env, pImage.release()));

@@ -84,7 +84,7 @@ public:
 	static String Format(Signal &sig, const char *format, ...);
 	static String FormatV(Signal &sig, const char *format, va_list ap);
 	static String FormatValueList(Signal &sig, const char *format, const ValueList &valList);
-	static Value FormatIterator(Environment &env, Signal &sig,
+	static Value FormatIterator(Environment &env,
 							const char *format, IteratorOwner &iterOwner);
 	static const char *Format_d(const Flags &flags, int value, char *buff, size_t size);
 	static const char *Format_u(const Flags &flags, UInt value, char *buff, size_t size);

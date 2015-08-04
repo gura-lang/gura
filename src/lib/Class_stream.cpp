@@ -114,7 +114,7 @@ Gura_ImplementFunction(stream)
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	Stream *pStream = Stream::Open(env, sig, args.GetString(0), attr);
+	Stream *pStream = Stream::Open(env, args.GetString(0), attr);
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsValid(2)) {
 		Codec *pCodec = Object_codec::GetObject(args, 2)->GetCodec();
@@ -280,7 +280,7 @@ Gura_ImplementClassMethod(stream, copy)
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
 		return Value::Null;
 	}
-	streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter);
+	streamSrc.ReadToStream(env, streamDst, bytesUnit, finalizeFlag, pFuncFilter);
 	return Value::Null;
 }
 
@@ -326,7 +326,7 @@ Gura_ImplementMethod(stream, copyfrom)
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
 		return Value::Null;
 	}
-	if (!streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
+	if (!streamSrc.ReadToStream(env, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -374,7 +374,7 @@ Gura_ImplementMethod(stream, copyto)
 		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
 		return Value::Null;
 	}
-	if (!streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
+	if (!streamSrc.ReadToStream(env, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -899,7 +899,7 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
 		}
-		Stream *pStream = Stream::Open(env, sig, value.GetString(), attr);
+		Stream *pStream = Stream::Open(env, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;

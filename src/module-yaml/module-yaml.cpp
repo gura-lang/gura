@@ -22,7 +22,7 @@ Gura_ImplementFunction(compose)
 {
 	Signal &sig = env.GetSignal();
 	String str;
-	WriterToString::Write(env, sig, str, args.GetValue(0));
+	WriterToString::Write(env, str, args.GetValue(0));
 	return Value(str);
 }
 
@@ -87,7 +87,7 @@ Gura_DeclareFunction(write)
 Gura_ImplementFunction(write)
 {
 	Signal &sig = env.GetSignal();
-	if (!WriterToStream::Write(env, sig, args.GetStream(0), args.GetValue(1))) {
+	if (!WriterToStream::Write(env, args.GetStream(0), args.GetValue(1))) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -122,8 +122,9 @@ int WriterToStream::WriteHandlerStub(void *ext, unsigned char *buffer, size_t si
 	return reinterpret_cast<WriterToStream *>(ext)->WriteHandler(buffer, size);
 }
 
-bool WriterToStream::Write(Environment &env, Signal &sig, Stream &stream, const Value &value)
+bool WriterToStream::Write(Environment &env, Stream &stream, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	WriterToStream writer(sig, stream);
 	yaml_emitter_t emitter;
 	::yaml_emitter_initialize(&emitter);
@@ -149,8 +150,9 @@ int WriterToString::WriteHandlerStub(void *ext, unsigned char *buffer, size_t si
 	return reinterpret_cast<WriterToString *>(ext)->WriteHandler(buffer, size);
 }
 
-bool WriterToString::Write(Environment &env, Signal &sig, String &str, const Value &value)
+bool WriterToString::Write(Environment &env, String &str, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	WriterToString writer(str);
 	yaml_emitter_t emitter;
 	::yaml_emitter_initialize(&emitter);

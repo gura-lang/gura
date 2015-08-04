@@ -50,7 +50,7 @@ inline String JoinPathName(const char *pathName, const char *name, size_t len) {
 GURA_DLLDECLARE const char *GetEncodingForConsole();
 GURA_DLLDECLARE const Symbol *GetLangCode();
 
-GURA_DLLDECLARE int ExecProgram(Environment &env, Signal &sig, const char *pathName,
+GURA_DLLDECLARE int ExecProgram(Environment &env, const char *pathName,
 			const ValueList &valList, Stream *pStreamStdin,
 			Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag);
 GURA_DLLDECLARE String GetEnv(const char *name, bool *pFoundFlag = nullptr);

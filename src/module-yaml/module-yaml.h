@@ -27,7 +27,7 @@ public:
 	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
-	static bool Write(Environment &env, Signal &sig, Stream &stream, const Value &value);
+	static bool Write(Environment &env, Stream &stream, const Value &value);
 };
 
 //-----------------------------------------------------------------------------
@@ -41,7 +41,7 @@ public:
 	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
-	static bool Write(Environment &env, Signal &sig, String &str, const Value &value);
+	static bool Write(Environment &env, String &str, const Value &value);
 };
 
 //-----------------------------------------------------------------------------

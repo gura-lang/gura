@@ -81,15 +81,17 @@ bool ImageStreamer_PPM::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".ppm") || stream.HasNameSuffix(".pbm");
 }
 
-bool ImageStreamer_PPM::Read(Environment &env, Signal &sig,
+bool ImageStreamer_PPM::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PPM::Write(Environment &env, Signal &sig,
+bool ImageStreamer_PPM::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return WriteStream(env, sig, pImage, stream, false);
 }
 

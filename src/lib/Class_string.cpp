@@ -211,20 +211,19 @@ Gura_DeclareMethod(string, embed)
 
 Gura_ImplementMethod(string, embed)
 {
-	Signal &sig = env.GetSignal();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), nullptr,
+	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
-		pTemplate->Render(env, sig, &streamDst);
+		pTemplate->Render(env, &streamDst);
 		return Value::Null;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!pTemplate->Render(env, sig, &streamDst)) return Value::Null;
+		if (!pTemplate->Render(env, &streamDst)) return Value::Null;
 		return Value(strDst);
 	}
 }
@@ -817,15 +816,14 @@ Gura_DeclareMethodAlias(string, template_, "template")
 
 Gura_ImplementMethod(string, template_)
 {
-	Signal &sig = env.GetSignal();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, sig, args.GetThis().GetString(), nullptr,
+	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	//String strSrc = args.GetThis().GetStringSTL();
 	//SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
-	//if (!pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+	//if (!pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Null;
 	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
 }

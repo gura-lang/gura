@@ -45,7 +45,7 @@ Gura_ImplementFunction(exec)
 	bool forkFlag = args.IsSet(Gura_Symbol(fork));
 	const char *pathName = args.GetString(0);
 	if (forkFlag) {
-		OAL::ExecProgram(env, sig, pathName, args.GetList(1),
+		OAL::ExecProgram(env, pathName, args.GetList(1),
 						 nullptr, nullptr, nullptr, forkFlag);
 		return Value::Null;
 	}
@@ -59,7 +59,7 @@ Gura_ImplementFunction(exec)
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 	Stream *pStreamStderr = (pValue != nullptr && pValue->Is_stream())?
 										&pValue->GetStream() : nullptr;
-	int rtn = OAL::ExecProgram(env, sig, pathName, args.GetList(1),
+	int rtn = OAL::ExecProgram(env, pathName, args.GetList(1),
 					   pStreamStdin, pStreamStdout, pStreamStderr, forkFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(rtn);

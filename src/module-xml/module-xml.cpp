@@ -631,8 +631,9 @@ Object_parser::Object_parser(Class *pClass) :
 {
 }
 
-void Object_parser::Parse(Environment &env, Signal &sig, Stream &stream)
+void Object_parser::Parse(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	_pSig = &sig;
 	_parser.Parse(sig, stream);
 	_pSig = nullptr;
@@ -863,7 +864,7 @@ Gura_ImplementMethod(parser, parse)
 {
 	Signal &sig = env.GetSignal();
 	Object_parser *pObj = Object_parser::GetThisObj(args);
-	pObj->Parse(env, sig, args.GetStream(0));
+	pObj->Parse(env, args.GetStream(0));
 	return Value::Null;
 }
 

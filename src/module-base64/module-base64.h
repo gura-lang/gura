@@ -7,8 +7,8 @@
 
 Gura_BeginModuleHeader(base64)
 
-GURA_DLLEXPORT bool MixIn(Environment &env, Signal &sig);
-GURA_DLLEXPORT Module *Import(Environment &env, Signal &sig);
+GURA_DLLEXPORT bool MixIn(Environment &env);
+GURA_DLLEXPORT Module *Import(Environment &env);
 
 Gura_EndModuleHeader(base64)
 

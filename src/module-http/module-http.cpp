@@ -2157,7 +2157,8 @@ bool Object_client::Prepare(Signal &sig, const char *addr, short port,
 				if (!pValue->IsType(VTYPE_proxy)) continue;
 				Object_proxy *pObjProxy = Object_proxy::GetObject(*pValue);
 				Environment &env = *this;
-				if (pObjProxy->IsResponsible(env, sig, addr)) {
+				if (pObjProxy->IsResponsible(env, addr)) {
+	Signal &sig = env.GetSignal();
 					addrProxy = pObjProxy->GetAddr();
 					portProxy = pObjProxy->GetPort();
 					userIdProxy = pObjProxy->GetUserId();
@@ -2392,8 +2393,9 @@ String Object_proxy::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_proxy::IsResponsible(Environment &env, Signal &sig, const char *addr) const
+bool Object_proxy::IsResponsible(Environment &env, const char *addr) const
 {
+	Signal &sig = env.GetSignal();
 	if (_pFuncCriteria.IsNull()) return true;
 	//ValueList valListArg(Value(env, addr));
 	AutoPtr<Args> pArgs(new Args());
@@ -2538,8 +2540,9 @@ Directory *Directory_Http::DoNext(Environment &env)
 	return nullptr;
 }
 
-Stream *Directory_Http::DoOpenStream(Environment &env, Signal &sig, ULong attr)
+Stream *Directory_Http::DoOpenStream(Environment &env, ULong attr)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	String pathName;
 	Directory_Http *pDirectoryTop = nullptr;
@@ -2598,7 +2601,7 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal &sig, ULong attr)
 //-----------------------------------------------------------------------------
 // PathMgr_Http implementation
 //-----------------------------------------------------------------------------
-bool PathMgr_Http::IsResponsible(Environment &env, Signal &sig,
+bool PathMgr_Http::IsResponsible(Environment &env,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == nullptr &&
@@ -2606,9 +2609,10 @@ bool PathMgr_Http::IsResponsible(Environment &env, Signal &sig,
 		 StartsWith(pathName, "https:", 0, false));
 }
 
-Directory *PathMgr_Http::DoOpenDirectory(Environment &env, Signal &sig,
+Directory *PathMgr_Http::DoOpenDirectory(Environment &env,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
+	Signal &sig = env.GetSignal();
 	const char *uri = *pPathName;
 	String scheme = ExtractURIScheme(sig, uri, nullptr);
 	const char *p = uri;

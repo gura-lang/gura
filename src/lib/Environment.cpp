@@ -96,12 +96,12 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
 	Random::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
-	GetGlobal()->Prepare(env, sig);
+	GetGlobal()->Prepare(env);
 	Operator::Initialize(env);
 	Operator::AssignBasicOperators(env);
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();
-	Module::ImportBuiltIns(env, sig);
+	Module::ImportBuiltIns(env);
 	// set command line argument into sys module
 	if (optInfoTbl != nullptr) {
 		String strErr;
@@ -445,10 +445,11 @@ Callable *Environment::GetCallable(Signal &sig, const Symbol *pSymbol)
 	return nullptr;
 }
 
-Value Environment::GetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault,
 						EnvRefMode envRefMode, int cntSuperSkip) const
 {
+	Signal &sig = env.GetSignal();
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == nullptr) {
 		// nothing to do
@@ -734,7 +735,7 @@ bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			pathNameBase += '.';
 			foreach_const (StringList, pExtName, extNameList) {
 				pathName = pathNameBase + *pExtName;
-				if (PathMgr::DoesExist(env, sig, pathName.c_str())) return true;
+				if (PathMgr::DoesExist(env, pathName.c_str())) return true;
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
@@ -748,9 +749,9 @@ Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnv
 									const char *pathName, const Symbol *pSymbol)
 {
 	Environment &env = *this;
-	AutoPtr<Stream> pStream(Stream::Open(env, sig, pathName, Stream::ATTR_Readable));
+	AutoPtr<Stream> pStream(Stream::Open(env, pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return nullptr;
-	AutoPtr<Expr_Root> pExprRoot(Parser(pStream->GetName()).ParseStream(*pEnvOuter, sig, *pStream));
+	AutoPtr<Expr_Root> pExprRoot(Parser(pStream->GetName()).ParseStream(*pEnvOuter, *pStream));
 	if (sig.IsSignalled()) return nullptr;
 	Module *pModule = new Module(pEnvOuter, pSymbol,
 							pathName, Expr::Reference(pExprRoot.get()), nullptr);
@@ -870,8 +871,9 @@ Environment::Global::~Global()
 	}
 }
 
-void Environment::Global::Prepare(Environment &env, Signal &sig)
+void Environment::Global::Prepare(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();
 	_pConsoleDumb.reset(new StreamDumb(env, sig));

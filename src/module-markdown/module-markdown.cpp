@@ -2998,9 +2998,10 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // HelpPresenter_markdown
 //-----------------------------------------------------------------------------
-bool HelpPresenter_markdown::DoPresent(Environment &env, Signal &sig,
+bool HelpPresenter_markdown::DoPresent(Environment &env,
 									const char *title, const Help *pHelp) const
 {
+	Signal &sig = env.GetSignal();
 	if (g_pFunc_Presenter.IsNull()) {
 		sig.SetError(ERR_FormatError, "presenter function is not registered");
 		return false;

@@ -447,10 +447,9 @@ Gura_ImplementMethod(function, mathdiff)
 // operator ~
 Gura_ImplementUnaryOperator(Inv, function)
 {
-	Signal &sig = env.GetSignal();
 	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
 	const Symbol *pSymbol = env.GetLangCode();
-	HelpPresenter::Present(env, sig, pFunc->ToString().c_str(),
+	HelpPresenter::Present(env, pFunc->ToString().c_str(),
 						   pFunc->GetHelp(pSymbol, true));
 	return Value::Null;
 }

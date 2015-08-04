@@ -15,7 +15,7 @@ namespace Gura {
 void PrintVersion(FILE *fp);
 void PrintHelp(FILE *fp);
 
-void ReadEvalPrintLoop(Environment &env, Signal &sig);
+void ReadEvalPrintLoop(Environment &env);
 
 //-----------------------------------------------------------------------------
 // Main entry
@@ -85,7 +85,7 @@ int Main(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd, true)) {
+			if (!Parser(SRCNAME_cmdline).ParseString(env, exprOwner, cmd, true)) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
@@ -109,7 +109,7 @@ int Main(int argc, const char *argv[])
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
 		String sourceName = OAL::FromNativeString(argv[1]);
-		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
+		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env,
 											sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsoleErr());
@@ -132,7 +132,7 @@ int Main(int argc, const char *argv[])
 	if (opt.IsSet("template")) {
 		foreach_const (StringList, pPathName, opt.GetStringList("template")) {
 			String pathName = OAL::FromNativeString(pPathName->c_str());
-			AutoPtr<Stream> pStreamSrc(Stream::Open(env, sig,
+			AutoPtr<Stream> pStreamSrc(Stream::Open(env,
 								pathName.c_str(), Stream::ATTR_Readable));
 			if (sig.IsSignalled()) {
 				sig.PrintSignal(*env.GetConsoleErr());
@@ -147,12 +147,12 @@ int Main(int argc, const char *argv[])
 			bool autoIndentFlag = true;
 			bool appendLastEOLFlag = false;
 			AutoPtr<Template> pTemplate(new Template());
-			if (!pTemplate->Read(env, sig, *pStreamSrc,
+			if (!pTemplate->Read(env, *pStreamSrc,
 										autoIndentFlag, appendLastEOLFlag)) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
-			if (!pTemplate->Render(env, sig, env.GetConsole())) {
+			if (!pTemplate->Render(env, env.GetConsole())) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
@@ -162,7 +162,7 @@ int Main(int argc, const char *argv[])
 	if (interactiveFlag || opt.IsSet("interactive")) {
 		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout);
 		env.GetGlobal()->SetEchoFlag(true);
-		ReadEvalPrintLoop(env, sig);
+		ReadEvalPrintLoop(env);
 	}
 	return 0;
 }
@@ -191,7 +191,7 @@ void PrintHelp(FILE *fp)
 }
 
 #if defined(GURA_ON_MSWIN)
-void ReadEvalPrintLoop(Environment &env, Signal &sig)
+void ReadEvalPrintLoop(Environment &env)
 {
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);
@@ -200,7 +200,7 @@ void ReadEvalPrintLoop(Environment &env, Signal &sig)
 	for (;;) {
 		int chRaw = ::fgetc(stdin);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);
+		parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, ch);
 		if (chRaw < 0) break;
 		if (chRaw == '\n') {
 			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
@@ -208,7 +208,7 @@ void ReadEvalPrintLoop(Environment &env, Signal &sig)
 	}
 }
 #else
-void ReadEvalPrintLoop(Environment &env, Signal &sig)
+void ReadEvalPrintLoop(Environment &env)
 {
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);
@@ -217,7 +217,7 @@ void ReadEvalPrintLoop(Environment &env, Signal &sig)
 	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != nullptr) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
-			parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);
+			parser.EvalConsoleChar(env, pExprRoot.get(), pConsole, ch);
 			if (ch == '\n') break;
 		}
 		if (lineBuff[0] != '\0') {

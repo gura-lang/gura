@@ -29,7 +29,7 @@ Gura_ImplementFunction(decode)
 									args.GetStream(0).Reference()));
 	AutoPtr<Stream> pStreamDst(new Stream_Binary(env, sig,
 									Object_binary::Reference(pObjBinary.get()), true));
-	if (!pStreamSrc->ReadToStream(env, sig, *pStreamDst)) return Value::Null;
+	if (!pStreamSrc->ReadToStream(env, *pStreamDst)) return Value::Null;
 	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
@@ -55,7 +55,7 @@ Gura_ImplementFunction(encode)
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(env, sig,
 		new Stream_Binary(env, sig, Object_binary::Reference(pObjBinary.get()), true), nCharsPerLine));
-	if (!streamSrc.ReadToStream(env, sig, *pStreamDst)) return Value::Null;
+	if (!streamSrc.ReadToStream(env, *pStreamDst)) return Value::Null;
 	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 

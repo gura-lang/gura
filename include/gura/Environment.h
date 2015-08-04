@@ -153,7 +153,7 @@ public:
 		inline static void Delete(Global *pGlobal) {
 			delete pGlobal;
 		}
-		void Prepare(Environment &env, Signal &sig);
+		void Prepare(Environment &env);
 		Class *LookupClass(ValueType valType) const;
 		Module *LookupIntegratedModule(const char *name) const;
 		void RegisterIntegratedModule(Module *pModule);
@@ -314,7 +314,7 @@ public:
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
-	Value GetProp(Environment &env, Signal &sig, const Symbol *pSymbol,
+	Value GetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
 	inline Class *LookupClass(ValueType valType) const {

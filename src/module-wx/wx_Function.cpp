@@ -5362,7 +5362,7 @@ Gura_ImplementFunction(Toupper)
 //----------------------------------------------------------------------------
 // Object implementation for 
 //----------------------------------------------------------------------------
-void RegisterFunctions(Environment &env, Signal &sig)
+void RegisterFunctions(Environment &env)
 {
 	_pEnv = &env;
 	Gura_RealizeUserSymbol(GetApp);

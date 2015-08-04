@@ -290,15 +290,17 @@ bool ImageStreamer_xpm::IsResponsible(Signal &sig, Stream &stream)
 	return stream.HasNameSuffix(".xpm");
 }
 
-bool ImageStreamer_xpm::Read(Environment &env, Signal &sig,
+bool ImageStreamer_xpm::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ImageStreamer_xpm::ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_xpm::Write(Environment &env, Signal &sig,
+bool ImageStreamer_xpm::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	return ImageStreamer_xpm::WriteStream(env, sig, pImage, stream);
 }
 
