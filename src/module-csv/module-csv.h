@@ -30,8 +30,8 @@ public:
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	bool PutValue(Environment &env, Signal &sig, const Value &value);
-	bool PutLine(Environment &env, Signal &sig, const ValueList &valList);
+	bool PutValue(Environment &env, const Value &value);
+	bool PutLine(Environment &env, const ValueList &valList);
 };
 
 //-----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ public:
 //-----------------------------------------------------------------------------
 class Reader {
 public:
-	bool ReadLine(Environment &env, Signal &sig, ValueList &valList);
+	bool ReadLine(Environment &env, ValueList &valList);
 	virtual char NextChar(Signal &sig) = 0;
 };
 

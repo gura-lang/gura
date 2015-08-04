@@ -361,9 +361,10 @@ Gura_DeclareFunction(dim)
 		"    // x is [['0-0', '0-1'], ['1-0', '1-1'], ['2-0', '2-1']]\n");
 }
 
-bool Func_dim_Sub(Environment &env, Signal &sig, const Function *pFuncBlock, ValueList &valListParent,
+bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valListParent,
 	IntList &cntList, IntList::iterator pCnt, IntList &idxList, IntList::iterator pIdx)
 {
+	Signal &sig = env.GetSignal();
 	if (pCnt + 1 == cntList.end()) {
 		if (pFuncBlock == nullptr) {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
@@ -386,7 +387,7 @@ bool Func_dim_Sub(Environment &env, Signal &sig, const Function *pFuncBlock, Val
 			Value result;
 			ValueList &valList = result.InitAsList(env);
 			valListParent.push_back(result);
-			if (!Func_dim_Sub(env, sig, pFuncBlock, valList,
+			if (!Func_dim_Sub(env, pFuncBlock, valList,
 									cntList, pCnt + 1, idxList, pIdx + 1)) {
 				return false;
 			}
@@ -397,7 +398,6 @@ bool Func_dim_Sub(Environment &env, Signal &sig, const Function *pFuncBlock, Val
 
 Gura_ImplementFunction(dim)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
@@ -412,7 +412,7 @@ Gura_ImplementFunction(dim)
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	if (!Func_dim_Sub(*pEnvBlock, sig, pFuncBlock, valList,
+	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, valList,
 						cntList, cntList.begin(), idxList, idxList.begin())) {
 		return Value::Null;
 	}

@@ -101,7 +101,7 @@ public:
 		if (pDevice != nullptr && pDevice->DecRef() <= 0) delete pDevice;
 	}
 	virtual ~Device();
-	Value Initialize(Environment &env, Signal &sig, const Function *pFuncBlock);
+	Value Initialize(Environment &env, const Function *pFuncBlock);
 	virtual const char *GetName() const = 0;
 	virtual void Close() = 0;
 	virtual void Fill(Signal &sig, const Value &color) = 0;

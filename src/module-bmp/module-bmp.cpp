@@ -25,7 +25,7 @@ Gura_ImplementMethod(image, read_bmp)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_BMP::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_BMP::ReadStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -45,7 +45,7 @@ Gura_ImplementMethod(image, write_bmp)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_BMP::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_BMP::WriteStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -83,18 +83,19 @@ bool ImageStreamer_BMP::Read(Environment &env,
 									Image *pImage, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
-	return ImageStreamer_BMP::ReadStream(env, sig, pImage, stream);
+	return ImageStreamer_BMP::ReadStream(env, pImage, stream);
 }
 
 bool ImageStreamer_BMP::Write(Environment &env,
 									Image *pImage, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
-	return ImageStreamer_BMP::WriteStream(env, sig, pImage, stream);
+	return ImageStreamer_BMP::WriteStream(env, pImage, stream);
 }
 
-bool ImageStreamer_BMP::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
+bool ImageStreamer_BMP::ReadStream(Environment &env, Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
 	Image::BitmapFileHeader bfh;
 	if (stream.Read(sig, &bfh, Image::BitmapFileHeader::Size) < Image::BitmapFileHeader::Size) {
@@ -122,8 +123,9 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Signal &sig, Image *pImage,
 	return pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, false);
 }
 
-bool ImageStreamer_BMP::WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
+bool ImageStreamer_BMP::WriteStream(Environment &env, Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckValid(sig)) return false;
 	int biWidth = static_cast<int>(pImage->GetWidth());
 	int biHeight = static_cast<int>(pImage->GetHeight());

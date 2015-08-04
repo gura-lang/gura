@@ -72,8 +72,9 @@ String Object_writer::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_writer::PutValue(Environment &env, Signal &sig, const Value &value)
+bool Object_writer::PutValue(Environment &env, const Value &value)
 {
+	Signal &sig = env.GetSignal();
 	String str;
 	if (value.IsInvalid()) {
 		return true;
@@ -97,14 +98,15 @@ bool Object_writer::PutValue(Environment &env, Signal &sig, const Value &value)
 	return true;
 }
 
-bool Object_writer::PutLine(Environment &env, Signal &sig, const ValueList &valList)
+bool Object_writer::PutLine(Environment &env, const ValueList &valList)
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (ValueList, pValue, valList) {
 		if (pValue != valList.begin()) {
 			_pStreamDst->PutChar(sig, ',');
 			if (sig.IsSignalled()) return false;
 		}
-		if (!PutValue(env, sig, *pValue)) return false;
+		if (!PutValue(env, *pValue)) return false;
 	}
 	_pStreamDst->PutChar(sig, '\n');
 	return !sig.IsSignalled();
@@ -127,7 +129,7 @@ Gura_ImplementMethod(writer, write)
 {
 	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
-	if (!pThis->PutLine(env, sig, args.GetList(0))) return Value::Null;
+	if (!pThis->PutLine(env, args.GetList(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -263,8 +265,9 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // Reader
 //-----------------------------------------------------------------------------
-bool Reader::ReadLine(Environment &env, Signal &sig, ValueList &valList)
+bool Reader::ReadLine(Environment &env, ValueList &valList)
 {
+	Signal &sig = env.GetSignal();
 	enum {
 		STAT_LineTop, STAT_FieldTop, STAT_Field, STAT_Quoted, STAT_QuotedEnd,
 	} stat = STAT_LineTop;
@@ -360,7 +363,7 @@ bool Iterator_reader::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	ValueList &valList = value.InitAsList(env);
-	if (_pReader->ReadLine(env, sig, valList)) return true;
+	if (_pReader->ReadLine(env, valList)) return true;
 	value = Value::Null;
 	return false;
 }

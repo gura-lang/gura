@@ -17,8 +17,8 @@ public:
 	virtual bool Read(Environment &env, Image *pImage, Stream &stream);
 	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
-	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool ReadStream(Environment &env, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Image *pImage, Stream &stream);
 	static void SetError_InvalidBMPFormat(Signal &sig);
 };
 

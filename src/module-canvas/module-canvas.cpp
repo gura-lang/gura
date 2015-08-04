@@ -110,8 +110,9 @@ Device::~Device()
 {
 }
 
-Value Device::Initialize(Environment &env, Signal &sig, const Function *pFuncBlock)
+Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 {
+	Signal &sig = env.GetSignal();
 	SetPen(sig, Value(Gura_UserSymbol(black)), 1., Gura_UserSymbol(solid));
 	SetFont(sig, 8.0, Gura_UserSymbol(default), Gura_UserSymbol(normal),
 									Gura_UserSymbol(normal), "");
