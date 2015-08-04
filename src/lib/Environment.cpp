@@ -789,7 +789,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal &sig, Environment *pEnv
 	ModuleTerminateType moduleTerminate = (ModuleTerminateType)(pFunc);
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, nullptr, moduleTerminate);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
-	if (!(*moduleEntry)(*pModule, sig)) {
+	if (!(*moduleEntry)(*pModule)) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return nullptr;

@@ -49,7 +49,7 @@ namespace ModuleNS_##name {
 #if defined(GURA_MODULE_SEPARATED)
 #define Gura_RegisterModule(name) \
 extern "C" GURA_DLLEXPORT \
-bool GuraModuleEntry(Gura::Environment &env, Gura::Signal &sig) \
+bool GuraModuleEntry(Gura::Environment &env) \
 { \
 	return Gura::ModuleNS_##name::MixIn(env); \
 } \

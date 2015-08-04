@@ -335,8 +335,7 @@ Gura_DeclareMethod(string, find)
 
 Gura_ImplementMethod(string, find)
 {
-	Signal &sig = env.GetSignal();
-	return FindString(env, sig, args.GetThis().GetString(), args.GetString(0),
+	return FindString(env, args.GetThis().GetString(), args.GetString(0),
 									args.GetInt(1), args.GetAttrs());
 }
 

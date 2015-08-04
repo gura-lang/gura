@@ -187,6 +187,7 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 bool Object_list::ValueVisitor_Index::Visit(const Value &value)
 {
 	GURA_ASSUME(_env, value.Is_number());
+	Signal &sig = _env.GetSignal();
 	int idx = value.GetInt();
 	if (idx < 0) idx += _valList.size();
 	if (std::find(_indexList.begin(), _indexList.end(), idx) != _indexList.end()) {
@@ -194,7 +195,7 @@ bool Object_list::ValueVisitor_Index::Visit(const Value &value)
 	} else if (idx < static_cast<int>(_valList.size())) {
 		_indexList.push_back(idx);
 	} else {
-		_sig.SetError(ERR_IndexError, "index is out of range");
+		sig.SetError(ERR_IndexError, "index is out of range");
 		return false;
 	}
 	return true;
@@ -908,10 +909,9 @@ Gura_DeclareMethod(list, erase)
 
 Gura_ImplementMethod(list, erase)
 {
-	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	Object_list::ValueVisitor_Index visitor(env, sig, valList);
+	Object_list::ValueVisitor_Index visitor(env, valList);
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pValue->Accept(visitor);
 	}

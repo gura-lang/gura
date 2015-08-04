@@ -114,7 +114,7 @@ typedef std::map<String, Module *> ModuleMap;
 //-----------------------------------------------------------------------------
 // Module Entry Type
 //-----------------------------------------------------------------------------
-typedef bool (*ModuleEntryType)(Environment &env, Signal &sig);
+typedef bool (*ModuleEntryType)(Environment &env);
 typedef void (*ModuleTerminateType)(Module *pModule);
 
 //-----------------------------------------------------------------------------

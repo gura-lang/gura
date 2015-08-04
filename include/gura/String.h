@@ -75,7 +75,7 @@ GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *rep
 GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
 									int nMaxReplace, const SymbolSet &attrs);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
-GURA_DLLDECLARE Value FindString(Environment &env, Signal &sig,
+GURA_DLLDECLARE Value FindString(Environment &env,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
 GURA_DLLDECLARE UShort GetCType(char ch);

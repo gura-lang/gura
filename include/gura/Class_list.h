@@ -182,12 +182,11 @@ public:
 	class ValueVisitor_Index : public ValueVisitor {
 	private:
 		Environment &_env;
-		Signal &_sig;
 		const ValueList &_valList;
 		IndexList _indexList;
 	public:
-		inline ValueVisitor_Index(Environment &env, Signal &sig, const ValueList &valList) :
-									_env(env), _sig(sig), _valList(valList) {}
+		inline ValueVisitor_Index(Environment &env, const ValueList &valList) :
+									_env(env), _valList(valList) {}
 		virtual bool Visit(const Value &value);
 		inline IndexList &GetIndexList() { return _indexList; }
 	};
