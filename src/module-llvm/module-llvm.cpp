@@ -55,7 +55,7 @@ extern "C" bool GuraStub_LookupValueInMember(
 			if (mode == Expr_Member::MODE_MapToIter) {
 				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
 			} else { // Expr_Member::MODE_MapToList
-				valueResult = pIteratorMap->ToList(env, sig, false, false);
+				valueResult = pIteratorMap->ToList(env, false, false);
 				if (sig.IsSignalled()) return false;
 			}
 		}
@@ -119,7 +119,7 @@ extern "C" bool GuraStub_UnaryOp_##name(Environment &env, \
 									Value &valueResult, const Value &value)	\
 { \
 	Signal &sig = env.GetSignal(); \
-	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, false)); \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, value, false)); \
 	return sig.IsNoSignalled(); \
 }
 
@@ -128,7 +128,7 @@ extern "C" bool GuraStub_UnaryOp_##name(Environment &env, \
 									Value &valueResult, const Value &value)	\
 { \
 	Signal &sig = env.GetSignal(); \
-	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, sig, value, true)); \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapUnary(env, value, true)); \
 	return sig.IsNoSignalled(); \
 }
 
@@ -137,7 +137,7 @@ extern "C" bool GuraStub_BinaryOp_##name(Environment &env, \
 					Value &valueResult, const Value &valueLeft, const Value &valueRight) \
 { \
 	Signal &sig = env.GetSignal(); \
-	Gura_CopyValue(valueResult, Operator::name->EvalMapBinary(env, sig, valueLeft, valueRight)); \
+	Gura_CopyValue(valueResult, Operator::name->EvalMapBinary(env, valueLeft, valueRight)); \
 	return sig.IsNoSignalled(); \
 }
 
