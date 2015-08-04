@@ -45,8 +45,9 @@ String Object_reader::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_reader::ReadDirectory(Environment &env, Signal &sig)
+bool Object_reader::ReadDirectory(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	if (!_pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, _pStreamSrc.release(), true);
 		if (sig.IsSignalled()) return false;
@@ -124,7 +125,7 @@ Gura_ImplementMethod(reader, entry)
 		const CentralFileHeader::Fields &fields = pHdr->GetFields();
 		if (IsMatchedName(pHdr->GetFileName(), name)) {
 			long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
-			Stream *pStream = CreateStream(env, sig, pStreamSrc, pHdr);
+			Stream *pStream = CreateStream(env, pStreamSrc, pHdr);
 			if (sig.IsSignalled()) return Value::Null;
 			pObjStream.reset(new Object_stream(env, pStream));
 			break;
@@ -208,9 +209,10 @@ String Object_writer::ToString(bool exprFlag)
 	return str;
 }
 
-bool Object_writer::Add(Environment &env, Signal &sig, Stream &streamSrc,
+bool Object_writer::Add(Environment &env, Stream &streamSrc,
 					const char *fileName, UShort compressionMethod)
 {
+	Signal &sig = env.GetSignal();
 	if (_pStreamDst.IsNull()) {
 		sig.SetError(ERR_IOError, "invalid accesss to writer");
 		return false;
@@ -276,7 +278,7 @@ bool Object_writer::Add(Environment &env, Signal &sig, Stream &streamSrc,
 		// unsupported
 	} else if (compressionMethod == METHOD_Deflate) {
 		AutoPtr<ZLib::Stream_Deflater> pStreamDeflater(
-			new ZLib::Stream_Deflater(env, sig, Stream::Reference(_pStreamDst.get())));
+			new ZLib::Stream_Deflater(env, Stream::Reference(_pStreamDst.get())));
 		if (!pStreamDeflater->Initialize(sig, Z_DEFAULT_COMPRESSION,
 					-MAX_WBITS, memLevel, Z_DEFAULT_STRATEGY)) return false;
 		pStreamOut.reset(pStreamDeflater.release());
@@ -286,7 +288,7 @@ bool Object_writer::Add(Environment &env, Signal &sig, Stream &streamSrc,
 		// unsupported
 	} else if (compressionMethod == METHOD_BZIP2) {
 		AutoPtr<BZLib::Stream_Compressor> pStreamCompressor(
-			new BZLib::Stream_Compressor(env, sig, Stream::Reference(_pStreamDst.get())));
+			new BZLib::Stream_Compressor(env, Stream::Reference(_pStreamDst.get())));
 		int blockSize100k = 9, verbosity = 0, workFactor = 0;
 		if (!pStreamCompressor->Initialize(sig,
 							blockSize100k, verbosity, workFactor)) return false;
@@ -416,7 +418,7 @@ Gura_ImplementMethod(writer, add)
 		sig.SetError(ERR_IOError, "invalid compression method");
 		return Value::Null;
 	}
-	if (!pThis->Add(env, sig, args.GetStream(0),
+	if (!pThis->Add(env, args.GetStream(0),
 					fileName.c_str(), compressionMethod)) return Value::Null;
 	return args.GetThis();
 }
@@ -471,7 +473,7 @@ bool Iterator_Entry::DoNext(Environment &env, Value &value)
 	Stream *pStreamSrc = _pObjZipR->GetStreamSrc();
 	if (pStreamSrc == nullptr) return false;
 	long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
-	Stream *pStream = CreateStream(env, sig, pStreamSrc, pHdr);
+	Stream *pStream = CreateStream(env, pStreamSrc, pHdr);
 	if (sig.IsSignalled()) return false;
 	Object_stream *pObjStream = new Object_stream(env, pStream);
 	value = Value(pObjStream);
@@ -510,7 +512,7 @@ Gura_ImplementFunction(reader)
 	Signal &sig = env.GetSignal();
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
-	if (!pObjZipR->ReadDirectory(env, sig)) return Value::Null;
+	if (!pObjZipR->ReadDirectory(env)) return Value::Null;
 	Value result(pObjZipR.release());
 	return ReturnValue(env, args, result);
 }
@@ -681,8 +683,8 @@ Gura_ImplementUserClass(stat)
 //-----------------------------------------------------------------------------
 // Stream_reader implementation
 //-----------------------------------------------------------------------------
-Stream_reader::Stream_reader(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
-	Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc), _hdr(hdr),
+Stream_reader::Stream_reader(Environment &env, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+	Stream(env, ATTR_Readable), _pStreamSrc(pStreamSrc), _hdr(hdr),
 	_name(hdr.GetFileName()), _bytesUncompressed(hdr.GetUncompressedSize()),
 	_bytesCompressed(hdr.GetCompressedSize()), _crc32Expected(hdr.GetCrc32()),
 	_seekedFlag(false)
@@ -756,8 +758,8 @@ Object *Stream_reader::DoGetStatObj(Signal &sig)
 // Stream_reader_Store implementation
 // Compression method #0: stored (no compression)
 //-----------------------------------------------------------------------------
-Stream_reader_Store::Stream_reader_Store(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
-	Stream_reader(env, sig, pStreamSrc, hdr), _offsetTop(pStreamSrc->Tell())
+Stream_reader_Store::Stream_reader_Store(Environment &env, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+	Stream_reader(env, pStreamSrc, hdr), _offsetTop(pStreamSrc->Tell())
 {
 }
 
@@ -765,7 +767,7 @@ Stream_reader_Store::~Stream_reader_Store()
 {
 }
 
-bool Stream_reader_Store::Initialize(Environment &env, Signal &sig)
+bool Stream_reader_Store::Initialize(Environment &env)
 {
 	return true;
 }
@@ -794,8 +796,8 @@ bool Stream_reader_Store::DoSeek(Signal &sig, long offset, size_t offsetPrev, Se
 // Stream_reader_Deflate implementation
 // Compression method #8: Deflated
 //-----------------------------------------------------------------------------
-Stream_reader_Deflate::Stream_reader_Deflate(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
-											Stream_reader(env, sig, pStreamSrc, hdr)
+Stream_reader_Deflate::Stream_reader_Deflate(Environment &env, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+											Stream_reader(env, pStreamSrc, hdr)
 {
 }
 
@@ -803,9 +805,10 @@ Stream_reader_Deflate::~Stream_reader_Deflate()
 {
 }
 
-bool Stream_reader_Deflate::Initialize(Environment &env, Signal &sig)
+bool Stream_reader_Deflate::Initialize(Environment &env)
 {
-	_pStreamInflater.reset(new ZLib::Stream_Inflater(env, sig,
+	Signal &sig = env.GetSignal();
+	_pStreamInflater.reset(new ZLib::Stream_Inflater(env,
 						Stream::Reference(_pStreamSrc.get()), _bytesCompressed));
 	return _pStreamInflater->Initialize(sig, -MAX_WBITS);
 }
@@ -826,8 +829,8 @@ bool Stream_reader_Deflate::DoSeek(Signal &sig, long offset, size_t offsetPrev, 
 // Stream_reader_BZIP2 implementation
 // Compression method #12: BZIP2
 //-----------------------------------------------------------------------------
-Stream_reader_BZIP2::Stream_reader_BZIP2(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
-											Stream_reader(env, sig, pStreamSrc, hdr)
+Stream_reader_BZIP2::Stream_reader_BZIP2(Environment &env, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+											Stream_reader(env, pStreamSrc, hdr)
 {
 }
 
@@ -835,9 +838,10 @@ Stream_reader_BZIP2::~Stream_reader_BZIP2()
 {
 }
 
-bool Stream_reader_BZIP2::Initialize(Environment &env, Signal &sig)
+bool Stream_reader_BZIP2::Initialize(Environment &env)
 {
-	_pStreamDecompressor.reset(new BZLib::Stream_Decompressor(env, sig,
+	Signal &sig = env.GetSignal();
+	_pStreamDecompressor.reset(new BZLib::Stream_Decompressor(env,
 						Stream::Reference(_pStreamSrc.get()), _bytesCompressed));
 	int verbosity = 0, small = 0;
 	return _pStreamDecompressor->Initialize(sig, verbosity, small);
@@ -859,8 +863,8 @@ bool Stream_reader_BZIP2::DoSeek(Signal &sig, long offset, size_t offsetPrev, Se
 // Stream_reader_Deflate64 implementation
 // Compression method #9: Enhanced Deflating using Deflate64(tm)
 //-----------------------------------------------------------------------------
-Stream_reader_Deflate64::Stream_reader_Deflate64(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader &hdr) :
-	Stream_reader(env, sig, pStreamSrc, hdr)
+Stream_reader_Deflate64::Stream_reader_Deflate64(Environment &env, Stream *pStreamSrc, const CentralFileHeader &hdr) :
+	Stream_reader(env, pStreamSrc, hdr)
 {
 }
 
@@ -868,8 +872,9 @@ Stream_reader_Deflate64::~Stream_reader_Deflate64()
 {
 }
 
-bool Stream_reader_Deflate64::Initialize(Environment &env, Signal &sig)
+bool Stream_reader_Deflate64::Initialize(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_SystemError, "this compression method is not implemented yet");
 	return false;
 }
@@ -944,7 +949,7 @@ Stream *Directory_ZIP::DoOpenStream(Environment &env, ULong attr)
 	}
 	const CentralFileHeader *pHdr = _pRecord->GetCentralFileHeader();
 	GURA_ASSUME(env, pHdr != nullptr);
-	return CreateStream(env, sig, pStreamSrc.get(), pHdr);
+	return CreateStream(env, pStreamSrc.get(), pHdr);
 }
 
 Object *Directory_ZIP::DoGetStatObj(Signal &sig)
@@ -970,8 +975,7 @@ Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env,
 	Signal &sig = env.GetSignal();
 	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return nullptr;
-	return CreateDirectory(env, sig,
-					pStreamSrc.get(), pParent, pPathName, notFoundMode);
+	return CreateDirectory(env, pStreamSrc.get(), pParent, pPathName, notFoundMode);
 }
 
 //-----------------------------------------------------------------------------
@@ -1099,9 +1103,10 @@ ULong SeekCentralDirectory(Signal &sig, Stream *pStream)
 			OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
 }
 
-Directory *CreateDirectory(Environment &env, Signal &sig, Stream *pStreamSrc,
+Directory *CreateDirectory(Environment &env, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
+	Signal &sig = env.GetSignal();
 	if (!pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, pStreamSrc, true);
 		if (sig.IsSignalled()) return nullptr;
@@ -1154,8 +1159,9 @@ Directory *CreateDirectory(Environment &env, Signal &sig, Stream *pStreamSrc,
 	return pStructure->GenerateDirectory(sig, pParent, pPathName, notFoundMode);
 }
 
-Stream *CreateStream(Environment &env, Signal &sig, Stream *pStreamSrc, const CentralFileHeader *pHdr)
+Stream *CreateStream(Environment &env, Stream *pStreamSrc, const CentralFileHeader *pHdr)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Stream_reader> pStream;
 	long offset = static_cast<long>(pHdr->GetRelativeOffsetOfLocalHeader());
 	pStreamSrc->Seek(sig, offset, Stream::SeekSet);
@@ -1176,7 +1182,7 @@ Stream *CreateStream(Environment &env, Signal &sig, Stream *pStreamSrc, const Ce
 	//size_t bytesCompressed = pHdr->GetCompressedSize();
 	//ULong crc32Expected = pHdr->GetCrc32();
 	if (compressionMethod == METHOD_Store) {
-		pStream.reset(new Stream_reader_Store(env, sig, Stream::Reference(pStreamSrc), *pHdr));
+		pStream.reset(new Stream_reader_Store(env, Stream::Reference(pStreamSrc), *pHdr));
 	} else if (compressionMethod == METHOD_Shrink) {
 		// unsupported
 	} else if (compressionMethod == METHOD_Factor1) {
@@ -1192,13 +1198,13 @@ Stream *CreateStream(Environment &env, Signal &sig, Stream *pStreamSrc, const Ce
 	} else if (compressionMethod == METHOD_Factor1) {
 		// unsupported
 	} else if (compressionMethod == METHOD_Deflate) {
-		pStream.reset(new Stream_reader_Deflate(env, sig, Stream::Reference(pStreamSrc), *pHdr));
+		pStream.reset(new Stream_reader_Deflate(env, Stream::Reference(pStreamSrc), *pHdr));
 	} else if (compressionMethod == METHOD_Deflate64) {
-		pStream.reset(new Stream_reader_Deflate64(env, sig, Stream::Reference(pStreamSrc), *pHdr));
+		pStream.reset(new Stream_reader_Deflate64(env, Stream::Reference(pStreamSrc), *pHdr));
 	} else if (compressionMethod == METHOD_PKWARE) {
 		// unsupported
 	} else if (compressionMethod == METHOD_BZIP2) {
-		pStream.reset(new Stream_reader_BZIP2(env, sig, Stream::Reference(pStreamSrc), *pHdr));
+		pStream.reset(new Stream_reader_BZIP2(env, Stream::Reference(pStreamSrc), *pHdr));
 	} else if (compressionMethod == METHOD_LZMA) {
 		// unsupported
 	} else if (compressionMethod == METHOD_TERSA) {
@@ -1215,7 +1221,7 @@ Stream *CreateStream(Environment &env, Signal &sig, Stream *pStreamSrc, const Ce
 				"unsupported compression method %d", compressionMethod);
 		return nullptr;
 	}
-	if (!pStream->Initialize(env, sig)) return nullptr;
+	if (!pStream->Initialize(env)) return nullptr;
 	return pStream.release();
 }
 

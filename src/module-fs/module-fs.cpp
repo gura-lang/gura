@@ -147,8 +147,8 @@ bool Stream_File::GetAttribute(Attribute &attr)
 }
 
 #if defined(GURA_ON_MSWIN)
-Stream_File::Stream_File(Environment &env, Signal &sig) :
-	Stream(env, sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
+Stream_File::Stream_File(Environment &env) :
+	Stream(env, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
 {
 	_map.hFileMappingObject = nullptr;
 	_map.buff = nullptr;
@@ -349,8 +349,8 @@ Object *Stream_File::DoGetStatObj(Signal &sig)
 }
 
 #else // !defined(GURA_ON_MSWIN)
-Stream_File::Stream_File(Environment &env, Signal &sig) :
-		Stream(env, sig, ATTR_BwdSeekable), _fp(nullptr), _needCloseFlag(false)
+Stream_File::Stream_File(Environment &env) :
+		Stream(env, ATTR_BwdSeekable), _fp(nullptr), _needCloseFlag(false)
 {
 }
 
@@ -596,7 +596,7 @@ Object *Directory_FileSys::DoGetStatObj(Signal &sig)
 Stream *Directory_FileSys::DoOpenStream(Environment &env, ULong attr)
 {
 	Signal &sig = env.GetSignal();
-	Stream_File *pStream = new Stream_File(env, sig);
+	Stream_File *pStream = new Stream_File(env);
 	if (!pStream->Open(sig, MakePathName(false).c_str(), attr)) {
 		return nullptr;
 	}
@@ -945,7 +945,6 @@ Gura_ImplementFunction(rmdir)
 // Module entry
 Gura_ModuleEntry()
 {
-	Signal &sig = env.GetSignal();
 	// symbol realization
 	Gura_RealizeUserSymbol(pathname);
 	Gura_RealizeUserSymbol(dirname);
@@ -972,19 +971,19 @@ Gura_ModuleEntry()
 	// assign symbols in sys module
 	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {
-		Stream_File *pStream = new Stream_File(env, sig);
+		Stream_File *pStream = new Stream_File(env);
 		pStream->OpenStdin();
 		pModuleSys->AssignValue(Gura_Symbol(stdin),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
-		Stream_File *pStream = new Stream_File(env, sig);
+		Stream_File *pStream = new Stream_File(env);
 		pStream->OpenStdout();
 		pModuleSys->AssignValue(Gura_Symbol(stdout),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
-		Stream_File *pStream = new Stream_File(env, sig);
+		Stream_File *pStream = new Stream_File(env);
 		pStream->OpenStderr();
 		pModuleSys->AssignValue(Gura_Symbol(stderr),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);

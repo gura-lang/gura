@@ -23,8 +23,8 @@ private:
 	char *_buffIn;
 	bool _doneFlag;
 public:
-	Stream_Decompressor(Environment &env, Signal &sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
-			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
+	Stream_Decompressor(Environment &env, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
+			Stream(env, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
 			_offsetOut(0), _buffOut(nullptr), _buffIn(nullptr), _doneFlag(false) {
 		CopyCodec(pStream);
@@ -149,8 +149,8 @@ private:
 	char *_buffOut;
 	char *_buffIn;
 public:
-	Stream_Compressor(Environment &env, Signal &sig, Stream *pStream, size_t bytesBuff = 32768) :
-			Stream(env, sig, ATTR_Writable), _pStream(pStream),
+	Stream_Compressor(Environment &env, Stream *pStream, size_t bytesBuff = 32768) :
+			Stream(env, ATTR_Writable), _pStream(pStream),
 			_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(nullptr), _buffIn(nullptr) {
 		CopyCodec(pStream);
 	}

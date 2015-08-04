@@ -413,8 +413,7 @@ bool Iterator_Entry::DoNext(Environment &env, Value &value)
 	std::unique_ptr<Header> pHdr(_pObjReader->NextHeader(sig));
 	if (pHdr.get() == nullptr) return false;
 	_offsetNext = pStreamSrc->Tell() + pHdr->CalcBlocks() * BLOCKSIZE;
-	Stream *pStreamEntry = new Stream_Entry(env, sig,
-								Stream::Reference(pStreamSrc), *pHdr);
+	Stream *pStreamEntry = new Stream_Entry(env, Stream::Reference(pStreamSrc), *pHdr);
 	value = Value(new Object_stream(env, pStreamEntry));
 	return true;
 }
@@ -526,8 +525,8 @@ Gura_ImplementUserClass(stat)
 //-----------------------------------------------------------------------------
 // Stream_Entry implementation
 //-----------------------------------------------------------------------------
-Stream_Entry::Stream_Entry(Environment &env, Signal &sig, Stream *pStreamSrc, const Header &hdr) :
-		Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
+Stream_Entry::Stream_Entry(Environment &env, Stream *pStreamSrc, const Header &hdr) :
+		Stream(env, ATTR_Readable), _pStreamSrc(pStreamSrc),
 		_hdr(hdr), _name(hdr.GetName()), _offsetTop(pStreamSrc->Tell())
 {
 }
@@ -646,12 +645,12 @@ Stream *Directory_TAR::DoOpenStream(Environment &env, ULong attr)
 		ZLib::GZHeader hdr;
 		if (!hdr.Read(sig, *pStreamSrc)) return nullptr;
 		AutoPtr<ZLib::Stream_Inflater> pStreamInflater(
-			new ZLib::Stream_Inflater(env, sig, pStreamSrc.release(), InvalidSize));
+			new ZLib::Stream_Inflater(env, pStreamSrc.release(), InvalidSize));
 		if (!pStreamInflater->Initialize(sig, -MAX_WBITS)) return nullptr;
 		pStreamSrc.reset(pStreamInflater.release());
 	} else if (IsBZippedTar(pDirectory->GetName())) {
 		AutoPtr<BZLib::Stream_Decompressor> pStreamDecompressor(
-			new BZLib::Stream_Decompressor(env, sig, pStreamSrc.release(), InvalidSize));
+			new BZLib::Stream_Decompressor(env, pStreamSrc.release(), InvalidSize));
 		if (!pStreamDecompressor->Initialize(sig, 0, 0)) return nullptr;
 		pStreamSrc.reset(pStreamDecompressor.release());
 	}
@@ -662,7 +661,7 @@ Stream *Directory_TAR::DoOpenStream(Environment &env, ULong attr)
 				static_cast<long>(pHdr->GetOffset()), Stream::SeekSet)) {
 		return nullptr;
 	}
-	return new Stream_Entry(env, sig, pStreamSrc.release(), *pHdr);
+	return new Stream_Entry(env, pStreamSrc.release(), *pHdr);
 }
 
 Object *Directory_TAR::DoGetStatObj(Signal &sig)
@@ -952,12 +951,12 @@ Stream *DecorateReaderStream(Environment &env, Stream *pStreamSrc,
 		ZLib::GZHeader hdr;
 		if (!hdr.Read(sig, *pStreamSrc)) return nullptr;
 		AutoPtr<ZLib::Stream_Inflater> pStreamInflater(
-			new ZLib::Stream_Inflater(env, sig, pStreamSrc, InvalidSize));
+			new ZLib::Stream_Inflater(env, pStreamSrc, InvalidSize));
 		if (!pStreamInflater->Initialize(sig, -MAX_WBITS)) return nullptr;
 		pStreamSrc = pStreamInflater.release();
 	} else if (compressionType == COMPRESS_BZip2) {
 		AutoPtr<BZLib::Stream_Decompressor> pStreamDecompressor(
-			new BZLib::Stream_Decompressor(env, sig, pStreamSrc, InvalidSize));
+			new BZLib::Stream_Decompressor(env, pStreamSrc, InvalidSize));
 		int verbosity = 0, small = 0;
 		if (!pStreamDecompressor->Initialize(sig, verbosity, small)) return nullptr;
 		pStreamSrc = pStreamDecompressor.release();
@@ -983,13 +982,13 @@ Stream *DecorateWriterStream(Environment &env, Stream *pStreamDst,
 	if (compressionType == COMPRESS_GZip) {
 		int windowBits = 31;
 		AutoPtr<ZLib::Stream_Deflater> pStreamDeflater(
-			new ZLib::Stream_Deflater(env, sig, pStreamDst));
+			new ZLib::Stream_Deflater(env, pStreamDst));
 		if (!pStreamDeflater->Initialize(sig, Z_DEFAULT_COMPRESSION,
 							windowBits, 8, Z_DEFAULT_STRATEGY)) return nullptr;
 		pStreamDst = pStreamDeflater.release();
 	} else if (compressionType == COMPRESS_BZip2) {
 		AutoPtr<BZLib::Stream_Compressor> pStreamCompressor(
-			new BZLib::Stream_Compressor(env, sig, pStreamDst));
+			new BZLib::Stream_Compressor(env, pStreamDst));
 		int blockSize100k = 9, verbosity = 0, workFactor = 0;
 		if (!pStreamCompressor->Initialize(sig,
 							blockSize100k, verbosity, workFactor)) return nullptr;

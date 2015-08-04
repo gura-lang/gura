@@ -729,7 +729,7 @@ Directory *Directory_cURL::DoNext(Environment &env)
 Stream *Directory_cURL::DoOpenStream(Environment &env, ULong attr)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
+	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, 65536));
 	// pThread will automatically be deleted after the thread is done.
 	Thread *pThread = new Thread(sig, GetName(),
 				dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));

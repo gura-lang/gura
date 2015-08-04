@@ -20,7 +20,7 @@ protected:
 	Value _value;
 	Binary _digest;
 public:
-	inline AccumulatorBase(Environment &env, Signal &sig) : Stream(env, sig, ATTR_Infinite | ATTR_Writable) {}
+	inline AccumulatorBase(Environment &env) : Stream(env, ATTR_Infinite | ATTR_Writable) {}
 	virtual const char *GetIdentifier() const;
 	virtual void Init() = 0;
 	virtual void Finish() = 0;
@@ -63,7 +63,7 @@ class Accumulator_MD5 : public AccumulatorBase {
 private:
 	md5_state_t _state;
 public:
-	Accumulator_MD5(Environment &env, Signal &sig);
+	Accumulator_MD5(Environment &env);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
@@ -78,7 +78,7 @@ class Accumulator_SHA1 : public AccumulatorBase {
 private:
     sha1_context _ctx;
 public:
-	Accumulator_SHA1(Environment &env, Signal &sig);
+	Accumulator_SHA1(Environment &env);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
@@ -93,7 +93,7 @@ class Accumulator_CRC32 : public AccumulatorBase {
 private:
 	CRC32 _crc32;
 public:
-	Accumulator_CRC32(Environment &env, Signal &sig);
+	Accumulator_CRC32(Environment &env);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);

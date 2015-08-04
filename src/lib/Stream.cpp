@@ -99,9 +99,9 @@ void SimpleStream::Dump(Signal &sig, const void *buff, size_t bytes, bool upperF
 //-----------------------------------------------------------------------------
 // Stream
 //-----------------------------------------------------------------------------
-Stream::Stream(Environment &env, Signal &sig, ULong attr) :
-		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _blockingFlag(false),
-		_pCodec(Codec::CreateCodecNone(true, false))
+Stream::Stream(Environment &env, ULong attr) :
+	_cntRef(1), _sig(env.GetSignal()), _attr(attr), _offsetCur(0), _blockingFlag(false),
+	_pCodec(Codec::CreateCodecNone(true, false))
 {
 	_peek.buff = nullptr;
 	_peek.bytes = 0;
@@ -740,7 +740,7 @@ Stream *Stream::Prefetch(Environment &env, Stream *pStreamSrc,
 {
 	Signal &sig = env.GetSignal();
 	Stream_Prefetch *pStreamPrefetch =
-			new Stream_Prefetch(env, sig, Stream::Reference(pStreamSrc), bytesUnit);
+			new Stream_Prefetch(env, Stream::Reference(pStreamSrc), bytesUnit);
 	pStreamPrefetch->DoPrefetch(sig);
 	if (deleteSrcFlag) Stream::Delete(pStreamSrc);
 	if (sig.IsSignalled()) {

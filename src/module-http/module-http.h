@@ -365,7 +365,7 @@ private:
 	AutoPtr<Object> _pObjOwner;
 	int _sock;
 public:
-	Stream_Socket(Environment &env, Signal &sig, Object *pObjOwner, int sock);
+	Stream_Socket(Environment &env, Object *pObjOwner, int sock);
 	~Stream_Socket();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -388,7 +388,7 @@ private:
 	bool _doneFlag;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Chunked(Environment &env, Signal &sig, Stream *pStream, ULong attr);
+	Stream_Chunked(Environment &env, Stream *pStream, ULong attr);
 	~Stream_Chunked();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -412,7 +412,7 @@ private:
 	EncodingDetector _encodingDetector;
 	AutoPtr<Memory> _pMemory;
 public:
-	Stream_Http(Environment &env, Signal &sig, Stream *pStream, ULong attr,
+	Stream_Http(Environment &env, Stream *pStream, ULong attr,
 						const char *name, size_t bytes, const Header &header);
 	~Stream_Http();
 	virtual const char *GetName() const;

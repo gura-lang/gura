@@ -11,9 +11,9 @@ Gura_BeginModuleHeader(gzip)
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-Object_stream *GenerateDecompressor(Environment &env, Signal &sig,
+Object_stream *GenerateDecompressor(Environment &env,
 								Stream *pStreamSrc, int windowBits);
-Object_stream *GenerateCompressor(Environment &env, Signal &sig,
+Object_stream *GenerateCompressor(Environment &env,
 								Stream *pStreamDst, int level, int windowBits);
 
 Gura_EndModuleHeader(gzip)

@@ -757,10 +757,10 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal &sig,
 			gzipFlag = true;
 		}
 	}
-	Stream *pStream = new Stream_Socket(env, sig, Object::Reference(pObjOwner), sock);
+	Stream *pStream = new Stream_Socket(env, Object::Reference(pObjOwner), sock);
 	if (chunkedFlag) {
 		Stream_Chunked *pStreamChunked =
-						new Stream_Chunked(env, sig, pStream, Stream::ATTR_Readable);
+						new Stream_Chunked(env, pStream, Stream::ATTR_Readable);
 		pStream = pStreamChunked;
 	}
 	if (gzipFlag) {
@@ -768,11 +768,11 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal &sig,
 		ZLib::GZHeader hdr;
 		hdr.Read(sig, *pStream);	// skip gz header
 		ZLib::Stream_Inflater *pStreamInflater =
-							new ZLib::Stream_Inflater(env, sig, pStream, InvalidSize);
+							new ZLib::Stream_Inflater(env, pStream, InvalidSize);
 		pStreamInflater->Initialize(sig, -15);
 		pStream = pStreamInflater;
 	}
-	AutoPtr<Stream_Http> pStreamHttp(new Stream_Http(env, sig, pStream,
+	AutoPtr<Stream_Http> pStreamHttp(new Stream_Http(env, pStream,
 								Stream::ATTR_Readable, name, bytes, *this));
 	const char *type = contentType.GetType();
 	if (::strcasecmp(type, "text/html") == 0 || ::strcasecmp(type, "text/xml") == 0) {
@@ -1058,8 +1058,8 @@ bool Status::Receive(Signal &sig, int sock)
 //-----------------------------------------------------------------------------
 // Stream_Socket implementation
 //-----------------------------------------------------------------------------
-Stream_Socket::Stream_Socket(Environment &env, Signal &sig, Object *pObjOwner, int sock) :
-		Stream(env, sig, ATTR_Readable | ATTR_Writable), _pObjOwner(pObjOwner), _sock(sock)
+Stream_Socket::Stream_Socket(Environment &env, Object *pObjOwner, int sock) :
+		Stream(env, ATTR_Readable | ATTR_Writable), _pObjOwner(pObjOwner), _sock(sock)
 {
 }
 
@@ -1128,8 +1128,8 @@ Object *Stream_Socket::DoGetStatObj(Signal &sig)
 //-----------------------------------------------------------------------------
 // Stream_Chunked implementation
 //-----------------------------------------------------------------------------
-Stream_Chunked::Stream_Chunked(Environment &env, Signal &sig, Stream *pStream, ULong attr) :
-		Stream(env, sig, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
+Stream_Chunked::Stream_Chunked(Environment &env, Stream *pStream, ULong attr) :
+		Stream(env, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
 {
 }
 
@@ -1239,9 +1239,9 @@ size_t Stream_Chunked::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Http implementation
 //-----------------------------------------------------------------------------
-Stream_Http::Stream_Http(Environment &env, Signal &sig, Stream *pStream, ULong attr,
+Stream_Http::Stream_Http(Environment &env, Stream *pStream, ULong attr,
 					const char *name, size_t bytes, const Header &header) :
-		Stream(env, sig, attr), _pStream(pStream), _name(name),
+		Stream(env, attr), _pStream(pStream), _name(name),
 		_bytesRead(bytes), _header(header)
 {
 }
@@ -1661,9 +1661,9 @@ Stream *Object_request::SendRespChunk(Signal &sig,
 	if (!header.SetFields(sig, valueDict, nullptr)) return nullptr;
 	header.SetField("Transfer-Encoding", "chunked");
 	if (!_status.Send(sig, sock)) return nullptr;
-	AutoPtr<Stream> pStream(new Stream_Socket(env, sig, Object::Reference(this), sock));
+	AutoPtr<Stream> pStream(new Stream_Socket(env, Object::Reference(this), sock));
 	if (sig.IsSignalled()) return nullptr;
-	pStream.reset(new Stream_Chunked(env, sig, pStream.release(), Stream::ATTR_Writable));
+	pStream.reset(new Stream_Chunked(env, pStream.release(), Stream::ATTR_Writable));
 	if (sig.IsSignalled()) return nullptr;
 	return pStream.release();
 }
@@ -2240,7 +2240,7 @@ Object_response *Object_client::SendRequest(Signal &sig,
 		do {
 			Environment &env = *this;
 			Object_binary *pObjBinary = new Object_binary(env);
-			Stream_Base64Writer stream(env, sig, new Stream_Binary(env, sig, pObjBinary, false), 0);
+			Stream_Base64Writer stream(env, new Stream_Binary(env, pObjBinary, false), 0);
 			stream.Write(sig, str.data(), str.size());
 			if (sig.IsSignalled()) return nullptr;
 			buff += pObjBinary->GetBinary();

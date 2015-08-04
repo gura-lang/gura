@@ -62,7 +62,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamDumb : public Stream {
 public:
-	StreamDumb(Environment &env, Signal &sig);
+	StreamDumb(Environment &env);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -91,7 +91,7 @@ private:
 	std::unique_ptr<OAL::Event> _pEventReadReq;
 	std::unique_ptr<OAL::Event> _pEventWriteReq;
 public:
-	StreamFIFO(Environment &env, Signal &sig, size_t bytesBuff);
+	StreamFIFO(Environment &env, size_t bytesBuff);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -116,7 +116,7 @@ class GURA_DLLDECLARE StreamMemory : public Stream {
 private:
 	std::unique_ptr<Binary> _pBinary;
 public:
-	StreamMemory(Environment &env, Signal &sig);
+	StreamMemory(Environment &env);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -138,7 +138,7 @@ private:
 	const char *_buff;
 	size_t _bytes;
 public:
-	StreamMemReader(Environment &env, Signal &sig, const void *buff, size_t bytes);
+	StreamMemReader(Environment &env, const void *buff, size_t bytes);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -162,7 +162,7 @@ private:
 	size_t _bytesUnit;
 	MemoryOwner _memoryOwner;
 public:
-	Stream_Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc, size_t bytesUnit);
+	Stream_Prefetch(Environment &env, Stream *pStreamSrc, size_t bytesUnit);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -188,7 +188,7 @@ private:
 	size_t _iBuffWork;
 	UChar _buffWork[8];
 public:
-	Stream_Base64Reader(Environment &env, Signal &sig, Stream *pStreamSrc);
+	Stream_Base64Reader(Environment &env, Stream *pStreamSrc);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -213,7 +213,7 @@ private:
 	UChar _buffWork[8];
 	static const char _chars[];
 public:
-	Stream_Base64Writer(Environment &env, Signal &sig, Stream *pStreamDst, int nCharsPerLine);
+	Stream_Base64Writer(Environment &env, Stream *pStreamDst, int nCharsPerLine);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -234,7 +234,7 @@ private:
 	AutoPtr<Stream> _pStreamDst;
 	CRC32 _crc32;
 public:
-	Stream_CRC32(Environment &env, Signal &sig, Stream *pStreamDst);
+	Stream_CRC32(Environment &env, Stream *pStreamDst);
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual size_t DoRead(Signal &sig, void *buff, size_t len);
@@ -256,7 +256,7 @@ private:
 	String _str;
 	size_t _offset;
 public:
-	Stream_StringReader(Environment &env, Signal &sig, const String &str);
+	Stream_StringReader(Environment &env, const String &str);
 	virtual ~Stream_StringReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

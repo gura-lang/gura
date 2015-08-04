@@ -232,7 +232,7 @@ bool Sequence::Write(Environment &env, Stream &stream)
 	}
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
-		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
+		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env));
 		const Event *pEventPrev = nullptr;
 		ULong timeStamp = 0x00000000;
 		AutoPtr<EventOwner> pEventOwner(new EventOwner());

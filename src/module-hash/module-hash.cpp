@@ -137,7 +137,7 @@ const Value &AccumulatorBase::GetValue()
 //-----------------------------------------------------------------------------
 // Accumulator_MD5 implementation
 //-----------------------------------------------------------------------------
-Accumulator_MD5::Accumulator_MD5(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
+Accumulator_MD5::Accumulator_MD5(Environment &env) : AccumulatorBase(env)
 {
 	_digest.clear();
 	::md5_init(&_state);
@@ -176,7 +176,7 @@ const Binary &Accumulator_MD5::GetDigest()
 //-----------------------------------------------------------------------------
 // Accumulator_SHA1 implementation
 //-----------------------------------------------------------------------------
-Accumulator_SHA1::Accumulator_SHA1(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
+Accumulator_SHA1::Accumulator_SHA1(Environment &env) : AccumulatorBase(env)
 {
 	_digest.clear();
 	::sha1_starts(&_ctx);
@@ -216,7 +216,7 @@ const Binary &Accumulator_SHA1::GetDigest()
 //-----------------------------------------------------------------------------
 // Accumulator_CRC32 implementation
 //-----------------------------------------------------------------------------
-Accumulator_CRC32::Accumulator_CRC32(Environment &env, Signal &sig) : AccumulatorBase(env, sig)
+Accumulator_CRC32::Accumulator_CRC32(Environment &env) : AccumulatorBase(env)
 {
 	_digest.clear();
 }
@@ -279,8 +279,7 @@ Gura_DeclareFunction(md5)
 
 Gura_ImplementFunction(md5)
 {
-	Signal &sig = env.GetSignal();
-	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_MD5(env, sig), "md5");
+	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_MD5(env), "md5");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}
@@ -301,8 +300,7 @@ Gura_DeclareFunction(sha1)
 
 Gura_ImplementFunction(sha1)
 {
-	Signal &sig = env.GetSignal();
-	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_SHA1(env, sig), "sha1");
+	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_SHA1(env), "sha1");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}
@@ -323,8 +321,7 @@ Gura_DeclareFunction(crc32)
 
 Gura_ImplementFunction(crc32)
 {
-	Signal &sig = env.GetSignal();
-	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_CRC32(env, sig), "crc32");
+	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_CRC32(env), "crc32");
 	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}

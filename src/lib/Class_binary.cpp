@@ -518,9 +518,8 @@ Gura_DeclareMethod(binary, reader)
 
 Gura_ImplementMethod(binary, reader)
 {
-	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
+	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -615,9 +614,8 @@ Gura_DeclareMethod(binary, writer)
 
 Gura_ImplementMethod(binary, writer)
 {
-	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), true);
+	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), true);
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -676,8 +674,8 @@ Object *Class_binary::CreateDescendant(Environment &env, Class *pClass)
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
-Stream_Binary::Stream_Binary(Environment &env, Signal &sig, Object_binary *pObjBinary, bool seekEndFlag) :
-	Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
+Stream_Binary::Stream_Binary(Environment &env, Object_binary *pObjBinary, bool seekEndFlag) :
+	Stream(env, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
 	_pObjBinary(pObjBinary), _offset(seekEndFlag? pObjBinary->GetBinary().size() : 0)
 {
 }

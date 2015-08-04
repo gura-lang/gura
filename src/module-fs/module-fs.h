@@ -54,7 +54,7 @@ private:
 	bool _needCloseFlag;
 	String _fileName;
 public:
-	Stream_File(Environment &env, Signal &sig);
+	Stream_File(Environment &env);
 	~Stream_File();
 	bool Open(Signal &sig, const char *fileName, ULong attr);
 	bool OpenStdin();
@@ -72,8 +72,8 @@ public:
 	virtual size_t DoGetSize();
 	virtual Object *DoGetStatObj(Signal &sig);
 private:
-	inline Stream_File(Environment &env, Signal &sig, const Stream_File &file) :
-											Stream(env, sig, ATTR_None) {}
+	inline Stream_File(Environment &env, const Stream_File &file) :
+											Stream(env, ATTR_None) {}
 };
 
 //-----------------------------------------------------------------------------

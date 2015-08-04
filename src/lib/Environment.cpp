@@ -873,10 +873,9 @@ Environment::Global::~Global()
 
 void Environment::Global::Prepare(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();
-	_pConsoleDumb.reset(new StreamDumb(env, sig));
+	_pConsoleDumb.reset(new StreamDumb(env));
 }
 
 Class *Environment::Global::LookupClass(ValueType valType) const

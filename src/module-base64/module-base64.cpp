@@ -23,12 +23,10 @@ Gura_DeclareFunction(decode)
 
 Gura_ImplementFunction(decode)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
-	AutoPtr<Stream> pStreamSrc(new Stream_Base64Reader(env, sig,
-									args.GetStream(0).Reference()));
-	AutoPtr<Stream> pStreamDst(new Stream_Binary(env, sig,
-									Object_binary::Reference(pObjBinary.get()), true));
+	AutoPtr<Stream> pStreamSrc(new Stream_Base64Reader(env, args.GetStream(0).Reference()));
+	AutoPtr<Stream> pStreamDst(new Stream_Binary(
+								   env, Object_binary::Reference(pObjBinary.get()), true));
 	if (!pStreamSrc->ReadToStream(env, *pStreamDst)) return Value::Null;
 	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
@@ -49,12 +47,11 @@ Gura_DeclareFunction(encode)
 
 Gura_ImplementFunction(encode)
 {
-	Signal &sig = env.GetSignal();
 	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Stream &streamSrc = args.GetStream(0);
-	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(env, sig,
-		new Stream_Binary(env, sig, Object_binary::Reference(pObjBinary.get()), true), nCharsPerLine));
+	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(env,
+		new Stream_Binary(env, Object_binary::Reference(pObjBinary.get()), true), nCharsPerLine));
 	if (!streamSrc.ReadToStream(env, *pStreamDst)) return Value::Null;
 	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
@@ -74,9 +71,8 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
-	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
-	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
+	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, stream.Reference()));
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
@@ -99,10 +95,9 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
-	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
-	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
+	AutoPtr<Stream> pStream(new Stream_Base64Writer(env,
 								stream.Reference(), nCharsPerLine));
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
@@ -124,9 +119,8 @@ Gura_DeclareMethodAlias(stream, reader_base64, "reader@base64")
 
 Gura_ImplementMethod(stream, reader_base64)
 {
-	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, sig, stream.Reference()));
+	AutoPtr<Stream> pStream(new Stream_Base64Reader(env, stream.Reference()));
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }
 
@@ -148,10 +142,9 @@ Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 
 Gura_ImplementMethod(stream, writer_base64)
 {
-	Signal &sig = env.GetSignal();
 	int nCharsPerLine = args.Is_number(0)? args.GetInt(0) : -1;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
+	AutoPtr<Stream> pStream(new Stream_Base64Writer(env,
 								stream.Reference(), nCharsPerLine));
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream.release())));
 }

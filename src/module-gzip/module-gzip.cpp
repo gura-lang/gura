@@ -24,8 +24,7 @@ Gura_ImplementFunction(reader)
 	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	int windowBits = 31;
-	Object_stream *pObjStream = GenerateDecompressor(env, sig,
-										stream.Reference(), windowBits);
+	Object_stream *pObjStream = GenerateDecompressor(env, stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, args, Value(pObjStream));
 }
@@ -48,8 +47,7 @@ Gura_ImplementFunction(writer)
 	Stream &stream = args.GetStream(0);
 	int level = args.Is_number(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
-	Object_stream *pObjStream = GenerateCompressor(env, sig,
-									stream.Reference(), level, windowBits);
+	Object_stream *pObjStream = GenerateCompressor(env, stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, args, Value(pObjStream));
 }
@@ -72,8 +70,7 @@ Gura_ImplementMethod(stream, reader_gzip)
 	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int windowBits = 31;
-	Object_stream *pObjStream = GenerateDecompressor(env, sig,
-											stream.Reference(), windowBits);
+	Object_stream *pObjStream = GenerateDecompressor(env, stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, args, Value(pObjStream));
 }
@@ -95,8 +92,7 @@ Gura_ImplementMethod(stream, writer_gzip)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int level = args.Is_number(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
-	Object_stream *pObjStream = GenerateCompressor(env, sig,
-									stream.Reference(), level, windowBits);
+	Object_stream *pObjStream = GenerateCompressor(env, stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, args, Value(pObjStream));
 }
@@ -125,20 +121,20 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-Object_stream *GenerateDecompressor(Environment &env, Signal &sig,
-										Stream *pStreamSrc, int windowBits)
+Object_stream *GenerateDecompressor(Environment &env, Stream *pStreamSrc, int windowBits)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<ZLib::Stream_Inflater> pStream(
-		new ZLib::Stream_Inflater(env, sig, pStreamSrc, InvalidSize));
+		new ZLib::Stream_Inflater(env, pStreamSrc, InvalidSize));
 	if (!pStream->Initialize(sig, windowBits)) return nullptr;
 	return new Object_stream(env, pStream.release());
 }
 
-Object_stream *GenerateCompressor(Environment &env, Signal &sig,
-							Stream *pStreamDst, int level, int windowBits)
+Object_stream *GenerateCompressor(Environment &env, Stream *pStreamDst, int level, int windowBits)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<ZLib::Stream_Deflater> pStream(
-		new ZLib::Stream_Deflater(env, sig, pStreamDst));
+		new ZLib::Stream_Deflater(env, pStreamDst));
 	if (!pStream->Initialize(sig, level,
 					windowBits, 8, Z_DEFAULT_STRATEGY)) return nullptr;
 	return new Object_stream(env, pStream.release());

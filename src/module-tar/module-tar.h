@@ -194,7 +194,7 @@ protected:
 	String _name;
 	size_t _offsetTop;
 public:
-	Stream_Entry(Environment &env, Signal &sig, Stream *pStreamSrc, const Header &hdr);
+	Stream_Entry(Environment &env, Stream *pStreamSrc, const Header &hdr);
 	virtual ~Stream_Entry();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

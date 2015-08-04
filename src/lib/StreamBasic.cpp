@@ -105,7 +105,7 @@ size_t SimpleStream_StringWriter::Write(Signal &sig, const void *buff, size_t le
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-StreamDumb::StreamDumb(Environment &env, Signal &sig) : Stream(env, sig, ATTR_Writable)
+StreamDumb::StreamDumb(Environment &env) : Stream(env, ATTR_Writable)
 {
 }
 
@@ -162,8 +162,8 @@ size_t StreamDumb::DoGetSize()
 //-----------------------------------------------------------------------------
 // StreamFIFO
 //-----------------------------------------------------------------------------
-StreamFIFO::StreamFIFO(Environment &env, Signal &sig, size_t bytesBuff) :
-		Stream(env, sig, ATTR_Readable | ATTR_Writable),
+StreamFIFO::StreamFIFO(Environment &env, size_t bytesBuff) :
+		Stream(env, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
 		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
 		_readReqFlag(false), _writeReqFlag(false), _writeDoneFlag(false),
@@ -304,8 +304,8 @@ void StreamFIFO::SetWriteDoneFlag()
 //-----------------------------------------------------------------------------
 // StreamMemory
 //-----------------------------------------------------------------------------
-StreamMemory::StreamMemory(Environment &env, Signal &sig) :
-					Stream(env, sig, ATTR_Writable), _pBinary(new Binary())
+StreamMemory::StreamMemory(Environment &env) :
+					Stream(env, ATTR_Writable), _pBinary(new Binary())
 {
 }
 
@@ -368,8 +368,8 @@ const char *StreamMemory::GetPointer() const
 //-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
-StreamMemReader::StreamMemReader(Environment &env, Signal &sig, const void *buff, size_t bytes) :
-				Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable),
+StreamMemReader::StreamMemReader(Environment &env, const void *buff, size_t bytes) :
+				Stream(env, ATTR_BwdSeekable | ATTR_Readable),
 				_buff(reinterpret_cast<const char *>(buff)), _bytes(bytes)
 {
 }
@@ -440,8 +440,8 @@ size_t StreamMemReader::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
-Stream_Prefetch::Stream_Prefetch(Environment &env, Signal &sig, Stream *pStreamSrc, size_t bytesUnit) :
-			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
+Stream_Prefetch::Stream_Prefetch(Environment &env, Stream *pStreamSrc, size_t bytesUnit) :
+			Stream(env, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_offset(0), _bytesAll(0), _bytesUnit(bytesUnit)
 {
 	CopyCodec(pStreamSrc);
@@ -543,8 +543,8 @@ bool Stream_Prefetch::DoPrefetch(Signal &sig)
 //-----------------------------------------------------------------------------
 // Stream_Base64Reader
 //-----------------------------------------------------------------------------
-Stream_Base64Reader::Stream_Base64Reader(Environment &env, Signal &sig, Stream *pStreamSrc) :
-			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
+Stream_Base64Reader::Stream_Base64Reader(Environment &env, Stream *pStreamSrc) :
+			Stream(env, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_nChars(0), _nInvalid(0), _accum(0), _iBuffWork(0)
 {
 	CopyCodec(pStreamSrc);
@@ -658,8 +658,8 @@ size_t Stream_Base64Reader::DoGetSize()
 const char Stream_Base64Writer::_chars[] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-Stream_Base64Writer::Stream_Base64Writer(Environment &env, Signal &sig, Stream *pStreamDst, int nCharsPerLine) :
-			Stream(env, sig, ATTR_Writable), _pStreamDst(pStreamDst),
+Stream_Base64Writer::Stream_Base64Writer(Environment &env, Stream *pStreamDst, int nCharsPerLine) :
+			Stream(env, ATTR_Writable), _pStreamDst(pStreamDst),
 			_nCharsPerLine(nCharsPerLine), _nChars(0), _iBuffWork(0)
 {
 	CopyCodec(pStreamDst);
@@ -795,8 +795,8 @@ size_t Stream_Base64Writer::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_CRC32
 //-----------------------------------------------------------------------------
-Stream_CRC32::Stream_CRC32(Environment &env, Signal &sig, Stream *pStreamDst) :
-		Stream(env, sig, (pStreamDst == nullptr)? ATTR_Writable : pStreamDst->GetAttr()),
+Stream_CRC32::Stream_CRC32(Environment &env, Stream *pStreamDst) :
+		Stream(env, (pStreamDst == nullptr)? ATTR_Writable : pStreamDst->GetAttr()),
 		_pStreamDst(pStreamDst)
 {
 	CopyCodec(pStreamDst);
@@ -847,8 +847,8 @@ size_t Stream_CRC32::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_StringReader
 //-----------------------------------------------------------------------------
-Stream_StringReader::Stream_StringReader(Environment &env, Signal &sig, const String &str) :
-					Stream(env, sig, ATTR_Readable), _str(str), _offset(0)
+Stream_StringReader::Stream_StringReader(Environment &env, const String &str) :
+					Stream(env, ATTR_Readable), _str(str), _offset(0)
 {
 }
 

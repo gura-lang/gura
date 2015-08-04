@@ -608,9 +608,8 @@ Gura_DeclareMethod(string, reader)
 
 Gura_ImplementMethod(string, reader)
 {
-	Signal &sig = env.GetSignal();
 	return ReturnValue(env, args, Value(new Object_stream(env,
-		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
+		new Stream_StringReader(env, args.GetThis().GetStringSTL()))));
 }
 
 // string#replace(match:string, sub:string, count?:number):map:[icase] {block?}
