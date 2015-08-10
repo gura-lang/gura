@@ -712,6 +712,257 @@ Function::ExprMap::~ExprMap()
 	}
 }
 
+Value SequenceEx(Environment &env, Function *_pFunc, Args &args)
+{
+	Signal &sig = env.GetSignal();
+	AutoPtr<Args> _pArgs(new Args(args, ValueList::Null));
+	Function::ExprMap _exprMap;
+	bool _stayDeclPointerFlag = false;
+	bool _mapFlag = _pFunc->GetMapFlag();
+	_pArgs->SetValueDictArg(new ValueDict());
+	DeclarationOwner::const_iterator _ppDecl = _pFunc->GetDeclOwner().begin();
+	ExprList::const_iterator _ppExprArg = _pArgs->GetExprListArg().begin();
+	ValueList &valListArg = _pArgs->GetValueListArg();
+	ValueDict &valDictArg = _pArgs->GetValueDictArg();
+	if (_pFunc->GetType() == FUNCTYPE_Instance &&
+		!_pArgs->GetThis().IsPrimitive() && _pArgs->GetThisObj() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "object is expected as l-value of field");
+		return false;
+	} else if (_pFunc->GetType() == FUNCTYPE_Class &&
+			   _pArgs->GetThis().GetClassItself() == nullptr && _pArgs->GetThisObj() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "class or object is expected as l-value of field");
+		return false;
+	}
+	if (_pArgs->IsBlockSpecified()) {
+		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Zero) {
+			sig.SetError(ERR_ValueError,
+						 "block is unnecessary for '%s'", _pFunc->ToString().c_str());
+			return false;
+		}
+	} else {
+		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Once) {
+			sig.SetError(ERR_ValueError,
+						 "block must be specified for '%s'", _pFunc->ToString().c_str());
+			return false;
+		}
+	}
+	ULong flags = _pFunc->GetFlags();
+	ResultMode resultMode = _pFunc->GetResultMode();
+	foreach_const (SymbolSet, ppSymbol, _pArgs->GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
+			_mapFlag = true;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
+			_mapFlag = false;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+			flags |= FLAG_Flat;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
+			flags &= ~FLAG_Flat;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
+			resultMode = RSLTMODE_List;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
+			resultMode = RSLTMODE_XList;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
+			resultMode = RSLTMODE_Set;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
+			resultMode = RSLTMODE_XSet;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
+			resultMode = RSLTMODE_Iterator;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
+			resultMode = RSLTMODE_XIterator;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
+			resultMode = RSLTMODE_Void;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
+			resultMode = RSLTMODE_Reduce;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
+			resultMode = RSLTMODE_XReduce;
+		} else if (_pFunc->GetAttrsOpt().IsSet(pSymbol)) {
+			// nothing to do
+		} else {
+			sig.SetError(ERR_AttributeError,
+						 "unsupported attribute '%s' for '%s'",
+						 pSymbol->GetName(), _pFunc->ToString().c_str());
+			return false;
+		}
+	}
+	_pArgs->SetResultMode(resultMode);
+	_pArgs->SetFlags(flags);
+	_pArgs->SetValueTypeResult(_pFunc->GetValueTypeResult());
+	//if (_pFunc->GetSymbol()->IsIdentical(Symbol::Add("scope"))) {
+	//	_stat = STAT_Exec;
+	//}
+	for ( ; _ppExprArg != _pArgs->GetExprListArg().end(); _ppExprArg++) {
+		const Expr *pExprArg = *_ppExprArg;
+		bool quoteFlag = _ppDecl != _pFunc->GetDeclOwner().end() && (*_ppDecl)->IsQuote();
+		if (!quoteFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
+			const Expr_BinaryOp *pExprBinaryOp =
+							dynamic_cast<const Expr_BinaryOp *>(pExprArg);
+			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
+			const Expr *pExprRight = pExprBinaryOp->GetRight();
+			if (pExprLeft->IsIdentifier()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
+				_exprMap[pSymbol] = pExprRight->Reference();
+			} else if (pExprLeft->IsValue()) {
+				Value valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
+				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
+				//			env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
+				//			valueKey));
+				Value result = pExprRight->Exec(env, nullptr);
+				if (sig.IsSignalled()) return false;
+				valDictArg[valueKey] = result;
+			} else {
+				pExprBinaryOp->SetError(sig, ERR_KeyError,
+					"l-value of dictionary assignment must be an identifier or a constant value");
+				return false;
+			}
+		} else if (!quoteFlag && Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
+			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
+			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
+			//		env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
+			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (!result.Is_dict()) {
+				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
+				return false;
+			}
+			foreach_const (ValueDict, item, result.GetDict()) {
+				const Value &valueKey = item->first;
+				const Value &value = item->second;
+				if (valueKey.Is_symbol()) {
+					Expr *pExpr;
+					if (value.Is_expr()) {
+						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
+					} else {
+						pExpr = new Expr_Value(value);
+					}
+					_exprMap[valueKey.GetSymbol()] = pExpr;
+				} else {
+					valDictArg.insert(*item);
+				}
+			}
+		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
+			const Declaration *pDecl = *_ppDecl;
+			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
+				sig.SetError(ERR_ValueError, "argument confliction");
+				return false;
+			}
+			if (quoteFlag) {
+				Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
+				valListArg.push_back(Value(pObj));
+				if (pDecl->IsVariableLength()) {
+					_stayDeclPointerFlag = true;
+				} else {
+					_ppDecl++;
+				}
+			} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
+				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
+				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
+				//		env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
+				Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+				if (sig.IsSignalled()) return false;
+				size_t nSkipDecl = 1;
+				if (result.Is_list()) {
+					const ValueList &valList = result.GetList();
+					nSkipDecl = valList.size();
+					foreach_const (ValueList, pValue, valList) {
+						valListArg.push_back(*pValue);
+					}
+				} else {
+					valListArg.push_back(result);
+				}
+				for (size_t iSkipDecl = 0; iSkipDecl < nSkipDecl &&
+						 _ppDecl != _pFunc->GetDeclOwner().end(); iSkipDecl++) {
+					const Declaration *pDecl = *_ppDecl;
+					if (pDecl->IsVariableLength()) {
+						_stayDeclPointerFlag = true;
+						break;
+					}
+					_ppDecl++;
+				}
+			} else {
+				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
+				//	env.Reference(), dynamic_cast<SequenceEx *>(Reference()), true));
+				Value result = pExprArg->Exec(env, nullptr);
+				if (sig.IsSignalled()) return false;
+
+				valListArg.push_back(result);
+				if (pDecl->IsVariableLength()) {
+					_stayDeclPointerFlag = true;
+				} else {
+					_ppDecl++;
+				}
+			}
+		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
+			break;
+		} else {
+			Declaration::SetError_TooManyArguments(sig);
+			return false;
+		}
+	}
+	//-------------------------------------------------------------------------
+	for ( ; !_stayDeclPointerFlag && _ppDecl != _pFunc->GetDeclOwner().end(); _ppDecl++) {
+		const Declaration *pDecl = *_ppDecl;
+		AutoPtr<Expr> pExprArg(Expr::Reference(pDecl->GetExprDefault()));
+		Function::ExprMap::iterator iter = _exprMap.find(pDecl->GetSymbol());
+		if (iter != _exprMap.end()) {
+			_exprMap.erase(iter);
+			pExprArg.reset(iter->second);
+		}
+		Value value;
+		if (pExprArg.IsNull()) {
+			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
+				value = Value::Undefined;
+			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
+				break;
+			} else {
+				Declaration::SetError_NotEnoughArguments(sig);
+				return false;
+			}
+			valListArg.push_back(value);
+		} else if (pDecl->IsQuote()) {
+			value = Value(new Object_expr(env, pExprArg->Reference()));
+			valListArg.push_back(value);
+		} else {
+			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
+			//	env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			valListArg.push_back(result);
+		}
+	}
+	//-------------------------------------------------------------------------
+	if (_pFunc->GetDeclOwner().GetSymbolDict() == nullptr) {
+		if (!_exprMap.empty()) {
+			String str;
+			str = "invalid argument named ";
+			foreach_const (Function::ExprMap, iter, _exprMap) {
+				if (iter != _exprMap.begin()) str += ", ";
+				str += iter->first->GetName();
+			}
+			sig.SetError(ERR_ValueError, "%s", str.c_str());
+			return false;
+		}
+	} else {
+		foreach (Function::ExprMap, _iterExprMap, _exprMap) {
+			const Symbol *pSymbol = _iterExprMap->first;
+			const Expr *pExprArg = _iterExprMap->second;
+			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValDictArg(
+			//		env.Reference(), dynamic_cast<SequenceEx *>(Reference()), pSymbol));
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			valDictArg[Value(pSymbol)] = result;
+		}
+	}
+	//-------------------------------------------------------------------------
+	if (_mapFlag && _pFunc->GetDeclOwner().ShouldImplicitMap(*_pArgs)) {
+		return _pFunc->EvalMap(env, *_pArgs);
+	} else {
+		return _pFunc->Eval(env, *_pArgs);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Function::SequenceEx
 //-----------------------------------------------------------------------------

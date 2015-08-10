@@ -303,29 +303,31 @@ extern "C" bool GuraStub_EmptyIndexSet(
 }
 
 extern "C" bool GuraStub_CallFunction(
-	Environment &env, Value &valueThis,
-	Value &valueResult, const Value &valueCar,
+	Environment &env, Value &valueThis, Value &valueResult, const Value &valueCar,
 	BridgeFunctionT bridgeFuncBlockParam, BridgeFunctionT bridgeFuncBlock, ...)
 {
 	Signal &sig = env.GetSignal();
-	if (!valueCar.Is_function()) {
-		sig.SetError(ERR_TypeError, "object is not a function");
+	if (valueCar.Is_function()) {
+		const Function *pFunc = valueCar.GetFunction();
+		va_list vargs;
+		va_start(vargs, bridgeFuncBlock);
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetThis(valueThis);
+		while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
+			Value valueResult;
+			bridgeFuncArg(env, valueThis, valueResult);
+			if (sig.IsSignalled()) return false;
+			pArgs->AddValue(valueResult);
+		}
+		Gura_CopyValue(valueResult, pFunc->Eval(env, *pArgs));
+		return sig.IsNoSignalled();
+	} else if (valueCar.Is_operator()) {
+		
+	} else {
+		sig.SetError(ERR_TypeError, "object is not a callable");
 		Gura_CopyValue(valueResult, Value::Null);
 		return false;
 	}
-	const Function *pFunc = valueCar.GetFunction();
-	va_list vargs;
-	va_start(vargs, bridgeFuncBlock);
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
-	while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
-		Value valueResult;
-		bridgeFuncArg(env, valueThis, valueResult);
-		if (sig.IsSignalled()) return false;
-		pArgs->AddValue(valueResult);
-	}
-	Gura_CopyValue(valueResult, pFunc->Eval(env, *pArgs));
-	return sig.IsNoSignalled();
 }
 
 extern "C" bool GuraStub_CreateIterator(
@@ -1450,59 +1452,6 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 		if (!pExpr->GetCar()->GenerateCode(env, *this)) return false;
 		plv_valueCar = _plv_valueResult;
 	}
-	llvm::Value *plv_valTypeCar = _builder.CreateLoad(
-		_builder.CreatePointerCast(
-			plv_valueCar, _builder.getInt16Ty()->getPointerTo()), "valTypeCar");
-	llvm::BasicBlock *pBasicBlockContinue =
-		llvm::BasicBlock::Create(_context, "bb.caller.continue");
-	llvm::BasicBlock *pBasicBlockFunction =
-		llvm::BasicBlock::Create(_context, "bb.caller.function", GetFunctionCur());
-	llvm::BasicBlock *pBasicBlockCheckIfOperator =
-		llvm::BasicBlock::Create(_context, "bb.caller.checkIfOperator");
-	_builder.CreateCondBr(
-		_builder.CreateICmpEQ(
-			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_function), plv_valTypeCar),
-		pBasicBlockFunction, pBasicBlockCheckIfOperator);
-	_builder.SetInsertPoint(pBasicBlockFunction);
-	do {
-		// declaration
-		foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
-			const Expr *pExprArg = *ppExprArg;
-			if (!pExprArg->GenerateCode(env, *this)) return false;
-			//llvm::Function *pFunction = CreateBridgeFunction(env, pExprArg, "Arg");
-			//if (pFunction == nullptr) return false;
-			//args.push_back(llvm::ConstantExpr::getBitCast(
-			//				   pFunction, _builder.getInt8Ty()->getPointerTo()));
-		}
-	} while (0);
-	_builder.CreateBr(pBasicBlockContinue);
-	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockCheckIfOperator);
-	_builder.SetInsertPoint(pBasicBlockCheckIfOperator);
-	llvm::BasicBlock *pBasicBlockOperator =
-		llvm::BasicBlock::Create(_context, "bb.caller.operator", GetFunctionCur());
-	llvm::BasicBlock *pBasicBlockOthers =
-		llvm::BasicBlock::Create(_context, "bb.caller.others");
-	_builder.CreateCondBr(
-		_builder.CreateICmpEQ(
-			llvm::ConstantInt::get(_builder.getInt16Ty(), VTYPE_operator), plv_valTypeCar),
-		pBasicBlockOperator, pBasicBlockOthers);
-	_builder.SetInsertPoint(pBasicBlockOperator);
-	do {
-		// one or two arguments
-	} while (0);
-	_builder.CreateBr(pBasicBlockContinue);
-	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockOthers);
-	_builder.SetInsertPoint(pBasicBlockOthers);
-	do {
-		// evaluate all the argument
-	} while (0);
-	_builder.CreateBr(pBasicBlockContinue);
-	GetFunctionCur()->getBasicBlockList().push_back(pBasicBlockContinue);
-	_builder.SetInsertPoint(pBasicBlockContinue);
-
-
-
-
 	llvm::Value *plv_valueResult = GenCode_AllocaValue("valueResult");
 	std::vector<llvm::Value *> args;
 	args.push_back(Get_env());
