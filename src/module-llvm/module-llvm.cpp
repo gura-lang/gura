@@ -21,44 +21,66 @@ extern "C" bool GuraStub_LookupValue(
 	return true;
 }
 
-extern "C" bool GuraStub_LookupValueInMember(
-	Environment &env, Value &valueThis, Value &valueResult,
-	const Symbol *pSymbol, Expr_Member::Mode mode)
+extern "C" bool GuraStub_LookupValueInMember_Normal(
+	Environment &env, Value &valueThis, Value &valueResult, const Symbol *pSymbol)
 {
 	Signal &sig = env.GetSignal();
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
 	if (pFund == nullptr) return false;
-	if (mode == Expr_Member::MODE_Normal) {
-		Value *pValue = pFund->LookupValue(pSymbol, ENVREF_Escalate);
-		if (pValue == nullptr) {
-			sig.SetError(ERR_ValueError, "undefined member variable %s", pSymbol->GetName());
-			return false;
-		}
-		if (pValue->Is_function()) {
-			Object_function *pObjFunc =
-				dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
-			pObjFunc->SetThis(valueThis);
-			Gura_CopyValue(valueResult, Value(pObjFunc));
-		} else {
-			Gura_CopyValue(valueResult, *pValue);
-		}
-	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
+	Value *pValue = pFund->LookupValue(pSymbol, ENVREF_Escalate);
+	if (pValue == nullptr) {
+		sig.SetError(ERR_ValueError, "undefined member variable %s", pSymbol->GetName());
+		return false;
+	}
+	if (pValue->Is_function()) {
+		Object_function *pObjFunc =
+			dynamic_cast<Object_function *>(Object_function::GetObject(*pValue)->Clone());
+		pObjFunc->SetThis(valueThis);
+		Gura_CopyValue(valueResult, Value(pObjFunc));
+	} else {
+		Gura_CopyValue(valueResult, *pValue);
+	}
+	return true;
+}
+
+extern "C" bool GuraStub_LookupValueInMember_MapToIter(
+	Environment &env, Value &valueThis, Value &valueResult, const Symbol *pSymbol)
+{
+	Signal &sig = env.GetSignal();
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
+	if (pFund == nullptr) return false;
+	if (valueThis.Is_list() && valueThis.GetList().empty()) {
 		Gura_CopyValue(valueResult, valueThis);
 	} else {
 		AutoPtr<Iterator> pIterator(pFund->CreateIterator(sig));
+		if (pIterator.IsNull()) return false;
+		AutoPtr<Iterator> pIteratorMap(
+			new Iterator_IdentifierInMember(
+				new Environment(env), pIterator.release(), pSymbol));
+		valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
+	}
+	return true;
+}
+
+extern "C" bool GuraStub_LookupValueInMember_MapToList(
+	Environment &env, Value &valueThis, Value &valueResult, const Symbol *pSymbol)
+{
+	Signal &sig = env.GetSignal();
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		env.LookupClass(valueThis.GetValueType()) : valueThis.ExtractFundamental(sig);
+	if (pFund == nullptr) return false;
+	if (valueThis.Is_list() && valueThis.GetList().empty()) {
+		Gura_CopyValue(valueResult, valueThis);
+	} else {
+		AutoPtr<Iterator> pIterator(pFund->CreateIterator(sig));
+		if (pIterator.IsNull()) return false;
+		AutoPtr<Iterator> pIteratorMap(
+			new Iterator_IdentifierInMember(
+				new Environment(env), pIterator.release(), pSymbol));
+		valueResult = pIteratorMap->ToList(env, false, false);
 		if (sig.IsSignalled()) return false;
-		if (!pIterator.IsNull()) {
-			AutoPtr<Iterator> pIteratorMap(
-				new Iterator_IdentifierInMember(
-					new Environment(env), pIterator.release(), pSymbol));
-			if (mode == Expr_Member::MODE_MapToIter) {
-				valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
-			} else { // Expr_Member::MODE_MapToList
-				valueResult = pIteratorMap->ToList(env, false, false);
-				if (sig.IsSignalled()) return false;
-			}
-		}
 	}
 	return true;
 }
@@ -597,8 +619,8 @@ bool CodeGeneratorLLVM::Generate(Environment &env, const Expr *pExpr)
 			_pModule.get());
 	} while (0);
 	do {
-		// declare i1 @GuraStub_LookupValueInMember(%struct.Environment*,
-		//                      %struct.Value*, %struct.Value*, %struct.Symbol*, i32)
+		// declare i1 @GuraStub_LookupValueInMember_Normal(%struct.Environment*,
+		//                      %struct.Value*, %struct.Value*, %struct.Symbol*)
 		//                                         
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
 		std::vector<llvm::Type *> typeArgs;
@@ -606,15 +628,47 @@ bool CodeGeneratorLLVM::Generate(Environment &env, const Expr *pExpr)
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
 		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
 		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
-		typeArgs.push_back(_builder.getInt32Ty());						// mode
 		bool isVarArg = false;
 		llvm::Function::Create(
 			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
 			llvm::Function::ExternalLinkage,
-			"GuraStub_LookupValueInMember",
+			"GuraStub_LookupValueInMember_Normal",
 			_pModule.get());
 	} while (0);
-
+	do {
+		// declare i1 @GuraStub_LookupValueInMember_MapToIter(%struct.Environment*,
+		//                      %struct.Value*, %struct.Value*, %struct.Symbol*)
+		//                                         
+		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"GuraStub_LookupValueInMember_MapToIter",
+			_pModule.get());
+	} while (0);
+	do {
+		// declare i1 @GuraStub_LookupValueInMember_MapToList(%struct.Environment*,
+		//                      %struct.Value*, %struct.Value*, %struct.Symbol*)
+		//                                         
+		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
+		std::vector<llvm::Type *> typeArgs;
+		typeArgs.push_back(_pStructType_Environment->getPointerTo());	// env
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueThis
+		typeArgs.push_back(_pStructType_Value->getPointerTo());			// valueResult
+		typeArgs.push_back(_pStructType_Symbol->getPointerTo());		// pSymbol
+		bool isVarArg = false;
+		llvm::Function::Create(
+			llvm::FunctionType::get(pTypeResult, typeArgs, isVarArg),
+			llvm::Function::ExternalLinkage,
+			"GuraStub_LookupValueInMember_MapToList",
+			_pModule.get());
+	} while (0);
 	do {
 		// declare i1 @GuraStub_AssignValue(%struct.Environment*, i8*, %struct.Value*, i32)
 		llvm::Type *pTypeResult = _builder.getInt1Ty();					// return
@@ -998,9 +1052,12 @@ bool CodeGeneratorLLVM::GenCode_IdentifierInMember(
 	args.push_back(_plv_valueResult);
 	args.push_back(GenCode_CastCPointerToPtr(
 					   pExprSelector->GetSymbol(), _pStructType_Symbol->getPointerTo()));
-	args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), mode));
 	llvm::Value *plv_successFlag = _builder.CreateCall(
-		_pModule->getFunction("GuraStub_LookupValueInMember"),
+		_pModule->getFunction(
+			(mode == Expr_Member::MODE_Normal)? "GuraStub_LookupValueInMember_Normal" :
+			(mode == Expr_Member::MODE_MapToIter)? "GuraStub_LookupValueInMember_MapToIter" :
+			(mode == Expr_Member::MODE_MapToList)? "GuraStub_LookupValueInMember_MapToList" :
+			"GuraStub_LookupValueInMember_Normal"),
 		args, "successFlag");
 	GenCode_CondBrContinueOrExit(plv_successFlag, "bb.identifier.success");
 	return true;
@@ -1384,9 +1441,8 @@ bool CodeGeneratorLLVM::GenCode_Caller(Environment &env, const Expr_Caller *pExp
 		args.push_back(plv_valueCar);
 		args.push_back(GenCode_CastCPointerToPtr(
 						   pExprSelector->GetSymbol(), _pStructType_Symbol->getPointerTo()));
-		args.push_back(llvm::ConstantInt::get(_builder.getInt32Ty(), Expr_Member::MODE_Normal));
 		llvm::Value *plv_successFlag = _builder.CreateCall(
-			_pModule->getFunction("GuraStub_LookupValueInMember"),
+			_pModule->getFunction("GuraStub_LookupValueInMember_Normal"),
 			args, "successFlag");
 		GenCode_CondBrContinueOrExit(plv_successFlag, "bb.caller.continue");
 	} else {

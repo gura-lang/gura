@@ -71,11 +71,13 @@ rtn = llvm.gencode {
 	//[x, y, z] = [1, 2]
 	//person.name
 	//person.Print()
-	people::name
+	println(person.name)
+	println(people::name)
+	println(people:*name)
 	//people:*age.sum()
 	//'1234'.len()
 	//[a, b, c] = [1, 2, 3]
 	//[a, b] = x
 }
-println('rtn = ', rtn)
+//println('rtn = ', rtn)
 //println(a, b)
