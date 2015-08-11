@@ -248,7 +248,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-#if 1
+#if 0
 Value Function::Call(Environment &env, Args &args) const
 {
 	Signal &sig = env.GetSignal();
@@ -258,102 +258,98 @@ Value Function::Call(Environment &env, Args &args) const
 #else
 Value Function::Call(Environment &env, Args &args) const
 {
-	const Function *_pFunc = this;
 	Signal &sig = env.GetSignal();
-	AutoPtr<Args> _pArgs(new Args(args, ValueList::Null));
-	Function::ExprMap _exprMap;
-	bool _stayDeclPointerFlag = false;
-	bool _mapFlag = _pFunc->GetMapFlag();
-	_pArgs->SetValueDictArg(new ValueDict());
-	DeclarationOwner::const_iterator _ppDecl = _pFunc->GetDeclOwner().begin();
-	ExprList::const_iterator _ppExprArg = _pArgs->GetExprListArg().begin();
-	ValueList &valListArg = _pArgs->GetValueListArg();
-	ValueDict &valDictArg = _pArgs->GetValueDictArg();
-	if (_pFunc->GetType() == FUNCTYPE_Instance &&
-		!_pArgs->GetThis().IsPrimitive() && _pArgs->GetThisObj() == nullptr) {
+	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
+	if (GetType() == FUNCTYPE_Instance &&
+		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "object is expected as l-value of field");
 		return false;
-	} else if (_pFunc->GetType() == FUNCTYPE_Class &&
-			   _pArgs->GetThis().GetClassItself() == nullptr && _pArgs->GetThisObj() == nullptr) {
+	} else if (GetType() == FUNCTYPE_Class &&
+			   pArgs->GetThis().GetClassItself() == nullptr && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "class or object is expected as l-value of field");
 		return false;
 	}
-	if (_pArgs->IsBlockSpecified()) {
-		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Zero) {
+	if (pArgs->IsBlockSpecified()) {
+		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
 			sig.SetError(ERR_ValueError,
-						 "block is unnecessary for '%s'", _pFunc->ToString().c_str());
+						 "block is unnecessary for '%s'", ToString().c_str());
 			return false;
 		}
 	} else {
-		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Once) {
+		if (GetBlockInfo().occurPattern == OCCUR_Once) {
 			sig.SetError(ERR_ValueError,
-						 "block must be specified for '%s'", _pFunc->ToString().c_str());
+						 "block must be specified for '%s'", ToString().c_str());
 			return false;
 		}
 	}
-	ULong flags = _pFunc->GetFlags();
-	ResultMode resultMode = _pFunc->GetResultMode();
-	foreach_const (SymbolSet, ppSymbol, _pArgs->GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-			_mapFlag = true;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-			_mapFlag = false;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-			flags |= FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
-			flags &= ~FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
-			resultMode = RSLTMODE_List;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
-			resultMode = RSLTMODE_XList;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
-			resultMode = RSLTMODE_Set;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
-			resultMode = RSLTMODE_XSet;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
-			resultMode = RSLTMODE_Iterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
-			resultMode = RSLTMODE_XIterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
-			resultMode = RSLTMODE_Void;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
-			resultMode = RSLTMODE_Reduce;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
-			resultMode = RSLTMODE_XReduce;
-		} else if (_pFunc->GetAttrsOpt().IsSet(pSymbol)) {
-			// nothing to do
-		} else {
-			sig.SetError(ERR_AttributeError,
-						 "unsupported attribute '%s' for '%s'",
-						 pSymbol->GetName(), _pFunc->ToString().c_str());
-			return false;
+	bool mapFlag = GetMapFlag();
+	do {
+		ULong flags = GetFlags();
+		ResultMode resultMode = GetResultMode();
+		foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
+			const Symbol *pSymbol = *ppSymbol;
+			if (pSymbol->IsIdentical(Gura_Symbol(map))) {
+				mapFlag = true;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
+				mapFlag = false;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+				flags |= FLAG_Flat;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
+				flags &= ~FLAG_Flat;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
+				resultMode = RSLTMODE_List;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
+				resultMode = RSLTMODE_XList;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
+				resultMode = RSLTMODE_Set;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
+				resultMode = RSLTMODE_XSet;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
+				resultMode = RSLTMODE_Iterator;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
+				resultMode = RSLTMODE_XIterator;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
+				resultMode = RSLTMODE_Void;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
+				resultMode = RSLTMODE_Reduce;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
+				resultMode = RSLTMODE_XReduce;
+			} else if (GetAttrsOpt().IsSet(pSymbol)) {
+				// nothing to do
+			} else {
+				sig.SetError(ERR_AttributeError,
+							 "unsupported attribute '%s' for '%s'",
+							 pSymbol->GetName(), ToString().c_str());
+				return false;
+			}
 		}
-	}
-	_pArgs->SetResultMode(resultMode);
-	_pArgs->SetFlags(flags);
-	_pArgs->SetValueTypeResult(_pFunc->GetValueTypeResult());
-	//if (_pFunc->GetSymbol()->IsIdentical(Symbol::Add("scope"))) {
-	//	_stat = STAT_Exec;
-	//}
-	for ( ; _ppExprArg != _pArgs->GetExprListArg().end(); _ppExprArg++) {
-		const Expr *pExprArg = *_ppExprArg;
-		bool quoteFlag = _ppDecl != _pFunc->GetDeclOwner().end() && (*_ppDecl)->IsQuote();
+		pArgs->SetResultMode(resultMode);
+		pArgs->SetFlags(flags);
+		pArgs->SetValueTypeResult(GetValueTypeResult());
+	} while (0);
+	Function::ExprMap exprMap;
+	bool stayDeclPointerFlag = false;
+	pArgs->SetValueDictArg(new ValueDict());
+	ValueList &valListArg = pArgs->GetValueListArg();
+	ValueDict &valDictArg = pArgs->GetValueDictArg();
+	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
+	ExprList::const_iterator ppExprArg = pArgs->GetExprListArg().begin();
+	for ( ; ppExprArg != pArgs->GetExprListArg().end(); ppExprArg++) {
+		const Expr *pExprArg = *ppExprArg;
+		bool quoteFlag = ppDecl != GetDeclOwner().end() && (*ppDecl)->IsQuote();
 		if (!quoteFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
+			// func(..., var => value, ...)
 			const Expr_BinaryOp *pExprBinaryOp =
-							dynamic_cast<const Expr_BinaryOp *>(pExprArg);
+				dynamic_cast<const Expr_BinaryOp *>(pExprArg);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
 			const Expr *pExprRight = pExprBinaryOp->GetRight();
 			if (pExprLeft->IsIdentifier()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
-				_exprMap[pSymbol] = pExprRight->Reference();
+				exprMap[pSymbol] = pExprRight->Reference();
 			} else if (pExprLeft->IsValue()) {
-				Value valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
-				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
-				//			env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
-				//			valueKey));
+				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value result = pExprRight->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
 				valDictArg[valueKey] = result;
@@ -363,9 +359,8 @@ Value Function::Call(Environment &env, Args &args) const
 				return false;
 			}
 		} else if (!quoteFlag && Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
+			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
-			//		env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
 			if (!result.Is_dict()) {
@@ -382,14 +377,14 @@ Value Function::Call(Environment &env, Args &args) const
 					} else {
 						pExpr = new Expr_Value(value);
 					}
-					_exprMap[valueKey.GetSymbol()] = pExpr;
+					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
 					valDictArg.insert(*item);
 				}
 			}
-		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
-			const Declaration *pDecl = *_ppDecl;
-			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
+		} else if (ppDecl != GetDeclOwner().end()) {
+			const Declaration *pDecl = *ppDecl;
+			if (exprMap.find(pDecl->GetSymbol()) != exprMap.end()) {
 				sig.SetError(ERR_ValueError, "argument confliction");
 				return false;
 			}
@@ -397,14 +392,13 @@ Value Function::Call(Environment &env, Args &args) const
 				Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
 				valListArg.push_back(Value(pObj));
 				if (pDecl->IsVariableLength()) {
-					_stayDeclPointerFlag = true;
+					stayDeclPointerFlag = true;
 				} else {
-					_ppDecl++;
+					ppDecl++;
 				}
 			} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
+				// func(..., value*, ...)
 				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
-				//		env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 				Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
 				size_t nSkipDecl = 1;
@@ -418,28 +412,27 @@ Value Function::Call(Environment &env, Args &args) const
 					valListArg.push_back(result);
 				}
 				for (size_t iSkipDecl = 0; iSkipDecl < nSkipDecl &&
-						 _ppDecl != _pFunc->GetDeclOwner().end(); iSkipDecl++) {
-					const Declaration *pDecl = *_ppDecl;
+						 ppDecl != GetDeclOwner().end(); iSkipDecl++) {
+					const Declaration *pDecl = *ppDecl;
 					if (pDecl->IsVariableLength()) {
-						_stayDeclPointerFlag = true;
+						stayDeclPointerFlag = true;
 						break;
 					}
-					_ppDecl++;
+					ppDecl++;
 				}
 			} else {
-				//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
-				//	env.Reference(), dynamic_cast<SequenceEx *>(Reference()), true));
+				// func(..., value, ...)
 				Value result = pExprArg->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
 
 				valListArg.push_back(result);
 				if (pDecl->IsVariableLength()) {
-					_stayDeclPointerFlag = true;
+					stayDeclPointerFlag = true;
 				} else {
-					_ppDecl++;
+					ppDecl++;
 				}
 			}
-		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
+		} else if (GetDeclOwner().IsAllowTooManyArgs()) {
 			break;
 		} else {
 			Declaration::SetError_TooManyArguments(sig);
@@ -447,12 +440,12 @@ Value Function::Call(Environment &env, Args &args) const
 		}
 	}
 	//-------------------------------------------------------------------------
-	for ( ; !_stayDeclPointerFlag && _ppDecl != _pFunc->GetDeclOwner().end(); _ppDecl++) {
-		const Declaration *pDecl = *_ppDecl;
+	for ( ; !stayDeclPointerFlag && ppDecl != GetDeclOwner().end(); ppDecl++) {
+		const Declaration *pDecl = *ppDecl;
 		AutoPtr<Expr> pExprArg(Expr::Reference(pDecl->GetExprDefault()));
-		Function::ExprMap::iterator iter = _exprMap.find(pDecl->GetSymbol());
-		if (iter != _exprMap.end()) {
-			_exprMap.erase(iter);
+		Function::ExprMap::iterator iter = exprMap.find(pDecl->GetSymbol());
+		if (iter != exprMap.end()) {
+			exprMap.erase(iter);
 			pExprArg.reset(iter->second);
 		}
 		Value value;
@@ -470,41 +463,37 @@ Value Function::Call(Environment &env, Args &args) const
 			value = Value(new Object_expr(env, pExprArg->Reference()));
 			valListArg.push_back(value);
 		} else {
-			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
-			//	env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
 			valListArg.push_back(result);
 		}
 	}
 	//-------------------------------------------------------------------------
-	if (_pFunc->GetDeclOwner().GetSymbolDict() == nullptr) {
-		if (!_exprMap.empty()) {
+	if (GetDeclOwner().GetSymbolDict() == nullptr) {
+		if (!exprMap.empty()) {
 			String str;
 			str = "invalid argument named ";
-			foreach_const (Function::ExprMap, iter, _exprMap) {
-				if (iter != _exprMap.begin()) str += ", ";
+			foreach_const (Function::ExprMap, iter, exprMap) {
+				if (iter != exprMap.begin()) str += ", ";
 				str += iter->first->GetName();
 			}
 			sig.SetError(ERR_ValueError, "%s", str.c_str());
 			return false;
 		}
 	} else {
-		foreach (Function::ExprMap, _iterExprMap, _exprMap) {
-			const Symbol *pSymbol = _iterExprMap->first;
-			const Expr *pExprArg = _iterExprMap->second;
-			//AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValDictArg(
-			//		env.Reference(), dynamic_cast<SequenceEx *>(Reference()), pSymbol));
+		foreach (Function::ExprMap, iterExprMap, exprMap) {
+			const Symbol *pSymbol = iterExprMap->first;
+			const Expr *pExprArg = iterExprMap->second;
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
 			valDictArg[Value(pSymbol)] = result;
 		}
 	}
 	//-------------------------------------------------------------------------
-	if (_mapFlag && _pFunc->GetDeclOwner().ShouldImplicitMap(*_pArgs)) {
-		return _pFunc->EvalMap(env, *_pArgs);
+	if (mapFlag && GetDeclOwner().ShouldImplicitMap(*pArgs)) {
+		return EvalMap(env, *pArgs);
 	} else {
-		return _pFunc->Eval(env, *_pArgs);
+		return Eval(env, *pArgs);
 	}
 }
 #endif
