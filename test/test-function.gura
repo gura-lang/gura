@@ -164,12 +164,20 @@ testcase {
 	tester(`f((%{`a => 1, `b => 2, `c => 3, `d => 4})%))
 	tester(`f((%{`a => 1, `b => 2})%, (%{`c => 3, `d => 4})%))
 	tester(`f((%{`a => 1, `b => 2})%, (%{`c => 3})%, d => 4))
-	tester(`f(1, 2, 3, 4, (%{`a => 1, `b => 2, `c => 3, `d => 4})%))
+	try {
+		f(1, 2, 3, 4, (%{`a => 1, `b => 2, `c => 3, `d => 4})%)
+	} catch {|e|
+		println('expected error occured:', e.text)
+	}
 	tester(`f(1, 2, 3, 4, (%{'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4})%))
 	f(a, dict%) = {
 		format('a=%d %s', a, dict)
 	}
-	tester(`f(1, (%{`a => 1, `b => 2, `c => 3, `d => 4})%))
+	try {
+		f(1, (%{`a => 1, `b => 2, `c => 3, `d => 4})%)
+	} catch {|e|
+		println('expected error occured:', e.text)
+	}
 }
 testcase {
 	funcorg() = {}

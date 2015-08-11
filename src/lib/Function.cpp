@@ -334,15 +334,11 @@ Value Function::Call(Environment &env, Args &args) const
 	pArgs->SetValueDictArg(new ValueDict());
 	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict &valDictArg = pArgs->GetValueDictArg();
-	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
-	ExprList::const_iterator ppExprArg = pArgs->GetExprListArg().begin();
-	for ( ; ppExprArg != pArgs->GetExprListArg().end(); ppExprArg++) {
+	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
-		bool quoteFlag = ppDecl != GetDeclOwner().end() && (*ppDecl)->IsQuote();
-		if (!quoteFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
+		if (pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			// func(..., var => value, ...)
-			const Expr_BinaryOp *pExprBinaryOp =
-				dynamic_cast<const Expr_BinaryOp *>(pExprArg);
+			const Expr_BinaryOp *pExprBinaryOp = dynamic_cast<const Expr_BinaryOp *>(pExprArg);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
 			const Expr *pExprRight = pExprBinaryOp->GetRight();
 			if (pExprLeft->IsIdentifier()) {
@@ -358,7 +354,7 @@ Value Function::Call(Environment &env, Args &args) const
 					"l-value of dictionary assignment must be an identifier or a constant value");
 				return false;
 			}
-		} else if (!quoteFlag && Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
@@ -382,48 +378,48 @@ Value Function::Call(Environment &env, Args &args) const
 					valDictArg.insert(*item);
 				}
 			}
-		} else if (ppDecl != GetDeclOwner().end()) {
-			const Declaration *pDecl = *ppDecl;
-			if (exprMap.find(pDecl->GetSymbol()) != exprMap.end()) {
-				sig.SetError(ERR_ValueError, "argument confliction");
-				return false;
+		}
+	}
+	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
+	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
+		const Expr *pExprArg = *ppExprArg;
+		if (pExprArg->IsBinaryOp(OPTYPE_Pair) ||
+			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
+		if (ppDecl == GetDeclOwner().end()) {
+			if (GetDeclOwner().IsAllowTooManyArgs()) break;
+			Declaration::SetError_TooManyArguments(sig);
+			return false;
+		}
+		const Declaration *pDecl = *ppDecl;
+		if (exprMap.find(pDecl->GetSymbol()) != exprMap.end()) {
+			sig.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		if (pDecl->IsQuote()) {
+			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
+			valListArg.push_back(Value(pObj));
+			if (pDecl->IsVariableLength()) {
+				stayDeclPointerFlag = true;
+			} else {
+				ppDecl++;
 			}
-			if (quoteFlag) {
-				Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
-				valListArg.push_back(Value(pObj));
-				if (pDecl->IsVariableLength()) {
-					stayDeclPointerFlag = true;
-				} else {
-					ppDecl++;
-				}
-			} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
-				// func(..., value*, ...)
-				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-				Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
-				if (sig.IsSignalled()) return false;
-				if (result.Is_list()) {
-					const ValueList &valList = result.GetList();
-					foreach_const (ValueList, pValue, valList) {
-						valListArg.push_back(*pValue);
-						if (pDecl->IsVariableLength()) {
-							stayDeclPointerFlag = true;
-						} else {
-							ppDecl++;
-							pDecl = *ppDecl;
-						}
-					}
-				} else {
-					valListArg.push_back(result);
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
+			// func(..., value*, ...)
+			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
+			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (result.Is_list()) {
+				const ValueList &valList = result.GetList();
+				foreach_const (ValueList, pValue, valList) {
+					valListArg.push_back(*pValue);
 					if (pDecl->IsVariableLength()) {
 						stayDeclPointerFlag = true;
 					} else {
 						ppDecl++;
+						pDecl = *ppDecl;
 					}
 				}
 			} else {
-				// func(..., value, ...)
-				Value result = pExprArg->Exec(env, nullptr);
-				if (sig.IsSignalled()) return false;
 				valListArg.push_back(result);
 				if (pDecl->IsVariableLength()) {
 					stayDeclPointerFlag = true;
@@ -431,11 +427,16 @@ Value Function::Call(Environment &env, Args &args) const
 					ppDecl++;
 				}
 			}
-		} else if (GetDeclOwner().IsAllowTooManyArgs()) {
-			break;
 		} else {
-			Declaration::SetError_TooManyArguments(sig);
-			return false;
+			// func(..., value, ...)
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			valListArg.push_back(result);
+			if (pDecl->IsVariableLength()) {
+				stayDeclPointerFlag = true;
+			} else {
+				ppDecl++;
+			}
 		}
 	}
 	//-------------------------------------------------------------------------
