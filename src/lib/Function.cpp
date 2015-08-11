@@ -371,7 +371,7 @@ Value Function::Call(Environment &env, Args &args) const
 				const Value &valueKey = item->first;
 				const Value &value = item->second;
 				if (valueKey.Is_symbol()) {
-					Expr *pExpr;
+					Expr *pExpr = nullptr;
 					if (value.Is_expr()) {
 						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
 					} else {
@@ -401,30 +401,29 @@ Value Function::Call(Environment &env, Args &args) const
 				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 				Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-				size_t nSkipDecl = 1;
 				if (result.Is_list()) {
 					const ValueList &valList = result.GetList();
-					nSkipDecl = valList.size();
 					foreach_const (ValueList, pValue, valList) {
 						valListArg.push_back(*pValue);
+						if (pDecl->IsVariableLength()) {
+							stayDeclPointerFlag = true;
+						} else {
+							ppDecl++;
+							pDecl = *ppDecl;
+						}
 					}
 				} else {
 					valListArg.push_back(result);
-				}
-				for (size_t iSkipDecl = 0; iSkipDecl < nSkipDecl &&
-						 ppDecl != GetDeclOwner().end(); iSkipDecl++) {
-					const Declaration *pDecl = *ppDecl;
 					if (pDecl->IsVariableLength()) {
 						stayDeclPointerFlag = true;
-						break;
+					} else {
+						ppDecl++;
 					}
-					ppDecl++;
 				}
 			} else {
 				// func(..., value, ...)
 				Value result = pExprArg->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-
 				valListArg.push_back(result);
 				if (pDecl->IsVariableLength()) {
 					stayDeclPointerFlag = true;
