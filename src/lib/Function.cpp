@@ -390,15 +390,14 @@ Value Function::Call(Environment &env, Args &args) const
 			Declaration::SetError_TooManyArguments(sig);
 			return false;
 		}
-		const Declaration *pDecl = *ppDecl;
-		if (exprMap.find(pDecl->GetSymbol()) != exprMap.end()) {
+		if (exprMap.find((*ppDecl)->GetSymbol()) != exprMap.end()) {
 			sig.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
-		if (pDecl->IsQuote()) {
+		if ((*ppDecl)->IsQuote()) {
 			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
 			valListArg.push_back(Value(pObj));
-			if (pDecl->IsVariableLength()) {
+			if ((*ppDecl)->IsVariableLength()) {
 				stayDeclPointerFlag = true;
 			} else {
 				ppDecl++;
@@ -412,16 +411,15 @@ Value Function::Call(Environment &env, Args &args) const
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
 					valListArg.push_back(*pValue);
-					if (pDecl->IsVariableLength()) {
+					if ((*ppDecl)->IsVariableLength()) {
 						stayDeclPointerFlag = true;
 					} else {
 						ppDecl++;
-						pDecl = *ppDecl;
 					}
 				}
 			} else {
 				valListArg.push_back(result);
-				if (pDecl->IsVariableLength()) {
+				if ((*ppDecl)->IsVariableLength()) {
 					stayDeclPointerFlag = true;
 				} else {
 					ppDecl++;
@@ -432,7 +430,7 @@ Value Function::Call(Environment &env, Args &args) const
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
 			valListArg.push_back(result);
-			if (pDecl->IsVariableLength()) {
+			if ((*ppDecl)->IsVariableLength()) {
 				stayDeclPointerFlag = true;
 			} else {
 				ppDecl++;
@@ -441,27 +439,23 @@ Value Function::Call(Environment &env, Args &args) const
 	}
 	//-------------------------------------------------------------------------
 	for ( ; !stayDeclPointerFlag && ppDecl != GetDeclOwner().end(); ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		AutoPtr<Expr> pExprArg(Expr::Reference(pDecl->GetExprDefault()));
-		Function::ExprMap::iterator iter = exprMap.find(pDecl->GetSymbol());
+		const Expr *pExprArg = (*ppDecl)->GetExprDefault();
+		Function::ExprMap::iterator iter = exprMap.find((*ppDecl)->GetSymbol());
 		if (iter != exprMap.end()) {
+			pExprArg = iter->second;
 			exprMap.erase(iter);
-			pExprArg.reset(iter->second);
 		}
-		Value value;
-		if (pExprArg.IsNull()) {
-			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				value = Value::Undefined;
-			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
+		if (pExprArg == nullptr) {
+			if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrOnce) {
+				valListArg.push_back(Value::Undefined);
+			} else if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				break;
 			} else {
 				Declaration::SetError_NotEnoughArguments(sig);
 				return false;
 			}
-			valListArg.push_back(value);
-		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, pExprArg->Reference()));
-			valListArg.push_back(value);
+		} else if ((*ppDecl)->IsQuote()) {
+			valListArg.push_back(Value(new Object_expr(env, pExprArg->Reference())));
 		} else {
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
@@ -469,18 +463,7 @@ Value Function::Call(Environment &env, Args &args) const
 		}
 	}
 	//-------------------------------------------------------------------------
-	if (GetDeclOwner().GetSymbolDict() == nullptr) {
-		if (!exprMap.empty()) {
-			String str;
-			str = "invalid argument named ";
-			foreach_const (Function::ExprMap, iter, exprMap) {
-				if (iter != exprMap.begin()) str += ", ";
-				str += iter->first->GetName();
-			}
-			sig.SetError(ERR_ValueError, "%s", str.c_str());
-			return false;
-		}
-	} else {
+	if (GetDeclOwner().GetSymbolDict() != nullptr) {
 		foreach (Function::ExprMap, iterExprMap, exprMap) {
 			const Symbol *pSymbol = iterExprMap->first;
 			const Expr *pExprArg = iterExprMap->second;
@@ -488,13 +471,19 @@ Value Function::Call(Environment &env, Args &args) const
 			if (sig.IsSignalled()) return false;
 			valDictArg[Value(pSymbol)] = result;
 		}
+	} else if (!exprMap.empty()) {
+		String str;
+		str = "invalid argument named ";
+		foreach_const (Function::ExprMap, iter, exprMap) {
+			if (iter != exprMap.begin()) str += ", ";
+			str += iter->first->GetName();
+		}
+		sig.SetError(ERR_ValueError, "%s", str.c_str());
+		return false;
 	}
 	//-------------------------------------------------------------------------
-	if (mapFlag && GetDeclOwner().ShouldImplicitMap(*pArgs)) {
-		return EvalMap(env, *pArgs);
-	} else {
-		return Eval(env, *pArgs);
-	}
+	return (mapFlag && GetDeclOwner().ShouldImplicitMap(*pArgs))?
+		EvalMap(env, *pArgs) : Eval(env, *pArgs);
 }
 #endif
 
@@ -544,11 +533,11 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), EXTRA_Public);
 	} else {
 		Environment *pEnv =
-				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
+			(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
 		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
-											FUNCTYPE_Function : FUNCTYPE_Block;
-		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv,
-								_blockInfo.pSymbol, pExprBlock, funcType);
+			FUNCTYPE_Function : FUNCTYPE_Block;
+		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(
+			*pEnv, _blockInfo.pSymbol, pExprBlock, funcType);
 		if (pFuncBlock == nullptr) return nullptr;
 		pEnvLocal->AssignFunction(pFuncBlock);
 	}
