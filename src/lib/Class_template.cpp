@@ -489,6 +489,7 @@ Gura_ImplementMethod(template_, init_define)
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
+#if 0
 	AutoPtr<Args> pArgsSub(new Args());
 	do {
 		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
@@ -499,6 +500,15 @@ Gura_ImplementMethod(template_, init_define)
 	} while (0);
 	//pArgsSub->SetAttrs(args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
+#endif
+	do {
+		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+		foreach_const (ValueList, pValue, args.GetList(1)) {
+			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
+		}
+		if (!pFunc->CustomDeclare(env, *pExprOwnerArg, nullptr, SymbolSet::Null,
+								  SymbolSet::Null, SymbolSet::Null)) return Value::Null;
+	} while (0);
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());

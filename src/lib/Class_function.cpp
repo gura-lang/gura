@@ -110,13 +110,20 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 	return GetFunction()->GetBlockOccurPattern();
 }
 
-Value Object_function::DoCall(Environment &env, Args &args)
+Value Object_function::DoCall(
+	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+	const SymbolSet &attrs, const SymbolSet &attrsOpt,
+	const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+	TrailCtrlHolder *pTrailCtrlHolder)
 {
-	if (args.GetThis().IsInvalid() ||
-					(args.GetThis().IsModule() && _valueThis.IsValid())) {
-		args.SetThis(_valueThis);
+	Value valueThisMod(valueThis);
+	if (valueThisMod.IsInvalid() ||
+		(valueThisMod.IsModule() && _valueThis.IsValid())) {
+		valueThisMod = _valueThis;
 	}
-	return GetFunction()->Call(env, args);
+	return GetFunction()->Call(
+		env, exprListArg, pExprBlock, attrs, attrsOpt,
+		valueThisMod, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const
@@ -190,10 +197,13 @@ Gura_ImplementFunction(function)
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
-	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	//AutoPtr<Args> pArgsSub(new Args());
+	//pArgsSub->SetExprOwnerArg(pExprOwnerArg);
+	//pArgsSub->SetAttrs(args.GetAttrs());
+	//if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	if (!pFunc->CustomDeclare(
+			env, *pExprOwnerArg, nullptr,
+			args.GetAttrs(), SymbolSet::Null, SymbolSet::Null)) return Value::Null;
 	return Value(new Object_function(env, pFunc.release()));
 }
 

@@ -81,9 +81,15 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env,
 	pFunc->GetDeclOwner().AllowTooManyArgs(true);
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	if (pExprOwnerParam != nullptr) {
+#if 0
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerParam->Reference());
 		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) {
+			return nullptr;
+		}
+#endif
+		if (!pFunc->CustomDeclare(env, *pExprOwnerParam, nullptr,
+								  SymbolSet::Null, SymbolSet::Null, SymbolSet::Null)) {
 			return nullptr;
 		}
 	}

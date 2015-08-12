@@ -25,7 +25,11 @@ Iterator *Fundamental::CreateIterator(Signal &sig)
 	return nullptr;
 }
 
-Value Fundamental::DoCall(Environment &env, Args &args)
+Value Fundamental::DoCall(
+	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+	const SymbolSet &attrs, const SymbolSet &attrsOpt,
+	const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+	TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_TypeError, "object is not callable");

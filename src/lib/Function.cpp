@@ -71,13 +71,15 @@ void Function::SetClassToConstruct(Class *pClassToConstruct)
 	pClassToConstruct->SetConstructor(Function::Reference(this));
 }
 
-bool Function::CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable, Args &args)
+bool Function::CustomDeclare(
+	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+	const SymbolSet &attrs, const SymbolSet &attrsOpt, const SymbolSet &attrsAcceptable)
 {
 	Signal &sig = env.GetSignal();
 	// delcaration of arguments
-	if (!GetDeclOwner().Declare(env, args.GetExprListArg())) return false;
+	if (!GetDeclOwner().Declare(env, exprListArg)) return false;
 	// declaration of attributes
-	foreach_const (SymbolSet, ppSymbol, args.GetAttrs()) {
+	foreach_const (SymbolSet, ppSymbol, attrs) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
 			_flags |= FLAG_Map;
@@ -132,11 +134,9 @@ bool Function::CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable,
 			return false;
 		}
 	}
-	_attrsOpt = args.GetAttrsOpt();
+	_attrsOpt = attrsOpt;
 	// declaration of a block
-	if (!args.IsBlockSpecified()) return true;
-	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return false;
+	if (pExprBlock == nullptr) return true;
 	const ExprList &exprList = pExprBlock->GetExprOwner();
 	if (exprList.size() != 1) {
 		SetError_InvalidFunctionExpression(sig);
@@ -256,10 +256,22 @@ Value Function::Call(Environment &env, Args &args) const
 	return Sequence::Return(sig, pSequence);
 }
 #else
-Value Function::Call(Environment &env, Args &args) const
+Value Function::Call(
+	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+	const SymbolSet &attrs, const SymbolSet &attrsOpt,
+	const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+	TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
+	AutoPtr<Args> pArgs(new Args());
+	//pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+	pArgs->SetBlock(Expr_Block::Reference(pExprBlock));
+	pArgs->SetAttrs(attrs);
+	pArgs->SetAttrsOpt(attrsOpt);
+	pArgs->SetThis(valueThis);
+	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+	//pArgs->SetValueDictArg(new ValueDict());
 	if (GetType() == FUNCTYPE_Instance &&
 		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
@@ -331,10 +343,9 @@ Value Function::Call(Environment &env, Args &args) const
 	} while (0);
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
-	pArgs->SetValueDictArg(new ValueDict());
 	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict &valDictArg = pArgs->GetValueDictArg();
-	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
+	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
 		if (pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			// func(..., var => value, ...)
@@ -381,7 +392,7 @@ Value Function::Call(Environment &env, Args &args) const
 		}
 	}
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
-	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
+	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
 		if (pExprArg->IsBinaryOp(OPTYPE_Pair) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
@@ -944,6 +955,7 @@ Function::ExprMap::~ExprMap()
 	}
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Function::SequenceEx
 //-----------------------------------------------------------------------------
@@ -1293,6 +1305,7 @@ bool Function::SeqPostHandler_ValDictArg::DoPost(Signal &sig, const Value &resul
 	valDictArg[Value(_pSymbol)] = result;
 	return true;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Args

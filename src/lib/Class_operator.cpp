@@ -45,11 +45,14 @@ Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_operator::DoCall(Environment &env, Args &args)
+Value Object_operator::DoCall(
+	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+	const SymbolSet &attrs, const SymbolSet &attrsOpt,
+	const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+	TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();
-	const ExprList &exprList = args.GetExprListArg();
-	size_t nArgs = exprList.size();
+	size_t nArgs = exprListArg.size();
 	if (nArgs == 1) {
 		bool suffixFlag = false;
 		SeqPostHandler *pSeqPostHandler = nullptr;
@@ -58,7 +61,7 @@ Value Object_operator::DoCall(Environment &env, Args &args)
 					"operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Null;
 		}
-		Value value = exprList[0]->Exec2(env, pSeqPostHandler);
+		Value value = exprListArg[0]->Exec2(env, pSeqPostHandler);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, value, suffixFlag);
@@ -70,9 +73,9 @@ Value Object_operator::DoCall(Environment &env, Args &args)
 					"operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Null;
 		}
-		Value valueLeft = exprList[0]->Exec2(env, pSeqPostHandlerLeft);
+		Value valueLeft = exprListArg[0]->Exec2(env, pSeqPostHandlerLeft);
 		if (sig.IsSignalled()) return Value::Null;
-		Value valueRight = exprList[1]->Exec2(env, pSeqPostHandlerRight);
+		Value valueRight = exprListArg[1]->Exec2(env, pSeqPostHandlerRight);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
 		return pOperator->EvalBinary(env, valueLeft, valueRight);

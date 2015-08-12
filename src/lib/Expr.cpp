@@ -98,9 +98,14 @@ Value Expr::Exec(Environment &env,
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
+#if 0
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(pFuncObj->GetThis());
 		result = pFuncObj->GetFunction()->Call(env, *pArgs);
+#endif
+		result = pFuncObj->GetFunction()->Call(
+			env, ExprList::Null, nullptr, SymbolSet::Null, SymbolSet::Null,
+			pFuncObj->GetThis(), nullptr, false, nullptr);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2041,6 +2046,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Null;
 		}
+#if 0
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(GetExprOwner().Reference());
 		pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
@@ -2048,6 +2054,10 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 		pArgs->SetAttrsOpt(GetAttrsOpt());
 		pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 		return pCallable->DoCall(env, *pArgs);
+#endif
+		return pCallable->DoCall(
+			env, GetExprOwner(), GetBlock(), GetAttrs(), GetAttrsOpt(),
+			Value::Null, nullptr, false, pTrailCtrlHolder);
 	}
 }
 
@@ -2097,6 +2107,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		SetError(sig, ERR_TypeError, "object is not callable");
 		return Value::Null;
 	}
+#if 0
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
 	pArgs->SetThis(valueThis);
@@ -2106,6 +2117,10 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	pArgs->SetAttrsOpt(GetAttrsOpt());
 	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	return pCallable->DoCall(env, *pArgs);
+#endif
+	return pCallable->DoCall(
+		env, GetExprOwner(), GetBlock(), GetAttrs(), GetAttrsOpt(),
+		valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
@@ -2165,12 +2180,19 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody->Reference(), funcType);
+#if 0
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
 	pArgs->SetAttrs(GetAttrs());
 	pArgs->SetAttrsOpt(GetAttrsOpt());
 	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) {
+		Function::Delete(pFunc);
+		return Value::Null;
+	}
+#endif
+	if (!pFunc->CustomDeclare(env, GetExprOwner(), GetBlock(),
+							  GetAttrs(), GetAttrsOpt(), SymbolSet::Null)) {
 		Function::Delete(pFunc);
 		return Value::Null;
 	}
