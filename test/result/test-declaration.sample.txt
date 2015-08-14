@@ -250,7 +250,7 @@ semaphore()
 set(iter+:iterator):[and,or,xor]
 stream(pathname:string, mode?:string, codec?:codec):map {block?}
 string:class = <class:string>
-struct(`args+):[loose] {block?}
+struct(`args+):nonamed:[loose] {block?}
 suffixmgr(type:symbol) {block?}
 super(obj):map {block?}
 switch() {block}

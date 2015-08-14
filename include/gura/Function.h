@@ -313,6 +313,7 @@ public:
 	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
 	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
+	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable, Args &args);
@@ -445,6 +446,7 @@ public:
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
 	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
+	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value &GetThis() { return _valueThis; }
 	inline const Value &GetThis() const { return _valueThis; }

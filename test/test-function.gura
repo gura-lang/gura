@@ -438,3 +438,9 @@ testcase('help') {
 	println('`en ..', function.gethelp(f, `en).text)
 	println('`ja ..', function.gethelp(f, `ja).text)
 }
+testcase(':nonamed attribute') {
+	f(`x):nonamed = {println(x)}
+	g(`x+):nonamed = {println(x)}
+	f(a => 3)
+	g(a => 3, b => 2, c => 1)
+}

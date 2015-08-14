@@ -298,3 +298,10 @@ f(x:m.A:nil)
 
 `en ..foo
 `ja ..hoge
+
+======== #42 :nonamed attribute ========
+
+a => 3
+a => 3
+b => 2
+c => 1

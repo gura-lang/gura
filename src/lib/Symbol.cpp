@@ -367,6 +367,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(noflat);
 	Gura_RealizeSymbol(noindent);
 	Gura_RealizeSymbol(nomap);
+	Gura_RealizeSymbol(nonamed);
 	Gura_RealizeSymbol(none);
 	Gura_RealizeSymbol(norm);
 	Gura_RealizeSymbol(nosort);

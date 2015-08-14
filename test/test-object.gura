@@ -795,4 +795,17 @@ testcase('forward-declaration of class') {
 	}
 	println(cond(errorFlag, '***NG***', 'OK'))
 }
+testcase('struct declaration with arguments that has default value') {
+	A = struct(name:string => 'Taro', age:number => 23)
+	a = A()
+	printf('%s: %d\n', a.name, a.age)
+	a = A('Jiro')
+	printf('%s: %d\n', a.name, a.age)
+	a = A(name => 'Jiro')
+	printf('%s: %d\n', a.name, a.age)
+	a = A(age => 25)
+	printf('%s: %d\n', a.name, a.age)
+	a = A('Takeshi', 21)
+	printf('%s: %d\n', a.name, a.age)
+}
 println('<<end of script>>')

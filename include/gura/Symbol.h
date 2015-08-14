@@ -350,6 +350,7 @@ public:
 	Gura_DeclareSymbol(noflat);
 	Gura_DeclareSymbol(noindent);
 	Gura_DeclareSymbol(nomap);
+	Gura_DeclareSymbol(nonamed);
 	Gura_DeclareSymbol(none);
 	Gura_DeclareSymbol(norm);
 	Gura_DeclareSymbol(nosort);

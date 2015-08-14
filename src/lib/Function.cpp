@@ -83,6 +83,8 @@ bool Function::CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable,
 			_flags |= FLAG_Map;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
 			_flags &= ~FLAG_Map;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
+			_flags |= FLAG_NoNamed;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
 			_flags |= FLAG_Flat;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
@@ -188,7 +190,7 @@ void Function::CopyDeclare(const Function &func)
 {
 	_pDeclOwner.reset(new DeclarationOwner(func.GetDeclOwner()));
 	_resultMode	= func._resultMode;	// :list, :xlist, :set, :xset, :iter, :xiter, :void
-	_flags		= func._flags;		// :map, :nomap, :flat, :noflat
+	_flags		= func._flags;		// :map, :nomap, :nonamed, :flat, :noflat
 	_attrsOpt	= func._attrsOpt;
 	_blockInfo	= func._blockInfo;
 }
@@ -294,6 +296,8 @@ Value Function::Call(Environment &env, Args &args) const
 				mapFlag = true;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
 				mapFlag = false;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
+				flags |= FLAG_NoNamed;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
 				flags |= FLAG_Flat;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
@@ -334,9 +338,10 @@ Value Function::Call(Environment &env, Args &args) const
 	pArgs->SetValueDictArg(new ValueDict());
 	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict &valDictArg = pArgs->GetValueDictArg();
+	bool namedArgFlag = !pArgs->GetNoNamedFlag();
 	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
-		if (pExprArg->IsBinaryOp(OPTYPE_Pair)) {
+		if (namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			// func(..., var => value, ...)
 			const Expr_BinaryOp *pExprBinaryOp = dynamic_cast<const Expr_BinaryOp *>(pExprArg);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
@@ -383,7 +388,7 @@ Value Function::Call(Environment &env, Args &args) const
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
 	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
-		if (pExprArg->IsBinaryOp(OPTYPE_Pair) ||
+		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
 		if (ppDecl == GetDeclOwner().end()) {
 			if (GetDeclOwner().IsAllowTooManyArgs()) break;
@@ -752,7 +757,11 @@ String Function::ToString() const
 	}
 	if (GetPrivateFlag()) {
 		str += ":";
-		str += Gura_Symbol(end_marker)->GetName();
+		str += Gura_Symbol(private_)->GetName();
+	}
+	if (GetNoNamedFlag()) {
+		str += ":";
+		str += Gura_Symbol(nonamed)->GetName();
 	}
 	if (_resultMode == RSLTMODE_List) {
 		str += ":";
@@ -997,6 +1006,8 @@ bool Function::SequenceEx::DoStep(Signal &sig, Value &result)
 				_mapFlag = true;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
 				_mapFlag = false;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
+				flags |= FLAG_NoNamed;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
 				flags |= FLAG_Flat;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {

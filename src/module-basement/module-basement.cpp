@@ -1251,14 +1251,14 @@ Gura_ImplementFunction(classref)
 	return ReturnValue(env, args, result);
 }
 
-// struct(`args*):[loose] {block?}
+// struct(`args*):nonamed:[loose] {block?}
 // if :loose attribute is specified, arguments in the generated function
 // will get the following modification.
 // - Once attribute will be modified to ZeroOrOnce.
 // - OnceOrMore attribute will be modified to ZeroOrMore
 Gura_DeclareFunctionAlias(struct_, "struct")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_NoNamed);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(loose));

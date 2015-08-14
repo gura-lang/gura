@@ -344,4 +344,12 @@ expected error: TypeError: number or string must be specified
 ======== #35 forward-declaration of class ========
 
 OK
+
+======== #36 struct declaration with arguments that has default value ========
+
+Taro: 23
+Jiro: 23
+Jiro: 23
+Taro: 25
+Takeshi: 21
 <<end of script>>

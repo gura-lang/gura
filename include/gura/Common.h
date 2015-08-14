@@ -253,6 +253,7 @@ enum {
 	FLAG_Public			= (1 << 15),	// :public
 	FLAG_Private		= (1 << 16),	// :private
 	FLAG_Privileged		= (1 << 17),	// :privileged
+	FLAG_NoNamed		= (1 << 18),	// :nonamed
 };
 
 //-----------------------------------------------------------------------------
