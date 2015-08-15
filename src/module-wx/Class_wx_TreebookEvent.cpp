@@ -50,7 +50,7 @@ Gura_DeclareFunction(TreebookEvent)
 Gura_ImplementFunction(TreebookEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
 	int id = 0;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_TreebookEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_TreebookEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
 }

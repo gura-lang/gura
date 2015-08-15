@@ -56,7 +56,7 @@ Value Object_accumulator::DoGetProp(Environment &env, const Symbol *pSymbol,
 		evaluatedFlag = true;
 		return GetAccumulator().GetValue();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_accumulator::ToString(bool exprFlag)

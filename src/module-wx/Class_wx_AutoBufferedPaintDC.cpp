@@ -47,7 +47,7 @@ Gura_DeclareFunction(AutoBufferedPaintDC)
 Gura_ImplementFunction(AutoBufferedPaintDC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_AutoBufferedPaintDC *pEntity = new wx_AutoBufferedPaintDC(window);
 	Object_wx_AutoBufferedPaintDC *pObj = Object_wx_AutoBufferedPaintDC::GetThisObj(args);

@@ -359,11 +359,11 @@ Gura_ImplementMethod(writer, add)
 		const char *identifier = args.GetStream(0).GetIdentifier();
 		if (identifier == nullptr) {
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
-			return Value::Null;
+			return Value::Nil;
 		}
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
-	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Null;
+	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -379,7 +379,7 @@ Gura_DeclareMethod(writer, close)
 Gura_ImplementMethod(writer, close)
 {
 	Object_writer *pThis = Object_writer::GetThisObj(args);
-	if (!pThis->Close()) return Value::Null;
+	if (!pThis->Close()) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -502,7 +502,7 @@ Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_hdr.GetDevMinor());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_stat::ToString(bool exprFlag)
@@ -757,11 +757,11 @@ Gura_ImplementFunction(reader)
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Object_reader> pObj(new Object_reader());
 	if (!pObj->Open(env, streamSrc.Reference(), compressionType)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }
@@ -795,11 +795,11 @@ Gura_ImplementFunction(writer)
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Object_writer> pObj(new Object_writer(sig));
 	if (!pObj->Open(env, streamDst.Reference(), compressionType)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }
@@ -817,7 +817,7 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Stream &stream = args.GetStream(0);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

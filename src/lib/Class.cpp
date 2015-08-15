@@ -58,7 +58,7 @@ Value Object::EmptyIndexGet(Environment &env)
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
@@ -87,7 +87,7 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitem__), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
@@ -138,7 +138,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
-	if (pFunc == nullptr) return Value::Null;
+	if (pFunc == nullptr) return Value::Nil;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
 	AutoPtr<Args> pArgs(new Args());
@@ -151,7 +151,7 @@ Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
-	if (pFunc == nullptr) return Value::Null;
+	if (pFunc == nullptr) return Value::Nil;
 	evaluatedFlag = true;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
@@ -164,7 +164,7 @@ Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &va
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
-	if (pFunc == nullptr) return Value::Null;
+	if (pFunc == nullptr) return Value::Nil;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(pSymbol), value);
@@ -179,7 +179,7 @@ String Object::ToString(bool exprFlag)
 	Signal sig;
 	bool evaluatedFlag = false;
 	Value value = EvalMethod(*this, Gura_Symbol(__str__),
-											ValueList::Null, evaluatedFlag);
+											ValueList::Empty, evaluatedFlag);
 	if (sig.IsSignalled()) return String("");
 	if (evaluatedFlag) return value.ToString(false);
 	String str;
@@ -242,7 +242,7 @@ Gura_ImplementMethod(Object, istype)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = args.GetThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_rational) &&
@@ -262,7 +262,7 @@ Gura_ImplementMethod(Object, isinstance)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
@@ -300,11 +300,11 @@ Gura_ImplementMethod(Object, tonumber)
 		return Value(num);
 	} else if (args.IsSet(Gura_Symbol(raise))) {
 		sig.SetError(ERR_ValueError, "failed to convert to number");
-		return Value::Null;
+		return Value::Nil;
 	} else if (args.IsSet(Gura_Symbol(zero))) {
 		return Value(0.);
 	} else { // args.IsSet(Gura_UserSymbol(nil)
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(Object, tostring)
 {
 	Signal &sig = env.GetSignal();
 	String str = args.GetThis().ToString(false);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(str);
 }
 
@@ -349,28 +349,28 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
 	const Fundamental *pThis = args.GetThisFundamental();
 	if (args.GetExprListArg().size() < 1) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Null;
+		return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value value = args.GetExprListArg().front()->Exec2(env, pSeqPostHandler);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (!value.Is_symbol()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Symbol *pSymbol = value.GetSymbol();
 	Value valueFunc;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
-		const SymbolSet &attrs = SymbolSet::Null;
+		const SymbolSet &attrs = SymbolSet::Empty;
 		valueFunc = pThis->GetProp(env, pSymbol, attrs);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		valueFunc = *pValue;
 	}
 	if (!valueFunc.Is_function()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
 	AutoPtr<Args> pArgsSub(new Args(args));
@@ -387,7 +387,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // object#__iter__()
@@ -400,7 +400,7 @@ Gura_ImplementMethod(Object, __iter__)
 {
 	Signal &sig = env.GetSignal();
 	Iterator *pIterator = args.GetThis().CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(new Object_iterator(env, pIterator));
 }
 
@@ -415,7 +415,7 @@ Gura_ImplementMethod(Object, clone)
 	Object *pObj = args.GetThisObj()->Clone();
 	if (pObj == nullptr) {
 		sig.SetError(ERR_ValueError, "failed to create a clone object");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(pObj);
 }
@@ -431,7 +431,7 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 Gura_ImplementClassMethod(Object, getprop_X)
 {
 	Fundamental *pThis = args.GetThisFundamental();
-	const SymbolSet &attrs = SymbolSet::Null;
+	const SymbolSet &attrs = SymbolSet::Empty;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
 		return pThis->GetProp(env, args.GetSymbol(0), attrs, &value);
@@ -452,7 +452,7 @@ Gura_ImplementClassMethod(Object, setprop_X)
 {
 	Fundamental *pThis = args.GetThisFundamental();
 	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -496,7 +496,7 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 Value Class::GetPropPrimitive(Environment &env, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 
@@ -504,7 +504,7 @@ Value Class::EmptyIndexGetPrimitive(Environment &env, const Value &valueThis) co
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Class::IndexGetPrimitive(Environment &env,
@@ -512,7 +512,7 @@ Value Class::IndexGetPrimitive(Environment &env,
 {
 	Signal &sig = GetSignal();
 	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Class::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

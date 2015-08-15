@@ -62,7 +62,7 @@ Gura_DeclareFunction(DDEConnectionEmpty)
 Gura_ImplementFunction(DDEConnectionEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DDEConnection *pEntity = new wx_DDEConnection();
 	Object_wx_DDEConnection *pObj = Object_wx_DDEConnection::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -89,7 +89,7 @@ Gura_DeclareFunction(DDEConnection)
 Gura_ImplementFunction(DDEConnection)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(DDEConnection)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, Advise)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_DDEConnection, Advise)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_DDEConnection, Advise)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, Execute)
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_DDEConnection, Execute)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char data = args.GetChar(0);
 	int size = -1;
 	if (args.IsValid(1)) size = args.GetInt(1);
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_DDEConnection, Execute)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, Disconnect)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_DDEConnection, Disconnect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Disconnect();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnAdvise)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnAdvise)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, OnDisconnect)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnDisconnect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->OnDisconnect();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnExecute)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = args.GetInt(2);
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnExecute)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, OnPoke)
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnPoke)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnPoke)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, OnRequest)
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnRequest)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	int size = args.GetInt(2);
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnRequest)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, OnStartAdvise)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnStartAdvise)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->OnStartAdvise(topic, item);
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnStopAdvise)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->OnStopAdvise(topic, item);
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_DDEConnection, Poke)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_DDEConnection, Poke)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, Request)
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_DDEConnection, Request)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	int size = args.GetInt(1);
 	wxIPCFormat format = wxIPC_TEXT;
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_DDEConnection, Request)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DDEConnection, StartAdvise)
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_DDEConnection, StartAdvise)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->StartAdvise(item);
 	return ReturnValue(env, args, Value(rtn));
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_DDEConnection, StopAdvise)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->StopAdvise(item);
 	return ReturnValue(env, args, Value(rtn));

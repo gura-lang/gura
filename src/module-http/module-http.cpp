@@ -600,7 +600,7 @@ Value Header::GetField(Environment &env,
 		}
 	} else if (signalFlag) {
 		sig.SetError(ERR_KeyError, "no field name %s", fieldName);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return value;
 }
@@ -622,14 +622,14 @@ Value Header::IndexGet(Environment &env, const Value &valueIdx) const
 	Signal &sig = env.GetSignal();
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_KeyError, "index must be a string");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const char *fieldName = valueIdx.GetString();
 	StringList *pStringList = nullptr;
 	if (GetField(fieldName, &pStringList)) {
 		return Value(pStringList->back());
 	} else {
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -1391,7 +1391,7 @@ Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_stat::IndexGet(Environment &env, const Value &valueIdx)
@@ -1475,7 +1475,7 @@ Value Object_session::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_datetime(env, _dateTime));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Object *Object_session::Clone() const
@@ -1572,25 +1572,25 @@ Value Object_request::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(request.GetHttpVersion());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjSession->GetStream();
-		if (pStream == nullptr) return Value::Null;
+		if (pStream == nullptr) return Value::Nil;
 		return Value(new Object_stream(env, Stream::Reference(pStream)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(scheme))) {
 		String str = ExtractURIScheme(sig, request.GetRequestURI(), nullptr);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(strUnquote.c_str());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(authority))) {
 		String str = ExtractURIAuthority(sig, request.GetRequestURI(), nullptr);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(strUnquote);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(path))) {
 		String str = ExtractURIPath(sig, request.GetRequestURI());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(strUnquote);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(query))) {
 		Value rtn;
@@ -1599,15 +1599,15 @@ Value Object_request::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return rtn;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(fragment))) {
 		String str = ExtractURIFragment(sig, request.GetRequestURI());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(strUnquote);
 	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_request::IndexGet(Environment &env, const Value &valueIdx)
@@ -1715,7 +1715,7 @@ Gura_ImplementMethod(request, response)
 			args.GetString(0), args.Is_string(1)? args.GetString(1) : nullptr,
 			args.Is_stream(2)? &args.GetStream(2) : nullptr, args.GetString(3),
 			args.GetValueDictArg())) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -1743,7 +1743,7 @@ Gura_ImplementMethod(request, respchunk)
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
 			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
 			args.GetValueDictArg());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -1810,13 +1810,13 @@ Value Object_response::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return header.GetFieldNames(env, sig);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjClient->GetStream();
-		if (pStream == nullptr) return Value::Null;
+		if (pStream == nullptr) return Value::Nil;
 		return Value(new Object_stream(env, Stream::Reference(pStream)));
 	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_response::IndexGet(Environment &env, const Value &valueIdx)
@@ -1920,7 +1920,7 @@ Value Object_server::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return rtn;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_server::ToString(bool exprFlag)
@@ -2082,16 +2082,16 @@ Gura_ImplementMethod(server, wait)
 	Object_server *pThis = Object_server::GetThisObj(args);
 	if (!args.IsBlockSpecified()) {
 		Object_request *pObjRequest = pThis->Wait(sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(pObjRequest);
 	}
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		//Value value(pObjRequest);
 		//ValueList valListArg(value);
 		AutoPtr<Args> pArgsSub(new Args());
@@ -2106,7 +2106,7 @@ Gura_ImplementMethod(server, wait)
 			break;
 		}
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // implementation of class Server
@@ -2306,7 +2306,7 @@ Gura_ImplementMethod(client, request)
 			args.GetString(0), args.GetString(1),
 			args.Is_stream(2)? &args.GetStream(2) : nullptr,
 			args.GetString(3), args.GetValueDictArg());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjResponse));
 }
 
@@ -2334,7 +2334,7 @@ Gura_ImplementMethod(client, _request)
 			Upper(GetName()).c_str(), args.GetString(0),
 			args.Is_stream(1)? &args.GetStream(1) : nullptr,
 			args.GetString(2), args.GetValueDictArg());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjResponse));
 }
 
@@ -2351,7 +2351,7 @@ Gura_ImplementMethod(client, cleanup)
 {
 	Signal &sig = env.GetSignal();
 	Object_client *pThis = Object_client::GetThisObj(args);
-	if (!pThis->CleanupResponse(sig)) return Value::Null;
+	if (!pThis->CleanupResponse(sig)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2448,7 +2448,7 @@ Gura_ImplementFunction(addproxy)
 				args.Is_string(3)? args.GetString(3) : "",
 				Function::Reference(pFuncCriteria)));
 	pValList->push_back(value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // http.server(addr?:string, port:number => 80) {block?}
@@ -2471,7 +2471,7 @@ Gura_ImplementFunction(server)
 	AutoPtr<Object_server> pObjServer(new Object_server());
 	if (!pObjServer->Prepare(sig,
 				args.Is_string(0)? args.GetString(0) : nullptr, args.GetShort(1))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObjServer.release()));
 }
@@ -2507,7 +2507,7 @@ Gura_ImplementFunction(client)
 	if (args.Is_string(2)) {
 		if (!args.Is_number(3)) {
 			Declaration::SetError_NotEnoughArguments(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		addrProxy = args.GetString(2);
 		portProxy = args.GetShort(3);
@@ -2516,7 +2516,7 @@ Gura_ImplementFunction(client)
 	}
 	if (!pObjClient->Prepare(sig, args.GetString(0), args.GetShort(1),
 							addrProxy, portProxy, userIdProxy, passwordProxy)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObjClient.release()));
 }
@@ -2582,7 +2582,7 @@ Stream *Directory_Http::DoOpenStream(Environment &env, ULong attr)
 		return nullptr;
 	}
 	AutoPtr<Object_response> pObjResponse(pObjClient->SendRequest(sig,
-				"GET", pathName.c_str(), nullptr, HTTP_VERSION, ValueDict::Null));
+				"GET", pathName.c_str(), nullptr, HTTP_VERSION, ValueDict::Empty));
 	if (sig.IsSignalled()) return nullptr;
 	Stream *pStream = pObjClient->GetStream();
 	if (pStream == nullptr) {

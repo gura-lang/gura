@@ -40,12 +40,12 @@ public:
 		Signal &sig = GetSignal();
 		if (!valueIdx.Is_number()) {
 			sig.SetError(ERR_ValueError, "index must be a number");
-			return Value::Null;
+			return Value::Nil;
 		}
 		size_t idx = valueIdx.GetSizeT();
 		if (idx >= _pArray->GetSize()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(_pArray->GetPointer()[idx]);
 	}
@@ -96,10 +96,10 @@ public:
 			} else if (args.Is_list(0)) {
 				const ValueList &valList = args.GetList(0);
 				pArray.reset(CreateArrayFromList<T_Elem>(sig, valList));
-				if (pArray.IsNull()) return Value::Null;
+				if (pArray.IsNull()) return Value::Nil;
 			} else {
 				Declaration::SetError_InvalidArgument(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));
 			return ReturnValue(env, args, value);
@@ -126,12 +126,12 @@ public:
 				const Expr *pExpr = *ppExpr;
 				if (pExpr->IsBlock()) {
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
-					return Value::Null;
+					return Value::Nil;
 				}
 				Value value = pExpr->Exec2(env, pSeqPostHandler);
 				if (!value.Is_number() && !value.Is_boolean()) {
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
-					return Value::Null;
+					return Value::Nil;
 				}
 				*p++ = static_cast<T_Elem>(value.GetNumber());
 			}
@@ -187,7 +187,7 @@ public:
 			Stream *pStream = args.IsValid(0)?
 				&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
 			pArray->Dump(sig, *pStream, upperFlag);
-			return Value::Null;
+			return Value::Nil;
 		}
 	};
 	// array@T#fill(value:number):void
@@ -208,7 +208,7 @@ public:
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
 			pArray->Fill(static_cast<T_Elem>(args.GetNumber(0)));
-			return Value::Null;
+			return Value::Nil;
 		}
 	};
 	// array@T#head(n:number):map {block?}
@@ -238,7 +238,7 @@ public:
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-				return Value::Null;
+				return Value::Nil;
 			}
 			size_t offsetBase = pArray->GetOffsetBase();
 			AutoPtr<Array<T_Elem> > pArrayRtn(
@@ -274,7 +274,7 @@ public:
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-				return Value::Null;
+				return Value::Nil;
 			}
 			size_t cnt = pArray->GetSize() - n;
 			size_t offsetBase = pArray->GetOffsetBase() + n;
@@ -308,7 +308,7 @@ public:
 			size_t offset = args.GetSizeT(0);
 			const Array<T_Elem> *pArraySrc = Object_array<T_Elem>::GetObject(args, 1)->GetArray();
 			pArray->Paste(sig, offset, pArraySrc);
-			return Value::Null;
+			return Value::Nil;
 		}
 	};
 	// array@T#tail(n:number):map {block?}
@@ -338,7 +338,7 @@ public:
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-				return Value::Null;
+				return Value::Nil;
 			}
 			size_t offsetBase = pArray->GetOffsetBase() + pArray->GetSize() - n;
 			AutoPtr<Array<T_Elem> > pArrayRtn(

@@ -668,7 +668,7 @@ Value Object_Event::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 const char *GetEventTypeName(Uint32 type)

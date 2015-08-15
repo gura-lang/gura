@@ -59,7 +59,7 @@ Gura_DeclareFunction(LanguageInfo)
 Gura_ImplementFunction(LanguageInfo)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_LanguageInfo *pEntity = new wx_LanguageInfo();
 	pEntity->Language = 0;
 _MS(pEntity->WinLang = 0);
@@ -127,7 +127,7 @@ Value Object_wx_LanguageInfo::DoGetProp(Environment &env, const Symbol *pSymbol,
 #endif
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -135,29 +135,29 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol,
 {
 	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->Language = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		GetEntity()->CanonicalName = wxString::FromUTF8(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		GetEntity()->Description = wxString::FromUTF8(value.GetString());
 		return value;
 #ifdef __WIN32__
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->WinLang = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinSublang))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->WinSublang = value.GetInt();
 		return value;
 #endif
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_wx_LanguageInfo::ToString(bool exprFlag)

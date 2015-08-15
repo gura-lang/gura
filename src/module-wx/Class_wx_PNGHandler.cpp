@@ -44,7 +44,7 @@ Gura_DeclareFunction(PNGHandler)
 Gura_ImplementFunction(PNGHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PNGHandler *pEntity = new wx_PNGHandler();
 	Object_wx_PNGHandler *pObj = Object_wx_PNGHandler::GetThisObj(args);
 	if (pObj == nullptr) {

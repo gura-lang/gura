@@ -32,7 +32,7 @@ Value Object_Writer_surface::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(stream))) {
 		Stream *pStream = _pWriter->GetStream();
-		if (pStream == nullptr) return Value::Null;
+		if (pStream == nullptr) return Value::Nil;
 		Object_stream *pObjStream = new Object_stream(env, Stream::Reference(pStream));
 		return Value(pObjStream);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {

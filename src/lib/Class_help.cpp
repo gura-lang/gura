@@ -44,7 +44,7 @@ Value Object_help::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pHelp->GetTextSTL());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_help::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -105,7 +105,7 @@ Gura_ImplementClassMethod(help, gettext_block_en)
 	const char *typeName = args.GetString(1);
 	String buff = Formatter::Format(
 		sig, GURA_HELPTEXT_BLOCK_en("%s", "%s"), varName, typeName, varName);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(buff));
 }
 

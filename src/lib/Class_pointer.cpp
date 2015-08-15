@@ -90,7 +90,7 @@ Gura_ImplementMethod(pointer, pack)
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
+		return Value::Nil;
 	}
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
 	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
@@ -110,7 +110,7 @@ Gura_ImplementMethod(pointer, reset)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	pThis->Reset();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // pointer#unpack(format:string, values*:number):[nil,stay]

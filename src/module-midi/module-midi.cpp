@@ -323,7 +323,7 @@ Value Object_event::DoGetProp(Environment &env, const Symbol *pSymbol,
 		} else if (_pEvent->IsMetaEvent()) {
 			return Value(Gura_UserSymbol(meta));
 		} else {
-			return Value::Null; // this must not happen
+			return Value::Nil; // this must not happen
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
 		return Value(_pEvent->GetTimeStamp());
@@ -343,7 +343,7 @@ Value Object_event::DoGetProp(Environment &env, const Symbol *pSymbol,
 Value Object_event::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_event::ToString(bool exprFlag)
@@ -401,7 +401,7 @@ Value Object_track::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_iterator(env, pIterator));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_track::ToString(bool exprFlag)
@@ -439,14 +439,14 @@ Gura_ImplementMethod(track, seek)
 	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	if (!args.Is_symbol(1)) {
-		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
+		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Nil;
 	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
-		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
+		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Nil;
 	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(cur))) {
-		if (!pTrack->SeekCur(sig, args.GetLong(0))) return Value::Null;
+		if (!pTrack->SeekCur(sig, args.GetLong(0))) return Value::Nil;
 	} else {
 		sig.SetError(ERR_ArgumentError, "invalid symbol");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -483,7 +483,7 @@ Gura_ImplementMethod(track, erase)
 	Signal &sig = env.GetSignal();
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	size_t cnt = args.Is_number(0)? args.GetSizeT(0) : 1;
-	if (!pTrack->Erase(sig, cnt)) return Value::Null;
+	if (!pTrack->Erase(sig, cnt)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -508,7 +508,7 @@ Gura_ImplementMethod(track, mml)
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
 	if (mml.ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -614,12 +614,12 @@ Gura_ImplementMethod(track, control_change)
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid controller name '%s'",
 											args.GetSymbol(1)->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 		controller = static_cast<UChar>(n);
 	} else {
 		sig.SetError(ERR_TypeError, "controller must be specified by number or symbol");
-		return Value::Null;
+		return Value::Nil;
 	}
 	UChar value = args.GetUChar(2);
 	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
@@ -653,12 +653,12 @@ Gura_ImplementMethod(track, program_change)
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid program name '%s'",
 											args.GetSymbol(1)->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 		program = static_cast<UChar>(n);
 	} else {
 		sig.SetError(ERR_TypeError, "program must be specified by number or symbol");
-		return Value::Null;
+		return Value::Nil;
 	}
 	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
@@ -1102,7 +1102,7 @@ Value Object_sequence::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_sequence.GetProperty()->GetDivision());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_sequence::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1111,22 +1111,22 @@ Value Object_sequence::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		UShort format = value.GetUShort();
 		if (format > 2) {
 			sig.SetError(ERR_ValueError, "wrong number for format");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_sequence.SetFormat(format);
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		UShort division = value.GetUShort();
 		_sequence.GetProperty()->SetDivision(division);
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_sequence::ToString(bool exprFlag)
@@ -1161,7 +1161,7 @@ Gura_ImplementMethod(sequence, read)
 {
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().Read(env, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSequence().Read(env, args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1179,7 +1179,7 @@ Gura_ImplementMethod(sequence, write)
 {
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().Write(env, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSequence().Write(env, args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1253,7 +1253,7 @@ Gura_ImplementMethod(sequence, mml)
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseString(sig, pThis->GetSequence(), args.GetString(0))) return Value::Null;
+	if (!mml.ParseString(sig, pThis->GetSequence(), args.GetString(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1274,7 +1274,7 @@ Gura_ImplementMethod(sequence, readmml)
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseStream(sig, pThis->GetSequence(), args.GetStream(0))) return Value::Null;
+	if (!mml.ParseStream(sig, pThis->GetSequence(), args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1299,7 +1299,7 @@ Gura_ImplementCastFrom(sequence)
 	if (valueCast.Is_stream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 		pObj->GetSequence().Read(env, valueCast.GetStream());
-		valueCast = Value::Null; // delete stream instance
+		valueCast = Value::Nil; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
 		return true;
@@ -1338,7 +1338,7 @@ Value Object_portinfo::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_portinfo::ToString(bool exprFlag)
@@ -1386,7 +1386,7 @@ Value Object_port::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_port::ToString(bool exprFlag)
@@ -1428,7 +1428,7 @@ Gura_ImplementMethod(port, send)
 							valList[2].GetUChar(), valList[3].GetUChar());
 	} else {
 		sig.SetError(ERR_ArgumentError, "too many arguments");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -1478,7 +1478,7 @@ Gura_ImplementMethod(port, mml)
 	Sequence sequence;
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseString(sig, sequence, args.GetString(0))) return Value::Null;
+	if (!mml.ParseString(sig, sequence, args.GetString(0))) return Value::Nil;
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
@@ -1504,7 +1504,7 @@ Gura_ImplementMethod(port, readmml)
 	Sequence sequence;
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseStream(sig, sequence, args.GetStream(0))) return Value::Null;
+	if (!mml.ParseStream(sig, sequence, args.GetStream(0))) return Value::Nil;
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
@@ -1732,7 +1732,7 @@ Value Object_player::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pPlayer->GetProgress());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_player::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1741,17 +1741,17 @@ Value Object_player::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(speed))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		double speed = value.GetDouble();
 		if (speed <= 0) {
 			sig.SetError(ERR_ValueError, "nuber of speed must be more than zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_pPlayer->SetSpeed(speed);
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_player::ToString(bool exprFlag)
@@ -1800,7 +1800,7 @@ Value Object_controller::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetControllerInfo().name);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_controller::ToString(bool exprFlag)
@@ -1853,7 +1853,7 @@ Value Object_program::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetProgramInfo().dispName);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_program::ToString(bool exprFlag)
@@ -1910,7 +1910,7 @@ Value Object_soundfont::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_soundfont::ToString(bool exprFlag)
@@ -1948,7 +1948,7 @@ Gura_ImplementMethod(soundfont, synthesizer)
 	UChar velocity = args.GetUChar(3);
 	SoundFont::Synthesizer *pSynthesizer =
 				soundFont.CreateSynthesizer(sig, wPreset, wBank, key, velocity);
-	if (pSynthesizer == nullptr) return Value::Null;
+	if (pSynthesizer == nullptr) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_synthesizer(env, pSynthesizer)));
 }
 
@@ -1965,7 +1965,7 @@ Gura_ImplementMethod(soundfont, print)
 {
 	SoundFont &soundFont = Object_soundfont::GetThisObj(args)->GetSoundFont();
 	soundFont.Print();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2002,7 +2002,7 @@ Value Object_synthesizer::DoGetProp(Environment &env, const Symbol *pSymbol,
 					_pSynthesizer->GetSample()->GetAudio()->Reference()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_synthesizer::ToString(bool exprFlag)
@@ -2154,7 +2154,7 @@ Gura_ImplementFunction(sequence)
 	AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 	Sequence &sequence = pObj->GetSequence();
 	if (args.Is_stream(0)) {
-		if (!sequence.Read(env, args.GetStream(0))) return Value::Null;
+		if (!sequence.Read(env, args.GetStream(0))) return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }
@@ -2178,7 +2178,7 @@ Gura_ImplementFunction(port)
 	AutoPtr<Object_port> pObj(new Object_port(env));
 	if (!pObj->GetPort()->Open(id)) {
 		sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }
@@ -2201,7 +2201,7 @@ Gura_ImplementFunction(controller)
 	int controller = ControllerIdBySymbol(args.GetSymbol(0));
 	if (controller < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi controller");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Object_controller> pObj(new Object_controller(env, controller));
 	return ReturnValue(env, args, Value(pObj.release()));
@@ -2225,7 +2225,7 @@ Gura_ImplementFunction(program)
 	int program = ProgramIdBySymbol(args.GetSymbol(0));
 	if (program < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi program");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Object_program> pObj(new Object_program(env, program));
 	return ReturnValue(env, args, Value(pObj.release()));
@@ -2247,7 +2247,7 @@ Gura_ImplementFunction(soundfont)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, args.GetStream(0).Reference()));
-	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Null;
+	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Nil;
 	return ReturnValue(env, args, Value(pObj.release()));
 }
 
@@ -2265,7 +2265,7 @@ Gura_ImplementFunction(test)
 	::printf("check\n");
 	sf.ReadChunks(env, sig);
 	sf.Print();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2481,7 +2481,7 @@ Value ActivatePlayer(Environment &env, Signal &sig, Args &args,
 					Sequence &sequence, Port *pPort, double speed, int cntRepeat)
 {
 	AutoPtr<Player> pPlayer(sequence.GeneratePlayer(sig, pPort, speed, cntRepeat));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (args.IsSet(Gura_UserSymbol(background))) {
 		Value value(new Object_player(env, Player::Reference(pPlayer.get())));
 		pPlayer.release()->PlayBackground();
@@ -2492,7 +2492,7 @@ Value ActivatePlayer(Environment &env, Signal &sig, Args &args,
 		return value;
 	}
 	pPlayer->Play();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_EndModuleBody(midi, midi)

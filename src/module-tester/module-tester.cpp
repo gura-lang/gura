@@ -76,7 +76,7 @@ Gura_ImplementFunction(run)
 			cntRound = 0;
 		}
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ Value Object_uri::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_uri.GetMisc());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_uri::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -59,31 +59,31 @@ Value Object_uri::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetScheme(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetUser(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetPassword(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetHost(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetPort(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetUrlPath(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_uri.SetMisc(value.GetString());
 		return value;
 	}
@@ -120,7 +120,7 @@ Gura_ImplementFunction(uri)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_uri> pObj(new Object_uri(env));
 	if (args.Is_string(0)) {
-		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Null;
+		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }

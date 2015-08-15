@@ -206,13 +206,13 @@ public:
 		inline Global *GetGlobal() { return _pGlobal; }
 		inline Global *GetGlobal() const { return _pGlobal; }
 		inline const ValueMap &GetValueMap() const {
-			return (_pValueMap.get() == nullptr)? ValueMap::Null : *_pValueMap;
+			return (_pValueMap.get() == nullptr)? ValueMap::Empty : *_pValueMap;
 		}
 		inline const ValueTypeMap &GetValueTypeMap() const {
-			return (_pValueTypeMap.get() == nullptr)? ValueTypeMap::Null : *_pValueTypeMap;
+			return (_pValueTypeMap.get() == nullptr)? ValueTypeMap::Empty : *_pValueTypeMap;
 		}
 		inline const SymbolSet &GetSymbolsPublic() const {
-			return (_pSymbolsPublic.get() == nullptr)? SymbolSet::Null : *_pSymbolsPublic;
+			return (_pSymbolsPublic.get() == nullptr)? SymbolSet::Empty : *_pSymbolsPublic;
 		}
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);

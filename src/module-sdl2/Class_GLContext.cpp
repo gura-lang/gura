@@ -29,7 +29,7 @@ Value Object_GLContext::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_GLContext::DoSetProp(Environment &env,
@@ -37,7 +37,7 @@ Value Object_GLContext::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

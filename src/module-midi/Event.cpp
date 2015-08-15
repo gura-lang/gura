@@ -24,13 +24,13 @@ bool Event::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Event::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Event::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Event::WriteVariableFormat(Signal &sig, Stream &stream, ULong num)
@@ -130,13 +130,13 @@ Value MIDIEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetChannel());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MIDIEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -189,11 +189,11 @@ Value MIDIEvent_NoteOff::DoSetProp(Environment &env, const Symbol *pSymbol, cons
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetNote(value.GetUChar());
 		return Value(GetNote());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(velocity))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetVelocity(value.GetUChar());
 		return Value(GetVelocity());
 	}
@@ -251,11 +251,11 @@ Value MIDIEvent_NoteOn::DoSetProp(Environment &env, const Symbol *pSymbol, const
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetNote(value.GetUChar());
 		return Value(GetNote());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(velocity))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetVelocity(value.GetUChar());
 		return Value(GetVelocity());
 	}
@@ -313,11 +313,11 @@ Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, const Symbol *pSymbol,
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetNote(value.GetUChar());
 		return Value(GetNote());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(velocity))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetValue(value.GetUChar());
 		return Value(GetValue());
 	}
@@ -366,7 +366,7 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, const Symbol *pSymbol
 		if (attrs.IsSet(Gura_Symbol(symbol))) {
 			const ControllerInfo *pControllerInfo = ControllerInfoById(GetController());
 			if (pControllerInfo == nullptr) {
-				return Value::Null;
+				return Value::Nil;
 			} else {
 				return Value(pControllerInfo->pSymbol);
 			}
@@ -386,11 +386,11 @@ Value MIDIEvent_ControlChange::DoSetProp(Environment &env, const Symbol *pSymbol
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(controller))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetController(value.GetUChar());
 		return Value(GetController());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetValue(value.GetUChar());
 		return Value(GetValue());
 	}
@@ -446,7 +446,7 @@ Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, const Symbol *pSymbol
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(program))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetProgram(value.GetUChar());
 		return Value(GetProgram());
 	}
@@ -500,7 +500,7 @@ Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, const Symbol *pSymb
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(pressure))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetPressure(value.GetUChar());
 		return Value(GetPressure());
 	}
@@ -554,7 +554,7 @@ Value MIDIEvent_PitchBend::DoSetProp(Environment &env, const Symbol *pSymbol, co
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetValue(value.GetUShort());
 		return Value(GetValue());
 	}
@@ -613,7 +613,7 @@ Value SysExEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value SysExEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -622,12 +622,12 @@ Value SysExEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		if (!value.MustBe_binary(sig)) return Value::Null;
+		if (!value.MustBe_binary(sig)) return Value::Nil;
 		_binary = value.GetBinary();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -754,7 +754,7 @@ Value MetaEvent_Unknown::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_Unknown::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -763,12 +763,12 @@ Value MetaEvent_Unknown::DoSetProp(Environment &env, const Symbol *pSymbol, cons
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		if (!value.MustBe_binary(sig)) return Value::Null;
+		if (!value.MustBe_binary(sig)) return Value::Nil;
 		_binary = value.GetBinary();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -833,7 +833,7 @@ Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, const Symbol *pSymbo
 		return Value(_number);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -842,12 +842,12 @@ Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, const Symbol *pSymbo
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(number))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_number = value.GetUShort();
 		return Value(_number);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -902,7 +902,7 @@ Value MetaEvent_TextEvent::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_TextEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -911,12 +911,12 @@ Value MetaEvent_TextEvent::DoSetProp(Environment &env, const Symbol *pSymbol, co
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -971,7 +971,7 @@ Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, const Symbol *pSymb
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -980,12 +980,12 @@ Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, const Symbol *pSymb
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1040,7 +1040,7 @@ Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, const Symbol *p
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1049,12 +1049,12 @@ Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, const Symbol *p
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1109,7 +1109,7 @@ Value MetaEvent_InstrumentName::DoGetProp(Environment &env, const Symbol *pSymbo
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_InstrumentName::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1118,12 +1118,12 @@ Value MetaEvent_InstrumentName::DoSetProp(Environment &env, const Symbol *pSymbo
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1178,7 +1178,7 @@ Value MetaEvent_LyricText::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_LyricText::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1187,12 +1187,12 @@ Value MetaEvent_LyricText::DoSetProp(Environment &env, const Symbol *pSymbol, co
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1247,7 +1247,7 @@ Value MetaEvent_MarkerText::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_MarkerText::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1256,12 +1256,12 @@ Value MetaEvent_MarkerText::DoSetProp(Environment &env, const Symbol *pSymbol, c
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1316,7 +1316,7 @@ Value MetaEvent_CuePoint::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_text);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_CuePoint::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1325,12 +1325,12 @@ Value MetaEvent_CuePoint::DoSetProp(Environment &env, const Symbol *pSymbol, con
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!value.MustBe_string(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Nil;
 		_text = value.GetStringSTL();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1392,7 +1392,7 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, const S
 		return Value(_channel);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1401,12 +1401,12 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, const S
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(channel))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_channel = value.GetUChar();
 		return Value(_channel);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1455,13 +1455,13 @@ bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, SymbolSet &symbols)
 Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1529,7 +1529,7 @@ Value MetaEvent_TempoSetting::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_mpqn);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_TempoSetting::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1538,12 +1538,12 @@ Value MetaEvent_TempoSetting::DoSetProp(Environment &env, const Symbol *pSymbol,
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(mpqn))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_mpqn = value.GetULong();
 		return Value(_mpqn);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1626,7 +1626,7 @@ Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_subFrame);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1635,28 +1635,28 @@ Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, const Symbol *pSymbol, 
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(hour))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_hour = value.GetUChar();
 		return Value(_hour);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(minute))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_minute = value.GetUChar();
 		return Value(_minute);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(second))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_second = value.GetUChar();
 		return Value(_second);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(frame))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_frame = value.GetUChar();
 		return Value(_frame);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(subFrame))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_subFrame = value.GetUChar();
 		return Value(_subFrame);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1734,7 +1734,7 @@ Value MetaEvent_TimeSignature::DoGetProp(Environment &env, const Symbol *pSymbol
 		return Value(_cnt32nd);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_TimeSignature::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1743,24 +1743,24 @@ Value MetaEvent_TimeSignature::DoSetProp(Environment &env, const Symbol *pSymbol
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(numerator))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_numerator = value.GetUChar();
 		return Value(_numerator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(denominator))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_denominator = value.GetUChar();
 		return Value(_denominator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(metronome))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_metronome = value.GetUChar();
 		return Value(_metronome);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(cnt32nd))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_cnt32nd = value.GetUChar();
 		return Value(_cnt32nd);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1827,7 +1827,7 @@ Value MetaEvent_KeySignature::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_scale);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_KeySignature::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1836,16 +1836,16 @@ Value MetaEvent_KeySignature::DoSetProp(Environment &env, const Symbol *pSymbol,
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(key))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_key = value.GetUChar();
 		return Value(_key);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(scale))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_scale = value.GetUChar();
 		return Value(_scale);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1900,7 +1900,7 @@ Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, const Symbol
 		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1909,12 +1909,12 @@ Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, const Symbol
 	Signal &sig = env.GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		if (!value.MustBe_binary(sig)) return Value::Null;
+		if (!value.MustBe_binary(sig)) return Value::Nil;
 		_binary = value.GetBinary();
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_EndModuleScope(midi)

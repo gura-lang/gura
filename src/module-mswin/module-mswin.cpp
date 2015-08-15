@@ -47,7 +47,7 @@ Gura_ImplementMethod(regkey, createkey)
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
 	DWORD dwOptions = args.Is_number(1)? args.GetULong(1) : REG_OPTION_NON_VOLATILE;
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	REGSAM samDesired = args.Is_number(2)? args.GetULong(2) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwDisposition;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(regkey, createkey)
 			0, nullptr, dwOptions, samDesired, nullptr, &hKeyResult, &dwDisposition);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
 	return ReturnValue(env, args, result);
@@ -79,14 +79,14 @@ Gura_ImplementMethod(regkey, openkey)
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	REGSAM samDesired = args.Is_number(1)? args.GetULong(1) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwErrCode = ::RegOpenKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
 												0, samDesired, &hKeyResult);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
 	return ReturnValue(env, args, result);
@@ -111,9 +111,9 @@ Gura_ImplementMethod(regkey, deletekey)
 	DWORD dwErrCode = ::RegDeleteKey(hKey, OAL::ToNativeString(lpSubKey).c_str());
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // mswin.regkey#enumkey(samDesired?:number):[openkey] {block?}
@@ -163,16 +163,16 @@ Gura_ImplementMethod(regkey, setvalue)
 	BYTE *lpData = nullptr;
 	DWORD cbData = 0;
 	if (!ValueToRegData(env, sig, args.GetValue(1), &dwType, &lpData, &cbData)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	DWORD dwErrCode = ::RegSetValueEx(hKey,
 			OAL::ToNativeString(lpValueName).c_str(), 0, dwType, lpData, cbData);
 	::LocalFree(lpData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // mswin.regkey#deletevalue(valueName:string):map:void
@@ -194,9 +194,9 @@ Gura_ImplementMethod(regkey, deletevalue)
 	DWORD dwErrCode = ::RegDeleteValue(hKey, OAL::ToNativeString(lpValueName).c_str());
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // mswin.regkey#queryvalue(valueName?:string):map
@@ -222,7 +222,7 @@ Gura_ImplementMethod(regkey, queryvalue)
 		nullptr, &dwType, nullptr, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
 	LPBYTE lpData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, cbData));
 	dwErrCode = ::RegQueryValueEx(hKey,
@@ -231,7 +231,7 @@ Gura_ImplementMethod(regkey, queryvalue)
 	if (dwErrCode != ERROR_SUCCESS) {
 		::LocalFree(lpData);
 		SetError(sig, dwErrCode);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result = RegDataToValue(env, sig, dwType, lpData, cbData);
 	::LocalFree(lpData);
@@ -578,7 +578,7 @@ Value Object_ole::DoGetProp(Environment &env, const Symbol *pSymbol,
 		HRESULT hr = GetDispID(pSymbol->GetName(), dispid);
 		if (FAILED(hr)) {
 			SetError(sig, hr);
-			return Value::Null;
+			return Value::Nil;
 		}
 	} while (0);
 	evaluatedFlag = true;
@@ -589,7 +589,7 @@ Value Object_ole::DoGetProp(Environment &env, const Symbol *pSymbol,
 						DISPATCH_PROPERTYGET, &dispParams, &var, nullptr, nullptr);
 		if (FAILED(hr)) {
 			SetError(sig, hr);
-			return Value::Null;
+			return Value::Nil;
 		}
 	} while (0);
 	Value result;
@@ -608,13 +608,13 @@ Value Object_ole::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 		HRESULT hr = GetDispID(pSymbol->GetName(), dispid);
 		if (FAILED(hr)) {
 			SetError(sig, hr);
-			return Value::Null;
+			return Value::Nil;
 		}
 	} while (0);
 	do {
 		VARIANTARG varArgs[1];
 		DISPID dispidNamedArgs[1] = { DISPID_PROPERTYPUT };
-		if (!ValueToVariant(sig, varArgs[0], value)) return Value::Null;
+		if (!ValueToVariant(sig, varArgs[0], value)) return Value::Nil;
 		DISPPARAMS dispParams;
 		dispParams.rgvarg = varArgs;
 		dispParams.rgdispidNamedArgs = dispidNamedArgs;
@@ -625,7 +625,7 @@ Value Object_ole::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 		::VariantClear(&varArgs[0]);
 		if (FAILED(hr)) {
 			sig.SetError(ERR_RuntimeError, "can't change OLE property %s", pSymbol->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 	} while (0);
 	return value;
@@ -816,7 +816,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Args &argsExpr)
 	if (FAILED(hr)) {
 		::VariantClear(&varResult);
 		Object_ole::SetError(sig, hr);
-		return Value::Null;
+		return Value::Nil;
 	}
 	VariantToValue(env, sig, result, varResult);
 	::VariantClear(&varResult);
@@ -829,7 +829,7 @@ error_done:
 	}
 	delete[] varArgs;
 	delete[] dispidNamedArgs;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1020,13 +1020,13 @@ Gura_ImplementFunction(ole)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_ole> pObj(new Object_ole(env));
 	if (args.IsSet(Gura_UserSymbol(connect))) {
-		if (!pObj->Connect(sig, args.GetString(0))) return Value::Null;
+		if (!pObj->Connect(sig, args.GetString(0))) return Value::Nil;
 	} else {
-		if (!pObj->Create(sig, args.GetString(0))) return Value::Null;
+		if (!pObj->Create(sig, args.GetString(0))) return Value::Nil;
 	}
 	if (!args.IsSet(Gura_UserSymbol(no_const))) {
 		pObj->ImportConstant(*pObj, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObj.release()));
 }

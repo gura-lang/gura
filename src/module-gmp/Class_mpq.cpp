@@ -35,7 +35,7 @@ Value Object_mpq::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_mpz(_num.get_den_mpz_t()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_mpq::ToString(bool exprFlag)
@@ -90,14 +90,14 @@ Gura_ImplementFunction(mpq)
 		mpq_class num;
 		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpq");
-			return Value::Null;
+			return Value::Nil;
 		}
 		value = Value(new Object_mpq(num));
 	} else if (args.IsType(0, VTYPE_mpq)) {
 		value = args.GetValue(0); // no change
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, value);
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(mpq, cast_mpf)
 	Signal &sig = env.GetSignal();
 	const mpq_class &num = Object_mpq::GetThisEntity(args);
 	mpf_class numCasted = MpfFromMpq(sig, num);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_mpf(numCasted)));
 }
 

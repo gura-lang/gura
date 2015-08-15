@@ -46,7 +46,7 @@ Gura_DeclareFunction(CountingOutputStreamEmpty)
 Gura_ImplementFunction(CountingOutputStreamEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_CountingOutputStream *pEntity = new wx_CountingOutputStream();
 	Object_wx_CountingOutputStream *pObj = Object_wx_CountingOutputStream::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_CountingOutputStream, GetSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, args, Value(rtn));
 }

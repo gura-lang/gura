@@ -47,7 +47,7 @@ Gura_DeclareFunction(TextAttrEx)
 Gura_ImplementFunction(TextAttrEx)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TextAttrEx *pEntity = new wx_TextAttrEx();
 	Object_wx_TextAttrEx *pObj = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetBulletFont();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetBulletName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletNumber)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetBulletNumber();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetBulletStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetBulletText();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetCharacterStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetCharacterStyleName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetLineSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetLineSpacing();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetListStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetListStyleName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetOutlineLevel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOutlineLevel();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphSpacingAfter)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetParagraphSpacingAfter();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphSpacingBefore)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetParagraphSpacingBefore();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetParagraphStyleName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetTextEffectFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTextEffectFlags();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetTextEffects)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTextEffects();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetURL();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBulletName();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletNumber)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBulletNumber();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBulletStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasBulletText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBulletText();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasCharacterStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasCharacterStyleName();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasLineSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasLineSpacing();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasListStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasListStyleName();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasOutlineLevel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasOutlineLevel();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasPageBreak)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasPageBreak();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -430,7 +430,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphSpacingAfter)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasParagraphSpacingAfter();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphSpacingBefore)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasParagraphSpacingBefore();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -460,7 +460,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasParagraphStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasParagraphStyleName();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasTextEffects)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasTextEffects();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_TextAttrEx, HasURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasURL();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -504,9 +504,9 @@ Gura_ImplementMethod(wx_TextAttrEx, Init)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Init();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, IsCharacterStyle)
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsCharacterStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsCharacterStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsDefault)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsDefault();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_TextAttrEx, IsParagraphStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsParagraphStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -564,10 +564,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString font = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetBulletFont(font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletNumber)
@@ -580,10 +580,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletNumber)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = args.GetInt(0);
 	pThis->GetEntity()->SetBulletNumber(n);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletName)
@@ -596,10 +596,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetBulletName(name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletStyle)
@@ -612,10 +612,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int style = args.GetInt(0);
 	pThis->GetEntity()->SetBulletStyle(style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetBulletText)
@@ -628,10 +628,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetBulletText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetBulletText(text);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetCharacterStyleName)
@@ -644,10 +644,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetCharacterStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetCharacterStyleName(name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetLineSpacing)
@@ -660,10 +660,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetLineSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int spacing = args.GetInt(0);
 	pThis->GetEntity()->SetLineSpacing(spacing);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetListStyleName)
@@ -676,10 +676,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetListStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetListStyleName(name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetOutlineLevel)
@@ -692,10 +692,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetOutlineLevel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int level = args.GetInt(0);
 	pThis->GetEntity()->SetOutlineLevel(level);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetPageBreak)
@@ -708,11 +708,11 @@ Gura_ImplementMethod(wx_TextAttrEx, SetPageBreak)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool pageBreak = true;
 	if (args.IsValid(0)) pageBreak = args.GetBoolean(0);
 	pThis->GetEntity()->SetPageBreak(pageBreak);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphSpacingAfter)
@@ -725,10 +725,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphSpacingAfter)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int spacing = args.GetInt(0);
 	pThis->GetEntity()->SetParagraphSpacingAfter(spacing);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphSpacingBefore)
@@ -741,10 +741,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphSpacingBefore)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int spacing = args.GetInt(0);
 	pThis->GetEntity()->SetParagraphSpacingBefore(spacing);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetParagraphStyleName)
@@ -757,10 +757,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetParagraphStyleName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetParagraphStyleName(name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetTextEffectFlags)
@@ -773,10 +773,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetTextEffectFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = args.GetInt(0);
 	pThis->GetEntity()->SetTextEffectFlags(flags);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetTextEffects)
@@ -789,10 +789,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetTextEffects)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int effects = args.GetInt(0);
 	pThis->GetEntity()->SetTextEffects(effects);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, SetURL)
@@ -805,10 +805,10 @@ Gura_ImplementMethod(wx_TextAttrEx, SetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetURL(url);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

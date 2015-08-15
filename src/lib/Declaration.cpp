@@ -246,7 +246,7 @@ OccurPattern Declaration::SymbolToOccurPattern(const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // DeclarationList
 //-----------------------------------------------------------------------------
-const DeclarationList DeclarationList::Null;
+const DeclarationList DeclarationList::Empty;
 
 DeclarationList::~DeclarationList()
 {

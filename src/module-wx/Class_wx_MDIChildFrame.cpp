@@ -47,7 +47,7 @@ Gura_DeclareFunction(MDIChildFrameEmpty)
 Gura_ImplementFunction(MDIChildFrameEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MDIChildFrame *pEntity = new wx_MDIChildFrame();
 	Object_wx_MDIChildFrame *pObj = Object_wx_MDIChildFrame::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -77,7 +77,7 @@ Gura_DeclareFunction(MDIChildFrame)
 Gura_ImplementFunction(MDIChildFrame)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxMDIParentFrame *parent = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxString::FromUTF8(args.GetString(2));
@@ -110,9 +110,9 @@ Gura_ImplementMethod(wx_MDIChildFrame, Activate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Activate();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MDIChildFrame, Create)
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Create)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Create)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MDIChildFrame, Maximize)
@@ -165,10 +165,10 @@ Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool maximize = args.GetBoolean(0);
 	pThis->GetEntity()->Maximize(maximize);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MDIChildFrame, Restore)
@@ -180,9 +180,9 @@ Gura_ImplementMethod(wx_MDIChildFrame, Restore)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Restore();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

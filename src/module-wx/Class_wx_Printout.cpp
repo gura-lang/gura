@@ -49,7 +49,7 @@ Gura_DeclareFunction(Printout)
 Gura_ImplementFunction(Printout)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString title = wxT("Printout");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
@@ -65,7 +65,7 @@ Gura_ImplementFunction(Printout)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetDC)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Printout, GetDC)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
 	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
@@ -99,16 +99,16 @@ Gura_ImplementMethod(wx_Printout, GetPageInfo)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int minPage = args.GetInt(0);
 	int maxPage = args.GetInt(1);
 	int pageFrom = args.GetInt(2);
 	int pageTo = args.GetInt(3);
 	pThis->GetEntity()->GetPageInfo(minPage, maxPage, pageFrom, pageTo);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetPageSizeMM)
@@ -125,14 +125,14 @@ Gura_ImplementMethod(wx_Printout, GetPageSizeMM)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int w = args.GetInt(0);
 	int h = args.GetInt(1);
 	pThis->GetEntity()->GetPageSizeMM(w, h);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetPageSizePixels)
@@ -149,14 +149,14 @@ Gura_ImplementMethod(wx_Printout, GetPageSizePixels)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int w = args.GetInt(0);
 	int h = args.GetInt(1);
 	pThis->GetEntity()->GetPageSizePixels(w, h);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetPaperRectPixels)
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Printout, GetPaperRectPixels)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetPaperRectPixels();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
@@ -188,14 +188,14 @@ Gura_ImplementMethod(wx_Printout, GetPPIPrinter)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int w = args.GetInt(0);
 	int h = args.GetInt(1);
 	pThis->GetEntity()->GetPPIPrinter(w, h);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetPPIScreen)
@@ -212,14 +212,14 @@ Gura_ImplementMethod(wx_Printout, GetPPIScreen)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int w = args.GetInt(0);
 	int h = args.GetInt(1);
 	pThis->GetEntity()->GetPPIScreen(w, h);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetTitle)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Printout, GetTitle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetTitle();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_Printout, HasPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pageNum = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->HasPage(pageNum);
 	return ReturnValue(env, args, Value(rtn));
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Printout, IsPreview)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsPreview();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -279,10 +279,10 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPaper)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *imageSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->FitThisSizeToPaper(*imageSize);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, FitThisSizeToPage)
@@ -295,10 +295,10 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *imageSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->FitThisSizeToPage(*imageSize);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, FitThisSizeToPageMargins)
@@ -312,11 +312,11 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPageMargins)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *imageSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxPageSetupDialogData *pageSetupData = Object_wx_PageSetupDialogData::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->FitThisSizeToPageMargins(*imageSize, *pageSetupData);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, MapScreenSizeToPaper)
@@ -328,9 +328,9 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPaper)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->MapScreenSizeToPaper();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, MapScreenSizeToPage)
@@ -342,9 +342,9 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->MapScreenSizeToPage();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, MapScreenSizeToPageMargins)
@@ -357,10 +357,10 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPageMargins)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPageSetupDialogData *pageSetupData = Object_wx_PageSetupDialogData::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->MapScreenSizeToPageMargins(*pageSetupData);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, MapScreenSizeToDevice)
@@ -372,9 +372,9 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToDevice)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->MapScreenSizeToDevice();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, GetLogicalPaperRect)
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPaperRect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetLogicalPaperRect();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageRect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetLogicalPageRect();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageMarginsRect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPageSetupDialogData *pageSetupData = Object_wx_PageSetupDialogData::GetObject(args, 0)->GetEntity();
 	wxRect rtn = pThis->GetEntity()->GetLogicalPageMarginsRect(*pageSetupData);
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
@@ -435,11 +435,11 @@ Gura_ImplementMethod(wx_Printout, SetLogicalOrigin)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	pThis->GetEntity()->SetLogicalOrigin(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OffsetLogicalOrigin)
@@ -453,11 +453,11 @@ Gura_ImplementMethod(wx_Printout, OffsetLogicalOrigin)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord xoff = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord yoff = static_cast<wxCoord>(args.GetInt(1));
 	pThis->GetEntity()->OffsetLogicalOrigin(xoff, yoff);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OnBeginDocument)
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_Printout, OnBeginDocument)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int startPage = args.GetInt(0);
 	int endPage = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->OnBeginDocument(startPage, endPage);
@@ -488,9 +488,9 @@ Gura_ImplementMethod(wx_Printout, OnEndDocument)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnEndDocument();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OnBeginPrinting)
@@ -502,9 +502,9 @@ Gura_ImplementMethod(wx_Printout, OnBeginPrinting)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnBeginPrinting();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OnEndPrinting)
@@ -516,9 +516,9 @@ Gura_ImplementMethod(wx_Printout, OnEndPrinting)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnEndPrinting();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OnPreparePrinting)
@@ -530,9 +530,9 @@ Gura_ImplementMethod(wx_Printout, OnPreparePrinting)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnPreparePrinting();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Printout, OnPrintPage)
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_Printout, OnPrintPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Printout *pThis = Object_wx_Printout::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pageNum = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->OnPrintPage(pageNum);
 	return ReturnValue(env, args, Value(rtn));

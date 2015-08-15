@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 	bool isSelected = args.GetBoolean(6);
 	dynamic_cast<wx_GridCellRenderer *>(pThis->GetEntity())->
 		_Draw(*grid, *attr, *dc, *rect, row, col, isSelected);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_GridCellRenderer(rtn, nullptr, OwnerFalse)));
 }

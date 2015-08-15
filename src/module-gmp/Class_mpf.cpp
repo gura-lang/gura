@@ -32,7 +32,7 @@ Value Object_mpf::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_num.get_prec());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_mpf::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -41,13 +41,13 @@ Value Object_mpf::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(prec))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		ULong prec = value.GetULong();
 		_num.set_prec(prec);
 		return Value(prec);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_mpf::ToString(bool exprFlag)
@@ -98,7 +98,7 @@ Gura_ImplementFunction(mpf)
 		num.set_prec(prec);
 		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
-			return Value::Null;
+			return Value::Nil;
 		}
 		value = Value(new Object_mpf(num));
 	} else if (args.IsType(0, VTYPE_mpf)) {
@@ -109,11 +109,11 @@ Gura_ImplementFunction(mpf)
 	} else if (args.IsType(0, VTYPE_mpq)) {
 		mpq_class num(Object_mpq::GetEntity(args, 0));
 		mpf_class numResult = MpfFromMpq(sig, num);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		value = Value(new Object_mpf(numResult));
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, value);
 }
@@ -150,7 +150,7 @@ Gura_ImplementClassMethod(mpf, set_default_prec)
 {
 	ULong prec = args.GetULong(0);
 	::mpf_set_default_prec(prec);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -195,7 +195,7 @@ Gura_ImplementMethod(string, cast_mpf)
 	num.set_prec(prec);
 	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_mpf(num)));
 }

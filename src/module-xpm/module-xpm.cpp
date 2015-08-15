@@ -25,7 +25,7 @@ Gura_ImplementMethod(image, read_xpm)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 #endif
@@ -44,7 +44,7 @@ Gura_ImplementMethod(image, write_xpm)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -64,12 +64,12 @@ Gura_ImplementMethod(image, xpmdata)
 	typedef std::map<String, Color> ColorMap;
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
-	if (!pImage->CheckEmpty(sig)) return Value::Null;
+	if (!pImage->CheckEmpty(sig)) return Value::Nil;
 	const ValueList &valList = args.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	if (pValue == valList.end()) {
 		sig.SetError(ERR_FormatError, "can't find XPM header");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int width = 0, height = 0;
 	int nColors = 0, nBytes = 0;
@@ -99,7 +99,7 @@ Gura_ImplementMethod(image, xpmdata)
 					stat = STAT_HeightPre;
 				} else {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				}
 			} else if (stat == STAT_HeightPre) {
 				if (ch == ' ' || ch == '\t') {
@@ -115,7 +115,7 @@ Gura_ImplementMethod(image, xpmdata)
 					stat = STAT_NColorsPre;
 				} else {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				}
 			} else if (stat == STAT_NColorsPre) {
 				if (ch == ' ' || ch == '\t') {
@@ -131,7 +131,7 @@ Gura_ImplementMethod(image, xpmdata)
 					stat = STAT_NBytesPre;
 				} else {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				}
 			} else if (stat == STAT_NBytesPre) {
 				if (ch == ' ' || ch == '\t') {
@@ -147,7 +147,7 @@ Gura_ImplementMethod(image, xpmdata)
 					stat = STAT_Finish;
 				} else {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				}
 			}
 			Gura_EndPushbackRegion();
@@ -167,7 +167,7 @@ Gura_ImplementMethod(image, xpmdata)
 		const char *p = pValue->GetString();
 		if (::strlen(p) < nBytes) {
 			sig.SetError(ERR_FormatError, "invalid XPM header");
-			return Value::Null;
+			return Value::Nil;
 		}
 		char chCategory = '\0';
 		String symbol(p, p + nBytes);
@@ -180,7 +180,7 @@ Gura_ImplementMethod(image, xpmdata)
 					// nothing to do
 				} else if (ch == '\0') {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				} else {
 					chCategory = ch;
 					stat = STAT_CategoryPost;
@@ -190,14 +190,14 @@ Gura_ImplementMethod(image, xpmdata)
 					stat = STAT_ValuePre;
 				} else {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				}
 			} else if (stat == STAT_ValuePre) {
 				if (ch == ' ' || ch == '\t') {
 					// nothing to do
 				} else if (ch == '\0') {
 					sig.SetError(ERR_FormatError, "invalid XPM header");
-					return Value::Null;
+					return Value::Nil;
 				} else {
 					value.clear();
 					value += ch;
@@ -217,16 +217,16 @@ Gura_ImplementMethod(image, xpmdata)
 			symbolNull = symbol;
 		} else {
 			Color color = Color::CreateNamedColor(sig, value.c_str(), 255);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			colorMap[symbol] = color;
 		}
 		//::printf("%s .. %s\n", symbol.c_str(), value.c_str());
 	}
 	if (iColor < nColors) {
 		sig.SetError(ERR_FormatError, "invalid XPM header");
-		return Value::Null;
+		return Value::Nil;
 	}
-	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	std::unique_ptr<Image::Scanner>
 					pScannerDst(pImage->CreateScanner(Image::SCAN_LeftTopHorz));
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
@@ -248,7 +248,7 @@ Gura_ImplementMethod(image, xpmdata)
 					ColorMap::iterator iter = colorMap.find(symbol);
 					if (iter == colorMap.end()) {
 						sig.SetError(ERR_FormatError, "undefined color symbol");
-						return Value::Null;
+						return Value::Nil;
 					}
 					const Color &color = iter->second;
 					pScannerDst->StorePixel(color.GetR(), color.GetG(), color.GetB(), 255);

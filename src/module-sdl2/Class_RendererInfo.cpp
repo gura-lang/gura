@@ -28,7 +28,7 @@ Value Object_RendererInfo::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_RendererInfo::DoSetProp(Environment &env,
@@ -36,7 +36,7 @@ Value Object_RendererInfo::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

@@ -112,7 +112,7 @@ Gura_ImplementMethod(postgresql, close)
 {
 	Object_postgresql *pObj = Object_postgresql::GetThisObj(args);
 	pObj->Close();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // postgresql.postgresql#query(stmt:string)
@@ -131,7 +131,7 @@ Gura_ImplementMethod(postgresql, query)
 	Object_postgresql *pObj = Object_postgresql::GetThisObj(args);
 	Iterator *pIterator = pObj->Exec(sig, args.GetString(0));
 	// Object_postgresql::Exec() may return nullptr even if no error occurs.
-	if (pIterator == nullptr) return Value::Null;
+	if (pIterator == nullptr) return Value::Nil;
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -171,17 +171,17 @@ Gura_ImplementFunction(connect)
 	Object_postgresql *pObj = new Object_postgresql();
 	if (!pObj->Connect(sig, pghost, pgport, pgoptions, pgtty, dbName, login, pwd)) {
 		delete pObj;
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result(pObj);
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-		if (pFuncBlock == nullptr) return Value::Null;
+		if (pFuncBlock == nullptr) return Value::Nil;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);
 		pFuncBlock->Eval(env, argsSub);
-		result = Value::Null; // object is destroyed here
+		result = Value::Nil; // object is destroyed here
 	}
 	return result;
 }
@@ -197,7 +197,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

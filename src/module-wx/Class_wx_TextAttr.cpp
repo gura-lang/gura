@@ -47,7 +47,7 @@ Gura_DeclareFunction(TextAttr)
 Gura_ImplementFunction(TextAttr)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TextAttr *pEntity = new wx_TextAttr();
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -74,7 +74,7 @@ Gura_DeclareFunction(TextAttr_1)
 Gura_ImplementFunction(TextAttr_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = (wxColour *)(&wxNullColour);
 	if (args.IsValid(1)) colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_TextAttr, GetAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrAlignment rtn = pThis->GetEntity()->GetAlignment();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_TextAttr, GetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_TextAttr, GetFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
 	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_TextAttr, GetLeftIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetLeftIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_TextAttr, GetLeftSubIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetLeftSubIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_TextAttr, GetRightIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetRightIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_TextAttr, GetTabs)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayInt rtn = pThis->GetEntity()->GetTabs();
 	return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_TextAttr, GetTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_TextAttr, HasAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasAlignment();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_TextAttr, HasBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBackgroundColour();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_TextAttr, HasFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasFont();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_TextAttr, HasLeftIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasLeftIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_TextAttr, HasRightIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasRightIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_TextAttr, HasTabs)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasTabs();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_TextAttr, HasTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasTextColour();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_TextAttr, GetFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_TextAttr, IsDefault)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsDefault();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -359,10 +359,10 @@ Gura_ImplementMethod(wx_TextAttr, Merge)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttr *overlay = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Merge(*overlay);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_TextAttr, Merge_1)
@@ -376,7 +376,7 @@ Gura_DeclareClassMethod(wx_TextAttr, Merge_1)
 Gura_ImplementClassMethod(wx_TextAttr, Merge_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxTextAttr *base = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
 	wxTextAttr *overlay = Object_wx_TextAttr::GetObject(args, 1)->GetEntity();
 	wxTextAttr rtn = wxTextAttr::Merge(*base, *overlay);
@@ -393,10 +393,10 @@ Gura_ImplementMethod(wx_TextAttr, SetAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrAlignment alignment = static_cast<wxTextAttrAlignment>(args.GetInt(0));
 	pThis->GetEntity()->SetAlignment(alignment);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetBackgroundColour)
@@ -409,10 +409,10 @@ Gura_ImplementMethod(wx_TextAttr, SetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBackgroundColour(*colour);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetFlags)
@@ -425,10 +425,10 @@ Gura_ImplementMethod(wx_TextAttr, SetFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long flags = args.GetLong(0);
 	pThis->GetEntity()->SetFlags(flags);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetFont)
@@ -441,10 +441,10 @@ Gura_ImplementMethod(wx_TextAttr, SetFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetLeftIndent)
@@ -458,12 +458,12 @@ Gura_ImplementMethod(wx_TextAttr, SetLeftIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int indent = args.GetInt(0);
 	int subIndent = 0;
 	if (args.IsValid(1)) subIndent = args.GetInt(1);
 	pThis->GetEntity()->SetLeftIndent(indent, subIndent);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetRightIndent)
@@ -476,10 +476,10 @@ Gura_ImplementMethod(wx_TextAttr, SetRightIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int indent = args.GetInt(0);
 	pThis->GetEntity()->SetRightIndent(indent);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetTabs)
@@ -492,10 +492,10 @@ Gura_ImplementMethod(wx_TextAttr, SetTabs)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayInt> tabs(CreateArrayInt(args.GetList(0)));
 	pThis->GetEntity()->SetTabs(*tabs);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextAttr, SetTextColour)
@@ -508,10 +508,10 @@ Gura_ImplementMethod(wx_TextAttr, SetTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetTextColour(*colour);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

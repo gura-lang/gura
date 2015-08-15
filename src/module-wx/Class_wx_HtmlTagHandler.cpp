@@ -55,7 +55,7 @@ Gura_DeclareFunction(HtmlTagHandlerEmpty)
 Gura_ImplementFunction(HtmlTagHandlerEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlTagHandler *pEntity = new wx_HtmlTagHandler();
 	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetThisObj(args);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetSupportedTags();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->HandleTag(*tag);
 	return ReturnValue(env, args, Value(rtn));
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->ParseInner(*tag);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlTagHandler, SetParser)
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlParser **parser = Object_wx_HtmlParser::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetParser(**parser);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

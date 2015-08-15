@@ -50,14 +50,14 @@ Value Object_Surface::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(pitch))) {
 		return Value(_pSurface->pitch);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(pixels))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(clip_rect))) {
 		return Value(new Object_Rect(_pSurface->clip_rect));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refcount))) {
 		return Value(_pSurface->refcount);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImage)

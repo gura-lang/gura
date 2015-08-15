@@ -45,10 +45,10 @@ Gura_DeclareClassMethod(wx_ToolTip, Enable)
 Gura_ImplementClassMethod(wx_ToolTip, Enable)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	bool flag = args.GetBoolean(0);
 	wxToolTip::Enable(flag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_ToolTip, SetDelay)
@@ -60,10 +60,10 @@ Gura_DeclareClassMethod(wx_ToolTip, SetDelay)
 Gura_ImplementClassMethod(wx_ToolTip, SetDelay)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	long msecs = args.GetLong(0);
 	wxToolTip::SetDelay(msecs);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(ToolTip)
@@ -77,7 +77,7 @@ Gura_DeclareFunction(ToolTip)
 Gura_ImplementFunction(ToolTip)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wx_ToolTip *pEntity = new wx_ToolTip(tip);
 	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetThisObj(args);
@@ -101,10 +101,10 @@ Gura_ImplementMethod(wx_ToolTip, SetTip)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetTip(tip);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ToolTip, GetTip)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_ToolTip, GetTip)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetTip();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_ToolTip, GetWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }

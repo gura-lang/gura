@@ -28,7 +28,7 @@ Value Object_GameControllerButtonBind::DoGetProp(Environment &env, const Symbol 
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_GameControllerButtonBind::DoSetProp(Environment &env,
@@ -36,7 +36,7 @@ Value Object_GameControllerButtonBind::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

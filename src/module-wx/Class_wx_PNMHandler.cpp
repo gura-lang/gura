@@ -44,7 +44,7 @@ Gura_DeclareFunction(PNMHandler)
 Gura_ImplementFunction(PNMHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PNMHandler *pEntity = new wx_PNMHandler();
 	Object_wx_PNMHandler *pObj = Object_wx_PNMHandler::GetThisObj(args);
 	if (pObj == nullptr) {

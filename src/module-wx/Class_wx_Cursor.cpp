@@ -53,7 +53,7 @@ Gura_DeclareFunction(CursorEmpty)
 Gura_ImplementFunction(CursorEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Cursor *pEntity = new wx_Cursor();
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -84,7 +84,7 @@ Gura_DeclareFunction(Cursor)
 Gura_ImplementFunction(Cursor)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	const Binary &_bits = args.GetBinary(0);
 	const char *bits = _bits.data();
@@ -93,7 +93,7 @@ Gura_ImplementFunction(Cursor)
 	size_t bytesRequired = ((width + 7) / 8) * height;
 	if (_bits.size() < bytesRequired) {
 		sig.SetError(ERR_ValueError, "bits doesn't have enough size of data");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int hotSpotX = -1;
 	if (args.IsValid(3)) hotSpotX = args.GetInt(3);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(Cursor)
 		maskBits = _maskBits.data();
 		if (_maskBits.size() < bytesRequired) {
 			sig.SetError(ERR_ValueError, "maskBits doesn't have enough size of data");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	//wxColour *fg = (wxColour *)(nullptr);
@@ -124,7 +124,7 @@ Gura_ImplementFunction(Cursor)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(NamedCursor)
@@ -141,7 +141,7 @@ Gura_DeclareFunction(NamedCursor)
 Gura_ImplementFunction(NamedCursor)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if defined(__WXMSW__)
 	wxString cursorName = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetLong(1));
@@ -161,7 +161,7 @@ Gura_ImplementFunction(NamedCursor)
 	return ReturnValue(env, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 
@@ -176,7 +176,7 @@ Gura_DeclareFunction(StockCursor)
 Gura_ImplementFunction(StockCursor)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int cursorId = args.GetInt(0);
 	wx_Cursor *pEntity = new wx_Cursor(cursorId);
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
@@ -201,7 +201,7 @@ Gura_DeclareFunction(Cursor_3)
 Gura_ImplementFunction(Cursor_3)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wx_Cursor *pEntity = new wx_Cursor(*image);
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_Cursor, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }

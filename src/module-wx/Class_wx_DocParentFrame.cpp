@@ -47,7 +47,7 @@ Gura_DeclareFunction(DocParentFrameEmpty)
 Gura_ImplementFunction(DocParentFrameEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DocParentFrame *pEntity = new wx_DocParentFrame();
 	Object_wx_DocParentFrame *pObj = Object_wx_DocParentFrame::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -78,7 +78,7 @@ Gura_DeclareFunction(DocParentFrame)
 Gura_ImplementFunction(DocParentFrame)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxFrame *parent = Object_wx_Frame::GetObject(args, 1)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(2));
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_DocParentFrame, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxFrame *parent = Object_wx_Frame::GetObject(args, 1)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(2));
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_DocParentFrame, GetDocumentManager)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
 	return ReturnValue(env, args, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
 }
@@ -164,10 +164,10 @@ Gura_ImplementMethod(wx_DocParentFrame, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 #endif
 

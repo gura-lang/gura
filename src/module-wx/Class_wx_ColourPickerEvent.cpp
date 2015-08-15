@@ -49,7 +49,7 @@ Gura_DeclareFunction(ColourPickerEvent)
 Gura_ImplementFunction(ColourPickerEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	wxColour *colour = Object_wx_Colour::GetObject(args, 2)->GetEntity();
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ColourPickerEvent, GetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -90,10 +90,10 @@ Gura_ImplementMethod(wx_ColourPickerEvent, SetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *pos = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetColour(*pos);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

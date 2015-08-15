@@ -59,7 +59,7 @@ Gura_DeclareFunction(GLCanvas)
 Gura_ImplementFunction(GLCanvas)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -108,7 +108,7 @@ Gura_DeclareFunction(GLCanvas_1)
 Gura_ImplementFunction(GLCanvas_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLContext *sharedContext = Object_wx_GLContext::GetObject(args, 1)->GetEntity();
 	wxWindowID id = -1;
@@ -159,7 +159,7 @@ Gura_DeclareFunction(GLCanvas_2)
 Gura_ImplementFunction(GLCanvas_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLCanvas *sharedCanvas = Object_wx_GLCanvas::GetObject(args, 1)->GetEntity();
 	wxWindowID id = -1;
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_GLCanvas, GetContext)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGLContext *rtn = (wxGLContext *)pThis->GetEntity()->GetContext();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GLContext(rtn, nullptr, OwnerFalse));
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	if (args.IsInstanceOf(0, VTYPE_wx_GLContext)) {
 		wxGLContext *RC = Object_wx_GLContext::GetObject(args, 0)->GetEntity();
 		pThis->GetEntity()->SetCurrent(*RC);
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GLCanvas, SetColour)
@@ -242,10 +242,10 @@ Gura_ImplementMethod(wx_GLCanvas, SetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colour = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetColour(colour);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GLCanvas, SwapBuffers)
@@ -257,9 +257,9 @@ Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SwapBuffers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

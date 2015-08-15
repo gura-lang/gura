@@ -47,7 +47,7 @@ Gura_DeclareFunction(WindowCreateEvent)
 Gura_ImplementFunction(WindowCreateEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowCreateEvent *pEntity = new wx_WindowCreateEvent(win);

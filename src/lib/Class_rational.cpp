@@ -32,7 +32,7 @@ Gura_ImplementFunction(rational)
 	int denom = args.Is_number(1)? args.GetInt(1) : 1;
 	if (denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (denom < 0) {
 		numer = -numer, denom = -denom;
@@ -68,7 +68,7 @@ Gura_ImplementSuffixMgrForNumber(r)
 	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {
 		sig.SetError(ERR_ValueError, "invalid number format");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(Rational::FromNumber(num));
 }
@@ -102,7 +102,7 @@ Value Class_rational::GetPropPrimitive(Environment &env, const Value &valueThis,
 		return Value(num.numer);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Class_rational::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

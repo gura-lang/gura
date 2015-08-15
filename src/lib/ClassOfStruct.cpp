@@ -26,7 +26,7 @@ String ObjectOfStruct::ToString(bool exprFlag)
 	Signal sig;
 	bool evaluatedFlag = false;
 	Value value = EvalMethod(*this, Gura_Symbol(__str__),
-											ValueList::Null, evaluatedFlag);
+											ValueList::Empty, evaluatedFlag);
 	if (sig.IsSignalled()) return "";
 	if (evaluatedFlag) return value.ToString(false);
 	String str;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(Struct, tolist)
 	foreach_const (DeclarationList, ppDecl, declList) {
 		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), ENVREF_NoEscalate);
 		if (pValue == nullptr) {
-			valList.push_back(Value::Null);
+			valList.push_back(Value::Nil);
 		} else {
 			valList.push_back(*pValue);
 		}

@@ -27,7 +27,7 @@ bool Class_undefined::Serialize(Environment &env, Stream &stream, const Value &v
 
 bool Class_undefined::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	value = Value::Null;
+	value = Value::Nil;
 	return true;
 }
 

@@ -52,7 +52,7 @@ Gura_DeclareFunction(PanelEmpty)
 Gura_ImplementFunction(PanelEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Panel *pEntity = new wx_Panel();
 	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -81,7 +81,7 @@ Gura_DeclareFunction(Panel)
 Gura_ImplementFunction(Panel)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Panel, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -146,9 +146,9 @@ Gura_ImplementMethod(wx_Panel, InitDialog)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->InitDialog();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Panel, OnSysColourChanged)
@@ -161,10 +161,10 @@ Gura_ImplementMethod(wx_Panel, OnSysColourChanged)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnSysColourChanged(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Panel, SetFocus)
@@ -176,9 +176,9 @@ Gura_ImplementMethod(wx_Panel, SetFocus)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocus();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Panel, SetFocusIgnoringChildren)
@@ -190,9 +190,9 @@ Gura_ImplementMethod(wx_Panel, SetFocusIgnoringChildren)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocusIgnoringChildren();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

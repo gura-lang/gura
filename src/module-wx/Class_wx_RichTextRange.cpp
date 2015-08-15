@@ -50,7 +50,7 @@ Gura_DeclareFunction(RichTextRange)
 Gura_ImplementFunction(RichTextRange)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	long start = args.GetLong(0);
 	long end = args.GetLong(1);
 	wx_RichTextRange *pEntity = new wx_RichTextRange(start, end);
@@ -76,7 +76,7 @@ Gura_DeclareFunction(RichTextRange_1)
 Gura_ImplementFunction(RichTextRange_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wx_RichTextRange *pEntity = new wx_RichTextRange(*range);
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetThisObj(args);
@@ -100,7 +100,7 @@ Gura_DeclareFunction(RichTextRangeEmpty)
 Gura_ImplementFunction(RichTextRangeEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RichTextRange *pEntity = new wx_RichTextRange();
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_RichTextRange, Contains)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pos = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->Contains(pos);
 	return ReturnValue(env, args, Value(rtn));
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetEnd)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetEnd();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetLength)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetLength();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_RichTextRange, GetStart)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetStart();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_RichTextRange, FromInternal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange rtn = pThis->GetEntity()->FromInternal();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextRange(new wxRichTextRange(rtn), nullptr, OwnerTrue)));
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_RichTextRange, IsOutside)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsOutside(*range);
 	return ReturnValue(env, args, Value(rtn));
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_RichTextRange, IsWithin)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsWithin(*range);
 	return ReturnValue(env, args, Value(rtn));
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RichTextRange, LimitTo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->LimitTo(*range);
 	return ReturnValue(env, args, Value(rtn));
@@ -251,10 +251,10 @@ Gura_ImplementMethod(wx_RichTextRange, SetEnd)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long end = args.GetLong(0);
 	pThis->GetEntity()->SetEnd(end);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextRange, SetRange)
@@ -268,11 +268,11 @@ Gura_ImplementMethod(wx_RichTextRange, SetRange)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long start = args.GetLong(0);
 	long end = args.GetLong(1);
 	pThis->GetEntity()->SetRange(start, end);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextRange, SetStart)
@@ -285,10 +285,10 @@ Gura_ImplementMethod(wx_RichTextRange, SetStart)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long start = args.GetLong(0);
 	pThis->GetEntity()->SetStart(start);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextRange, Swap)
@@ -300,9 +300,9 @@ Gura_ImplementMethod(wx_RichTextRange, Swap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Swap();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextRange, ToInternal)
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_RichTextRange, ToInternal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange rtn = pThis->GetEntity()->ToInternal();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextRange(new wxRichTextRange(rtn), nullptr, OwnerTrue)));
 }

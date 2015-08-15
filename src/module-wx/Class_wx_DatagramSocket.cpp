@@ -49,7 +49,7 @@ Gura_DeclareFunction(DatagramSocket)
 Gura_ImplementFunction(DatagramSocket)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
@@ -65,7 +65,7 @@ Gura_ImplementFunction(DatagramSocket)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DatagramSocket, ReceiveFrom)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DatagramSocket, SendTo)
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	int buffer = args.GetInt(1);
 	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

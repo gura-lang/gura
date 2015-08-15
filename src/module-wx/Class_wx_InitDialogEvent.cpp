@@ -47,7 +47,7 @@ Gura_DeclareFunction(InitDialogEvent)
 Gura_ImplementFunction(InitDialogEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_InitDialogEvent *pEntity = new wx_InitDialogEvent(id);

@@ -46,7 +46,7 @@ Gura_DeclareFunction(GridCellTextEditor)
 Gura_ImplementFunction(GridCellTextEditor)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellTextEditor *pEntity = new wx_GridCellTextEditor();
 	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -69,10 +69,10 @@ Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString params = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetParameters(params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

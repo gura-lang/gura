@@ -44,9 +44,9 @@ Gura_ImplementMethod(wx_StackFrame, GetAddress)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetAddress();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_StackFrame, GetFileName)
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_StackFrame, GetFileName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFileName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_StackFrame, GetLevel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetLevel();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_StackFrame, GetLine)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetLine();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_StackFrame, GetModule)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetModule();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_StackFrame, GetName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_StackFrame, GetOffset)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetOffset();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_StackFrame, GetParam)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t n = args.GetSizeT(0);
 	wxString type = wxString::FromUTF8(args.GetString(1));
 	wxString name = wxString::FromUTF8(args.GetString(2));
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_StackFrame, GetParam)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_StackFrame, GetParamCount)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_StackFrame, GetParamCount)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetParamCount();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_StackFrame, HasSourceLocation)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasSourceLocation();
 	return ReturnValue(env, args, Value(rtn));
 }

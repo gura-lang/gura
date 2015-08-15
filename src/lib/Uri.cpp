@@ -187,7 +187,7 @@ void Uri::ExtractQuery(const char *urlPath, ValueDict &valDict, bool skipPathFla
 			if (ch == '=') {
 				stat = STAT_Value;
 			} else if (ch == '?' || ch == '#' || ch == '&' || ch == '\0') {
-				valDict[Value(key)] = Value::Null;
+				valDict[Value(key)] = Value::Nil;
 				key.clear();
 			} else if (ch == '+') {
 				key += ' ';

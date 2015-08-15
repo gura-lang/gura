@@ -39,7 +39,7 @@ Value Object_rectangle_int::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_rectangle.height);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_rectangle_int::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -48,24 +48,24 @@ Value Object_rectangle_int::DoSetProp(Environment &env, const Symbol *pSymbol, c
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rectangle.x = value.GetInt();
 		return Value(_rectangle.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rectangle.y = value.GetInt();
 		return Value(_rectangle.y);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rectangle.width = value.GetInt();
 		return Value(_rectangle.width);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rectangle.height = value.GetInt();
 		return Value(_rectangle.height);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_rectangle_int::ToString(bool exprFlag)

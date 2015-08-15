@@ -48,7 +48,7 @@ Gura_DeclareFunction(CSConv)
 Gura_ImplementFunction(CSConv)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	wx_CSConv *pEntity = new wx_CSConv(charset);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
@@ -73,7 +73,7 @@ Gura_DeclareFunction(CSConv_1)
 Gura_ImplementFunction(CSConv_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wx_CSConv *pEntity = new wx_CSConv(encoding);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_CSConv, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_CSConv, MB2WC)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
 	char psz = args.GetChar(1);
 	size_t n = args.GetSizeT(2);
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_CSConv, MB2WC)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CSConv, WC2MB)
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_CSConv, WC2MB)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char buf = args.GetChar(0);
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));
 	size_t n = args.GetSizeT(2);
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_CSConv, WC2MB)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

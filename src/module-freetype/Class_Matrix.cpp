@@ -46,7 +46,7 @@ Value Object_Matrix::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Matrix::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -55,24 +55,24 @@ Value Object_Matrix::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xx))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_matrix.xx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
 		return Value(static_cast<double>(_matrix.xx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xy))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_matrix.xy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
 		return Value(static_cast<double>(_matrix.xy) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yx))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_matrix.yx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
 		return Value(static_cast<double>(_matrix.yx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yy))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_matrix.yy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
 		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_Matrix::ConvertFrom(Signal &sig, const Gura::Matrix *pMat)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(Matrix, Invert)
 	FT_Error err = ::FT_Matrix_Invert(matrixThis);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }

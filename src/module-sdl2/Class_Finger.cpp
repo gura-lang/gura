@@ -45,7 +45,7 @@ Value Object_Finger::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pFinger->pressure);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Finger::DoSetProp(Environment &env,
@@ -53,7 +53,7 @@ Value Object_Finger::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

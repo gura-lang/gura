@@ -130,7 +130,7 @@ Gura_ImplementFunction(test)
 		ULong dSignature = Gura_UnpackULong(hdr.dSignature);
 		if (dSignature != _ENHMETA_SIGNATURE) {
 			sig.SetError(ERR_FormatError, "invalid signature of EMF file");
-			return Value::Null;
+			return Value::Nil;
 		}
 		nBytes			= Gura_UnpackULong(hdr.nBytes);
 		nRecords		= Gura_UnpackULong(hdr.nRecords);
@@ -153,7 +153,7 @@ Gura_ImplementFunction(test)
 		}
 		
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

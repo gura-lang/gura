@@ -109,7 +109,7 @@ Gura_ImplementMethod(mysql, close)
 {
 	Object_mysql *pObj = Object_mysql::GetThisObj(args);
 	pObj->Close();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // mysql.mysql#query(stmt:string)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(mysql, query)
 	Object_mysql *pObj = Object_mysql::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	// Object_mysql::Query() may return nullptr even if no error occurs.
-	if (pIterator == nullptr) return Value::Null;
+	if (pIterator == nullptr) return Value::Nil;
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -168,17 +168,17 @@ Gura_ImplementFunction(connect)
 	Object_mysql *pObj = new Object_mysql();
 	if (!pObj->Connect(sig, host, user, passwd, db, port, unix_socket, client_flag)) {
 		delete pObj;
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result(pObj);
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-		if (pFuncBlock == nullptr) return Value::Null;
+		if (pFuncBlock == nullptr) return Value::Nil;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);
 		pFuncBlock->Eval(env, argsSub);
-		result = Value::Null; // object is destroyed here
+		result = Value::Nil; // object is destroyed here
 	}
 	return result;
 }
@@ -199,12 +199,12 @@ Gura_ImplementFunction(test)
 	::mysql_real_connect(&mysql, nullptr, "user", "password", "dbname", 0, nullptr, 0);
 	if (::mysql_error(&mysql) != 0) {
 		::printf("%s\n", ::mysql_error(&mysql));
-		return Value::Null;
+		return Value::Nil;
 	}
 	::mysql_query(&mysql, "select * from people");
 	if (::mysql_error(&mysql) != 0) {
 		::printf("%s\n", ::mysql_error(&mysql));
-		return Value::Null;
+		return Value::Nil;
 	}
 	MYSQL_RES *results = ::mysql_store_result(&mysql);
 	MYSQL_ROW row;
@@ -214,7 +214,7 @@ Gura_ImplementFunction(test)
 	::mysql_free_result(results);
 	::mysql_close(&mysql);
 	::mysql_server_end();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

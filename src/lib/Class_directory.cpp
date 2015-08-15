@@ -18,7 +18,7 @@ Value Object_directory::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_directory::ToString(bool exprFlag)
@@ -52,7 +52,7 @@ Gura_ImplementFunction(directory)
 	const char *pathName = args.GetString(0);
 	AutoPtr<Directory> pDirectory(Directory::Open(env,
 								pathName, PathMgr::NF_Signal));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Object_directory *pObj = new Object_directory(env, pDirectory.release());
 	return ReturnValue(env, args, Value(pObj));
 }

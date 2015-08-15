@@ -91,7 +91,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SymbolSet : public std::set<const Symbol *, Symbol::KeyCompare_UniqNumber> {
 public:
-	static const SymbolSet Null;
+	static const SymbolSet Empty;
 public:
 	inline SymbolSet() {}
 	SymbolSet(const SymbolSet &symbolSet);

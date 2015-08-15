@@ -50,7 +50,7 @@ Gura_DeclareFunction(DebugReportUpload)
 Gura_ImplementFunction(DebugReportUpload)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxString input = wxString::FromUTF8(args.GetString(1));
 	wxString action = wxString::FromUTF8(args.GetString(2));
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->OnServerReply(*WXUNUSED(reply));
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

@@ -46,12 +46,12 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetConv)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMBConv &rtn = pThis->GetEntity()->GetConv();
 	return ReturnValue(env, args, Value(new Object_wx_MBConv(new wxMBConv(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, SetConv)
@@ -64,10 +64,10 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, SetConv)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetConv(*conv);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, CanHandle)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, CanHandle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString protocol = wxString::FromUTF8(args.GetString(0));
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(1)) type = static_cast<wxStreamProtocolType>(args.GetInt(1));
@@ -101,7 +101,7 @@ Gura_DeclareClassMethod(wx_ArchiveClassFactory, Find)
 Gura_ImplementClassMethod(wx_ArchiveClassFactory, Find)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString protocol = wxString::FromUTF8(args.GetString(0));
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(1)) type = static_cast<wxStreamProtocolType>(args.GetInt(1));
@@ -118,7 +118,7 @@ Gura_DeclareClassMethod(wx_ArchiveClassFactory, GetFirst)
 Gura_ImplementClassMethod(wx_ArchiveClassFactory, GetFirst)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)wxArchiveClassFactory::GetFirst();
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
 }
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetNext)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArchiveClassFactory *rtn = (wxArchiveClassFactory *)pThis->GetEntity()->GetNext();
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveClassFactory(rtn, nullptr, OwnerFalse)));
 }
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetInternalName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocol)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetProtocol();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -187,14 +187,14 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocols)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(0)) type = static_cast<wxStreamProtocolType>(args.GetInt(0));
 	wxChar rtn = pThis->GetEntity()->GetProtocols(type);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, NewEntry)
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->NewEntry();
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveEntry(rtn, nullptr, OwnerFalse)));
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveInputStream *rtn = (wxArchiveInputStream *)pThis->GetEntity()->NewStream(*stream);
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveInputStream(rtn, nullptr, OwnerFalse)));
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveOutputStream *rtn = (wxArchiveOutputStream *)pThis->GetEntity()->NewStream(*stream);
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveOutputStream(rtn, nullptr, OwnerFalse)));
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveInputStream *rtn = (wxArchiveInputStream *)pThis->GetEntity()->NewStream(stream);
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveInputStream(rtn, nullptr, OwnerFalse)));
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, NewStream_3)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxArchiveOutputStream *rtn = (wxArchiveOutputStream *)pThis->GetEntity()->NewStream(stream);
 	return ReturnValue(env, args, Value(new Object_wx_ArchiveOutputStream(rtn, nullptr, OwnerFalse)));
@@ -289,9 +289,9 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, PushFront)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->PushFront();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, Remove)
@@ -303,9 +303,9 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, Remove)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Remove();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

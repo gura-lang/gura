@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // String
 //-----------------------------------------------------------------------------
-const StringList StringList::Null;
+const StringList StringList::Empty;
 
 static const UShort __ctypeTbl[] = {
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
@@ -1023,7 +1023,7 @@ Value FindString(Environment &env,
 			start += len;
 			if (start < 0) start = 0;
 		}
-		if (start > len) return Value::Null;
+		if (start > len) return Value::Nil;
 	} while (0);
 	if (attrs.IsSet(Gura_Symbol(rev))) {
 		const char *p = FindString(str + start, sub, ignoreCaseFlag);
@@ -1043,7 +1043,7 @@ Value FindString(Environment &env,
 			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
 				pLast = p;
 			}
-			return (pLast == nullptr)? Value::Null :
+			return (pLast == nullptr)? Value::Nil :
 							Value(static_cast<Number>(pLast - str));
 		}
 	} else {
@@ -1056,7 +1056,7 @@ Value FindString(Environment &env,
 			}
 			return result;
 		} else {
-			return (p == nullptr)? Value::Null :
+			return (p == nullptr)? Value::Nil :
 							Value(static_cast<Number>(p - str));
 		}
 	}

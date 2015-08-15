@@ -50,7 +50,7 @@ Gura_DeclareFunction(HtmlModalHelp)
 Gura_ImplementFunction(HtmlModalHelp)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString helpFile = wxString::FromUTF8(args.GetString(1));
 	wxString topic = wxEmptyString;

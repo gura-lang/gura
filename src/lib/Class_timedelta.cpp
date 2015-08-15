@@ -43,7 +43,7 @@ Value Object_timedelta::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<Number>(_timeDelta.GetUSecs()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_timedelta::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,

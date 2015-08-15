@@ -51,7 +51,7 @@ Gura_DeclareFunction(HtmlHelpFrame)
 Gura_ImplementFunction(HtmlHelpFrame)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wx_HtmlHelpFrame *pEntity = new wx_HtmlHelpFrame(data);
@@ -81,7 +81,7 @@ Gura_DeclareFunction(HtmlHelpFrame_1)
 Gura_ImplementFunction(HtmlHelpFrame_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int wxWindowID = args.GetInt(1);
 	wxString title = wxEmptyString;
@@ -113,11 +113,11 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, AddToolbarButtons)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxToolBar *toolBar = Object_wx_ToolBar::GetObject(args, 0)->GetEntity();
 	int style = args.GetInt(1);
 	pThis->GetEntity()->AddToolbarButtons(toolBar, style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, Create)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxEmptyString;
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, GetController)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlHelpController(rtn, nullptr, OwnerFalse)));
 }
@@ -172,15 +172,15 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, ReadCustomization)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->ReadCustomization(cfg, path);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, SetController)
@@ -193,10 +193,10 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, SetController)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlHelpController *contoller = Object_wx_HtmlHelpController::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetController(contoller);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, SetTitleFormat)
@@ -209,10 +209,10 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, SetTitleFormat)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString format = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetTitleFormat(format);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, WriteCustomization)
@@ -227,15 +227,15 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, WriteCustomization)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->WriteCustomization(cfg, path);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

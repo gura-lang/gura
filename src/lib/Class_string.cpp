@@ -51,7 +51,7 @@ Gura_ImplementMethod(string, align)
 	const char *padding = args.GetString(1);
 	if (Length(padding) != 1) {
 		sig.SetError(ERR_ValueError, "padding must consist of a single character");
-		return Value::Null;
+		return Value::Nil;
 	}
 	String str;
 	if (args.IsSet(Gura_Symbol(right))) {
@@ -215,15 +215,15 @@ Gura_ImplementMethod(string, embed)
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
 	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
-						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+						  autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		pTemplate->Render(env, &streamDst);
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!pTemplate->Render(env, &streamDst)) return Value::Null;
+		if (!pTemplate->Render(env, &streamDst)) return Value::Nil;
 		return Value(strDst);
 	}
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(string, encode)
 	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	Binary buff;
 	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_binary(env, buff, true));
 }
@@ -291,7 +291,7 @@ Gura_ImplementMethod(string, endswith)
 		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
 		EndsWith(str, args.GetString(0), ignoreCaseFlag);
 	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == nullptr) return Value::Null;
+		if (rtn == nullptr) return Value::Nil;
 		return Value(str, rtn - str);
 	}
 	return rtn != nullptr;
@@ -569,7 +569,7 @@ Gura_ImplementMethod(string, print)
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	pStream->Print(sig, args.GetThis().GetString());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // string#println(stream?:stream:w):void
@@ -590,7 +590,7 @@ Gura_ImplementMethod(string, println)
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	pStream->Println(sig, args.GetThis().GetString());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // string#reader() {block?}
@@ -681,7 +681,7 @@ Gura_ImplementMethod(string, replaces)
 	const ValueList &valList = args.GetList(0);
 	if (valList.size() & 1) {
 		sig.SetError(ERR_ValueError, "the list must contain match-sub pairs");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int nMaxReplace = args.IsValid(1)? args.GetInt(1) : -1;
 	String result = Replaces(args.GetThis().GetString(),
@@ -769,7 +769,7 @@ Gura_ImplementMethod(string, startswith)
 	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
 					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
 	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == nullptr) return Value::Null;
+		if (rtn == nullptr) return Value::Nil;
 		return Value(rtn);
 	}
 	return rtn != nullptr;
@@ -818,10 +818,10 @@ Gura_ImplementMethod(string, template_)
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
 	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
-						  autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+						  autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	//String strSrc = args.GetThis().GetStringSTL();
 	//SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
-	//if (!pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+	//if (!pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
 }
@@ -860,12 +860,12 @@ Gura_ImplementClassMethod(string, translator)
 {
 	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
 	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	const Symbol *pSymbol = Gura_Symbol(Char_Dollar);
 	SuffixMgrEntryCustom *pSuffixMgrEntry =
 					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
 	suffixMgr.Assign(pSymbol, pSuffixMgrEntry);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // string#unescapehtml()
@@ -990,20 +990,20 @@ Value Class_string::IndexGetPrimitive(Environment &env,
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for string");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int idx = valueIdx.GetInt();
 	int len = static_cast<int>(Length(valueThis.GetString()));
 	if (idx >= 0) {
 		if (idx >= len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(PickChar(valueThis.GetStringSTL(), idx));
 	} else {
 		if (-idx > len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(PickChar(valueThis.GetStringSTL(), len + idx));
 	}

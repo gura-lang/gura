@@ -47,7 +47,7 @@ Value Object_Rect::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_rect.h);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Rect::DoSetProp(Environment &env,
@@ -57,24 +57,24 @@ Value Object_Rect::DoSetProp(Environment &env,
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rect.x = static_cast<Sint16>(value.GetInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rect.y = static_cast<Sint16>(value.GetInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rect.w = static_cast<Uint16>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_rect.h = static_cast<Uint16>(value.GetUInt());
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

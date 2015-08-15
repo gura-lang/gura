@@ -56,12 +56,12 @@ Gura_ImplementFunction(print)
 {
 	Signal &sig = env.GetSignal();
 	Stream *pConsole = env.GetConsole();
-	if (pConsole == nullptr) return Value::Null;
+	if (pConsole == nullptr) return Value::Nil;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pConsole->Print(sig, pValue->ToString(false).c_str());
 		if (sig.IsSignalled()) break;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // printf(format, values*):map:void
@@ -136,9 +136,9 @@ Gura_ImplementFunction(printf)
 {
 	Signal &sig = env.GetSignal();
 	Stream *pConsole = env.GetConsole();
-	if (pConsole == nullptr) return Value::Null;
+	if (pConsole == nullptr) return Value::Nil;
 	pConsole->PrintFmt(sig, args.GetString(0), args.GetList(1));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // println(value*):map:void
@@ -155,13 +155,13 @@ Gura_ImplementFunction(println)
 {
 	Signal &sig = env.GetSignal();
 	Stream *pConsole = env.GetConsole();
-	if (pConsole == nullptr) return Value::Null;
+	if (pConsole == nullptr) return Value::Nil;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pConsole->Print(sig, pValue->ToString(false).c_str());
 		if (sig.IsSignalled()) break;
 	}
 	pConsole->Print(sig, "\n");
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -193,7 +193,7 @@ Gura_ImplementFunction(cross)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
@@ -223,7 +223,7 @@ Gura_ImplementFunction(for_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
@@ -252,7 +252,7 @@ Gura_ImplementFunction(repeat)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
@@ -280,7 +280,7 @@ Gura_ImplementFunction(while_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
@@ -368,7 +368,7 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 	if (pCnt + 1 == cntList.end()) {
 		if (pFuncBlock == nullptr) {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				valListParent.push_back(Value::Null);
+				valListParent.push_back(Value::Nil);
 			}
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
@@ -414,7 +414,7 @@ Gura_ImplementFunction(dim)
 	ValueList &valList = result.InitAsList(env);
 	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, valList,
 						cntList, cntList.begin(), idxList, idxList.begin())) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return result;
 }
@@ -452,7 +452,7 @@ Gura_ImplementFunction(interval)
 	int numSamples = args.GetInt(2);
 	if (numSamples <= 1) {
 		sig.SetError(ERR_ValueError, "samples must be more than one");
-		return Value::Null;
+		return Value::Nil;
 	}
 	bool openFlag = args.IsSet(Gura_Symbol(open));
 	bool openLeftFlag = args.IsSet(Gura_Symbol(open_l));
@@ -521,7 +521,7 @@ Gura_ImplementFunction(range)
 			numStep = args.GetNumber(2);
 			if (numStep == 0.) {
 				sig.SetError(ERR_ValueError, "step cannot be specified as zero");
-				return Value::Null;
+				return Value::Nil;
 			}
 			pIterator.reset(new Iterator_SequenceInf(numBegin, numStep));
 		} else {
@@ -540,15 +540,15 @@ Gura_ImplementFunction(range)
 		numStep = args.GetNumber(2);
 		if (numStep == 0.) {
 			sig.SetError(ERR_ValueError, "step cannot be specified as zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		if (numBegin < numEnd && numStep < 0) {
 			sig.SetError(ERR_ValueError, "step value must be positive");
-			return Value::Null;
+			return Value::Nil;
 		}
 		if (numBegin > numEnd && numStep > 0) {
 			sig.SetError(ERR_ValueError, "step value must be negative");
-			return Value::Null;
+			return Value::Nil;
 		}
 		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
 	}
@@ -582,7 +582,7 @@ Gura_ImplementFunction(break_)
 {
 	Signal &sig = env.GetSignal();
 	sig.SetSignal(SIGTYPE_Break, args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // continue(value?):void:symbol_func
@@ -610,7 +610,7 @@ Gura_ImplementFunction(continue_)
 {
 	Signal &sig = env.GetSignal();
 	sig.SetSignal(SIGTYPE_Continue, args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // return(value?):void:symbol_func
@@ -631,7 +631,7 @@ Gura_ImplementFunction(return_)
 {
 	Signal &sig = env.GetSignal();
 	sig.SetSignal(SIGTYPE_Return, args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -664,10 +664,10 @@ Gura_ImplementFunction(if_)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		args.QuitTrailer();
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // elsif (`cond):leader:trailer {block}
@@ -696,11 +696,11 @@ Gura_ImplementFunction(elsif_)
 	if (value.GetBoolean()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		args.QuitTrailer();
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // else ():trailer {block}
@@ -718,10 +718,10 @@ Gura_ImplementFunction(else_)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	// this function works as a terminater of if-else and try-catch
-	if (sig.IsErrorSuspended()) return Value::Null;
+	if (sig.IsErrorSuspended()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 }
 
@@ -740,7 +740,7 @@ Gura_DeclareFunction(end)
 
 Gura_ImplementFunction(end)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // switch {block}
@@ -760,14 +760,14 @@ Gura_ImplementFunction(switch_)
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));;
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	if (sig.IsSwitchDone()) {
 		Value result = sig.GetValue();
 		sig.ClearSignal();
 		return result;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // case (`cond) {block}
@@ -792,13 +792,13 @@ Gura_ImplementFunction(case_)
 	if (value.GetBoolean()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		sig.SetSignal(SIGTYPE_SwitchDone, result);
 		return result;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // default {block}
@@ -819,9 +819,9 @@ Gura_ImplementFunction(default_)
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	sig.SetSignal(SIGTYPE_SwitchDone, result);
 	return result;
 }
@@ -847,7 +847,7 @@ Gura_ImplementFunction(try_)
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	if (sig.IsError()) {
 		sig.SuspendError();
@@ -876,7 +876,7 @@ Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 Gura_ImplementFunction(catch_)
 {
 	Signal &sig = env.GetSignal();
-	if (!sig.IsErrorSuspended()) return Value::Null;
+	if (!sig.IsErrorSuspended()) return Value::Nil;
 	bool handleFlag = false;
 	if (args.GetList(0).empty()) {
 		handleFlag = true;
@@ -888,14 +888,14 @@ Gura_ImplementFunction(catch_)
 			}
 		}
 	}
-	if (!handleFlag) return Value::Null;
+	if (!handleFlag) return Value::Nil;
 	//args.FinalizeTrailer();
 	args.QuitTrailer();
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(Value(pObj));
@@ -918,7 +918,7 @@ Gura_ImplementFunction(finally_)
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 }
 
@@ -940,7 +940,7 @@ Gura_ImplementFunction(raise)
 	Signal &sig = env.GetSignal();
 	sig.SetError(args.GetErrorType(0), "%s", args.GetString(1));
 	sig.SetValue(args.GetValue(2));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -982,7 +982,7 @@ Gura_ImplementFunction(chr)
 			str.push_back(static_cast<char>(buff[i - 1]));
 		}
 	} else if (args.IsSet(Gura_Symbol(nil))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(str);
 #endif
@@ -1022,7 +1022,7 @@ Gura_ImplementFunction(hex)
 		str = Formatter::FormatValueList(sig, upperFlag? "%0*X" : "%0*x",
 						ValueList(Value(digits), args.GetValue(0)));
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(str);
 }
 
@@ -1056,7 +1056,7 @@ Gura_ImplementFunction(int_)
 		Number num = value.ToNumber(true, successFlag);
 		if (!successFlag) {
 			sig.SetError(ERR_ValueError, "failed to convert to a number");
-			return Value::Null;
+			return Value::Nil;
 		}
 		result.SetNumber(static_cast<long>(num));
 	} else if (value.IsValid()) {
@@ -1137,11 +1137,11 @@ Gura_ImplementFunction(tonumber)
 		return Value(num);
 	} else if (args.IsSet(Gura_Symbol(raise))) {
 		sig.SetError(ERR_ValueError, "failed to convert to a number");
-		return Value::Null;
+		return Value::Nil;
 	} else if (args.IsSet(Gura_Symbol(zero))) {
 		return Value(0.);
 	} else { // args.IsSet(Gura_UserSymbol(nil)
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -1215,14 +1215,14 @@ Gura_ImplementFunction(class_)
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Class *pClassSuper = env.LookupClass(VTYPE_object);
 	const Value &valueSuper = args.GetValue(0);
 	if (valueSuper.Is_function()) {
 		pClassSuper = valueSuper.GetFunction()->GetClassToConstruct();
 		if (pClassSuper == nullptr) {
 			valueSuper.GetFunction()->SetError_NotConstructor(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
@@ -1246,7 +1246,7 @@ Gura_ImplementFunction(classref)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	Value result(Class::Reference(pValueTypeInfo->GetClass()));
 	return ReturnValue(env, args, result);
 }
@@ -1287,7 +1287,7 @@ Gura_ImplementFunction(struct_)
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
@@ -1343,7 +1343,7 @@ Gura_ImplementFunction(super)
 	if (cntSuperSkip > Value::MaxSuperSkipCount) {
 		sig.SetError(ERR_SystemError,
 			"number of super reference is limited under %d", Value::MaxSuperSkipCount);
-		return Value::Null;
+		return Value::Nil;
 	}
 	rtn.SetSuperSkipCount(cntSuperSkip);
 	return ReturnValue(env, args, rtn);
@@ -1382,14 +1382,14 @@ Gura_ImplementFunction(extern_)
 		const Expr *pExpr = pValue->GetExpr();
 		if (!pExpr->IsIdentifier()) {
 			sig.SetError(ERR_ValueError, "identifier must be specified");
-			return Value::Null;
+			return Value::Nil;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_Escalate) == nullptr) {
 			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
 		}
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 #endif
 
@@ -1410,14 +1410,14 @@ Gura_ImplementFunction(local)
 		const Expr *pExpr = pValue->GetExpr();
 		if (!pExpr->IsIdentifier()) {
 			sig.SetError(ERR_ValueError, "identifier must be specified");
-			return Value::Null;
+			return Value::Nil;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_NoEscalate) == nullptr) {
-			env.AssignValue(pSymbol, Value::Null, EXTRA_Public);
+			env.AssignValue(pSymbol, Value::Nil, EXTRA_Public);
 		}
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // locals(module?:module) {block?}
@@ -1489,18 +1489,18 @@ Gura_ImplementFunction(public_)
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
 			if (!pExprAssign->GetLeft()->IsIdentifier()) {
 				sig.SetError(ERR_ValueError, "invalid element for public");
-				return Value::Null;
+				return Value::Nil;
 			}
 			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
 			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
 			pExpr->Exec2(env, pSeqPostHandler);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		} else {
 			sig.SetError(ERR_ValueError, "invalid element for public");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // scope(target?) {block}
@@ -1521,7 +1521,7 @@ Gura_ImplementFunction(scope)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 	} else {
 		SeqPostHandler *pSeqPostHandler = nullptr;
@@ -1537,12 +1537,12 @@ Gura_ImplementFunction(scope)
 		}
 		if (pEnv != nullptr) {
 			const Expr_Block *pExprBlock = args.GetBlock(*pEnv);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			return pExprBlock->Exec2(*pEnv, pSeqPostHandler);
 		}
 	}
 	sig.SetError(ERR_ValueError, "module or environment must be specified");
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1564,7 +1564,7 @@ Gura_ImplementFunction(module)
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", nullptr, nullptr);
 	pExprBlock->Exec2(*pModule, pSeqPostHandler);
 	return Value(pModule);
@@ -1624,12 +1624,12 @@ Gura_ImplementFunction(import_)
 	SymbolSet *pSymbolsToMixIn = nullptr;
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			if (!(*ppExpr)->IsIdentifier()) {
 				sig.SetError(ERR_SyntaxError,
 					"wrong format for an element in import list");
-				return Value::Null;
+				return Value::Nil;
 			}
 			const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(*ppExpr);
@@ -1642,7 +1642,7 @@ Gura_ImplementFunction(import_)
 		// nothing to do
 	} else if (!args.GetExpr(1)->IsIdentifier()) {
 		sig.SetError(ERR_ValueError, "identifier is expected as a module name");
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		pSymbolAlias = dynamic_cast<const Expr_Identifier *>(args.GetExpr(1))->GetSymbol();
 	}
@@ -1651,7 +1651,7 @@ Gura_ImplementFunction(import_)
 	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
 	Module *pModule = env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
 									   overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
-	if (pModule == nullptr) return Value::Null;
+	if (pModule == nullptr) return Value::Nil;
 	return Value(Module::Reference(pModule));
 }
 
@@ -1676,12 +1676,12 @@ Gura_ImplementFunction(isdefined)
 	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		Value result = pExpr->Exec2(env, pSeqPostHandler);
-		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
+		if (sig.IsSignalled() && !sig.IsError()) return Value::Nil;
 		definedFlag = !sig.IsError() && result.IsDefined();
 		sig.ClearSignal();
 	} else {
 		sig.SetError(ERR_ValueError, "argument must be an identifier");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(definedFlag);
 }
@@ -1733,7 +1733,7 @@ Gura_ImplementFunction(istype)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(1));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = args.GetValue(0).GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_rational) &&
@@ -1757,7 +1757,7 @@ Gura_ImplementFunction(isinstance)
 {
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(1));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	return args.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
@@ -1779,7 +1779,7 @@ Gura_ImplementFunction(typename_)
 	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		Value value = pExpr->Exec2(env, pSeqPostHandler);
-		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
+		if (sig.IsSignalled() && !sig.IsError()) return Value::Nil;
 		if (sig.IsError()) {
 			typeName = "undefined";
 		} else {
@@ -1789,7 +1789,7 @@ Gura_ImplementFunction(typename_)
 	} else {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		Value value = pExpr->Exec2(env, pSeqPostHandler);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		typeName = value.MakeValueTypeName();
 	}
 	return Value(typeName);
@@ -1820,7 +1820,7 @@ Gura_ImplementFunction(undef_)
 			SymbolList symbolList;
 			if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
 				sig.SetError(ERR_ValueError, "invalid identifier name");
-				return Value::Null;
+				return Value::Nil;
 			}
 			for (SymbolList::iterator ppSymbol = symbolList.begin();
 								ppSymbol + 1 != symbolList.end(); ppSymbol++) {
@@ -1829,7 +1829,7 @@ Gura_ImplementFunction(undef_)
 					if (raiseFlag) {
 						sig.SetError(ERR_ValueError, "undefined identifier");
 					}
-					return Value::Null;
+					return Value::Nil;
 				}
 				if (pValue->IsModule()) {
 					pEnv = pValue->GetModule();
@@ -1839,18 +1839,18 @@ Gura_ImplementFunction(undef_)
 					pEnv = pValue->GetObject();
 				} else {
 					sig.SetError(ERR_ValueError, "invalid identifier name");
-					return Value::Null;
+					return Value::Nil;
 				}
 			}
 			pSymbol = symbolList.back();
 		}
 		if (raiseFlag && !pEnv->LookupValue(pSymbol, ENVREF_NoEscalate)) {
 			sig.SetError(ERR_ValueError, "undefined identifier");
-			return Value::Null;
+			return Value::Nil;
 		}
 		pEnv->RemoveValue(pSymbol);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1879,7 +1879,7 @@ Gura_ImplementFunction(choose)
 	const ValueList &valList = args.GetList(1);
 	if (index >= valList.size()) {
 		sig.SetError(ERR_IndexError, "index is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return valList[index];
 }
@@ -1972,7 +1972,7 @@ Gura_ImplementFunction(max)
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		int cmp = Value::Compare(env, result, *pValue);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (cmp < 0) result = *pValue;
 	}
 	return result;
@@ -1996,7 +1996,7 @@ Gura_ImplementFunction(min)
 	Value result = *pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		int cmp = Value::Compare(env, result, *pValue);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (cmp > 0) result = *pValue;
 	}
 	return result;
@@ -2072,7 +2072,7 @@ Gura_DeclareFunction(randseed)
 Gura_ImplementFunction(randseed)
 {
 	Random::Initialize(args.GetULong(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2102,7 +2102,7 @@ Gura_ImplementFunction(dir)
 	SymbolList symbolList;
 	if (args.IsValid(0)) {
 		SymbolSet symbols;
-		if (!args.GetValue(0).DirProp(env, symbols, escalateFlag)) return Value::Null;
+		if (!args.GetValue(0).DirProp(env, symbols, escalateFlag)) return Value::Nil;
 		foreach_const (SymbolSet, ppSymbol, symbols) {
 			const Symbol *pSymbol = *ppSymbol;
 			symbolList.push_back(pSymbol);
@@ -2175,9 +2175,9 @@ Gura_ModuleEntry()
 {
 	// value assignment
 	Gura_AssignValue(__name__,	Value("__main__"));
-	Gura_AssignValue(nil,		Value::Null);
-	Gura_AssignValueEx("-",		Value::Null);
-	Gura_AssignValueEx("@rem",	Value::Null); // dummy for MS-DOS batch
+	Gura_AssignValue(nil,		Value::Nil);
+	Gura_AssignValueEx("-",		Value::Nil);
+	Gura_AssignValueEx("@rem",	Value::Nil); // dummy for MS-DOS batch
 	Gura_AssignValueEx("true",	Value(true));
 	Gura_AssignValueEx("false",	Value(false));
 	Gura_AssignValueEx("*",		Value(new Object_iterator(env, new Iterator_SequenceInf(0))));

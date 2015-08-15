@@ -41,7 +41,7 @@ Value Object_Keysym::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_keysym.mod);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Keysym::DoSetProp(Environment &env,
@@ -49,7 +49,7 @@ Value Object_Keysym::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ Gura_DeclareFunction(MessageDialog)
 Gura_ImplementFunction(MessageDialog)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
@@ -83,10 +83,10 @@ Gura_ImplementMethod(wx_MessageDialog, SetExtendedMessage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString extendedMessage = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetExtendedMessage(extendedMessage);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MessageDialog, SetHelpLabel)
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetHelpLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString help = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetHelpLabel(help);
 	return ReturnValue(env, args, Value(rtn));
@@ -116,10 +116,10 @@ Gura_ImplementMethod(wx_MessageDialog, SetMessage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString message = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetMessage(message);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MessageDialog, SetOKCancelLabels)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetOKCancelLabels)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString ok = wxString::FromUTF8(args.GetString(0));
 	wxString cancel = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetOKCancelLabels(ok, cancel);
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetOKLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString ok = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetOKLabel(ok);
 	return ReturnValue(env, args, Value(rtn));
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetYesNoCancelLabels)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString yes = wxString::FromUTF8(args.GetString(0));
 	wxString no = wxString::FromUTF8(args.GetString(1));
 	wxString cancel = wxString::FromUTF8(args.GetString(2));
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_MessageDialog, SetYesNoLabels)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString yes = wxString::FromUTF8(args.GetString(0));
 	wxString no = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetYesNoLabels(yes, no);
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_MessageDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetCaption)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetCaption();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetMessage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetMessage();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetExtendedMessage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetExtendedMessage();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetMessageDialogStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetMessageDialogStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_MessageDialog, HasCustomLabels)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasCustomLabels();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetYesLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetYesLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetNoLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetNoLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetOKLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetOKLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetCancelLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetCancelLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetHelpLabel)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetHelpLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_MessageDialog, GetEffectiveIcon)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetEffectiveIcon();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -39,7 +39,7 @@ Value Object_PixelFormat::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(palette))) {
-		if (_pPixelFormat->palette == nullptr) return Value::Null;
+		if (_pPixelFormat->palette == nullptr) return Value::Nil;
 		return Value(new Object_Palette(_pPixelFormat->palette));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BitsPerPixel))) {
 		return Value(_pPixelFormat->BitsPerPixel);
@@ -55,7 +55,7 @@ Value Object_PixelFormat::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pPixelFormat->Amask);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

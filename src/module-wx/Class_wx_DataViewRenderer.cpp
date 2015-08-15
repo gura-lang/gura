@@ -52,7 +52,7 @@ wxDataViewCellMode wx_DataViewRenderer::GetMode()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetMode);
 	if (pFunc == nullptr) return wxDataViewRenderer::GetMode();
-	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return wxDATAVIEW_CELL_INERT;
 	return static_cast<wxDataViewCellMode>(rtn.GetInt());
 }
@@ -61,7 +61,7 @@ wxDataViewColumn* wx_DataViewRenderer::GetOwner()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetOwner);
 	if (pFunc == nullptr) return wxDataViewRenderer::GetOwner();
-	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_DataViewColumn)) return nullptr;
 	return Object_wx_DataViewColumn::GetObject(rtn)->GetEntity();
 }
@@ -70,7 +70,7 @@ bool wx_DataViewRenderer::GetValue(wxVariant& value)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
 	if (pFunc == nullptr) return wxDataViewRenderer::GetValue(value);
-	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_wx_Variant, true)) return false;
 	if (rtn.IsInvalid()) return false;
 	value = *Object_wx_Variant::GetObject(rtn)->GetEntity();
@@ -81,7 +81,7 @@ wxString wx_DataViewRenderer::GetVariantType()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetVariantType);
 	if (pFunc == nullptr) return wxDataViewRenderer::GetVariantType();
-	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }
@@ -138,7 +138,7 @@ Gura_DeclareFunction(DataViewRenderer)
 Gura_ImplementFunction(DataViewRenderer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString varianttype = wxString::FromUTF8(args.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
@@ -155,7 +155,7 @@ Gura_ImplementFunction(DataViewRenderer)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetMode)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetMode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataViewCellMode rtn = pThis->GetEntity()->wxDataViewRenderer::GetMode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetOwner)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->wxDataViewRenderer::GetOwner();
 	return ReturnValue(env, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->wxDataViewRenderer::GetValue(*value);
 	return ReturnValue(env, args, Value(rtn));
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, GetVariantType)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->wxDataViewRenderer::GetVariantType();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -230,10 +230,10 @@ Gura_ImplementMethod(wx_DataViewRenderer, SetOwner)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataViewColumn *owner = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->wxDataViewRenderer::SetOwner(owner);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, SetValue)
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, SetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->wxDataViewRenderer::SetValue(*value);
 	return ReturnValue(env, args, Value(rtn));
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, Validate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->wxDataViewRenderer::Validate(*value);
 	return ReturnValue(env, args, Value(rtn));

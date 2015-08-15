@@ -286,7 +286,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ExprList : public std::vector<Expr *> {
 public:
-	static const ExprList Null;
+	static const ExprList Empty;
 public:
 	inline ExprList() {};
 	inline ExprList(Expr *pExpr) : std::vector<Expr *>(1) {

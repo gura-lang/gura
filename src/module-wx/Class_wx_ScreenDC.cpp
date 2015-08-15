@@ -46,7 +46,7 @@ Gura_DeclareFunction(ScreenDCEmpty)
 Gura_ImplementFunction(ScreenDCEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ScreenDC *pEntity = new wx_ScreenDC();
 	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->StartDrawingOnTop(window);
 	return ReturnValue(env, args, Value(rtn));
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(0)) rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->StartDrawingOnTop(rect);
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndDrawingOnTop();
 	return ReturnValue(env, args, Value(rtn));
 }

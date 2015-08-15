@@ -71,7 +71,7 @@ void wx_PopupTransientWindow::Dismiss()
 		wxPopupTransientWindow::Dismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -79,7 +79,7 @@ bool wx_PopupTransientWindow::CanDismiss()
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanDismiss);
 	if (pFunc == nullptr) return wxPopupTransientWindow::CanDismiss();
-	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -115,7 +115,7 @@ void wx_PopupTransientWindow::OnDismiss()
 		wxPopupTransientWindow::OnDismiss();
 		return;
 	}
-	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Null);
+	_pObj->EvalMethod(*_pObj, pFunc, ValueList::Empty);
 	CheckMethodResult(_pObj->GetSignal());
 }
 
@@ -134,7 +134,7 @@ Gura_DeclareFunction(PopupTransientWindow)
 Gura_ImplementFunction(PopupTransientWindow)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	long style = wxBORDER_NONE;
 	if (args.IsValid(1)) style = args.GetLong(1);
@@ -160,10 +160,10 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *focus = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->wxPopupTransientWindow::Popup(focus);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PopupTransientWindow, Dismiss)
@@ -175,9 +175,9 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->wxPopupTransientWindow::Dismiss();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PopupTransientWindow, CanDismiss)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, CanDismiss)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::CanDismiss();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMouseEvent *event = Object_wx_MouseEvent::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::ProcessLeftDown(*event);
 	return ReturnValue(env, args, Value(rtn));
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Show)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool show = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::Show(show);
 	return ReturnValue(env, args, Value(rtn));
@@ -238,9 +238,9 @@ Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	dynamic_cast<wx_PopupTransientWindow *>(pThis->GetEntity())->_OnDismiss();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

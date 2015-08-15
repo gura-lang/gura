@@ -45,7 +45,7 @@ Gura_DeclareFunction(SimpleHelpProvider)
 Gura_ImplementFunction(SimpleHelpProvider)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SimpleHelpProvider *pEntity = new wx_SimpleHelpProvider();
 	Object_wx_SimpleHelpProvider *pObj = Object_wx_SimpleHelpProvider::GetThisObj(args);
 	if (pObj == nullptr) {

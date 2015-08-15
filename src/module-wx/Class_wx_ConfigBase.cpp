@@ -54,7 +54,7 @@ Gura_DeclareFunction(ConfigBase)
 Gura_ImplementFunction(ConfigBase)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString appName = wxEmptyString;
 	if (args.IsValid(0)) appName = wxString::FromUTF8(args.GetString(0));
@@ -80,7 +80,7 @@ Gura_ImplementFunction(ConfigBase)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_ConfigBase, Create)
@@ -92,7 +92,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Create)
 Gura_ImplementClassMethod(wx_ConfigBase, Create)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Create();
 	return ReturnValue(env, args, Value(new Object_wx_ConfigBase(rtn, nullptr, OwnerFalse)));
 }
@@ -106,9 +106,9 @@ Gura_ImplementMethod(wx_ConfigBase, DontCreateOnDemand)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DontCreateOnDemand();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, DeleteAll)
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteAll)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->DeleteAll();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	bool bDeleteGroupIfEmpty = true;
 	if (args.IsValid(1)) bDeleteGroupIfEmpty = args.GetBoolean(1);
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_ConfigBase, DeleteGroup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->DeleteGroup(key);
 	return ReturnValue(env, args, Value(rtn));
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_ConfigBase, Exists)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Exists(strName);
 	return ReturnValue(env, args, Value(rtn));
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_ConfigBase, Flush)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bCurrentOnly = false;
 	if (args.IsValid(0)) bCurrentOnly = args.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->Flush(bCurrentOnly);
@@ -208,7 +208,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Get)
 Gura_ImplementClassMethod(wx_ConfigBase, Get)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	bool CreateOnDemand = true;
 	if (args.IsValid(0)) CreateOnDemand = args.GetBoolean(0);
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Get(CreateOnDemand);
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetAppName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetAppName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetEntryType)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstGroup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	long index = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetFirstGroup(str, index);
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	long index = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetFirstEntry(str, index);
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextGroup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	long index = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetNextGroup(str, index);
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	long index = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->GetNextEntry(str, index);
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfEntries)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bRecursive = false;
 	if (args.IsValid(0)) bRecursive = args.GetBoolean(0);
 }
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfGroups)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bRecursive = false;
 	if (args.IsValid(0)) bRecursive = args.GetBoolean(0);
 }
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetVendorName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetVendorName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_ConfigBase, HasEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasEntry(strName);
 	return ReturnValue(env, args, Value(rtn));
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_ConfigBase, HasGroup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasGroup(strName);
 	return ReturnValue(env, args, Value(rtn));
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_ConfigBase, IsExpandingEnvVars)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsExpandingEnvVars();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_ConfigBase, IsRecordingDefaults)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsRecordingDefaults();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -460,14 +460,14 @@ Gura_ImplementMethod(wx_ConfigBase, Read)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString str = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->Read(key, str);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_1)
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString str = wxString::FromUTF8(args.GetString(1));
 	wxString defaultVal = wxString::FromUTF8(args.GetString(2));
@@ -494,7 +494,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_1)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_2)
@@ -509,7 +509,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString defaultVal = wxString::FromUTF8(args.GetString(1));
 	wxString rtn = pThis->GetEntity()->Read(key, defaultVal);
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_3)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	long l = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->Read(key, l);
@@ -551,7 +551,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_4)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	long l = args.GetLong(1);
 	long defaultVal = args.GetLong(2);
@@ -559,7 +559,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_4)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_5)
@@ -574,7 +574,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_5)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	long defaultVal = args.GetLong(1);
 	long rtn = pThis->GetEntity()->Read(key, defaultVal);
@@ -593,7 +593,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_6)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	double d = args.GetDouble(1);
 	bool rtn = pThis->GetEntity()->Read(key, d);
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_7)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	double d = args.GetDouble(1);
 	double defaultVal = args.GetDouble(2);
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_7)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_8)
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_8)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	bool b = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Read(key, b);
@@ -662,7 +662,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_9)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	bool d = args.GetBoolean(1);
 	bool defaultVal = args.GetBoolean(2);
@@ -670,7 +670,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_9)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, RenameEntry)
@@ -685,7 +685,7 @@ Gura_ImplementMethod(wx_ConfigBase, RenameEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString oldName = wxString::FromUTF8(args.GetString(0));
 	wxString newName = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->RenameEntry(oldName, newName);
@@ -704,7 +704,7 @@ Gura_ImplementMethod(wx_ConfigBase, RenameGroup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString oldName = wxString::FromUTF8(args.GetString(0));
 	wxString newName = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->RenameGroup(oldName, newName);
@@ -721,7 +721,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Set)
 Gura_ImplementClassMethod(wx_ConfigBase, Set)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxConfigBase *pConfig = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Set(pConfig);
 	return ReturnValue(env, args, Value(new Object_wx_ConfigBase(rtn, nullptr, OwnerFalse)));
@@ -737,11 +737,11 @@ Gura_ImplementMethod(wx_ConfigBase, SetExpandEnvVars)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bDoIt = true;
 	if (args.IsValid(0)) bDoIt = args.GetBoolean(0);
 	pThis->GetEntity()->SetExpandEnvVars(bDoIt);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, SetPath)
@@ -754,10 +754,10 @@ Gura_ImplementMethod(wx_ConfigBase, SetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strPath = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetPath(strPath);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, SetRecordDefaults)
@@ -770,11 +770,11 @@ Gura_ImplementMethod(wx_ConfigBase, SetRecordDefaults)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bDoIt = true;
 	if (args.IsValid(0)) bDoIt = args.GetBoolean(0);
 	pThis->GetEntity()->SetRecordDefaults(bDoIt);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Write)
@@ -789,7 +789,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->Write(key, value);
@@ -808,7 +808,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	long value = args.GetLong(1);
 	bool rtn = pThis->GetEntity()->Write(key, value);
@@ -827,7 +827,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	double value = args.GetDouble(1);
 	bool rtn = pThis->GetEntity()->Write(key, value);
@@ -846,7 +846,7 @@ Gura_ImplementMethod(wx_ConfigBase, Write_3)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	bool value = args.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->Write(key, value);

@@ -375,7 +375,7 @@ Value Matrix::Invert(Environment &env)
 	size_t nCols = GetCols(), nRows = GetRows();
 	if (nCols != nRows) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
-		return Value::Null;
+		return Value::Nil;
 	}
 	ValueType valType = CheckValueType(*this);
 	if (valType == VTYPE_number) {
@@ -393,7 +393,7 @@ Value Matrix::Invert(Environment &env)
 		Number det;
 		if (!InvertMatrix(mat, nCols, det)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-			return Value::Null;
+			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
 		ValueList &valList = pMatRtn->GetList();
@@ -420,7 +420,7 @@ Value Matrix::Invert(Environment &env)
 		Complex det;
 		if (!InvertMatrix(mat, nCols, det)) {
 			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-			return Value::Null;
+			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
 		ValueList &valList = pMatRtn->GetList();
@@ -434,7 +434,7 @@ Value Matrix::Invert(Environment &env)
 		return Value(new Object_matrix(env, pMatRtn.release()));
 	} else {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -503,7 +503,7 @@ Value Matrix::Neg(Environment &env, const Matrix *pMat)
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				valList.push_back(pOperator->EvalUnary(env, *pValueElem, suffixFlag));
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
 	}
@@ -517,7 +517,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 	size_t nRows = pMat1->GetRows(), nCols = pMat1->GetCols();
 	if (!(nRows == pMat2->GetRows() && nCols == pMat2->GetCols())) {
 		SetError_MatrixSizeMismatch(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
@@ -553,7 +553,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 			ValueList::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
 				valList.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2));
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
 	}
@@ -568,7 +568,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 	size_t nFold = pMat2->GetFold();
 	if (nElems != pMat2->GetRows()) {
 		SetError_MatrixSizeMismatch(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
@@ -619,11 +619,11 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 					Value valueElem;
 					do {
 						valueElem = pOperatorMul->EvalBinary(env, *pValueElem1, *(pValueElem2 + offset));
-						if (sig.IsSignalled()) return Value::Null;
+						if (sig.IsSignalled()) return Value::Nil;
 					} while (0);
 					do {
 						valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
-						if (sig.IsSignalled()) return Value::Null;
+						if (sig.IsSignalled()) return Value::Nil;
 					} while (0);
 				}
 				valList.push_back(valueAccum);
@@ -639,7 +639,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	if (nCols != valList.size()) {
 		SetError_MatrixSizeMismatch(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	ValueList &valListResult = result.InitAsList(env);
@@ -677,11 +677,11 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 				Value valueElem;
 				do {
 					valueElem = pOperatorMul->EvalBinary(env, *pValueElem, *pValue);
-					if (sig.IsSignalled()) return Value::Null;
+					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				do {
 					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
-					if (sig.IsSignalled()) return Value::Null;
+					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				pValueElem++;
 			}
@@ -723,7 +723,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 				valListResult.push_back(resultElem);
 			}
 		}
@@ -739,7 +739,7 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 	size_t nFold = pMat->GetFold();
 	if (nRows != valList.size()) {
 		SetError_MatrixSizeMismatch(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	ValueList &valListResult = result.InitAsList(env);
@@ -780,11 +780,11 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 				Value valueElem;
 				do {
 					valueElem = pOperatorMul->EvalBinary(env, *(pValueElem + offset), *pValue);
-					if (sig.IsSignalled()) return Value::Null;
+					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				do {
 					valueAccum = pOperatorAdd->EvalBinary(env, valueAccum, valueElem);
-					if (sig.IsSignalled()) return Value::Null;
+					if (sig.IsSignalled()) return Value::Nil;
 				} while (0);
 				offset += nFold;
 			}
@@ -827,7 +827,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				Value resultElem = pOperator->EvalBinary(env, value, *pValueElem);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 				valListResult.push_back(resultElem);
 			}
 		}
@@ -848,7 +848,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		Number num = value.GetNumber();
 		if (num == 0) {
 			sig.SetError(ERR_ZeroDivisionError, "divide by zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
@@ -861,7 +861,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		Complex num = value.GetComplex();
 		if (num.IsZero()) {
 			sig.SetError(ERR_ZeroDivisionError, "divide by zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
@@ -875,7 +875,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				valList.push_back(pOperator->EvalBinary(env, *pValueElem, value));
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
 	}

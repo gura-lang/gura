@@ -85,10 +85,10 @@ Gura_ImplementMethod(image, drawtext)
 	const Function *pFuncDeco = nullptr;
 	if (args.IsBlockSpecified()) {
 		pFuncDeco = args.GetBlockFunc(env, GetSymbolForBlock());
-		if (pFuncDeco == nullptr) return Value::Null;
+		if (pFuncDeco == nullptr) return Value::Nil;
 	}
 	if (pObjFont->DrawOnImage(env, sig, pObjImage->GetImage(),
-								x, y, str, pFuncDeco)) return Value::Null;
+								x, y, str, pFuncDeco)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementFunction(test)
 		}
 	}
 #endif
-	return Value::Null;
+	return Value::Nil;
 }
 
 #if 0
@@ -177,7 +177,7 @@ Gura_ImplementFunction(test)
 	//FT_Open_Args args;
 	//err = ::FT_Open_Face(g_lib, &args, face_index, &face);
 	::FT_Done_Face(face);
-	return Value::Null;
+	return Value::Nil;
 #endif
 
 

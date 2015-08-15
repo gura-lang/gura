@@ -47,7 +47,7 @@ Gura_DeclareFunction(Display)
 Gura_ImplementFunction(Display)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	unsigned index = 0;
 	if (args.IsValid(0)) index = args.GetInt(0);
 	wx_Display *pEntity = new wx_Display(index);
@@ -76,14 +76,14 @@ Gura_ImplementMethod(wx_Display, ChangeMode)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVideoMode *mode = (wxVideoMode *)(&wxDefaultVideoMode);
 	if (args.IsValid(0)) mode = Object_wx_VideoMode::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->ChangeMode(*mode);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetClientArea)
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_Display, GetClientArea)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetClientArea();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Display, GetCount)
@@ -114,13 +114,13 @@ Gura_DeclareClassMethod(wx_Display, GetCount)
 Gura_ImplementClassMethod(wx_Display, GetCount)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	unsigned rtn = wxDisplay::GetCount();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetCurrentMode)
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_Display, GetCurrentMode)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVideoMode rtn = pThis->GetEntity()->GetCurrentMode();
 	return ReturnValue(env, args, Value(new Object_wx_VideoMode(new wxVideoMode(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetDepth)
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_Display, GetDepth)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetDepth();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Display, GetFromPoint)
@@ -173,14 +173,14 @@ Gura_DeclareClassMethod(wx_Display, GetFromPoint)
 Gura_ImplementClassMethod(wx_Display, GetFromPoint)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int rtn = wxDisplay::GetFromPoint(*pt);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Display, GetFromWindow)
@@ -195,14 +195,14 @@ Gura_DeclareClassMethod(wx_Display, GetFromWindow)
 Gura_ImplementClassMethod(wx_Display, GetFromWindow)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int rtn = wxDisplay::GetFromWindow(win);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetGeometry)
@@ -216,12 +216,12 @@ Gura_ImplementMethod(wx_Display, GetGeometry)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetGeometry();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetModes)
@@ -238,14 +238,14 @@ Gura_ImplementMethod(wx_Display, GetModes)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxVideoMode *mode = (wxVideoMode *)(&wxDefaultVideoMode);
 	if (args.IsValid(0)) mode = Object_wx_VideoMode::GetObject(args, 0)->GetEntity();
 	wxArrayVideoModes rtn = pThis->GetEntity()->GetModes(*mode);
 	return ReturnValue(env, args, Value(new Object_wx_ArrayVideoModes(new wxArrayVideoModes(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, GetName)
@@ -259,12 +259,12 @@ Gura_ImplementMethod(wx_Display, GetName)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Display, IsPrimary)
@@ -278,12 +278,12 @@ Gura_ImplementMethod(wx_Display, IsPrimary)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Display *pThis = Object_wx_Display::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsPrimary();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

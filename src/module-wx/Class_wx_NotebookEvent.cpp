@@ -50,7 +50,7 @@ Gura_DeclareFunction(NotebookEvent)
 Gura_ImplementFunction(NotebookEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType eventType = wxEVT_NULL;
 	if (args.IsValid(0)) eventType = static_cast<wxEventType>(args.GetInt(0));
 	int id = 0;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_NotebookEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_NotebookEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -111,10 +111,10 @@ Gura_ImplementMethod(wx_NotebookEvent, SetOldSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetOldSelection(page);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_NotebookEvent, SetSelection)
@@ -127,10 +127,10 @@ Gura_ImplementMethod(wx_NotebookEvent, SetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetSelection(page);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

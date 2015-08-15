@@ -54,7 +54,7 @@ Gura_DeclareFunction(SplashScreen)
 Gura_ImplementFunction(SplashScreen)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	long splashStyle = args.GetLong(1);
 	int milliseconds = args.GetInt(2);
@@ -88,10 +88,10 @@ Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetSplashStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -120,12 +120,12 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSplashScreenWindow *rtn = (wxSplashScreenWindow *)pThis->GetEntity()->GetSplashWindow();
 	return ReturnValue(env, args, Value(new Object_wx_SplashScreenWindow(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTimeout();
 	return ReturnValue(env, args, Value(rtn));
 }

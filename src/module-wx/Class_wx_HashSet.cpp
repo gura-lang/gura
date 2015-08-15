@@ -47,7 +47,7 @@ Gura_DeclareFunction(HashSet)
 Gura_ImplementFunction(HashSet)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_HashSet *pEntity = new wx_HashSet();
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -71,7 +71,7 @@ Gura_DeclareFunction(HashSet_1)
 Gura_ImplementFunction(HashSet_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxHashSet *set = Object_wx_HashSet::GetObject(args, 0)->GetEntity();
 	wx_HashSet *pEntity = new wx_HashSet(*set);
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_HashSet, begin)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, begin_1)
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HashSet, begin_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, clear)
@@ -120,9 +120,9 @@ Gura_ImplementMethod(wx_HashSet, clear)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->clear();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, count)
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_HashSet, count)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, empty)
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HashSet, empty)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->empty();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_HashSet, end)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, end_1)
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HashSet, end_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, erase)
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_HashSet, erase)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, erase_1)
@@ -201,9 +201,9 @@ Gura_ImplementMethod(wx_HashSet, erase_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->erase();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, erase_2)
@@ -215,9 +215,9 @@ Gura_ImplementMethod(wx_HashSet, erase_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->erase();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, find)
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_HashSet, find)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, find_1)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_HashSet, find_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, insert)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_HashSet, insert)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HashSet, size)
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_HashSet, size)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

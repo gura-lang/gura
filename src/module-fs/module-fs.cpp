@@ -100,7 +100,7 @@ Value Object_Stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_fileStat.IsSock());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_Stat::ToString(bool exprFlag)
@@ -688,18 +688,18 @@ Gura_ImplementFunction(chdir)
 		String pathNameOrg = OAL::GetCurDir();
 		if (!OAL::ChangeCurDir(args.GetString(0))) {
 			sig.SetError(ERR_IOError, "failed to change current directory");
-			return Value::Null;
+			return Value::Nil;
 		}
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
 		OAL::ChangeCurDir(pathNameOrg.c_str());
 		return rtn;
 	} else if (!OAL::ChangeCurDir(args.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to change current directory");
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.chmod(mode, pathname:string):map:void:[follow_link]
@@ -763,12 +763,12 @@ Gura_ImplementFunction(chmod)
 		rtn = OAL::ChangeMode(args.GetInt(0), args.GetString(1), followLinkFlag);
 	} else {
 		sig.SetError(ERR_ValueError, "number or string must be specified as mode");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (!rtn) {
 		sig.SetError(ERR_IOError, "failed to change access mode");
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.copy(src:string, dst:string):map:void:[overwrite]
@@ -800,7 +800,7 @@ Gura_ImplementFunction(copy)
 	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag, followLinkFlag)) {
 		sig.SetError(ERR_IOError, "failed to copy a file %s", args.GetString(0));
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.cpdir(src:string, dst:string):map:void[:tree]
@@ -831,7 +831,7 @@ Gura_ImplementFunction(cpdir)
 		sig.SetError(ERR_IOError, "failed to copies a directory '%s' to '%s'",
 													dirNameSrc, dirNameDst);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.getcwd()
@@ -873,7 +873,7 @@ Gura_ImplementFunction(mkdir)
 	if (!rtn) {
 		sig.SetError(ERR_IOError, "failed to create a directory %s", pathName);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.remove(pathname:string):map:void
@@ -892,7 +892,7 @@ Gura_ImplementFunction(remove)
 	if (!OAL::Remove(args.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to remove a file");
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.rename(src:string, dst:string):map:void
@@ -912,7 +912,7 @@ Gura_ImplementFunction(rename)
 	if (!OAL::Rename(args.GetString(0), args.GetString(1))) {
 		sig.SetError(ERR_IOError, "failed to rename a file or directory");
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // fs.rmdir(pathname:string):map:void[:tree]
@@ -939,7 +939,7 @@ Gura_ImplementFunction(rmdir)
 	if (!rtn) {
 		sig.SetError(ERR_IOError, "failed to remove a directory %s", pathName);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

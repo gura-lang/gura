@@ -46,9 +46,9 @@ Gura_ImplementClassMethod(scaled_font, create)
 	cairo_matrix_t font_matrix;
 	cairo_matrix_t ctm;
 	if (!MatrixToCairo(sig, font_matrix,
-			Object_matrix::GetObject(args, 1)->GetMatrix())) return Value::Null;
+			Object_matrix::GetObject(args, 1)->GetMatrix())) return Value::Nil;
 	if (!MatrixToCairo(sig, ctm,
-			Object_matrix::GetObject(args, 2)->GetMatrix())) return Value::Null;
+			Object_matrix::GetObject(args, 2)->GetMatrix())) return Value::Nil;
 	cairo_font_options_t *options = Object_font_options::GetObject(args, 3)->GetEntity();
 	cairo_scaled_font_t *scaled_font = ::cairo_scaled_font_create(
 			::cairo_font_face_reference(font_face), &font_matrix, &ctm, options);

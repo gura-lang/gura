@@ -51,7 +51,7 @@ Gura_DeclareFunction(FlexGridSizer)
 Gura_ImplementFunction(FlexGridSizer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int rows = 0;
 	int cols = args.GetInt(1);
 	int vgap = 0;
@@ -87,12 +87,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	int proportion = 0;
 	if (args.IsValid(1)) proportion = args.GetInt(1);
 	pThis->GetEntity()->AddGrowableCol(idx, proportion);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableRow)
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	int proportion = 0;
 	if (args.IsValid(1)) proportion = args.GetInt(1);
 	pThis->GetEntity()->AddGrowableRow(idx, proportion);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, GetFlexibleDirection)
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlexibleDirection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetNonFlexibleGrowMode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -154,10 +154,10 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	pThis->GetEntity()->RemoveGrowableCol(idx);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableRow)
@@ -170,10 +170,10 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	pThis->GetEntity()->RemoveGrowableRow(idx);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, SetFlexibleDirection)
@@ -186,10 +186,10 @@ Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int direction = args.GetInt(0);
 	pThis->GetEntity()->SetFlexibleDirection(direction);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
@@ -202,10 +202,10 @@ Gura_ImplementMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFlexSizerGrowMode mode = static_cast<wxFlexSizerGrowMode>(args.GetInt(0));
 	pThis->GetEntity()->SetNonFlexibleGrowMode(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

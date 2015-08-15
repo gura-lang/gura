@@ -63,7 +63,7 @@ Gura_DeclareFunction(RichTextFormattingDialogFactoryEmpty)
 Gura_ImplementFunction(RichTextFormattingDialogFactoryEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RichTextFormattingDialogFactory *pEntity = new wx_RichTextFormattingDialogFactory();
 	Object_wx_RichTextFormattingDialogFactory *pObj = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CreateButtons(dialog);
 	return ReturnValue(env, args, Value(rtn));
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	wxString title = wxString::FromUTF8(args.GetString(1));
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 2)->GetEntity();
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePages)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pages = args.GetLong(0);
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->CreatePages(pages, dialog);
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageId)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int i = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetPageId(i);
 	return ReturnValue(env, args, Value(rtn));
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetPageIdCount();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetPageImage(id);
 	return ReturnValue(env, args, Value(rtn));
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetSheetStyle(dialog);
 	return ReturnValue(env, args, Value(rtn));
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	wxRichTextFormattingDialog *dialog = Object_wx_RichTextFormattingDialog::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->ShowHelp(page, dialog);

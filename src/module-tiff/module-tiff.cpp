@@ -76,7 +76,7 @@ Gura_ImplementMethod(image, read_tiff)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_TIFF::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -96,7 +96,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

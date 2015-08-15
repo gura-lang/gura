@@ -48,7 +48,7 @@ Gura_DeclareFunction(HtmlEasyPrinting)
 Gura_ImplementFunction(HtmlEasyPrinting)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxT("Printing");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parentWindow = (wxWindow *)(nullptr);
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetParentWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPrintData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintData *rtn = (wxPrintData *)pThis->GetEntity()->GetPrintData();
 	return ReturnValue(env, args, Value(new Object_wx_PrintData(rtn, nullptr, OwnerFalse)));
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPageSetupData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPageSetupDialogData *rtn = (wxPageSetupDialogData *)pThis->GetEntity()->GetPageSetupData();
 	return ReturnValue(env, args, Value(new Object_wx_PageSetupDialogData(rtn, nullptr, OwnerFalse)));
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString htmlfile = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->PreviewFile(htmlfile);
 	return ReturnValue(env, args, Value(rtn));
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString htmltext = wxString::FromUTF8(args.GetString(0));
 	wxString basepath = wxEmptyString;
 	if (args.IsValid(1)) basepath = wxString::FromUTF8(args.GetString(1));
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString htmlfile = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->PrintFile(htmlfile);
 	return ReturnValue(env, args, Value(rtn));
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString htmltext = wxString::FromUTF8(args.GetString(0));
 	wxString basepath = wxEmptyString;
 	if (args.IsValid(1)) basepath = wxString::FromUTF8(args.GetString(1));
@@ -193,9 +193,9 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PageSetup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->PageSetup();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFonts)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
 	int *sizes = nullptr;
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 	if (args.IsValid(2)) {
 		if (args.GetList(2).size() != 7) {
 			sig.SetError(ERR_ValueError, "sizes must contain seven numbers");
-			return Value::Null;
+			return Value::Nil;
 		}
 		size_t i = 0;
 		foreach_const (ValueList, pValue, args.GetList(2)) {
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 		sizes = sizesBuff;
 	}
 	pThis->GetEntity()->SetFonts(normal_face, fixed_face, sizes);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetHeader)
@@ -242,12 +242,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetHeader)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString header = wxString::FromUTF8(args.GetString(0));
 	int pg = wxPAGE_ALL;
 	if (args.IsValid(1)) pg = args.GetInt(1);
 	pThis->GetEntity()->SetHeader(header, pg);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFooter)
@@ -261,12 +261,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFooter)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString footer = wxString::FromUTF8(args.GetString(0));
 	int pg = wxPAGE_ALL;
 	if (args.IsValid(1)) pg = args.GetInt(1);
 	pThis->GetEntity()->SetFooter(footer, pg);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlEasyPrinting, SetParentWindow)
@@ -279,10 +279,10 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetParentWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetParentWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

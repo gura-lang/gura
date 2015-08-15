@@ -66,7 +66,7 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 		DWORD cch = ArraySizeOf(printerNameDefault) - 1;
 		if (!::GetDefaultPrinter(printerNameDefault, &cch)) {
 			sig.SetError(ERR_IOError, "failed to get a default printer");
-			return Value::Null;
+			return Value::Nil;
 		}
 		printerName = printerNameDefault;
 	}
@@ -74,12 +74,12 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 		HANDLE hPrinter = nullptr;
 		if (!::OpenPrinter(const_cast<char *>(printerName), &hPrinter, nullptr)) {
 			sig.SetError(ERR_IOError, "failed to open printer handler");
-			return Value::Null;
+			return Value::Nil;
 		}
 		DWORD cbNeeded = sizeof(printerInfoBuff);
 		if (!::GetPrinter(hPrinter, 2, printerInfoBuff, sizeof(printerInfoBuff), &cbNeeded)) {
 			sig.SetError(ERR_IOError, "failed to get printer information");
-			return Value::Null;
+			return Value::Nil;
 		}
 		::ClosePrinter(hPrinter);
 	} while (0);

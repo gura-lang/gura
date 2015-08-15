@@ -51,7 +51,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, MB2WC)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
 	char psz = args.GetChar(1);
 	size_t n = args.GetSizeT(2);
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, MB2WC)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MBConvUTF32, WC2MB)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, WC2MB)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char buf = args.GetChar(0);
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));
 	size_t n = args.GetSizeT(2);
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, WC2MB)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

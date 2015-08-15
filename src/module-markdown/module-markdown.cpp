@@ -2724,13 +2724,13 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_document::ToString(bool exprFlag)
@@ -2759,7 +2759,7 @@ Gura_ImplementMethod(document, parse)
 	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
 	pDocument->ParseString(sig, args.GetString(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // markdown.document#read(stream:stream:r):void
@@ -2777,7 +2777,7 @@ Gura_ImplementMethod(document, read)
 	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
 	pDocument->ParseStream(sig, args.GetStream(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2819,24 +2819,24 @@ Value Object_item::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(Symbol::Add(_pItem->GetTypeName()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
 		const char *text = _pItem->GetText();
-		if (text == nullptr) return Value::Null;
+		if (text == nullptr) return Value::Nil;
 		return Value(text);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ItemOwner *pItemOwner = _pItem->GetItemOwner();
-		if (pItemOwner == nullptr) return Value::Null;
+		if (pItemOwner == nullptr) return Value::Nil;
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(url))) {
 		const char *url = _pItem->GetURL();
-		if (url == nullptr) return Value::Null;
+		if (url == nullptr) return Value::Nil;
 		return Value(url);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(title))) {
 		const char *title = _pItem->GetTitle();
-		if (title == nullptr) return Value::Null;
+		if (title == nullptr) return Value::Nil;
 		return Value(title);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const char *attrs = _pItem->GetAttrs();
-		if (attrs == nullptr) return Value::Null;
+		if (attrs == nullptr) return Value::Nil;
 		return Value(attrs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(align))) {
 		Align align = _pItem->GetAlign();
@@ -2846,13 +2846,13 @@ Value Object_item::DoGetProp(Environment &env, const Symbol *pSymbol,
 			(align == ALIGN_Right)? Gura_Symbol(right) : Gura_Symbol(none));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_item::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_item::ToString(bool exprFlag)
@@ -2884,7 +2884,7 @@ Gura_ImplementMethod(item, print)
 	Item *pItem = Object_item::GetThisObj(args)->GetItem();
 	int indentLevel = args.Is_number(0)? args.GetInt(0) : 0;
 	pItem->Print(sig, *env.GetConsole(), indentLevel);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2918,7 +2918,7 @@ Gura_ImplementFunction(document)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Document> pDocument(new Document());
 	if (args.Is_stream(0)) {
-		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Null;
+		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Nil;
 	}
 	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
 	return ReturnValue(env, args, Value(pObj.release()));
@@ -2942,9 +2942,9 @@ Gura_ImplementFunction(setpresenter)
 	Signal &sig = env.GetSignal();
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	g_pFunc_Presenter.reset(pFuncBlock->Reference());
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -2956,7 +2956,7 @@ Gura_ImplementBinaryOperator(Shl, document, string)
 	Signal &sig = env.GetSignal();
 	Document *pDocument = Object_document::GetObject(valueLeft)->GetDocument();
 	const char *text = valueRight.GetString();
-	if (!pDocument->ParseString(sig, text)) return Value::Null;
+	if (!pDocument->ParseString(sig, text)) return Value::Nil;
 	return valueLeft;
 }
 
@@ -3009,12 +3009,12 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 	//ValueList valListArg;
 	AutoPtr<Args> pArgs(new Args());
 	if (title == nullptr) {
-		pArgs->AddValue(Value::Null);
+		pArgs->AddValue(Value::Nil);
 	} else {
 		pArgs->AddValue(Value(title));
 	}
 	if (pHelp == nullptr) {
-		pArgs->AddValue(Value::Null);
+		pArgs->AddValue(Value::Nil);
 	} else {
 		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CStringReader streamSrc(pHelp->GetText());

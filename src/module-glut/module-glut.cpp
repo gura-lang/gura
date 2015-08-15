@@ -43,7 +43,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

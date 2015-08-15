@@ -41,7 +41,7 @@ Value Object_color::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_color.GetA());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_color::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -49,31 +49,31 @@ Value Object_color::DoSetProp(Environment &env, const Symbol *pSymbol, const Val
 {
 	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		UChar r = value.GetUChar();
 		_color.SetR(r);
 		return Value(r);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		UChar g = value.GetUChar();
 		_color.SetG(g);
 		return Value(g);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		UChar b = value.GetUChar();
 		_color.SetB(b);
 		return Value(b);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		UChar a = value.GetUChar();
 		_color.SetA(a);
 		return Value(a);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_color::ToString(bool exprFlag)
@@ -127,18 +127,18 @@ Gura_ImplementFunction(color)
 			a = valList[1].GetUChar();
 		} else {
 			Declaration::SetError_InvalidArgument(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		const char *name = valList[0].Is_string()?
 			valList[0].GetString() : valList[0].GetSymbol()->GetName();
 		Color color = Color::CreateNamedColor(sig, name, a);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return ReturnValue(env, args, Value(new Object_color(env, color)));
 	} else if (valList[0].Is_number()) {
 		UChar r = valList[0].GetUChar();
 		if (valList.size() < 3) {
 			Declaration::SetError_InvalidArgument(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		UChar g = valList[1].GetUChar();
 		UChar b = valList[2].GetUChar();
@@ -147,7 +147,7 @@ Gura_ImplementFunction(color)
 					Value(new Object_color(env, r, g, b, a)));
 	}
 	Declaration::SetError_InvalidArgument(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

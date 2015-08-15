@@ -47,7 +47,7 @@ Gura_DeclareFunction(AutomationObject)
 Gura_ImplementFunction(AutomationObject)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AutomationObject *pEntity = new wx_AutomationObject();
 	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString method = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
 	wxVariant *args[] = Object_wx_Variant::GetObject(args, 2)->GetEntity();
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 	return ReturnValue(env, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, CallMethod_1)
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString method = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->CallMethod(method, );
 	return ReturnValue(env, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, CreateInstance)
@@ -124,13 +124,13 @@ Gura_ImplementMethod(wx_AutomationObject, CreateInstance)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString classId = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->CreateInstance(classId);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, GetDispatchPtr)
@@ -144,10 +144,10 @@ Gura_ImplementMethod(wx_AutomationObject, GetDispatchPtr)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, GetInstance)
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_AutomationObject, GetInstance)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString classId = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetInstance(classId);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, GetObject)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetObject)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAutomationObject *obj = Object_wx_AutomationObject::GetObject(args, 0)->GetEntity();
 	wxString property = wxString::FromUTF8(args.GetString(1));
 	int noArgs = 0;
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetObject)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, GetProperty)
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
 	wxVariant *args[] = Object_wx_Variant::GetObject(args, 2)->GetEntity();
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 	return ReturnValue(env, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, GetProperty_1)
@@ -245,13 +245,13 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->GetProperty(property, );
 	return ReturnValue(env, args, Value(new Object_wx_Variant(new wxVariant(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, Invoke)
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_AutomationObject, Invoke)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString member = wxString::FromUTF8(args.GetString(0));
 	int action = args.GetInt(1);
 	wxVariant *retValue = Object_wx_Variant::GetObject(args, 2)->GetEntity();
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_AutomationObject, Invoke)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, PutProperty)
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
 	wxVariant *args[] = Object_wx_Variant::GetObject(args, 2)->GetEntity();
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, PutProperty_1)
@@ -329,13 +329,13 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->PutProperty(property, );
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AutomationObject, SetDispatchPtr)
@@ -350,12 +350,12 @@ Gura_ImplementMethod(wx_AutomationObject, SetDispatchPtr)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetDispatchPtr();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

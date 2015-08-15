@@ -36,7 +36,7 @@ Value Object_function::DoGetProp(Environment &env, const Symbol *pSymbol,
 		Iterator *pIterator = new Iterator_declaration(GetFunction()->GetDeclOwner().Reference());
 		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
-		if (!GetFunction()->IsCustom()) return Value::Null;
+		if (!GetFunction()->IsCustom()) return Value::Nil;
 		const FunctionCustom *pFuncCustom =
 						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
@@ -50,7 +50,7 @@ Value Object_function::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetFunction()->GetSymbol());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_function::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -66,17 +66,17 @@ Value Object_function::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 			GetFunction()->SetSymbol(Symbol::Add(value.GetString()));
 		} else {
 			sig.SetError(ERR_TypeError, "symbol or string must be specified");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) {
 			sig.SetError(ERR_TypeError, "not a custom function");
-			return Value::Null;
+			return Value::Nil;
 		}
 		if (!value.Is_expr()) {
 			sig.SetError(ERR_TypeError, "expr must be specified");
-			return Value::Null;
+			return Value::Nil;
 		}
 		FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(GetFunction());
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
@@ -123,7 +123,7 @@ Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 {
 	Signal &sig = env.GetSignal();
 	GetFunction()->GetDeclOwner().Compensate(env, valListArg);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(_valueThis);
 	pArgs->SetValueListArg(valListArg);
@@ -171,7 +171,7 @@ Gura_ImplementFunction(function)
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	ExprOwner *pExprOwnerArg = nullptr;
 	if (pExprOwnerParam == nullptr) {
@@ -184,7 +184,7 @@ Gura_ImplementFunction(function)
 		}
 	} else if (!args.GetList(0).empty()) {
 		sig.SetError(ERR_SyntaxError, "argument list conflicts with block parameter.");
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		pExprOwnerArg = pExprOwnerParam->Reference();
 	}
@@ -193,7 +193,7 @@ Gura_ImplementFunction(function)
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
 	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgsSub)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementClassMethod(function, addhelp)
 {
 	Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
 	pFunc->AddHelp(args.GetSymbol(1), args.GetString(2), args.GetString(3));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // function.getdecls(func:function):static:map
@@ -285,7 +285,7 @@ Gura_DeclareClassMethod(function, getexpr)
 Gura_ImplementClassMethod(function, getexpr)
 {
 	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
-	if (!pFunc->IsCustom()) return Value::Null;
+	if (!pFunc->IsCustom()) return Value::Nil;
 	const FunctionCustom *pFuncCustom =
 					dynamic_cast<const FunctionCustom *>(pFunc);
 	return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
@@ -350,7 +350,7 @@ Gura_ImplementClassMethod(function, gethelp)
 	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
 	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
-	if (pHelp == nullptr) return Value::Null;
+	if (pHelp == nullptr) return Value::Nil;
 	return Value(new Object_help(env, pHelp->Reference()));
 }
 
@@ -428,13 +428,13 @@ Gura_ImplementMethod(function, mathdiff)
 		pSymbol = args.GetSymbol(0);
 	} else if (declOwner.empty()) {
 		sig.SetError(ERR_ValueError, "variable symbol must be specified");
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		pSymbol = declOwner.front()->GetSymbol();
 	}
 	AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
 	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, pExprArg.get(), pSymbol));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 				Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);
@@ -451,7 +451,7 @@ Gura_ImplementUnaryOperator(Inv, function)
 	const Symbol *pSymbol = env.GetLangCode();
 	HelpPresenter::Present(env, pFunc->ToString().c_str(),
 						   pFunc->GetHelp(pSymbol, true));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

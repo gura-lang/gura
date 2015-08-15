@@ -281,7 +281,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 					pCodec.reset(Codec::CreateCodecNone(false, false));
 				} else {
 					pCodec.reset(Codec::CreateCodec(sig, encoding.c_str(), false, false));
-					if (sig.IsSignalled()) return Value::Null;
+					if (sig.IsSignalled()) return Value::Nil;
 				}
 				stat = STAT_Format;
 			} else {
@@ -317,11 +317,11 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 		} else if (ch == '!') {
 			bigEndianFlag = true;
 		} else if (ch == 'x') {
-			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			nRepeat = 1;
 		} else if (ch == 'c') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			char str[2];
 			str[1] = '\0';
 			for (int i = 0; i < nRepeat; i++, pByte++) {
@@ -331,7 +331,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'b') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				char num = *pByte;
 				valList.push_back(Value(num));
@@ -339,7 +339,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'B') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				UChar num = *pByte;
 				valList.push_back(Value(num));
@@ -347,7 +347,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'h') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 2) {
 				short num = static_cast<short>(UnpackUShort(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
@@ -355,7 +355,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'H') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 2) {
 				UShort num = UnpackUShort(pByte, bigEndianFlag);
 				valList.push_back(Value(num));
@@ -363,7 +363,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'i') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				int num = static_cast<int>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
@@ -371,7 +371,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'I') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				UInt num = static_cast<UInt>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
@@ -379,7 +379,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'l') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				long num = static_cast<long>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
@@ -387,7 +387,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'L') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				ULong num = static_cast<ULong>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
@@ -395,7 +395,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'q') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
 				Int64 num = static_cast<Int64>(UnpackUInt64(pByte, bigEndianFlag));
 				valList.push_back(Value(static_cast<Number>(num)));
@@ -403,7 +403,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'Q') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
 				UInt64 num = static_cast<UInt64>(UnpackUInt64(pByte, bigEndianFlag));
 				valList.push_back(Value(static_cast<Number>(num)));
@@ -411,7 +411,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'f') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			char buff[4];
 			for (int i = 0; i < nRepeat; i++) {
 				for (int j = 0; j < 4; j++, pByte++) buff[j] = *pByte;
@@ -421,7 +421,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'd') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			char buff[8];
 			for (int i = 0; i < nRepeat; i++) {
 				for (int j = 0; j < 8; j++, pByte++) buff[j] = *pByte;
@@ -431,7 +431,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 's') {
 			iterator pByte = begin() + offset;
-			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			String str;
 			//str.reserve(nRepeat);
 			char chConv;
@@ -452,25 +452,25 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			nRepeat = 1;
 		} else if (ch == 'p') {
 			//iterator pByte = begin() + offset;
-			//if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
+			//if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			//for (int i = 0; i < nRepeat; i++, pByte++) {
 			//}
 			//nRepeat = 1;
 			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
-			return Value::Null;
+			return Value::Nil;
 		} else if (ch == 'P') {
 			//iterator pByte = begin() + offset;
-			//if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
+			//if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			//for (int i = 0; i < nRepeat; i++, pByte += 4) {
 			//}
 			//nRepeat = 1;
 			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
-			return Value::Null;
+			return Value::Nil;
 		} else if (IsWhite(ch)) {
 			// just ignore white characters
 		} else {
 			sig.SetError(ERR_ValueError, "invalid character in format");
-			return Value::Null;
+			return Value::Nil;
 		}
 		if (eatNextFlag) p++;
 	}

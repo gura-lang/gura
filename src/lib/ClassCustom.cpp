@@ -82,7 +82,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env)
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
 		AutoPtr<Args> pArgsSub(new Args());
-		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return nullptr;
+		if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgsSub)) return nullptr;
 	}
 	pFunc->SetSymbol(_pSymbol);
 	pFunc->SetClassToConstruct(this); // constructor is registered in this class
@@ -266,7 +266,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, false));
-	if (pEnvLocal.IsNull()) return Value::Null;
+	if (pEnvLocal.IsNull()) return Value::Nil;
 	Value valueRtn(args.GetThis());
 	if (!valueRtn.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, _pClassToConstruct);
@@ -287,14 +287,14 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 		pArgsSub->SetExprOwnerArg(pExprOwner);
 		pArgsSub->SetThis(valueRtn);
 		pConstructorSuper->Call(*pEnvSuper, *pArgsSub);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value valueThis(valueRtn);
 	valueThis.AddFlags(VFLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	GetExprBody()->Exec2(*pEnvLocal, pSeqPostHandler);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, valueRtn);
 }
 

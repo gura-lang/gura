@@ -47,7 +47,7 @@ Gura_DeclareFunction(GridCellAttrEmpty)
 Gura_ImplementFunction(GridCellAttrEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellAttr *pEntity = new wx_GridCellAttr();
 	Object_wx_GridCellAttr *pObj = Object_wx_GridCellAttr::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -75,7 +75,7 @@ Gura_DeclareFunction(GridCellAttr)
 Gura_ImplementFunction(GridCellAttr)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_GridCellAttr, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGridCellAttr *rtn = (wxGridCellAttr *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_GridCellAttr(rtn, nullptr, OwnerFalse)));
 }
@@ -117,9 +117,9 @@ Gura_ImplementMethod(wx_GridCellAttr, IncRef)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->IncRef();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, DecRef)
@@ -131,9 +131,9 @@ Gura_ImplementMethod(wx_GridCellAttr, DecRef)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DecRef();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetTextColour)
@@ -146,10 +146,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetTextColour(*colText);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetBackgroundColour)
@@ -162,10 +162,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colBack = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBackgroundColour(*colBack);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetFont)
@@ -178,10 +178,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetAlignment)
@@ -195,11 +195,11 @@ Gura_ImplementMethod(wx_GridCellAttr, SetAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int hAlign = args.GetInt(0);
 	int vAlign = args.GetInt(1);
 	pThis->GetEntity()->SetAlignment(hAlign, vAlign);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetReadOnly)
@@ -212,11 +212,11 @@ Gura_ImplementMethod(wx_GridCellAttr, SetReadOnly)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool isReadOnly = true;
 	if (args.IsValid(0)) isReadOnly = args.GetBoolean(0);
 	pThis->GetEntity()->SetReadOnly(isReadOnly);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetRenderer)
@@ -229,10 +229,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetRenderer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGridCellRenderer *renderer = Object_wx_GridCellRenderer::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetRenderer(renderer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, SetEditor)
@@ -245,10 +245,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetEditor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGridCellEditor *editor = Object_wx_GridCellEditor::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetEditor(editor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, HasTextColour)
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasTextColour();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasBackgroundColour();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasFont();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasAlignment();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasRenderer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasRenderer();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_GridCellAttr, HasEditor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasEditor();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxFont &rtn = pThis->GetEntity()->GetFont();
 	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int hAlign = 0;
 	int vAlign = 0;
 	pThis->GetEntity()->GetAlignment(&hAlign, &vAlign);
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetRenderer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	int row = args.GetInt(1);
 	int col = args.GetInt(2);
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetEditor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	int row = args.GetInt(1);
 	int col = args.GetInt(2);
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_GridCellAttr, IsReadOnly)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsReadOnly();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -470,10 +470,10 @@ Gura_ImplementMethod(wx_GridCellAttr, SetDefAttr)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttr *pThis = Object_wx_GridCellAttr::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGridCellAttr *defAttr = Object_wx_GridCellAttr::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetDefAttr(defAttr);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

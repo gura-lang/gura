@@ -47,7 +47,7 @@ Gura_DeclareFunction(FindReplaceDialogEmpty)
 Gura_ImplementFunction(FindReplaceDialogEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FindReplaceDialog *pEntity = new wx_FindReplaceDialog();
 	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -74,7 +74,7 @@ Gura_DeclareFunction(FindReplaceDialog)
 Gura_ImplementFunction(FindReplaceDialog)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, GetData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFindReplaceData *rtn = (wxFindReplaceData *)pThis->GetEntity()->GetData();
 	return ReturnValue(env, args, Value(new Object_wx_FindReplaceData(rtn, nullptr, OwnerFalse)));
 }

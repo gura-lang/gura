@@ -82,7 +82,7 @@ private:
 		char tinyBuff[1];
 	} _u;
 public:
-	static const Value Null;
+	static const Value Nil;
 	static const Value Undefined;
 	static const Value Zero;
 	static const Value One;
@@ -486,7 +486,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueList : public std::vector<Value> {
 public:
-	static const ValueList Null;
+	static const ValueList Empty;
 public:
 	inline ValueList() {}
 	inline ValueList(size_t n) : std::vector<Value>(n) {}
@@ -535,7 +535,7 @@ typedef std::vector<const Value *> ValuePtrList;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber> {
 public:
-	static const ValueMap Null;
+	static const ValueMap Empty;
 private:
 	int _cntRef;
 public:
@@ -565,7 +565,7 @@ public:
 		STORE_Overwrite,
 		STORE_Timid,
 	};
-	static const ValueDict Null;
+	static const ValueDict Empty;
 private:
 	int _cntRef;
 	bool _ignoreCaseFlag;

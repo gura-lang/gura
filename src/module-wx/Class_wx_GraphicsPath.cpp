@@ -46,11 +46,11 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->MoveToPoint(*x, *y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, MoveToPoint_1)
@@ -63,10 +63,10 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble *p = Object_wx_Point2DDouble::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->MoveToPoint(*p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArc)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *r = Object_wx_Double::GetObject(args, 2)->GetEntity();
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc)
 	wxDouble *endAngle = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	bool clockwise = args.GetBoolean(5);
 	pThis->GetEntity()->AddArc(*x, *y, *r, *startAngle, *endAngle, clockwise);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArc_1)
@@ -109,14 +109,14 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble *c = Object_wx_Point2DDouble::GetObject(args, 0)->GetEntity();
 	wxDouble *r = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *startAngle = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *endAngle = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	bool clockwise = args.GetBoolean(4);
 	pThis->GetEntity()->AddArc(*c, *r, *startAngle, *endAngle, clockwise);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddArcToPoint)
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArcToPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x1 = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y1 = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *x2 = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *y2 = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	wxDouble *r = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	pThis->GetEntity()->AddArcToPoint(*x1, *y1, *x2, *y2, *r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCircle)
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCircle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *r = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	pThis->GetEntity()->AddCircle(*x, *y, *r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint)
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *cx1 = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *cy1 = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *cx2 = Object_wx_Double::GetObject(args, 2)->GetEntity();
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint)
 	wxDouble *x = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 5)->GetEntity();
 	pThis->GetEntity()->AddCurveToPoint(*cx1, *cy1, *cx2, *cy2, *x, *y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint_1)
@@ -201,12 +201,12 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble *c1 = Object_wx_Point2DDouble::GetObject(args, 0)->GetEntity();
 	wxPoint2DDouble *c2 = Object_wx_Point2DDouble::GetObject(args, 1)->GetEntity();
 	wxPoint2DDouble *e = Object_wx_Point2DDouble::GetObject(args, 2)->GetEntity();
 	pThis->GetEntity()->AddCurveToPoint(*c1, *c2, *e);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddEllipse)
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_GraphicsPath, AddEllipse)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	pThis->GetEntity()->AddEllipse(*x, *y, *w, *h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint)
@@ -242,11 +242,11 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->AddLineToPoint(*x, *y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint_1)
@@ -259,10 +259,10 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble *p = Object_wx_Point2DDouble::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddLineToPoint(*p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddPath)
@@ -275,10 +275,10 @@ Gura_ImplementMethod(wx_GraphicsPath, AddPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGraphicsPath *path = Object_wx_GraphicsPath::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddPath(*path);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddQuadCurveToPoint)
@@ -294,13 +294,13 @@ Gura_ImplementMethod(wx_GraphicsPath, AddQuadCurveToPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *cx = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *cy = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *x = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	pThis->GetEntity()->AddQuadCurveToPoint(*cx, *cy, *x, *y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddRectangle)
@@ -316,13 +316,13 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRectangle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	pThis->GetEntity()->AddRectangle(*x, *y, *w, *h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, AddRoundedRectangle)
@@ -339,14 +339,14 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRoundedRectangle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	wxDouble *radius = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	pThis->GetEntity()->AddRoundedRectangle(*x, *y, *w, *h, *radius);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, CloseSubpath)
@@ -358,9 +358,9 @@ Gura_ImplementMethod(wx_GraphicsPath, CloseSubpath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CloseSubpath();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, Contains)
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble *c = Object_wx_Point2DDouble::GetObject(args, 0)->GetEntity();
 	int fillStyle = wxODDEVEN_RULE;
 	if (args.IsValid(1)) fillStyle = args.GetInt(1);
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	int fillStyle = wxODDEVEN_RULE;
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect2DDouble rtn = pThis->GetEntity()->GetBox();
 	return ReturnValue(env, args, Value(new Object_wx_Rect2DDouble(new wxRect2DDouble(rtn), nullptr, OwnerTrue)));
 }
@@ -433,13 +433,13 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
 	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
 	pThis->GetEntity()->GetBox(x, y, w, h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint)
@@ -453,11 +453,11 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->GetCurrentPoint(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint_1)
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint2DDouble rtn = pThis->GetEntity()->GetCurrentPoint();
 	return ReturnValue(env, args, Value(new Object_wx_Point2DDouble(new wxPoint2DDouble(rtn), nullptr, OwnerTrue)));
 }
@@ -485,10 +485,10 @@ Gura_ImplementMethod(wx_GraphicsPath, Transform)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGraphicsMatrix *matrix = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Transform(*matrix);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, GetNativePath)
@@ -500,9 +500,9 @@ Gura_ImplementMethod(wx_GraphicsPath, GetNativePath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetNativePath();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GraphicsPath, UnGetNativePath)
@@ -515,10 +515,10 @@ Gura_ImplementMethod(wx_GraphicsPath, UnGetNativePath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int p = args.GetInt(0);
 	pThis->GetEntity()->UnGetNativePath(p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

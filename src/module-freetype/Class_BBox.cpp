@@ -43,7 +43,7 @@ Value Object_BBox::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_bbox.yMax);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_BBox::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -52,24 +52,24 @@ Value Object_BBox::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_bbox.xMin = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.xMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_bbox.yMin = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.yMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_bbox.xMax = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.xMax);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_bbox.yMax = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.yMax);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

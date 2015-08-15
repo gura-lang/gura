@@ -46,7 +46,7 @@ Gura_DeclareFunction(ColourData)
 Gura_ImplementFunction(ColourData)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ColourData *pEntity = new wx_ColourData();
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_ColourData, GetChooseFull)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetChooseFull();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_ColourData, GetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour &rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int i = args.GetInt(0);
 	const wxColour &rtn = pThis->GetEntity()->GetCustomColour(i);
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
@@ -116,10 +116,10 @@ Gura_ImplementMethod(wx_ColourData, SetChooseFull)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool flag = args.GetBoolean(0);
 	pThis->GetEntity()->SetChooseFull(flag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ColourData, SetColour)
@@ -132,10 +132,10 @@ Gura_ImplementMethod(wx_ColourData, SetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetColour(*colour);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ColourData, SetCustomColour)
@@ -149,11 +149,11 @@ Gura_ImplementMethod(wx_ColourData, SetCustomColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int i = args.GetInt(0);
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->SetCustomColour(i, *colour);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

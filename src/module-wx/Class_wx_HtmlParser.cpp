@@ -61,7 +61,7 @@ Gura_DeclareFunction(HtmlParserEmpty)
 Gura_ImplementFunction(HtmlParserEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlParser *pEntity = new wx_HtmlParser();
 	Object_wx_HtmlParser *pObj = Object_wx_HtmlParser::GetThisObj(args);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(HtmlParserEmpty)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, AddTag)
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_HtmlParser, AddTag)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddTag(*tag);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, AddTagHandler)
@@ -113,13 +113,13 @@ Gura_ImplementMethod(wx_HtmlParser, AddTagHandler)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTagHandler **handler = Object_wx_HtmlTagHandler::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddTagHandler(**handler);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, AddWord)
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_HtmlParser, AddWord)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char txt = args.GetChar(0);
 	pThis->GetEntity()->AddWord(txt);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 #if 0
@@ -156,11 +156,11 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int begin_pos = args.GetInt(0);
 	int end_pos = args.GetInt(1);
 	pThis->GetEntity()->DoParsing(begin_pos, end_pos);
-	return Value::Null;
+	return Value::Nil;
 }
 #endif
 
@@ -173,9 +173,9 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DoParsing();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, DoneParser)
@@ -187,9 +187,9 @@ Gura_ImplementMethod(wx_HtmlParser, DoneParser)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DoneParser();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, GetFS)
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetFS)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileSystem *rtn = (wxFileSystem *)pThis->GetEntity()->GetFS();
 	return ReturnValue(env, args, Value(new Object_wx_FileSystem(rtn, nullptr, OwnerFalse)));
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_HtmlParser, GetProduct)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetProduct();
 	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
@@ -233,12 +233,12 @@ Gura_ImplementMethod(wx_HtmlParser, GetSource)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetSource();
 	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, InitParser)
@@ -251,10 +251,10 @@ Gura_ImplementMethod(wx_HtmlParser, InitParser)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString source = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->InitParser(source);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, OpenURL)
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_HtmlParser, OpenURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlURLType type = static_cast<wxHtmlURLType>(args.GetInt(0));
 	wxString url = wxString::FromUTF8(args.GetString(1));
 	wxFSFile *rtn = (wxFSFile *)pThis->GetEntity()->OpenURL(type, url);
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_HtmlParser, Parse)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString source = wxString::FromUTF8(args.GetString(0));
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Parse(source);
 	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
@@ -304,11 +304,11 @@ Gura_ImplementMethod(wx_HtmlParser, PushTagHandler)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTagHandler *handler = Object_wx_HtmlTagHandler::GetObject(args, 0)->GetEntity();
 	wxString tags = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->PushTagHandler(handler, tags);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, PopTagHandler)
@@ -320,9 +320,9 @@ Gura_ImplementMethod(wx_HtmlParser, PopTagHandler)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->PopTagHandler();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, SetFS)
@@ -338,13 +338,13 @@ Gura_ImplementMethod(wx_HtmlParser, SetFS)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileSystem **fs = Object_wx_FileSystem::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetFS(**fs);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlParser, StopParsing)
@@ -356,9 +356,9 @@ Gura_ImplementMethod(wx_HtmlParser, StopParsing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->StopParsing();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

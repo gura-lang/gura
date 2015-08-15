@@ -23,7 +23,7 @@ Gura_ImplementMethod(audio, read_wav)
 {
 	Signal &sig = env.GetSignal();
 	Object_audio *pThis = Object_audio::GetThisObj(args);
-	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
+	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -41,7 +41,7 @@ Gura_ImplementMethod(audio, write_wav)
 {
 	Signal &sig = env.GetSignal();
 	Object_audio *pThis = Object_audio::GetThisObj(args);
-	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
+	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementFunction(test)
 	pWave->Read(sig, args.GetStream(0));
 	pWave->Write(sig, args.GetStream(1));
 	pWave->Print();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

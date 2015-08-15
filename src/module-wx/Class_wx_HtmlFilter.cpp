@@ -48,7 +48,7 @@ Gura_DeclareFunction(HtmlFilterEmpty)
 Gura_ImplementFunction(HtmlFilterEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlFilter *pEntity = new wx_HtmlFilter();
 	Object_wx_HtmlFilter *pObj = Object_wx_HtmlFilter::GetThisObj(args);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(HtmlFilterEmpty)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlFilter, CanRead)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_HtmlFilter, CanRead)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFSFile *file = Object_wx_FSFile::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CanRead(*file);
 	return ReturnValue(env, args, Value(rtn));
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFSFile *file = Object_wx_FSFile::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->ReadFile(*file);
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));

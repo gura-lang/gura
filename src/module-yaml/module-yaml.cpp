@@ -88,7 +88,7 @@ Gura_ImplementFunction(write)
 {
 	Signal &sig = env.GetSignal();
 	if (!WriterToStream::Write(env, args.GetStream(0), args.GetValue(1))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -393,7 +393,7 @@ Value ExecParser(Environment &env, Signal &sig,
 		}
 		::yaml_event_delete(&event);
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
 

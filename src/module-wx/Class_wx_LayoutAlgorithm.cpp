@@ -46,7 +46,7 @@ Gura_DeclareFunction(LayoutAlgorithm)
 Gura_ImplementFunction(LayoutAlgorithm)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_LayoutAlgorithm *pEntity = new wx_LayoutAlgorithm();
 	Object_wx_LayoutAlgorithm *pObj = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMDIParentFrame *frame = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
 	wxRect *rect = (wxRect *)(nullptr);
 	if (args.IsValid(1)) rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	// When the application runs on MacOS and is about to be closed, it sometimes happen
 	// that parent has been destoyed before this function is called.
-	if (parent == nullptr) return Value::Null;
+	if (parent == nullptr) return Value::Nil;
 	wxWindow *mainWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutWindow(parent, mainWindow);

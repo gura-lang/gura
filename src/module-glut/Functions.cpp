@@ -18,7 +18,7 @@ public:
 		_pFunc.reset(nullptr);
 	}
 	inline Value Eval(Args &args) {
-		if (_pFunc.IsNull()) return Value::Null;
+		if (_pFunc.IsNull()) return Value::Nil;
 		Value result = _pFunc->Eval(*_pEnv, args);
 		if (_pEnv->GetSignal().IsSignalled()) {
 			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
@@ -345,7 +345,7 @@ Gura_ImplementFunction(__glutInitDisplayMode)
 {
 	unsigned int mode = args.GetUInt(0);
 	glutInitDisplayMode(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutInitDisplayString
@@ -362,7 +362,7 @@ Gura_ImplementFunction(__glutInitDisplayString)
 {
 	const char *string = args.GetString(0);
 	glutInitDisplayString(string);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutInitWindowPosition
@@ -381,7 +381,7 @@ Gura_ImplementFunction(__glutInitWindowPosition)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	glutInitWindowPosition(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutInitWindowSize
@@ -400,7 +400,7 @@ Gura_ImplementFunction(__glutInitWindowSize)
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	glutInitWindowSize(width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutMainLoop
@@ -415,7 +415,7 @@ Gura_DeclareFunctionAlias(__glutMainLoop, "glutMainLoop")
 Gura_ImplementFunction(__glutMainLoop)
 {
 	glutMainLoop();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutCreateWindow
@@ -476,7 +476,7 @@ Gura_ImplementFunction(__glutDestroyWindow)
 {
 	int win = args.GetInt(0);
 	glutDestroyWindow(win);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPostRedisplay
@@ -491,7 +491,7 @@ Gura_DeclareFunctionAlias(__glutPostRedisplay, "glutPostRedisplay")
 Gura_ImplementFunction(__glutPostRedisplay)
 {
 	glutPostRedisplay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPostWindowRedisplay
@@ -508,7 +508,7 @@ Gura_ImplementFunction(__glutPostWindowRedisplay)
 {
 	int win = args.GetInt(0);
 	glutPostWindowRedisplay(win);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSwapBuffers
@@ -523,7 +523,7 @@ Gura_DeclareFunctionAlias(__glutSwapBuffers, "glutSwapBuffers")
 Gura_ImplementFunction(__glutSwapBuffers)
 {
 	glutSwapBuffers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGetWindow
@@ -556,7 +556,7 @@ Gura_ImplementFunction(__glutSetWindow)
 {
 	int win = args.GetInt(0);
 	glutSetWindow(win);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSetWindowTitle
@@ -573,7 +573,7 @@ Gura_ImplementFunction(__glutSetWindowTitle)
 {
 	const char *title = args.GetString(0);
 	glutSetWindowTitle(title);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSetIconTitle
@@ -590,7 +590,7 @@ Gura_ImplementFunction(__glutSetIconTitle)
 {
 	const char *title = args.GetString(0);
 	glutSetIconTitle(title);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPositionWindow
@@ -609,7 +609,7 @@ Gura_ImplementFunction(__glutPositionWindow)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	glutPositionWindow(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutReshapeWindow
@@ -628,7 +628,7 @@ Gura_ImplementFunction(__glutReshapeWindow)
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	glutReshapeWindow(width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPopWindow
@@ -643,7 +643,7 @@ Gura_DeclareFunctionAlias(__glutPopWindow, "glutPopWindow")
 Gura_ImplementFunction(__glutPopWindow)
 {
 	glutPopWindow();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPushWindow
@@ -658,7 +658,7 @@ Gura_DeclareFunctionAlias(__glutPushWindow, "glutPushWindow")
 Gura_ImplementFunction(__glutPushWindow)
 {
 	glutPushWindow();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutIconifyWindow
@@ -673,7 +673,7 @@ Gura_DeclareFunctionAlias(__glutIconifyWindow, "glutIconifyWindow")
 Gura_ImplementFunction(__glutIconifyWindow)
 {
 	glutIconifyWindow();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutShowWindow
@@ -688,7 +688,7 @@ Gura_DeclareFunctionAlias(__glutShowWindow, "glutShowWindow")
 Gura_ImplementFunction(__glutShowWindow)
 {
 	glutShowWindow();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutHideWindow
@@ -703,7 +703,7 @@ Gura_DeclareFunctionAlias(__glutHideWindow, "glutHideWindow")
 Gura_ImplementFunction(__glutHideWindow)
 {
 	glutHideWindow();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutFullScreen
@@ -718,7 +718,7 @@ Gura_DeclareFunctionAlias(__glutFullScreen, "glutFullScreen")
 Gura_ImplementFunction(__glutFullScreen)
 {
 	glutFullScreen();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSetCursor
@@ -735,7 +735,7 @@ Gura_ImplementFunction(__glutSetCursor)
 {
 	int cursor = args.GetInt(0);
 	glutSetCursor(cursor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWarpPointer
@@ -754,7 +754,7 @@ Gura_ImplementFunction(__glutWarpPointer)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	glutWarpPointer(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutEstablishOverlay
@@ -769,7 +769,7 @@ Gura_DeclareFunctionAlias(__glutEstablishOverlay, "glutEstablishOverlay")
 Gura_ImplementFunction(__glutEstablishOverlay)
 {
 	glutEstablishOverlay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutRemoveOverlay
@@ -784,7 +784,7 @@ Gura_DeclareFunctionAlias(__glutRemoveOverlay, "glutRemoveOverlay")
 Gura_ImplementFunction(__glutRemoveOverlay)
 {
 	glutRemoveOverlay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutUseLayer
@@ -801,7 +801,7 @@ Gura_ImplementFunction(__glutUseLayer)
 {
 	GLenum layer = static_cast<GLenum>(args.GetInt(0));
 	glutUseLayer(layer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPostOverlayRedisplay
@@ -816,7 +816,7 @@ Gura_DeclareFunctionAlias(__glutPostOverlayRedisplay, "glutPostOverlayRedisplay"
 Gura_ImplementFunction(__glutPostOverlayRedisplay)
 {
 	glutPostOverlayRedisplay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPostWindowOverlayRedisplay
@@ -833,7 +833,7 @@ Gura_ImplementFunction(__glutPostWindowOverlayRedisplay)
 {
 	int win = args.GetInt(0);
 	glutPostWindowOverlayRedisplay(win);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutShowOverlay
@@ -848,7 +848,7 @@ Gura_DeclareFunctionAlias(__glutShowOverlay, "glutShowOverlay")
 Gura_ImplementFunction(__glutShowOverlay)
 {
 	glutShowOverlay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutHideOverlay
@@ -863,7 +863,7 @@ Gura_DeclareFunctionAlias(__glutHideOverlay, "glutHideOverlay")
 Gura_ImplementFunction(__glutHideOverlay)
 {
 	glutHideOverlay();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutCreateMenu
@@ -884,7 +884,7 @@ Gura_ImplementFunction(__glutCreateMenu)
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
 		sig.SetError(ERR_OutOfRangeError, "too many menus");
-		return Value::Null;
+		return Value::Nil;
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
@@ -905,7 +905,7 @@ Gura_ImplementFunction(__glutDestroyMenu)
 {
 	int menu = args.GetInt(0);
 	glutDestroyMenu(menu);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGetMenu
@@ -938,7 +938,7 @@ Gura_ImplementFunction(__glutSetMenu)
 {
 	int menu = args.GetInt(0);
 	glutSetMenu(menu);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutAddMenuEntry
@@ -957,7 +957,7 @@ Gura_ImplementFunction(__glutAddMenuEntry)
 	const char *label = args.GetString(0);
 	int value = args.GetInt(1);
 	glutAddMenuEntry(label, value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutAddSubMenu
@@ -976,7 +976,7 @@ Gura_ImplementFunction(__glutAddSubMenu)
 	const char *label = args.GetString(0);
 	int submenu = args.GetInt(1);
 	glutAddSubMenu(label, submenu);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutChangeToMenuEntry
@@ -997,7 +997,7 @@ Gura_ImplementFunction(__glutChangeToMenuEntry)
 	const char *label = args.GetString(1);
 	int value = args.GetInt(2);
 	glutChangeToMenuEntry(item, label, value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutChangeToSubMenu
@@ -1018,7 +1018,7 @@ Gura_ImplementFunction(__glutChangeToSubMenu)
 	const char *label = args.GetString(1);
 	int submenu = args.GetInt(2);
 	glutChangeToSubMenu(item, label, submenu);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutRemoveMenuItem
@@ -1035,7 +1035,7 @@ Gura_ImplementFunction(__glutRemoveMenuItem)
 {
 	int item = args.GetInt(0);
 	glutRemoveMenuItem(item);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutAttachMenu
@@ -1052,7 +1052,7 @@ Gura_ImplementFunction(__glutAttachMenu)
 {
 	int button = args.GetInt(0);
 	glutAttachMenu(button);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutDetachMenu
@@ -1069,7 +1069,7 @@ Gura_ImplementFunction(__glutDetachMenu)
 {
 	int button = args.GetInt(0);
 	glutDetachMenu(button);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutDisplayFunc
@@ -1092,7 +1092,7 @@ Gura_ImplementFunction(__glutDisplayFunc)
 		g_pContext->funcPackOnDisplay.SetFunc(env, func->Reference());
 		glutDisplayFunc(OnDisplay);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutReshapeFunc
@@ -1115,7 +1115,7 @@ Gura_ImplementFunction(__glutReshapeFunc)
 		g_pContext->funcPackOnReshape.SetFunc(env, func->Reference());
 		glutReshapeFunc(OnReshape);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutKeyboardFunc
@@ -1138,7 +1138,7 @@ Gura_ImplementFunction(__glutKeyboardFunc)
 		g_pContext->funcPackOnKeyboard.SetFunc(env, func->Reference());
 		glutKeyboardFunc(OnKeyboard);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutMouseFunc
@@ -1161,7 +1161,7 @@ Gura_ImplementFunction(__glutMouseFunc)
 		g_pContext->funcPackOnMouse.SetFunc(env, func->Reference());
 		glutMouseFunc(OnMouse);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutMotionFunc
@@ -1184,7 +1184,7 @@ Gura_ImplementFunction(__glutMotionFunc)
 		g_pContext->funcPackOnMotion.SetFunc(env, func->Reference());
 		glutMotionFunc(OnMotion);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutPassiveMotionFunc
@@ -1207,7 +1207,7 @@ Gura_ImplementFunction(__glutPassiveMotionFunc)
 		g_pContext->funcPackOnPassiveMotion.SetFunc(env, func->Reference());
 		glutPassiveMotionFunc(OnPassiveMotion);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutEntryFunc
@@ -1230,7 +1230,7 @@ Gura_ImplementFunction(__glutEntryFunc)
 		g_pContext->funcPackOnEntry.SetFunc(env, func->Reference());
 		glutEntryFunc(OnEntry);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutVisibilityFunc
@@ -1253,7 +1253,7 @@ Gura_ImplementFunction(__glutVisibilityFunc)
 		g_pContext->funcPackOnVisibility.SetFunc(env, func->Reference());
 		glutVisibilityFunc(OnVisibility);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutIdleFunc
@@ -1276,7 +1276,7 @@ Gura_ImplementFunction(__glutIdleFunc)
 		g_pContext->funcPackOnIdle.SetFunc(env, func->Reference());
 		glutIdleFunc(OnIdle);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutTimerFunc
@@ -1303,7 +1303,7 @@ Gura_ImplementFunction(__glutTimerFunc)
 		g_pContext->funcPackOnTimer.SetFunc(env, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutMenuStateFunc
@@ -1326,7 +1326,7 @@ Gura_ImplementFunction(__glutMenuStateFunc)
 		g_pContext->funcPackOnMenuState.SetFunc(env, func->Reference());
 		glutMenuStateFunc(OnMenuState);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSpecialFunc
@@ -1349,7 +1349,7 @@ Gura_ImplementFunction(__glutSpecialFunc)
 		g_pContext->funcPackOnSpecial.SetFunc(env, func->Reference());
 		glutSpecialFunc(OnSpecial);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSpaceballMotionFunc
@@ -1372,7 +1372,7 @@ Gura_ImplementFunction(__glutSpaceballMotionFunc)
 		g_pContext->funcPackOnSpaceballMotion.SetFunc(env, func->Reference());
 		glutSpaceballMotionFunc(OnSpaceballMotion);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSpaceballRotateFunc
@@ -1395,7 +1395,7 @@ Gura_ImplementFunction(__glutSpaceballRotateFunc)
 		g_pContext->funcPackOnSpaceballRotate.SetFunc(env, func->Reference());
 		glutSpaceballRotateFunc(OnSpaceballRotate);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSpaceballButtonFunc
@@ -1418,7 +1418,7 @@ Gura_ImplementFunction(__glutSpaceballButtonFunc)
 		g_pContext->funcPackOnSpaceballButton.SetFunc(env, func->Reference());
 		glutSpaceballButtonFunc(OnSpaceballButton);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutButtonBoxFunc
@@ -1441,7 +1441,7 @@ Gura_ImplementFunction(__glutButtonBoxFunc)
 		g_pContext->funcPackOnButtonBox.SetFunc(env, func->Reference());
 		glutButtonBoxFunc(OnButtonBox);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutDialsFunc
@@ -1464,7 +1464,7 @@ Gura_ImplementFunction(__glutDialsFunc)
 		g_pContext->funcPackOnDials.SetFunc(env, func->Reference());
 		glutDialsFunc(OnDials);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutTabletMotionFunc
@@ -1487,7 +1487,7 @@ Gura_ImplementFunction(__glutTabletMotionFunc)
 		g_pContext->funcPackOnTabletMotion.SetFunc(env, func->Reference());
 		glutTabletMotionFunc(OnTabletMotion);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutTabletButtonFunc
@@ -1510,7 +1510,7 @@ Gura_ImplementFunction(__glutTabletButtonFunc)
 		g_pContext->funcPackOnTabletButton.SetFunc(env, func->Reference());
 		glutTabletButtonFunc(OnTabletButton);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutMenuStatusFunc
@@ -1533,7 +1533,7 @@ Gura_ImplementFunction(__glutMenuStatusFunc)
 		g_pContext->funcPackOnMenuStatus.SetFunc(env, func->Reference());
 		glutMenuStatusFunc(OnMenuStatus);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutOverlayDisplayFunc
@@ -1556,7 +1556,7 @@ Gura_ImplementFunction(__glutOverlayDisplayFunc)
 		g_pContext->funcPackOnOverlayDisplay.SetFunc(env, func->Reference());
 		glutOverlayDisplayFunc(OnOverlayDisplay);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWindowStatusFunc
@@ -1579,7 +1579,7 @@ Gura_ImplementFunction(__glutWindowStatusFunc)
 		g_pContext->funcPackOnWindowStatus.SetFunc(env, func->Reference());
 		glutWindowStatusFunc(OnWindowStatus);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutKeyboardUpFunc
@@ -1602,7 +1602,7 @@ Gura_ImplementFunction(__glutKeyboardUpFunc)
 		g_pContext->funcPackOnKeyboardUp.SetFunc(env, func->Reference());
 		glutKeyboardUpFunc(OnKeyboardUp);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSpecialUpFunc
@@ -1625,7 +1625,7 @@ Gura_ImplementFunction(__glutSpecialUpFunc)
 		g_pContext->funcPackOnSpecialUp.SetFunc(env, func->Reference());
 		glutSpecialUpFunc(OnSpecialUp);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutJoystickFunc
@@ -1650,7 +1650,7 @@ Gura_ImplementFunction(__glutJoystickFunc)
 		g_pContext->funcPackOnJoystick.SetFunc(env, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSetColor
@@ -1673,7 +1673,7 @@ Gura_ImplementFunction(__glutSetColor)
 	GLfloat green = args.GetFloat(2);
 	GLfloat blue = args.GetFloat(3);
 	glutSetColor(ndx, red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGetColor
@@ -1710,7 +1710,7 @@ Gura_ImplementFunction(__glutCopyColormap)
 {
 	int win = args.GetInt(0);
 	glutCopyColormap(win);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGet
@@ -1818,10 +1818,10 @@ Gura_ImplementFunction(__glutGetProcAddress)
 #if 0
 	const char *procName = args.GetString(0);
 	glutGetProcAddress(procName);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glutGetProcAddress");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutBitmapCharacter
@@ -1840,7 +1840,7 @@ Gura_ImplementFunction(__glutBitmapCharacter)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	int character = args.GetInt(1);
 	glutBitmapCharacter(font, character);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutBitmapWidth
@@ -1879,7 +1879,7 @@ Gura_ImplementFunction(__glutStrokeCharacter)
 	void *font = Object_Font::GetObject(args, 0)->GetEntity();
 	int character = args.GetInt(1);
 	glutStrokeCharacter(font, character);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutStrokeWidth
@@ -1960,7 +1960,7 @@ Gura_ImplementFunction(__glutWireSphere)
 	GLint slices = args.GetInt(1);
 	GLint stacks = args.GetInt(2);
 	glutWireSphere(radius, slices, stacks);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidSphere
@@ -1981,7 +1981,7 @@ Gura_ImplementFunction(__glutSolidSphere)
 	GLint slices = args.GetInt(1);
 	GLint stacks = args.GetInt(2);
 	glutSolidSphere(radius, slices, stacks);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireCone
@@ -2004,7 +2004,7 @@ Gura_ImplementFunction(__glutWireCone)
 	GLint slices = args.GetInt(2);
 	GLint stacks = args.GetInt(3);
 	glutWireCone(base, height, slices, stacks);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidCone
@@ -2027,7 +2027,7 @@ Gura_ImplementFunction(__glutSolidCone)
 	GLint slices = args.GetInt(2);
 	GLint stacks = args.GetInt(3);
 	glutSolidCone(base, height, slices, stacks);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireCube
@@ -2044,7 +2044,7 @@ Gura_ImplementFunction(__glutWireCube)
 {
 	GLdouble size = args.GetDouble(0);
 	glutWireCube(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidCube
@@ -2061,7 +2061,7 @@ Gura_ImplementFunction(__glutSolidCube)
 {
 	GLdouble size = args.GetDouble(0);
 	glutSolidCube(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireTorus
@@ -2084,7 +2084,7 @@ Gura_ImplementFunction(__glutWireTorus)
 	GLint sides = args.GetInt(2);
 	GLint rings = args.GetInt(3);
 	glutWireTorus(innerRadius, outerRadius, sides, rings);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidTorus
@@ -2107,7 +2107,7 @@ Gura_ImplementFunction(__glutSolidTorus)
 	GLint sides = args.GetInt(2);
 	GLint rings = args.GetInt(3);
 	glutSolidTorus(innerRadius, outerRadius, sides, rings);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireDodecahedron
@@ -2122,7 +2122,7 @@ Gura_DeclareFunctionAlias(__glutWireDodecahedron, "glutWireDodecahedron")
 Gura_ImplementFunction(__glutWireDodecahedron)
 {
 	glutWireDodecahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidDodecahedron
@@ -2137,7 +2137,7 @@ Gura_DeclareFunctionAlias(__glutSolidDodecahedron, "glutSolidDodecahedron")
 Gura_ImplementFunction(__glutSolidDodecahedron)
 {
 	glutSolidDodecahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireTeapot
@@ -2154,7 +2154,7 @@ Gura_ImplementFunction(__glutWireTeapot)
 {
 	GLdouble size = args.GetDouble(0);
 	glutWireTeapot(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidTeapot
@@ -2171,7 +2171,7 @@ Gura_ImplementFunction(__glutSolidTeapot)
 {
 	GLdouble size = args.GetDouble(0);
 	glutSolidTeapot(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireOctahedron
@@ -2186,7 +2186,7 @@ Gura_DeclareFunctionAlias(__glutWireOctahedron, "glutWireOctahedron")
 Gura_ImplementFunction(__glutWireOctahedron)
 {
 	glutWireOctahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidOctahedron
@@ -2201,7 +2201,7 @@ Gura_DeclareFunctionAlias(__glutSolidOctahedron, "glutSolidOctahedron")
 Gura_ImplementFunction(__glutSolidOctahedron)
 {
 	glutSolidOctahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireTetrahedron
@@ -2216,7 +2216,7 @@ Gura_DeclareFunctionAlias(__glutWireTetrahedron, "glutWireTetrahedron")
 Gura_ImplementFunction(__glutWireTetrahedron)
 {
 	glutWireTetrahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidTetrahedron
@@ -2231,7 +2231,7 @@ Gura_DeclareFunctionAlias(__glutSolidTetrahedron, "glutSolidTetrahedron")
 Gura_ImplementFunction(__glutSolidTetrahedron)
 {
 	glutSolidTetrahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutWireIcosahedron
@@ -2246,7 +2246,7 @@ Gura_DeclareFunctionAlias(__glutWireIcosahedron, "glutWireIcosahedron")
 Gura_ImplementFunction(__glutWireIcosahedron)
 {
 	glutWireIcosahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSolidIcosahedron
@@ -2261,7 +2261,7 @@ Gura_DeclareFunctionAlias(__glutSolidIcosahedron, "glutSolidIcosahedron")
 Gura_ImplementFunction(__glutSolidIcosahedron)
 {
 	glutSolidIcosahedron();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutVideoResizeGet
@@ -2294,7 +2294,7 @@ Gura_DeclareFunctionAlias(__glutSetupVideoResizing, "glutSetupVideoResizing")
 Gura_ImplementFunction(__glutSetupVideoResizing)
 {
 	glutSetupVideoResizing();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutStopVideoResizing
@@ -2309,7 +2309,7 @@ Gura_DeclareFunctionAlias(__glutStopVideoResizing, "glutStopVideoResizing")
 Gura_ImplementFunction(__glutStopVideoResizing)
 {
 	glutStopVideoResizing();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutVideoResize
@@ -2332,7 +2332,7 @@ Gura_ImplementFunction(__glutVideoResize)
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	glutVideoResize(x, y, width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutVideoPan
@@ -2355,7 +2355,7 @@ Gura_ImplementFunction(__glutVideoPan)
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	glutVideoPan(x, y, width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutReportErrors
@@ -2370,7 +2370,7 @@ Gura_DeclareFunctionAlias(__glutReportErrors, "glutReportErrors")
 Gura_ImplementFunction(__glutReportErrors)
 {
 	glutReportErrors();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutIgnoreKeyRepeat
@@ -2387,7 +2387,7 @@ Gura_ImplementFunction(__glutIgnoreKeyRepeat)
 {
 	int ignore = args.GetInt(0);
 	glutIgnoreKeyRepeat(ignore);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutSetKeyRepeat
@@ -2404,7 +2404,7 @@ Gura_ImplementFunction(__glutSetKeyRepeat)
 {
 	int repeatMode = args.GetInt(0);
 	glutSetKeyRepeat(repeatMode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutForceJoystickFunc
@@ -2419,7 +2419,7 @@ Gura_DeclareFunctionAlias(__glutForceJoystickFunc, "glutForceJoystickFunc")
 Gura_ImplementFunction(__glutForceJoystickFunc)
 {
 	glutForceJoystickFunc();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGameModeString
@@ -2436,7 +2436,7 @@ Gura_ImplementFunction(__glutGameModeString)
 {
 	const char *string = args.GetString(0);
 	glutGameModeString(string);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutEnterGameMode
@@ -2467,7 +2467,7 @@ Gura_DeclareFunctionAlias(__glutLeaveGameMode, "glutLeaveGameMode")
 Gura_ImplementFunction(__glutLeaveGameMode)
 {
 	glutLeaveGameMode();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // glut.glutGameModeGet

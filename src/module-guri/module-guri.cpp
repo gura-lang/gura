@@ -22,7 +22,7 @@ Gura_ImplementFunction(test)
 	int sock = static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0)); //IPPROTO_TCP);
 	if (sock < 0) {
 		sig.SetError(ERR_IOError, "failed to create a socket");
-		return Value::Null;
+		return Value::Nil;
 	}
 	sockaddr_in saddrServer;
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
@@ -31,7 +31,7 @@ Gura_ImplementFunction(test)
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
 		if (pHostEnt == nullptr) {
 			sig.SetError(ERR_IOError, "host not found: %s", addrToConnect);
-			return Value::Null;
+			return Value::Nil;
 		}
 		saddrServer.sin_family = pHostEnt->h_addrtype;
 		addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
@@ -43,11 +43,11 @@ Gura_ImplementFunction(test)
 	if (::connect(sock, reinterpret_cast<sockaddr *>(&saddrServer), sizeof(saddrServer)) < 0) {
 		sig.SetError(ERR_IOError, "failed to connect to host %s:%d",
 											addrToConnect, portToConnect);
-		return Value::Null;
+		return Value::Nil;
 	}
 	::send(sock, "Hello world", 11, 0);
 	::closesocket(sock);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

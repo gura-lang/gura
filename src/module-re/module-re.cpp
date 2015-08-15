@@ -244,7 +244,7 @@ Value Object_match::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
 	const Group *pGroup = GetGroup(sig, valueIdx);
-	if (pGroup == nullptr) return Value::Null;
+	if (pGroup == nullptr) return Value::Nil;
 	return Value(pGroup->GetString());
 }
 
@@ -274,7 +274,7 @@ Value Object_match::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(group.GetPosEnd());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_match::ToString(bool exprFlag)
@@ -412,7 +412,7 @@ Gura_ImplementMethod(match, group)
 	Signal &sig = env.GetSignal();
 	Object_match *pThis = Object_match::GetThisObj(args);
 	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
-	if (pGroup == nullptr) return Value::Null;
+	if (pGroup == nullptr) return Value::Nil;
 	return Value(new Object_group(*pGroup));
 }
 
@@ -479,7 +479,7 @@ Value Object_group::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_group.GetPosEnd());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_group::ToString(bool exprFlag)
@@ -555,7 +555,7 @@ Gura_ImplementFunction(pattern)
 	Object_pattern *pObjPattern = new Object_pattern();
 	if (!pObjPattern->SetPattern(sig, args.GetString(0), args.GetAttrs())) {
 		delete pObjPattern;
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObjPattern));
 }
@@ -606,9 +606,9 @@ Gura_ImplementMethod(pattern, sub)
 						args.GetFunction(0), args.GetString(1), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
-		return Value::Null;
+		return Value::Nil;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -675,7 +675,7 @@ Gura_ImplementCastFrom(pattern)
 	Signal &sig = GetSignal();
 	if (value.Is_string()) {
 		Object_pattern *pObjPattern = new Object_pattern();
-		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Null)) {
+		if (!pObjPattern->SetPattern(sig, value.GetString(), SymbolSet::Empty)) {
 			delete pObjPattern;
 			return false;
 		}
@@ -767,9 +767,9 @@ Gura_ImplementMethod(string, sub)
 						args.GetFunction(1), strThis, cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 1);
-		return Value::Null;
+		return Value::Nil;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -856,7 +856,7 @@ Gura_ImplementMethod(list, grep)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Iterator> pIterator(new IteratorGrep(pIteratorSrc.release(),
 									Object_pattern::Reference(pObjPattern)));
 	return ReturnIterator(env, args, pIterator.release());
@@ -879,7 +879,7 @@ Gura_ImplementMethod(iterator, grep)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Iterator> pIterator(new IteratorGrep(pIteratorSrc.release(),
 									Object_pattern::Reference(pObjPattern)));
 	return ReturnIterator(env, args, pIterator.release());
@@ -914,9 +914,9 @@ Gura_ImplementFunction(sub)
 						args.GetFunction(1), args.GetString(2), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 1);
-		return Value::Null;
+		return Value::Nil;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);

@@ -129,7 +129,7 @@ Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 		// temporary handling before GC is correctly implemented
 		pObj->Device().Close();
 		
-		result = Value::Null;
+		result = Value::Nil;
 	}
 	return result;
 }
@@ -793,7 +793,7 @@ Gura_ImplementMethod(Canvas, close)
 {
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Close();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementUserClass(Canvas)
@@ -842,7 +842,7 @@ Gura_ImplementFunction(create_emf)
 		args.Is_string(4)? args.GetString(4) : nullptr);
 	if (sig.IsSignalled()) {
 		delete pDevice;
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());

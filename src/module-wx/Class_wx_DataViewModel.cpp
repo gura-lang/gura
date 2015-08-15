@@ -48,7 +48,7 @@ Gura_DeclareFunction(DataViewModelEmpty)
 Gura_ImplementFunction(DataViewModelEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_DataViewModel *pEntity = new wx_DataViewModel();
 	Object_wx_DataViewModel *pObj = Object_wx_DataViewModel::GetThisObj(args);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(DataViewModelEmpty)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

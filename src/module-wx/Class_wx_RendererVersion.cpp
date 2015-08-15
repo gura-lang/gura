@@ -45,7 +45,7 @@ Gura_DeclareClassMethod(wx_RendererVersion, IsCompatible)
 Gura_ImplementClassMethod(wx_RendererVersion, IsCompatible)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRendererVersion *ver = Object_wx_RendererVersion::GetObject(args, 0)->GetEntity();
 	bool rtn = wxRendererVersion::IsCompatible(*ver);
 	return ReturnValue(env, args, Value(rtn));

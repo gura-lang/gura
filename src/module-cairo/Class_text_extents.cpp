@@ -45,7 +45,7 @@ Value Object_text_extents::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_text_extents.y_advance);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_text_extents::ToString(bool exprFlag)

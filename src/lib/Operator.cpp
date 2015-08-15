@@ -159,7 +159,7 @@ Value Operator::EvalUnary(Environment &env, const Value &value, bool suffixFlag)
 	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
 	if (pOperatorEntry == nullptr) {
 		SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return pOperatorEntry->DoEval(env, value);
 }
@@ -171,7 +171,7 @@ Value Operator::EvalBinary(Environment &env, const Value &valueLeft, const Value
 					Lookup(valueLeft.GetValueType(), valueRight.GetValueType());
 	if (pOperatorEntry == nullptr) {
 		SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return pOperatorEntry->DoEval(env, valueLeft, valueRight);
 }
@@ -616,14 +616,14 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (valList.IsFlat()) {
 				ValueList valListComp = valList;
 				if (!pFunc->GetDeclOwner().Compensate(env, valListComp)) {
-					return Value::Null;
+					return Value::Nil;
 				}
 				AutoPtr<Args> pArgsSub(new Args());
 				pArgsSub->SetValueListArg(valListComp);
 				return pFunc->Eval(env, *pArgsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
@@ -632,7 +632,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			return pIteratorFuncBinder->Eval(env, *pArgsSub);
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
@@ -1003,13 +1003,13 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 		const char *format = valueLeft.GetString();
 		if (!valueRight.Is_list()) {
 			String str = Formatter::FormatValueList(sig, format, ValueList(valueRight));
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			return Value(str);
 		} else {
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat() && !valList.DoesContainIterator()) {
 				String str = Formatter::FormatValueList(sig, format, valList);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 				return Value(str);
 			} else {
 				IteratorOwner iterOwner;
@@ -1017,7 +1017,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 					AutoPtr<Iterator> pIterator;
 					if (pValue->Is_list() || pValue->Is_iterator()) {
 						pIterator.reset(pValue->CreateIterator(sig));
-						if (pIterator.IsNull()) return Value::Null;
+						if (pIterator.IsNull()) return Value::Nil;
 					} else {
 						pIterator.reset(new Iterator_Constant(*pValue));
 					}
@@ -1211,13 +1211,13 @@ OperatorEntry::~OperatorEntry()
 
 Value OperatorEntry::DoEval(Environment &env, const Value &value) const
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value OperatorEntry::DoEval(Environment &env,
 				const Value &valueLeft, const Value &valueRight) const
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const

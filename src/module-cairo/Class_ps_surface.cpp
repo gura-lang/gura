@@ -45,7 +45,7 @@ Gura_ImplementMethod(ps_surface, restrict_to_level)
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	::cairo_ps_surface_restrict_to_level(surface, level);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(ps_surface, set_eps)
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_bool_t eps = static_cast<cairo_bool_t>(args.GetBoolean(0));
 	::cairo_ps_surface_set_eps(surface, eps);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(ps_surface, get_eps)
 	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_bool_t eps = ::cairo_ps_surface_get_eps(surface);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return Value(eps);
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(ps_surface, set_size)
 	double width_in_points = args.GetDouble(0);
 	double height_in_points = args.GetDouble(1);
 	::cairo_ps_surface_set_size(surface, width_in_points, height_in_points);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_setup)
 	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_setup(surface);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_page_setup)
 	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_page_setup(surface);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(ps_surface, dsc_comment)
 	cairo_surface_t *surface = pThis->GetEntity();
 	const char *comment = args.GetString(0);
 	::cairo_ps_surface_dsc_comment(surface, comment);
-	if (Is_error(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Nil;
 	return args.GetThis();
 }
 

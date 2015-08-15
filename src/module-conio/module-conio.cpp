@@ -215,7 +215,7 @@ Gura_ImplementFunction(clear)
 		dwConSize = width;
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
 	do {
 		DWORD cCharsWritten;
@@ -225,7 +225,7 @@ Gura_ImplementFunction(clear)
 							dwConSize, coordStart, &cCharsWritten );
 		::SetConsoleCursorPosition(hConsole, coordHome);
 	} while (0);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(getwinsize)
@@ -248,20 +248,20 @@ Gura_ImplementFunction(setcolor)
 	int fg = csbi.wAttributes & 0x000f;
 	int bg = (csbi.wAttributes & 0x00f0) >> 4;
 	if (args.Is_symbol(0) && !SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.Is_symbol(1) && !SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(moveto)
@@ -277,11 +277,11 @@ Gura_ImplementFunction(moveto)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(waitkey)
@@ -302,8 +302,8 @@ Gura_ImplementFunction(waitkey)
 				chRtn = K_RETURN;
 				break;
 			} else if (raiseFlag && ch == 0x03) {
-				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
-				return Value::Null;
+				sig.SetSignal(SIGTYPE_Terminate, Value::Nil);
+				return Value::Nil;
 			} else {
 				chRtn = ch;
 				break;
@@ -370,9 +370,9 @@ Gura_ImplementFunction(clear)
 		::printf("\033[K");
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(getwinsize)
@@ -393,7 +393,7 @@ Gura_ImplementFunction(setcolor)
 	if (!args.Is_symbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		if (fg & 8) {
 			str += "1;";
@@ -406,7 +406,7 @@ Gura_ImplementFunction(setcolor)
 	if (!args.Is_symbol(1)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		if (!str.empty()) str += ';';
 		str += '4';
@@ -418,7 +418,7 @@ Gura_ImplementFunction(setcolor)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		g_attrStack.push_back(str);
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
@@ -431,7 +431,7 @@ Gura_ImplementFunction(setcolor)
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
 		g_attrStack.push_back(str);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(moveto)
@@ -444,13 +444,13 @@ Gura_ImplementFunction(moveto)
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::printf("\033[u");
 	} else {
 		::printf("\033[%d;%dH", y + 1, x + 1);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ImplementFunction(waitkey)
@@ -478,9 +478,9 @@ Gura_ImplementFunction(waitkey)
 				chRtn = K_BACKSPACE;
 				break;
 			} else if (raiseFlag && ch == 0x03) {
-				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
+				sig.SetSignal(SIGTYPE_Terminate, Value::Nil);
 				::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
-				return Value::Null;
+				return Value::Nil;
 			} else {
 				chRtn = ch;
 				break;

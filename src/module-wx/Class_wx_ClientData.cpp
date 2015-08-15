@@ -33,7 +33,7 @@ Gura_DeclareFunction(ClientData)
 Gura_ImplementFunction(ClientData)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ClientData *pEntity = new wx_ClientData(args.GetValue(0));
 	Object_wx_ClientData *pObj = Object_wx_ClientData::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -56,9 +56,9 @@ Gura_ImplementMethod(wx_ClientData, GetData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ClientData *pThis = Object_wx_ClientData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pThis->GetEntity());
-	if (pEntity == nullptr) return Value::Null;
+	if (pEntity == nullptr) return Value::Nil;
 	return pEntity->GetValue();
 }
 
@@ -72,11 +72,11 @@ Gura_ImplementMethod(wx_ClientData, SetData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ClientData *pThis = Object_wx_ClientData::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pThis->GetEntity());
-	if (pEntity == nullptr) return Value::Null;
+	if (pEntity == nullptr) return Value::Nil;
 	pEntity->SetValue(args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------
@@ -109,7 +109,7 @@ Value Object_wx_ClientData::DoGetProp(Environment &env, const Symbol *pSymbol,
 		evaluatedFlag = true;
 		return GetEntity()->GetValue();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_wx_ClientData::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -119,7 +119,7 @@ Value Object_wx_ClientData::DoSetProp(Environment &env, const Symbol *pSymbol, c
 		GetEntity()->SetValue(value);
 		return value;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_wx_ClientData::ToString(bool exprFlag)

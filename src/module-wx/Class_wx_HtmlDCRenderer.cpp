@@ -46,7 +46,7 @@ Gura_DeclareFunction(HtmlDCRendererEmpty)
 Gura_ImplementFunction(HtmlDCRendererEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_HtmlDCRenderer *pEntity = new wx_HtmlDCRenderer();
 	Object_wx_HtmlDCRenderer *pObj = Object_wx_HtmlDCRenderer::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -70,12 +70,12 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	double pixel_scale = 1.0;
 	if (args.IsValid(1)) pixel_scale = args.GetDouble(1);
 	pThis->GetEntity()->SetDC(dc, pixel_scale);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
@@ -93,16 +93,16 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
 	int *sizes = nullptr;
 	if (args.IsValid(2)) *sizes = args.GetInt(2);
 	pThis->GetEntity()->SetFonts(normal_face, fixed_face, *sizes);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetSize)
@@ -116,11 +116,11 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	pThis->GetEntity()->SetSize(width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
@@ -135,14 +135,14 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString html = wxString::FromUTF8(args.GetString(0));
 	wxString basepath = wxEmptyString;
 	if (args.IsValid(1)) basepath = wxString::FromUTF8(args.GetString(1));
 	bool isdir = true;
 	if (args.IsValid(2)) isdir = args.GetBoolean(2);
 	pThis->GetEntity()->SetHtmlText(html, basepath, isdir);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	int from = 0;
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalHeight)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTotalHeight();
 	return ReturnValue(env, args, Value(rtn));
 }

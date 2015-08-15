@@ -48,7 +48,7 @@ Gura_DeclareFunction(BitmapComboBoxEmpty)
 Gura_ImplementFunction(BitmapComboBoxEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_BitmapComboBox *pEntity = new wx_BitmapComboBox();
 	Object_wx_BitmapComboBox *pObj = Object_wx_BitmapComboBox::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -80,7 +80,7 @@ Gura_DeclareFunction(BitmapComboBox)
 Gura_ImplementFunction(BitmapComboBox)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxString::FromUTF8(args.GetString(2));
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxString::FromUTF8(args.GetString(2));
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(1)) bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int clientData = args.GetInt(2);
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_1)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_BitmapComboBox, Append_2)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	wxClientData *clientData = Object_wx_ClientData::GetObject(args, 2)->GetEntity();
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetBitmapSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetBitmapSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetItemBitmap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned n = args.GetInt(0);
 	wxBitmap rtn = pThis->GetEntity()->GetItemBitmap(n);
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	unsigned pos = args.GetInt(2);
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	unsigned pos = args.GetInt(2);
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_1)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_BitmapComboBox, Insert_2)
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	unsigned pos = args.GetInt(2);
@@ -325,11 +325,11 @@ Gura_ImplementMethod(wx_BitmapComboBox, SetItemBitmap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned n = args.GetInt(0);
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->SetItemBitmap(n, *bitmap);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

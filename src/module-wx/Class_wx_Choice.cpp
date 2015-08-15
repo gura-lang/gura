@@ -48,7 +48,7 @@ Gura_DeclareFunction(ChoiceEmpty)
 Gura_ImplementFunction(ChoiceEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Choice *pEntity = new wx_Choice();
 	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -79,7 +79,7 @@ Gura_DeclareFunction(Choice)
 Gura_ImplementFunction(Choice)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Choice, GetColumns)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColumns();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -184,11 +184,11 @@ Gura_ImplementMethod(wx_Choice, SetColumns)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = 1;
 	if (args.IsValid(0)) n = args.GetInt(0);
 	pThis->GetEntity()->SetColumns(n);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

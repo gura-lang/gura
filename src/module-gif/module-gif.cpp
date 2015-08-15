@@ -34,7 +34,7 @@ Value Object_Header::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_binary(env, hdr.Version, sizeof(hdr.Version), true));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_Header::ToString(bool exprFlag)
@@ -94,14 +94,14 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, const Symbol *
 		size_t idx = lsd.BackgroundColorIndex;
 		Palette *pPalette = gif.GetGlobalPalette();
 		if (pPalette == nullptr || pPalette->CountEntries() < idx) {
-			return Value::Null;
+			return Value::Nil;
 		}
 		return pPalette->GetColorValue(env, idx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PixelAspectRatio))) {
 		return Value(lsd.PixelAspectRatio);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_LogicalScreenDescriptor::ToString(bool exprFlag)
@@ -135,13 +135,13 @@ Value Object_CommentExtension::DoGetProp(Environment &env, const Symbol *pSymbol
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.comment.validFlag) return Value::Null;
+	if (!exts.comment.validFlag) return Value::Nil;
 	GIF::CommentExtension &cmnt = exts.comment;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(CommentData))) {
 		return Value(new Object_binary(env, cmnt.CommentData, true));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_CommentExtension::ToString(bool exprFlag)
@@ -183,7 +183,7 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, const Symbol *pSymb
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.plainText.validFlag) return Value::Null;
+	if (!exts.plainText.validFlag) return Value::Nil;
 	GIF::PlainTextExtension &pltxt = exts.plainText;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridLeftPosition))) {
 		return Value(Gura_UnpackUShort(pltxt.TextGridLeftPosition));
@@ -205,7 +205,7 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, const Symbol *pSymb
 		return Value(new Object_binary(env, pltxt.PlainTextData, true));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_PlainTextExtension::ToString(bool exprFlag)
@@ -241,7 +241,7 @@ Value Object_ApplicationExtension::DoGetProp(Environment &env, const Symbol *pSy
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
-	if (!exts.application.validFlag) return Value::Null;
+	if (!exts.application.validFlag) return Value::Nil;
 	GIF::ApplicationExtension &app = exts.application;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationIdentifier))) {
 		return Value(new Object_binary(env, app.ApplicationIdentifier, sizeof(app.ApplicationIdentifier), true));
@@ -251,7 +251,7 @@ Value Object_ApplicationExtension::DoGetProp(Environment &env, const Symbol *pSy
 		return Value(new Object_binary(env, app.ApplicationData, true));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_ApplicationExtension::ToString(bool exprFlag)
@@ -1106,17 +1106,17 @@ Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenDescriptor))) {
 		return Value(new Object_LogicalScreenDescriptor(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CommentExtension))) {
-		if (!exts.comment.validFlag) return Value::Null;
+		if (!exts.comment.validFlag) return Value::Nil;
 		return Value(new Object_CommentExtension(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextExtension))) {
-		if (!exts.plainText.validFlag) return Value::Null;
+		if (!exts.plainText.validFlag) return Value::Nil;
 		return Value(new Object_PlainTextExtension(Object_content::Reference(this)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationExtension))) {
-		if (!exts.application.validFlag) return Value::Null;
+		if (!exts.application.validFlag) return Value::Nil;
 		return Value(new Object_ApplicationExtension(Object_content::Reference(this)));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_content::ToString(bool exprFlag)
@@ -1154,7 +1154,7 @@ Gura_ImplementMethod(content, write)
 	Stream &stream = args.GetStream(0);
 	UShort loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -1199,7 +1199,7 @@ Gura_ImplementMethod(content, addimage)
 	Signal &sig = env.GetSignal();
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	gif.AddImage(args.GetValue(0), args.GetUShort(1),
 					args.GetUShort(2), args.GetUShort(3), disposalMethod);
 	return args.GetThis();
@@ -1252,7 +1252,7 @@ Value Object_GraphicControl::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_gctl.TransparentColorIndex);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_GraphicControl::ToString(bool exprFlag)
@@ -1317,7 +1317,7 @@ Value Object_ImageDescriptor::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<UInt>(_desc.SizeOfLocalColorTable()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_ImageDescriptor::ToString(bool exprFlag)
@@ -1364,7 +1364,7 @@ Value Object_imgprop::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(Object_ImageDescriptor::Reference(_pObjImageDescriptor.get()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_imgprop::ToString(bool exprFlag)
@@ -1401,10 +1401,10 @@ Gura_ImplementMethod(image, read_gif)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
-	if (!pImage->CheckEmpty(sig)) return Value::Null;
+	if (!pImage->CheckEmpty(sig)) return Value::Nil;
 	Stream &stream = args.GetStream(0);
 	if (!GIF().Read(env, stream, pImage, pImage->GetFormat())) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -1426,13 +1426,13 @@ Gura_ImplementMethod(image, write_gif)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
-	if (!pImage->CheckValid(sig)) return Value::Null;
+	if (!pImage->CheckValid(sig)) return Value::Nil;
 	Stream &stream = args.GetStream(0);
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
 	UShort loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -1467,10 +1467,10 @@ Gura_ImplementFunction(content)
 		Image::Format format = Image::FORMAT_None;
 		if (!pSymbol->IsIdentical(Gura_UserSymbol(noimage))) {
 			format = Image::SymbolToFormat(sig, pSymbol);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		}
 		if (!pObjContent->GetGIF().Read(env, stream, nullptr, format)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	return ReturnValue(env, args, Value(pObjContent));

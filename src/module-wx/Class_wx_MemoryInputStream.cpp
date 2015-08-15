@@ -51,7 +51,7 @@ Gura_DeclareFunction(MemoryInputStream)
 Gura_ImplementFunction(MemoryInputStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char data = args.GetChar(0);
 	size_t len = args.GetSizeT(1);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(MemoryInputStream)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(MemoryInputStream_1)
@@ -81,7 +81,7 @@ Gura_DeclareFunction(MemoryInputStream_1)
 Gura_ImplementFunction(MemoryInputStream_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxMemoryOutputStream *stream = Object_wx_MemoryOutputStream::GetObject(args, 0)->GetEntity();
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(*stream);
 	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();
 	return ReturnValue(env, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
 }

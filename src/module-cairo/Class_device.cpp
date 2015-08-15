@@ -111,7 +111,7 @@ Gura_ImplementMethod(device, release)
 	Object_device *pThis = Object_device::GetThisObj(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_release(device);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // implementation of class device

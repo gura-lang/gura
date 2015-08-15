@@ -197,7 +197,7 @@ Gura_ImplementFunction(test)
 	Signal &sig = env.GetSignal();
 	CURLcode code;
 	CURL *curl = ::curl_easy_init();
-	if (curl == nullptr) return Value::Null;
+	if (curl == nullptr) return Value::Nil;
 	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
@@ -221,7 +221,7 @@ Gura_ImplementFunction(test)
 	}
 	::curl_easy_cleanup(curl);
 	::curl_global_cleanup();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -836,7 +836,7 @@ Value Object_easy_handle::DoGetProp(Environment &env, const Symbol *pSymbol,
 	//	return Value(Object_surface::Reference(_pObjSurface.get()));
 	//}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_easy_handle::ToString(bool exprFlag)
@@ -895,7 +895,7 @@ Gura_ImplementMethod(easy_handle, getinfo)
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
 		if (code != CURLE_OK) {
 			SetError_Curl(sig, code);
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(rtn);
 	} else if (infoType == CURLINFO_LONG) {
@@ -903,7 +903,7 @@ Gura_ImplementMethod(easy_handle, getinfo)
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
 		if (code != CURLE_OK) {
 			SetError_Curl(sig, code);
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(rtn);
 	} else if (infoType == CURLINFO_DOUBLE) {
@@ -911,14 +911,14 @@ Gura_ImplementMethod(easy_handle, getinfo)
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
 		if (code != CURLE_OK) {
 			SetError_Curl(sig, code);
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(rtn);
 	} else if (infoType == CURLINFO_SLIST) {
 		// not implemented yet
 	}
 	sig.SetError(ERR_ValueError, "invalid value for info");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // curl.easy_handle#pause(bitmask:number):void
@@ -937,7 +937,7 @@ Gura_ImplementMethod(easy_handle, pause)
 	int bitmask = args.GetInt(0);
 	CURLcode code = ::curl_easy_pause(pThis->GetEntity(), bitmask);
 	
-	return Value::Null;
+	return Value::Nil;
 }
 
 // curl.easy_handle#perform(stream?:stream:w):void
@@ -961,7 +961,7 @@ Gura_ImplementMethod(easy_handle, perform)
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(pThis->GetEntity());
 	if (code != CURLE_OK) SetError_Curl(sig, code);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // curl.easy_handle#recv(buflen:number)
@@ -979,13 +979,13 @@ Gura_ImplementMethod(easy_handle, recv)
 	Signal &sig = env.GetSignal();
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	size_t buflen = args.GetSizeT(0);
-	if (buflen == 0) return Value::Null;
+	if (buflen == 0) return Value::Nil;
 	AutoPtr<Memory> pMemory(new MemoryHeap(buflen));
 	size_t n = 0;
 	CURLcode code = ::curl_easy_recv(pThis->GetEntity(), pMemory->GetPointer(), buflen, &n);
 	if (code != CURLE_OK) {
 		SetError_Curl(sig, code);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return new Object_binary(env, pMemory->GetPointer(), n);
 }
@@ -1003,7 +1003,7 @@ Gura_ImplementMethod(easy_handle, reset)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	::curl_easy_reset(pThis->GetEntity());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // curl.easy_handle#send(buffer:binary)
@@ -1025,7 +1025,7 @@ Gura_ImplementMethod(easy_handle, send)
 	CURLcode code = ::curl_easy_send(pThis->GetEntity(), buffer.data(), buffer.size(), &n);
 	if (code != CURLE_OK) {
 		SetError_Curl(sig, code);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(n);
 }
@@ -1050,21 +1050,21 @@ Gura_ImplementMethod(easy_handle, setopt)
 	if (args.Is_number(1)) {
 		if (!(option < CURLOPTTYPE_OBJECTPOINT || CURLOPTTYPE_OFF_T <= option)) {
 			sig.SetError(ERR_TypeError, "number cannot be specified for the option");
-			return Value::Null;
+			return Value::Nil;
 		}
 		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetInt(1));
 	} else if (args.Is_string(1)) {
 		if (!(CURLOPTTYPE_OBJECTPOINT <= option && option < CURLOPTTYPE_FUNCTIONPOINT)) {
 			sig.SetError(ERR_TypeError, "string cannot be specified for the option");
-			return Value::Null;
+			return Value::Nil;
 		}
 		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetString(1));
 	} else {
 		Declaration::SetError_InvalidArgument(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (code != CURLE_OK) SetError_Curl(sig, code);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // curl.easy_handle#unescape(string:string):void

@@ -125,7 +125,7 @@ const char *Option::GetString(const char *key, const char *defValue) const
 const StringList &Option::GetStringList(const char *key) const
 {
 	Map::const_iterator iter = _map.find(key);
-	if (iter == _map.end()) return StringList::Null;
+	if (iter == _map.end()) return StringList::Empty;
 	return *iter->second;
 }
 

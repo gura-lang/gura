@@ -74,7 +74,7 @@ void Gura_ReleaseValue(Value &value)
 //-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
-const Value Value::Null;
+const Value Value::Nil;
 const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);
 const Value Value::Zero(0);
 const Value Value::One(1);
@@ -129,7 +129,7 @@ Value::~Value()
 {
 	if (IsInvalid()) return;
 	// when the application terminates, it calls a destructor for statically
-	// defined values such as Value::Null. until that timing, it's likely
+	// defined values such as Value::Nil. until that timing, it's likely
 	// that VTYPE_xxxx referenced in Gura_ReleaseValue() are not initialized and
 	// it causes application error. to avoid such a case, the above line is
 	// necessary.
@@ -316,7 +316,7 @@ Value Value::EmptyIndexGet(Environment &env) const
 		return GetObject()->EmptyIndexGet(env);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
-	return Value::Null;
+	return Value::Nil;
 }
 
 void Value::EmptyIndexSet(Environment &env, const Value &value)
@@ -338,7 +338,7 @@ Value Value::IndexGet(Environment &env, const Value &valueIdx) const
 		return GetObject()->IndexGet(env, valueIdx);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
-	return Value::Null;
+	return Value::Nil;
 }
 
 void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
@@ -402,7 +402,7 @@ ValueDict &Value::GetDict()
 const ValueDict &Value::GetDict() const
 {
 	return Is_dict()?
-		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Null;
+		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Empty;
 }
 
 Iterator *Value::GetIterator() const
@@ -876,7 +876,7 @@ bool Value::KeyCompare::operator()(const Value &value1, const Value &value2) con
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-const ValueList ValueList::Null;
+const ValueList ValueList::Empty;
 
 ValueList::ValueList(const ValueList &valList)
 {
@@ -1096,12 +1096,12 @@ bool ValueList::Deserialize(Environment &env, Stream &stream)
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-const ValueMap ValueMap::Null;
+const ValueMap ValueMap::Empty;
 
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
-const ValueDict ValueDict::Null;
+const ValueDict ValueDict::Empty;
 
 const Value *ValueDict::Find(Signal &sig, const Value &valueIdx) const
 {

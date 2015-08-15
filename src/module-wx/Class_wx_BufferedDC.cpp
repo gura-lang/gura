@@ -48,7 +48,7 @@ Gura_DeclareFunction(BufferedDCEmpty)
 Gura_ImplementFunction(BufferedDCEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_BufferedDC *pEntity = new wx_BufferedDC();
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -74,7 +74,7 @@ Gura_DeclareFunction(BufferedDC)
 Gura_ImplementFunction(BufferedDC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxSize *area = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
@@ -104,7 +104,7 @@ Gura_DeclareFunction(BufferedDC_1)
 Gura_ImplementFunction(BufferedDC_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_BufferedDC, Init)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxSize *area = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	pThis->GetEntity()->Init(dc, *area, style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_BufferedDC, Init_1)
@@ -154,13 +154,13 @@ Gura_ImplementMethod(wx_BufferedDC, Init_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	pThis->GetEntity()->Init(dc, *buffer, style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

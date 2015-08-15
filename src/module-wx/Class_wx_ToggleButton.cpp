@@ -47,7 +47,7 @@ Gura_DeclareFunction(ToggleButtonEmpty)
 Gura_ImplementFunction(ToggleButtonEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ToggleButton *pEntity = new wx_ToggleButton();
 	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -78,7 +78,7 @@ Gura_DeclareFunction(ToggleButton)
 Gura_ImplementFunction(ToggleButton)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ToggleButton, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_ToggleButton, GetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -165,10 +165,10 @@ Gura_ImplementMethod(wx_ToggleButton, SetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool state = args.GetBoolean(0);
 	pThis->GetEntity()->SetValue(state);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

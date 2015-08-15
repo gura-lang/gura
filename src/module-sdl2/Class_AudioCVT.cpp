@@ -48,7 +48,7 @@ Value Object_AudioCVT::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rate_incr))) {
 		return Value(_cvt.rate_incr);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(buf))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(len))) {
 		return Value(_cvt.len);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(len_cvt))) {
@@ -59,7 +59,7 @@ Value Object_AudioCVT::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_cvt.len_ratio);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_AudioCVT::DoSetProp(Environment &env,
@@ -67,7 +67,7 @@ Value Object_AudioCVT::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

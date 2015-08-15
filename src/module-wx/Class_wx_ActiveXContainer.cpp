@@ -49,7 +49,7 @@ Gura_DeclareFunction(ActiveXContainer)
 Gura_ImplementFunction(ActiveXContainer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ActiveXContainer *pEntity = new wx_ActiveXContainer(parent, , );
@@ -64,7 +64,7 @@ Gura_ImplementFunction(ActiveXContainer)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

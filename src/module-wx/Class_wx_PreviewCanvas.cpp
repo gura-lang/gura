@@ -52,7 +52,7 @@ Gura_DeclareFunction(PreviewCanvas)
 Gura_ImplementFunction(PreviewCanvas)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -85,10 +85,10 @@ Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPaintEvent *event = Object_wx_PaintEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnPaint(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

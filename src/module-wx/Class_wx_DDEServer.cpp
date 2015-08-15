@@ -49,7 +49,7 @@ Gura_DeclareFunction(DDEServerEmpty)
 Gura_ImplementFunction(DDEServerEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DDEServer *pEntity = new wx_DDEServer();
 	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_DDEServer, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString service = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Create(service);
 	return ReturnValue(env, args, Value(rtn));
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnAcceptConnection(topic);
 	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));

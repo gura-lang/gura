@@ -49,7 +49,7 @@ Gura_DeclareFunction(XmlDocumentEmpty)
 Gura_ImplementFunction(XmlDocumentEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_XmlDocument *pEntity = new wx_XmlDocument();
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -77,7 +77,7 @@ Gura_DeclareFunction(XmlDocument)
 Gura_ImplementFunction(XmlDocument)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString encoding = wxT("UTF-8");
@@ -96,7 +96,7 @@ Gura_ImplementFunction(XmlDocument)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(XmlDocument_1)
@@ -114,7 +114,7 @@ Gura_DeclareFunction(XmlDocument_1)
 Gura_ImplementFunction(XmlDocument_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString encoding = wxT("UTF-8");
@@ -133,7 +133,7 @@ Gura_ImplementFunction(XmlDocument_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(XmlDocument_2)
@@ -147,7 +147,7 @@ Gura_DeclareFunction(XmlDocument_2)
 Gura_ImplementFunction(XmlDocument_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxXmlDocument *doc = Object_wx_XmlDocument::GetObject(args, 0)->GetEntity();
 	wx_XmlDocument *pEntity = new wx_XmlDocument(*doc);
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetThisObj(args);
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->DetachRoot();
 	return ReturnValue(env, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetEncoding();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetFileEncoding)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFileEncoding();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetRoot)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetRoot();
 	return ReturnValue(env, args, Value(new Object_wx_XmlNode(rtn, nullptr, OwnerFalse)));
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetVersion)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetVersion();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_XmlDocument, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString encoding = wxT("UTF-8");
 	if (args.IsValid(1)) encoding = wxString::FromUTF8(args.GetString(1));
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_XmlDocument, Load_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString encoding = wxT("UTF-8");
 	if (args.IsValid(1)) encoding = wxString::FromUTF8(args.GetString(1));
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	int indentstep = 1;
 	if (args.IsValid(1)) indentstep = args.GetInt(1);
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int indentstep = 1;
 	if (args.IsValid(1)) indentstep = args.GetInt(1);
@@ -356,13 +356,13 @@ Gura_ImplementMethod(wx_XmlDocument, SetEncoding)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString enc = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetEncoding(enc);
-	return Value::Null;
+	return Value::Nil;
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -377,10 +377,10 @@ Gura_ImplementMethod(wx_XmlDocument, SetFileEncoding)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString encoding = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetFileEncoding(encoding);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_XmlDocument, SetRoot)
@@ -393,10 +393,10 @@ Gura_ImplementMethod(wx_XmlDocument, SetRoot)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetRoot(node);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_XmlDocument, SetVersion)
@@ -409,10 +409,10 @@ Gura_ImplementMethod(wx_XmlDocument, SetVersion)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString version = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetVersion(version);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

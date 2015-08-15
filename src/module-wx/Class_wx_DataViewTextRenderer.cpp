@@ -48,7 +48,7 @@ Gura_DeclareFunction(DataViewTextRenderer)
 Gura_ImplementFunction(DataViewTextRenderer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString varianttype = wxT("string");
 	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;

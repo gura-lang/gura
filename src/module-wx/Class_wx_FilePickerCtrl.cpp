@@ -56,7 +56,7 @@ Gura_DeclareFunction(FilePickerCtrl)
 Gura_ImplementFunction(FilePickerCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString path = wxEmptyString;
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString path = wxEmptyString;
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -155,10 +155,10 @@ Gura_ImplementMethod(wx_FilePickerCtrl, SetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetPath(filename);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

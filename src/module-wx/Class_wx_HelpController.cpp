@@ -86,7 +86,7 @@ Gura_DeclareFunction(HelpController)
 Gura_ImplementFunction(HelpController)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parentWindow = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_HelpController *pEntity = new wx_HelpController(parentWindow);
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Initialize(file);
 	return ReturnValue(env, args, Value(rtn));
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_HelpController, Initialize_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	int server = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->Initialize(file, server);
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayBlock)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long blockNo = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->DisplayBlock(blockNo);
 	return ReturnValue(env, args, Value(rtn));
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContents)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->DisplayContents();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayContextPopup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int contextId = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->DisplayContextPopup(contextId);
 	return ReturnValue(env, args, Value(rtn));
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString section = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->DisplaySection(section);
 	return ReturnValue(env, args, Value(rtn));
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_HelpController, DisplaySection_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int sectionNo = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->DisplaySection(sectionNo);
 	return ReturnValue(env, args, Value(rtn));
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_HelpController, DisplayTextPopup)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->DisplayTextPopup(text, *pos);
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = (wxSize *)(nullptr);
 	if (args.IsValid(0)) size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = (wxPoint *)(nullptr);
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_HelpController, GetFrameParameters)
 	return ReturnValue(env, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpController, GetParentWindow)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_HelpController, GetParentWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParentWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_HelpController, KeywordSearch)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString keyWord = wxString::FromUTF8(args.GetString(0));
 	wxHelpSearchMode mode = wxHELP_SEARCH_ALL;
 	if (args.IsValid(1)) mode = static_cast<wxHelpSearchMode>(args.GetInt(1));
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_HelpController, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString file = wxT("");
 	if (args.IsValid(0)) file = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->LoadFile(file);
@@ -332,9 +332,9 @@ Gura_ImplementMethod(wx_HelpController, OnQuit)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnQuit();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpController, SetFrameParameters)
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_HelpController, SetFrameParameters)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString title = wxString::FromUTF8(args.GetString(0));
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_HelpController, SetFrameParameters)
 	bool newFrameEachTime = false;
 	if (args.IsValid(3)) newFrameEachTime = args.GetBoolean(3);
 	pThis->GetEntity()->SetFrameParameters(title, *size, *pos, newFrameEachTime);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpController, SetParentWindow)
@@ -371,10 +371,10 @@ Gura_ImplementMethod(wx_HelpController, SetParentWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetParentWindow(parentWindow);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpController, SetViewer)
@@ -388,11 +388,11 @@ Gura_ImplementMethod(wx_HelpController, SetViewer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString viewer = wxString::FromUTF8(args.GetString(0));
 	long flags = args.GetLong(1);
 	pThis->GetEntity()->SetViewer(viewer, flags);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpController, Quit)
@@ -405,7 +405,7 @@ Gura_ImplementMethod(wx_HelpController, Quit)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Quit();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -46,7 +46,7 @@ Gura_DeclareFunction(ClientDataContainerEmpty)
 Gura_ImplementFunction(ClientDataContainerEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ClientDataContainer *pEntity = new wx_ClientDataContainer();
 	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -68,9 +68,9 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetClientData();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ClientDataContainer, GetClientObject)
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxClientData *rtn = (wxClientData *)pThis->GetEntity()->GetClientObject();
 	return ReturnValue(env, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ClientDataContainer, SetClientData)
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int data = args.GetInt(0);
 	pThis->GetEntity()->SetClientData(data);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ClientDataContainer, SetClientObject)
@@ -124,10 +124,10 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxClientData *data = Object_wx_ClientData::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetClientObject(data);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

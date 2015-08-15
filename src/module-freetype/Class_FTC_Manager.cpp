@@ -40,7 +40,7 @@ Value Object_FTC_Manager::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_FTC_Manager::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -50,17 +50,17 @@ Value Object_FTC_Manager::DoSetProp(Environment &env, const Symbol *pSymbol, con
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

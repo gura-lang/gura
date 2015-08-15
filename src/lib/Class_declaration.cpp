@@ -32,11 +32,11 @@ Value Object_declaration::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pDeclaration->GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(default_))) {
 		const Expr *pExpr = _pDeclaration->GetExprDefault();
-		if (pExpr == nullptr) return Value::Null;
+		if (pExpr == nullptr) return Value::Nil;
 		return Value(new Object_expr(env, pExpr->Reference()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_declaration::ToString(bool exprFlag)
@@ -87,7 +87,7 @@ Gura_ImplementMethod(declaration, istype)
 	Signal &sig = env.GetSignal();
 	const Declaration *pDeclaration = Object_declaration::GetThisObj(args)->GetDeclaration();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
-	if (pValueTypeInfo == nullptr) return Value::Null;
+	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = pDeclaration->GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	return Value(valType == valTypeCmp);

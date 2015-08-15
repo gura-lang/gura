@@ -45,7 +45,7 @@ Gura_ImplementMethod(wx_HTTP, GetResponse)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetResponse();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_HTTP, GetInputStream)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
 	return ReturnValue(env, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
@@ -78,11 +78,11 @@ Gura_ImplementMethod(wx_HTTP, SetHeader)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString header = wxString::FromUTF8(args.GetString(0));
 	wxString h_data = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->SetHeader(header, h_data);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HTTP, GetHeader)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_HTTP, GetHeader)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString header = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetHeader(header);
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));

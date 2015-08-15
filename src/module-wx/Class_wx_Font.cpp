@@ -50,7 +50,7 @@ Gura_DeclareFunction(FontEmpty)
 Gura_ImplementFunction(FontEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Font *pEntity = new wx_Font();
 	Object_wx_Font *pObj = Object_wx_Font::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -80,7 +80,7 @@ Gura_DeclareFunction(Font)
 Gura_ImplementFunction(Font)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -120,7 +120,7 @@ Gura_DeclareFunction(FontEx)
 Gura_ImplementFunction(FontEx)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if defined(__WXMSW__)
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
@@ -144,7 +144,7 @@ Gura_ImplementFunction(FontEx)
 	return ReturnValue(env, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Font, IsFixedWidth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsFixedWidth();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -172,7 +172,7 @@ Gura_DeclareClassMethod(wx_Font, GetDefaultEncoding)
 Gura_ImplementClassMethod(wx_Font, GetDefaultEncoding)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxFontEncoding rtn = wxFont::GetDefaultEncoding();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Font, GetEncoding)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding rtn = pThis->GetEntity()->GetEncoding();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Font, GetFaceName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFaceName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Font, GetFamily)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFamily();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Font, GetFamilyString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFamilyString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxNativeFontInfo *rtn = pThis->GetEntity()->GetNativeFontInfo();
 	Value value;
 	if (rtn != nullptr) {
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfoDesc)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetNativeFontInfoDesc();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_Font, GetNativeFontInfoUserDesc)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetNativeFontInfoUserDesc();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_Font, GetPointSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetPointSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_Font, GetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_Font, GetStyleString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetStyleString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Font, GetUnderlined)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetUnderlined();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_Font, GetWeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWeight();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_Font, GetWeightString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetWeightString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -392,7 +392,7 @@ Gura_DeclareClassMethod(wx_Font, New)
 Gura_ImplementClassMethod(wx_Font, New)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -421,7 +421,7 @@ Gura_DeclareClassMethod(wx_Font, New_1)
 Gura_ImplementClassMethod(wx_Font, New_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int flags = wxFONTFLAG_DEFAULT;
@@ -450,7 +450,7 @@ Gura_DeclareClassMethod(wx_Font, New_2)
 Gura_ImplementClassMethod(wx_Font, New_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -479,7 +479,7 @@ Gura_DeclareClassMethod(wx_Font, New_3)
 Gura_ImplementClassMethod(wx_Font, New_3)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int flags = wxFONTFLAG_DEFAULT;
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_Font, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -516,10 +516,10 @@ Gura_DeclareClassMethod(wx_Font, SetDefaultEncoding)
 Gura_ImplementClassMethod(wx_Font, SetDefaultEncoding)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFont::SetDefaultEncoding(encoding);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetEncoding)
@@ -532,10 +532,10 @@ Gura_ImplementMethod(wx_Font, SetEncoding)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	pThis->GetEntity()->SetEncoding(encoding);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetFaceName)
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_Font, SetFaceName)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString faceName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetFaceName(faceName);
 	return ReturnValue(env, args, Value(rtn));
@@ -565,10 +565,10 @@ Gura_ImplementMethod(wx_Font, SetFamily)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(0));
 	pThis->GetEntity()->SetFamily(family);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetNativeFontInfo)
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_Font, SetNativeFontInfo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString info = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetNativeFontInfo(info);
 	return ReturnValue(env, args, Value(rtn));
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_Font, SetNativeFontInfoUserDesc)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString info = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SetNativeFontInfoUserDesc(info);
 	return ReturnValue(env, args, Value(rtn));
@@ -615,10 +615,10 @@ Gura_ImplementMethod(wx_Font, SetPointSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pointSize = args.GetInt(0);
 	pThis->GetEntity()->SetPointSize(pointSize);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetStyle)
@@ -631,10 +631,10 @@ Gura_ImplementMethod(wx_Font, SetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int style = args.GetInt(0);
 	pThis->GetEntity()->SetStyle(style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetUnderlined)
@@ -647,10 +647,10 @@ Gura_ImplementMethod(wx_Font, SetUnderlined)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool underlined = args.GetBoolean(0);
 	pThis->GetEntity()->SetUnderlined(underlined);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Font, SetWeight)
@@ -663,10 +663,10 @@ Gura_ImplementMethod(wx_Font, SetWeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontWeight weight = static_cast<wxFontWeight>(args.GetInt(0));
 	pThis->GetEntity()->SetWeight(weight);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // operator ==

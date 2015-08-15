@@ -47,7 +47,7 @@ Gura_DeclareFunction(PaintDC)
 Gura_ImplementFunction(PaintDC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_PaintDC *pEntity = new wx_PaintDC(window);
 	Object_wx_PaintDC *pObj = Object_wx_PaintDC::GetThisObj(args);

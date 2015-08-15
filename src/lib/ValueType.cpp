@@ -105,7 +105,7 @@ Expr *ValueTypeInfo::MakeExpr() const
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
-const ValueTypeMap ValueTypeMap::Null;
+const ValueTypeMap ValueTypeMap::Empty;
 
 //-----------------------------------------------------------------------------
 // ValueTypePool

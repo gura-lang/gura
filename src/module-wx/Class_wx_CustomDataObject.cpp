@@ -60,7 +60,7 @@ Gura_DeclareFunction(CustomDataObject)
 Gura_ImplementFunction(CustomDataObject)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_CustomDataObject *pEntity = new wx_CustomDataObject(*format);
@@ -85,10 +85,10 @@ Gura_ImplementMethod(wx_CustomDataObject, Alloc)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t size = args.GetSizeT(0);
 	pThis->GetEntity()->Alloc(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, Free)
@@ -100,9 +100,9 @@ Gura_ImplementMethod(wx_CustomDataObject, Free)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Free();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, GetSize)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -129,9 +129,9 @@ Gura_ImplementMethod(wx_CustomDataObject, GetData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetData();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, SetData)
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_CustomDataObject, SetData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t size = args.GetSizeT(0);
 	int *data = args.GetInt(1);
 	pThis->GetEntity()->SetData(size, *data);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, TakeData)
@@ -172,14 +172,14 @@ Gura_ImplementMethod(wx_CustomDataObject, TakeData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t size = args.GetSizeT(0);
 	int *data = args.GetInt(1);
 	pThis->GetEntity()->TakeData(size, *data);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

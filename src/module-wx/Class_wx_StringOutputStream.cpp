@@ -47,7 +47,7 @@ Gura_DeclareFunction(StringOutputStream)
 Gura_ImplementFunction(StringOutputStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString *str = nullptr;
 	if (args.IsValid(0)) str = Object_wx_String::GetObject(args, 0)->GetEntity();
 	wx_StringOutputStream *pEntity = new wx_StringOutputStream(str);
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_StringOutputStream, GetString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }

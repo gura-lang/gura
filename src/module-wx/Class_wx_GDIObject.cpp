@@ -47,7 +47,7 @@ Gura_DeclareFunction(GDIObjectEmpty)
 Gura_ImplementFunction(GDIObjectEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GDIObject *pEntity = new wx_GDIObject();
 	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetThisObj(args);
 	if (pObj == nullptr) {

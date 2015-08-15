@@ -80,7 +80,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return rtn;
 		}
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
 		const SymbolSet *pAttrs = nullptr;
 		if (GetExpr()->IsIdentifier()) {
@@ -99,7 +99,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return rtn;
 		}
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
 		const SymbolSet *pAttrsOpt = nullptr;
 		if (GetExpr()->IsIdentifier()) {
@@ -118,67 +118,67 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return rtn;
 		}
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 		if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			const Expr_Block *pExprBlock = pExpr->GetBlock();
-			if (pExprBlock == nullptr) return Value::Null;
+			if (pExprBlock == nullptr) return Value::Nil;
 			return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
 		}
 		sig.SetError(ERR_ValueError, "not a caller expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(blockparam))) {
 		if (GetExpr()->IsBlock()) {
 			const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
 			const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
-			if (pExprOwnerParam == nullptr) return Value::Null;
+			if (pExprOwnerParam == nullptr) return Value::Nil;
 			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwnerParam->Reference())));
 		}
 		sig.SetError(ERR_ValueError, "expression is not a block");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(body))) {
 		if (GetExpr()->IsSuffixed()) {
 			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
 			return Value(pExpr->GetBody());
 		}
 		sig.SetError(ERR_ValueError, "expression is not a suffixed");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
 		if (GetExpr()->IsCompound()) {
 			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetCar())));
 		}
 		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
 		if (GetExpr()->IsCompound()) {
 			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
 			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
 		}
 		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
 		if (GetExpr()->IsUnary()) {
 			const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetChild())));
 		}
 		sig.SetError(ERR_ValueError, "not a unary expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
 		if (GetExpr()->IsCollector()) {
 			const Expr_Collector *pExpr = dynamic_cast<const Expr_Collector *>(GetExpr());
 			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
 		}
 		sig.SetError(ERR_ValueError, "not a collector expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
 		if (GetExpr()->IsBinary()) {
 			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
 		}
 		sig.SetError(ERR_ValueError, "not a binary expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(GetExpr()->GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
@@ -195,11 +195,11 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		} else if (GetExpr()->IsAssign()) {
 			const Expr_Assign *pExpr = dynamic_cast<const Expr_Assign *>(GetExpr());
 			const Operator *pOperator = pExpr->GetOperatorToApply();
-			if (pOperator == nullptr) return Value::Null;
+			if (pOperator == nullptr) return Value::Nil;
 			return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
 		}
 		sig.SetError(ERR_ValueError, "expression is not a unaryop, binaryop nor assign");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
 		return Value(GetExpr()->MakePosText());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
@@ -208,10 +208,10 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
 		}
 		sig.SetError(ERR_ValueError, "not a binary expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = GetExpr()->GetSourceName();
-		if (sourceName == nullptr) return Value::Null;
+		if (sourceName == nullptr) return Value::Nil;
 		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(suffix))) {
 		if (GetExpr()->IsSuffixed()) {
@@ -219,23 +219,23 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return Value(pExpr->GetSymbolSuffix());
 		}
 		sig.SetError(ERR_ValueError, "expression is not a suffixed");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
 			return Value(pExpr->GetSymbol());
 		}
 		sig.SetError(ERR_ValueError, "expression is not an identifier");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
 		if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			const Expr_Caller *pExprTrailer = pExpr->GetTrailer();
-			if (pExprTrailer == nullptr) return Value::Null;
+			if (pExprTrailer == nullptr) return Value::Nil;
 			return Value(new Object_expr(env, Expr::Reference(pExprTrailer)));
 		}
 		sig.SetError(ERR_ValueError, "not a caller expression");
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typename_))) {
 		return Value(GetExpr()->GetTypeName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
@@ -246,10 +246,10 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return pExpr->GetValue();
 		}
 		sig.SetError(ERR_ValueError, "expression is not a value");
-		return Value::Null;
+		return Value::Nil;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_expr::ToString(bool exprFlag)
@@ -295,7 +295,7 @@ Gura_ImplementFunction(expr)
 	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
 	Parser parser(stream.GetName());
 	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
-	if (pExprRoot.IsNull()) return Value::Null;
+	if (pExprRoot.IsNull()) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementClassMethod(expr, parse)
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
 	Parser parser(SRCNAME_string);
 	if (!parser.ParseString(env, pExpr->GetExprOwner(),
-								args.GetString(0), true)) return Value::Null;
+								args.GetString(0), true)) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExpr.release())));
 }
 
@@ -377,13 +377,13 @@ Gura_ImplementMethod(expr, textize)
 		if (scriptStyle == Expr::SCRSTYLE_None) {
 			sig.SetError(ERR_ValueError,
 					"invalid symbol for script style: %s", pSymbol->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	const char *strIndent = args.Is_string(1)? args.GetString(1) : Expr::IndentDefault;
 	String strDst;
 	SimpleStream_StringWriter streamDst(strDst);
-	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0, strIndent)) return Value::Null;
+	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0, strIndent)) return Value::Nil;
 	return Value(strDst);
 }
 
@@ -409,12 +409,12 @@ Gura_ImplementMethod(expr, tofunction)
 	Expr_Block *pExprBlock = Object_expr::GetThisObj(args)->GetExpr()->ToExprBlock();
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	const ValueList &valListArg = args.GetList(0);
 	if (!valListArg.empty()) {
 		if (!pFunc->GetDeclOwner().empty()) {
 			sig.SetError(ERR_TypeError, "argument declaration conflicts");
-			return Value::Null;
+			return Value::Nil;
 		}
 		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 		foreach_const (ValueList, pValue, valListArg) {
@@ -423,7 +423,7 @@ Gura_ImplementMethod(expr, tofunction)
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
 		pArgs->SetAttrs(args.GetAttrs());
-		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) return Value::Null;
+		if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgs)) return Value::Nil;
 	}
 	return Value(new Object_function(env, pFunc.release()));
 }
@@ -477,12 +477,12 @@ Gura_ImplementMethod(expr, write)
 		if (scriptStyle == Expr::SCRSTYLE_None) {
 			sig.SetError(ERR_ValueError,
 					"invalid symbol for script style: %s", pSymbol->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	const char *strIndent = args.Is_string(2)? args.GetString(2) : Expr::IndentDefault;
 	pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0, strIndent);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // type chekers - Unary and descendants
@@ -563,7 +563,7 @@ bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDe
 		Stream &stream = value.GetStream();
 		Parser parser(stream.GetName());
 		AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
-		value = Value::Null; // delete stream instance
+		value = Value::Nil; // delete stream instance
 		if (pExprRoot.IsNull()) return false;
 		value = Value(new Object_expr(env, pExprRoot.release()));
 		return true;

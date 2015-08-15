@@ -27,7 +27,7 @@ Gura_ImplementFunction(reader)
 	Signal &sig = env.GetSignal();
 	Stream &stream = args.GetStream(0);
 	Object_stream *pObjStream = GenerateDecompressor(env, stream);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjStream));
 }
 
@@ -58,10 +58,10 @@ Gura_ImplementFunction(writer)
 	int blockSize100k = args.Is_number(1)? args.GetInt(1) : 9;
 	if (blockSize100k < 1 || 9 < blockSize100k) {
 		sig.SetError(ERR_ValueError, "blockSize100k must be specified between 1 and 9");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_stream *pObjStream = GenerateCompressor(env, stream, blockSize100k);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjStream));
 }
 
@@ -86,7 +86,7 @@ Gura_ImplementMethod(stream, reader_bzip2)
 	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, stream);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjStream));
 }
 
@@ -116,10 +116,10 @@ Gura_ImplementMethod(stream, writer_bzip2)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (blockSize100k < 1 || 9 < blockSize100k) {
 		sig.SetError(ERR_ValueError, "blockSize100k must be specified between 1 and 9");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_stream *pObjStream = GenerateCompressor(env, stream, blockSize100k);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjStream));
 }
 

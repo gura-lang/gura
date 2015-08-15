@@ -47,7 +47,7 @@ Gura_DeclareFunction(KeyEvent)
 Gura_ImplementFunction(KeyEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE keyEventType = static_cast<WXTYPE>(args.GetInt(0));
 	wx_KeyEvent *pEntity = new wx_KeyEvent(keyEventType);
 	Object_wx_KeyEvent *pObj = Object_wx_KeyEvent::GetThisObj(args);
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_KeyEvent, AltDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->AltDown();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_KeyEvent, CmdDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CmdDown();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_KeyEvent, ControlDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ControlDown();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetKeyCode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetKeyCode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetModifiers)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetModifiers();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
@@ -165,14 +165,14 @@ Gura_ImplementMethod(wx_KeyEvent, GetPosition_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long x = args.GetLong(0);
 	long y = args.GetLong(1);
 	pThis->GetEntity()->GetPosition(x, y);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_KeyEvent, GetRawKeyCode)
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetRawKeyCode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint32 rtn = pThis->GetEntity()->GetRawKeyCode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetRawKeyFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint32 rtn = pThis->GetEntity()->GetRawKeyFlags();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -216,12 +216,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetUnicodeKey)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->GetUnicodeKey();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_KeyEvent, GetX)
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetX)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetX();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_KeyEvent, GetY)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetY();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_KeyEvent, HasModifiers)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasModifiers();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_KeyEvent, MetaDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MetaDown();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_KeyEvent, ShiftDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ShiftDown();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -57,7 +57,7 @@ Value Object_font::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_height);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_font::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -69,12 +69,12 @@ Value Object_font::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 		Value valueCasted;
 		if (!value.CastType(env, VTYPE_color, valueCasted)) {
 			sig.SetError(ERR_ValueError, "value must be color");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
 		return Value(Object_color::Reference(_pObjColor.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
-		if (!value.MustBe_symbol(sig)) return Value::Null;
+		if (!value.MustBe_symbol(sig)) return Value::Nil;
 		const Symbol *pSymbolVal = value.GetSymbol();
 		if (pSymbolVal->IsIdentical(Gura_UserSymbol(blend))) {
 			_mode = MODE_Blend;
@@ -82,32 +82,32 @@ Value Object_font::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 			_mode = MODE_Alpha;
 		} else {
 			sig.SetError(ERR_ValueError, "symbol must be `blend or `alpha");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(pSymbolVal);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetStrength(value.GetDouble());
 		return Value(_strength);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetSlant(value.GetDouble());
 		return Value(_slant);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetRotate(value.GetDouble());
 		return Value(_rotate.deg);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetWidth(value.GetDouble());
 		return Value(_width);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		SetHeight(value.GetDouble());
 		return Value(_height);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_font::ToString(bool exprFlag)
@@ -452,9 +452,9 @@ Gura_ImplementMethod(font, drawtext)
 	const Function *pFuncDeco = nullptr;
 	if (args.IsBlockSpecified()) {
 		pFuncDeco = args.GetBlockFunc(env, GetSymbolForBlock());
-		if (pFuncDeco == nullptr) return Value::Null;
+		if (pFuncDeco == nullptr) return Value::Nil;
 	}
-	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Null;
+	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(font, calcsize)
 	Object_font *pThis = Object_font::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
-	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Null;
+	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Nil;
 	return Value::CreateList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
@@ -495,7 +495,7 @@ Gura_ImplementMethod(font, calcbbox)
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
 	size_t width, height;
-	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Null;
+	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Nil;
 	return Value::CreateList(env,
 			Value(x), Value(y - pThis->GetFace()->ascender / 4),
 			Value(width), Value(height));

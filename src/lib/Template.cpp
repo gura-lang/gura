@@ -512,8 +512,8 @@ Value Expr_TmplString::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 {
 	Signal &sig = env.GetSignal();
 	_pTemplate->Print(sig, _str.c_str());
-	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
-	return Value::Null;
+	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, Value::Nil)) return Value::Nil;
+	return Value::Nil;
 }
 
 void Expr_TmplString::Accept(ExprVisitor &visitor)
@@ -544,14 +544,14 @@ Expr *Expr_TmplScript::Clone() const
 Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
 	Signal &sig = env.GetSignal();
-	if (GetExprOwner().empty()) return Value::Null;
+	if (GetExprOwner().empty()) return Value::Nil;
 	Value value;
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	foreach_const (ExprList, ppExpr, GetExprOwner()) {
 		value = (*ppExpr)->Exec2(env, pSeqPostHandlerEach, true);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	}
-	if (value.IsInvalid()) return Value::Null;
+	if (value.IsInvalid()) return Value::Nil;
 	_pTemplate->Print(sig, _strIndent.c_str());
 	String strLast;
 	if (value.Is_string()) {
@@ -583,7 +583,7 @@ Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 				sig.SetError(ERR_TypeError,
 					"template script must return nil, string or number");
 				sig.AddExprCause(this);
-				return Value::Null;
+				return Value::Nil;
 			}
 		}
 	} else if (value.Is_number()) {
@@ -593,7 +593,7 @@ Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 		sig.SetError(ERR_TypeError,
 			"template script must return nil, string or number");
 		sig.AddExprCause(this);
-		return Value::Null;
+		return Value::Nil;
 	}
 	foreach_const (String, p, strLast) {
 		char ch = *p;
@@ -609,7 +609,7 @@ Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler)
 		}
 	}
 	_pTemplate->Print(sig, _strPost.c_str());
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Expr_TmplScript::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const

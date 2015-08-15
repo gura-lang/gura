@@ -65,7 +65,7 @@ Gura_ImplementMethod(semaphore, release)
 {
 	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
 	pThis->GetSemaphore().Release();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // semaphore#session()
@@ -87,7 +87,7 @@ Gura_ImplementMethod(semaphore, session)
 	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pThis->GetSemaphore().Wait();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
@@ -110,7 +110,7 @@ Gura_ImplementMethod(semaphore, wait)
 {
 	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
 	pThis->GetSemaphore().Wait();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

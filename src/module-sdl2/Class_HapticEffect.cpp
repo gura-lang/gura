@@ -72,7 +72,7 @@ Value Object_HapticEffect::DoGetProp(Environment &env, const Symbol *pSymbol,
 		SDL_HapticCustom &effect = _pHapticEffect->custom;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_HapticEffect::DoSetProp(Environment &env,
@@ -80,7 +80,7 @@ Value Object_HapticEffect::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

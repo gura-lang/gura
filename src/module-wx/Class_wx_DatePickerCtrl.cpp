@@ -54,7 +54,7 @@ Gura_DeclareFunction(DatePickerCtrl)
 Gura_ImplementFunction(DatePickerCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxDateTime *dt = (wxDateTime *)(&wxDefaultDateTime);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxDateTime *dt = (wxDateTime *)(&wxDefaultDateTime);
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_DatePickerCtrl, GetRange)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt1 = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime **dt2 = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetRange(dt1, **dt2);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DatePickerCtrl, GetValue)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, GetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_DatePickerCtrl, SetFormat)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString format = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetFormat(format);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetRange)
@@ -191,11 +191,11 @@ Gura_ImplementMethod(wx_DatePickerCtrl, SetRange)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt1 = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime *dt2 = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->SetRange(*dt1, *dt2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DatePickerCtrl, SetValue)
@@ -208,10 +208,10 @@ Gura_ImplementMethod(wx_DatePickerCtrl, SetValue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetValue(*dt);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

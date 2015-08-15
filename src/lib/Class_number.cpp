@@ -60,7 +60,7 @@ Value Class_number::GetPropPrimitive(Environment &env, const Value &valueThis,
 		return Value(num);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Class_number::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

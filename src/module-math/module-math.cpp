@@ -80,7 +80,7 @@ Gura_ImplementFunction(arg)
 		result = std::arg(value.GetComplex());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
@@ -156,7 +156,7 @@ Gura_ImplementFunction(acos)
 		result = ::acos(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
@@ -199,7 +199,7 @@ Gura_ImplementFunction(asin)
 		result = ::asin(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
@@ -242,7 +242,7 @@ Gura_ImplementFunction(atan)
 		result = ::atan(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
@@ -285,7 +285,7 @@ Gura_ImplementFunction(atan2)
 		result = ::atan2(value1.GetNumber(), value2.GetNumber());
 	} else if (value1.IsValid() && value2.IsValid()) {
 		SetError_InvalidValType(sig, value1, value2);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
@@ -757,7 +757,7 @@ Gura_ImplementFunction(least_square)
 	size_t nDim = args.GetSizeT(2);
 	if (nDim == 0) {
 		sig.SetError(ERR_ValueError, "invalid dimension");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t nCols = nDim + 1;
 	size_t nRows = nCols;
@@ -769,17 +769,17 @@ Gura_ImplementFunction(least_square)
 	for (;;) {
 		Value valueX, valueY;
 		flagX = pIterX->Next(env, valueX);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		flagY = pIterY->Next(env, valueY);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (!(flagX && flagY)) break;
 		if (!valueX.Is_number()) {
 			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
-			return Value::Null;
+			return Value::Nil;
 		}
 		if (!valueY.Is_number()) {
 			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
-			return Value::Null;
+			return Value::Nil;
 		}
 		Number numX = valueX.GetNumber(), numY = valueY.GetNumber();
 		Number productX = 1;
@@ -797,7 +797,7 @@ Gura_ImplementFunction(least_square)
 	}
 	if (flagX || flagY) {
 		sig.SetError(ERR_ValueError, "number of x and y must be the same");
-		return Value::Null;
+		return Value::Nil;
 	}
 	NumberList mat;
 	mat.reserve(nCols * nRows * 2);
@@ -814,7 +814,7 @@ Gura_ImplementFunction(least_square)
 	Number det;
 	if (!Gura::InvertMatrix(mat, nCols, det)) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
-		return Value::Null;
+		return Value::Nil;
 	}
 	NumberList alphaList;
 	alphaList.reserve(nCols);
@@ -978,7 +978,7 @@ Gura_ImplementFunction(diff)
 {
 	Signal &sig = env.GetSignal();
 	Expr *pExprDiff = args.GetExpr(0)->MathDiff(env, args.GetSymbol(1));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExprDiff)));
 }
 
@@ -997,7 +997,7 @@ Gura_ImplementFunction(optimize)
 {
 	Signal &sig = env.GetSignal();
 	Expr *pExprOpt = args.GetExpr(0)->MathOptimize(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_expr(env, pExprOpt)));
 }
 
@@ -1014,7 +1014,7 @@ Gura_DeclareFunction(fft)
 Gura_ImplementFunction(fft)
 {
 	
-	return Value::Null;
+	return Value::Nil;
 }
 
 // math.integral(func, sequence)
@@ -1028,7 +1028,7 @@ Gura_DeclareFunction(integral)
 
 Gura_ImplementFunction(integral)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // math.dot_product(a[], b[])
@@ -1049,7 +1049,7 @@ Gura_ImplementFunction(dot_product)
 	const ValueList &valList2 = args.GetList(1);
 	if (valList1.size() != valList2.size()) {
 		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Null;
+		return Value::Nil;
 	}
 	ValueList::const_iterator pValue1 = valList1.begin();
 	ValueList::const_iterator pValue2 = valList2.begin();
@@ -1058,11 +1058,11 @@ Gura_ImplementFunction(dot_product)
 		Value value;
 		do {
 			value = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, *pValue1, *pValue2);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		} while (0);
 		do {
 			valueSum = env.GetOperator(OPTYPE_Add)->EvalBinary(env, valueSum, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		} while (0);
 	}
 	return valueSum;
@@ -1089,7 +1089,7 @@ Gura_ImplementFunction(cross_product)
 	const ValueList &valList2 = args.GetList(1);
 	if (valList1.size() != valList2.size()) {
 		sig.SetError(ERR_ValueError, "different length of lists");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (valList1.size() == 2) {
 		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
@@ -1099,19 +1099,19 @@ Gura_ImplementFunction(cross_product)
 		valList.reserve(3);
 		Value value;
 		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		valList.push_back(value);
 		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		valList.push_back(value);
 		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		valList.push_back(value);
 		return result;
 	} else {
 		sig.SetError(ERR_ValueError,
 				"only support two or three dimension vector for cross product");
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -1122,17 +1122,17 @@ Value CalcCrossElem(Environment &env,
 	Value valueLeft;
 	do {
 		valueLeft = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ax, by);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	Value valueRight;
 	do {
 		valueRight = env.GetOperator(OPTYPE_Mul)->EvalBinary(env, ay, bx);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	Value value;
 	do {
 		value = env.GetOperator(OPTYPE_Sub)->EvalBinary(env, valueLeft, valueRight);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} while (0);
 	return value;
 }
@@ -1155,12 +1155,12 @@ Gura_ImplementFunction(covariance)
 	Iterator *pIteratorA = args.GetIterator(0);
 	Iterator *pIteratorB = args.GetIterator(1);
 	Value valueAveA = pIteratorA->Clone()->Average(env, cntA);
-	if (!valueAveA.Is_number()) return Value::Null;
+	if (!valueAveA.Is_number()) return Value::Nil;
 	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
-	if (!valueAveB.Is_number()) return Value::Null;
+	if (!valueAveB.Is_number()) return Value::Nil;
 	if (cntA != cntB) {
 		sig.SetError(ERR_ValueError, "different length of iterators");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Number result = 0;
 	Number averageA = valueAveA.GetNumber();
@@ -1172,10 +1172,10 @@ Gura_ImplementFunction(covariance)
 				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);
 		} else {
 			sig.SetError(ERR_ValueError, "invalid data type of element");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(result / static_cast<Number>(cntA));
 }
 

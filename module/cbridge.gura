@@ -36,7 +36,7 @@ ${fi.tmplBody.render()}
 	${if (!fi.validFlag)}
 #endif
 	SetError_NotImpFunction(sig, "${fi.funcNameGura}");
-	return Value::Null;
+	return Value::Nil;
 	${end}
 }
 '''.template()
@@ -311,7 +311,7 @@ typeConvDict = %{
 			nil,
 			R'''
 			${fi.MakeCaller()};
-			return Value::Null;
+			return Value::Nil;
 			''', true)
 	'bool' => TypeConv(
 			'boolean', 'Once', [],

@@ -49,7 +49,7 @@ Gura_DeclareFunction(AcceleratorEntryEmpty)
 Gura_ImplementFunction(AcceleratorEntryEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry();
 	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -75,10 +75,10 @@ Gura_DeclareFunction(AcceleratorEntry)
 Gura_ImplementFunction(AcceleratorEntry)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int flags = args.GetInt(0);
 	int keyCode = ArgToKeyCode(this, sig, args, 1);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	int cmd = args.GetInt(2);
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry(flags, keyCode, cmd);
 	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCommand();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetKeyCode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = args.GetInt(0);
 	int keyCode = ArgToKeyCode(this, sig, args, 1);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	int cmd = args.GetInt(2);
 	pThis->GetEntity()->Set(flags, keyCode, cmd);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

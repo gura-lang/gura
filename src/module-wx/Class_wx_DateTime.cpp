@@ -51,7 +51,7 @@ Gura_DeclareClassMethod(wx_DateTime, ConvertYearToBC)
 Gura_ImplementClassMethod(wx_DateTime, ConvertYearToBC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = args.GetInt(0);
 	int rtn = wxDateTime::ConvertYearToBC(year);
 	return ReturnValue(env, args, Value(rtn));
@@ -66,7 +66,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetAmPmStrings)
 Gura_ImplementClassMethod(wx_DateTime, GetAmPmStrings)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString am;
 	wxString pm;
 	wxDateTime::GetAmPmStrings(&am, &pm);
@@ -86,7 +86,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetBeginDST)
 Gura_ImplementClassMethod(wx_DateTime, GetBeginDST)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Country country = wxDateTime::Country_Default;
@@ -104,7 +104,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCountry)
 Gura_ImplementClassMethod(wx_DateTime, GetCountry)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::Country rtn = wxDateTime::GetCountry();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -119,7 +119,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCurrentYear)
 Gura_ImplementClassMethod(wx_DateTime, GetCurrentYear)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(0)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(0));
 	int rtn = wxDateTime::GetCurrentYear(cal);
@@ -136,7 +136,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCurrentMonth)
 Gura_ImplementClassMethod(wx_DateTime, GetCurrentMonth)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(0)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(0));
 	wxDateTime::Month rtn = wxDateTime::GetCurrentMonth(cal);
@@ -153,7 +153,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCentury)
 Gura_ImplementClassMethod(wx_DateTime, GetCentury)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = args.GetInt(0);
 	int rtn = wxDateTime::GetCentury(year);
 	return ReturnValue(env, args, Value(rtn));
@@ -170,7 +170,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetEndDST)
 Gura_ImplementClassMethod(wx_DateTime, GetEndDST)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Country country = wxDateTime::Country_Default;
@@ -190,7 +190,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetMonthName)
 Gura_ImplementClassMethod(wx_DateTime, GetMonthName)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::Month month = static_cast<wxDateTime::Month>(args.GetInt(0));
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
@@ -209,7 +209,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = args.GetInt(0);
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(1)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(1));
@@ -229,7 +229,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::Month month = static_cast<wxDateTime::Month>(args.GetInt(0));
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
@@ -248,11 +248,11 @@ Gura_DeclareClassMethod(wx_DateTime, GetTimeNow)
 Gura_ImplementClassMethod(wx_DateTime, GetTimeNow)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetTmNow)
@@ -264,11 +264,11 @@ Gura_DeclareClassMethod(wx_DateTime, GetTmNow)
 Gura_ImplementClassMethod(wx_DateTime, GetTmNow)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetWeekDayName)
@@ -282,7 +282,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetWeekDayName)
 Gura_ImplementClassMethod(wx_DateTime, GetWeekDayName)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime::WeekDay weekday = static_cast<wxDateTime::WeekDay>(args.GetInt(0));
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
@@ -301,7 +301,7 @@ Gura_DeclareClassMethod(wx_DateTime, IsLeapYear)
 Gura_ImplementClassMethod(wx_DateTime, IsLeapYear)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
@@ -321,13 +321,13 @@ Gura_DeclareClassMethod(wx_DateTime, IsWestEuropeanCountry)
 Gura_ImplementClassMethod(wx_DateTime, IsWestEuropeanCountry)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	bool rtn = wxDateTime::IsWestEuropeanCountry();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, IsDSTApplicable)
@@ -342,7 +342,7 @@ Gura_DeclareClassMethod(wx_DateTime, IsDSTApplicable)
 Gura_ImplementClassMethod(wx_DateTime, IsDSTApplicable)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int year = Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
@@ -350,7 +350,7 @@ Gura_ImplementClassMethod(wx_DateTime, IsDSTApplicable)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, Now)
@@ -362,7 +362,7 @@ Gura_DeclareClassMethod(wx_DateTime, Now)
 Gura_ImplementClassMethod(wx_DateTime, Now)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime rtn = wxDateTime::Now();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
@@ -377,13 +377,13 @@ Gura_DeclareClassMethod(wx_DateTime, SetCountry)
 Gura_ImplementClassMethod(wx_DateTime, SetCountry)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxDateTime::SetCountry();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, Today)
@@ -395,7 +395,7 @@ Gura_DeclareClassMethod(wx_DateTime, Today)
 Gura_ImplementClassMethod(wx_DateTime, Today)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime rtn = wxDateTime::Today();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
@@ -409,7 +409,7 @@ Gura_DeclareClassMethod(wx_DateTime, UNow)
 Gura_ImplementClassMethod(wx_DateTime, UNow)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDateTime rtn = wxDateTime::UNow();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
@@ -424,7 +424,7 @@ Gura_DeclareFunction(DateTime)
 Gura_ImplementFunction(DateTime)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DateTime *pEntity = new wx_DateTime();
 	Object_wx_DateTime *pObj = Object_wx_DateTime::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -448,12 +448,12 @@ Gura_ImplementMethod(wx_DateTime, SetToCurrent)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->SetToCurrent();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetJDN)
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_DateTime, SetJDN)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double jdn = args.GetDouble(0);
 	wxDateTime &rtn = pThis->GetEntity()->Set(jdn);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_DateTime, SetHMS)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::wxDateTime_t hour = static_cast<wxDateTime::wxDateTime_t>(args.GetInt(0));
 	wxDateTime::wxDateTime_t minute = 0;
 	if (args.IsValid(1)) minute = static_cast<wxDateTime::wxDateTime_t>(args.GetInt(1));
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_DateTime, Set)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::wxDateTime_t day = static_cast<wxDateTime::wxDateTime_t>(args.GetInt(0));
 	wxDateTime::Month month = wxDateTime::Inv_Month;
 	if (args.IsValid(1)) month = static_cast<wxDateTime::Month>(args.GetInt(1));
@@ -545,12 +545,12 @@ Gura_ImplementMethod(wx_DateTime, ResetTime)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->ResetTime();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetYear)
@@ -567,13 +567,13 @@ Gura_ImplementMethod(wx_DateTime, SetYear)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int year = args.GetInt(0);
 	wxDateTime &rtn = pThis->GetEntity()->SetYear(year);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetMonth)
@@ -589,12 +589,12 @@ Gura_ImplementMethod(wx_DateTime, SetMonth)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->SetMonth();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetDay)
@@ -611,13 +611,13 @@ Gura_ImplementMethod(wx_DateTime, SetDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *day = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetDay(*day);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetHour)
@@ -634,13 +634,13 @@ Gura_ImplementMethod(wx_DateTime, SetHour)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *hour = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetHour(*hour);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetMinute)
@@ -657,13 +657,13 @@ Gura_ImplementMethod(wx_DateTime, SetMinute)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *minute = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetMinute(*minute);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetSecond)
@@ -680,13 +680,13 @@ Gura_ImplementMethod(wx_DateTime, SetSecond)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *second = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetSecond(*second);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetMillisecond)
@@ -703,13 +703,13 @@ Gura_ImplementMethod(wx_DateTime, SetMillisecond)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *millisecond = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetMillisecond(*millisecond);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsValid)
@@ -722,7 +722,7 @@ Gura_ImplementMethod(wx_DateTime, IsValid)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsValid();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -737,7 +737,7 @@ Gura_ImplementMethod(wx_DateTime, GetDateOnly)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetDateOnly();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
@@ -755,10 +755,10 @@ Gura_ImplementMethod(wx_DateTime, GetTm)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetTicks)
@@ -772,10 +772,10 @@ Gura_ImplementMethod(wx_DateTime, GetTicks)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetCentury_1)
@@ -791,12 +791,12 @@ Gura_ImplementMethod(wx_DateTime, GetCentury_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCentury();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetYear)
@@ -810,7 +810,7 @@ Gura_ImplementMethod(wx_DateTime, GetYear)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	int rtn = pThis->GetEntity()->GetYear(tz);
@@ -828,7 +828,7 @@ Gura_ImplementMethod(wx_DateTime, GetMonth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::Month rtn = pThis->GetEntity()->GetMonth(tz);
@@ -846,7 +846,7 @@ Gura_ImplementMethod(wx_DateTime, GetDay)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetDay(tz);
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::WeekDay rtn = pThis->GetEntity()->GetWeekDay(tz);
@@ -882,7 +882,7 @@ Gura_ImplementMethod(wx_DateTime, GetHour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetHour(tz);
@@ -900,7 +900,7 @@ Gura_ImplementMethod(wx_DateTime, GetMinute)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetMinute(tz);
@@ -918,7 +918,7 @@ Gura_ImplementMethod(wx_DateTime, GetSecond)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetSecond(tz);
@@ -936,7 +936,7 @@ Gura_ImplementMethod(wx_DateTime, GetMillisecond)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetMillisecond(tz);
@@ -954,7 +954,7 @@ Gura_ImplementMethod(wx_DateTime, GetDayOfYear)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime::TimeZone tz = wxDateTime::Local;
 	if (args.IsValid(0)) tz = static_cast<wxDateTime::TimeZone>(args.GetInt(0));
 	wxDateTime::wxDateTime_t rtn = pThis->GetEntity()->GetDayOfYear(tz);
@@ -974,12 +974,12 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfYear)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t rtn = pThis->GetEntity()->GetWeekOfYear(, );
 	return ReturnValue(env, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetWeekOfMonth)
@@ -995,12 +995,12 @@ Gura_ImplementMethod(wx_DateTime, GetWeekOfMonth)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t rtn = pThis->GetEntity()->GetWeekOfMonth(, );
 	return ReturnValue(env, args, Value(new Object_wx_DateTime_t(new wxDateTime_t(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsWorkDay)
@@ -1016,12 +1016,12 @@ Gura_ImplementMethod(wx_DateTime, IsWorkDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsWorkDay();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsGregorianDate)
@@ -1037,12 +1037,12 @@ Gura_ImplementMethod(wx_DateTime, IsGregorianDate)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsGregorianDate();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Set_5)
@@ -1059,13 +1059,13 @@ Gura_ImplementMethod(wx_DateTime, Set_5)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned ddt = args.GetInt(0);
 	wxDateTime &rtn = pThis->GetEntity()->Set(ddt);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetAsDOS)
@@ -1079,12 +1079,12 @@ Gura_ImplementMethod(wx_DateTime, GetAsDOS)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetAsDOS();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsEqualTo)
@@ -1101,13 +1101,13 @@ Gura_ImplementMethod(wx_DateTime, IsEqualTo)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *datetime = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsEqualTo(*datetime);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsEarlierThan)
@@ -1124,13 +1124,13 @@ Gura_ImplementMethod(wx_DateTime, IsEarlierThan)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *datetime = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsEarlierThan(*datetime);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsLaterThan)
@@ -1147,13 +1147,13 @@ Gura_ImplementMethod(wx_DateTime, IsLaterThan)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *datetime = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsLaterThan(*datetime);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsStrictlyBetween)
@@ -1171,14 +1171,14 @@ Gura_ImplementMethod(wx_DateTime, IsStrictlyBetween)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *t1 = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime *t2 = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsStrictlyBetween(*t1, *t2);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsBetween)
@@ -1196,14 +1196,14 @@ Gura_ImplementMethod(wx_DateTime, IsBetween)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *t1 = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime *t2 = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsBetween(*t1, *t2);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsSameDate)
@@ -1220,13 +1220,13 @@ Gura_ImplementMethod(wx_DateTime, IsSameDate)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsSameDate(*dt);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsSameTime)
@@ -1243,13 +1243,13 @@ Gura_ImplementMethod(wx_DateTime, IsSameTime)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsSameTime(*dt);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsEqualUpTo)
@@ -1267,14 +1267,14 @@ Gura_ImplementMethod(wx_DateTime, IsEqualUpTo)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxTimeSpan *ts = Object_wx_TimeSpan::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsEqualUpTo(*dt, *ts);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Add)
@@ -1291,13 +1291,13 @@ Gura_ImplementMethod(wx_DateTime, Add)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Add(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Add_1)
@@ -1314,13 +1314,13 @@ Gura_ImplementMethod(wx_DateTime, Add_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Add(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Add_2)
@@ -1337,13 +1337,13 @@ Gura_ImplementMethod(wx_DateTime, Add_2)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Add(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Add_3)
@@ -1360,13 +1360,13 @@ Gura_ImplementMethod(wx_DateTime, Add_3)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Add(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Subtract)
@@ -1383,13 +1383,13 @@ Gura_ImplementMethod(wx_DateTime, Subtract)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Subtract(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Subtract_1)
@@ -1406,13 +1406,13 @@ Gura_ImplementMethod(wx_DateTime, Subtract_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTimeSpan *diff = Object_wx_TimeSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Subtract(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Subtract_2)
@@ -1429,13 +1429,13 @@ Gura_ImplementMethod(wx_DateTime, Subtract_2)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->Subtract(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Subtract_3)
@@ -1452,13 +1452,13 @@ Gura_ImplementMethod(wx_DateTime, Subtract_3)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateSpan *diff = Object_wx_DateSpan::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->Subtract(*diff);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Subtract_4)
@@ -1475,13 +1475,13 @@ Gura_ImplementMethod(wx_DateTime, Subtract_4)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxTimeSpan rtn = pThis->GetEntity()->Subtract(*dt);
 	return ReturnValue(env, args, Value(new Object_wx_TimeSpan(new wxTimeSpan(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ParseRfc822Date)
@@ -1498,13 +1498,13 @@ Gura_ImplementMethod(wx_DateTime, ParseRfc822Date)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString date = wxString::FromUTF8(args.GetString(0));
 	wxChar rtn = pThis->GetEntity()->ParseRfc822Date(date);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ParseFormat)
@@ -1523,7 +1523,7 @@ Gura_ImplementMethod(wx_DateTime, ParseFormat)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString date = wxString::FromUTF8(args.GetString(0));
 	wxString _format;
 	const wxChar *format = wxDefaultDateTimeFormat;
@@ -1537,7 +1537,7 @@ Gura_ImplementMethod(wx_DateTime, ParseFormat)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ParseDateTime)
@@ -1554,13 +1554,13 @@ Gura_ImplementMethod(wx_DateTime, ParseDateTime)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString datetime = wxString::FromUTF8(args.GetString(0));
 	wxChar rtn = pThis->GetEntity()->ParseDateTime(datetime);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ParseDate)
@@ -1577,13 +1577,13 @@ Gura_ImplementMethod(wx_DateTime, ParseDate)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString date = wxString::FromUTF8(args.GetString(0));
 	wxChar rtn = pThis->GetEntity()->ParseDate(date);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ParseTime)
@@ -1600,13 +1600,13 @@ Gura_ImplementMethod(wx_DateTime, ParseTime)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString time = wxString::FromUTF8(args.GetString(0));
 	wxChar rtn = pThis->GetEntity()->ParseTime(time);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, Format)
@@ -1623,7 +1623,7 @@ Gura_ImplementMethod(wx_DateTime, Format)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString _format;
 	const wxChar *format = wxDefaultDateTimeFormat;
 	if (args.IsValid(0)) {
@@ -1634,7 +1634,7 @@ Gura_ImplementMethod(wx_DateTime, Format)
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, FormatDate)
@@ -1648,12 +1648,12 @@ Gura_ImplementMethod(wx_DateTime, FormatDate)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->FormatDate();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, FormatTime)
@@ -1666,7 +1666,7 @@ Gura_ImplementMethod(wx_DateTime, FormatTime)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->FormatTime();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -1681,7 +1681,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISODate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->FormatISODate();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -1696,7 +1696,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISOTime)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->FormatISOTime();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -1714,12 +1714,12 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDayInSameWeek)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->SetToWeekDayInSameWeek(, );
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetWeekDayInSameWeek)
@@ -1735,12 +1735,12 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDayInSameWeek)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetWeekDayInSameWeek(, );
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToNextWeekDay)
@@ -1756,12 +1756,12 @@ Gura_ImplementMethod(wx_DateTime, SetToNextWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->SetToNextWeekDay();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetNextWeekDay)
@@ -1777,12 +1777,12 @@ Gura_ImplementMethod(wx_DateTime, GetNextWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetNextWeekDay();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToPrevWeekDay)
@@ -1798,12 +1798,12 @@ Gura_ImplementMethod(wx_DateTime, SetToPrevWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime &rtn = pThis->GetEntity()->SetToPrevWeekDay();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetPrevWeekDay)
@@ -1819,12 +1819,12 @@ Gura_ImplementMethod(wx_DateTime, GetPrevWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetPrevWeekDay();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToWeekDay)
@@ -1842,7 +1842,7 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = 1;
 	if (args.IsValid(1)) n = args.GetInt(1);
 	int year = Inv_Year;
@@ -1851,7 +1851,7 @@ Gura_ImplementMethod(wx_DateTime, SetToWeekDay)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetWeekDay_1)
@@ -1869,7 +1869,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = 1;
 	if (args.IsValid(1)) n = args.GetInt(1);
 	int year = Inv_Year;
@@ -1878,7 +1878,7 @@ Gura_ImplementMethod(wx_DateTime, GetWeekDay_1)
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToLastWeekDay)
@@ -1895,14 +1895,14 @@ Gura_ImplementMethod(wx_DateTime, SetToLastWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int year = Inv_Year;
 	if (args.IsValid(2)) year = args.GetInt(2);
 	bool rtn = pThis->GetEntity()->SetToLastWeekDay(, , year);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetLastWeekDay)
@@ -1919,14 +1919,14 @@ Gura_ImplementMethod(wx_DateTime, GetLastWeekDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int year = Inv_Year;
 	if (args.IsValid(2)) year = args.GetInt(2);
 	wxDateTime rtn = pThis->GetEntity()->GetLastWeekDay(, , year);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_DateTime, SetToWeekOfYear)
@@ -1942,7 +1942,7 @@ Gura_DeclareClassMethod(wx_DateTime, SetToWeekOfYear)
 Gura_ImplementClassMethod(wx_DateTime, SetToWeekOfYear)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int year = args.GetInt(0);
 	wxDateTime_t *numWeek = Object_wx_DateTime_t::GetObject(args, 1)->GetEntity();
@@ -1950,7 +1950,7 @@ Gura_ImplementClassMethod(wx_DateTime, SetToWeekOfYear)
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToLastMonthDay)
@@ -1967,14 +1967,14 @@ Gura_ImplementMethod(wx_DateTime, SetToLastMonthDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int year = Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
 	wxDateTime &rtn = pThis->GetEntity()->SetToLastMonthDay(, year);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetLastMonthDay)
@@ -1991,14 +1991,14 @@ Gura_ImplementMethod(wx_DateTime, GetLastMonthDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int year = Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
 	wxDateTime rtn = pThis->GetEntity()->GetLastMonthDay(, year);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToYearDay)
@@ -2015,13 +2015,13 @@ Gura_ImplementMethod(wx_DateTime, SetToYearDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *yday = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime &rtn = pThis->GetEntity()->SetToYearDay(*yday);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetYearDay)
@@ -2038,13 +2038,13 @@ Gura_ImplementMethod(wx_DateTime, GetYearDay)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime_t *yday = Object_wx_DateTime_t::GetObject(args, 0)->GetEntity();
 	wxDateTime rtn = pThis->GetEntity()->GetYearDay(*yday);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetJulianDayNumber)
@@ -2058,12 +2058,12 @@ Gura_ImplementMethod(wx_DateTime, GetJulianDayNumber)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetJulianDayNumber();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetJDN)
@@ -2077,12 +2077,12 @@ Gura_ImplementMethod(wx_DateTime, GetJDN)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetJDN();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetModifiedJulianDayNumber)
@@ -2096,12 +2096,12 @@ Gura_ImplementMethod(wx_DateTime, GetModifiedJulianDayNumber)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetModifiedJulianDayNumber();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetMJD)
@@ -2115,12 +2115,12 @@ Gura_ImplementMethod(wx_DateTime, GetMJD)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetMJD();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, GetRataDie)
@@ -2134,12 +2134,12 @@ Gura_ImplementMethod(wx_DateTime, GetRataDie)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetRataDie();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, FromTimezone)
@@ -2156,14 +2156,14 @@ Gura_ImplementMethod(wx_DateTime, FromTimezone)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime rtn = pThis->GetEntity()->FromTimezone(, noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ToTimezone)
@@ -2180,14 +2180,14 @@ Gura_ImplementMethod(wx_DateTime, ToTimezone)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime rtn = pThis->GetEntity()->ToTimezone(, noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, MakeTimezone)
@@ -2204,14 +2204,14 @@ Gura_ImplementMethod(wx_DateTime, MakeTimezone)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime &rtn = pThis->GetEntity()->MakeTimezone(, noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, MakeFromTimezone)
@@ -2228,14 +2228,14 @@ Gura_ImplementMethod(wx_DateTime, MakeFromTimezone)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(1)) noDST = args.GetBoolean(1);
 	wxDateTime &rtn = pThis->GetEntity()->MakeFromTimezone(, noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, ToUTC)
@@ -2252,14 +2252,14 @@ Gura_ImplementMethod(wx_DateTime, ToUTC)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(0)) noDST = args.GetBoolean(0);
 	wxDateTime rtn = pThis->GetEntity()->ToUTC(noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, MakeUTC)
@@ -2276,14 +2276,14 @@ Gura_ImplementMethod(wx_DateTime, MakeUTC)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool noDST = false;
 	if (args.IsValid(0)) noDST = args.GetBoolean(0);
 	wxDateTime &rtn = pThis->GetEntity()->MakeUTC(noDST);
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DateTime, IsDST)
@@ -2299,12 +2299,12 @@ Gura_ImplementMethod(wx_DateTime, IsDST)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->IsDST();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

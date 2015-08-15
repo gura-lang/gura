@@ -10,7 +10,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 SymbolPool *SymbolPool::_pInst = nullptr;
 
-const SymbolSet SymbolSet::Null;
+const SymbolSet SymbolSet::Empty;
 
 //-----------------------------------------------------------------------------
 // Symbol

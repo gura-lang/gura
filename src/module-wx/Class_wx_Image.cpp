@@ -55,7 +55,7 @@ Gura_DeclareFunction(ImageEmpty)
 Gura_ImplementFunction(ImageEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Image *pEntity = new wx_Image();
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -79,7 +79,7 @@ Gura_DeclareFunction(Image)
 Gura_ImplementFunction(Image)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wx_Image *pEntity = new wx_Image(*image);
 	Object_wx_Image *pObj = Object_wx_Image::GetThisObj(args);
@@ -106,7 +106,7 @@ Gura_DeclareFunction(Image_1)
 Gura_ImplementFunction(Image_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Image *pEntity = new wx_Image(*bitmap);
@@ -121,7 +121,7 @@ Gura_ImplementFunction(Image_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Image_2)
@@ -137,7 +137,7 @@ Gura_DeclareFunction(Image_2)
 Gura_ImplementFunction(Image_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	bool clear = true;
@@ -170,7 +170,7 @@ Gura_DeclareFunction(Image_3)
 Gura_ImplementFunction(Image_3)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
@@ -189,7 +189,7 @@ Gura_ImplementFunction(Image_3)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Image_4)
@@ -205,7 +205,7 @@ Gura_DeclareFunction(Image_4)
 Gura_ImplementFunction(Image_4)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -236,7 +236,7 @@ Gura_DeclareFunction(Image_5)
 Gura_ImplementFunction(Image_5)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -266,7 +266,7 @@ Gura_DeclareFunction(Image_6)
 Gura_ImplementFunction(Image_6)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -297,7 +297,7 @@ Gura_DeclareFunction(Image_7)
 Gura_ImplementFunction(Image_7)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -325,7 +325,7 @@ Gura_DeclareFunction(Image_8)
 Gura_ImplementFunction(Image_8)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char xpmData = args.GetChar(0);
 	wx_Image *pEntity = new wx_Image(xpmData);
@@ -340,7 +340,7 @@ Gura_ImplementFunction(Image_8)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Image, AddHandler)
@@ -352,10 +352,10 @@ Gura_DeclareClassMethod(wx_Image, AddHandler)
 Gura_ImplementClassMethod(wx_Image, AddHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImageHandler *handler = Object_wx_ImageHandler::GetObject(args, 0)->GetEntity();
 	wxImage::AddHandler(handler);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, CanRead)
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_Image, CanRead)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->CanRead(filename);
 	return ReturnValue(env, args, Value(rtn));
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_Image, Blur)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int blurRadius = args.GetInt(0);
 	wxImage rtn = pThis->GetEntity()->Blur(blurRadius);
 	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_Image, BlurHorizontal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int blurRadius = args.GetInt(0);
 	wxImage rtn = pThis->GetEntity()->BlurHorizontal(blurRadius);
 	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_Image, BlurVertical)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int blurRadius = args.GetInt(0);
 	wxImage rtn = pThis->GetEntity()->BlurVertical(blurRadius);
 	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
@@ -434,9 +434,9 @@ Gura_DeclareClassMethod(wx_Image, CleanUpHandlers)
 Gura_ImplementClassMethod(wx_Image, CleanUpHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImage::CleanUpHandlers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, ComputeHistogram)
@@ -453,13 +453,13 @@ Gura_ImplementMethod(wx_Image, ComputeHistogram)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageHistogram *histogram = Object_wx_ImageHistogram::GetObject(args, 0)->GetEntity();
 	unsigned rtn = pThis->GetEntity()->ComputeHistogram(*histogram);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, ConvertAlphaToMask)
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_Image, ConvertAlphaToMask)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned threshold = 128;
 	if (args.IsValid(0)) threshold = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->ConvertAlphaToMask(threshold);
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_Image, ConvertToGreyscale)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double lr = 0.299;
 	if (args.IsValid(0)) lr = args.GetDouble(0);
 	double lg = 0.587;
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_Image, ConvertToMono)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned r = args.GetInt(0);
 	unsigned g = args.GetInt(1);
 	unsigned b = args.GetInt(2);
@@ -535,7 +535,7 @@ Gura_ImplementMethod(wx_Image, Copy)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage rtn = pThis->GetEntity()->Copy();
 	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
 }
@@ -553,7 +553,7 @@ Gura_ImplementMethod(wx_Image, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	bool clear = true;
@@ -571,9 +571,9 @@ Gura_ImplementMethod(wx_Image, Destroy)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Destroy();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, FindFirstUnusedColour)
@@ -595,7 +595,7 @@ Gura_ImplementMethod(wx_Image, FindFirstUnusedColour)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned char r = args.GetUChar(0);
 	unsigned char g = args.GetUChar(1);
 	unsigned char b = args.GetUChar(2);
@@ -609,7 +609,7 @@ Gura_ImplementMethod(wx_Image, FindFirstUnusedColour)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Image, FindHandler)
@@ -622,7 +622,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler)
 Gura_ImplementClassMethod(wx_Image, FindHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(name);
 	return ReturnValue(env, args, Value(new Object_wx_ImageHandler(rtn, nullptr, OwnerFalse)));
@@ -639,7 +639,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler_1)
 Gura_ImplementClassMethod(wx_Image, FindHandler_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	long imageType = args.GetLong(1);
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(extension, imageType);
@@ -656,7 +656,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler_2)
 Gura_ImplementClassMethod(wx_Image, FindHandler_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	long imageType = args.GetLong(0);
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(imageType);
 	return ReturnValue(env, args, Value(new Object_wx_ImageHandler(rtn, nullptr, OwnerFalse)));
@@ -672,7 +672,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandlerMime)
 Gura_ImplementClassMethod(wx_Image, FindHandlerMime)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString mimetype = wxString::FromUTF8(args.GetString(0));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandlerMime(mimetype);
 	return ReturnValue(env, args, Value(new Object_wx_ImageHandler(rtn, nullptr, OwnerFalse)));
@@ -687,7 +687,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageExtWildcard)
 Gura_ImplementClassMethod(wx_Image, GetImageExtWildcard)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString rtn = wxImage::GetImageExtWildcard();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -704,7 +704,7 @@ Gura_ImplementMethod(wx_Image, GetAlphaXY)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned rtn = pThis->GetEntity()->GetAlpha(x, y);
@@ -721,11 +721,11 @@ Gura_ImplementMethod(wx_Image, GetAlpha)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *pEntity = pThis->GetEntity();
 	char *rtn = reinterpret_cast<char *>(pEntity->GetAlpha());
 	size_t bytes = pEntity->GetWidth() * pEntity->GetHeight();
-	if (rtn == nullptr || bytes == 0) return Value::Null;
+	if (rtn == nullptr || bytes == 0) return Value::Nil;
 	return ReturnValue(env, args,
 						Value(new Object_binary(env, rtn, bytes)));
 }
@@ -742,7 +742,7 @@ Gura_ImplementMethod(wx_Image, GetBlue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned rtn = pThis->GetEntity()->GetBlue(x, y);
@@ -760,12 +760,12 @@ Gura_ImplementMethod(wx_Image, GetData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned char rtn = pThis->GetEntity()->GetData();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, GetGreen)
@@ -780,7 +780,7 @@ Gura_ImplementMethod(wx_Image, GetGreen)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned rtn = pThis->GetEntity()->GetGreen(x, y);
@@ -799,7 +799,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageCount)
 Gura_ImplementClassMethod(wx_Image, GetImageCount)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -820,7 +820,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageCount_1)
 Gura_ImplementClassMethod(wx_Image, GetImageCount_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -838,7 +838,7 @@ Gura_DeclareClassMethod(wx_Image, GetHandlers)
 Gura_ImplementClassMethod(wx_Image, GetHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxList &rtn = wxImage::GetHandlers();
 	return ReturnValue(env, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 }
@@ -853,7 +853,7 @@ Gura_ImplementMethod(wx_Image, GetHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetHeight();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -868,7 +868,7 @@ Gura_ImplementMethod(wx_Image, GetMaskBlue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetMaskBlue();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -883,7 +883,7 @@ Gura_ImplementMethod(wx_Image, GetMaskGreen)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetMaskGreen();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -898,7 +898,7 @@ Gura_ImplementMethod(wx_Image, GetMaskRed)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetMaskRed();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -919,7 +919,7 @@ Gura_ImplementMethod(wx_Image, GetOrFindMaskColour)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned *r = args.GetInt(0);
 	unsigned *g = args.GetInt(1);
 	unsigned *b = args.GetInt(2);
@@ -927,7 +927,7 @@ Gura_ImplementMethod(wx_Image, GetOrFindMaskColour)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, GetPalette)
@@ -941,12 +941,12 @@ Gura_ImplementMethod(wx_Image, GetPalette)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxPalette &rtn = pThis->GetEntity()->GetPalette();
 	return ReturnValue(env, args, Value(new Object_wx_Palette(new wxPalette(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, GetRed)
@@ -961,7 +961,7 @@ Gura_ImplementMethod(wx_Image, GetRed)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned rtn = pThis->GetEntity()->GetRed(x, y);
@@ -979,7 +979,7 @@ Gura_ImplementMethod(wx_Image, GetSubImage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxImage rtn = pThis->GetEntity()->GetSubImage(*rect);
 	return ReturnValue(env, args, Value(new Object_wx_Image(new wxImage(rtn), nullptr, OwnerTrue)));
@@ -995,7 +995,7 @@ Gura_ImplementMethod(wx_Image, GetWidth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1015,7 +1015,7 @@ Gura_ImplementMethod(wx_Image, HSVValue)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double h = 0.0;
 	if (args.IsValid(0)) h = args.GetDouble(0);
 	double s = 0.0;
@@ -1023,10 +1023,10 @@ Gura_ImplementMethod(wx_Image, HSVValue)
 	double v = 0.0;
 	if (args.IsValid(2)) v = args.GetDouble(2);
 	pThis->GetEntity()->HSVValue(h, s, v);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, HSVtoRGB)
@@ -1039,7 +1039,7 @@ Gura_ImplementMethod(wx_Image, HSVtoRGB)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, HasAlpha)
@@ -1052,7 +1052,7 @@ Gura_ImplementMethod(wx_Image, HasAlpha)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasAlpha();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1067,7 +1067,7 @@ Gura_ImplementMethod(wx_Image, HasMask)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasMask();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1083,7 +1083,7 @@ Gura_ImplementMethod(wx_Image, GetOption)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOption(name);
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -1100,7 +1100,7 @@ Gura_ImplementMethod(wx_Image, GetOptionInt)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int rtn = pThis->GetEntity()->GetOptionInt(name);
 	return ReturnValue(env, args, Value(rtn));
@@ -1117,7 +1117,7 @@ Gura_ImplementMethod(wx_Image, HasOption)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasOption(name);
 	return ReturnValue(env, args, Value(rtn));
@@ -1132,9 +1132,9 @@ Gura_ImplementMethod(wx_Image, InitAlpha)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->InitAlpha();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Image, InitStandardHandlers)
@@ -1145,9 +1145,9 @@ Gura_DeclareClassMethod(wx_Image, InitStandardHandlers)
 Gura_ImplementClassMethod(wx_Image, InitStandardHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImage::InitStandardHandlers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Image, InsertHandler)
@@ -1159,10 +1159,10 @@ Gura_DeclareClassMethod(wx_Image, InsertHandler)
 Gura_ImplementClassMethod(wx_Image, InsertHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxImageHandler *handler = Object_wx_ImageHandler::GetObject(args, 0)->GetEntity();
 	wxImage::InsertHandler(handler);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, IsTransparent)
@@ -1178,7 +1178,7 @@ Gura_ImplementMethod(wx_Image, IsTransparent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned threshold = 128;
@@ -1200,7 +1200,7 @@ Gura_ImplementMethod(wx_Image, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -1223,7 +1223,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -1245,7 +1245,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	long type = args.GetLong(1);
 	int index = -1;
@@ -1267,7 +1267,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_3)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -1286,7 +1286,7 @@ Gura_ImplementMethod(wx_Image, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1306,7 +1306,7 @@ Gura_ImplementMethod(wx_Image, RGBValue)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned r = 0;
 	if (args.IsValid(0)) r = args.GetInt(0);
 	unsigned g = 0;
@@ -1314,10 +1314,10 @@ Gura_ImplementMethod(wx_Image, RGBValue)
 	unsigned b = 0;
 	if (args.IsValid(2)) b = args.GetInt(2);
 	pThis->GetEntity()->RGBValue(r, g, b);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, RGBtoHSV)
@@ -1330,7 +1330,7 @@ Gura_ImplementMethod(wx_Image, RGBtoHSV)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_Image, RemoveHandler)
@@ -1343,7 +1343,7 @@ Gura_DeclareClassMethod(wx_Image, RemoveHandler)
 Gura_ImplementClassMethod(wx_Image, RemoveHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxImage::RemoveHandler(name);
 	return ReturnValue(env, args, Value(rtn));
@@ -1360,7 +1360,7 @@ Gura_ImplementMethod(wx_Image, Mirror)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool horizontally = true;
 	if (args.IsValid(0)) horizontally = args.GetBoolean(0);
 	wxImage rtn = pThis->GetEntity()->Mirror(horizontally);
@@ -1382,7 +1382,7 @@ Gura_ImplementMethod(wx_Image, Replace)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned r1 = args.GetInt(0);
 	unsigned g1 = args.GetInt(1);
 	unsigned b1 = args.GetInt(2);
@@ -1390,7 +1390,7 @@ Gura_ImplementMethod(wx_Image, Replace)
 	unsigned g2 = args.GetInt(4);
 	unsigned b2 = args.GetInt(5);
 	pThis->GetEntity()->Replace(r1, g1, b1, r2, g2, b2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, Rescale)
@@ -1406,7 +1406,7 @@ Gura_ImplementMethod(wx_Image, Rescale)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	wxImageResizeQuality quality = wxIMAGE_QUALITY_NORMAL;
@@ -1430,7 +1430,7 @@ Gura_ImplementMethod(wx_Image, Resize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	int red = -1;
@@ -1457,7 +1457,7 @@ Gura_ImplementMethod(wx_Image, Rotate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double angle = args.GetDouble(0);
 	wxPoint *rotationCentre = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	bool interpolating = true;
@@ -1478,10 +1478,10 @@ Gura_ImplementMethod(wx_Image, RotateHue)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double angle = args.GetDouble(0);
 	pThis->GetEntity()->RotateHue(angle);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, Rotate90)
@@ -1495,7 +1495,7 @@ Gura_ImplementMethod(wx_Image, Rotate90)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool clockwise = true;
 	if (args.IsValid(0)) clockwise = args.GetBoolean(0);
 	wxImage rtn = pThis->GetEntity()->Rotate90(clockwise);
@@ -1514,7 +1514,7 @@ Gura_ImplementMethod(wx_Image, SaveFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int type = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SaveFile(name, type);
@@ -1533,7 +1533,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SaveFile(name, mimetype);
@@ -1551,7 +1551,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->SaveFile(name);
 	return ReturnValue(env, args, Value(rtn));
@@ -1569,7 +1569,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_3)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int type = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->SaveFile(*stream, type);
@@ -1588,7 +1588,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_4)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SaveFile(*stream, mimetype);
@@ -1608,7 +1608,7 @@ Gura_ImplementMethod(wx_Image, Scale)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	wxImageResizeQuality quality = wxIMAGE_QUALITY_NORMAL;
@@ -1632,7 +1632,7 @@ Gura_ImplementMethod(wx_Image, Size)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	int red = -1;
@@ -1655,7 +1655,7 @@ Gura_ImplementMethod(wx_Image, SetAlpha)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned char alpha = 0;
 	const Binary &buff = args.GetBinary(0);
 	wxImage *pEntity = pThis->GetEntity();
@@ -1663,10 +1663,10 @@ Gura_ImplementMethod(wx_Image, SetAlpha)
 	size_t bytesDst = pEntity->GetWidth() * pEntity->GetHeight();
 	if (bytesDst > buff.size()) {
 		sig.SetError(ERR_ValueError, "not enough data");
-		return Value::Null;
+		return Value::Nil;
 	}
 	::memcpy(pEntity->GetAlpha(), buff.data(), bytesDst);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetAlphaXY)
@@ -1681,12 +1681,12 @@ Gura_ImplementMethod(wx_Image, SetAlphaXY)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned alpha = args.GetInt(2);
 	pThis->GetEntity()->SetAlpha(x, y, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetData)
@@ -1702,13 +1702,13 @@ Gura_ImplementMethod(wx_Image, SetData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned char data = args.GetUChar(0);
 	pThis->GetEntity()->SetData(data);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetMask)
@@ -1721,11 +1721,11 @@ Gura_ImplementMethod(wx_Image, SetMask)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool hasMask = true;
 	if (args.IsValid(0)) hasMask = args.GetBoolean(0);
 	pThis->GetEntity()->SetMask(hasMask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetMaskColour)
@@ -1740,12 +1740,12 @@ Gura_ImplementMethod(wx_Image, SetMaskColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
 	pThis->GetEntity()->SetMaskColour(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetMaskFromImage)
@@ -1762,7 +1762,7 @@ Gura_ImplementMethod(wx_Image, SetMaskFromImage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *mask = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	unsigned mr = args.GetInt(1);
 	unsigned mg = args.GetInt(2);
@@ -1782,11 +1782,11 @@ Gura_ImplementMethod(wx_Image, SetOption)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->SetOption(name, value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetOption_1)
@@ -1800,11 +1800,11 @@ Gura_ImplementMethod(wx_Image, SetOption_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int value = args.GetInt(1);
 	pThis->GetEntity()->SetOption(name, value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetPalette)
@@ -1817,10 +1817,10 @@ Gura_ImplementMethod(wx_Image, SetPalette)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPalette(*palette);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetRGB)
@@ -1837,14 +1837,14 @@ Gura_ImplementMethod(wx_Image, SetRGB)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	unsigned red = args.GetInt(2);
 	unsigned green = args.GetInt(3);
 	unsigned blue = args.GetInt(4);
 	pThis->GetEntity()->SetRGB(x, y, red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Image, SetRGBRect)
@@ -1860,13 +1860,13 @@ Gura_ImplementMethod(wx_Image, SetRGBRect)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	unsigned red = args.GetInt(1);
 	unsigned green = args.GetInt(2);
 	unsigned blue = args.GetInt(3);
 	pThis->GetEntity()->SetRGB(*rect, red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

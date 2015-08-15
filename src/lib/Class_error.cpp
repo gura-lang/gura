@@ -35,7 +35,7 @@ Value Object_error::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = _err.GetSourceName();
-		if (sourceName == nullptr) return Value::Null;
+		if (sourceName == nullptr) return Value::Nil;
 		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(_err.GetLineNoTop());
@@ -52,7 +52,7 @@ Value Object_error::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwner.release())));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_error::ToString(bool exprFlag)

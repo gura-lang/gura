@@ -2276,7 +2276,7 @@ Iterator_cross::Iterator_cross(Environment *pEnv, Function *pFuncBlock,
 			_iteratorOwner.push_back(pIterator);
 		} else {
 			_iteratorOwner.push_back(nullptr);
-			_valListArg.push_back(Value::Null);
+			_valListArg.push_back(Value::Nil);
 			Iterator::Delete(pIterator);
 		}
 		(*ppExprLeft)->Assign(*_pEnv, valueVar, nullptr, false);

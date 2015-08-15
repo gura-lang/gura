@@ -49,7 +49,7 @@ Gura_DeclareFunction(IconBundleEmpty)
 Gura_ImplementFunction(IconBundleEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_IconBundle *pEntity = new wx_IconBundle();
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -74,7 +74,7 @@ Gura_DeclareFunction(IconBundle)
 Gura_ImplementFunction(IconBundle)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	long type = args.GetLong(1);
 	wx_IconBundle *pEntity = new wx_IconBundle(file, type);
@@ -100,7 +100,7 @@ Gura_DeclareFunction(IconBundle_1)
 Gura_ImplementFunction(IconBundle_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*icon);
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetThisObj(args);
@@ -125,7 +125,7 @@ Gura_DeclareFunction(IconBundle_2)
 Gura_ImplementFunction(IconBundle_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxIconBundle *ic = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*ic);
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetThisObj(args);
@@ -150,11 +150,11 @@ Gura_ImplementMethod(wx_IconBundle, AddIcon)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	long type = args.GetLong(1);
 	pThis->GetEntity()->AddIcon(file, type);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_IconBundle, AddIcon_1)
@@ -167,10 +167,10 @@ Gura_ImplementMethod(wx_IconBundle, AddIcon_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddIcon(*icon);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_IconBundle, GetIcon)
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_IconBundle, GetIcon)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	const wxIcon &rtn = pThis->GetEntity()->GetIcon(*size);
 	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_IconBundle, GetIcon_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord size = -1;
 	if (args.IsValid(0)) size = static_cast<wxCoord>(args.GetInt(0));
 	const wxIcon &rtn = pThis->GetEntity()->GetIcon(size);

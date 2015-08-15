@@ -92,7 +92,7 @@ Value Processor::Run(Signal &sig)
 {
 	Value result;
 	while (!CheckDone()) {
-		if (!Step(sig, result)) return Value::Null;
+		if (!Step(sig, result)) return Value::Nil;
 	}
 	return result;
 }

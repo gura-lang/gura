@@ -431,13 +431,13 @@ ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
 Value Environment::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Environment::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Callable *Environment::GetCallable(Signal &sig, const Symbol *pSymbol)
@@ -461,26 +461,26 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 		sig.SetError(ERR_MemberAccessError,
 				"can't access module member %s.%s",
 				dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	} else if (IsClass()) {
 		sig.SetError(ERR_MemberAccessError,
 				"can't access class member %s.%s",
 				dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	} else if (IsObject()) {
 		sig.SetError(ERR_MemberAccessError,
 				"can't access object member %s#%s",
 				dynamic_cast<const Object *>(this)->GetClass()->GetName(),
 				pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		sig.SetError(ERR_ValueError,
 				"can't access variable %s", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
 	bool evaluatedFlag = false;
 	Value result = const_cast<Environment *>(this)->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (evaluatedFlag) return result;
 	if (pValueDefault != nullptr) return *pValueDefault;
 	if (IsModule()) {
@@ -500,7 +500,7 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 		sig.SetError(ERR_ValueError,
 				"undefined symbol '%s'", pSymbol->GetName());
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 void Environment::AssignIntegratedModule(Module *pModule)

@@ -27,7 +27,7 @@ Object *Object_exif::Clone() const
 Value Object_exif::IndexGet(Environment &env, const Value &valueIdx)
 {
 	Signal &sig = GetSignal();
-	if (_pObj0thIFD.IsNull()) return Value::Null;
+	if (_pObj0thIFD.IsNull()) return Value::Nil;
 	return _pObj0thIFD->IndexGet(env, valueIdx);
 }
 
@@ -48,27 +48,27 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
-	if (_pObj0thIFD.IsNull()) return Value::Null;
+	if (_pObj0thIFD.IsNull()) return Value::Nil;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {
 		return Value(_bigendianFlag? Gura_UserSymbol(big) : Gura_UserSymbol(little));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
 		return Value(Object_ifd::Reference(_pObj0thIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
-		if (_pObj1stIFD.IsNull()) return Value::Null;
+		if (_pObj1stIFD.IsNull()) return Value::Nil;
 		return Value(Object_ifd::Reference(_pObj1stIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
-		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
+		if (_pObjBinaryThumbnail.IsNull()) return Value::Nil;
 		if (_pObjImageThumbnail.IsNull()) {
 			AutoPtr<Object_image> pObjImage(new Object_image(env, new Image(Image::FORMAT_RGBA)));
 			if (_strip.validFlag) {
 				if (!pObjImage->GetImage()->AllocBuffer(sig, _strip.width, _strip.height, 0x00)) {
-					return Value::Null;
+					return Value::Nil;
 				}
 				const Binary &buff = _pObjBinaryThumbnail->GetBinary();
 				size_t bytesExpect = _strip.width * _strip.height * 3;
 				if (buff.size() < bytesExpect) {
-					return Value::Null;
+					return Value::Nil;
 				}
 				Binary::const_iterator p = buff.begin();
 				std::unique_ptr<Image::Scanner> pScannerDst(
@@ -83,14 +83,14 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 				Stream_Binary stream(env,
 					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
 				if (!ImageStreamer_JPEG::ReadStream(env, sig, pObjImage->GetImage(), stream)) {
-					return Value::Null;
+					return Value::Nil;
 				}
 			}
 			_pObjImageThumbnail.reset(pObjImage.release());
 		}
 		return Value(Object_image::Reference(_pObjImageThumbnail.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_at_jpeg))) {
-		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Null;
+		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Nil;
 		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
 	return _pObj0thIFD->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
@@ -268,12 +268,12 @@ Gura_ImplementFunction(exif)
 	Value value;
 	if (args.Is_stream(0)) {
 		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (pObj != nullptr) {
 			value = Value(pObj);
 		} else if (args.IsSet(Gura_Symbol(raise))) {
 			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else {
 		Object_exif *pObj = new Object_exif();

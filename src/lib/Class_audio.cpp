@@ -50,7 +50,7 @@ Value Object_audio::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<UInt>(_pAudio->GetBytesPerSample()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_audio::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -112,42 +112,42 @@ Gura_ImplementFunction(audio)
 	AutoPtr<Audio> pAudio;
 	if (valList[0].Is_symbol()) {
 		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(channels), VTYPE_number));
 			pDecl->ValidateAndCast(env, valList[1]);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			nChannels = valList[1].GetSizeT();
 			if (nChannels != 1 && nChannels != 2) {
 				sig.SetError(ERR_ValueError, "channels must be one or two");
-				return Value::Null;
+				return Value::Nil;
 			}
 		}
 		if (valList.size() >= 3) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(samplespersec), VTYPE_number));
 			pDecl->ValidateAndCast(env, valList[2]);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			nSamplesPerSec = valList[2].GetSizeT();
 			if (nSamplesPerSec == 0) {
 				sig.SetError(ERR_ValueError, "samplespersec must be more then zero");
-				return Value::Null;
+				return Value::Nil;
 			}
 		}
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 	} else {
 		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
 		pDecl->ValidateAndCast(env, valList[0]);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		Stream &stream = valList[0].GetStream();
 		pAudio.reset(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		const char *audioType = nullptr;
 		if (valList.size() >= 2) {
 			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(audiotype), VTYPE_string));
 			pDecl->ValidateAndCast(env, valList[1]);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			audioType = valList[1].GetString();
 		}
-		if (!pAudio->Read(env, stream, audioType)) return Value::Null;
+		if (!pAudio->Read(env, stream, audioType)) return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_audio(env, pAudio.release())));
 }
@@ -174,7 +174,7 @@ Gura_ImplementMethod(audio, each)
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
 	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
@@ -200,13 +200,13 @@ Gura_ImplementMethod(audio, get)
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t offset = args.GetSizeT(1);
 	int data = 0;
 	if (!pAudio->GetData(iChannel, offset, &data)) {
 		sig.SetError(ERR_IndexError, "offset is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(data);
 }
@@ -230,13 +230,13 @@ Gura_ImplementMethod(audio, put)
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t offset = args.GetSizeT(1);
 	int data = args.GetInt(2);
 	if (!pAudio->PutData(iChannel, offset, data)) {
 		sig.SetError(ERR_IndexError, "offset is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -261,13 +261,13 @@ Gura_ImplementMethod(audio, sinewave)
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	double freq = args.GetDouble(1);
 	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
 	int amplitude = args.Is_number(3)? args.GetInt(3) : -1;
 	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -291,11 +291,11 @@ Gura_ImplementMethod(audio, store)
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t offset = args.GetSizeT(1);
 	Iterator *pIterator = args.GetIterator(2);
-	if (!pAudio->StoreData(env, iChannel, offset, pIterator)) return Value::Null;
+	if (!pAudio->StoreData(env, iChannel, offset, pIterator)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -325,7 +325,7 @@ bool Class_audio::CastFrom(Environment &env, Value &value, const Declaration *pD
 	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		pAudio->Read(env, value.GetStream(), nullptr);
-		value = Value::Null; // delete stream instance
+		value = Value::Nil; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_audio(env, pAudio.release()));
 		return true;

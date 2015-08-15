@@ -48,7 +48,7 @@ Gura_DeclareFunction(HtmlColourCell)
 Gura_ImplementFunction(HtmlColourCell)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxColour *clr = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int flags = wxHTML_CLR_FOREGROUND;
 	if (args.IsValid(1)) flags = args.GetInt(1);

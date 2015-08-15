@@ -26,7 +26,7 @@ bool Object_mpz::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_mpz::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_mpz::ToString(bool exprFlag)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(mpz)
 		mpz_class num;
 		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
-			return Value::Null;
+			return Value::Nil;
 		}
 		value = Value(new Object_mpz(num));
 	} else if (args.IsType(0, VTYPE_mpz)) {
@@ -77,7 +77,7 @@ Gura_ImplementFunction(mpz)
 		value = Value(new Object_mpz(num));
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, value);
 }

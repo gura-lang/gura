@@ -54,7 +54,7 @@ Gura_DeclareFunction(FontPickerCtrl)
 Gura_ImplementFunction(FontPickerCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxFont *font = (wxFont *)(&wxNullFont);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxFont *font = (wxFont *)(&wxNullFont);
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont rtn = pThis->GetEntity()->GetSelectedFont();
 	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
@@ -143,10 +143,10 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetSelectedFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, GetMaxPointSize)
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned int rtn = pThis->GetEntity()->GetMaxPointSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -174,10 +174,10 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetMaxPointSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned max = args.GetInt(0);
 	pThis->GetEntity()->SetMaxPointSize(max);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

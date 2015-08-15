@@ -22,7 +22,7 @@ Gura_DeclareFunction(echo)
 Gura_ImplementFunction(echo)
 {
 	env.GetGlobal()->SetEchoFlag(args.GetBoolean(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sys.exit(status?:number)
@@ -38,7 +38,7 @@ Gura_DeclareFunction(exit)
 Gura_ImplementFunction(exit)
 {
 	::exit(args.Is_number(0)? args.GetInt(0) : 0);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sys.required_version(major:number, minor:number, patch:number)
@@ -65,9 +65,9 @@ Gura_ImplementFunction(required_version)
 	if (numReq > numSys) {
 		sig.SetError(ERR_VersionError,
 			 "required version is %d.%d.%d or later", verMajor, verMinor, verPatch);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_ModuleEntry()

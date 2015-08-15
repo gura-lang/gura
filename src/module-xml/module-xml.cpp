@@ -865,7 +865,7 @@ Gura_ImplementMethod(parser, parse)
 	Signal &sig = env.GetSignal();
 	Object_parser *pObj = Object_parser::GetThisObj(args);
 	pObj->Parse(env, args.GetStream(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // implementation of class Parser
@@ -906,7 +906,7 @@ Value Object_attribute::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pAttribute->GetValue());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_attribute::ToString(bool exprFlag)
@@ -942,14 +942,14 @@ Value Object_element::IndexGet(Environment &env, const Value &valueIdx)
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_ValueError, "index must be a string");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const AttributeOwner *pAttributes = _pElement->GetAttributes();
 	const Attribute *pAttribute = (pAttributes == nullptr)?
 					nullptr : pAttributes->FindByName(valueIdx.GetString());
 	if (pAttribute == nullptr) {
 		sig.SetError(ERR_IndexError, "specified attribute doesn't exist");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(pAttribute->GetValue());
 }
@@ -971,27 +971,27 @@ Value Object_element::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(tagname))) {
-		if (!_pElement->IsTag()) return Value::Null;
+		if (!_pElement->IsTag()) return Value::Nil;
 		return Value(_pElement->GetTagName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		if (!_pElement->IsText()) return Value::Null;
+		if (!_pElement->IsText()) return Value::Nil;
 		return Value(_pElement->GetText());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
-		if (!_pElement->IsComment()) return Value::Null;
+		if (!_pElement->IsComment()) return Value::Nil;
 		return Value(_pElement->GetComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ElementOwner *pChildren = _pElement->GetChildren();
-		if (pChildren == nullptr) return Value::Null;
+		if (pChildren == nullptr) return Value::Nil;
 		Iterator *pIterator = new Iterator_element(pChildren->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const AttributeOwner *pAttrs = _pElement->GetAttributes();
-		if (pAttrs == nullptr) return Value::Null;
+		if (pAttrs == nullptr) return Value::Nil;
 		Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
 		return Value(new Object_iterator(env, pIterator));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_element::ToString(bool exprFlag)
@@ -1027,7 +1027,7 @@ Gura_ImplementMethod(element, addchild)
 	Signal &sig = env.GetSignal();
 	Object_element *pObj = Object_element::GetThisObj(args);
 	pObj->GetElement()->AddChild(env, sig, args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // xml.element#gettext()
@@ -1044,7 +1044,7 @@ Gura_ImplementMethod(element, gettext)
 	Signal &sig = env.GetSignal();
 	Object_element *pObj = Object_element::GetThisObj(args);
 	String str = pObj->GetElement()->GatherText();
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(str);
 }
 
@@ -1096,7 +1096,7 @@ Gura_ImplementMethod(element, write)
 	int cntSpace = args.Is_number(3)? args.GetInt(3) : 2;
 	pObj->GetElement()->Write(sig, args.GetStream(0),
 				fancyFlag, indentLevel, MakeIndentUnit(cntSpace).c_str());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // operator <<
@@ -1104,7 +1104,7 @@ Gura_ImplementBinaryOperator(Shl, element, any)
 {
 	Signal &sig = env.GetSignal();
 	Object_element *pObj = Object_element::GetObject(valueLeft);
-	if (!pObj->GetElement()->AddChild(env, sig, valueRight)) return Value::Null;
+	if (!pObj->GetElement()->AddChild(env, sig, valueRight)) return Value::Nil;
 	return valueLeft;
 }
 
@@ -1146,11 +1146,11 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(encoding))) {
 		return Value(_pDocument->GetEncoding());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
-		if (_pDocument->GetRoot() == nullptr) return Value::Null;
+		if (_pDocument->GetRoot() == nullptr) return Value::Nil;
 		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -1161,13 +1161,13 @@ Value Object_document::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
 		if (!value.IsInstanceOf(VTYPE_element)) {
 			sig.SetError(ERR_TypeError, "must specify an instance of xml.element");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_pDocument->SetRoot(Object_element::GetObject(value)->GetElement()->Reference());
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_document::ToString(bool exprFlag)
@@ -1197,7 +1197,7 @@ Gura_ImplementMethod(document, parse)
 	Object_document *pObj = Object_document::GetThisObj(args);
 	SimpleStream_CStringReader streamSrc(args.GetString(0));
 	pObj->GetDocument()->Parse(sig, streamSrc);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // xml.document#read(stream:stream:r):void
@@ -1215,7 +1215,7 @@ Gura_ImplementMethod(document, read)
 	Signal &sig = env.GetSignal();
 	Object_document *pObj = Object_document::GetThisObj(args);
 	pObj->GetDocument()->Parse(sig, args.GetStream(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // xml.document#textize(fancy?:boolean, tabs?:number)
@@ -1262,7 +1262,7 @@ Gura_ImplementMethod(document, write)
 	int cntSpace = args.Is_number(2)? args.GetInt(2) : 2;
 	pObj->GetDocument()->Write(sig, args.GetStream(0),
 						fancyFlag, MakeIndentUnit(cntSpace).c_str());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // implementation of class document
@@ -1387,22 +1387,22 @@ Gura_ImplementFunction(element)
 	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0));
 	foreach_const (ValueDict, iter, args.GetValueDictArg()) {
 		String key = iter->first.ToString(false);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		String value = iter->second.ToString(false);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pElement->GetAttributes()->push_back(new Attribute(key, value));
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (pExprBlock != nullptr) {
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			for (const Expr *pExpr = *ppExpr; pExpr != nullptr; ) {
 				Value value = pExpr->Exec2(env, pSeqPostHandler);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 				if (!pElement->AddChild(env, sig, value)) {
 					sig.AddExprCause(pExpr);
-					return Value::Null;
+					return Value::Nil;
 				}
 				if (pExpr->IsCaller()) {
 					pExpr = dynamic_cast<const Expr_Caller *>(pExpr)->GetTrailer();
@@ -1450,7 +1450,7 @@ Gura_ImplementFunction(document)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Document> pDocument(new Document());
 	if (args.Is_stream(0)) {
-		if (!pDocument->Parse(sig, args.GetStream(0))) return Value::Null;
+		if (!pDocument->Parse(sig, args.GetStream(0))) return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_document(pDocument.release())));
 }

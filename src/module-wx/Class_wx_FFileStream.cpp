@@ -47,7 +47,7 @@ Gura_DeclareFunction(FFileStream)
 Gura_ImplementFunction(FFileStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString iofileName = wxString::FromUTF8(args.GetString(0));
 	wx_FFileStream *pEntity = new wx_FFileStream(iofileName);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(FFileStream)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

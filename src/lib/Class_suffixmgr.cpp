@@ -32,7 +32,7 @@ bool Object_suffixmgr::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_suffixmgr::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_suffixmgr::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -83,7 +83,7 @@ Gura_ImplementFunction(suffixmgr)
 						env.GetGlobal()->GetSuffixMgrForString()));
 	} else {
 		sig.SetError(ERR_ValueError, "type must be `number or `string");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(pObj.release());
 }
@@ -113,16 +113,16 @@ Gura_ImplementMethod(suffixmgr, assign)
 	Signal &sig = env.GetSignal();
 	SuffixMgr &suffixMgr = Object_suffixmgr::GetThisObj(args)->GetSuffixMgr();
 	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	const Symbol *pSymbol = args.GetSymbol(0);
 	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != nullptr) {
 		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
 	SuffixMgrEntryCustom *pSuffixMgrEntry =
 					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
 	suffixMgr.Assign(pSymbol, pSuffixMgrEntry);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

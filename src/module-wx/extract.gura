@@ -16,7 +16,7 @@ Gura_DeclareMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 Gura_ImplementMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 {
 	Object_${funcInfo.classNameMod} *pThis = Object_${funcInfo.classNameMod}::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*varDecl }}
 	${funcInfo.GenerateCallerCode()}
 }
@@ -446,7 +446,7 @@ FuncInfo = class {
 		if (this.typeName in ['void', '']) {
 			R'''
 			${funcCall};
-			return Value::Null;
+			return Value::Nil;
 			'''.template().render()
 		} elsif (m = this.typeName == 'wxString') {
 			R'''

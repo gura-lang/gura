@@ -56,7 +56,7 @@ Gura_DeclareFunction(GridCellNumberEditor)
 Gura_ImplementFunction(GridCellNumberEditor)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int min = -1;
 	if (args.IsValid(0)) min = args.GetInt(0);
 	int max = -1;
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, GetString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = dynamic_cast<wx_GridCellNumberEditor *>(pThis->GetEntity())->_GetString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, HasRange)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = dynamic_cast<wx_GridCellNumberEditor *>(pThis->GetEntity())->_HasRange();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -113,10 +113,10 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, SetParameters)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString params = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetParameters(params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

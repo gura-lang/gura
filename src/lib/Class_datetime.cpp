@@ -69,7 +69,7 @@ Value Object_datetime::DoGetProp(Environment &env, const Symbol *pSymbol,
 			(wday == 4)? Gura_Symbol(thursday) :
 			(wday == 5)? Gura_Symbol(friday) :
 			(wday == 6)? Gura_Symbol(saturday) : nullptr;
-		if (pSymbol == nullptr) return Value::Null; // this must not happen
+		if (pSymbol == nullptr) return Value::Nil; // this must not happen
 		return Value(pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(yday))) {
 		return Value(static_cast<Number>(_dateTime.GetDayOfYear() + 1));
@@ -77,7 +77,7 @@ Value Object_datetime::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<Number>(_dateTime.GetUnixTime()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -89,7 +89,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 0 || num > 9999) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's year");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetYear(static_cast<short>(num));
 		return Value(num);
@@ -97,7 +97,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 1 || num > 12) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's month");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetMonth(static_cast<char>(num));
 		return Value(num);
@@ -105,7 +105,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 1 || num > 31) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's day");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetDay(static_cast<char>(num));
 		return Value(num);
@@ -113,7 +113,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 0 || num > 23) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's hour");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetHour(static_cast<char>(num));
 		return Value(num);
@@ -121,7 +121,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 0 || num > 59) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's min");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetMin(static_cast<char>(num));
 		return Value(num);
@@ -129,7 +129,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 0 || num > 59) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's sec");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetSec(static_cast<char>(num));
 		return Value(num);
@@ -137,7 +137,7 @@ Value Object_datetime::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 		long num = value.GetLong();
 		if (num < 0 || num > 999999) {
 			sig.SetError(ERR_ValueError, "invalid number for datetime's usec");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_dateTime.SetUSec(num);
 		return Value(num);
@@ -308,12 +308,12 @@ Gura_ImplementMethod(datetime, format)
 				strTZ.c_str(), dateTime.GetYear());
 		} else {
 			sig.SetError(ERR_ValueError, "unknown format symbol `%s", pSymbol->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(str);
 	}
 	SetError_InvalidValType(sig, args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // datetime.isleap(year:number):map
@@ -403,7 +403,7 @@ Gura_ImplementClassMethod(datetime, parse)
 	DateTime dateTime;
 	if (!dateTime.Parse(args.GetString(0))) {
 		sig.SetError(ERR_FormatError, "invalid time format");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
 }
@@ -494,7 +494,7 @@ Gura_ImplementMethod(datetime, utc)
 	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	if (!dateTime.HasTZOffset()) {
 		sig.SetError(ERR_ValueError, "datetime has no timezone offset");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_datetime(env, dateTime.ToUTC()));
 }

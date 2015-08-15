@@ -55,7 +55,7 @@ Gura_DeclareFunction(DirPickerCtrl)
 Gura_ImplementFunction(DirPickerCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString path = wxEmptyString;
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString path = wxEmptyString;
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, GetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -149,10 +149,10 @@ Gura_ImplementMethod(wx_DirPickerCtrl, SetPath)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetPath(dirname);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

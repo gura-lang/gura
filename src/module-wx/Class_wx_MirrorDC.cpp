@@ -48,7 +48,7 @@ Gura_DeclareFunction(MirrorDC)
 Gura_ImplementFunction(MirrorDC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	bool mirror = args.GetBoolean(1);
 	wx_MirrorDC *pEntity = new wx_MirrorDC(*dc, mirror);

@@ -47,7 +47,7 @@ Gura_DeclareFunction(Condition)
 Gura_ImplementFunction(Condition)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_Condition *pEntity = new wx_Condition(*mutex);
 	Object_wx_Condition *pObj = Object_wx_Condition::GetThisObj(args);
@@ -70,9 +70,9 @@ Gura_ImplementMethod(wx_Condition, Broadcast)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Broadcast();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Condition, IsOk)
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_Condition, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -99,9 +99,9 @@ Gura_ImplementMethod(wx_Condition, Signal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Signal();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Condition, Wait)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_Condition, Wait)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCondError rtn = pThis->GetEntity()->Wait();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Condition, WaitTimeout)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned milliseconds = args.GetInt(0);
 	wxCondError rtn = pThis->GetEntity()->WaitTimeout(milliseconds);
 	return ReturnValue(env, args, Value(rtn));

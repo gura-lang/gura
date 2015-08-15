@@ -48,7 +48,7 @@ Gura_DeclareFunction(SetCursorEvent)
 Gura_ImplementFunction(SetCursorEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxCoord x = 0;
 	if (args.IsValid(0)) x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = 0;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetCursor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxCursor &rtn = pThis->GetEntity()->GetCursor();
 	return ReturnValue(env, args, Value(new Object_wx_Cursor(new wxCursor(rtn), nullptr, OwnerTrue)));
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetX)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord rtn = pThis->GetEntity()->GetX();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, GetY)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord rtn = pThis->GetEntity()->GetY();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, HasCursor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasCursor();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -135,10 +135,10 @@ Gura_ImplementMethod(wx_SetCursorEvent, SetCursor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCursor *cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetCursor(*cursor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

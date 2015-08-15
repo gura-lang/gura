@@ -58,7 +58,7 @@ Gura_DeclareFunction(DropSource)
 Gura_ImplementFunction(DropSource)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -80,7 +80,7 @@ Gura_ImplementFunction(DropSource)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(DropSource_1)
@@ -100,7 +100,7 @@ Gura_DeclareFunction(DropSource_1)
 Gura_ImplementFunction(DropSource_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	wxWindow *win = (wxWindow *)(nullptr);
@@ -123,7 +123,7 @@ Gura_ImplementFunction(DropSource_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropSource, SetData)
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_DropSource, SetData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetData(*data);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropSource, DoDragDrop)
@@ -162,14 +162,14 @@ Gura_ImplementMethod(wx_DropSource, DoDragDrop)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = wxDrag_CopyOnly;
 	if (args.IsValid(0)) flags = args.GetInt(0);
 	wxDragResult rtn = pThis->GetEntity()->DoDragDrop(flags);
 	return ReturnValue(env, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropSource, GetDataObject)
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_DropSource, GetDataObject)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataObject *rtn = (wxDataObject *)pThis->GetEntity()->GetDataObject();
 	return ReturnValue(env, args, Value(new Object_wx_DataObject(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropSource, GiveFeedback)
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_DropSource, GiveFeedback)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDragResult *effect = Object_wx_DragResult::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GiveFeedback(*effect);
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropSource, SetCursor)
@@ -228,14 +228,14 @@ Gura_ImplementMethod(wx_DropSource, SetCursor)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDragResult *res = Object_wx_DragResult::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
 	pThis->GetEntity()->SetCursor(*res, *cursor);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

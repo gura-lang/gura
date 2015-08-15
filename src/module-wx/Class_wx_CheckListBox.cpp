@@ -48,7 +48,7 @@ Gura_DeclareFunction(CheckListBoxEmpty)
 Gura_ImplementFunction(CheckListBoxEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_CheckListBox *pEntity = new wx_CheckListBox();
 	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -79,7 +79,7 @@ Gura_DeclareFunction(CheckListBox)
 Gura_ImplementFunction(CheckListBox)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_CheckListBox, Check)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int item = args.GetInt(0);
 	bool check = true;
 	if (args.IsValid(1)) check = args.GetBoolean(1);
 	pThis->GetEntity()->Check(item, check);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CheckListBox, IsChecked)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_CheckListBox, IsChecked)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned item = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsChecked(item);
 	return ReturnValue(env, args, Value(rtn));

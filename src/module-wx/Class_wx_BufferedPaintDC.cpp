@@ -50,7 +50,7 @@ Gura_DeclareFunction(BufferedPaintDC)
 Gura_ImplementFunction(BufferedPaintDC)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
@@ -79,7 +79,7 @@ Gura_DeclareFunction(BufferedPaintDC_1)
 Gura_ImplementFunction(BufferedPaintDC_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(1)) style = args.GetInt(1);

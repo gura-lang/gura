@@ -47,7 +47,7 @@ Gura_DeclareFunction(URLDataObject)
 Gura_ImplementFunction(URLDataObject)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString url = wxEmptyString;
 	if (args.IsValid(0)) url = wxString::FromUTF8(args.GetString(0));
 	wx_URLDataObject *pEntity = new wx_URLDataObject(url);
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_URLDataObject, GetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetURL();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -87,10 +87,10 @@ Gura_ImplementMethod(wx_URLDataObject, SetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetURL(url);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

@@ -52,7 +52,7 @@ Gura_DeclareFunction(FFileInputStream)
 Gura_ImplementFunction(FFileInputStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString _mode;
@@ -73,7 +73,7 @@ Gura_ImplementFunction(FFileInputStream)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(FFileInputStream_1)
@@ -89,7 +89,7 @@ Gura_DeclareFunction(FFileInputStream_1)
 Gura_ImplementFunction(FFileInputStream_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxFFile *file = Object_wx_FFile::GetObject(args, 0)->GetEntity();
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream(*file);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(FFileInputStream_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(FFileInputStream_2)
@@ -119,7 +119,7 @@ Gura_DeclareFunction(FFileInputStream_2)
 Gura_ImplementFunction(FFileInputStream_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream();
 	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetThisObj(args);
@@ -133,7 +133,7 @@ Gura_ImplementFunction(FFileInputStream_2)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_FFileInputStream, IsOk)
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_FFileInputStream, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }

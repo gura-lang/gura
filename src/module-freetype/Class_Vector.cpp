@@ -51,7 +51,7 @@ Value Object_Vector::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pVector->y);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Vector::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -60,16 +60,16 @@ Value Object_Vector::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_pVector->x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_pVector->x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_pVector->y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_pVector->y);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

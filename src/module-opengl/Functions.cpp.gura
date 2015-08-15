@@ -20,7 +20,7 @@ glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 	AutoPtr<Array<GLboolean> > _residences(new Array<GLboolean>(n));
 	GLboolean *residences = _residences->GetPointer();
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
-	if (_rtn == 0) return Value::Null;
+	if (_rtn == 0) return Value::Nil;
 	Value _rtnVal;
 	ValueList &valList = _rtnVal.InitAsList(env, n);
 	for (GLsizei i = 0; i < n; i++) {
@@ -44,11 +44,11 @@ glBegin(mode:GLenum):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glEnd();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	delimit the vertices of a primitive or a group of like primitives
@@ -65,11 +65,11 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
 			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -167,11 +167,11 @@ glCallLists(type:GLenum, lists[]:number):void:map = R'''
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type specification");
-		return Value::Null;
+		return Value::Nil;
 	}
 	// GLsizei n, GLenum type, const GLvoid *lists
 	glCallLists(n, type, pListsBuff->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -209,7 +209,7 @@ glClearStencil(s:GLint):void:map = `auto % {`en, 'markdown',
 
 glClipPlane(plane:GLenum, equation:GLdouble@4):map:void {block?} = R'''
 	glClipPlane(plane, equation);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -510,7 +510,7 @@ glDeleteLists(list:GLuint, range:GLsizei):void:map = `auto % {`en, 'markdown',
 glDeleteTextures(textures:GLuint@:const):void:map = R'''
 	GLsizei n = _textures->GetSize();
 	glDeleteTextures(n, textures);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -555,9 +555,9 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''	
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -567,12 +567,12 @@ glDrawPixelsFromImage(image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = image->GetBuffer();
 	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
 	glDrawPixels(width, height, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -678,7 +678,7 @@ glFeedbackBuffer(type:GLenum, buffer:array@float:nil):void = R'''
 	} else {
 		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -999,7 +999,7 @@ glGetString(name:GLenum):map {block?} = R'''
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid name");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
 ''' % {`en, 'markdown',
@@ -1281,7 +1281,7 @@ glLogicOp(opcode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, points:array@double):void:map = R'''
 	glMap1d(target, u1, u2, stride, order, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1289,7 +1289,7 @@ glMap1d(target:GLenum, u1:GLdouble, u2:GLdouble, stride:GLint, order:GLint, poin
 
 glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points:array@float):void:map = R'''
 	glMap1f(target, u1, u2, stride, order, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1297,7 +1297,7 @@ glMap1f(target:GLenum, u1:GLfloat, u2:GLfloat, stride:GLint, order:GLint, points
 
 glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1:GLdouble, v2:GLdouble, vstride:GLint, vorder:GLint, points:array@double):void:map = R'''
 	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1305,7 +1305,7 @@ glMap2d(target:GLenum, u1:GLdouble, u2:GLdouble, ustride:GLint, uorder:GLint, v1
 
 glMap2f(target:GLenum, u1:GLfloat, u2:GLfloat, ustride:GLint, uorder:GLint, v1:GLfloat, v2:GLfloat, vstride:GLint, vorder:GLint, points:array@float):void:map = R'''
 	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1378,11 +1378,11 @@ glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glEndList();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1508,10 +1508,10 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdow
 glPolygonStipple(mask:GLubyte@:const):void:map = R'''
 	if (_mask->GetSize() != 32 * 4) {
 		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glPolygonStipple(mask);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1541,10 +1541,10 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:ma
 	GLsizei n = _textures->GetSize();
 	if (n != _priorities->GetSize()) {
 		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glPrioritizeTextures(n, textures, priorities);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1555,11 +1555,11 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glPopAttrib();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1570,11 +1570,11 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glPopClientAttrib();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1585,11 +1585,11 @@ glPushMatrix():void {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glPopMatrix();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1600,11 +1600,11 @@ glPushName(name:GLuint):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glPopName();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1737,11 +1737,11 @@ glReadBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol):map {block?} = R'''
 	Image::Format fmt = Image::SymbolToFormat(sig, format);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> pImage(new Image(fmt));
 	GLenum _format = GetImageFormat(sig, pImage.get());
-	if (sig.IsSignalled()) return Value::Null;
-	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
 	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
@@ -1840,7 +1840,7 @@ glSelectBuffer(buffer:array@uint:nil):void = R'''
 	} else {
 		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2084,9 +2084,9 @@ glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
 			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2096,11 +2096,11 @@ glTexImage1DFromImage(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2110,9 +2110,9 @@ glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
 		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2123,11 +2123,11 @@ glTexImage2DFromImage(target:GLenum, level:GLint,
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2159,9 +2159,9 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
 			 width:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2170,11 +2170,11 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
 glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2184,9 +2184,9 @@ glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
 		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2196,11 +2196,11 @@ glTexSubImage2DFromImage(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLin
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2780,10 +2780,10 @@ glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:ma
 	GLsizei primcount = first.GetSize();
 	if (primcount != count.GetSize()) {
 		sig.SetError(ERR_ValueError, "first and count must have the same number of elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glMultiDrawArrays(mode, first, count, primcount);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2888,7 +2888,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 glDeleteQueries(ids:GLuint@:const):void:map = R'''
 	GLsizei n = ids.GetSize();
 	glDeleteQueries(n, ids);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2904,11 +2904,11 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		glEndQuery(target);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2962,7 +2962,7 @@ glBindBuffer(target:GLenum, buffer:GLuint):void:map = `auto % {`en, 'markdown',
 glDeleteBuffers(buffers:GLuint@:const):void:map = R'''
 	GLsizei n = buffers.GetSize();
 	glDeleteBuffers(n, buffers);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3012,7 +3012,7 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):void:map = R'''
 glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 	GLsizei n = bufs.GetSize();
 	glDrawBuffers(n, bufs);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3275,7 +3275,7 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	glShaderSource(shader, count, _string, length);
 	delete[] _string;
 	delete[] length;
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''

@@ -104,13 +104,13 @@ Gura_ImplementFunction(dir)
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
 	int depthMax = 0;
 	StringList patterns;
-	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Null;
+	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Nil;
 	AutoPtr<Directory> pDirectory;
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
-		if (pDirectory.IsNull()) return Value::Null;
+		if (pDirectory.IsNull()) return Value::Nil;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
@@ -149,7 +149,7 @@ Gura_ImplementFunction(exists)
 {
 	Signal &sig = env.GetSignal();
 	bool existFlag = PathMgr::DoesExist(env, args.GetString(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(existFlag);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementFunction(glob)
 	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, args.GetString(0))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnIterator(env, args, pIterator.release());
 }
@@ -346,7 +346,7 @@ Gura_ImplementFunction(stat)
 	Signal &sig = env.GetSignal();
 	Directory *pDirectory = Object_directory::GetObject(args, 0)->GetDirectory();
 	AutoPtr<Object> pObj(pDirectory->GetStatObj(sig));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj.release());
 }
 
@@ -378,13 +378,13 @@ Gura_ImplementFunction(walk)
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
 	int depthMax = args.Is_number(1)? args.GetInt(1) : -1;
 	StringList patterns;
-	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Null;
+	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Nil;
 	AutoPtr<Directory> pDirectory;
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
-		if (pDirectory.IsNull()) return Value::Null;
+		if (pDirectory.IsNull()) return Value::Nil;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,

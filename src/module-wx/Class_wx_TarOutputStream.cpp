@@ -50,7 +50,7 @@ Gura_DeclareFunction(TarOutputStream)
 Gura_ImplementFunction(TarOutputStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxTarFormat format = wxTAR_PAX;
 	if (args.IsValid(1)) format = static_cast<wxTarFormat>(args.GetInt(1));
@@ -81,7 +81,7 @@ Gura_DeclareFunction(TarOutputStream_1)
 Gura_ImplementFunction(TarOutputStream_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxTarFormat format = wxTAR_PAX;
 	if (args.IsValid(1)) format = static_cast<wxTarFormat>(args.GetInt(1));
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_TarOutputStream, Close)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Close();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CloseEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CloseEntry();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CopyArchiveMetaData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTarInputStream *s = Object_wx_TarInputStream::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CopyArchiveMetaData(*s);
 	return ReturnValue(env, args, Value(rtn));
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_TarOutputStream, CopyEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
 	wxTarInputStream *inputStream = Object_wx_TarInputStream::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->CopyEntry(entry, *inputStream);
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_TarOutputStream, GetBlockingFactor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetBlockingFactor();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -190,10 +190,10 @@ Gura_ImplementMethod(wx_TarOutputStream, SetBlockingFactor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int factor = args.GetInt(0);
 	pThis->GetEntity()->SetBlockingFactor(factor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TarOutputStream, PutNextDirEntry)
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextDirEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
 	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->PutNextEntry(entry);
 	return ReturnValue(env, args, Value(rtn));
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
 	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();

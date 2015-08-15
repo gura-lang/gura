@@ -46,7 +46,7 @@ bool wx_Validator::TransferFromWindow()
 {
 	bool evaluatedFlag;
 	Value rtn = _pObj->EvalMethod(*_pObj,
-		Gura_UserSymbol(TransferFromWindow), ValueList::Null, evaluatedFlag);
+		Gura_UserSymbol(TransferFromWindow), ValueList::Empty, evaluatedFlag);
 	if (_pObj->GetSignal().IsSignalled()) {
 		SetLogError(_pObj->GetSignal());
 		return false;
@@ -58,7 +58,7 @@ bool wx_Validator::TransferToWindow()
 {
 	bool evaluatedFlag;
 	Value rtn = _pObj->EvalMethod(*_pObj,
-		Gura_UserSymbol(TransferToWindow), ValueList::Null, evaluatedFlag);
+		Gura_UserSymbol(TransferToWindow), ValueList::Empty, evaluatedFlag);
 	if (_pObj->GetSignal().IsSignalled()) {
 		SetLogError(_pObj->GetSignal());
 		return false;
@@ -84,7 +84,7 @@ Gura_DeclareFunction(Validator)
 Gura_ImplementFunction(Validator)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Validator *pEntity = new wx_Validator();
 	Object_wx_Validator *pObj = Object_wx_Validator::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Validator, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Validator, GetWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_Validator, SetBellOnError)
 	bool doIt = true;
 	if (args.IsValid(0)) doIt = args.GetBoolean(0);
 	wxValidator::SetBellOnError(doIt);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Validator, SetWindow)
@@ -164,10 +164,10 @@ Gura_ImplementMethod(wx_Validator, SetWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Validator, TransferToWindow)
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_Validator, TransferToWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_Validator, TransferToWindow_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_Validator, Validate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Validate(parent);
 	return ReturnValue(env, args, Value(rtn));

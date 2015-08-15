@@ -58,7 +58,7 @@ Gura_DeclareFunction(GenericValidator)
 Gura_ImplementFunction(GenericValidator)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxGenericValidator *validator = Object_wx_GenericValidator::GetObject(args, 0)->GetEntity();
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*validator);
 	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
@@ -85,7 +85,7 @@ Gura_DeclareFunction(GenericValidator_1)
 Gura_ImplementFunction(GenericValidator_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	bool valPtr = args.GetBoolean(0);
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(GenericValidator_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(GenericValidator_2)
@@ -116,7 +116,7 @@ Gura_DeclareFunction(GenericValidator_2)
 Gura_ImplementFunction(GenericValidator_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxString valPtr = wxString::FromUTF8(args.GetString(0));
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
@@ -131,7 +131,7 @@ Gura_ImplementFunction(GenericValidator_2)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(GenericValidator_3)
@@ -147,7 +147,7 @@ Gura_DeclareFunction(GenericValidator_3)
 Gura_ImplementFunction(GenericValidator_3)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int valPtr = args.GetInt(0);
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
@@ -162,7 +162,7 @@ Gura_ImplementFunction(GenericValidator_3)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(GenericValidator_4)
@@ -178,7 +178,7 @@ Gura_DeclareFunction(GenericValidator_4)
 Gura_ImplementFunction(GenericValidator_4)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	std::unique_ptr<wxArrayInt> valPtr(CreateArrayInt(args.GetList(0)));
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*valPtr);
@@ -193,7 +193,7 @@ Gura_ImplementFunction(GenericValidator_4)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GenericValidator, Clone)
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_GenericValidator, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
 }
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_GenericValidator, TransferFromWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_GenericValidator, TransferToWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
 	return ReturnValue(env, args, Value(rtn));
 }

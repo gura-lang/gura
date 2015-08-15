@@ -62,9 +62,9 @@ Gura_ImplementFunction(__Init)
 	int _rtn = SDL_Init(flags);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.InitSubSystem
@@ -103,9 +103,9 @@ Gura_ImplementFunction(__InitSubSystem)
 	int _rtn = SDL_InitSubSystem(flags);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.Quit
@@ -133,7 +133,7 @@ Gura_DeclareFunctionAlias(__Quit, "Quit")
 Gura_ImplementFunction(__Quit)
 {
 	SDL_Quit();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.QuitSubSystem
@@ -166,7 +166,7 @@ Gura_ImplementFunction(__QuitSubSystem)
 {
 	Uint32 flags = args.GetULong(0);
 	SDL_QuitSubSystem(flags);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetMainReady
@@ -187,7 +187,7 @@ Gura_DeclareFunctionAlias(__SetMainReady, "SetMainReady")
 Gura_ImplementFunction(__SetMainReady)
 {
 	SDL_SetMainReady();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WasInit
@@ -239,10 +239,10 @@ Gura_ImplementFunction(__AddHintCallback)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AddHintCallback();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AddHintCallback");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ClearHints
@@ -259,10 +259,10 @@ Gura_ImplementFunction(__ClearHints)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ClearHints();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ClearHints");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DelhintCallback
@@ -279,10 +279,10 @@ Gura_ImplementFunction(__DelhintCallback)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DelhintCallback();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DelhintCallback");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetHint
@@ -299,10 +299,10 @@ Gura_ImplementFunction(__GetHint)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetHint();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetHint");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetHint
@@ -319,10 +319,10 @@ Gura_ImplementFunction(__SetHint)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SetHint();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetHint");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetHintWithPriority
@@ -339,10 +339,10 @@ Gura_ImplementFunction(__SetHintWithPriority)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SetHintWithPriority();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetHintWithPriority");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ClearError
@@ -357,7 +357,7 @@ Gura_DeclareFunctionAlias(__ClearError, "ClearError")
 Gura_ImplementFunction(__ClearError)
 {
 	SDL_ClearError();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetError
@@ -385,7 +385,7 @@ Gura_ImplementFunction(__GetError)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -404,10 +404,10 @@ Gura_ImplementFunction(__SetError)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SetError();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetError");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.Log
@@ -424,10 +424,10 @@ Gura_ImplementFunction(__Log)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_Log();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "Log");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogCritical
@@ -444,10 +444,10 @@ Gura_ImplementFunction(__LogCritical)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogCritical();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogCritical");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogDebug
@@ -464,10 +464,10 @@ Gura_ImplementFunction(__LogDebug)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogDebug();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogDebug");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogError
@@ -484,10 +484,10 @@ Gura_ImplementFunction(__LogError)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogError();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogError");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogGetOutputFunction
@@ -504,10 +504,10 @@ Gura_ImplementFunction(__LogGetOutputFunction)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogGetOutputFunction();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogGetOutputFunction");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogGetPriority
@@ -524,10 +524,10 @@ Gura_ImplementFunction(__LogGetPriority)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogGetPriority();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogGetPriority");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogInfo
@@ -544,10 +544,10 @@ Gura_ImplementFunction(__LogInfo)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogInfo();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogInfo");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogMessage
@@ -564,10 +564,10 @@ Gura_ImplementFunction(__LogMessage)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogMessage();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogMessage");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogMessageV
@@ -584,10 +584,10 @@ Gura_ImplementFunction(__LogMessageV)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogMessageV();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogMessageV");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogResetPriorities
@@ -604,10 +604,10 @@ Gura_ImplementFunction(__LogResetPriorities)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogResetPriorities();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogResetPriorities");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogSetAllPriority
@@ -624,10 +624,10 @@ Gura_ImplementFunction(__LogSetAllPriority)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogSetAllPriority();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogSetAllPriority");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogSetOutputFunction
@@ -644,10 +644,10 @@ Gura_ImplementFunction(__LogSetOutputFunction)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogSetOutputFunction();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogSetOutputFunction");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogSetPriority
@@ -664,10 +664,10 @@ Gura_ImplementFunction(__LogSetPriority)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogSetPriority();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogSetPriority");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogVerbose
@@ -684,10 +684,10 @@ Gura_ImplementFunction(__LogVerbose)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogVerbose();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogVerbose");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LogWarn
@@ -704,10 +704,10 @@ Gura_ImplementFunction(__LogWarn)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LogWarn();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LogWarn");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetAssertionHandler
@@ -724,10 +724,10 @@ Gura_ImplementFunction(__GetAssertionHandler)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetAssertionHandler();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetAssertionHandler");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetAssertionReport
@@ -744,10 +744,10 @@ Gura_ImplementFunction(__GetAssertionReport)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetAssertionReport();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetAssertionReport");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetDefaultAssertionHandler
@@ -764,10 +764,10 @@ Gura_ImplementFunction(__GetDefaultAssertionHandler)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetDefaultAssertionHandler();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetDefaultAssertionHandler");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ResetAssertionReport
@@ -784,10 +784,10 @@ Gura_ImplementFunction(__ResetAssertionReport)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ResetAssertionReport();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ResetAssertionReport");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetAssertionHandler
@@ -804,10 +804,10 @@ Gura_ImplementFunction(__SetAssertionHandler)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SetAssertionHandler();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetAssertionHandler");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.TriggerBreakpoint
@@ -824,10 +824,10 @@ Gura_ImplementFunction(__TriggerBreakpoint)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_TriggerBreakpoint();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "TriggerBreakpoint");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.assert
@@ -844,10 +844,10 @@ Gura_ImplementFunction(__assert)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_assert();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "assert");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.assert_paranoid
@@ -864,10 +864,10 @@ Gura_ImplementFunction(__assert_paranoid)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_assert_paranoid();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "assert_paranoid");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.assert_release
@@ -884,10 +884,10 @@ Gura_ImplementFunction(__assert_release)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_assert_release();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "assert_release");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetRevision
@@ -909,7 +909,7 @@ Gura_ImplementFunction(__GetRevision)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1019,7 +1019,7 @@ Gura_ImplementFunction(__CreateWindow)
 		_rtnVal = Value(new Object_Window(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1048,7 +1048,7 @@ Gura_ImplementFunction(__CreateWindowAndRenderer)
 	int _rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env,
 			Value(new Object_Window(window)), Value(new Object_Renderer(renderer))));
@@ -1068,10 +1068,10 @@ Gura_ImplementFunction(__CreateWindowFrom)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CreateWindowFrom();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CreateWindowFrom");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DestroyWindow
@@ -1088,7 +1088,7 @@ Gura_ImplementFunction(__DestroyWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_DestroyWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DisableScreenSaver
@@ -1103,7 +1103,7 @@ Gura_DeclareFunctionAlias(__DisableScreenSaver, "DisableScreenSaver")
 Gura_ImplementFunction(__DisableScreenSaver)
 {
 	SDL_DisableScreenSaver();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.EnableScreenSaver
@@ -1118,7 +1118,7 @@ Gura_DeclareFunctionAlias(__EnableScreenSaver, "EnableScreenSaver")
 Gura_ImplementFunction(__EnableScreenSaver)
 {
 	SDL_EnableScreenSaver();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_CreateContext
@@ -1139,7 +1139,7 @@ Gura_ImplementFunction(__GL_CreateContext)
 	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_GLContext(_rtn)));
 }
@@ -1158,7 +1158,7 @@ Gura_ImplementFunction(__GL_DeleteContext)
 {
 	SDL_GLContext context = Object_GLContext::GetObject(args, 0)->GetEntity();
 	SDL_GL_DeleteContext(context);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_ExtensionSupported
@@ -1198,7 +1198,7 @@ Gura_ImplementFunction(__GL_GetAttribute)
 	int _rtn = SDL_GL_GetAttribute(attr, &value);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(value));
 }
@@ -1219,7 +1219,7 @@ Gura_ImplementFunction(__GL_GetCurrentContext)
 	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_GLContext(_rtn)));
 }
@@ -1243,7 +1243,7 @@ Gura_ImplementFunction(__GL_GetCurrentWindow)
 		_rtnVal = Value(new Object_Window(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1282,10 +1282,10 @@ Gura_ImplementFunction(__GL_GetProcAddress)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GL_GetProcAddress();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GL_GetProcAddress");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_GetSwapInterval
@@ -1304,7 +1304,7 @@ Gura_ImplementFunction(__GL_GetSwapInterval)
 	int _rtn = SDL_GL_GetSwapInterval();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -1326,9 +1326,9 @@ Gura_ImplementFunction(__GL_LoadLibrary)
 	int _rtn = SDL_GL_LoadLibrary(path);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_MakeCurrent
@@ -1350,9 +1350,9 @@ Gura_ImplementFunction(__GL_MakeCurrent)
 	int _rtn = SDL_GL_MakeCurrent(window, context);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_ResetAttributes
@@ -1367,7 +1367,7 @@ Gura_DeclareFunctionAlias(__GL_ResetAttributes, "GL_ResetAttributes")
 Gura_ImplementFunction(__GL_ResetAttributes)
 {
 	SDL_GL_ResetAttributes();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_SetAttribute
@@ -1389,9 +1389,9 @@ Gura_ImplementFunction(__GL_SetAttribute)
 	int _rtn = SDL_GL_SetAttribute(attr, value);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_SetSwapInterval
@@ -1411,9 +1411,9 @@ Gura_ImplementFunction(__GL_SetSwapInterval)
 	int _rtn = SDL_GL_SetSwapInterval(interval);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_SwapWindow
@@ -1430,7 +1430,7 @@ Gura_ImplementFunction(__GL_SwapWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GL_SwapWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_UnloadLibrary
@@ -1445,7 +1445,7 @@ Gura_DeclareFunctionAlias(__GL_UnloadLibrary, "GL_UnloadLibrary")
 Gura_ImplementFunction(__GL_UnloadLibrary)
 {
 	SDL_GL_UnloadLibrary();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetClosestDisplayMode
@@ -1469,7 +1469,7 @@ Gura_ImplementFunction(__GetClosestDisplayMode)
 	SDL_DisplayMode *_rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_DisplayMode(closest)));
 }
@@ -1493,7 +1493,7 @@ Gura_ImplementFunction(__GetCurrentDisplayMode)
 	int _rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_DisplayMode(mode)));
 }
@@ -1517,7 +1517,7 @@ Gura_ImplementFunction(__GetCurrentVideoDriver)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1541,7 +1541,7 @@ Gura_ImplementFunction(__GetDesktopDisplayMode)
 	int _rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_DisplayMode(mode)));
 }
@@ -1565,7 +1565,7 @@ Gura_ImplementFunction(__GetDisplayBounds)
 	int _rtn = SDL_GetDisplayBounds(displayIndex, &rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Rect(rect)));
 }
@@ -1591,7 +1591,7 @@ Gura_ImplementFunction(__GetDisplayMode)
 	int _rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_DisplayMode(mode)));
 }
@@ -1617,7 +1617,7 @@ Gura_ImplementFunction(__GetDisplayName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1640,7 +1640,7 @@ Gura_ImplementFunction(__GetNumDisplayModes)
 	int _rtn = SDL_GetNumDisplayModes(displayIndex);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -1661,7 +1661,7 @@ Gura_ImplementFunction(__GetNumVideoDisplays)
 	int _rtn = SDL_GetNumVideoDisplays();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -1682,7 +1682,7 @@ Gura_ImplementFunction(__GetNumVideoDrivers)
 	int _rtn = SDL_GetNumVideoDrivers();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -1708,7 +1708,7 @@ Gura_ImplementFunction(__GetVideoDriver)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1749,10 +1749,10 @@ Gura_ImplementFunction(__GetWindowData)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *name = args.GetString(1);
 	SDL_GetWindowData(window, name);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetWindowData");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetWindowDisplayIndex
@@ -1773,7 +1773,7 @@ Gura_ImplementFunction(__GetWindowDisplayIndex)
 	int _rtn = SDL_GetWindowDisplayIndex(window);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -1797,9 +1797,9 @@ Gura_ImplementFunction(__GetWindowDisplayMode)
 	int _rtn = SDL_GetWindowDisplayMode(window, mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetWindowFlags
@@ -1841,7 +1841,7 @@ Gura_ImplementFunction(__GetWindowFromID)
 		_rtnVal = Value(new Object_Window(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -1867,7 +1867,7 @@ Gura_ImplementFunction(__GetWindowGammaRamp)
 	int _rtn = SDL_GetWindowGammaRamp(window, &red, &green, &blue);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env,
 								Value(red), Value(green), Value(blue)));
@@ -1967,7 +1967,7 @@ Gura_ImplementFunction(__GetWindowPixelFormat)
 	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
 	if (_rtn == SDL_PIXELFORMAT_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -2033,7 +2033,7 @@ Gura_ImplementFunction(__GetWindowSurface)
 		_rtnVal = Value(new Object_Surface(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2059,7 +2059,7 @@ Gura_ImplementFunction(__GetWindowTitle)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2080,10 +2080,10 @@ Gura_ImplementFunction(__GetWindowWMInfo)
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GetWindowWMInfo(window);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetWindowWMInfo");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HideWindow
@@ -2100,7 +2100,7 @@ Gura_ImplementFunction(__HideWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_HideWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.IsScreenSaverEnabled
@@ -2133,7 +2133,7 @@ Gura_ImplementFunction(__MaximizeWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_MaximizeWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.MinimizeWindow
@@ -2150,7 +2150,7 @@ Gura_ImplementFunction(__MinimizeWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_MinimizeWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RaiseWindow
@@ -2167,7 +2167,7 @@ Gura_ImplementFunction(__RaiseWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_RaiseWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RestoreWindow
@@ -2184,7 +2184,7 @@ Gura_ImplementFunction(__RestoreWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_RestoreWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowBordered
@@ -2203,7 +2203,7 @@ Gura_ImplementFunction(__SetWindowBordered)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool bordered = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
 	SDL_SetWindowBordered(window, bordered);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowBrightness
@@ -2225,9 +2225,9 @@ Gura_ImplementFunction(__SetWindowBrightness)
 	int _rtn = SDL_SetWindowBrightness(window, brightness);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowData
@@ -2248,10 +2248,10 @@ Gura_ImplementFunction(__SetWindowData)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *name = args.GetString(1);
 	SDL_SetWindowData(window, name);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetWindowData");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowDisplayMode
@@ -2273,9 +2273,9 @@ Gura_ImplementFunction(__SetWindowDisplayMode)
 	int _rtn = SDL_SetWindowDisplayMode(window, mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowFullscreen
@@ -2297,9 +2297,9 @@ Gura_ImplementFunction(__SetWindowFullscreen)
 	int _rtn = SDL_SetWindowFullscreen(window, flags);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowGammaRamp
@@ -2327,14 +2327,14 @@ Gura_ImplementFunction(__SetWindowGammaRamp)
 	Array<Uint16> &blue = *_blue;
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int _rtn = SDL_SetWindowGammaRamp(window, red, green, blue);
 	if (_rtn != SDL_TRUE) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowGrab
@@ -2353,7 +2353,7 @@ Gura_ImplementFunction(__SetWindowGrab)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_bool grabbed = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
 	SDL_SetWindowGrab(window, grabbed);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowHitTest
@@ -2374,12 +2374,12 @@ Gura_ImplementFunction(__SetWindowHitTest)
 	int _rtn = SDL_SetWindowHitTest(window);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetWindowHitTest");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowIcon
@@ -2398,7 +2398,7 @@ Gura_ImplementFunction(__SetWindowIcon)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_Surface *icon = Object_Surface::GetObject(args, 1)->GetEntity();
 	SDL_SetWindowIcon(window, icon);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowMaximumSize
@@ -2419,7 +2419,7 @@ Gura_ImplementFunction(__SetWindowMaximumSize)
 	int max_w = args.GetInt(1);
 	int max_h = args.GetInt(2);
 	SDL_SetWindowMaximumSize(window, max_w, max_h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowMinimumSize
@@ -2440,7 +2440,7 @@ Gura_ImplementFunction(__SetWindowMinimumSize)
 	int min_w = args.GetInt(1);
 	int min_h = args.GetInt(2);
 	SDL_SetWindowMinimumSize(window, min_w, min_h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowPosition
@@ -2461,7 +2461,7 @@ Gura_ImplementFunction(__SetWindowPosition)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	SDL_SetWindowPosition(window, x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowSize
@@ -2482,7 +2482,7 @@ Gura_ImplementFunction(__SetWindowSize)
 	int w = args.GetInt(1);
 	int h = args.GetInt(2);
 	SDL_SetWindowSize(window, w, h);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetWindowTitle
@@ -2501,7 +2501,7 @@ Gura_ImplementFunction(__SetWindowTitle)
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	const char *title = args.GetString(1);
 	SDL_SetWindowTitle(window, title);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ShowMessageBox
@@ -2520,12 +2520,12 @@ Gura_ImplementFunction(__ShowMessageBox)
 	int _rtn = SDL_ShowMessageBox();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ShowMessageBox");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ShowSimpleMessageBox
@@ -2551,9 +2551,9 @@ Gura_ImplementFunction(__ShowSimpleMessageBox)
 	int _rtn = SDL_ShowSimpleMessageBox(flags, title, message, window);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ShowWindow
@@ -2570,7 +2570,7 @@ Gura_ImplementFunction(__ShowWindow)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_ShowWindow(window);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UpdateWindowSurface
@@ -2590,9 +2590,9 @@ Gura_ImplementFunction(__UpdateWindowSurface)
 	int _rtn = SDL_UpdateWindowSurface(window);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UpdateWindowSurfaceRects
@@ -2616,9 +2616,9 @@ Gura_ImplementFunction(__UpdateWindowSurfaceRects)
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.VideoInit
@@ -2638,9 +2638,9 @@ Gura_ImplementFunction(__VideoInit)
 	int _rtn = SDL_VideoInit(driver_name);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.VideoQuit
@@ -2655,7 +2655,7 @@ Gura_DeclareFunctionAlias(__VideoQuit, "VideoQuit")
 Gura_ImplementFunction(__VideoQuit)
 {
 	SDL_VideoQuit();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CreateRenderer
@@ -2683,7 +2683,7 @@ Gura_ImplementFunction(__CreateRenderer)
 		_rtnVal = Value(new Object_Renderer(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2709,7 +2709,7 @@ Gura_ImplementFunction(__CreateSoftwareRenderer)
 		_rtnVal = Value(new Object_Renderer(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2743,7 +2743,7 @@ Gura_ImplementFunction(__CreateTexture)
 		_rtnVal = Value(new Object_Texture(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2771,7 +2771,7 @@ Gura_ImplementFunction(__CreateTextureFromSurface)
 		_rtnVal = Value(new Object_Texture(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -2790,7 +2790,7 @@ Gura_ImplementFunction(__DestroyRenderer)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_DestroyRenderer(renderer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DestroyTexture
@@ -2807,7 +2807,7 @@ Gura_ImplementFunction(__DestroyTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_DestroyTexture(texture);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GL_BindTexture
@@ -2847,9 +2847,9 @@ Gura_ImplementFunction(__GL_UnbindTexture)
 	int _rtn = SDL_GL_UnbindTexture(texture);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetNumRenderDrivers
@@ -2868,7 +2868,7 @@ Gura_ImplementFunction(__GetNumRenderDrivers)
 	int _rtn = SDL_GetNumRenderDrivers();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -2892,7 +2892,7 @@ Gura_ImplementFunction(__GetRenderDrawBlendMode)
 	int _rtn = SDL_GetRenderDrawBlendMode(renderer, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(blendMode));
 }
@@ -2919,7 +2919,7 @@ Gura_ImplementFunction(__GetRenderDrawColor)
 	int _rtn = SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env,
 								Value(r), Value(g), Value(b), Value(a)));
@@ -2944,7 +2944,7 @@ Gura_ImplementFunction(__GetRenderDriverInfo)
 	int _rtn = SDL_GetRenderDriverInfo(index, &info);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_RendererInfo(info)));
 }
@@ -2992,7 +2992,7 @@ Gura_ImplementFunction(__GetRenderer)
 		_rtnVal = Value(new Object_Renderer(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -3016,7 +3016,7 @@ Gura_ImplementFunction(__GetRendererInfo)
 	int _rtn = SDL_GetRendererInfo(renderer, &info);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_RendererInfo(info)));
 }
@@ -3041,7 +3041,7 @@ Gura_ImplementFunction(__GetRenderOutputSize)
 	int _rtn = SDL_GetRendererOutputSize(renderer, &w, &h);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env, Value(w), Value(h)));
 }
@@ -3065,7 +3065,7 @@ Gura_ImplementFunction(__GetTextureAlphaMod)
 	int _rtn = SDL_GetTextureAlphaMod(texture, &alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(alpha));
 }
@@ -3089,7 +3089,7 @@ Gura_ImplementFunction(__GetTextureBlendMode)
 	int _rtn = SDL_GetTextureBlendMode(texture, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(blendMode));
 }
@@ -3115,7 +3115,7 @@ Gura_ImplementFunction(__GetTextureColorMod)
 	int _rtn = SDL_GetTextureColorMod(texture, &r, &g, &b);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env,
 											Value(r), Value(g), Value(b)));
@@ -3141,12 +3141,12 @@ Gura_ImplementFunction(__LockTexture)
 	int _rtn = SDL_LockTexture(texture, rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LockTexture");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.QueryTexture
@@ -3171,7 +3171,7 @@ Gura_ImplementFunction(__QueryTexture)
 	int _rtn = SDL_QueryTexture(texture, &format, &access, &w, &h);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env,
 							Value(format), Value(access), Value(w), Value(h)));
@@ -3194,9 +3194,9 @@ Gura_ImplementFunction(__RenderClear)
 	int _rtn = SDL_RenderClear(renderer);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderCopy
@@ -3222,9 +3222,9 @@ Gura_ImplementFunction(__RenderCopy)
 	int _rtn = SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderCopyEx
@@ -3256,9 +3256,9 @@ Gura_ImplementFunction(__RenderCopyEx)
 	int _rtn = SDL_RenderCopyEx(renderer, texture, srcrect, dstrect, angle, center, flip);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawLine
@@ -3286,9 +3286,9 @@ Gura_ImplementFunction(__RenderDrawLine)
 	int _rtn = SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawLines
@@ -3312,9 +3312,9 @@ Gura_ImplementFunction(__RenderDrawLines)
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawPoint
@@ -3338,9 +3338,9 @@ Gura_ImplementFunction(__RenderDrawPoint)
 	int _rtn = SDL_RenderDrawPoint(renderer, x, y);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawPoints
@@ -3364,9 +3364,9 @@ Gura_ImplementFunction(__RenderDrawPoints)
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawRect
@@ -3388,9 +3388,9 @@ Gura_ImplementFunction(__RenderDrawRect)
 	int _rtn = SDL_RenderDrawRect(renderer, rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderDrawRects
@@ -3414,9 +3414,9 @@ Gura_ImplementFunction(__RenderDrawRects)
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderFillRect
@@ -3438,9 +3438,9 @@ Gura_ImplementFunction(__RenderFillRect)
 	int _rtn = SDL_RenderFillRect(renderer, rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderFillRects
@@ -3464,9 +3464,9 @@ Gura_ImplementFunction(__RenderFillRects)
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderGetClipRect
@@ -3566,7 +3566,7 @@ Gura_ImplementFunction(__RenderIsClipEnabled)
 	return ReturnValue(env, args, Value(_rtn != SDL_FALSE));
 #endif
 	SetError_NotImpFunction(sig, "RenderIsClipEnabled");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderPresent
@@ -3583,7 +3583,7 @@ Gura_ImplementFunction(__RenderPresent)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_RenderPresent(renderer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderReadPixels
@@ -3615,16 +3615,16 @@ Gura_ImplementFunction(__RenderReadPixels)
 		fmtImage = Image::FORMAT_RGBA;
 	} else {
 		sig.SetError(ERR_ValueError, "format must be `rgb or `rgba");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Image> pImage(new Image(fmtImage));
-	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Nil;
 	void *pixels = pImage->GetBuffer();
 	int pitch = pImage->GetBytesPerLine();
 	int _rtn = SDL_RenderReadPixels(renderer, rect, _format, pixels, pitch);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
 }
@@ -3648,9 +3648,9 @@ Gura_ImplementFunction(__RenderSetClipRect)
 	int _rtn = SDL_RenderSetClipRect(renderer, rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderSetLogicalSize
@@ -3674,9 +3674,9 @@ Gura_ImplementFunction(__RenderSetLogicalSize)
 	int _rtn = SDL_RenderSetLogicalSize(renderer, w, h);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderSetScale
@@ -3700,9 +3700,9 @@ Gura_ImplementFunction(__RenderSetScale)
 	int _rtn = SDL_RenderSetScale(renderer, scaleX, scaleY);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderSetViewport
@@ -3724,9 +3724,9 @@ Gura_ImplementFunction(__RenderSetViewport)
 	int _rtn = SDL_RenderSetViewport(renderer, rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RenderTargetSupported
@@ -3763,7 +3763,7 @@ Gura_ImplementFunction(__SetRenderDrawBlendMode)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_BlendMode blendMode = static_cast<SDL_BlendMode>(args.GetInt(1));
 	SDL_SetRenderDrawBlendMode(renderer, blendMode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetRenderDrawColor
@@ -3791,9 +3791,9 @@ Gura_ImplementFunction(__SetRenderDrawColor)
 	int _rtn = SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetRenderTarget
@@ -3815,9 +3815,9 @@ Gura_ImplementFunction(__SetRenderTarget)
 	int _rtn = SDL_SetRenderTarget(renderer, texture);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetTextureAlphaMod
@@ -3839,9 +3839,9 @@ Gura_ImplementFunction(__SetTextureAlphaMod)
 	int _rtn = SDL_SetTextureAlphaMod(texture, alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetTextureBlendMode
@@ -3863,9 +3863,9 @@ Gura_ImplementFunction(__SetTextureBlendMode)
 	int _rtn = SDL_SetTextureBlendMode(texture, blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetTextureColorMod
@@ -3891,9 +3891,9 @@ Gura_ImplementFunction(__SetTextureColorMod)
 	int _rtn = SDL_SetTextureColorMod(texture, r, g, b);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UnlockTexture
@@ -3910,7 +3910,7 @@ Gura_ImplementFunction(__UnlockTexture)
 {
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	SDL_UnlockTexture(texture);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UpdateTexture
@@ -3935,12 +3935,12 @@ Gura_ImplementFunction(__UpdateTexture)
 	int _rtn = SDL_UpdateTexture(texture, rect, pitch);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "UpdateTexture");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UpdateYUVTexture
@@ -3957,10 +3957,10 @@ Gura_ImplementFunction(__UpdateYUVTexture)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_UpdateYUVTexture();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "UpdateYUVTexture");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AllocFormat
@@ -3984,7 +3984,7 @@ Gura_ImplementFunction(__AllocFormat)
 		_rtnVal = Value(new Object_PixelFormat(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4010,7 +4010,7 @@ Gura_ImplementFunction(__AllocPalette)
 		_rtnVal = Value(new Object_Palette(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4048,7 +4048,7 @@ Gura_ImplementFunction(__FreeFormat)
 {
 	SDL_PixelFormat *format = Object_PixelFormat::GetObject(args, 0)->GetEntity();
 	SDL_FreeFormat(format);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FreePalette
@@ -4065,7 +4065,7 @@ Gura_ImplementFunction(__FreePalette)
 {
 	SDL_Palette *palette = Object_Palette::GetObject(args, 0)->GetEntity();
 	SDL_FreePalette(palette);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetPixelFormatName
@@ -4089,7 +4089,7 @@ Gura_ImplementFunction(__GetPixelFormatName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4241,7 +4241,7 @@ Gura_ImplementFunction(__PixelFormatEnumToMasks)
 	SDL_bool _rtn = SDL_PixelFormatEnumToMasks(format, &bpp, &Rmask, &Gmask, &Bmask, &Amask);
 	if (_rtn != SDL_TRUE) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args,
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
@@ -4271,14 +4271,14 @@ Gura_ImplementFunction(__SetPaletteColors)
 	int nmax = static_cast<int>(colors.GetSize());
 	if (firstcolor + ncolors > nmax) {
 		sig.SetError(ERR_IndexError, "out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int _rtn = SDL_SetPaletteColors(palette, colors, firstcolor, ncolors);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetPixelFormatPalette
@@ -4300,9 +4300,9 @@ Gura_ImplementFunction(__SetPixelFormatPalette)
 	int _rtn = SDL_SetPixelFormatPalette(format, palette);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.EnclosePoints
@@ -4404,7 +4404,7 @@ Gura_ImplementFunction(__IntersectRectAndLine)
 	return ReturnValue(env, args, Value(_rtn != SDL_FALSE));
 #endif
 	SetError_NotImpFunction(sig, "IntersectRectAndLine");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.PointInRect
@@ -4428,7 +4428,7 @@ Gura_ImplementFunction(__PointInRect)
 	return ReturnValue(env, args, Value(_rtn != SDL_FALSE));
 #endif
 	SetError_NotImpFunction(sig, "PointInRect");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RectEmpty
@@ -4514,9 +4514,9 @@ Gura_ImplementFunction(__BlitScaled)
 	int _rtn = SDL_BlitScaled(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.BlitSurface
@@ -4542,9 +4542,9 @@ Gura_ImplementFunction(__BlitSurface)
 	int _rtn = SDL_BlitSurface(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ConvertPixels
@@ -4571,12 +4571,12 @@ Gura_ImplementFunction(__ConvertPixels)
 	int _rtn = SDL_ConvertPixels(width, height, src_format, dst_format);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ConvertPixels");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ConvertSurface
@@ -4604,7 +4604,7 @@ Gura_ImplementFunction(__ConvertSurface)
 		_rtnVal = Value(new Object_Surface(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4634,7 +4634,7 @@ Gura_ImplementFunction(__ConvertSurfaceFormat)
 		_rtnVal = Value(new Object_Surface(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4674,7 +4674,7 @@ Gura_ImplementFunction(__CreateRGBSurface)
 		_rtnVal = Value(new Object_Surface(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4719,13 +4719,13 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,
 								depth, pitch, Rmask, Gmask, Bmask, Amask);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Surface(_rtn)));
 }
@@ -4746,7 +4746,7 @@ Gura_ImplementFunction(__CreateRGBSurfaceFromImage)
 	Signal &sig = env.GetSignal();
 	Image *image = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
-	if (pObjSurface == nullptr) return Value::Null;
+	if (pObjSurface == nullptr) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjSurface));
 }
 
@@ -4771,9 +4771,9 @@ Gura_ImplementFunction(__FillRect)
 	int _rtn = SDL_FillRect(dst, rect, color);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FillRects
@@ -4799,9 +4799,9 @@ Gura_ImplementFunction(__FillRects)
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FreeSurface
@@ -4818,7 +4818,7 @@ Gura_ImplementFunction(__FreeSurface)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_FreeSurface(surface);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetClipRect
@@ -4862,7 +4862,7 @@ Gura_ImplementFunction(__GetColorKey)
 		_rtnVal = Value(key);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -4886,7 +4886,7 @@ Gura_ImplementFunction(__GetSurfaceAlphaMod)
 	int _rtn = SDL_GetSurfaceAlphaMod(surface, &alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(alpha));
 }
@@ -4910,7 +4910,7 @@ Gura_ImplementFunction(__GetSurfaceBlendMode)
 	int _rtn = SDL_GetSurfaceBlendMode(surface, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(blendMode));
 }
@@ -4956,7 +4956,7 @@ Gura_ImplementFunction(__LoadBMP)
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Surface(_rtn)));
 }
@@ -4975,10 +4975,10 @@ Gura_ImplementFunction(__LoadBMP_RW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LoadBMP_RW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LoadBMP_RW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LockSurface
@@ -4998,9 +4998,9 @@ Gura_ImplementFunction(__LockSurface)
 	int _rtn = SDL_LockSurface(surface);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LowerBlit
@@ -5026,9 +5026,9 @@ Gura_ImplementFunction(__LowerBlit)
 	int _rtn = SDL_LowerBlit(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LowerBlitScaled
@@ -5054,9 +5054,9 @@ Gura_ImplementFunction(__LowerBlitScaled)
 	int _rtn = SDL_LowerBlitScaled(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.MUSTLOCK
@@ -5098,7 +5098,7 @@ Gura_ImplementFunction(__SaveBMP)
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5117,10 +5117,10 @@ Gura_ImplementFunction(__SaveBMP_RW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SaveBMP_RW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SaveBMP_RW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetClipRect
@@ -5164,9 +5164,9 @@ Gura_ImplementFunction(__SetColorKey)
 	int _rtn = SDL_SetColorKey(surface, flag, key);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetSurfaceAlphaMod
@@ -5188,9 +5188,9 @@ Gura_ImplementFunction(__SetSurfaceAlphaMod)
 	int _rtn = SDL_SetSurfaceAlphaMod(surface, alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetSurfaceBlendMode
@@ -5212,9 +5212,9 @@ Gura_ImplementFunction(__SetSurfaceBlendMode)
 	int _rtn = SDL_SetSurfaceBlendMode(surface, blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetSurfaceColorMod
@@ -5240,9 +5240,9 @@ Gura_ImplementFunction(__SetSurfaceColorMod)
 	int _rtn = SDL_SetSurfaceColorMod(surface, r, g, b);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetSurfacePalette
@@ -5264,9 +5264,9 @@ Gura_ImplementFunction(__SetSurfacePalette)
 	int _rtn = SDL_SetSurfacePalette(surface, palette);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetSurfaceRLE
@@ -5288,9 +5288,9 @@ Gura_ImplementFunction(__SetSurfaceRLE)
 	int _rtn = SDL_SetSurfaceRLE(surface, flag);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UnlockSurface
@@ -5307,7 +5307,7 @@ Gura_ImplementFunction(__UnlockSurface)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	SDL_UnlockSurface(surface);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetClipboardText
@@ -5361,9 +5361,9 @@ Gura_ImplementFunction(__SetClipboardText)
 	int _rtn = SDL_SetClipboardText(text);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AddEventWatch
@@ -5380,10 +5380,10 @@ Gura_ImplementFunction(__AddEventWatch)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AddEventWatch();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AddEventWatch");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DelEventWatch
@@ -5400,10 +5400,10 @@ Gura_ImplementFunction(__DelEventWatch)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DelEventWatch();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DelEventWatch");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.EventState
@@ -5440,10 +5440,10 @@ Gura_ImplementFunction(__FilterEvents)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_FilterEvents();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "FilterEvents");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FlushEvent
@@ -5460,7 +5460,7 @@ Gura_ImplementFunction(__FlushEvent)
 {
 	Uint32 type = args.GetULong(0);
 	SDL_FlushEvent(type);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FlushEvents
@@ -5479,7 +5479,7 @@ Gura_ImplementFunction(__FlushEvents)
 	Uint32 minType = args.GetULong(0);
 	Uint32 maxType = args.GetULong(1);
 	SDL_FlushEvents(minType, maxType);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetEventFilter
@@ -5496,10 +5496,10 @@ Gura_ImplementFunction(__GetEventFilter)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetEventFilter();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetEventFilter");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetNumTouchDevices
@@ -5536,7 +5536,7 @@ Gura_ImplementFunction(__GetNumTouchFingers)
 	int _rtn = SDL_GetNumTouchFingers(touchId);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5559,7 +5559,7 @@ Gura_ImplementFunction(__GetTouchDevice)
 	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5587,7 +5587,7 @@ Gura_ImplementFunction(__GetTouchFinger)
 		_rtnVal = Value(new Object_Finger(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -5651,7 +5651,7 @@ Gura_ImplementFunction(__LoadDollarTemplates)
 	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5676,7 +5676,7 @@ Gura_ImplementFunction(__AddEvents)
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5705,7 +5705,7 @@ Gura_ImplementFunction(__PeekEvents)
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value _rtnVal;
 	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
@@ -5739,7 +5739,7 @@ Gura_ImplementFunction(__GetEvents)
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value _rtnVal;
 	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
@@ -5763,7 +5763,7 @@ Gura_ImplementFunction(__PollEvent)
 {
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
-	if (_rtn == 0) return Value::Null;
+	if (_rtn == 0) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_Event(event)));
 }
 
@@ -5779,7 +5779,7 @@ Gura_DeclareFunctionAlias(__PumpEvents, "PumpEvents")
 Gura_ImplementFunction(__PumpEvents)
 {
 	SDL_PumpEvents();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.PushEvent
@@ -5800,7 +5800,7 @@ Gura_ImplementFunction(__PushEvent)
 	int _rtn = SDL_PushEvent(event);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -5839,7 +5839,7 @@ Gura_ImplementFunction(__RecordGesture)
 	int _rtn = SDL_RecordGesture(touchId);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5885,7 +5885,7 @@ Gura_ImplementFunction(__SaveAllDollarTemplates)
 	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -5910,9 +5910,9 @@ Gura_ImplementFunction(__SaveDollarTemplate)
 	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetEventFilter
@@ -5929,10 +5929,10 @@ Gura_ImplementFunction(__SetEventFilter)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SetEventFilter();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SetEventFilter");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WaitEvent
@@ -5952,7 +5952,7 @@ Gura_ImplementFunction(__WaitEvent)
 	int _rtn = SDL_WaitEvent(&event);
 	if (_rtn == 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Event(event)));
 }
@@ -5979,7 +5979,7 @@ Gura_ImplementFunction(__WaitEventTimeout)
 		_rtnVal = Value(new Object_Event(event));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6022,7 +6022,7 @@ Gura_ImplementFunction(__GetKeyFromName)
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
 	if (_rtn == SDLK_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -6066,7 +6066,7 @@ Gura_ImplementFunction(__GetKeyName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6090,7 +6090,7 @@ Gura_ImplementFunction(__GetKeyboardFocus)
 		_rtnVal = Value(new Object_Window(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6169,7 +6169,7 @@ Gura_ImplementFunction(__GetScancodeFromName)
 	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
 	if (_rtn == SDL_SCANCODE_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -6195,7 +6195,7 @@ Gura_ImplementFunction(__GetScancodeName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6264,7 +6264,7 @@ Gura_ImplementFunction(__SetModState)
 {
 	SDL_Keymod modstate = static_cast<SDL_Keymod>(args.GetInt(0));
 	SDL_SetModState(modstate);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetTextInputRect
@@ -6281,7 +6281,7 @@ Gura_ImplementFunction(__SetTextInputRect)
 {
 	SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
 	SDL_SetTextInputRect(rect);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.StartTextInput
@@ -6296,7 +6296,7 @@ Gura_DeclareFunctionAlias(__StartTextInput, "StartTextInput")
 Gura_ImplementFunction(__StartTextInput)
 {
 	SDL_StartTextInput();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.StopTextInput
@@ -6311,7 +6311,7 @@ Gura_DeclareFunctionAlias(__StopTextInput, "StopTextInput")
 Gura_ImplementFunction(__StopTextInput)
 {
 	SDL_StopTextInput();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CaptureMouse
@@ -6332,12 +6332,12 @@ Gura_ImplementFunction(__CaptureMouse)
 	int _rtn = SDL_CaptureMouse(enalbed);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CaptureMouse");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CreateColorCursor
@@ -6365,7 +6365,7 @@ Gura_ImplementFunction(__CreateColorCursor)
 		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6398,18 +6398,18 @@ Gura_ImplementFunction(__CreateCursor)
 	size_t bytesLeast = int((w + 7) / 8) * h;
 	if (data->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (mask->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data->GetPointer());
 	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask->GetPointer());
 	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Cursor(_rtn, true)));
 }
@@ -6435,7 +6435,7 @@ Gura_ImplementFunction(__CreateSystemCursor)
 		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6454,7 +6454,7 @@ Gura_ImplementFunction(__FreeCursor)
 {
 	SDL_Cursor *cursor = Object_Cursor::GetObject(args, 0)->GetEntity();
 	SDL_FreeCursor(cursor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetCursor
@@ -6496,7 +6496,7 @@ Gura_ImplementFunction(__GetDefaultCursor)
 		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6515,10 +6515,10 @@ Gura_ImplementFunction(__GetGlobalMouseState)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetGlobalMouseState();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetGlobalMouseState");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetMouseFocus
@@ -6540,7 +6540,7 @@ Gura_ImplementFunction(__GetMouseFocus)
 		_rtnVal = Value(new Object_Window(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6613,7 +6613,7 @@ Gura_ImplementFunction(__SetCursor)
 {
 	SDL_Cursor *cursor = Object_Cursor::GetObject(args, 0)->GetEntity();
 	SDL_SetCursor(cursor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SetRelativeMouseMode
@@ -6633,9 +6633,9 @@ Gura_ImplementFunction(__SetRelativeMouseMode)
 	int _rtn = SDL_SetRelativeMouseMode(enabled);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ShowCursor
@@ -6655,9 +6655,9 @@ Gura_ImplementFunction(__ShowCursor)
 	int _rtn = SDL_ShowCursor(toggle);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WarpMouseGlobal
@@ -6678,10 +6678,10 @@ Gura_ImplementFunction(__WarpMouseGlobal)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	SDL_WarpMouseGlobal(x, y);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WarpMouseGlobal");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WarpMouseInWindow
@@ -6702,7 +6702,7 @@ Gura_ImplementFunction(__WarpMouseInWindow)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	SDL_WarpMouseInWindow(window, x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.JoystickClose
@@ -6719,7 +6719,7 @@ Gura_ImplementFunction(__JoystickClose)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickClose(joystick);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.JoystickEventState
@@ -6740,7 +6740,7 @@ Gura_ImplementFunction(__JoystickEventState)
 	int _rtn = SDL_JoystickEventState(state);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -6805,7 +6805,7 @@ Gura_ImplementFunction(__JoystickGetBall)
 	int _rtn = SDL_JoystickGetBall(joystick, ball, &dx, &dy);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value::CreateList(env, Value(dx), Value(dy)));
 }
@@ -6945,7 +6945,7 @@ Gura_ImplementFunction(__JoystickInstanceID)
 	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -6971,7 +6971,7 @@ Gura_ImplementFunction(__JoystickName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -6997,7 +6997,7 @@ Gura_ImplementFunction(__JoystickNameForIndex)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7020,7 +7020,7 @@ Gura_ImplementFunction(__JoystickNumAxes)
 	int _rtn = SDL_JoystickNumAxes(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7043,7 +7043,7 @@ Gura_ImplementFunction(__JoystickNumBalls)
 	int _rtn = SDL_JoystickNumBalls(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7066,7 +7066,7 @@ Gura_ImplementFunction(__JoystickNumButtons)
 	int _rtn = SDL_JoystickNumButtons(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7089,7 +7089,7 @@ Gura_ImplementFunction(__JoystickNumHats)
 	int _rtn = SDL_JoystickNumHats(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7115,7 +7115,7 @@ Gura_ImplementFunction(__JoystickOpen)
 		_rtnVal = Value(new Object_Joystick(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7132,7 +7132,7 @@ Gura_DeclareFunctionAlias(__JoystickUpdate, "JoystickUpdate")
 Gura_ImplementFunction(__JoystickUpdate)
 {
 	SDL_JoystickUpdate();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.NumJoysticks
@@ -7151,7 +7151,7 @@ Gura_ImplementFunction(__NumJoysticks)
 	int _rtn = SDL_NumJoysticks();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7174,7 +7174,7 @@ Gura_ImplementFunction(__GameControllerAddMapping)
 	int _rtn = SDL_GameControllerAddMapping(mappingString);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -7198,7 +7198,7 @@ Gura_ImplementFunction(__GameControllerAddMappingsFromFile)
 	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7217,10 +7217,10 @@ Gura_ImplementFunction(__GameControllerAddMappingsFromRW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GameControllerAddMappingsFromRW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GameControllerAddMappingsFromRW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GameControllerClose
@@ -7237,7 +7237,7 @@ Gura_ImplementFunction(__GameControllerClose)
 {
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerClose(gamecontroller);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GameControllerEventState
@@ -7376,7 +7376,7 @@ Gura_ImplementFunction(__GameControllerGetButton)
 	Uint8 _rtn = SDL_GameControllerGetButton(gamecontroller, button);
 	if (_rtn == 0 && *SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -7420,7 +7420,7 @@ Gura_ImplementFunction(__GameControllerGetJoystick)
 		_rtnVal = Value(new Object_Joystick(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7446,7 +7446,7 @@ Gura_ImplementFunction(__GameControllerGetStringForAxis)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7472,7 +7472,7 @@ Gura_ImplementFunction(__GameControllerGetStringForButton)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7498,7 +7498,7 @@ Gura_ImplementFunction(__GameControllerMapping)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7524,7 +7524,7 @@ Gura_ImplementFunction(__GameControllerMappingForGUID)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7550,7 +7550,7 @@ Gura_ImplementFunction(__GameControllerName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7576,7 +7576,7 @@ Gura_ImplementFunction(__GameControllerNameForIndex)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7602,7 +7602,7 @@ Gura_ImplementFunction(__GameControllerOpen)
 		_rtnVal = Value(new Object_GameController(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7619,7 +7619,7 @@ Gura_DeclareFunctionAlias(__GameControllerUpdate, "GameControllerUpdate")
 Gura_ImplementFunction(__GameControllerUpdate)
 {
 	SDL_GameControllerUpdate();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.IsGameController
@@ -7654,7 +7654,7 @@ Gura_ImplementFunction(__HapticClose)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	SDL_HapticClose(haptic);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticDestroyEffect
@@ -7673,7 +7673,7 @@ Gura_ImplementFunction(__HapticDestroyEffect)
 	SDL_Haptic *haptic = Object_Haptic::GetObject(args, 0)->GetEntity();
 	int effect = args.GetInt(1);
 	SDL_HapticDestroyEffect(haptic, effect);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticEffectSupported
@@ -7696,7 +7696,7 @@ Gura_ImplementFunction(__HapticEffectSupported)
 	int _rtn = SDL_HapticEffectSupported(haptic, effect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -7721,7 +7721,7 @@ Gura_ImplementFunction(__HapticGetEffectStatus)
 	int _rtn = SDL_HapticGetEffectStatus(haptic, effect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -7744,7 +7744,7 @@ Gura_ImplementFunction(__HapticIndex)
 	int _rtn = SDL_HapticIndex(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7770,7 +7770,7 @@ Gura_ImplementFunction(__HapticName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7795,7 +7795,7 @@ Gura_ImplementFunction(__HapticNewEffect)
 	int _rtn = SDL_HapticNewEffect(haptic, effect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7818,7 +7818,7 @@ Gura_ImplementFunction(__HapticNumAxes)
 	int _rtn = SDL_HapticNumAxes(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7841,7 +7841,7 @@ Gura_ImplementFunction(__HapticNumEffects)
 	int _rtn = SDL_HapticNumEffects(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7864,7 +7864,7 @@ Gura_ImplementFunction(__HapticNumEffectsPlaying)
 	int _rtn = SDL_HapticNumEffectsPlaying(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -7890,7 +7890,7 @@ Gura_ImplementFunction(__HapticOpen)
 		_rtnVal = Value(new Object_Haptic(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7916,7 +7916,7 @@ Gura_ImplementFunction(__HapticOpenFromJoystick)
 		_rtnVal = Value(new Object_Haptic(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7940,7 +7940,7 @@ Gura_ImplementFunction(__HapticOpenFromMouse)
 		_rtnVal = Value(new Object_Haptic(_rtn));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -7963,7 +7963,7 @@ Gura_ImplementFunction(__HapticOpened)
 	int _rtn = SDL_HapticOpened(device_index);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -7985,9 +7985,9 @@ Gura_ImplementFunction(__HapticPause)
 	int _rtn = SDL_HapticPause(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticQuery
@@ -8025,9 +8025,9 @@ Gura_ImplementFunction(__HapticRumbleInit)
 	int _rtn = SDL_HapticRumbleInit(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticRumblePlay
@@ -8051,9 +8051,9 @@ Gura_ImplementFunction(__HapticRumblePlay)
 	int _rtn = SDL_HapticRumblePlay(haptic, strength, length);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticRumbleStop
@@ -8073,9 +8073,9 @@ Gura_ImplementFunction(__HapticRumbleStop)
 	int _rtn = SDL_HapticRumbleStop(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticRumbleSupported
@@ -8096,7 +8096,7 @@ Gura_ImplementFunction(__HapticRumbleSupported)
 	int _rtn = SDL_HapticRumbleSupported(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -8122,9 +8122,9 @@ Gura_ImplementFunction(__HapticRunEffect)
 	int _rtn = SDL_HapticRunEffect(haptic, effect, iterations);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticSetAutocenter
@@ -8146,9 +8146,9 @@ Gura_ImplementFunction(__HapticSetAutocenter)
 	int _rtn = SDL_HapticSetAutocenter(haptic, autocenter);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticSetGain
@@ -8170,9 +8170,9 @@ Gura_ImplementFunction(__HapticSetGain)
 	int _rtn = SDL_HapticSetGain(haptic, gain);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticStopAll
@@ -8192,9 +8192,9 @@ Gura_ImplementFunction(__HapticStopAll)
 	int _rtn = SDL_HapticStopAll(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticStopEffect
@@ -8216,9 +8216,9 @@ Gura_ImplementFunction(__HapticStopEffect)
 	int _rtn = SDL_HapticStopEffect(haptic, effect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticUnpause
@@ -8238,9 +8238,9 @@ Gura_ImplementFunction(__HapticUnpause)
 	int _rtn = SDL_HapticUnpause(haptic);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HapticUpdateEffect
@@ -8264,9 +8264,9 @@ Gura_ImplementFunction(__HapticUpdateEffect)
 	int _rtn = SDL_HapticUpdateEffect(haptic, effect, data);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.JoystickIsHaptic
@@ -8287,7 +8287,7 @@ Gura_ImplementFunction(__JoystickIsHaptic)
 	int _rtn = SDL_JoystickIsHaptic(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -8308,7 +8308,7 @@ Gura_ImplementFunction(__MouseIsHaptic)
 	int _rtn = SDL_MouseIsHaptic();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -8329,7 +8329,7 @@ Gura_ImplementFunction(__NumHaptics)
 	int _rtn = SDL_NumHaptics();
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -8351,9 +8351,9 @@ Gura_ImplementFunction(__AudioInit)
 	int _rtn = SDL_AudioInit(driver_name);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AudioQuit
@@ -8368,7 +8368,7 @@ Gura_DeclareFunctionAlias(__AudioQuit, "AudioQuit")
 Gura_ImplementFunction(__AudioQuit)
 {
 	SDL_AudioQuit();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.BuildAudioCVT
@@ -8401,7 +8401,7 @@ Gura_ImplementFunction(__BuildAudioCVT)
 	int _rtn = SDL_BuildAudioCVT(cvt, src_format, src_channels, src_rate, dst_format, dst_channels, dst_rate);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn != 0));
 }
@@ -8422,10 +8422,10 @@ Gura_ImplementFunction(__ClearQueuedAudio)
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_ClearQueuedAudio(dev);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ClearQueuedAudio");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CloseAudio
@@ -8440,7 +8440,7 @@ Gura_DeclareFunctionAlias(__CloseAudio, "CloseAudio")
 Gura_ImplementFunction(__CloseAudio)
 {
 	SDL_CloseAudio();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CloseAudioDevice
@@ -8457,7 +8457,7 @@ Gura_ImplementFunction(__CloseAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_CloseAudioDevice(dev);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ConvertAudio
@@ -8477,9 +8477,9 @@ Gura_ImplementFunction(__ConvertAudio)
 	int _rtn = SDL_ConvertAudio(cvt);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FreeWAV
@@ -8498,7 +8498,7 @@ Gura_ImplementFunction(__FreeWAV)
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetAudioDeviceName
@@ -8524,7 +8524,7 @@ Gura_ImplementFunction(__GetAudioDeviceName)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -8568,7 +8568,7 @@ Gura_ImplementFunction(__GetAudioDriver)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -8608,7 +8608,7 @@ Gura_ImplementFunction(__GetCurrentAudioDriver)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -8631,7 +8631,7 @@ Gura_ImplementFunction(__GetNumAudioDevices)
 	int _rtn = SDL_GetNumAudioDevices(iscapture);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(_rtn));
 }
@@ -8671,7 +8671,7 @@ Gura_ImplementFunction(__GetQueuedAudioSize)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "GetQueuedAudioSize");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LoadWAV
@@ -8696,7 +8696,7 @@ Gura_ImplementFunction(__LoadWAV)
 	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(_file.get(), 0, &spec, &audio_buf, &audio_len);
 	if (_rtn == nullptr) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
 }
@@ -8715,10 +8715,10 @@ Gura_ImplementFunction(__LoadWAV_RW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LoadWAV_RW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LoadWAV_RW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LockAudio
@@ -8733,7 +8733,7 @@ Gura_DeclareFunctionAlias(__LockAudio, "LockAudio")
 Gura_ImplementFunction(__LockAudio)
 {
 	SDL_LockAudio();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LockAudioDevice
@@ -8750,7 +8750,7 @@ Gura_ImplementFunction(__LockAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_LockAudioDevice(dev);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.MixAudio
@@ -8769,10 +8769,10 @@ Gura_ImplementFunction(__MixAudio)
 #if 0
 	int volume = args.GetInt(0);
 	SDL_MixAudio(volume);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "MixAudio");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.MixAudioFormat
@@ -8793,10 +8793,10 @@ Gura_ImplementFunction(__MixAudioFormat)
 	SDL_AudioFormat format = static_cast<SDL_AudioFormat>(args.GetInt(0));
 	int volume = args.GetInt(1);
 	SDL_MixAudioFormat(format, volume);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "MixAudioFormat");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.OpenAudio
@@ -8818,7 +8818,7 @@ Gura_ImplementFunction(__OpenAudio)
 	int _rtn = SDL_OpenAudio(desired, &obtained);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_AudioSpec(obtained)));
 }
@@ -8848,7 +8848,7 @@ Gura_ImplementFunction(__OpenAudioDevice)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "OpenAudioDevice");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.PauseAudio
@@ -8865,7 +8865,7 @@ Gura_ImplementFunction(__PauseAudio)
 {
 	int pause_on = args.GetInt(0);
 	SDL_PauseAudio(pause_on);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.PauseAudioDevice
@@ -8884,7 +8884,7 @@ Gura_ImplementFunction(__PauseAudioDevice)
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	int pause_on = args.GetInt(1);
 	SDL_PauseAudioDevice(dev, pause_on);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.QueueAudio
@@ -8905,12 +8905,12 @@ Gura_ImplementFunction(__QueueAudio)
 	int _rtn = SDL_QueueAudio(dev);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "QueueAudio");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UnlockAudio
@@ -8925,7 +8925,7 @@ Gura_DeclareFunctionAlias(__UnlockAudio, "UnlockAudio")
 Gura_ImplementFunction(__UnlockAudio)
 {
 	SDL_UnlockAudio();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UnlockAudioDevice
@@ -8942,7 +8942,7 @@ Gura_ImplementFunction(__UnlockAudioDevice)
 {
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_UnlockAudioDevice(dev);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AUDIO_BITSIZE
@@ -9085,10 +9085,10 @@ Gura_ImplementFunction(__CreateThread)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CreateThread();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CreateThread");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DetachThread
@@ -9105,10 +9105,10 @@ Gura_ImplementFunction(__DetachThread)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DetachThread();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DetachThread");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetThreadID
@@ -9125,10 +9125,10 @@ Gura_ImplementFunction(__GetThreadID)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetThreadID();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetThreadID");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetThreadName
@@ -9145,10 +9145,10 @@ Gura_ImplementFunction(__GetThreadName)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetThreadName();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetThreadName");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetThreadPriority
@@ -9165,10 +9165,10 @@ Gura_ImplementFunction(__GetThreadPriority)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_GetThreadPriority();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "GetThreadPriority");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.TLSCreate
@@ -9185,10 +9185,10 @@ Gura_ImplementFunction(__TLSCreate)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_TLSCreate();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "TLSCreate");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.TLSGet
@@ -9205,10 +9205,10 @@ Gura_ImplementFunction(__TLSGet)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_TLSGet();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "TLSGet");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.TLSSet
@@ -9225,10 +9225,10 @@ Gura_ImplementFunction(__TLSSet)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_TLSSet();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "TLSSet");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ThreadID
@@ -9245,10 +9245,10 @@ Gura_ImplementFunction(__ThreadID)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ThreadID();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ThreadID");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WaitThread
@@ -9265,10 +9265,10 @@ Gura_ImplementFunction(__WaitThread)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WaitThread();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WaitThread");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CondBroadcast
@@ -9285,10 +9285,10 @@ Gura_ImplementFunction(__CondBroadcast)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CondBroadcast();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CondBroadcast");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CondSignal
@@ -9305,10 +9305,10 @@ Gura_ImplementFunction(__CondSignal)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CondSignal();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CondSignal");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CondWait
@@ -9325,10 +9325,10 @@ Gura_ImplementFunction(__CondWait)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CondWait();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CondWait");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CondWaitTimeout
@@ -9345,10 +9345,10 @@ Gura_ImplementFunction(__CondWaitTimeout)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CondWaitTimeout();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CondWaitTimeout");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CreateCond
@@ -9365,10 +9365,10 @@ Gura_ImplementFunction(__CreateCond)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CreateCond();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CreateCond");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CreateMutex
@@ -9385,10 +9385,10 @@ Gura_ImplementFunction(__CreateMutex)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CreateMutex();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CreateMutex");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CreateSemaphore
@@ -9405,10 +9405,10 @@ Gura_ImplementFunction(__CreateSemaphore)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CreateSemaphore();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CreateSemaphore");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DestroyCond
@@ -9425,10 +9425,10 @@ Gura_ImplementFunction(__DestroyCond)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DestroyCond();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DestroyCond");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DestroyMutex
@@ -9445,10 +9445,10 @@ Gura_ImplementFunction(__DestroyMutex)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DestroyMutex();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DestroyMutex");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.DestroySemaphore
@@ -9465,10 +9465,10 @@ Gura_ImplementFunction(__DestroySemaphore)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_DestroySemaphore();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "DestroySemaphore");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.LockMutex
@@ -9485,10 +9485,10 @@ Gura_ImplementFunction(__LockMutex)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_LockMutex();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "LockMutex");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SemPost
@@ -9505,10 +9505,10 @@ Gura_ImplementFunction(__SemPost)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SemPost();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SemPost");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SemTryWait
@@ -9525,10 +9525,10 @@ Gura_ImplementFunction(__SemTryWait)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SemTryWait();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SemTryWait");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SemValue
@@ -9545,10 +9545,10 @@ Gura_ImplementFunction(__SemValue)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SemValue();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SemValue");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SemWait
@@ -9565,10 +9565,10 @@ Gura_ImplementFunction(__SemWait)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SemWait();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SemWait");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SemWaitTimeout
@@ -9585,10 +9585,10 @@ Gura_ImplementFunction(__SemWaitTimeout)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SemWaitTimeout();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SemWaitTimeout");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.TryLockMutex
@@ -9605,10 +9605,10 @@ Gura_ImplementFunction(__TryLockMutex)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_TryLockMutex();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "TryLockMutex");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.UnlockMutex
@@ -9625,10 +9625,10 @@ Gura_ImplementFunction(__UnlockMutex)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_UnlockMutex();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "UnlockMutex");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicAdd
@@ -9645,10 +9645,10 @@ Gura_ImplementFunction(__AtomicAdd)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicAdd();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicAdd");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicCAS
@@ -9665,10 +9665,10 @@ Gura_ImplementFunction(__AtomicCAS)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicCAS();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicCAS");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicCASPtr
@@ -9685,10 +9685,10 @@ Gura_ImplementFunction(__AtomicCASPtr)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicCASPtr();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicCASPtr");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicDecRef
@@ -9705,10 +9705,10 @@ Gura_ImplementFunction(__AtomicDecRef)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicDecRef();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicDecRef");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicGet
@@ -9725,10 +9725,10 @@ Gura_ImplementFunction(__AtomicGet)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicGet();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicGet");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicGetPtr
@@ -9745,10 +9745,10 @@ Gura_ImplementFunction(__AtomicGetPtr)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicGetPtr();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicGetPtr");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicIncRef
@@ -9765,10 +9765,10 @@ Gura_ImplementFunction(__AtomicIncRef)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicIncRef();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicIncRef");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicLock
@@ -9785,10 +9785,10 @@ Gura_ImplementFunction(__AtomicLock)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicLock();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicLock");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicSet
@@ -9805,10 +9805,10 @@ Gura_ImplementFunction(__AtomicSet)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicSet();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicSet");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicSetPtr
@@ -9825,10 +9825,10 @@ Gura_ImplementFunction(__AtomicSetPtr)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicSetPtr();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicSetPtr");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicTryLock
@@ -9845,10 +9845,10 @@ Gura_ImplementFunction(__AtomicTryLock)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicTryLock();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicTryLock");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AtomicUnlock
@@ -9865,10 +9865,10 @@ Gura_ImplementFunction(__AtomicUnlock)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AtomicUnlock();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AtomicUnlock");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.CompilerBarrier
@@ -9885,10 +9885,10 @@ Gura_ImplementFunction(__CompilerBarrier)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_CompilerBarrier();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "CompilerBarrier");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AddTimer
@@ -9910,7 +9910,7 @@ Gura_ImplementFunction(__AddTimer)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "AddTimer");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.Delay
@@ -9927,7 +9927,7 @@ Gura_ImplementFunction(__Delay)
 {
 	Uint32 ms = args.GetULong(0);
 	SDL_Delay(ms);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetPerformanceCounter
@@ -10036,12 +10036,12 @@ Gura_ImplementFunction(__GetBasePath)
 		// free buffer of _rtn
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetBasePath");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetPrefPath
@@ -10068,12 +10068,12 @@ Gura_ImplementFunction(__GetPrefPath)
 		// free buffer of _rtn
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetPrefPath");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AllocRW
@@ -10090,10 +10090,10 @@ Gura_ImplementFunction(__AllocRW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AllocRW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AllocRW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.FreeRW
@@ -10110,10 +10110,10 @@ Gura_ImplementFunction(__FreeRW)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_FreeRW();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "FreeRW");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWFromConstMem
@@ -10130,10 +10130,10 @@ Gura_ImplementFunction(__RWFromConstMem)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWFromConstMem();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWFromConstMem");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWFromFP
@@ -10150,10 +10150,10 @@ Gura_ImplementFunction(__RWFromFP)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWFromFP();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWFromFP");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWFromFile
@@ -10170,10 +10170,10 @@ Gura_ImplementFunction(__RWFromFile)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWFromFile();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWFromFile");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWFromMem
@@ -10190,10 +10190,10 @@ Gura_ImplementFunction(__RWFromMem)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWFromMem();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWFromMem");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWclose
@@ -10210,10 +10210,10 @@ Gura_ImplementFunction(__RWclose)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWclose();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWclose");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWread
@@ -10230,10 +10230,10 @@ Gura_ImplementFunction(__RWread)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWread();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWread");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWseek
@@ -10250,10 +10250,10 @@ Gura_ImplementFunction(__RWseek)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWseek();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWseek");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWtell
@@ -10270,10 +10270,10 @@ Gura_ImplementFunction(__RWtell)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWtell();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWtell");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.RWwrite
@@ -10290,10 +10290,10 @@ Gura_ImplementFunction(__RWwrite)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_RWwrite();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "RWwrite");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadBE16
@@ -10310,10 +10310,10 @@ Gura_ImplementFunction(__ReadBE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadBE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadBE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadBE32
@@ -10330,10 +10330,10 @@ Gura_ImplementFunction(__ReadBE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadBE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadBE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadBE64
@@ -10350,10 +10350,10 @@ Gura_ImplementFunction(__ReadBE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadBE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadBE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadLE16
@@ -10370,10 +10370,10 @@ Gura_ImplementFunction(__ReadLE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadLE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadLE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadLE32
@@ -10390,10 +10390,10 @@ Gura_ImplementFunction(__ReadLE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadLE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadLE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.ReadLE64
@@ -10410,10 +10410,10 @@ Gura_ImplementFunction(__ReadLE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_ReadLE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "ReadLE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteBE16
@@ -10430,10 +10430,10 @@ Gura_ImplementFunction(__WriteBE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteBE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteBE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteBE32
@@ -10450,10 +10450,10 @@ Gura_ImplementFunction(__WriteBE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteBE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteBE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteBE64
@@ -10470,10 +10470,10 @@ Gura_ImplementFunction(__WriteBE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteBE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteBE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteLE16
@@ -10490,10 +10490,10 @@ Gura_ImplementFunction(__WriteLE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteLE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteLE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteLE32
@@ -10510,10 +10510,10 @@ Gura_ImplementFunction(__WriteLE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteLE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteLE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.WriteLE64
@@ -10530,10 +10530,10 @@ Gura_ImplementFunction(__WriteLE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_WriteLE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "WriteLE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetPlatform
@@ -10555,7 +10555,7 @@ Gura_ImplementFunction(__GetPlatform)
 		_rtnVal = Value(_rtn);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, _rtnVal);
 }
@@ -10657,7 +10657,7 @@ Gura_ImplementFunction(__HasAVX2)
 	return ReturnValue(env, args, Value(_rtn != SDL_FALSE));
 #endif
 	SetError_NotImpFunction(sig, "HasAVX2");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.HasAltiVec
@@ -10802,10 +10802,10 @@ Gura_ImplementFunction(__Swap16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_Swap16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "Swap16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.Swap32
@@ -10822,10 +10822,10 @@ Gura_ImplementFunction(__Swap32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_Swap32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "Swap32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.Swap64
@@ -10842,10 +10842,10 @@ Gura_ImplementFunction(__Swap64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_Swap64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "Swap64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapBE16
@@ -10862,10 +10862,10 @@ Gura_ImplementFunction(__SwapBE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapBE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapBE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapBE32
@@ -10882,10 +10882,10 @@ Gura_ImplementFunction(__SwapBE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapBE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapBE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapBE64
@@ -10902,10 +10902,10 @@ Gura_ImplementFunction(__SwapBE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapBE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapBE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapFloat
@@ -10922,10 +10922,10 @@ Gura_ImplementFunction(__SwapFloat)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapFloat();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapFloat");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapFloatBE
@@ -10942,10 +10942,10 @@ Gura_ImplementFunction(__SwapFloatBE)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapFloatBE();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapFloatBE");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapFloatLE
@@ -10962,10 +10962,10 @@ Gura_ImplementFunction(__SwapFloatLE)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapFloatLE();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapFloatLE");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapLE16
@@ -10982,10 +10982,10 @@ Gura_ImplementFunction(__SwapLE16)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapLE16();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapLE16");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapLE32
@@ -11002,10 +11002,10 @@ Gura_ImplementFunction(__SwapLE32)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapLE32();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapLE32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.SwapLE64
@@ -11022,10 +11022,10 @@ Gura_ImplementFunction(__SwapLE64)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_SwapLE64();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "SwapLE64");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.MostSignificantBitIndex32
@@ -11047,7 +11047,7 @@ Gura_ImplementFunction(__MostSignificantBitIndex32)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "MostSignificantBitIndex32");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.GetPowerInfo
@@ -11083,10 +11083,10 @@ Gura_ImplementFunction(__AndroidGetActivity)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AndroidGetActivity();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AndroidGetActivity");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AndroidGetExternalStoragePath
@@ -11103,10 +11103,10 @@ Gura_ImplementFunction(__AndroidGetExternalStoragePath)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AndroidGetExternalStoragePath();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AndroidGetExternalStoragePath");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AndroidGetExternalStorageState
@@ -11123,10 +11123,10 @@ Gura_ImplementFunction(__AndroidGetExternalStorageState)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AndroidGetExternalStorageState();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AndroidGetExternalStorageState");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AndroidGetInternalStoragePath
@@ -11143,10 +11143,10 @@ Gura_ImplementFunction(__AndroidGetInternalStoragePath)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AndroidGetInternalStoragePath();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AndroidGetInternalStoragePath");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.AndroidGetJNIEnv
@@ -11163,10 +11163,10 @@ Gura_ImplementFunction(__AndroidGetJNIEnv)
 	Signal &sig = env.GetSignal();
 #if 0
 	SDL_AndroidGetJNIEnv();
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "AndroidGetJNIEnv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sdl2.acos

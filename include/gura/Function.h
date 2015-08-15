@@ -489,7 +489,7 @@ public:
 	}
 	inline void SetExprOwnerArg(ExprOwner *pExprOwnerArg) { _pExprOwnerArg.reset(pExprOwnerArg); }
 	inline const ExprList &GetExprListArg() const {
-		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
+		return (_pExprOwnerArg.IsNull())? ExprList::Empty : *_pExprOwnerArg;
 	}
 	inline ValueList &GetValueListArg() { return _valListArg; }
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
@@ -527,10 +527,10 @@ public:
 		_valListArg.push_back(v5);
 	}
 	inline Value GetValue(size_t idxArg) {
-		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Null;
+		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
 	}
 	inline const Value &GetValue(size_t idxArg) const {
-		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Null;
+		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
 	}
 	// nil / undefined
 	inline bool IsValid(size_t idxArg) const			{ return GetValue(idxArg).IsValid();			}

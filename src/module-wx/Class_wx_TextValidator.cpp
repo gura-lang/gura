@@ -57,7 +57,7 @@ Gura_DeclareFunction(TextValidator_1)
 Gura_ImplementFunction(TextValidator_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxTextValidator *validator = Object_wx_TextValidator::GetObject(args, 0)->GetEntity();
 	wx_TextValidator *pEntity = new wx_TextValidator(*validator);
 	Object_wx_TextValidator *pObj = Object_wx_TextValidator::GetThisObj(args);
@@ -83,7 +83,7 @@ Gura_DeclareFunction(TextValidator)
 Gura_ImplementFunction(TextValidator)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	long style = wxFILTER_NONE;
 	if (args.IsValid(0)) style = args.GetLong(0);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(TextValidator)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextValidator, Clone)
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_TextValidator, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
 }
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_TextValidator, GetExcludes)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayString rtn = pThis->GetEntity()->GetExcludes();
 	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 }
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_TextValidator, GetIncludes)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayString rtn = pThis->GetEntity()->GetIncludes();
 	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_TextValidator, GetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -174,10 +174,10 @@ Gura_ImplementMethod(wx_TextValidator, OnChar)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnChar(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextValidator, SetExcludes)
@@ -190,10 +190,10 @@ Gura_ImplementMethod(wx_TextValidator, SetExcludes)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetExcludes(*stringList);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextValidator, SetIncludes)
@@ -206,10 +206,10 @@ Gura_ImplementMethod(wx_TextValidator, SetIncludes)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayString> stringList(CreateArrayString(args.GetList(0)));
 	pThis->GetEntity()->SetIncludes(*stringList);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextValidator, SetStyle)
@@ -222,10 +222,10 @@ Gura_ImplementMethod(wx_TextValidator, SetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long style = args.GetLong(0);
 	pThis->GetEntity()->SetStyle(style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_TextValidator, TransferFromWindow)
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferFromWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_TextValidator, TransferToWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_TextValidator, Validate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Validate(parent);
 	return ReturnValue(env, args, Value(rtn));

@@ -31,7 +31,7 @@ Gura_ImplementMethod(image, cairo)
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
 		Image::Delete(pImage);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	cairo_t *cr = ::cairo_create(surface);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(ps_level_to_string)
 {
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	const char *rtn = ::cairo_ps_level_to_string(level);
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
 }
 #endif
@@ -152,7 +152,7 @@ Gura_ImplementFunction(pdf_version_to_string)
 {
 	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_pdf_version_to_string(version);
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementFunction(svg_version_to_string)
 {
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_svg_version_to_string(version);
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementFunction(status_to_string)
 {
 	cairo_status_t status = static_cast<cairo_status_t>(args.GetInt(0));
 	const char *rtn = ::cairo_status_to_string(status);
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -211,7 +211,7 @@ Gura_DeclareFunction(debug_reset_static_data)
 Gura_ImplementFunction(debug_reset_static_data)
 {
 	::cairo_debug_reset_static_data();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // cairo.test()
@@ -228,11 +228,11 @@ Gura_ImplementFunction(test)
 	DWORD cch = ArraySizeOf(printerName) - 1;
 	if (!::GetDefaultPrinter(printerName, &cch)) {
 		::printf("failed to get a default printer");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (!(hdc = ::CreateDC(nullptr, printerName, nullptr , nullptr))) {
 		::printf("error in CreateDC()\n");
-		return Value::Null;
+		return Value::Nil;
 	}
 	DOCINFO diInfo;
 	::memset(&diInfo, 0x00, sizeof(diInfo));
@@ -247,7 +247,7 @@ Gura_ImplementFunction(test)
 	}
 	::DeleteDC(hdc);
 #endif
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

@@ -50,7 +50,7 @@ Gura_DeclareFunction(DropFilesEvent)
 Gura_ImplementFunction(DropFilesEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	WXTYPE id = 0;
 	if (args.IsValid(0)) id = static_cast<WXTYPE>(args.GetInt(0));
@@ -73,7 +73,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DropFilesEvent, GetFiles)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetFiles)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString *rtn = pThis->GetEntity()->GetFiles();
 	int n = pThis->GetEntity()->GetNumberOfFiles();
 	return ReturnValue(env, args, ArrayStringToValue(env, rtn, n));
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetNumberOfFiles)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetNumberOfFiles();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }

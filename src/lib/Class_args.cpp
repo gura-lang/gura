@@ -30,7 +30,7 @@ Value Object_args::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return rtn;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_args::ToString(bool exprFlag)
@@ -57,7 +57,7 @@ Gura_ImplementMethod(args, finalize_trailer)
 {
 	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
 	pArgs->FinalizeTrailer();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // args#isset(symbol:symbol)
@@ -101,7 +101,7 @@ Gura_ImplementMethod(args, quit_trailer)
 {
 	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
 	pArgs->QuitTrailer();
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

@@ -43,7 +43,7 @@ Value Object_Color::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_color.b);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Color::DoSetProp(Environment &env,
@@ -53,20 +53,20 @@ Value Object_Color::DoSetProp(Environment &env,
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_color.r = static_cast<Uint8>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(g))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_color.g = static_cast<Uint8>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_color.b = static_cast<Uint8>(value.GetUInt());
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

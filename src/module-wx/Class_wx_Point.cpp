@@ -47,7 +47,7 @@ Gura_DeclareFunction(PointEmpty)
 Gura_ImplementFunction(PointEmpty)
 {
 	Signal &sig = env.GetSignal();
-	//if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Point *pEntity = new wx_Point();
 	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -72,7 +72,7 @@ Gura_DeclareFunction(Point)
 Gura_ImplementFunction(Point)
 {
 	Signal &sig = env.GetSignal();
-	//if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Nil;
 	int x = 0;
 	if (args.IsValid(0)) x = args.GetInt(0);
 	int y = 0;
@@ -119,7 +119,7 @@ Gura_ImplementBinaryOperator(Add, wx_Point, any)
 		rtn = *item1 + *item2;
 	} else {
 		SetError_InvalidValueType(sig, valueLeft, valueRight);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue));
 }
@@ -138,7 +138,7 @@ Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 		rtn = *item1 - *item2;
 	} else {
 		SetError_InvalidValueType(sig, valueLeft, valueRight);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue));
 }
@@ -177,7 +177,7 @@ Value Object_wx_Point::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetEntity()->y);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_wx_Point::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -185,15 +185,15 @@ Value Object_wx_Point::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 {
 	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->x = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->y = value.GetInt();
 		return value;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_wx_Point::ToString(bool exprFlag)

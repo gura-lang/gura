@@ -37,7 +37,7 @@ Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 		evaluatedFlag = true;
 		return Value(_writableFlag);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
@@ -45,20 +45,20 @@ Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for binary");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int idx = valueIdx.GetInt();
 	int len = static_cast<int>(_binary.size());
 	if (idx >= 0) {
 		if (idx >= len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(static_cast<UChar>(_binary[idx]));
 	} else {
 		if (-idx > len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(static_cast<UChar>(_binary[len + idx]));
 	}
@@ -222,7 +222,7 @@ Gura_ImplementFunction(binary)
 			binary += pValue->GetBinary();
 		} else {
 			sig.SetError(ERR_ValueError, "string or binary is expected");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	return ReturnValue(env, args, Value(pObjBinary.release()));
@@ -247,7 +247,7 @@ Gura_ImplementMethod(binary, add)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
+		return Value::Nil;
 	}
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pThis->GetBinary() += pValue->GetBinary();
@@ -295,7 +295,7 @@ Gura_ImplementMethod(binary, decode)
 	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	String str;
 	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(str);
 }
@@ -319,7 +319,7 @@ Gura_ImplementMethod(binary, dump)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	const Binary &buff = pThis->GetBinary();
 	pStream->Dump(sig, buff.data(), buff.size(), args.IsSet(Gura_Symbol(upper)));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // binary#each() {block?}
@@ -482,7 +482,7 @@ Gura_ImplementClassMethod(binary, pack)
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), args.GetList(1));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjBinary.release()));
 }
 
@@ -540,7 +540,7 @@ Gura_ImplementMethod(binary, store)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t offset = args.GetSizeT(0);
 	Binary &binary = pThis->GetBinary();

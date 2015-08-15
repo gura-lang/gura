@@ -482,7 +482,7 @@ void Object_Nurbs::_CB_vertex_data(GLfloat *vertex, void *userData, const Functi
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(
 		Value::CreateList(env, vertex, 3),
-		(userData == nullptr)? Value::Null :
+		(userData == nullptr)? Value::Nil :
 		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
 	pFunc->Eval(env, *pArgs);
 }
@@ -494,7 +494,7 @@ void Object_Nurbs::_CB_normal_data(GLfloat *normal, void *userData, const Functi
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(
 		Value::CreateList(env, normal, 3),
-		(userData == nullptr)? Value::Null :
+		(userData == nullptr)? Value::Nil :
 		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
 	pFunc->Eval(env, *pArgs);
 }
@@ -506,7 +506,7 @@ void Object_Nurbs::_CB_color_data(GLfloat *color, void *userData, const Function
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(
 		Value::CreateList(env, color, 4),
-		(userData == nullptr)? Value::Null :
+		(userData == nullptr)? Value::Nil :
 		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
 	pFunc->Eval(env, *pArgs);
 }
@@ -518,7 +518,7 @@ void Object_Nurbs::_CB_texture_coord_data(GLfloat *tex_coord, void *userData, co
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(
 		Value::CreateList(env, tex_coord, 3),
-		(userData == nullptr)? Value::Null :
+		(userData == nullptr)? Value::Nil :
 		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
 	pFunc->Eval(env, *pArgs);
 }
@@ -529,7 +529,7 @@ void Object_Nurbs::_CB_end_data(void *userData, const Function *pFunc)
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(
-		(userData == nullptr)? Value::Null :
+		(userData == nullptr)? Value::Nil :
 		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
 	pFunc->Eval(env, *pArgs);
 }

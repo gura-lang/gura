@@ -53,7 +53,7 @@ Gura_DeclareFunction(PreviewFrame)
 Gura_ImplementFunction(PreviewFrame)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxString title = wxString::FromUTF8(args.GetString(2));
@@ -86,9 +86,9 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CreateControlBar();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
@@ -100,9 +100,9 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CreateCanvas();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PreviewFrame, Initialize)
@@ -114,9 +114,9 @@ Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Initialize();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
@@ -129,10 +129,10 @@ Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

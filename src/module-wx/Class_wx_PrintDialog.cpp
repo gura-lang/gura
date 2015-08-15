@@ -48,7 +48,7 @@ Gura_DeclareFunction(PrintDialog)
 Gura_ImplementFunction(PrintDialog)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxPrintDialogData *data = (wxPrintDialogData *)(nullptr);
 	if (args.IsValid(1)) data = Object_wx_PrintDialogData::GetObject(args, 1)->GetEntity();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDialogData)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintDialogData &rtn = pThis->GetEntity()->GetPrintDialogData();
 	return ReturnValue(env, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), nullptr, OwnerTrue)));
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDC)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetPrintDC();
 	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_PrintDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunction(MediaCtrlEmpty)
 Gura_ImplementFunction(MediaCtrlEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MediaCtrl *pEntity = new wx_MediaCtrl();
 	Object_wx_MediaCtrl *pObj = Object_wx_MediaCtrl::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -79,7 +79,7 @@ Gura_DeclareFunction(MediaCtrl)
 Gura_ImplementFunction(MediaCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString fileName = wxT("");
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString fileName = wxT("");
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetBestSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetBestSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetPlaybackRate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetPlaybackRate();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetVolume)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->GetVolume();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_MediaCtrl, GetState)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetState();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Length)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset rtn = pThis->GetEntity()->Length();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Load(fileName);
 	return ReturnValue(env, args, Value(rtn));
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxURI *uri = Object_wx_URI::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Load(*uri);
 	return ReturnValue(env, args, Value(rtn));
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxURI *uri = Object_wx_URI::GetObject(args, 0)->GetEntity();
 	wxURI *proxy = Object_wx_URI::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Load(*uri, *proxy);
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURI)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString uri = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->LoadURI(uri);
 	return ReturnValue(env, args, Value(rtn));
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURIWithProxy)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString uri = wxString::FromUTF8(args.GetString(0));
 	wxString proxy = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->LoadURIWithProxy(uri, proxy);
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Pause)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Pause();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Play)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Play();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Seek)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset where = static_cast<wxFileOffset>(args.GetInt64(0));
 	wxSeekMode mode = static_cast<wxSeekMode>(args.GetInt(1));
 	wxFileOffset rtn = pThis->GetEntity()->Seek(where, mode);
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_MediaCtrl, SetPlaybackRate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double dRate = args.GetDouble(0);
 	bool rtn = pThis->GetEntity()->SetPlaybackRate(dRate);
 	return ReturnValue(env, args, Value(rtn));
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_MediaCtrl, SetVolume)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double dVolume = args.GetDouble(0);
 	bool rtn = pThis->GetEntity()->SetVolume(dVolume);
 	return ReturnValue(env, args, Value(rtn));
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_MediaCtrl, ShowPlayerControls)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMediaCtrlPlayerControls flags = wxMEDIACTRLPLAYERCONTROLS_DEFAULT;
 	if (args.IsValid(0)) flags = static_cast<wxMediaCtrlPlayerControls>(args.GetInt(0));
 	bool rtn = pThis->GetEntity()->ShowPlayerControls(flags);
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Stop)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Stop();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_MediaCtrl, Tell)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset rtn = pThis->GetEntity()->Tell();
 	return ReturnValue(env, args, Value(rtn));
 }

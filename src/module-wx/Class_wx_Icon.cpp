@@ -53,7 +53,7 @@ Gura_DeclareFunction(EmptyIcon)
 Gura_ImplementFunction(EmptyIcon)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Icon *pEntity = new wx_Icon();
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -80,7 +80,7 @@ Gura_DeclareFunction(Icon)
 Gura_ImplementFunction(Icon)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
 	int desiredWidth = -1;
@@ -109,7 +109,7 @@ Gura_DeclareFunction(IconFromXPMData)
 Gura_ImplementFunction(IconFromXPMData)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	const char **bits = new const char *[args.GetList(0).size()];
 	size_t i = 0;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
@@ -146,7 +146,7 @@ Gura_DeclareFunction(Icon_1)
 Gura_ImplementFunction(Icon_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int data = args.GetInt(0);
 	int type = args.GetInt(1);
@@ -166,7 +166,7 @@ Gura_ImplementFunction(Icon_1)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Icon_2)
@@ -185,7 +185,7 @@ Gura_DeclareFunction(Icon_2)
 Gura_ImplementFunction(Icon_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char bits[] = args.GetChar(0);
 	int width = args.GetInt(1);
@@ -204,7 +204,7 @@ Gura_ImplementFunction(Icon_2)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Icon_3)
@@ -222,7 +222,7 @@ Gura_DeclareFunction(Icon_3)
 Gura_ImplementFunction(Icon_3)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
@@ -240,7 +240,7 @@ Gura_ImplementFunction(Icon_3)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Icon_5)
@@ -254,7 +254,7 @@ Gura_DeclareFunction(Icon_5)
 Gura_ImplementFunction(Icon_5)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char bits = args.GetChar(0);
 	wx_Icon *pEntity = new wx_Icon(bits);
@@ -269,7 +269,7 @@ Gura_ImplementFunction(Icon_5)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(Icon_7)
@@ -283,7 +283,7 @@ Gura_DeclareFunction(Icon_7)
 Gura_ImplementFunction(Icon_7)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxIconLocation *loc = Object_wx_IconLocation::GetObject(args, 0)->GetEntity();
 	wx_Icon *pEntity = new wx_Icon(*loc);
 	Object_wx_Icon *pObj = Object_wx_Icon::GetThisObj(args);
@@ -307,10 +307,10 @@ Gura_ImplementMethod(wx_Icon, CopyFromBitmap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->CopyFromBitmap(*bmp);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Icon, GetDepth)
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_Icon, GetDepth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetDepth();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_Icon, GetHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetHeight();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_Icon, GetWidth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_Icon, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->LoadFile(name, type);
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_Icon, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_Icon, SaveFile)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(1));
 	wxPalette *palette = (wxPalette *)(nullptr);
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_Icon, SaveFile)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Icon, SetDepth)
@@ -430,10 +430,10 @@ Gura_ImplementMethod(wx_Icon, SetDepth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int depth = args.GetInt(0);
 	pThis->GetEntity()->SetDepth(depth);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Icon, SetHeight)
@@ -446,10 +446,10 @@ Gura_ImplementMethod(wx_Icon, SetHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int height = args.GetInt(0);
 	pThis->GetEntity()->SetHeight(height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Icon, SetWidth)
@@ -462,10 +462,10 @@ Gura_ImplementMethod(wx_Icon, SetWidth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Icon *pThis = Object_wx_Icon::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	pThis->GetEntity()->SetWidth(width);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

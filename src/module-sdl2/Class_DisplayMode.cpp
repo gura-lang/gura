@@ -44,7 +44,7 @@ Value Object_DisplayMode::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_mode.refresh_rate);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_DisplayMode::DoSetProp(Environment &env,
@@ -66,7 +66,7 @@ Value Object_DisplayMode::DoSetProp(Environment &env,
 		return Value(_mode.refresh_rate);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

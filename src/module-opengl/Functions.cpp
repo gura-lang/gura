@@ -23,7 +23,7 @@ Gura_ImplementFunction(__glAccum)
 	GLenum op = static_cast<GLenum>(args.GetInt(0));
 	GLfloat value = args.GetFloat(1);
 	glAccum(op, value);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glAlphaFunc
@@ -42,7 +42,7 @@ Gura_ImplementFunction(__glAlphaFunc)
 	GLenum func = static_cast<GLenum>(args.GetInt(0));
 	GLclampf ref = args.GetFloat(1);
 	glAlphaFunc(func, ref);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glAreTexturesResident
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__glAreTexturesResident)
 	AutoPtr<Array<GLboolean> > _residences(new Array<GLboolean>(n));
 	GLboolean *residences = _residences->GetPointer();
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
-	if (_rtn == 0) return Value::Null;
+	if (_rtn == 0) return Value::Nil;
 	Value _rtnVal;
 	ValueList &valList = _rtnVal.InitAsList(env, n);
 	for (GLsizei i = 0; i < n; i++) {
@@ -87,7 +87,7 @@ Gura_ImplementFunction(__glArrayElement)
 {
 	GLint i = args.GetInt(0);
 	glArrayElement(i);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glBegin
@@ -109,11 +109,11 @@ Gura_ImplementFunction(__glBegin)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glBindTexture
@@ -132,7 +132,7 @@ Gura_ImplementFunction(__glBindTexture)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLuint texture = args.GetUInt(1);
 	glBindTexture(target, texture);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glBitmap
@@ -166,11 +166,11 @@ Gura_ImplementFunction(__glBitmap)
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
 			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glBlendFunc
@@ -189,7 +189,7 @@ Gura_ImplementFunction(__glBlendFunc)
 	GLenum sfactor = static_cast<GLenum>(args.GetInt(0));
 	GLenum dfactor = static_cast<GLenum>(args.GetInt(1));
 	glBlendFunc(sfactor, dfactor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCallList
@@ -206,7 +206,7 @@ Gura_ImplementFunction(__glCallList)
 {
 	GLuint list = args.GetUInt(0);
 	glCallList(list);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCallLists
@@ -285,11 +285,11 @@ Gura_ImplementFunction(__glCallLists)
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "invalid type specification");
-		return Value::Null;
+		return Value::Nil;
 	}
 	// GLsizei n, GLenum type, const GLvoid *lists
 	glCallLists(n, type, pListsBuff->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClear
@@ -306,7 +306,7 @@ Gura_ImplementFunction(__glClear)
 {
 	GLbitfield mask = args.GetUInt(0);
 	glClear(mask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClearAccum
@@ -329,7 +329,7 @@ Gura_ImplementFunction(__glClearAccum)
 	GLfloat blue = args.GetFloat(2);
 	GLfloat alpha = args.GetFloat(3);
 	glClearAccum(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClearColor
@@ -352,7 +352,7 @@ Gura_ImplementFunction(__glClearColor)
 	GLclampf blue = args.GetFloat(2);
 	GLclampf alpha = args.GetFloat(3);
 	glClearColor(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClearDepth
@@ -369,7 +369,7 @@ Gura_ImplementFunction(__glClearDepth)
 {
 	GLclampd depth = args.GetDouble(0);
 	glClearDepth(depth);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClearIndex
@@ -386,7 +386,7 @@ Gura_ImplementFunction(__glClearIndex)
 {
 	GLfloat c = args.GetFloat(0);
 	glClearIndex(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClearStencil
@@ -403,7 +403,7 @@ Gura_ImplementFunction(__glClearStencil)
 {
 	GLint s = args.GetInt(0);
 	glClearStencil(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glClipPlane
@@ -426,10 +426,10 @@ Gura_ImplementFunction(__glClipPlane)
 	GLdouble *equation = reinterpret_cast<GLdouble *>(_equation->GetPointer());
 	if (_equation->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glClipPlane(plane, equation);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3b
@@ -450,7 +450,7 @@ Gura_ImplementFunction(__glColor3b)
 	GLbyte green = args.GetChar(1);
 	GLbyte blue = args.GetChar(2);
 	glColor3b(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3bv
@@ -470,10 +470,10 @@ Gura_ImplementFunction(__glColor3bv)
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3bv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3d
@@ -494,7 +494,7 @@ Gura_ImplementFunction(__glColor3d)
 	GLdouble green = args.GetDouble(1);
 	GLdouble blue = args.GetDouble(2);
 	glColor3d(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3dv
@@ -514,10 +514,10 @@ Gura_ImplementFunction(__glColor3dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3f
@@ -538,7 +538,7 @@ Gura_ImplementFunction(__glColor3f)
 	GLfloat green = args.GetFloat(1);
 	GLfloat blue = args.GetFloat(2);
 	glColor3f(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3fv
@@ -558,10 +558,10 @@ Gura_ImplementFunction(__glColor3fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3i
@@ -582,7 +582,7 @@ Gura_ImplementFunction(__glColor3i)
 	GLint green = args.GetInt(1);
 	GLint blue = args.GetInt(2);
 	glColor3i(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3iv
@@ -602,10 +602,10 @@ Gura_ImplementFunction(__glColor3iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3s
@@ -626,7 +626,7 @@ Gura_ImplementFunction(__glColor3s)
 	GLshort green = args.GetShort(1);
 	GLshort blue = args.GetShort(2);
 	glColor3s(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3sv
@@ -646,10 +646,10 @@ Gura_ImplementFunction(__glColor3sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3ub
@@ -670,7 +670,7 @@ Gura_ImplementFunction(__glColor3ub)
 	GLubyte green = args.GetUChar(1);
 	GLubyte blue = args.GetUChar(2);
 	glColor3ub(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3ubv
@@ -690,10 +690,10 @@ Gura_ImplementFunction(__glColor3ubv)
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3ubv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3ui
@@ -714,7 +714,7 @@ Gura_ImplementFunction(__glColor3ui)
 	GLuint green = args.GetUInt(1);
 	GLuint blue = args.GetUInt(2);
 	glColor3ui(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3uiv
@@ -734,10 +734,10 @@ Gura_ImplementFunction(__glColor3uiv)
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3uiv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3us
@@ -758,7 +758,7 @@ Gura_ImplementFunction(__glColor3us)
 	GLushort green = args.GetUShort(1);
 	GLushort blue = args.GetUShort(2);
 	glColor3us(red, green, blue);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor3usv
@@ -778,10 +778,10 @@ Gura_ImplementFunction(__glColor3usv)
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor3usv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4b
@@ -804,7 +804,7 @@ Gura_ImplementFunction(__glColor4b)
 	GLbyte blue = args.GetChar(2);
 	GLbyte alpha = args.GetChar(3);
 	glColor4b(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4bv
@@ -824,10 +824,10 @@ Gura_ImplementFunction(__glColor4bv)
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4bv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4d
@@ -850,7 +850,7 @@ Gura_ImplementFunction(__glColor4d)
 	GLdouble blue = args.GetDouble(2);
 	GLdouble alpha = args.GetDouble(3);
 	glColor4d(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4dv
@@ -870,10 +870,10 @@ Gura_ImplementFunction(__glColor4dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4f
@@ -896,7 +896,7 @@ Gura_ImplementFunction(__glColor4f)
 	GLfloat blue = args.GetFloat(2);
 	GLfloat alpha = args.GetFloat(3);
 	glColor4f(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4fv
@@ -916,10 +916,10 @@ Gura_ImplementFunction(__glColor4fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4i
@@ -942,7 +942,7 @@ Gura_ImplementFunction(__glColor4i)
 	GLint blue = args.GetInt(2);
 	GLint alpha = args.GetInt(3);
 	glColor4i(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4iv
@@ -962,10 +962,10 @@ Gura_ImplementFunction(__glColor4iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4s
@@ -988,7 +988,7 @@ Gura_ImplementFunction(__glColor4s)
 	GLshort blue = args.GetShort(2);
 	GLshort alpha = args.GetShort(3);
 	glColor4s(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4sv
@@ -1008,10 +1008,10 @@ Gura_ImplementFunction(__glColor4sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4ub
@@ -1034,7 +1034,7 @@ Gura_ImplementFunction(__glColor4ub)
 	GLubyte blue = args.GetUChar(2);
 	GLubyte alpha = args.GetUChar(3);
 	glColor4ub(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4ubv
@@ -1054,10 +1054,10 @@ Gura_ImplementFunction(__glColor4ubv)
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4ubv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4ui
@@ -1080,7 +1080,7 @@ Gura_ImplementFunction(__glColor4ui)
 	GLuint blue = args.GetUInt(2);
 	GLuint alpha = args.GetUInt(3);
 	glColor4ui(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4uiv
@@ -1100,10 +1100,10 @@ Gura_ImplementFunction(__glColor4uiv)
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4uiv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4us
@@ -1126,7 +1126,7 @@ Gura_ImplementFunction(__glColor4us)
 	GLushort blue = args.GetUShort(2);
 	GLushort alpha = args.GetUShort(3);
 	glColor4us(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColor4usv
@@ -1146,10 +1146,10 @@ Gura_ImplementFunction(__glColor4usv)
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glColor4usv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColorMask
@@ -1172,7 +1172,7 @@ Gura_ImplementFunction(__glColorMask)
 	GLboolean blue = (args.GetBoolean(2)? GL_TRUE : GL_FALSE);
 	GLboolean alpha = (args.GetBoolean(3)? GL_TRUE : GL_FALSE);
 	glColorMask(red, green, blue, alpha);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glColorMaterial
@@ -1191,7 +1191,7 @@ Gura_ImplementFunction(__glColorMaterial)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glColorMaterial(face, mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCopyPixels
@@ -1216,7 +1216,7 @@ Gura_ImplementFunction(__glCopyPixels)
 	GLsizei height = args.GetInt(3);
 	GLenum type = static_cast<GLenum>(args.GetInt(4));
 	glCopyPixels(x, y, width, height, type);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCopyTexImage1D
@@ -1245,7 +1245,7 @@ Gura_ImplementFunction(__glCopyTexImage1D)
 	GLsizei width = args.GetInt(5);
 	GLint border = args.GetInt(6);
 	glCopyTexImage1D(target, level, internalformat, x, y, width, border);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCopyTexImage2D
@@ -1276,7 +1276,7 @@ Gura_ImplementFunction(__glCopyTexImage2D)
 	GLsizei height = args.GetInt(6);
 	GLint border = args.GetInt(7);
 	glCopyTexImage2D(target, level, internalformat, x, y, width, height, border);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCopyTexSubImage1D
@@ -1303,7 +1303,7 @@ Gura_ImplementFunction(__glCopyTexSubImage1D)
 	GLint y = args.GetInt(4);
 	GLsizei width = args.GetInt(5);
 	glCopyTexSubImage1D(target, level, xoffset, x, y, width);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCopyTexSubImage2D
@@ -1334,7 +1334,7 @@ Gura_ImplementFunction(__glCopyTexSubImage2D)
 	GLsizei width = args.GetInt(6);
 	GLsizei height = args.GetInt(7);
 	glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glCullFace
@@ -1351,7 +1351,7 @@ Gura_ImplementFunction(__glCullFace)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glCullFace(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDeleteLists
@@ -1370,7 +1370,7 @@ Gura_ImplementFunction(__glDeleteLists)
 	GLuint list = args.GetUInt(0);
 	GLsizei range = args.GetInt(1);
 	glDeleteLists(list, range);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDeleteTextures
@@ -1389,7 +1389,7 @@ Gura_ImplementFunction(__glDeleteTextures)
 	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
 	GLsizei n = _textures->GetSize();
 	glDeleteTextures(n, textures);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDepthFunc
@@ -1406,7 +1406,7 @@ Gura_ImplementFunction(__glDepthFunc)
 {
 	GLenum func = static_cast<GLenum>(args.GetInt(0));
 	glDepthFunc(func);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDepthMask
@@ -1423,7 +1423,7 @@ Gura_ImplementFunction(__glDepthMask)
 {
 	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glDepthMask(flag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDepthRange
@@ -1442,7 +1442,7 @@ Gura_ImplementFunction(__glDepthRange)
 	GLclampd zNear = args.GetDouble(0);
 	GLclampd zFar = args.GetDouble(1);
 	glDepthRange(zNear, zFar);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDisable
@@ -1459,7 +1459,7 @@ Gura_ImplementFunction(__glDisable)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	glDisable(cap);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDisableClientState
@@ -1476,7 +1476,7 @@ Gura_ImplementFunction(__glDisableClientState)
 {
 	GLenum array = static_cast<GLenum>(args.GetInt(0));
 	glDisableClientState(array);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDrawArrays
@@ -1497,7 +1497,7 @@ Gura_ImplementFunction(__glDrawArrays)
 	GLint first = args.GetInt(1);
 	GLsizei count = args.GetInt(2);
 	glDrawArrays(mode, first, count);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDrawBuffer
@@ -1514,7 +1514,7 @@ Gura_ImplementFunction(__glDrawBuffer)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glDrawBuffer(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDrawPixels
@@ -1541,9 +1541,9 @@ Gura_ImplementFunction(__glDrawPixels)
 	Value pixels = args.GetValue(4);
 	
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glDrawPixelsFromImage
@@ -1564,12 +1564,12 @@ Gura_ImplementFunction(__glDrawPixelsFromImage)
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = image->GetBuffer();
 	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
 	glDrawPixels(width, height, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEdgeFlag
@@ -1586,7 +1586,7 @@ Gura_ImplementFunction(__glEdgeFlag)
 {
 	GLboolean flag = (args.GetBoolean(0)? GL_TRUE : GL_FALSE);
 	glEdgeFlag(flag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEdgeFlagv
@@ -1606,10 +1606,10 @@ Gura_ImplementFunction(__glEdgeFlagv)
 	GLboolean *flag = _flag->GetPointer();
 	if (_flag->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glEdgeFlagv(flag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEnable
@@ -1626,7 +1626,7 @@ Gura_ImplementFunction(__glEnable)
 {
 	GLenum cap = static_cast<GLenum>(args.GetInt(0));
 	glEnable(cap);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEnableClientState
@@ -1643,7 +1643,7 @@ Gura_ImplementFunction(__glEnableClientState)
 {
 	GLenum array = static_cast<GLenum>(args.GetInt(0));
 	glEnableClientState(array);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEnd
@@ -1658,7 +1658,7 @@ Gura_DeclareFunctionAlias(__glEnd, "glEnd")
 Gura_ImplementFunction(__glEnd)
 {
 	glEnd();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEndList
@@ -1673,7 +1673,7 @@ Gura_DeclareFunctionAlias(__glEndList, "glEndList")
 Gura_ImplementFunction(__glEndList)
 {
 	glEndList();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord1d
@@ -1690,7 +1690,7 @@ Gura_ImplementFunction(__glEvalCoord1d)
 {
 	GLdouble u = args.GetDouble(0);
 	glEvalCoord1d(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord1dv
@@ -1710,10 +1710,10 @@ Gura_ImplementFunction(__glEvalCoord1dv)
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glEvalCoord1dv(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord1f
@@ -1730,7 +1730,7 @@ Gura_ImplementFunction(__glEvalCoord1f)
 {
 	GLfloat u = args.GetFloat(0);
 	glEvalCoord1f(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord1fv
@@ -1750,10 +1750,10 @@ Gura_ImplementFunction(__glEvalCoord1fv)
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glEvalCoord1fv(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord2d
@@ -1772,7 +1772,7 @@ Gura_ImplementFunction(__glEvalCoord2d)
 	GLdouble u = args.GetDouble(0);
 	GLdouble v = args.GetDouble(1);
 	glEvalCoord2d(u, v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord2dv
@@ -1792,10 +1792,10 @@ Gura_ImplementFunction(__glEvalCoord2dv)
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glEvalCoord2dv(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord2f
@@ -1814,7 +1814,7 @@ Gura_ImplementFunction(__glEvalCoord2f)
 	GLfloat u = args.GetFloat(0);
 	GLfloat v = args.GetFloat(1);
 	glEvalCoord2f(u, v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalCoord2fv
@@ -1834,10 +1834,10 @@ Gura_ImplementFunction(__glEvalCoord2fv)
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glEvalCoord2fv(u);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalMesh1
@@ -1858,7 +1858,7 @@ Gura_ImplementFunction(__glEvalMesh1)
 	GLint i1 = args.GetInt(1);
 	GLint i2 = args.GetInt(2);
 	glEvalMesh1(mode, i1, i2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalMesh2
@@ -1883,7 +1883,7 @@ Gura_ImplementFunction(__glEvalMesh2)
 	GLint j1 = args.GetInt(3);
 	GLint j2 = args.GetInt(4);
 	glEvalMesh2(mode, i1, i2, j1, j2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalPoint1
@@ -1900,7 +1900,7 @@ Gura_ImplementFunction(__glEvalPoint1)
 {
 	GLint i = args.GetInt(0);
 	glEvalPoint1(i);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glEvalPoint2
@@ -1919,7 +1919,7 @@ Gura_ImplementFunction(__glEvalPoint2)
 	GLint i = args.GetInt(0);
 	GLint j = args.GetInt(1);
 	glEvalPoint2(i, j);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFeedbackBuffer
@@ -1942,7 +1942,7 @@ Gura_ImplementFunction(__glFeedbackBuffer)
 	} else {
 		glFeedbackBuffer(buffer->GetSize(), type, buffer->GetPointer());
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFinish
@@ -1957,7 +1957,7 @@ Gura_DeclareFunctionAlias(__glFinish, "glFinish")
 Gura_ImplementFunction(__glFinish)
 {
 	glFinish();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFlush
@@ -1972,7 +1972,7 @@ Gura_DeclareFunctionAlias(__glFlush, "glFlush")
 Gura_ImplementFunction(__glFlush)
 {
 	glFlush();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFogf
@@ -1991,7 +1991,7 @@ Gura_ImplementFunction(__glFogf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
 	glFogf(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFogfv
@@ -2014,10 +2014,10 @@ Gura_ImplementFunction(__glFogfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glFogfv(pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFogi
@@ -2036,7 +2036,7 @@ Gura_ImplementFunction(__glFogi)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
 	glFogi(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFogiv
@@ -2059,10 +2059,10 @@ Gura_ImplementFunction(__glFogiv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glFogiv(pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFrontFace
@@ -2079,7 +2079,7 @@ Gura_ImplementFunction(__glFrontFace)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glFrontFace(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glFrustum
@@ -2106,7 +2106,7 @@ Gura_ImplementFunction(__glFrustum)
 	GLdouble zNear = args.GetDouble(4);
 	GLdouble zFar = args.GetDouble(5);
 	glFrustum(left, right, bottom, top, zNear, zFar);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGenLists
@@ -2337,10 +2337,10 @@ Gura_ImplementFunction(__glGetMapdv)
 	Array<double> *_v = Object_array<double>::GetObject(args, 2)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	glGetMapdv(target, query, v);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetMapdv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetMapfv
@@ -2364,10 +2364,10 @@ Gura_ImplementFunction(__glGetMapfv)
 	Array<float> *_v = Object_array<float>::GetObject(args, 2)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	glGetMapfv(target, query, v);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetMapfv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetMapiv
@@ -2391,10 +2391,10 @@ Gura_ImplementFunction(__glGetMapiv)
 	Array<int> *_v = Object_array<int>::GetObject(args, 2)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	glGetMapiv(target, query, v);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetMapiv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetMaterialfv
@@ -2462,10 +2462,10 @@ Gura_ImplementFunction(__glGetPixelMapfv)
 	Array<float> *_values = Object_array<float>::GetObject(args, 1)->GetArray();
 	GLfloat *values = reinterpret_cast<GLfloat *>(_values->GetPointer());
 	glGetPixelMapfv(map, values);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetPixelMapfv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetPixelMapuiv
@@ -2487,10 +2487,10 @@ Gura_ImplementFunction(__glGetPixelMapuiv)
 	Array<UInt> *_values = Object_array<UInt>::GetObject(args, 1)->GetArray();
 	GLuint *values = reinterpret_cast<GLuint *>(_values->GetPointer());
 	glGetPixelMapuiv(map, values);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetPixelMapuiv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetPixelMapusv
@@ -2512,10 +2512,10 @@ Gura_ImplementFunction(__glGetPixelMapusv)
 	Array<UShort> *_values = Object_array<UShort>::GetObject(args, 1)->GetArray();
 	GLushort *values = reinterpret_cast<GLushort *>(_values->GetPointer());
 	glGetPixelMapusv(map, values);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetPixelMapusv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetPolygonStipple
@@ -2535,10 +2535,10 @@ Gura_ImplementFunction(__glGetPolygonStipple)
 	Array<UChar> *_mask = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
 	glGetPolygonStipple(mask);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetPolygonStipple");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetString
@@ -2559,7 +2559,7 @@ Gura_ImplementFunction(__glGetString)
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid name");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
 }
@@ -2791,7 +2791,7 @@ Gura_ImplementFunction(__glHint)
 	GLenum target = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glHint(target, mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexMask
@@ -2808,7 +2808,7 @@ Gura_ImplementFunction(__glIndexMask)
 {
 	GLuint mask = args.GetUInt(0);
 	glIndexMask(mask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexd
@@ -2825,7 +2825,7 @@ Gura_ImplementFunction(__glIndexd)
 {
 	GLdouble c = args.GetDouble(0);
 	glIndexd(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexdv
@@ -2843,7 +2843,7 @@ Gura_ImplementFunction(__glIndexdv)
 	Array<double> *_c = Object_array<double>::GetObject(args, 0)->GetArray();
 	GLdouble *c = reinterpret_cast<GLdouble *>(_c->GetPointer());
 	glIndexdv(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexf
@@ -2860,7 +2860,7 @@ Gura_ImplementFunction(__glIndexf)
 {
 	GLfloat c = args.GetFloat(0);
 	glIndexf(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexfv
@@ -2878,7 +2878,7 @@ Gura_ImplementFunction(__glIndexfv)
 	Array<float> *_c = Object_array<float>::GetObject(args, 0)->GetArray();
 	GLfloat *c = reinterpret_cast<GLfloat *>(_c->GetPointer());
 	glIndexfv(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexi
@@ -2895,7 +2895,7 @@ Gura_ImplementFunction(__glIndexi)
 {
 	GLint c = args.GetInt(0);
 	glIndexi(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexiv
@@ -2913,7 +2913,7 @@ Gura_ImplementFunction(__glIndexiv)
 	Array<int> *_c = Object_array<int>::GetObject(args, 0)->GetArray();
 	GLint *c = reinterpret_cast<GLint *>(_c->GetPointer());
 	glIndexiv(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexs
@@ -2930,7 +2930,7 @@ Gura_ImplementFunction(__glIndexs)
 {
 	GLshort c = args.GetShort(0);
 	glIndexs(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexsv
@@ -2948,7 +2948,7 @@ Gura_ImplementFunction(__glIndexsv)
 	Array<short> *_c = Object_array<short>::GetObject(args, 0)->GetArray();
 	GLshort *c = reinterpret_cast<GLshort *>(_c->GetPointer());
 	glIndexsv(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexub
@@ -2965,7 +2965,7 @@ Gura_ImplementFunction(__glIndexub)
 {
 	GLubyte c = args.GetUChar(0);
 	glIndexub(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIndexubv
@@ -2983,7 +2983,7 @@ Gura_ImplementFunction(__glIndexubv)
 	Array<UChar> *_c = Object_array<UChar>::GetObject(args, 0)->GetArray();
 	GLubyte *c = reinterpret_cast<GLubyte *>(_c->GetPointer());
 	glIndexubv(c);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glInitNames
@@ -2998,7 +2998,7 @@ Gura_DeclareFunctionAlias(__glInitNames, "glInitNames")
 Gura_ImplementFunction(__glInitNames)
 {
 	glInitNames();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glIsEnabled
@@ -3071,7 +3071,7 @@ Gura_ImplementFunction(__glLightModelf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
 	glLightModelf(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightModelfv
@@ -3094,10 +3094,10 @@ Gura_ImplementFunction(__glLightModelfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glLightModelfv(pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightModeli
@@ -3116,7 +3116,7 @@ Gura_ImplementFunction(__glLightModeli)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
 	glLightModeli(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightModeliv
@@ -3139,10 +3139,10 @@ Gura_ImplementFunction(__glLightModeliv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glLightModeliv(pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightf
@@ -3163,7 +3163,7 @@ Gura_ImplementFunction(__glLightf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLfloat param = args.GetFloat(2);
 	glLightf(light, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightfv
@@ -3188,10 +3188,10 @@ Gura_ImplementFunction(__glLightfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glLightfv(light, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLighti
@@ -3212,7 +3212,7 @@ Gura_ImplementFunction(__glLighti)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLint param = args.GetInt(2);
 	glLighti(light, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLightiv
@@ -3237,10 +3237,10 @@ Gura_ImplementFunction(__glLightiv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glLightiv(light, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLineStipple
@@ -3259,7 +3259,7 @@ Gura_ImplementFunction(__glLineStipple)
 	GLint factor = args.GetInt(0);
 	GLushort pattern = args.GetUShort(1);
 	glLineStipple(factor, pattern);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLineWidth
@@ -3276,7 +3276,7 @@ Gura_ImplementFunction(__glLineWidth)
 {
 	GLfloat width = args.GetFloat(0);
 	glLineWidth(width);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glListBase
@@ -3293,7 +3293,7 @@ Gura_ImplementFunction(__glListBase)
 {
 	GLuint base = args.GetUInt(0);
 	glListBase(base);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLoadIdentity
@@ -3308,7 +3308,7 @@ Gura_DeclareFunctionAlias(__glLoadIdentity, "glLoadIdentity")
 Gura_ImplementFunction(__glLoadIdentity)
 {
 	glLoadIdentity();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLoadMatrixd
@@ -3325,10 +3325,10 @@ Gura_ImplementFunction(__glLoadMatrixd)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLdouble *m = _m->GetPointer();
 	glLoadMatrixd(m);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLoadMatrixf
@@ -3345,10 +3345,10 @@ Gura_ImplementFunction(__glLoadMatrixf)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLfloat *m = _m->GetPointer();
 	glLoadMatrixf(m);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLoadName
@@ -3365,7 +3365,7 @@ Gura_ImplementFunction(__glLoadName)
 {
 	GLuint name = args.GetUInt(0);
 	glLoadName(name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glLogicOp
@@ -3382,7 +3382,7 @@ Gura_ImplementFunction(__glLogicOp)
 {
 	GLenum opcode = static_cast<GLenum>(args.GetInt(0));
 	glLogicOp(opcode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMap1d
@@ -3409,7 +3409,7 @@ Gura_ImplementFunction(__glMap1d)
 	GLint order = args.GetInt(4);
 	Array<double> *points = Object_array<double>::GetObject(args, 5)->GetArray();
 	glMap1d(target, u1, u2, stride, order, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMap1f
@@ -3436,7 +3436,7 @@ Gura_ImplementFunction(__glMap1f)
 	GLint order = args.GetInt(4);
 	Array<float> *points = Object_array<float>::GetObject(args, 5)->GetArray();
 	glMap1f(target, u1, u2, stride, order, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMap2d
@@ -3471,7 +3471,7 @@ Gura_ImplementFunction(__glMap2d)
 	GLint vorder = args.GetInt(8);
 	Array<double> *points = Object_array<double>::GetObject(args, 9)->GetArray();
 	glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMap2f
@@ -3506,7 +3506,7 @@ Gura_ImplementFunction(__glMap2f)
 	GLint vorder = args.GetInt(8);
 	Array<float> *points = Object_array<float>::GetObject(args, 9)->GetArray();
 	glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points->GetPointer());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMapGrid1d
@@ -3527,7 +3527,7 @@ Gura_ImplementFunction(__glMapGrid1d)
 	GLdouble u1 = args.GetDouble(1);
 	GLdouble u2 = args.GetDouble(2);
 	glMapGrid1d(un, u1, u2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMapGrid1f
@@ -3548,7 +3548,7 @@ Gura_ImplementFunction(__glMapGrid1f)
 	GLfloat u1 = args.GetFloat(1);
 	GLfloat u2 = args.GetFloat(2);
 	glMapGrid1f(un, u1, u2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMapGrid2d
@@ -3575,7 +3575,7 @@ Gura_ImplementFunction(__glMapGrid2d)
 	GLdouble v1 = args.GetDouble(4);
 	GLdouble v2 = args.GetDouble(5);
 	glMapGrid2d(un, u1, u2, vn, v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMapGrid2f
@@ -3602,7 +3602,7 @@ Gura_ImplementFunction(__glMapGrid2f)
 	GLfloat v1 = args.GetFloat(4);
 	GLfloat v2 = args.GetFloat(5);
 	glMapGrid2f(un, u1, u2, vn, v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMaterialf
@@ -3623,7 +3623,7 @@ Gura_ImplementFunction(__glMaterialf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLfloat param = args.GetFloat(2);
 	glMaterialf(face, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMaterialfv
@@ -3648,10 +3648,10 @@ Gura_ImplementFunction(__glMaterialfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glMaterialfv(face, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMateriali
@@ -3672,7 +3672,7 @@ Gura_ImplementFunction(__glMateriali)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLint param = args.GetInt(2);
 	glMateriali(face, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMaterialiv
@@ -3697,10 +3697,10 @@ Gura_ImplementFunction(__glMaterialiv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glMaterialiv(face, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMatrixMode
@@ -3717,7 +3717,7 @@ Gura_ImplementFunction(__glMatrixMode)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glMatrixMode(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMultMatrixd
@@ -3734,10 +3734,10 @@ Gura_ImplementFunction(__glMultMatrixd)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, args.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLdouble *m = _m->GetPointer();
 	glMultMatrixd(m);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glMultMatrixf
@@ -3754,10 +3754,10 @@ Gura_ImplementFunction(__glMultMatrixf)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, args.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLfloat *m = _m->GetPointer();
 	glMultMatrixf(m);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNewList
@@ -3781,11 +3781,11 @@ Gura_ImplementFunction(__glNewList)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3b
@@ -3806,7 +3806,7 @@ Gura_ImplementFunction(__glNormal3b)
 	GLbyte ny = args.GetChar(1);
 	GLbyte nz = args.GetChar(2);
 	glNormal3b(nx, ny, nz);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3bv
@@ -3826,10 +3826,10 @@ Gura_ImplementFunction(__glNormal3bv)
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glNormal3bv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3d
@@ -3850,7 +3850,7 @@ Gura_ImplementFunction(__glNormal3d)
 	GLdouble ny = args.GetDouble(1);
 	GLdouble nz = args.GetDouble(2);
 	glNormal3d(nx, ny, nz);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3dv
@@ -3870,10 +3870,10 @@ Gura_ImplementFunction(__glNormal3dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glNormal3dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3f
@@ -3894,7 +3894,7 @@ Gura_ImplementFunction(__glNormal3f)
 	GLfloat ny = args.GetFloat(1);
 	GLfloat nz = args.GetFloat(2);
 	glNormal3f(nx, ny, nz);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3fv
@@ -3914,10 +3914,10 @@ Gura_ImplementFunction(__glNormal3fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glNormal3fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3i
@@ -3938,7 +3938,7 @@ Gura_ImplementFunction(__glNormal3i)
 	GLint ny = args.GetInt(1);
 	GLint nz = args.GetInt(2);
 	glNormal3i(nx, ny, nz);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3iv
@@ -3958,10 +3958,10 @@ Gura_ImplementFunction(__glNormal3iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glNormal3iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3s
@@ -3982,7 +3982,7 @@ Gura_ImplementFunction(__glNormal3s)
 	GLshort ny = args.GetShort(1);
 	GLshort nz = args.GetShort(2);
 	glNormal3s(nx, ny, nz);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glNormal3sv
@@ -4002,10 +4002,10 @@ Gura_ImplementFunction(__glNormal3sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glNormal3sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glOrtho
@@ -4032,7 +4032,7 @@ Gura_ImplementFunction(__glOrtho)
 	GLdouble zNear = args.GetDouble(4);
 	GLdouble zFar = args.GetDouble(5);
 	glOrtho(left, right, bottom, top, zNear, zFar);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPassThrough
@@ -4049,7 +4049,7 @@ Gura_ImplementFunction(__glPassThrough)
 {
 	GLfloat token = args.GetFloat(0);
 	glPassThrough(token);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelMapfv
@@ -4071,7 +4071,7 @@ Gura_ImplementFunction(__glPixelMapfv)
 	Array<float> *_values = Object_array<float>::GetObject(args, 2)->GetArray();
 	GLfloat *values = reinterpret_cast<GLfloat *>(_values->GetPointer());
 	glPixelMapfv(map, mapsize, values);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelMapuiv
@@ -4093,7 +4093,7 @@ Gura_ImplementFunction(__glPixelMapuiv)
 	Array<UInt> *_values = Object_array<UInt>::GetObject(args, 2)->GetArray();
 	GLuint *values = reinterpret_cast<GLuint *>(_values->GetPointer());
 	glPixelMapuiv(map, mapsize, values);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelMapusv
@@ -4115,7 +4115,7 @@ Gura_ImplementFunction(__glPixelMapusv)
 	Array<UShort> *_values = Object_array<UShort>::GetObject(args, 2)->GetArray();
 	GLushort *values = reinterpret_cast<GLushort *>(_values->GetPointer());
 	glPixelMapusv(map, mapsize, values);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelStoref
@@ -4134,7 +4134,7 @@ Gura_ImplementFunction(__glPixelStoref)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
 	glPixelStoref(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelStorei
@@ -4153,7 +4153,7 @@ Gura_ImplementFunction(__glPixelStorei)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
 	glPixelStorei(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelTransferf
@@ -4172,7 +4172,7 @@ Gura_ImplementFunction(__glPixelTransferf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLfloat param = args.GetFloat(1);
 	glPixelTransferf(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelTransferi
@@ -4191,7 +4191,7 @@ Gura_ImplementFunction(__glPixelTransferi)
 	GLenum pname = static_cast<GLenum>(args.GetInt(0));
 	GLint param = args.GetInt(1);
 	glPixelTransferi(pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPixelZoom
@@ -4210,7 +4210,7 @@ Gura_ImplementFunction(__glPixelZoom)
 	GLfloat xfactor = args.GetFloat(0);
 	GLfloat yfactor = args.GetFloat(1);
 	glPixelZoom(xfactor, yfactor);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPointSize
@@ -4227,7 +4227,7 @@ Gura_ImplementFunction(__glPointSize)
 {
 	GLfloat size = args.GetFloat(0);
 	glPointSize(size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPolygonMode
@@ -4246,7 +4246,7 @@ Gura_ImplementFunction(__glPolygonMode)
 	GLenum face = static_cast<GLenum>(args.GetInt(0));
 	GLenum mode = static_cast<GLenum>(args.GetInt(1));
 	glPolygonMode(face, mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPolygonOffset
@@ -4265,7 +4265,7 @@ Gura_ImplementFunction(__glPolygonOffset)
 	GLfloat factor = args.GetFloat(0);
 	GLfloat units = args.GetFloat(1);
 	glPolygonOffset(factor, units);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPolygonStipple
@@ -4285,10 +4285,10 @@ Gura_ImplementFunction(__glPolygonStipple)
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
 	if (_mask->GetSize() != 32 * 4) {
 		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glPolygonStipple(mask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPopAttrib
@@ -4303,7 +4303,7 @@ Gura_DeclareFunctionAlias(__glPopAttrib, "glPopAttrib")
 Gura_ImplementFunction(__glPopAttrib)
 {
 	glPopAttrib();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPopClientAttrib
@@ -4318,7 +4318,7 @@ Gura_DeclareFunctionAlias(__glPopClientAttrib, "glPopClientAttrib")
 Gura_ImplementFunction(__glPopClientAttrib)
 {
 	glPopClientAttrib();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPopMatrix
@@ -4333,7 +4333,7 @@ Gura_DeclareFunctionAlias(__glPopMatrix, "glPopMatrix")
 Gura_ImplementFunction(__glPopMatrix)
 {
 	glPopMatrix();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPopName
@@ -4348,7 +4348,7 @@ Gura_DeclareFunctionAlias(__glPopName, "glPopName")
 Gura_ImplementFunction(__glPopName)
 {
 	glPopName();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPrioritizeTextures
@@ -4372,10 +4372,10 @@ Gura_ImplementFunction(__glPrioritizeTextures)
 	GLsizei n = _textures->GetSize();
 	if (n != _priorities->GetSize()) {
 		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glPrioritizeTextures(n, textures, priorities);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPushAttrib
@@ -4397,11 +4397,11 @@ Gura_ImplementFunction(__glPushAttrib)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPushClientAttrib
@@ -4423,11 +4423,11 @@ Gura_ImplementFunction(__glPushClientAttrib)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPushMatrix
@@ -4447,11 +4447,11 @@ Gura_ImplementFunction(__glPushMatrix)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glPushName
@@ -4473,11 +4473,11 @@ Gura_ImplementFunction(__glPushName)
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2d
@@ -4496,7 +4496,7 @@ Gura_ImplementFunction(__glRasterPos2d)
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
 	glRasterPos2d(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2dv
@@ -4516,10 +4516,10 @@ Gura_ImplementFunction(__glRasterPos2dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos2dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2f
@@ -4538,7 +4538,7 @@ Gura_ImplementFunction(__glRasterPos2f)
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
 	glRasterPos2f(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2fv
@@ -4558,10 +4558,10 @@ Gura_ImplementFunction(__glRasterPos2fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos2fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2i
@@ -4580,7 +4580,7 @@ Gura_ImplementFunction(__glRasterPos2i)
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
 	glRasterPos2i(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2iv
@@ -4600,10 +4600,10 @@ Gura_ImplementFunction(__glRasterPos2iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos2iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2s
@@ -4622,7 +4622,7 @@ Gura_ImplementFunction(__glRasterPos2s)
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
 	glRasterPos2s(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos2sv
@@ -4642,10 +4642,10 @@ Gura_ImplementFunction(__glRasterPos2sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos2sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3d
@@ -4666,7 +4666,7 @@ Gura_ImplementFunction(__glRasterPos3d)
 	GLdouble y = args.GetDouble(1);
 	GLdouble z = args.GetDouble(2);
 	glRasterPos3d(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3dv
@@ -4686,10 +4686,10 @@ Gura_ImplementFunction(__glRasterPos3dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos3dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3f
@@ -4710,7 +4710,7 @@ Gura_ImplementFunction(__glRasterPos3f)
 	GLfloat y = args.GetFloat(1);
 	GLfloat z = args.GetFloat(2);
 	glRasterPos3f(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3fv
@@ -4730,10 +4730,10 @@ Gura_ImplementFunction(__glRasterPos3fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos3fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3i
@@ -4754,7 +4754,7 @@ Gura_ImplementFunction(__glRasterPos3i)
 	GLint y = args.GetInt(1);
 	GLint z = args.GetInt(2);
 	glRasterPos3i(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3iv
@@ -4774,10 +4774,10 @@ Gura_ImplementFunction(__glRasterPos3iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos3iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3s
@@ -4798,7 +4798,7 @@ Gura_ImplementFunction(__glRasterPos3s)
 	GLshort y = args.GetShort(1);
 	GLshort z = args.GetShort(2);
 	glRasterPos3s(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos3sv
@@ -4818,10 +4818,10 @@ Gura_ImplementFunction(__glRasterPos3sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos3sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4d
@@ -4844,7 +4844,7 @@ Gura_ImplementFunction(__glRasterPos4d)
 	GLdouble z = args.GetDouble(2);
 	GLdouble w = args.GetDouble(3);
 	glRasterPos4d(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4dv
@@ -4864,10 +4864,10 @@ Gura_ImplementFunction(__glRasterPos4dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos4dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4f
@@ -4890,7 +4890,7 @@ Gura_ImplementFunction(__glRasterPos4f)
 	GLfloat z = args.GetFloat(2);
 	GLfloat w = args.GetFloat(3);
 	glRasterPos4f(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4fv
@@ -4910,10 +4910,10 @@ Gura_ImplementFunction(__glRasterPos4fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos4fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4i
@@ -4936,7 +4936,7 @@ Gura_ImplementFunction(__glRasterPos4i)
 	GLint z = args.GetInt(2);
 	GLint w = args.GetInt(3);
 	glRasterPos4i(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4iv
@@ -4956,10 +4956,10 @@ Gura_ImplementFunction(__glRasterPos4iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos4iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4s
@@ -4982,7 +4982,7 @@ Gura_ImplementFunction(__glRasterPos4s)
 	GLshort z = args.GetShort(2);
 	GLshort w = args.GetShort(3);
 	glRasterPos4s(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRasterPos4sv
@@ -5002,10 +5002,10 @@ Gura_ImplementFunction(__glRasterPos4sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRasterPos4sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glReadBuffer
@@ -5022,7 +5022,7 @@ Gura_ImplementFunction(__glReadBuffer)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glReadBuffer(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glReadPixels
@@ -5049,11 +5049,11 @@ Gura_ImplementFunction(__glReadPixels)
 	GLsizei height = args.GetInt(3);
 	const Symbol *format = args.GetSymbol(4);
 	Image::Format fmt = Image::SymbolToFormat(sig, format);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> pImage(new Image(fmt));
 	GLenum _format = GetImageFormat(sig, pImage.get());
-	if (sig.IsSignalled()) return Value::Null;
-	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
 	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
@@ -5079,7 +5079,7 @@ Gura_ImplementFunction(__glRectd)
 	GLdouble x2 = args.GetDouble(2);
 	GLdouble y2 = args.GetDouble(3);
 	glRectd(x1, y1, x2, y2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRectdv
@@ -5100,16 +5100,16 @@ Gura_ImplementFunction(__glRectdv)
 	GLdouble *v1 = reinterpret_cast<GLdouble *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Array<double> *_v2 = Object_array<double>::GetObject(args, 1)->GetArray();
 	GLdouble *v2 = reinterpret_cast<GLdouble *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRectdv(v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRectf
@@ -5132,7 +5132,7 @@ Gura_ImplementFunction(__glRectf)
 	GLfloat x2 = args.GetFloat(2);
 	GLfloat y2 = args.GetFloat(3);
 	glRectf(x1, y1, x2, y2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRectfv
@@ -5153,16 +5153,16 @@ Gura_ImplementFunction(__glRectfv)
 	GLfloat *v1 = reinterpret_cast<GLfloat *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Array<float> *_v2 = Object_array<float>::GetObject(args, 1)->GetArray();
 	GLfloat *v2 = reinterpret_cast<GLfloat *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRectfv(v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRecti
@@ -5185,7 +5185,7 @@ Gura_ImplementFunction(__glRecti)
 	GLint x2 = args.GetInt(2);
 	GLint y2 = args.GetInt(3);
 	glRecti(x1, y1, x2, y2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRectiv
@@ -5206,16 +5206,16 @@ Gura_ImplementFunction(__glRectiv)
 	GLint *v1 = reinterpret_cast<GLint *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Array<int> *_v2 = Object_array<int>::GetObject(args, 1)->GetArray();
 	GLint *v2 = reinterpret_cast<GLint *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRectiv(v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRects
@@ -5238,7 +5238,7 @@ Gura_ImplementFunction(__glRects)
 	GLshort x2 = args.GetShort(2);
 	GLshort y2 = args.GetShort(3);
 	glRects(x1, y1, x2, y2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRectsv
@@ -5259,16 +5259,16 @@ Gura_ImplementFunction(__glRectsv)
 	GLshort *v1 = reinterpret_cast<GLshort *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Array<short> *_v2 = Object_array<short>::GetObject(args, 1)->GetArray();
 	GLshort *v2 = reinterpret_cast<GLshort *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glRectsv(v1, v2);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRenderMode
@@ -5309,7 +5309,7 @@ Gura_ImplementFunction(__glRotated)
 	GLdouble y = args.GetDouble(2);
 	GLdouble z = args.GetDouble(3);
 	glRotated(angle, x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glRotatef
@@ -5332,7 +5332,7 @@ Gura_ImplementFunction(__glRotatef)
 	GLfloat y = args.GetFloat(2);
 	GLfloat z = args.GetFloat(3);
 	glRotatef(angle, x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glScaled
@@ -5353,7 +5353,7 @@ Gura_ImplementFunction(__glScaled)
 	GLdouble y = args.GetDouble(1);
 	GLdouble z = args.GetDouble(2);
 	glScaled(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glScalef
@@ -5374,7 +5374,7 @@ Gura_ImplementFunction(__glScalef)
 	GLfloat y = args.GetFloat(1);
 	GLfloat z = args.GetFloat(2);
 	glScalef(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glScissor
@@ -5397,7 +5397,7 @@ Gura_ImplementFunction(__glScissor)
 	GLsizei width = args.GetInt(2);
 	GLsizei height = args.GetInt(3);
 	glScissor(x, y, width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glSelectBuffer
@@ -5418,7 +5418,7 @@ Gura_ImplementFunction(__glSelectBuffer)
 	} else {
 		glSelectBuffer(buffer->GetSize(), buffer->GetPointer());
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glShadeModel
@@ -5435,7 +5435,7 @@ Gura_ImplementFunction(__glShadeModel)
 {
 	GLenum mode = static_cast<GLenum>(args.GetInt(0));
 	glShadeModel(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glStencilFunc
@@ -5456,7 +5456,7 @@ Gura_ImplementFunction(__glStencilFunc)
 	GLint ref = args.GetInt(1);
 	GLuint mask = args.GetUInt(2);
 	glStencilFunc(func, ref, mask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glStencilMask
@@ -5473,7 +5473,7 @@ Gura_ImplementFunction(__glStencilMask)
 {
 	GLuint mask = args.GetUInt(0);
 	glStencilMask(mask);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glStencilOp
@@ -5494,7 +5494,7 @@ Gura_ImplementFunction(__glStencilOp)
 	GLenum zfail = static_cast<GLenum>(args.GetInt(1));
 	GLenum zpass = static_cast<GLenum>(args.GetInt(2));
 	glStencilOp(fail, zfail, zpass);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1d
@@ -5511,7 +5511,7 @@ Gura_ImplementFunction(__glTexCoord1d)
 {
 	GLdouble s = args.GetDouble(0);
 	glTexCoord1d(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1dv
@@ -5531,10 +5531,10 @@ Gura_ImplementFunction(__glTexCoord1dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord1dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1f
@@ -5551,7 +5551,7 @@ Gura_ImplementFunction(__glTexCoord1f)
 {
 	GLfloat s = args.GetFloat(0);
 	glTexCoord1f(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1fv
@@ -5571,10 +5571,10 @@ Gura_ImplementFunction(__glTexCoord1fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord1fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1i
@@ -5591,7 +5591,7 @@ Gura_ImplementFunction(__glTexCoord1i)
 {
 	GLint s = args.GetInt(0);
 	glTexCoord1i(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1iv
@@ -5611,10 +5611,10 @@ Gura_ImplementFunction(__glTexCoord1iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord1iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1s
@@ -5631,7 +5631,7 @@ Gura_ImplementFunction(__glTexCoord1s)
 {
 	GLshort s = args.GetShort(0);
 	glTexCoord1s(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord1sv
@@ -5651,10 +5651,10 @@ Gura_ImplementFunction(__glTexCoord1sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
 		sig.SetError(ERR_ValueError, "the list must have one element");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord1sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2d
@@ -5673,7 +5673,7 @@ Gura_ImplementFunction(__glTexCoord2d)
 	GLdouble s = args.GetDouble(0);
 	GLdouble t = args.GetDouble(1);
 	glTexCoord2d(s, t);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2dv
@@ -5693,10 +5693,10 @@ Gura_ImplementFunction(__glTexCoord2dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord2dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2f
@@ -5715,7 +5715,7 @@ Gura_ImplementFunction(__glTexCoord2f)
 	GLfloat s = args.GetFloat(0);
 	GLfloat t = args.GetFloat(1);
 	glTexCoord2f(s, t);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2fv
@@ -5735,10 +5735,10 @@ Gura_ImplementFunction(__glTexCoord2fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord2fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2i
@@ -5757,7 +5757,7 @@ Gura_ImplementFunction(__glTexCoord2i)
 	GLint s = args.GetInt(0);
 	GLint t = args.GetInt(1);
 	glTexCoord2i(s, t);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2iv
@@ -5777,10 +5777,10 @@ Gura_ImplementFunction(__glTexCoord2iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord2iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2s
@@ -5799,7 +5799,7 @@ Gura_ImplementFunction(__glTexCoord2s)
 	GLshort s = args.GetShort(0);
 	GLshort t = args.GetShort(1);
 	glTexCoord2s(s, t);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord2sv
@@ -5819,10 +5819,10 @@ Gura_ImplementFunction(__glTexCoord2sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord2sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3d
@@ -5843,7 +5843,7 @@ Gura_ImplementFunction(__glTexCoord3d)
 	GLdouble t = args.GetDouble(1);
 	GLdouble r = args.GetDouble(2);
 	glTexCoord3d(s, t, r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3dv
@@ -5863,10 +5863,10 @@ Gura_ImplementFunction(__glTexCoord3dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord3dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3f
@@ -5887,7 +5887,7 @@ Gura_ImplementFunction(__glTexCoord3f)
 	GLfloat t = args.GetFloat(1);
 	GLfloat r = args.GetFloat(2);
 	glTexCoord3f(s, t, r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3fv
@@ -5907,10 +5907,10 @@ Gura_ImplementFunction(__glTexCoord3fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord3fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3i
@@ -5931,7 +5931,7 @@ Gura_ImplementFunction(__glTexCoord3i)
 	GLint t = args.GetInt(1);
 	GLint r = args.GetInt(2);
 	glTexCoord3i(s, t, r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3iv
@@ -5951,10 +5951,10 @@ Gura_ImplementFunction(__glTexCoord3iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord3iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3s
@@ -5975,7 +5975,7 @@ Gura_ImplementFunction(__glTexCoord3s)
 	GLshort t = args.GetShort(1);
 	GLshort r = args.GetShort(2);
 	glTexCoord3s(s, t, r);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord3sv
@@ -5995,10 +5995,10 @@ Gura_ImplementFunction(__glTexCoord3sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord3sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4d
@@ -6021,7 +6021,7 @@ Gura_ImplementFunction(__glTexCoord4d)
 	GLdouble r = args.GetDouble(2);
 	GLdouble q = args.GetDouble(3);
 	glTexCoord4d(s, t, r, q);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4dv
@@ -6041,10 +6041,10 @@ Gura_ImplementFunction(__glTexCoord4dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord4dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4f
@@ -6067,7 +6067,7 @@ Gura_ImplementFunction(__glTexCoord4f)
 	GLfloat r = args.GetFloat(2);
 	GLfloat q = args.GetFloat(3);
 	glTexCoord4f(s, t, r, q);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4fv
@@ -6087,10 +6087,10 @@ Gura_ImplementFunction(__glTexCoord4fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord4fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4i
@@ -6113,7 +6113,7 @@ Gura_ImplementFunction(__glTexCoord4i)
 	GLint r = args.GetInt(2);
 	GLint q = args.GetInt(3);
 	glTexCoord4i(s, t, r, q);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4iv
@@ -6133,10 +6133,10 @@ Gura_ImplementFunction(__glTexCoord4iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord4iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4s
@@ -6159,7 +6159,7 @@ Gura_ImplementFunction(__glTexCoord4s)
 	GLshort r = args.GetShort(2);
 	GLshort q = args.GetShort(3);
 	glTexCoord4s(s, t, r, q);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexCoord4sv
@@ -6179,10 +6179,10 @@ Gura_ImplementFunction(__glTexCoord4sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexCoord4sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexEnvf
@@ -6203,7 +6203,7 @@ Gura_ImplementFunction(__glTexEnvf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLfloat param = args.GetFloat(2);
 	glTexEnvf(target, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexEnvfv
@@ -6228,10 +6228,10 @@ Gura_ImplementFunction(__glTexEnvfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexEnvfv(target, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexEnvi
@@ -6252,7 +6252,7 @@ Gura_ImplementFunction(__glTexEnvi)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLint param = args.GetInt(2);
 	glTexEnvi(target, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexEnviv
@@ -6277,10 +6277,10 @@ Gura_ImplementFunction(__glTexEnviv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexEnviv(target, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGend
@@ -6301,7 +6301,7 @@ Gura_ImplementFunction(__glTexGend)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLdouble param = args.GetDouble(2);
 	glTexGend(coord, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGendv
@@ -6326,10 +6326,10 @@ Gura_ImplementFunction(__glTexGendv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexGendv(coord, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGenf
@@ -6350,7 +6350,7 @@ Gura_ImplementFunction(__glTexGenf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLfloat param = args.GetFloat(2);
 	glTexGenf(coord, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGenfv
@@ -6375,10 +6375,10 @@ Gura_ImplementFunction(__glTexGenfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexGenfv(coord, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGeni
@@ -6399,7 +6399,7 @@ Gura_ImplementFunction(__glTexGeni)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLint param = args.GetInt(2);
 	glTexGeni(coord, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexGeniv
@@ -6424,10 +6424,10 @@ Gura_ImplementFunction(__glTexGeniv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexGeniv(coord, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexImage1D
@@ -6460,9 +6460,9 @@ Gura_ImplementFunction(__glTexImage1D)
 	Value pixels = args.GetValue(7);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexImage1DFromImage
@@ -6489,11 +6489,11 @@ Gura_ImplementFunction(__glTexImage1DFromImage)
 	Image *image = Object_image::GetObject(args, 4)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexImage2D
@@ -6528,9 +6528,9 @@ Gura_ImplementFunction(__glTexImage2D)
 	Value pixels = args.GetValue(8);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexImage2DFromImage
@@ -6558,11 +6558,11 @@ Gura_ImplementFunction(__glTexImage2DFromImage)
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexParameterf
@@ -6583,7 +6583,7 @@ Gura_ImplementFunction(__glTexParameterf)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLfloat param = args.GetFloat(2);
 	glTexParameterf(target, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexParameterfv
@@ -6608,10 +6608,10 @@ Gura_ImplementFunction(__glTexParameterfv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexParameterfv(target, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexParameteri
@@ -6632,7 +6632,7 @@ Gura_ImplementFunction(__glTexParameteri)
 	GLenum pname = static_cast<GLenum>(args.GetInt(1));
 	GLint param = args.GetInt(2);
 	glTexParameteri(target, pname, param);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexParameteriv
@@ -6657,10 +6657,10 @@ Gura_ImplementFunction(__glTexParameteriv)
 	if (!CheckParamCount(pname, _params->GetSize())) {
 		sig.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
-		return Value::Null;
+		return Value::Nil;
 	}
 	glTexParameteriv(target, pname, params);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexSubImage1D
@@ -6691,9 +6691,9 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	Value pixels = args.GetValue(6);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexSubImage1DFromImage
@@ -6718,11 +6718,11 @@ Gura_ImplementFunction(__glTexSubImage1DFromImage)
 	Image *image = Object_image::GetObject(args, 3)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexSubImage2D
@@ -6757,9 +6757,9 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	Value pixels = args.GetValue(8);
 	// check pixels->size()
 	const void *p = GetArrayPointer(sig, type, pixels);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTexSubImage2DFromImage
@@ -6787,11 +6787,11 @@ Gura_ImplementFunction(__glTexSubImage2DFromImage)
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTranslated
@@ -6812,7 +6812,7 @@ Gura_ImplementFunction(__glTranslated)
 	GLdouble y = args.GetDouble(1);
 	GLdouble z = args.GetDouble(2);
 	glTranslated(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glTranslatef
@@ -6833,7 +6833,7 @@ Gura_ImplementFunction(__glTranslatef)
 	GLfloat y = args.GetFloat(1);
 	GLfloat z = args.GetFloat(2);
 	glTranslatef(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2d
@@ -6852,7 +6852,7 @@ Gura_ImplementFunction(__glVertex2d)
 	GLdouble x = args.GetDouble(0);
 	GLdouble y = args.GetDouble(1);
 	glVertex2d(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2dv
@@ -6872,10 +6872,10 @@ Gura_ImplementFunction(__glVertex2dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex2dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2f
@@ -6894,7 +6894,7 @@ Gura_ImplementFunction(__glVertex2f)
 	GLfloat x = args.GetFloat(0);
 	GLfloat y = args.GetFloat(1);
 	glVertex2f(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2fv
@@ -6914,10 +6914,10 @@ Gura_ImplementFunction(__glVertex2fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex2fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2i
@@ -6936,7 +6936,7 @@ Gura_ImplementFunction(__glVertex2i)
 	GLint x = args.GetInt(0);
 	GLint y = args.GetInt(1);
 	glVertex2i(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2iv
@@ -6956,10 +6956,10 @@ Gura_ImplementFunction(__glVertex2iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex2iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2s
@@ -6978,7 +6978,7 @@ Gura_ImplementFunction(__glVertex2s)
 	GLshort x = args.GetShort(0);
 	GLshort y = args.GetShort(1);
 	glVertex2s(x, y);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex2sv
@@ -6998,10 +6998,10 @@ Gura_ImplementFunction(__glVertex2sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
 		sig.SetError(ERR_ValueError, "the list must have two elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex2sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3d
@@ -7022,7 +7022,7 @@ Gura_ImplementFunction(__glVertex3d)
 	GLdouble y = args.GetDouble(1);
 	GLdouble z = args.GetDouble(2);
 	glVertex3d(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3dv
@@ -7042,10 +7042,10 @@ Gura_ImplementFunction(__glVertex3dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex3dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3f
@@ -7066,7 +7066,7 @@ Gura_ImplementFunction(__glVertex3f)
 	GLfloat y = args.GetFloat(1);
 	GLfloat z = args.GetFloat(2);
 	glVertex3f(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3fv
@@ -7086,10 +7086,10 @@ Gura_ImplementFunction(__glVertex3fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex3fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3i
@@ -7110,7 +7110,7 @@ Gura_ImplementFunction(__glVertex3i)
 	GLint y = args.GetInt(1);
 	GLint z = args.GetInt(2);
 	glVertex3i(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3iv
@@ -7130,10 +7130,10 @@ Gura_ImplementFunction(__glVertex3iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex3iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3s
@@ -7154,7 +7154,7 @@ Gura_ImplementFunction(__glVertex3s)
 	GLshort y = args.GetShort(1);
 	GLshort z = args.GetShort(2);
 	glVertex3s(x, y, z);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex3sv
@@ -7174,10 +7174,10 @@ Gura_ImplementFunction(__glVertex3sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex3sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4d
@@ -7200,7 +7200,7 @@ Gura_ImplementFunction(__glVertex4d)
 	GLdouble z = args.GetDouble(2);
 	GLdouble w = args.GetDouble(3);
 	glVertex4d(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4dv
@@ -7220,10 +7220,10 @@ Gura_ImplementFunction(__glVertex4dv)
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex4dv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4f
@@ -7246,7 +7246,7 @@ Gura_ImplementFunction(__glVertex4f)
 	GLfloat z = args.GetFloat(2);
 	GLfloat w = args.GetFloat(3);
 	glVertex4f(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4fv
@@ -7266,10 +7266,10 @@ Gura_ImplementFunction(__glVertex4fv)
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have four elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex4fv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4i
@@ -7292,7 +7292,7 @@ Gura_ImplementFunction(__glVertex4i)
 	GLint z = args.GetInt(2);
 	GLint w = args.GetInt(3);
 	glVertex4i(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4iv
@@ -7312,10 +7312,10 @@ Gura_ImplementFunction(__glVertex4iv)
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex4iv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4s
@@ -7338,7 +7338,7 @@ Gura_ImplementFunction(__glVertex4s)
 	GLshort z = args.GetShort(2);
 	GLshort w = args.GetShort(3);
 	glVertex4s(x, y, z, w);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glVertex4sv
@@ -7358,10 +7358,10 @@ Gura_ImplementFunction(__glVertex4sv)
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
 		sig.SetError(ERR_ValueError, "the list must have three elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	glVertex4sv(v);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glViewport
@@ -7384,7 +7384,7 @@ Gura_ImplementFunction(__glViewport)
 	GLsizei width = args.GetInt(2);
 	GLsizei height = args.GetInt(3);
 	glViewport(x, y, width, height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetAttachedShaders
@@ -7411,10 +7411,10 @@ Gura_ImplementFunction(__glGetAttachedShaders)
 	Array<UInt> *_shaders = Object_array<UInt>::GetObject(args, 3)->GetArray();
 	GLuint *shaders = reinterpret_cast<GLuint *>(_shaders->GetPointer());
 	glGetAttachedShaders(program, maxCount, count, shaders);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetAttachedShaders");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetShaderInfoLog
@@ -7441,10 +7441,10 @@ Gura_ImplementFunction(__glGetShaderInfoLog)
 	Array<char> *_infoLog = Object_array<char>::GetObject(args, 3)->GetArray();
 	GLchar *infoLog = reinterpret_cast<GLchar *>(_infoLog->GetPointer());
 	glGetShaderInfoLog(shader, bufSize, length, infoLog);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetShaderInfoLog");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetProgramInfoLog
@@ -7471,10 +7471,10 @@ Gura_ImplementFunction(__glGetProgramInfoLog)
 	Array<char> *_infoLog = Object_array<char>::GetObject(args, 3)->GetArray();
 	GLchar *infoLog = reinterpret_cast<GLchar *>(_infoLog->GetPointer());
 	glGetProgramInfoLog(program, bufSize, length, infoLog);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetProgramInfoLog");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetUniformLocation
@@ -7500,7 +7500,7 @@ Gura_ImplementFunction(__glGetUniformLocation)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformLocation");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetActiveUniform
@@ -7535,10 +7535,10 @@ Gura_ImplementFunction(__glGetActiveUniform)
 	Array<char> *_name = Object_array<char>::GetObject(args, 6)->GetArray();
 	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
 	glGetActiveUniform(program, index, bufSize, length, size, type, name);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetActiveUniform");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetUniformfv
@@ -7562,10 +7562,10 @@ Gura_ImplementFunction(__glGetUniformfv)
 	Array<float> *_params = Object_array<float>::GetObject(args, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	glGetUniformfv(program, location, params);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformfv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetUniformiv
@@ -7589,10 +7589,10 @@ Gura_ImplementFunction(__glGetUniformiv)
 	Array<int> *_params = Object_array<int>::GetObject(args, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	glGetUniformiv(program, location, params);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetUniformiv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetShaderSource
@@ -7619,10 +7619,10 @@ Gura_ImplementFunction(__glGetShaderSource)
 	Array<char> *_source = Object_array<char>::GetObject(args, 3)->GetArray();
 	GLchar *source = reinterpret_cast<GLchar *>(_source->GetPointer());
 	glGetShaderSource(shader, bufSize, length, source);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetShaderSource");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glBindAttribLocation
@@ -7646,10 +7646,10 @@ Gura_ImplementFunction(__glBindAttribLocation)
 	Array<char> *_name = Object_array<char>::GetObject(args, 2)->GetArray();
 	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
 	glBindAttribLocation(program, index, name);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glBindAttribLocation");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetActiveAttrib
@@ -7684,10 +7684,10 @@ Gura_ImplementFunction(__glGetActiveAttrib)
 	Array<char> *_name = Object_array<char>::GetObject(args, 6)->GetArray();
 	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
 	glGetActiveAttrib(program, index, bufSize, length, size, type, name);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glGetActiveAttrib");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glGetAttribLocation
@@ -7713,7 +7713,7 @@ Gura_ImplementFunction(__glGetAttribLocation)
 	return ReturnValue(env, args, Value(_rtn));
 #endif
 	SetError_NotImpFunction(sig, "glGetAttribLocation");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix2x3fv
@@ -7739,10 +7739,10 @@ Gura_ImplementFunction(__glUniformMatrix2x3fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix2x3fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix2x3fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix3x2fv
@@ -7768,10 +7768,10 @@ Gura_ImplementFunction(__glUniformMatrix3x2fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix3x2fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix3x2fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix2x4fv
@@ -7797,10 +7797,10 @@ Gura_ImplementFunction(__glUniformMatrix2x4fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix2x4fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix2x4fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix4x2fv
@@ -7826,10 +7826,10 @@ Gura_ImplementFunction(__glUniformMatrix4x2fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix4x2fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix4x2fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix3x4fv
@@ -7855,10 +7855,10 @@ Gura_ImplementFunction(__glUniformMatrix3x4fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix3x4fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix3x4fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 // opengl.glUniformMatrix4x3fv
@@ -7884,10 +7884,10 @@ Gura_ImplementFunction(__glUniformMatrix4x3fv)
 	Array<float> *_value = Object_array<float>::GetObject(args, 3)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
 	glUniformMatrix4x3fv(location, count, transpose, value);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImpFunction(sig, "glUniformMatrix4x3fv");
-	return Value::Null;
+	return Value::Nil;
 }
 
 

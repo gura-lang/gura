@@ -48,7 +48,7 @@ Value Object_Glyph::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Glyph::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -58,17 +58,17 @@ Value Object_Glyph::DoSetProp(Environment &env, const Symbol *pSymbol, const Val
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ Gura_ImplementMethod(Glyph, Copy)
 	FT_Error err = ::FT_Glyph_Copy(*pGlyph, pGlyphTgt.get());
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_Glyph(nullptr, pGlyphTgt.release()));
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(Glyph, Stroke)
 	FT_Error err = ::FT_Glyph_Stroke(pGlyph, stroker, false);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(Glyph, StrokeBorder)
 	FT_Error err = ::FT_Glyph_StrokeBorder(pGlyph, stroker, inside, false);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }

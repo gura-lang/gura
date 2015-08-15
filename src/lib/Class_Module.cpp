@@ -27,7 +27,7 @@ bool Class_Module::Serialize(Environment &env, Stream &stream, const Value &valu
 
 bool Class_Module::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	value = Value::Null;
+	value = Value::Nil;
 	return true;
 }
 

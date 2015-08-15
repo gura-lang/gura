@@ -51,12 +51,12 @@ Value Object_AudioSpec::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(_spec.size);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(callback))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(userdata))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_AudioSpec::DoSetProp(Environment &env,
@@ -64,7 +64,7 @@ Value Object_AudioSpec::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

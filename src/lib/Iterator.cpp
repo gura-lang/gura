@@ -69,7 +69,7 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	ValueList *pValList = nullptr;
@@ -80,11 +80,11 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 	}
 	while (Next(env, value)) {
 		if (pValList == nullptr && !value.IsUndefined()) {
-			pValList = &result.InitAsList(env, cnt, Value::Null);
+			pValList = &result.InitAsList(env, cnt, Value::Nil);
 		}
 		if (value.IsValid()) {
 			if (pValList == nullptr) {
-				pValList = &result.InitAsList(env, cnt, Value::Null);
+				pValList = &result.InitAsList(env, cnt, Value::Nil);
 			}
 			pValList->push_back(value);
 		} else if (excludeNilFlag) {
@@ -94,7 +94,7 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 		}
 		cnt++;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
 
@@ -103,14 +103,14 @@ Value Iterator::Eval(Environment &env, Args &args)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value value, result;
 	Function::ResultComposer resultComposer(env, args, result);
 	while (Next(env, value)) {
-		if (!resultComposer.Store(env, value)) return Value::Null;
+		if (!resultComposer.Store(env, value)) return Value::Nil;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return result;
 }
 
@@ -119,7 +119,7 @@ Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFunc
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value value;
 	while (Next(env, value)) {
@@ -138,13 +138,13 @@ Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFunc
 			sig.ClearSignal();
 			if (result.IsInvalid()) continue;
 		} else if (sig.IsReturn()) {
-			return Value::Null;
+			return Value::Nil;
 		} else {
-			return Value::Null;
+			return Value::Nil;
 		}
 		valueAccum = result;
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return valueAccum;
 }
 
@@ -153,38 +153,38 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value valueHit;
-	if (!Next(env, valueHit)) return Value::Null;
+	if (!Next(env, valueHit)) return Value::Nil;
 	Value result;
 	if (attrs.IsSet(Gura_Symbol(index))) {
 		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, value)) {
 			int cmp = Value::Compare(env, valueHit, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
 				idxHit = GetIndexCur();
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(last_index))) {
 		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, value)) {
 			int cmp = Value::Compare(env, valueHit, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (maxFlag) cmp = -cmp;
 			if (cmp >= 0) {
 				valueHit = value;
 				idxHit = GetIndexCur();
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(indices))) {
 		int idxHit = GetIndexCur();
@@ -193,7 +193,7 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 		Value value;
 		while (Next(env, value)) {
 			int cmp = Value::Compare(env, valueHit, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				int idxHit = GetIndexCur();
@@ -205,18 +205,18 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 				resultList.push_back(Value(static_cast<Number>(idxHit)));
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		Value value;
 		while (Next(env, value)) {
 			int cmp = Value::Compare(env, valueHit, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		result = valueHit;
 	}
 	return result;
@@ -237,7 +237,7 @@ Value Iterator::Sum(Environment &env, size_t &cnt)
 	Signal &sig = env.GetSignal();
 	cnt = 0;
 	Value value;
-	if (!Next(env, value)) return Value::Null;
+	if (!Next(env, value)) return Value::Nil;
 	if (!value.Is_number()) {
 		const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
 		Value valResult(value);
@@ -245,7 +245,7 @@ Value Iterator::Sum(Environment &env, size_t &cnt)
 		while (Next(env, value)) {
 			valResult = pOperatorAdd->EvalBinary(env, valResult, value);
 			cnt++;
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		}
 		return valResult;
 	}
@@ -261,7 +261,7 @@ Value Iterator::Sum(Environment &env, size_t &cnt)
 			do {
 				valResult = pOperatorAdd->EvalBinary(env, valResult, value);
 				cnt++;
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 			} while (Next(env, value));
 			return valResult;
 		}
@@ -273,13 +273,13 @@ Value Iterator::Prod(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	Value value;
-	if (!Next(env, value)) return Value::Null;
+	if (!Next(env, value)) return Value::Nil;
 	if (!value.Is_number()) {
 		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
 		Value valResult(value);
 		while (Next(env, value)) {
 			valResult = pOperatorMul->EvalBinary(env, valResult, value);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		}
 		return valResult;
 	}
@@ -293,7 +293,7 @@ Value Iterator::Prod(Environment &env)
 			Value valResult(result);
 			do {
 				valResult = pOperatorMul->EvalBinary(env, valResult, value);
-				if (sig.IsSignalled()) return Value::Null;
+				if (sig.IsSignalled()) return Value::Nil;
 			} while (Next(env, value));
 			return valResult;
 		}
@@ -306,11 +306,11 @@ Value Iterator::Average(Environment &env, size_t &cnt)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value valueSum = Clone()->Sum(env, cnt);
 	if (valueSum.IsInvalid()) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (valueSum.Is_number()) {
 		return Value(valueSum.GetNumber() / static_cast<Number>(cnt));
 	} else if (valueSum.Is_complex()) {
@@ -326,14 +326,14 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	// this doesn't use a variance calculation formula V(x) = E(x**2) - E(x)**2
 	// to minimize calculation error.
 	Value valueAve = Clone()->Average(env, cnt);
-	if (!valueAve.IsNumberOrComplex()) return Value::Null;
+	if (!valueAve.IsNumberOrComplex()) return Value::Nil;
 	Value value;
-	if (!Next(env, value)) return Value::Null;
+	if (!Next(env, value)) return Value::Nil;
 	if (value.Is_number() && valueAve.Is_number()) {
 		Number result;
 		Number average = valueAve.GetNumber();
@@ -352,15 +352,15 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 						result += std::norm(tmp);
 					} else {
 						SetError_InvalidDataTypeOfElement(sig);
-						return Value::Null;
+						return Value::Nil;
 					}
 				}
 			} else {
 				SetError_InvalidDataTypeOfElement(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(result / static_cast<Number>(cnt));
 	} else if (value.IsNumberOrComplex()) {
 		Number result;
@@ -375,14 +375,14 @@ Value Iterator::Variance(Environment &env, size_t &cnt)
 				result += std::norm(tmp);
 			} else {
 				SetError_InvalidDataTypeOfElement(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 		}
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(result / static_cast<Number>(cnt));
 	} else {
 		SetError_InvalidDataTypeOfElement(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -391,10 +391,10 @@ Value Iterator::StandardDeviation(Environment &env, size_t &cnt)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value valueVar = Clone()->Variance(env, cnt);
-	if (!valueVar.Is_number()) return Value::Null;
+	if (!valueVar.Is_number()) return Value::Nil;
 	return Value(::sqrt(valueVar.GetNumber()));
 }
 
@@ -403,15 +403,15 @@ Value Iterator::And(Environment &env)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value value;
-	if (!Next(env, value)) return Value::Null;
+	if (!Next(env, value)) return Value::Nil;
 	if (!value.GetBoolean()) return Value(false);
 	while (Next(env, value)) {
 		if (!value.GetBoolean()) return Value(false);
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(true);
 }
 
@@ -420,15 +420,15 @@ Value Iterator::Or(Environment &env)
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value value;
-	if (!Next(env, value)) return Value::Null;
+	if (!Next(env, value)) return Value::Nil;
 	if (value.GetBoolean()) return Value(true);
 	while (Next(env, value)) {
 		if (value.GetBoolean()) return Value(true);
 	}
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(false);
 }
 

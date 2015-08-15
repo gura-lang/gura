@@ -47,7 +47,7 @@ Gura_DeclareFunction(SingleInstanceCheckerEmpty)
 Gura_ImplementFunction(SingleInstanceCheckerEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SingleInstanceChecker *pEntity = new wx_SingleInstanceChecker();
 	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -72,7 +72,7 @@ Gura_DeclareFunction(SingleInstanceChecker)
 Gura_ImplementFunction(SingleInstanceChecker)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsAnotherRunning();
 	return ReturnValue(env, args, Value(rtn));
 }

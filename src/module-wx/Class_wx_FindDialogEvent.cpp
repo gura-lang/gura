@@ -48,7 +48,7 @@ Gura_DeclareFunction(FindDialogEvent)
 Gura_ImplementFunction(FindDialogEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
 	int id = 0;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetFlags)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetFindString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFindString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetReplaceString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetReplaceString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, GetDialog)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFindReplaceDialog *rtn = (wxFindReplaceDialog *)pThis->GetEntity()->GetDialog();
 	return ReturnValue(env, args, Value(new Object_wx_FindReplaceDialog(rtn, nullptr, OwnerFalse)));
 }

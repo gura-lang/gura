@@ -48,7 +48,7 @@ Gura_DeclareFunction(MouseCaptureChangedEvent)
 Gura_ImplementFunction(MouseCaptureChangedEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindowID windowId = 0;
 	if (args.IsValid(0)) windowId = static_cast<wxWindowID>(args.GetInt(0));
 	wxWindow *gainedCapture = (wxWindow *)(nullptr);
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCapturedWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }

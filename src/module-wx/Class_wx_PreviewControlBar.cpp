@@ -53,7 +53,7 @@ Gura_DeclareFunction(PreviewControlBar)
 Gura_ImplementFunction(PreviewControlBar)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	long buttons = args.GetLong(1);
 	wxWindow *parent = Object_wx_Window::GetObject(args, 2)->GetEntity();
@@ -86,9 +86,9 @@ Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CreateButtons();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_PreviewControlBar, GetPrintPreview)
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintPreview *rtn = (wxPrintPreview *)pThis->GetEntity()->GetPrintPreview();
 	return ReturnValue(env, args, Value(new Object_wx_PrintPreview(rtn, nullptr, OwnerFalse)));
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetZoomControl)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetZoomControl();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -131,10 +131,10 @@ Gura_ImplementMethod(wx_PreviewControlBar, SetZoomControl)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int percent = args.GetInt(0);
 	pThis->GetEntity()->SetZoomControl(percent);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

@@ -128,7 +128,7 @@ Value Object_interp::ConvFromTclObj(Environment &env, Signal &sig, Tcl_Obj *objP
 			Tcl_Obj *objElemPtr;
 			::Tcl_ListObjIndex(_interp, objPtr, i, &objElemPtr);
 			valList.push_back(ConvFromTclObj(env, sig, objElemPtr));
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		}
 		return result;
 	} else if (typePtr == ObjType_string) {
@@ -168,16 +168,16 @@ Value Object_interp::TclEval(Environment &env, const ValueList &valList)
 	Signal &sig = env.GetSignal();
 	int objc;
 	Tcl_Obj **objv = CreateTclObjArray(env, sig, valList, &objc);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	int rtn = ::Tcl_EvalObjv(_interp, objc, objv, TCL_EVAL_DIRECT | TCL_EVAL_GLOBAL);
 	if (rtn != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(_interp));
 		delete[] objv;
-		return Value::Null;
+		return Value::Nil;
 	}
 	delete[] objv;
 	Tcl_Obj *obj = ::Tcl_GetObjResult(_interp);
-	if (obj == nullptr) return Value::Null;
+	if (obj == nullptr) return Value::Nil;
 	Value result = ConvFromTclObj(env, sig, obj);
 	return result;
 }
@@ -261,7 +261,7 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal &sig,
 	pEventPack->ev.proc = TclThreadProc;
 	pEventPack->interp = _interp;
 	pEventPack->objv = CreateTclObjArray(env, sig, valListArg, &pEventPack->objc);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pEventPack->rtn = TCL_OK;
 	pEventPack->objRtn = nullptr;
 	pEventPack->pCond = &cond;
@@ -279,7 +279,7 @@ Value Object_interp::InvokeTclThread(Environment &env, Signal &sig,
 		const char *str = ::Tcl_GetStringFromObj(pEventPack->objRtn, &length);
 		Tcl_DecrRefCount(pEventPack->objRtn);
 		sig.SetError(ERR_RuntimeError, "%s\n", str);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result = ConvFromTclObj(env, sig, pEventPack->objRtn);
 	Tcl_DecrRefCount(pEventPack->objRtn);
@@ -355,7 +355,7 @@ Gura_ImplementMethod(interp, evalscript)
 	int rtn = ::Tcl_Eval(interp, args.GetString(0));
 	if (rtn != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
-		return Value::Null;
+		return Value::Nil;
 	}
 	return pThis->ConvFromTclObj(env, sig, ::Tcl_GetObjResult(interp));
 }
@@ -401,7 +401,7 @@ Gura_ImplementMethod(interp, variable)
 	}
 	Object_variable *pObjVariable = new Object_variable(pObjInterp, varName.c_str());
 	if (args.IsValid(0)) {
-		if (!pObjVariable->Set(env, sig, args.GetValue(0))) return Value::Null;
+		if (!pObjVariable->Set(env, sig, args.GetValue(0))) return Value::Nil;
 	}
 	return Value(pObjVariable);
 }
@@ -431,7 +431,7 @@ Value Handler::Eval(ValueList &valListArg)
 	Value result = _pObjFunc->Eval(env, valListArg);
 	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
-		return Value::Null;
+		return Value::Nil;
 	}
 	return result;
 }
@@ -452,7 +452,7 @@ Value Handler::Eval(int argc, const char *argv[])
 	Value result = _pObjFunc->Eval(env, valListArg);
 	if (sig.IsSignalled()) {
 		_pObjInterp->ExitMainLoop();
-		return Value::Null;
+		return Value::Nil;
 	}
 	return result;
 }
@@ -499,7 +499,7 @@ Value Object_variable::DoGetProp(Environment &env, const Symbol *pSymbol,
 	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Value value = Get(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (value.Is_string()) {
 			if (*value.GetString() == '\0') {
 				value = Value(false);
@@ -518,17 +518,17 @@ Value Object_variable::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		Value value = Get(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (!value.Is_string()) {
 			String str = value.ToString(false);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			value = Value(str);
 		}
 		evaluatedFlag = true;
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		Value value = Get(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (!value.Is_number()) {
 			bool successFlag;
 			Number num = value.ToNumber(true, successFlag);
@@ -537,7 +537,7 @@ Value Object_variable::DoGetProp(Environment &env, const Symbol *pSymbol,
 		evaluatedFlag = true;
 		return value;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_variable::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -546,21 +546,21 @@ Value Object_variable::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 	Signal &sig = GetSignal();
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Set(env, sig, value);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		evaluatedFlag = true;
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		Set(env, sig, value);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		evaluatedFlag = true;
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		Set(env, sig, value);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		evaluatedFlag = true;
 		return value;
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_variable::Set(Environment &env, Signal &sig, const Value &value)
@@ -673,7 +673,7 @@ Gura_ImplementMethod(timer, cancel)
 	Object_timer *pThis = Object_timer::GetThisObj(args);
 	pThis->Cancel();
 	Object::Delete(pThis);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // tcl.timer#start(msec:number, msecCont?:number, count?:number):reduce {block}
@@ -729,18 +729,18 @@ Gura_ImplementMethod(image, read_tcl)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
-	if (!pImage->CheckEmpty(sig)) return Value::Null;
+	if (!pImage->CheckEmpty(sig)) return Value::Nil;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
 	Tk_PhotoHandle handle = ::Tk_FindPhoto(interp, imageName);
 	if (handle == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
-		return Value::Null;
+		return Value::Nil;
 	}
 	int width, height;
 	::Tk_PhotoGetSize(handle, &width, &height);
-	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	Tk_PhotoImageBlock photoImageBlock;
 	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pImage->GetBuffer());
 	photoImageBlock.width = width;
@@ -771,14 +771,14 @@ Gura_ImplementMethod(image, write_tcl)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	Image *pImage = pThis->GetImage();
-	if (!pImage->CheckValid(sig)) return Value::Null;
+	if (!pImage->CheckValid(sig)) return Value::Nil;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
 	Tk_PhotoHandle handle = ::Tk_FindPhoto(interp, imageName);
 	if (handle == nullptr) {
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
-		return Value::Null;
+		return Value::Nil;
 	}
 	int width = static_cast<int>(pImage->GetWidth());
 	int height = static_cast<int>(pImage->GetHeight());
@@ -817,12 +817,12 @@ Gura_ImplementFunction(interp)
 	if (::Tcl_Init(interp) != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
 		::Tcl_DeleteInterp(interp);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (::Tk_Init(interp) != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
 		::Tcl_DeleteInterp(interp);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_interp(interp));
 }
@@ -838,9 +838,9 @@ Gura_DeclareFunction(Tk_MainLoop)
 
 Gura_ImplementFunction(Tk_MainLoop)
 {
-	if (::setjmp(g_jmpenv)) return Value::Null;
+	if (::setjmp(g_jmpenv)) return Value::Nil;
 	::Tk_MainLoop();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

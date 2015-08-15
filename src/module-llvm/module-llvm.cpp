@@ -325,7 +325,7 @@ extern "C" bool GuraStub_CallFunction(
 		
 	} else {
 		sig.SetError(ERR_TypeError, "object is not a callable");
-		Gura_CopyValue(valueResult, Value::Null);
+		Gura_CopyValue(valueResult, Value::Nil);
 		return false;
 	}
 }
@@ -912,7 +912,7 @@ Value CodeGeneratorLLVM::Run(Environment &env)
 	BridgeFunctionT bridgeFuncGuraEntry = reinterpret_cast<BridgeFunctionT>(
 		pExecutionEngine->getPointerToFunction(pFunction_GuraEntry));
 	Value valueResult;
-	bridgeFuncGuraEntry(env, Value::Null, valueResult);
+	bridgeFuncGuraEntry(env, Value::Nil, valueResult);
     pExecutionEngine->runStaticConstructorsDestructors(true);
 	return valueResult;
 }
@@ -1794,7 +1794,7 @@ Gura_ImplementFunction(test)
 		::exit(1);
 	}
 	pModule->dump();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry

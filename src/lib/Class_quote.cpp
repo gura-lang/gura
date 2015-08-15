@@ -27,7 +27,7 @@ bool Class_quote::Serialize(Environment &env, Stream &stream, const Value &value
 
 bool Class_quote::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	value = Value::Null;
+	value = Value::Nil;
 	return true;
 }
 

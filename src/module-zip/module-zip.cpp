@@ -116,7 +116,7 @@ Gura_ImplementMethod(reader, entry)
 	Stream *pStreamSrc = pThis->GetStreamSrc();
 	if (pStreamSrc == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Object_stream> pObjStream;
 	const char *name = args.GetString(0);
@@ -126,14 +126,14 @@ Gura_ImplementMethod(reader, entry)
 		if (IsMatchedName(pHdr->GetFileName(), name)) {
 			long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
 			Stream *pStream = CreateStream(env, pStreamSrc, pHdr);
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 			pObjStream.reset(new Object_stream(env, pStream));
 			break;
 		}
 	}
 	if (pObjStream.IsNull()) {
 		sig.SetError(ERR_NameError, "entry not found");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(pObjStream.release()));
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(reader, entries)
 	Object_reader *pThis = Object_reader::GetThisObj(args);
 	if (pThis->GetStreamSrc() == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
 	return ReturnIterator(env, args, pIterator);
@@ -407,7 +407,7 @@ Gura_ImplementMethod(writer, add)
 		const char *identifier = args.GetStream(0).GetIdentifier();
 		if (identifier == nullptr) {
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
-			return Value::Null;
+			return Value::Nil;
 		}
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
@@ -416,10 +416,10 @@ Gura_ImplementMethod(writer, add)
 						pThis->GetCompressionMethod();
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (!pThis->Add(env, args.GetStream(0),
-					fileName.c_str(), compressionMethod)) return Value::Null;
+					fileName.c_str(), compressionMethod)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -435,8 +435,8 @@ Gura_DeclareMethod(writer, close)
 Gura_ImplementMethod(writer, close)
 {
 	Object_writer *pThis = Object_writer::GetThisObj(args);
-	if (!pThis->Finish()) return Value::Null;
-	return Value::Null;
+	if (!pThis->Finish()) return Value::Nil;
+	return Value::Nil;
 }
 
 // implementation of class zip.writer
@@ -512,7 +512,7 @@ Gura_ImplementFunction(reader)
 	Signal &sig = env.GetSignal();
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
-	if (!pObjZipR->ReadDirectory(env)) return Value::Null;
+	if (!pObjZipR->ReadDirectory(env)) return Value::Nil;
 	Value result(pObjZipR.release());
 	return ReturnValue(env, args, result);
 }
@@ -544,7 +544,7 @@ Gura_ImplementFunction(writer)
 			SymbolToCompressionMethod(args.GetSymbol(1)) : METHOD_Deflate;
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_writer *pObjZipW = new Object_writer(sig, streamDst.Reference(), compressionMethod);
 	Value result(pObjZipW);
@@ -563,7 +563,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry
@@ -660,7 +660,7 @@ Value Object_stat::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(static_cast<ULong>(_hdr.GetExternalFileAttributes()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_stat::ToString(bool exprFlag)

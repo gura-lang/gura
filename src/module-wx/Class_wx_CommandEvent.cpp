@@ -48,7 +48,7 @@ Gura_DeclareFunction(CommandEvent)
 Gura_ImplementFunction(CommandEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE commandEventType = 0;
 	if (args.IsValid(0)) commandEventType = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_CommandEvent, Checked)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Checked();
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CommandEvent, GetClientObject)
@@ -94,9 +94,9 @@ Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject());
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return ReturnValue(env, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetExtraLong();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetInt)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetInt();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_CommandEvent, IsChecked)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsChecked();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_CommandEvent, IsSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientData)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int clientData = args.GetInt(0);
 	pThis->GetEntity()->SetClientData(clientData);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CommandEvent, SetClientObject)
@@ -222,10 +222,10 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxClientData *clientObject = Object_wx_ClientData::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetClientObject(clientObject);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CommandEvent, SetExtraLong)
@@ -238,10 +238,10 @@ Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long extraLong = args.GetLong(0);
 	pThis->GetEntity()->SetExtraLong(extraLong);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CommandEvent, SetInt)
@@ -254,10 +254,10 @@ Gura_ImplementMethod(wx_CommandEvent, SetInt)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int intCommand = args.GetInt(0);
 	pThis->GetEntity()->SetInt(intCommand);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_CommandEvent, SetString)
@@ -270,10 +270,10 @@ Gura_ImplementMethod(wx_CommandEvent, SetString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString string = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetString(string);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

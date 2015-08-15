@@ -48,7 +48,7 @@ Gura_DeclareFunction(DataViewDateRenderer)
 Gura_ImplementFunction(DataViewDateRenderer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString varianttype = wxT("datetime");
 	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE;

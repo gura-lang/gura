@@ -71,10 +71,10 @@ Value Object_tag::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd))) {
 		if (IsIFDPointer()) return Value(Object_ifd::Reference(GetObjectIFD()));
-		return Value::Null;
+		return Value::Nil;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_tag::ToString(bool exprFlag)

@@ -14,7 +14,7 @@ Gura_DeclareMethod(Window, CreateRenderer)
 Gura_ImplementMethod(Window, CreateRenderer)
 {
 	//::SDL_CreateRenderer();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // SDL_GL_CreateContext
@@ -46,7 +46,7 @@ Value Object_Window::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Window::DoSetProp(Environment &env,
@@ -54,7 +54,7 @@ Value Object_Window::DoSetProp(Environment &env,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

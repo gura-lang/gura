@@ -48,7 +48,7 @@ Gura_DeclareFunction(SizeEvent)
 Gura_ImplementFunction(SizeEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_SizeEvent, GetSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }

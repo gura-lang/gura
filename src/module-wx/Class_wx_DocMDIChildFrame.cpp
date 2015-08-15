@@ -57,7 +57,7 @@ Gura_DeclareFunction(DocMDIChildFrame)
 Gura_ImplementFunction(DocMDIChildFrame)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
 	wxView *view = Object_wx_View::GetObject(args, 1)->GetEntity();
@@ -84,7 +84,7 @@ Gura_ImplementFunction(DocMDIChildFrame)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, GetDocument)
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetDocument)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->GetDocument();
 	return ReturnValue(env, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, GetView)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxView *rtn = (wxView *)pThis->GetEntity()->GetView();
 	return ReturnValue(env, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
 }
@@ -128,10 +128,10 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, OnActivate)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxActivateEvent *event = Object_wx_ActivateEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnActivate(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 #endif
 
@@ -146,10 +146,10 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);
-	return Value::Null;
+	return Value::Nil;
 }
 #endif
 
@@ -163,10 +163,10 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, SetDocument)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetDocument(doc);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DocMDIChildFrame, SetView)
@@ -179,10 +179,10 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, SetView)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxView *view = Object_wx_View::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetView(view);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

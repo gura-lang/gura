@@ -86,7 +86,7 @@ class GURA_DLLDECLARE DeclarationList : public std::vector<Declaration *> {
 public:
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
 public:
-	static const DeclarationList Null;
+	static const DeclarationList Empty;
 public:
 	inline DeclarationList() {}
 	~DeclarationList();

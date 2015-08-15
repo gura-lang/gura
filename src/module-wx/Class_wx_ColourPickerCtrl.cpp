@@ -54,7 +54,7 @@ Gura_DeclareFunction(ColourPickerCtrl)
 Gura_ImplementFunction(ColourPickerCtrl)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxColour *colour = (wxColour *)(&*wxBLACK);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxColour *colour = (wxColour *)(&*wxBLACK);
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, GetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -143,10 +143,10 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, SetColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *col = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetColour(*col);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ColourPickerCtrl, SetColour_1)
@@ -159,10 +159,10 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, SetColour_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colname = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetColour(colname);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

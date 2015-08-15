@@ -1818,7 +1818,7 @@ ${format('\\tGura_AssignFunction(%s);\\n', guraFuncNames).join()}\
 templateExcludedFuncPost = '''\
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 '''
 
 //-----------------------------------------------------------------------------
@@ -1964,7 +1964,7 @@ ReturnType = class {
 		varAccessStr = cond(this.varAccess == `const, 'const ', '')
 		if (this.typeName in ['void', '']) {
 			f.printf('\t%s;\n', funcCall)
-			f.printf('\treturn Value::Null;\n')
+			f.printf('\treturn Value::Nil;\n')
 		} elsif (m = this.typeName == 'wxString') {
 			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
 			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
@@ -2687,7 +2687,7 @@ ClassInfo = struct(className:string, classNameSuper:string,
 				excludeFlag && f.println('#if 0')
 				f.printf('\tObject_%s *pSelf = Object_%s::GetSelfObj(args);\n',
 														guraClassName, guraClassName)
-				f.printf('\tif (pSelf->IsInvalid(sig)) return Value::Null;\n')
+				f.printf('\tif (pSelf->IsInvalid(sig)) return Value::Nil;\n')
 				f.print(params:*varDecl)
 				funcCall = format('pSelf->GetEntity()->%s(%s)',
 											funcName, params:*varInCall.join(', '))

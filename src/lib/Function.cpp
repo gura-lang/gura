@@ -261,7 +261,7 @@ Value Function::Call(Environment &env, Args &args) const
 Value Function::Call(Environment &env, Args &args) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
+	AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
 	if (GetType() == FUNCTYPE_Instance &&
 		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
@@ -532,7 +532,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by
 		// _blockInfo.pSymbol
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Null, EXTRA_Public);
+		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Nil, EXTRA_Public);
 	} else if (_blockInfo.quoteFlag) {
 		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), EXTRA_Public);
@@ -553,7 +553,7 @@ Value Function::Eval(Environment &env, Args &args) const
 {
 	ValueList valListCasted;
 	if (!GetDeclOwner().ValidateAndCast(env, args.GetValueListArg(), valListCasted)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
 	Value value = DoEval(env, *pArgsCasted);
@@ -567,7 +567,7 @@ Value Function::EvalMap(Environment &env, Args &args) const
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
 				new Environment(env),
 				Function::Reference(this), args.Reference(), false));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
 			 (args.IsRsltNormal() && args.ShouldGenerateIterator(GetDeclOwner()))) {
 		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
@@ -578,7 +578,7 @@ Value Function::EvalMap(Environment &env, Args &args) const
 	Value value;
 	size_t n = 0;
 	for ( ; pIterator->Next(env, value); n++) {
-		if (!resultComposer.Store(env, value)) return Value::Null;
+		if (!resultComposer.Store(env, value)) return Value::Nil;
 	}
 	if (n == 0 && !args.IsRsltVoid() && !args.IsRsltReduce() && !args.IsRsltXReduce()) {
 		result.InitAsList(env);
@@ -590,11 +590,11 @@ Value Function::ReturnValue(Environment &env, Args &args, const Value &result) c
 {
 	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return result;
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValue(result);
 	Value value = pFuncBlock->Eval(env, *pArgsSub);
@@ -608,11 +608,11 @@ Value Function::ReturnValues(Environment &env, Args &args, const ValueList &valL
 {
 	Signal &sig = env.GetSignal();
 	if (!args.IsBlockSpecified()) return valListArg.front();
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-	if (pFuncBlock == nullptr) return Value::Null;
+	if (pFuncBlock == nullptr) return Value::Nil;
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetValueListArg(valListArg);
 	Value value = pFuncBlock->Eval(env, *pArgsSub);
@@ -625,10 +625,10 @@ Value Function::ReturnValues(Environment &env, Args &args, const ValueList &valL
 Value Function::ReturnIterator(Environment &env, Args &args, Iterator *pIterator) const
 {
 	Signal &sig = env.GetSignal();
-	if (pIterator == nullptr) return Value::Null;
+	if (pIterator == nullptr) return Value::Nil;
 	if (sig.IsSignalled()) {
 		Iterator::Delete(pIterator);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	if (!pIterator->IsRepeater()) {
@@ -636,7 +636,7 @@ Value Function::ReturnIterator(Environment &env, Args &args, Iterator *pIterator
 			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 			const Function *pFuncBlock =
 								args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
-			if (pFuncBlock == nullptr) return Value::Null;
+			if (pFuncBlock == nullptr) return Value::Nil;
 			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
 								false, genIterFlag, pIterator);
@@ -650,11 +650,11 @@ Value Function::ReturnIterator(Environment &env, Args &args, Iterator *pIterator
 									args.IsRsltSet() || args.IsRsltXSet()) {
 		result = pIterator->Eval(env, args);
 		Iterator::Delete(pIterator);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} else if (pIterator->IsRepeater()) {
 		while (pIterator->Next(env, result)) ;
 		Iterator::Delete(pIterator);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		result = Value(new Object_iterator(env, pIterator));
 	}
@@ -923,7 +923,7 @@ bool Function::ResultComposer::Store(Environment &env, const Value &value)
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
 			if (_pValList == nullptr) {
-				_pValList = &_result.InitAsList(env, _cnt, Value::Null);
+				_pValList = &_result.InitAsList(env, _cnt, Value::Nil);
 			}
 			if (!_setFlag || !_pValList->DoesContain(env, value)) {
 				_pValList->push_back(value);
@@ -958,7 +958,7 @@ Function::ExprMap::~ExprMap()
 //-----------------------------------------------------------------------------
 Function::SequenceEx::SequenceEx(Environment *pEnv, Function *pFunc, Args &args) :
 			Sequence(pEnv), _stat(STAT_Init),
-			_pFunc(pFunc), _pArgs(new Args(args, ValueList::Null)),
+			_pFunc(pFunc), _pArgs(new Args(args, ValueList::Empty)),
 			_stayDeclPointerFlag(false), _mapFlag(pFunc->GetMapFlag())
 {
 	_pArgs->SetValueDictArg(new ValueDict());

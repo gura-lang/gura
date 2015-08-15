@@ -33,7 +33,7 @@ Value Object_context::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(Object_surface::Reference(_pObjSurface.get()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_context::ToString(bool exprFlag)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(context, destroy)
 {
 	Object_context *pThis = Object_context::GetThisObj(args);
 	pThis->Destroy();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // cairo.context#save():reduce {block?}
@@ -130,16 +130,16 @@ Gura_ImplementMethod(context, save)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_save(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::cairo_restore(cr);
-		if (Is_error(sig, cr)) return Value::Null;
+		if (Is_error(sig, cr)) return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -159,9 +159,9 @@ Gura_ImplementMethod(context, restore)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_restore(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -179,9 +179,9 @@ Gura_ImplementMethod(context, get_target)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_surface_t *surface = ::cairo_get_target(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(Object_surface::Reference(pThis->GetSurfaceObj()));
 }
 
@@ -219,9 +219,9 @@ Gura_ImplementMethod(context, push_group)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_push_group(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -247,11 +247,11 @@ Gura_ImplementMethod(context, push_group_with_content)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_content_t content = static_cast<cairo_content_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_push_group_with_content(cr, content);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -274,9 +274,9 @@ Gura_ImplementMethod(context, pop_group)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_pattern_t *pattern = ::cairo_pop_group(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_pattern *pObjPattern = new Object_pattern(pattern);
 	return Value(pObjPattern);
 }
@@ -300,9 +300,9 @@ Gura_ImplementMethod(context, pop_group_to_source)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_pop_group_to_source(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -323,9 +323,9 @@ Gura_ImplementMethod(context, get_group_target)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_surface_t *surface = ::cairo_get_group_target(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_surface *pObjSurface =
 			new Object_surface(::cairo_surface_reference(surface));
 	return Value(pObjSurface);
@@ -354,9 +354,9 @@ Gura_ImplementMethod(context, set_source_rgb)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_source_rgb(cr, args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -384,10 +384,10 @@ Gura_ImplementMethod(context, set_source_rgba)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_source_rgba(cr, args.GetDouble(0), args.GetDouble(1),
 									args.GetDouble(2), args.GetDouble(3));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(context, set_source_color)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	const Color &color = Object_color::GetObject(args, 0)->GetColor();
 	double red = static_cast<double>(color.GetR()) / 255;
 	double green = static_cast<double>(color.GetG()) / 255;
@@ -418,7 +418,7 @@ Gura_ImplementMethod(context, set_source_color)
 	} else {
 		::cairo_set_source_rgb(cr, red, green, blue);
 	}
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -444,10 +444,10 @@ Gura_ImplementMethod(context, set_source)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_pattern_t *source = Object_pattern::GetObject(args, 0)->GetEntity();
 	::cairo_set_source(cr, source);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -478,12 +478,12 @@ Gura_ImplementMethod(context, set_source_surface)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
 	double x = args.GetDouble(1);
 	double y = args.GetDouble(2);
 	::cairo_set_source_surface(cr, surface, x, y);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	pThis->SetSurfaceSrcObj(Object_surface::Reference(Object_surface::GetObject(args, 0)));
 	return args.GetThis();
 }
@@ -502,9 +502,9 @@ Gura_ImplementMethod(context, get_source)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_pattern_t *pattern = ::cairo_get_source(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_pattern *pObjPattern =
 				new Object_pattern(::cairo_pattern_reference(pattern));
 	return Value(pObjPattern);
@@ -529,11 +529,11 @@ Gura_ImplementMethod(context, set_antialias)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_antialias_t antialias = static_cast<cairo_antialias_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_antialias(cr, antialias);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -551,9 +551,9 @@ Gura_ImplementMethod(context, get_antialias)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_antialias_t antialias = ::cairo_get_antialias(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(antialias);
 }
 
@@ -591,7 +591,7 @@ Gura_ImplementMethod(context, set_dash)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	int num_dashes = static_cast<int>(args.GetList(0).size());
 	double *dashes = new double [num_dashes];
 	int i = 0;
@@ -601,7 +601,7 @@ Gura_ImplementMethod(context, set_dash)
 	double offset = args.GetDouble(1);
 	::cairo_set_dash(cr, dashes, num_dashes, offset);
 	delete[] dashes;
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -619,14 +619,14 @@ Gura_ImplementMethod(context, get_dash)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	int num_dashes = ::cairo_get_dash_count(cr);
 	double *dashes = new double [num_dashes];
 	double offset = 0;
 	::cairo_get_dash(cr, dashes, &offset);
 	if (Is_error(sig, cr)) {
 		delete[] dashes;
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
@@ -658,11 +658,11 @@ Gura_ImplementMethod(context, set_fill_rule)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_fill_rule_t fill_rule = static_cast<cairo_fill_rule_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_fill_rule(cr, fill_rule);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -680,9 +680,9 @@ Gura_ImplementMethod(context, get_fill_rule)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_fill_rule_t fill_rule = ::cairo_get_fill_rule(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(fill_rule);
 }
 
@@ -707,11 +707,11 @@ Gura_ImplementMethod(context, set_line_cap)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_line_cap_t line_cap = static_cast<cairo_line_cap_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_line_cap(cr, line_cap);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -729,9 +729,9 @@ Gura_ImplementMethod(context, get_line_cap)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_line_cap_t line_cap = ::cairo_get_line_cap(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(line_cap);
 }
 
@@ -756,11 +756,11 @@ Gura_ImplementMethod(context, set_line_join)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_line_join_t line_join = static_cast<cairo_line_join_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_line_join(cr, line_join);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -778,9 +778,9 @@ Gura_ImplementMethod(context, get_line_join)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_line_join_t line_join = ::cairo_get_line_join(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(line_join);
 }
 
@@ -813,9 +813,9 @@ Gura_ImplementMethod(context, set_line_width)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_line_width(cr, args.GetDouble(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -835,9 +835,9 @@ Gura_ImplementMethod(context, get_line_width)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double width = ::cairo_get_line_width(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(width);
 }
 
@@ -869,9 +869,9 @@ Gura_ImplementMethod(context, set_miter_limit)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_miter_limit(cr, args.GetDouble(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -889,9 +889,9 @@ Gura_ImplementMethod(context, get_miter_limit)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double limit = ::cairo_get_miter_limit(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(limit);
 }
 
@@ -913,11 +913,11 @@ Gura_ImplementMethod(context, set_operator)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_operator_t operator_ = static_cast<cairo_operator_t>(args.GetInt(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_operator(cr, operator_);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -935,9 +935,9 @@ Gura_ImplementMethod(context, get_operator)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_operator_t operator_ = ::cairo_get_operator(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(operator_);
 }
 
@@ -963,9 +963,9 @@ Gura_ImplementMethod(context, set_tolerance)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_tolerance(cr, args.GetDouble(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -983,9 +983,9 @@ Gura_ImplementMethod(context, get_tolerance)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double tolerance = ::cairo_get_tolerance(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(tolerance);
 }
 
@@ -1016,9 +1016,9 @@ Gura_ImplementMethod(context, clip)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_clip(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1049,9 +1049,9 @@ Gura_ImplementMethod(context, clip_preserve)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_clip_preserve(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1069,10 +1069,10 @@ Gura_ImplementMethod(context, clip_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x1, y1, x2, y2;
 	::cairo_clip_extents(cr, &x1, &y1, &x2, &y2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x1, y1, x2, y2);
 }
 
@@ -1095,9 +1095,9 @@ Gura_ImplementMethod(context, in_clip)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	bool rtn = ::cairo_in_clip(cr, args.GetDouble(0), args.GetDouble(1))? true : false;
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -1123,9 +1123,9 @@ Gura_ImplementMethod(context, reset_clip)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_reset_clip(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1149,11 +1149,11 @@ Gura_ImplementMethod(context, copy_clip_rectangle_list)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_rectangle_list_t *rectangle_list = ::cairo_copy_clip_rectangle_list(cr);
 	if (Is_error(sig, cr)) {
 		::cairo_rectangle_list_destroy(rectangle_list);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -1183,9 +1183,9 @@ Gura_ImplementMethod(context, fill)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_fill(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1207,9 +1207,9 @@ Gura_ImplementMethod(context, fill_preserve)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_fill_preserve(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1238,10 +1238,10 @@ Gura_ImplementMethod(context, fill_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x1, y1, x2, y2;
 	::cairo_fill_extents(cr, &x1, &y1, &x2, &y2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x1, y1, x2, y2);
 }
 
@@ -1264,9 +1264,9 @@ Gura_ImplementMethod(context, in_fill)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	bool rtn = ::cairo_in_fill(cr, args.GetDouble(0), args.GetDouble(1))? true : false;
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -1286,10 +1286,10 @@ Gura_ImplementMethod(context, mask)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_pattern_t *pattern = Object_pattern::GetObject(args, 0)->GetEntity();
 	::cairo_mask(cr, pattern);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1311,12 +1311,12 @@ Gura_ImplementMethod(context, mask_surface)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
 	double surface_x = args.GetDouble(1);
 	double surface_y = args.GetDouble(2);
 	::cairo_mask_surface(cr, surface, surface_x, surface_y);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1334,9 +1334,9 @@ Gura_ImplementMethod(context, paint)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_paint(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1356,9 +1356,9 @@ Gura_ImplementMethod(context, paint_with_alpha)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_paint_with_alpha(cr, args.GetDouble(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1391,9 +1391,9 @@ Gura_ImplementMethod(context, stroke)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_stroke(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1414,9 +1414,9 @@ Gura_ImplementMethod(context, stroke_preserve)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_stroke_preserve(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1445,10 +1445,10 @@ Gura_ImplementMethod(context, stroke_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x1, y1, x2, y2;
 	::cairo_stroke_extents(cr, &x1, &y1, &x2, &y2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x1, y1, x2, y2);
 }
 
@@ -1470,9 +1470,9 @@ Gura_ImplementMethod(context, in_stroke)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	bool rtn = ::cairo_in_stroke(cr, args.GetDouble(0), args.GetDouble(1))? true : false;
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -1494,9 +1494,9 @@ Gura_ImplementMethod(context, copy_page)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_copy_page(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1517,9 +1517,9 @@ Gura_ImplementMethod(context, show_page)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_show_page(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1552,9 +1552,9 @@ Gura_ImplementMethod(context, copy_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_path_t *path = ::cairo_copy_path(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Value result(new Object_path(path));
 	return result;
 }
@@ -1584,9 +1584,9 @@ Gura_ImplementMethod(context, copy_path_flat)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_path_t *path = ::cairo_copy_path_flat(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Value result(new Object_path(path));
 	return result;
 }
@@ -1607,10 +1607,10 @@ Gura_ImplementMethod(context, append_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_path_t *path = Object_path::GetObject(args, 0)->GetEntity();
 	::cairo_append_path(cr, path);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1629,9 +1629,9 @@ Gura_ImplementMethod(context, has_current_point)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	bool rtn = ::cairo_has_current_point(cr)? true : false;
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -1665,10 +1665,10 @@ Gura_ImplementMethod(context, get_current_point)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x, y;
 	::cairo_get_current_point(cr, &x, &y);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x, y);
 }
 
@@ -1686,9 +1686,9 @@ Gura_ImplementMethod(context, new_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_new_path(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1711,9 +1711,9 @@ Gura_ImplementMethod(context, new_sub_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_new_sub_path(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1743,9 +1743,9 @@ Gura_ImplementMethod(context, close_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_close_path(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1795,7 +1795,7 @@ Gura_ImplementMethod(context, arc)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double angle1 = 0;
 	double angle2 = 2 * Math_PI;
 	if (args.IsSet(Gura_Symbol(deg))) {
@@ -1807,7 +1807,7 @@ Gura_ImplementMethod(context, arc)
 	}
 	::cairo_arc(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1838,7 +1838,7 @@ Gura_ImplementMethod(context, arc_negative)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double angle1 = 0;
 	double angle2 = 2 * Math_PI;
 	if (args.IsSet(Gura_Symbol(deg))) {
@@ -1850,7 +1850,7 @@ Gura_ImplementMethod(context, arc_negative)
 	}
 	::cairo_arc_negative(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1878,12 +1878,12 @@ Gura_ImplementMethod(context, curve_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_curve_to(cr,
 			args.GetDouble(0), args.GetDouble(1),
 			args.GetDouble(2), args.GetDouble(3),
 			args.GetDouble(4), args.GetDouble(5));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1906,9 +1906,9 @@ Gura_ImplementMethod(context, line_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_line_to(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1928,9 +1928,9 @@ Gura_ImplementMethod(context, move_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_move_to(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1960,11 +1960,11 @@ Gura_ImplementMethod(context, rectangle)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rectangle(cr,
 			args.GetDouble(0), args.GetDouble(1),
 			args.GetDouble(2), args.GetDouble(3));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -1984,10 +1984,10 @@ Gura_ImplementMethod(context, glyph_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	::cairo_glyph_path(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2017,9 +2017,9 @@ Gura_ImplementMethod(context, text_path)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_text_path(cr, args.GetString(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2052,12 +2052,12 @@ Gura_ImplementMethod(context, rel_curve_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rel_curve_to(cr,
 			args.GetDouble(0), args.GetDouble(1),
 			args.GetDouble(2), args.GetDouble(3),
 			args.GetDouble(4), args.GetDouble(5));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2084,9 +2084,9 @@ Gura_ImplementMethod(context, rel_line_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rel_line_to(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2111,9 +2111,9 @@ Gura_ImplementMethod(context, rel_move_to)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rel_move_to(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2143,10 +2143,10 @@ Gura_ImplementMethod(context, path_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x1, y1, x2, y2;
 	::cairo_path_extents(cr, &x1, &y1, &x2, &y2);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x1, y1, x2, y2);
 }
 
@@ -2172,9 +2172,9 @@ Gura_ImplementMethod(context, translate)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_translate(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2195,9 +2195,9 @@ Gura_ImplementMethod(context, scale)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_scale(cr, args.GetDouble(0), args.GetDouble(1));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2221,11 +2221,11 @@ Gura_ImplementMethod(context, rotate)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double angle = args.GetDouble(0);
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	::cairo_rotate(cr, angle);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2245,12 +2245,12 @@ Gura_ImplementMethod(context, transform)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_transform(cr, &matrix);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2269,12 +2269,12 @@ Gura_ImplementMethod(context, set_matrix)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_set_matrix(cr, &matrix);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2292,13 +2292,13 @@ Gura_ImplementMethod(context, get_matrix)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_matrix_t matrix;
 	::cairo_get_matrix(cr, &matrix);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
 	//return Value(new Object_matrix(env, pMat.release()));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // cairo.context#identity_matrix():reduce
@@ -2316,9 +2316,9 @@ Gura_ImplementMethod(context, identity_matrix)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_identity_matrix(cr);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2338,11 +2338,11 @@ Gura_ImplementMethod(context, user_to_device)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x = args.GetDouble(0);
 	double y = args.GetDouble(1);
 	::cairo_user_to_device(cr, &x, &y);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x, y);
 }
 
@@ -2364,11 +2364,11 @@ Gura_ImplementMethod(context, user_to_device_distance)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double dx = args.GetDouble(0);
 	double dy = args.GetDouble(1);
 	::cairo_user_to_device_distance(cr, &dx, &dy);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, dx, dy);
 }
 
@@ -2388,11 +2388,11 @@ Gura_ImplementMethod(context, device_to_user)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double x = args.GetDouble(0);
 	double y = args.GetDouble(1);
 	::cairo_device_to_user(cr, &x, &y);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, x, y);
 }
 
@@ -2414,11 +2414,11 @@ Gura_ImplementMethod(context, device_to_user_distance)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	double dx = args.GetDouble(0);
 	double dy = args.GetDouble(1);
 	::cairo_device_to_user_distance(cr, &dx, &dy);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return CreateValueList(env, dx, dy);
 }
 
@@ -2468,14 +2468,14 @@ Gura_ImplementMethod(context, select_font_face)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	const char *family = args.GetString(0);
 	cairo_font_slant_t slant = static_cast<cairo_font_slant_t>(args.GetInt(1));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	cairo_font_weight_t weight = static_cast<cairo_font_weight_t>(args.GetInt(2));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_select_font_face(cr, family, slant, weight);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2497,9 +2497,9 @@ Gura_ImplementMethod(context, set_font_size)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_font_size(cr, args.GetDouble(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2520,12 +2520,12 @@ Gura_ImplementMethod(context, set_font_matrix)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_set_font_matrix(cr, &matrix);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2543,10 +2543,10 @@ Gura_ImplementMethod(context, get_font_matrix)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_matrix_t matrix;
 	::cairo_get_font_matrix(cr, &matrix);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
 	return Value(new Object_matrix(env, pMat.release()));
 }
@@ -2568,10 +2568,10 @@ Gura_ImplementMethod(context, set_font_options)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_font_options(cr,
 				Object_font_options::GetObject(args, 0)->GetEntity());
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2591,12 +2591,12 @@ Gura_ImplementMethod(context, get_font_options)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_font_options_t *options = ::cairo_font_options_create();
 	::cairo_get_font_options(cr, options);
 	if (Is_error(sig, cr)) {
 		::cairo_font_options_destroy(options);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_font_options *pObjFontOptions = new Object_font_options(options);
 	return Value(pObjFontOptions);
@@ -2618,10 +2618,10 @@ Gura_ImplementMethod(context, set_font_face)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_font_face(cr,
 				Object_font_face::GetObject(args, 0)->GetEntity());
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2639,10 +2639,10 @@ Gura_ImplementMethod(context, get_font_face)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_font_face_t *font_face = ::cairo_get_font_face(cr);
 	if (Is_error(sig, cr)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_font_face *pObjFontFace = new Object_font_face(::cairo_font_face_reference(font_face));
 	return Value(pObjFontFace);
@@ -2665,10 +2665,10 @@ Gura_ImplementMethod(context, set_scaled_font)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_scaled_font(cr,
 				Object_scaled_font::GetObject(args, 0)->GetEntity());
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2686,10 +2686,10 @@ Gura_ImplementMethod(context, get_scaled_font)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_scaled_font_t *scaled_font = ::cairo_get_scaled_font(cr);
 	if (Is_error(sig, cr)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_scaled_font *pObjFontFace = new Object_scaled_font(::cairo_scaled_font_reference(scaled_font));
 	return Value(pObjFontFace);
@@ -2723,9 +2723,9 @@ Gura_ImplementMethod(context, show_text)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_show_text(cr, args.GetString(0));
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2745,10 +2745,10 @@ Gura_ImplementMethod(context, show_glyphs)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	::cairo_show_glyphs(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2784,7 +2784,7 @@ Gura_ImplementMethod(context, show_text_glyphs)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	String text = args.GetStringSTL(0);
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 1);
 	Object_text_cluster *pObjCluster = Object_text_cluster::GetObject(args, 2);
@@ -2793,7 +2793,7 @@ Gura_ImplementMethod(context, show_text_glyphs)
 	::cairo_show_text_glyphs(cr, text.c_str(), static_cast<int>(text.size()),
 		pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(),
 		pObjCluster->GetClusters(), pObjCluster->GetNumClusters(), cluster_flags);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -2811,10 +2811,10 @@ Gura_ImplementMethod(context, font_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_font_extents_t extents;
 	::cairo_font_extents(cr, &extents);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_font_extents *pObjFontExtents = new Object_font_extents(extents);
 	return Value(pObjFontExtents);
 }
@@ -2841,10 +2841,10 @@ Gura_ImplementMethod(context, text_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	cairo_text_extents_t extents;
 	::cairo_text_extents(cr, args.GetString(0), &extents);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_text_extents *pObjTextExtents = new Object_text_extents(extents);
 	return Value(pObjTextExtents);
 }
@@ -2868,11 +2868,11 @@ Gura_ImplementMethod(context, glyph_extents)
 	Signal &sig = env.GetSignal();
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
-	if (IsInvalid(sig, cr)) return Value::Null;
+	if (IsInvalid(sig, cr)) return Value::Nil;
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	cairo_text_extents_t extents;
 	::cairo_glyph_extents(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(), &extents);
-	if (Is_error(sig, cr)) return Value::Null;
+	if (Is_error(sig, cr)) return Value::Nil;
 	Object_text_extents *pObjTextExtents = new Object_text_extents(extents);
 	return Value(pObjTextExtents);
 }

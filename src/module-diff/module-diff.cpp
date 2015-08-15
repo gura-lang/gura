@@ -652,7 +652,7 @@ Value Object_diff_at_line::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pDiffLine->GetSequence(1).size());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_diff_at_line::ToString(bool exprFlag)
@@ -699,7 +699,7 @@ Gura_ImplementMethod(diff_at_line, eachhunk)
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(0)) {
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(0));
-		if (format == DiffLine::FORMAT_None) return Value::Null;
+		if (format == DiffLine::FORMAT_None) return Value::Nil;
 	}
 	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
 	AutoPtr<DiffLine::IteratorHunk> pIterator(
@@ -739,13 +739,13 @@ Gura_ImplementMethod(diff_at_line, render)
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
-		if (format == DiffLine::FORMAT_None) return Value::Null;
+		if (format == DiffLine::FORMAT_None) return Value::Nil;
 	}
 	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
 	if (args.IsValid(0)) {
 		Stream &streamOut = args.GetStream(0);
 		pDiffLine->PrintHunks(sig, streamOut, format, nLinesCommon);
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		String strOut;
 		SimpleStream_StringWriter streamOut(strOut);
@@ -811,7 +811,7 @@ Value Object_hunk_at_line::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_diff_at_char(GetDiffChar()->Reference()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_hunk_at_line::ToString(bool exprFlag)
@@ -852,7 +852,7 @@ Gura_ImplementMethod(hunk_at_line, print)
 	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	pThis->GetDiffLine()->PrintHunk(sig, stream, pThis->GetHunk());
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -916,7 +916,7 @@ Value Object_edit_at_line::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(DiffLine::TextizeEdit_Unified(edit));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_edit_at_line::ToString(bool exprFlag)
@@ -955,7 +955,7 @@ Gura_ImplementMethod(edit_at_line, print)
 	Object_edit_at_line *pThis = Object_edit_at_line::GetThisObj(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	stream.Println(sig, DiffLine::TextizeEdit_Unified(pThis->GetEdit()).c_str());
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -1006,7 +1006,7 @@ Value Object_diff_at_char::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_diff_at_char::ToString(bool exprFlag)
@@ -1071,7 +1071,7 @@ Value Object_edit_at_char::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pEdit->GetSource());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_edit_at_char::ToString(bool exprFlag)
@@ -1126,7 +1126,7 @@ Value Object_sync::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_sync::ToString(bool exprFlag)
@@ -1170,7 +1170,7 @@ Value Object_syncline::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_syncline::ToString(bool exprFlag)
@@ -1251,18 +1251,18 @@ Gura_ImplementFunction(compose)
 			pDiffLine->FeedString(i, args.GetString(i));
 		} else if (args.IsType(i, VTYPE_stream)) {
 			if (!pDiffLine->FeedStream(sig, i, args.GetStream(i))) {
-				return Value::Null;
+				return Value::Nil;
 			}
 		} else if (args.IsType(i, VTYPE_iterator)) {
 			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
 			if (!pDiffLine->FeedIterator(env, sig, i, pIterator.get())) {
-				return Value::Null;
+				return Value::Nil;
 			}				
 		} else if (args.IsType(i, VTYPE_list)) {
 			pDiffLine->FeedList(i, args.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
-			return Value::Null;
+			return Value::Nil;
 		}
 	}
 	pDiffLine->Compose();

@@ -51,7 +51,7 @@ Gura_DeclareFunction(AcceleratorTableEmpty)
 Gura_ImplementFunction(AcceleratorTableEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable();
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -75,7 +75,7 @@ Gura_DeclareFunction(AcceleratorTable)
 Gura_ImplementFunction(AcceleratorTable)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	CArrayOfAcceleratorEntry entries(args.GetList(0));
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable(entries.Count(), entries.Data());
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
@@ -101,7 +101,7 @@ Gura_DeclareFunction(AcceleratorTable_2)
 Gura_ImplementFunction(AcceleratorTable_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString resource = wxString::FromUTF8(args.GetString(0));
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable(resource);
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetThisObj(args);
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -66,7 +66,7 @@ Gura_DeclareFunction(GridCellAttrProvider)
 Gura_ImplementFunction(GridCellAttrProvider)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellAttrProvider *pEntity = new wx_GridCellAttrProvider();
 	Object_wx_GridCellAttrProvider *pObj = Object_wx_GridCellAttrProvider::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, GetAttr)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxGridCellAttr::wxAttrKind kind = static_cast<wxGridCellAttr::wxAttrKind>(args.GetInt(2));

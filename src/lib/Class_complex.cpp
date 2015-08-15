@@ -100,7 +100,7 @@ Gura_ImplementSuffixMgrForNumber(j)
 	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {
 		sig.SetError(ERR_ValueError, "invalid number format");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(Complex(0, num));
 }
@@ -146,7 +146,7 @@ Value Class_complex::GetPropPrimitive(Environment &env, const Value &valueThis,
 		return Value(num.real());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Class_complex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

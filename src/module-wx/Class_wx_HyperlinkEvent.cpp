@@ -49,7 +49,7 @@ Gura_DeclareFunction(HyperlinkEvent)
 Gura_ImplementFunction(HyperlinkEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	wxString url = wxString::FromUTF8(args.GetString(2));
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetURL();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -90,10 +90,10 @@ Gura_ImplementMethod(wx_HyperlinkEvent, SetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetURL(url);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

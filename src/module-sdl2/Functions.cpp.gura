@@ -390,7 +390,7 @@ SDL_CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32) {block?}
 	int _rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 			Value(new Object_Window(window)), Value(new Object_Renderer(renderer))));
@@ -423,7 +423,7 @@ SDL_GL_CreateContext(window:SDL_Window@) {block?} = R'''
 	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
 ''' % {`en, 'markdown',
@@ -446,7 +446,7 @@ SDL_GL_GetAttribute(attr:SDL_GLattr) {block?} = R'''
 	int _rtn = SDL_GL_GetAttribute(attr, &value);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(value));
 ''' % {`en, 'markdown',
@@ -458,7 +458,7 @@ SDL_GL_GetCurrentContext() {block?} = R'''
 	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
 ''' % {`en, 'markdown',
@@ -531,7 +531,7 @@ SDL_GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const) {block?
 	SDL_DisplayMode *_rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(closest)));
 ''' % {`en, 'markdown',
@@ -544,7 +544,7 @@ SDL_GetCurrentDisplayMode(displayIndex:int) {block?} = R'''
 	int _rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 ''' % {`en, 'markdown',
@@ -562,7 +562,7 @@ SDL_GetDesktopDisplayMode(displayIndex:int) {block?} = R'''
 	int _rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 ''' % {`en, 'markdown',
@@ -575,7 +575,7 @@ SDL_GetDisplayBounds(displayIndex:int) {block?} = R'''
 	int _rtn = SDL_GetDisplayBounds(displayIndex, &rect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 ''' % {`en, 'markdown',
@@ -588,7 +588,7 @@ SDL_GetDisplayMode(displayIndex:int, modeIndex:int) {block?} = R'''
 	int _rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 ''' % {`en, 'markdown',
@@ -658,7 +658,7 @@ SDL_GetWindowGammaRamp(window:SDL_Window@) {block?} = R'''
 	int _rtn = SDL_GetWindowGammaRamp(window, &red, &green, &blue);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 								Value(red), Value(green), Value(blue)));
@@ -701,7 +701,7 @@ SDL_GetWindowPixelFormat(window:SDL_Window@) {block?} = R'''
 	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
 	if (_rtn == SDL_PIXELFORMAT_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -802,14 +802,14 @@ SDL_SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr = `auto % {`en,
 SDL_SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):void = R'''
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int _rtn = SDL_SetWindowGammaRamp(window, red, green, blue);
 	if (_rtn != SDL_TRUE) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -880,9 +880,9 @@ SDL_UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect):void = R'''
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -956,7 +956,7 @@ SDL_GetRenderDrawBlendMode(renderer:SDL_Renderer@) {block?} = R'''
 	int _rtn = SDL_GetRenderDrawBlendMode(renderer, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
 ''' % {`en, 'markdown',
@@ -972,7 +972,7 @@ SDL_GetRenderDrawColor(renderer:SDL_Renderer@) {block?} = R'''
 	int _rtn = SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 								Value(r), Value(g), Value(b), Value(a)));
@@ -986,7 +986,7 @@ SDL_GetRenderDriverInfo(index:int) {block?} = R'''
 	int _rtn = SDL_GetRenderDriverInfo(index, &info);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 ''' % {`en, 'markdown',
@@ -1016,7 +1016,7 @@ SDL_GetRendererInfo(renderer:SDL_Renderer@) {block?} = R'''
 	int _rtn = SDL_GetRendererInfo(renderer, &info);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 ''' % {`en, 'markdown',
@@ -1030,7 +1030,7 @@ SDL_GetRenderOutputSize(renderer:SDL_Renderer@) {block?} = R'''
 	int _rtn = SDL_GetRendererOutputSize(renderer, &w, &h);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 ''' % {`en, 'markdown',
@@ -1043,7 +1043,7 @@ SDL_GetTextureAlphaMod(texture:SDL_Texture@) {block?} = R'''
 	int _rtn = SDL_GetTextureAlphaMod(texture, &alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(alpha));
 ''' % {`en, 'markdown',
@@ -1056,7 +1056,7 @@ SDL_GetTextureBlendMode(texture:SDL_Texture@) {block?} = R'''
 	int _rtn = SDL_GetTextureBlendMode(texture, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
 ''' % {`en, 'markdown',
@@ -1071,7 +1071,7 @@ SDL_GetTextureColorMod(texture:SDL_Texture@) {block?} = R'''
 	int _rtn = SDL_GetTextureColorMod(texture, &r, &g, &b);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 											Value(r), Value(g), Value(b)));
@@ -1093,7 +1093,7 @@ SDL_QueryTexture(texture:SDL_Texture@) {block?} = R'''
 	int _rtn = SDL_QueryTexture(texture, &format, &access, &w, &h);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 							Value(format), Value(access), Value(w), Value(h)));
@@ -1127,9 +1127,9 @@ SDL_RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1145,9 +1145,9 @@ SDL_RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1163,9 +1163,9 @@ SDL_RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1181,9 +1181,9 @@ SDL_RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1248,16 +1248,16 @@ SDL_RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:sy
 		fmtImage = Image::FORMAT_RGBA;
 	} else {
 		sig.SetError(ERR_ValueError, "format must be `rgb or `rgba");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Image> pImage(new Image(fmtImage));
-	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Nil;
 	void *pixels = pImage->GetBuffer();
 	int pitch = pImage->GetBytesPerLine();
 	int _rtn = SDL_RenderReadPixels(renderer, rect, _format, pixels, pitch);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 ''' % {`en, 'markdown',
@@ -1420,7 +1420,7 @@ SDL_PixelFormatEnumToMasks(format:Uint32) {block?} = R'''
 	SDL_bool _rtn = SDL_PixelFormatEnumToMasks(format, &bpp, &Rmask, &Gmask, &Bmask, &Amask);
 	if (_rtn != SDL_TRUE) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
@@ -1433,14 +1433,14 @@ SDL_SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, n
 	int nmax = static_cast<int>(colors.GetSize());
 	if (firstcolor + ncolors > nmax) {
 		sig.SetError(ERR_IndexError, "out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int _rtn = SDL_SetPaletteColors(palette, colors, firstcolor, ncolors);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1559,13 +1559,13 @@ SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int
 		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,
 								depth, pitch, Rmask, Gmask, Bmask, Amask);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 ''' % {`en, 'markdown',
@@ -1575,7 +1575,7 @@ SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int
 
 SDL_CreateRGBSurfaceFromImage(image:image) {block?} = R'''
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
-	if (pObjSurface == NULL) return Value::Null;
+	if (pObjSurface == NULL) return Value::Nil;
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 ''' % {`en, 'markdown',
 	R'''
@@ -1592,9 +1592,9 @@ SDL_FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32):void = R'''
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1622,7 +1622,7 @@ SDL_GetColorKey(surface:SDL_Surface@) {block?} = R'''
 		_rtnVal = Value(key);
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
 ''' % {`en, 'markdown',
@@ -1635,7 +1635,7 @@ SDL_GetSurfaceAlphaMod(surface:SDL_Surface@) {block?} = R'''
 	int _rtn = SDL_GetSurfaceAlphaMod(surface, &alpha);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(alpha));
 ''' % {`en, 'markdown',
@@ -1648,7 +1648,7 @@ SDL_GetSurfaceBlendMode(surface:SDL_Surface@) {block?} = R'''
 	int _rtn = SDL_GetSurfaceBlendMode(surface, &blendMode);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(blendMode));
 ''' % {`en, 'markdown',
@@ -1673,7 +1673,7 @@ SDL_LoadBMP(src:stream) {block?} = R'''
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 ''' % {`en, 'markdown',
@@ -1711,7 +1711,7 @@ SDL_SaveBMP(surface:SDL_Surface@, dst:stream) {block?} = R'''
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -1839,7 +1839,7 @@ SDL_GetTouchDevice(index:int) {block?} = R'''
 	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -1867,7 +1867,7 @@ SDL_LoadDollarTemplates(touchId:SDL_TouchID, src:stream) {block?} = R'''
 	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -1880,7 +1880,7 @@ SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -1894,7 +1894,7 @@ SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value _rtnVal;
 	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
@@ -1913,7 +1913,7 @@ SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value _rtnVal;
 	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
@@ -1929,7 +1929,7 @@ SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 SDL_PollEvent() {block?} = R'''
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
-	if (_rtn == 0) return Value::Null;
+	if (_rtn == 0) return Value::Nil;
 	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 ''' % {`en, 'markdown',
 	R'''
@@ -1973,7 +1973,7 @@ SDL_SaveAllDollarTemplates(dst:stream) {block?} = R'''
 	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -1986,9 +1986,9 @@ SDL_SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):void = R'''
 	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2004,7 +2004,7 @@ SDL_WaitEvent() {block?} = R'''
 	int _rtn = SDL_WaitEvent(&event);
 	if (_rtn == 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 ''' % {`en, 'markdown',
@@ -2020,7 +2020,7 @@ SDL_WaitEventTimeout(timeout:int) {block?} = R'''
 		_rtnVal = Value(new Object_Event(event));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
 ''' % {`en, 'markdown',
@@ -2045,7 +2045,7 @@ SDL_GetKeyFromName(name:char@:const) {block?} = R'''
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
 	if (_rtn == SDLK_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -2096,7 +2096,7 @@ SDL_GetScancodeFromName(name:char@:const) {block?} = R'''
 	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
 	if (_rtn == SDL_SCANCODE_UNKNOWN) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -2161,18 +2161,18 @@ SDL_CreateCursor(data:array@uchar, mask:array@uchar, w:int, h:int, hot_x:int, ho
 	size_t bytesLeast = int((w + 7) / 8) * h;
 	if (data->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (mask->GetSize() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data->GetPointer());
 	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask->GetPointer());
 	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
 ''' % {`en, 'markdown',
@@ -2298,7 +2298,7 @@ SDL_JoystickGetBall(joystick:SDL_Joystick@, ball:int) {block?} = R'''
 	int _rtn = SDL_JoystickGetBall(joystick, ball, &dx, &dy);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
 ''' % {`en, 'markdown',
@@ -2348,7 +2348,7 @@ SDL_JoystickInstanceID(joystick:SDL_Joystick@) {block?} = R'''
 	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -2414,7 +2414,7 @@ SDL_GameControllerAddMappingsFromFile(file:stream) {block?} = R'''
 	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 ''' % {`en, 'markdown',
@@ -2466,7 +2466,7 @@ SDL_GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameC
 	Uint8 _rtn = SDL_GameControllerGetButton(gamecontroller, button);
 	if (_rtn == 0 && *SDL_GetError() != '\0') {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn != 0));
 ''' % {`en, 'markdown',
@@ -2724,7 +2724,7 @@ SDL_FreeWAV(wav:Wav@):void = R'''
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2778,7 +2778,7 @@ SDL_LoadWAV(file:stream) {block?} = R'''
 	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(_file.get(), 0, &spec, &audio_buf, &audio_len);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
 ''' % {`en, 'markdown',
@@ -2816,7 +2816,7 @@ SDL_OpenAudio(desired:SDL_AudioSpec@) {block?} = R'''
 	int _rtn = SDL_OpenAudio(desired, &obtained);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_AudioSpec(obtained)));
 ''' % {`en, 'markdown',
@@ -3514,7 +3514,7 @@ AddTypeConv_Class(typeName:string) = {
 					_rtnVal = Value(new Object_%s(_rtn));
 				} else if (*SDL_GetError() != '\0') {
 					SetError_SDL(sig);
-					return Value::Null;
+					return Value::Nil;
 				}
 				return ReturnValue(env, sig, args, _rtnVal);''' % [typeNameBase, typeNameBase]))
 	} else {
@@ -3544,7 +3544,7 @@ cbridge.AddTypeConvs {
 				// free buffer of _rtn
 			} else if (*SDL_GetError() != '\0') {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')
@@ -3559,7 +3559,7 @@ cbridge.AddTypeConvs {
 				_rtnVal = Value(_rtn);
 			} else if (*SDL_GetError() != '\0') {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')
@@ -3689,9 +3689,9 @@ cbridge.AddTypeConvs {
 			int _rtn = ${fi.MakeCaller()};
 			if (_rtn < 0) {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
-			return Value::Null;''', true)
+			return Value::Nil;''', true)
 	'negerr_boolean' => TypeConv(
 			nil, nil, [],
 			nil,
@@ -3700,7 +3700,7 @@ cbridge.AddTypeConvs {
 			int _rtn = ${fi.MakeCaller()};
 			if (_rtn < 0) {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return ReturnValue(env, sig, args, Value(_rtn != 0));
 			''')
@@ -3712,7 +3712,7 @@ cbridge.AddTypeConvs {
 			int _rtn = ${fi.MakeCaller()};
 			if (_rtn < 0) {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return ReturnValue(env, sig, args, Value(_rtn));
 			''')
@@ -3735,7 +3735,7 @@ cbridge.AddTypeConvs {
 				_rtnVal = Value(new Object_Cursor(_rtn, true));
 			} else if (*SDL_GetError() != '\0') {
 				SetError_SDL(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return ReturnValue(env, sig, args, _rtnVal);
 			''')

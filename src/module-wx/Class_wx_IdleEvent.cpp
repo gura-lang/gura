@@ -46,7 +46,7 @@ Gura_DeclareFunction(IdleEventEmpty)
 Gura_ImplementFunction(IdleEventEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_IdleEvent *pEntity = new wx_IdleEvent();
 	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -70,7 +70,7 @@ Gura_DeclareClassMethod(wx_IdleEvent, CanSend)
 Gura_ImplementClassMethod(wx_IdleEvent, CanSend)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = wxIdleEvent::CanSend(window);
 	return ReturnValue(env, args, Value(rtn));
@@ -86,7 +86,7 @@ Gura_DeclareClassMethod(wx_IdleEvent, GetMode)
 Gura_ImplementClassMethod(wx_IdleEvent, GetMode)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxIdleMode rtn = wxIdleEvent::GetMode();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -101,11 +101,11 @@ Gura_ImplementMethod(wx_IdleEvent, RequestMore)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool needMore = true;
 	if (args.IsValid(0)) needMore = args.GetBoolean(0);
 	pThis->GetEntity()->RequestMore(needMore);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MoreRequested();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -132,10 +132,10 @@ Gura_DeclareClassMethodAlias(wx_IdleEvent, SetMode_, "SetMode")
 Gura_ImplementClassMethod(wx_IdleEvent, SetMode_)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxIdleMode mode = static_cast<wxIdleMode>(args.GetInt(0));
 	wxIdleEvent::SetMode(mode);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

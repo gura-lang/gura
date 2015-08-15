@@ -198,7 +198,7 @@ Gura_ImplementMethod(image, read_jpeg)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_JPEG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -221,7 +221,7 @@ Gura_ImplementMethod(image, write_jpeg)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_JPEG::WriteStream(env, sig,
 							pThis->GetImage(), args.GetStream(0), args.GetInt(1))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -237,7 +237,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

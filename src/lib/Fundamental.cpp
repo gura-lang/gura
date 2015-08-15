@@ -29,7 +29,7 @@ Value Fundamental::DoCall(Environment &env, Args &args)
 {
 	Signal &sig = env.GetSignal();
 	sig.SetError(ERR_TypeError, "object is not callable");
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Fundamental::DoDirProp(Environment &env, SymbolSet &symbols)

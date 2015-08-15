@@ -50,7 +50,7 @@ Gura_DeclareFunction(TextInputStream)
 Gura_ImplementFunction(TextInputStream)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString sep = wxT(" \t");
 	if (args.IsValid(1)) sep = wxString::FromUTF8(args.GetString(1));
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read8)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxUint8 rtn = pThis->GetEntity()->Read8(base);
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read8S)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxInt8 rtn = pThis->GetEntity()->Read8S(base);
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read16)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxUint16 rtn = pThis->GetEntity()->Read16(base);
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read16S)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxInt16 rtn = pThis->GetEntity()->Read16S(base);
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read32)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxUint32 rtn = pThis->GetEntity()->Read32(base);
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_TextInputStream, Read32S)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int base = 10;
 	if (args.IsValid(0)) base = args.GetInt(0);
 	wxInt32 rtn = pThis->GetEntity()->Read32S(base);
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_TextInputStream, GetChar)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->GetChar();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadDouble)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double rtn = pThis->GetEntity()->ReadDouble();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadLine)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->ReadLine();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadString)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->ReadString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadWord)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->ReadWord();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -264,10 +264,10 @@ Gura_ImplementMethod(wx_TextInputStream, SetStringSeparators)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString sep = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetStringSeparators(sep);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

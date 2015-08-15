@@ -52,7 +52,7 @@ Gura_DeclareFunction(HtmlWinParserEmpty)
 Gura_ImplementFunction(HtmlWinParserEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_HtmlWinParser *pEntity = new wx_HtmlWinParser();
 	Object_wx_HtmlWinParser *pObj = Object_wx_HtmlWinParser::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -78,7 +78,7 @@ Gura_DeclareFunction(HtmlWinParser)
 Gura_ImplementFunction(HtmlWinParser)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxHtmlWindowInterface **wndIface = Object_wx_HtmlWindowInterface::GetObject(args, 0)->GetEntity();
 	wx_HtmlWinParser *pEntity = new wx_HtmlWinParser(**wndIface);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(HtmlWinParser)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_HtmlWinParser, AddModule)
@@ -107,14 +107,14 @@ Gura_DeclareClassMethod(wx_HtmlWinParser, AddModule)
 Gura_ImplementClassMethod(wx_HtmlWinParser, AddModule)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxHtmlTagsModule **module = Object_wx_HtmlTagsModule::GetObject(args, 0)->GetEntity();
 	wxHtmlWinParser::AddModule(**module);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, CloseContainer)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, CloseContainer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->CloseContainer();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlContainerCell(rtn, nullptr, OwnerFalse)));
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, CreateCurrentFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *rtn = (wxFont *)pThis->GetEntity()->CreateCurrentFont();
 	return ReturnValue(env, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetActualColor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetActualColor();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetAlign)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetAlign();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCharHeight();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharWidth)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCharWidth();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetContainer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->GetContainer();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlContainerCell(rtn, nullptr, OwnerFalse)));
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetDC)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
 	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEncodingConverter *rtn = (wxEncodingConverter *)pThis->GetEntity()->GetEncodingConverter();
 	return ReturnValue(env, args, Value(new Object_wx_EncodingConverter(rtn, nullptr, OwnerFalse)));
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontBold)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFontBold();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFace)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFontFace();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFixed)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFontFixed();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontItalic)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFontItalic();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFontSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontUnderlined)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFontUnderlined();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -361,12 +361,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding rtn = pThis->GetEntity()->GetInputEncoding();
 	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLink)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxHtmlLinkInfo &rtn = pThis->GetEntity()->GetLink();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), nullptr, OwnerTrue)));
 }
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLinkColor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxColour &rtn = pThis->GetEntity()->GetLinkColor();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
@@ -413,12 +413,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding rtn = pThis->GetEntity()->GetOutputEncoding();
 	return ReturnValue(env, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlWindow *rtn = (wxHtmlWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlWindow(rtn, nullptr, OwnerFalse)));
 }
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, OpenContainer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->OpenContainer();
 	return ReturnValue(env, args, Value(new Object_wx_HtmlContainerCell(rtn, nullptr, OwnerFalse)));
 }
@@ -465,10 +465,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetActualColor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *clr = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetActualColor(*clr);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetAlign)
@@ -481,10 +481,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetAlign)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int a = args.GetInt(0);
 	pThis->GetEntity()->SetAlign(a);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetContainer)
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetContainer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlContainerCell *c = Object_wx_HtmlContainerCell::GetObject(args, 0)->GetEntity();
 	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->SetContainer(c);
 	return ReturnValue(env, args, Value(new Object_wx_HtmlContainerCell(rtn, nullptr, OwnerFalse)));
@@ -518,15 +518,15 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetDC)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC **dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	double pixel_scale = 1.0;
 	if (args.IsValid(1)) pixel_scale = args.GetDouble(1);
 	pThis->GetEntity()->SetDC(**dc, pixel_scale);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontBold)
@@ -539,10 +539,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontBold)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	pThis->GetEntity()->SetFontBold(x);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontFace)
@@ -555,10 +555,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFace)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString face = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetFontFace(face);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontFixed)
@@ -571,10 +571,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFixed)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	pThis->GetEntity()->SetFontFixed(x);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontItalic)
@@ -587,10 +587,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontItalic)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	pThis->GetEntity()->SetFontItalic(x);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontSize)
@@ -603,10 +603,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int s = args.GetInt(0);
 	pThis->GetEntity()->SetFontSize(s);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFontUnderlined)
@@ -619,10 +619,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontUnderlined)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	pThis->GetEntity()->SetFontUnderlined(x);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetFonts)
@@ -640,16 +640,16 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFonts)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString normal_face = wxString::FromUTF8(args.GetString(0));
 	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
 	int *sizes = nullptr;
 	if (args.IsValid(2)) *sizes = args.GetInt(2);
 	pThis->GetEntity()->SetFonts(normal_face, fixed_face, *sizes);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 #if 0
@@ -664,13 +664,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
 	Signal &sig = env.GetSignal();
 #if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
 	pThis->GetEntity()->SetInputEncoding(enc);
-	return Value::Null;
+	return Value::Nil;
 #else
 	SetError_MSWOnly(sig);
-	return Value::Null;
+	return Value::Nil;
 #endif	
 }
 #endif
@@ -685,10 +685,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetLink)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlLinkInfo *link = Object_wx_HtmlLinkInfo::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetLink(*link);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetLinkColor)
@@ -701,10 +701,10 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetLinkColor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *clr = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetLinkColor(*clr);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

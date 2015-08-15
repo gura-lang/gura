@@ -32,12 +32,12 @@ Value Object_palette::IndexGet(Environment &env, const Value &valueIdx)
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t idx = valueIdx.GetSizeT();
 	if (idx >= _pPalette->CountEntries()) {
 		sig.SetError(ERR_IndexError, "index is out of range");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return _pPalette->GetColorValue(env, idx);
 }
@@ -121,17 +121,17 @@ Gura_ImplementFunction(palette)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Palette> pPalette(new Palette());
 	if (args.Is_symbol(0)) {
-		if (!pPalette->Prepare(sig, args.GetSymbol(0))) return Value::Null;
+		if (!pPalette->Prepare(sig, args.GetSymbol(0))) return Value::Nil;
 	} else if (args.Is_number(0)) {
 		size_t nEntries = args.GetSizeT(0);
 		if (nEntries > 0xffff) {
 			sig.SetError(ERR_ValueError, "too large palette size");
-			return Value::Null;
+			return Value::Nil;
 		}
 		pPalette->AllocBuff(nEntries);
 	} else {
 		sig.SetError(ERR_ValueError, "number or symbol must be specified");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return ReturnValue(env, args, Value(new Object_palette(env, pPalette.release())));
 }
@@ -227,16 +227,16 @@ Gura_ImplementMethod(palette, updateby)
 	if (args.Is_image(0)) {
 		if (!pThis->GetPalette()->UpdateByImage(sig,
 				Object_image::GetObject(args, 0)->GetImage(), shrinkMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else if (args.Is_palette(0)) {
 		if (!pThis->GetPalette()->UpdateByPalette(sig,
 				Object_palette::GetObject(args, 0)->GetPalette(), shrinkMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "image or palette must be specified");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }

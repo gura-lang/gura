@@ -46,7 +46,7 @@ Gura_DeclareFunction(DebugReportPreviewStdEmpty)
 Gura_ImplementFunction(DebugReportPreviewStdEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DebugReportPreviewStd *pEntity = new wx_DebugReportPreviewStd();
 	Object_wx_DebugReportPreviewStd *pObj = Object_wx_DebugReportPreviewStd::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_DebugReportPreviewStd, Show)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DebugReportPreviewStd *pThis = Object_wx_DebugReportPreviewStd::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDebugReport *dbgrpt = Object_wx_DebugReport::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Show(*dbgrpt);
 	return ReturnValue(env, args, Value(rtn));

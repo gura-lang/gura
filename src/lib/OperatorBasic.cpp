@@ -339,7 +339,7 @@ Gura_ImplementUnaryOperator(Pos, rational)
 	const Rational &a = value.GetRational();
 	if (a.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (a.numer == 0) return Value::Zero;
 	return Value(+a);
@@ -433,7 +433,7 @@ Gura_ImplementUnaryOperator(Neg, rational)
 	const Rational &a = value.GetRational();
 	if (a.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (a.numer == 0) return Value::Zero;
 	return Value(-a);
@@ -552,7 +552,7 @@ Gura_ImplementUnaryOperatorSuffix(Each, any)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-	if (pIterator.IsNull()) return Value::Null;
+	if (pIterator.IsNull()) return Value::Nil;
 	return Value(new Object_iterator(env, pIterator.release()));
 }
 
@@ -576,7 +576,7 @@ Gura_ImplementBinaryOperator(Add, rational, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a + b;
 	if (c.numer == 0) return Value::Zero;
@@ -590,7 +590,7 @@ Gura_ImplementBinaryOperator(Add, rational, number)
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a + b;
 	if (c.numer == 0) return Value::Zero;
@@ -604,7 +604,7 @@ Gura_ImplementBinaryOperator(Add, number, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a + b;
 	if (c.numer == 0) return Value::Zero;
@@ -689,7 +689,7 @@ Gura_ImplementBinaryOperator(Add, pointer, number)
 						Object_pointer::GetObject(valueLeft)->Clone());
 	pObj->UnpackForward(sig,
 						static_cast<int>(valueRight.GetNumber()), true);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj);
 }
 
@@ -759,7 +759,7 @@ Gura_ImplementBinaryOperator(Sub, rational, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a - b;
 	if (c.numer == 0) return Value::Zero;
@@ -773,7 +773,7 @@ Gura_ImplementBinaryOperator(Sub, rational, number)
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a - b;
 	if (c.numer == 0) return Value::Zero;
@@ -787,7 +787,7 @@ Gura_ImplementBinaryOperator(Sub, number, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a - b;
 	if (c.numer == 0) return Value::Zero;
@@ -825,7 +825,7 @@ Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
 								(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
 		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_timedelta(env, dt1.Minus(dt2)));
 }
@@ -854,7 +854,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, number)
 						Object_pointer::GetObject(valueLeft)->Clone()));
 	pObj->UnpackForward(sig,
 						-static_cast<int>(valueRight.GetNumber()), true);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj.release());
 }
 
@@ -866,7 +866,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 	if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
 		sig.SetError(ERR_ValueError,
 			"cannot calculate difference between pointers of different binaries");
-		return Value::Null;
+		return Value::Nil;
 	}
 	int offset1 = static_cast<int>(pObj1->GetOffset());
 	int offset2 = static_cast<int>(pObj2->GetOffset());
@@ -925,7 +925,7 @@ Gura_ImplementBinaryOperator(Mul, rational, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a * b;
 	if (c.numer == 0) return Value::Zero;
@@ -939,7 +939,7 @@ Gura_ImplementBinaryOperator(Mul, rational, number)
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a * b;
 	if (c.numer == 0) return Value::Zero;
@@ -953,7 +953,7 @@ Gura_ImplementBinaryOperator(Mul, number, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.denom == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a * b;
 	if (c.numer == 0) return Value::Zero;
@@ -1023,11 +1023,11 @@ Gura_ImplementBinaryOperator(Mul, function, any)
 	if (pObj->GetFunction()->IsUnary()) {
 		ValueList valListArg(valueRight);
 		Value result = pObj->Eval(env, valListArg);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return result;
 	} else {
 		sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
-		return Value::Null;
+		return Value::Nil;
 	}
 }
 
@@ -1108,7 +1108,7 @@ Gura_ImplementBinaryOperator(Div, number, number)
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(valueLeft.GetNumber() / numRight);
 }
@@ -1119,7 +1119,7 @@ Gura_ImplementBinaryOperator(Div, complex, complex)
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(valueLeft.GetComplex() / valueRight.GetComplex());
 }
@@ -1131,7 +1131,7 @@ Gura_ImplementBinaryOperator(Div, rational, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.numer == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a / b;
 	if (c.numer == 0) return Value::Zero;
@@ -1145,7 +1145,7 @@ Gura_ImplementBinaryOperator(Div, rational, number)
 	const Rational b = Rational::FromNumber(valueRight.GetNumber());
 	if (a.denom == 0 || b.numer == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a / b;
 	if (c.numer == 0) return Value::Zero;
@@ -1159,7 +1159,7 @@ Gura_ImplementBinaryOperator(Div, number, rational)
 	const Rational &b = valueRight.GetRational();
 	if (a.denom == 0 || b.numer == 0) {
 		Rational::SetError_DenominatorZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Rational c = a / b;
 	if (c.numer == 0) return Value::Zero;
@@ -1172,7 +1172,7 @@ Gura_ImplementBinaryOperator(Div, number, complex)
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(valueLeft.GetNumber() / numRight);
 }
@@ -1183,7 +1183,7 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(valueLeft.GetComplex() / numRight);
 }
@@ -1202,7 +1202,7 @@ Value Div_ArrayAndArray(Environment &env,
 	LoopOn_ArrayAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		*pResult = *pLeft / *pRight;
 	}
@@ -1218,7 +1218,7 @@ Value Div_ArrayAndNumber(Environment &env,
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t cnt = pArrayLeft->GetSize();
 	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
@@ -1238,7 +1238,7 @@ Value Div_NumberAndArray(Environment &env,
 	LoopOn_NumberAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		*pResult = static_cast<T_ElemRight>(numLeft) / *pRight;
 	}
@@ -1256,7 +1256,7 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(::fmod(valueLeft.GetNumber(), numRight));
 }
@@ -1269,7 +1269,7 @@ Value Mod_ArrayAndArray(Environment &env,
 	LoopOn_ArrayAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(*pRight)));
 	}
@@ -1285,7 +1285,7 @@ Value Mod_ArrayAndNumber(Environment &env,
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t cnt = pArrayLeft->GetSize();
 	AutoPtr<Array<T_ElemResult> > pArrayResult(new Array<T_ElemResult>(cnt));
@@ -1305,7 +1305,7 @@ Value Mod_NumberAndArray(Environment &env,
 	LoopOn_NumberAndArray() {
 		if (*pRight == 0) {
 			Operator::SetError_DivideByZero(sig);
-			return Value::Null;
+			return Value::Nil;
 		}
 		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(numLeft), static_cast<double>(*pRight)));
 	}
@@ -1376,7 +1376,7 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp == 0);
 }
 
@@ -1387,7 +1387,7 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp != 0);
 }
 
@@ -1398,7 +1398,7 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp > 0);
 }
 
@@ -1409,7 +1409,7 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp < 0);
 }
 
@@ -1420,7 +1420,7 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp >= 0);
 }
 
@@ -1431,7 +1431,7 @@ Gura_ImplementBinaryOperator(Le, any, any)
 {
 	Signal &sig = env.GetSignal();
 	int cmp = Value::Compare(env, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(cmp <= 0);
 }
 
@@ -1464,7 +1464,7 @@ Gura_ImplementBinaryOperator(Cmp, number, rational)
 	const Rational &ratio = valueRight.GetRational();
 	if (ratio.denom == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(Value::CompareNumber(valueLeft.GetNumber(), ratio.numer / ratio.denom));
 }
@@ -1475,7 +1475,7 @@ Gura_ImplementBinaryOperator(Cmp, rational, number)
 	const Rational &ratio = valueLeft.GetRational();
 	if (ratio.denom == 0) {
 		Operator::SetError_DivideByZero(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(Value::CompareNumber(ratio.numer / ratio.denom, valueRight.GetNumber()));
 }
@@ -1518,7 +1518,7 @@ Gura_ImplementBinaryOperator(Cmp, list, list)
 	ValueList::const_iterator pValue2 = valList2.begin();
 	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
 		int cmp = Value::Compare(env, *pValue1, *pValue2);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		if (cmp < 0) return Value(-1);
 		if (cmp > 0) return Value(+1);
 	}
@@ -1540,15 +1540,15 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 	Signal &sig = env.GetSignal();
 	if (valueLeft.Is_list() || valueLeft.Is_iterator()) {
 		AutoPtr<Iterator_Contains> pIterator(new Iterator_Contains(valueLeft.CreateIterator(sig)));
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		ValueList &valListToFind = pIterator->GetValueListToFind();
 		if (valueRight.Is_list()) {
 			valListToFind.Append(valueRight.GetList());
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
-			if (pIteratorToFind.IsNull()) return Value::Null;
+			if (pIteratorToFind.IsNull()) return Value::Nil;
 			valListToFind.Append(env, pIteratorToFind.get());
-			if (sig.IsSignalled()) return Value::Null;
+			if (sig.IsSignalled()) return Value::Nil;
 		} else {
 			valListToFind.push_back(valueRight);
 		}
@@ -1558,17 +1558,17 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		return pIterator->ToList(env, true, false);
 	} else if (valueRight.Is_list()) {
 		bool foundFlag = valueRight.GetList().DoesContain(env, valueLeft);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(foundFlag);
 	} else if (valueRight.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
-		if (pIteratorToFind.IsNull()) return Value::Null;
+		if (pIteratorToFind.IsNull()) return Value::Nil;
 		bool foundFlag = pIteratorToFind->DoesContain(env, valueLeft);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(foundFlag);
 	} else {
 		int cmp = Value::Compare(env, valueLeft, valueRight);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		return Value(cmp == 0);
 	}
 }
@@ -1589,12 +1589,12 @@ Gura_ImplementBinaryOperator(And, boolean, boolean)
 
 Gura_ImplementBinaryOperator(And, nil, any)
 {
-	return Value::Null;	// nil & any -> nil
+	return Value::Nil;	// nil & any -> nil
 }
 
 Gura_ImplementBinaryOperator(And, any, nil)
 {
-	return Value::Null;	// any & nil -> nil
+	return Value::Nil;	// any & nil -> nil
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>

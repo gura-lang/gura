@@ -47,7 +47,7 @@ Gura_ImplementFunction(exec)
 	if (forkFlag) {
 		OAL::ExecProgram(env, pathName, args.GetList(1),
 						 nullptr, nullptr, nullptr, forkFlag);
-		return Value::Null;
+		return Value::Nil;
 	}
 	const Value *pValue = nullptr;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(exec)
 										&pValue->GetStream() : nullptr;
 	int rtn = OAL::ExecProgram(env, pathName, args.GetList(1),
 					   pStreamStdin, pStreamStdout, pStreamStderr, forkFlag);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementFunction(getenv)
 {
 	bool foundFlag = false;
 	String str = OAL::GetEnv(args.GetString(0), &foundFlag);
-	if (!foundFlag) return args.IsValid(1)? args.GetValue(1) : Value::Null;
+	if (!foundFlag) return args.IsValid(1)? args.GetValue(1) : Value::Nil;
 	return Value(str);
 }
 
@@ -115,7 +115,7 @@ Gura_DeclareFunction(putenv)
 Gura_ImplementFunction(putenv)
 {
 	OAL::PutEnv(args.GetString(0), args.GetString(1));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
@@ -158,7 +158,7 @@ Gura_ImplementFunction(redirect)
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
 		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
@@ -180,7 +180,7 @@ Gura_DeclareFunction(sleep)
 Gura_ImplementFunction(sleep)
 {
 	OAL::Sleep(args.GetNumber(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // os.symlink(src:string, tgt:string):map:void
@@ -199,13 +199,13 @@ Gura_ImplementFunction(symlink)
 	Signal &sig = env.GetSignal();
 #if defined(GURA_ON_MSWIN)
 	sig.SetError(ERR_NotImplementedError, "unsupported function");
-	return Value::Null;
+	return Value::Nil;
 #else
 	if (::symlink(args.GetString(0), args.GetString(1)) < 0) {
 		sig.SetError(ERR_IOError, "failed to create a symbolic link");
-		return Value::Null;
+		return Value::Nil;
 	}
-	return Value::Null;
+	return Value::Nil;
 #endif
 }
 
@@ -239,7 +239,7 @@ Gura_DeclareFunction(unsetenv)
 Gura_ImplementFunction(unsetenv)
 {
 	OAL::UnsetEnv(args.GetString(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // Module entry
@@ -250,17 +250,17 @@ Gura_ModuleEntry()
 	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
-		if (pValue == nullptr) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Nil;
 		Gura_AssignValue(stdin, *pValue);
 	} while (0);
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
-		if (pValue == nullptr) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Nil;
 		Gura_AssignValue(stdout, *pValue);
 	} while (0);
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
-		if (pValue == nullptr) pValue = &Value::Null;
+		if (pValue == nullptr) pValue = &Value::Nil;
 		Gura_AssignValue(stderr, *pValue);
 	} while (0);
 	// function assignment

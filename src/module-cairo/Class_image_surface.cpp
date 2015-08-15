@@ -47,7 +47,7 @@ Gura_ImplementClassMethod(image_surface, create)
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
 		Image::Delete(pImage);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Object_image_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	return ReturnValue(env, args, Value(pObjSurface));

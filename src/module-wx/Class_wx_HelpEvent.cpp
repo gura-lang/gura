@@ -49,7 +49,7 @@ Gura_DeclareFunction(HelpEvent)
 Gura_ImplementFunction(HelpEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE eventType = 0;
 	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
 	wxWindowID id = 0;
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpEvent, GetPosition)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetOrigin(*origin);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HelpEvent, SetPosition)
@@ -128,10 +128,10 @@ Gura_ImplementMethod(wx_HelpEvent, SetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPosition(*pt);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

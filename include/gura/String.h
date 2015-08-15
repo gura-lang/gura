@@ -161,7 +161,7 @@ inline bool IsFileSeparator(char ch) {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StringList : public std::vector<String> {
 public:
-	static const StringList Null;
+	static const StringList Empty;
 	inline StringList() {}
 	StringList(const StringList &stringList);
 	void operator=(const StringList &stringList);

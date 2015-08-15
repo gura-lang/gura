@@ -44,7 +44,7 @@ Gura_DeclareClassMethod(wx_DllLoader, GetDllExt)
 Gura_ImplementClassMethod(wx_DllLoader, GetDllExt)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString rtn = wxDllLoader::GetDllExt();
 	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_DllLoader, GetProgramHandle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDllType rtn = pThis->GetEntity()->GetProgramHandle();
 	return ReturnValue(env, args, Value(new Object_wx_DllType(new wxDllType(rtn), nullptr, OwnerTrue)));
 }
@@ -75,11 +75,11 @@ Gura_ImplementMethod(wx_DllLoader, GetSymbol)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDllType *dllHandle = Object_wx_DllType::GetObject(args, 0)->GetEntity();
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	pThis->GetEntity()->GetSymbol(*dllHandle, name);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DllLoader, LoadLibrary)
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_DllLoader, LoadLibrary)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString libname = wxString::FromUTF8(args.GetString(0));
 	bool success = nullptr;
 	if (args.IsValid(1)) success = args.GetBoolean(1);
@@ -112,10 +112,10 @@ Gura_ImplementMethod(wx_DllLoader, UnloadLibrary)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_DllLoader *pThis = Object_wx_DllLoader::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDllType *dllhandle = Object_wx_DllType::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->UnloadLibrary(*dllhandle);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

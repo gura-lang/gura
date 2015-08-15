@@ -40,7 +40,7 @@ Value Object_Point::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_point.y);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Point::DoSetProp(Environment &env,
@@ -50,16 +50,16 @@ Value Object_Point::DoSetProp(Environment &env,
 	Signal &sig = GetSignal();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_point.x = static_cast<Sint16>(value.GetInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_point.y = static_cast<Sint16>(value.GetInt());
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

@@ -46,7 +46,7 @@ Gura_DeclareFunction(SysColourChangedEventEmpty)
 Gura_ImplementFunction(SysColourChangedEventEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SysColourChangedEvent *pEntity = new wx_SysColourChangedEvent();
 	Object_wx_SysColourChangedEvent *pObj = Object_wx_SysColourChangedEvent::GetThisObj(args);
 	if (pObj == nullptr) {

@@ -73,23 +73,23 @@ Value Object_Face::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_glyphs))) {
 		return Value(_face->num_glyphs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
-		if (_face->family_name == nullptr) return Value::Null;
+		if (_face->family_name == nullptr) return Value::Nil;
 		return Value(_face->family_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
-		if (_face->style_name == nullptr) return Value::Null;
+		if (_face->style_name == nullptr) return Value::Nil;
 		return Value(_face->style_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
 		return Value(_face->num_fixed_sizes);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(available_sizes))) {
 		//_face->num_fixed_sizes
 		//_face->available_sizes
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_charmaps))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmaps))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(generic))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bbox))) {
 		return Value::CreateList(env,
 				Value(_face->bbox.xMin), Value(_face->bbox.yMin),
@@ -135,12 +135,12 @@ Value Object_Face::DoGetProp(Environment &env, const Symbol *pSymbol,
 		AutoPtr<Object_GlyphSlot> pObj(new Object_GlyphSlot(Object::Reference(this), _face->glyph));
 		return Value(pObj.release());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmap))) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Face::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -150,17 +150,17 @@ Value Object_Face::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_Face::Initialize(Environment &env, Signal &sig, Stream *pStream, int index)
@@ -193,7 +193,7 @@ Gura_ImplementFunction(Face)
 	Signal &sig = env.GetSignal();
 	int index = args.GetInt(1);
 	AutoPtr<Object_Face> pObjFace(new Object_Face());
-	if (!pObjFace->Initialize(env, sig, &args.GetStream(0), index)) return Value::Null;
+	if (!pObjFace->Initialize(env, sig, &args.GetStream(0), index)) return Value::Nil;
 	return ReturnValue(env, args, Value(pObjFace.release()));
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(Face, Get_Advance)
 	FT_Error err = ::FT_Get_Advance(face, glyph_index, load_flags, &advance);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(static_cast<double>(advance) / (1 << 16));
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(Face, Get_Advances)
 	if (err != 0) {
 		delete[] advances;
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
@@ -280,7 +280,7 @@ Gura_ImplementMethod(Face, Get_Glyph_Name)
 	FT_Error err = ::FT_Get_Glyph_Name(face, glyph_index, buffer, sizeof(buffer));
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(buffer);
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(Face, Get_Postscript_Name)
 {
 	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
 	const char *rtn = ::FT_Get_Postscript_Name(face);
-	if (rtn == nullptr) return Value::Null;
+	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(Face, Get_Kerning)
 	FT_Error err = ::FT_Get_Kerning(face, left_glyph, right_glyph, kern_mode, &akerning);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value::CreateList(env,
 				Value(static_cast<double>(akerning.x) / (1 << 6)),
@@ -343,7 +343,7 @@ Gura_ImplementMethod(Face, Load_Char)
 	FT_Error err = ::FT_Load_Char(face, char_code, load_flags);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -365,7 +365,7 @@ Gura_ImplementMethod(Face, Load_Glyph)
 	FT_Error err = ::FT_Load_Glyph(face, glyph_index, load_flags);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -385,7 +385,7 @@ Gura_ImplementMethod(Face, Select_Charmap)
 	FT_Error err = ::FT_Select_Charmap(face, encoding);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -406,7 +406,7 @@ Gura_ImplementMethod(Face, Set_Charmap)
 	FT_Error err = ::FT_Set_Charmap(face, charmap);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -428,7 +428,7 @@ Gura_ImplementMethod(Face, Set_Pixel_Sizes)
 	FT_Error err = ::FT_Set_Pixel_Sizes(face, pixel_width, pixel_height);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }

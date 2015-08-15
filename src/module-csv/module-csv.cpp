@@ -40,7 +40,7 @@ Value Object_writer::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_format);
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_writer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -51,7 +51,7 @@ Value Object_writer::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		if (!value.Is_string()) {
 			sig.SetError(ERR_TypeError, "string must be specified");
-			return Value::Null;
+			return Value::Nil;
 		}
 		_format = value.GetString();
 		return value;
@@ -129,7 +129,7 @@ Gura_ImplementMethod(writer, write)
 {
 	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
-	if (!pThis->PutLine(env, args.GetList(0))) return Value::Null;
+	if (!pThis->PutLine(env, args.GetList(0))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -364,7 +364,7 @@ bool Iterator_reader::DoNext(Environment &env, Value &value)
 	Signal &sig = env.GetSignal();
 	ValueList &valList = value.InitAsList(env);
 	if (_pReader->ReadLine(env, valList)) return true;
-	value = Value::Null;
+	value = Value::Nil;
 	return false;
 }
 

@@ -42,16 +42,16 @@ Value Object_db::Exec(Signal &sig, const char *sql, Args &args)
 {
 	if (_db == nullptr) {
 		SetError_NotOpened(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	char *errMsg;
 	Value result;
 	ResultComposerEx resultComposer(*this, sig, args, result);
 	int rc = ::sqlite3_exec(_db, sql, Callback, &resultComposer, &errMsg); 
 	if (rc == SQLITE_OK) return result;
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_db::ExecNoResult(Signal &sig, const char *sql)
@@ -90,14 +90,14 @@ Value Object_db::GetColumnNames(Signal &sig, const char *sql)
 	Environment &env = *this;
 	if (_db == nullptr) {
 		SetError_NotOpened(sig);
-		return Value::Null;
+		return Value::Nil;
 	}
 	sqlite3_stmt *pStmt;
 	const char *pzTail;
 	int rc = ::sqlite3_prepare(_db, sql, -1, &pStmt, &pzTail);
 	if (rc != SQLITE_OK) {
 		sig.SetError(ERR_RuntimeError, "sqlite3 %s", ::sqlite3_errmsg(_db));
-		return Value::Null;
+		return Value::Nil;
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -168,9 +168,9 @@ bool Object_db::IteratorQuery::DoNext(Environment &env, Value &value)
 				reinterpret_cast<const char *>(::sqlite3_column_text(_pStmt, iCol))));
 		} else if (type == SQLITE_BLOB) {
 			//::sqlite3_column_blob(_pStmt, iCol);
-			valList.push_back(Value::Null);
+			valList.push_back(Value::Nil);
 		} else if (type == SQLITE_NULL) {
-			valList.push_back(Value::Null);
+			valList.push_back(Value::Nil);
 		} else {
 			sig.SetError(ERR_RuntimeError, "somthing's wrong in sqlite3");
 			return false;
@@ -204,7 +204,7 @@ Gura_ImplementMethod(db, close)
 {
 	Object_db *pObj = Object_db::GetThisObj(args);
 	pObj->Close();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // sqlite3.db#exec(sql:string):map
@@ -260,7 +260,7 @@ Gura_ImplementMethod(db, query)
 	Signal &sig = env.GetSignal();
 	Object_db *pObj = Object_db::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -284,13 +284,13 @@ Gura_ImplementMethod(db, transaction)
 	Object_db *pObj = Object_db::GetThisObj(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
-	if (!pObj->ExecNoResult(sig, "BEGIN TRANSACTION")) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
+	if (!pObj->ExecNoResult(sig, "BEGIN TRANSACTION")) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Args> pArgsSub(new Args());
 	Value result = pFuncBlock->Eval(*pEnvBlock, *pArgsSub);
 	// "END TRANSACTION" has the same effect as "COMMIT"
-	if (!pObj->ExecNoResult(sig, "END TRANSACTION")) return Value::Null;
+	if (!pObj->ExecNoResult(sig, "END TRANSACTION")) return Value::Nil;
 	return result;
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementFunction(db)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_db> pObj(new Object_db(env));
-	if (!pObj->Open(sig, args.GetString(0))) return Value::Null;
+	if (!pObj->Open(sig, args.GetString(0))) return Value::Nil;
 	return ReturnValue(env, args, Value(pObj.release()));
 }
 

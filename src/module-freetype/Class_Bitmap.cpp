@@ -48,7 +48,7 @@ Value Object_Bitmap::DoGetProp(Environment &env, const Symbol *pSymbol,
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 Value Object_Bitmap::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -58,17 +58,17 @@ Value Object_Bitmap::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBe_number(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Nil;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
 #endif
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ Gura_ImplementMethod(Bitmap, Embolden)
 	FT_Error err = ::FT_Bitmap_Embolden(g_lib, bitmap, xStrength, yStrength);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return args.GetThis();
 }

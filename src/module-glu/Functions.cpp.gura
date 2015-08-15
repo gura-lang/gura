@@ -9,28 +9,28 @@ gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluEndCurve(nurb);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
-	tess->CreatePolygonPack(Value::Null);
+	tess->CreatePolygonPack(Value::Nil);
 	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -41,11 +41,11 @@ gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluEndSurface(nurb);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -56,11 +56,11 @@ gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluEndTrim(nurb);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -70,7 +70,7 @@ gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GLint, max:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild1DMipmapLevels(target,
@@ -84,7 +84,7 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 
 gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
 	return Value(_rtn);
@@ -96,7 +96,7 @@ gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLe
 gluBuild1DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLint = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild1DMipmaps(target,
@@ -112,7 +112,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild2DMipmapLevels(target,
@@ -126,7 +126,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 
 gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, data:any):GLint = R'''
 	const void *p = GetArrayPointer(sig, type, data);
-	if (p == nullptr) return Value::Null;
+	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
 	return Value(_rtn);
@@ -139,7 +139,7 @@ gluBuild2DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLi
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild2DMipmaps(target,
@@ -205,7 +205,7 @@ gluEndCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
 gluEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -273,7 +273,7 @@ gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown'
 
 gluNurbsCallback(nurbs:Object_Nurbs@, which:GLenum, func:function) = R'''
 	nurbs->SetCallback(sig, which, func);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -283,11 +283,11 @@ gluNurbsCallbackData(nurb:Object_Nurbs@, userData:any):void = R'''
 #if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackData(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
-	return Value::Null;
+	return Value::Nil;
 #else
 	sig.SetError(ERR_NotImplementedError,
 				"this function is provided in GLU 1.3 or later");
-	return Value::Null;
+	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
 	R'''
@@ -298,11 +298,11 @@ gluNurbsCallbackDataEXT(nurb:Object_Nurbs@, userData:any):void = R'''
 #if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackDataEXT(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
-	return Value::Null;
+	return Value::Nil;
 #else
 	sig.SetError(ERR_NotImplementedError,
 				"this function is provided in GLU 1.3 or later");
-	return Value::Null;
+	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
 	R'''
@@ -313,7 +313,7 @@ gluNurbsCurve(nurb:GLUnurbs@, knots:GLfloat@, stride:GLint,
 			  control:GLfloat@, order:GLint, type:GLenum):void = R'''
 	GLint knotCount = static_cast<GLint>(_knots->GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -330,7 +330,7 @@ gluNurbsSurface(nurb:GLUnurbs@, sKnots:GLfloat@, tKnots:GLfloat@, sStride:GLint,
 	GLint tKnotCount = static_cast<GLint>(_tKnots->GetSize());
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
 					control, sOrder, tOrder, type);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -366,7 +366,7 @@ gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble,
 gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R'''
 	GLint count = static_cast<GLint>(_data->GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -374,7 +374,7 @@ gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R''
 
 gluQuadricCallback(quad:Object_Quadric@, which:GLenum, func:function:nil):void = R'''
 	quad->SetCallback(sig, which, func);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -402,23 +402,23 @@ gluQuadricTexture(quad:GLUquadric@, texture:GLboolean):void = `auto % {`en, 'mar
 
 gluScaleImage(imageIn:image, wOut:GLsizei, hOut:GLsizei):GLint = R'''
 	GLenum format = GetImageFormat(sig, imageIn);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	GLsizei wIn = static_cast<GLsizei>(imageIn->GetWidth());
 	GLsizei hIn = static_cast<GLsizei>(imageIn->GetHeight());
 	GLenum typeIn = GL_UNSIGNED_BYTE;
 	const void *dataIn = imageIn->GetBuffer();
 	GLenum typeOut = GL_UNSIGNED_BYTE;
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> imageOut(new Image(imageIn->GetFormat()));
 	if (!imageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	GLvoid *dataOut = imageOut->GetBuffer();
 	GLint rtn = gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
 		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
-		return Value::Null;
+		return Value::Nil;
 	}
 	return Value(new Object_image(env, imageOut.release()));
 ''' % {`en, 'markdown',
@@ -436,11 +436,11 @@ gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluTessEndContour(tess);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -452,12 +452,12 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -465,7 +465,7 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 
 gluTessCallback(tess:Object_Tesselator@, which:GLenum, func:function):void = R'''
 	tess->SetCallback(sig, which, func);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -479,7 +479,7 @@ gluTessEndContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
 gluTessEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluTessEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -499,11 +499,11 @@ gluTessVertex(tess:Object_Tesselator@, location:GLdouble@, vertex_data:any):void
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
 	if (pPolygonPack == nullptr) {
 		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
-		return Value::Null;
+		return Value::Nil;
 	}
 	VertexPack *pVertexPack = pPolygonPack->CreateVertexPack(vertex_data);
 	gluTessVertex(tess->GetTesselator(), location, pVertexPack);
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''

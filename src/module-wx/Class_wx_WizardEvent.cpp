@@ -49,7 +49,7 @@ Gura_DeclareFunction(WizardEvent)
 Gura_ImplementFunction(WizardEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType type = wxEVT_NULL;
 	if (args.IsValid(0)) type = static_cast<wxEventType>(args.GetInt(0));
 	int id = -1;
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_WizardEvent, GetDirection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetDirection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_WizardEvent, GetPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetPage();
 	return ReturnValue(env, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }

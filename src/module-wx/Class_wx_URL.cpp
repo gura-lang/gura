@@ -47,7 +47,7 @@ Gura_DeclareFunction(URL)
 Gura_ImplementFunction(URL)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString url = wxEmptyString;
 	if (args.IsValid(0)) url = wxString::FromUTF8(args.GetString(0));
 	wx_URL *pEntity = new wx_URL(url);
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_URL, GetProtocol)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxProtocol &rtn = pThis->GetEntity()->GetProtocol();
 	return ReturnValue(env, args, Value(new Object_wx_Protocol(new wxProtocol(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_URL, GetError)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_URL, GetError)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxURLError rtn = pThis->GetEntity()->GetError();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_URL, GetInputStream)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream();
 	return ReturnValue(env, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_URL, IsOk)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -135,10 +135,10 @@ Gura_DeclareClassMethod(wx_URL, SetDefaultProxy)
 Gura_ImplementClassMethod(wx_URL, SetDefaultProxy)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString url_proxy = wxString::FromUTF8(args.GetString(0));
 	wxURL::SetDefaultProxy(url_proxy);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_URL, SetProxy)
@@ -151,10 +151,10 @@ Gura_ImplementMethod(wx_URL, SetProxy)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url_proxy = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetProxy(url_proxy);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_URL, SetURL)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_URL, SetURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_URL *pThis = Object_wx_URL::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxURLError rtn = pThis->GetEntity()->SetURL(url);
 	return ReturnValue(env, args, Value(rtn));

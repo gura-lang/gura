@@ -47,12 +47,12 @@ Gura_DeclareFunction(WindowDisabler)
 Gura_ImplementFunction(WindowDisabler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *winToSkip = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) winToSkip = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDisabler windowDisabler(winToSkip);
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
 	return rtn;

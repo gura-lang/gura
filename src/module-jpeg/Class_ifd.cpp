@@ -14,7 +14,7 @@ Value RationalToValue(Signal &sig, const RATIONAL_T &rational)
 	if (denominator == 0) {
 		if (numerator != 0) {
 			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		denominator = 1;
 	}
@@ -29,7 +29,7 @@ Value SRationalToValue(Signal &sig, const RATIONAL_T &rational)
 	if (denominator == 0) {
 		if (numerator != 0) {
 			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
-			return Value::Null;
+			return Value::Nil;
 		}
 		denominator = 1;
 	}
@@ -346,7 +346,7 @@ Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 		Object_tag *pObjTag = GetTagOwner().FindById(tagId);
 		if (pObjTag == nullptr) {
 			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", tagId);
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(Object_tag::Reference(pObjTag));
 	} else if (valueIdx.Is_symbol()) {
@@ -354,12 +354,12 @@ Value Object_ifd::IndexGet(Environment &env, const Value &valueIdx)
 		Object_tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
 		if (pObjTag == nullptr) {
 			sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
-			return Value::Null;
+			return Value::Nil;
 		}
 		return Value(Object_tag::Reference(pObjTag));
 	}
 	sig.SetError(ERR_IndexError, "invalid type for index of ifd");
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_ifd::DoDirProp(Environment &env, SymbolSet &symbols)
@@ -400,7 +400,7 @@ Value Object_ifd::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_ifd::ToString(bool exprFlag)

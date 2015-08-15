@@ -49,7 +49,7 @@ Gura_DeclareFunction(ContextHelpButtonEmpty)
 Gura_ImplementFunction(ContextHelpButtonEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_ContextHelpButton *pEntity = new wx_ContextHelpButton();
 	Object_wx_ContextHelpButton *pObj = Object_wx_ContextHelpButton::GetThisObj(args);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(ContextHelpButtonEmpty)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(ContextHelpButton)
@@ -81,7 +81,7 @@ Gura_DeclareFunction(ContextHelpButton)
 Gura_ImplementFunction(ContextHelpButton)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_CONTEXT_HELP;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

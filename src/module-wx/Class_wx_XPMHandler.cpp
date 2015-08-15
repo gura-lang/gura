@@ -44,7 +44,7 @@ Gura_DeclareFunction(XPMHandler)
 Gura_ImplementFunction(XPMHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_XPMHandler *pEntity = new wx_XPMHandler();
 	Object_wx_XPMHandler *pObj = Object_wx_XPMHandler::GetThisObj(args);
 	if (pObj == nullptr) {

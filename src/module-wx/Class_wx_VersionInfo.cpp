@@ -53,7 +53,7 @@ Gura_DeclareFunction(VersionInfo)
 Gura_ImplementFunction(VersionInfo)
 {
 	Signal &sig = env.GetSignal();
-	//if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	int major = 0;

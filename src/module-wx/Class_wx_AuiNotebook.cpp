@@ -47,7 +47,7 @@ Gura_DeclareFunction(AuiNotebookEmpty)
 Gura_ImplementFunction(AuiNotebookEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AuiNotebook *pEntity = new wx_AuiNotebook();
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -75,7 +75,7 @@ Gura_DeclareFunction(AuiNotebook)
 Gura_ImplementFunction(AuiNotebook)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_AuiNotebook, AddPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *page = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString caption = wxString::FromUTF8(args.GetString(1));
 	bool select = false;
@@ -132,11 +132,11 @@ Gura_ImplementMethod(wx_AuiNotebook, AdvanceSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool forward = true;
 	if (args.IsValid(0)) forward = args.GetBoolean(0);
 	pThis->GetEntity()->AdvanceSelection(forward);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, Create)
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_AuiNotebook, Create)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_AuiNotebook, DeletePage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->DeletePage(page);
 	return ReturnValue(env, args, Value(rtn));
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetArtProvider)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAuiTabArt *rtn = (wxAuiTabArt *)pThis->GetEntity()->GetArtProvider();
 	return ReturnValue(env, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
 }
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetHeightForPageHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pageHeight = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetHeightForPageHeight(pageHeight);
 	return ReturnValue(env, args, Value(rtn));
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page_idx = args.GetSizeT(0);
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPage(page_idx);
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageBitmap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	wxBitmap rtn = pThis->GetEntity()->GetPageBitmap(page);
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageCount)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetPageCount();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageIndex)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *page_wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int rtn = pThis->GetEntity()->GetPageIndex(page_wnd);
 	return ReturnValue(env, args, Value(rtn));
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetPageText(page);
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetTabCtrlHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTabCtrlHeight();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_AuiNotebook, InsertPage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page_idx = args.GetSizeT(0);
 	wxWindow *page = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxString caption = wxString::FromUTF8(args.GetString(2));
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_AuiNotebook, RemovePage)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	bool rtn = pThis->GetEntity()->RemovePage(page);
 	return ReturnValue(env, args, Value(rtn));
@@ -384,10 +384,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetArtProvider)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAuiTabArt *art = Object_wx_AuiTabArt::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetArtProvider(art);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, SetFont)
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetFont(*font);
 	return ReturnValue(env, args, Value(rtn));
@@ -417,10 +417,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetNormalFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetNormalFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, SetSelectedFont)
@@ -433,10 +433,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetSelectedFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetSelectedFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, SetMeasuringFont)
@@ -449,10 +449,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetMeasuringFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetMeasuringFont(*font);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, SetPageBitmap)
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetPageBitmap)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetPageBitmap(page, *bitmap);
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetPageText)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->SetPageText(page, text);
@@ -504,7 +504,7 @@ Gura_ImplementMethod(wx_AuiNotebook, SetSelection)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t new_page = args.GetSizeT(0);
 	size_t rtn = pThis->GetEntity()->SetSelection(new_page);
 	return ReturnValue(env, args, Value(rtn));
@@ -520,10 +520,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetTabCtrlHeight)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int height = args.GetInt(0);
 	pThis->GetEntity()->SetTabCtrlHeight(height);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, SetUniformBitmapSize)
@@ -536,10 +536,10 @@ Gura_ImplementMethod(wx_AuiNotebook, SetUniformBitmapSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetUniformBitmapSize(*size);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, Split)
@@ -553,11 +553,11 @@ Gura_ImplementMethod(wx_AuiNotebook, Split)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t page = args.GetSizeT(0);
 	int direction = args.GetInt(1);
 	pThis->GetEntity()->Split(page, direction);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, ShowWindowMenu)
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_AuiNotebook, ShowWindowMenu)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebook *pThis = Object_wx_AuiNotebook::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ShowWindowMenu();
 	return ReturnValue(env, args, Value(rtn));
 }

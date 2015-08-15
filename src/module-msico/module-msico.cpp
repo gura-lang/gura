@@ -33,7 +33,7 @@ Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_list(env, _valList));
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 bool Object_content::Read(Environment &env,
@@ -196,7 +196,7 @@ Gura_ImplementMethod(content, write)
 	Signal &sig = env.GetSignal();
 	Object_content *pThis = Object_content::GetThisObj(args);
 	Stream &stream = args.GetStream(0);
-	if (!pThis->Write(env, stream)) return Value::Null;
+	if (!pThis->Write(env, stream)) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(image, read_msico)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_ICO::ReadStream(env, pThis->GetImage(),
-					args.GetStream(0), args.GetInt(1))) return Value::Null;
+					args.GetStream(0), args.GetInt(1))) return Value::Nil;
 	return args.GetThis();
 }
 
@@ -273,8 +273,8 @@ Gura_ImplementFunction(content)
 	if (args.Is_stream(0)) {
 		Stream &stream = args.GetStream(0);
 		Image::Format format = Image::SymbolToFormat(sig, args.GetSymbol(1));
-		if (sig.IsSignalled()) return Value::Null;
-		if (!pObj->Read(env, stream, format)) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
+		if (!pObj->Read(env, stream, format)) return Value::Nil;
 	}
 	Value result(pObj);
 	return ReturnValue(env, args, result);

@@ -51,7 +51,7 @@ void Signal::SetErrorV(ErrorType errType,
 	Signal sig;
 	String text = Formatter::FormatV(sig, format, ap);
 	_sigType = SIGTYPE_Error;
-	*_pValue = Value::Null;
+	*_pValue = Value::Nil;
 	_err.Set(errType, textPre, text);
 }
 

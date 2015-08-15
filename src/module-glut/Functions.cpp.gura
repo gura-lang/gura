@@ -10,7 +10,7 @@ tmplCallbackHandler = R'''
 		g_pContext->funcPackOn${eventName}.SetFunc(env, func->Reference());
 		glut${eventName}Func(On${eventName});
 	}
-	return Value::Null;
+	return Value::Nil;
 '''.template()
 
 RenderCallbackHandler(eventName:string) = {
@@ -195,7 +195,7 @@ glutWarpPointer(x:int, y:int):void:map = `auto % {`en, 'markdown',
 //glutWMCloseFunc(func:function):void = R'''
 //	g_pContext->funcPackOnWMClose.SetFunc(env, func->Reference());
 //	glutWMCloseFunc(OnWMClose);
-//	return Value::Null;
+//	return Value::Nil;
 //''' % {`en, 'markdown',
 //	R'''
 //	'''
@@ -245,7 +245,7 @@ glutCreateMenu(func:function):int {block?} = R'''
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
 		sig.SetError(ERR_OutOfRangeError, "too many menus");
-		return Value::Null;
+		return Value::Nil;
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
@@ -358,7 +358,7 @@ glutTimerFunc(millis:unsigned_int, func:function:nil, value:int):void = R'''
 		g_pContext->funcPackOnTimer.SetFunc(env, func->Reference());
 		glutTimerFunc(millis, OnTimer, value);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -442,7 +442,7 @@ glutJoystickFunc(func:function:nil, pollInterval:int):void = R'''
 		g_pContext->funcPackOnJoystick.SetFunc(env, func->Reference());
 		glutJoystickFunc(OnJoystick, pollInterval);
 	}
-	return Value::Null;
+	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -712,7 +712,7 @@ public:
 		_pFunc.reset(nullptr);
 	}
 	inline Value Eval(Args &args) {
-		if (_pFunc.IsNull()) return Value::Null;
+		if (_pFunc.IsNull()) return Value::Nil;
 		Value result = _pFunc->Eval(*_pEnv, _pEnv->GetSignal(), args);
 		if (_pEnv->GetSignal().IsSignalled()) {
 			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());

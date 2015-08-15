@@ -49,7 +49,7 @@ Gura_DeclareFunction(ContextMenuEvent)
 Gura_ImplementFunction(ContextMenuEvent)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE type = 0;
 	if (args.IsValid(0)) type = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
@@ -93,10 +93,10 @@ Gura_ImplementMethod(wx_ContextMenuEvent, SetPosition)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPosition(*point);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

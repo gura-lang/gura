@@ -18,10 +18,10 @@ Value Object_dict::IndexGet(Environment &env, const Value &valueIdx)
 	Signal &sig = GetSignal();
 	const Value *pValue = GetDict().Find(sig, valueIdx);
 	if (sig.IsSignalled()) {
-		return Value::Null;
+		return Value::Nil;
 	} else if (pValue == nullptr) {
 		SetError_KeyNotFound(sig, valueIdx);
-		return Value::Null;
+		return Value::Nil;
 	}
 	return *pValue;
 }
@@ -261,19 +261,19 @@ Gura_ImplementFunction(dict)
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
 	if (args.GetValue(0).Is_list()) {
 		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else if (args.GetValue(0).Is_dict()) {
 		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else if (args.IsValid(0)) {
 		sig.SetError(ERR_ValueError, "invalid argument type");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
@@ -281,11 +281,11 @@ Gura_ImplementFunction(dict)
 			Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
-				return Value::Null;
+				return Value::Nil;
 			}
 			valList.push_back(value);
 		}
-		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
+		if (!valDict.Store(sig, valList, storeMode)) return Value::Nil;
 	}
 	return Value(pObj);
 }
@@ -326,19 +326,19 @@ Gura_ImplementMethod(dict, append)
 		ValueDict::STORE_Overwrite;
 	if (args.GetValue(0).Is_list()) {
 		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else if (args.GetValue(0).Is_dict()) {
 		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
-			return Value::Null;
+			return Value::Nil;
 		}
 	} else if (args.IsValid(0)) {
 		sig.SetError(ERR_ValueError, "invalid argument type");
-		return Value::Null;
+		return Value::Nil;
 	}
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env);
-		if (sig.IsSignalled()) return Value::Null;
+		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
@@ -346,11 +346,11 @@ Gura_ImplementMethod(dict, append)
 			Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
-				return Value::Null;
+				return Value::Nil;
 			}
 			valList.push_back(value);
 		}
-		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
+		if (!valDict.Store(sig, valList, storeMode)) return Value::Nil;
 	}
 	return args.GetThis();
 }
@@ -368,7 +368,7 @@ Gura_ImplementMethod(dict, clear)
 {
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	valDict.clear();
-	return Value::Null;
+	return Value::Nil;
 }
 
 // dict#erase(key):map
@@ -387,7 +387,7 @@ Gura_ImplementMethod(dict, erase)
 {
 	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
 	valDict.erase(args.GetValue(0));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // dict#get(key, default?):map:[raise]
@@ -430,7 +430,7 @@ Gura_ImplementMethod(dict, get)
 		return *pValue;
 	} else if (raiseFlag) {
 		Object_dict::SetError_KeyNotFound(sig, valueIdx);
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		const Value &value = args.GetValue(1);
 		return value;
@@ -548,7 +548,7 @@ Gura_ImplementMethod(dict, put)
 		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
 		ValueDict::STORE_Overwrite;
-	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Null;
+	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Nil;
 	return args.GetThis();
 }
 

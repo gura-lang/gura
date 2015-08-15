@@ -37,7 +37,7 @@ Value FunctionCustom::DoEval(Environment &env, Args &args) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, _funcType != FUNCTYPE_Block));
-	if (pEnvLocal.IsNull()) return Value::Null;
+	if (pEnvLocal.IsNull()) return Value::Nil;
 #if 0
 	Sequence *pSequence = new FunctionCustom::SequenceEx(pEnvLocal.release(),
 								dynamic_cast<FunctionCustom *>(Reference()));
@@ -83,7 +83,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env,
 	if (pExprOwnerParam != nullptr) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerParam->Reference());
-		if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgs)) {
+		if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgs)) {
 			return nullptr;
 		}
 	}

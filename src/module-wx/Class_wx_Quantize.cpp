@@ -46,7 +46,7 @@ Gura_DeclareFunction(QuantizeEmpty)
 Gura_ImplementFunction(QuantizeEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Quantize *pEntity = new wx_Quantize();
 	Object_wx_Quantize *pObj = Object_wx_Quantize::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
 	wxPalette *pPalette = Object_wx_Palette::GetObject(args, 2)->GetEntity();
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Quantize, Quantize_1)
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
 	int desiredNoColours = 236;
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Quantize, DoQuantize)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_Quantize, DoQuantize)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned w = args.GetInt(0);
 	unsigned h = args.GetInt(1);
 	unsigned char in_rows = args.GetUChar(2);
@@ -155,10 +155,10 @@ Gura_ImplementMethod(wx_Quantize, DoQuantize)
 	unsigned char palette = args.GetUChar(4);
 	int desiredNoColours = args.GetInt(5);
 	pThis->GetEntity()->DoQuantize(w, h, in_rows, out_rows, palette, desiredNoColours);
-	return Value::Null;
+	return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

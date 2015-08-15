@@ -56,7 +56,7 @@ Gura_DeclareFunction(MultiChoiceDialog)
 Gura_ImplementFunction(MultiChoiceDialog)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -80,7 +80,7 @@ Gura_ImplementFunction(MultiChoiceDialog)
 	return ReturnValue(env, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(MultiChoiceDialog_1)
@@ -99,7 +99,7 @@ Gura_DeclareFunction(MultiChoiceDialog_1)
 Gura_ImplementFunction(MultiChoiceDialog_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
 	wxString message = wxString::FromUTF8(args.GetString(1));
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayInt rtn = pThis->GetEntity()->GetSelections();
 	return ReturnValue(env, args, ArrayIntToValue(env, rtn));
 }
@@ -146,10 +146,10 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayInt> selections(CreateArrayInt(args.GetList(0)));
 	pThis->GetEntity()->SetSelections(*selections);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MultiChoiceDialog, ShowModal)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, args, Value(rtn));
 }

@@ -33,7 +33,7 @@ Value Object_template::DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
-	return Value::Null;
+	return Value::Nil;
 }
 
 String Object_template::ToString(bool exprFlag)
@@ -76,7 +76,7 @@ Gura_ImplementFunction(template_)
 	AutoPtr<Template> pTemplate(new Template());
 	if (args.Is_stream(0)) {
 		if (!pTemplate->Read(env, args.GetStream(0),
-					autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+					autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	}
 	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
@@ -110,7 +110,7 @@ Gura_ImplementMethod(template_, parse)
 	//SimpleStream_CStringReader streamSrc(args.GetString(0));
 	//pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag);
 	pTemplate->Parse(env, args.GetString(0), nullptr, autoIndentFlag, appendLastEOLFlag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#read(src:stream:r):void:[lasteol,noindent]
@@ -136,7 +136,7 @@ Gura_ImplementMethod(template_, read)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	pTemplate->Read(env, args.GetStream(0), autoIndentFlag, appendLastEOLFlag);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#render(dst?:stream:w)
@@ -157,11 +157,11 @@ Gura_ImplementMethod(template_, render)
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		pTemplate->Render(env, &streamDst);
-		return Value::Null;
+		return Value::Nil;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!pTemplate->Render(env, &streamDst)) return Value::Null;
+		if (!pTemplate->Render(env, &streamDst)) return Value::Nil;
 		return Value(strDst);
 	}
 }
@@ -231,7 +231,7 @@ Gura_ImplementMethod(template_, block)
 		pArgs->SetThis(args.GetThis());
 		pValue->GetFunction()->Eval(env, *pArgs);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#call(symbol:symbol, args*)
@@ -261,14 +261,14 @@ Gura_ImplementMethod(template_, call)
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue == nullptr || !pValue->Is_function()) {
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(args.GetThis());
 	pArgs->SetValueListArg(args.GetList(1));
 	pTemplate->ClearLastChar();
 	pValue->GetFunction()->Eval(env, *pArgs);
-	return (pTemplate->GetLastChar() == '\n')? Value::Null : Value("");
+	return (pTemplate->GetLastChar() == '\n')? Value::Nil : Value("");
 }
 
 // template#define(symbol:symbol, `args*):void
@@ -296,7 +296,7 @@ Gura_DeclareMethod(template_, define)
 Gura_ImplementMethod(template_, define)
 {
 	// nothing to do
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#embed(template:template)
@@ -330,7 +330,7 @@ Gura_ImplementMethod(template_, embed)
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
 	pTemplateEmbedded->ClearLastChar();
 	pTemplateEmbedded->Render(env, pStreamDst);
-	return (pTemplateEmbedded->GetLastChar() == '\n')? Value::Null : Value("");
+	return (pTemplateEmbedded->GetLastChar() == '\n')? Value::Nil : Value("");
 }
 
 // template#extends(template:template):void
@@ -356,7 +356,7 @@ Gura_DeclareMethod(template_, extends)
 Gura_ImplementMethod(template_, extends)
 {
 	// nothing to do
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#super(symbol:symbol):void
@@ -416,14 +416,14 @@ Gura_ImplementMethod(template_, super)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
-	if (pTemplateSuper == nullptr) return Value::Null;
+	if (pTemplateSuper == nullptr) return Value::Nil;
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetThis(args.GetThis());
 		pValue->GetFunction()->Eval(env, *pArgs);
 	}
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_block(symbol:symbol):void {block}
@@ -441,17 +441,17 @@ Gura_ImplementMethod(template_, init_block)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
 	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_call(symbol:symbol, args*):void
@@ -466,7 +466,7 @@ Gura_DeclareMethod(template_, init_call)
 Gura_ImplementMethod(template_, init_call)
 {
 	// nothing to do
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_define(symbol:symbol, `args*):void {block}
@@ -485,7 +485,7 @@ Gura_ImplementMethod(template_, init_define)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
@@ -498,14 +498,14 @@ Gura_ImplementMethod(template_, init_define)
 		pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	} while (0);
 	//pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, SymbolSet::Null, *pArgsSub)) return Value::Null;
+	if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgsSub)) return Value::Nil;
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
-		return Value::Null;
+		return Value::Nil;
 	}
 	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_embed(template:template):void
@@ -519,7 +519,7 @@ Gura_DeclareMethod(template_, init_embed)
 Gura_ImplementMethod(template_, init_embed)
 {
 	// nothing to do
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_extends(template:template):void
@@ -535,7 +535,7 @@ Gura_ImplementMethod(template_, init_extends)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
-	return Value::Null;
+	return Value::Nil;
 }
 
 // template#init_super(symbol:symbol):void
@@ -549,7 +549,7 @@ Gura_DeclareMethod(template_, init_super)
 Gura_ImplementMethod(template_, init_super)
 {
 	// nothing to do
-	return Value::Null;
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------

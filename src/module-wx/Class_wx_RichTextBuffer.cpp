@@ -48,7 +48,7 @@ Gura_DeclareFunction(RichTextBuffer)
 Gura_ImplementFunction(RichTextBuffer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextBuffer *obj = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wx_RichTextBuffer *pEntity = new wx_RichTextBuffer(*obj);
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetThisObj(args);
@@ -72,7 +72,7 @@ Gura_DeclareFunction(RichTextBufferEmpty)
 Gura_ImplementFunction(RichTextBufferEmpty)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RichTextBuffer *pEntity = new wx_RichTextBuffer();
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pObj == nullptr) {
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, AddEventHandler)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AddEventHandler(handler);
 	return ReturnValue(env, args, Value(rtn));
@@ -111,10 +111,10 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, AddHandler)
 Gura_ImplementClassMethod(wx_RichTextBuffer, AddHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextFileHandler *handler = Object_wx_RichTextFileHandler::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::AddHandler(handler);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, AddParagraph)
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, AddParagraph)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxRichTextRange rtn = pThis->GetEntity()->AddParagraph(text);
 	return ReturnValue(env, args, Value(new Object_wx_RichTextRange(new wxRichTextRange(rtn), nullptr, OwnerTrue)));
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BatchingUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->BatchingUndo();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrAlignment alignment = static_cast<wxTextAttrAlignment>(args.GetInt(0));
 	bool rtn = pThis->GetEntity()->BeginAlignment(alignment);
 	return ReturnValue(env, args, Value(rtn));
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginBatchUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString cmdName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->BeginBatchUndo(cmdName);
 	return ReturnValue(env, args, Value(rtn));
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginBold)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->BeginBold();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginCharacterStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString characterStyle = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->BeginCharacterStyle(characterStyle);
 	return ReturnValue(env, args, Value(rtn));
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->BeginFont(*font);
 	return ReturnValue(env, args, Value(rtn));
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginFontSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pointSize = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->BeginFontSize(pointSize);
 	return ReturnValue(env, args, Value(rtn));
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginItalic)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->BeginItalic();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginLeftIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int leftIndent = args.GetInt(0);
 	int leftSubIndent = 0;
 	if (args.IsValid(1)) leftSubIndent = args.GetInt(1);
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginLineSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int lineSpacing = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->BeginLineSpacing(lineSpacing);
 	return ReturnValue(env, args, Value(rtn));
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginListStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString listStyle = wxString::FromUTF8(args.GetString(0));
 	int level = 1;
 	if (args.IsValid(1)) level = args.GetInt(1);
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginNumberedBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int bulletNumber = args.GetInt(0);
 	int leftIndent = args.GetInt(1);
 	int leftSubIndent = args.GetInt(2);
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginParagraphSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int before = args.GetInt(0);
 	int after = args.GetInt(1);
 	bool rtn = pThis->GetEntity()->BeginParagraphSpacing(before, after);
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginParagraphStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString paragraphStyle = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->BeginParagraphStyle(paragraphStyle);
 	return ReturnValue(env, args, Value(rtn));
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginRightIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rightIndent = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->BeginRightIndent(rightIndent);
 	return ReturnValue(env, args, Value(rtn));
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->BeginStyle(*style);
 	return ReturnValue(env, args, Value(rtn));
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginSuppressUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->BeginSuppressUndo();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginStandardBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString bulletName = wxString::FromUTF8(args.GetString(0));
 	int leftIndent = args.GetInt(1);
 	int leftSubIndent = args.GetInt(2);
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginSymbolBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar symbol = static_cast<wxChar>(args.GetInt(0));
 	int leftIndent = args.GetInt(1);
 	int leftSubIndent = args.GetInt(2);
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->BeginTextColour(*colour);
 	return ReturnValue(env, args, Value(rtn));
@@ -508,7 +508,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginUnderline)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->BeginUnderline();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, BeginURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxString characterStyle = wxEmptyString;
 	if (args.IsValid(1)) characterStyle = wxString::FromUTF8(args.GetString(1));
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, CanPasteFromClipboard)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanPasteFromClipboard();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -556,9 +556,9 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, CleanUpHandlers)
 Gura_ImplementClassMethod(wx_RichTextBuffer, CleanUpHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextBuffer::CleanUpHandlers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, Clear)
@@ -570,9 +570,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, Clear)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, ClearListStyle)
@@ -587,7 +587,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, ClearListStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
 	if (args.IsValid(1)) flags = args.GetInt(1);
@@ -607,7 +607,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, ClearListStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
 	if (args.IsValid(1)) flags = args.GetInt(1);
@@ -624,9 +624,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, ClearStyleStack)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ClearStyleStack();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, Clone)
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, Clone)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextObject *rtn = (wxRichTextObject *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextObject(rtn, nullptr, OwnerFalse)));
 }
@@ -654,10 +654,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, Copy)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextBuffer *obj = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Copy(*obj);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, CopyToClipboard)
@@ -671,7 +671,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, CopyToClipboard)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CopyToClipboard(*range);
 	return ReturnValue(env, args, Value(rtn));
@@ -689,7 +689,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, DeleteRangeWithUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->DeleteRangeWithUndo(*range, ctrl);
@@ -705,9 +705,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, Dump)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Dump();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, Dump_1)
@@ -720,10 +720,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, Dump_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextOutputStream *stream = Object_wx_TextOutputStream::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Dump(*stream);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, EndAlignment)
@@ -736,7 +736,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndAlignment)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndAlignment();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -751,7 +751,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndAllStyles)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndAllStyles();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -766,7 +766,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndBatchUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndBatchUndo();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -781,7 +781,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndBold)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndBold();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -796,7 +796,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndCharacterStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndCharacterStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -811,7 +811,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndFont)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndFont();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -826,7 +826,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndFontSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndFontSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -841,7 +841,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndItalic)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndItalic();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -856,7 +856,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndLeftIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndLeftIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -871,7 +871,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndLineSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndLineSpacing();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -886,7 +886,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndListStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndListStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -901,7 +901,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndNumberedBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndNumberedBullet();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -916,7 +916,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndParagraphSpacing)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndParagraphSpacing();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -931,7 +931,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndParagraphStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndParagraphStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -946,7 +946,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndRightIndent)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndRightIndent();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -961,7 +961,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndStyle();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -976,7 +976,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndSuppressUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndSuppressUndo();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -991,7 +991,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndSymbolBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndSymbolBullet();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1006,7 +1006,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndStandardBullet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndStandardBullet();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndTextColour)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndTextColour();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1036,7 +1036,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndUnderline)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndUnderline();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1051,7 +1051,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndURL)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndURL();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1067,7 +1067,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler)
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	int imageType = args.GetInt(0);
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(imageType);
 	return ReturnValue(env, args, Value(new Object_wx_RichTextFileHandler(rtn, nullptr, OwnerFalse)));
@@ -1084,7 +1084,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler_1)
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler_1)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	int imageType = args.GetInt(1);
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(extension, imageType);
@@ -1101,7 +1101,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler_2)
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler_2)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(name);
 	return ReturnValue(env, args, Value(new Object_wx_RichTextFileHandler(rtn, nullptr, OwnerFalse)));
@@ -1119,7 +1119,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxRichTextFileType imageType = static_cast<wxRichTextFileType>(args.GetInt(1));
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandlerFilenameOrType(filename, imageType);
@@ -1136,7 +1136,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetBasicStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxTextAttrEx &rtn = pThis->GetEntity()->GetBasicStyle();
 	return ReturnValue(env, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
 }
@@ -1152,12 +1152,12 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetBatchedCommand)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextCommand *rtn = (wxRichTextCommand *)pThis->GetEntity()->GetBatchedCommand();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextCommand(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, GetCommandProcessor)
@@ -1170,7 +1170,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetCommandProcessor)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCommandProcessor *rtn = (wxCommandProcessor *)pThis->GetEntity()->GetCommandProcessor();
 	return ReturnValue(env, args, Value(new Object_wx_CommandProcessor(rtn, nullptr, OwnerFalse)));
 }
@@ -1185,7 +1185,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetDefaultStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxTextAttrEx &rtn = pThis->GetEntity()->GetDefaultStyle();
 	return ReturnValue(env, args, Value(new Object_wx_TextAttrEx(new wxTextAttrEx(rtn), nullptr, OwnerTrue)));
 }
@@ -1201,7 +1201,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetExtWildcard)
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetExtWildcard)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	bool combine = false;
 	if (args.IsValid(0)) combine = args.GetBoolean(0);
 	bool save = false;
@@ -1222,7 +1222,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetHandlers)
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxList &rtn = wxRichTextBuffer::GetHandlers();
 	return ReturnValue(env, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 }
@@ -1236,7 +1236,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetRenderer)
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetRenderer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextRenderer *rtn = (wxRichTextRenderer *)wxRichTextBuffer::GetRenderer();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextRenderer(rtn, nullptr, OwnerFalse)));
 }
@@ -1253,7 +1253,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long position = args.GetLong(0);
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyle(position, *style);
@@ -1273,7 +1273,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long position = args.GetLong(0);
 	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyle(position, *style);
@@ -1293,7 +1293,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyleForRange)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyleForRange(*range, *style);
@@ -1310,7 +1310,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
@@ -1325,7 +1325,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyleStackSize)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetStyleStackSize();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1342,7 +1342,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetUncombinedStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long position = args.GetLong(0);
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
@@ -1361,7 +1361,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetUncombinedStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long position = args.GetLong(0);
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
@@ -1382,7 +1382,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, HitTest)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxPoint *pt = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	long textPosition = args.GetLong(2);
@@ -1400,9 +1400,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, Init)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Init();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_RichTextBuffer, InitStandardHandlers)
@@ -1413,9 +1413,9 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, InitStandardHandlers)
 Gura_ImplementClassMethod(wx_RichTextBuffer, InitStandardHandlers)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextBuffer::InitStandardHandlers();
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_RichTextBuffer, InsertHandler)
@@ -1427,10 +1427,10 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, InsertHandler)
 Gura_ImplementClassMethod(wx_RichTextBuffer, InsertHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextFileHandler *handler = Object_wx_RichTextFileHandler::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::InsertHandler(handler);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, InsertImageWithUndo)
@@ -1446,7 +1446,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, InsertImageWithUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pos = args.GetLong(0);
 	wxRichTextImageBlock *imageBlock = Object_wx_RichTextImageBlock::GetObject(args, 1)->GetEntity();
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 2)->GetEntity();
@@ -1466,7 +1466,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, InsertNewlineWithUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pos = args.GetLong(0);
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->InsertNewlineWithUndo(pos, ctrl);
@@ -1486,7 +1486,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, InsertTextWithUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pos = args.GetLong(0);
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 2)->GetEntity();
@@ -1504,7 +1504,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, IsModified)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsModified();
 	return ReturnValue(env, args, Value(rtn));
 }
@@ -1522,7 +1522,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	int type = wxRICHTEXT_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetInt(1);
@@ -1543,7 +1543,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxRichTextFileType type = wxRICHTEXT_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxRichTextFileType>(args.GetInt(1));
@@ -1561,11 +1561,11 @@ Gura_ImplementMethod(wx_RichTextBuffer, Modify)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool modify = true;
 	if (args.IsValid(0)) modify = args.GetBoolean(0);
 	pThis->GetEntity()->Modify(modify);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, NumberList)
@@ -1583,7 +1583,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, NumberList)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxRichTextListStyleDefinition *style = Object_wx_RichTextListStyleDefinition::GetObject(args, 1)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1614,7 +1614,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, Number)
 	Signal &sig = env.GetSignal();
 #if 0
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxString styleName = wxString::FromUTF8(args.GetString(1));
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1627,7 +1627,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, Number)
 	return ReturnValue(env, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, PasteFromClipboard)
@@ -1641,7 +1641,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, PasteFromClipboard)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long position = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->PasteFromClipboard(position);
 	return ReturnValue(env, args, Value(rtn));
@@ -1662,7 +1662,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, PromoteList)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int promoteBy = args.GetInt(0);
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 1)->GetEntity();
 	wxRichTextListStyleDefinition *style = Object_wx_RichTextListStyleDefinition::GetObject(args, 2)->GetEntity();
@@ -1689,7 +1689,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, PromoteList_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int promoteBy = args.GetInt(0);
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 1)->GetEntity();
 	wxString styleName = wxString::FromUTF8(args.GetString(2));
@@ -1713,7 +1713,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, RemoveEventHandler)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	bool deleteHandler = false;
 	if (args.IsValid(1)) deleteHandler = args.GetBoolean(1);
@@ -1731,7 +1731,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, RemoveHandler)
 Gura_ImplementClassMethod(wx_RichTextBuffer, RemoveHandler)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxRichTextBuffer::RemoveHandler(name);
 	return ReturnValue(env, args, Value(rtn));
@@ -1746,9 +1746,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, ResetAndClearCommands)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ResetAndClearCommands();
-	return Value::Null;
+	return Value::Nil;
 }
 
 #if 0
@@ -1764,7 +1764,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SaveFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int type = wxRICHTEXT_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetInt(1);
@@ -1785,7 +1785,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SaveFile)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxRichTextFileType type = wxRICHTEXT_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxRichTextFileType>(args.GetInt(1));
@@ -1803,10 +1803,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetBasicStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBasicStyle(*style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, SetBasicStyle_1)
@@ -1819,10 +1819,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetBasicStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBasicStyle(*style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, SetDefaultStyle)
@@ -1835,10 +1835,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetDefaultStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetDefaultStyle(*style);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, SetListStyle)
@@ -1856,7 +1856,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetListStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxRichTextListStyleDefinition *style = Object_wx_RichTextListStyleDefinition::GetObject(args, 1)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1884,7 +1884,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetListStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxString styleName = wxString::FromUTF8(args.GetString(1));
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1906,10 +1906,10 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, SetRenderer)
 Gura_ImplementClassMethod(wx_RichTextBuffer, SetRenderer)
 {
 	Signal &sig = env.GetSignal();
-	if (!CheckWxReady(sig)) return Value::Null;
+	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRichTextRenderer *renderer = Object_wx_RichTextRenderer::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::SetRenderer(renderer);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, SetStyle)
@@ -1925,7 +1925,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetStyle)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1947,7 +1947,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetStyle_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 1)->GetEntity();
 	int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO;
@@ -1966,10 +1966,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, SetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextStyleSheet *styleSheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetStyleSheet(styleSheet);
-	return Value::Null;
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_RichTextBuffer, SubmitAction)
@@ -1983,7 +1983,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SubmitAction)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextAction *action = Object_wx_RichTextAction::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SubmitAction(action);
 	return ReturnValue(env, args, Value(rtn));
@@ -1999,7 +1999,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, SuppressingUndo)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
-	if (pThis->IsInvalid(sig)) return Value::Null;
+	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->SuppressingUndo();
 	return ReturnValue(env, args, Value(rtn));
 }

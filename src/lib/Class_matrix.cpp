@@ -32,7 +32,7 @@ Value Object_matrix::EmptyIndexGet(Environment &env)
 	Signal &sig = GetSignal();
 	if (_pMat->GetIndexForColFlag()) {
 		sig.SetError(ERR_IndexError, "only one empty index should be applied");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMat(new Matrix(
 				Matrix::Elements::Reference(_pMat->GetElements()),
@@ -46,20 +46,20 @@ Value Object_matrix::IndexGet(Environment &env, const Value &valueIdx)
 	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
-		return Value::Null;
+		return Value::Nil;
 	}
 	size_t idx = valueIdx.GetSizeT();
 	if (_pMat->GetIndexForColFlag()) {
 		if (_pMat->GetCols() == 1) {
 			if (idx >= _pMat->GetRows()) {
 				Matrix::SetError_IndexOutOfRange(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return *_pMat->GetPointer(idx, 0);
 		} else {
 			if (idx >= _pMat->GetCols()) {
 				Matrix::SetError_IndexOutOfRange(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			if (_pMat->GetRows() == 1) {
 				return *_pMat->GetPointer(0, idx);
@@ -71,13 +71,13 @@ Value Object_matrix::IndexGet(Environment &env, const Value &valueIdx)
 		if (_pMat->GetRows() == 1) {
 			if (idx >= _pMat->GetCols()) {
 				Matrix::SetError_IndexOutOfRange(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			return *_pMat->GetPointer(0, idx);
 		} else {
 			if (idx >= _pMat->GetRows()) {
 				Matrix::SetError_IndexOutOfRange(sig);
-				return Value::Null;
+				return Value::Nil;
 			}
 			if (_pMat->GetCols() == 1) {
 				return *_pMat->GetPointer(idx, 0);
@@ -207,7 +207,7 @@ Gura_ImplementFunction(MatrixInit)
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = args.GetBlock(env);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
@@ -215,14 +215,14 @@ Gura_ImplementFunction(MatrixInit)
 		Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(*ppExpr);
-			return Value::Null;
+			return Value::Nil;
 		}
 		valList.push_back(value);
 	}
 	size_t nRows = 0, nCols = 0;
 	if (!valList.CheckMatrix(&nRows, &nCols)) {
 		sig.SetError(ERR_ValueError, "invalid matrix initialization");
-		return Value::Null;
+		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMat(new Matrix(nRows, nCols));
 	ValueList &valListDst = pMat->GetList();
@@ -357,7 +357,7 @@ Gura_ImplementMethod(matrix, invert)
 {
 	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return pThis->GetMatrix()->Invert(env);
 }
 
@@ -596,7 +596,7 @@ Gura_ImplementMethod(matrix, roundoff)
 	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	Value value = pThis->GetMatrix()->RoundOff(env, args.GetNumber(0));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, value);
 }
 
@@ -649,9 +649,9 @@ Gura_ImplementMethod(matrix, set)
 	AutoPtr<Iterator> pIterator((args.Is_list(0) || args.Is_iterator(0))?
 								args.GetValue(0).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pThis->GetMatrix()->Set(env, *pIterator);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // matrix#setcol(col:number, value)
@@ -672,9 +672,9 @@ Gura_ImplementMethod(matrix, setcol)
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pThis->GetMatrix()->SetCol(env, args.GetSizeT(0), *pIterator);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // matrix#setrow(row:number, value)
@@ -695,9 +695,9 @@ Gura_ImplementMethod(matrix, setrow)
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	pThis->GetMatrix()->SetRow(env, args.GetSizeT(0), *pIterator);
-	return Value::Null;
+	return Value::Nil;
 }
 
 // matrix#submat(row:number, col:number, nrows:number, ncols:number):map
@@ -719,7 +719,7 @@ Gura_ImplementMethod(matrix, submat)
 	//Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	//return pThis->GetMatrix()->GetSub(args.GetSizeT(0), args.GetSizeT(1),
 	//					args.GetSizeT(2), args.GetSizeT(3));
-	return Value::Null;
+	return Value::Nil;
 }
 
 // matrix#tolist():[transpose,flat]
@@ -772,7 +772,7 @@ Gura_ImplementMethod(matrix, transpose)
 {
 	Signal &sig = env.GetSignal();
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	if (sig.IsSignalled()) return Value::Null;
+	if (sig.IsSignalled()) return Value::Nil;
 	return pThis->GetMatrix()->Transpose(env);
 }
 
