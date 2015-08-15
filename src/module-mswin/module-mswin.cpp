@@ -724,8 +724,9 @@ void Object_ole::SetError(Signal &sig, HRESULT hr)
 //-----------------------------------------------------------------------------
 // Object_ole::CallableOLE
 //-----------------------------------------------------------------------------
-Value Object_ole::CallableOLE::DoCall(Environment &env, Signal &sig, Args &argsExpr)
+Value Object_ole::CallableOLE::DoCall(Environment &env, Args &argsExpr)
 {
+	Signal &sig = env.GetSignal();
 	Value result;
 	HRESULT hr;
 	const ExprList &exprListArg = argsExpr.GetExprListArg();

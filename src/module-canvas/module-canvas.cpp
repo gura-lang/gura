@@ -846,7 +846,7 @@ Gura_ImplementFunction(create_emf)
 	}
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
-	return pDevice->Initialize(env, sig, pFuncBlock);
+	return pDevice->Initialize(env, pFuncBlock);
 }
 
 Gura_ModuleEntry()

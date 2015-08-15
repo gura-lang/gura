@@ -242,14 +242,14 @@ HRESULT CMain::ParseScriptText(
 	DBGPRINTF(("dwSourceContextCookie %08x\n", dwSourceContextCookie));
 	DBGPRINTF(("ulStartingLineNumber  %d\n", ulStartingLineNumber));
 	DBGPRINTF(("dwFlags               %08x\n", dwFlags));
-	Gura::Gura_Module(mswin)::Import(*_pEnv, _sig);
+	Gura::Gura_Module(mswin)::Import(*_pEnv);
 	Gura::Stream *pConsole = _pEnv->GetConsole();
 	Gura::AutoPtr<Gura::Expr_Root> pExprRoot(new Gura::Expr_Root());
 	Gura::ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 	int cntLineOffset = static_cast<int>(ulStartingLineNumber) - 1;
 	if (cntLineOffset < 0) cntLineOffset = 0;
 	Gura::Parser parser("<ole>", cntLineOffset);
-	if (!parser.ParseString(*_pEnv, _sig, exprOwner,
+	if (!parser.ParseString(*_pEnv, exprOwner,
 			Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str(), true)) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";
@@ -394,7 +394,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 	if (wFlags == DISPATCH_METHOD) {
 		if (!value.Is_function()) return E_INVALIDARG;
 		Gura::Object_function *pObjFunc = Gura::Object_function::GetObject(value);
-		Gura::Value result = pObjFunc->Eval(*_pEnv, _sig, valListArg);
+		Gura::Value result = pObjFunc->Eval(*_pEnv, valListArg);
 		if (_sig.IsSignalled()) {
 			pExcepInfo->bstrDescription = L"*************";
 			pExcepInfo->bstrHelpFile = L"";

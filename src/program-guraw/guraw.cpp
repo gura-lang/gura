@@ -112,7 +112,7 @@ int MainW(int argc, const char *argv[])
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
 		String sourceName = OAL::FromNativeString(argv[1]);
-		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
+		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env,
 												sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsole());

@@ -193,6 +193,7 @@ void PrintHelp(FILE *fp)
 #if defined(GURA_ON_MSWIN)
 void ReadEvalPrintLoop(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	Parser parser(SRCNAME_interactive);
 	Stream *pConsole = env.GetConsole();

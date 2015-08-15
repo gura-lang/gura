@@ -98,7 +98,7 @@ bool Object_Timer::DoHandle()
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(this, VFLAG_NoOwner));
-	Value result = _pObjFunc->Eval(env, _sig, valListArg);
+	Value result = _pObjFunc->Eval(env, valListArg);
 	if (_sig.IsSignalled()) {
 		SDL_QuitEvent event;
 		event.type = SDL_QUIT;
@@ -1873,7 +1873,7 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 		//valList.push_back(Value(pObjAudio.release()));
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->AddValue(Value(pObjAudio.release()));
-		_pFuncCallback->Eval(env, _sig, *pArgs);
+		_pFuncCallback->Eval(env, *pArgs);
 	} while (0);
 #endif
 	::SDL_UnlockAudio();
