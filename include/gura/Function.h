@@ -316,7 +316,9 @@ public:
 	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
-	bool CustomDeclare(Environment &env, const SymbolSet &attrsAcceptable, Args &args);
+	bool CustomDeclare(
+		Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
+		const SymbolSet &attrs, const SymbolSet &attrsOpt, const SymbolSet &attrsAcceptable);
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,

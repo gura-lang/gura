@@ -56,5 +56,5 @@ testcase {
 		}
 	}
 	tester_image(img, 'cube',
-			'0d47f63c5fab55d2a91e4b15774b8be6;380e57a3f41006dc2028d8a57fd91d7b')
+				 '0d47f63c5fab55d2a91e4b15774b8be6;380e57a3f41006dc2028d8a57fd91d7b;966a39b783bd093722319b8a2620d7c7')
 }

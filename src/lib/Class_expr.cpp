@@ -420,10 +420,12 @@ Gura_ImplementMethod(expr, tofunction)
 		foreach_const (ValueList, pValue, valListArg) {
 			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
-		pArgs->SetAttrs(args.GetAttrs());
-		if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgs)) return Value::Nil;
+		//AutoPtr<Args> pArgs(new Args());
+		//pArgs->SetExprOwnerArg(pExprOwnerArg.release());
+		//pArgs->SetAttrs(args.GetAttrs());
+		if (!pFunc->CustomDeclare(
+				env, *pExprOwnerArg, nullptr,
+				args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
 	}
 	return Value(new Object_function(env, pFunc.release()));
 }

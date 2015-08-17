@@ -173,9 +173,9 @@ Gura_ImplementFunction(function)
 	const Expr_Block *pExprBlock = args.GetBlock(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
-	ExprOwner *pExprOwnerArg = nullptr;
+	AutoPtr<ExprOwner> pExprOwnerArg;
 	if (pExprOwnerParam == nullptr) {
-		pExprOwnerArg = new ExprOwner();
+		pExprOwnerArg.reset(new ExprOwner());
 		foreach_const (ValueList, pValue, args.GetList(0)) {
 			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
@@ -186,14 +186,16 @@ Gura_ImplementFunction(function)
 		sig.SetError(ERR_SyntaxError, "argument list conflicts with block parameter.");
 		return Value::Nil;
 	} else {
-		pExprOwnerArg = pExprOwnerParam->Reference();
+		pExprOwnerArg.reset(pExprOwnerParam->Reference());
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
-	pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, SymbolSet::Empty, *pArgsSub)) return Value::Nil;
+	//AutoPtr<Args> pArgsSub(new Args());
+	//pArgsSub->SetExprOwnerArg(pExprOwnerArg);
+	//pArgsSub->SetAttrs(args.GetAttrs());
+	if (!pFunc->CustomDeclare(
+			env, *pExprOwnerArg, nullptr,
+			args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
 }
 
