@@ -98,12 +98,12 @@ Value Expr::Exec(Environment &env,
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(pFuncObj->GetThis());
+		//AutoPtr<Args> pArgs(new Args());
+		//pArgs->SetThis(pFuncObj->GetThis());
 		CallerInfo callerInfo((ExprList::Empty).begin(), (ExprList::Empty).end(),
 							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
 		callerInfo.SetValueThis(pFuncObj->GetThis());
-		result = pFuncObj->GetFunction()->Call(env, *pArgs, callerInfo);
+		result = pFuncObj->GetFunction()->Call(env, callerInfo);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Nil;
@@ -2044,16 +2044,16 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Nil;
 		}
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetExprOwnerArg(GetExprOwner().Reference());
-		pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
-		pArgs->SetAttrs(GetAttrs());
-		pArgs->SetAttrsOpt(GetAttrsOpt());
-		pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
+		//AutoPtr<Args> pArgs(new Args());
+		//pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+		//pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+		//pArgs->SetAttrs(GetAttrs());
+		//pArgs->SetAttrsOpt(GetAttrsOpt());
+		//pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 		CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
 							  GetBlock(), GetAttrs(), GetAttrsOpt());
 		callerInfo.SetTrailCtrlHolder(pTrailCtrlHolder);
-		return pCallable->DoCall(env, *pArgs, callerInfo);
+		return pCallable->DoCall(env, callerInfo);
 	}
 }
 
@@ -2103,20 +2103,20 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		SetError(sig, ERR_TypeError, "object is not callable");
 		return Value::Nil;
 	}
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
-	pArgs->SetThis(valueThis);
-	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
-	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
-	pArgs->SetAttrs(GetAttrs());
-	pArgs->SetAttrsOpt(GetAttrsOpt());
-	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
+	//AutoPtr<Args> pArgs(new Args());
+	//pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+	//pArgs->SetThis(valueThis);
+	//pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	//pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+	//pArgs->SetAttrs(GetAttrs());
+	//pArgs->SetAttrsOpt(GetAttrsOpt());
+	//pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
 						  GetBlock(), GetAttrs(), GetAttrsOpt());
 	callerInfo.SetValueThis(valueThis);
 	callerInfo.SetIteratorThis(pIteratorThis, listThisFlag);
 	callerInfo.SetTrailCtrlHolder(pTrailCtrlHolder);
-	return pCallable->DoCall(env, *pArgs, callerInfo);
+	return pCallable->DoCall(env, callerInfo);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,

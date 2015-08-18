@@ -329,7 +329,7 @@ Gura_ImplementMethod(Object, tostring)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(Environment &env, Args &args, const CallerInfo &callerInfo) const;
+	virtual Value Call(Environment &env, const CallerInfo &callerInfo) const;
 	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
@@ -343,16 +343,17 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args, const CallerInfo &callerInfo) const
+Value Gura_Method(Object, __call__)::Call(Environment &env, const CallerInfo &callerInfo) const
 {
 	Signal &sig = env.GetSignal();
-	const Fundamental *pThis = args.GetThisFundamental();
-	if (args.GetExprListArg().size() < 1) {
+	const Fundamental *pThis = callerInfo.GetValueThis().GetFundamental();
+	ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
+	if (ppExprArg == callerInfo.GetExprListArgEnd()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value value = args.GetExprListArg().front()->Exec2(env, pSeqPostHandler);
+	Value value = (*ppExprArg)->Exec2(env, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (!value.Is_symbol()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
@@ -373,18 +374,18 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args, const Ca
 		return Value::Nil;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
-	AutoPtr<Args> pArgsSub(new Args(args));
-	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	ExprList::const_iterator ppExprArg = args.GetExprListArg().begin();
-	ppExprArg++;
-	for ( ; ppExprArg != args.GetExprListArg().end(); ppExprArg++) {
-		const Expr *pExprArg = *ppExprArg;
-		pExprOwnerArg->push_back(pExprArg->Reference());
-	}
-	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
+	//AutoPtr<Args> pArgsSub(new Args(args));
+	//AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+	//ExprList::const_iterator ppExprArg = args.GetExprListArg().begin();
+	//ppExprArg++;
+	//for ( ; ppExprArg != args.GetExprListArg().end(); ppExprArg++) {
+	//	const Expr *pExprArg = *ppExprArg;
+	//	pExprOwnerArg->push_back(pExprArg->Reference());
+	//}
+	//pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	CallerInfo callerInfoSub(callerInfo);
 	callerInfoSub.AdvanceExprListArgBegin();
-	return pFunc->Call(env, *pArgsSub, callerInfoSub);
+	return pFunc->Call(env, callerInfoSub);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
@@ -691,18 +692,18 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			if (pCallable == nullptr) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				AutoPtr<Args> pArgs(new Args());
-				pArgs->SetExprOwnerArg(pExprCaller->GetExprOwner().Reference());
-				pArgs->SetThis(valueThis);
-				pArgs->SetAttrs(pExprCaller->GetAttrs());
-				pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
-				pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
+				//AutoPtr<Args> pArgs(new Args());
+				//pArgs->SetExprOwnerArg(pExprCaller->GetExprOwner().Reference());
+				//pArgs->SetThis(valueThis);
+				//pArgs->SetAttrs(pExprCaller->GetAttrs());
+				//pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
+				//pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
 				CallerInfo callerInfo(pExprCaller->GetExprOwner().begin(),
 									  pExprCaller->GetExprOwner().end(),
 									  pExprCaller->GetBlock(),
 									  pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt());
 				callerInfo.SetValueThis(valueThis);
-				pCallable->DoCall(*this, *pArgs, callerInfo);
+				pCallable->DoCall(*this, callerInfo);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

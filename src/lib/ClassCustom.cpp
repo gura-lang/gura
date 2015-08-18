@@ -279,21 +279,21 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 				(pClassSuper == nullptr)? nullptr : pClassSuper->GetConstructor();
 	if (pConstructorSuper != nullptr) {
 		const Expr *pExpr = GetExprBody();
-		ExprOwner *pExprOwner = nullptr;
+		const ExprList *pExprListArg = &ExprList::Empty;
 		if (pExpr->IsBlock()) {
 			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
-			pExprOwner = ExprOwner::Reference(pExprBlock->GetExprOwnerParam());
+			if (pExprBlock->GetExprOwnerParam() != nullptr) {
+				pExprListArg = pExprBlock->GetExprOwnerParam();
+			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		AutoPtr<Args> pArgsSub(new Args());
-		pArgsSub->SetExprOwnerArg(pExprOwner);
-		pArgsSub->SetThis(valueRtn);
-		const ExprList *pExprListArg = &ExprList::Empty;
-		if (pExprOwner != nullptr) pExprListArg = pExprOwner;
+		//AutoPtr<Args> pArgsSub(new Args());
+		//pArgsSub->SetExprOwnerArg(pExprOwner);
+		//pArgsSub->SetThis(valueRtn);
 		CallerInfo callerInfo(pExprListArg->begin(), pExprListArg->end(),
 							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
 		callerInfo.SetValueThis(valueRtn);
-		pConstructorSuper->Call(*pEnvSuper, *pArgsSub, callerInfo);
+		pConstructorSuper->Call(*pEnvSuper, callerInfo);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;

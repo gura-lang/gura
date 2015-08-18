@@ -110,15 +110,14 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 	return GetFunction()->GetBlockOccurPattern();
 }
 
-Value Object_function::DoCall(Environment &env, Args &args, const CallerInfo &callerInfo)
+Value Object_function::DoCall(Environment &env, const CallerInfo &callerInfo)
 {
 	CallerInfo callerInfoSub(callerInfo);
 	if (callerInfo.GetValueThis().IsInvalid() ||
 					(callerInfo.GetValueThis().IsModule() && _valueThis.IsValid())) {
-		args.SetThis(_valueThis);
 		callerInfoSub.SetValueThis(_valueThis);
 	}
-	return GetFunction()->Call(env, args, callerInfoSub);
+	return GetFunction()->Call(env, callerInfoSub);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const

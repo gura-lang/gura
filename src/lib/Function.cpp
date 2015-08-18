@@ -250,7 +250,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, Args &_args, const CallerInfo &callerInfo) const
+Value Function::Call(Environment &env, const CallerInfo &callerInfo) const
 {
 	Signal &sig = env.GetSignal();
 	//AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));

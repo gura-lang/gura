@@ -118,7 +118,6 @@ namespace Gura {
 class CallerInfo;
 class Args;
 class ExprList;
-class ExprOwner;
 class Expr_Block;
 class Expr_Caller;
 class CustomClass;
@@ -215,7 +214,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, Args &args, const CallerInfo &callerInfo) const;
+	virtual Value Call(Environment &env, const CallerInfo &callerInfo) const;
 	Value Eval(Environment &env, Args &args) const;
 	Value EvalMap(Environment &env, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
@@ -323,7 +322,6 @@ private:
 	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	AutoPtr<Iterator> _pIteratorThis;
-	AutoPtr<ExprOwner> _pExprOwnerArg;
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
@@ -348,7 +346,6 @@ public:
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
@@ -364,7 +361,6 @@ public:
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 protected:
@@ -422,10 +418,6 @@ public:
 	}
 	inline void FinalizeTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
-	}
-	inline void SetExprOwnerArg(ExprOwner *pExprOwnerArg) { _pExprOwnerArg.reset(pExprOwnerArg); }
-	inline const ExprList &GetExprListArg() const {
-		return (_pExprOwnerArg.IsNull())? ExprList::Empty : *_pExprOwnerArg;
 	}
 	inline ValueList &GetValueListArg() { return _valListArg; }
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
@@ -643,7 +635,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	virtual Value DoCall(Environment &env, Args &args, const CallerInfo &callerInfo) = 0;
+	virtual Value DoCall(Environment &env, const CallerInfo &callerInfo) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;
