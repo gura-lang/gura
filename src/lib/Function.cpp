@@ -250,7 +250,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, Args &args) const
+Value Function::Call(Environment &env, Args &args, const CallerInfo &callerInfo) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
@@ -331,7 +331,8 @@ Value Function::Call(Environment &env, Args &args) const
 	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict &valDictArg = pArgs->GetValueDictArg();
 	bool namedArgFlag = !pArgs->GetNoNamedFlag();
-	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
+	for (ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
+		 ppExprArg != callerInfo.GetExprListArgEnd(); ppExprArg++) {
 		const Expr *pExprArg = *ppExprArg;
 		if (namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			// func(..., var => value, ...)
@@ -378,7 +379,8 @@ Value Function::Call(Environment &env, Args &args) const
 		}
 	}
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
-	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
+	for (ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
+		 ppExprArg != callerInfo.GetExprListArgEnd(); ppExprArg++) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;

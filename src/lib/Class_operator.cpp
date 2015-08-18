@@ -45,7 +45,7 @@ Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
-Value Object_operator::DoCall(Environment &env, Args &args)
+Value Object_operator::DoCall(Environment &env, Args &args, const CallerInfo &callerInfo)
 {
 	Signal &sig = env.GetSignal();
 	const ExprList &exprList = args.GetExprListArg();

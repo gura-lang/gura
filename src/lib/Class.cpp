@@ -329,7 +329,7 @@ Gura_ImplementMethod(Object, tostring)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(Environment &env, Args &args) const;
+	virtual Value Call(Environment &env, Args &args, const CallerInfo &callerInfo) const;
 	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
@@ -343,7 +343,7 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
+Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args, const CallerInfo &callerInfo) const
 {
 	Signal &sig = env.GetSignal();
 	const Fundamental *pThis = args.GetThisFundamental();
@@ -382,7 +382,9 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Args &args) const
 		pExprOwnerArg->push_back(pExprArg->Reference());
 	}
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	return pFunc->Call(env, *pArgsSub);
+	CallerInfo callerInfoSub(callerInfo);
+	callerInfoSub.AdvanceExprListArgBegin();
+	return pFunc->Call(env, *pArgsSub, callerInfoSub);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
@@ -695,7 +697,12 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 				pArgs->SetAttrs(pExprCaller->GetAttrs());
 				pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
 				pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
-				pCallable->DoCall(*this, *pArgs);
+				CallerInfo callerInfo(pExprCaller->GetExprOwner().begin(),
+									  pExprCaller->GetExprOwner().end(),
+									  pExprCaller->GetBlock(),
+									  pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt());
+				callerInfo.SetValueThis(valueThis);
+				pCallable->DoCall(*this, *pArgs, callerInfo);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

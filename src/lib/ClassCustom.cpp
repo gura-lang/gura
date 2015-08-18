@@ -288,7 +288,12 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetExprOwnerArg(pExprOwner);
 		pArgsSub->SetThis(valueRtn);
-		pConstructorSuper->Call(*pEnvSuper, *pArgsSub);
+		const ExprList *pExprListArg = &ExprList::Empty;
+		if (pExprOwner != nullptr) pExprListArg = pExprOwner;
+		CallerInfo callerInfo(pExprListArg->begin(), pExprListArg->end(),
+							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
+		callerInfo.SetValueThis(valueRtn);
+		pConstructorSuper->Call(*pEnvSuper, *pArgsSub, callerInfo);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;
