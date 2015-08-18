@@ -564,6 +564,43 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// CallerInfo
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE CallerInfo {
+private:
+	const ExprList &_exprListArg;
+	const Expr_Block *_pExprBlock;
+	const SymbolSet &_attrs;
+	const SymbolSet &_attrsOpt;
+	const Value &_valueThis;
+	const Iterator *_pIteratorThis;
+	bool _listThisFlag;
+	const TrailCtrlHolder *_pTrailCtrlHolder;
+	//ValueType _valTypeResult;
+	//ResultMode _resultMode;
+	//ULong _flags;
+public:
+	inline CallerInfo(
+		const ExprList &exprListArg, const Expr_Block *pExprBlock,
+		const SymbolSet &attrs, const SymbolSet &attrsOpt,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder) : _exprListArg(exprListArg),
+		_pExprBlock(pExprBlock),
+		_attrs(attrs), _attrsOpt(attrsOpt),
+		_valueThis(valueThis),
+		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
+		_pTrailCtrlHolder(pTrailCtrlHolder) {}
+	inline const ExprList &GetExprListArg() const { return _exprListArg; }
+	inline const Expr_Block *GetExprBlock() const { return _pExprBlock; }
+	inline const SymbolSet &GetAttrs() const { return _attrs; }
+	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline const Value &GetValueThis() const { return _valueThis; }
+	inline const Iterator *GetIteratorThis() const { return _pIteratorThis; }
+	inline bool GetListThisFlag() const { return _listThisFlag; }
+	inline const TrailCtrlHolder *GetTrailCtrlHolder() const { return _pTrailCtrlHolder; }
+};
+
+//-----------------------------------------------------------------------------
 // Callable
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
