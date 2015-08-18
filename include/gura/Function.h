@@ -115,6 +115,7 @@ Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol
 
 namespace Gura {
 
+class CallerInfo;
 class Args;
 class ExprList;
 class ExprOwner;
@@ -214,7 +215,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, Args &args) const;
+	virtual Value Call(Environment &env, const CallerInfo &callerInfo) const;
 	Value Eval(Environment &env, Args &args) const;
 	Value EvalMap(Environment &env, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
@@ -322,7 +323,7 @@ private:
 	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	AutoPtr<Iterator> _pIteratorThis;
-	AutoPtr<ExprOwner> _pExprOwnerArg;
+	//AutoPtr<ExprOwner> _pExprOwnerArg;
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
@@ -347,7 +348,7 @@ public:
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
+		//_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
@@ -363,7 +364,7 @@ public:
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
+		//_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 protected:
@@ -422,10 +423,10 @@ public:
 	inline void FinalizeTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
 	}
-	inline void SetExprOwnerArg(ExprOwner *pExprOwnerArg) { _pExprOwnerArg.reset(pExprOwnerArg); }
-	inline const ExprList &GetExprListArg() const {
-		return (_pExprOwnerArg.IsNull())? ExprList::Empty : *_pExprOwnerArg;
-	}
+	//inline void SetExprOwnerArg(ExprOwner *pExprOwnerArg) { _pExprOwnerArg.reset(pExprOwnerArg); }
+	//inline const ExprList &GetExprListArg() const {
+	//	return (_pExprOwnerArg.IsNull())? ExprList::Empty : *_pExprOwnerArg;
+	//}
 	inline ValueList &GetValueListArg() { return _valListArg; }
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
@@ -568,11 +569,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE CallerInfo {
 private:
-	const ExprList &_exprListArg;
+	ExprList::const_iterator _ppExprListArgBegin;
+	ExprList::const_iterator _ppExprListArgEnd;
 	const Expr_Block *_pExprBlock;
 	const SymbolSet &_attrs;
 	const SymbolSet &_attrsOpt;
-	const Value &_valueThis;
+	Value _valueThis;
 	const Iterator *_pIteratorThis;
 	bool _listThisFlag;
 	const TrailCtrlHolder *_pTrailCtrlHolder;
@@ -580,18 +582,54 @@ private:
 	//ResultMode _resultMode;
 	//ULong _flags;
 public:
+#if 0
 	inline CallerInfo(
-		const ExprList &exprListArg, const Expr_Block *pExprBlock,
+		ExprList::const_iterator ppExprListArgBegin,
+		ExprList::const_iterator ppExprListArgEnd,
+		const Expr_Block *pExprBlock,
 		const SymbolSet &attrs, const SymbolSet &attrsOpt,
 		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) : _exprListArg(exprListArg),
+		const TrailCtrlHolder *pTrailCtrlHolder) :
+		_ppExprListArgBegin(ppExprListArgBegin),
+		_ppExprListArgEnd(ppExprListArgEnd),
 		_pExprBlock(pExprBlock),
 		_attrs(attrs), _attrsOpt(attrsOpt),
 		_valueThis(valueThis),
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_pTrailCtrlHolder(pTrailCtrlHolder) {}
-	inline const ExprList &GetExprListArg() const { return _exprListArg; }
-	inline const Expr_Block *GetExprBlock() const { return _pExprBlock; }
+#endif
+	inline CallerInfo(
+		ExprList::const_iterator ppExprListArgBegin,
+		ExprList::const_iterator ppExprListArgEnd,
+		const Expr_Block *pExprBlock,
+		const SymbolSet &attrs, const SymbolSet &attrsOpt) :
+		_ppExprListArgBegin(ppExprListArgBegin),
+		_ppExprListArgEnd(ppExprListArgEnd),
+		_pExprBlock(pExprBlock),
+		_attrs(attrs), _attrsOpt(attrsOpt),
+		_pIteratorThis(nullptr), _listThisFlag(false),
+		_pTrailCtrlHolder(nullptr) {}
+	inline CallerInfo(const CallerInfo &callerInfo) :
+		_ppExprListArgBegin(callerInfo._ppExprListArgBegin),
+		_ppExprListArgEnd(callerInfo._ppExprListArgEnd),
+		_pExprBlock(callerInfo._pExprBlock),
+		_attrs(callerInfo._attrs), _attrsOpt(callerInfo._attrsOpt),
+		_valueThis(callerInfo._valueThis),
+		_pIteratorThis(callerInfo._pIteratorThis), _listThisFlag(callerInfo._listThisFlag),
+		_pTrailCtrlHolder(callerInfo._pTrailCtrlHolder) {}
+	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
+	inline void SetIteratorThis(const Iterator *pIteratorThis, bool listThisFlag) {
+		_pIteratorThis = pIteratorThis, _listThisFlag = listThisFlag;
+	}
+	inline void SetTrailCtrlHolder(const TrailCtrlHolder *pTrailCtrlHolder) {
+		_pTrailCtrlHolder = pTrailCtrlHolder;
+	}
+	inline void AdvanceExprListArgBegin() {
+		if (_ppExprListArgBegin != _ppExprListArgEnd) _ppExprListArgBegin++;
+	}
+	inline ExprList::const_iterator GetExprListArgBegin() const { return _ppExprListArgBegin; }
+	inline ExprList::const_iterator GetExprListArgEnd() const { return _ppExprListArgEnd; }
+	inline const Expr_Block *GetBlock() const { return _pExprBlock; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
 	inline const Value &GetValueThis() const { return _valueThis; }
