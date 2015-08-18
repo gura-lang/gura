@@ -113,12 +113,12 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 Value Object_function::DoCall(Environment &env, Args &args, const CallerInfo &callerInfo)
 {
 	CallerInfo callerInfoSub(callerInfo);
-	if (args.GetThis().IsInvalid() ||
-					(args.GetThis().IsModule() && _valueThis.IsValid())) {
+	if (callerInfo.GetValueThis().IsInvalid() ||
+					(callerInfo.GetValueThis().IsModule() && _valueThis.IsValid())) {
 		args.SetThis(_valueThis);
 		callerInfoSub.SetValueThis(_valueThis);
 	}
-	return GetFunction()->Call(env, args, callerInfo);
+	return GetFunction()->Call(env, args, callerInfoSub);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const

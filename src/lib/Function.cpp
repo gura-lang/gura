@@ -250,10 +250,17 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, Args &args, const CallerInfo &callerInfo) const
+Value Function::Call(Environment &env, Args &_args, const CallerInfo &callerInfo) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
+	//AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
+	pArgs->SetAttrs(callerInfo.GetAttrs());
+	pArgs->SetAttrsOpt(callerInfo.GetAttrsOpt());
+	pArgs->SetThis(callerInfo.GetValueThis());
+	pArgs->SetIteratorThis(Iterator::Reference(callerInfo.GetIteratorThis()), callerInfo.GetListThisFlag());
+	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(callerInfo.GetTrailCtrlHolder()));
 	if (GetType() == FUNCTYPE_Instance &&
 		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,

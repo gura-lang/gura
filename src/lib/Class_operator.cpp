@@ -48,9 +48,23 @@ Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
 Value Object_operator::DoCall(Environment &env, Args &args, const CallerInfo &callerInfo)
 {
 	Signal &sig = env.GetSignal();
-	const ExprList &exprList = args.GetExprListArg();
-	size_t nArgs = exprList.size();
-	if (nArgs == 1) {
+	//const ExprList &exprList = args.GetExprListArg();
+	//size_t nArgs = exprList.size();
+	const Expr *pExprArg1 = nullptr, *pExprArg2 = nullptr;
+	ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
+	if (ppExprArg == callerInfo.GetExprListArgEnd()) {
+		sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
+		return Value::Nil;
+	}
+	pExprArg1 = *ppExprArg++;
+	if (ppExprArg != callerInfo.GetExprListArgEnd()) {
+		pExprArg2 = *ppExprArg++;
+	}
+	if (ppExprArg != callerInfo.GetExprListArgEnd()) {
+		sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
+		return Value::Nil;
+	}
+	if (pExprArg2 == nullptr) {
 		bool suffixFlag = false;
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		if (_opTypeUnary == OPTYPE_None) {
@@ -58,11 +72,11 @@ Value Object_operator::DoCall(Environment &env, Args &args, const CallerInfo &ca
 					"operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value value = exprList[0]->Exec2(env, pSeqPostHandler);
+		Value value = pExprArg1->Exec2(env, pSeqPostHandler);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, value, suffixFlag);
-	} else if (nArgs == 2) {
+	} else {
 		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 		SeqPostHandler *pSeqPostHandlerRight = nullptr;
 		if (_opTypeBinary == OPTYPE_None) {
@@ -70,15 +84,13 @@ Value Object_operator::DoCall(Environment &env, Args &args, const CallerInfo &ca
 					"operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value valueLeft = exprList[0]->Exec2(env, pSeqPostHandlerLeft);
+		Value valueLeft = pExprArg1->Exec2(env, pSeqPostHandlerLeft);
 		if (sig.IsSignalled()) return Value::Nil;
-		Value valueRight = exprList[1]->Exec2(env, pSeqPostHandlerRight);
+		Value valueRight = pExprArg2->Exec2(env, pSeqPostHandlerRight);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
 		return pOperator->EvalBinary(env, valueLeft, valueRight);
 	}
-	sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
-	return Value::Nil;
 }
 
 const Symbol *Object_operator::GetSymbol() const
