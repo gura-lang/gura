@@ -54,7 +54,10 @@ public:
 	virtual bool IsFinalizer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
-	virtual Value DoCall(Environment &env, const CallerInfo &callerInfo);
+	virtual Value DoCall(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	Value Eval(Environment &env, ValueList &valListArg) const;
 };

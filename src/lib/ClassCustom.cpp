@@ -292,8 +292,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 		//pArgsSub->SetThis(valueRtn);
 		CallerInfo callerInfo(pExprListArg->begin(), pExprListArg->end(),
 							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
-		callerInfo.SetValueThis(valueRtn);
-		pConstructorSuper->Call(*pEnvSuper, callerInfo);
+		pConstructorSuper->Call(*pEnvSuper, callerInfo, valueRtn, nullptr, false, nullptr);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;

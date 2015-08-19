@@ -35,7 +35,10 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoCall(Environment &env, const CallerInfo &callerInfo);
+	virtual Value DoCall(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual String ToString(bool exprFlag);
 	const Symbol *GetSymbol() const;
 	inline OpType GetUnaryOpType() const { return _opTypeUnary; }

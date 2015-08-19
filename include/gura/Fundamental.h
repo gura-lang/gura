@@ -22,7 +22,10 @@ public:
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoCall(Environment &env, const CallerInfo &callerInfo);
+	virtual Value DoCall(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual String ToString(bool exprFlag) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

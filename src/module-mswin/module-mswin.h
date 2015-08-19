@@ -65,7 +65,10 @@ public:
 	public:
 		inline CallableOLE(Object_ole *pObj, const Symbol *pSymbol, DISPID dispid) :
 								_pObj(pObj), _pSymbol(pSymbol), _dispid(dispid) {}
-		virtual Value DoCall(Environment &env, Args &argsExpr);
+		virtual Value DoCall(
+			Environment &env, const CallerInfo &callerInfo,
+			const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+			const TrailCtrlHolder *pTrailCtrlHolder);
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
 	};
 	class CallableOLEList : public std::vector<CallableOLE *> {

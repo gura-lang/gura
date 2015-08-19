@@ -250,7 +250,10 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Call(Environment &env, const CallerInfo &callerInfo) const
+Value Function::Call(
+	Environment &env, const CallerInfo &callerInfo,
+	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
 	//AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
@@ -258,9 +261,9 @@ Value Function::Call(Environment &env, const CallerInfo &callerInfo) const
 	pArgs->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
 	pArgs->SetAttrs(callerInfo.GetAttrs());
 	pArgs->SetAttrsOpt(callerInfo.GetAttrsOpt());
-	pArgs->SetThis(callerInfo.GetValueThis());
-	pArgs->SetIteratorThis(Iterator::Reference(callerInfo.GetIteratorThis()), callerInfo.GetListThisFlag());
-	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(callerInfo.GetTrailCtrlHolder()));
+	pArgs->SetThis(valueThis);
+	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (GetType() == FUNCTYPE_Instance &&
 		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,

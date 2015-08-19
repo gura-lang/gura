@@ -214,7 +214,10 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, const CallerInfo &callerInfo) const;
+	virtual Value Call(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder) const;
 	Value Eval(Environment &env, Args &args) const;
 	Value EvalMap(Environment &env, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
@@ -566,30 +569,10 @@ private:
 	const Expr_Block *_pExprBlock;
 	const SymbolSet &_attrs;
 	const SymbolSet &_attrsOpt;
-	Value _valueThis;
-	const Iterator *_pIteratorThis;
-	bool _listThisFlag;
-	const TrailCtrlHolder *_pTrailCtrlHolder;
 	//ValueType _valTypeResult;
 	//ResultMode _resultMode;
 	//ULong _flags;
 public:
-#if 0
-	inline CallerInfo(
-		ExprList::const_iterator ppExprListArgBegin,
-		ExprList::const_iterator ppExprListArgEnd,
-		const Expr_Block *pExprBlock,
-		const SymbolSet &attrs, const SymbolSet &attrsOpt,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) :
-		_ppExprListArgBegin(ppExprListArgBegin),
-		_ppExprListArgEnd(ppExprListArgEnd),
-		_pExprBlock(pExprBlock),
-		_attrs(attrs), _attrsOpt(attrsOpt),
-		_valueThis(valueThis),
-		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
-		_pTrailCtrlHolder(pTrailCtrlHolder) {}
-#endif
 	inline CallerInfo(
 		ExprList::const_iterator ppExprListArgBegin,
 		ExprList::const_iterator ppExprListArgEnd,
@@ -598,24 +581,12 @@ public:
 		_ppExprListArgBegin(ppExprListArgBegin),
 		_ppExprListArgEnd(ppExprListArgEnd),
 		_pExprBlock(pExprBlock),
-		_attrs(attrs), _attrsOpt(attrsOpt),
-		_pIteratorThis(nullptr), _listThisFlag(false),
-		_pTrailCtrlHolder(nullptr) {}
+		_attrs(attrs), _attrsOpt(attrsOpt) {}
 	inline CallerInfo(const CallerInfo &callerInfo) :
 		_ppExprListArgBegin(callerInfo._ppExprListArgBegin),
 		_ppExprListArgEnd(callerInfo._ppExprListArgEnd),
 		_pExprBlock(callerInfo._pExprBlock),
-		_attrs(callerInfo._attrs), _attrsOpt(callerInfo._attrsOpt),
-		_valueThis(callerInfo._valueThis),
-		_pIteratorThis(callerInfo._pIteratorThis), _listThisFlag(callerInfo._listThisFlag),
-		_pTrailCtrlHolder(callerInfo._pTrailCtrlHolder) {}
-	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
-	inline void SetIteratorThis(const Iterator *pIteratorThis, bool listThisFlag) {
-		_pIteratorThis = pIteratorThis, _listThisFlag = listThisFlag;
-	}
-	inline void SetTrailCtrlHolder(const TrailCtrlHolder *pTrailCtrlHolder) {
-		_pTrailCtrlHolder = pTrailCtrlHolder;
-	}
+		_attrs(callerInfo._attrs), _attrsOpt(callerInfo._attrsOpt) {}
 	inline void AdvanceExprListArgBegin() {
 		if (_ppExprListArgBegin != _ppExprListArgEnd) _ppExprListArgBegin++;
 	}
@@ -624,10 +595,6 @@ public:
 	inline const Expr_Block *GetBlock() const { return _pExprBlock; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
-	inline const Value &GetValueThis() const { return _valueThis; }
-	inline const Iterator *GetIteratorThis() const { return _pIteratorThis; }
-	inline bool GetListThisFlag() const { return _listThisFlag; }
-	inline const TrailCtrlHolder *GetTrailCtrlHolder() const { return _pTrailCtrlHolder; }
 };
 
 //-----------------------------------------------------------------------------
@@ -635,7 +602,10 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	virtual Value DoCall(Environment &env, const CallerInfo &callerInfo) = 0;
+	virtual Value DoCall(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;

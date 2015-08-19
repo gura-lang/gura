@@ -329,7 +329,10 @@ Gura_ImplementMethod(Object, tostring)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(Environment &env, const CallerInfo &callerInfo) const;
+	virtual Value Call(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder) const;
 	virtual Value DoEval(Environment &env, Args &args) const;
 };
 
@@ -343,10 +346,13 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::Call(Environment &env, const CallerInfo &callerInfo) const
+Value Gura_Method(Object, __call__)::Call(
+	Environment &env, const CallerInfo &callerInfo,
+	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
-	const Fundamental *pThis = callerInfo.GetValueThis().GetFundamental();
+	const Fundamental *pThis = valueThis.GetFundamental();
 	ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
 	if (ppExprArg == callerInfo.GetExprListArgEnd()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
@@ -374,18 +380,9 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, const CallerInfo &ca
 		return Value::Nil;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
-	//AutoPtr<Args> pArgsSub(new Args(args));
-	//AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	//ExprList::const_iterator ppExprArg = args.GetExprListArg().begin();
-	//ppExprArg++;
-	//for ( ; ppExprArg != args.GetExprListArg().end(); ppExprArg++) {
-	//	const Expr *pExprArg = *ppExprArg;
-	//	pExprOwnerArg->push_back(pExprArg->Reference());
-	//}
-	//pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	CallerInfo callerInfoSub(callerInfo);
 	callerInfoSub.AdvanceExprListArgBegin();
-	return pFunc->Call(env, callerInfoSub);
+	return pFunc->Call(env, callerInfoSub, valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
@@ -702,8 +699,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 									  pExprCaller->GetExprOwner().end(),
 									  pExprCaller->GetBlock(),
 									  pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt());
-				callerInfo.SetValueThis(valueThis);
-				pCallable->DoCall(*this, callerInfo);
+				pCallable->DoCall(*this, callerInfo, valueThis, nullptr, false, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

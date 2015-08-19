@@ -724,18 +724,23 @@ void Object_ole::SetError(Signal &sig, HRESULT hr)
 //-----------------------------------------------------------------------------
 // Object_ole::CallableOLE
 //-----------------------------------------------------------------------------
-Value Object_ole::CallableOLE::DoCall(Environment &env, Args &argsExpr)
+Value Object_ole::CallableOLE::DoCall(
+	Environment &env, const CallerInfo &callerInfo,
+	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();
 	Value result;
 	HRESULT hr;
-	const ExprList &exprListArg = argsExpr.GetExprListArg();
+	//const ExprList &exprListArg = callerInfo.GetExprListArg();
 	VARIANTARG *varArgs = nullptr;
 	DISPID *dispidNamedArgs = nullptr;
 	ValueList valueArgs;
 	ValueList valueArgsNamed;
 	StringList argNames;
-	foreach_const (ExprList, ppExpr, exprListArg) {
+	//foreach_const (ExprList, ppExpr, exprListArg) {
+	for (ExprList::const_iterator ppExpr = callerInfo.GetExprListArgBegin();
+		 ppExpr != callerInfo.GetExprListArgEnd(); ppExpr++) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsBinaryOp(OPTYPE_Pair)) {
 			const Expr_BinaryOp *pExprBinaryOp =
