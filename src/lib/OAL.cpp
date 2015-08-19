@@ -1420,7 +1420,7 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 				}
 			}
 		} else {
-			if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) {
+			if (::write(fdDst, addrSrc, bytesSrc) < static_cast<int>(bytesSrc)) {
 				::munmap(addrSrc, bytesSrc);
 				::close(fdSrc);
 				::close(fdDst);
