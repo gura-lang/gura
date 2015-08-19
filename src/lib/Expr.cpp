@@ -178,33 +178,6 @@ void Expr::GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) const
 	const_cast<Expr *>(this)->Accept(visitor);
 }
 
-#if 0
-// this function makes a list of symbols chained by member operator "."
-bool Expr::GetChainedSymbolList(SymbolList &symbolList) const
-{
-	for (const Expr *pExpr = this; ; ) {
-		if (pExpr->IsMember()) {
-			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
-			if (pExprMember->GetRight()->IsIdentifier()) {
-				const Expr_Identifier *pExprIdentifier =
-						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
-				symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
-				pExpr = pExprMember->GetLeft();
-			} else {
-				return false;
-			}
-		} else if (pExpr->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
-			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
-			break;
-		} else {
-			return false;
-		}
-	}
-	return true;
-}
-#endif
-
 const Expr *Expr::Unquote() const
 {
 	return this;
