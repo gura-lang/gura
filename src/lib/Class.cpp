@@ -689,12 +689,6 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			if (pCallable == nullptr) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				//AutoPtr<Args> pArgs(new Args());
-				//pArgs->SetExprOwnerArg(pExprCaller->GetExprOwner().Reference());
-				//pArgs->SetThis(valueThis);
-				//pArgs->SetAttrs(pExprCaller->GetAttrs());
-				//pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
-				//pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
 				CallerInfo callerInfo(pExprCaller->GetExprOwner().begin(),
 									  pExprCaller->GetExprOwner().end(),
 									  pExprCaller->GetBlock(),
