@@ -27,9 +27,11 @@
 #include <algorithm>
 
 #include "gura/Algorithm.h"
+#include "gura/Args.h"
 #include "gura/Array.h"
 #include "gura/Audio.h"
 #include "gura/Binary.h"
+#include "gura/Callable.h"
 #include "gura/Class.h"
 #include "gura/ClassCustom.h"
 #include "gura/ClassOfStruct.h"

@@ -8,6 +8,7 @@
 #include "Symbol.h"
 #include "Signal.h"
 #include "Environment.h"
+#include "Iterator.h"
 #include "Processor.h"
 
 namespace Gura {

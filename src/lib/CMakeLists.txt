@@ -2,9 +2,11 @@
 
 add_library(guracore SHARED
 Algorithm.cpp
+Args.cpp
 Array.cpp
 Audio.cpp
 Binary.cpp
+Callable.cpp
 Class.cpp
 Class_Class.cpp
 Class_Module.cpp

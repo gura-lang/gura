@@ -8,6 +8,7 @@
 #include "Environment.h"
 #include "Function.h"
 #include "Iterator.h"
+#include "Callable.h"
 
 namespace Gura {
 

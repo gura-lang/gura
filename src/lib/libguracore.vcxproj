@@ -182,9 +182,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Args.cpp" />
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
+    <ClCompile Include="Callable.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_Class.cpp" />
     <ClCompile Include="Class_Module.cpp" />
@@ -302,7 +304,9 @@
     <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
+    <ClInclude Include="..\..\include\gura\Args.h" />
     <ClInclude Include="..\..\include\gura\Array.h" />
+    <ClInclude Include="..\..\include\gura\Callable.h" />
     <ClInclude Include="..\..\include\gura\Class.h" />
     <ClInclude Include="..\..\include\gura\Class_Class.h" />
     <ClInclude Include="..\..\include\gura\Class_Module.h" />
