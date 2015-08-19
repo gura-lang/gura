@@ -78,10 +78,8 @@ bool PathMgr::DoesMatchNameSub(const char *pattern, const char *fileName, bool i
 	} else if (*pattern == '?') {
 		return *fileName != '\0' && DoesMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
 	} else if (*pattern == '[') {
-		bool negFlag = false;
 		pattern++;
 		if (*pattern == '!') {
-			negFlag = true;
 			pattern++;
 			for ( ; *pattern != ']' && *pattern != '\0'; pattern++) {
 				if (CompareChar(*fileName, *pattern, ignoreCaseFlag) == 0) return false;
