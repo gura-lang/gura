@@ -81,7 +81,6 @@ Function *ClassCustom::PrepareConstructor(Environment &env)
 	} else {
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		AutoPtr<Args> pArgsSub(new Args());
 		if (!pFunc->CustomDeclare(
 				env, ExprList::Empty, nullptr,
 				SymbolSet::Empty, SymbolSet::Empty, SymbolSet::Empty)) return nullptr;
