@@ -263,7 +263,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			if (IsAlpha(ch)) {
 				token += ch;
 			} else if (IsWhite(ch)) {
-				int i = 0;
+				size_t i = 0;
 				for (i = 0; i < ArraySizeOf(monthNames); i++) {
 					if (::strcasecmp(token.c_str(), monthNames[i]) == 0) break;
 				}
@@ -334,7 +334,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			if (IsAlpha(ch)) {
 				token += ch;
 			} else if (IsWhite(ch) || ch == '-') {
-				int i = 0;
+				size_t i = 0;
 				for (i = 0; i < ArraySizeOf(monthNames); i++) {
 					if (::strcasecmp(token.c_str(), monthNames[i]) == 0) break;
 				}
@@ -504,7 +504,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			{ "Y",		 12 * 60	},
 			{ "JST",	  9 * 60	},
 		};
-		for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (::strcasecmp(timeZone.c_str(), tbl[i].name) == 0) {
 				_tz.validFlag = true;
 				_tz.secsOffset = tbl[i].minsOffset * 60;

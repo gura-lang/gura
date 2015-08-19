@@ -103,7 +103,7 @@ const char *Signal::GetTypeName(ULong sigType)
 		{ SIGTYPE_ReqSaveHistory,	"req_save_history",		},
 		{ SIGTYPE_ReqClearHistory,	"req_clear_history",	},
 	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].sigType == sigType) return tbl[i].name;
 	}
 	return "unknown";

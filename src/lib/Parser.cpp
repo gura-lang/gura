@@ -147,7 +147,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
 		} else {
-			int i;
+			size_t i = 0;
 			static const struct {
 				int ch;
 				ElemType elemType;
@@ -266,10 +266,10 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		} else {
 			Gura_Pushback();
 			_stat = STAT_Start;
-			for (int i = 0; i < ArraySizeOf(tbl); i++) {
+			for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
 				ElemType elemType = tbl[i].elemType;
-				for (int j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
+				for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_token.push_back(ch);
@@ -316,10 +316,10 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		};
 		Gura_Pushback();
 		_stat = STAT_Start;
-		for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_token.compare(tbl[i].strFirst) != 0) continue;
 			ElemType elemType = tbl[i].elemType;
-			for (int j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
+			for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_token.push_back(ch);

@@ -32,7 +32,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Identifier,		"identifier",		},
 		{ EXPRTYPE_Suffixed,		"suffixed",			},
 	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
 	}
 	return "unknown";

@@ -838,7 +838,7 @@ Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
 	}
 	if (_pColorMap == nullptr) {
 		_pColorMap = new ColorMap();
-		for (int i = 0; i < ArraySizeOf(_elementEntries); i++) {
+		for (size_t i = 0; i < ArraySizeOf(_elementEntries); i++) {
 			const ElementEntry &elementEntry = _elementEntries[i];
 			const Symbol *pSymbol = Symbol::Add(elementEntry.name);
 			(*_pColorMap)[pSymbol] = Color(elementEntry.r,

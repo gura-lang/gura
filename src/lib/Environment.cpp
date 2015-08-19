@@ -26,7 +26,7 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_object,			"object",			},
 		{ ENVTYPE_lister,			"lister",			},
 	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].envType == envType) return tbl[i].name;
 	}
 	return "unknown";

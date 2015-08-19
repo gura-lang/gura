@@ -470,7 +470,7 @@ const char *GetEncodingForConsole()
 			{ "ko_KR",	"euc-kr"	},	// CP949
 			{ "zh_TW",	"big5"		},	// CP950
 		};
-		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+		for (size_t i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langLeft.c_str(), assocInfoTbl[i].key) == 0) {
 				return assocInfoTbl[i].value;
 			}
@@ -488,7 +488,7 @@ const char *GetEncodingForConsole()
 			{ "eucKR",	"euc-kr"	},	// CP949
 			{ "big5",	"big5"		},	// CP950
 		};
-		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+		for (size_t i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langRight.c_str(), assocInfoTbl[i].key) == 0) {
 				return assocInfoTbl[i].value;
 			}
@@ -521,7 +521,7 @@ const Symbol *GetLangCodeFromCFUserTextEncoding()
 	if (strp == nullptr) return Gura_Symbol(en);
 	strp++;
 	ULong key = ::strtoul(strp, nullptr, 0); // returns zero for invalid format
-	for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 		if (assocInfoTbl[i].key == key) {
 			return Symbol::Add(assocInfoTbl[i].value);
 		}
@@ -1343,7 +1343,7 @@ int ExecProgram(Environment &env, const char *pathName,
 		::close(fdsStderr[i]);
 	}
 done:
-	for (int i = 0; i < ArraySizeOf(argv); i++) ::free(argv[i]);
+	for (size_t i = 0; i < ArraySizeOf(argv); i++) ::free(argv[i]);
 	return exitCode;
 }
 

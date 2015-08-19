@@ -82,7 +82,7 @@ char GetEscaped(char ch)
 		{ '\'',	'\''	},
 		{ '"',	'"'		},
 	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].ch == ch) return tbl[i].chConv;
 	}
 	return ch;
@@ -223,7 +223,7 @@ char ZenToHanChar(const char *str, const char **next)
 		{ "\xef\xbd\x9e", 3, 0x7e }, // ~
 		{ "\xef\xbf\xa3", 3, 0x7e }, // ~
 	};
-	for (int i = 0; i < ArraySizeOf(convTbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(convTbl); i++) {
 		const Convert &conv = convTbl[i];
 		if (::strncmp(str, conv.zenkaku, conv.len) == 0) {
 			if (next != nullptr) *next = str + conv.len;
