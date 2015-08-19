@@ -287,9 +287,6 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		//AutoPtr<Args> pArgsSub(new Args());
-		//pArgsSub->SetExprOwnerArg(pExprOwner);
-		//pArgsSub->SetThis(valueRtn);
 		CallerInfo callerInfo(pExprListArg->begin(), pExprListArg->end(),
 							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
 		pConstructorSuper->Call(*pEnvSuper, callerInfo, valueRtn, nullptr, false, nullptr);
@@ -303,6 +300,5 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, valueRtn);
 }
-
 
 }

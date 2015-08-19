@@ -51,8 +51,6 @@ Value Object_operator::DoCall(
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();
-	//const ExprList &exprList = args.GetExprListArg();
-	//size_t nArgs = exprList.size();
 	const Expr *pExprArg1 = nullptr, *pExprArg2 = nullptr;
 	ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
 	if (ppExprArg == callerInfo.GetExprListArgEnd()) {
