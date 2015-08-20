@@ -79,6 +79,7 @@ class Class_semaphore;
 class Class_Struct;
 
 class Module;
+class Monitor;
 class PathMgr;
 
 class Callable;
@@ -147,6 +148,7 @@ public:
 		bool				_echoFlag;
 		Module				*_pModule_sys;
 		AutoPtr<Stream>		_pConsoleDumb;
+		AutoPtr<Monitor>	_pMonitor;
 	public:
 		Global();
 		~Global();
@@ -177,6 +179,8 @@ public:
 		inline Module *GetModule_sys() { return _pModule_sys; }
 		inline void SetEchoFlag(bool echoFlag) { _echoFlag = echoFlag; }
 		inline bool GetEchoFlag() const { return _echoFlag; }
+		inline void SetMonitor(Monitor *pMonitor) { _pMonitor.reset(pMonitor); }
+		inline Monitor *GetMonitor() { return _pMonitor.get(); }
 	};
 	class GURA_DLLDECLARE Frame {
 	private:
@@ -266,9 +270,11 @@ public:
 	bool InitializeAsRoot(int &argc, const char *argv[],
 						  const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
-	inline const FrameOwner &GetFrameOwner() const { return _frameOwner;					}
+	inline const FrameOwner &GetFrameOwner() const
+												{ return _frameOwner;						}
 	inline FrameCache *GetFrameCache()			{ return _pFrameCache.get();				}
-	inline const FrameCache *GetFrameCache() const { return _pFrameCache.get();				}
+	inline const FrameCache *GetFrameCache() const
+												{ return _pFrameCache.get();				}
 	inline Frame *GetTopFrame()					{ return _frameOwner.front();				}
 	inline const Frame *GetTopFrame() const		{ return _frameOwner.front();				}
 	inline Frame *GetBottomFrame()				{ return _frameOwner.back();				}
@@ -278,10 +284,18 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType);	}
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();		}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
+public:
 	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
-	inline const Operator *GetOperator(OpType opType) const { return GetGlobal()->GetOperator(opType);	}
-	inline void SetOperator(OpType opType, Operator *pOperator) { GetGlobal()->SetOperator(opType, pOperator); }
+	inline const Operator *GetOperator(OpType opType) const
+												{ return GetGlobal()->GetOperator(opType);	}
+	inline void SetOperator(OpType opType, Operator *pOperator)
+												{ GetGlobal()->SetOperator(opType, pOperator); }
+	inline Class *LookupClass(ValueType valType) const
+												{ return GetGlobal()->LookupClass(valType);	}
+	inline void SetMonitor(Monitor *pMonitor)	{ GetGlobal()->SetMonitor(pMonitor);		}
+	inline Monitor *GetMonitor()				{ return GetGlobal()->GetMonitor();			}
+public:
 	const SymbolSet &GetSymbolsPublic() const;
 	SymbolSet &PrepareSymbolsPublic();
 	void AddRootFrame(const FrameList &frameListSrc);
@@ -317,9 +331,6 @@ public:
 	Value GetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
-	inline Class *LookupClass(ValueType valType) const {
-		return GetGlobal()->LookupClass(valType);
-	}
 	void AssignIntegratedModule(Module *pModule);
 	bool ImportModules(Signal &sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);
