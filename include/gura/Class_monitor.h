@@ -1,43 +1,42 @@
 //=============================================================================
-// Gura class: codec
+// Gura class: monitor
 //=============================================================================
-#ifndef __GURA_CLASS_CODEC_H__
-#define __GURA_CLASS_CODEC_H__
+#ifndef __GURA_CLASS_MONITOR_H__
+#define __GURA_CLASS_MONITOR_H__
 
 #include "Class.h"
-#include "Codec.h"
+#include "Monitor.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_codec
+// Class_monitor
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_codec : public Class {
+class GURA_DLLDECLARE Class_monitor : public Class {
 public:
-	Class_codec(Environment *pEnvOuter);
+	Class_monitor(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_codec
+// Object_monitor
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_codec : public Object {
+class GURA_DLLDECLARE Object_monitor : public Object {
 private:
-	AutoPtr<Codec> _pCodec;
+	AutoPtr<Monitor> _pMonitor;
 public:
-	Gura_DeclareObjectAccessor(codec)
+	Gura_DeclareObjectAccessor(monitor)
 public:
-	Object_codec(const Object_codec &obj);
-	inline Object_codec(Environment &env, Codec *pCodec) :
-						Object(env.LookupClass(VTYPE_codec)), _pCodec(pCodec) {}
-	inline Object_codec(Class *pClass, Codec *pCodec) :
-						Object(pClass), _pCodec(pCodec) {}
+	Object_monitor(const Object_monitor &obj);
+	inline Object_monitor(Environment &env, Monitor *pMonitor) :
+						Object(env.LookupClass(VTYPE_monitor)), _pMonitor(pMonitor) {}
+	inline Object_monitor(Class *pClass, Monitor *pMonitor) :
+						Object(pClass), _pMonitor(pMonitor) {}
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline Codec *GetCodec() { return _pCodec.get(); }
-	inline const Codec *GetCodec() const { return _pCodec.get(); }
+	inline Monitor *GetMonitor() { return _pMonitor.get(); }
+	inline const Monitor *GetMonitor() const { return _pMonitor.get(); }
 };
 
 }

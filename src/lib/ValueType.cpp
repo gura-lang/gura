@@ -57,6 +57,7 @@ ValueType VTYPE_image			= static_cast<ValueType>(0);
 ValueType VTYPE_iterator		= static_cast<ValueType>(0);
 ValueType VTYPE_list			= static_cast<ValueType>(0);
 ValueType VTYPE_matrix			= static_cast<ValueType>(0);
+ValueType VTYPE_monitor			= static_cast<ValueType>(0);
 ValueType VTYPE_operator		= static_cast<ValueType>(0);
 ValueType VTYPE_palette			= static_cast<ValueType>(0);
 ValueType VTYPE_pointer			= static_cast<ValueType>(0);
@@ -179,6 +180,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(iterator);
 	Gura_RealizeVTYPE(list);
 	Gura_RealizeVTYPE(matrix);
+	Gura_RealizeVTYPE(monitor);
 	Gura_RealizeVTYPE(operator);
 	Gura_RealizeVTYPE(palette);
 	Gura_RealizeVTYPE(pointer);
@@ -249,6 +251,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(iterator		)->SetClass(new Class_iterator(pClass));
 	Gura_VTYPEInfo(list			)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix		)->SetClass(new Class_matrix(pClass));
+	Gura_VTYPEInfo(monitor		)->SetClass(new Class_monitor(pClass));
 	Gura_VTYPEInfo(operator		)->SetClass(new Class_operator(pClass));
 	Gura_VTYPEInfo(palette		)->SetClass(new Class_palette(pClass));
 	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
@@ -307,6 +310,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_iterator		)->Prepare(env);
 	env.LookupClass(VTYPE_list			)->Prepare(env);
 	env.LookupClass(VTYPE_matrix		)->Prepare(env);
+	env.LookupClass(VTYPE_monitor		)->Prepare(env);
 	env.LookupClass(VTYPE_operator		)->Prepare(env);
 	env.LookupClass(VTYPE_palette		)->Prepare(env);
 	env.LookupClass(VTYPE_pointer		)->Prepare(env);

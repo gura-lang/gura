@@ -231,6 +231,7 @@ public:
 	inline bool Is_iterator() const			{ return IsType(VTYPE_iterator);		}
 	inline bool Is_list() const				{ return IsType(VTYPE_list);			}
 	inline bool Is_matrix() const			{ return IsType(VTYPE_matrix);			}
+	inline bool Is_monitor() const			{ return IsType(VTYPE_monitor);			}
 	inline bool Is_operator() const			{ return IsType(VTYPE_operator);		}
 	inline bool Is_palette() const			{ return IsType(VTYPE_palette);			}
 	inline bool Is_pointer() const			{ return IsType(VTYPE_pointer);			}
@@ -281,6 +282,7 @@ public:
 	inline bool MustBe_iterator(Signal &sig) const		{ return MustBe(sig, Is_iterator(), 	"iterator");		}
 	inline bool MustBe_list(Signal &sig) const			{ return MustBe(sig, Is_list(), 		"list");			}
 	inline bool MustBe_matrix(Signal &sig) const		{ return MustBe(sig, Is_matrix(), 		"matrix");			}
+	inline bool MustBe_monitor(Signal &sig) const		{ return MustBe(sig, Is_monitor(), 		"monitor");			}
 	inline bool MustBe_operator(Signal &sig) const		{ return MustBe(sig, Is_operator(), 	"operator");		}
 	inline bool MustBe_palette(Signal &sig) const		{ return MustBe(sig, Is_palette(), 		"palette");			}
 	inline bool MustBe_pointer(Signal &sig) const		{ return MustBe(sig, Is_pointer(), 		"pointer");			}
