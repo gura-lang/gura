@@ -75,6 +75,7 @@ Matrix.cpp
 Memory.cpp
 Module.cpp
 Monitor.cpp
+MonitorBasic.cpp
 OAL.cpp
 Operator.cpp
 OperatorBasic.cpp

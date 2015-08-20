@@ -36,6 +36,7 @@ int Main(int argc, const char *argv[])
 		{ "version",		'v', false	},
 		{ "llvm",			'o', true	},
 		{ "no-local-dir",	'N', false	},
+		{ "debug",			'g', false	},
 	};
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment(sig));
@@ -71,7 +72,9 @@ int Main(int argc, const char *argv[])
 		PrintVersion(stdout);
 		versionPrintedFlag = true;
 	}
-	//env.SetMonitor(new Monitor());
+	if (opt.IsSet("debug")) {
+		env.SetMonitor(new MonitorDebugger());
+	}
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
@@ -187,6 +190,7 @@ void PrintHelp(FILE *fp)
 "-T template    evaluate script code embedded in template\n"
 "-C dir         change directory before executing scripts\n"
 "-d coding      set character coding to describe script\n"
+"-g             debug mode\n"
 "-v             print version string\n"
 	);
 }

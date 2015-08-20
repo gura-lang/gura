@@ -21,8 +21,8 @@ public:
 private:
 	inline Monitor(const Monitor &monitor) {}
 public:
-	virtual bool OnExprPre(Environment &env, const Expr *pExprNext);
-	virtual bool OnExprPost(Environment &env, const Expr *pExpr, Value &valueRtn);
+	virtual bool OnExprPre(Environment &env, const Expr *pExprNext) = 0;
+	virtual bool OnExprPost(Environment &env, const Expr *pExpr, Value &valueRtn) = 0;
 public:
 	inline static bool NotifyExprPre(Environment &env, const Expr *pExprNext) {
 		Monitor *pMonitor = env.GetMonitor();

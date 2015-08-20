@@ -256,6 +256,7 @@
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="Monitor.cpp" />
+    <ClCompile Include="MonitorBasic.cpp" />
     <ClCompile Include="OAL.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="OperatorBasic.cpp" />
@@ -378,6 +379,7 @@
     <ClInclude Include="..\..\include\gura\Memory.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
     <ClInclude Include="..\..\include\gura\Monitor.h" />
+    <ClInclude Include="..\..\include\gura\MonitorBasic.h" />
     <ClInclude Include="..\..\include\gura\OAL.h" />
     <ClInclude Include="..\..\include\gura\Operator.h" />
     <ClInclude Include="..\..\include\gura\Option.h" />

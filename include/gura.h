@@ -48,6 +48,7 @@
 #include "gura/Memory.h"
 #include "gura/Module.h"
 #include "gura/Monitor.h"
+#include "gura/MonitorBasic.h"
 #include "gura/Operator.h"
 #include "gura/Option.h"
 #include "gura/PackedNumber.h"

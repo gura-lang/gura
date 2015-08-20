@@ -44,8 +44,9 @@ Gura_DeclareFunction(monitor)
 
 Gura_ImplementFunction(monitor)
 {
-	AutoPtr<Monitor> pMonitor(new Monitor());
-	return ReturnValue(env, args, Value(new Object_monitor(env, pMonitor.release())));
+	//AutoPtr<Monitor> pMonitor(new Monitor());
+	//return ReturnValue(env, args, Value(new Object_monitor(env, pMonitor.release())));
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
