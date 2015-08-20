@@ -71,6 +71,7 @@ int Main(int argc, const char *argv[])
 		PrintVersion(stdout);
 		versionPrintedFlag = true;
 	}
+	//env.SetMonitor(new Monitor());
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {

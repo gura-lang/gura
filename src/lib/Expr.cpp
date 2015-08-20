@@ -611,6 +611,7 @@ Expr *Expr_Value::Clone() const
 
 Value Expr_Value::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
 	if (_value.Is_expr()) {
@@ -619,6 +620,7 @@ Value Expr_Value::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 		result = _value;
 		if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
 	}
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -710,10 +712,12 @@ Callable *Expr_Identifier::LookupCallable(Environment &env) const
 
 Value Expr_Identifier::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result = env.GetProp(env, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -919,6 +923,7 @@ Expr *Expr_Suffixed::Clone() const
 
 Value Expr_Suffixed::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
 	SuffixMgrEntry *pSuffixMgrEntry = _numberFlag?
@@ -932,6 +937,7 @@ Value Expr_Suffixed::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 	result = pSuffixMgrEntry->DoEval(env, _body.c_str());
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -1168,6 +1174,7 @@ Expr *Expr_Block::Clone() const
 
 Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
@@ -1186,6 +1193,7 @@ Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 		}
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -1278,6 +1286,7 @@ Expr *Expr_Lister::Clone() const
 
 Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
@@ -1303,6 +1312,7 @@ Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 		}
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -1416,6 +1426,7 @@ Expr *Expr_Iterer::Clone() const
 
 Value Expr_Iterer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
@@ -1434,6 +1445,7 @@ Value Expr_Iterer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 	}
 	Value result(new Object_iterator(env, pIterator.release()));
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -1510,6 +1522,7 @@ Expr *Expr_Indexer::Clone() const
 
 Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerCar = nullptr;
 	Value valueCar = GetCar()->Exec2(env, pSeqPostHandlerCar);
@@ -1570,6 +1583,7 @@ Value Expr_Indexer::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 		}
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -1780,7 +1794,9 @@ Value Expr_Caller::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 	AutoPtr<TrailCtrlHolder> pTrailCtrlHolder(new TrailCtrlHolder(TRAILCTRL_Continue));
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != nullptr;
 									pExprCaller = pExprCaller->GetTrailer()) {
+		if (!Monitor::NotifyExprPre(env, pExprCaller)) return Value::Nil;
 		result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
+		if (!Monitor::NotifyExprPost(env, pExprCaller, result)) return Value::Nil;
 		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
 		if (trailCtrl == TRAILCTRL_Quit) break;
 		if (trailCtrl == TRAILCTRL_Finalize) {
@@ -1797,7 +1813,9 @@ Value Expr_Caller::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 				Callable *pCallable = pExprCaller->LookupCallable(env);
 				if (sig.IsSignalled()) return Value::Nil;
 				if (pCallable != nullptr && pCallable->IsFinalizer()) {
+					if (!Monitor::NotifyExprPre(env, pExprCaller)) return Value::Nil;
 					result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
+					if (!Monitor::NotifyExprPost(env, pExprCaller, result)) return Value::Nil;
 					if (sig.IsSignalled()) return Value::Nil;
 					sig.SetType(sigType);
 					sig.SetValue(valueSig);
@@ -2174,6 +2192,7 @@ Expr *Expr_UnaryOp::Clone() const
 
 Value Expr_UnaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerChild = nullptr;
 	Value value = GetChild()->Exec2(env, pSeqPostHandlerChild);
@@ -2181,6 +2200,7 @@ Value Expr_UnaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) co
 	Value result = _pOperator->EvalMapUnary(env, value, _suffixFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -2245,6 +2265,7 @@ Expr *Expr_BinaryOp::Clone() const
 
 Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	OpType opType = _pOperator->GetOpType();
 	const Expr *pExprLeft = GetLeft();
@@ -2287,6 +2308,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) c
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -2368,6 +2390,7 @@ const Expr *Expr_Quote::Unquote() const
 
 Value Expr_Quote::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
 	if (GetChild()->IsIdentifier()) {
@@ -2378,6 +2401,7 @@ Value Expr_Quote::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 		result = Value(new Object_expr(env, Expr::Reference(GetChild())));
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -2415,9 +2439,11 @@ Expr *Expr_Assign::Clone() const
 
 Value Expr_Assign::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result = Exec(env, env, nullptr, pSeqPostHandler);
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 
@@ -2496,6 +2522,7 @@ Expr *Expr_Member::Clone() const
 
 Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	SeqPostHandler *pSeqPostHandlerLeft = nullptr;
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
@@ -2545,6 +2572,7 @@ Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 		}
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
 

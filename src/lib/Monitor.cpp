@@ -18,6 +18,7 @@ Monitor::~Monitor()
 
 bool Monitor::OnExprPre(Environment &env, const Expr *pExprNext)
 {
+	::printf("%s\n", pExprNext->ToString(Expr::SCRSTYLE_OneLine).c_str());
 	return true;
 }
 
