@@ -324,38 +324,6 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class GURA_DLLDECLARE SequenceEach : public Sequence {
-	protected:
-		AutoPtr<ExprOwner> _pExprOwner;
-		size_t _idxExpr;
-	public:
-		SequenceEach(Environment *pEnv, ExprOwner *pExprOwner);
-	public:
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
-	class GURA_DLLDECLARE SequenceToList : public Sequence {
-	public:
-		class SeqPostHandlerEach : public SeqPostHandler {
-		private:
-			ValueList &_valList;
-		public:
-			inline SeqPostHandlerEach(Environment *pEnv, ValueList &valList) :
-									SeqPostHandler(pEnv), _valList(valList) {}
-			virtual bool DoPost(Signal &sig, const Value &result);
-		};
-	protected:
-		AutoPtr<ExprOwner> _pExprOwner;
-		size_t _idxExpr;
-		Value _result;
-		ValueList *_pValList;
-		AutoPtr<SeqPostHandlerEach> _pSeqPostHandlerEach;
-	public:
-		SequenceToList(Environment *pEnv, ExprOwner *pExprOwner);
-	public:
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 private:
 	int _cntRef;
 public:
@@ -601,13 +569,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Lister : public Expr_Collector {
 public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
-public:
 	inline Expr_Lister() : Expr_Collector(EXPRTYPE_Lister) {}
 	inline Expr_Lister(const Expr_Lister &expr) : Expr_Collector(expr) {}
 	inline static Expr_Lister *Reference(const Expr_Lister *pExpr) {
@@ -627,13 +588,6 @@ public:
 // Expr_Iterer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Iterer : public Expr_Collector {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 public:
 	inline Expr_Iterer() : Expr_Collector(EXPRTYPE_Iterer) {}
 	inline Expr_Iterer(Expr *pExpr) : Expr_Collector(EXPRTYPE_Iterer) {
@@ -678,13 +632,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Indexer : public Expr_Compound {
 public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
-public:
 	inline Expr_Indexer(Expr *pExprCar, Expr_Lister *pExprLister) :
 			Expr_Compound(EXPRTYPE_Indexer, pExprCar, pExprLister) {}
 	inline Expr_Indexer(const Expr_Indexer &expr) : Expr_Compound(expr) {}
@@ -706,13 +653,6 @@ public:
 // Expr_Caller
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Caller : public Expr_Compound {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	AutoPtr<Expr_Block> _pExprBlock;		// this may be nullptr
 	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be nullptr
@@ -774,13 +714,6 @@ private:
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	const Operator *_pOperator;
 	bool _suffixFlag;
@@ -814,13 +747,6 @@ public:
 // Expr_BinaryOp
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_BinaryOp : public Expr_Binary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	const Operator *_pOperator;
 public:
@@ -847,13 +773,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Quote : public Expr_Unary {
 public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
-public:
 	inline Expr_Quote(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Quote, pExprChild) {}
 	inline Expr_Quote(const Expr_Quote &expr) : Expr_Unary(expr) {}
 	inline static Expr_Quote *Reference(const Expr_Quote *pExpr) {
@@ -872,13 +791,6 @@ public:
 // Expr_Assign
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 private:
 	const Operator *_pOperatorToApply;	// this may be nullptr
 public:
@@ -904,13 +816,6 @@ public:
 // Expr_Member
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Member : public Expr_Binary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 public:
 	enum Mode {
 		MODE_Normal,		// foo.bar

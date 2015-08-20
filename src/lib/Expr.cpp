@@ -600,93 +600,6 @@ void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, Environment
 }
 
 //-----------------------------------------------------------------------------
-// ExprOwner::SequenceEach
-//-----------------------------------------------------------------------------
-ExprOwner::SequenceEach::SequenceEach(Environment *pEnv, ExprOwner *pExprOwner) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
-{
-}
-
-bool ExprOwner::SequenceEach::DoStep(Signal &sig, Value &result)
-{
-	if (_idxExpr >= _pExprOwner->size()) {
-		_doneFlag = true;
-		return false;
-	}
-	SeqPostHandler *pSeqPostHandlerEach = nullptr;
-	Environment &env = *_pEnv;
-	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, pSeqPostHandlerEach, true);
-	if (sig.IsSignalled()) return false;
-	if (_idxExpr < _pExprOwner->size()) return true;
-	_doneFlag = true;
-	return true;
-}
-
-String ExprOwner::SequenceEach::ToString() const
-{
-	String str;
-	str += "<sequence:expr>";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// ExprOwner::SequenceToList
-//-----------------------------------------------------------------------------
-ExprOwner::SequenceToList::SequenceToList(Environment *pEnv, ExprOwner *pExprOwner) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
-{
-	_pValList = &_result.InitAsList(*pEnv);
-	_pSeqPostHandlerEach.reset(new SeqPostHandlerEach(pEnv->Reference(), *_pValList));
-}
-
-bool ExprOwner::SequenceToList::DoStep(Signal &sig, Value &result)
-{
-	if (_idxExpr >= _pExprOwner->size()) {
-		_doneFlag = true;
-		return false;
-	}
-	Environment &env = *_pEnv;
-	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, _pSeqPostHandlerEach->Reference(), true);
-	if (sig.IsSignalled()) return false;
-	if (result.IsSequence()) return true;
-	if (_idxExpr < _pExprOwner->size()) return false;
-	result = _result;
-	_doneFlag = true;
-	return true;
-}
-
-String ExprOwner::SequenceToList::ToString() const
-{
-	String str;
-	str += "<sequence:expr>";
-	return str;
-}
-
-bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal &sig, const Value &result)
-{
-	Environment &env = *_pEnv;
-	if (result.Is_iterator()) {
-		AutoPtr<Gura::Iterator> pIterator(result.CreateIterator(sig));
-		if (sig.IsSignalled()) return false;
-		if (pIterator->IsInfinite()) {
-			Iterator::SetError_InfiniteNotAllowed(sig);
-			return false;
-		}
-		Value value;
-		while (pIterator->Next(env, value)) {
-			_valList.push_back(value);
-		}
-		if (sig.IsSignalled()) return false;
-	} else {
-		_valList.push_back(result);
-	}
-	//_valList.push_back(result);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
 // Expr_Value
 //-----------------------------------------------------------------------------
 bool Expr_Value::IsValue() const { return true; }
@@ -1256,7 +1169,6 @@ Expr *Expr_Block::Clone() const
 Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
 	Signal &sig = env.GetSignal();
-#if 1
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
 		ValueList &valList = result.InitAsList(env);
@@ -1275,16 +1187,6 @@ Value Expr_Block::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) cons
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
 	return result;
-#else
-	Sequence *pSequence = nullptr;
-	if (env.IsType(ENVTYPE_lister)) {
-		pSequence = new ExprOwner::SequenceToList(env.Reference(), GetExprOwner().Reference());
-	} else {
-		pSequence = new ExprOwner::SequenceEach(env.Reference(), GetExprOwner().Reference());
-	}
-	pSequence->SetSeqPostHandler(SeqPostHandler::Reference(pSeqPostHandler));
-	return Sequence::Return(sig, pSequence);
-#endif
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, const Symbol *pSymbol) const
@@ -1377,7 +1279,6 @@ Expr *Expr_Lister::Clone() const
 Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
 {
 	Signal &sig = env.GetSignal();
-#if 1
 	Value result;
 	SeqPostHandler *pSeqPostHandlerEach = nullptr;
 	ValueList &valList = result.InitAsList(env);
@@ -1403,11 +1304,6 @@ Value Expr_Lister::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 	}
 	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, result)) return Value::Nil;
 	return result;
-#else
-	Sequence *pSequence = new ExprOwner::SequenceToList(env.Reference(), GetExprOwner().Reference());
-	pSequence->SetSeqPostHandler(SeqPostHandler::Reference(pSeqPostHandler));
-	return Sequence::Return(sig, pSequence);
-#endif
 }
 
 Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
@@ -1508,22 +1404,6 @@ bool Expr_Lister::GenerateScript(Signal &sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_Lister::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Lister::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Lister::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_lister>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_Iterer
 //-----------------------------------------------------------------------------
@@ -1583,22 +1463,6 @@ bool Expr_Iterer::GenerateScript(Signal &sig, SimpleStream &stream,
 	stream.PutChar(sig, ')');
 	if (sig.IsSignalled()) return false;
 	return true;
-}
-
-Expr_Iterer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Iterer::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Iterer::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_iterer>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1860,22 +1724,6 @@ bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		return true;
 	}
-}
-
-Expr_Indexer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Indexer::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Indexer::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_indexer>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -2313,22 +2161,6 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 	return new Expr_Caller(pExprCar, pExprLister, nullptr);
 }
 
-Expr_Caller::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Caller::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Caller::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_caller>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
@@ -2399,22 +2231,6 @@ bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
-}
-
-Expr_UnaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_UnaryOp::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_UnaryOp::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_unaryop>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -2535,22 +2351,6 @@ bool Expr_BinaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_BinaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_BinaryOp::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_BinaryOp::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_binaryop>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_Quote
 //-----------------------------------------------------------------------------
@@ -2601,22 +2401,6 @@ bool Expr_Quote::GenerateScript(Signal &sig, SimpleStream &stream,
 		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	return true;
-}
-
-Expr_Quote::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Quote::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Quote::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_quote>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -2698,22 +2482,6 @@ bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
-}
-
-Expr_Assign::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Assign::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Assign::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -2869,22 +2637,6 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 	stream.Print(sig, str);
 	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	return true;
-}
-
-Expr_Member::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Member::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Member::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_member>";
-	return str;
 }
 
 }
