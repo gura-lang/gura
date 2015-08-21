@@ -73,7 +73,7 @@ private:
 		Complex *pComp;			// VTYPE_complex
 		Number num;				// VTYPE_number
 		Rational *pRatio;		// VTYPE_rational
-		StringRef *pStrRef;		// VTYPE_string
+		StringShared *pStrShrd;	// VTYPE_string
 		const Symbol *pSymbol;	// VTYPE_symbol
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class

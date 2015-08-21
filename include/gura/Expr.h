@@ -185,7 +185,7 @@ private:
 	int _cntRef;	// const_cast is used to update this value
 	int _lineNoTop, _lineNoBtm;
 	const Expr *_pExprParent;
-	AutoPtr<StringRef> _pSourceName;
+	AutoPtr<StringShared> _pSourceName;
 	BridgeFunctionT _bridgeFunction;
 public:
 	Gura_DeclareReferenceAccessor(Expr);
@@ -195,7 +195,7 @@ public:
 protected:
 	virtual ~Expr();
 public:
-	inline void SetSourceInfo(StringRef *pSourceName, int lineNoTop, int lineNoBtm) {
+	inline void SetSourceInfo(StringShared *pSourceName, int lineNoTop, int lineNoBtm) {
 		_pSourceName.reset(pSourceName);
 		_lineNoTop = lineNoTop, _lineNoBtm = lineNoBtm;
 	}
@@ -684,7 +684,7 @@ public:
 							   Expr *pExprArg3 = nullptr, Expr *pExprArg4 = nullptr);
 	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
-	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
+	void AddAttr(const Symbol *pSymbol);
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline SymbolSet &GetAttrs() { return _attrs; }
 	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }

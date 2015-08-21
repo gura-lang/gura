@@ -23,7 +23,7 @@ void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
 	} else if (valueSrc.Is_rational()) {
 		valueDst._u.pRatio = new Rational(*valueSrc._u.pRatio);
 	} else if (valueSrc.Is_string()) {
-		valueDst._u.pStrRef = valueSrc._u.pStrRef->Reference();
+		valueDst._u.pStrShrd = valueSrc._u.pStrShrd->Reference();
 	} else if (valueSrc.Is_symbol()) {
 		valueDst._u.pSymbol = valueSrc._u.pSymbol;
 	} else if (valueSrc.IsObject()) {
@@ -51,8 +51,8 @@ void Gura_ReleaseValue(Value &value)
 		delete value._u.pRatio;
 		value._u.pRatio = nullptr;
 	} else if (value.Is_string()) {
-		StringRef::Delete(value._u.pStrRef);
-		value._u.pStrRef = nullptr;
+		StringShared::Delete(value._u.pStrShrd);
+		value._u.pStrShrd = nullptr;
 	} else if (value.IsObject()) {
 		if (value.IsOwner()) Object::Delete(value._u.pObj);
 		value._u.pObj = nullptr;
@@ -102,7 +102,7 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 	} else if (value.Is_rational()) {
 		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
-		_u.pStrRef = value._u.pStrRef->Reference();
+		_u.pStrShrd = value._u.pStrShrd->Reference();
 	} else if (value.Is_symbol()) {
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.IsObject()) {
@@ -144,7 +144,7 @@ Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str.c_str(), len + 1);
 	} else {
-		_u.pStrRef = new StringRef(str);
+		_u.pStrShrd = new StringShared(str);
 	}
 }
 
@@ -155,7 +155,7 @@ Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
-		_u.pStrRef = new StringRef(str);
+		_u.pStrShrd = new StringShared(str);
 	}
 }
 
@@ -166,7 +166,7 @@ Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VF
 		::memcpy(_u.tinyBuff, str, len);
 		_u.tinyBuff[len] = '\0';
 	} else {
-		_u.pStrRef = new StringRef(String(str, len));
+		_u.pStrShrd = new StringShared(String(str, len));
 	}
 }
 
@@ -194,7 +194,7 @@ Value &Value::operator=(const Value &value)
 	} else if (value.Is_rational()) {
 		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
-		_u.pStrRef = value._u.pStrRef->Reference();
+		_u.pStrShrd = value._u.pStrShrd->Reference();
 	} else if (value.Is_symbol()) {
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.IsObject()) {
@@ -265,13 +265,13 @@ bool Value::IsInstanceOf(ValueType valType) const
 const char *Value::GetString() const
 {
 	if (GetTinyBuffFlag()) return _u.tinyBuff;
-	return _u.pStrRef->GetString();
+	return _u.pStrShrd->GetString();
 }
 
 String Value::GetStringSTL() const
 {
 	if (GetTinyBuffFlag()) return String(_u.tinyBuff);
-	return _u.pStrRef->GetStringSTL();
+	return _u.pStrShrd->GetStringSTL();
 }
 
 const Binary &Value::GetBinary() const

@@ -107,7 +107,7 @@ bool Template::Parser::ParseStream(Environment &env,
 								Template *pTemplate, SimpleStream &streamSrc)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<StringRef> pSourceName(new StringRef(streamSrc.GetName()));
+	AutoPtr<StringShared> pSourceName(new StringShared(streamSrc.GetName()));
 	char chMarker = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
@@ -358,7 +358,7 @@ bool Template::Parser::ParseStream(Environment &env,
 bool Template::Parser::CreateTmplScript(Environment &env,
 			const char *strIndent, const char *strTmplScript, const char *strPost,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
-			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
+			StringShared *pSourceName, int cntLineTop, int cntLineBtm)
 {
 	Signal &sig = env.GetSignal();
 	Class *pClass = env.LookupClass(VTYPE_template);

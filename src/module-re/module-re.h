@@ -31,19 +31,19 @@ void SetError_FailInOniguruma(Signal &sig);
 //-----------------------------------------------------------------------------
 class Group {
 private:
-	AutoPtr<StringRef> _pStrRef;
+	AutoPtr<StringShared> _pStrShrd;
 	int _posBegin, _posEnd;
 public:
-	inline Group(StringRef *pStrRef, int posBegin, int posEnd) :
-				_pStrRef(pStrRef), _posBegin(posBegin), _posEnd(posEnd) {}
-	inline Group(const Group &group) : _pStrRef(group._pStrRef->Reference()),
+	inline Group(StringShared *pStrShrd, int posBegin, int posEnd) :
+				_pStrShrd(pStrShrd), _posBegin(posBegin), _posEnd(posEnd) {}
+	inline Group(const Group &group) : _pStrShrd(group._pStrShrd->Reference()),
 				_posBegin(group._posBegin), _posEnd(group._posEnd) {}
 	inline void operator=(const Group &group) {
-		_pStrRef.reset(group._pStrRef->Reference()),
+		_pStrShrd.reset(group._pStrShrd->Reference()),
 		_posBegin = group._posBegin, _posEnd = group._posEnd;
 	}
 	inline String GetString() const {
-		return Middle(_pStrRef->GetString(), _posBegin, GetLength());
+		return Middle(_pStrShrd->GetString(), _posBegin, GetLength());
 	}
 	inline int GetPosBegin() const { return _posBegin; }
 	inline int GetPosEnd() const { return _posEnd; }
@@ -84,13 +84,13 @@ public:
 public:
 	Gura_DeclareObjectAccessor(match)
 private:
-	AutoPtr<StringRef> _pStrRef;
+	AutoPtr<StringShared> _pStrShrd;
 	GroupList _groupList;
 	GroupNameDict _groupNameDict;
 public:
 	inline Object_match() : Object(Gura_UserClass(match)) {}
 	inline Object_match(const Object_match &obj) : Object(obj),
-			_pStrRef(obj._pStrRef->Reference()), _groupList(obj._groupList) {}
+			_pStrShrd(obj._pStrShrd->Reference()), _groupList(obj._groupList) {}
 	virtual ~Object_match();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
@@ -100,7 +100,7 @@ public:
 	virtual String ToString(bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,
 								const OnigRegion *pRegion, int posOffset);
-	inline const char *GetString() const { return _pStrRef->GetString(); }
+	inline const char *GetString() const { return _pStrShrd->GetString(); }
 	const Group *GetGroup(Signal &sig, const Value &index) const;
 	const GroupList &GetGroupList() const { return _groupList; }
 private:

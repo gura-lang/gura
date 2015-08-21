@@ -14,7 +14,7 @@ Parser::Parser(const String &sourceName, int cntLineStart) :
 		_stat(STAT_BOF), _lineHeadFlag(true),
 		_appearShebangFlag(false), _blockParamFlag(false),
 		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
-		_pSourceName(new StringRef(sourceName))
+		_pSourceName(new StringShared(sourceName))
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -1828,8 +1828,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprDst = dynamic_cast<Expr_Indexer *>(pExprDst)->GetCar();
 			}
 			if (pExprRight->IsIdentifier()) {
-				const Symbol *pSymbol =
-						dynamic_cast<Expr_Identifier *>(pExprRight)->GetSymbol();
+				const Symbol *pSymbol = dynamic_cast<Expr_Identifier *>(pExprRight)->GetSymbol();
 				SymbolList *pAttrFront = nullptr;
 				if (pExprDst->IsIdentifier()) {
 					Expr_Identifier *pExprIdentifier =
@@ -1837,10 +1836,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprIdentifier->AddAttr(pSymbol);
 					pAttrFront = &pExprIdentifier->GetAttrFront();
 				} else if (pExprDst->IsCaller()) {
-					Expr_Caller *pExprCaller =
-									dynamic_cast<Expr_Caller *>(pExprDst);
-					Expr_Caller *pExprTrailer =
-									pExprCaller->GetLastTrailer();
+					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
+					Expr_Caller *pExprTrailer = pExprCaller->GetLastTrailer();
 					pExprTrailer->AddAttr(pSymbol);
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {

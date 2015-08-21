@@ -298,17 +298,17 @@ struct my_char_traits : public std::char_traits<char> {};
 typedef std::basic_string<char, my_char_traits> String;
 typedef std::deque<String> StringDeque;
 
-class GURA_DLLDECLARE StringRef {
+class GURA_DLLDECLARE StringShared {
 private:
 	int _cntRef;
 	String _str;
 public:
-	Gura_DeclareReferenceAccessor(StringRef)
+	Gura_DeclareReferenceAccessor(StringShared)
 public:
-	inline StringRef() : _cntRef(1) {}
-	inline StringRef(const String &str) : _cntRef(1), _str(str) {}
+	inline StringShared() : _cntRef(1) {}
+	inline StringShared(const String &str) : _cntRef(1), _str(str) {}
 private:
-	inline ~StringRef() {}
+	inline ~StringShared() {}
 public:
 	inline const char *GetString() const { return _str.c_str(); }
 	inline const String &GetStringSTL() const { return _str; }

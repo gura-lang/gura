@@ -227,7 +227,7 @@ private:
 	int _cntLine;
 	int _cntCol;
 	int _commentNestLevel;
-	AutoPtr<StringRef> _pSourceName;
+	AutoPtr<StringShared> _pSourceName;
 	String _token;
 	String _suffix;
 	ElementStack _elemStack;

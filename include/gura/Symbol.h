@@ -107,6 +107,25 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// SymbolSetShared
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE SymbolSetShared {
+private:
+	int _cntRef;
+	SymbolSet _symbolSet;
+public:
+	Gura_DeclareReferenceAccessor(SymbolSetShared)
+public:
+	inline SymbolSetShared() : _cntRef(1) {}
+	inline SymbolSetShared(const SymbolSet &symbolSet) : _cntRef(1), _symbolSet(symbolSet) {}
+private:
+	inline ~SymbolSetShared() {}
+public:
+	inline SymbolSet &GetSymbolSet() { return _symbolSet; }
+	inline const SymbolSet &GetSymbolSet() const { return _symbolSet; }
+};
+
+//-----------------------------------------------------------------------------
 // SymbolPool
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SymbolPool {

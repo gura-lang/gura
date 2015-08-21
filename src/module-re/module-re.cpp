@@ -294,14 +294,14 @@ bool Object_match::SetMatchInfo(const char *str,
 {
 	if (pRegion->num_regs == 0) return false;
 	::onig_foreach_name(pRegEx, &ForeachNameCallbackStub, this);
-	_pStrRef.reset(new StringRef(str));
+	_pStrShrd.reset(new StringShared(str));
 	for (int iGroup = 0; iGroup < pRegion->num_regs; iGroup++) {
 		int idxBegin = pRegion->beg[iGroup];
 		int idxEnd = pRegion->end[iGroup];
 		if (idxBegin > idxEnd) return false;
 		int posBegin = static_cast<int>(CalcCharPos(str, idxBegin)) + posOffset;
 		int posEnd = static_cast<int>(CalcCharPos(str, idxEnd)) + posOffset;
-		_groupList.push_back(Group(_pStrRef->Reference(), posBegin, posEnd));
+		_groupList.push_back(Group(_pStrShrd->Reference(), posBegin, posEnd));
 	}
 	return true;
 }

@@ -28,7 +28,7 @@ public:
 		bool CreateTmplScript(Environment &env,
 				const char *strIndent, const char *strTmplScript, const char *strPost,
 				Template *pTemplate, Expr_Block *pExprBlock,
-				StringRef *pSourceName, int cntLineTop, int cntLineBtm);
+				StringShared *pSourceName, int cntLineTop, int cntLineBtm);
 	};
 private:
 	int _cntRef;

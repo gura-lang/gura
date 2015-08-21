@@ -66,7 +66,7 @@ Expr::Expr(ExprType exprType) :
 
 Expr::Expr(const Expr &expr) :
 	_exprType(expr._exprType), _cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
-	_pExprParent(nullptr), _pSourceName(StringRef::Reference(expr._pSourceName.get())),
+	_pExprParent(nullptr), _pSourceName(StringShared::Reference(expr._pSourceName.get())),
 	_bridgeFunction(expr._bridgeFunction)
 {
 }
@@ -1772,6 +1772,11 @@ Expr_Caller::~Expr_Caller()
 Expr *Expr_Caller::Clone() const
 {
 	return new Expr_Caller(*this);
+}
+
+void Expr_Caller::AddAttr(const Symbol *pSymbol)
+{
+	_attrs.Insert(pSymbol);
 }
 
 Callable *Expr_Caller::LookupCallable(Environment &env) const
