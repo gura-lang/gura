@@ -18,8 +18,8 @@ private:
 	ResultMode _resultMode;
 	ULong _flags;
 	bool _listThisFlag;
-	SymbolSet _attrs;
-	SymbolSet _attrsOpt;
+	AutoPtr<SymbolSetShared> _pAttrsShared;
+	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	Value _valueThis;
 	ValueList _valListArg;
 	AutoPtr<ValueDict> _pValDictArg;
@@ -42,8 +42,8 @@ public:
 		_resultMode(args._resultMode),
 		_flags(args._flags),
 		_listThisFlag(args._listThisFlag),
-		_attrs(args._attrs),
-		_attrsOpt(args._attrsOpt),
+		_pAttrsShared(SymbolSetShared::Reference(args._pAttrsShared.get())),
+		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
 		_valueThis(args._valueThis),
 		_valListArg(args._valListArg),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
@@ -57,8 +57,8 @@ public:
 		_resultMode(args._resultMode),
 		_flags(args._flags),
 		_listThisFlag(args._listThisFlag),
-		_attrs(args._attrs),
-		_attrsOpt(args._attrsOpt),
+		_pAttrsShared(SymbolSetShared::Reference(args._pAttrsShared.get())),
+		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
 		_valueThis(args._valueThis),
 		_valListArg(valListArg),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
@@ -70,12 +70,20 @@ public:
 protected:
 	virtual ~Args();
 public:
-	inline bool IsSet(const Symbol *pSymbol) const { return _attrs.IsSet(pSymbol); }
-	inline bool IsAttrEmpty() const { return _attrs.empty(); }
-	inline void SetAttrs(const SymbolSet &attrs) { _attrs = attrs; }
-	inline void SetAttrsOpt(const SymbolSet &attrsOpt) { _attrsOpt = attrsOpt; }
-	inline const SymbolSet &GetAttrs() const { return _attrs; }
-	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline bool IsSet(const Symbol *pSymbol) const { return GetAttrs().IsSet(pSymbol); }
+	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
+	inline void SetAttrsShared(SymbolSetShared *pAttrsShared) {
+		_pAttrsShared.reset(pAttrsShared);
+	}
+	inline void SetAttrsOptShared(SymbolSetShared *pAttrsOptShared) {
+		_pAttrsOptShared.reset(pAttrsOptShared);
+	}
+	inline const SymbolSet &GetAttrs() const {
+		return _pAttrsShared.IsNull()? SymbolSet::Empty : _pAttrsShared->GetSymbolSet();
+	}
+	inline const SymbolSet &GetAttrsOpt() const {
+		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
+	}
 	inline void SetValueTypeResult(ValueType valTypeResult) { _valTypeResult = valTypeResult; }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }

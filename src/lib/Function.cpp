@@ -256,11 +256,10 @@ Value Function::Call(
 	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
-	//AutoPtr<Args> pArgs(new Args(args, ValueList::Empty));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
-	pArgs->SetAttrs(callerInfo.GetAttrs());
-	pArgs->SetAttrsOpt(callerInfo.GetAttrsOpt());
+	pArgs->SetAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared()));
+	pArgs->SetAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
 	pArgs->SetThis(valueThis);
 	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));

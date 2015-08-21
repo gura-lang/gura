@@ -2013,11 +2013,6 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody->Reference(), funcType);
-	//AutoPtr<Args> pArgs(new Args());
-	//pArgs->SetExprOwnerArg(GetExprOwner().Reference());
-	//pArgs->SetAttrs(GetAttrs());
-	//pArgs->SetAttrsOpt(GetAttrsOpt());
-	//pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	if (!pFunc->CustomDeclare(env, GetExprOwner(),
 							  GetBlock(), GetAttrs(), GetAttrsOpt(), SymbolSet::Empty)) {
 		Function::Delete(pFunc);
