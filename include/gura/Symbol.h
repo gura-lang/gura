@@ -117,7 +117,10 @@ public:
 	Gura_DeclareReferenceAccessor(SymbolSetShared)
 public:
 	inline SymbolSetShared() : _cntRef(1) {}
-	inline SymbolSetShared(const SymbolSet &symbolSet) : _cntRef(1), _symbolSet(symbolSet) {}
+	inline SymbolSetShared(const SymbolSet &symbolSet) :
+		_cntRef(1), _symbolSet(symbolSet) {}
+	inline SymbolSetShared(const SymbolSetShared &symbolSetShared) :
+		_cntRef(1), _symbolSet(symbolSetShared._symbolSet) {}
 private:
 	inline ~SymbolSetShared() {}
 public:

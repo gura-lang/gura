@@ -692,7 +692,8 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 				CallerInfo callerInfo(pExprCaller->GetExprOwner().begin(),
 									  pExprCaller->GetExprOwner().end(),
 									  pExprCaller->GetBlock(),
-									  pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt());
+									  pExprCaller->GetAttrsShared(),
+									  pExprCaller->GetAttrsOptShared());
 				pCallable->DoCall(*this, callerInfo, valueThis, nullptr, false, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);

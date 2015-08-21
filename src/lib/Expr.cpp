@@ -100,7 +100,7 @@ Value Expr::Exec(Environment &env,
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
 		CallerInfo callerInfo((ExprList::Empty).begin(), (ExprList::Empty).end(),
-							  nullptr, SymbolSet::Empty, SymbolSet::Empty);
+							  nullptr, nullptr, nullptr);
 		result = pFuncObj->GetFunction()->Call(env, callerInfo, pFuncObj->GetThis(),
 											   nullptr, false, nullptr);
 		if (sig.IsSignalled()) {
@@ -1748,17 +1748,21 @@ bool Expr_Caller::IsCaller() const { return true; }
 Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
 		Expr_Compound(EXPRTYPE_Caller,
 				pExprCar, (pExprLister == nullptr)? new Expr_Lister() : pExprLister),
-		_pExprBlock(pExprBlock), _pExprTrailer(nullptr)
+		_pExprBlock(pExprBlock), _pExprTrailer(nullptr),
+		_pAttrsShrd(new SymbolSetShared()),
+		_pAttrsOptShrd(new SymbolSetShared())
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 }
 
-Expr_Caller::Expr_Caller(const Expr_Caller &expr) : Expr_Compound(expr),
-		_pExprBlock(expr._pExprBlock.IsNull()? nullptr :
-					dynamic_cast<Expr_Block *>(expr._pExprBlock->Clone())),
-		_pExprTrailer(expr._pExprTrailer.IsNull()? nullptr :
-					dynamic_cast<Expr_Caller *>(expr._pExprTrailer->Clone())),
-		_attrs(expr._attrs), _attrsOpt(expr._attrsOpt)
+Expr_Caller::Expr_Caller(const Expr_Caller &expr) :
+	Expr_Compound(expr),
+	_pExprBlock(expr._pExprBlock.IsNull()? nullptr :
+				dynamic_cast<Expr_Block *>(expr._pExprBlock->Clone())),
+	_pExprTrailer(expr._pExprTrailer.IsNull()? nullptr :
+				  dynamic_cast<Expr_Caller *>(expr._pExprTrailer->Clone())),
+	_pAttrsShrd(new SymbolSetShared(*expr._pAttrsShrd)),
+	_pAttrsOptShrd(new SymbolSetShared(*expr._pAttrsOptShrd))
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 }
@@ -1776,7 +1780,14 @@ Expr *Expr_Caller::Clone() const
 
 void Expr_Caller::AddAttr(const Symbol *pSymbol)
 {
-	_attrs.Insert(pSymbol);
+	_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
+}
+
+void Expr_Caller::AddAttrs(const SymbolSet &symbolSet)
+{
+	foreach_const (SymbolSet, ppSymbol, symbolSet) {
+		AddAttr(*ppSymbol);
+	}
 }
 
 Callable *Expr_Caller::LookupCallable(Environment &env) const
@@ -1888,7 +1899,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			return Value::Nil;
 		}
 		CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
-							  GetBlock(), GetAttrs(), GetAttrsOpt());
+							  GetBlock(), GetAttrsShared(), GetAttrsOptShared());
 		return pCallable->DoCall(env, callerInfo, Value::Nil, nullptr, false, pTrailCtrlHolder);
 	}
 }
@@ -1940,7 +1951,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		return Value::Nil;
 	}
 	CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
-						  GetBlock(), GetAttrs(), GetAttrsOpt());
+						  GetBlock(), GetAttrsShared(), GetAttrsOptShared());
 	return pCallable->DoCall(env, callerInfo,
 							 valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
@@ -2085,8 +2096,7 @@ bool Expr_Caller::GenerateCode(Environment &env, CodeGenerator &codeGenerator) c
 bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	bool argListFlag = !GetExprOwner().empty() ||
-									!_attrs.empty() || _pExprBlock.IsNull();
+	bool argListFlag = !GetExprOwner().empty() || !GetAttrs().empty() || _pExprBlock.IsNull();
 	if (_pExprCar->IsIdentifier()) {
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(GetCar())->GetSymbol();
 		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
@@ -2125,7 +2135,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	foreach_const (SymbolSet, ppSymbol, _attrs) {
+	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!pSymbol->IsIdentical(pSymbolFront)) {
 			stream.PutChar(sig, ':');
@@ -2134,14 +2144,14 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	if (!_attrsOpt.empty()) {
+	if (!GetAttrsOpt().empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		foreach_const (SymbolSet, ppSymbol, _attrsOpt) {
+		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
 			const Symbol *pSymbol = *ppSymbol;
-			if (ppSymbol != _attrsOpt.begin()) {
+			if (ppSymbol != GetAttrsOpt().begin()) {
 				stream.PutChar(sig, ',');
 				if (sig.IsSignalled()) return false;
 			}

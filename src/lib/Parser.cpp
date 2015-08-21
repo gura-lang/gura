@@ -1849,23 +1849,29 @@ bool Parser::ReduceThreeElems(Environment &env)
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsMember()) {
 				Expr_Member *pExprMember = dynamic_cast<Expr_Member *>(pExprRight);
-				SymbolSet *pAttrs = nullptr;
-				SymbolSet *pAttrsOpt = nullptr;
 				SymbolList *pAttrFront = nullptr;
 				if (pExprDst->IsIdentifier()) {
-					Expr_Identifier *pExprIdentifier =
+					Expr_Identifier *pExprIdentifierDst =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
-					pAttrs = &pExprIdentifier->GetAttrs();
-					pAttrsOpt = &pExprIdentifier->GetAttrsOpt();
-					pAttrFront = &pExprIdentifier->GetAttrFront();
+					pAttrFront = &pExprIdentifierDst->GetAttrFront();
+					if (pExprMember->GetRight()->IsIdentifier()) {
+						Expr_Identifier *pExprIdentifier =
+							dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
+						pExprIdentifierDst->AddAttrs(pExprIdentifier->GetAttrs());
+						pExprIdentifierDst->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
+					}
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
 					Expr_Caller *pExprTrailer =
 									pExprCaller->GetLastTrailer();
-					pAttrs = &pExprTrailer->GetAttrs();
-					pAttrsOpt = &pExprTrailer->GetAttrsOpt();
 					pAttrFront = &pExprTrailer->GetAttrFront();
+					if (pExprMember->GetRight()->IsIdentifier()) {
+						Expr_Identifier *pExprIdentifier =
+							dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
+						pExprTrailer->AddAttrs(pExprIdentifier->GetAttrs());
+						pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
+					}
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
 					return false;
@@ -1874,12 +1880,6 @@ bool Parser::ReduceThreeElems(Environment &env)
 					sig.SetError(ERR_SyntaxError,
 							"value type must be specified as a first attribute");
 					return false;
-				}
-				if (pExprMember->GetRight()->IsIdentifier()) {
-					Expr_Identifier *pExprIdentifier =
-						dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
-					pAttrs->Insert(pExprIdentifier->GetAttrs());
-					pAttrsOpt->Insert(pExprIdentifier->GetAttrsOpt());
 				}
 				if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");

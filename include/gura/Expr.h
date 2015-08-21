@@ -392,7 +392,9 @@ public:
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
+	inline void AddAttrs(const SymbolSet &symbolSet) { _attrs.Insert(symbolSet); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
+	inline void AddAttrsOpt(const SymbolSet &symbolSet) { _attrsOpt.Insert(symbolSet); }
 	inline SymbolSet &GetAttrs() { return _attrs; }
 	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
@@ -656,8 +658,8 @@ class GURA_DLLDECLARE Expr_Caller : public Expr_Compound {
 protected:
 	AutoPtr<Expr_Block> _pExprBlock;		// this may be nullptr
 	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be nullptr
-	SymbolSet _attrs;
-	SymbolSet _attrsOpt;
+	AutoPtr<SymbolSetShared> _pAttrsShrd;
+	AutoPtr<SymbolSetShared> _pAttrsOptShrd;
 	SymbolList _attrFront;
 public:
 	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock);
@@ -685,11 +687,19 @@ public:
 	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	void AddAttr(const Symbol *pSymbol);
-	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
-	inline SymbolSet &GetAttrs() { return _attrs; }
-	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
-	inline const SymbolSet &GetAttrs() const { return _attrs; }
-	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	void AddAttrs(const SymbolSet &symbolSet);
+	inline void AddAttrOpt(const Symbol *pSymbol) {
+		_pAttrsOptShrd->GetSymbolSet().Insert(pSymbol);
+	}
+	inline void AddAttrsOpt(const SymbolSet &symbolSet) {
+		_pAttrsOptShrd->GetSymbolSet().Insert(symbolSet);
+	}
+	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShrd.get(); }
+	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShrd.get(); }
+	//inline SymbolSet &GetAttrs() { return _attrs; }
+	//inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
+	inline const SymbolSet &GetAttrs() const { return _pAttrsShrd->GetSymbolSet(); }
+	inline const SymbolSet &GetAttrsOpt() const { return _pAttrsOptShrd->GetSymbolSet(); }
 	inline SymbolList &GetAttrFront() { return _attrFront; }
 	inline const SymbolList &GetAttrFront() const { return _attrFront; }
 	inline void SetBlock(Expr_Block *pExprBlock) {
