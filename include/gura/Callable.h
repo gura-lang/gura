@@ -14,35 +14,39 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE CallerInfo {
 private:
-	ExprList::const_iterator _ppExprListArgBegin;
-	ExprList::const_iterator _ppExprListArgEnd;
+	const ExprList &_exprListArg;
 	const Expr_Block *_pExprBlock;
 	const SymbolSetShared *_pAttrsShrd;
 	const SymbolSetShared *_pAttrsOptShrd;
-	//ULong _flagsToSet;
-	//ULong _flagsToClear;
-	//ResultMode _resultMode;
-	//ValueType _valTypeResult;
+	ULong _flagsToSet;
+	ULong _flagsToClear;
+	ResultMode _resultMode;
+	ValueType _valTypeResult;
+	size_t _offsetArg;
+public:
+	static const CallerInfo Empty;
 public:
 	inline CallerInfo(
-		ExprList::const_iterator ppExprListArgBegin,
-		ExprList::const_iterator ppExprListArgEnd,
-		const Expr_Block *pExprBlock,
+		const ExprList &exprListArg, const Expr_Block *pExprBlock,
 		const SymbolSetShared *pAttrsShrd, const SymbolSetShared *pAttrsOptShrd) :
-		_ppExprListArgBegin(ppExprListArgBegin),
-		_ppExprListArgEnd(ppExprListArgEnd),
+		_exprListArg(exprListArg),
 		_pExprBlock(pExprBlock),
-		_pAttrsShrd(pAttrsShrd), _pAttrsOptShrd(pAttrsOptShrd) {}
+		_pAttrsShrd(pAttrsShrd), _pAttrsOptShrd(pAttrsOptShrd),
+		_flagsToSet(0), _flagsToClear(0),
+		_resultMode(RSLTMODE_Normal), _valTypeResult(VTYPE_undefined),
+		_offsetArg(0) {}
 	inline CallerInfo(const CallerInfo &callerInfo) :
-		_ppExprListArgBegin(callerInfo._ppExprListArgBegin),
-		_ppExprListArgEnd(callerInfo._ppExprListArgEnd),
+		_exprListArg(callerInfo._exprListArg),
 		_pExprBlock(callerInfo._pExprBlock),
-		_pAttrsShrd(callerInfo._pAttrsShrd), _pAttrsOptShrd(callerInfo._pAttrsOptShrd) {}
-	inline void AdvanceExprListArgBegin() {
-		if (_ppExprListArgBegin != _ppExprListArgEnd) _ppExprListArgBegin++;
+		_pAttrsShrd(callerInfo._pAttrsShrd), _pAttrsOptShrd(callerInfo._pAttrsOptShrd),
+		_flagsToSet(callerInfo._flagsToSet), _flagsToClear(callerInfo._flagsToClear),
+		_resultMode(callerInfo._resultMode), _valTypeResult(callerInfo._valTypeResult),
+		_offsetArg(callerInfo._offsetArg) {}
+	inline void SetOffsetArg(size_t offsetArg) { _offsetArg = offsetArg; }
+	inline ExprList::const_iterator GetExprListArgBegin() const {
+		return _exprListArg.begin() + _offsetArg;
 	}
-	inline ExprList::const_iterator GetExprListArgBegin() const { return _ppExprListArgBegin; }
-	inline ExprList::const_iterator GetExprListArgEnd() const { return _ppExprListArgEnd; }
+	inline ExprList::const_iterator GetExprListArgEnd() const { return _exprListArg.end(); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock; }
 	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShrd; }
 	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShrd; }
@@ -51,6 +55,23 @@ public:
 	}
 	inline const SymbolSet &GetAttrsOpt() const {
 		return (_pAttrsOptShrd == nullptr)? SymbolSet::Empty : _pAttrsOptShrd->GetSymbolSet();
+	}
+	inline void SetFlagsToSet(ULong flagsToSet) { _flagsToSet = flagsToSet; }
+	inline void SetFlagsToClear(ULong flagsToClear) { _flagsToClear = flagsToClear; }
+	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }
+	inline void SetValueTypeResult(ValueType valTypeResult) { _valTypeResult = valTypeResult; }
+	inline ULong GetFlagsToSet() const { return _flagsToSet; }
+	inline ULong GetFlagsToClear() const { return _flagsToClear; }
+	inline ResultMode GetResultMode() const { return _resultMode; }
+	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
+	inline ULong ModifyFlags(ULong flags) {
+		return (flags & ~_flagsToClear) | _flagsToSet;
+	}
+	inline ResultMode ModifyResultMode(ResultMode resultMode) {
+		return (_resultMode == RSLTMODE_Normal)? resultMode : _resultMode;
+	}
+	inline ValueType ModifyValueTypeResult(ValueType valTypeResult) {
+		return (_valTypeResult == VTYPE_undefined)? valTypeResult : _valTypeResult;
 	}
 };
 

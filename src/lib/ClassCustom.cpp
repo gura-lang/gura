@@ -286,8 +286,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		CallerInfo callerInfo(pExprListArg->begin(), pExprListArg->end(),
-							  nullptr, nullptr, nullptr);
+		CallerInfo callerInfo(*pExprListArg, nullptr, nullptr, nullptr);
 		pConstructorSuper->Call(*pEnvSuper, callerInfo, valueRtn, nullptr, false, nullptr);
 		if (sig.IsSignalled()) return Value::Nil;
 	}

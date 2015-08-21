@@ -99,9 +99,7 @@ Value Expr::Exec(Environment &env,
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
-		CallerInfo callerInfo((ExprList::Empty).begin(), (ExprList::Empty).end(),
-							  nullptr, nullptr, nullptr);
-		result = pFuncObj->GetFunction()->Call(env, callerInfo, pFuncObj->GetThis(),
+		result = pFuncObj->GetFunction()->Call(env, CallerInfo::Empty, pFuncObj->GetThis(),
 											   nullptr, false, nullptr);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
@@ -1753,6 +1751,8 @@ Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *p
 		_pAttrsOptShrd(new SymbolSetShared())
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
+	_pCallerInfo.reset(new CallerInfo(
+						   GetExprOwner(), GetBlock(), GetAttrsShared(), GetAttrsOptShared()));
 }
 
 Expr_Caller::Expr_Caller(const Expr_Caller &expr) :
@@ -1765,6 +1765,8 @@ Expr_Caller::Expr_Caller(const Expr_Caller &expr) :
 	_pAttrsOptShrd(new SymbolSetShared(*expr._pAttrsOptShrd))
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
+	_pCallerInfo.reset(new CallerInfo(
+						   GetExprOwner(), GetBlock(), GetAttrsShared(), GetAttrsOptShared()));
 }
 
 Expr_Caller::~Expr_Caller()
@@ -1776,6 +1778,20 @@ Expr_Caller::~Expr_Caller()
 Expr *Expr_Caller::Clone() const
 {
 	return new Expr_Caller(*this);
+}
+
+void Expr_Caller::UpdateCallerInfo()
+{
+	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
+	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
+	ResultMode resultMode = _pCallerInfo->GetResultMode();
+	ValueType valTypeResult = _pCallerInfo->GetValueTypeResult();
+	_pCallerInfo.reset(new CallerInfo(
+						   GetExprOwner(), GetBlock(), GetAttrsShared(), GetAttrsOptShared()));
+	_pCallerInfo->SetFlagsToSet(flagsToSet);
+	_pCallerInfo->SetFlagsToClear(flagsToClear);
+	_pCallerInfo->SetResultMode(resultMode);
+	_pCallerInfo->SetValueTypeResult(valTypeResult);
 }
 
 void Expr_Caller::AddAttr(const Symbol *pSymbol)
@@ -1898,9 +1914,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Nil;
 		}
-		CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
-							  GetBlock(), GetAttrsShared(), GetAttrsOptShared());
-		return pCallable->DoCall(env, callerInfo, Value::Nil, nullptr, false, pTrailCtrlHolder);
+		return pCallable->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, false, pTrailCtrlHolder);
 	}
 }
 
@@ -1950,9 +1964,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		SetError(sig, ERR_TypeError, "object is not callable");
 		return Value::Nil;
 	}
-	CallerInfo callerInfo(GetExprOwner().begin(), GetExprOwner().end(),
-						  GetBlock(), GetAttrsShared(), GetAttrsOptShared());
-	return pCallable->DoCall(env, callerInfo,
+	return pCallable->DoCall(env, GetCallerInfo(),
 							 valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 

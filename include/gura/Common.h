@@ -236,11 +236,11 @@ enum ResultMode {
 enum {
 	FLAG_None			= 0,
 	FLAG_Map			= (1 << 0),		// :map
-	FLAG_Flat			= (1 << 1),		// :flat
-	FLAG_Fork			= (1 << 2),		// :fork
-	FLAG_DynamicScope	= (1 << 3),		// :dynamic_scope
-	FLAG_SymbolFunc		= (1 << 4),		// :symbol_func
-	FLAG_NoMap			= (1 << 5),		// :nomap
+	FLAG_NoMap			= (1 << 1),		// :nomap
+	FLAG_Flat			= (1 << 2),		// :flat
+	FLAG_Fork			= (1 << 3),		// :fork
+	FLAG_DynamicScope	= (1 << 4),		// :dynamic_scope
+	FLAG_SymbolFunc		= (1 << 5),		// :symbol_func
 	FLAG_List			= (1 << 6),		// :list
 	FLAG_Nil			= (1 << 7),		// :nil
 	FLAG_Read			= (1 << 8),		// :r

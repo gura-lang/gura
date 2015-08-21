@@ -30,6 +30,7 @@ class Expr_Quote;
 class Expr_Assign;
 class Expr_Member;
 class Callable;
+class CallerInfo;
 
 typedef void (*BridgeFunctionT)(Environment &env, const Value &valueThis, Value &valueResult);
 
@@ -661,6 +662,7 @@ protected:
 	AutoPtr<SymbolSetShared> _pAttrsShrd;
 	AutoPtr<SymbolSetShared> _pAttrsOptShrd;
 	SymbolList _attrFront;
+	std::unique_ptr<CallerInfo> _pCallerInfo;
 public:
 	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock);
 	Expr_Caller(const Expr_Caller &expr);
@@ -686,6 +688,7 @@ public:
 							   Expr *pExprArg3 = nullptr, Expr *pExprArg4 = nullptr);
 	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
+	void UpdateCallerInfo();
 	void AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);
 	inline void AddAttrOpt(const Symbol *pSymbol) {
@@ -696,8 +699,6 @@ public:
 	}
 	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShrd.get(); }
 	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShrd.get(); }
-	//inline SymbolSet &GetAttrs() { return _attrs; }
-	//inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _pAttrsShrd->GetSymbolSet(); }
 	inline const SymbolSet &GetAttrsOpt() const { return _pAttrsOptShrd->GetSymbolSet(); }
 	inline SymbolList &GetAttrFront() { return _attrFront; }
@@ -705,6 +706,7 @@ public:
 	inline void SetBlock(Expr_Block *pExprBlock) {
 		_pExprBlock.reset(pExprBlock);
 		if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
+		UpdateCallerInfo();
 	}
 	inline void SetTrailer(Expr_Caller *pExprCaller) {
 		_pExprTrailer.reset(pExprCaller);
@@ -716,6 +718,7 @@ public:
 	inline Expr_Caller *GetLastTrailer() {
 		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();
 	}
+	inline const CallerInfo &GetCallerInfo() const { return *_pCallerInfo; }
 private:
 	Value DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const;
 };

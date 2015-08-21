@@ -1861,10 +1861,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 						pExprIdentifierDst->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 					}
 				} else if (pExprDst->IsCaller()) {
-					Expr_Caller *pExprCaller =
-									dynamic_cast<Expr_Caller *>(pExprDst);
-					Expr_Caller *pExprTrailer =
-									pExprCaller->GetLastTrailer();
+					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
+					Expr_Caller *pExprTrailer = pExprCaller->GetLastTrailer();
 					pAttrFront = &pExprTrailer->GetAttrFront();
 					if (pExprMember->GetRight()->IsIdentifier()) {
 						Expr_Identifier *pExprIdentifier =
@@ -1895,8 +1893,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 									"identifiers cannot declare optional attributes");
 					return false;
 				} else if (pExprDst->IsCaller()) {
-					Expr_Caller *pExprCaller =
-									dynamic_cast<Expr_Caller *>(pExprDst);
+					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
 					pExprCaller = pExprCaller->GetLastTrailer();
 					foreach (ExprList, ppExpr, exprList) {
 						Expr *pExpr = *ppExpr;

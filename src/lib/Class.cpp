@@ -381,7 +381,7 @@ Value Gura_Method(Object, __call__)::Call(
 	}
 	const Function *pFunc = valueFunc.GetFunction();
 	CallerInfo callerInfoSub(callerInfo);
-	callerInfoSub.AdvanceExprListArgBegin();
+	callerInfoSub.SetOffsetArg(1);
 	return pFunc->Call(env, callerInfoSub, valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
@@ -689,12 +689,8 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			if (pCallable == nullptr) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				CallerInfo callerInfo(pExprCaller->GetExprOwner().begin(),
-									  pExprCaller->GetExprOwner().end(),
-									  pExprCaller->GetBlock(),
-									  pExprCaller->GetAttrsShared(),
-									  pExprCaller->GetAttrsOptShared());
-				pCallable->DoCall(*this, callerInfo, valueThis, nullptr, false, nullptr);
+				pCallable->DoCall(*this, pExprCaller->GetCallerInfo(),
+								  valueThis, nullptr, false, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;
