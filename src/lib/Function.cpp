@@ -31,22 +31,32 @@ const char *GetFuncTypeName(FunctionType funcType)
 bool Function::IsCustom() const { return false; }
 bool Function::IsConstructorOfStruct() const { return false; }
 
-Function::Function(const Function &func) : _cntRef(1),
-	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
+Function::Function(const Function &func) :
+	_cntRef(1),
+	_pSymbol(func._pSymbol),
+	_pClassToConstruct(func._pClassToConstruct),
 	_pEnvScope(new Environment(func.GetEnvScope())),
 	_pDeclOwner(new DeclarationOwner(func.GetDeclOwner())),
 	_funcType(func._funcType),
-	_resultMode(func._resultMode), _flags(func._flags),
-	_attrsOpt(func._attrsOpt), _blockInfo(func._blockInfo)
+	_resultMode(func._resultMode),
+	_flags(func._flags),
+	_pAttrsOptShared(func._pAttrsOptShared.IsNull()?
+					 nullptr : new SymbolSetShared(*func._pAttrsOptShared)),
+	_blockInfo(func._blockInfo)
 {
 }
 
 Function::Function(Environment &envScope, const Symbol *pSymbol,
-								FunctionType funcType, ULong flags) :
+				   FunctionType funcType, ULong flags) :
 	_cntRef(1),
-	_pSymbol(pSymbol), _pClassToConstruct(nullptr),
-	_pEnvScope(Environment::Reference(&envScope)), _pDeclOwner(new DeclarationOwner()),
-	_funcType(funcType), _resultMode(RSLTMODE_Normal), _flags(flags)
+	_pSymbol(pSymbol),
+	_pClassToConstruct(nullptr),
+	_pEnvScope(Environment::Reference(&envScope)),
+	_pDeclOwner(new DeclarationOwner()),
+	_funcType(funcType),
+	_resultMode(RSLTMODE_Normal),
+	_flags(flags),
+	_pAttrsOptShared(nullptr)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
 	_blockInfo.pSymbol = nullptr;
@@ -71,15 +81,14 @@ void Function::SetClassToConstruct(Class *pClassToConstruct)
 	pClassToConstruct->SetConstructor(Function::Reference(this));
 }
 
-bool Function::CustomDeclare(
-	Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
-	const SymbolSet &attrs, const SymbolSet &attrsOpt, const SymbolSet &attrsAcceptable)
+bool Function::CustomDeclare(Environment &env,
+							 const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable)
 {
 	Signal &sig = env.GetSignal();
-	// delcaration of arguments
-	if (!GetDeclOwner().Declare(env, exprListArg)) return false;
+	// declaration of arguments
+	if (!GetDeclOwner().Declare(env, callerInfo)) return false;
 	// declaration of attributes
-	foreach_const (SymbolSet, ppSymbol, attrs) {
+	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
 			_flags |= FLAG_Map;
@@ -136,8 +145,9 @@ bool Function::CustomDeclare(
 			return false;
 		}
 	}
-	_attrsOpt = attrsOpt;
+	_pAttrsOptShared.reset(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
 	// declaration of a block
+	const Expr_Block *pExprBlock = callerInfo.GetBlock();
 	if (pExprBlock == nullptr) return true;
 	const ExprList &exprList = pExprBlock->GetExprOwner();
 	if (exprList.size() != 1) {
@@ -191,7 +201,8 @@ void Function::CopyDeclare(const Function &func)
 	_pDeclOwner.reset(new DeclarationOwner(func.GetDeclOwner()));
 	_resultMode	= func._resultMode;	// :list, :xlist, :set, :xset, :iter, :xiter, :void
 	_flags		= func._flags;		// :map, :nomap, :nonamed, :flat, :noflat
-	_attrsOpt	= func._attrsOpt;
+	_pAttrsOptShared.reset(func._pAttrsOptShared.IsNull()?
+						   nullptr : new SymbolSetShared(*func._pAttrsOptShared));
 	_blockInfo	= func._blockInfo;
 }
 
@@ -807,11 +818,11 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(xiter)->GetName();
 	}
-	if (!_attrsOpt.empty()) {
+	if (!GetAttrsOpt().empty()) {
 		str += ":[";
-		foreach_const (SymbolSet, ppSymbol, _attrsOpt) {
+		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
 			const Symbol *pSymbol = *ppSymbol;
-			if (ppSymbol != _attrsOpt.begin()) str += ",";
+			if (ppSymbol != GetAttrsOpt().begin()) str += ",";
 			str += pSymbol->GetName();
 		}
 		str += "]";

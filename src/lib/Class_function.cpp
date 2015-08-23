@@ -200,9 +200,11 @@ Gura_ImplementFunction(function)
 	//AutoPtr<Args> pArgsSub(new Args());
 	//pArgsSub->SetExprOwnerArg(pExprOwnerArg);
 	//pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(
-			env, *pExprOwnerArg, nullptr,
-			args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
+	//if (!pFunc->CustomDeclare(
+	//		env, *pExprOwnerArg, nullptr,
+	//		args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
+	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
 }
 

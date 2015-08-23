@@ -187,7 +187,7 @@ protected:
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
-	SymbolSet _attrsOpt;
+	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	HelpOwner _helpOwner;
 	BlockInfo _blockInfo;
 public:
@@ -224,7 +224,9 @@ public:
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ULong GetFlags() const { return _flags; }
-	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline const SymbolSet &GetAttrsOpt() const {
+		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
+	}
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
@@ -251,9 +253,8 @@ public:
 	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
-	bool CustomDeclare(
-		Environment &env, const ExprList &exprListArg, const Expr_Block *pExprBlock,
-		const SymbolSet &attrs, const SymbolSet &attrsOpt, const SymbolSet &attrsAcceptable);
+	bool CustomDeclare(Environment &env,
+					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
@@ -265,7 +266,11 @@ public:
 	}
 	inline void DeclareDictArg(const Symbol *pSymbol) { GetDeclOwner().SetSymbolDict(pSymbol); }
 	inline void DeclareDictArg(const char *name) { DeclareDictArg(Symbol::Add(name)); }
-	inline void DeclareAttr(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
+	inline void DeclareAttr(const Symbol *pSymbol) {
+		// Use this function only in a constructor of a derived class from Function.
+		if (_pAttrsOptShared.IsNull()) _pAttrsOptShared.reset(new SymbolSetShared());
+		_pAttrsOptShared->GetSymbolSet().Insert(pSymbol);
+	}
 	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
 	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
 	inline bool IsUnary() const {

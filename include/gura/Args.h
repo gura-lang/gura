@@ -78,6 +78,8 @@ public:
 	inline void SetAttrsOptShared(SymbolSetShared *pAttrsOptShared) {
 		_pAttrsOptShared.reset(pAttrsOptShared);
 	}
+	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShared.get(); }
+	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShared.get(); }
 	inline const SymbolSet &GetAttrs() const {
 		return _pAttrsShared.IsNull()? SymbolSet::Empty : _pAttrsShared->GetSymbolSet();
 	}

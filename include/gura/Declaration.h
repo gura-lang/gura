@@ -13,6 +13,7 @@ class Expr;
 class ExprList;
 class Environment;
 class Args;
+class CallerInfo;
 
 //-----------------------------------------------------------------------------
 // Declaration
@@ -128,7 +129,7 @@ public:
 				Expr *pExprDefault = nullptr) {
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
-	bool Declare(Environment &env, const ExprList &exprList);
+	bool Declare(Environment &env, const CallerInfo &callerInfo);
 	bool ValidateAndCast(Environment &env,
 						 const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;

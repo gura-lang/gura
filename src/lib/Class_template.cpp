@@ -501,9 +501,11 @@ Gura_ImplementMethod(template_, init_define)
 	foreach_const (ValueList, pValue, args.GetList(1)) {
 		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 	}
-	if (!pFunc->CustomDeclare(
-			env, *pExprOwnerArg, nullptr,
-			SymbolSet::Empty, SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
+	//if (!pFunc->CustomDeclare(
+	//		env, *pExprOwnerArg, nullptr,
+	//		SymbolSet::Empty, SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
+	CallerInfo callerInfo(*pExprOwnerArg, nullptr, nullptr, nullptr);
+	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());

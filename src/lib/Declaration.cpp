@@ -404,10 +404,12 @@ Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, 
 	return pDecl;
 }
 
-bool DeclarationOwner::Declare(Environment &env, const ExprList &exprList)
+bool DeclarationOwner::Declare(Environment &env, const CallerInfo &callerInfo)
 {
 	Signal &sig = env.GetSignal();
-	foreach_const (ExprList, ppExpr, exprList) {
+	//foreach_const (ExprList, ppExpr, exprList) {
+	for (ExprList::const_iterator ppExpr = callerInfo.GetExprListArgBegin();
+		 ppExpr != callerInfo.GetExprListArgEnd(); ppExpr++) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsUnaryOpSuffix()) {
 			const Expr_UnaryOp *pExprUnaryOp =

@@ -1299,12 +1299,11 @@ Gura_ImplementFunction(struct_)
 	AutoPtr<ClassOfStruct::Constructor> pFunc(new ClassOfStruct::Constructor(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	//AutoPtr<Args> pArgsSub(new Args());
-	//pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	//pArgsSub->SetAttrs(args.GetAttrs());
-	if (!pFunc->CustomDeclare(
-			env, *pExprOwnerArg, nullptr,
-			args.GetAttrs(), SymbolSet::Empty, _attrsOpt)) return false;
+	//if (!pFunc->CustomDeclare(
+	//		env, *pExprOwnerArg, nullptr,
+	//		args.GetAttrs(), SymbolSet::Empty, _attrsOpt)) return false;
+	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+	if (!pFunc->CustomDeclare(env, callerInfo, GetAttrsOpt())) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();
 	}
