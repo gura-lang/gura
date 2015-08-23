@@ -100,6 +100,22 @@ bool Function::CustomDeclare(Environment &env,
 			_flags |= FLAG_Flat;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
 			_flags &= ~FLAG_Flat;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(dynamic_scope))) {
+			_flags |= FLAG_DynamicScope;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(symbol_func))) {
+			_flags |= FLAG_SymbolFunc;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(leader))) {
+			_flags |= FLAG_Leader;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
+			_flags |= FLAG_Trailer;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(finalizer))) {
+			_flags |= FLAG_Finalizer;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
+			_flags |= FLAG_EndMarker;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
+			_flags |= FLAG_Public;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(private_))) {
+			_flags |= FLAG_Private;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
 			_resultMode = RSLTMODE_List;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
@@ -120,22 +136,6 @@ bool Function::CustomDeclare(Environment &env,
 			_resultMode = RSLTMODE_XReduce;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(static_))) {
 			// just ignore it
-		} else if (pSymbol->IsIdentical(Gura_Symbol(dynamic_scope))) {
-			_flags |= FLAG_DynamicScope;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(symbol_func))) {
-			_flags |= FLAG_SymbolFunc;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(leader))) {
-			_flags |= FLAG_Leader;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
-			_flags |= FLAG_Trailer;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(finalizer))) {
-			_flags |= FLAG_Finalizer;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
-			_flags |= FLAG_EndMarker;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
-			_flags |= FLAG_Public;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(private_))) {
-			_flags |= FLAG_Private;
 		} else if (attrsAcceptable.IsSet(pSymbol)) {
 			// nothing to do
 		} else {
