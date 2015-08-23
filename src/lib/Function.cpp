@@ -264,39 +264,39 @@ Value Function::Call(
 	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (GetType() == FUNCTYPE_Instance &&
-		!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
+			!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "object is expected as l-value of field");
-		return false;
+		return Value::Nil;
 	} else if (GetType() == FUNCTYPE_Class &&
-			   pArgs->GetThis().GetClassItself() == nullptr && pArgs->GetThisObj() == nullptr) {
+		   pArgs->GetThis().GetClassItself() == nullptr && pArgs->GetThisObj() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "class or object is expected as l-value of field");
-		return false;
+		return Value::Nil;
 	}
 	if (pArgs->IsBlockSpecified()) {
 		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
 			sig.SetError(ERR_ValueError,
 						 "block is unnecessary for '%s'", ToString().c_str());
-			return false;
+			return Value::Nil;
 		}
 	} else {
 		if (GetBlockInfo().occurPattern == OCCUR_Once) {
 			sig.SetError(ERR_ValueError,
 						 "block must be specified for '%s'", ToString().c_str());
-			return false;
+			return Value::Nil;
 		}
 	}
-	bool mapFlag = GetMapFlag();
+#if 1
 	do {
 		ULong flags = GetFlags();
 		ResultMode resultMode = GetResultMode();
 		foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
 			const Symbol *pSymbol = *ppSymbol;
 			if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-				mapFlag = true;
+				flags |= FLAG_Map;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-				mapFlag = false;
+				flags &= ~FLAG_Map;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
 				flags |= FLAG_NoNamed;
 			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
@@ -327,13 +327,27 @@ Value Function::Call(
 				sig.SetError(ERR_AttributeError,
 							 "unsupported attribute '%s' for '%s'",
 							 pSymbol->GetName(), ToString().c_str());
-				return false;
+				return Value::Nil;
 			}
 		}
 		pArgs->SetResultMode(resultMode);
 		pArgs->SetFlags(flags);
 		pArgs->SetValueTypeResult(GetValueTypeResult());
 	} while (0);
+#else
+	foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (!GetAttrsOpt().IsSet(pSymbol)) {
+			sig.SetError(ERR_AttributeError,
+						 "unsupported attribute '%s' for '%s'",
+						 pSymbol->GetName(), ToString().c_str());
+			return Value::Nil;
+		}
+	}
+	pArgs->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
+	pArgs->SetFlags(callerInfo.ModifyFlags(GetFlags()));
+	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
+#endif
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
 	pArgs->SetValueDictArg(new ValueDict());
@@ -354,21 +368,21 @@ Value Function::Call(
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value result = pExprRight->Exec(env, nullptr);
-				if (sig.IsSignalled()) return false;
+				if (sig.IsSignalled()) return Value::Nil;
 				valDictArg[valueKey] = result;
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be an identifier or a constant value");
-				return false;
+				return Value::Nil;
 			}
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (!result.Is_dict()) {
 				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
-				return false;
+				return Value::Nil;
 			}
 			foreach_const (ValueDict, item, result.GetDict()) {
 				const Value &valueKey = item->first;
@@ -396,11 +410,11 @@ Value Function::Call(
 		if (ppDecl == GetDeclOwner().end()) {
 			if (GetDeclOwner().IsAllowTooManyArgs()) break;
 			Declaration::SetError_TooManyArguments(sig);
-			return false;
+			return Value::Nil;
 		}
 		if (exprMap.find((*ppDecl)->GetSymbol()) != exprMap.end()) {
 			sig.SetError(ERR_ValueError, "argument confliction");
-			return false;
+			return Value::Nil;
 		}
 		if ((*ppDecl)->IsQuote()) {
 			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
@@ -414,7 +428,7 @@ Value Function::Call(
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
+			if (sig.IsSignalled()) return Value::Nil;
 			if (result.Is_list()) {
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
@@ -436,7 +450,7 @@ Value Function::Call(
 		} else {
 			// func(..., value, ...)
 			Value result = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
+			if (sig.IsSignalled()) return Value::Nil;
 			valListArg.push_back(result);
 			if ((*ppDecl)->IsVariableLength()) {
 				stayDeclPointerFlag = true;
@@ -460,13 +474,13 @@ Value Function::Call(
 				break;
 			} else {
 				Declaration::SetError_NotEnoughArguments(sig);
-				return false;
+				return Value::Nil;
 			}
 		} else if ((*ppDecl)->IsQuote()) {
 			valListArg.push_back(Value(new Object_expr(env, pExprArg->Reference())));
 		} else {
 			Value result = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
+			if (sig.IsSignalled()) return Value::Nil;
 			valListArg.push_back(result);
 		}
 	}
@@ -476,7 +490,7 @@ Value Function::Call(
 			const Symbol *pSymbol = iterExprMap->first;
 			const Expr *pExprArg = iterExprMap->second;
 			Value result = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
+			if (sig.IsSignalled()) return Value::Nil;
 			valDictArg[Value(pSymbol)] = result;
 		}
 	} else if (!exprMap.empty()) {
@@ -487,10 +501,10 @@ Value Function::Call(
 			str += iter->first->GetName();
 		}
 		sig.SetError(ERR_ValueError, "%s", str.c_str());
-		return false;
+		return Value::Nil;
 	}
 	//-------------------------------------------------------------------------
-	return (mapFlag && GetDeclOwner().ShouldImplicitMap(*pArgs))?
+	return (pArgs->GetMapFlag() && GetDeclOwner().ShouldImplicitMap(*pArgs))?
 		EvalMap(env, *pArgs) : Eval(env, *pArgs);
 }
 

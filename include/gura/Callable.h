@@ -64,13 +64,13 @@ public:
 	inline ULong GetFlagsToClear() const { return _flagsToClear; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
-	inline ULong ModifyFlags(ULong flags) {
+	inline ULong ModifyFlags(ULong flags) const {
 		return (flags & ~_flagsToClear) | _flagsToSet;
 	}
-	inline ResultMode ModifyResultMode(ResultMode resultMode) {
+	inline ResultMode ModifyResultMode(ResultMode resultMode) const {
 		return (_resultMode == RSLTMODE_Normal)? resultMode : _resultMode;
 	}
-	inline ValueType ModifyValueTypeResult(ValueType valTypeResult) {
+	inline ValueType ModifyValueTypeResult(ValueType valTypeResult) const {
 		return (_valTypeResult == VTYPE_undefined)? valTypeResult : _valTypeResult;
 	}
 };

@@ -1796,7 +1796,51 @@ void Expr_Caller::UpdateCallerInfo()
 
 void Expr_Caller::AddAttr(const Symbol *pSymbol)
 {
+#if 1
 	_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
+#else
+	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
+	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
+	ResultMode resultMode = _pCallerInfo->GetResultMode();
+	if (pSymbol->IsIdentical(Gura_Symbol(map))) {
+		flagsToSet = (flagsToSet | FLAG_Map) & ~FLAG_NoMap;
+		flagsToClear = (flagsToClear | FLAG_NoMap) & ~FLAG_Map;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
+		flagsToSet = (flagsToSet | FLAG_NoMap) & ~FLAG_Map;
+		flagsToClear = (flagsToClear | FLAG_Map) & ~FLAG_NoMap;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
+		flagsToSet |= FLAG_NoNamed;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+		flagsToSet |= FLAG_Flat;
+		flagsToClear &= ~FLAG_Flat;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
+		flagsToSet &= ~FLAG_Flat;
+		flagsToClear |= FLAG_Flat;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
+		resultMode = RSLTMODE_List;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
+		resultMode = RSLTMODE_XList;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
+		resultMode = RSLTMODE_Set;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
+		resultMode = RSLTMODE_XSet;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
+		resultMode = RSLTMODE_Iterator;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
+		resultMode = RSLTMODE_XIterator;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
+		resultMode = RSLTMODE_Void;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
+		resultMode = RSLTMODE_Reduce;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
+		resultMode = RSLTMODE_XReduce;
+	} else {
+		_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
+	}
+	_pCallerInfo->SetFlagsToSet(flagsToSet);
+	_pCallerInfo->SetFlagsToClear(flagsToClear);
+	_pCallerInfo->SetResultMode(resultMode);
+#endif
 }
 
 void Expr_Caller::AddAttrs(const SymbolSet &symbolSet)
@@ -2142,6 +2186,52 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
+	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
+	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
+	ResultMode resultMode = _pCallerInfo->GetResultMode();
+	if (flagsToSet & FLAG_Map) {
+		stream.PutChar(sig, ':');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, Gura_Symbol(map)->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	if (flagsToSet & FLAG_NoMap) {
+		stream.PutChar(sig, ':');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, Gura_Symbol(nomap)->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	if (flagsToSet & FLAG_Flat) {
+		stream.PutChar(sig, ':');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, Gura_Symbol(flat)->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	if (flagsToClear & FLAG_Flat) {
+		stream.PutChar(sig, ':');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, Gura_Symbol(noflat)->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	do {
+		const Symbol *pSymbol = 
+			(resultMode == RSLTMODE_List)?		Gura_Symbol(list) :
+			(resultMode == RSLTMODE_XList)?		Gura_Symbol(xlist) :
+			(resultMode == RSLTMODE_Set)?		Gura_Symbol(set) :
+			(resultMode == RSLTMODE_XSet)?		Gura_Symbol(xset) :
+			(resultMode == RSLTMODE_Iterator)?	Gura_Symbol(iter) :
+			(resultMode == RSLTMODE_XIterator)?	Gura_Symbol(xiter) :
+			(resultMode == RSLTMODE_Void)?		Gura_Symbol(void_) :
+			(resultMode == RSLTMODE_Reduce)?	Gura_Symbol(reduce) :
+			(resultMode == RSLTMODE_XReduce)?	Gura_Symbol(xreduce) :
+			nullptr;
+		if (pSymbol != nullptr) {
+			stream.PutChar(sig, ':');
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, pSymbol->GetName());
+			if (sig.IsSignalled()) return false;
+		}
+	} while (0);
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!pSymbol->IsIdentical(pSymbolFront)) {

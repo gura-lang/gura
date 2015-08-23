@@ -89,6 +89,7 @@ public:
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
+	inline bool GetMapFlag() const { return (_flags & FLAG_Map)? true : false; }
 	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
 	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
