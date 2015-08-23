@@ -407,7 +407,6 @@ Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, 
 bool DeclarationOwner::Declare(Environment &env, const CallerInfo &callerInfo)
 {
 	Signal &sig = env.GetSignal();
-	//foreach_const (ExprList, ppExpr, exprList) {
 	for (ExprList::const_iterator ppExpr = callerInfo.GetExprListArgBegin();
 		 ppExpr != callerInfo.GetExprListArgEnd(); ppExpr++) {
 		const Expr *pExpr = *ppExpr;
