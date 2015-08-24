@@ -157,7 +157,6 @@ bool Function::CustomDeclare(Environment &env,
 	}
 #endif
 #else
-	/*
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!(pSymbol->IsIdentical(Gura_Symbol(static_)) || attrsAcceptable.IsSet(pSymbol))) {
@@ -166,7 +165,6 @@ bool Function::CustomDeclare(Environment &env,
 			return false;
 		}
 	}
-	*/
 	_resultMode = callerInfo.ModifyResultMode(_resultMode);
 	_flags = callerInfo.ModifyFlags(_flags);
 	_valTypeResult = callerInfo.ModifyValueTypeResult(_valTypeResult);
@@ -372,7 +370,6 @@ Value Function::Call(
 		pArgs->SetValueTypeResult(GetValueTypeResult());
 	} while (0);
 #else
-	/*
 	foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
@@ -381,7 +378,6 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
-	*/
 	pArgs->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
 	pArgs->SetFlags(callerInfo.ModifyFlags(GetFlags()));
 	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
@@ -773,6 +769,33 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(block)->GetName();
 	}
+
+
+	do {
+		static const struct {
+			ULong flag;
+			const char *attrName;
+		} items[] = {
+			{ FLAG_Map,				":map"			},
+			{ FLAG_NoMap,			":nomap"		},
+			{ FLAG_NoNamed,			":nonamed"		},
+			{ FLAG_Flat,			":flat"			},
+			{ FLAG_DynamicScope,	":dynamic_scope"},
+			{ FLAG_SymbolFunc,		":symbol_func"	},
+			{ FLAG_Leader,			":leader"		},
+			{ FLAG_Trailer,			":trailer"		},
+			{ FLAG_Finalizer,		":finalizer"	},
+			{ FLAG_EndMarker,		":end_marker"	},
+			{ FLAG_Public,			":public"		},
+			{ FLAG_Private,			":private"		},
+		};
+		for (auto item : items) {
+			if (_flags & item.flag) {
+				str += item.attrName;
+			}
+		}
+	} while (0);
+#if 0
 	if (GetMapFlag()) {
 		str += ":";
 		str += Gura_Symbol(map)->GetName();
@@ -817,6 +840,30 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(nonamed)->GetName();
 	}
+#endif
+	do {
+		static const struct {
+			ResultMode resultMode;
+			const char *attrName;
+		} items[] = {
+			{ RSLTMODE_List,		":list"			},
+			{ RSLTMODE_XList,		":xlist"		},
+			{ RSLTMODE_Set,			":set"			},
+			{ RSLTMODE_XSet,		":xset"			},
+			{ RSLTMODE_Iterator,	":iter"			},
+			{ RSLTMODE_XIterator,	":xiter"	 	},
+			{ RSLTMODE_Void,		":void"			},
+			{ RSLTMODE_Reduce,		":reduce"		},
+			{ RSLTMODE_XReduce,		":xreduce"		},
+		};
+		for (auto item : items) {
+			if (_resultMode == item.resultMode) {
+				str += item.attrName;
+				break;
+			}
+		}
+	} while (0);
+#if 0
 	if (_resultMode == RSLTMODE_List) {
 		str += ":";
 		str += Gura_Symbol(list)->GetName();
@@ -845,6 +892,7 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(xiter)->GetName();
 	}
+#endif
 	if (!GetAttrsOpt().empty()) {
 		str += ":[";
 		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
