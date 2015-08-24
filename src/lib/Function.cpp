@@ -88,6 +88,7 @@ bool Function::CustomDeclare(Environment &env,
 	// declaration of arguments
 	if (!GetDeclOwner().Declare(env, callerInfo)) return false;
 	// declaration of attributes
+#if 1
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
@@ -145,6 +146,19 @@ bool Function::CustomDeclare(Environment &env,
 			return false;
 		}
 	}
+#else
+	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (!(pSymbol->IsIdentical(Gura_Symbol(static_)) || attrsAcceptable.IsSet(pSymbol))) {
+			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for function declaration",
+						 pSymbol->GetName());
+			return false;
+		}
+	}
+	_resultMode = callerInfo.ModifyResultMode(_resultMode);
+	_flags = callerInfo.ModifyFlags(_flags);
+	_valTypeResult = callerInfo.ModifyValueTypeResult(_valTypeResult);
+#endif
 	_pAttrsOptShared.reset(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
 	// declaration of a block
 	const Expr_Block *pExprBlock = callerInfo.GetBlock();
@@ -349,8 +363,7 @@ Value Function::Call(
 	foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
-			sig.SetError(ERR_AttributeError,
-						 "unsupported attribute '%s' for '%s'",
+			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
 						 pSymbol->GetName(), ToString().c_str());
 			return Value::Nil;
 		}

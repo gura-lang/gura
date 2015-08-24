@@ -188,6 +188,7 @@ matrix(nrows:number, ncols:number, value?) {block?}
 max(values+):map
 min(values+):map
 module() {block}
+monitor() {block?}
 nil:nil = nil
 number:class = <class:number>
 object() {block?}
@@ -662,6 +663,7 @@ matrix
   matrix#submat(row:number, col:number, nrows:number, ncols:number):map
   matrix#tolist():[flat,transpose]
   matrix#transpose()
+monitor
 nil
 number
   number.roundoff(threshold:number => 1e-10)
