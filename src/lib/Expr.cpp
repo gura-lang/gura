@@ -2209,7 +2209,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 	}
 #if 1
 	do {
-		static const struct {
+		static const struct Item {
 			ULong flag;
 			const char *attrName;
 		} items[] = {
@@ -2235,7 +2235,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		static const struct {
+		static const struct Item {
 			ULong flag;
 			const char *attrName;
 		} items[] = {
@@ -2250,7 +2250,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		static const struct {
+		static const struct Item {
 			ResultMode resultMode;
 			const char *attrName;
 		} items[] = {

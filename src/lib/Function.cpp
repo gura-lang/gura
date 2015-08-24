@@ -772,7 +772,7 @@ String Function::ToString() const
 
 
 	do {
-		static const struct {
+		static const struct Item {
 			ULong flag;
 			const char *attrName;
 		} items[] = {
@@ -842,7 +842,7 @@ String Function::ToString() const
 	}
 #endif
 	do {
-		static const struct {
+		static const struct Item {
 			ResultMode resultMode;
 			const char *attrName;
 		} items[] = {
