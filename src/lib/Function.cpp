@@ -146,7 +146,18 @@ bool Function::CustomDeclare(Environment &env,
 			return false;
 		}
 	}
+#if 0
+	if (_resultMode != callerInfo.ModifyResultMode(RSLTMODE_Normal)) {
+		::printf("result mode error: %d %d\n",
+				 _resultMode, callerInfo.ModifyResultMode(RSLTMODE_Normal));
+	}
+	if (_flags != callerInfo.ModifyFlags(0)) {
+		::printf("flags error: %08lx %08lx\n",
+				 _flags, callerInfo.ModifyFlags(0));
+	}
+#endif
 #else
+	/*
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!(pSymbol->IsIdentical(Gura_Symbol(static_)) || attrsAcceptable.IsSet(pSymbol))) {
@@ -155,6 +166,7 @@ bool Function::CustomDeclare(Environment &env,
 			return false;
 		}
 	}
+	*/
 	_resultMode = callerInfo.ModifyResultMode(_resultMode);
 	_flags = callerInfo.ModifyFlags(_flags);
 	_valTypeResult = callerInfo.ModifyValueTypeResult(_valTypeResult);
@@ -360,6 +372,7 @@ Value Function::Call(
 		pArgs->SetValueTypeResult(GetValueTypeResult());
 	} while (0);
 #else
+	/*
 	foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
@@ -368,6 +381,7 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
+	*/
 	pArgs->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
 	pArgs->SetFlags(callerInfo.ModifyFlags(GetFlags()));
 	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));

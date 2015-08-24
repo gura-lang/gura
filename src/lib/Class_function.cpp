@@ -201,6 +201,8 @@ Gura_ImplementFunction(function)
 	//		env, *pExprOwnerArg, nullptr,
 	//		args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+	callerInfo.SetFlagsToSet(args.GetFlags());
+	callerInfo.SetResultMode(args.GetResultMode());
 	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
 }

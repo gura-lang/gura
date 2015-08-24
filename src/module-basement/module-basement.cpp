@@ -1303,6 +1303,8 @@ Gura_ImplementFunction(struct_)
 	//		env, *pExprOwnerArg, nullptr,
 	//		args.GetAttrs(), SymbolSet::Empty, _attrsOpt)) return false;
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+	callerInfo.SetFlagsToSet(args.GetFlags() & ~FLAG_NoNamed);
+	callerInfo.SetResultMode(args.GetResultMode());
 	if (!pFunc->CustomDeclare(env, callerInfo, GetAttrsOpt())) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();

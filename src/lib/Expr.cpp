@@ -1853,6 +1853,7 @@ void Expr_Caller::AddAttr(const Symbol *pSymbol)
 	} else {
 		_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
 	}
+	//_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
 	_pCallerInfo->SetFlagsToSet(flagsToSet);
 	_pCallerInfo->SetFlagsToClear(flagsToClear);
 	_pCallerInfo->SetResultMode(resultMode);
@@ -2203,11 +2204,9 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
-	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
-	ResultMode resultMode = _pCallerInfo->GetResultMode();
+#if 0
 	do {
-		struct Item {
+		static const struct {
 			ULong flag;
 			const char *attrName;
 		} items[] = {
@@ -2224,6 +2223,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ FLAG_Public,			":public"		},
 			{ FLAG_Private,			":private"		},
 		};
+		ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
 		for (auto item : items) {
 			if (flagsToSet & item.flag) {
 				stream.Print(sig, item.attrName);
@@ -2232,12 +2232,13 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		struct Item {
+		static const struct {
 			ULong flag;
 			const char *attrName;
 		} items[] = {
 			{ FLAG_Flat,			":noflat"		},
 		};
+		ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
 		for (auto item : items) {
 			if (flagsToClear & item.flag) {
 				stream.Print(sig, item.attrName);
@@ -2246,7 +2247,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		struct Item {
+		static const struct {
 			ResultMode resultMode;
 			const char *attrName;
 		} items[] = {
@@ -2260,6 +2261,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ RSLTMODE_Reduce,		":reduce"		},
 			{ RSLTMODE_XReduce,		":xreduce"		},
 		};
+		ResultMode resultMode = _pCallerInfo->GetResultMode();
 		for (auto item : items) {
 			if (resultMode == item.resultMode) {
 				stream.Print(sig, item.attrName);
@@ -2268,6 +2270,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			}
 		}
 	} while (0);
+#endif
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!pSymbol->IsIdentical(pSymbolFront)) {
