@@ -2209,10 +2209,11 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 	}
 #if 1
 	do {
-		static const struct Item {
+		struct Item {
 			ULong flag;
 			const char *attrName;
-		} items[] = {
+		};
+		static const Item items[] = {
 			{ FLAG_Map,				":map"			},
 			{ FLAG_NoMap,			":nomap"		},
 			{ FLAG_NoNamed,			":nonamed"		},
@@ -2235,10 +2236,11 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		static const struct Item {
+		struct Item {
 			ULong flag;
 			const char *attrName;
-		} items[] = {
+		};
+		static const Item items[] = {
 			{ FLAG_Flat,			":noflat"		},
 		};
 		ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
@@ -2250,10 +2252,11 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		}
 	} while (0);
 	do {
-		static const struct Item {
+		struct Item {
 			ResultMode resultMode;
 			const char *attrName;
-		} items[] = {
+		};
+		static const Item items[] = {
 			{ RSLTMODE_List,		":list"			},
 			{ RSLTMODE_XList,		":xlist"		},
 			{ RSLTMODE_Set,			":set"			},
