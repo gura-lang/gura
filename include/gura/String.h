@@ -26,6 +26,8 @@ GURA_DLLDECLARE char ZenToHanChar(const char *str, const char **next);
 GURA_DLLDECLARE const char *FindString(const char *str, const char *sub, bool ignoreCaseFlag);
 GURA_DLLDECLARE String::const_iterator FindString(String::const_iterator str,
 		String::const_iterator strEnd, const String &sub, bool ignoreCaseFlag);
+GURA_DLLDECLARE Value FindString(Environment &env, const char *str, const char *sub, int start,
+								 bool ignoreCaseFlag, bool reverseFlag, bool listFlag);
 
 GURA_DLLDECLARE String PickChar(const String &str, size_t idx);
 GURA_DLLDECLARE String::const_iterator NextChar(const String &str, String::const_iterator p);
@@ -55,8 +57,8 @@ GURA_DLLDECLARE const char *EndsWith(const char *str, const char *suffix, size_t
 GURA_DLLDECLARE String Capitalize(const char *str);
 GURA_DLLDECLARE String Lower(const char *str);
 GURA_DLLDECLARE String Upper(const char *str);
-GURA_DLLDECLARE String Strip(const char *str, bool stripLeftFlag = true, bool stripRightFlag = true);
-GURA_DLLDECLARE String Strip(const char *str, const SymbolSet &attrs);
+GURA_DLLDECLARE String Strip(const char *str,
+							 bool stripLeftFlag = true, bool stripRightFlag = true);
 GURA_DLLDECLARE String Chop(const char *str, bool eolOnlyFlag);
 GURA_DLLDECLARE size_t Length(const char *str);
 GURA_DLLDECLARE size_t Width(const char *str);
@@ -71,12 +73,10 @@ GURA_DLLDECLARE String Left(const char *str, size_t len);
 GURA_DLLDECLARE String Right(const char *str, size_t len);
 GURA_DLLDECLARE String Middle(const char *str, int start, int len);
 GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
-									int nMaxReplace, const SymbolSet &attrs);
+							   int nMaxReplace, bool ignoreCaseFlag);
 GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
-									int nMaxReplace, const SymbolSet &attrs);
+								int nMaxReplace, bool ignoreCaseFlag);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
-GURA_DLLDECLARE Value FindString(Environment &env,
-		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
 GURA_DLLDECLARE UShort GetCType(char ch);
 GURA_DLLDECLARE Number ToNumber(const char *str, bool *pSuccessFlag = nullptr);

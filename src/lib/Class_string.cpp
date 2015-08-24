@@ -335,8 +335,9 @@ Gura_DeclareMethod(string, find)
 
 Gura_ImplementMethod(string, find)
 {
-	return FindString(env, args.GetThis().GetString(), args.GetString(0),
-									args.GetInt(1), args.GetAttrs());
+	return FindString(env, args.GetThis().GetString(), args.GetString(0), args.GetInt(1),
+					  args.IsSet(Gura_Symbol(icase)), args.IsSet(Gura_Symbol(rev)),
+					  args.IsSet(Gura_Symbol(list)));
 }
 
 // string#fold(len:number, step?:number):[neat] {block?}
@@ -638,9 +639,10 @@ Gura_DeclareMethod(string, replace)
 
 Gura_ImplementMethod(string, replace)
 {
-	String result = Replace(args.GetThis().GetString(),
-			args.GetString(0), args.GetString(1),
-			args.IsValid(2)? args.GetInt(2) : -1, args.GetAttrs());
+	String result = Replace(
+		args.GetThis().GetString(),
+		args.GetString(0), args.GetString(1),
+		args.IsValid(2)? args.GetInt(2) : -1, args.IsSet(Gura_Symbol(icase)));
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -685,7 +687,7 @@ Gura_ImplementMethod(string, replaces)
 	}
 	int nMaxReplace = args.IsValid(1)? args.GetInt(1) : -1;
 	String result = Replaces(args.GetThis().GetString(),
-							 valList, nMaxReplace, args.GetAttrs());
+							 valList, nMaxReplace, args.IsSet(Gura_Symbol(icase)));
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -796,7 +798,16 @@ Gura_DeclareMethod(string, strip)
 
 Gura_ImplementMethod(string, strip)
 {
-	return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
+	bool stripLeftFlag = true, stripRightFlag = true;
+	if (args.IsSet(Gura_Symbol(both))) {
+		// nothing to do
+	} else if (args.IsSet(Gura_Symbol(left)) && !args.IsSet(Gura_Symbol(right))) {
+		stripRightFlag = false;
+	} else if (!args.IsSet(Gura_Symbol(left)) && args.IsSet(Gura_Symbol(right))) {
+		stripLeftFlag = false;
+	}
+	return Value(Strip(args.GetThis().GetString(), stripLeftFlag, stripRightFlag));
+	//return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
 }
 
 // string#template():[noindent,lasteol] {block?}
@@ -819,9 +830,6 @@ Gura_ImplementMethod(string, template_)
 	AutoPtr<Template> pTemplate(new Template());
 	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
-	//String strSrc = args.GetThis().GetStringSTL();
-	//SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
-	//if (!pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
 }

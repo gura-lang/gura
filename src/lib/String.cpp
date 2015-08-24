@@ -473,6 +473,58 @@ String::const_iterator FindString(String::const_iterator str,
 	return strEnd;
 }
 
+Value FindString(Environment &env, const char *str, const char *sub, int start,
+				 bool ignoreCaseFlag, bool reverseFlag, bool listFlag)
+{
+	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
+	do {
+		int len = static_cast<int>(::strlen(str));
+		if (start < 0) {
+			start += len;
+			if (start < 0) start = 0;
+		}
+		if (start > len) return Value::Nil;
+	} while (0);
+	//if (attrs.IsSet(Gura_Symbol(rev))) {
+	if (reverseFlag) {
+		const char *p = FindString(str + start, sub, ignoreCaseFlag);
+		//if (attrs.IsSet(Gura_Symbol(list))) {
+		if (listFlag) {
+			ValueList valListOrg;
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+				valListOrg.push_back(Value(static_cast<Number>(p - str)));
+			}
+			Value result;
+			ValueList &valList = result.InitAsList(env);
+			foreach_reverse (ValueList, pValue, valListOrg) {
+				valList.push_back(*pValue);
+			}
+			return result;
+		} else {
+			const char *pLast = nullptr;
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+				pLast = p;
+			}
+			return (pLast == nullptr)? Value::Nil :
+							Value(static_cast<Number>(pLast - str));
+		}
+	} else {
+		const char *p = FindString(str + start, sub, ignoreCaseFlag);
+		//if (attrs.IsSet(Gura_Symbol(list))) {
+		if (listFlag) {
+			Value result;
+			ValueList &valList = result.InitAsList(env);
+			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
+				valList.push_back(Value(static_cast<Number>(p - str)));
+			}
+			return result;
+		} else {
+			return (p == nullptr)? Value::Nil :
+							Value(static_cast<Number>(p - str));
+		}
+	}
+}
+
 const char *StartsWith(const char *str, const char *prefix, size_t pos, bool ignoreCaseFlag)
 {
 	str = Forward(str, pos);
@@ -626,7 +678,8 @@ String Strip(const char *str, bool stripLeftFlag, bool stripRightFlag)
 	return String(p1, p2 - p1 + 1);
 }
 
-String Strip(const char *str, const SymbolSet &attrs)
+#if 0
+String Strip(const char *str, bool leftFlag, bool rightFlag)
 {
 	bool stripLeftFlag = true, stripRightFlag = true;
 	if (attrs.IsSet(Gura_Symbol(both))) {
@@ -638,6 +691,7 @@ String Strip(const char *str, const SymbolSet &attrs)
 	}
 	return Strip(str, stripLeftFlag, stripRightFlag);
 }
+#endif
 
 String Chop(const char *str, bool eolOnlyFlag)
 {
@@ -1013,59 +1067,10 @@ String Middle(const char *str, int start, int len)
 	}
 }
 
-Value FindString(Environment &env,
-		const char *str, const char *sub, int start, const SymbolSet &attrs)
-{
-	bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
-	do {
-		int len = static_cast<int>(::strlen(str));
-		if (start < 0) {
-			start += len;
-			if (start < 0) start = 0;
-		}
-		if (start > len) return Value::Nil;
-	} while (0);
-	if (attrs.IsSet(Gura_Symbol(rev))) {
-		const char *p = FindString(str + start, sub, ignoreCaseFlag);
-		if (attrs.IsSet(Gura_Symbol(list))) {
-			ValueList valListOrg;
-			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
-				valListOrg.push_back(Value(static_cast<Number>(p - str)));
-			}
-			Value result;
-			ValueList &valList = result.InitAsList(env);
-			foreach_reverse (ValueList, pValue, valListOrg) {
-				valList.push_back(*pValue);
-			}
-			return result;
-		} else {
-			const char *pLast = nullptr;
-			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
-				pLast = p;
-			}
-			return (pLast == nullptr)? Value::Nil :
-							Value(static_cast<Number>(pLast - str));
-		}
-	} else {
-		const char *p = FindString(str + start, sub, ignoreCaseFlag);
-		if (attrs.IsSet(Gura_Symbol(list))) {
-			Value result;
-			ValueList &valList = result.InitAsList(env);
-			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
-				valList.push_back(Value(static_cast<Number>(p - str)));
-			}
-			return result;
-		} else {
-			return (p == nullptr)? Value::Nil :
-							Value(static_cast<Number>(p - str));
-		}
-	}
-}
-
 String Replace(const char *str, const char *sub, const char *replace,
-										int nMaxReplace, const SymbolSet &attrs)
+			   int nMaxReplace, bool ignoreCaseFlag)
 {
-	bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
+	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
 	String result;
 	int lenSub = static_cast<int>(::strlen(sub));
 	if (lenSub == 0) {
@@ -1094,9 +1099,9 @@ String Replace(const char *str, const char *sub, const char *replace,
 }
 
 GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
-									int nMaxReplace, const SymbolSet &attrs)
+								int nMaxReplace, bool ignoreCaseFlag)
 {
-	bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
+	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
 	String result;
 	const char *p = str;
 	for (int nReplace = 0; (nMaxReplace < 0 || nReplace < nMaxReplace) && *p != '\0'; ) {
