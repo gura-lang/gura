@@ -769,13 +769,12 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(block)->GetName();
 	}
-
-
 	do {
-		static const struct Item {
+		struct Item {
 			ULong flag;
 			const char *attrName;
-		} items[] = {
+		};
+		static const Item items[] = {
 			{ FLAG_Map,				":map"			},
 			{ FLAG_NoMap,			":nomap"		},
 			{ FLAG_NoNamed,			":nonamed"		},
@@ -789,7 +788,8 @@ String Function::ToString() const
 			{ FLAG_Public,			":public"		},
 			{ FLAG_Private,			":private"		},
 		};
-		for (Item item : items) {
+		for (size_t i = 0; i < ArraySizeOf(items); i++) {
+			const Item &item = items[i];
 			if (_flags & item.flag) {
 				str += item.attrName;
 			}
@@ -842,10 +842,11 @@ String Function::ToString() const
 	}
 #endif
 	do {
-		static const struct Item {
+		struct Item {
 			ResultMode resultMode;
 			const char *attrName;
-		} items[] = {
+		};
+		static const Item items[] = {
 			{ RSLTMODE_List,		":list"			},
 			{ RSLTMODE_XList,		":xlist"		},
 			{ RSLTMODE_Set,			":set"			},
@@ -856,7 +857,8 @@ String Function::ToString() const
 			{ RSLTMODE_Reduce,		":reduce"		},
 			{ RSLTMODE_XReduce,		":xreduce"		},
 		};
-		for (Item item : items) {
+		for (size_t i = 0; i < ArraySizeOf(items); i++) {
+			const Item &item = items[i];
 			if (_resultMode == item.resultMode) {
 				str += item.attrName;
 				break;

@@ -2228,7 +2228,8 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ FLAG_Private,			":private"		},
 		};
 		ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
-		for (const Item &item : items) {
+		for (size_t i = 0; i < ArraySizeOf(items); i++) {
+			const Item &item = items[i];
 			if (flagsToSet & item.flag) {
 				stream.Print(sig, item.attrName);
 				if (sig.IsSignalled()) return false;
@@ -2244,7 +2245,8 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ FLAG_Flat,			":noflat"		},
 		};
 		ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
-		for (const Item &item : items) {
+		for (size_t i = 0; i < ArraySizeOf(items); i++) {
+			const Item &item = items[i];
 			if (flagsToClear & item.flag) {
 				stream.Print(sig, item.attrName);
 				if (sig.IsSignalled()) return false;
@@ -2268,7 +2270,8 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ RSLTMODE_XReduce,		":xreduce"		},
 		};
 		ResultMode resultMode = _pCallerInfo->GetResultMode();
-		for (const Item &item : items) {
+		for (size_t i = 0; i < ArraySizeOf(items); i++) {
+			const Item &item = items[i];
 			if (resultMode == item.resultMode) {
 				stream.Print(sig, item.attrName);
 				if (sig.IsSignalled()) return false;
