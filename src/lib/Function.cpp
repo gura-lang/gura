@@ -789,7 +789,7 @@ String Function::ToString() const
 			{ FLAG_Public,			":public"		},
 			{ FLAG_Private,			":private"		},
 		};
-		for (auto item : items) {
+		for (Item item : items) {
 			if (_flags & item.flag) {
 				str += item.attrName;
 			}
@@ -856,7 +856,7 @@ String Function::ToString() const
 			{ RSLTMODE_Reduce,		":reduce"		},
 			{ RSLTMODE_XReduce,		":xreduce"		},
 		};
-		for (auto item : items) {
+		for (Item item : items) {
 			if (_resultMode == item.resultMode) {
 				str += item.attrName;
 				break;
