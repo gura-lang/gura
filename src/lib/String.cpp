@@ -678,21 +678,6 @@ String Strip(const char *str, bool stripLeftFlag, bool stripRightFlag)
 	return String(p1, p2 - p1 + 1);
 }
 
-#if 0
-String Strip(const char *str, bool leftFlag, bool rightFlag)
-{
-	bool stripLeftFlag = true, stripRightFlag = true;
-	if (attrs.IsSet(Gura_Symbol(both))) {
-		// nothing to do
-	} else if (attrs.IsSet(Gura_Symbol(left)) && !attrs.IsSet(Gura_Symbol(right))) {
-		stripRightFlag = false;
-	} else if (!attrs.IsSet(Gura_Symbol(left)) && attrs.IsSet(Gura_Symbol(right))) {
-		stripLeftFlag = false;
-	}
-	return Strip(str, stripLeftFlag, stripRightFlag);
-}
-#endif
-
 String Chop(const char *str, bool eolOnlyFlag)
 {
 	size_t len = ::strlen(str);
@@ -1070,7 +1055,6 @@ String Middle(const char *str, int start, int len)
 String Replace(const char *str, const char *sub, const char *replace,
 			   int nMaxReplace, bool ignoreCaseFlag)
 {
-	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
 	String result;
 	int lenSub = static_cast<int>(::strlen(sub));
 	if (lenSub == 0) {
@@ -1101,7 +1085,6 @@ String Replace(const char *str, const char *sub, const char *replace,
 GURA_DLLDECLARE String Replaces(const char *str, const ValueList &valList,
 								int nMaxReplace, bool ignoreCaseFlag)
 {
-	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
 	String result;
 	const char *p = str;
 	for (int nReplace = 0; (nMaxReplace < 0 || nReplace < nMaxReplace) && *p != '\0'; ) {
