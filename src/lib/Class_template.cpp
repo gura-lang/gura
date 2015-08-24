@@ -489,21 +489,10 @@ Gura_ImplementMethod(template_, init_define)
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
-	//AutoPtr<Args> pArgsSub(new Args());
-	//do {
-	//	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	//	foreach_const (ValueList, pValue, args.GetList(1)) {
-	//		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
-	//	}
-	//	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	//} while (0);
 	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 	foreach_const (ValueList, pValue, args.GetList(1)) {
 		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 	}
-	//if (!pFunc->CustomDeclare(
-	//		env, *pExprOwnerArg, nullptr,
-	//		SymbolSet::Empty, SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, nullptr, nullptr);
 	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	ValueMap &valueMap = pTemplate->GetValueMap();

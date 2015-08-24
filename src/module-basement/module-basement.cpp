@@ -1299,9 +1299,6 @@ Gura_ImplementFunction(struct_)
 	AutoPtr<ClassOfStruct::Constructor> pFunc(new ClassOfStruct::Constructor(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	//if (!pFunc->CustomDeclare(
-	//		env, *pExprOwnerArg, nullptr,
-	//		args.GetAttrs(), SymbolSet::Empty, _attrsOpt)) return false;
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
 	callerInfo.SetFlagsToSet(args.GetFlags() & ~FLAG_NoNamed);
 	callerInfo.SetResultMode(args.GetResultMode());

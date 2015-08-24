@@ -81,9 +81,6 @@ Function *ClassCustom::PrepareConstructor(Environment &env)
 	} else {
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		//if (!pFunc->CustomDeclare(
-		//		env, ExprList::Empty, nullptr,
-		//		SymbolSet::Empty, SymbolSet::Empty, SymbolSet::Empty)) return nullptr;
 		if (!pFunc->CustomDeclare(env, CallerInfo::Empty, SymbolSet::Empty)) return nullptr;
 	}
 	pFunc->SetSymbol(_pSymbol);

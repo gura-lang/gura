@@ -197,9 +197,6 @@ Gura_ImplementFunction(function)
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	//if (!pFunc->CustomDeclare(
-	//		env, *pExprOwnerArg, nullptr,
-	//		args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
 	callerInfo.SetFlagsToSet(args.GetFlags());
 	callerInfo.SetResultMode(args.GetResultMode());
