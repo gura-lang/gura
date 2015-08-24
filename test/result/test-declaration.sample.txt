@@ -661,7 +661,7 @@ matrix
   matrix#setcol(col:number, value)
   matrix#setrow(row:number, value)
   matrix#submat(row:number, col:number, nrows:number, ncols:number):map
-  matrix#tolist():[flat,transpose]
+  matrix#tolist():[transpose]
   matrix#transpose()
 monitor
 nil

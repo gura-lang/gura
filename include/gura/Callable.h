@@ -73,6 +73,11 @@ public:
 	inline ValueType ModifyValueTypeResult(ValueType valTypeResult) const {
 		return (_valTypeResult == VTYPE_undefined)? valTypeResult : _valTypeResult;
 	}
+	inline bool HasAttrs() const {
+		return !GetAttrs().empty() || _resultMode != RSLTMODE_Normal ||
+			_flagsToSet != 0 || _flagsToClear != 0 || _valTypeResult != VTYPE_undefined;
+	}
+	inline bool HasAttrsOpt() const { return !GetAttrsOpt().empty(); }
 };
 
 //-----------------------------------------------------------------------------

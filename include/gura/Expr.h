@@ -392,7 +392,10 @@ public:
 	virtual void Accept(ExprVisitor &visitor);
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env) const;
-	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
+	inline bool AddAttr(const Symbol *pSymbol) {
+		_attrs.Insert(pSymbol);
+		return true;
+	}
 	inline void AddAttrs(const SymbolSet &symbolSet) { _attrs.Insert(symbolSet); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline void AddAttrsOpt(const SymbolSet &symbolSet) { _attrsOpt.Insert(symbolSet); }
@@ -689,7 +692,7 @@ public:
 	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	void UpdateCallerInfo();
-	void AddAttr(const Symbol *pSymbol);
+	bool AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);
 	inline void AddAttrOpt(const Symbol *pSymbol) {
 		_pAttrsOptShrd->GetSymbolSet().Insert(pSymbol);

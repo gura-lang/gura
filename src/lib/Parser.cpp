@@ -1829,22 +1829,23 @@ bool Parser::ReduceThreeElems(Environment &env)
 			}
 			if (pExprRight->IsIdentifier()) {
 				const Symbol *pSymbol = dynamic_cast<Expr_Identifier *>(pExprRight)->GetSymbol();
+				bool optAttrFlag = false;
 				SymbolList *pAttrFront = nullptr;
 				if (pExprDst->IsIdentifier()) {
 					Expr_Identifier *pExprIdentifier =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
-					pExprIdentifier->AddAttr(pSymbol);
+					optAttrFlag = pExprIdentifier->AddAttr(pSymbol);
 					pAttrFront = &pExprIdentifier->GetAttrFront();
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
 					Expr_Caller *pExprTrailer = pExprCaller->GetLastTrailer();
-					pExprTrailer->AddAttr(pSymbol);
+					optAttrFlag = pExprTrailer->AddAttr(pSymbol);
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
 					return false;
 				}
-				if (pAttrFront->empty()) pAttrFront->push_back(pSymbol);
+				if (optAttrFlag && pAttrFront->empty()) pAttrFront->push_back(pSymbol);
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsMember()) {

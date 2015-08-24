@@ -1081,8 +1081,8 @@ fifth line
 
 str.eachline():list .. ['first line\n', 'second line\n', 'third line\n', 'fourth line\n', 'fifth line\n']
 str.eachline(2):list .. ['first line\n', 'second line\n']
-str.eachline():list:chop .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
-str.eachline(2):list:chop .. ['first line', 'second line']
+str.eachline():chop:list .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
+str.eachline(2):chop:list .. ['first line', 'second line']
 str .. first line
 second line
 third line
@@ -1091,8 +1091,8 @@ fifth line
 
 str.eachline():list .. ['first line\r\n', 'second line\r\n', 'third line\r\n', 'fourth line\r\n', 'fifth line\r\n']
 str.eachline(2):list .. ['first line\r\n', 'second line\r\n']
-str.eachline():list:chop .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
-str.eachline(2):list:chop .. ['first line', 'second line']
+str.eachline():chop:list .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
+str.eachline(2):chop:list .. ['first line', 'second line']
 
 ======== #12 chr() and ord() ========
 
@@ -1246,7 +1246,7 @@ math.cos * math.pi .. -1
 'hello world hello hello'.find('Llo'):list .. []
 'hello world hello hello'.find('Llo'):icase .. 2
 'hello world hello hello'.find('Llo'):rev:icase .. 20
-'hello world hello hello'.find('Llo'):list:icase .. [2, 14, 20]
+'hello world hello hello'.find('Llo'):icase:list .. [2, 14, 20]
 
 ======== #19 ========
 
@@ -1280,9 +1280,9 @@ str.replace('', '*', 3) .. *h*e*llo world
 str.fold(6):list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
 str.fold(6, 3):list .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX', 'VWXYZ', 'YZ']
 str.fold(3, 6):list .. ['ABC', 'GHI', 'MNO', 'STU', 'YZ']
-str.fold(6):list:neat .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX']
-str.fold(6, 3):list:neat .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX']
-str.fold(3, 6):list:neat .. ['ABC', 'GHI', 'MNO', 'STU']
+str.fold(6):neat:list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX']
+str.fold(6, 3):neat:list .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX']
+str.fold(3, 6):neat:list .. ['ABC', 'GHI', 'MNO', 'STU']
 
 ======== #22 ========
 
@@ -1372,23 +1372,23 @@ str.foldw(2):list .. ['AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST'
 str.foldw(3):list .. ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'STU', 'VWX', 'YZ']
 str.foldw(6):list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
 str.foldw(7):list .. ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ']
-str.foldw(1):list:padding .. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-str.foldw(2):list:padding .. ['AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ']
-str.foldw(3):list:padding .. ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'STU', 'VWX', 'YZ']
-str.foldw(6):list:padding .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
-str.foldw(7):list:padding .. ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ']
+str.foldw(1):padding:list .. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+str.foldw(2):padding:list .. ['AB', 'CD', 'EF', 'GH', 'IJ', 'KL', 'MN', 'OP', 'QR', 'ST', 'UV', 'WX', 'YZ']
+str.foldw(3):padding:list .. ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'STU', 'VWX', 'YZ']
+str.foldw(6):padding:list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
+str.foldw(7):padding:list .. ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ']
 str.foldw(1):list .. ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
 str.foldw(2):list .. ['Ç†', 'Ç¢', 'Ç§', 'Ç¶', 'Ç®', 'Ç©', 'Ç´', 'Ç≠', 'ÇØ', 'Ç±', 'Ç≥', 'Çµ', 'Ç∑', 'Çπ', 'Çª', 'ÇΩ', 'Çø', 'Ç¬', 'Çƒ', 'Ç∆']
 str.foldw(3):list .. ['Ç†', 'Ç¢', 'Ç§', 'Ç¶', 'Ç®', 'Ç©', 'Ç´', 'Ç≠', 'ÇØ', 'Ç±', 'Ç≥', 'Çµ', 'Ç∑', 'Çπ', 'Çª', 'ÇΩ', 'Çø', 'Ç¬', 'Çƒ', 'Ç∆']
 str.foldw(6):list .. ['Ç†Ç¢Ç§', 'Ç¶Ç®Ç©', 'Ç´Ç≠ÇØ', 'Ç±Ç≥Çµ', 'Ç∑ÇπÇª', 'ÇΩÇøÇ¬', 'ÇƒÇ∆']
 str.foldw(7):list .. ['Ç†Ç¢Ç§', 'Ç¶Ç®Ç©', 'Ç´Ç≠ÇØ', 'Ç±Ç≥Çµ', 'Ç∑ÇπÇª', 'ÇΩÇøÇ¬', 'ÇƒÇ∆']
-str.foldw(1):list:padding .. [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-str.foldw(2):list:padding .. ['Ç†', 'Ç¢', 'Ç§', 'Ç¶', 'Ç®', 'Ç©', 'Ç´', 'Ç≠', 'ÇØ', 'Ç±', 'Ç≥', 'Çµ', 'Ç∑', 'Çπ', 'Çª', 'ÇΩ', 'Çø', 'Ç¬', 'Çƒ', 'Ç∆']
-str.foldw(3):list:padding .. ['Ç† ', 'Ç¢ ', 'Ç§ ', 'Ç¶ ', 'Ç® ', 'Ç© ', 'Ç´ ', 'Ç≠ ', 'ÇØ ', 'Ç± ', 'Ç≥ ', 'Çµ ', 'Ç∑ ', 'Çπ ', 'Çª ', 'ÇΩ ', 'Çø ', 'Ç¬ ', 'Çƒ ', 'Ç∆']
-str.foldw(6):list:padding .. ['Ç†Ç¢Ç§', 'Ç¶Ç®Ç©', 'Ç´Ç≠ÇØ', 'Ç±Ç≥Çµ', 'Ç∑ÇπÇª', 'ÇΩÇøÇ¬', 'ÇƒÇ∆']
-str.foldw(7):list:padding .. ['Ç†Ç¢Ç§ ', 'Ç¶Ç®Ç© ', 'Ç´Ç≠ÇØ ', 'Ç±Ç≥Çµ ', 'Ç∑ÇπÇª ', 'ÇΩÇøÇ¬ ', 'ÇƒÇ∆']
+str.foldw(1):padding:list .. [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+str.foldw(2):padding:list .. ['Ç†', 'Ç¢', 'Ç§', 'Ç¶', 'Ç®', 'Ç©', 'Ç´', 'Ç≠', 'ÇØ', 'Ç±', 'Ç≥', 'Çµ', 'Ç∑', 'Çπ', 'Çª', 'ÇΩ', 'Çø', 'Ç¬', 'Çƒ', 'Ç∆']
+str.foldw(3):padding:list .. ['Ç† ', 'Ç¢ ', 'Ç§ ', 'Ç¶ ', 'Ç® ', 'Ç© ', 'Ç´ ', 'Ç≠ ', 'ÇØ ', 'Ç± ', 'Ç≥ ', 'Çµ ', 'Ç∑ ', 'Çπ ', 'Çª ', 'ÇΩ ', 'Çø ', 'Ç¬ ', 'Çƒ ', 'Ç∆']
+str.foldw(6):padding:list .. ['Ç†Ç¢Ç§', 'Ç¶Ç®Ç©', 'Ç´Ç≠ÇØ', 'Ç±Ç≥Çµ', 'Ç∑ÇπÇª', 'ÇΩÇøÇ¬', 'ÇƒÇ∆']
+str.foldw(7):padding:list .. ['Ç†Ç¢Ç§ ', 'Ç¶Ç®Ç© ', 'Ç´Ç≠ÇØ ', 'Ç±Ç≥Çµ ', 'Ç∑ÇπÇª ', 'ÇΩÇøÇ¬ ', 'ÇƒÇ∆']
 str.foldw(3):list .. ['êº', 'óÔ2', '014', 'îN']
-str.foldw(3):list:padding .. ['êº ', 'óÔ2', '014', 'îN']
+str.foldw(3):padding:list .. ['êº ', 'óÔ2', '014', 'îN']
 
 ======== #29 string#replaces() ========
 

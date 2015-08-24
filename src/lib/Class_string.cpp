@@ -337,7 +337,7 @@ Gura_ImplementMethod(string, find)
 {
 	return FindString(env, args.GetThis().GetString(), args.GetString(0), args.GetInt(1),
 					  args.IsSet(Gura_Symbol(icase)), args.IsSet(Gura_Symbol(rev)),
-					  args.IsSet(Gura_Symbol(list)));
+					  args.IsRsltList());
 }
 
 // string#fold(len:number, step?:number):[neat] {block?}

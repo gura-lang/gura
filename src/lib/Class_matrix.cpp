@@ -722,12 +722,11 @@ Gura_ImplementMethod(matrix, submat)
 	return Value::Nil;
 }
 
-// matrix#tolist():[transpose,flat]
+// matrix#tolist():[transpose]
 Gura_DeclareMethod(matrix, tolist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(transpose));
-	DeclareAttr(Gura_Symbol(flat));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Converts the matrix into a list containing sub-lists that represents its rows.\n"
@@ -755,7 +754,7 @@ Gura_ImplementMethod(matrix, tolist)
 	ValueList &valList = result.InitAsList(env);
 	pThis->GetMatrix()->ToList(env, valList,
 			args.IsSet(Gura_Symbol(transpose)),
-			args.IsSet(Gura_Symbol(flat)));
+			args.GetFlatFlag());
 	return result;
 }
 

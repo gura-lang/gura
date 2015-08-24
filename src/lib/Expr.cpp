@@ -1794,11 +1794,13 @@ void Expr_Caller::UpdateCallerInfo()
 	_pCallerInfo->SetValueTypeResult(valTypeResult);
 }
 
-void Expr_Caller::AddAttr(const Symbol *pSymbol)
+bool Expr_Caller::AddAttr(const Symbol *pSymbol)
 {
-#if 1
+#if 0
 	_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
+	return true;
 #else
+	bool optAttrFlag = false;
 	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
 	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
 	ResultMode resultMode = _pCallerInfo->GetResultMode();
@@ -1851,12 +1853,14 @@ void Expr_Caller::AddAttr(const Symbol *pSymbol)
 	} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
 		resultMode = RSLTMODE_XReduce;
 	} else {
+		optAttrFlag = true;
 		_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
 	}
 	//_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
 	_pCallerInfo->SetFlagsToSet(flagsToSet);
 	_pCallerInfo->SetFlagsToClear(flagsToClear);
 	_pCallerInfo->SetResultMode(resultMode);
+	return optAttrFlag;
 #endif
 }
 
@@ -2163,7 +2167,7 @@ bool Expr_Caller::GenerateCode(Environment &env, CodeGenerator &codeGenerator) c
 bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	bool argListFlag = !GetExprOwner().empty() || !GetAttrs().empty() || _pExprBlock.IsNull();
+	bool argListFlag = !GetExprOwner().empty() || GetCallerInfo().HasAttrs() || _pExprBlock.IsNull();
 	if (_pExprCar->IsIdentifier()) {
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(GetCar())->GetSymbol();
 		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
@@ -2183,7 +2187,8 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 	if (argListFlag) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
-		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
+		if (!GetExprOwner().GenerateScript(
+				sig, stream, scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	}
@@ -2202,7 +2207,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-#if 0
+#if 1
 	do {
 		static const struct {
 			ULong flag;
@@ -2253,8 +2258,8 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			{ RSLTMODE_XList,		":xlist"		},
 			{ RSLTMODE_Set,			":set"			},
 			{ RSLTMODE_XSet,		":xset"			},
-			{ RSLTMODE_Iterator,	":iterator"		},
-			{ RSLTMODE_XIterator,	":xiterator" 	},
+			{ RSLTMODE_Iterator,	":iter"			},
+			{ RSLTMODE_XIterator,	":xiter"	 	},
 			{ RSLTMODE_Void,		":void"			},
 			{ RSLTMODE_Reduce,		":reduce"		},
 			{ RSLTMODE_XReduce,		":xreduce"		},
@@ -2791,7 +2796,11 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
 	} else if (pExprLeft->IsCaller()) {
 		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprLeft);
-		needParenthesisFlag = !pExprCaller->GetAttrs().empty();
+		//needParenthesisFlag = !pExprCaller->GetAttrs().empty() ||
+		//	pExprCaller->GetCallerInfo().GetResultMode() != RSLTMODE_Normal ||
+		//	pExprCaller->GetCallerInfo().GetFlagsToSet() != 0 ||
+		//	pExprCaller->GetCallerInfo().GetFlagsToClear() != 0;
+		needParenthesisFlag = pExprCaller->GetCallerInfo().HasAttrs();
 	}
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, '(');

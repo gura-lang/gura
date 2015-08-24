@@ -88,7 +88,7 @@ bool Function::CustomDeclare(Environment &env,
 	// declaration of arguments
 	if (!GetDeclOwner().Declare(env, callerInfo)) return false;
 	// declaration of attributes
-#if 1
+#if 0
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
@@ -324,7 +324,7 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
-#if 1
+#if 0
 	do {
 		ULong flags = GetFlags();
 		ResultMode resultMode = GetResultMode();
