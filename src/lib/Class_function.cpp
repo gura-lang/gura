@@ -115,15 +115,10 @@ Value Object_function::DoCall(
 	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
-	if (valueThis.IsInvalid() || (valueThis.IsModule() && _valueThis.IsValid())) {
-		return GetFunction()->Call(
-			env, callerInfo,
-			_valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
-	} else {
-		return GetFunction()->Call(
-			env, callerInfo,
-			valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
-	}
+	const Value &valueThisSel = (valueThis.IsInvalid() ||
+			(valueThis.IsModule() && _valueThis.IsValid()))? _valueThis : valueThis;
+	return GetFunction()->Call(env, callerInfo,
+							   valueThisSel, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const
