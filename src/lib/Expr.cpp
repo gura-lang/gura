@@ -2207,79 +2207,11 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-#if 1
-	do {
-		struct Item {
-			ULong flag;
-			const char *attrName;
-		};
-		static const Item items[] = {
-			{ FLAG_Map,				":map"			},
-			{ FLAG_NoMap,			":nomap"		},
-			{ FLAG_NoNamed,			":nonamed"		},
-			{ FLAG_Flat,			":flat"			},
-			{ FLAG_DynamicScope,	":dynamic_scope"},
-			{ FLAG_SymbolFunc,		":symbol_func"	},
-			{ FLAG_Leader,			":leader"		},
-			{ FLAG_Trailer,			":trailer"		},
-			{ FLAG_Finalizer,		":finalizer"	},
-			{ FLAG_EndMarker,		":end_marker"	},
-			{ FLAG_Public,			":public"		},
-			{ FLAG_Private,			":private"		},
-		};
-		ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
-		for (size_t i = 0; i < ArraySizeOf(items); i++) {
-			const Item &item = items[i];
-			if (flagsToSet & item.flag) {
-				stream.Print(sig, item.attrName);
-				if (sig.IsSignalled()) return false;
-			}
-		}
-	} while (0);
-	do {
-		struct Item {
-			ULong flag;
-			const char *attrName;
-		};
-		static const Item items[] = {
-			{ FLAG_Flat,			":noflat"		},
-		};
-		ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
-		for (size_t i = 0; i < ArraySizeOf(items); i++) {
-			const Item &item = items[i];
-			if (flagsToClear & item.flag) {
-				stream.Print(sig, item.attrName);
-				if (sig.IsSignalled()) return false;
-			}
-		}
-	} while (0);
-	do {
-		struct Item {
-			ResultMode resultMode;
-			const char *attrName;
-		};
-		static const Item items[] = {
-			{ RSLTMODE_List,		":list"			},
-			{ RSLTMODE_XList,		":xlist"		},
-			{ RSLTMODE_Set,			":set"			},
-			{ RSLTMODE_XSet,		":xset"			},
-			{ RSLTMODE_Iterator,	":iter"			},
-			{ RSLTMODE_XIterator,	":xiter"	 	},
-			{ RSLTMODE_Void,		":void"			},
-			{ RSLTMODE_Reduce,		":reduce"		},
-			{ RSLTMODE_XReduce,		":xreduce"		},
-		};
-		ResultMode resultMode = _pCallerInfo->GetResultMode();
-		for (size_t i = 0; i < ArraySizeOf(items); i++) {
-			const Item &item = items[i];
-			if (resultMode == item.resultMode) {
-				stream.Print(sig, item.attrName);
-				if (sig.IsSignalled()) return false;
-				break;
-			}
-		}
-	} while (0);
-#endif
+	stream.Print(sig, Args::MakeAttrForFlags(
+					 _pCallerInfo->GetFlagsToSet(), _pCallerInfo->GetFlagsToClear()).c_str());
+	if (sig.IsSignalled()) return false;
+	stream.Print(sig, Args::MakeAttrForResultMode(_pCallerInfo->GetResultMode()).c_str());
+	if (sig.IsSignalled()) return false;
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!pSymbol->IsIdentical(pSymbolFront)) {

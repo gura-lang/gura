@@ -769,56 +769,8 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(block)->GetName();
 	}
-	do {
-		struct Item {
-			ULong flag;
-			const char *attrName;
-		};
-		static const Item items[] = {
-			{ FLAG_Map,				":map"			},
-			{ FLAG_NoMap,			":nomap"		},
-			{ FLAG_NoNamed,			":nonamed"		},
-			{ FLAG_Flat,			":flat"			},
-			{ FLAG_DynamicScope,	":dynamic_scope"},
-			{ FLAG_SymbolFunc,		":symbol_func"	},
-			{ FLAG_Leader,			":leader"		},
-			{ FLAG_Trailer,			":trailer"		},
-			{ FLAG_Finalizer,		":finalizer"	},
-			{ FLAG_EndMarker,		":end_marker"	},
-			{ FLAG_Public,			":public"		},
-			{ FLAG_Private,			":private"		},
-		};
-		for (size_t i = 0; i < ArraySizeOf(items); i++) {
-			const Item &item = items[i];
-			if (_flags & item.flag) {
-				str += item.attrName;
-			}
-		}
-	} while (0);
-	do {
-		struct Item {
-			ResultMode resultMode;
-			const char *attrName;
-		};
-		static const Item items[] = {
-			{ RSLTMODE_List,		":list"			},
-			{ RSLTMODE_XList,		":xlist"		},
-			{ RSLTMODE_Set,			":set"			},
-			{ RSLTMODE_XSet,		":xset"			},
-			{ RSLTMODE_Iterator,	":iter"			},
-			{ RSLTMODE_XIterator,	":xiter"	 	},
-			{ RSLTMODE_Void,		":void"			},
-			{ RSLTMODE_Reduce,		":reduce"		},
-			{ RSLTMODE_XReduce,		":xreduce"		},
-		};
-		for (size_t i = 0; i < ArraySizeOf(items); i++) {
-			const Item &item = items[i];
-			if (_resultMode == item.resultMode) {
-				str += item.attrName;
-				break;
-			}
-		}
-	} while (0);
+	str += Args::MakeAttrForFlags(_flags, 0);
+	str += Args::MakeAttrForResultMode(_resultMode);
 	if (!GetAttrsOpt().empty()) {
 		str += ":[";
 		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
