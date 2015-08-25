@@ -668,7 +668,7 @@ nil
 number
   number.roundoff(threshold:number => 1e-10)
 object
-  object.__call__(symbol:symbol, args?, dict%):static:map {block?}
+  object#__call__(symbol:symbol, `args*):map:nonamed {block?}
   object#__iter__()
   object#clone()
   object.getprop!(symbol:symbol, default?:nomap):static:map

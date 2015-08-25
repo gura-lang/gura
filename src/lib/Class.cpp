@@ -325,85 +325,23 @@ Gura_ImplementMethod(Object, tostring)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// object.__call__(symbol:symbol, args*, dict%):map {block?}
-#if 1
-class Gura_Method(Object, __call__) : public Function {
-public:
-	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(
-		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) const;
-	virtual Value DoEval(Environment &env, Args &args) const;
-};
-
-Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, const char *name) :
-						Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareDictArg("dict");
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Value Gura_Method(Object, __call__)::Call(
-	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-	const TrailCtrlHolder *pTrailCtrlHolder) const
-{
-	Signal &sig = env.GetSignal();
-	const Fundamental *pThis = valueThis.GetFundamental();
-	ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
-	if (ppExprArg == callerInfo.GetExprListArgEnd()) {
-		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Nil;
-	}
-	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value value = (*ppExprArg)->Exec2(env, pSeqPostHandler);
-	if (sig.IsSignalled()) return Value::Nil;
-	if (!value.Is_symbol()) {
-		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Nil;
-	}
-	const Symbol *pSymbol = value.GetSymbol();
-	Value valueFunc;
-	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
-	if (pValue == nullptr) {
-		valueFunc = pThis->GetProp(env, pSymbol, SymbolSet::Empty);
-		if (sig.IsSignalled()) return Value::Nil;
-	} else {
-		valueFunc = *pValue;
-	}
-	if (!valueFunc.Is_function()) {
-		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
-		return Value::Nil;
-	}
-	const Function *pFunc = valueFunc.GetFunction();
-	CallerInfo callerInfoSub(callerInfo);
-	callerInfoSub.SetOffsetArg(1);
-	return pFunc->Call(env, callerInfoSub, valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
-}
-
-Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
-{
-	return Value::Nil;
-}
-#else
 // object.__call__(symbol:symbol, `args*):map:nonamed {block?}
 Gura_DeclareMethod(Object, __call__)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_NoNamed);
 	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(Object, __call__)
 {
 	Signal &sig = env.GetSignal();
-	Fundamental *pThis = args.GetThisFundamental();
 	const Symbol *pSymbol = args.GetSymbol(0);
+	Fundamental *pThis = args.GetThisFundamental();
+	if (pThis == nullptr) {
+		pThis = args.GetThis().GetClass();
+	}
 	Value valueToCall;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
@@ -429,7 +367,6 @@ Gura_ImplementMethod(Object, __call__)
 	return pFund->DoCall(env, callerInfo,
 						 args.GetThis(), nullptr, false, args.GetTrailCtrlHolder());
 }
-#endif
 
 // object#__iter__()
 Gura_DeclareMethod(Object, __iter__)

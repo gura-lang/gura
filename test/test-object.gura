@@ -814,4 +814,9 @@ testcase('struct declaration with arguments that has default value') {
 	a = A('Takeshi', 21)
 	printf('%s: %d\n', a.name, a.age)
 }
+testcase('object#__call__()') {
+	tester(`'hello'.__call__(`len))
+	[1..10].__call__(`each) {|x| println(x)}
+}
+
 println('<<end of script>>')

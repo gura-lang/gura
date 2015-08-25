@@ -352,4 +352,18 @@ Jiro: 23
 Jiro: 23
 Taro: 25
 Takeshi: 21
+
+======== #37 object#__call__() ========
+
+'hello'.__call__(`len) .. 5
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
 <<end of script>>
