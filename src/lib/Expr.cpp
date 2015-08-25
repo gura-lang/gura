@@ -1796,72 +1796,9 @@ void Expr_Caller::UpdateCallerInfo()
 
 bool Expr_Caller::AddAttr(const Symbol *pSymbol)
 {
-#if 0
+	if (_pCallerInfo->UpdateByAttrSymbol(pSymbol)) return false;
 	_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
 	return true;
-#else
-	bool optAttrFlag = false;
-	ULong flagsToSet = _pCallerInfo->GetFlagsToSet();
-	ULong flagsToClear = _pCallerInfo->GetFlagsToClear();
-	ResultMode resultMode = _pCallerInfo->GetResultMode();
-	if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-		flagsToSet = (flagsToSet | FLAG_Map) & ~FLAG_NoMap;
-		flagsToClear = (flagsToClear | FLAG_NoMap) & ~FLAG_Map;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-		flagsToSet = (flagsToSet | FLAG_NoMap) & ~FLAG_Map;
-		flagsToClear = (flagsToClear | FLAG_Map) & ~FLAG_NoMap;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
-		flagsToSet |= FLAG_NoNamed;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-		flagsToSet |= FLAG_Flat;
-		flagsToClear &= ~FLAG_Flat;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
-		flagsToSet &= ~FLAG_Flat;
-		flagsToClear |= FLAG_Flat;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(dynamic_scope))) {
-		flagsToSet |= FLAG_DynamicScope;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol_func))) {
-		flagsToSet |= FLAG_SymbolFunc;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(leader))) {
-		flagsToSet |= FLAG_Leader;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
-		flagsToSet |= FLAG_Trailer;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(finalizer))) {
-		flagsToSet |= FLAG_Finalizer;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
-		flagsToSet |= FLAG_EndMarker;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
-		flagsToSet |= FLAG_Public;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(private_))) {
-		flagsToSet |= FLAG_Private;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
-		resultMode = RSLTMODE_List;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
-		resultMode = RSLTMODE_XList;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
-		resultMode = RSLTMODE_Set;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
-		resultMode = RSLTMODE_XSet;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
-		resultMode = RSLTMODE_Iterator;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
-		resultMode = RSLTMODE_XIterator;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
-		resultMode = RSLTMODE_Void;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
-		resultMode = RSLTMODE_Reduce;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
-		resultMode = RSLTMODE_XReduce;
-	} else {
-		optAttrFlag = true;
-		_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
-	}
-	//_pAttrsShrd->GetSymbolSet().Insert(pSymbol);
-	_pCallerInfo->SetFlagsToSet(flagsToSet);
-	_pCallerInfo->SetFlagsToClear(flagsToClear);
-	_pCallerInfo->SetResultMode(resultMode);
-	return optAttrFlag;
-#endif
 }
 
 void Expr_Caller::AddAttrs(const SymbolSet &symbolSet)
@@ -2207,10 +2144,9 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	stream.Print(sig, Args::MakeAttrForFlags(
-					 _pCallerInfo->GetFlagsToSet(), _pCallerInfo->GetFlagsToClear()).c_str());
+	stream.Print(sig, _pCallerInfo->MakeAttrForFlags().c_str());
 	if (sig.IsSignalled()) return false;
-	stream.Print(sig, Args::MakeAttrForResultMode(_pCallerInfo->GetResultMode()).c_str());
+	stream.Print(sig, _pCallerInfo->MakeAttrForResultMode().c_str());
 	if (sig.IsSignalled()) return false;
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;

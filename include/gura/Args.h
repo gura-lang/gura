@@ -278,8 +278,6 @@ public:
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock(Environment &env) const;
 	const Function *GetBlockFunc(Environment &env, const Symbol *pSymbol);
-	static String MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear);
-	static String MakeAttrForResultMode(ResultMode resultMode);
 };
 
 }

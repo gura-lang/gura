@@ -88,75 +88,6 @@ bool Function::CustomDeclare(Environment &env,
 	// declaration of arguments
 	if (!GetDeclOwner().Declare(env, callerInfo)) return false;
 	// declaration of attributes
-#if 0
-	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-			_flags |= FLAG_Map;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-			_flags &= ~FLAG_Map;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
-			_flags |= FLAG_NoNamed;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-			_flags |= FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
-			_flags &= ~FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(dynamic_scope))) {
-			_flags |= FLAG_DynamicScope;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(symbol_func))) {
-			_flags |= FLAG_SymbolFunc;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(leader))) {
-			_flags |= FLAG_Leader;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
-			_flags |= FLAG_Trailer;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(finalizer))) {
-			_flags |= FLAG_Finalizer;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
-			_flags |= FLAG_EndMarker;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
-			_flags |= FLAG_Public;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(private_))) {
-			_flags |= FLAG_Private;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
-			_resultMode = RSLTMODE_List;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
-			_resultMode = RSLTMODE_XList;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
-			_resultMode = RSLTMODE_Set;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
-			_resultMode = RSLTMODE_XSet;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
-			_resultMode = RSLTMODE_Iterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
-			_resultMode = RSLTMODE_XIterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
-			_resultMode = RSLTMODE_Void;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
-			_resultMode = RSLTMODE_Reduce;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
-			_resultMode = RSLTMODE_XReduce;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(static_))) {
-			// just ignore it
-		} else if (attrsAcceptable.IsSet(pSymbol)) {
-			// nothing to do
-		} else {
-			sig.SetError(ERR_TypeError,
-				"unsupported attribute '%s' for function declaration",
-															pSymbol->GetName());
-			return false;
-		}
-	}
-#if 0
-	if (_resultMode != callerInfo.ModifyResultMode(RSLTMODE_Normal)) {
-		::printf("result mode error: %d %d\n",
-				 _resultMode, callerInfo.ModifyResultMode(RSLTMODE_Normal));
-	}
-	if (_flags != callerInfo.ModifyFlags(0)) {
-		::printf("flags error: %08lx %08lx\n",
-				 _flags, callerInfo.ModifyFlags(0));
-	}
-#endif
-#else
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!(pSymbol->IsIdentical(Gura_Symbol(static_)) || attrsAcceptable.IsSet(pSymbol))) {
@@ -168,7 +99,6 @@ bool Function::CustomDeclare(Environment &env,
 	_resultMode = callerInfo.ModifyResultMode(_resultMode);
 	_flags = callerInfo.ModifyFlags(_flags);
 	_valTypeResult = callerInfo.ModifyValueTypeResult(_valTypeResult);
-#endif
 	_pAttrsOptShared.reset(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
 	// declaration of a block
 	const Expr_Block *pExprBlock = callerInfo.GetBlock();
@@ -322,54 +252,6 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
-#if 0
-	do {
-		ULong flags = GetFlags();
-		ResultMode resultMode = GetResultMode();
-		foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
-			const Symbol *pSymbol = *ppSymbol;
-			if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-				flags |= FLAG_Map;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-				flags &= ~FLAG_Map;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(nonamed))) {
-				flags |= FLAG_NoNamed;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-				flags |= FLAG_Flat;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
-				flags &= ~FLAG_Flat;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
-				resultMode = RSLTMODE_List;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
-				resultMode = RSLTMODE_XList;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
-				resultMode = RSLTMODE_Set;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
-				resultMode = RSLTMODE_XSet;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
-				resultMode = RSLTMODE_Iterator;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
-				resultMode = RSLTMODE_XIterator;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
-				resultMode = RSLTMODE_Void;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
-				resultMode = RSLTMODE_Reduce;
-			} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
-				resultMode = RSLTMODE_XReduce;
-			} else if (GetAttrsOpt().IsSet(pSymbol)) {
-				// nothing to do
-			} else {
-				sig.SetError(ERR_AttributeError,
-							 "unsupported attribute '%s' for '%s'",
-							 pSymbol->GetName(), ToString().c_str());
-				return Value::Nil;
-			}
-		}
-		pArgs->SetResultMode(resultMode);
-		pArgs->SetFlags(flags);
-		pArgs->SetValueTypeResult(GetValueTypeResult());
-	} while (0);
-#else
 	foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
@@ -381,7 +263,6 @@ Value Function::Call(
 	pArgs->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
 	pArgs->SetFlags(callerInfo.ModifyFlags(GetFlags()));
 	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
-#endif
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
 	pArgs->SetValueDictArg(new ValueDict());
@@ -769,8 +650,8 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(block)->GetName();
 	}
-	str += Args::MakeAttrForFlags(_flags, 0);
-	str += Args::MakeAttrForResultMode(_resultMode);
+	str += CallerInfo::MakeAttrForFlags(_flags, 0);
+	str += CallerInfo::MakeAttrForResultMode(_resultMode);
 	if (!GetAttrsOpt().empty()) {
 		str += ":[";
 		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
