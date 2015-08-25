@@ -284,6 +284,12 @@ testcase {
 	tester(`a.__call__(`dynamic2, 1, 2, 3, 4))
 	tester(`a.__call__(`func1, 1, 2, 3, 4))
 	tester(`a.__call__(`func2, 1, 2, 3, 4))
+	/*
+	tester(`a.getprop!(`dynamic1)(1, 2, 3, 4))
+	tester(`a.getprop!(`dynamic2)(1, 2, 3, 4))
+	tester(`a.getprop!(`func1)(1, 2, 3, 4))
+	tester(`a.getprop!(`func2)(1, 2, 3, 4))
+	*/
 }
 testcase {
 	A = class {
