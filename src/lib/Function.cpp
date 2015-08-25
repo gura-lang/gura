@@ -795,52 +795,6 @@ String Function::ToString() const
 			}
 		}
 	} while (0);
-#if 0
-	if (GetMapFlag()) {
-		str += ":";
-		str += Gura_Symbol(map)->GetName();
-	}
-	if (GetFlatFlag()) {
-		str += ":";
-		str += Gura_Symbol(flat)->GetName();
-	}
-	if (GetDynamicScopeFlag()) {
-		str += ":";
-		str += Gura_Symbol(dynamic_scope)->GetName();
-	}
-	if (GetSymbolFuncFlag()) {
-		str += ":";
-		str += Gura_Symbol(symbol_func)->GetName();
-	}
-	if (GetLeaderFlag()) {
-		str += ":";
-		str += Gura_Symbol(leader)->GetName();
-	}
-	if (GetTrailerFlag()) {
-		str += ":";
-		str += Gura_Symbol(trailer)->GetName();
-	}
-	if (GetFinalizerFlag()) {
-		str += ":";
-		str += Gura_Symbol(finalizer)->GetName();
-	}
-	if (GetEndMarkerFlag()) {
-		str += ":";
-		str += Gura_Symbol(end_marker)->GetName();
-	}
-	if (GetPublicFlag()) {
-		str += ":";
-		str += Gura_Symbol(public_)->GetName();
-	}
-	if (GetPrivateFlag()) {
-		str += ":";
-		str += Gura_Symbol(private_)->GetName();
-	}
-	if (GetNoNamedFlag()) {
-		str += ":";
-		str += Gura_Symbol(nonamed)->GetName();
-	}
-#endif
 	do {
 		struct Item {
 			ResultMode resultMode;
@@ -865,36 +819,6 @@ String Function::ToString() const
 			}
 		}
 	} while (0);
-#if 0
-	if (_resultMode == RSLTMODE_List) {
-		str += ":";
-		str += Gura_Symbol(list)->GetName();
-	} else if (_resultMode == RSLTMODE_XList) {
-		str += ":";
-		str += Gura_Symbol(xlist)->GetName();
-	} else if (_resultMode == RSLTMODE_Set) {
-		str += ":";
-		str += Gura_Symbol(set)->GetName();
-	} else if (_resultMode == RSLTMODE_XSet) {
-		str += ":";
-		str += Gura_Symbol(xset)->GetName();
-	} else if (_resultMode == RSLTMODE_Void) {
-		str += ":";
-		str += Gura_Symbol(void_)->GetName();
-	} else if (_resultMode == RSLTMODE_Reduce) {
-		str += ":";
-		str += Gura_Symbol(reduce)->GetName();
-	} else if (_resultMode == RSLTMODE_XReduce) {
-		str += ":";
-		str += Gura_Symbol(xreduce)->GetName();
-	} else if (_resultMode == RSLTMODE_Iterator) {
-		str += ":";
-		str += Gura_Symbol(iter)->GetName();
-	} else if (_resultMode == RSLTMODE_XIterator) {
-		str += ":";
-		str += Gura_Symbol(xiter)->GetName();
-	}
-#endif
 	if (!GetAttrsOpt().empty()) {
 		str += ":[";
 		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
@@ -1018,7 +942,7 @@ bool Function::ResultComposer::Store(Environment &env, const Value &value)
 		_result = value;
 	} else if (_args.IsRsltXReduce()) {
 		if (value.IsValid()) _result = value;
-	} else if (_args.IsRsltFlat() && value.Is_list()) {
+	} else if (_args.GetFlatFlag() && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
 			if (!Store(env, *pValue)) return false;
 		}
