@@ -1392,7 +1392,7 @@ Gura_ImplementFunction(element)
 		if (sig.IsSignalled()) return Value::Nil;
 		pElement->GetAttributes()->push_back(new Attribute(key, value));
 	}
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pExprBlock != nullptr) {
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {

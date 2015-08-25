@@ -8,9 +8,9 @@ gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginCurve(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndCurve(nurb);
 	}
 	return Value::Nil;
@@ -24,9 +24,9 @@ gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
 	gluBeginPolygon(tess->GetTesselator());
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}
@@ -40,9 +40,9 @@ gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginSurface(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndSurface(nurb);
 	}
 	return Value::Nil;
@@ -55,9 +55,9 @@ gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginTrim(nurb);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndTrim(nurb);
 	}
 	return Value::Nil;
@@ -435,9 +435,9 @@ gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
 	gluTessBeginContour(tess);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndContour(tess);
 	}
 	return Value::Nil;
@@ -451,9 +451,9 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
 	}

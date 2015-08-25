@@ -137,6 +137,7 @@ public:
 	inline void SetTrailCtrlHolder(TrailCtrlHolder *pTrailCtrlHolder) {
 		_pTrailCtrlHolder.reset(pTrailCtrlHolder);
 	}
+	inline TrailCtrlHolder *GetTrailCtrlHolder() { return _pTrailCtrlHolder.get(); }
 	inline void QuitTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Quit);
 	}
@@ -276,7 +277,8 @@ public:
 	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
-	const Expr_Block *GetBlock(Environment &env) const;
+	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
+	const Expr_Block *GetBlockCooked(Environment &env) const;
 	const Function *GetBlockFunc(Environment &env, const Symbol *pSymbol);
 };
 

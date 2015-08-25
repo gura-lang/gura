@@ -440,7 +440,7 @@ Gura_ImplementMethod(template_, init_block)
 	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
@@ -484,7 +484,7 @@ Gura_ImplementMethod(template_, init_define)
 	Signal &sig = env.GetSignal();
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));

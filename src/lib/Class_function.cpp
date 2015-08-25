@@ -172,7 +172,7 @@ Gura_DeclareFunction(function)
 Gura_ImplementFunction(function)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	AutoPtr<ExprOwner> pExprOwnerArg;

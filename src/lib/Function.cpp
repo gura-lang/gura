@@ -458,7 +458,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 	if (_blockInfo.pSymbol == nullptr) return pEnvLocal.release();
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return nullptr;
 	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by

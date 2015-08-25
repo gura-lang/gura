@@ -700,7 +700,7 @@ Gura_DeclareFunction(ListInit)
 Gura_ImplementFunction(ListInit)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlock(env);
+	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	const Value &valueFunc = args.GetValue(0);
 	Value result;

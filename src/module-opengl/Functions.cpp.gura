@@ -43,9 +43,9 @@ glBegin(mode:GLenum):void:map {block?} = R'''
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
 	}
 	return Value::Nil;
@@ -1377,9 +1377,9 @@ glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
 	}
 	return Value::Nil;
@@ -1554,9 +1554,9 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
 	}
 	return Value::Nil;
@@ -1569,9 +1569,9 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
 	}
 	return Value::Nil;
@@ -1584,9 +1584,9 @@ glPushMatrix():void {block?} = R'''
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
 	}
 	return Value::Nil;
@@ -1599,9 +1599,9 @@ glPushName(name:GLuint):void:map {block?} = R'''
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
 	}
 	return Value::Nil;
@@ -2903,9 +2903,9 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	glBeginQuery(target, id);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, sig, pSeqPostHandler);
+		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndQuery(target);
 	}
 	return Value::Nil;

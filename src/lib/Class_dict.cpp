@@ -272,7 +272,7 @@ Gura_ImplementFunction(dict)
 		return Value::Nil;
 	}
 	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
@@ -337,7 +337,7 @@ Gura_ImplementMethod(dict, append)
 		return Value::Nil;
 	}
 	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;

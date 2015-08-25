@@ -108,7 +108,7 @@ Gura_ImplementFunction(__glBegin)
 	glBegin(mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
@@ -3780,7 +3780,7 @@ Gura_ImplementFunction(__glNewList)
 	glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
@@ -4396,7 +4396,7 @@ Gura_ImplementFunction(__glPushAttrib)
 	glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
@@ -4422,7 +4422,7 @@ Gura_ImplementFunction(__glPushClientAttrib)
 	glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
@@ -4446,7 +4446,7 @@ Gura_ImplementFunction(__glPushMatrix)
 	glPushMatrix();
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
@@ -4472,7 +4472,7 @@ Gura_ImplementFunction(__glPushName)
 	glPushName(name);
 	if (args.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlock(env);
+		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();

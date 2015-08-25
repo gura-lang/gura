@@ -370,8 +370,7 @@ Value Gura_Method(Object, __call__)::Call(
 	Value valueFunc;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
-		const SymbolSet &attrs = SymbolSet::Empty;
-		valueFunc = pThis->GetProp(env, pSymbol, attrs);
+		valueFunc = pThis->GetProp(env, pSymbol, SymbolSet::Empty);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		valueFunc = *pValue;
@@ -391,10 +390,10 @@ Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
 	return Value::Nil;
 }
 #else
-// object.__call__(symbol:symbol, `args*):map {block?}
+// object.__call__(symbol:symbol, `args*):map:nonamed {block?}
 Gura_DeclareMethod(Object, __call__)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_NoNamed);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -402,7 +401,33 @@ Gura_DeclareMethod(Object, __call__)
 
 Gura_ImplementMethod(Object, __call__)
 {
-	return Value::Nil;
+	Signal &sig = env.GetSignal();
+	Fundamental *pThis = args.GetThisFundamental();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	Value valueToCall;
+	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
+	if (pValue == nullptr) {
+		valueToCall = pThis->GetProp(env, pSymbol, SymbolSet::Empty);
+		if (sig.IsSignalled()) return Value::Nil;
+	} else {
+		valueToCall = *pValue;
+	}
+	Fundamental *pFund = valueToCall.GetFundamental();
+	if (pFund == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "instance associated with a symbol '%s' is not a callable",
+					 pSymbol->GetName());
+		return Value::Nil;
+	}
+	ExprList exprListArg;
+	exprListArg.reserve(args.GetList(1).size());
+	foreach_const (ValueList, pValue, args.GetList(1)) {
+		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+	}
+	CallerInfo callerInfo(exprListArg, args.GetBlock(),
+						  args.GetAttrsShared(), args.GetAttrsOptShared());
+	return pFund->DoCall(env, callerInfo,
+						 args.GetThis(), nullptr, false, args.GetTrailCtrlHolder());
 }
 #endif
 

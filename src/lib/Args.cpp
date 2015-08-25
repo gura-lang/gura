@@ -26,7 +26,7 @@ bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 	return false;
 }
 
-const Expr_Block *Args::GetBlock(Environment &env) const
+const Expr_Block *Args::GetBlockCooked(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	// check if the block parameter specifies a delegated block information
@@ -66,7 +66,7 @@ const Expr_Block *Args::GetBlock(Environment &env) const
 // return nullptr without error if block is not specified
 const Function *Args::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 {
-	const Expr_Block *pExprBlock = GetBlock(env);
+	const Expr_Block *pExprBlock = GetBlockCooked(env);
 	if (pExprBlock == nullptr || pSymbol == nullptr) return nullptr;
 	if (_pFuncBlock.IsNull()) {
 		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env,

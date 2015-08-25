@@ -118,7 +118,7 @@ public:
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			const Expr_Block *pExprBlock = args.GetBlock(env);
+			const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
 			AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(exprOwner.size()));
 			T_Elem *p = pArray->GetPointer();
