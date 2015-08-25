@@ -22,7 +22,6 @@ private:
 	ULong _flagsToClear;
 	ResultMode _resultMode;
 	ValueType _valTypeResult;
-	size_t _offsetArg;
 public:
 	static const CallerInfo Empty;
 public:
@@ -33,20 +32,14 @@ public:
 		_pExprBlock(pExprBlock),
 		_pAttrsShrd(pAttrsShrd), _pAttrsOptShrd(pAttrsOptShrd),
 		_flagsToSet(0), _flagsToClear(0),
-		_resultMode(RSLTMODE_Normal), _valTypeResult(VTYPE_undefined),
-		_offsetArg(0) {}
+		_resultMode(RSLTMODE_Normal), _valTypeResult(VTYPE_undefined) {}
 	inline CallerInfo(const CallerInfo &callerInfo) :
 		_exprListArg(callerInfo._exprListArg),
 		_pExprBlock(callerInfo._pExprBlock),
 		_pAttrsShrd(callerInfo._pAttrsShrd), _pAttrsOptShrd(callerInfo._pAttrsOptShrd),
 		_flagsToSet(callerInfo._flagsToSet), _flagsToClear(callerInfo._flagsToClear),
-		_resultMode(callerInfo._resultMode), _valTypeResult(callerInfo._valTypeResult),
-		_offsetArg(callerInfo._offsetArg) {}
-	inline void SetOffsetArg(size_t offsetArg) { _offsetArg = offsetArg; }
-	inline ExprList::const_iterator GetExprListArgBegin() const {
-		return _exprListArg.begin() + _offsetArg;
-	}
-	inline ExprList::const_iterator GetExprListArgEnd() const { return _exprListArg.end(); }
+		_resultMode(callerInfo._resultMode), _valTypeResult(callerInfo._valTypeResult) {}
+	inline const ExprList &GetExprListArg() const { return _exprListArg; }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock; }
 	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShrd; }
 	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShrd; }

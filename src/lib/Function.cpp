@@ -269,8 +269,7 @@ Value Function::Call(
 	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict &valDictArg = pArgs->GetValueDictArg();
 	bool namedArgFlag = !pArgs->GetNoNamedFlag();
-	for (ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
-		 ppExprArg != callerInfo.GetExprListArgEnd(); ppExprArg++) {
+	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if (namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			// func(..., var => value, ...)
@@ -317,8 +316,7 @@ Value Function::Call(
 		}
 	}
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
-	for (ExprList::const_iterator ppExprArg = callerInfo.GetExprListArgBegin();
-		 ppExprArg != callerInfo.GetExprListArgEnd(); ppExprArg++) {
+	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
