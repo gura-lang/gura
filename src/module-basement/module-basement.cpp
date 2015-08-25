@@ -1292,14 +1292,15 @@ Gura_ImplementFunction(struct_)
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)));
-	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
-	}
 	AutoPtr<ClassOfStruct::Constructor> pFunc(new ClassOfStruct::Constructor(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+	ExprList exprListArg;
+	exprListArg.reserve(args.GetList(0).size());
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+	}
+	CallerInfo callerInfo(exprListArg, nullptr, args.GetAttrsShared(), nullptr);
 	callerInfo.SetFlagsToSet(args.GetFlags() & ~FLAG_NoNamed);
 	callerInfo.SetResultMode(args.GetResultMode());
 	if (!pFunc->CustomDeclare(env, callerInfo, GetAttrsOpt())) return false;

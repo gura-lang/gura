@@ -416,14 +416,12 @@ Gura_ImplementMethod(expr, tofunction)
 			sig.SetError(ERR_TypeError, "argument declaration conflicts");
 			return Value::Nil;
 		}
-		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+		ExprList exprListArg;
+		exprListArg.reserve(args.GetList(0).size());
 		foreach_const (ValueList, pValue, valListArg) {
-			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
+			exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
 		}
-		//if (!pFunc->CustomDeclare(
-		//		env, *pExprOwnerArg, nullptr,
-		//		args.GetAttrs(), SymbolSet::Empty, SymbolSet::Empty)) return Value::Nil;
-		CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
+		CallerInfo callerInfo(exprListArg, nullptr, args.GetAttrsShared(), nullptr);
 		if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	}
 	return Value(new Object_function(env, pFunc.release()));
