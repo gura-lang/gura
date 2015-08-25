@@ -326,6 +326,7 @@ Gura_ImplementMethod(Object, tostring)
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // object.__call__(symbol:symbol, args*, dict%):map {block?}
+#if 1
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
@@ -389,6 +390,21 @@ Value Gura_Method(Object, __call__)::DoEval(Environment &env, Args &args) const
 {
 	return Value::Nil;
 }
+#else
+// object.__call__(symbol:symbol, `args*):map {block?}
+Gura_DeclareMethod(Object, __call__)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(Object, __call__)
+{
+	return Value::Nil;
+}
+#endif
 
 // object#__iter__()
 Gura_DeclareMethod(Object, __iter__)
