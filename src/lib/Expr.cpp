@@ -2670,10 +2670,6 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
 	} else if (pExprLeft->IsCaller()) {
 		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprLeft);
-		//needParenthesisFlag = !pExprCaller->GetAttrs().empty() ||
-		//	pExprCaller->GetCallerInfo().GetResultMode() != RSLTMODE_Normal ||
-		//	pExprCaller->GetCallerInfo().GetFlagsToSet() != 0 ||
-		//	pExprCaller->GetCallerInfo().GetFlagsToClear() != 0;
 		needParenthesisFlag = pExprCaller->GetCallerInfo().HasAttrs();
 	}
 	if (needParenthesisFlag) {
