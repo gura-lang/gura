@@ -951,15 +951,6 @@ Gura_DeclareFunction(chr)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "code", VTYPE_number);
-#if 0
-	DeclareAttr(Gura_Symbol(nil));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts a UTF-8 code into a string.\n"
-		"\n"
-		"A number between 128 and 255 is an invalid number and is converted to a null string.\n"
-		"If attribute `:nil` is specified, it returns `nil` for that case.\n");
-#endif
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts a UTF-32 code into a string.\n");
@@ -967,25 +958,6 @@ Gura_DeclareFunction(chr)
 
 Gura_ImplementFunction(chr)
 {
-#if 0
-	ULong num = args.GetULong(0);
-	int i = 0;
-	UChar buff[4];
-	buff[i++] = static_cast<UChar>(num & 0xff);
-	num >>= 8;
-	for ( ; num != 0; num >>= 8) {
-		buff[i++] = static_cast<UChar>(num & 0xff);
-	}
-	String str;
-	if (i != 1 || (0x00 < buff[0] && buff[0] < 0x7f)) {
-		for ( ; i > 0; i--) {
-			str.push_back(static_cast<char>(buff[i - 1]));
-		}
-	} else if (args.IsSet(Gura_Symbol(nil))) {
-		return Value::Nil;
-	}
-	return Value(str);
-#endif
 	ULong codeUTF32 = args.GetULong(0);
 	String str;
 	AppendUTF32(str, codeUTF32);
@@ -1070,12 +1042,6 @@ Gura_DeclareFunction(ord)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
-#if 0
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts the first character of a string into a number of UTF-8 code.\n"
-		"If the string contains more than one characters, it simply neglects trailing ones.\n");
-#endif
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts the first character of a string into a number of UTF-32 code.\n"
@@ -1084,17 +1050,6 @@ Gura_DeclareFunction(ord)
 
 Gura_ImplementFunction(ord)
 {
-#if 0
-	const char *str = args.GetString(0);
-	ULong num = static_cast<UChar>(*str);
-	if (IsUTF8First(*str)) {
-		str++;
-		for ( ; IsUTF8Follower(*str); str++) {
-			num = (num << 8) | static_cast<UChar>(*str);
-		}
-	}
-	return Value(num);
-#endif
 	const char *str = args.GetString(0);
 	ULong codeUTF32 = 0;
 	NextUTF32(str, codeUTF32);
