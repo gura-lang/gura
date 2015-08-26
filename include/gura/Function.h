@@ -213,7 +213,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(
+	Value Call(
 		Environment &env, const CallerInfo &callerInfo,
 		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
 		const TrailCtrlHolder *pTrailCtrlHolder) const;
