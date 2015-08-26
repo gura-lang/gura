@@ -86,7 +86,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal &sig, const Value 
 		if (pFunc != nullptr) {
 			Value valueThis(pObj, VFLAG_NoOwner); // reference to self
 			AutoPtr<Args> pArgs(new Args());
-			pArgs->SetThis(valueThis);
+			pArgs->SetValueThis(valueThis);
 			Value result = pFunc->Eval(*pObj, *pArgs);
 			if (!sig.IsSignalled()) {
 				return ConvToTclObj(env, sig, result);

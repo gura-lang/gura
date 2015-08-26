@@ -732,15 +732,13 @@ Value Object_ole::CallableOLE::DoCall(
 	Signal &sig = env.GetSignal();
 	Value result;
 	HRESULT hr;
-	//const ExprList &exprListArg = callerInfo.GetExprListArg();
+	const ExprList &exprListArg = callerInfo.GetExprListArg();
 	VARIANTARG *varArgs = nullptr;
 	DISPID *dispidNamedArgs = nullptr;
 	ValueList valueArgs;
 	ValueList valueArgsNamed;
 	StringList argNames;
-	//foreach_const (ExprList, ppExpr, exprListArg) {
-	for (ExprList::const_iterator ppExpr = callerInfo.GetExprListArgBegin();
-		 ppExpr != callerInfo.GetExprListArgEnd(); ppExpr++) {
+	foreach_const (ExprList, ppExpr, exprListArg) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsBinaryOp(OPTYPE_Pair)) {
 			const Expr_BinaryOp *pExprBinaryOp =
