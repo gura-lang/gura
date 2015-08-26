@@ -265,7 +265,6 @@ Value Function::Call(
 	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
-	ValueList &valListArg = pArgs->GetValueListArg();
 	ValueDict *pValDictArg = nullptr;
 	bool namedArgFlag = !pArgs->GetNoNamedFlag();
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
@@ -318,7 +317,6 @@ Value Function::Call(
 		}
 	}
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
-	Value result;
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
@@ -334,16 +332,17 @@ Value Function::Call(
 		}
 		if ((*ppDecl)->IsQuote()) {
 			// func(..., `var, ...)
-			result = Value(new Object_expr(env, Expr::Reference(pExprArg)));
+			if (!pArgs->AddValue(env, *ppDecl,
+					Value(new Object_expr(env, Expr::Reference(pExprArg))))) return Value::Nil;
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (result.Is_list()) {
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
-					valListArg.push_back(*pValue);
+					if (!pArgs->AddValue(env, *ppDecl, *pValue)) return Value::Nil;
 					if ((*ppDecl)->IsVariableLength()) {
 						stayDeclPointerFlag = true;
 					} else {
@@ -352,12 +351,13 @@ Value Function::Call(
 				}
 				continue;
 			}
+			if (!pArgs->AddValue(env, *ppDecl, result)) return Value::Nil;
 		} else {
 			// func(..., value, ...)
-			result = pExprArg->Exec(env, nullptr);
+			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
+			if (!pArgs->AddValue(env, *ppDecl, result)) return Value::Nil;
 		}
-		valListArg.push_back(result);
 		if ((*ppDecl)->IsVariableLength()) {
 			stayDeclPointerFlag = true;
 		} else {
@@ -375,7 +375,8 @@ Value Function::Call(
 		}
 		if (pExprArg == nullptr) {
 			if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				valListArg.push_back(Value::Undefined);
+				if (!pArgs->AddValue(env, *ppDecl, Value::Undefined)) return Value::Nil;
+				continue;
 			} else if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				break;
 			} else {
@@ -383,11 +384,13 @@ Value Function::Call(
 				return Value::Nil;
 			}
 		} else if ((*ppDecl)->IsQuote()) {
-			valListArg.push_back(Value(new Object_expr(env, pExprArg->Reference())));
+			if (!pArgs->AddValue(env, *ppDecl,
+				   Value(new Object_expr(env, pExprArg->Reference())))) return Value::Nil;
+			continue;
 		} else {
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
-			valListArg.push_back(result);
+			if (!pArgs->AddValue(env, *ppDecl, result)) return Value::Nil;
 		}
 	}
 	//-------------------------------------------------------------------------

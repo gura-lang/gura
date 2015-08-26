@@ -12,6 +12,12 @@ Args::~Args()
 {
 }
 
+bool Args::AddValue(Environment &env, const Declaration *pDecl, const Value &value)
+{
+	_valListArg.push_back(value);
+	return true;
+}
+
 bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 {
 	if (IsThisIterator()) return true;

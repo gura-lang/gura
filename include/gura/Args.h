@@ -143,10 +143,10 @@ public:
 	inline void FinalizeTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
 	}
-	inline ValueList &GetValueListArg() { return _valListArg; }
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
-	inline void ReserveValueListArg(size_t n) { _valListArg.reserve(n); }
+	inline void ReserveValueCount(size_t n) { _valListArg.reserve(n); }
+	bool AddValue(Environment &env, const Declaration *pDecl, const Value &value);
 	inline void AddValue(const Value &value) { _valListArg.push_back(value); }
 	inline void SetValue(const Value &value) {
 		_valListArg.reserve(1);

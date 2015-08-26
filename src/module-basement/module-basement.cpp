@@ -373,7 +373,7 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
 				AutoPtr<Args> pArgs(new Args());
-				pArgs->ReserveValueListArg(idxList.size());
+				pArgs->ReserveValueCount(idxList.size());
 				foreach (IntList, pIdxWk, idxList) {
 					pArgs->AddValue(Value(*pIdxWk));
 				}
