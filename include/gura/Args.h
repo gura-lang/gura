@@ -35,8 +35,7 @@ public:
 		_valTypeResult(VTYPE_any),
 		_resultMode(RSLTMODE_Normal),
 		_flags(FLAG_None),
-		_listThisFlag(false),
-		_pValDictArg(new ValueDict()) {}
+		_listThisFlag(false) {}
 	inline Args(const Args &args) : _cntRef(1),
 		_valTypeResult(args._valTypeResult),
 		_resultMode(args._resultMode),
@@ -271,8 +270,9 @@ public:
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline void SetValueListArg(const ValueList &valListArg) { _valListArg = valListArg; }
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
-	inline ValueDict &GetValueDictArg() { return *_pValDictArg; }
-	inline const ValueDict &GetValueDictArg() const { return *_pValDictArg; }
+	inline const ValueDict &GetValueDictArg() const { 
+		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
+	}
 	inline void SetValueMapHiddenArg(ValueMap *pValMapHiddenArg) { _pValMapHiddenArg.reset(pValMapHiddenArg); }
 	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;

@@ -265,9 +265,8 @@ Value Function::Call(
 	pArgs->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
-	pArgs->SetValueDictArg(new ValueDict());
 	ValueList &valListArg = pArgs->GetValueListArg();
-	ValueDict &valDictArg = pArgs->GetValueDictArg();
+	ValueDict *pValDictArg = nullptr;
 	bool namedArgFlag = !pArgs->GetNoNamedFlag();
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
@@ -283,7 +282,8 @@ Value Function::Call(
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value result = pExprRight->Exec(env, nullptr);
 				if (sig.IsSignalled()) return Value::Nil;
-				valDictArg[valueKey] = result;
+				if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+				(*pValDictArg)[valueKey] = result;
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be an identifier or a constant value");
@@ -310,7 +310,8 @@ Value Function::Call(
 					}
 					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
-					valDictArg.insert(*item);
+					if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+					pValDictArg->insert(*item);
 				}
 			}
 		}
@@ -398,15 +399,9 @@ Value Function::Call(
 		}
 	}
 	//-------------------------------------------------------------------------
-	if (GetDeclOwner().GetSymbolDict() != nullptr) {
-		foreach (Function::ExprMap, iterExprMap, exprMap) {
-			const Symbol *pSymbol = iterExprMap->first;
-			const Expr *pExprArg = iterExprMap->second;
-			Value result = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return Value::Nil;
-			valDictArg[Value(pSymbol)] = result;
-		}
-	} else if (!exprMap.empty()) {
+	if (exprMap.empty()) {
+		// nothing to do
+	} else if (GetDeclOwner().GetSymbolDict() == nullptr) {
 		String str;
 		str = "invalid argument named ";
 		foreach_const (Function::ExprMap, iter, exprMap) {
@@ -415,8 +410,18 @@ Value Function::Call(
 		}
 		sig.SetError(ERR_ValueError, "%s", str.c_str());
 		return Value::Nil;
+	} else {
+		if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+		foreach (Function::ExprMap, iterExprMap, exprMap) {
+			const Symbol *pSymbol = iterExprMap->first;
+			const Expr *pExprArg = iterExprMap->second;
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return Value::Nil;
+			(*pValDictArg)[Value(pSymbol)] = result;
+		}
 	}
 	//-------------------------------------------------------------------------
+	pArgs->SetValueDictArg(pValDictArg);
 	return (pArgs->GetMapFlag() && GetDeclOwner().ShouldImplicitMap(*pArgs))?
 		EvalMap(env, *pArgs) : Eval(env, *pArgs);
 }
@@ -443,7 +448,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 	if (GetDeclOwner().GetSymbolDict() != nullptr) {
 		const ValueDict &valDictArg = args.GetValueDictArg();
 		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
-				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
+			   Value(new Object_dict(env, valDictArg.Reference(), false)), EXTRA_Public);
 	}
 	const ValueMap *pValMapHiddenArg = args.GetValueMapHiddenArg();
 	if (pValMapHiddenArg != nullptr) {

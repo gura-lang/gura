@@ -74,17 +74,19 @@ public:
 	Gura_DeclareObjectAccessor(dict)
 protected:
 	AutoPtr<ValueDict> _pValDict;
+	bool _writableFlag;
 public:
-	inline Object_dict(Class *pClass, ValueDict *pValDict) :
-					Object(pClass), _pValDict(pValDict) {}
-	inline Object_dict(Environment &env, ValueDict *pValDict) :
-					Object(env.LookupClass(VTYPE_dict)), _pValDict(pValDict) {}
+	inline Object_dict(Class *pClass, ValueDict *pValDict, bool writableFlag) :
+		Object(pClass), _pValDict(pValDict), _writableFlag(writableFlag) {}
+	inline Object_dict(Environment &env, ValueDict *pValDict, bool writableFlag) :
+		Object(env.LookupClass(VTYPE_dict)), _pValDict(pValDict), _writableFlag(writableFlag) {}
 	inline Object_dict(const Object_dict &obj) :
-					Object(obj), _pValDict(new ValueDict(obj.GetDict())) {}
+		Object(obj), _pValDict(new ValueDict(obj.GetDict())), _writableFlag(obj._writableFlag) {}
 	virtual Object *Clone() const;
 	inline ValueDict &GetDict() { return *_pValDict; }
 	inline const ValueDict &GetDict() const { return *_pValDict; }
 	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
+	inline bool IsWritable() const { return _writableFlag; }
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);

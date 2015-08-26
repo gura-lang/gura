@@ -68,7 +68,7 @@ private:
 	Value _valueKey;
 public:
 	inline Stocker_Mapping(Environment &env) :
-		_pObjDict(new Object_dict(env, new ValueDict())), _keyFlag(true) {}
+		_pObjDict(new Object_dict(env, new ValueDict(), true)), _keyFlag(true) {}
 	virtual void Stock(const Value &value);
 	virtual Value GetValue();
 };

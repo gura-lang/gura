@@ -256,7 +256,7 @@ Gura_DeclareFunction(dict)
 Gura_ImplementFunction(dict)
 {
 	Signal &sig = env.GetSignal();
-	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
+	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))), true);
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
 	if (args.GetValue(0).Is_list()) {
@@ -614,7 +614,7 @@ bool Class_dict::Deserialize(Environment &env, Stream &stream, Value &value) con
 
 Object *Class_dict::CreateDescendant(Environment &env, Class *pClass)
 {
-	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict());
+	return new Object_dict((pClass == nullptr)? this : pClass, new ValueDict(), true);
 }
 
 }
