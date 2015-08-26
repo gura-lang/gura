@@ -1240,6 +1240,21 @@ bool ValueDict::Deserialize(Environment &env, Stream &stream)
 	return true;
 }
 
+void ValueDict::SetError_InvalidKey(Signal &sig, const Value &valueKey)
+{
+	sig.SetError(ERR_KeyError, "invalid value type for key");
+}
+
+void ValueDict::SetError_KeyNotFound(Signal &sig, const Value &valueKey)
+{
+	sig.SetError(ERR_KeyError, "dictionary doesn't have a key '%s'", valueKey.ToString().c_str());
+}
+
+void ValueDict::SetError_NotWritable(Signal &sig)
+{
+	sig.SetError(ERR_ValueError, "not a writable dictionary");
+}
+
 //-----------------------------------------------------------------------------
 // ValueVisitor_Flatten
 //-----------------------------------------------------------------------------

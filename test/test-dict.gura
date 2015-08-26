@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('dict#put()') {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
 	tester(`d.put('a', 99):timid)
@@ -10,7 +10,7 @@ testcase {
 	d.put('f', 100).put('g', 200).put('h', 300)
 	tester(`d)
 }
-testcase {
+testcase('dict#append()') {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
 	d.append {'a' => 33, 'b' => 22, 'c' => 11}
@@ -18,7 +18,7 @@ testcase {
 	d.append():timid {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
 	tester(`d)
 }
-testcase {
+testcase('ignore case') {
 	d = dict():icase { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
 	tester(`d['apple', 'orange', 'grape'])
 	tester(`d['Apple', 'Orange', 'Grape'])
@@ -35,14 +35,14 @@ testcase {
 		println('expected error occurs: ', e.text)
 	}
 }
-testcase {
+testcase('iterator indexing') {
 	d = %{}
 	d[0..10] = 0..10
 	tester(`d)
 	d[0..10] = 'hello'
 	tester(`d)
 }
-testcase {
+testcase('dict#append()') {
 	d = %{
 		`hoge	=>	'aaaaaa'
 		`foo	=>	'bbbbb'
@@ -62,7 +62,7 @@ testcase {
 	d.append(%{`hoge3 => '*FFFFF*', `hoge4 => '*GGGGG*'})
 	tester(`d)
 }
-testcase {
+testcase('dict#get()') {
 	d = %{
 		`hoge	=>	'aaaaaa'
 		`foo	=>	'bbbbb'
@@ -77,7 +77,7 @@ testcase {
 	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3].nomap()))
 	tester(`d.get([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]))
 }
-testcase {
+testcase('dict#put()') {
 	d = %{}
 	d.put([1, 2, 3], [4, 5, 6].nomap())
 	tester(`d)
@@ -85,7 +85,7 @@ testcase {
 	d.put([1, 2, 3], [4, 5, 6])
 	tester(`d)
 }
-testcase {
+testcase('dict#items(), dict#keys(), dict#values()') {
 	PrintDict(d) = {
 		println('items   = ', d.items():list):nomap
 		println('keys    = ', d.keys():list):nomap
@@ -121,7 +121,7 @@ testcase {
 	println('member mapping with items()')
 	d.items().printf('%-10s %s\n')
 }
-testcase {
+testcase('nested dictionary') {
 	nestedDict = %{
 		'key-1', %{
 			'key-1-1' => 'value of 1-1'
@@ -159,7 +159,7 @@ testcase {
 		println('')
 	}
 }
-testcase {
+testcase('dict#haskey()') {
 	d = %{
 		`key1 => 'value of key1'
 		`key2 => 'value of key2'
@@ -173,7 +173,7 @@ testcase {
 	println(d.haskey([`key1, `key2, `key3, `key4, `key5,
 								`key6, `key7, `key0, `key8]).join(' '))
 }
-testcase {
+testcase('constructor test') {
 	tester(`%{1, 2, 3, 4, 5, 6, 7, 8})
 	tester(`%{{1, 2}, {3, 4}, {5, 6}, {7, 8}})
 	tester(`%{1 => 2, 3 => 4, 5 => 6, 7 => 8})
@@ -187,3 +187,15 @@ testcase {
 	tester(`%{1, ['A', 'B', 'C'], 2, ['D', 'E', 'F'], 3, ['G', 'H', 'I']})
 	tester(`%{{1, ['A', 'B', 'C']}, {2, ['D', 'E', 'F']}, {3, ['G', 'H', 'I']}})
 }
+testcase('readable dictionary') {
+	f(dict%) = {
+		println(dict)
+		try {
+			dict[`d] = 4
+		} catch {|e|
+			println('an expected error occurs: ', e.text)
+		}
+	}
+	f(a => 1, b => 2, c => 3)
+}
+

@@ -1,4 +1,4 @@
-======== #1 ========
+======== #1 dict#put() ========
 
 d .. %{'a' => 3, 'b' => 2, 'c' => 1}
 d.put('a', 99):timid .. %{'a' => 3, 'b' => 2, 'c' => 1}
@@ -6,13 +6,13 @@ d.put('e', 99):timid .. %{'a' => 3, 'b' => 2, 'c' => 1, 'e' => 99}
 d .. %{'a' => 3, 'b' => 2, 'c' => 1, 'e' => 99}
 d .. %{'a' => 3, 'b' => 2, 'c' => 1, 'e' => 99, 'f' => 100, 'g' => 200, 'h' => 300}
 
-======== #2 ========
+======== #2 dict#append() ========
 
 d .. %{'a' => 3, 'b' => 2, 'c' => 1}
 d .. %{'a' => 33, 'b' => 22, 'c' => 11}
 d .. %{'a' => 33, 'b' => 22, 'c' => 11, 'd' => 444}
 
-======== #3 ========
+======== #3 ignore case ========
 
 d['apple', 'orange', 'grape'] .. [100, 80, 120]
 d['Apple', 'Orange', 'Grape'] .. [100, 80, 120]
@@ -20,12 +20,12 @@ expected error occurs: KeyError: duplicated key ''Apple''
 d['apple', 'orange', 'grape'] .. [100, 80, 120]
 expected error occurs: KeyError: dictionary doesn't have a key ''Apple''
 
-======== #4 ========
+======== #4 iterator indexing ========
 
 d .. %{0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10}
 d .. %{0 => 'hello', 1 => 'hello', 2 => 'hello', 3 => 'hello', 4 => 'hello', 5 => 'hello', 6 => 'hello', 7 => 'hello', 8 => 'hello', 9 => 'hello', 10 => 'hello'}
 
-======== #5 ========
+======== #5 dict#append() ========
 
 d .. %{hoge => 'aaaaaa', foo => 'bbbbb', bar => 'cccccc'}
 d .. %{hoge => 'AAAAAA', foo => 'bbbbb', bar => 'cccccc'}
@@ -35,18 +35,18 @@ d .. %{hoge => 'AAAAAA', foo => 'bbbbb', bar => 'cccccc', hoge1 => 'DDDDD', hoge
 d .. %{hoge => 'AAAAAA', foo => 'bbbbb', bar => 'cccccc', hoge1 => 'DDDDD', hoge2 => 'EEEEE', hoge3 => 'FFFFF', hoge4 => 'GGGGG'}
 d .. %{hoge => 'AAAAAA', foo => 'bbbbb', bar => 'cccccc', hoge1 => 'DDDDD', hoge2 => 'EEEEE', hoge3 => '*FFFFF*', hoge4 => '*GGGGG*'}
 
-======== #6 ========
+======== #6 dict#get() ========
 
 d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 'BBBBBBB', 'CCCCCCC', 'DDDDDDD', 'EEEEEEE', 'FFFFFFF', nil]
 d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3].nomap()) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 'BBBBBBB', 'CCCCCCC', 'DDDDDDD', 'EEEEEEE', 'FFFFFFF', [1, 2, 3]]
 d.get([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]) .. ['aaaaaa', 'bbbbb', 'AAAAAAA', 1, 2, 3]
 
-======== #7 ========
+======== #7 dict#put() ========
 
 d .. %{1 => [4, 5, 6], 2 => [4, 5, 6], 3 => [4, 5, 6]}
 d .. %{1 => 4, 2 => 5, 3 => 6}
 
-======== #8 ========
+======== #8 dict#items(), dict#keys(), dict#values() ========
 
 items   = [[`hoge, 'aaaaaa'], [`foo, 'bbbbb'], [`aaaa, 'AAAAAAA'], [`bbbb, 'BBBBBBB'], [`cccc, 'CCCCCCC'], [`dddd, 'DDDDDDD'], [`eeee, 'EEEEEEE'], [`ffff, 'FFFFFFF']]
 keys    = [`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff]
@@ -81,7 +81,7 @@ dddd       DDDDDDD
 eeee       EEEEEEE
 ffff       FFFFFFF
 
-======== #9 ========
+======== #9 nested dictionary ========
 
 nestedDict['key-1']['key-1-1'] .. value of 1-1
 nestedDict['key-3']['key-3-1'] .. value of 3-1
@@ -90,12 +90,12 @@ nestedDict['key-3']['key-3-1'] .. value of 3-1
  value of 2-1 value of 2-2 value of 2-3 value of 2-4 value of 2-5
  value of 3-1 value of 3-2 value of 3-3 value of 3-4 value of 3-5 value of 3-6 value of 3-7 value of 3-8 value of 3-9
 
-======== #10 ========
+======== #10 dict#haskey() ========
 
 %{key1 => 'value of key1', key2 => 'value of key2', key3 => 'value of key3', key4 => 'value of key4', key5 => 'value of key5', key6 => 'value of key6', key7 => 'value of key7'}
 true true true true true true true false false
 
-======== #11 ========
+======== #11 constructor test ========
 
 % { 1, 2, 3, 4, 5, 6, 7, 8 } .. %{1 => 2, 3 => 4, 5 => 6, 7 => 8}
 % { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } } .. %{1 => 2, 3 => 4, 5 => 6, 7 => 8}
@@ -109,3 +109,8 @@ dict([1 => 2, 3 => 4, 5 => 6, 7 => 8]) .. %{1 => 2, 3 => 4, 5 => 6, 7 => 8}
 % { 1 => ['A', 'B', 'C'], 2 => ['D', 'E', 'F'], 3 => ['G', 'H', 'I'] } .. %{1 => ['A', 'B', 'C'], 2 => ['D', 'E', 'F'], 3 => ['G', 'H', 'I']}
 % { 1, ['A', 'B', 'C'], 2, ['D', 'E', 'F'], 3, ['G', 'H', 'I'] } .. %{1 => ['A', 'B', 'C'], 2 => ['D', 'E', 'F'], 3 => ['G', 'H', 'I']}
 % { { 1, ['A', 'B', 'C'] }, { 2, ['D', 'E', 'F'] }, { 3, ['G', 'H', 'I'] } } .. %{1 => ['A', 'B', 'C'], 2 => ['D', 'E', 'F'], 3 => ['G', 'H', 'I']}
+
+======== #12 readable dictionary ========
+
+%{a => 1, b => 2, c => 3}
+an expected error occurs: ValueError: not a writable dictionary

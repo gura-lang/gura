@@ -20,7 +20,7 @@ Value Object_dict::IndexGet(Environment &env, const Value &valueIdx)
 	if (sig.IsSignalled()) {
 		return Value::Nil;
 	} else if (pValue == nullptr) {
-		SetError_KeyNotFound(sig, valueIdx);
+		ValueDict::SetError_KeyNotFound(sig, valueIdx);
 		return Value::Nil;
 	}
 	return *pValue;
@@ -29,8 +29,12 @@ Value Object_dict::IndexGet(Environment &env, const Value &valueIdx)
 void Object_dict::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
 	Signal &sig = GetSignal();
+	if (!IsWritable()) {
+		ValueDict::SetError_NotWritable(sig);
+		return;
+	}
 	if (!valueIdx.IsValidKey()) {
-		sig.SetError(ERR_KeyError, "invalid value type for key");
+		ValueDict::SetError_InvalidKey(sig, valueIdx);
 		return;
 	}
 	GetDict()[valueIdx] = value;
@@ -63,12 +67,6 @@ String Object_dict::ToString(bool exprFlag)
 	}
 	str += "}";
 	return str;
-}
-
-void Object_dict::SetError_KeyNotFound(Signal &sig, const Value &valueIdx)
-{
-	sig.SetError(ERR_KeyError, "dictionary doesn't have a key '%s'",
-										valueIdx.ToString().c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -187,7 +185,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Value &value)
 	if (pValue != nullptr) {
 		value = *pValue;
 	} else if (_raiseFlag) {
-		Object_dict::SetError_KeyNotFound(sig, valueIdx);
+		ValueDict::SetError_KeyNotFound(sig, valueIdx);
 		return false;
 	} else {
 		value = _valDefault;
@@ -318,8 +316,13 @@ Gura_DeclareMethod(dict, append)
 
 Gura_ImplementMethod(dict, append)
 {
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	if (!pThis->IsWritable()) {
+		ValueDict::SetError_NotWritable(sig);
+		return Value::Nil;
+	}
 	ValueDict::StoreMode storeMode =
 		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
@@ -366,7 +369,13 @@ Gura_DeclareMethod(dict, clear)
 
 Gura_ImplementMethod(dict, clear)
 {
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = pThis->GetDict();
+	Signal &sig = env.GetSignal();
+	if (!pThis->IsWritable()) {
+		ValueDict::SetError_NotWritable(sig);
+		return Value::Nil;
+	}
 	valDict.clear();
 	return Value::Nil;
 }
@@ -385,7 +394,13 @@ Gura_DeclareMethod(dict, erase)
 
 Gura_ImplementMethod(dict, erase)
 {
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = pThis->GetDict();
+	Signal &sig = env.GetSignal();
+	if (!pThis->IsWritable()) {
+		ValueDict::SetError_NotWritable(sig);
+		return Value::Nil;
+	}
 	valDict.erase(args.GetValue(0));
 	return Value::Nil;
 }
@@ -429,7 +444,7 @@ Gura_ImplementMethod(dict, get)
 	if (pValue != nullptr) {
 		return *pValue;
 	} else if (raiseFlag) {
-		Object_dict::SetError_KeyNotFound(sig, valueIdx);
+		ValueDict::SetError_KeyNotFound(sig, valueIdx);
 		return Value::Nil;
 	} else {
 		const Value &value = args.GetValue(1);
@@ -540,8 +555,13 @@ Gura_DeclareMethod(dict, put)
 
 Gura_ImplementMethod(dict, put)
 {
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	if (!pThis->IsWritable()) {
+		ValueDict::SetError_NotWritable(sig);
+		return Value::Nil;
+	}
 	const Value &valueIdx = args.GetValue(0);
 	const Value &value = args.GetValue(1);
 	ValueDict::StoreMode storeMode =
