@@ -89,7 +89,7 @@ Gura_ImplementMethod(image, drawtext)
 	}
 	if (pObjFont->DrawOnImage(env, sig, pObjImage->GetImage(),
 								x, y, str, pFuncDeco)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

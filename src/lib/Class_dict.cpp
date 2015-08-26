@@ -355,7 +355,7 @@ Gura_ImplementMethod(dict, append)
 		}
 		if (!valDict.Store(sig, valList, storeMode)) return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // dict#clear()
@@ -569,7 +569,7 @@ Gura_ImplementMethod(dict, put)
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
 		ValueDict::STORE_Overwrite;
 	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // dict#values() {block?}

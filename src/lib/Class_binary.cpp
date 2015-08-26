@@ -252,7 +252,7 @@ Gura_ImplementMethod(binary, add)
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pThis->GetBinary() += pValue->GetBinary();
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // binary.alloc(bytes:number, data?:number):map {block?}
@@ -556,7 +556,7 @@ Gura_ImplementMethod(binary, store)
 		}
 		offset += sizeEach;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // binary#unpack(format:string, values*:number):[nil]

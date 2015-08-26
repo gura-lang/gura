@@ -59,7 +59,7 @@ Gura_ImplementFunction(CSConv)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(CSConv_1)
@@ -84,7 +84,7 @@ Gura_ImplementFunction(CSConv_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_CSConv, IsOk)

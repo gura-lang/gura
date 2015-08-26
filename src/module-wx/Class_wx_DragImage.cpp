@@ -67,7 +67,7 @@ Gura_ImplementFunction(DragImageEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 #if 0
@@ -99,7 +99,7 @@ Gura_ImplementFunction(DragImage)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(DragImage_1)
@@ -130,7 +130,7 @@ Gura_ImplementFunction(DragImage_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(DragImage_2)
@@ -161,7 +161,7 @@ Gura_ImplementFunction(DragImage_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(DragImage_3)
@@ -188,7 +188,7 @@ Gura_ImplementFunction(DragImage_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(DragImage_4)
@@ -215,7 +215,7 @@ Gura_ImplementFunction(DragImage_4)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(DragImage_5)
@@ -247,7 +247,7 @@ Gura_ImplementFunction(DragImage_5)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

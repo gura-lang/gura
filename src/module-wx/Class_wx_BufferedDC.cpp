@@ -58,7 +58,7 @@ Gura_ImplementFunction(BufferedDCEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(BufferedDC)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(BufferedDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(BufferedDC_1)
@@ -118,7 +118,7 @@ Gura_ImplementFunction(BufferedDC_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_BufferedDC, Init)

@@ -57,7 +57,7 @@ Gura_ImplementFunction(NotebookEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(Notebook)
@@ -96,7 +96,7 @@ Gura_ImplementFunction(Notebook)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_Notebook, AddPage)

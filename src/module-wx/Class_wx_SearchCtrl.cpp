@@ -70,7 +70,7 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(SearchCtrl)
@@ -115,7 +115,7 @@ Gura_ImplementFunction(SearchCtrl)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, SetMenu)

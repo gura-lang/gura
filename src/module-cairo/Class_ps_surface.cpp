@@ -46,7 +46,7 @@ Gura_ImplementMethod(ps_surface, restrict_to_level)
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	::cairo_ps_surface_restrict_to_level(surface, level);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.ps_surface#set_eps(eps:boolean):reduce
@@ -64,7 +64,7 @@ Gura_ImplementMethod(ps_surface, set_eps)
 	cairo_bool_t eps = static_cast<cairo_bool_t>(args.GetBoolean(0));
 	::cairo_ps_surface_set_eps(surface, eps);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.ps_surface#get_eps()
@@ -100,7 +100,7 @@ Gura_ImplementMethod(ps_surface, set_size)
 	double height_in_points = args.GetDouble(1);
 	::cairo_ps_surface_set_size(surface, width_in_points, height_in_points);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.ps_surface#dsc_begin_setup()
@@ -116,7 +116,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_setup)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_setup(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.ps_surface#dsc_begin_page_setup()
@@ -132,7 +132,7 @@ Gura_ImplementMethod(ps_surface, dsc_begin_page_setup)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_page_setup(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.ps_surface#dsc_comment(comment:string)
@@ -150,7 +150,7 @@ Gura_ImplementMethod(ps_surface, dsc_comment)
 	const char *comment = args.GetString(0);
 	::cairo_ps_surface_dsc_comment(surface, comment);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_ImplementUserClass(ps_surface)

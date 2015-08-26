@@ -197,7 +197,7 @@ Gura_ImplementMethod(content, write)
 	Object_content *pThis = Object_content::GetThisObj(args);
 	Stream &stream = args.GetStream(0);
 	if (!pThis->Write(env, stream)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // msico.content#addimage(image:image):map:reduce
@@ -214,7 +214,7 @@ Gura_ImplementMethod(content, addimage)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	pThis->AddImage(args.GetValue(0));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class msico
@@ -246,7 +246,7 @@ Gura_ImplementMethod(image, read_msico)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_ICO::ReadStream(env, pThis->GetImage(),
 					args.GetStream(0), args.GetInt(1))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

@@ -108,7 +108,7 @@ Gura_ImplementMethod(Bitmap, Embolden)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_ImplementUserClass(Bitmap)

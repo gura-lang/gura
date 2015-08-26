@@ -200,7 +200,7 @@ Gura_ImplementMethod(image, read_jpeg)
 	if (!ImageStreamer_JPEG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#write@jpeg(stream:stream:w, quality:number => 75):reduce
@@ -223,7 +223,7 @@ Gura_ImplementMethod(image, write_jpeg)
 							pThis->GetImage(), args.GetStream(0), args.GetInt(1))) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // jpeg.test()

@@ -196,7 +196,7 @@ Gura_ImplementMethod(stream, addcr)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Codec::Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#close():void
@@ -329,7 +329,7 @@ Gura_ImplementMethod(stream, copyfrom)
 	if (!streamSrc.ReadToStream(env, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#copyto(dst:stream:w, bytesunit:number => 65536):map:reduce {block?}
@@ -377,7 +377,7 @@ Gura_ImplementMethod(stream, copyto)
 	if (!streamSrc.ReadToStream(env, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#delcr(flag?:boolean):reduce
@@ -401,7 +401,7 @@ Gura_ImplementMethod(stream, delcr)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Codec::Decoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#deserialize()
@@ -742,7 +742,7 @@ Gura_ImplementMethod(stream, seek)
 		}
 	}
 	stream.Seek(sig, args.GetLong(0), seekMode);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#serialize(value):void
@@ -785,7 +785,7 @@ Gura_ImplementMethod(stream, setcodec)
 		pCodec = Codec::CreateCodecNone(true, false);
 	}
 	pThis->GetStream().SetCodec(pCodec);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // stream#tell()
@@ -826,7 +826,7 @@ Gura_ImplementMethod(stream, write)
 		return Value::Nil;
 	}
 	stream.Write(sig, binary.c_str(), binary.size());
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

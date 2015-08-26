@@ -99,7 +99,7 @@ Value Expr::Exec(Environment &env,
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
-		result = pFuncObj->GetFunction()->Call(env, CallerInfo::Empty, pFuncObj->GetThis(),
+		result = pFuncObj->GetFunction()->Call(env, CallerInfo::Empty, pFuncObj->GetValueThis(),
 											   nullptr, false, nullptr);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
@@ -2580,7 +2580,7 @@ Value Expr_Member::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) con
 		if (result.Is_function()) {
 			Object_function *pObjFunc =
 				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
-			pObjFunc->SetThis(valueThis);
+			pObjFunc->SetValueThis(valueThis);
 			result = Value(pObjFunc);
 		}
 	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {

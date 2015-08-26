@@ -80,7 +80,7 @@ Gura_ImplementMethod(Outline, Translate)
 	FT_Pos xOffset = static_cast<FT_Pos>(args.GetInt(0));
 	FT_Pos yOffset = static_cast<FT_Pos>(args.GetInt(1));
 	::FT_Outline_Translate(outline, xOffset, yOffset);	// void function
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Outline#Transform(matrix:freetype.Matrix):reduce
@@ -95,7 +95,7 @@ Gura_ImplementMethod(Outline, Transform)
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
 	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
 	::FT_Outline_Transform(outline, matrix);	// void function
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Outline#Embolden(strength:number):reduce
@@ -115,7 +115,7 @@ Gura_ImplementMethod(Outline, Embolden)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 #if FREETYPE_CHECK_VERSION(2, 4, 11)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(Outline, EmboldenXY)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 #endif
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(Outline, Reverse)
 {
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
 	::FT_Outline_Reverse(outline);	// void function
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_ImplementUserClass(Outline)

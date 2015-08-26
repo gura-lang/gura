@@ -76,7 +76,7 @@ Gura_ImplementFunction(RichTextFormattingDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(RichTextFormattingDialogEmpty)
@@ -99,7 +99,7 @@ Gura_ImplementFunction(RichTextFormattingDialogEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_RichTextFormattingDialog, ApplyStyle)

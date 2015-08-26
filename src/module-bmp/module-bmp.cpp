@@ -26,7 +26,7 @@ Gura_ImplementMethod(image, read_bmp)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_BMP::ReadStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#write@bmp(stream:stream:w):reduce
@@ -46,7 +46,7 @@ Gura_ImplementMethod(image, write_bmp)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_BMP::WriteStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

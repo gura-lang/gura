@@ -426,7 +426,7 @@ Gura_ImplementMethod(font, cleardeco)
 {
 	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->ClearDeco();
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce {block?}
@@ -455,7 +455,7 @@ Gura_ImplementMethod(font, drawtext)
 		if (pFuncDeco == nullptr) return Value::Nil;
 	}
 	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.font#calcsize(str:string):map

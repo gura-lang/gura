@@ -448,7 +448,7 @@ Gura_ImplementMethod(track, seek)
 		sig.SetError(ERR_ArgumentError, "invalid symbol");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#tell()
@@ -484,7 +484,7 @@ Gura_ImplementMethod(track, erase)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	size_t cnt = args.Is_number(0)? args.GetSizeT(0) : 1;
 	if (!pTrack->Erase(sig, cnt)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#mml(str:string, max_velocity?:number):map:reduce
@@ -510,7 +510,7 @@ Gura_ImplementMethod(track, mml)
 	if (mml.ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#note_off(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
@@ -535,7 +535,7 @@ Gura_ImplementMethod(track, note_off)
 	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOff(0, channel, note, velocity));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#note_on(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
@@ -560,7 +560,7 @@ Gura_ImplementMethod(track, note_on)
 	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOn(0, channel, note, velocity));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#poly_pressure(channel:number, note:number, value:number, deltaTime?:number):map:reduce
@@ -585,7 +585,7 @@ Gura_ImplementMethod(track, poly_pressure)
 	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PolyPressure(0, channel, note, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#control_change(channel:number, controller, value:number, deltaTime?:number):map:reduce
@@ -625,7 +625,7 @@ Gura_ImplementMethod(track, control_change)
 	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ControlChange(0, channel, controller, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#program_change(channel:number, program, deltaTime?:number):map:reduce
@@ -663,7 +663,7 @@ Gura_ImplementMethod(track, program_change)
 	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#channel_pressure(channel:number, pressure:number, deltaTime?:number):map:reduce
@@ -686,7 +686,7 @@ Gura_ImplementMethod(track, channel_pressure)
 	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ChannelPressure(0, channel, pressure));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#pitch_bend(channel:number, value:number, deltaTime?:number):map:reduce
@@ -709,7 +709,7 @@ Gura_ImplementMethod(track, pitch_bend)
 	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PitchBend(0, channel, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#sequence_number(number:number, deltaTime?:number):map:reduce
@@ -729,7 +729,7 @@ Gura_ImplementMethod(track, sequence_number)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, args.GetUShort(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#text_event(text:string, deltaTime?:number):map:reduce
@@ -749,7 +749,7 @@ Gura_ImplementMethod(track, text_event)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#copyright_notice(text:string, deltaTime?:number):map:reduce
@@ -769,7 +769,7 @@ Gura_ImplementMethod(track, copyright_notice)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#sequence_or_track_name(text:string, deltaTime?:number):map:reduce
@@ -789,7 +789,7 @@ Gura_ImplementMethod(track, sequence_or_track_name)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#instrument_name(text:string, deltaTime?:number):map:reduce
@@ -809,7 +809,7 @@ Gura_ImplementMethod(track, instrument_name)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#lyric_text(text:string, deltaTime?:number):map:reduce
@@ -829,7 +829,7 @@ Gura_ImplementMethod(track, lyric_text)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#marker_text(text:string, deltaTime?:number):map:reduce
@@ -849,7 +849,7 @@ Gura_ImplementMethod(track, marker_text)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#cue_point(text:string, deltaTime?:number):map:reduce
@@ -869,7 +869,7 @@ Gura_ImplementMethod(track, cue_point)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, args.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#midi_channel_prefix_assignment(channel:number, deltaTime?:number):map:reduce
@@ -890,7 +890,7 @@ Gura_ImplementMethod(track, midi_channel_prefix_assignment)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_MIDIChannelPrefixAssignment(0, channel));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#end_of_track(deltaTime?:number):map:reduce
@@ -909,7 +909,7 @@ Gura_ImplementMethod(track, end_of_track)
 	ULong deltaTime = args.Is_number(0)? args.GetULong(0) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(0));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#tempo_setting(mpqn:number, deltaTime?:number):map:reduce
@@ -930,7 +930,7 @@ Gura_ImplementMethod(track, tempo_setting)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TempoSetting(0, mpqn));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number, deltaTime?:number):map:reduce
@@ -959,7 +959,7 @@ Gura_ImplementMethod(track, smpte_offset)
 	ULong deltaTime = args.Is_number(5)? args.GetULong(5) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SMPTEOffset(0, hour, minute, second, frame, subFrame));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number, deltaTime?:number):map:reduce
@@ -986,7 +986,7 @@ Gura_ImplementMethod(track, time_signature)
 	ULong deltaTime = args.Is_number(4)? args.GetULong(4) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TimeSignature(0, numerator, denominator, metronome, cnt32nd));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#key_signature(key:number, scale:number, deltaTime?:number):map:reduce
@@ -1009,7 +1009,7 @@ Gura_ImplementMethod(track, key_signature)
 	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_KeySignature(0, key, scale));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.track#sequencer_specific_event(binary:binary, deltaTime?:number):map:reduce
@@ -1030,7 +1030,7 @@ Gura_ImplementMethod(track, sequencer_specific_event)
 	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequencerSpecificEvent(0, binary));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1162,7 +1162,7 @@ Gura_ImplementMethod(sequence, read)
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	if (!pThis->GetSequence().Read(env, args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.sequence#write(stream:stream:w):map:reduce
@@ -1180,7 +1180,7 @@ Gura_ImplementMethod(sequence, write)
 	Signal &sig = env.GetSignal();
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	if (!pThis->GetSequence().Write(env, args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.sequence#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
@@ -1254,7 +1254,7 @@ Gura_ImplementMethod(sequence, mml)
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
 	if (!mml.ParseString(sig, pThis->GetSequence(), args.GetString(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.sequence#readmml(stream:stream, max_velocity?:number):reduce
@@ -1275,7 +1275,7 @@ Gura_ImplementMethod(sequence, readmml)
 	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
 	MML mml(velocityMax);
 	if (!mml.ParseStream(sig, pThis->GetSequence(), args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1430,7 +1430,7 @@ Gura_ImplementMethod(port, send)
 		sig.SetError(ERR_ArgumentError, "too many arguments");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#play(sequence:midi.sequence, speed?:number, repeat:number:nil => 1):map:[background,player]
@@ -1529,7 +1529,7 @@ Gura_ImplementMethod(port, note_off)
 	UChar note = args.GetUChar(1);
 	UChar velocity = args.GetUChar(2);
 	pPort->Send(MIDIEvent_NoteOff::Status | channel, note, velocity);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#note_on(channel:number, note:number, velocity:number):map:reduce
@@ -1551,7 +1551,7 @@ Gura_ImplementMethod(port, note_on)
 	UChar note = args.GetUChar(1);
 	UChar velocity = args.GetUChar(2);
 	pPort->Send(MIDIEvent_NoteOn::Status | channel, note, velocity);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#poly_pressure(channel:number, note:number, value:number):map:reduce
@@ -1573,7 +1573,7 @@ Gura_ImplementMethod(port, poly_pressure)
 	UChar note = args.GetUChar(1);
 	UChar value = args.GetUChar(2);
 	pPort->Send(MIDIEvent_PolyPressure::Status | channel, note, value);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#control_change(channel:number, controller:number, value:number):map:reduce
@@ -1595,7 +1595,7 @@ Gura_ImplementMethod(port, control_change)
 	UChar controller = args.GetUChar(1);
 	UChar value = args.GetUChar(2);
 	pPort->Send(MIDIEvent_ControlChange::Status | channel, controller, value);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#program_change(channel:number, program:number):map:reduce
@@ -1615,7 +1615,7 @@ Gura_ImplementMethod(port, program_change)
 	UChar channel = args.GetUChar(0) & 0x0f;
 	UChar program = args.GetUChar(1);
 	pPort->Send(MIDIEvent_ProgramChange::Status | channel, program);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#channel_pressure(channel:number, pressure:number):map:reduce
@@ -1635,7 +1635,7 @@ Gura_ImplementMethod(port, channel_pressure)
 	UChar channel = args.GetUChar(0) & 0x0f;
 	UChar pressure = args.GetUChar(1);
 	pPort->Send(MIDIEvent_ChannelPressure::Status | channel, pressure);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // midi.port#pitch_bend(channel:number, value:number):map:reduce
@@ -1657,7 +1657,7 @@ Gura_ImplementMethod(port, pitch_bend)
 	pPort->Send(MIDIEvent_PitchBend::Status | channel,
 			static_cast<UChar>((value >> 0) & 0x7f),
 			static_cast<UChar>((value >> 7) & 0x7f));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

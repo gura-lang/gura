@@ -61,7 +61,7 @@ Gura_ImplementFunction(StaticBoxSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(StaticBoxSizerAuto)
@@ -91,7 +91,7 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)

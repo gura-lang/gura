@@ -230,7 +230,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgb)
 	::cairo_pattern_add_color_stop_rgb(pattern, args.GetDouble(0),
 		args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
 	if (Is_error(sig, pattern)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.pattern#add_color_stop_rgba(offset:number, red:number, green:number, blue:number, alpha:number):reduce
@@ -267,7 +267,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgba)
 	::cairo_pattern_add_color_stop_rgba(pattern, args.GetDouble(0),
 		args.GetDouble(1), args.GetDouble(2), args.GetDouble(3), args.GetDouble(4));
 	if (Is_error(sig, pattern)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.pattern#get_color_stop_count()
@@ -494,7 +494,7 @@ Gura_ImplementMethod(pattern, set_extend)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_pattern_set_extend(pattern, extend);
 	if (Is_error(sig, pattern)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.pattern#get_extend()
@@ -543,7 +543,7 @@ Gura_ImplementMethod(pattern, set_filter)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_pattern_set_filter(pattern, filter);
 	if (Is_error(sig, pattern)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.pattern#get_filter()
@@ -600,7 +600,7 @@ Gura_ImplementMethod(pattern, set_matrix)
 	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_pattern_set_matrix(pattern, &matrix);
 	if (Is_error(sig, pattern)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.pattern#get_matrix()

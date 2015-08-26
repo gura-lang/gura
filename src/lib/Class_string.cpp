@@ -55,11 +55,11 @@ Gura_ImplementMethod(string, align)
 	}
 	String str;
 	if (args.IsSet(Gura_Symbol(right))) {
-		str = RJust(args.GetThis().GetString(), width, padding);
+		str = RJust(args.GetValueThis().GetString(), width, padding);
 	} else if (args.IsSet(Gura_Symbol(left))) {
-		str = LJust(args.GetThis().GetString(), width, padding);
+		str = LJust(args.GetValueThis().GetString(), width, padding);
 	} else {
-		str = Center(args.GetThis().GetString(), width, padding);
+		str = Center(args.GetValueThis().GetString(), width, padding);
 	}
 	return Value(str);
 }
@@ -75,7 +75,7 @@ Gura_DeclareMethodPrimitive(string, binary)
 
 Gura_ImplementMethod(string, binary)
 {
-	const char *str = args.GetThis().GetString();
+	const char *str = args.GetValueThis().GetString();
 	return Value(new Object_binary(env, str, ::strlen(str), true));
 }
 
@@ -90,7 +90,7 @@ Gura_DeclareMethod(string, capitalize)
 
 Gura_ImplementMethod(string, capitalize)
 {
-	return Value(Capitalize(args.GetThis().GetString()));
+	return Value(Capitalize(args.GetValueThis().GetString()));
 }
 
 // string#chop(suffix*:string):[eol,icase]
@@ -114,9 +114,9 @@ Gura_ImplementMethod(string, chop)
 	bool eolOnlyFlag = args.IsSet(Gura_Symbol(eol));
 	const ValueList &valList = args.GetList(0);
 	if (valList.empty()) {
-		return Value(Chop(args.GetThis().GetString(), eolOnlyFlag));
+		return Value(Chop(args.GetValueThis().GetString(), eolOnlyFlag));
 	}
-	String rtn = args.GetThis().GetStringSTL();
+	String rtn = args.GetValueThis().GetStringSTL();
 	if (eolOnlyFlag) rtn = Chop(rtn.c_str(), true);
 	foreach_const (ValueList, pValue, valList) {
 		const char *p1 = rtn.c_str();
@@ -137,7 +137,7 @@ Gura_DeclareMethod(string, decodeuri)
 
 Gura_ImplementMethod(string, decodeuri)
 {
-	return Value(DecodeURI(args.GetThis().GetString()));
+	return Value(DecodeURI(args.GetValueThis().GetString()));
 }
 
 // string#each():[utf8,utf32] {block?}
@@ -161,7 +161,7 @@ Gura_ImplementMethod(string, each)
 		args.IsSet(Gura_Symbol(utf32))? Class_string::IteratorEach::ATTR_UTF32 :
 		Class_string::IteratorEach::ATTR_None;
 	Iterator *pIterator = new Class_string::IteratorEach(
-								args.GetThis().GetStringSTL(), -1, attr);
+								args.GetValueThis().GetStringSTL(), -1, attr);
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(string, eachline)
 	int maxSplit = args.Is_number(0)? args.GetInt(0) : -1;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
 	return ReturnIterator(env, args, new Class_string::IteratorLine(
-					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
+					args.GetValueThis().GetStringSTL(), maxSplit, includeEOLFlag));
 }
 
 // string#embed(dst?:stream:w):[noindent,lasteol]
@@ -214,7 +214,7 @@ Gura_ImplementMethod(string, embed)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
+	if (!pTemplate->Parse(env, args.GetValueThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
@@ -243,7 +243,7 @@ Gura_ImplementMethod(string, encode)
 	Signal &sig = env.GetSignal();
 	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	Binary buff;
-	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
+	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetValueThis().GetString())) {
 		return Value::Nil;
 	}
 	return Value(new Object_binary(env, buff, true));
@@ -260,7 +260,7 @@ Gura_DeclareMethod(string, encodeuri)
 
 Gura_ImplementMethod(string, encodeuri)
 {
-	return Value(EncodeURI(args.GetThis().GetString()));
+	return Value(EncodeURI(args.GetValueThis().GetString()));
 }
 
 // string#endswith(suffix:string, endpos?:number):map:[rest,icase]
@@ -285,7 +285,7 @@ Gura_DeclareMethod(string, endswith)
 
 Gura_ImplementMethod(string, endswith)
 {
-	const char *str = args.GetThis().GetString();
+	const char *str = args.GetValueThis().GetString();
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	const char *rtn = args.Is_number(1)?
 		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
@@ -310,7 +310,7 @@ Gura_DeclareMethod(string, escapehtml)
 Gura_ImplementMethod(string, escapehtml)
 {
 	bool quoteFlag = args.IsSet(Gura_Symbol(quote));
-	return Value(EscapeHtml(args.GetThis().GetString(), quoteFlag));
+	return Value(EscapeHtml(args.GetValueThis().GetString(), quoteFlag));
 }
 
 // string#find(sub:string, pos?:number => 0):map:[icase,rev]
@@ -335,7 +335,7 @@ Gura_DeclareMethod(string, find)
 
 Gura_ImplementMethod(string, find)
 {
-	return FindString(env, args.GetThis().GetString(), args.GetString(0), args.GetInt(1),
+	return FindString(env, args.GetValueThis().GetString(), args.GetString(0), args.GetInt(1),
 					  args.IsSet(Gura_Symbol(icase)), args.IsSet(Gura_Symbol(rev)),
 					  args.IsRsltList());
 }
@@ -364,7 +364,7 @@ Gura_ImplementMethod(string, fold)
 	int cntStep = args.Is_number(1)? args.GetInt(1) : cntPerFold;
 	bool neatFlag = args.IsSet(Gura_Symbol(neat));
 	Iterator *pIterator = new Class_string::IteratorFold(
-		args.GetThis().GetStringSTL(), cntPerFold, cntStep, neatFlag);
+		args.GetValueThis().GetStringSTL(), cntPerFold, cntStep, neatFlag);
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementMethod(string, foldw)
 	int widthPerFold = args.GetInt(0);
 	bool paddingFlag = args.IsSet(Gura_Symbol(padding));
 	Iterator *pIterator = new Class_string::IteratorFoldw(
-		args.GetThis().GetStringSTL(), widthPerFold, paddingFlag);
+		args.GetValueThis().GetStringSTL(), widthPerFold, paddingFlag);
 	return ReturnIterator(env, args, pIterator);
 }
 
@@ -408,7 +408,7 @@ Gura_DeclareMethod(string, format)
 Gura_ImplementMethod(string, format)
 {
 	Signal &sig = env.GetSignal();
-	return Value(Formatter::FormatValueList(sig, args.GetThis().GetString(), args.GetList(0)));
+	return Value(Formatter::FormatValueList(sig, args.GetValueThis().GetString(), args.GetList(0)));
 }
 
 // string#isalnum()
@@ -422,7 +422,7 @@ Gura_DeclareMethod(string, isalnum)
 
 Gura_ImplementMethod(string, isalnum)
 {
-	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Alpha | CTYPE_Digit));
+	return Value(CheckCType(args.GetValueThis().GetString(), CTYPE_Alpha | CTYPE_Digit));
 }
 
 // string#isalpha()
@@ -436,7 +436,7 @@ Gura_DeclareMethod(string, isalpha)
 
 Gura_ImplementMethod(string, isalpha)
 {
-	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Alpha));
+	return Value(CheckCType(args.GetValueThis().GetString(), CTYPE_Alpha));
 }
 
 // string#isdigit()
@@ -450,7 +450,7 @@ Gura_DeclareMethod(string, isdigit)
 
 Gura_ImplementMethod(string, isdigit)
 {
-	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Digit));
+	return Value(CheckCType(args.GetValueThis().GetString(), CTYPE_Digit));
 }
 
 // string#isempty()
@@ -464,7 +464,7 @@ Gura_DeclareMethod(string, isempty)
 
 Gura_ImplementMethod(string, isempty)
 {
-	return Value(*args.GetThis().GetString() == '\0');
+	return Value(*args.GetValueThis().GetString() == '\0');
 }
 
 // string#isspace()
@@ -478,7 +478,7 @@ Gura_DeclareMethod(string, isspace)
 
 Gura_ImplementMethod(string, isspace)
 {
-	return Value(CheckCType(args.GetThis().GetString(), CTYPE_Space));
+	return Value(CheckCType(args.GetValueThis().GetString(), CTYPE_Space));
 }
 
 // string#left(len?:number):map
@@ -495,8 +495,8 @@ Gura_DeclareMethod(string, left)
 
 Gura_ImplementMethod(string, left)
 {
-	if (!args.Is_number(0)) return args.GetThis();
-	return Value(Left(args.GetThis().GetString(), args.GetSizeT(0)));
+	if (!args.Is_number(0)) return args.GetValueThis();
+	return Value(Left(args.GetValueThis().GetString(), args.GetSizeT(0)));
 }
 
 // string#len()
@@ -510,7 +510,7 @@ Gura_DeclareMethod(string, len)
 
 Gura_ImplementMethod(string, len)
 {
-	return Value(static_cast<UInt>(Length(args.GetThis().GetString())));
+	return Value(static_cast<UInt>(Length(args.GetValueThis().GetString())));
 }
 
 // string#lower()
@@ -524,7 +524,7 @@ Gura_DeclareMethod(string, lower)
 
 Gura_ImplementMethod(string, lower)
 {
-	return Value(Lower(args.GetThis().GetString()));
+	return Value(Lower(args.GetValueThis().GetString()));
 }
 
 // string#mid(pos:number => 0, len?:number):map
@@ -548,7 +548,7 @@ Gura_DeclareMethod(string, mid)
 
 Gura_ImplementMethod(string, mid)
 {
-	return Value(Middle(args.GetThis().GetString(), args.GetInt(0),
+	return Value(Middle(args.GetValueThis().GetString(), args.GetInt(0),
 						args.Is_number(1)? args.GetInt(1) : -1));
 }
 
@@ -569,7 +569,7 @@ Gura_ImplementMethod(string, print)
 	Signal &sig = env.GetSignal();
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
-	pStream->Print(sig, args.GetThis().GetString());
+	pStream->Print(sig, args.GetValueThis().GetString());
 	return Value::Nil;
 }
 
@@ -590,7 +590,7 @@ Gura_ImplementMethod(string, println)
 	Signal &sig = env.GetSignal();
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
-	pStream->Println(sig, args.GetThis().GetString());
+	pStream->Println(sig, args.GetValueThis().GetString());
 	return Value::Nil;
 }
 
@@ -609,7 +609,7 @@ Gura_DeclareMethod(string, reader)
 Gura_ImplementMethod(string, reader)
 {
 	return ReturnValue(env, args, Value(new Object_stream(env,
-		new Stream_StringReader(env, args.GetThis().GetStringSTL()))));
+		new Stream_StringReader(env, args.GetValueThis().GetStringSTL()))));
 }
 
 // string#replace(match:string, sub:string, count?:number):map:[icase] {block?}
@@ -640,14 +640,14 @@ Gura_DeclareMethod(string, replace)
 Gura_ImplementMethod(string, replace)
 {
 	String result = Replace(
-		args.GetThis().GetString(),
+		args.GetValueThis().GetString(),
 		args.GetString(0), args.GetString(1),
 		args.IsValid(2)? args.GetInt(2) : -1, args.IsSet(Gura_Symbol(icase)));
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
 	valListArg.push_back(Value(result));
-	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
+	valListArg.push_back(Value(result != args.GetValueThis().GetStringSTL()));
 	return ReturnValues(env, args, valListArg);
 }
 
@@ -686,13 +686,13 @@ Gura_ImplementMethod(string, replaces)
 		return Value::Nil;
 	}
 	int nMaxReplace = args.IsValid(1)? args.GetInt(1) : -1;
-	String result = Replaces(args.GetThis().GetString(),
+	String result = Replaces(args.GetValueThis().GetString(),
 							 valList, nMaxReplace, args.IsSet(Gura_Symbol(icase)));
 	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
 	valListArg.push_back(Value(result));
-	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
+	valListArg.push_back(Value(result != args.GetValueThis().GetStringSTL()));
 	return ReturnValues(env, args, valListArg);
 }
 
@@ -710,8 +710,8 @@ Gura_DeclareMethod(string, right)
 
 Gura_ImplementMethod(string, right)
 {
-	if (!args.Is_number(0)) return args.GetThis();
-	return Value(Right(args.GetThis().GetString(), args.GetSizeT(0)));
+	if (!args.Is_number(0)) return args.GetValueThis();
+	return Value(Right(args.GetValueThis().GetString(), args.GetSizeT(0)));
 }
 
 // string#split(sep?:string, count?:number):[icase] {block?}
@@ -739,9 +739,9 @@ Gura_ImplementMethod(string, split)
 		const char *sep = args.GetString(0);
 		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 		pIterator = new Class_string::IteratorSplit(
-						args.GetThis().GetStringSTL(), sep, maxSplit, ignoreCaseFlag);
+						args.GetValueThis().GetStringSTL(), sep, maxSplit, ignoreCaseFlag);
 	} else {
-		pIterator = new Class_string::IteratorEach(args.GetThis().GetStringSTL(),
+		pIterator = new Class_string::IteratorEach(args.GetValueThis().GetStringSTL(),
 							maxSplit, Class_string::IteratorEach::ATTR_None);
 	}
 	return ReturnIterator(env, args, pIterator);
@@ -768,7 +768,7 @@ Gura_DeclareMethod(string, startswith)
 
 Gura_ImplementMethod(string, startswith)
 {
-	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
+	const char *rtn = StartsWith(args.GetValueThis().GetString(), args.GetString(0),
 					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
 	if (args.IsSet(Gura_Symbol(rest))) {
 		if (rtn == nullptr) return Value::Nil;
@@ -806,8 +806,8 @@ Gura_ImplementMethod(string, strip)
 	} else if (!args.IsSet(Gura_Symbol(left)) && args.IsSet(Gura_Symbol(right))) {
 		stripLeftFlag = false;
 	}
-	return Value(Strip(args.GetThis().GetString(), stripLeftFlag, stripRightFlag));
-	//return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
+	return Value(Strip(args.GetValueThis().GetString(), stripLeftFlag, stripRightFlag));
+	//return Value(Strip(args.GetValueThis().GetString(), args.GetAttrs()));
 }
 
 // string#template():[noindent,lasteol] {block?}
@@ -828,7 +828,7 @@ Gura_ImplementMethod(string, template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (!pTemplate->Parse(env, args.GetThis().GetString(), nullptr,
+	if (!pTemplate->Parse(env, args.GetValueThis().GetString(), nullptr,
 						  autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	return ReturnValue(env, args,
 					Value(new Object_template(env, pTemplate.release())));
@@ -845,7 +845,7 @@ Gura_DeclareMethod(string, tosymbol)
 
 Gura_ImplementMethod(string, tosymbol)
 {
-	return Value(Symbol::Add(args.GetThis().GetString()));
+	return Value(Symbol::Add(args.GetValueThis().GetString()));
 }
 
 // string.translator():void {block}
@@ -887,7 +887,7 @@ Gura_DeclareMethod(string, unescapehtml)
 
 Gura_ImplementMethod(string, unescapehtml)
 {
-	return Value(UnescapeHtml(args.GetThis().GetString()));
+	return Value(UnescapeHtml(args.GetValueThis().GetString()));
 }
 
 // string#upper()
@@ -901,7 +901,7 @@ Gura_DeclareMethod(string, upper)
 
 Gura_ImplementMethod(string, upper)
 {
-	return Value(Upper(args.GetThis().GetString()));
+	return Value(Upper(args.GetValueThis().GetString()));
 }
 
 // string#width()
@@ -918,7 +918,7 @@ Gura_DeclareMethod(string, width)
 
 Gura_ImplementMethod(string, width)
 {
-	return Value(static_cast<UInt>(Width(args.GetThis().GetString())));
+	return Value(static_cast<UInt>(Width(args.GetValueThis().GetString())));
 }
 
 // string#zentohan()
@@ -932,7 +932,7 @@ Gura_DeclareMethod(string, zentohan)
 
 Gura_ImplementMethod(string, zentohan)
 {
-	return Value(ZenToHan(args.GetThis().GetString()));
+	return Value(ZenToHan(args.GetValueThis().GetString()));
 }
 
 //-----------------------------------------------------------------------------

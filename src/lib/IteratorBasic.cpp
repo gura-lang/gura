@@ -428,7 +428,7 @@ void Iterator_Fork::Run()
 	ValueList valList;
 	while (_iterOwner.Next(env, valList)) {
 		AutoPtr<Args> pArgs(new Args(valList));
-		pArgs->SetThis(_valueThis);
+		pArgs->SetValueThis(_valueThis);
 		Value value = _pFunc->Eval(*_pEnv, *pArgs);
 		if (sig.IsSignalled()) break;
 		_semaphore.Wait();
@@ -540,7 +540,7 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
 		Value valueThis;
 		_doneThisFlag = !pIteratorThis->Next(env, valueThis);
 		if (sig.IsSignalled()) return false;
-		_pArgs->SetThis(valueThis);
+		_pArgs->SetValueThis(valueThis);
 	}
 	return true;
 }
@@ -737,7 +737,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(env,
 									Function::Reference(value.GetFunction()));
-		pObj->SetThis(valueThisEach);
+		pObj->SetValueThis(valueThisEach);
 		value = Value(pObj);
 	}
 	return true;
@@ -834,7 +834,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 			return false;
 		}
 		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(_valueThis);
+		pArgs->SetValueThis(_valueThis);
 		pArgs->SetValueListArg(valListComp);
 		value = _pFunc->Eval(*_pEnv, *pArgs);
 		if (sig.IsSignalled()) return false;
@@ -844,7 +844,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 			return false;
 		}
 		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(_valueThis);
+		pArgs->SetValueThis(_valueThis);
 		pArgs->SetValueListArg(valListComp);
 		value = _pFunc->Eval(*_pEnv, *pArgs);
 		if (sig.IsSignalled()) return false;

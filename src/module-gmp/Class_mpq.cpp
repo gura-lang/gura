@@ -141,7 +141,7 @@ Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 Gura_ImplementMethod(string, cast_mpq)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	int base = 0;
 	mpq_class num;
 	if (num.set_str(strThis, base) < 0) {

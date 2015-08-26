@@ -134,7 +134,7 @@ ClassOfStruct::Constructor::Constructor(Environment &env) :
 Value ClassOfStruct::Constructor::DoEval(Environment &env, Args &args) const
 {
 	Object *pObjThis = nullptr;
-	Value valueRtn(args.GetThis());
+	Value valueRtn(args.GetValueThis());
 	if (valueRtn.IsObject()) {
 		pObjThis = valueRtn.GetObject();
 	} else {

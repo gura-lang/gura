@@ -98,7 +98,7 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pArgs->SetValue(value);
 	value = pFunc->Eval(*pEnvLocal, *pArgs);
 	if (sig.IsSignalled()) return false;
@@ -113,7 +113,7 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 	if (pFunc == nullptr) return false;
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(value);
+	pArgs->SetValueThis(value);
 	pArgs->SetValue(Value(new Object_declaration(env, decl.Reference())));
 	value = pFunc->Eval(*pEnvLocal, *pArgs);
 	if (sig.IsSignalled()) return false;
@@ -243,7 +243,7 @@ bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 {
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(value);
+	pArgs->SetValueThis(value);
 	pArgs->SetValue(Value(new Object_formatter(*pEnvLocal, flags)));
 	Value valueRtn = pFunc->Eval(*pEnvLocal, *pArgs);
 	if (sig.IsSignalled()) return false;
@@ -266,7 +266,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, false));
 	if (pEnvLocal.IsNull()) return Value::Nil;
-	Value valueRtn(args.GetThis());
+	Value valueRtn(args.GetValueThis());
 	if (!valueRtn.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, _pClassToConstruct);
 		valueRtn.InitAsObject(pObj);

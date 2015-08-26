@@ -228,7 +228,7 @@ Gura_ImplementMethod(template_, block)
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(args.GetThis());
+		pArgs->SetValueThis(args.GetValueThis());
 		pValue->GetFunction()->Eval(env, *pArgs);
 	}
 	return Value::Nil;
@@ -264,7 +264,7 @@ Gura_ImplementMethod(template_, call)
 		return Value::Nil;
 	}
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(args.GetThis());
+	pArgs->SetValueThis(args.GetValueThis());
 	pArgs->SetValueListArg(args.GetList(1));
 	pTemplate->ClearLastChar();
 	pValue->GetFunction()->Eval(env, *pArgs);
@@ -420,7 +420,7 @@ Gura_ImplementMethod(template_, super)
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(args.GetThis());
+		pArgs->SetValueThis(args.GetValueThis());
 		pValue->GetFunction()->Eval(env, *pArgs);
 	}
 	return Value::Nil;

@@ -63,7 +63,7 @@ Gura_ImplementFunction(HtmlHelpFrame)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(HtmlHelpFrame_1)
@@ -99,7 +99,7 @@ Gura_ImplementFunction(HtmlHelpFrame_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_HtmlHelpFrame, AddToolbarButtons)

@@ -26,7 +26,7 @@ Gura_ImplementMethod(image, read_xpm)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 #endif
 
@@ -45,7 +45,7 @@ Gura_ImplementMethod(image, write_xpm)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#xpmdata(xpm[]:string):reduce
@@ -259,7 +259,7 @@ Gura_ImplementMethod(image, xpmdata)
 			}
 		}
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

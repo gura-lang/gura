@@ -228,7 +228,7 @@ Gura_ImplementMethod(datetime, clrtzoff)
 {
 	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	dateTime.ClearTZOffset();
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // datetime#format(format => `w3c)
@@ -422,7 +422,7 @@ Gura_ImplementMethod(datetime, settzoff)
 {
 	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	dateTime.SetTZOffset(args.GetLong(0) * 60);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map {block?}

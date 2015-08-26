@@ -57,7 +57,7 @@ Gura_ImplementFunction(RichTextHeaderFooterDataEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareFunction(RichTextHeaderFooterData)
@@ -82,7 +82,7 @@ Gura_ImplementFunction(RichTextHeaderFooterData)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, Clear)

@@ -83,7 +83,7 @@ Gura_ImplementMethod(codec, addcr)
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	Codec::Encoder *pEncoder = pThis->GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // codec#decode(buff:binary):map
@@ -128,7 +128,7 @@ Gura_ImplementMethod(codec, delcr)
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	Codec::Decoder *pDecoder = pThis->GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // codec#encode(str:string):map

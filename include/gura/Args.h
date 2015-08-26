@@ -91,13 +91,13 @@ public:
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
 	inline ULong GetFlags() const { return _flags; }
-	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
-	inline Value &GetThis() { return _valueThis; }
-	inline const Value &GetThis() const { return _valueThis; }
-	inline Object *GetThisObj() { return _valueThis.GetObject(); }
-	inline const Object *GetThisObj() const { return _valueThis.GetObject(); }
-	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
-	inline const Fundamental *GetThisFundamental() const { return _valueThis.GetFundamental(); }
+	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
+	inline Value &GetValueThis() { return _valueThis; }
+	inline const Value &GetValueThis() const { return _valueThis; }
+	inline Object *GetObjectThis() { return _valueThis.GetObject(); }
+	inline const Object *GetObjectThis() const { return _valueThis.GetObject(); }
+	inline Fundamental *GetFundamentalThis() { return _valueThis.GetFundamental(); }
+	inline const Fundamental *GetFundamentalThis() const { return _valueThis.GetFundamental(); }
 	inline void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag) {
 		_pIteratorThis.reset(pIteratorThis);
 		_listThisFlag = listThisFlag;

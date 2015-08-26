@@ -814,7 +814,7 @@ Gura_ImplementMethod(list, add)
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		valList.push_back(*pValue);
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#append(elem+):reduce
@@ -850,7 +850,7 @@ Gura_ImplementMethod(list, append)
 			valList.push_back(*pValue);
 		}
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#clear():reduce
@@ -866,7 +866,7 @@ Gura_ImplementMethod(list, clear)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	pThis->GetList().clear();
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#combination(n:number) {block?}
@@ -925,7 +925,7 @@ Gura_ImplementMethod(list, erase)
 			offset++;
 		}
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#first()
@@ -991,7 +991,7 @@ Gura_ImplementMethod(list, insert)
 		valList.insert(valList.begin() + idx, *pValue);
 		idx++;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#isempty()
@@ -1074,7 +1074,7 @@ Gura_ImplementMethod(list, put)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	pThis->IndexSet(env, args.GetValue(0), args.GetValue(1));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#shuffle():reduce
@@ -1092,7 +1092,7 @@ Gura_ImplementMethod(list, shuffle)
 	ValueList &valList = pThis->GetList();
 	Random random;
 	std::random_shuffle(valList.begin(), valList.end(), random);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // list#shift():[raise]

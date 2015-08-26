@@ -68,7 +68,7 @@ Gura_ImplementFunction(WizardPageSimple)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 	Object_wx_WizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0);
 	pThis->SetNext(next);
 	next->SetPrev(pThis);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)

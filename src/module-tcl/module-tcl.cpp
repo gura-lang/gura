@@ -699,7 +699,7 @@ Gura_ImplementMethod(timer, start)
 	int msecCont = args.Is_number(1)? args.GetInt(1) : msec;
 	int cnt = args.Is_number(2)? args.GetInt(2) : -1;
 	pThis->Start(sig, pFuncBlock, msec, msecCont, cnt);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class timer
@@ -752,7 +752,7 @@ Gura_ImplementMethod(image, read_tcl)
 	photoImageBlock.offset[2] = Image::OffsetB;
 	photoImageBlock.offset[3] = Image::OffsetA;
 	::Tk_PhotoGetImage(handle, &photoImageBlock);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#write@tcl(interp:tcl.interp, imageName:string):reduce
@@ -794,7 +794,7 @@ Gura_ImplementMethod(image, write_tcl)
 	photoImageBlock.offset[3] = Image::OffsetA;
 	::Tk_PhotoPutBlock(interp, handle, &photoImageBlock,
 							0, 0, width, height, TK_PHOTO_COMPOSITE_SET);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

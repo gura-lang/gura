@@ -201,7 +201,7 @@ Gura_ImplementMethod(surface, finish)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_finish(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#flush():reduce
@@ -222,7 +222,7 @@ Gura_ImplementMethod(surface, flush)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_flush(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#get_device()
@@ -309,7 +309,7 @@ Gura_ImplementMethod(surface, mark_dirty)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_mark_dirty(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#mark_dirty_rectangle(x:number, y:number, width:number, height:number):reduce
@@ -336,7 +336,7 @@ Gura_ImplementMethod(surface, mark_dirty_rectangle)
 	::cairo_surface_mark_dirty_rectangle(surface,
 			args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetInt(3));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#set_device_offset(x_offset:number, y_offset:number):reduce
@@ -364,7 +364,7 @@ Gura_ImplementMethod(surface, set_device_offset)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_set_device_offset(surface, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#get_device_offset()
@@ -420,7 +420,7 @@ Gura_ImplementMethod(surface, set_fallback_resolution)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_set_fallback_resolution(surface, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#get_fallback_resolution()
@@ -504,7 +504,7 @@ Gura_ImplementMethod(surface, copy_page)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_copy_page(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#show_page():reduce
@@ -526,7 +526,7 @@ Gura_ImplementMethod(surface, show_page)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_show_page(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.surface#has_show_text_glyphs()
@@ -680,7 +680,7 @@ Gura_ImplementMethod(surface, write_to_png)
 											args.GetStream(0).Reference()));
 	::cairo_surface_write_to_png_stream(surface, Writer_Stream::write_func, pWriter.get());
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class surface

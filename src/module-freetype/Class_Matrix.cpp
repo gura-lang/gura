@@ -126,7 +126,7 @@ Gura_ImplementMethod(Matrix, Multiply)
 	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
 	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
 	::FT_Matrix_Multiply(matrix, matrixThis);	// void function
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Matrix#Invert():reduce
@@ -144,7 +144,7 @@ Gura_ImplementMethod(Matrix, Invert)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

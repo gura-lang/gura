@@ -104,7 +104,7 @@ Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 Gura_ImplementMethod(string, cast_mpz)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	int base = args.Is_number(0)? args.GetInt(0) : 0;
 	mpz_class num;
 	if (num.set_str(strThis, base) < 0) {

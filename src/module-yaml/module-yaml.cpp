@@ -90,7 +90,7 @@ Gura_ImplementFunction(write)
 	if (!WriterToStream::Write(env, args.GetStream(0), args.GetValue(1))) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // Module entry

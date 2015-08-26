@@ -1717,7 +1717,7 @@ Gura_ImplementMethod(request, response)
 			args.GetValueDictArg())) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // http.request#respchunk(code:string, reason?:string,
@@ -2352,7 +2352,7 @@ Gura_ImplementMethod(client, cleanup)
 	Signal &sig = env.GetSignal();
 	Object_client *pThis = Object_client::GetThisObj(args);
 	if (!pThis->CleanupResponse(sig)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class Client

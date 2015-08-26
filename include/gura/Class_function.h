@@ -41,8 +41,8 @@ public:
 	virtual Object *Clone() const;
 	inline Function *GetFunction() { return _pFunc.get(); }
 	inline const Function *GetFunction() const { return _pFunc.get(); }
-	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
-	inline Value GetThis() const { return _valueThis; }
+	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
+	inline Value GetValueThis() const { return _valueThis; }
 	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,

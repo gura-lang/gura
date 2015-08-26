@@ -47,7 +47,7 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 	}
 	if (pTemplateTop->GetFuncForBody() == nullptr) return true;
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(Value(new Object_template(env, Reference())));
+	pArgs->SetValueThis(Value(new Object_template(env, Reference())));
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, *pArgs);
 	for (Template *pTemplate = this; pTemplate != nullptr;

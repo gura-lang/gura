@@ -77,7 +77,7 @@ _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

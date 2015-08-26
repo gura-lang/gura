@@ -220,7 +220,7 @@ Gura_ImplementMethod(image, allocbuff)
 	if (!pThis->GetImage()->CheckEmpty(sig)) return Value::Nil;
 	pThis->GetImage()->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
 	if (args.Is_color(2)) pThis->GetImage()->Fill(Object_color::GetObject(args, 2)->GetColor());
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#blur(radius:number, sigma:number) {block?}
@@ -267,7 +267,7 @@ Gura_ImplementMethod(image, clear)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
 	pThis->GetImage()->Fill(Color::zero);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#crop(x:number, y:number, width?:number, height?:number):map {block?}
@@ -326,7 +326,7 @@ Gura_ImplementMethod(image, delpalette)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	pThis->GetImage()->SetPalette(nullptr);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
@@ -380,7 +380,7 @@ Gura_ImplementMethod(image, extract)
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#fill(color:color):reduce
@@ -401,7 +401,7 @@ Gura_ImplementMethod(image, fill)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
 	pThis->GetImage()->Fill(Object_color::GetObject(args, 0)->GetColor());
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
@@ -432,7 +432,7 @@ Gura_ImplementMethod(image, fillrect)
 	int width = args.GetInt(2), height = args.GetInt(3);
 	if (!pThis->GetImage()->AdjustCoord(x, y, width, height)) return Value::Nil;
 	pThis->GetImage()->FillRect(x, y, width, height, Object_color::GetObject(args, 4)->GetColor());
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#flip(orient:symbol):map {block?}
@@ -651,7 +651,7 @@ Gura_ImplementMethod(image, paste)
 	pThis->GetImage()->Paste(x, y, pObjImg->GetImage(),
 							width, height, xOffset, yOffset, a);
 	if (sig.IsSignalled()) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#putpixel(x:number, y:number, color:color):map:reduce
@@ -677,7 +677,7 @@ Gura_ImplementMethod(image, putpixel)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Nil;
 	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	pThis->GetImage()->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#read(stream:stream:r, imagetype?:string):map:reduce
@@ -703,7 +703,7 @@ Gura_ImplementMethod(image, read)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Read(env, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#reducecolor(palette?:palette) {block?}
@@ -765,7 +765,7 @@ Gura_ImplementMethod(image, replacecolor)
 	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
 	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
 					Object_color::GetObject(args, 1)->GetColor(), tolerance);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#resize(width?:number, height?:number):map:[box,ratio] {block?}
@@ -964,7 +964,7 @@ Gura_ImplementMethod(image, setalpha)
 	} else {
 		pThis->GetImage()->FillAlpha(args.GetUChar(0));
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#size()
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(image, store)
 		sig.SetError(ERR_ValueError, "invalid object for image's source");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#thumbnail(width?:number, height?:number):map:[box] {block?}
@@ -1121,7 +1121,7 @@ Gura_ImplementMethod(image, write)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Write(env, args.GetStream(0),
 			args.Is_string(1)? args.GetString(1) : nullptr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

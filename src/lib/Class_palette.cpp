@@ -196,7 +196,7 @@ Gura_ImplementMethod(palette, shrink)
 {
 	Object_palette *pThis = Object_palette::GetThisObj(args);
 	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // palette#updateby(image_or_palette):reduce:[shrink,align]
@@ -238,7 +238,7 @@ Gura_ImplementMethod(palette, updateby)
 		sig.SetError(ERR_ValueError, "image or palette must be specified");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

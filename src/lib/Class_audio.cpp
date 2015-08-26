@@ -238,7 +238,7 @@ Gura_ImplementMethod(audio, put)
 		sig.SetError(ERR_IndexError, "offset is out of range");
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
@@ -269,7 +269,7 @@ Gura_ImplementMethod(audio, sinewave)
 	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // audio#store(channel:number, offset:number, data:iterator):reduce
@@ -296,7 +296,7 @@ Gura_ImplementMethod(audio, store)
 	size_t offset = args.GetSizeT(1);
 	Iterator *pIterator = args.GetIterator(2);
 	if (!pAudio->StoreData(env, iChannel, offset, pIterator)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

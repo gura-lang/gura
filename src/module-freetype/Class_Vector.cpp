@@ -120,7 +120,7 @@ Gura_ImplementMethod(Vector, Transform)
 	FT_Vector *vec = Object_Vector::GetThisObj(args)->GetEntity();
 	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
 	::FT_Vector_Transform(vec, matrix);	// void function
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

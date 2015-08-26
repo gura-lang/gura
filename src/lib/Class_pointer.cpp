@@ -69,7 +69,7 @@ Gura_ImplementMethod(pointer, forward)
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool exeedErrorFlag = true;
 	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // pointer#pack(format:string, value+):reduce:[stay]
@@ -94,7 +94,7 @@ Gura_ImplementMethod(pointer, pack)
 	}
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
 	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // pointer#reset()

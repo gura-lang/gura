@@ -26,7 +26,7 @@ Gura_ImplementMethod(image, read_ppm)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_PPM::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#write@ppm(stream:stream:w):reduce:[gray]
@@ -47,7 +47,7 @@ Gura_ImplementMethod(image, write_ppm)
 	if (!ImageStreamer_PPM::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

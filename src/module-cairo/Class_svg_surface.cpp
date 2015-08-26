@@ -47,7 +47,7 @@ Gura_ImplementMethod(svg_surface, restrict_to_version)
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
 	::cairo_svg_surface_restrict_to_version(surface, version);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_ImplementUserClass(svg_surface)

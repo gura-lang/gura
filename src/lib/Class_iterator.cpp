@@ -173,7 +173,7 @@ Gura_ImplementMethod(iterator, repeater)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	pThis->GetIterator()->SetRepeaterFlag(true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1356,7 +1356,7 @@ Gura_ImplementMethod(iterator, sort)
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled()) return Value::Nil;
-	if (value.IsInvalid()) return args.GetThis();
+	if (value.IsInvalid()) return args.GetValueThis();
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0),
 						args.Is_list(1)? &args.GetList(1) : nullptr,

@@ -110,7 +110,7 @@ Gura_ImplementMethod(Glyph, Stroke)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Glyph#StrokeBorder(stroker:freetype.Stroker, inside:boolean):reduce
@@ -132,7 +132,7 @@ Gura_ImplementMethod(Glyph, StrokeBorder)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 Gura_ImplementUserClass(Glyph)

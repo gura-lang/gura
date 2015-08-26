@@ -141,7 +141,7 @@ Gura_ImplementMethod(context, save)
 		::cairo_restore(cr);
 		if (Is_error(sig, cr)) return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#restore():reduce
@@ -162,7 +162,7 @@ Gura_ImplementMethod(context, restore)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_restore(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_target()
@@ -222,7 +222,7 @@ Gura_ImplementMethod(context, push_group)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_push_group(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#push_group_with_content(content:number):reduce
@@ -252,7 +252,7 @@ Gura_ImplementMethod(context, push_group_with_content)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_push_group_with_content(cr, content);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#pop_group()
@@ -303,7 +303,7 @@ Gura_ImplementMethod(context, pop_group_to_source)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_pop_group_to_source(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_group_target()
@@ -357,7 +357,7 @@ Gura_ImplementMethod(context, set_source_rgb)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_source_rgb(cr, args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_source_rgba(red:number, green:number, blue:number, alpha:number):reduce
@@ -388,7 +388,7 @@ Gura_ImplementMethod(context, set_source_rgba)
 	::cairo_set_source_rgba(cr, args.GetDouble(0), args.GetDouble(1),
 									args.GetDouble(2), args.GetDouble(3));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_source_color(color:color, alpha?:number):reduce
@@ -419,7 +419,7 @@ Gura_ImplementMethod(context, set_source_color)
 		::cairo_set_source_rgb(cr, red, green, blue);
 	}
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_source(source:cairo.pattern):reduce
@@ -448,7 +448,7 @@ Gura_ImplementMethod(context, set_source)
 	cairo_pattern_t *source = Object_pattern::GetObject(args, 0)->GetEntity();
 	::cairo_set_source(cr, source);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_source_surface(surface:cairo.surface, x:number, y:number):reduce
@@ -485,7 +485,7 @@ Gura_ImplementMethod(context, set_source_surface)
 	::cairo_set_source_surface(cr, surface, x, y);
 	if (Is_error(sig, cr)) return Value::Nil;
 	pThis->SetSurfaceSrcObj(Object_surface::Reference(Object_surface::GetObject(args, 0)));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_source()
@@ -534,7 +534,7 @@ Gura_ImplementMethod(context, set_antialias)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_antialias(cr, antialias);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_antialias()
@@ -602,7 +602,7 @@ Gura_ImplementMethod(context, set_dash)
 	::cairo_set_dash(cr, dashes, num_dashes, offset);
 	delete[] dashes;
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_dash()
@@ -663,7 +663,7 @@ Gura_ImplementMethod(context, set_fill_rule)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_fill_rule(cr, fill_rule);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_fill_rule()
@@ -712,7 +712,7 @@ Gura_ImplementMethod(context, set_line_cap)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_line_cap(cr, line_cap);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_line_cap()
@@ -761,7 +761,7 @@ Gura_ImplementMethod(context, set_line_join)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_line_join(cr, line_join);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_line_join()
@@ -816,7 +816,7 @@ Gura_ImplementMethod(context, set_line_width)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_line_width(cr, args.GetDouble(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_line_width()
@@ -872,7 +872,7 @@ Gura_ImplementMethod(context, set_miter_limit)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_miter_limit(cr, args.GetDouble(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_miter_limit()
@@ -918,7 +918,7 @@ Gura_ImplementMethod(context, set_operator)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_set_operator(cr, operator_);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_operator()
@@ -966,7 +966,7 @@ Gura_ImplementMethod(context, set_tolerance)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_tolerance(cr, args.GetDouble(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_tolerance()
@@ -1019,7 +1019,7 @@ Gura_ImplementMethod(context, clip)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_clip(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#clip_preserve():reduce
@@ -1052,7 +1052,7 @@ Gura_ImplementMethod(context, clip_preserve)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_clip_preserve(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#clip_extents()
@@ -1126,7 +1126,7 @@ Gura_ImplementMethod(context, reset_clip)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_reset_clip(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //#void cairo_rectangle_list_destroy(cairo_rectangle_list_t *rectangle_list);
@@ -1186,7 +1186,7 @@ Gura_ImplementMethod(context, fill)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_fill(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#fill_preserve():reduce
@@ -1210,7 +1210,7 @@ Gura_ImplementMethod(context, fill_preserve)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_fill_preserve(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#fill_extents():reduce
@@ -1290,7 +1290,7 @@ Gura_ImplementMethod(context, mask)
 	cairo_pattern_t *pattern = Object_pattern::GetObject(args, 0)->GetEntity();
 	::cairo_mask(cr, pattern);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#mask_surface(surface:cairo.surface, surface_x:number, surface_y:number):reduce
@@ -1317,7 +1317,7 @@ Gura_ImplementMethod(context, mask_surface)
 	double surface_y = args.GetDouble(2);
 	::cairo_mask_surface(cr, surface, surface_x, surface_y);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#paint():reduce
@@ -1337,7 +1337,7 @@ Gura_ImplementMethod(context, paint)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_paint(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#paint_with_alpha(alpha:number):reduce
@@ -1359,7 +1359,7 @@ Gura_ImplementMethod(context, paint_with_alpha)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_paint_with_alpha(cr, args.GetDouble(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#stroke():reduce
@@ -1394,7 +1394,7 @@ Gura_ImplementMethod(context, stroke)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_stroke(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#stroke_preserve():reduce
@@ -1417,7 +1417,7 @@ Gura_ImplementMethod(context, stroke_preserve)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_stroke_preserve(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#stroke_extents()
@@ -1497,7 +1497,7 @@ Gura_ImplementMethod(context, copy_page)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_copy_page(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#show_page():reduce
@@ -1520,7 +1520,7 @@ Gura_ImplementMethod(context, show_page)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_show_page(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //#unsigned int cairo_get_reference_count(cairo_t *cr);
@@ -1611,7 +1611,7 @@ Gura_ImplementMethod(context, append_path)
 	cairo_path_t *path = Object_path::GetObject(args, 0)->GetEntity();
 	::cairo_append_path(cr, path);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#has_current_point()
@@ -1689,7 +1689,7 @@ Gura_ImplementMethod(context, new_path)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_new_path(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#new_sub_path():reduce
@@ -1714,7 +1714,7 @@ Gura_ImplementMethod(context, new_sub_path)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_new_sub_path(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#close_path():reduce
@@ -1746,7 +1746,7 @@ Gura_ImplementMethod(context, close_path)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_close_path(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#arc(xc:number, yc:number, radius:number,
@@ -1808,7 +1808,7 @@ Gura_ImplementMethod(context, arc)
 	::cairo_arc(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#arc_negative(xc:number, yc:number, radius:number,
@@ -1851,7 +1851,7 @@ Gura_ImplementMethod(context, arc_negative)
 	::cairo_arc_negative(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#curve_to(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number):map:reduce
@@ -1884,7 +1884,7 @@ Gura_ImplementMethod(context, curve_to)
 			args.GetDouble(2), args.GetDouble(3),
 			args.GetDouble(4), args.GetDouble(5));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#line_to(x:number, y:number):map:reduce
@@ -1909,7 +1909,7 @@ Gura_ImplementMethod(context, line_to)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_line_to(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#move_to(x:number, y:number):map:reduce
@@ -1931,7 +1931,7 @@ Gura_ImplementMethod(context, move_to)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_move_to(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#rectangle(x:number, y:number, width:number, height:number):map:reduce
@@ -1965,7 +1965,7 @@ Gura_ImplementMethod(context, rectangle)
 			args.GetDouble(0), args.GetDouble(1),
 			args.GetDouble(2), args.GetDouble(3));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#glyph_path(glyphs:cairo.glyph):reduce
@@ -1988,7 +1988,7 @@ Gura_ImplementMethod(context, glyph_path)
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	::cairo_glyph_path(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#text_path(text:string):map:reduce
@@ -2020,7 +2020,7 @@ Gura_ImplementMethod(context, text_path)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_text_path(cr, args.GetString(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#rel_curve_to(dx1:number, dy1:number, dx2:number, dy2:number, dx3:number, dy3:number):map:reduce
@@ -2058,7 +2058,7 @@ Gura_ImplementMethod(context, rel_curve_to)
 			args.GetDouble(2), args.GetDouble(3),
 			args.GetDouble(4), args.GetDouble(5));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#rel_line_to(dx:number, dy:number):map:reduce
@@ -2087,7 +2087,7 @@ Gura_ImplementMethod(context, rel_line_to)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rel_line_to(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#rel_move_to(dx:number, dy:number):map:reduce
@@ -2114,7 +2114,7 @@ Gura_ImplementMethod(context, rel_move_to)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_rel_move_to(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#path_extents()
@@ -2175,7 +2175,7 @@ Gura_ImplementMethod(context, translate)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_translate(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#scale(sx:number, sy:number):reduce
@@ -2198,7 +2198,7 @@ Gura_ImplementMethod(context, scale)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_scale(cr, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#rotate(angle:number):reduce:[deg]
@@ -2226,7 +2226,7 @@ Gura_ImplementMethod(context, rotate)
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
 	::cairo_rotate(cr, angle);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#transform(matrix:matrix):reduce
@@ -2251,7 +2251,7 @@ Gura_ImplementMethod(context, transform)
 	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_transform(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_matrix(matrix:matrix):reduce
@@ -2275,7 +2275,7 @@ Gura_ImplementMethod(context, set_matrix)
 	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_set_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_matrix()
@@ -2319,7 +2319,7 @@ Gura_ImplementMethod(context, identity_matrix)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_identity_matrix(cr);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#user_to_device(x:number, y:number)
@@ -2476,7 +2476,7 @@ Gura_ImplementMethod(context, select_font_face)
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_select_font_face(cr, family, slant, weight);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_font_size(size:number):reduce
@@ -2500,7 +2500,7 @@ Gura_ImplementMethod(context, set_font_size)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_set_font_size(cr, args.GetDouble(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#set_font_matrix(matrix:matrix):reduce
@@ -2526,7 +2526,7 @@ Gura_ImplementMethod(context, set_font_matrix)
 	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Nil;
 	::cairo_set_font_matrix(cr, &matrix);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_font_matrix()
@@ -2572,7 +2572,7 @@ Gura_ImplementMethod(context, set_font_options)
 	::cairo_set_font_options(cr,
 				Object_font_options::GetObject(args, 0)->GetEntity());
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_font_options()
@@ -2622,7 +2622,7 @@ Gura_ImplementMethod(context, set_font_face)
 	::cairo_set_font_face(cr,
 				Object_font_face::GetObject(args, 0)->GetEntity());
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_font_face()
@@ -2669,7 +2669,7 @@ Gura_ImplementMethod(context, set_scaled_font)
 	::cairo_set_scaled_font(cr,
 				Object_scaled_font::GetObject(args, 0)->GetEntity());
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#get_scaled_font()
@@ -2726,7 +2726,7 @@ Gura_ImplementMethod(context, show_text)
 	if (IsInvalid(sig, cr)) return Value::Nil;
 	::cairo_show_text(cr, args.GetString(0));
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#show_glyphs(glyphs:cairo.glyph):reduce
@@ -2749,7 +2749,7 @@ Gura_ImplementMethod(context, show_glyphs)
 	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	::cairo_show_glyphs(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#show_text_glyphs(text:string, glyphs:cairo.glyphs,
@@ -2794,7 +2794,7 @@ Gura_ImplementMethod(context, show_text_glyphs)
 		pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(),
 		pObjCluster->GetClusters(), pObjCluster->GetNumClusters(), cluster_flags);
 	if (Is_error(sig, cr)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.context#font_extents()

@@ -718,7 +718,7 @@ Gura_DeclareMethod(string, match)
 Gura_ImplementMethod(string, match)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	Value result = DoMatch(env, sig, pRegEx, strThis,
 			args.GetInt(1), args.Is_number(2)? args.GetInt(2) : -1);
@@ -755,7 +755,7 @@ Gura_DeclareMethod(string, sub)
 Gura_ImplementMethod(string, sub)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
 	String result;
@@ -797,7 +797,7 @@ Gura_DeclareMethod(string, splitreg)
 
 Gura_ImplementMethod(string, splitreg)
 {
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
@@ -828,7 +828,7 @@ Gura_DeclareMethod(string, scan)
 
 Gura_ImplementMethod(string, scan)
 {
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;

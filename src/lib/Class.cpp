@@ -29,7 +29,7 @@ Object::~Object()
 	if (pFunc == nullptr) return;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
 }
 
@@ -62,7 +62,7 @@ Value Object::EmptyIndexGet(Environment &env)
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
 }
 
@@ -77,7 +77,7 @@ void Object::EmptyIndexSet(Environment &env, const Value &value)
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(value);
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
 }
 
@@ -92,7 +92,7 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(valueIdx);
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
 }
 
@@ -107,7 +107,7 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(valueIdx, value);
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
 }
 
@@ -128,7 +128,7 @@ Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueLis
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, *pArgs);
 }
@@ -142,7 +142,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, *pArgs);
 }
@@ -156,7 +156,7 @@ Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(Value(pSymbol));
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
 }
 
@@ -168,7 +168,7 @@ Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &va
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValues(Value(pSymbol), value);
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	Value result = pFunc->Eval(*this, *pArgs);
 	evaluatedFlag = result.GetBoolean();
 	return value;
@@ -217,7 +217,7 @@ Gura_DeclareMethodPrimitive(Object, is)
 
 Gura_ImplementMethod(Object, is)
 {
-	return Value(args.GetThis().Is(args.GetValue(0)));
+	return Value(args.GetValueThis().Is(args.GetValue(0)));
 }
 
 // object#isnil()
@@ -228,7 +228,7 @@ Gura_DeclareMethodPrimitive(Object, isnil)
 
 Gura_ImplementMethod(Object, isnil)
 {
-	return Value(args.GetThis().IsInvalid());
+	return Value(args.GetValueThis().IsInvalid());
 }
 
 // object#istype(type+:expr):map
@@ -243,7 +243,7 @@ Gura_ImplementMethod(Object, istype)
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
-	ValueType valType = args.GetThis().GetValueType();
+	ValueType valType = args.GetValueThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_rational) &&
 								valTypeCmp == VTYPE_complex) return Value(true);
@@ -263,7 +263,7 @@ Gura_ImplementMethod(Object, isinstance)
 	Signal &sig = env.GetSignal();
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
-	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
+	return args.GetValueThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
 // object#nomap() {block?}
@@ -275,7 +275,7 @@ Gura_DeclareMethodPrimitive(Object, nomap)
 
 Gura_ImplementMethod(Object, nomap)
 {
-	Value rtn(args.GetThis());
+	Value rtn(args.GetValueThis());
 	rtn.AddFlags(VFLAG_NoMap);
 	return ReturnValue(env, args, rtn);
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(Object, tonumber)
 	Signal &sig = env.GetSignal();
 	bool allowPartFlag = !args.IsSet(Gura_Symbol(strict));
 	bool successFlag;
-	Number num = args.GetThis().ToNumber(allowPartFlag, successFlag);
+	Number num = args.GetValueThis().ToNumber(allowPartFlag, successFlag);
 	if (successFlag) {
 		return Value(num);
 	} else if (args.IsSet(Gura_Symbol(raise))) {
@@ -317,7 +317,7 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 Gura_ImplementMethod(Object, tostring)
 {
 	Signal &sig = env.GetSignal();
-	String str = args.GetThis().ToString(false);
+	String str = args.GetValueThis().ToString(false);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(str);
 }
@@ -338,9 +338,9 @@ Gura_ImplementMethod(Object, __call__)
 {
 	Signal &sig = env.GetSignal();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	Fundamental *pThis = args.GetThisFundamental();
+	Fundamental *pThis = args.GetFundamentalThis();
 	if (pThis == nullptr) {
-		pThis = args.GetThis().GetClass();
+		pThis = args.GetValueThis().GetClass();
 	}
 	Value valueToCall;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
@@ -365,7 +365,7 @@ Gura_ImplementMethod(Object, __call__)
 	CallerInfo callerInfo(exprListArg, args.GetBlock(),
 						  args.GetAttrsShared(), args.GetAttrsOptShared());
 	return pFund->DoCall(env, callerInfo,
-						 args.GetThis(), nullptr, false, args.GetTrailCtrlHolder());
+						 args.GetValueThis(), nullptr, false, args.GetTrailCtrlHolder());
 }
 
 // object#__iter__()
@@ -377,7 +377,7 @@ Gura_DeclareMethod(Object, __iter__)
 Gura_ImplementMethod(Object, __iter__)
 {
 	Signal &sig = env.GetSignal();
-	Iterator *pIterator = args.GetThis().CreateIterator(sig);
+	Iterator *pIterator = args.GetValueThis().CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(new Object_iterator(env, pIterator));
 }
@@ -390,7 +390,7 @@ Gura_DeclareMethod(Object, clone)
 Gura_ImplementMethod(Object, clone)
 {
 	Signal &sig = env.GetSignal();
-	Object *pObj = args.GetThisObj()->Clone();
+	Object *pObj = args.GetObjectThis()->Clone();
 	if (pObj == nullptr) {
 		sig.SetError(ERR_ValueError, "failed to create a clone object");
 		return Value::Nil;
@@ -408,7 +408,7 @@ Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
-	Fundamental *pThis = args.GetThisFundamental();
+	Fundamental *pThis = args.GetFundamentalThis();
 	const SymbolSet &attrs = SymbolSet::Empty;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
@@ -428,7 +428,7 @@ Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
 
 Gura_ImplementClassMethod(Object, setprop_X)
 {
-	Fundamental *pThis = args.GetThisFundamental();
+	Fundamental *pThis = args.GetFundamentalThis();
 	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
 	return Value::Nil;
 }

@@ -188,7 +188,7 @@ Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 Gura_ImplementMethod(string, cast_mpf)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetThis().GetString();
+	const char *strThis = args.GetValueThis().GetString();
 	int base = 0;
 	ULong prec = args.Is_number(0)? args.GetInt(0) : ::mpf_get_default_prec();
 	mpf_class num;

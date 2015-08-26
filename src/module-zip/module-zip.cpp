@@ -420,7 +420,7 @@ Gura_ImplementMethod(writer, add)
 	}
 	if (!pThis->Add(env, args.GetStream(0),
 					fileName.c_str(), compressionMethod)) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // zip.writer#close():void

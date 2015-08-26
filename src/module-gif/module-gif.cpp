@@ -1156,7 +1156,7 @@ Gura_ImplementMethod(content, write)
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // gif.content#addimage(image:image, delayTime:number => 0, 
@@ -1202,7 +1202,7 @@ Gura_ImplementMethod(content, addimage)
 	if (sig.IsSignalled()) return Value::Nil;
 	gif.AddImage(args.GetValue(0), args.GetUShort(1),
 					args.GetUShort(2), args.GetUShort(3), disposalMethod);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class GIF
@@ -1406,7 +1406,7 @@ Gura_ImplementMethod(image, read_gif)
 	if (!GIF().Read(env, stream, pImage, pImage->GetFormat())) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // image#write@gif(stream:stream:w):reduce
@@ -1429,12 +1429,12 @@ Gura_ImplementMethod(image, write_gif)
 	if (!pImage->CheckValid(sig)) return Value::Nil;
 	Stream &stream = args.GetStream(0);
 	GIF gif;
-	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
+	gif.AddImage(args.GetValueThis(), 0, 0, 0, 1);
 	UShort loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

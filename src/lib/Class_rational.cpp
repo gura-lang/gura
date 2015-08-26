@@ -54,7 +54,7 @@ Gura_DeclareMethodPrimitive(rational, reduce)
 
 Gura_ImplementMethod(rational, reduce)
 {
-	const Rational &num = args.GetThis().GetRational();
+	const Rational &num = args.GetValueThis().GetRational();
 	return Value(num.Reduce());
 }
 

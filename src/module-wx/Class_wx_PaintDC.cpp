@@ -58,7 +58,7 @@ Gura_ImplementFunction(PaintDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

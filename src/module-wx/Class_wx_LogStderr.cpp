@@ -57,7 +57,7 @@ Gura_ImplementFunction(LogStderr)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

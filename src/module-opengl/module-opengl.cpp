@@ -1419,7 +1419,7 @@ Gura_ImplementMethod(image, opengl)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
 	if (!DoGLSection(env, sig, args, pThis->GetImage())) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

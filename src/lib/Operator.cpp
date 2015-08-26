@@ -626,7 +626,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
-						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValues(valueLeft, valueRight);
 			return pIteratorFuncBinder->Eval(env, *pArgsSub);
@@ -635,7 +635,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
-						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
 			if (pFunc->IsRsltNormal() ||
 						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));

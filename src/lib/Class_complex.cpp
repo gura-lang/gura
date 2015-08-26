@@ -79,7 +79,7 @@ Gura_DeclareMethodPrimitive(complex, roundoff)
 
 Gura_ImplementMethod(complex, roundoff)
 {
-	Complex num = args.GetThis().GetComplex();
+	Complex num = args.GetValueThis().GetComplex();
 	double numThreshold = args.GetDouble(0);
 	double real = num.real(), imag = num.imag();
 	double realAbs = (real >= 0)? real : -real;

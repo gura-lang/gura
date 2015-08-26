@@ -51,7 +51,7 @@ Gura_ImplementMethod(device, finish)
 	Object_device *pThis = Object_device::GetThisObj(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_finish(device);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.device#flush():reduce
@@ -65,7 +65,7 @@ Gura_ImplementMethod(device, flush)
 	Object_device *pThis = Object_device::GetThisObj(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_flush(device);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // cairo.device#get_type()

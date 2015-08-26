@@ -364,7 +364,7 @@ Gura_ImplementMethod(writer, add)
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
 	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // tar.writer#close():reduce
@@ -380,7 +380,7 @@ Gura_ImplementMethod(writer, close)
 {
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	if (!pThis->Close()) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class writer

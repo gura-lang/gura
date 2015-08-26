@@ -130,7 +130,7 @@ Gura_ImplementMethod(writer, write)
 	Signal &sig = env.GetSignal();
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	if (!pThis->PutLine(env, args.GetList(0))) return Value::Nil;
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // implementation of class writer

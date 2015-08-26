@@ -116,7 +116,7 @@ Gura_ImplementMethod(GlyphSlot, Render)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

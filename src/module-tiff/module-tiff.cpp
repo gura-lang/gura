@@ -78,7 +78,7 @@ Gura_ImplementMethod(image, read_tiff)
 	if (!ImageStreamer_TIFF::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

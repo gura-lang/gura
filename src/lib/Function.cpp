@@ -225,16 +225,16 @@ Value Function::Call(
 	pArgs->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
 	pArgs->SetAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared()));
 	pArgs->SetAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
-	pArgs->SetThis(valueThis);
+	pArgs->SetValueThis(valueThis);
 	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (GetType() == FUNCTYPE_Instance &&
-			!pArgs->GetThis().IsPrimitive() && pArgs->GetThisObj() == nullptr) {
+			!pArgs->GetValueThis().IsPrimitive() && pArgs->GetObjectThis() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "object is expected as l-value of field");
 		return Value::Nil;
 	} else if (GetType() == FUNCTYPE_Class &&
-		   pArgs->GetThis().GetClassItself() == nullptr && pArgs->GetThisObj() == nullptr) {
+		   pArgs->GetValueThis().GetClassItself() == nullptr && pArgs->GetObjectThis() == nullptr) {
 		sig.SetError(ERR_ValueError,
 					 "class or object is expected as l-value of field");
 		return Value::Nil;
@@ -276,7 +276,8 @@ Value Function::Call(
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
 			const Expr *pExprRight = pExprBinaryOp->GetRight();
 			if (pExprLeft->IsIdentifier()) {
-				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
+				const Symbol *pSymbol =
+					dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
 				exprMap[pSymbol] = pExprRight->Reference();
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
@@ -434,7 +435,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Args &args, bool thi
 							&env : const_cast<Environment *>(_pEnvScope.get());
 	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
 	if (thisAssignFlag) {
-		Value valueThis(args.GetThis());
+		Value valueThis(args.GetValueThis());
 		valueThis.AddFlags(VFLAG_Privileged);
 		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	}

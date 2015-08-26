@@ -542,7 +542,7 @@ Gura_ImplementMethod(Canvas, setfont)
 	pObj->Device().SetFont(sig, args.GetNumber(0),
 			args.GetSymbol(1), args.GetSymbol(2), args.GetSymbol(3),
 			args.Is_string(4)? args.GetString(4) : "");
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#settextcolor(color):reduce
@@ -557,7 +557,7 @@ Gura_ImplementMethod(Canvas, settextcolor)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().SetTextColor(sig, args.GetValue(0));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#setpen(color, width:number => 1, style:symbol => `solid):reduce
@@ -577,7 +577,7 @@ Gura_ImplementMethod(Canvas, setpen)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().SetPen(sig, args.GetValue(0),
 							args.GetNumber(1), args.GetSymbol(2));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#setbrush(color, style:symbol => `solid):reduce
@@ -594,7 +594,7 @@ Gura_ImplementMethod(Canvas, setbrush)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().SetBrush(sig, args.GetValue(0), args.GetSymbol(1));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#text(x:number, y:number, text:string, width_bound?:number, height_bound?:number):reduce:[n,ne,e,se,s,sw,w,nw,c]
@@ -617,7 +617,7 @@ Gura_ImplementMethod(Canvas, text)
 		args.GetString(2),
 		args.Is_number(3)? args.GetNumber(3) : -1,
 		args.Is_number(4)? args.GetNumber(4) : -1, GetAnchor(args.GetAttrs()));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#textrot(x:number, y:number, text:string, angle:number):reduce
@@ -636,7 +636,7 @@ Gura_ImplementMethod(Canvas, textrot)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().TextRot(sig, args.GetNumber(0), args.GetNumber(1),
 							args.GetString(2), args.GetNumber(3));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#line(x1:number, y1:number, x2:number, y2:number):map:reduce
@@ -655,7 +655,7 @@ Gura_ImplementMethod(Canvas, line)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Line(sig, args.GetNumber(0), args.GetNumber(1),
 					args.GetNumber(2), args.GetNumber(3));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#rectangle(x:number, y:number, width:number, height:number):map:reduce
@@ -675,7 +675,7 @@ Gura_ImplementMethod(Canvas, rectangle)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Rectangle(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#ellipse(x:number, y:number, width:number, height:number):map:reduce
@@ -695,7 +695,7 @@ Gura_ImplementMethod(Canvas, ellipse)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Ellipse(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#pie(x:number, y:number, width:number, height:number, start_degree:number, end_degree:number):map:reduce
@@ -718,7 +718,7 @@ Gura_ImplementMethod(Canvas, pie)
 	pObj->Device().Pie(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3),
 		args.GetNumber(4), args.GetNumber(5), GetAnchor(args.GetAttrs()));
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#polyline(xs[]:number, ys[]:number):reduce
@@ -734,7 +734,7 @@ Gura_ImplementMethod(Canvas, polyline)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), false);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#polylinep(pts[]:List):reduce
@@ -749,7 +749,7 @@ Gura_ImplementMethod(Canvas, polylinep)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Polygon(sig, args.GetList(0), false);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#polygon(xs[]:number, ys[]:number):reduce
@@ -765,7 +765,7 @@ Gura_ImplementMethod(Canvas, polygon)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // canvas.canvas#polygonp(pts[]:List):reduce
@@ -780,7 +780,7 @@ Gura_ImplementMethod(Canvas, polygonp)
 	Signal &sig = env.GetSignal();
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Polygon(sig, args.GetList(0), true);
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // str = canvas.canvas#close()

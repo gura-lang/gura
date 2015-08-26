@@ -345,7 +345,7 @@ Gura_ImplementMethod(Face, Load_Char)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Face#Load_Glyph(glyph_index:number, load_flags:number):reduce
@@ -367,7 +367,7 @@ Gura_ImplementMethod(Face, Load_Glyph)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 #if 0
@@ -387,7 +387,7 @@ Gura_ImplementMethod(Face, Select_Charmap)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 #endif
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(Face, Set_Charmap)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 // freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce
@@ -430,7 +430,7 @@ Gura_ImplementMethod(Face, Set_Pixel_Sizes)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetThis();
+	return args.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

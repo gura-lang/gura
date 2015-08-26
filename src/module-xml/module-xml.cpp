@@ -1365,7 +1365,7 @@ Gura_ImplementFunction(parser)
 		pObj = new Object_parser(Gura_UserClass(parser));
 		return ReturnValue(env, args, Value(pObj));
 	}
-	return ReturnValue(env, args, args.GetThis());
+	return ReturnValue(env, args, args.GetValueThis());
 }
 
 // xml.element(_tagname_:string, attrs%):map {block?}
