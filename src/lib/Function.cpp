@@ -318,6 +318,7 @@ Value Function::Call(
 		}
 	}
 	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
+	Value result;
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
@@ -332,17 +333,12 @@ Value Function::Call(
 			return Value::Nil;
 		}
 		if ((*ppDecl)->IsQuote()) {
-			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
-			valListArg.push_back(Value(pObj));
-			if ((*ppDecl)->IsVariableLength()) {
-				stayDeclPointerFlag = true;
-			} else {
-				ppDecl++;
-			}
+			// func(..., `var, ...)
+			result = Value(new Object_expr(env, Expr::Reference(pExprArg)));
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (result.Is_list()) {
 				const ValueList &valList = result.GetList();
@@ -354,28 +350,23 @@ Value Function::Call(
 						ppDecl++;
 					}
 				}
-			} else {
-				valListArg.push_back(result);
-				if ((*ppDecl)->IsVariableLength()) {
-					stayDeclPointerFlag = true;
-				} else {
-					ppDecl++;
-				}
+				continue;
 			}
 		} else {
 			// func(..., value, ...)
-			Value result = pExprArg->Exec(env, nullptr);
+			result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
-			valListArg.push_back(result);
-			if ((*ppDecl)->IsVariableLength()) {
-				stayDeclPointerFlag = true;
-			} else {
-				ppDecl++;
-			}
+		}
+		valListArg.push_back(result);
+		if ((*ppDecl)->IsVariableLength()) {
+			stayDeclPointerFlag = true;
+		} else {
+			ppDecl++;
 		}
 	}
 	//-------------------------------------------------------------------------
 	for ( ; !stayDeclPointerFlag && ppDecl != GetDeclOwner().end(); ppDecl++) {
+		// handling named arguments and arguments with a default value
 		const Expr *pExprArg = (*ppDecl)->GetExprDefault();
 		Function::ExprMap::iterator iter = exprMap.find((*ppDecl)->GetSymbol());
 		if (iter != exprMap.end()) {
