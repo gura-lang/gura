@@ -48,7 +48,7 @@ Gura_ImplementFunction(ColourDatabaseEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ColourDatabase *pEntity = new wx_ColourDatabase();
-	Object_wx_ColourDatabase *pObj = Object_wx_ColourDatabase::GetThisObj(args);
+	Object_wx_ColourDatabase *pObj = Object_wx_ColourDatabase::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourDatabase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -69,7 +69,7 @@ Gura_DeclareMethod(wx_ColourDatabase, AddColour)
 Gura_ImplementMethod(wx_ColourDatabase, AddColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetThisObj(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -87,7 +87,7 @@ Gura_DeclareMethod(wx_ColourDatabase, AddColour_1)
 Gura_ImplementMethod(wx_ColourDatabase, AddColour_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetThisObj(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_ColourDatabase, Find)
 Gura_ImplementMethod(wx_ColourDatabase, Find)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetThisObj(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wxColour rtn = pThis->GetEntity()->Find(colourName);
@@ -122,7 +122,7 @@ Gura_DeclareMethod(wx_ColourDatabase, FindName)
 Gura_ImplementMethod(wx_ColourDatabase, FindName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetThisObj(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->FindName(*colour);

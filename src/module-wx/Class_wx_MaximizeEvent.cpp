@@ -51,7 +51,7 @@ Gura_ImplementFunction(MaximizeEvent)
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_MaximizeEvent *pEntity = new wx_MaximizeEvent(id);
-	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetThisObj(args);
+	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MaximizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

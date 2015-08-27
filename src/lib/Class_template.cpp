@@ -104,7 +104,7 @@ Gura_DeclareMethod(template_, parse)
 
 Gura_ImplementMethod(template_, parse)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	//SimpleStream_CStringReader streamSrc(args.GetString(0));
@@ -132,7 +132,7 @@ Gura_DeclareMethod(template_, read)
 
 Gura_ImplementMethod(template_, read)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	pTemplate->Read(env, args.GetStream(0), autoIndentFlag, appendLastEOLFlag);
@@ -153,7 +153,7 @@ Gura_DeclareMethod(template_, render)
 
 Gura_ImplementMethod(template_, render)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		pTemplate->Render(env, &streamDst);
@@ -223,7 +223,7 @@ Gura_DeclareMethod(template_, block)
 
 Gura_ImplementMethod(template_, block)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
@@ -257,7 +257,7 @@ Gura_DeclareMethod(template_, call)
 
 Gura_ImplementMethod(template_, call)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue == nullptr || !pValue->Is_function()) {
@@ -325,7 +325,7 @@ Gura_DeclareMethod(template_, embed)
 
 Gura_ImplementMethod(template_, embed)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	Template *pTemplateEmbedded = Object_template::GetObject(args, 0)->GetTemplate();
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
 	pTemplateEmbedded->ClearLastChar();
@@ -413,7 +413,7 @@ Gura_DeclareMethod(template_, super)
 
 Gura_ImplementMethod(template_, super)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
 	if (pTemplateSuper == nullptr) return Value::Nil;
@@ -438,7 +438,7 @@ Gura_DeclareMethod(template_, init_block)
 Gura_ImplementMethod(template_, init_block)
 {
 	Signal &sig = env.GetSignal();
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -482,7 +482,7 @@ Gura_DeclareMethod(template_, init_define)
 Gura_ImplementMethod(template_, init_define)
 {
 	Signal &sig = env.GetSignal();
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -528,7 +528,7 @@ Gura_DeclareMethod(template_, init_extends)
 
 Gura_ImplementMethod(template_, init_extends)
 {
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
 	return Value::Nil;

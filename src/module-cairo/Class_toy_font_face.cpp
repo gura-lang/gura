@@ -54,7 +54,7 @@ Gura_DeclareMethod(toy_font_face, get_family)
 
 Gura_ImplementMethod(toy_font_face, get_family)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	const char *rtn = ::cairo_toy_font_face_get_family(font_face);
 	return Value(rtn);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(toy_font_face, get_slant)
 
 Gura_ImplementMethod(toy_font_face, get_slant)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_font_slant_t rtn = ::cairo_toy_font_face_get_slant(font_face);
 	return Value(rtn);
@@ -88,7 +88,7 @@ Gura_DeclareMethod(toy_font_face, get_weight)
 
 Gura_ImplementMethod(toy_font_face, get_weight)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_font_weight_t rtn = ::cairo_toy_font_face_get_weight(font_face);
 	return Value(rtn);

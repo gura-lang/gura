@@ -65,7 +65,7 @@ Gura_ImplementFunction(Choicebook)
 	wxString name = wxNotebookNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Choicebook *pEntity = new wx_Choicebook(parent, id, *pos, *size, style, name);
-	Object_wx_Choicebook *pObj = Object_wx_Choicebook::GetThisObj(args);
+	Object_wx_Choicebook *pObj = Object_wx_Choicebook::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choicebook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

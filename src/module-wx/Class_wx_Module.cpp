@@ -56,7 +56,7 @@ Gura_ImplementFunction(ModuleEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_Module *pEntity = new wx_Module();
-	Object_wx_Module *pObj = Object_wx_Module::GetThisObj(args);
+	Object_wx_Module *pObj = Object_wx_Module::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Module(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_Module, AddDependency)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxClassInfo *dep = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddDependency(dep);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_Module, OnExit)
 Gura_ImplementMethod(wx_Module, OnExit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnExit();
 	return Value::Nil;
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_Module, OnInit)
 Gura_ImplementMethod(wx_Module, OnInit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->OnInit();
 	return ReturnValue(env, args, Value(rtn));

@@ -57,7 +57,7 @@ Gura_ImplementFunction(ZipOutputStream)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wx_ZipOutputStream *pEntity = new wx_ZipOutputStream(*stream, level, *conv);
-	Object_wx_ZipOutputStream *pObj = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pObj = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(ZipOutputStream_1)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wx_ZipOutputStream *pEntity = new wx_ZipOutputStream(stream, level, *conv);
-	Object_wx_ZipOutputStream *pObj = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pObj = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZipOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -108,7 +108,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, Close)
 Gura_ImplementMethod(wx_ZipOutputStream, Close)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Close();
 	return ReturnValue(env, args, Value(rtn));
@@ -123,7 +123,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CloseEntry)
 Gura_ImplementMethod(wx_ZipOutputStream, CloseEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CloseEntry();
 	return ReturnValue(env, args, Value(rtn));
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 Gura_ImplementMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxZipInputStream *inputStream = Object_wx_ZipInputStream::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CopyArchiveMetaData(*inputStream);
@@ -157,7 +157,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyEntry)
 Gura_ImplementMethod(wx_ZipOutputStream, CopyEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
 	wxZipInputStream *inputStream = Object_wx_ZipInputStream::GetObject(args, 1)->GetEntity();
@@ -174,7 +174,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, GetLevel)
 Gura_ImplementMethod(wx_ZipOutputStream, GetLevel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetLevel();
 	return ReturnValue(env, args, Value(rtn));
@@ -189,7 +189,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetLevel)
 Gura_ImplementMethod(wx_ZipOutputStream, SetLevel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int level = args.GetInt(0);
 	pThis->GetEntity()->SetLevel(level);
@@ -207,7 +207,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextDirEntry)
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextDirEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
@@ -226,7 +226,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry)
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->PutNextEntry(entry);
@@ -245,7 +245,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry_1)
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
@@ -265,7 +265,7 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetComment)
 Gura_ImplementMethod(wx_ZipOutputStream, SetComment)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetThisObj(args);
+	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString comment = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetComment(comment);

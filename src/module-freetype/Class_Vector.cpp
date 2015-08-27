@@ -102,7 +102,7 @@ Gura_DeclareMethod(Vector, Length)
 
 Gura_ImplementMethod(Vector, Length)
 {
-	FT_Vector *vec = Object_Vector::GetThisObj(args)->GetEntity();
+	FT_Vector *vec = Object_Vector::GetObjectThis(args)->GetEntity();
 	FT_Fixed rtn = ::FT_Vector_Length(vec);
 	//return Value(static_cast<double>(rtn) / (1 << 16));
 	return Value(rtn);
@@ -117,7 +117,7 @@ Gura_DeclareMethod(Vector, Transform)
 
 Gura_ImplementMethod(Vector, Transform)
 {
-	FT_Vector *vec = Object_Vector::GetThisObj(args)->GetEntity();
+	FT_Vector *vec = Object_Vector::GetObjectThis(args)->GetEntity();
 	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
 	::FT_Vector_Transform(vec, matrix);	// void function
 	return args.GetValueThis();

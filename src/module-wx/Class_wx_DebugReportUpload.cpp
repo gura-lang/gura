@@ -57,7 +57,7 @@ Gura_ImplementFunction(DebugReportUpload)
 	wxString curl = _T("curl");
 	if (args.IsValid(3)) curl = wxString::FromUTF8(args.GetString(3));
 	wx_DebugReportUpload *pEntity = new wx_DebugReportUpload(url, input, action, curl);
-	Object_wx_DebugReportUpload *pObj = Object_wx_DebugReportUpload::GetThisObj(args);
+	Object_wx_DebugReportUpload *pObj = Object_wx_DebugReportUpload::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportUpload(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetThisObj(args);
+	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	std::unique_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(args.GetList(0)));
 	bool rtn = pThis->GetEntity()->OnServerReply(*WXUNUSED(reply));

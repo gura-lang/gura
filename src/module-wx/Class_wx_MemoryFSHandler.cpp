@@ -48,7 +48,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MemoryFSHandler *pEntity = new wx_MemoryFSHandler();
-	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetThisObj(args);
+	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryFSHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

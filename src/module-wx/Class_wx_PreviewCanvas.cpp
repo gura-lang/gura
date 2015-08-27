@@ -64,7 +64,7 @@ Gura_ImplementFunction(PreviewCanvas)
 	wxString name = wxT("canvas");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_PreviewCanvas *pEntity = new wx_PreviewCanvas(preview, parent, *pos, *size, style, name);
-	Object_wx_PreviewCanvas *pObj = Object_wx_PreviewCanvas::GetThisObj(args);
+	Object_wx_PreviewCanvas *pObj = Object_wx_PreviewCanvas::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
 Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetThisObj(args);
+	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPaintEvent *event = Object_wx_PaintEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnPaint(*event);

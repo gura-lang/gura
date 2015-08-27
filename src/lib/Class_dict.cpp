@@ -316,7 +316,7 @@ Gura_DeclareMethod(dict, append)
 
 Gura_ImplementMethod(dict, append)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -369,7 +369,7 @@ Gura_DeclareMethod(dict, clear)
 
 Gura_ImplementMethod(dict, clear)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -394,7 +394,7 @@ Gura_DeclareMethod(dict, erase)
 
 Gura_ImplementMethod(dict, erase)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -437,7 +437,7 @@ Gura_DeclareMethod(dict, get)
 Gura_ImplementMethod(dict, get)
 {
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
 	const Value *pValue = valDict.Find(sig, valueIdx);
@@ -465,7 +465,7 @@ Gura_DeclareMethod(dict, haskey)
 Gura_ImplementMethod(dict, haskey)
 {
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
 	const Value &valueIdx = args.GetValue(0);
 	const Value *pValue = valDict.Find(sig, valueIdx);
 	return Value(pValue != nullptr);
@@ -485,7 +485,7 @@ Gura_DeclareMethod(dict, items)
 
 Gura_ImplementMethod(dict, items)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, args,
 							new Object_dict::IteratorItems(pObj));
@@ -505,7 +505,7 @@ Gura_DeclareMethod(dict, keys)
 
 Gura_ImplementMethod(dict, keys)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, args,
 							new Object_dict::IteratorKeys(pObj));
@@ -522,7 +522,7 @@ Gura_DeclareMethod(dict, len)
 
 Gura_ImplementMethod(dict, len)
 {
-	ValueDict &valDict = Object_dict::GetThisObj(args)->GetDict();
+	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
 	return Value(static_cast<Number>(valDict.size()));
 }
 
@@ -555,7 +555,7 @@ Gura_DeclareMethod(dict, put)
 
 Gura_ImplementMethod(dict, put)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -586,7 +586,7 @@ Gura_DeclareMethod(dict, values)
 
 Gura_ImplementMethod(dict, values)
 {
-	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(args);
 	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, args,
 							new Object_dict::IteratorValues(pObj));

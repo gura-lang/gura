@@ -41,7 +41,7 @@ Gura_DeclareMethod(ps_surface, restrict_to_level)
 Gura_ImplementMethod(ps_surface, restrict_to_level)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	::cairo_ps_surface_restrict_to_level(surface, level);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(ps_surface, set_eps)
 Gura_ImplementMethod(ps_surface, set_eps)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_bool_t eps = static_cast<cairo_bool_t>(args.GetBoolean(0));
 	::cairo_ps_surface_set_eps(surface, eps);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(ps_surface, get_eps)
 Gura_ImplementMethod(ps_surface, get_eps)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_bool_t eps = ::cairo_ps_surface_get_eps(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -94,7 +94,7 @@ Gura_DeclareMethod(ps_surface, set_size)
 Gura_ImplementMethod(ps_surface, set_size)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	double width_in_points = args.GetDouble(0);
 	double height_in_points = args.GetDouble(1);
@@ -112,7 +112,7 @@ Gura_DeclareMethod(ps_surface, dsc_begin_setup)
 Gura_ImplementMethod(ps_surface, dsc_begin_setup)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_setup(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -128,7 +128,7 @@ Gura_DeclareMethod(ps_surface, dsc_begin_page_setup)
 Gura_ImplementMethod(ps_surface, dsc_begin_page_setup)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_ps_surface_dsc_begin_page_setup(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -145,7 +145,7 @@ Gura_DeclareMethod(ps_surface, dsc_comment)
 Gura_ImplementMethod(ps_surface, dsc_comment)
 {
 	Signal &sig = env.GetSignal();
-	Object_ps_surface *pThis = Object_ps_surface::GetThisObj(args);
+	Object_ps_surface *pThis = Object_ps_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	const char *comment = args.GetString(0);
 	::cairo_ps_surface_dsc_comment(surface, comment);

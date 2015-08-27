@@ -49,7 +49,7 @@ Gura_ImplementFunction(GridEventEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridEvent *pEntity = new wx_GridEvent();
-	Object_wx_GridEvent *pObj = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pObj = Object_wx_GridEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(GridEvent)
 	bool meta = false;
 	if (args.IsValid(11)) meta = args.GetBoolean(11);
 	wx_GridEvent *pEntity = new wx_GridEvent(id, type, obj, row, col, x, y, sel, control, shift, alt, meta);
-	Object_wx_GridEvent *pObj = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pObj = Object_wx_GridEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -125,7 +125,7 @@ Gura_DeclareMethod(wx_GridEvent, AltDown)
 Gura_ImplementMethod(wx_GridEvent, AltDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->AltDown();
 	return ReturnValue(env, args, Value(rtn));
@@ -140,7 +140,7 @@ Gura_DeclareMethod(wx_GridEvent, ControlDown)
 Gura_ImplementMethod(wx_GridEvent, ControlDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ControlDown();
 	return ReturnValue(env, args, Value(rtn));
@@ -155,7 +155,7 @@ Gura_DeclareMethod(wx_GridEvent, GetCol)
 Gura_ImplementMethod(wx_GridEvent, GetCol)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCol();
 	return ReturnValue(env, args, Value(rtn));
@@ -170,7 +170,7 @@ Gura_DeclareMethod(wx_GridEvent, GetPosition)
 Gura_ImplementMethod(wx_GridEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_GridEvent, GetRow)
 Gura_ImplementMethod(wx_GridEvent, GetRow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetRow();
 	return ReturnValue(env, args, Value(rtn));
@@ -200,7 +200,7 @@ Gura_DeclareMethod(wx_GridEvent, MetaDown)
 Gura_ImplementMethod(wx_GridEvent, MetaDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MetaDown();
 	return ReturnValue(env, args, Value(rtn));
@@ -215,7 +215,7 @@ Gura_DeclareMethod(wx_GridEvent, Selecting)
 Gura_ImplementMethod(wx_GridEvent, Selecting)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Selecting();
 	return ReturnValue(env, args, Value(rtn));
@@ -230,7 +230,7 @@ Gura_DeclareMethod(wx_GridEvent, ShiftDown)
 Gura_ImplementMethod(wx_GridEvent, ShiftDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetThisObj(args);
+	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ShiftDown();
 	return ReturnValue(env, args, Value(rtn));

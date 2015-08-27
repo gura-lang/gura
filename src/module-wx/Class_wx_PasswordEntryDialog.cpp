@@ -65,7 +65,7 @@ Gura_ImplementFunction(PasswordEntryDialog)
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
 	wx_PasswordEntryDialog *pEntity = new wx_PasswordEntryDialog(parent, message, caption, defaultValue, style, *pos);
-	Object_wx_PasswordEntryDialog *pObj = Object_wx_PasswordEntryDialog::GetThisObj(args);
+	Object_wx_PasswordEntryDialog *pObj = Object_wx_PasswordEntryDialog::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PasswordEntryDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

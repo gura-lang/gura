@@ -51,7 +51,7 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 	wxHelpControllerBase *hc = (wxHelpControllerBase *)(nullptr);
 	if (args.IsValid(0)) hc = Object_wx_HelpControllerBase::GetObject(args, 0)->GetEntity();
 	wx_HelpControllerHelpProvider *pEntity = new wx_HelpControllerHelpProvider(hc);
-	Object_wx_HelpControllerHelpProvider *pObj = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
+	Object_wx_HelpControllerHelpProvider *pObj = Object_wx_HelpControllerHelpProvider::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpControllerHelpProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
+	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHelpControllerBase *hc = Object_wx_HelpControllerBase::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetHelpController(hc);
@@ -87,7 +87,7 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, GetHelpController)
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
+	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHelpControllerBase *rtn = (wxHelpControllerBase *)pThis->GetEntity()->GetHelpController();
 	return ReturnValue(env, args, Value(new Object_wx_HelpControllerBase(rtn, nullptr, OwnerFalse)));

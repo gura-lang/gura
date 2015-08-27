@@ -49,7 +49,7 @@ Gura_ImplementFunction(SoundEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Sound *pEntity = new wx_Sound();
-	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
+	Object_wx_Sound *pObj = Object_wx_Sound::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(Sound)
 	bool isResource = false;
 	if (args.IsValid(1)) isResource = args.GetBoolean(1);
 	wx_Sound *pEntity = new wx_Sound(fileName, isResource);
-	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
+	Object_wx_Sound *pObj = Object_wx_Sound::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -99,7 +99,7 @@ Gura_DeclareMethod(wx_Sound, Create)
 Gura_ImplementMethod(wx_Sound, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	bool isResource = false;
@@ -117,7 +117,7 @@ Gura_DeclareMethod(wx_Sound, IsOk)
 Gura_ImplementMethod(wx_Sound, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
@@ -151,7 +151,7 @@ Gura_DeclareMethod(wx_Sound, Play)
 Gura_ImplementMethod(wx_Sound, Play)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned flags = wxSOUND_ASYNC;
 	if (args.IsValid(0)) flags = args.GetInt(0);

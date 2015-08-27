@@ -46,7 +46,7 @@ Gura_ImplementFunction(JPEGHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_JPEGHandler *pEntity = new wx_JPEGHandler();
-	Object_wx_JPEGHandler *pObj = Object_wx_JPEGHandler::GetThisObj(args);
+	Object_wx_JPEGHandler *pObj = Object_wx_JPEGHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_JPEGHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

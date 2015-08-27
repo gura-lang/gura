@@ -67,7 +67,7 @@ Gura_ImplementFunction(VersionInfo)
 	wxString copyright;
 	if (args.IsValid(5)) copyright = wxString::FromUTF8(args.GetString(5));
 	wx_VersionInfo *pEntity = new wx_VersionInfo(name, major, minor, micro, description, copyright);
-	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetThisObj(args);
+	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VersionInfo(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(pObj);

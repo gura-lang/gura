@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -132,7 +132,7 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SimpleHtmlListBox *pEntity = new wx_SimpleHtmlListBox();
-	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SimpleHtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -205,7 +205,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

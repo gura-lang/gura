@@ -48,7 +48,7 @@ Gura_ImplementFunction(GridCellNumberRenderer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellNumberRenderer *pEntity = new wx_GridCellNumberRenderer();
-	Object_wx_GridCellNumberRenderer *pObj = Object_wx_GridCellNumberRenderer::GetThisObj(args);
+	Object_wx_GridCellNumberRenderer *pObj = Object_wx_GridCellNumberRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellNumberRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -56,7 +56,7 @@ Gura_ImplementFunction(BufferedPaintDC)
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, *buffer, style);
-	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetThisObj(args);
+	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(BufferedPaintDC_1)
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(1)) style = args.GetInt(1);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, style);
-	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetThisObj(args);
+	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

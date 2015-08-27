@@ -54,7 +54,7 @@ Gura_ImplementFunction(FocusEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_FocusEvent *pEntity = new wx_FocusEvent(eventType, id);
-	Object_wx_FocusEvent *pObj = Object_wx_FocusEvent::GetThisObj(args);
+	Object_wx_FocusEvent *pObj = Object_wx_FocusEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FocusEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -73,7 +73,7 @@ Gura_DeclareMethod(wx_FocusEvent, GetWindow)
 Gura_ImplementMethod(wx_FocusEvent, GetWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetThisObj(args);
+	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = pThis->GetEntity()->GetWindow();
 	return Value(new Object_wx_Window(rtn, nullptr, false));

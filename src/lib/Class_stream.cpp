@@ -193,7 +193,7 @@ Gura_DeclareMethod(stream, addcr)
 
 Gura_ImplementMethod(stream, addcr)
 {
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	Codec::Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetValueThis();
@@ -210,7 +210,7 @@ Gura_DeclareMethod(stream, close)
 
 Gura_ImplementMethod(stream, close)
 {
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	stream.Close();
 	return Value::Nil;
 }
@@ -229,7 +229,7 @@ Gura_DeclareMethod(stream, compare)
 Gura_ImplementMethod(stream, compare)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream1 = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream1 = Object_stream::GetObjectThis(args)->GetStream();
 	Stream &stream2 = args.GetStream(0);
 	bool sameFlag = stream1.Compare(sig, stream2);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -317,7 +317,7 @@ Gura_ImplementMethod(stream, copyfrom)
 {
 	Signal &sig = env.GetSignal();
 	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
-	Stream &streamDst = Object_stream::GetThisObj(args)->GetStream();
+	Stream &streamDst = Object_stream::GetObjectThis(args)->GetStream();
 	Stream &streamSrc = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);
 	const Function *pFuncFilter =
@@ -365,7 +365,7 @@ Gura_ImplementMethod(stream, copyto)
 {
 	Signal &sig = env.GetSignal();
 	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
-	Stream &streamSrc = Object_stream::GetThisObj(args)->GetStream();
+	Stream &streamSrc = Object_stream::GetObjectThis(args)->GetStream();
 	Stream &streamDst = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);
 	const Function *pFuncFilter =
@@ -398,7 +398,7 @@ Gura_DeclareMethod(stream, delcr)
 
 Gura_ImplementMethod(stream, delcr)
 {
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	Codec::Decoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetValueThis();
@@ -416,7 +416,7 @@ Gura_DeclareMethod(stream, deserialize)
 Gura_ImplementMethod(stream, deserialize)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Value value;
 	if (!Value::Deserialize(env, stream, value, false)) return Value::Nil;
@@ -435,7 +435,7 @@ Gura_DeclareMethod(stream, flush)
 Gura_ImplementMethod(stream, flush)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	stream.Flush(sig);
 	return Value::Nil;
 }
@@ -453,7 +453,7 @@ Gura_DeclareMethod(stream, peek)
 Gura_ImplementMethod(stream, peek)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Value result;
 	size_t len = static_cast<size_t>(args.GetNumber(0));
@@ -481,7 +481,7 @@ Gura_DeclareMethod(stream, prefetch)
 Gura_ImplementMethod(stream, prefetch)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Stream *pStream = Stream::Prefetch(sig, &stream, false);
 	return Value(new Object_stream(env, pStream));
@@ -501,7 +501,7 @@ Gura_DeclareMethod(stream, print)
 Gura_ImplementMethod(stream, print)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		String str(pValue->ToString(false));
@@ -528,7 +528,7 @@ Gura_DeclareMethod(stream, printf)
 Gura_ImplementMethod(stream, printf)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
 	stream.PrintFmt(sig, args.GetString(0), args.GetList(1));
 	return Value::Nil;
@@ -547,7 +547,7 @@ Gura_DeclareMethod(stream, println)
 Gura_ImplementMethod(stream, println)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		String str(pValue->ToString(false));
@@ -572,7 +572,7 @@ Gura_DeclareMethod(stream, read)
 Gura_ImplementMethod(stream, read)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Value result;
 	if (args.Is_number(0)) {
@@ -617,7 +617,7 @@ Gura_DeclareMethod(stream, readchar)
 Gura_ImplementMethod(stream, readchar)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	String str = stream.ReadChar(sig);
 	if (str.empty()) return Value::Nil;
@@ -637,7 +637,7 @@ Gura_DeclareMethod(stream, readline)
 Gura_ImplementMethod(stream, readline)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	int cntChars = 4096;	// tentative
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
@@ -680,7 +680,7 @@ Gura_DeclareMethod(stream, readlines)
 Gura_ImplementMethod(stream, readlines)
 {
 	Signal &sig = env.GetSignal();
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	Stream &stream = pThis->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	int nLinesMax = args.Is_number(0)? static_cast<int>(args.GetNumber(0)) : -1;
@@ -702,7 +702,7 @@ Gura_DeclareMethod(stream, readtext)
 Gura_ImplementMethod(stream, readtext)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	String str;
 	for (;;) {
@@ -728,7 +728,7 @@ Gura_DeclareMethod(stream, seek)
 Gura_ImplementMethod(stream, seek)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	Stream::SeekMode seekMode = Stream::SeekSet;
 	if (args.GetValue(1).Is_symbol()) {
 		const Symbol *pSymbol = args.GetSymbol(1);
@@ -758,7 +758,7 @@ Gura_DeclareMethod(stream, serialize)
 Gura_ImplementMethod(stream, serialize)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
 	const Value &value = args.GetValue(0);
 	Value::Serialize(env, stream, value);
@@ -777,7 +777,7 @@ Gura_DeclareMethod(stream, setcodec)
 
 Gura_ImplementMethod(stream, setcodec)
 {
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	Codec *pCodec = nullptr;
 	if (args.IsValid(0)) {
 		pCodec = Codec::Reference(Object_codec::GetObject(args, 0)->GetCodec());
@@ -799,7 +799,7 @@ Gura_DeclareMethod(stream, tell)
 
 Gura_ImplementMethod(stream, tell)
 {
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	return Value(static_cast<ULong>(stream.Tell()));
 }
 
@@ -817,7 +817,7 @@ Gura_DeclareMethod(stream, write)
 Gura_ImplementMethod(stream, write)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
 	const Binary &binary = args.GetBinary(0);
 	size_t len = args.Is_number(1)? args.GetSizeT(1) : binary.size();

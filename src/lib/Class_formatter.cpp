@@ -63,7 +63,7 @@ Gura_DeclareMethod(formatter, getminwidth)
 
 Gura_ImplementMethod(formatter, getminwidth)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	return Value(flags.fieldMinWidth);
 }
 
@@ -84,7 +84,7 @@ Gura_DeclareMethod(formatter, getpadding)
 
 Gura_ImplementMethod(formatter, getpadding)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	char str[] = { flags.charPadding, '\0' };
 	return Value(str);
 }
@@ -104,7 +104,7 @@ Gura_DeclareMethod(formatter, getplusmode)
 
 Gura_ImplementMethod(formatter, getplusmode)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	const Symbol *pSymbol =
 		(flags.plusMode == Formatter::PLUSMODE_None)? Gura_Symbol(none) :
 		(flags.plusMode == Formatter::PLUSMODE_Space)? Gura_Symbol(space) :
@@ -126,7 +126,7 @@ Gura_DeclareMethod(formatter, getprecision)
 
 Gura_ImplementMethod(formatter, getprecision)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	return Value(flags.precision);
 }
 
@@ -143,7 +143,7 @@ Gura_DeclareMethod(formatter, isleftalign)
 
 Gura_ImplementMethod(formatter, isleftalign)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	return Value(flags.leftAlignFlag);
 }
 
@@ -161,7 +161,7 @@ Gura_DeclareMethod(formatter, issharp)
 
 Gura_ImplementMethod(formatter, issharp)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	return Value(flags.sharpFlag);
 }
 
@@ -179,7 +179,7 @@ Gura_DeclareMethod(formatter, isuppercase)
 
 Gura_ImplementMethod(formatter, isuppercase)
 {
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	const Formatter::Flags &flags = Object_formatter::GetObjectThis(args)->GetFlags();
 	return Value(flags.upperCaseFlag);
 }
 

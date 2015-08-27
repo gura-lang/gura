@@ -60,7 +60,7 @@ Gura_ImplementFunction(NotebookEvent)
 	int oldSel = -1;
 	if (args.IsValid(3)) oldSel = args.GetInt(3);
 	wx_NotebookEvent *pEntity = new wx_NotebookEvent(eventType, id, sel, oldSel);
-	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetThisObj(args);
+	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_NotebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_NotebookEvent, GetOldSelection)
 Gura_ImplementMethod(wx_NotebookEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_NotebookEvent, GetSelection)
 Gura_ImplementMethod(wx_NotebookEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_NotebookEvent, SetOldSelection)
 Gura_ImplementMethod(wx_NotebookEvent, SetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetOldSelection(page);
@@ -126,7 +126,7 @@ Gura_DeclareMethod(wx_NotebookEvent, SetSelection)
 Gura_ImplementMethod(wx_NotebookEvent, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetSelection(page);

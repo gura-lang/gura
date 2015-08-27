@@ -49,7 +49,7 @@ Gura_ImplementFunction(AutomationObject)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AutomationObject *pEntity = new wx_AutomationObject();
-	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AutomationObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString method = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_AutomationObject, CallMethod_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString method = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->CallMethod(method, );
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_AutomationObject, CreateInstance)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString classId = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->CreateInstance(classId);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetDispatchPtr)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 #endif
 	SetError_NotImplemented(sig);
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetInstance)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString classId = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->GetInstance(classId);
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetObject)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAutomationObject *obj = Object_wx_AutomationObject::GetObject(args, 0)->GetEntity();
 	wxString property = wxString::FromUTF8(args.GetString(1));
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_AutomationObject, GetProperty_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	wxVariant rtn = pThis->GetEntity()->GetProperty(property, );
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_AutomationObject, Invoke)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString member = wxString::FromUTF8(args.GetString(0));
 	int action = args.GetInt(1);
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	int noArgs = args.GetInt(1);
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_AutomationObject, PutProperty_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString property = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->PutProperty(property, );
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_AutomationObject, SetDispatchPtr)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetThisObj(args);
+	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetDispatchPtr();
 	return Value::Nil;

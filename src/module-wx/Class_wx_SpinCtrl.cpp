@@ -49,7 +49,7 @@ Gura_ImplementFunction(SpinCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SpinCtrl *pEntity = new wx_SpinCtrl();
-	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(SpinCtrl)
 	wxString name = _T("wxSpinCtrl");
 	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
 	wx_SpinCtrl *pEntity = new wx_SpinCtrl(parent, id, value, *pos, *size, style, min, max, initial, name);
-	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -131,7 +131,7 @@ Gura_DeclareMethod(wx_SpinCtrl, Create)
 Gura_ImplementMethod(wx_SpinCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
@@ -165,7 +165,7 @@ Gura_DeclareMethod(wx_SpinCtrl, SetValue)
 Gura_ImplementMethod(wx_SpinCtrl, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetValue(text);
@@ -181,7 +181,7 @@ Gura_DeclareMethod(wx_SpinCtrl, SetValue_1)
 Gura_ImplementMethod(wx_SpinCtrl, SetValue_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int value = args.GetInt(0);
 	pThis->GetEntity()->SetValue(value);
@@ -197,7 +197,7 @@ Gura_DeclareMethod(wx_SpinCtrl, GetValue)
 Gura_ImplementMethod(wx_SpinCtrl, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -213,7 +213,7 @@ Gura_DeclareMethod(wx_SpinCtrl, SetRange)
 Gura_ImplementMethod(wx_SpinCtrl, SetRange)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int minVal = args.GetInt(0);
 	int maxVal = args.GetInt(1);
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_SpinCtrl, SetSelection)
 Gura_ImplementMethod(wx_SpinCtrl, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
@@ -248,7 +248,7 @@ Gura_DeclareMethod(wx_SpinCtrl, GetMin)
 Gura_ImplementMethod(wx_SpinCtrl, GetMin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMin();
 	return ReturnValue(env, args, Value(rtn));
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_SpinCtrl, GetMax)
 Gura_ImplementMethod(wx_SpinCtrl, GetMax)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetThisObj(args);
+	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMax();
 	return ReturnValue(env, args, Value(rtn));

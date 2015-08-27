@@ -54,7 +54,7 @@ Gura_ImplementFunction(DataViewToggleRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewToggleRenderer *pEntity = new wx_DataViewToggleRenderer(varianttype, mode);
-	Object_wx_DataViewToggleRenderer *pObj = Object_wx_DataViewToggleRenderer::GetThisObj(args);
+	Object_wx_DataViewToggleRenderer *pObj = Object_wx_DataViewToggleRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewToggleRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

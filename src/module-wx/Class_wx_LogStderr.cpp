@@ -49,7 +49,7 @@ Gura_ImplementFunction(LogStderr)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_LogStderr *pEntity = new wx_LogStderr();
-	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetThisObj(args);
+	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogStderr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

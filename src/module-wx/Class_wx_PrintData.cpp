@@ -49,7 +49,7 @@ Gura_ImplementFunction(PrintDataEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PrintData *pEntity = new wx_PrintData();
-	Object_wx_PrintData *pObj = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pObj = Object_wx_PrintData::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(PrintData)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxPrintData *data = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrintData *pEntity = new wx_PrintData(*data);
-	Object_wx_PrintData *pObj = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pObj = Object_wx_PrintData::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrintData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_PrintData, GetCollate)
 Gura_ImplementMethod(wx_PrintData, GetCollate)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetCollate();
 	return ReturnValue(env, args, Value(rtn));
@@ -109,7 +109,7 @@ Gura_DeclareMethod(wx_PrintData, GetBin)
 Gura_ImplementMethod(wx_PrintData, GetBin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintBin rtn = pThis->GetEntity()->GetBin();
 	return ReturnValue(env, args, Value(rtn));
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_PrintData, GetColour)
 Gura_ImplementMethod(wx_PrintData, GetColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, args, Value(rtn));
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_PrintData, GetDuplex)
 Gura_ImplementMethod(wx_PrintData, GetDuplex)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDuplexMode rtn = pThis->GetEntity()->GetDuplex();
 	return ReturnValue(env, args, Value(rtn));
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_PrintData, GetNoCopies)
 Gura_ImplementMethod(wx_PrintData, GetNoCopies)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetNoCopies();
 	return ReturnValue(env, args, Value(rtn));
@@ -169,7 +169,7 @@ Gura_DeclareMethod(wx_PrintData, GetOrientation)
 Gura_ImplementMethod(wx_PrintData, GetOrientation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOrientation();
 	return ReturnValue(env, args, Value(rtn));
@@ -184,7 +184,7 @@ Gura_DeclareMethod(wx_PrintData, GetPaperId)
 Gura_ImplementMethod(wx_PrintData, GetPaperId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPaperSize rtn = pThis->GetEntity()->GetPaperId();
 	return ReturnValue(env, args, Value(rtn));
@@ -199,7 +199,7 @@ Gura_DeclareMethod(wx_PrintData, GetPrinterName)
 Gura_ImplementMethod(wx_PrintData, GetPrinterName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPrinterName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -214,7 +214,7 @@ Gura_DeclareMethod(wx_PrintData, GetQuality)
 Gura_ImplementMethod(wx_PrintData, GetQuality)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintQuality rtn = pThis->GetEntity()->GetQuality();
 	return ReturnValue(env, args, Value(rtn));
@@ -229,7 +229,7 @@ Gura_DeclareMethod(wx_PrintData, IsOk)
 Gura_ImplementMethod(wx_PrintData, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
@@ -244,7 +244,7 @@ Gura_DeclareMethod(wx_PrintData, SetBin)
 Gura_ImplementMethod(wx_PrintData, SetBin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintBin flag = static_cast<wxPrintBin>(args.GetInt(0));
 	pThis->GetEntity()->SetBin(flag);
@@ -260,7 +260,7 @@ Gura_DeclareMethod(wx_PrintData, SetCollate)
 Gura_ImplementMethod(wx_PrintData, SetCollate)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool flag = args.GetBoolean(0);
 	pThis->GetEntity()->SetCollate(flag);
@@ -276,7 +276,7 @@ Gura_DeclareMethod(wx_PrintData, SetColour)
 Gura_ImplementMethod(wx_PrintData, SetColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool flag = args.GetBoolean(0);
 	pThis->GetEntity()->SetColour(flag);
@@ -292,7 +292,7 @@ Gura_DeclareMethod(wx_PrintData, SetDuplex)
 Gura_ImplementMethod(wx_PrintData, SetDuplex)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDuplexMode mode = static_cast<wxDuplexMode>(args.GetInt(0));
 	pThis->GetEntity()->SetDuplex(mode);
@@ -308,7 +308,7 @@ Gura_DeclareMethod(wx_PrintData, SetNoCopies)
 Gura_ImplementMethod(wx_PrintData, SetNoCopies)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = args.GetInt(0);
 	pThis->GetEntity()->SetNoCopies(n);
@@ -324,7 +324,7 @@ Gura_DeclareMethod(wx_PrintData, SetOrientation)
 Gura_ImplementMethod(wx_PrintData, SetOrientation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int orientation = args.GetInt(0);
 	pThis->GetEntity()->SetOrientation(orientation);
@@ -340,7 +340,7 @@ Gura_DeclareMethod(wx_PrintData, SetPaperId)
 Gura_ImplementMethod(wx_PrintData, SetPaperId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPaperSize paperId = static_cast<wxPaperSize>(args.GetInt(0));
 	pThis->GetEntity()->SetPaperId(paperId);
@@ -356,7 +356,7 @@ Gura_DeclareMethod(wx_PrintData, SetPrinterName)
 Gura_ImplementMethod(wx_PrintData, SetPrinterName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString printerName = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetPrinterName(printerName);
@@ -372,7 +372,7 @@ Gura_DeclareMethod(wx_PrintData, SetQuality)
 Gura_ImplementMethod(wx_PrintData, SetQuality)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetThisObj(args);
+	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPrintQuality quality = static_cast<wxPrintQuality>(args.GetInt(0));
 	pThis->GetEntity()->SetQuality(quality);

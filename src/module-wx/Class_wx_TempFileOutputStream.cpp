@@ -50,7 +50,7 @@ Gura_ImplementFunction(TempFileOutputStream)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFileOutputStream *pEntity = new wx_TempFileOutputStream(fileName);
-	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetThisObj(args);
+	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TempFileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -70,7 +70,7 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
 Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetThisObj(args);
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Commit();
 	return ReturnValue(env, args, Value(rtn));
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
 Gura_ImplementMethod(wx_TempFileOutputStream, Discard)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetThisObj(args);
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Discard();
 	return Value::Nil;

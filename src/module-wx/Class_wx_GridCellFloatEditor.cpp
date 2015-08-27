@@ -54,7 +54,7 @@ Gura_ImplementFunction(GridCellFloatEditor)
 	int precision = -1;
 	if (args.IsValid(1)) precision = args.GetInt(1);
 	wx_GridCellFloatEditor *pEntity = new wx_GridCellFloatEditor(width, precision);
-	Object_wx_GridCellFloatEditor *pObj = Object_wx_GridCellFloatEditor::GetThisObj(args);
+	Object_wx_GridCellFloatEditor *pObj = Object_wx_GridCellFloatEditor::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellFloatEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_GridCellFloatEditor, SetParameters)
 Gura_ImplementMethod(wx_GridCellFloatEditor, SetParameters)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetThisObj(args);
+	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString params = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetParameters(params);

@@ -48,7 +48,7 @@ Gura_ImplementFunction(LogStream)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_LogStream *pEntity = new wx_LogStream();
-	Object_wx_LogStream *pObj = Object_wx_LogStream::GetThisObj(args);
+	Object_wx_LogStream *pObj = Object_wx_LogStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

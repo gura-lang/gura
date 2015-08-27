@@ -73,7 +73,7 @@ Gura_DeclareMethod(Struct, tolist)
 
 Gura_ImplementMethod(Struct, tolist)
 {
-	ObjectOfStruct *pThis = ObjectOfStruct::GetThisObj(args);
+	ObjectOfStruct *pThis = ObjectOfStruct::GetObjectThis(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();

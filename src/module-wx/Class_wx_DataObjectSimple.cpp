@@ -58,7 +58,7 @@ Gura_ImplementFunction(DataObjectSimple)
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_DataObjectSimple *pEntity = new wx_DataObjectSimple(*format);
-	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -78,7 +78,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
 Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxDataFormat &rtn = pThis->GetEntity()->GetFormat();
 	return ReturnValue(env, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));
@@ -93,7 +93,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
 Gura_ImplementMethod(wx_DataObjectSimple, SetFormat)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataFormat *format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetFormat(*format);
@@ -109,7 +109,7 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetDataSize)
 Gura_ImplementMethod(wx_DataObjectSimple, GetDataSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetDataSize();
 	return ReturnValue(env, args, Value(rtn));
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, GetDataHere)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int *buf = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->GetDataHere(*buf);
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, SetData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t len = args.GetSizeT(0);
 	int *buf = args.GetInt(1);

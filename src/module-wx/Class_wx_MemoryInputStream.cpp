@@ -56,7 +56,7 @@ Gura_ImplementFunction(MemoryInputStream)
 	char data = args.GetChar(0);
 	size_t len = args.GetSizeT(1);
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(data, len);
-	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
+	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(MemoryInputStream_1)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxMemoryOutputStream *stream = Object_wx_MemoryOutputStream::GetObject(args, 0)->GetEntity();
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(*stream);
-	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
+	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -104,7 +104,7 @@ Gura_DeclareMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
+	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();
 	return ReturnValue(env, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));

@@ -263,7 +263,7 @@ Gura_ImplementFunction(DataViewCustomRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewCustomRenderer *pEntity = new wx_DataViewCustomRenderer(varianttype, mode);
-	Object_wx_DataViewCustomRenderer *pObj = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pObj = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCustomRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -287,7 +287,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
 Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *cell = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 1)->GetEntity();
@@ -306,7 +306,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDC)
 Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDC)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->wxDataViewCustomRenderer::GetDC();
 	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
@@ -326,7 +326,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
 Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -351,7 +351,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, RightClick)
 Gura_ImplementMethod(wx_DataViewCustomRenderer, RightClick)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -376,7 +376,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
 Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();

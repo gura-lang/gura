@@ -135,7 +135,7 @@ Gura_ImplementFunction(DropTarget)
 	wxDataObject *data = (wxDataObject *)(nullptr);
 	if (args.IsValid(0)) data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	wx_DropTarget *pEntity = new wx_DropTarget(data);
-	Object_wx_DropTarget *pObj = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pObj = Object_wx_DropTarget::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_DropTarget, GetData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetData();
 	return Value::Nil;
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_DropTarget, OnData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDrop)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_DropTarget, OnEnter)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_DropTarget, OnLeave)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnLeave();
 	return Value::Nil;
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_DropTarget, SetDataObject)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetThisObj(args);
+	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetDataObject(data);

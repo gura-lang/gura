@@ -54,7 +54,7 @@ Gura_ImplementFunction(PanelEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Panel *pEntity = new wx_Panel();
-	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(Panel)
 	wxString name = wxT("panel");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Panel *pEntity = new wx_Panel(parent, id, *pos, *size, style, name);
-	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_Panel, Create)
 Gura_ImplementMethod(wx_Panel, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_Panel, InitDialog)
 Gura_ImplementMethod(wx_Panel, InitDialog)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->InitDialog();
 	return Value::Nil;
@@ -160,7 +160,7 @@ Gura_DeclareMethod(wx_Panel, OnSysColourChanged)
 Gura_ImplementMethod(wx_Panel, OnSysColourChanged)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnSysColourChanged(*event);
@@ -175,7 +175,7 @@ Gura_DeclareMethod(wx_Panel, SetFocus)
 Gura_ImplementMethod(wx_Panel, SetFocus)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocus();
 	return Value::Nil;
@@ -189,7 +189,7 @@ Gura_DeclareMethod(wx_Panel, SetFocusIgnoringChildren)
 Gura_ImplementMethod(wx_Panel, SetFocusIgnoringChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocusIgnoringChildren();
 	return Value::Nil;

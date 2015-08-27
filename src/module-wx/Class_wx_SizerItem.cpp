@@ -64,7 +64,7 @@ Gura_ImplementFunction(SizerItem)
 	int border = args.GetInt(4);
 	wxObject *userData = Object_wx_Object::GetObject(args, 5)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(width, height, proportion, flag, border, userData);
-	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(SizerItem_1)
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxSizerFlags *flags = Object_wx_SizerFlags::GetObject(args, 1)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(window, *flags);
-	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -124,7 +124,7 @@ Gura_ImplementFunction(SizerItem_2)
 	int border = args.GetInt(3);
 	wxObject *userData = Object_wx_Object::GetObject(args, 4)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(window, proportion, flag, border, userData);
-	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -151,7 +151,7 @@ Gura_ImplementFunction(SizerItem_3)
 	wxSizer *window = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	wxSizerFlags *flags = Object_wx_SizerFlags::GetObject(args, 1)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(window, *flags);
-	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -184,7 +184,7 @@ Gura_ImplementFunction(SizerItem_4)
 	int border = args.GetInt(3);
 	wxObject *userData = Object_wx_Object::GetObject(args, 4)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(sizer, proportion, flag, border, userData);
-	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pObj = Object_wx_SizerItem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizerItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -204,7 +204,7 @@ Gura_DeclareMethod(wx_SizerItem, CalcMin)
 Gura_ImplementMethod(wx_SizerItem, CalcMin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->CalcMin();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -218,7 +218,7 @@ Gura_DeclareMethod(wx_SizerItem, DeleteWindows)
 Gura_ImplementMethod(wx_SizerItem, DeleteWindows)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DeleteWindows();
 	return Value::Nil;
@@ -232,7 +232,7 @@ Gura_DeclareMethod(wx_SizerItem, DetachSizer)
 Gura_ImplementMethod(wx_SizerItem, DetachSizer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DetachSizer();
 	return Value::Nil;
@@ -247,7 +247,7 @@ Gura_DeclareMethod(wx_SizerItem, GetBorder)
 Gura_ImplementMethod(wx_SizerItem, GetBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetBorder();
 	return ReturnValue(env, args, Value(rtn));
@@ -262,7 +262,7 @@ Gura_DeclareMethod(wx_SizerItem, GetFlag)
 Gura_ImplementMethod(wx_SizerItem, GetFlag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlag();
 	return ReturnValue(env, args, Value(rtn));
@@ -277,7 +277,7 @@ Gura_DeclareMethod(wx_SizerItem, GetMinSize)
 Gura_ImplementMethod(wx_SizerItem, GetMinSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetMinSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -292,7 +292,7 @@ Gura_DeclareMethod(wx_SizerItem, GetPosition)
 Gura_ImplementMethod(wx_SizerItem, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
@@ -307,7 +307,7 @@ Gura_DeclareMethod(wx_SizerItem, GetProportion)
 Gura_ImplementMethod(wx_SizerItem, GetProportion)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetProportion();
 	return ReturnValue(env, args, Value(rtn));
@@ -322,7 +322,7 @@ Gura_DeclareMethod(wx_SizerItem, GetRatio)
 Gura_ImplementMethod(wx_SizerItem, GetRatio)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	float rtn = pThis->GetEntity()->GetRatio();
 	return ReturnValue(env, args, Value(rtn));
@@ -337,7 +337,7 @@ Gura_DeclareMethod(wx_SizerItem, GetRect)
 Gura_ImplementMethod(wx_SizerItem, GetRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetRect();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
@@ -352,7 +352,7 @@ Gura_DeclareMethod(wx_SizerItem, GetSize)
 Gura_ImplementMethod(wx_SizerItem, GetSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -367,7 +367,7 @@ Gura_DeclareMethod(wx_SizerItem, GetSizer)
 Gura_ImplementMethod(wx_SizerItem, GetSizer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetSizer();
 	return ReturnValue(env, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
@@ -382,7 +382,7 @@ Gura_DeclareMethod(wx_SizerItem, GetSpacer)
 Gura_ImplementMethod(wx_SizerItem, GetSpacer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxSize &rtn = pThis->GetEntity()->GetSpacer();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -397,7 +397,7 @@ Gura_DeclareMethod(wx_SizerItem, GetUserData)
 Gura_ImplementMethod(wx_SizerItem, GetUserData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetUserData();
 	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
@@ -412,7 +412,7 @@ Gura_DeclareMethod(wx_SizerItem, GetWindow)
 Gura_ImplementMethod(wx_SizerItem, GetWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
@@ -427,7 +427,7 @@ Gura_DeclareMethod(wx_SizerItem, IsSizer)
 Gura_ImplementMethod(wx_SizerItem, IsSizer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsSizer();
 	return ReturnValue(env, args, Value(rtn));
@@ -442,7 +442,7 @@ Gura_DeclareMethod(wx_SizerItem, IsShown)
 Gura_ImplementMethod(wx_SizerItem, IsShown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsShown();
 	return ReturnValue(env, args, Value(rtn));
@@ -457,7 +457,7 @@ Gura_DeclareMethod(wx_SizerItem, IsSpacer)
 Gura_ImplementMethod(wx_SizerItem, IsSpacer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsSpacer();
 	return ReturnValue(env, args, Value(rtn));
@@ -472,7 +472,7 @@ Gura_DeclareMethod(wx_SizerItem, IsWindow)
 Gura_ImplementMethod(wx_SizerItem, IsWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsWindow();
 	return ReturnValue(env, args, Value(rtn));
@@ -487,7 +487,7 @@ Gura_DeclareMethod(wx_SizerItem, SetBorder)
 Gura_ImplementMethod(wx_SizerItem, SetBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int border = args.GetInt(0);
 	pThis->GetEntity()->SetBorder(border);
@@ -504,7 +504,7 @@ Gura_DeclareMethod(wx_SizerItem, SetDimension)
 Gura_ImplementMethod(wx_SizerItem, SetDimension)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
@@ -521,7 +521,7 @@ Gura_DeclareMethod(wx_SizerItem, SetFlag)
 Gura_ImplementMethod(wx_SizerItem, SetFlag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flag = args.GetInt(0);
 	pThis->GetEntity()->SetFlag(flag);
@@ -538,7 +538,7 @@ Gura_DeclareMethod(wx_SizerItem, SetInitSize)
 Gura_ImplementMethod(wx_SizerItem, SetInitSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
@@ -555,7 +555,7 @@ Gura_DeclareMethod(wx_SizerItem, SetProportion)
 Gura_ImplementMethod(wx_SizerItem, SetProportion)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int proportion = args.GetInt(0);
 	pThis->GetEntity()->SetProportion(proportion);
@@ -572,7 +572,7 @@ Gura_DeclareMethod(wx_SizerItem, SetRatio)
 Gura_ImplementMethod(wx_SizerItem, SetRatio)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
@@ -589,7 +589,7 @@ Gura_DeclareMethod(wx_SizerItem, SetRatio_1)
 Gura_ImplementMethod(wx_SizerItem, SetRatio_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetRatio(*size);
@@ -605,7 +605,7 @@ Gura_DeclareMethod(wx_SizerItem, SetRatio_2)
 Gura_ImplementMethod(wx_SizerItem, SetRatio_2)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	float ratio = args.GetFloat(0);
 	pThis->GetEntity()->SetRatio(ratio);
@@ -621,7 +621,7 @@ Gura_DeclareMethod(wx_SizerItem, SetSizer)
 Gura_ImplementMethod(wx_SizerItem, SetSizer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetSizer(sizer);
@@ -637,7 +637,7 @@ Gura_DeclareMethod(wx_SizerItem, SetSpacer)
 Gura_ImplementMethod(wx_SizerItem, SetSpacer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetSpacer(*size);
@@ -653,7 +653,7 @@ Gura_DeclareMethod(wx_SizerItem, SetWindow)
 Gura_ImplementMethod(wx_SizerItem, SetWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetWindow(window);
@@ -669,7 +669,7 @@ Gura_DeclareMethod(wx_SizerItem, Show)
 Gura_ImplementMethod(wx_SizerItem, Show)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetThisObj(args);
+	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool show = args.GetBoolean(0);
 	pThis->GetEntity()->Show(show);

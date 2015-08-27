@@ -51,7 +51,7 @@ Gura_ImplementFunction(CSConv)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	wx_CSConv *pEntity = new wx_CSConv(charset);
-	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
+	Object_wx_CSConv *pObj = Object_wx_CSConv::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(CSConv_1)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wx_CSConv *pEntity = new wx_CSConv(encoding);
-	Object_wx_CSConv *pObj = Object_wx_CSConv::GetThisObj(args);
+	Object_wx_CSConv *pObj = Object_wx_CSConv::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CSConv(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(wx_CSConv, IsOk)
 Gura_ImplementMethod(wx_CSConv, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_CSConv, MB2WC)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
 	char psz = args.GetChar(1);
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_CSConv, WC2MB)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_CSConv *pThis = Object_wx_CSConv::GetThisObj(args);
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char buf = args.GetChar(0);
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));

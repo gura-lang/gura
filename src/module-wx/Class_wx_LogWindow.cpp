@@ -68,7 +68,7 @@ Gura_ImplementFunction(LogWindow)
 	bool passToOld = true;
 	if (args.IsValid(3)) passToOld = args.GetBoolean(3);
 	wx_LogWindow *pEntity = new wx_LogWindow(**parent, *title, show, passToOld);
-	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_LogWindow, Show)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool show = true;
 	if (args.IsValid(0)) show = args.GetBoolean(0);
@@ -114,7 +114,7 @@ Gura_DeclareMethod(wx_LogWindow, GetFrame)
 Gura_ImplementMethod(wx_LogWindow, GetFrame)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrame();
 	return ReturnValue(env, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameCreate)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnFrameCreate(**frame);
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->OnFrameClose(**frame);
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameDelete)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetThisObj(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnFrameDelete(**frame);

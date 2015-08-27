@@ -111,7 +111,7 @@ inline static T *GetObject(const Value &value) { \
 inline static T *GetObject(Args &args, size_t idxArg) { \
 	return dynamic_cast<T *>(args.GetObject(idxArg)); \
 } \
-inline static T *GetThisObj(Args &args) { \
+inline static T *GetObjectThis(Args &args) { \
 	return dynamic_cast<T *>(args.GetValueThis().GetObject()); \
 } \
 inline static T *Reference(const T *pObj) { \

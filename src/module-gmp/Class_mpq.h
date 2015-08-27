@@ -34,7 +34,7 @@ public:
 		return GetObject(args, idx)->GetEntity();
 	}
 	inline static const mpq_class &GetThisEntity(Args &args) {
-		return GetThisObj(args)->GetEntity();
+		return GetObjectThis(args)->GetEntity();
 	}
 };
 

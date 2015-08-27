@@ -49,7 +49,7 @@ Gura_ImplementFunction(SingleInstanceCheckerEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SingleInstanceChecker *pEntity = new wx_SingleInstanceChecker();
-	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetThisObj(args);
+	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(SingleInstanceChecker)
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
 	wx_SingleInstanceChecker *pEntity = new wx_SingleInstanceChecker(name, path);
-	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetThisObj(args);
+	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleInstanceChecker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -99,7 +99,7 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, Create)
 Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetThisObj(args);
+	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxEmptyString;
@@ -117,7 +117,7 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetThisObj(args);
+	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsAnotherRunning();
 	return ReturnValue(env, args, Value(rtn));

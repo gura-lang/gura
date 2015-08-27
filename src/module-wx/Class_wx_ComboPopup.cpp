@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_ComboPopup, Create)
 Gura_ImplementMethod(wx_ComboPopup, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(parent);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_ComboPopup, Dismiss)
 Gura_ImplementMethod(wx_ComboPopup, Dismiss)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Dismiss();
 	return Value::Nil;
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_ComboPopup, GetAdjustedSize)
 Gura_ImplementMethod(wx_ComboPopup, GetAdjustedSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int minWidth = args.GetInt(0);
 	int prefHeight = args.GetInt(1);
@@ -97,7 +97,7 @@ Gura_DeclareMethod(wx_ComboPopup, GetControl)
 Gura_ImplementMethod(wx_ComboPopup, GetControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetControl();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
@@ -112,7 +112,7 @@ Gura_DeclareMethod(wx_ComboPopup, GetStringValue)
 Gura_ImplementMethod(wx_ComboPopup, GetStringValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetStringValue();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -126,7 +126,7 @@ Gura_DeclareMethod(wx_ComboPopup, Init)
 Gura_ImplementMethod(wx_ComboPopup, Init)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Init();
 	return Value::Nil;
@@ -141,7 +141,7 @@ Gura_DeclareMethod(wx_ComboPopup, IsCreated)
 Gura_ImplementMethod(wx_ComboPopup, IsCreated)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsCreated();
 	return ReturnValue(env, args, Value(rtn));
@@ -156,7 +156,7 @@ Gura_DeclareMethod(wx_ComboPopup, LazyCreate)
 Gura_ImplementMethod(wx_ComboPopup, LazyCreate)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->LazyCreate();
 	return ReturnValue(env, args, Value(rtn));
@@ -170,7 +170,7 @@ Gura_DeclareMethod(wx_ComboPopup, OnComboDoubleClick)
 Gura_ImplementMethod(wx_ComboPopup, OnComboDoubleClick)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnComboDoubleClick();
 	return Value::Nil;
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_ComboPopup, OnComboKeyEvent)
 Gura_ImplementMethod(wx_ComboPopup, OnComboKeyEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnComboKeyEvent(*event);
@@ -200,7 +200,7 @@ Gura_DeclareMethod(wx_ComboPopup, OnDismiss)
 Gura_ImplementMethod(wx_ComboPopup, OnDismiss)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnDismiss();
 	return Value::Nil;
@@ -214,7 +214,7 @@ Gura_DeclareMethod(wx_ComboPopup, OnPopup)
 Gura_ImplementMethod(wx_ComboPopup, OnPopup)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnPopup();
 	return Value::Nil;
@@ -230,7 +230,7 @@ Gura_DeclareMethod(wx_ComboPopup, PaintComboControl)
 Gura_ImplementMethod(wx_ComboPopup, PaintComboControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -247,7 +247,7 @@ Gura_DeclareMethod(wx_ComboPopup, SetStringValue)
 Gura_ImplementMethod(wx_ComboPopup, SetStringValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetStringValue(value);

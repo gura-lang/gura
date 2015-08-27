@@ -49,7 +49,7 @@ Gura_ImplementFunction(CheckBoxEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_CheckBox *pEntity = new wx_CheckBox();
-	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(CheckBox)
 	wxString name = wxT("checkBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_CheckBox *pEntity = new wx_CheckBox(parent, id, label, *pos, *size, style, *val, name);
-	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pObj = Object_wx_CheckBox::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -121,7 +121,7 @@ Gura_DeclareMethod(wx_CheckBox, Create)
 Gura_ImplementMethod(wx_CheckBox, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -149,7 +149,7 @@ Gura_DeclareMethod(wx_CheckBox, GetValue)
 Gura_ImplementMethod(wx_CheckBox, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_CheckBox, Get3StateValue)
 Gura_ImplementMethod(wx_CheckBox, Get3StateValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCheckBoxState rtn = pThis->GetEntity()->Get3StateValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -179,7 +179,7 @@ Gura_DeclareMethod(wx_CheckBox, Is3rdStateAllowedForUser)
 Gura_ImplementMethod(wx_CheckBox, Is3rdStateAllowedForUser)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Is3rdStateAllowedForUser();
 	return ReturnValue(env, args, Value(rtn));
@@ -194,7 +194,7 @@ Gura_DeclareMethod(wx_CheckBox, Is3State)
 Gura_ImplementMethod(wx_CheckBox, Is3State)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Is3State();
 	return ReturnValue(env, args, Value(rtn));
@@ -209,7 +209,7 @@ Gura_DeclareMethod(wx_CheckBox, IsChecked)
 Gura_ImplementMethod(wx_CheckBox, IsChecked)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsChecked();
 	return ReturnValue(env, args, Value(rtn));
@@ -224,7 +224,7 @@ Gura_DeclareMethod(wx_CheckBox, SetValue)
 Gura_ImplementMethod(wx_CheckBox, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool state = args.GetBoolean(0);
 	pThis->GetEntity()->SetValue(state);
@@ -240,7 +240,7 @@ Gura_DeclareMethod(wx_CheckBox, Set3StateValue)
 Gura_ImplementMethod(wx_CheckBox, Set3StateValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetThisObj(args);
+	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCheckBoxState state = static_cast<wxCheckBoxState>(args.GetInt(0));
 	pThis->GetEntity()->Set3StateValue(state);

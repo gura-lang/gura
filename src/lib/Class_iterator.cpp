@@ -98,7 +98,7 @@ Gura_DeclareMethod(iterator, delay)
 
 Gura_ImplementMethod(iterator, delay)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator =
 		new Iterator_Delay(pThis->GetIterator()->Clone(), args.GetNumber(0));
 	return ReturnIterator(env, args, pIterator);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(iterator, isinfinite)
 
 Gura_ImplementMethod(iterator, isinfinite)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	return Value(pThis->GetIterator()->IsInfinite());
 }
 
@@ -136,7 +136,7 @@ Gura_DeclareMethod(iterator, next)
 
 Gura_ImplementMethod(iterator, next)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Value value;
 	if (pThis->GetIterator()->Next(env, value)) return value;
 	return Value::Nil;
@@ -171,7 +171,7 @@ Gura_DeclareMethod(iterator, repeater)
 
 Gura_ImplementMethod(iterator, repeater)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	pThis->GetIterator()->SetRepeaterFlag(true);
 	return args.GetValueThis();
 }
@@ -198,7 +198,7 @@ Gura_DeclareMethod(iterator, after)
 Gura_ImplementMethod(iterator, after)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Since(env, args.GetValue(0), false);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -232,7 +232,7 @@ Gura_DeclareMethod(iterator, align)
 
 Gura_ImplementMethod(iterator, align)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_Align(pThis->GetIterator()->Clone(),
 			static_cast<int>(args.GetNumber(0)), args.GetValue(1));
 	return ReturnIterator(env, args, pIterator);
@@ -250,7 +250,7 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 Gura_ImplementMethod(iterator, and_)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pIterator->And(env);
@@ -281,7 +281,7 @@ Gura_DeclareMethod(iterator, average)
 Gura_ImplementMethod(iterator, average)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
@@ -308,7 +308,7 @@ Gura_DeclareMethod(iterator, before)
 Gura_ImplementMethod(iterator, before)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	AutoPtr<Iterator> pIterator(pIteratorSrc->Until(env, args.GetValue(0), false));
 	if (sig.IsSignalled()) return Value::Nil;
@@ -328,7 +328,7 @@ Gura_DeclareMethod(iterator, contains)
 Gura_ImplementMethod(iterator, contains)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	bool result = pIterator->DoesContain(env, args.GetValue(0));
@@ -354,7 +354,7 @@ Gura_DeclareMethod(iterator, count)
 Gura_ImplementMethod(iterator, count)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	size_t cnt = args.IsValid(0)?
 		pIterator->Count(env, args.GetValue(0)) : pIterator->CountTrue(env);
@@ -385,7 +385,7 @@ Gura_DeclareMethod(iterator, cycle)
 Gura_ImplementMethod(iterator, cycle)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, args);
@@ -410,7 +410,7 @@ Gura_DeclareMethod(iterator, each)
 
 Gura_ImplementMethod(iterator, each)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	return ReturnIterator(env, args, pIterator);
 }
@@ -452,7 +452,7 @@ Gura_DeclareMethod(iterator, filter)
 Gura_ImplementMethod(iterator, filter)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	AutoPtr<Iterator> pIterator;
 	if (args.IsValid(0)) {
@@ -477,7 +477,7 @@ Gura_DeclareMethod(iterator, find)
 
 Gura_ImplementMethod(iterator, find)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value;
 	size_t idx = args.IsValid(0)?
@@ -523,7 +523,7 @@ Gura_DeclareMethod(iterator, flat)
 
 Gura_ImplementMethod(iterator, flat)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
 	bool walkListFlag = true;
@@ -570,7 +570,7 @@ Gura_DeclareMethod(iterator, fold)
 
 Gura_ImplementMethod(iterator, fold)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	size_t cnt = args.GetSizeT(0);
 	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
 	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
@@ -596,7 +596,7 @@ Gura_DeclareMethod(iterator, format)
 
 Gura_ImplementMethod(iterator, format)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator =
 		new Iterator_Format(pThis->GetIterator()->Clone(), args.GetString(0));
 	return ReturnIterator(env, args, pIterator);
@@ -617,7 +617,7 @@ Gura_DeclareMethod(iterator, head)
 
 Gura_ImplementMethod(iterator, head)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_Head(pThis->GetIterator()->Clone(),
 									static_cast<int>(args.GetNumber(0)));
 	return ReturnIterator(env, args, pIterator);
@@ -640,7 +640,7 @@ Gura_DeclareMethod(iterator, join)
 Gura_ImplementMethod(iterator, join)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	String rtn = pIterator->Join(env, sep);
@@ -660,7 +660,7 @@ Gura_DeclareMethod(iterator, joinb)
 Gura_ImplementMethod(iterator, joinb)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary rtn = pIterator->Joinb(env);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -679,7 +679,7 @@ Gura_DeclareMethod(iterator, len)
 Gura_ImplementMethod(iterator, len)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	if (pThis->GetIterator()->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return Value::Nil;
@@ -708,7 +708,7 @@ Gura_DeclareMethod(iterator, map)
 
 Gura_ImplementMethod(iterator, map)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env),
 			pThis->GetIterator()->Clone(),
 			Object_function::Reference(Object_function::GetObject(args, 0)));
@@ -738,7 +738,7 @@ Gura_DeclareMethod(iterator, max)
 Gura_ImplementMethod(iterator, max)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value result = pIterator->MinMax(env, true, args.GetAttrs());
 	if (sig.IsSignalled()) return Value::Nil;
@@ -768,7 +768,7 @@ Gura_DeclareMethod(iterator, min)
 Gura_ImplementMethod(iterator, min)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value result = pIterator->MinMax(env, false, args.GetAttrs());
 	if (sig.IsSignalled()) return Value::Nil;
@@ -788,7 +788,7 @@ Gura_DeclareMethod(iterator, nilto)
 
 Gura_ImplementMethod(iterator, nilto)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_ReplaceInvalid(pThis->GetIterator()->Clone(),
 															args.GetValue(0));
 	return ReturnIterator(env, args, pIterator);
@@ -814,7 +814,7 @@ Gura_DeclareMethod(iterator, offset)
 
 Gura_ImplementMethod(iterator, offset)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	for (int cnt = static_cast<int>(args.GetNumber(0)); cnt > 0; cnt--) {
 		Value value;
@@ -835,7 +835,7 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 Gura_ImplementMethod(iterator, or_)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pIterator->Or(env);
@@ -914,7 +914,7 @@ Gura_DeclareMethod(iterator, pack)
 
 Gura_ImplementMethod(iterator, pack)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator =
 		new Iterator_Pack(pThis->GetIterator()->Clone(), args.GetString(0));
 	return ReturnIterator(env, args, pIterator);
@@ -957,7 +957,7 @@ Gura_DeclareMethod(iterator, pingpong)
 Gura_ImplementMethod(iterator, pingpong)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	bool stickyFlagTop = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_at_top));
@@ -987,7 +987,7 @@ Gura_DeclareMethod(iterator, print)
 
 Gura_ImplementMethod(iterator, print)
 {
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Iterator *pIterator = Object_iterator::GetObjectThis(args)->GetIterator()->Clone();
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
 	pIterator->PrintEach(env, pStream);
 	return Value::Nil;
@@ -1006,7 +1006,7 @@ Gura_DeclareMethod(iterator, printf)
 
 Gura_ImplementMethod(iterator, printf)
 {
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Iterator *pIterator = Object_iterator::GetObjectThis(args)->GetIterator()->Clone();
 	const char *format = args.GetString(0);
 	Stream *pStream = args.IsValid(1)? &args.GetStream(1) : env.GetConsole();
 	pIterator->PrintfEach(env, pStream, format);
@@ -1025,7 +1025,7 @@ Gura_DeclareMethod(iterator, println)
 
 Gura_ImplementMethod(iterator, println)
 {
-	Iterator *pIterator = Object_iterator::GetThisObj(args)->GetIterator()->Clone();
+	Iterator *pIterator = Object_iterator::GetObjectThis(args)->GetIterator()->Clone();
 	Stream *pStream = args.IsValid(0)? &args.GetStream(0) : env.GetConsole();
 	pIterator->PrintlnEach(env, pStream);
 	return Value::Nil;
@@ -1054,7 +1054,7 @@ Gura_DeclareMethod(iterator, prod)
 Gura_ImplementMethod(iterator, prod)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	Value result = pIterator->Prod(env);
@@ -1095,7 +1095,7 @@ Gura_DeclareMethod(iterator, rank)
 Gura_ImplementMethod(iterator, rank)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
@@ -1130,7 +1130,7 @@ Gura_DeclareMethod(iterator, reduce)
 Gura_ImplementMethod(iterator, reduce)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
@@ -1160,7 +1160,7 @@ Gura_DeclareMethod(iterator, replace)
 
 Gura_ImplementMethod(iterator, replace)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_Replace(pThis->GetIterator()->Clone(),
 									args.GetValue(0), args.GetValue(1));
 	return ReturnIterator(env, args, pIterator);
@@ -1181,7 +1181,7 @@ Gura_DeclareMethod(iterator, reverse)
 Gura_ImplementMethod(iterator, reverse)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
@@ -1208,7 +1208,7 @@ Gura_DeclareMethod(iterator, roundoff)
 
 Gura_ImplementMethod(iterator, roundoff)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_RoundOff(
 						pThis->GetIterator()->Clone(), args.GetNumber(0));
 	return ReturnIterator(env, args, pIterator);
@@ -1235,7 +1235,7 @@ Gura_DeclareMethod(iterator, runlength)
 
 Gura_ImplementMethod(iterator, runlength)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_RunLength(pThis->GetIterator()->Clone());
 	return ReturnIterator(env, args, pIterator);
 }
@@ -1258,7 +1258,7 @@ Gura_DeclareMethod(iterator, since)
 Gura_ImplementMethod(iterator, since)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Since(env, args.GetValue(0), true);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -1285,7 +1285,7 @@ Gura_DeclareMethod(iterator, skip)
 
 Gura_ImplementMethod(iterator, skip)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator =
 		new Iterator_Skip(pThis->GetIterator()->Clone(), static_cast<int>(args.GetNumber(0)));
 	return ReturnIterator(env, args, pIterator);
@@ -1310,7 +1310,7 @@ Gura_DeclareMethod(iterator, skipnil)
 
 Gura_ImplementMethod(iterator, skipnil)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_SkipInvalid(pThis->GetIterator()->Clone());
 	return ReturnIterator(env, args, pIterator);
 }
@@ -1352,7 +1352,7 @@ Gura_DeclareMethod(iterator, sort)
 Gura_ImplementMethod(iterator, sort)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -1378,7 +1378,7 @@ Gura_DeclareMethod(iterator, stddev)
 Gura_ImplementMethod(iterator, stddev)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
@@ -1412,7 +1412,7 @@ Gura_DeclareMethod(iterator, sum)
 Gura_ImplementMethod(iterator, sum)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
@@ -1437,7 +1437,7 @@ Gura_DeclareMethod(iterator, tail)
 Gura_ImplementMethod(iterator, tail)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
@@ -1468,7 +1468,7 @@ Gura_DeclareMethod(iterator, until)
 Gura_ImplementMethod(iterator, until)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Until(env, args.GetValue(0), true);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -1487,7 +1487,7 @@ Gura_DeclareMethod(iterator, variance)
 Gura_ImplementMethod(iterator, variance)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	size_t cnt;
@@ -1531,7 +1531,7 @@ Gura_DeclareMethod(iterator, walk)
 
 Gura_ImplementMethod(iterator, walk)
 {
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
 		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
 	bool walkListFlag = true;
@@ -1560,7 +1560,7 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 Gura_ImplementMethod(iterator, while_)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->While(env, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Nil;

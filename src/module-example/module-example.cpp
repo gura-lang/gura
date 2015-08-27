@@ -33,7 +33,7 @@ Gura_DeclareMethod(foo, test)
 
 Gura_ImplementMethod(foo, test)
 {
-	Object_foo *pThis = Object_foo::GetThisObj(args);
+	Object_foo *pThis = Object_foo::GetObjectThis(args);
 	return Value("foo object");
 }
 

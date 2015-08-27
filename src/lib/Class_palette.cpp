@@ -153,7 +153,7 @@ Gura_DeclareMethod(palette, each)
 
 Gura_ImplementMethod(palette, each)
 {
-	Object_palette *pThis = Object_palette::GetThisObj(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(args);
 	Iterator *pIterator = new Palette::IteratorEach(Palette::Reference(pThis->GetPalette()));
 	return ReturnIterator(env, args, pIterator);
 }
@@ -174,7 +174,7 @@ Gura_DeclareMethod(palette, nearest)
 
 Gura_ImplementMethod(palette, nearest)
 {
-	Object_palette *pThis = Object_palette::GetThisObj(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(args);
 	size_t idx = pThis->GetPalette()->LookupNearest(Object_color::GetObject(args, 0)->GetColor());
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return pThis->GetPalette()->GetColorValue(env, idx);
@@ -194,7 +194,7 @@ Gura_DeclareMethod(palette, shrink)
 
 Gura_ImplementMethod(palette, shrink)
 {
-	Object_palette *pThis = Object_palette::GetThisObj(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(args);
 	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
 	return args.GetValueThis();
 }
@@ -218,7 +218,7 @@ Gura_DeclareMethod(palette, updateby)
 Gura_ImplementMethod(palette, updateby)
 {
 	Signal &sig = env.GetSignal();
-	Object_palette *pThis = Object_palette::GetThisObj(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(args);
 	Palette::ShrinkMode shrinkMode = Palette::ShrinkNone;
 	if (args.IsSet(Gura_Symbol(shrink))) {
 		shrinkMode = args.IsSet(Gura_Symbol(align))?

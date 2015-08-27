@@ -83,7 +83,7 @@ Gura_DeclareMethod(Glyph, Copy)
 Gura_ImplementMethod(Glyph, Copy)
 {
 	Signal &sig = env.GetSignal();
-	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	FT_Glyph *pGlyph = Object_Glyph::GetObjectThis(args)->GetEntity();
 	std::unique_ptr<FT_Glyph> pGlyphTgt(new FT_Glyph);
 	FT_Error err = ::FT_Glyph_Copy(*pGlyph, pGlyphTgt.get());
 	if (err != 0) {
@@ -103,7 +103,7 @@ Gura_DeclareMethod(Glyph, Stroke)
 Gura_ImplementMethod(Glyph, Stroke)
 {
 	Signal &sig = env.GetSignal();
-	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	FT_Glyph *pGlyph = Object_Glyph::GetObjectThis(args)->GetEntity();
 	FT_Stroker stroker = Object_Stroker::GetObject(args, 0)->GetEntity();
 	FT_Error err = ::FT_Glyph_Stroke(pGlyph, stroker, false);
 	if (err != 0) {
@@ -124,7 +124,7 @@ Gura_DeclareMethod(Glyph, StrokeBorder)
 Gura_ImplementMethod(Glyph, StrokeBorder)
 {
 	Signal &sig = env.GetSignal();
-	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	FT_Glyph *pGlyph = Object_Glyph::GetObjectThis(args)->GetEntity();
 	FT_Stroker stroker = Object_Stroker::GetObject(args, 0)->GetEntity();
 	FT_Bool inside = args.GetBoolean(1);
 	FT_Error err = ::FT_Glyph_StrokeBorder(pGlyph, stroker, inside, false);

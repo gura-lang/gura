@@ -695,7 +695,7 @@ Gura_DeclareMethod(diff_at_line, eachhunk)
 Gura_ImplementMethod(diff_at_line, eachhunk)
 {
 	Signal &sig = env.GetSignal();
-	DiffLine *pDiffLine = Object_diff_at_line::GetThisObj(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(args)->GetDiffLine();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(0)) {
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(0));
@@ -735,7 +735,7 @@ Gura_DeclareMethodAlias(diff_at_line, render, "render")
 Gura_ImplementMethod(diff_at_line, render)
 {
 	Signal &sig = env.GetSignal();
-	DiffLine *pDiffLine = Object_diff_at_line::GetThisObj(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(args)->GetDiffLine();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
 	if (args.IsValid(1)) {
 		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
@@ -849,7 +849,7 @@ Gura_DeclareMethod(hunk_at_line, print)
 Gura_ImplementMethod(hunk_at_line, print)
 {
 	Signal &sig = env.GetSignal();
-	Object_hunk_at_line *pThis = Object_hunk_at_line::GetThisObj(args);
+	Object_hunk_at_line *pThis = Object_hunk_at_line::GetObjectThis(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	pThis->GetDiffLine()->PrintHunk(sig, stream, pThis->GetHunk());
 	return Value::Nil;
@@ -952,7 +952,7 @@ Gura_DeclareMethod(edit_at_line, print)
 Gura_ImplementMethod(edit_at_line, print)
 {
 	Signal &sig = env.GetSignal();
-	Object_edit_at_line *pThis = Object_edit_at_line::GetThisObj(args);
+	Object_edit_at_line *pThis = Object_edit_at_line::GetObjectThis(args);
 	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
 	stream.Println(sig, DiffLine::TextizeEdit_Unified(pThis->GetEdit()).c_str());
 	return Value::Nil;

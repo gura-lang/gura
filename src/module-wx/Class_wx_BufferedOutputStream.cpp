@@ -50,7 +50,7 @@ Gura_ImplementFunction(BufferedOutputStream)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxOutputStream *parent = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_BufferedOutputStream *pEntity = new wx_BufferedOutputStream(*parent);
-	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetThisObj(args);
+	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -72,7 +72,7 @@ Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
 Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
+	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	off_t pos = static_cast<off_t>(args.GetLong(0));
 	wxSeekMode mode = static_cast<wxSeekMode>(args.GetInt(1));
@@ -88,7 +88,7 @@ Gura_DeclareMethod(wx_BufferedOutputStream, Sync)
 Gura_ImplementMethod(wx_BufferedOutputStream, Sync)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
+	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Sync();
 	return Value::Nil;

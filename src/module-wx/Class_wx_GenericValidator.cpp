@@ -61,7 +61,7 @@ Gura_ImplementFunction(GenericValidator)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxGenericValidator *validator = Object_wx_GenericValidator::GetObject(args, 0)->GetEntity();
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*validator);
-	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(GenericValidator_1)
 #if 0
 	bool valPtr = args.GetBoolean(0);
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
-	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -120,7 +120,7 @@ Gura_ImplementFunction(GenericValidator_2)
 #if 0
 	wxString valPtr = wxString::FromUTF8(args.GetString(0));
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
-	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -151,7 +151,7 @@ Gura_ImplementFunction(GenericValidator_3)
 #if 0
 	int valPtr = args.GetInt(0);
 	wx_GenericValidator *pEntity = new wx_GenericValidator(valPtr);
-	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -182,7 +182,7 @@ Gura_ImplementFunction(GenericValidator_4)
 #if 0
 	std::unique_ptr<wxArrayInt> valPtr(CreateArrayInt(args.GetList(0)));
 	wx_GenericValidator *pEntity = new wx_GenericValidator(*valPtr);
-	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pObj = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GenericValidator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -205,7 +205,7 @@ Gura_DeclareMethod(wx_GenericValidator, Clone)
 Gura_ImplementMethod(wx_GenericValidator, Clone)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_Validator(rtn, nullptr, OwnerFalse)));
@@ -220,7 +220,7 @@ Gura_DeclareMethod(wx_GenericValidator, TransferFromWindow)
 Gura_ImplementMethod(wx_GenericValidator, TransferFromWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferFromWindow();
 	return ReturnValue(env, args, Value(rtn));
@@ -235,7 +235,7 @@ Gura_DeclareMethod(wx_GenericValidator, TransferToWindow)
 Gura_ImplementMethod(wx_GenericValidator, TransferToWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetThisObj(args);
+	Object_wx_GenericValidator *pThis = Object_wx_GenericValidator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->TransferToWindow();
 	return ReturnValue(env, args, Value(rtn));

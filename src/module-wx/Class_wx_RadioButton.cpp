@@ -49,7 +49,7 @@ Gura_ImplementFunction(RadioButtonEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RadioButton *pEntity = new wx_RadioButton();
-	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetThisObj(args);
+	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(RadioButton)
 	wxString name = wxT("radioButton");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_RadioButton *pEntity = new wx_RadioButton(parent, id, label, *pos, *size, style, *validator, name);
-	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetThisObj(args);
+	Object_wx_RadioButton *pObj = Object_wx_RadioButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RadioButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -121,7 +121,7 @@ Gura_DeclareMethod(wx_RadioButton, Create)
 Gura_ImplementMethod(wx_RadioButton, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
+	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -149,7 +149,7 @@ Gura_DeclareMethod(wx_RadioButton, GetValue)
 Gura_ImplementMethod(wx_RadioButton, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
+	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_RadioButton, SetValue)
 Gura_ImplementMethod(wx_RadioButton, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetThisObj(args);
+	Object_wx_RadioButton *pThis = Object_wx_RadioButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool value = args.GetBoolean(0);
 	pThis->GetEntity()->SetValue(value);

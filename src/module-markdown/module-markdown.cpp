@@ -2757,7 +2757,7 @@ Gura_DeclareMethod(document, parse)
 Gura_ImplementMethod(document, parse)
 {
 	Signal &sig = env.GetSignal();
-	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	Document *pDocument = Object_document::GetObjectThis(args)->GetDocument();
 	pDocument->ParseString(sig, args.GetString(0));
 	return Value::Nil;
 }
@@ -2775,7 +2775,7 @@ Gura_DeclareMethod(document, read)
 Gura_ImplementMethod(document, read)
 {
 	Signal &sig = env.GetSignal();
-	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	Document *pDocument = Object_document::GetObjectThis(args)->GetDocument();
 	pDocument->ParseStream(sig, args.GetStream(0));
 	return Value::Nil;
 }
@@ -2881,7 +2881,7 @@ Gura_DeclareMethod(item, print)
 Gura_ImplementMethod(item, print)
 {
 	Signal &sig = env.GetSignal();
-	Item *pItem = Object_item::GetThisObj(args)->GetItem();
+	Item *pItem = Object_item::GetObjectThis(args)->GetItem();
 	int indentLevel = args.Is_number(0)? args.GetInt(0) : 0;
 	pItem->Print(sig, *env.GetConsole(), indentLevel);
 	return Value::Nil;

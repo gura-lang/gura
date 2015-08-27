@@ -34,7 +34,7 @@ Gura_DeclareMethod(device, status)
 
 Gura_ImplementMethod(device, status)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	cairo_status_t rtn = ::cairo_device_status(device);
 	return Value(rtn);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(device, finish)
 
 Gura_ImplementMethod(device, finish)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_finish(device);
 	return args.GetValueThis();
@@ -62,7 +62,7 @@ Gura_DeclareMethod(device, flush)
 
 Gura_ImplementMethod(device, flush)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_flush(device);
 	return args.GetValueThis();
@@ -76,7 +76,7 @@ Gura_DeclareMethod(device, get_type)
 
 Gura_ImplementMethod(device, get_type)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	cairo_device_type_t rtn = ::cairo_device_get_type(device);
 	return Value(rtn);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(device, acquire)
 
 Gura_ImplementMethod(device, acquire)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	cairo_status_t status = ::cairo_device_acquire(device);
 	return Value(status);
@@ -108,7 +108,7 @@ Gura_DeclareMethod(device, release)
 
 Gura_ImplementMethod(device, release)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_device *pThis = Object_device::GetObjectThis(args);
 	cairo_device_t *device = pThis->GetEntity();
 	::cairo_device_release(device);
 	return Value::Nil;

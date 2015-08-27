@@ -57,7 +57,7 @@ Gura_ImplementFunction(HelpEvent)
 	wxPoint point;
 	if (args.IsValid(2)) point = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_HelpEvent *pEntity = new wx_HelpEvent(eventType, id, point);
-	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetThisObj(args);
+	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
 Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
@@ -90,7 +90,7 @@ Gura_DeclareMethod(wx_HelpEvent, GetPosition)
 Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetOrigin(*origin);
@@ -127,7 +127,7 @@ Gura_DeclareMethod(wx_HelpEvent, SetPosition)
 Gura_ImplementMethod(wx_HelpEvent, SetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPosition(*pt);

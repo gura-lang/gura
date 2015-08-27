@@ -49,7 +49,7 @@ Gura_ImplementFunction(PointEmpty)
 	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Point *pEntity = new wx_Point();
-	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
+	Object_wx_Point *pObj = Object_wx_Point::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(Point)
 	int y = 0;
 	if (args.IsValid(1)) y = args.GetInt(1);
 	wx_Point *pEntity = new wx_Point(x, y);
-	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
+	Object_wx_Point *pObj = Object_wx_Point::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

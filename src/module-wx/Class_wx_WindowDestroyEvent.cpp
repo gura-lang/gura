@@ -51,7 +51,7 @@ Gura_ImplementFunction(WindowDestroyEvent)
 	wxWindow *win = (wxWindow *)(nullptr);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDestroyEvent *pEntity = new wx_WindowDestroyEvent(win);
-	Object_wx_WindowDestroyEvent *pObj = Object_wx_WindowDestroyEvent::GetThisObj(args);
+	Object_wx_WindowDestroyEvent *pObj = Object_wx_WindowDestroyEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowDestroyEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

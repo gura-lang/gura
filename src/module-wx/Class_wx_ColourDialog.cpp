@@ -54,7 +54,7 @@ Gura_ImplementFunction(ColourDialog)
 	wxColourData *data = (wxColourData *)(nullptr);
 	if (args.IsValid(1)) data = Object_wx_ColourData::GetObject(args, 1)->GetEntity();
 	wx_ColourDialog *pEntity = new wx_ColourDialog(parent, data);
-	Object_wx_ColourDialog *pObj = Object_wx_ColourDialog::GetThisObj(args);
+	Object_wx_ColourDialog *pObj = Object_wx_ColourDialog::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_ColourDialog, Create)
 Gura_ImplementMethod(wx_ColourDialog, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetThisObj(args);
+	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_ColourDialog, GetColourData)
 Gura_ImplementMethod(wx_ColourDialog, GetColourData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetThisObj(args);
+	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColourData &rtn = pThis->GetEntity()->GetColourData();
 	return ReturnValue(env, args, Value(new Object_wx_ColourData(new wxColourData(rtn), nullptr, OwnerTrue)));
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_ColourDialog, ShowModal)
 Gura_ImplementMethod(wx_ColourDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetThisObj(args);
+	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, args, Value(rtn));

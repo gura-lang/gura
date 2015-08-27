@@ -54,7 +54,7 @@ Gura_ImplementFunction(DataViewBitmapRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewBitmapRenderer *pEntity = new wx_DataViewBitmapRenderer(varianttype, mode);
-	Object_wx_DataViewBitmapRenderer *pObj = Object_wx_DataViewBitmapRenderer::GetThisObj(args);
+	Object_wx_DataViewBitmapRenderer *pObj = Object_wx_DataViewBitmapRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewBitmapRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

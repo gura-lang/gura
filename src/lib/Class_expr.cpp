@@ -11,7 +11,7 @@ Gura_DeclareMethod(expr, is##symbol) { \
 		"Returns `true` if expr is an expression of " #symbol "."); \
 } \
 Gura_ImplementMethod(expr, is##symbol) { \
-	return Value(Object_expr::GetThisObj(args)->GetExpr()->func()); \
+	return Value(Object_expr::GetObjectThis(args)->GetExpr()->func()); \
 }
 
 namespace Gura {
@@ -315,7 +315,7 @@ Gura_DeclareMethod(expr, eval)
 Gura_ImplementMethod(expr, eval)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
 	Environment *pEnv = args.Is_environment(0)?
 			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
 			new Environment(&env, ENVTYPE_block);
@@ -369,7 +369,7 @@ Gura_DeclareMethod(expr, textize)
 Gura_ImplementMethod(expr, textize)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
 	if (args.Is_symbol(0)) {
 		const Symbol *pSymbol = args.GetSymbol(0);
@@ -406,7 +406,7 @@ Gura_DeclareMethod(expr, tofunction)
 Gura_ImplementMethod(expr, tofunction)
 {
 	Signal &sig = env.GetSignal();
-	Expr_Block *pExprBlock = Object_expr::GetThisObj(args)->GetExpr()->ToExprBlock();
+	Expr_Block *pExprBlock = Object_expr::GetObjectThis(args)->GetExpr()->ToExprBlock();
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 	if (sig.IsSignalled()) return Value::Nil;
@@ -438,7 +438,7 @@ Gura_DeclareMethod(expr, unquote)
 
 Gura_ImplementMethod(expr, unquote)
 {
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
 	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->Unquote()));
 	return Value(pObj);
 }
@@ -468,7 +468,7 @@ Gura_DeclareMethod(expr, write)
 Gura_ImplementMethod(expr, write)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
 	if (args.Is_symbol(1)) {
 		const Symbol *pSymbol = args.GetSymbol(1);

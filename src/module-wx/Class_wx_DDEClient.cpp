@@ -48,7 +48,7 @@ Gura_ImplementFunction(DDEClientEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DDEClient *pEntity = new wx_DDEClient();
-	Object_wx_DDEClient *pObj = Object_wx_DDEClient::GetThisObj(args);
+	Object_wx_DDEClient *pObj = Object_wx_DDEClient::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_DDEClient, MakeConnection)
 Gura_ImplementMethod(wx_DDEClient, MakeConnection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetThisObj(args);
+	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString host = wxString::FromUTF8(args.GetString(0));
 	wxString service = wxString::FromUTF8(args.GetString(1));
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_DDEClient, OnMakeConnection)
 Gura_ImplementMethod(wx_DDEClient, OnMakeConnection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetThisObj(args);
+	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnMakeConnection();
 	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_DDEClient, ValidHost)
 Gura_ImplementMethod(wx_DDEClient, ValidHost)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetThisObj(args);
+	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString host = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->ValidHost(host);

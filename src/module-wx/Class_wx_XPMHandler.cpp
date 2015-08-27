@@ -46,7 +46,7 @@ Gura_ImplementFunction(XPMHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_XPMHandler *pEntity = new wx_XPMHandler();
-	Object_wx_XPMHandler *pObj = Object_wx_XPMHandler::GetThisObj(args);
+	Object_wx_XPMHandler *pObj = Object_wx_XPMHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XPMHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

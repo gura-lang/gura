@@ -51,7 +51,7 @@ Gura_ImplementFunction(RichTextPrintout)
 	wxString title = wxT("Printout");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextPrintout *pEntity = new wx_RichTextPrintout(title);
-	Object_wx_RichTextPrintout *pObj = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pObj = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextPrintout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, CalculateScaling)
 Gura_ImplementMethod(wx_RichTextPrintout, CalculateScaling)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *textRect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -93,7 +93,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, GetHeaderFooterData)
 Gura_ImplementMethod(wx_RichTextPrintout, GetHeaderFooterData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxRichTextHeaderFooterData &rtn = pThis->GetEntity()->GetHeaderFooterData();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextHeaderFooterData(new wxRichTextHeaderFooterData(rtn), nullptr, OwnerTrue)));
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetPageInfo)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int minPage = args.GetInt(0);
 	int maxPage = args.GetInt(1);
@@ -136,7 +136,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, GetRichTextBuffer)
 Gura_ImplementMethod(wx_RichTextPrintout, GetRichTextBuffer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextBuffer *rtn = (wxRichTextBuffer *)pThis->GetEntity()->GetRichTextBuffer();
 	return ReturnValue(env, args, Value(new Object_wx_RichTextBuffer(rtn, nullptr, OwnerFalse)));
@@ -152,7 +152,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, HasPage)
 Gura_ImplementMethod(wx_RichTextPrintout, HasPage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->HasPage(page);
@@ -167,7 +167,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, OnPreparePrinting)
 Gura_ImplementMethod(wx_RichTextPrintout, OnPreparePrinting)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnPreparePrinting();
 	return Value::Nil;
@@ -183,7 +183,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, OnPrintPage)
 Gura_ImplementMethod(wx_RichTextPrintout, OnPrintPage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->OnPrintPage(page);
@@ -199,7 +199,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, SetHeaderFooterData)
 Gura_ImplementMethod(wx_RichTextPrintout, SetHeaderFooterData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextHeaderFooterData *data = Object_wx_RichTextHeaderFooterData::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetHeaderFooterData(*data);
@@ -218,7 +218,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, SetMargins)
 Gura_ImplementMethod(wx_RichTextPrintout, SetMargins)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int top = 252;
 	if (args.IsValid(0)) top = args.GetInt(0);
@@ -241,7 +241,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, SetRichTextBuffer)
 Gura_ImplementMethod(wx_RichTextPrintout, SetRichTextBuffer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetThisObj(args);
+	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetRichTextBuffer(buffer);

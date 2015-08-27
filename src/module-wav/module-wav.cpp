@@ -22,7 +22,7 @@ Gura_DeclareMethodAlias(audio, read_wav, "read@wav")
 Gura_ImplementMethod(audio, read_wav)
 {
 	Signal &sig = env.GetSignal();
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Object_audio *pThis = Object_audio::GetObjectThis(args);
 	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
 	return args.GetValueThis();
 }
@@ -40,7 +40,7 @@ Gura_DeclareMethodAlias(audio, write_wav, "write@wav")
 Gura_ImplementMethod(audio, write_wav)
 {
 	Signal &sig = env.GetSignal();
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Object_audio *pThis = Object_audio::GetObjectThis(args);
 	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
 	return args.GetValueThis();
 }

@@ -48,7 +48,7 @@ Gura_ImplementFunction(PenListEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PenList *pEntity = new wx_PenList();
-	Object_wx_PenList *pObj = Object_wx_PenList::GetThisObj(args);
+	Object_wx_PenList *pObj = Object_wx_PenList::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PenList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PenList *pThis = Object_wx_PenList::GetThisObj(args);
+	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PenList *pThis = Object_wx_PenList::GetThisObj(args);
+	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	int width = args.GetInt(1);

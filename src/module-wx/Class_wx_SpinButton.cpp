@@ -49,7 +49,7 @@ Gura_ImplementFunction(SpinButtonEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SpinButton *pEntity = new wx_SpinButton();
-	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(SpinButton)
 	wxString name = wxT("spinButton");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_SpinButton *pEntity = new wx_SpinButton(parent, id, *pos, *size, style, name);
-	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -114,7 +114,7 @@ Gura_DeclareMethod(wx_SpinButton, Create)
 Gura_ImplementMethod(wx_SpinButton, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_SpinButton, GetMax)
 Gura_ImplementMethod(wx_SpinButton, GetMax)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMax();
 	return ReturnValue(env, args, Value(rtn));
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_SpinButton, GetMin)
 Gura_ImplementMethod(wx_SpinButton, GetMin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMin();
 	return ReturnValue(env, args, Value(rtn));
@@ -169,7 +169,7 @@ Gura_DeclareMethod(wx_SpinButton, GetValue)
 Gura_ImplementMethod(wx_SpinButton, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_SpinButton, SetRange)
 Gura_ImplementMethod(wx_SpinButton, SetRange)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int min = args.GetInt(0);
 	int max = args.GetInt(1);
@@ -202,7 +202,7 @@ Gura_DeclareMethod(wx_SpinButton, SetValue)
 Gura_ImplementMethod(wx_SpinButton, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetThisObj(args);
+	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int value = args.GetInt(0);
 	pThis->GetEntity()->SetValue(value);

@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HtmlTagsModule, FillHandlersTable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlTagsModule *pThis = Object_wx_HtmlTagsModule::GetThisObj(args);
+	Object_wx_HtmlTagsModule *pThis = Object_wx_HtmlTagsModule::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlWinParser **parser = Object_wx_HtmlWinParser::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->FillHandlersTable(**parser);

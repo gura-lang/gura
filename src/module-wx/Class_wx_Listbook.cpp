@@ -65,7 +65,7 @@ Gura_ImplementFunction(Listbook)
 	wxString name = wxNotebookNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Listbook *pEntity = new wx_Listbook(parent, id, *pos, *size, style, name);
-	Object_wx_Listbook *pObj = Object_wx_Listbook::GetThisObj(args);
+	Object_wx_Listbook *pObj = Object_wx_Listbook::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Listbook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -66,7 +66,7 @@ Gura_ImplementFunction(PreviewFrame)
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_PreviewFrame *pEntity = new wx_PreviewFrame(preview, parent, title, *pos, *size, style, name);
-	Object_wx_PreviewFrame *pObj = Object_wx_PreviewFrame::GetThisObj(args);
+	Object_wx_PreviewFrame *pObj = Object_wx_PreviewFrame::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PreviewFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -85,7 +85,7 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
 Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CreateControlBar();
 	return Value::Nil;
@@ -99,7 +99,7 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CreateCanvas();
 	return Value::Nil;
@@ -113,7 +113,7 @@ Gura_DeclareMethod(wx_PreviewFrame, Initialize)
 Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Initialize();
 	return Value::Nil;
@@ -128,7 +128,7 @@ Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
 Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);

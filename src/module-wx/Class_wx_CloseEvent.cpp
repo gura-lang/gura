@@ -54,7 +54,7 @@ Gura_ImplementFunction(CloseEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_CloseEvent *pEntity = new wx_CloseEvent(commandEventType, id);
-	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CloseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_CloseEvent, CanVeto)
 Gura_ImplementMethod(wx_CloseEvent, CanVeto)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanVeto();
 	return ReturnValue(env, args, Value(rtn));
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
 Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetLoggingOff();
 	return ReturnValue(env, args, Value(rtn));
@@ -104,7 +104,7 @@ Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
 Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool canVeto = args.GetBoolean(0);
 	pThis->GetEntity()->SetCanVeto(canVeto);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_CloseEvent, SetForce)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool force = args.GetBoolean(0);
 	pThis->GetEntity()->SetForce(force);
@@ -142,7 +142,7 @@ Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
 Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool loggingOff = args.GetBoolean(0);
 	pThis->GetEntity()->SetLoggingOff(loggingOff);
@@ -158,7 +158,7 @@ Gura_DeclareMethod(wx_CloseEvent, Veto)
 Gura_ImplementMethod(wx_CloseEvent, Veto)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool veto = true;
 	if (args.IsValid(0)) veto = args.GetBoolean(0);

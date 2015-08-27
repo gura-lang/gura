@@ -123,7 +123,7 @@ Gura_DeclareMethod(Matrix, Multiply)
 
 Gura_ImplementMethod(Matrix, Multiply)
 {
-	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
+	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(args)->GetEntity();
 	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
 	::FT_Matrix_Multiply(matrix, matrixThis);	// void function
 	return args.GetValueThis();
@@ -138,7 +138,7 @@ Gura_DeclareMethod(Matrix, Invert)
 Gura_ImplementMethod(Matrix, Invert)
 {
 	Signal &sig = env.GetSignal();
-	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
+	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(args)->GetEntity();
 	FT_Error err = ::FT_Matrix_Invert(matrixThis);
 	if (err != 0) {
 		SetError_Freetype(sig, err);

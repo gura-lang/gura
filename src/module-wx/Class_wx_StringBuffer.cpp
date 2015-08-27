@@ -52,7 +52,7 @@ Gura_ImplementFunction(StringBuffer)
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t len = args.GetSizeT(1);
 	wx_StringBuffer *pEntity = new wx_StringBuffer(str, len);
-	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetThisObj(args);
+	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -46,7 +46,7 @@ Gura_ImplementFunction(BMPHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_BMPHandler *pEntity = new wx_BMPHandler();
-	Object_wx_BMPHandler *pObj = Object_wx_BMPHandler::GetThisObj(args);
+	Object_wx_BMPHandler *pObj = Object_wx_BMPHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BMPHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -48,7 +48,7 @@ Gura_ImplementFunction(FontListEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FontList *pEntity = new wx_FontList();
-	Object_wx_FontList *pObj = Object_wx_FontList::GetThisObj(args);
+	Object_wx_FontList *pObj = Object_wx_FontList::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
 Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontList *pThis = Object_wx_FontList::GetThisObj(args);
+	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int point_size = args.GetInt(0);
 	int family = args.GetInt(1);

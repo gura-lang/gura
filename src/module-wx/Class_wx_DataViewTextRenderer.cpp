@@ -54,7 +54,7 @@ Gura_ImplementFunction(DataViewTextRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewTextRenderer *pEntity = new wx_DataViewTextRenderer(varianttype, mode);
-	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetThisObj(args);
+	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewTextRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

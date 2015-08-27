@@ -48,7 +48,7 @@ Gura_ImplementFunction(MDIClientWindowEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow();
-	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetThisObj(args);
+	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -70,7 +70,7 @@ Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
 Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetThisObj(args);
+	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMDIParentFrame *parent = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
 	long style = 0;

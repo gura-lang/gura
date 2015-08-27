@@ -51,7 +51,7 @@ Gura_ImplementFunction(AuiTabArtEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_AuiTabArt *pEntity = new wx_AuiTabArt();
-	Object_wx_AuiTabArt *pObj = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pObj = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiTabArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_AuiTabArt, Clone)
 Gura_ImplementMethod(wx_AuiTabArt, Clone)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAuiTabArt *rtn = (wxAuiTabArt *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, args, Value(new Object_wx_AuiTabArt(rtn, nullptr, OwnerFalse)));
@@ -91,7 +91,7 @@ Gura_DeclareMethod(wx_AuiTabArt, DrawBackground)
 Gura_ImplementMethod(wx_AuiTabArt, DrawBackground)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AuiTabArt, DrawButton)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_AuiTabArt, DrawTab)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxAuiNotebookPageArray *pages = Object_wx_AuiNotebookPageArray::GetObject(args, 1)->GetEntity();
@@ -210,7 +210,7 @@ Gura_DeclareMethod(wx_AuiTabArt, GetIndentSize)
 Gura_ImplementMethod(wx_AuiTabArt, GetIndentSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetIndentSize();
 	return ReturnValue(env, args, Value(rtn));
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_AuiTabArt, GetTabSize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -260,7 +260,7 @@ Gura_DeclareMethod(wx_AuiTabArt, SetFlags)
 Gura_ImplementMethod(wx_AuiTabArt, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned flags = args.GetInt(0);
 	pThis->GetEntity()->SetFlags(flags);
@@ -276,7 +276,7 @@ Gura_DeclareMethod(wx_AuiTabArt, SetMeasuringFont)
 Gura_ImplementMethod(wx_AuiTabArt, SetMeasuringFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetMeasuringFont(*font);
@@ -292,7 +292,7 @@ Gura_DeclareMethod(wx_AuiTabArt, SetNormalFont)
 Gura_ImplementMethod(wx_AuiTabArt, SetNormalFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetNormalFont(*font);
@@ -308,7 +308,7 @@ Gura_DeclareMethod(wx_AuiTabArt, SetSelectedFont)
 Gura_ImplementMethod(wx_AuiTabArt, SetSelectedFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetSelectedFont(*font);
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_AuiTabArt, SetSizingInfo)
 Gura_ImplementMethod(wx_AuiTabArt, SetSizingInfo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *tab_ctrl_size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	size_t tab_count = args.GetSizeT(1);
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_AuiTabArt, ShowWindowList)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetThisObj(args);
+	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	std::unique_ptr<wxArrayString> items(CreateArrayString(args.GetList(1)));

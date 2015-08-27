@@ -54,7 +54,7 @@ Gura_ImplementFunction(ClipboardTextEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_ClipboardTextEvent *pEntity = new wx_ClipboardTextEvent(commandType, id);
-	Object_wx_ClipboardTextEvent *pObj = Object_wx_ClipboardTextEvent::GetThisObj(args);
+	Object_wx_ClipboardTextEvent *pObj = Object_wx_ClipboardTextEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ClipboardTextEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -48,7 +48,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_IdleEvent *pEntity = new wx_IdleEvent();
-	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetThisObj(args);
+	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IdleEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_IdleEvent, RequestMore)
 Gura_ImplementMethod(wx_IdleEvent, RequestMore)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool needMore = true;
 	if (args.IsValid(0)) needMore = args.GetBoolean(0);
@@ -117,7 +117,7 @@ Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
 Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MoreRequested();
 	return ReturnValue(env, args, Value(rtn));

@@ -48,7 +48,7 @@ Gura_ImplementFunction(TreeItemId)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TreeItemId *pEntity = new wx_TreeItemId();
-	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetThisObj(args);
+	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeItemId(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -68,7 +68,7 @@ Gura_DeclareMethod(wx_TreeItemId, IsOk)
 Gura_ImplementMethod(wx_TreeItemId, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
+	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));

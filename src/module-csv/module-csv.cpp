@@ -128,7 +128,7 @@ Gura_DeclareMethod(writer, write)
 Gura_ImplementMethod(writer, write)
 {
 	Signal &sig = env.GetSignal();
-	Object_writer *pThis = Object_writer::GetThisObj(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(args);
 	if (!pThis->PutLine(env, args.GetList(0))) return Value::Nil;
 	return args.GetValueThis();
 }
@@ -214,7 +214,7 @@ Gura_DeclareMethodAlias(stream, read_csv, "read@csv")
 
 Gura_ImplementMethod(stream, read_csv)
 {
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
 							pThis->GetStream().Reference()));
 	return ReturnIterator(env, args, pIterator);
@@ -233,7 +233,7 @@ Gura_DeclareMethodAlias(stream, writer_csv, "writer@csv")
 
 Gura_ImplementMethod(stream, writer_csv)
 {
-	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Object_stream *pThis = Object_stream::GetObjectThis(args);
 	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(pThis->GetStream().Reference(), format);
 	return ReturnValue(env, args, Value(pObj));

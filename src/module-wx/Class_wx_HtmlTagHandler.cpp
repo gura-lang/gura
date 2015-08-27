@@ -58,7 +58,7 @@ Gura_ImplementFunction(HtmlTagHandlerEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlTagHandler *pEntity = new wx_HtmlTagHandler();
-	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetThisObj(args);
+	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlTagHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -81,7 +81,7 @@ Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
 Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetSupportedTags();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -97,7 +97,7 @@ Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
 Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->HandleTag(*tag);
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->ParseInner(*tag);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetThisObj(args);
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlParser **parser = Object_wx_HtmlParser::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetParser(**parser);

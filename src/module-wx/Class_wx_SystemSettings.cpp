@@ -48,7 +48,7 @@ Gura_ImplementFunction(SystemSettings)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SystemSettings *pEntity = new wx_SystemSettings();
-	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetThisObj(args);
+	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SystemSettings(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

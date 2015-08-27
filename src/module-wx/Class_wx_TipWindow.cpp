@@ -63,7 +63,7 @@ Gura_ImplementFunction(TipWindow)
 	wxRect *rectBounds = (wxRect *)();
 	if (args.IsValid(4)) rectBounds = Object_wx_Rect::GetObject(args, 4)->GetEntity();
 	wx_TipWindow *pEntity = new wx_TipWindow(parent, text, maxLength, *windowPtr, rectBounds);
-	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetThisObj(args);
+	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TipWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TipWindow, SetTipWindowPtr)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetThisObj(args);
+	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTipWindow *windowPtr = Object_wx_TipWindow::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetTipWindowPtr(*windowPtr);
@@ -108,7 +108,7 @@ Gura_DeclareMethod(wx_TipWindow, SetBoundingRect)
 Gura_ImplementMethod(wx_TipWindow, SetBoundingRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetThisObj(args);
+	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rectBound = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBoundingRect(*rectBound);

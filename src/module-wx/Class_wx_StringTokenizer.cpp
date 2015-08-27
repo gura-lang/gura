@@ -49,7 +49,7 @@ Gura_ImplementFunction(StringTokenizerEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_StringTokenizer *pEntity = new wx_StringTokenizer();
-	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(StringTokenizer)
 	wxStringTokenizerMode mode = wxTOKEN_DEFAULT;
 	if (args.IsValid(2)) mode = static_cast<wxStringTokenizerMode>(args.GetInt(2));
 	wx_StringTokenizer *pEntity = new wx_StringTokenizer(str, delims, mode);
-	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringTokenizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
 Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->CountTokens();
 	return ReturnValue(env, args, Value(rtn));
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
 Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasMoreTokens();
 	return ReturnValue(env, args, Value(rtn));
@@ -130,7 +130,7 @@ Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
 Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->GetLastDelimiter();
 	return ReturnValue(env, args, Value(rtn));
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
 Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetNextToken();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -160,7 +160,7 @@ Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
 Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, args, Value(rtn));
@@ -175,7 +175,7 @@ Gura_DeclareMethod(wx_StringTokenizer, GetString)
 Gura_ImplementMethod(wx_StringTokenizer, GetString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -192,7 +192,7 @@ Gura_DeclareMethod(wx_StringTokenizer, SetString)
 Gura_ImplementMethod(wx_StringTokenizer, SetString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetThisObj(args);
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString to_tokenize = wxString::FromUTF8(args.GetString(0));
 	wxString delims = wxT(" trn");

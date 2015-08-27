@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_Log, DoLog)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Log *pThis = Object_wx_Log::GetThisObj(args);
+	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxLogLevel level = static_cast<wxLogLevel>(args.GetInt(0));
 	wxChar *msg = static_cast<wxChar>(args.GetInt(1));
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Log, DoLogString)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Log *pThis = Object_wx_Log::GetThisObj(args);
+	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar *msg = static_cast<wxChar>(args.GetInt(0));
 	pThis->GetEntity()->DoLogString(*msg, );
@@ -248,7 +248,7 @@ Gura_DeclareMethod(wx_Log, Flush)
 Gura_ImplementMethod(wx_Log, Flush)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Log *pThis = Object_wx_Log::GetThisObj(args);
+	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Flush();
 	return Value::Nil;

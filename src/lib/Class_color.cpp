@@ -166,7 +166,7 @@ Gura_DeclareMethod(color, getgray)
 
 Gura_ImplementMethod(color, getgray)
 {
-	const Color &color = Object_color::GetThisObj(args)->GetColor();
+	const Color &color = Object_color::GetObjectThis(args)->GetColor();
 	return Value(color.GetGray());
 }
 
@@ -181,7 +181,7 @@ Gura_DeclareMethod(color, html)
 
 Gura_ImplementMethod(color, html)
 {
-	const Color &color = Object_color::GetThisObj(args)->GetColor();
+	const Color &color = Object_color::GetObjectThis(args)->GetColor();
 	return Value(color.GetHTML());
 }
 
@@ -199,7 +199,7 @@ Gura_DeclareMethod(color, tolist)
 
 Gura_ImplementMethod(color, tolist)
 {
-	const Color &color = Object_color::GetThisObj(args)->GetColor();
+	const Color &color = Object_color::GetObjectThis(args)->GetColor();
 	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
 		return Value::CreateList(env,

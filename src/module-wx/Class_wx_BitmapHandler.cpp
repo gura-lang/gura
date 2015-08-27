@@ -51,7 +51,7 @@ Gura_ImplementFunction(BitmapHandlerEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_BitmapHandler *pEntity = new wx_BitmapHandler();
-	Object_wx_BitmapHandler *pObj = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pObj = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_BitmapHandler, Create)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int data = args.GetInt(1);
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_BitmapHandler, GetName)
 Gura_ImplementMethod(wx_BitmapHandler, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_BitmapHandler, GetExtension)
 Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetExtension();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -135,7 +135,7 @@ Gura_DeclareMethod(wx_BitmapHandler, GetType)
 Gura_ImplementMethod(wx_BitmapHandler, GetType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetType();
 	return ReturnValue(env, args, Value(rtn));
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxString name = wxString::FromUTF8(args.GetString(1));
@@ -181,7 +181,7 @@ Gura_DeclareMethod(wx_BitmapHandler, SaveFile)
 Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxString name = wxString::FromUTF8(args.GetString(1));
@@ -201,7 +201,7 @@ Gura_DeclareMethod(wx_BitmapHandler, SetName)
 Gura_ImplementMethod(wx_BitmapHandler, SetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetName(name);
@@ -217,7 +217,7 @@ Gura_DeclareMethod(wx_BitmapHandler, SetExtension)
 Gura_ImplementMethod(wx_BitmapHandler, SetExtension)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetExtension(extension);
@@ -233,7 +233,7 @@ Gura_DeclareMethod(wx_BitmapHandler, SetType)
 Gura_ImplementMethod(wx_BitmapHandler, SetType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetThisObj(args);
+	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long type = args.GetLong(0);
 	pThis->GetEntity()->SetType(static_cast<wxBitmapType>(type));

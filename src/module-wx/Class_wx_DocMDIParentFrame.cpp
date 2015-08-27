@@ -49,7 +49,7 @@ Gura_ImplementFunction(DocMDIParentFrameEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DocMDIParentFrame *pEntity = new wx_DocMDIParentFrame();
-	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetThisObj(args);
+	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocMDIParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(DocMDIParentFrame)
 	wxString name = wxT("frame");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_DocMDIParentFrame *pEntity = new wx_DocMDIParentFrame(manager, parent, id, title, *pos, *size, style, name);
-	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetThisObj(args);
+	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocMDIParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, Create)
 Gura_ImplementMethod(wx_DocMDIParentFrame, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetThisObj(args);
+	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxFrame *parent = Object_wx_Frame::GetObject(args, 1)->GetEntity();
@@ -148,7 +148,7 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, OnCloseWindow)
 Gura_ImplementMethod(wx_DocMDIParentFrame, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetThisObj(args);
+	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);

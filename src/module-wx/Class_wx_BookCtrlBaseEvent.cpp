@@ -44,7 +44,7 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetOldSelection(page);
@@ -90,7 +90,7 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetThisObj(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int page = args.GetInt(0);
 	pThis->GetEntity()->SetSelection(page);

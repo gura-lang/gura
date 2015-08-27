@@ -80,7 +80,7 @@ Gura_ImplementFunction(AuiDockArtEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_AuiDockArt *pEntity = new wx_AuiDockArt();
-	Object_wx_AuiDockArt *pObj = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pObj = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AuiDockArt(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -106,7 +106,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBackground)
 Gura_ImplementMethod(wx_AuiDockArt, DrawBackground)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -128,7 +128,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBorder)
 Gura_ImplementMethod(wx_AuiDockArt, DrawBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -151,7 +151,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawCaption)
 Gura_ImplementMethod(wx_AuiDockArt, DrawCaption)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -174,7 +174,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawGripper)
 Gura_ImplementMethod(wx_AuiDockArt, DrawGripper)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -198,7 +198,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawPaneButton)
 Gura_ImplementMethod(wx_AuiDockArt, DrawPaneButton)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -222,7 +222,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawSash)
 Gura_ImplementMethod(wx_AuiDockArt, DrawSash)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -242,7 +242,7 @@ Gura_DeclareMethod(wx_AuiDockArt, GetColor)
 Gura_ImplementMethod(wx_AuiDockArt, GetColor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColor(id);
@@ -259,7 +259,7 @@ Gura_DeclareMethod(wx_AuiDockArt, GetColour)
 Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxColour rtn = pThis->GetEntity()->GetColour(id);
@@ -276,7 +276,7 @@ Gura_DeclareMethod(wx_AuiDockArt, GetFont)
 Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxFont rtn = pThis->GetEntity()->GetFont(id);
@@ -293,7 +293,7 @@ Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
 Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetMetric(id);
@@ -310,7 +310,7 @@ Gura_DeclareMethod(wx_AuiDockArt, SetColor)
 Gura_ImplementMethod(wx_AuiDockArt, SetColor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxColour *color = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -328,7 +328,7 @@ Gura_DeclareMethod(wx_AuiDockArt, SetColour)
 Gura_ImplementMethod(wx_AuiDockArt, SetColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxColor *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -346,7 +346,7 @@ Gura_DeclareMethod(wx_AuiDockArt, SetFont)
 Gura_ImplementMethod(wx_AuiDockArt, SetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxFont *font = Object_wx_Font::GetObject(args, 1)->GetEntity();
@@ -364,7 +364,7 @@ Gura_DeclareMethod(wx_AuiDockArt, SetMetric)
 Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetThisObj(args);
+	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	int new_val = args.GetInt(1);

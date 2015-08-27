@@ -216,7 +216,7 @@ Gura_DeclareMethod(reader, entries)
 
 Gura_ImplementMethod(reader, entries)
 {
-	Object_reader *pThis = Object_reader::GetThisObj(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(args);
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
 	return ReturnIterator(env, args, pIterator);
 }
@@ -351,7 +351,7 @@ Gura_DeclareMethod(writer, add)
 Gura_ImplementMethod(writer, add)
 {
 	Signal &sig = env.GetSignal();
-	Object_writer *pThis = Object_writer::GetThisObj(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(args);
 	String fileName;
 	if (args.Is_string(1)) {
 		fileName = args.GetString(1);
@@ -378,7 +378,7 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pThis = Object_writer::GetThisObj(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(args);
 	if (!pThis->Close()) return Value::Nil;
 	return args.GetValueThis();
 }

@@ -42,7 +42,7 @@ Gura_DeclareMethod(pdf_surface, restrict_to_version)
 Gura_ImplementMethod(pdf_surface, restrict_to_version)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
 	::cairo_pdf_surface_restrict_to_version(surface, version);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(pdf_surface, set_size)
 Gura_ImplementMethod(pdf_surface, set_size)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_pdf_surface_set_size(surface, args.GetDouble(0), args.GetDouble(1));
 	if (Is_error(sig, surface)) return Value::Nil;

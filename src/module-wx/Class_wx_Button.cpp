@@ -49,7 +49,7 @@ Gura_ImplementFunction(ButtonEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Button *pEntity = new wx_Button();
-	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pObj = Object_wx_Button::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(Button)
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Button *pEntity = new wx_Button(parent, id, label, *pos, *size, style, *validator, name);
-	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pObj = Object_wx_Button::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -140,7 +140,7 @@ Gura_DeclareMethod(wx_Button, Create)
 Gura_ImplementMethod(wx_Button, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -174,7 +174,7 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 Gura_ImplementMethod(wx_Button, GetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -194,7 +194,7 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 Gura_ImplementMethod(wx_Button, GetDefaultSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetDefaultSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -208,7 +208,7 @@ Gura_DeclareMethod(wx_Button, SetDefault)
 Gura_ImplementMethod(wx_Button, SetDefault)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetDefault();
 	return Value::Nil;
@@ -230,7 +230,7 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 Gura_ImplementMethod(wx_Button, SetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString label = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetLabel(label);

@@ -50,7 +50,7 @@ Gura_ImplementFunction(RegKeyEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RegKey *pEntity = new wx_RegKey();
-	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(RegKey)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString strKey = wxString::FromUTF8(args.GetString(0));
 	wx_RegKey *pEntity = new wx_RegKey(strKey);
-	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(RegKey_1)
 	wxRegKey *keyParent = Object_wx_RegKey::GetObject(args, 0)->GetEntity();
 	wxString strKey = wxString::FromUTF8(args.GetString(1));
 	wx_RegKey *pEntity = new wx_RegKey(*keyParent, strKey);
-	Object_wx_RegKey *pObj = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -121,7 +121,7 @@ Gura_DeclareMethod(wx_RegKey, Close)
 Gura_ImplementMethod(wx_RegKey, Close)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Close();
 	return Value::Nil;
@@ -137,7 +137,7 @@ Gura_DeclareMethod(wx_RegKey, Create)
 Gura_ImplementMethod(wx_RegKey, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bOkIfExists = true;
 	if (args.IsValid(0)) bOkIfExists = args.GetBoolean(0);
@@ -153,7 +153,7 @@ Gura_DeclareMethod(wx_RegKey, DeleteSelf)
 Gura_ImplementMethod(wx_RegKey, DeleteSelf)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DeleteSelf();
 	return Value::Nil;
@@ -168,7 +168,7 @@ Gura_DeclareMethod(wx_RegKey, DeleteKey)
 Gura_ImplementMethod(wx_RegKey, DeleteKey)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szKey = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->DeleteKey(szKey);
@@ -184,7 +184,7 @@ Gura_DeclareMethod(wx_RegKey, DeleteValue)
 Gura_ImplementMethod(wx_RegKey, DeleteValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szKey = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->DeleteValue(szKey);
@@ -219,7 +219,7 @@ Gura_DeclareMethod(wx_RegKey, GetName)
 Gura_ImplementMethod(wx_RegKey, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool bShortPrefix = true;
 	if (args.IsValid(0)) bShortPrefix = args.GetBoolean(0);
@@ -238,7 +238,7 @@ Gura_DeclareMethod(wx_RegKey, GetFirstKey)
 Gura_ImplementMethod(wx_RegKey, GetFirstKey)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
@@ -257,7 +257,7 @@ Gura_DeclareMethod(wx_RegKey, GetFirstValue)
 Gura_ImplementMethod(wx_RegKey, GetFirstValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strValueName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_RegKey, Exists_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pnSubKeys = args.GetSizeT(0);
 	size_t pnValues = args.GetSizeT(1);
@@ -303,7 +303,7 @@ Gura_DeclareMethod(wx_RegKey, GetNextKey)
 Gura_ImplementMethod(wx_RegKey, GetNextKey)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
@@ -322,7 +322,7 @@ Gura_DeclareMethod(wx_RegKey, GetNextValue)
 Gura_ImplementMethod(wx_RegKey, GetNextValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString strValueName = wxString::FromUTF8(args.GetString(0));
 	long lIndex = args.GetLong(1);
@@ -340,7 +340,7 @@ Gura_DeclareMethod(wx_RegKey, HasValue)
 Gura_ImplementMethod(wx_RegKey, HasValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasValue(szValue);
@@ -356,7 +356,7 @@ Gura_DeclareMethod(wx_RegKey, HasValues)
 Gura_ImplementMethod(wx_RegKey, HasValues)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasValues();
 	return ReturnValue(env, args, Value(rtn));
@@ -372,7 +372,7 @@ Gura_DeclareMethod(wx_RegKey, HasSubKey)
 Gura_ImplementMethod(wx_RegKey, HasSubKey)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szKey = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->HasSubKey(szKey);
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_RegKey, HasSubKeys)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasSubKeys();
 	return ReturnValue(env, args, Value(rtn));
@@ -407,7 +407,7 @@ Gura_DeclareMethod(wx_RegKey, IsEmpty)
 Gura_ImplementMethod(wx_RegKey, IsEmpty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, args, Value(rtn));
@@ -422,7 +422,7 @@ Gura_DeclareMethod(wx_RegKey, IsOpened)
 Gura_ImplementMethod(wx_RegKey, IsOpened)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOpened();
 	return ReturnValue(env, args, Value(rtn));
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_RegKey, Open)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRegKey::AccessMode mode = Write;
 	if (args.IsValid(0)) mode = static_cast<wxRegKey::AccessMode>(args.GetInt(0));
@@ -463,7 +463,7 @@ Gura_DeclareMethod(wx_RegKey, QueryValue)
 Gura_ImplementMethod(wx_RegKey, QueryValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxString strValue = wxString::FromUTF8(args.GetString(1));
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_RegKey, QueryValue_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	long plValue = args.GetLong(1);
@@ -506,7 +506,7 @@ Gura_DeclareMethod(wx_RegKey, Rename)
 Gura_ImplementMethod(wx_RegKey, Rename)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szNewName = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->Rename(szNewName);
@@ -524,7 +524,7 @@ Gura_DeclareMethod(wx_RegKey, RenameValue)
 Gura_ImplementMethod(wx_RegKey, RenameValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValueOld = wxString::FromUTF8(args.GetString(0));
 	wxString szValueNew = wxString::FromUTF8(args.GetString(1));
@@ -543,7 +543,7 @@ Gura_DeclareMethod(wx_RegKey, SetValue)
 Gura_ImplementMethod(wx_RegKey, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	long lValue = args.GetLong(1);
@@ -562,7 +562,7 @@ Gura_DeclareMethod(wx_RegKey, SetValue_1)
 Gura_ImplementMethod(wx_RegKey, SetValue_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxString strValue = wxString::FromUTF8(args.GetString(1));
@@ -581,7 +581,7 @@ Gura_DeclareMethod(wx_RegKey, SetValue_2)
 Gura_ImplementMethod(wx_RegKey, SetValue_2)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetThisObj(args);
+	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString szValue = wxString::FromUTF8(args.GetString(0));
 	wxMemoryBuffer *buf = Object_wx_MemoryBuffer::GetObject(args, 1)->GetEntity();

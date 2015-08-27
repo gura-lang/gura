@@ -82,7 +82,7 @@ Gura_DeclareMethod(image_surface, get_format)
 
 Gura_ImplementMethod(image_surface, get_format)
 {
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_format_t rtn = ::cairo_image_surface_get_format(surface);
 	return Value(rtn);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(image_surface, get_width)
 
 Gura_ImplementMethod(image_surface, get_width)
 {
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	int rtn = ::cairo_image_surface_get_width(surface);
 	return Value(rtn);
@@ -110,7 +110,7 @@ Gura_DeclareMethod(image_surface, get_height)
 
 Gura_ImplementMethod(image_surface, get_height)
 {
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	int rtn = ::cairo_image_surface_get_height(surface);
 	return Value(rtn);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(image_surface, get_stride)
 
 Gura_ImplementMethod(image_surface, get_stride)
 {
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	int rtn = ::cairo_image_surface_get_stride(surface);
 	return Value(rtn);

@@ -60,7 +60,7 @@ Gura_ImplementFunction(TreebookEvent)
 	int nOldSel = wxNOT_FOUND;
 	if (args.IsValid(3)) nOldSel = args.GetInt(3);
 	wx_TreebookEvent *pEntity = new wx_TreebookEvent(commandType, id, nSel, nOldSel);
-	Object_wx_TreebookEvent *pObj = Object_wx_TreebookEvent::GetThisObj(args);
+	Object_wx_TreebookEvent *pObj = Object_wx_TreebookEvent::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_TreebookEvent, GetOldSelection)
 Gura_ImplementMethod(wx_TreebookEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetThisObj(args);
+	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_TreebookEvent, GetSelection)
 Gura_ImplementMethod(wx_TreebookEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetThisObj(args);
+	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(rtn));

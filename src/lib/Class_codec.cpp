@@ -80,7 +80,7 @@ Gura_DeclareMethod(codec, addcr)
 
 Gura_ImplementMethod(codec, addcr)
 {
-	Object_codec *pThis = Object_codec::GetThisObj(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(args);
 	Codec::Encoder *pEncoder = pThis->GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetValueThis();
@@ -99,7 +99,7 @@ Gura_DeclareMethod(codec, decode)
 Gura_ImplementMethod(codec, decode)
 {
 	Signal &sig = env.GetSignal();
-	Object_codec *pThis = Object_codec::GetThisObj(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(args);
 	String dst;
 	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
 		return Value::Nil;
@@ -125,7 +125,7 @@ Gura_DeclareMethod(codec, delcr)
 
 Gura_ImplementMethod(codec, delcr)
 {
-	Object_codec *pThis = Object_codec::GetThisObj(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(args);
 	Codec::Decoder *pDecoder = pThis->GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetValueThis();
@@ -144,7 +144,7 @@ Gura_DeclareMethod(codec, encode)
 Gura_ImplementMethod(codec, encode)
 {
 	Signal &sig = env.GetSignal();
-	Object_codec *pThis = Object_codec::GetThisObj(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(args);
 	Binary dst;
 	if (!pThis->GetCodec()->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
 		return Value::Nil;

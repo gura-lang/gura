@@ -863,7 +863,7 @@ Gura_DeclareMethod(parser, parse)
 Gura_ImplementMethod(parser, parse)
 {
 	Signal &sig = env.GetSignal();
-	Object_parser *pObj = Object_parser::GetThisObj(args);
+	Object_parser *pObj = Object_parser::GetObjectThis(args);
 	pObj->Parse(env, args.GetStream(0));
 	return Value::Nil;
 }
@@ -1025,7 +1025,7 @@ Gura_DeclareMethod(element, addchild)
 Gura_ImplementMethod(element, addchild)
 {
 	Signal &sig = env.GetSignal();
-	Object_element *pObj = Object_element::GetThisObj(args);
+	Object_element *pObj = Object_element::GetObjectThis(args);
 	pObj->GetElement()->AddChild(env, sig, args.GetValue(0));
 	return Value::Nil;
 }
@@ -1042,7 +1042,7 @@ Gura_DeclareMethod(element, gettext)
 Gura_ImplementMethod(element, gettext)
 {
 	Signal &sig = env.GetSignal();
-	Object_element *pObj = Object_element::GetThisObj(args);
+	Object_element *pObj = Object_element::GetObjectThis(args);
 	String str = pObj->GetElement()->GatherText();
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(str);
@@ -1063,7 +1063,7 @@ Gura_DeclareMethod(element, textize)
 Gura_ImplementMethod(element, textize)
 {
 	Signal &sig = env.GetSignal();
-	Object_element *pObj = Object_element::GetThisObj(args);
+	Object_element *pObj = Object_element::GetObjectThis(args);
 	bool fancyFlag = args.IsValid(0)? args.GetBoolean(0) : false;
 	int indentLevel = args.Is_number(1)? args.GetInt(1) : 0;
 	int cntSpace = args.Is_number(2)? args.GetInt(2) : 2;
@@ -1090,7 +1090,7 @@ Gura_DeclareMethod(element, write)
 Gura_ImplementMethod(element, write)
 {
 	Signal &sig = env.GetSignal();
-	Object_element *pObj = Object_element::GetThisObj(args);
+	Object_element *pObj = Object_element::GetObjectThis(args);
 	bool fancyFlag = args.IsValid(1)? args.GetBoolean(1) : false;
 	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
 	int cntSpace = args.Is_number(3)? args.GetInt(3) : 2;
@@ -1194,7 +1194,7 @@ Gura_DeclareMethod(document, parse)
 Gura_ImplementMethod(document, parse)
 {
 	Signal &sig = env.GetSignal();
-	Object_document *pObj = Object_document::GetThisObj(args);
+	Object_document *pObj = Object_document::GetObjectThis(args);
 	SimpleStream_CStringReader streamSrc(args.GetString(0));
 	pObj->GetDocument()->Parse(sig, streamSrc);
 	return Value::Nil;
@@ -1213,7 +1213,7 @@ Gura_DeclareMethod(document, read)
 Gura_ImplementMethod(document, read)
 {
 	Signal &sig = env.GetSignal();
-	Object_document *pObj = Object_document::GetThisObj(args);
+	Object_document *pObj = Object_document::GetObjectThis(args);
 	pObj->GetDocument()->Parse(sig, args.GetStream(0));
 	return Value::Nil;
 }
@@ -1232,7 +1232,7 @@ Gura_DeclareMethod(document, textize)
 Gura_ImplementMethod(document, textize)
 {
 	Signal &sig = env.GetSignal();
-	Object_document *pObj = Object_document::GetThisObj(args);
+	Object_document *pObj = Object_document::GetObjectThis(args);
 	bool fancyFlag = args.IsValid(0)? args.GetBoolean(0) : false;
 	int cntSpace = args.Is_number(1)? args.GetInt(1) : 2;
 	String strDst;
@@ -1257,7 +1257,7 @@ Gura_DeclareMethod(document, write)
 Gura_ImplementMethod(document, write)
 {
 	Signal &sig = env.GetSignal();
-	Object_document *pObj = Object_document::GetThisObj(args);
+	Object_document *pObj = Object_document::GetObjectThis(args);
 	bool fancyFlag = args.IsValid(1)? args.GetBoolean(1) : false;
 	int cntSpace = args.Is_number(2)? args.GetInt(2) : 2;
 	pObj->GetDocument()->Write(sig, args.GetStream(0),
@@ -1360,7 +1360,7 @@ Gura_DeclareFunction(parser)
 
 Gura_ImplementFunction(parser)
 {
-	Object_parser *pObj = Object_parser::GetThisObj(args);
+	Object_parser *pObj = Object_parser::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_parser(Gura_UserClass(parser));
 		return ReturnValue(env, args, Value(pObj));

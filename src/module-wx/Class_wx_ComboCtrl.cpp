@@ -65,7 +65,7 @@ Gura_ImplementFunction(ComboCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ComboCtrl *pEntity = new wx_ComboCtrl();
-	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(ComboCtrl)
 	wxString name = wxT("comboCtrl");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_ComboCtrl *pEntity = new wx_ComboCtrl(parent, id, value, *pos, *size, style, *validator, name);
-	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_ComboCtrl, AnimateShow)
 Gura_ImplementMethod(wx_ComboCtrl, AnimateShow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	int flags = args.GetInt(1);
@@ -157,7 +157,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Create)
 Gura_ImplementMethod(wx_ComboCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Copy)
 Gura_ImplementMethod(wx_ComboCtrl, Copy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -199,7 +199,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Cut)
 Gura_ImplementMethod(wx_ComboCtrl, Cut)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Cut();
 	return Value::Nil;
@@ -214,7 +214,7 @@ Gura_DeclareMethod(wx_ComboCtrl, DoSetPopupControl)
 Gura_ImplementMethod(wx_ComboCtrl, DoSetPopupControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxComboPopup *popup = Object_wx_ComboPopup::GetObject(args, 0)->GetEntity();
 	dynamic_cast<wx_ComboCtrl *>(pThis->GetEntity())->_DoSetPopupControl(popup);
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_ComboCtrl, DoShowPopup)
 Gura_ImplementMethod(wx_ComboCtrl, DoShowPopup)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	int flags = args.GetInt(1);
@@ -248,7 +248,7 @@ Gura_DeclareMethod(wx_ComboCtrl, EnablePopupAnimation)
 Gura_ImplementMethod(wx_ComboCtrl, EnablePopupAnimation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool enable = true;
 	if (args.IsValid(0)) enable = args.GetBoolean(0);
@@ -265,7 +265,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetBitmapDisabled)
 Gura_ImplementMethod(wx_ComboCtrl, GetBitmapDisabled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapDisabled();
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -280,7 +280,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetBitmapHover)
 Gura_ImplementMethod(wx_ComboCtrl, GetBitmapHover)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapHover();
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -295,7 +295,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetBitmapNormal)
 Gura_ImplementMethod(wx_ComboCtrl, GetBitmapNormal)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapNormal();
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -310,7 +310,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetBitmapPressed)
 Gura_ImplementMethod(wx_ComboCtrl, GetBitmapPressed)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapPressed();
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetButtonSize)
 Gura_ImplementMethod(wx_ComboCtrl, GetButtonSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetButtonSize();
 	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
@@ -340,7 +340,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetCustomPaintWidth)
 Gura_ImplementMethod(wx_ComboCtrl, GetCustomPaintWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCustomPaintWidth();
 	return ReturnValue(env, args, Value(rtn));
@@ -369,7 +369,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetInsertionPoint)
 Gura_ImplementMethod(wx_ComboCtrl, GetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetInsertionPoint();
 	return ReturnValue(env, args, Value(rtn));
@@ -385,7 +385,7 @@ Gura_DeclareMethod(wx_ComboCtrl, IsPopupWindowState)
 Gura_ImplementMethod(wx_ComboCtrl, IsPopupWindowState)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int state = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsPopupWindowState(state);
@@ -401,7 +401,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetLastPosition)
 Gura_ImplementMethod(wx_ComboCtrl, GetLastPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetLastPosition();
 	return ReturnValue(env, args, Value(rtn));
@@ -416,7 +416,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetPopupControl)
 Gura_ImplementMethod(wx_ComboCtrl, GetPopupControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxComboPopup *rtn = (wxComboPopup *)pThis->GetEntity()->GetPopupControl();
 	return ReturnValue(env, args, Value(new Object_wx_ComboPopup(rtn, nullptr, OwnerFalse)));
@@ -431,7 +431,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetPopupWindow)
 Gura_ImplementMethod(wx_ComboCtrl, GetPopupWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPopupWindow();
 	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
@@ -446,7 +446,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetTextCtrl)
 Gura_ImplementMethod(wx_ComboCtrl, GetTextCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextCtrl *rtn = (wxTextCtrl *)pThis->GetEntity()->GetTextCtrl();
 	return ReturnValue(env, args, Value(new Object_wx_TextCtrl(rtn, nullptr, OwnerFalse)));
@@ -461,7 +461,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetTextIndent)
 Gura_ImplementMethod(wx_ComboCtrl, GetTextIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord rtn = pThis->GetEntity()->GetTextIndent();
 	return ReturnValue(env, args, Value(rtn));
@@ -476,7 +476,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetTextRect)
 Gura_ImplementMethod(wx_ComboCtrl, GetTextRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxRect &rtn = pThis->GetEntity()->GetTextRect();
 	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
@@ -491,7 +491,7 @@ Gura_DeclareMethod(wx_ComboCtrl, GetValue)
 Gura_ImplementMethod(wx_ComboCtrl, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -505,7 +505,7 @@ Gura_DeclareMethod(wx_ComboCtrl, HidePopup)
 Gura_ImplementMethod(wx_ComboCtrl, HidePopup)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->HidePopup();
 	return Value::Nil;
@@ -520,7 +520,7 @@ Gura_DeclareMethod(wx_ComboCtrl, IsPopupShown)
 Gura_ImplementMethod(wx_ComboCtrl, IsPopupShown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsPopupShown();
 	return ReturnValue(env, args, Value(rtn));
@@ -534,7 +534,7 @@ Gura_DeclareMethod(wx_ComboCtrl, OnButtonClick)
 Gura_ImplementMethod(wx_ComboCtrl, OnButtonClick)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnButtonClick();
 	return Value::Nil;
@@ -548,7 +548,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Paste)
 Gura_ImplementMethod(wx_ComboCtrl, Paste)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Paste();
 	return Value::Nil;
@@ -564,7 +564,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Remove)
 Gura_ImplementMethod(wx_ComboCtrl, Remove)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
@@ -583,7 +583,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Replace)
 Gura_ImplementMethod(wx_ComboCtrl, Replace)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
@@ -605,7 +605,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetButtonBitmaps)
 Gura_ImplementMethod(wx_ComboCtrl, SetButtonBitmaps)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bmpNormal = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	bool pushButtonBg = false;
@@ -632,7 +632,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetButtonPosition)
 Gura_ImplementMethod(wx_ComboCtrl, SetButtonPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = -1;
 	if (args.IsValid(0)) width = args.GetInt(0);
@@ -655,7 +655,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetCustomPaintWidth)
 Gura_ImplementMethod(wx_ComboCtrl, SetCustomPaintWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	pThis->GetEntity()->SetCustomPaintWidth(width);
@@ -671,7 +671,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetInsertionPoint)
 Gura_ImplementMethod(wx_ComboCtrl, SetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long pos = args.GetLong(0);
 	pThis->GetEntity()->SetInsertionPoint(pos);
@@ -686,7 +686,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetInsertionPointEnd)
 Gura_ImplementMethod(wx_ComboCtrl, SetInsertionPointEnd)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetInsertionPointEnd();
 	return Value::Nil;
@@ -701,7 +701,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetPopupAnchor)
 Gura_ImplementMethod(wx_ComboCtrl, SetPopupAnchor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int anchorSide = args.GetInt(0);
 	pThis->GetEntity()->SetPopupAnchor(anchorSide);
@@ -717,7 +717,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetPopupControl)
 Gura_ImplementMethod(wx_ComboCtrl, SetPopupControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxComboPopup *popup = Object_wx_ComboPopup::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPopupControl(popup);
@@ -734,7 +734,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetPopupExtents)
 Gura_ImplementMethod(wx_ComboCtrl, SetPopupExtents)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int extLeft = args.GetInt(0);
 	int extRight = args.GetInt(1);
@@ -751,7 +751,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetPopupMaxHeight)
 Gura_ImplementMethod(wx_ComboCtrl, SetPopupMaxHeight)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int height = args.GetInt(0);
 	pThis->GetEntity()->SetPopupMaxHeight(height);
@@ -767,7 +767,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetPopupMinWidth)
 Gura_ImplementMethod(wx_ComboCtrl, SetPopupMinWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	pThis->GetEntity()->SetPopupMinWidth(width);
@@ -784,7 +784,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetSelection)
 Gura_ImplementMethod(wx_ComboCtrl, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
@@ -801,7 +801,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetText)
 Gura_ImplementMethod(wx_ComboCtrl, SetText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetText(value);
@@ -817,7 +817,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetTextIndent)
 Gura_ImplementMethod(wx_ComboCtrl, SetTextIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int indent = args.GetInt(0);
 	pThis->GetEntity()->SetTextIndent(indent);
@@ -833,7 +833,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetValue)
 Gura_ImplementMethod(wx_ComboCtrl, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetValue(value);
@@ -850,7 +850,7 @@ Gura_DeclareMethod(wx_ComboCtrl, SetValueWithEvent)
 Gura_ImplementMethod(wx_ComboCtrl, SetValueWithEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString value = wxString::FromUTF8(args.GetString(0));
 	bool withEvent = true;
@@ -867,7 +867,7 @@ Gura_DeclareMethod(wx_ComboCtrl, ShowPopup)
 Gura_ImplementMethod(wx_ComboCtrl, ShowPopup)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ShowPopup();
 	return Value::Nil;
@@ -881,7 +881,7 @@ Gura_DeclareMethod(wx_ComboCtrl, Undo)
 Gura_ImplementMethod(wx_ComboCtrl, Undo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Undo();
 	return Value::Nil;
@@ -896,7 +896,7 @@ Gura_DeclareMethod(wx_ComboCtrl, UseAltPopupWindow)
 Gura_ImplementMethod(wx_ComboCtrl, UseAltPopupWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetThisObj(args);
+	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool enable = true;
 	if (args.IsValid(0)) enable = args.GetBoolean(0);

@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, MB2WC)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetThisObj(args);
+	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
 	char psz = args.GetChar(1);
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_MBConvUTF32, WC2MB)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetThisObj(args);
+	Object_wx_MBConvUTF32 *pThis = Object_wx_MBConvUTF32::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char buf = args.GetChar(0);
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));

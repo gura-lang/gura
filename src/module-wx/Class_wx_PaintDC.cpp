@@ -50,7 +50,7 @@ Gura_ImplementFunction(PaintDC)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_PaintDC *pEntity = new wx_PaintDC(window);
-	Object_wx_PaintDC *pObj = Object_wx_PaintDC::GetThisObj(args);
+	Object_wx_PaintDC *pObj = Object_wx_PaintDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PaintDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(pObj);

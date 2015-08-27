@@ -51,7 +51,7 @@ Gura_ImplementFunction(FindReplaceData)
 	wxUint32 flags = 0;
 	if (args.IsValid(0)) flags = static_cast<wxUint32>(args.GetULong(0));
 	wx_FindReplaceData *pEntity = new wx_FindReplaceData(flags);
-	Object_wx_FindReplaceData *pObj = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pObj = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
 Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFindString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_FindReplaceData, GetReplaceString)
 Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetReplaceString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -101,7 +101,7 @@ Gura_DeclareMethod(wx_FindReplaceData, GetFlags)
 Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, args, Value(rtn));
@@ -116,7 +116,7 @@ Gura_DeclareMethod(wx_FindReplaceData, SetFlags)
 Gura_ImplementMethod(wx_FindReplaceData, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint32 flags = static_cast<wxUint32>(args.GetULong(0));
 	pThis->GetEntity()->SetFlags(flags);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_FindReplaceData, SetFindString)
 Gura_ImplementMethod(wx_FindReplaceData, SetFindString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetFindString(str);
@@ -148,7 +148,7 @@ Gura_DeclareMethod(wx_FindReplaceData, SetReplaceString)
 Gura_ImplementMethod(wx_FindReplaceData, SetReplaceString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetReplaceString(str);

@@ -48,7 +48,7 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DataObjectComposite *pEntity = new wx_DataObjectComposite();
-	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetThisObj(args);
+	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataObjectComposite(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, Add)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
+	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataObjectSimple **dataObject = Object_wx_DataObjectSimple::GetObject(args, 0)->GetEntity();
 	bool preferred = false;
@@ -93,7 +93,7 @@ Gura_DeclareMethod(wx_DataObjectComposite, GetReceivedFormat)
 Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
+	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataFormat rtn = pThis->GetEntity()->GetReceivedFormat();
 	return ReturnValue(env, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), nullptr, OwnerTrue)));

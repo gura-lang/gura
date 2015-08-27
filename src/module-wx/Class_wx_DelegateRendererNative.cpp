@@ -49,7 +49,7 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(DelegateRendererNative)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawXXX)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetThisObj(args);
+	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DrawXXX();
 	return Value::Nil;

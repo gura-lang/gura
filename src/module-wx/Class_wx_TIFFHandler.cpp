@@ -46,7 +46,7 @@ Gura_ImplementFunction(TIFFHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TIFFHandler *pEntity = new wx_TIFFHandler();
-	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetThisObj(args);
+	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TIFFHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

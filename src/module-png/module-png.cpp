@@ -24,7 +24,7 @@ Gura_DeclareMethodAlias(image, read_png, "read@png")
 Gura_ImplementMethod(image, read_png)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetThisObj(args);
+	Object_image *pThis = Object_image::GetObjectThis(args);
 	if (!ImageStreamer_PNG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
 	return args.GetValueThis();
 }
@@ -42,7 +42,7 @@ Gura_DeclareMethodAlias(image, write_png, "write@png")
 Gura_ImplementMethod(image, write_png)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetThisObj(args);
+	Object_image *pThis = Object_image::GetObjectThis(args);
 	if (!ImageStreamer_PNG::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
 	return args.GetValueThis();
 }

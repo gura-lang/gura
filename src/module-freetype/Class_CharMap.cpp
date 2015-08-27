@@ -74,7 +74,7 @@ Gura_DeclareMethod(CharMap, Get_Index)
 
 Gura_ImplementMethod(CharMap, Get_Index)
 {
-	FT_CharMap charmap = Object_CharMap::GetThisObj(args)->GetEntity();
+	FT_CharMap charmap = Object_CharMap::GetObjectThis(args)->GetEntity();
 	FT_Int rtn = ::FT_Get_Charmap_Index(charmap);
 	return Value(rtn);
 }

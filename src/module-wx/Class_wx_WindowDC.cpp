@@ -50,7 +50,7 @@ Gura_ImplementFunction(WindowDC)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDC *pEntity = new wx_WindowDC(window);
-	Object_wx_WindowDC *pObj = Object_wx_WindowDC::GetThisObj(args);
+	Object_wx_WindowDC *pObj = Object_wx_WindowDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

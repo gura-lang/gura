@@ -51,7 +51,7 @@ Gura_ImplementFunction(BusyCursor_)
 	wxCursor *cursor = (wxCursor *)(wxHOURGLASS_CURSOR);
 	if (args.IsValid(0)) cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
 	wx_BusyCursor *pEntity = new wx_BusyCursor(cursor);
-	Object_wx_BusyCursor *pObj = Object_wx_BusyCursor::GetThisObj(args);
+	Object_wx_BusyCursor *pObj = Object_wx_BusyCursor::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BusyCursor(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(pObj);

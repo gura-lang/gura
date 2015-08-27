@@ -53,7 +53,7 @@ Gura_ImplementFunction(HtmlContainerCell)
 #if 0
 	wxHtmlContainerCell **parent = Object_wx_HtmlContainerCell::GetObject(args, 0)->GetEntity();
 	wx_HtmlContainerCell *pEntity = new wx_HtmlContainerCell(**parent);
-	Object_wx_HtmlContainerCell *pObj = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pObj = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlContainerCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignHor)
 Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignHor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetAlignHor();
 	return ReturnValue(env, args, Value(rtn));
@@ -91,7 +91,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignVer)
 Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignVer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetAlignVer();
 	return ReturnValue(env, args, Value(rtn));
@@ -106,7 +106,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, GetBackgroundColour)
 Gura_ImplementMethod(wx_HtmlContainerCell, GetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour rtn = pThis->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
@@ -122,7 +122,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, GetIndent)
 Gura_ImplementMethod(wx_HtmlContainerCell, GetIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int ind = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetIndent(ind);
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, GetIndentUnits)
 Gura_ImplementMethod(wx_HtmlContainerCell, GetIndentUnits)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int ind = args.GetInt(0);
 	int rtn = pThis->GetEntity()->GetIndentUnits(ind);
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, InsertCell)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlCell **cell = Object_wx_HtmlCell::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->InsertCell(**cell);
@@ -177,7 +177,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetAlign)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetAlign)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetAlign(*tag);
@@ -193,7 +193,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignHor)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignHor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int al = args.GetInt(0);
 	pThis->GetEntity()->SetAlignHor(al);
@@ -209,7 +209,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignVer)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignVer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int al = args.GetInt(0);
 	pThis->GetEntity()->SetAlignVer(al);
@@ -225,7 +225,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetBackgroundColour)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *clr = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBackgroundColour(*clr);
@@ -242,7 +242,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetBorder)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour *clr1 = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *clr2 = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -261,7 +261,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetIndent)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int i = args.GetInt(0);
 	int what = args.GetInt(1);
@@ -281,7 +281,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetMinHeight)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetMinHeight)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int h = args.GetInt(0);
 	int align = wxHTML_ALIGN_TOP;
@@ -300,7 +300,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int w = args.GetInt(0);
 	int units = args.GetInt(1);
@@ -318,7 +318,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat_1)
 Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetThisObj(args);
+	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlTag *tag = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	double pixel_scale = 1.0;

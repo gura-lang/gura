@@ -46,7 +46,7 @@ Gura_ImplementFunction(PNMHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PNMHandler *pEntity = new wx_PNMHandler();
-	Object_wx_PNMHandler *pObj = Object_wx_PNMHandler::GetThisObj(args);
+	Object_wx_PNMHandler *pObj = Object_wx_PNMHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PNMHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -48,7 +48,7 @@ Gura_ImplementFunction(FileSystem)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FileSystem *pEntity = new wx_FileSystem();
-	Object_wx_FileSystem *pObj = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pObj = Object_wx_FileSystem::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileSystem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_FileSystem, ChangePathTo)
 Gura_ImplementMethod(wx_FileSystem, ChangePathTo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString location = wxString::FromUTF8(args.GetString(0));
 	bool is_dir = false;
@@ -118,7 +118,7 @@ Gura_DeclareMethod(wx_FileSystem, GetPath)
 Gura_ImplementMethod(wx_FileSystem, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -151,7 +151,7 @@ Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
 Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString str;
 	wxString path = wxString::FromUTF8(args.GetString(0));
@@ -173,7 +173,7 @@ Gura_DeclareMethod(wx_FileSystem, FindFirst)
 Gura_ImplementMethod(wx_FileSystem, FindFirst)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString wildcard = wxString::FromUTF8(args.GetString(0));
 	int flags = 0;
@@ -191,7 +191,7 @@ Gura_DeclareMethod(wx_FileSystem, FindNext)
 Gura_ImplementMethod(wx_FileSystem, FindNext)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->FindNext();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -208,7 +208,7 @@ Gura_DeclareMethod(wx_FileSystem, OpenFile)
 Gura_ImplementMethod(wx_FileSystem, OpenFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
+	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString location = wxString::FromUTF8(args.GetString(0));
 	int flags = wxFS_READ;

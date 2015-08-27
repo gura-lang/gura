@@ -56,7 +56,7 @@ Gura_ImplementFunction(FileNameEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_FileName *pEntity = new wx_FileName();
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(FileName)
 #if 0
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wx_FileName *pEntity = new wx_FileName(*filename);
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -121,7 +121,7 @@ Gura_ImplementFunction(FileName_1)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wx_FileName *pEntity = new wx_FileName(fullpath, format);
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -157,7 +157,7 @@ Gura_ImplementFunction(FileName_2)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(2)) format = static_cast<wxPathFormat>(args.GetInt(2));
 	wx_FileName *pEntity = new wx_FileName(path, name, format);
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -195,7 +195,7 @@ Gura_ImplementFunction(FileName_3)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(3)) format = static_cast<wxPathFormat>(args.GetInt(3));
 	wx_FileName *pEntity = new wx_FileName(path, name, ext, format);
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -235,7 +235,7 @@ Gura_ImplementFunction(FileName_4)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(4)) format = static_cast<wxPathFormat>(args.GetInt(4));
 	wx_FileName *pEntity = new wx_FileName(volume, path, name, ext, format);
-	Object_wx_FileName *pObj = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pObj = Object_wx_FileName::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileName(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_FileName, AppendDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->AppendDir(dir);
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_FileName, Assign)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileName *filepath = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Assign(*filepath);
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_FileName, Assign_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString fullpath = wxString::FromUTF8(args.GetString(0));
 	wxPathFormat format = wxPATH_NATIVE;
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_FileName, Assign_2)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString volume = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxString::FromUTF8(args.GetString(1));
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_FileName, Assign_3)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString volume = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxString::FromUTF8(args.GetString(1));
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_FileName, Assign_4)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxString name = wxString::FromUTF8(args.GetString(1));
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_FileName, Assign_5)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString path = wxString::FromUTF8(args.GetString(0));
 	wxString name = wxString::FromUTF8(args.GetString(1));
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_FileName, AssignDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wxPathFormat format = wxPATH_NATIVE;
@@ -494,7 +494,7 @@ Gura_ImplementMethod(wx_FileName, AssignHomeDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->AssignHomeDir();
 	return Value::Nil;
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_FileName, AssignTempFileName)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
 	wxFile *fileTemp = (wxFile *)(nullptr);
@@ -537,7 +537,7 @@ Gura_ImplementMethod(wx_FileName, Clear)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
 	return Value::Nil;
@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_FileName, SetClearExt)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetClearExt();
 	return Value::Nil;
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_FileName, DirExists)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->DirExists();
 	return ReturnValue(env, args, Value(rtn));
@@ -659,7 +659,7 @@ Gura_ImplementMethod(wx_FileName, FileExists)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->FileExists();
 	return ReturnValue(env, args, Value(rtn));
@@ -741,7 +741,7 @@ Gura_DeclareMethod(wx_FileName, GetDirCount)
 Gura_ImplementMethod(wx_FileName, GetDirCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetDirCount();
 	return ReturnValue(env, args, Value(rtn));
@@ -756,7 +756,7 @@ Gura_DeclareMethod(wx_FileName, GetDirs)
 Gura_ImplementMethod(wx_FileName, GetDirs)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayString rtn = pThis->GetEntity()->GetDirs();
 	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
@@ -771,7 +771,7 @@ Gura_DeclareMethod(wx_FileName, GetExt)
 Gura_ImplementMethod(wx_FileName, GetExt)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetExt();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -832,7 +832,7 @@ Gura_DeclareMethod(wx_FileName, GetFullName)
 Gura_ImplementMethod(wx_FileName, GetFullName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFullName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -848,7 +848,7 @@ Gura_DeclareMethod(wx_FileName, GetFullPath)
 Gura_ImplementMethod(wx_FileName, GetFullPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
@@ -883,7 +883,7 @@ Gura_DeclareMethod(wx_FileName, GetLongPath)
 Gura_ImplementMethod(wx_FileName, GetLongPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLongPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -898,7 +898,7 @@ Gura_DeclareMethod(wx_FileName, GetModificationTime)
 Gura_ImplementMethod(wx_FileName, GetModificationTime)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetModificationTime();
 	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
@@ -913,7 +913,7 @@ Gura_DeclareMethod(wx_FileName, GetName)
 Gura_ImplementMethod(wx_FileName, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -930,7 +930,7 @@ Gura_DeclareMethod(wx_FileName, GetPath)
 Gura_ImplementMethod(wx_FileName, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = wxPATH_GET_VOLUME;
 	if (args.IsValid(0)) flags = args.GetInt(0);
@@ -1019,7 +1019,7 @@ Gura_DeclareMethod(wx_FileName, GetPathWithSep)
 Gura_ImplementMethod(wx_FileName, GetPathWithSep)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
@@ -1036,7 +1036,7 @@ Gura_DeclareMethod(wx_FileName, GetShortPath)
 Gura_ImplementMethod(wx_FileName, GetShortPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetShortPath();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -1052,7 +1052,7 @@ Gura_ImplementMethod(wx_FileName, GetSize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxULongLong rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, args, Value(new Object_wx_ULongLong(new wxULongLong(rtn), nullptr, OwnerTrue)));
@@ -1097,7 +1097,7 @@ Gura_ImplementMethod(wx_FileName, GetHumanReadableSize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString failmsg = wxT("Not available");
 	if (args.IsValid(0)) failmsg = wxString::FromUTF8(args.GetString(0));
@@ -1168,7 +1168,7 @@ Gura_DeclareMethod(wx_FileName, GetTimes)
 Gura_ImplementMethod(wx_FileName, GetTimes)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dtAccess = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime *dtMod = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
@@ -1186,7 +1186,7 @@ Gura_DeclareMethod(wx_FileName, GetVolume)
 Gura_ImplementMethod(wx_FileName, GetVolume)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetVolume();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -1224,7 +1224,7 @@ Gura_DeclareMethod(wx_FileName, HasExt)
 Gura_ImplementMethod(wx_FileName, HasExt)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasExt();
 	return ReturnValue(env, args, Value(rtn));
@@ -1239,7 +1239,7 @@ Gura_DeclareMethod(wx_FileName, HasName)
 Gura_ImplementMethod(wx_FileName, HasName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasName();
 	return ReturnValue(env, args, Value(rtn));
@@ -1254,7 +1254,7 @@ Gura_DeclareMethod(wx_FileName, HasVolume)
 Gura_ImplementMethod(wx_FileName, HasVolume)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->HasVolume();
 	return ReturnValue(env, args, Value(rtn));
@@ -1273,7 +1273,7 @@ Gura_ImplementMethod(wx_FileName, InsertDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t before = args.GetSizeT(0);
 	wxString dir = wxString::FromUTF8(args.GetString(1));
@@ -1297,7 +1297,7 @@ Gura_ImplementMethod(wx_FileName, IsAbsolute)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
@@ -1341,7 +1341,7 @@ Gura_ImplementMethod(wx_FileName, IsDirReadable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsDirReadable();
 	return ReturnValue(env, args, Value(rtn));
@@ -1376,7 +1376,7 @@ Gura_ImplementMethod(wx_FileName, IsDirWritable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsDirWritable();
 	return ReturnValue(env, args, Value(rtn));
@@ -1411,7 +1411,7 @@ Gura_ImplementMethod(wx_FileName, IsFileExecutable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsFileExecutable();
 	return ReturnValue(env, args, Value(rtn));
@@ -1446,7 +1446,7 @@ Gura_ImplementMethod(wx_FileName, IsFileReadable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsFileReadable();
 	return ReturnValue(env, args, Value(rtn));
@@ -1481,7 +1481,7 @@ Gura_ImplementMethod(wx_FileName, IsFileWritable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsFileWritable();
 	return ReturnValue(env, args, Value(rtn));
@@ -1515,7 +1515,7 @@ Gura_DeclareMethod(wx_FileName, IsOk)
 Gura_ImplementMethod(wx_FileName, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));
@@ -1559,7 +1559,7 @@ Gura_ImplementMethod(wx_FileName, IsRelative)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
@@ -1579,7 +1579,7 @@ Gura_DeclareMethod(wx_FileName, IsDir)
 Gura_ImplementMethod(wx_FileName, IsDir)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsDir();
 	return ReturnValue(env, args, Value(rtn));
@@ -1646,7 +1646,7 @@ Gura_ImplementMethod(wx_FileName, MacSetDefaultTypeAndCreator)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MacSetDefaultTypeAndCreator();
 	return ReturnValue(env, args, Value(rtn));
@@ -1669,7 +1669,7 @@ Gura_ImplementMethod(wx_FileName, MakeAbsolute)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString cwd = wxEmptyString;
 	if (args.IsValid(0)) cwd = wxString::FromUTF8(args.GetString(0));
@@ -1696,7 +1696,7 @@ Gura_ImplementMethod(wx_FileName, MakeRelativeTo)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString pathBase = wxEmptyString;
 	if (args.IsValid(0)) pathBase = wxString::FromUTF8(args.GetString(0));
@@ -1723,7 +1723,7 @@ Gura_ImplementMethod(wx_FileName, Mkdir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int perm = 0777;
 	if (args.IsValid(0)) perm = args.GetInt(0);
@@ -1779,7 +1779,7 @@ Gura_ImplementMethod(wx_FileName, Normalize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = wxPATH_NORM_ALL;
 	if (args.IsValid(0)) flags = args.GetInt(0);
@@ -1806,7 +1806,7 @@ Gura_ImplementMethod(wx_FileName, PrependDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->PrependDir(dir);
@@ -1828,7 +1828,7 @@ Gura_ImplementMethod(wx_FileName, RemoveDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	pThis->GetEntity()->RemoveDir(pos);
@@ -1847,7 +1847,7 @@ Gura_ImplementMethod(wx_FileName, RemoveLastDir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->RemoveLastDir();
 	return Value::Nil;
@@ -1866,7 +1866,7 @@ Gura_ImplementMethod(wx_FileName, Rmdir)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Rmdir();
 	return ReturnValue(env, args, Value(rtn));
@@ -1908,7 +1908,7 @@ Gura_DeclareMethod(wx_FileName, SameAs)
 Gura_ImplementMethod(wx_FileName, SameAs)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileName *filepath = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wxPathFormat format = wxPATH_NATIVE;
@@ -1927,7 +1927,7 @@ Gura_ImplementMethod(wx_FileName, SetCwd)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->SetCwd();
 	return ReturnValue(env, args, Value(rtn));
@@ -1970,7 +1970,7 @@ Gura_ImplementMethod(wx_FileName, SetExt)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString ext = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetExt(ext);
@@ -1989,7 +1989,7 @@ Gura_ImplementMethod(wx_FileName, SetEmptyExt)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetEmptyExt();
 	return Value::Nil;
@@ -2010,7 +2010,7 @@ Gura_ImplementMethod(wx_FileName, SetFullName)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString fullname = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetFullName(fullname);
@@ -2032,7 +2032,7 @@ Gura_ImplementMethod(wx_FileName, SetName)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetName(name);
@@ -2057,7 +2057,7 @@ Gura_ImplementMethod(wx_FileName, SetTimes)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime *dtAccess = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
 	wxDateTime *dtMod = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
@@ -2081,7 +2081,7 @@ Gura_ImplementMethod(wx_FileName, SetVolume)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString volume = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetVolume(volume);
@@ -2226,7 +2226,7 @@ Gura_ImplementMethod(wx_FileName, Touch)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
+	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Touch();
 	return ReturnValue(env, args, Value(rtn));

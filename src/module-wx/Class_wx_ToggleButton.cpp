@@ -49,7 +49,7 @@ Gura_ImplementFunction(ToggleButtonEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ToggleButton *pEntity = new wx_ToggleButton();
-	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
+	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(ToggleButton)
 	wxString name = wxT("checkBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_ToggleButton *pEntity = new wx_ToggleButton(parent, id, label, *pos, *size, style, *val, name);
-	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetThisObj(args);
+	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToggleButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -121,7 +121,7 @@ Gura_DeclareMethod(wx_ToggleButton, Create)
 Gura_ImplementMethod(wx_ToggleButton, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -149,7 +149,7 @@ Gura_DeclareMethod(wx_ToggleButton, GetValue)
 Gura_ImplementMethod(wx_ToggleButton, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, args, Value(rtn));
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_ToggleButton, SetValue)
 Gura_ImplementMethod(wx_ToggleButton, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetThisObj(args);
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool state = args.GetBoolean(0);
 	pThis->GetEntity()->SetValue(state);

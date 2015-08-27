@@ -51,7 +51,7 @@ Gura_ImplementFunction(SocketClient)
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
 	wx_SocketClient *pEntity = new wx_SocketClient(flags);
-	Object_wx_SocketClient *pObj = Object_wx_SocketClient::GetThisObj(args);
+	Object_wx_SocketClient *pObj = Object_wx_SocketClient::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -73,7 +73,7 @@ Gura_DeclareMethod(wx_SocketClient, Connect)
 Gura_ImplementMethod(wx_SocketClient, Connect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetThisObj(args);
+	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	bool wait = true;
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_SocketClient, Connect_1)
 Gura_ImplementMethod(wx_SocketClient, Connect_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetThisObj(args);
+	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	wxSockAddress *local = Object_wx_SockAddress::GetObject(args, 1)->GetEntity();
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_SocketClient, WaitOnConnect)
 Gura_ImplementMethod(wx_SocketClient, WaitOnConnect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetThisObj(args);
+	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long seconds = -1;
 	if (args.IsValid(0)) seconds = args.GetLong(0);

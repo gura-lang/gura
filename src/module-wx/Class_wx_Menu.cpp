@@ -57,7 +57,7 @@ Gura_ImplementFunction(Menu)
 	long style = 0;
 	if (args.IsValid(1)) style = args.GetLong(1);
 	wx_Menu *pEntity = new wx_Menu(title, style);
-	Object_wx_Menu *pObj = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pObj = Object_wx_Menu::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(Menu_1)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	long style = args.GetLong(0);
 	wx_Menu *pEntity = new wx_Menu(style);
-	Object_wx_Menu *pObj = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pObj = Object_wx_Menu::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Menu(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -106,7 +106,7 @@ Gura_DeclareMethod(wx_Menu, Append)
 Gura_ImplementMethod(wx_Menu, Append)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxT("");
@@ -132,7 +132,7 @@ Gura_DeclareMethodAlias(wx_Menu, AppendMenu_, "AppendMenu")
 Gura_ImplementMethod(wx_Menu, AppendMenu_)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxString::FromUTF8(args.GetString(1));
@@ -153,7 +153,7 @@ Gura_DeclareMethod(wx_Menu, AppendItem)
 Gura_ImplementMethod(wx_Menu, AppendItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *menuItem = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Append(menuItem);
@@ -172,7 +172,7 @@ Gura_DeclareMethod(wx_Menu, AppendCheckItem)
 Gura_ImplementMethod(wx_Menu, AppendCheckItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxString::FromUTF8(args.GetString(1));
@@ -194,7 +194,7 @@ Gura_DeclareMethod(wx_Menu, AppendRadioItem)
 Gura_ImplementMethod(wx_Menu, AppendRadioItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxString::FromUTF8(args.GetString(1));
@@ -213,7 +213,7 @@ Gura_DeclareMethod(wx_Menu, AppendSeparator)
 Gura_ImplementMethod(wx_Menu, AppendSeparator)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->AppendSeparator();
 	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_Menu, AppendSubMenu)
 Gura_ImplementMethod(wx_Menu, AppendSubMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenu *submenu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));
@@ -249,7 +249,7 @@ Gura_DeclareMethod(wx_Menu, Break)
 Gura_ImplementMethod(wx_Menu, Break)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Break();
 	return Value::Nil;
@@ -265,7 +265,7 @@ Gura_DeclareMethod(wx_Menu, Check)
 Gura_ImplementMethod(wx_Menu, Check)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	bool check = args.GetBoolean(1);
@@ -282,7 +282,7 @@ Gura_DeclareMethod(wx_Menu, Delete)
 Gura_ImplementMethod(wx_Menu, Delete)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	pThis->GetEntity()->Delete(id);
@@ -298,7 +298,7 @@ Gura_DeclareMethod(wx_Menu, DeleteItem)
 Gura_ImplementMethod(wx_Menu, DeleteItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Delete(item);
@@ -314,7 +314,7 @@ Gura_DeclareMethod(wx_Menu, Destroy)
 Gura_ImplementMethod(wx_Menu, Destroy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	pThis->GetEntity()->Destroy(id);
@@ -330,7 +330,7 @@ Gura_DeclareMethod(wx_Menu, DestroyItem)
 Gura_ImplementMethod(wx_Menu, DestroyItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Destroy(item);
@@ -347,7 +347,7 @@ Gura_DeclareMethod(wx_Menu, Enable)
 Gura_ImplementMethod(wx_Menu, Enable)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	bool enable = args.GetBoolean(1);
@@ -365,7 +365,7 @@ Gura_DeclareMethod(wx_Menu, FindItem)
 Gura_ImplementMethod(wx_Menu, FindItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString itemString = wxString::FromUTF8(args.GetString(0));
 	int rtn = pThis->GetEntity()->FindItem(itemString);
@@ -382,7 +382,7 @@ Gura_DeclareMethod(wx_Menu, FindItemById)
 Gura_ImplementMethod(wx_Menu, FindItemById)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxMenu **menu = nullptr;
@@ -402,7 +402,7 @@ Gura_DeclareMethod(wx_Menu, FindItemByPosition)
 Gura_ImplementMethod(wx_Menu, FindItemByPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t position = args.GetSizeT(0);
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->FindItemByPosition(position);
@@ -421,7 +421,7 @@ Gura_DeclareMethod(wx_Menu, GetHelpString)
 Gura_ImplementMethod(wx_Menu, GetHelpString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetHelpString(id);
@@ -438,7 +438,7 @@ Gura_DeclareMethod(wx_Menu, GetLabel)
 Gura_ImplementMethod(wx_Menu, GetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabel(id);
@@ -455,7 +455,7 @@ Gura_DeclareMethod(wx_Menu, GetLabelText)
 Gura_ImplementMethod(wx_Menu, GetLabelText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabelText(id);
@@ -471,7 +471,7 @@ Gura_DeclareMethod(wx_Menu, GetMenuItemCount)
 Gura_ImplementMethod(wx_Menu, GetMenuItemCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetMenuItemCount();
 	return ReturnValue(env, args, Value(rtn));
@@ -486,7 +486,7 @@ Gura_DeclareMethod(wx_Menu, GetMenuItems)
 Gura_ImplementMethod(wx_Menu, GetMenuItems)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItemList &rtn = pThis->GetEntity()->GetMenuItems();
 	return ReturnValue(env, args, MenuItemListToValue(env, rtn));
@@ -501,7 +501,7 @@ Gura_DeclareMethod(wx_Menu, GetTitle)
 Gura_ImplementMethod(wx_Menu, GetTitle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetTitle();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -518,7 +518,7 @@ Gura_DeclareMethod(wx_Menu, InsertItem)
 Gura_ImplementMethod(wx_Menu, InsertItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 1)->GetEntity();
@@ -540,7 +540,7 @@ Gura_DeclareMethod(wx_Menu, Insert)
 Gura_ImplementMethod(wx_Menu, Insert)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	int id = args.GetInt(1);
@@ -567,7 +567,7 @@ Gura_DeclareMethod(wx_Menu, InsertCheckItem)
 Gura_ImplementMethod(wx_Menu, InsertCheckItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	int id = args.GetInt(1);
@@ -591,7 +591,7 @@ Gura_DeclareMethod(wx_Menu, InsertRadioItem)
 Gura_ImplementMethod(wx_Menu, InsertRadioItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	int id = args.GetInt(1);
@@ -612,7 +612,7 @@ Gura_DeclareMethod(wx_Menu, InsertSeparator)
 Gura_ImplementMethod(wx_Menu, InsertSeparator)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = args.GetSizeT(0);
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->InsertSeparator(pos);
@@ -629,7 +629,7 @@ Gura_DeclareMethod(wx_Menu, IsChecked)
 Gura_ImplementMethod(wx_Menu, IsChecked)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsChecked(id);
@@ -646,7 +646,7 @@ Gura_DeclareMethod(wx_Menu, IsEnabled)
 Gura_ImplementMethod(wx_Menu, IsEnabled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsEnabled(id);
@@ -663,7 +663,7 @@ Gura_DeclareMethod(wx_Menu, PrependItem)
 Gura_ImplementMethod(wx_Menu, PrependItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Prepend(item);
@@ -683,7 +683,7 @@ Gura_DeclareMethod(wx_Menu, Prepend)
 Gura_ImplementMethod(wx_Menu, Prepend)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxT("");
@@ -708,7 +708,7 @@ Gura_DeclareMethod(wx_Menu, PrependCheckItem)
 Gura_ImplementMethod(wx_Menu, PrependCheckItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxString::FromUTF8(args.GetString(1));
@@ -730,7 +730,7 @@ Gura_DeclareMethod(wx_Menu, PrependRadioItem)
 Gura_ImplementMethod(wx_Menu, PrependRadioItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString item = wxString::FromUTF8(args.GetString(1));
@@ -749,7 +749,7 @@ Gura_DeclareMethod(wx_Menu, PrependSeparator)
 Gura_ImplementMethod(wx_Menu, PrependSeparator)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->PrependSeparator();
 	return ReturnValue(env, args, Value(new Object_wx_MenuItem(rtn, nullptr, OwnerFalse)));
@@ -765,7 +765,7 @@ Gura_DeclareMethod(wx_Menu, Remove)
 Gura_ImplementMethod(wx_Menu, Remove)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Remove(id);
@@ -782,7 +782,7 @@ Gura_DeclareMethod(wx_Menu, RemoveItem)
 Gura_ImplementMethod(wx_Menu, RemoveItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenuItem *item = Object_wx_MenuItem::GetObject(args, 0)->GetEntity();
 	wxMenuItem *rtn = (wxMenuItem *)pThis->GetEntity()->Remove(item);
@@ -799,7 +799,7 @@ Gura_DeclareMethod(wx_Menu, SetHelpString)
 Gura_ImplementMethod(wx_Menu, SetHelpString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString helpString = wxString::FromUTF8(args.GetString(1));
@@ -817,7 +817,7 @@ Gura_DeclareMethod(wx_Menu, SetLabel)
 Gura_ImplementMethod(wx_Menu, SetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	wxString label = wxString::FromUTF8(args.GetString(1));
@@ -834,7 +834,7 @@ Gura_DeclareMethod(wx_Menu, SetTitle)
 Gura_ImplementMethod(wx_Menu, SetTitle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString title = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetTitle(title);
@@ -850,7 +850,7 @@ Gura_DeclareMethod(wx_Menu, UpdateUI)
 Gura_ImplementMethod(wx_Menu, UpdateUI)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Menu *pThis = Object_wx_Menu::GetThisObj(args);
+	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *source = (wxEvtHandler *)(nullptr);
 	if (args.IsValid(0)) source = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();

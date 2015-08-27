@@ -422,7 +422,7 @@ Gura_DeclareMethod(function, mathdiff)
 Gura_ImplementMethod(function, mathdiff)
 {
 	Signal &sig = env.GetSignal();
-	Object_function *pThis = Object_function::GetThisObj(args);
+	Object_function *pThis = Object_function::GetObjectThis(args);
 	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
 	const Symbol *pSymbol = nullptr;

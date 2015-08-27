@@ -77,7 +77,7 @@ Gura_DeclareMethod(image, drawtext)
 Gura_ImplementMethod(image, drawtext)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pObjImage = Object_image::GetThisObj(args);
+	Object_image *pObjImage = Object_image::GetObjectThis(args);
 	Object_font *pObjFont = Object_font::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);

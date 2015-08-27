@@ -113,7 +113,7 @@ Gura_ImplementFunction(TreeCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TreeCtrl *pEntity = new wx_TreeCtrl();
-	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -155,7 +155,7 @@ Gura_ImplementFunction(TreeCtrl)
 	wxString name = wxT("treeCtrl");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_TreeCtrl *pEntity = new wx_TreeCtrl(parent, id, *pos, *size, style, *validator, name);
-	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pObj = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -179,7 +179,7 @@ Gura_DeclareMethod(wx_TreeCtrl, AddRoot)
 Gura_ImplementMethod(wx_TreeCtrl, AddRoot)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	int image = -1;
@@ -206,7 +206,7 @@ Gura_DeclareMethod(wx_TreeCtrl, AppendItem)
 Gura_ImplementMethod(wx_TreeCtrl, AppendItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *parent = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));
@@ -229,7 +229,7 @@ Gura_DeclareMethod(wx_TreeCtrl, AssignImageList)
 Gura_ImplementMethod(wx_TreeCtrl, AssignImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *imageList = new wxImageList();
 	imageList->Ref(*Object_wx_ImageList::GetObject(args, 0)->GetEntity());
@@ -246,7 +246,7 @@ Gura_DeclareMethod(wx_TreeCtrl, AssignStateImageList)
 Gura_ImplementMethod(wx_TreeCtrl, AssignStateImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *imageList = new wxImageList();
 	imageList->Ref(*Object_wx_ImageList::GetObject(args, 0)->GetEntity());
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_TreeCtrl, Collapse)
 Gura_ImplementMethod(wx_TreeCtrl, Collapse)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Collapse(*item);
@@ -278,7 +278,7 @@ Gura_DeclareMethod(wx_TreeCtrl, CollapseAll)
 Gura_ImplementMethod(wx_TreeCtrl, CollapseAll)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->CollapseAll();
 	return Value::Nil;
@@ -293,7 +293,7 @@ Gura_DeclareMethod(wx_TreeCtrl, CollapseAllChildren)
 Gura_ImplementMethod(wx_TreeCtrl, CollapseAllChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->CollapseAllChildren(*item);
@@ -309,7 +309,7 @@ Gura_DeclareMethod(wx_TreeCtrl, CollapseAndReset)
 Gura_ImplementMethod(wx_TreeCtrl, CollapseAndReset)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->CollapseAndReset(*item);
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_TreeCtrl, Delete)
 Gura_ImplementMethod(wx_TreeCtrl, Delete)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Delete(*item);
@@ -340,7 +340,7 @@ Gura_DeclareMethod(wx_TreeCtrl, DeleteAllItems)
 Gura_ImplementMethod(wx_TreeCtrl, DeleteAllItems)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DeleteAllItems();
 	return Value::Nil;
@@ -355,7 +355,7 @@ Gura_DeclareMethod(wx_TreeCtrl, DeleteChildren)
 Gura_ImplementMethod(wx_TreeCtrl, DeleteChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->DeleteChildren(*item);
@@ -371,7 +371,7 @@ Gura_DeclareMethod(wx_TreeCtrl, EditLabel)
 Gura_ImplementMethod(wx_TreeCtrl, EditLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->EditLabel(*item);
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_TreeCtrl, EndEditLabel)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool cancelEdit = args.GetBoolean(0);
 	pThis->GetEntity()->EndEditLabel(cancelEdit);
@@ -409,7 +409,7 @@ Gura_DeclareMethod(wx_TreeCtrl, EnsureVisible)
 Gura_ImplementMethod(wx_TreeCtrl, EnsureVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->EnsureVisible(*item);
@@ -425,7 +425,7 @@ Gura_DeclareMethod(wx_TreeCtrl, Expand)
 Gura_ImplementMethod(wx_TreeCtrl, Expand)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Expand(*item);
@@ -440,7 +440,7 @@ Gura_DeclareMethod(wx_TreeCtrl, ExpandAll)
 Gura_ImplementMethod(wx_TreeCtrl, ExpandAll)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ExpandAll();
 	return Value::Nil;
@@ -455,7 +455,7 @@ Gura_DeclareMethod(wx_TreeCtrl, ExpandAllChildren)
 Gura_ImplementMethod(wx_TreeCtrl, ExpandAllChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->ExpandAllChildren(*item);
@@ -473,7 +473,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetBoundingRect)
 Gura_ImplementMethod(wx_TreeCtrl, GetBoundingRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxRect rect;
@@ -498,7 +498,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetChildrenCount)
 Gura_ImplementMethod(wx_TreeCtrl, GetChildrenCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool recursively = true;
@@ -516,7 +516,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetCount)
 Gura_ImplementMethod(wx_TreeCtrl, GetCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetCount();
 	return ReturnValue(env, args, Value(rtn));
@@ -531,7 +531,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetEditControl)
 Gura_ImplementMethod(wx_TreeCtrl, GetEditControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextCtrl *rtn = (wxTextCtrl *)pThis->GetEntity()->GetEditControl();
 	return ReturnValue(env, args, Value(new Object_wx_TextCtrl(rtn, nullptr, OwnerFalse)));
@@ -547,7 +547,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetFirstChild)
 Gura_ImplementMethod(wx_TreeCtrl, GetFirstChild)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIdValue cookie;
@@ -566,7 +566,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetFirstVisibleItem)
 Gura_ImplementMethod(wx_TreeCtrl, GetFirstVisibleItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId rtn = pThis->GetEntity()->GetFirstVisibleItem();
 	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
@@ -581,7 +581,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetImageList)
 Gura_ImplementMethod(wx_TreeCtrl, GetImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetImageList();
 	return ReturnValue(env, args, Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse)));
@@ -596,7 +596,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetIndent)
 Gura_ImplementMethod(wx_TreeCtrl, GetIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetIndent();
 	return ReturnValue(env, args, Value(rtn));
@@ -611,7 +611,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetSpacing)
 Gura_ImplementMethod(wx_TreeCtrl, GetSpacing)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned int rtn = pThis->GetEntity()->GetSpacing();
 	return ReturnValue(env, args, Value(rtn));
@@ -627,7 +627,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemBackgroundColour)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetItemBackgroundColour(*item);
@@ -644,7 +644,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemData)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wx_TreeItemData *rtn = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity()->GetItemData(*item));
@@ -664,7 +664,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetGuraData)
 Gura_ImplementMethod(wx_TreeCtrl, GetGuraData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wx_TreeItemData *rtn = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity()->GetItemData(*item));
@@ -683,7 +683,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemChildren)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIdValue cookie;
@@ -703,7 +703,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemFont)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxFont rtn = pThis->GetEntity()->GetItemFont(*item);
@@ -721,7 +721,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemImage)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemImage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIcon which = wxTreeItemIcon_Normal;
@@ -740,7 +740,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemText)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetItemText(*item);
@@ -757,7 +757,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemTextColour)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemTextColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetItemTextColour(*item);
@@ -774,7 +774,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetLastChild)
 Gura_ImplementMethod(wx_TreeCtrl, GetLastChild)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetLastChild(*item);
@@ -792,7 +792,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetNextChild)
 Gura_ImplementMethod(wx_TreeCtrl, GetNextChild)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIdValue cookie = reinterpret_cast<wxTreeItemIdValue>(args.GetInt(1));
@@ -812,7 +812,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetNextSibling)
 Gura_ImplementMethod(wx_TreeCtrl, GetNextSibling)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetNextSibling(*item);
@@ -829,7 +829,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetNextVisible)
 Gura_ImplementMethod(wx_TreeCtrl, GetNextVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetNextVisible(*item);
@@ -846,7 +846,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetItemParent)
 Gura_ImplementMethod(wx_TreeCtrl, GetItemParent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetItemParent(*item);
@@ -863,7 +863,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetPrevSibling)
 Gura_ImplementMethod(wx_TreeCtrl, GetPrevSibling)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetPrevSibling(*item);
@@ -880,7 +880,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetPrevVisible)
 Gura_ImplementMethod(wx_TreeCtrl, GetPrevVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId rtn = pThis->GetEntity()->GetPrevVisible(*item);
@@ -896,7 +896,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetQuickBestSize)
 Gura_ImplementMethod(wx_TreeCtrl, GetQuickBestSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetQuickBestSize();
 	return ReturnValue(env, args, Value(rtn));
@@ -911,7 +911,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetRootItem)
 Gura_ImplementMethod(wx_TreeCtrl, GetRootItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId rtn = pThis->GetEntity()->GetRootItem();
 	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
@@ -926,7 +926,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetSelection)
 Gura_ImplementMethod(wx_TreeCtrl, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
@@ -941,7 +941,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetSelections)
 Gura_ImplementMethod(wx_TreeCtrl, GetSelections)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayTreeItemIds selection;
 	unsigned int rtn = pThis->GetEntity()->GetSelections(selection);
@@ -963,7 +963,7 @@ Gura_DeclareMethod(wx_TreeCtrl, GetStateImageList)
 Gura_ImplementMethod(wx_TreeCtrl, GetStateImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *rtn = (wxImageList *)pThis->GetEntity()->GetStateImageList();
 	return ReturnValue(env, args, Value(new Object_wx_ImageList(rtn, nullptr, OwnerFalse)));
@@ -980,7 +980,7 @@ Gura_DeclareMethod(wx_TreeCtrl, HitTest)
 Gura_ImplementMethod(wx_TreeCtrl, HitTest)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int flags = args.GetInt(1);
@@ -1003,7 +1003,7 @@ Gura_DeclareMethod(wx_TreeCtrl, InsertItem)
 Gura_ImplementMethod(wx_TreeCtrl, InsertItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *parent = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *previous = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
@@ -1033,7 +1033,7 @@ Gura_DeclareMethod(wx_TreeCtrl, InsertItemBefore)
 Gura_ImplementMethod(wx_TreeCtrl, InsertItemBefore)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *parent = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	size_t before = args.GetSizeT(1);
@@ -1058,7 +1058,7 @@ Gura_DeclareMethod(wx_TreeCtrl, IsBold)
 Gura_ImplementMethod(wx_TreeCtrl, IsBold)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsBold(*item);
@@ -1074,7 +1074,7 @@ Gura_DeclareMethod(wx_TreeCtrl, IsEmpty)
 Gura_ImplementMethod(wx_TreeCtrl, IsEmpty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, args, Value(rtn));
@@ -1090,7 +1090,7 @@ Gura_DeclareMethod(wx_TreeCtrl, IsExpanded)
 Gura_ImplementMethod(wx_TreeCtrl, IsExpanded)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsExpanded(*item);
@@ -1107,7 +1107,7 @@ Gura_DeclareMethod(wx_TreeCtrl, IsSelected)
 Gura_ImplementMethod(wx_TreeCtrl, IsSelected)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsSelected(*item);
@@ -1124,7 +1124,7 @@ Gura_DeclareMethod(wx_TreeCtrl, IsVisible)
 Gura_ImplementMethod(wx_TreeCtrl, IsVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->IsVisible(*item);
@@ -1141,7 +1141,7 @@ Gura_DeclareMethod(wx_TreeCtrl, ItemHasChildren)
 Gura_ImplementMethod(wx_TreeCtrl, ItemHasChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->ItemHasChildren(*item);
@@ -1159,7 +1159,7 @@ Gura_DeclareMethod(wx_TreeCtrl, OnCompareItems)
 Gura_ImplementMethod(wx_TreeCtrl, OnCompareItems)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
@@ -1181,7 +1181,7 @@ Gura_DeclareMethod(wx_TreeCtrl, PrependItem)
 Gura_ImplementMethod(wx_TreeCtrl, PrependItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *parent = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));
@@ -1204,7 +1204,7 @@ Gura_DeclareMethod(wx_TreeCtrl, ScrollTo)
 Gura_ImplementMethod(wx_TreeCtrl, ScrollTo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->ScrollTo(*item);
@@ -1221,7 +1221,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SelectItem)
 Gura_ImplementMethod(wx_TreeCtrl, SelectItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool select = true;
@@ -1239,7 +1239,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetIndent)
 Gura_ImplementMethod(wx_TreeCtrl, SetIndent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int indent = args.GetInt(0);
 	pThis->GetEntity()->SetIndent(indent);
@@ -1255,7 +1255,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetSpacing)
 Gura_ImplementMethod(wx_TreeCtrl, SetSpacing)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned int spacing = args.GetUInt(0);
 	pThis->GetEntity()->SetSpacing(spacing);
@@ -1271,7 +1271,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetImageList)
 Gura_ImplementMethod(wx_TreeCtrl, SetImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *imageList = nullptr;
 	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
@@ -1289,7 +1289,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemBackgroundColour)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxColour *col = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -1307,7 +1307,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemBold)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemBold)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool bold = true;
@@ -1326,7 +1326,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemData)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemData *data = data = new wx_TreeItemData(*Object_wx_TreeItemData::GetObject(args, 1)->GetEntity());
@@ -1344,7 +1344,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetGuraData)
 Gura_ImplementMethod(wx_TreeCtrl, SetGuraData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wx_TreeItemData *data = new wx_TreeItemData(args.GetValue(1));
@@ -1362,7 +1362,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemDropHighlight)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemDropHighlight)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool highlight = true;
@@ -1381,7 +1381,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemFont)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxFont *font = Object_wx_Font::GetObject(args, 1)->GetEntity();
@@ -1399,7 +1399,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemHasChildren)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemHasChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	bool hasChildren = true;
@@ -1419,7 +1419,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemImage)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemImage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	int image = args.GetInt(1);
@@ -1439,7 +1439,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemText)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));
@@ -1457,7 +1457,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetItemTextColour)
 Gura_ImplementMethod(wx_TreeCtrl, SetItemTextColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxColour *col = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -1474,7 +1474,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetQuickBestSize)
 Gura_ImplementMethod(wx_TreeCtrl, SetQuickBestSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool quickBestSize = args.GetBoolean(0);
 	pThis->GetEntity()->SetQuickBestSize(quickBestSize);
@@ -1490,7 +1490,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetStateImageList)
 Gura_ImplementMethod(wx_TreeCtrl, SetStateImageList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetStateImageList(imageList);
@@ -1506,7 +1506,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SetWindowStyle)
 Gura_ImplementMethod(wx_TreeCtrl, SetWindowStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long styles = args.GetLong(0);
 	pThis->GetEntity()->SetWindowStyle(styles);
@@ -1522,7 +1522,7 @@ Gura_DeclareMethod(wx_TreeCtrl, SortChildren)
 Gura_ImplementMethod(wx_TreeCtrl, SortChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SortChildren(*item);
@@ -1538,7 +1538,7 @@ Gura_DeclareMethod(wx_TreeCtrl, Toggle)
 Gura_ImplementMethod(wx_TreeCtrl, Toggle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Toggle(*item);
@@ -1554,7 +1554,7 @@ Gura_DeclareMethod(wx_TreeCtrl, ToggleItemSelection)
 Gura_ImplementMethod(wx_TreeCtrl, ToggleItemSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->ToggleItemSelection(*item);
@@ -1569,7 +1569,7 @@ Gura_DeclareMethod(wx_TreeCtrl, Unselect)
 Gura_ImplementMethod(wx_TreeCtrl, Unselect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Unselect();
 	return Value::Nil;
@@ -1583,7 +1583,7 @@ Gura_DeclareMethod(wx_TreeCtrl, UnselectAll)
 Gura_ImplementMethod(wx_TreeCtrl, UnselectAll)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->UnselectAll();
 	return Value::Nil;
@@ -1598,7 +1598,7 @@ Gura_DeclareMethod(wx_TreeCtrl, UnselectItem)
 Gura_ImplementMethod(wx_TreeCtrl, UnselectItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
+	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->UnselectItem(*item);

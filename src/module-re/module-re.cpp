@@ -410,7 +410,7 @@ Gura_DeclareMethod(match, group)
 Gura_ImplementMethod(match, group)
 {
 	Signal &sig = env.GetSignal();
-	Object_match *pThis = Object_match::GetThisObj(args);
+	Object_match *pThis = Object_match::GetObjectThis(args);
 	const Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == nullptr) return Value::Nil;
 	return Value(new Object_group(*pGroup));
@@ -430,7 +430,7 @@ Gura_DeclareMethod(match, groups)
 
 Gura_ImplementMethod(match, groups)
 {
-	Object_match *pThis = Object_match::GetThisObj(args);
+	Object_match *pThis = Object_match::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator(new IteratorGroup(pThis->Reference()));
 	return ReturnIterator(env, args, pIterator.release());
 }
@@ -574,7 +574,7 @@ Gura_DeclareMethod(pattern, match)
 Gura_ImplementMethod(pattern, match)
 {
 	Signal &sig = env.GetSignal();
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pThis = Object_pattern::GetObjectThis(args);
 	Value result = DoMatch(env, sig, pThis->GetRegEx(), args.GetString(0),
 			args.GetInt(1), args.Is_number(2)? args.GetInt(2) : -1);
 	if (result.IsInvalid()) return result;
@@ -595,7 +595,7 @@ Gura_DeclareMethod(pattern, sub)
 Gura_ImplementMethod(pattern, sub)
 {
 	Signal &sig = env.GetSignal();
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pThis = Object_pattern::GetObjectThis(args);
 	int cnt = args.Is_number(2)? static_cast<int>(args.GetNumber(2)) : -1;
 	String result;
 	if (args.Is_string(0)) {
@@ -629,7 +629,7 @@ Gura_DeclareMethod(pattern, split)
 
 Gura_ImplementMethod(pattern, split)
 {
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pThis = Object_pattern::GetObjectThis(args);
 	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
 	String str = args.GetStringSTL(0);
 	int cntMax = args.Is_number(1)? static_cast<int>(args.GetNumber(1)) : -1;
@@ -650,7 +650,7 @@ Gura_DeclareMethod(pattern, scan)
 
 Gura_ImplementMethod(pattern, scan)
 {
-	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Object_pattern *pThis = Object_pattern::GetObjectThis(args);
 	Object_pattern *pObjPattern = Object_pattern::Reference(pThis);
 	String str = args.GetStringSTL(0);
 	int posEnd = args.Is_number(2)? args.GetInt(2) : -1;
@@ -853,7 +853,7 @@ Gura_DeclareMethod(list, grep)
 Gura_ImplementMethod(list, grep)
 {
 	Signal &sig = env.GetSignal();
-	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pThis = Object_list::GetObjectThis(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
@@ -876,7 +876,7 @@ Gura_DeclareMethod(iterator, grep)
 Gura_ImplementMethod(iterator, grep)
 {
 	Signal &sig = env.GetSignal();
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_iterator *pThis = Object_iterator::GetObjectThis(args);
 	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	if (sig.IsSignalled()) return Value::Nil;

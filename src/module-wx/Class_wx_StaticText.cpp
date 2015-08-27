@@ -52,7 +52,7 @@ Gura_ImplementFunction(StaticTextEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_StaticText *pEntity = new wx_StaticText();
-	Object_wx_StaticText *pObj = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pObj = Object_wx_StaticText::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticText(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(StaticText)
 	wxString name = wxT("staticText");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_StaticText *pEntity = new wx_StaticText(parent, id, label, *pos, *size, style, name);
-	Object_wx_StaticText *pObj = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pObj = Object_wx_StaticText::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticText(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_StaticText, Create)
 Gura_ImplementMethod(wx_StaticText, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -146,7 +146,7 @@ Gura_DeclareMethod(wx_StaticText, GetLabel)
 Gura_ImplementMethod(wx_StaticText, GetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -161,7 +161,7 @@ Gura_DeclareMethod(wx_StaticText, SetLabel)
 Gura_ImplementMethod(wx_StaticText, SetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString label = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetLabel(label);
@@ -177,7 +177,7 @@ Gura_DeclareMethod(wx_StaticText, Wrap)
 Gura_ImplementMethod(wx_StaticText, Wrap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = args.GetInt(0);
 	pThis->GetEntity()->Wrap(width);
@@ -193,7 +193,7 @@ Gura_DeclareMethod(wx_StaticText, IsEllipsized)
 Gura_ImplementMethod(wx_StaticText, IsEllipsized)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEllipsized();
 	return ReturnValue(env, args, Value(rtn));

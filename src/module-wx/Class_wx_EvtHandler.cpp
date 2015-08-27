@@ -69,7 +69,7 @@ Gura_ImplementFunction(EvtHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_EvtHandler *pEntity = new wx_EvtHandler();
-	Object_wx_EvtHandler *pObj = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pObj = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_EvtHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_EvtHandler, AddPendingEvent)
 Gura_ImplementMethod(wx_EvtHandler, AddPendingEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvent *event = Object_wx_Event::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->AddPendingEvent(*event);
@@ -109,7 +109,7 @@ Gura_DeclareMethod(wx_EvtHandler, Bind)
 Gura_ImplementMethod(wx_EvtHandler, Bind)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	Object_wx_EventFactory *pObjEventFactory =
 							Object_wx_EventFactory::GetObject(args, 0);
@@ -136,7 +136,7 @@ Gura_DeclareMethod(wx_EvtHandler, Connect)
 Gura_ImplementMethod(wx_EvtHandler, Connect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	Object_wx_EventFactory *pObjEventFactory =
 							Object_wx_EventFactory::GetObject(args, 0);
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEventType eventType = wxEVT_NULL;
 	if (args.IsValid(0)) eventType = static_cast<wxEventType>(args.GetInt(0));
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = wxID_ANY;
 	if (args.IsValid(0)) id = args.GetInt(0);
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_EvtHandler, Disconnect_2)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int id = args.GetInt(0);
 	int lastId = wxID_ANY;
@@ -264,7 +264,7 @@ Gura_DeclareMethod(wx_EvtHandler, GetClientData)
 Gura_ImplementMethod(wx_EvtHandler, GetClientData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->GetClientData();
 	return Value::Nil;
@@ -279,7 +279,7 @@ Gura_DeclareMethod(wx_EvtHandler, GetClientObject)
 Gura_ImplementMethod(wx_EvtHandler, GetClientObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject());
 	if (rtn == nullptr) return Value::Nil;
@@ -295,7 +295,7 @@ Gura_DeclareMethod(wx_EvtHandler, GetEvtHandlerEnabled)
 Gura_ImplementMethod(wx_EvtHandler, GetEvtHandlerEnabled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetEvtHandlerEnabled();
 	return ReturnValue(env, args, Value(rtn));
@@ -310,7 +310,7 @@ Gura_DeclareMethod(wx_EvtHandler, GetNextHandler)
 Gura_ImplementMethod(wx_EvtHandler, GetNextHandler)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *rtn = (wxEvtHandler *)pThis->GetEntity()->GetNextHandler();
 	return ReturnValue(env, args, Value(new Object_wx_EvtHandler(rtn, nullptr, OwnerFalse)));
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_EvtHandler, GetPreviousHandler)
 Gura_ImplementMethod(wx_EvtHandler, GetPreviousHandler)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *rtn = (wxEvtHandler *)pThis->GetEntity()->GetPreviousHandler();
 	return ReturnValue(env, args, Value(new Object_wx_EvtHandler(rtn, nullptr, OwnerFalse)));
@@ -341,7 +341,7 @@ Gura_DeclareMethod(wx_EvtHandler, ProcessEvent)
 Gura_ImplementMethod(wx_EvtHandler, ProcessEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvent *event = Object_wx_Event::GetObject(args, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->ProcessEvent(*event);
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_EvtHandler, SearchEventTable)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEventTable *table = Object_wx_EventTable::GetObject(args, 0)->GetEntity();
 	wxEvent *event = Object_wx_Event::GetObject(args, 1)->GetEntity();
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_EvtHandler, SetClientData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int data = args.GetInt(0);
 	pThis->GetEntity()->SetClientData(data);
@@ -404,7 +404,7 @@ Gura_DeclareMethod(wx_EvtHandler, SetClientObject)
 Gura_ImplementMethod(wx_EvtHandler, SetClientObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxClientData *data = Object_wx_ClientData::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetClientObject(data);
@@ -420,7 +420,7 @@ Gura_DeclareMethod(wx_EvtHandler, SetEvtHandlerEnabled)
 Gura_ImplementMethod(wx_EvtHandler, SetEvtHandlerEnabled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool enabled = args.GetBoolean(0);
 	pThis->GetEntity()->SetEvtHandlerEnabled(enabled);
@@ -436,7 +436,7 @@ Gura_DeclareMethod(wx_EvtHandler, SetNextHandler)
 Gura_ImplementMethod(wx_EvtHandler, SetNextHandler)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetNextHandler(handler);
@@ -452,7 +452,7 @@ Gura_DeclareMethod(wx_EvtHandler, SetPreviousHandler)
 Gura_ImplementMethod(wx_EvtHandler, SetPreviousHandler)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetThisObj(args);
+	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetPreviousHandler(handler);

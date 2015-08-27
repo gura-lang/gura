@@ -50,7 +50,7 @@ Gura_ImplementFunction(ChoiceEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Choice *pEntity = new wx_Choice();
-	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(Choice)
 	wxString name = wxT("choice");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Choice *pEntity = new wx_Choice(parent, id, *pos, *size, *choices, style, *validator, name);
-	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -127,7 +127,7 @@ Gura_DeclareMethod(wx_Choice, Create)
 Gura_ImplementMethod(wx_Choice, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -153,7 +153,7 @@ Gura_DeclareMethod(wx_Choice, GetColumns)
 Gura_ImplementMethod(wx_Choice, GetColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColumns();
 	return ReturnValue(env, args, Value(rtn));
@@ -168,7 +168,7 @@ Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
 Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
 	return ReturnValue(env, args, Value(rtn));
@@ -183,7 +183,7 @@ Gura_DeclareMethod(wx_Choice, SetColumns)
 Gura_ImplementMethod(wx_Choice, SetColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = 1;
 	if (args.IsValid(0)) n = args.GetInt(0);

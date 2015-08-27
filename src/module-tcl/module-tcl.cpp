@@ -301,7 +301,7 @@ Gura_DeclareMethod(interp, command)
 
 Gura_ImplementMethod(interp, command)
 {
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	Tcl_Interp *interp = pThis->GetInterp();
 	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
 			Object_function::Reference(Object_function::GetObject(args, 0)));
@@ -324,7 +324,7 @@ Gura_DeclareMethod(interp, eval)
 Gura_ImplementMethod(interp, eval)
 {
 	Signal &sig = env.GetSignal();
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	return pThis->TclEval(env, args.GetList(0));
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(interp, eval)
 Gura_ImplementMethod(interp, eval)
 {
 	Signal &sig = env.GetSignal();
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	return pThis->InvokeTclThread(env, sig, args.GetList(0));
 }
 #endif
@@ -350,7 +350,7 @@ Gura_DeclareMethod(interp, evalscript)
 Gura_ImplementMethod(interp, evalscript)
 {
 	Signal &sig = env.GetSignal();
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	Tcl_Interp *interp = pThis->GetInterp();
 	int rtn = ::Tcl_Eval(interp, args.GetString(0));
 	if (rtn != TCL_OK) {
@@ -371,7 +371,7 @@ Gura_DeclareMethod(interp, timer)
 
 Gura_ImplementMethod(interp, timer)
 {
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	Object_timer *pObjTimer = new Object_timer(pObjInterp);
 	return Value(pObjTimer);
@@ -391,7 +391,7 @@ Gura_DeclareMethod(interp, variable)
 Gura_ImplementMethod(interp, variable)
 {
 	Signal &sig = env.GetSignal();
-	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pThis = Object_interp::GetObjectThis(args);
 	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	String varName;
 	if (args.Is_string(1)) {
@@ -670,7 +670,7 @@ Gura_DeclareMethod(timer, cancel)
 
 Gura_ImplementMethod(timer, cancel)
 {
-	Object_timer *pThis = Object_timer::GetThisObj(args);
+	Object_timer *pThis = Object_timer::GetObjectThis(args);
 	pThis->Cancel();
 	Object::Delete(pThis);
 	return Value::Nil;
@@ -692,7 +692,7 @@ Gura_DeclareMethod(timer, start)
 Gura_ImplementMethod(timer, start)
 {
 	Signal &sig = env.GetSignal();
-	Object_timer *pThis = Object_timer::GetThisObj(args);
+	Object_timer *pThis = Object_timer::GetObjectThis(args);
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, GetSymbolForBlock());
 	int msec = args.GetInt(0);
@@ -727,7 +727,7 @@ Gura_DeclareMethodAlias(image, read_tcl, "read@tcl")
 Gura_ImplementMethod(image, read_tcl)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetThisObj(args);
+	Object_image *pThis = Object_image::GetObjectThis(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Nil;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
@@ -769,7 +769,7 @@ Gura_DeclareMethodAlias(image, write_tcl, "write@tcl")
 Gura_ImplementMethod(image, write_tcl)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetThisObj(args);
+	Object_image *pThis = Object_image::GetObjectThis(args);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckValid(sig)) return Value::Nil;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));

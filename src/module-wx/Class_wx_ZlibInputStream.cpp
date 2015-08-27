@@ -53,7 +53,7 @@ Gura_ImplementFunction(ZlibInputStream)
 	int flags = wxZLIB_AUTO;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_ZlibInputStream *pEntity = new wx_ZlibInputStream(stream, flags);
-	Object_wx_ZlibInputStream *pObj = Object_wx_ZlibInputStream::GetThisObj(args);
+	Object_wx_ZlibInputStream *pObj = Object_wx_ZlibInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

@@ -53,7 +53,7 @@ Gura_ImplementFunction(StaticBoxSizer)
 	wxStaticBox *box = Object_wx_StaticBox::GetObject(args, 0)->GetEntity();
 	int orient = args.GetInt(1);
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(box, orient);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetThisObj(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 	wxString label = wxEmptyString;
 	if (args.IsValid(2)) label = wxString::FromUTF8(args.GetString(2));
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(orient, parent, label);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetThisObj(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -103,7 +103,7 @@ Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
 Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetThisObj(args);
+	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStaticBox *rtn = (wxStaticBox *)pThis->GetEntity()->GetStaticBox();
 	return ReturnValue(env, args, Value(new Object_wx_StaticBox(rtn, nullptr, OwnerFalse)));

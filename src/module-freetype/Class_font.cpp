@@ -424,7 +424,7 @@ Gura_DeclareMethod(font, cleardeco)
 
 Gura_ImplementMethod(font, cleardeco)
 {
-	Object_font *pThis = Object_font::GetThisObj(args);
+	Object_font *pThis = Object_font::GetObjectThis(args);
 	pThis->ClearDeco();
 	return args.GetValueThis();
 }
@@ -444,7 +444,7 @@ Gura_DeclareMethod(font, drawtext)
 Gura_ImplementMethod(font, drawtext)
 {
 	Signal &sig = env.GetSignal();
-	Object_font *pThis = Object_font::GetThisObj(args);
+	Object_font *pThis = Object_font::GetObjectThis(args);
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
@@ -468,7 +468,7 @@ Gura_DeclareMethod(font, calcsize)
 Gura_ImplementMethod(font, calcsize)
 {
 	const Function *pFuncDeco = nullptr;
-	Object_font *pThis = Object_font::GetThisObj(args);
+	Object_font *pThis = Object_font::GetObjectThis(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
 	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Nil;
@@ -490,7 +490,7 @@ Gura_DeclareMethod(font, calcbbox)
 Gura_ImplementMethod(font, calcbbox)
 {
 	const Function *pFuncDeco = nullptr;
-	Object_font *pThis = Object_font::GetThisObj(args);
+	Object_font *pThis = Object_font::GetObjectThis(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);

@@ -202,7 +202,7 @@ Gura_DeclareMethod(db, close)
 
 Gura_ImplementMethod(db, close)
 {
-	Object_db *pObj = Object_db::GetThisObj(args);
+	Object_db *pObj = Object_db::GetObjectThis(args);
 	pObj->Close();
 	return Value::Nil;
 }
@@ -220,7 +220,7 @@ Gura_DeclareMethod(db, exec)
 Gura_ImplementMethod(db, exec)
 {
 	Signal &sig = env.GetSignal();
-	Object_db *pObj = Object_db::GetThisObj(args);
+	Object_db *pObj = Object_db::GetObjectThis(args);
 	return pObj->Exec(sig, args.GetString(0), args);
 }
 
@@ -238,7 +238,7 @@ Gura_DeclareMethod(db, getcolnames)
 Gura_ImplementMethod(db, getcolnames)
 {
 	Signal &sig = env.GetSignal();
-	Object_db *pObj = Object_db::GetThisObj(args);
+	Object_db *pObj = Object_db::GetObjectThis(args);
 	return pObj->GetColumnNames(sig, args.GetString(0));
 }
 
@@ -258,7 +258,7 @@ Gura_DeclareMethod(db, query)
 Gura_ImplementMethod(db, query)
 {
 	Signal &sig = env.GetSignal();
-	Object_db *pObj = Object_db::GetThisObj(args);
+	Object_db *pObj = Object_db::GetObjectThis(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnIterator(env, args, pIterator);
@@ -281,7 +281,7 @@ Gura_DeclareMethod(db, transaction)
 Gura_ImplementMethod(db, transaction)
 {
 	Signal &sig = env.GetSignal();
-	Object_db *pObj = Object_db::GetThisObj(args);
+	Object_db *pObj = Object_db::GetObjectThis(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;

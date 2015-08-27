@@ -70,7 +70,7 @@ Gura_ImplementFunction(GridCellBoolRenderer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellBoolRenderer *pEntity = new wx_GridCellBoolRenderer();
-	Object_wx_GridCellBoolRenderer *pObj = Object_wx_GridCellBoolRenderer::GetThisObj(args);
+	Object_wx_GridCellBoolRenderer *pObj = Object_wx_GridCellBoolRenderer::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellBoolRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(wx_GridCellBoolRenderer, Draw)
 Gura_ImplementMethod(wx_GridCellBoolRenderer, Draw)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();

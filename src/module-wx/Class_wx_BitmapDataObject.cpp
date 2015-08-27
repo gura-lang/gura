@@ -56,7 +56,7 @@ Gura_ImplementFunction(BitmapDataObject)
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_BitmapDataObject *pEntity = new wx_BitmapDataObject(*bitmap);
-	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetThisObj(args);
+	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
 Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
 	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
@@ -91,7 +91,7 @@ Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
 Gura_ImplementMethod(wx_BitmapDataObject, SetBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetBitmap(*bitmap);

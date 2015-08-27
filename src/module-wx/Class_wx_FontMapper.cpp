@@ -48,7 +48,7 @@ Gura_ImplementFunction(FontMapper)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FontMapper *pEntity = new wx_FontMapper();
-	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontMapper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -70,7 +70,7 @@ Gura_DeclareMethod(wx_FontMapper, CharsetToEncoding)
 Gura_ImplementMethod(wx_FontMapper, CharsetToEncoding)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	bool interactive = true;
@@ -127,7 +127,7 @@ Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding)
 Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxNativeEncodingInfo info;
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFontEncoding alt_encoding = static_cast<wxFontEncoding>(args.GetInt(1));
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_FontMapper, IsEncodingAvailable)
 Gura_ImplementMethod(wx_FontMapper, IsEncodingAvailable)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxString facename = wxEmptyString;
@@ -281,7 +281,7 @@ Gura_DeclareMethod(wx_FontMapper, SetDialogParent)
 Gura_ImplementMethod(wx_FontMapper, SetDialogParent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetDialogParent(parent);
@@ -297,7 +297,7 @@ Gura_DeclareMethod(wx_FontMapper, SetDialogTitle)
 Gura_ImplementMethod(wx_FontMapper, SetDialogTitle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString title = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetDialogTitle(title);
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_FontMapper, SetConfig)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->SetConfig(config);
@@ -351,7 +351,7 @@ Gura_DeclareMethod(wx_FontMapper, SetConfigPath)
 Gura_ImplementMethod(wx_FontMapper, SetConfigPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
 	pThis->GetEntity()->SetConfigPath(prefix);

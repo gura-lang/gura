@@ -48,7 +48,7 @@ Gura_ImplementFunction(QuantizeEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Quantize *pEntity = new wx_Quantize();
-	Object_wx_Quantize *pObj = Object_wx_Quantize::GetThisObj(args);
+	Object_wx_Quantize *pObj = Object_wx_Quantize::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Quantize(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_Quantize, DoQuantize)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned w = args.GetInt(0);
 	unsigned h = args.GetInt(1);

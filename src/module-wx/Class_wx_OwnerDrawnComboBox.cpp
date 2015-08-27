@@ -50,7 +50,7 @@ Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox();
-	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(OwnerDrawnComboBox)
 	wxString name = wxT("comboBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
-	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -123,7 +123,7 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, Create)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -150,7 +150,7 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWidestItem();
 	return ReturnValue(env, args, Value(rtn));
@@ -165,7 +165,7 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWidestItemWidth();
 	return ReturnValue(env, args, Value(rtn));
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawItem)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t item = args.GetSizeT(0);
 	wxCoord rtn = pThis->GetEntity()->OnMeasureItem(item);
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t item = args.GetSizeT(0);
 	wxCoord rtn = pThis->GetEntity()->OnMeasureItemWidth(item);

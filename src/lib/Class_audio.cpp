@@ -170,7 +170,7 @@ Gura_DeclareMethod(audio, each)
 Gura_ImplementMethod(audio, each)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
@@ -196,7 +196,7 @@ Gura_DeclareMethod(audio, get)
 Gura_ImplementMethod(audio, get)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
@@ -226,7 +226,7 @@ Gura_DeclareMethod(audio, put)
 Gura_ImplementMethod(audio, put)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
@@ -257,7 +257,7 @@ Gura_DeclareMethod(audio, sinewave)
 Gura_ImplementMethod(audio, sinewave)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
@@ -287,7 +287,7 @@ Gura_DeclareMethod(audio, store)
 Gura_ImplementMethod(audio, store)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");

@@ -49,7 +49,7 @@ Gura_ImplementFunction(GBPositionEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GBPosition *pEntity = new wx_GBPosition();
-	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(GBPosition)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wx_GBPosition *pEntity = new wx_GBPosition(row, col);
-	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(wx_GBPosition, GetCol)
 Gura_ImplementMethod(wx_GBPosition, GetCol)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCol();
 	return ReturnValue(env, args, Value(rtn));
@@ -111,7 +111,7 @@ Gura_DeclareMethod(wx_GBPosition, GetRow)
 Gura_ImplementMethod(wx_GBPosition, GetRow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetRow();
 	return ReturnValue(env, args, Value(rtn));
@@ -126,7 +126,7 @@ Gura_DeclareMethod(wx_GBPosition, SetCol)
 Gura_ImplementMethod(wx_GBPosition, SetCol)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int col = args.GetInt(0);
 	pThis->GetEntity()->SetCol(col);
@@ -142,7 +142,7 @@ Gura_DeclareMethod(wx_GBPosition, SetRow)
 Gura_ImplementMethod(wx_GBPosition, SetRow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int row = args.GetInt(0);
 	pThis->GetEntity()->SetRow(row);

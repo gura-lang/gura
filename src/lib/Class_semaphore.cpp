@@ -63,7 +63,7 @@ Gura_DeclareMethod(semaphore, release)
 
 Gura_ImplementMethod(semaphore, release)
 {
-	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
+	Object_semaphore *pThis = Object_semaphore::GetObjectThis(args);
 	pThis->GetSemaphore().Release();
 	return Value::Nil;
 }
@@ -84,7 +84,7 @@ Gura_DeclareMethod(semaphore, session)
 Gura_ImplementMethod(semaphore, session)
 {
 	Signal &sig = env.GetSignal();
-	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
+	Object_semaphore *pThis = Object_semaphore::GetObjectThis(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
@@ -108,7 +108,7 @@ Gura_DeclareMethod(semaphore, wait)
 
 Gura_ImplementMethod(semaphore, wait)
 {
-	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
+	Object_semaphore *pThis = Object_semaphore::GetObjectThis(args);
 	pThis->GetSemaphore().Wait();
 	return Value::Nil;
 }

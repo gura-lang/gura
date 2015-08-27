@@ -112,7 +112,7 @@ Gura_DeclareMethod(reader, entry)
 Gura_ImplementMethod(reader, entry)
 {
 	Signal &sig = env.GetSignal();
-	Object_reader *pThis = Object_reader::GetThisObj(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(args);
 	Stream *pStreamSrc = pThis->GetStreamSrc();
 	if (pStreamSrc == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
@@ -151,7 +151,7 @@ Gura_DeclareMethod(reader, entries)
 Gura_ImplementMethod(reader, entries)
 {
 	Signal &sig = env.GetSignal();
-	Object_reader *pThis = Object_reader::GetThisObj(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(args);
 	if (pThis->GetStreamSrc() == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Nil;
@@ -399,7 +399,7 @@ Gura_DeclareMethod(writer, add)
 Gura_ImplementMethod(writer, add)
 {
 	Signal &sig = env.GetSignal();
-	Object_writer *pThis = Object_writer::GetThisObj(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(args);
 	String fileName;
 	if (args.Is_string(1)) {
 		fileName = args.GetString(1);
@@ -434,7 +434,7 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pThis = Object_writer::GetThisObj(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(args);
 	if (!pThis->Finish()) return Value::Nil;
 	return Value::Nil;
 }

@@ -62,7 +62,7 @@ Gura_ImplementFunction(FFileInputStream)
 		mode = _mode;
 	}
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream(filename, mode);
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetThisObj(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -93,7 +93,7 @@ Gura_ImplementFunction(FFileInputStream_1)
 #if 0
 	wxFFile *file = Object_wx_FFile::GetObject(args, 0)->GetEntity();
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream(*file);
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetThisObj(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -122,7 +122,7 @@ Gura_ImplementFunction(FFileInputStream_2)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream();
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetThisObj(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_FFileInputStream, IsOk)
 Gura_ImplementMethod(wx_FFileInputStream, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetThisObj(args);
+	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, args, Value(rtn));

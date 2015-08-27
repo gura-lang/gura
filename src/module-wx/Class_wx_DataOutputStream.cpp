@@ -51,7 +51,7 @@ Gura_ImplementFunction(DataOutputStream)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_DataOutputStream *pEntity = new wx_DataOutputStream(*stream);
-	Object_wx_DataOutputStream *pObj = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pObj = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(DataOutputStream_1)
 	wxMBConv *conv = (wxMBConv *)(&wxMBConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_DataOutputStream *pEntity = new wx_DataOutputStream(*stream, *conv);
-	Object_wx_DataOutputStream *pObj = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pObj = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_DataOutputStream, BigEndianOrdered)
 Gura_ImplementMethod(wx_DataOutputStream, BigEndianOrdered)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool be_order = args.GetBoolean(0);
 	pThis->GetEntity()->BigEndianOrdered(be_order);
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write8)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Write8();
 	return Value::Nil;
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write8_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint8 buffer = static_cast<wxUint8>(args.GetUChar(0));
 	size_t size = args.GetSizeT(1);
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write16)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Write16();
 	return Value::Nil;
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write16_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint16 buffer = static_cast<wxUint16>(args.GetUShort(0));
 	size_t size = args.GetSizeT(1);
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write32)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Write32();
 	return Value::Nil;
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write32_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint32 buffer = static_cast<wxUint32>(args.GetULong(0));
 	size_t size = args.GetSizeT(1);
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write64)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Write64();
 	return Value::Nil;
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_DataOutputStream, Write64_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxUint64 *buffer = Object_wx_Uint64::GetObject(args, 0)->GetEntity();
 	size_t size = args.GetSizeT(1);
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteDouble)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->WriteDouble();
 	return Value::Nil;
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteDouble_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	double buffer = args.GetDouble(0);
 	size_t size = args.GetSizeT(1);
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteString)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetThisObj(args);
+	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->WriteString();
 	return Value::Nil;

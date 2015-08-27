@@ -54,7 +54,7 @@ Gura_ImplementFunction(FilterInputStream)
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterInputStream *pEntity = new wx_FilterInputStream(*stream);
-	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetThisObj(args);
+	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(FilterInputStream_1)
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterInputStream *pEntity = new wx_FilterInputStream(stream);
-	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetThisObj(args);
+	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

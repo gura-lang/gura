@@ -46,7 +46,7 @@ Gura_ImplementFunction(PCXHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PCXHandler *pEntity = new wx_PCXHandler();
-	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetThisObj(args);
+	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PCXHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

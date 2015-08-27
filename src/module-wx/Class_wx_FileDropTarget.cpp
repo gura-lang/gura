@@ -80,7 +80,7 @@ Gura_ImplementFunction(FileDropTarget)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FileDropTarget *pEntity = new wx_FileDropTarget();
-	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetThisObj(args);
+	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_FileDropTarget, OnDrop)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetThisObj(args);
+	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long x = args.GetLong(0);
 	long y = args.GetLong(1);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
 Gura_ImplementMethod(wx_FileDropTarget, OnDropFiles)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetThisObj(args);
+	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));

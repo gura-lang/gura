@@ -43,7 +43,7 @@ Gura_DeclareMethod(regkey, createkey)
 Gura_ImplementMethod(regkey, createkey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
 	DWORD dwOptions = args.Is_number(1)? args.GetULong(1) : REG_OPTION_NON_VOLATILE;
@@ -76,7 +76,7 @@ Gura_DeclareMethod(regkey, openkey)
 Gura_ImplementMethod(regkey, openkey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
 	if (sig.IsSignalled()) return Value::Nil;
@@ -105,7 +105,7 @@ Gura_DeclareMethod(regkey, deletekey)
 Gura_ImplementMethod(regkey, deletekey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
 	DWORD dwErrCode = ::RegDeleteKey(hKey, OAL::ToNativeString(lpSubKey).c_str());
@@ -130,7 +130,7 @@ Gura_DeclareMethod(regkey, enumkey)
 
 Gura_ImplementMethod(regkey, enumkey)
 {
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	REGSAM samDesired = 0;
 	if (!args.IsSet(Gura_UserSymbol(openkey))) {
 		// nothing to do
@@ -156,7 +156,7 @@ Gura_DeclareMethod(regkey, setvalue)
 Gura_ImplementMethod(regkey, setvalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.GetString(0);
 	DWORD dwType = 0;
@@ -188,7 +188,7 @@ Gura_DeclareMethod(regkey, deletevalue)
 Gura_ImplementMethod(regkey, deletevalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.GetString(0);
 	DWORD dwErrCode = ::RegDeleteValue(hKey, OAL::ToNativeString(lpValueName).c_str());
@@ -212,7 +212,7 @@ Gura_DeclareMethod(regkey, queryvalue)
 Gura_ImplementMethod(regkey, queryvalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpValueName = args.Is_string(0)? args.GetString(0) : nullptr;
 	DWORD dwType;
@@ -250,7 +250,7 @@ Gura_DeclareMethod(regkey, enumvalue)
 
 Gura_ImplementMethod(regkey, enumvalue)
 {
-	Object_regkey *pThis = Object_regkey::GetThisObj(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
 	HKEY hKey = pThis->GetKey();
 	Iterator *pIterator =
 			new Iterator_RegEnumValue(Object_regkey::Reference(pThis));

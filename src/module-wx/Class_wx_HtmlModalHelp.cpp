@@ -58,7 +58,7 @@ Gura_ImplementFunction(HtmlModalHelp)
 	int style = wxHF_DEFAULT_STYLE | wxHF_DIALOG | wxHF_MODAL;
 	if (args.IsValid(3)) style = args.GetInt(3);
 	wx_HtmlModalHelp *pEntity = new wx_HtmlModalHelp(parent, helpFile, topic, style);
-	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetThisObj(args);
+	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlModalHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

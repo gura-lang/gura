@@ -53,7 +53,7 @@ Gura_ImplementFunction(HtmlColourCell)
 	int flags = wxHTML_CLR_FOREGROUND;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_HtmlColourCell *pEntity = new wx_HtmlColourCell(*clr, flags);
-	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetThisObj(args);
+	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlColourCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

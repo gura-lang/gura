@@ -254,7 +254,7 @@ Gura_DeclareMethod(matrix, col)
 
 Gura_ImplementMethod(matrix, col)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return pThis->GetMatrix()->GetCol(env, args.GetSizeT(0));
 }
 
@@ -269,7 +269,7 @@ Gura_DeclareMethod(matrix, colsize)
 
 Gura_ImplementMethod(matrix, colsize)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return Value(static_cast<UInt>(pThis->GetMatrix()->GetCols()));
 }
 
@@ -287,7 +287,7 @@ Gura_DeclareMethod(matrix, each)
 
 Gura_ImplementMethod(matrix, each)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	Iterator *pIterator = new Matrix::IteratorEach(Matrix::Reference(pThis->GetMatrix()),
 								args.IsSet(Gura_Symbol(transpose)));
 	return ReturnIterator(env, args, pIterator);
@@ -305,7 +305,7 @@ Gura_DeclareMethod(matrix, eachcol)
 
 Gura_ImplementMethod(matrix, eachcol)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return ReturnIterator(env, args,
 		new Matrix::IteratorEachCol(Matrix::Reference(pThis->GetMatrix())));
 }
@@ -322,7 +322,7 @@ Gura_DeclareMethod(matrix, eachrow)
 
 Gura_ImplementMethod(matrix, eachrow)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return ReturnIterator(env, args,
 		new Matrix::IteratorEachRow(Matrix::Reference(pThis->GetMatrix())));
 }
@@ -356,7 +356,7 @@ Gura_DeclareMethod(matrix, invert)
 Gura_ImplementMethod(matrix, invert)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	if (sig.IsSignalled()) return Value::Nil;
 	return pThis->GetMatrix()->Invert(env);
 }
@@ -372,7 +372,7 @@ Gura_DeclareMethod(matrix, issquare)
 
 Gura_ImplementMethod(matrix, issquare)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return Value(pThis->GetMatrix()->GetRows() == pThis->GetMatrix()->GetCols());
 }
 
@@ -594,7 +594,7 @@ Gura_DeclareMethod(matrix, roundoff)
 Gura_ImplementMethod(matrix, roundoff)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	Value value = pThis->GetMatrix()->RoundOff(env, args.GetNumber(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, args, value);
@@ -613,7 +613,7 @@ Gura_DeclareMethod(matrix, row)
 
 Gura_ImplementMethod(matrix, row)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return pThis->GetMatrix()->GetRow(env, args.GetSizeT(0));
 }
 
@@ -628,7 +628,7 @@ Gura_DeclareMethod(matrix, rowsize)
 
 Gura_ImplementMethod(matrix, rowsize)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	return Value(static_cast<UInt>(pThis->GetMatrix()->GetRows()));
 }
 
@@ -645,7 +645,7 @@ Gura_DeclareMethod(matrix, set)
 Gura_ImplementMethod(matrix, set)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(0) || args.Is_iterator(0))?
 								args.GetValue(0).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(0)));
@@ -668,7 +668,7 @@ Gura_DeclareMethod(matrix, setcol)
 Gura_ImplementMethod(matrix, setcol)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
@@ -691,7 +691,7 @@ Gura_DeclareMethod(matrix, setrow)
 Gura_ImplementMethod(matrix, setrow)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
@@ -716,7 +716,7 @@ Gura_DeclareMethod(matrix, submat)
 
 Gura_ImplementMethod(matrix, submat)
 {
-	//Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	//Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	//return pThis->GetMatrix()->GetSub(args.GetSizeT(0), args.GetSizeT(1),
 	//					args.GetSizeT(2), args.GetSizeT(3));
 	return Value::Nil;
@@ -749,7 +749,7 @@ Gura_DeclareMethod(matrix, tolist)
 
 Gura_ImplementMethod(matrix, tolist)
 {
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	pThis->GetMatrix()->ToList(env, valList,
@@ -770,7 +770,7 @@ Gura_DeclareMethod(matrix, transpose)
 Gura_ImplementMethod(matrix, transpose)
 {
 	Signal &sig = env.GetSignal();
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pThis = Object_matrix::GetObjectThis(args);
 	if (sig.IsSignalled()) return Value::Nil;
 	return pThis->GetMatrix()->Transpose(env);
 }

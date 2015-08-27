@@ -51,7 +51,7 @@ Gura_ImplementFunction(MetafileDC)
 	wxString filename = wxT("");
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
 	wx_MetafileDC *pEntity = new wx_MetafileDC(filename);
-	Object_wx_MetafileDC *pObj = Object_wx_MetafileDC::GetThisObj(args);
+	Object_wx_MetafileDC *pObj = Object_wx_MetafileDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MetafileDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_MetafileDC, Close)
 Gura_ImplementMethod(wx_MetafileDC, Close)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetThisObj(args);
+	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMetafile *rtn = (wxMetafile *)pThis->GetEntity()->Close();
 	return ReturnValue(env, args, Value(new Object_wx_Metafile(rtn, nullptr, OwnerFalse)));

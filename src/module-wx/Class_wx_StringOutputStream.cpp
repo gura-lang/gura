@@ -51,7 +51,7 @@ Gura_ImplementFunction(StringOutputStream)
 	wxString *str = nullptr;
 	if (args.IsValid(0)) str = Object_wx_String::GetObject(args, 0)->GetEntity();
 	wx_StringOutputStream *pEntity = new wx_StringOutputStream(str);
-	Object_wx_StringOutputStream *pObj = Object_wx_StringOutputStream::GetThisObj(args);
+	Object_wx_StringOutputStream *pObj = Object_wx_StringOutputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_StringOutputStream, GetString)
 Gura_ImplementMethod(wx_StringOutputStream, GetString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetThisObj(args);
+	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetString();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));

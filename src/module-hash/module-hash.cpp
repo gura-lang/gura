@@ -81,7 +81,7 @@ Gura_DeclareMethod(accumulator, init)
 
 Gura_ImplementMethod(accumulator, init)
 {
-	AccumulatorBase &accumulator = Object_accumulator::GetThisObj(args)->GetAccumulator();
+	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(args)->GetAccumulator();
 	accumulator.Init();
 	return args.GetValueThis();
 }
@@ -99,7 +99,7 @@ Gura_DeclareMethod(accumulator, update)
 Gura_ImplementMethod(accumulator, update)
 {
 	Signal &sig = env.GetSignal();
-	AccumulatorBase &accumulator = Object_accumulator::GetThisObj(args)->GetAccumulator();
+	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(args)->GetAccumulator();
 	args.GetStream(0).ReadToStream(env, accumulator, 0x10000, false);
 	return args.GetValueThis();
 }

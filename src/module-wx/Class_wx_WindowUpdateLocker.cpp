@@ -50,7 +50,7 @@ Gura_ImplementFunction(WindowUpdateLocker)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowUpdateLocker *pEntity = new wx_WindowUpdateLocker(win);
-	Object_wx_WindowUpdateLocker *pObj = Object_wx_WindowUpdateLocker::GetThisObj(args);
+	Object_wx_WindowUpdateLocker *pObj = Object_wx_WindowUpdateLocker::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowUpdateLocker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

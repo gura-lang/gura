@@ -159,7 +159,7 @@ public:
 			);
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
 			return ReturnIterator(env, args, pIterator.release());
 		}
@@ -182,7 +182,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			bool upperFlag = args.IsSet(Gura_Symbol(upper));
 			Stream *pStream = args.IsValid(0)?
 				&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
@@ -206,7 +206,7 @@ public:
 			);
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
-			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			pArray->Fill(static_cast<T_Elem>(args.GetNumber(0)));
 			return Value::Nil;
 		}
@@ -234,7 +234,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
@@ -270,7 +270,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
@@ -304,7 +304,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
-			Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			size_t offset = args.GetSizeT(0);
 			const Array<T_Elem> *pArraySrc = Object_array<T_Elem>::GetObject(args, 1)->GetArray();
 			pArray->Paste(sig, offset, pArraySrc);
@@ -334,7 +334,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Args &args) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetThisObj(args)->GetArray();
+			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(args)->GetArray();
 			size_t n = args.GetSizeT(0);
 			if (n > pArray->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");

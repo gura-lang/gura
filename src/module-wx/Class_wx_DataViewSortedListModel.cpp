@@ -50,7 +50,7 @@ Gura_ImplementFunction(DataViewSortedListModel)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxDataViewListModel *child = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
 	wx_DataViewSortedListModel *pEntity = new wx_DataViewSortedListModel(child);
-	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewSortedListModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -70,7 +70,7 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, GetAscending)
 Gura_ImplementMethod(wx_DataViewSortedListModel, GetAscending)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetAscending();
 	return ReturnValue(env, args, Value(rtn));
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, Resort)
 Gura_ImplementMethod(wx_DataViewSortedListModel, Resort)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Resort();
 	return Value::Nil;
@@ -99,7 +99,7 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, SetAscending)
 Gura_ImplementMethod(wx_DataViewSortedListModel, SetAscending)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool ascending = args.GetBoolean(0);
 	pThis->GetEntity()->SetAscending(ascending);

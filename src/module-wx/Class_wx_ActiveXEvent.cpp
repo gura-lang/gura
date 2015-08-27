@@ -44,7 +44,7 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamCount)
 Gura_ImplementMethod(wx_ActiveXEvent, ParamCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetThisObj(args);
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->ParamCount();
 	return ReturnValue(env, args, Value(rtn));
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamType)
 Gura_ImplementMethod(wx_ActiveXEvent, ParamType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetThisObj(args);
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->ParamType(idx);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamName)
 Gura_ImplementMethod(wx_ActiveXEvent, ParamName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetThisObj(args);
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t idx = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->ParamName(idx);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_ActiveXEvent, GetDispatchId)
 Gura_ImplementMethod(wx_ActiveXEvent, GetDispatchId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetThisObj(args);
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int idx = args.GetInt(0);
 }

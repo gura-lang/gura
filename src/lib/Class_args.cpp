@@ -55,7 +55,7 @@ Gura_DeclareMethod(args, finalize_trailer)
 
 Gura_ImplementMethod(args, finalize_trailer)
 {
-	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
+	Args *pArgs = Object_args::GetObjectThis(args)->GetArgs();
 	pArgs->FinalizeTrailer();
 	return Value::Nil;
 }
@@ -73,7 +73,7 @@ Gura_DeclareMethod(args, isset)
 
 Gura_ImplementMethod(args, isset)
 {
-	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
+	Args *pArgs = Object_args::GetObjectThis(args)->GetArgs();
 	bool rtn = pArgs->IsSet(args.GetSymbol(0));
 	return Value(rtn);
 }
@@ -99,7 +99,7 @@ Gura_DeclareMethod(args, quit_trailer)
 
 Gura_ImplementMethod(args, quit_trailer)
 {
-	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
+	Args *pArgs = Object_args::GetObjectThis(args)->GetArgs();
 	pArgs->QuitTrailer();
 	return Value::Nil;
 }

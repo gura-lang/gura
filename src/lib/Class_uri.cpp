@@ -139,7 +139,7 @@ Gura_DeclareMethod(uri, getfragment)
 
 Gura_ImplementMethod(uri, getfragment)
 {
-	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
 	return Value(uri.ExtractFragment(uri.GetUrlPath()));
 }
 
@@ -154,7 +154,7 @@ Gura_DeclareMethod(uri, getpath)
 
 Gura_ImplementMethod(uri, getpath)
 {
-	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
 	return Value(uri.ExtractPath(uri.GetUrlPath()));
 }
 
@@ -169,7 +169,7 @@ Gura_DeclareMethod(uri, getquery)
 
 Gura_ImplementMethod(uri, getquery)
 {
-	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
 	Value result;
 	ValueDict &valDict = result.InitAsDict(env, true);
 	Uri::ExtractQuery(uri.GetUrlPath(), valDict);

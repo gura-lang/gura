@@ -67,7 +67,7 @@ Gura_ImplementFunction(SplashScreen)
 	long style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP;
 	if (args.IsValid(7)) style = args.GetLong(7);
 	wx_SplashScreen *pEntity = new wx_SplashScreen(*bitmap, splashStyle, milliseconds, parent, id, *pos, *size, style);
-	Object_wx_SplashScreen *pObj = Object_wx_SplashScreen::GetThisObj(args);
+	Object_wx_SplashScreen *pObj = Object_wx_SplashScreen::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SplashScreen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -87,7 +87,7 @@ Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
 Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
+	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->OnCloseWindow(*event);
@@ -103,7 +103,7 @@ Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
 Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
+	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetSplashStyle();
 	return ReturnValue(env, args, Value(rtn));
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
+	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSplashScreenWindow *rtn = (wxSplashScreenWindow *)pThis->GetEntity()->GetSplashWindow();
 	return ReturnValue(env, args, Value(new Object_wx_SplashScreenWindow(rtn, nullptr, OwnerFalse)));
@@ -137,7 +137,7 @@ Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
 Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetThisObj(args);
+	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTimeout();
 	return ReturnValue(env, args, Value(rtn));

@@ -102,7 +102,7 @@ Gura_DeclareMethod(Stroker, BeginSubPath)
 Gura_ImplementMethod(Stroker, BeginSubPath)
 {
 	Signal &sig = env.GetSignal();
-	FT_Stroker stroker = Object_Stroker::GetThisObj(args)->GetEntity();
+	FT_Stroker stroker = Object_Stroker::GetObjectThis(args)->GetEntity();
 	FT_Vector *to = Object_Vector::GetObject(args, 0)->GetEntity();
 	bool open = args.GetBoolean(1);
 	FT_Error err = ::FT_Stroker_BeginSubPath(stroker, to, open);

@@ -110,7 +110,7 @@ Gura_ImplementFunction(FontEnumerator)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FontEnumerator *pEntity = new wx_FontEnumerator();
-	Object_wx_FontEnumerator *pObj = Object_wx_FontEnumerator::GetThisObj(args);
+	Object_wx_FontEnumerator *pObj = Object_wx_FontEnumerator::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontEnumerator(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_FontEnumerator, EnumerateFacenames)
 Gura_ImplementMethod(wx_FontEnumerator, EnumerateFacenames)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetThisObj(args);
+	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFontEncoding encoding = wxFONTENCODING_SYSTEM;
 	if (args.IsValid(0)) encoding = static_cast<wxFontEncoding>(args.GetInt(0));
@@ -152,7 +152,7 @@ Gura_DeclareMethod(wx_FontEnumerator, EnumerateEncodings)
 Gura_ImplementMethod(wx_FontEnumerator, EnumerateEncodings)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetThisObj(args);
+	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString font = wxT("");
 	if (args.IsValid(0)) font = wxString::FromUTF8(args.GetString(0));
@@ -223,7 +223,7 @@ Gura_DeclareMethod(wx_FontEnumerator, OnFacename)
 Gura_ImplementMethod(wx_FontEnumerator, OnFacename)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetThisObj(args);
+	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString font = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pThis->GetEntity()->wxFontEnumerator::OnFacename(font);
@@ -241,7 +241,7 @@ Gura_DeclareMethod(wx_FontEnumerator, OnFontEncoding)
 Gura_ImplementMethod(wx_FontEnumerator, OnFontEncoding)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetThisObj(args);
+	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString font = wxString::FromUTF8(args.GetString(0));
 	wxString encoding = wxString::FromUTF8(args.GetString(1));

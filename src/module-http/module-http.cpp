@@ -1422,7 +1422,7 @@ Gura_DeclareMethod(stat, field)
 Gura_ImplementMethod(stat, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_stat *pThis = Object_stat::GetThisObj(args);
+	Object_stat *pThis = Object_stat::GetObjectThis(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
 }
@@ -1685,7 +1685,7 @@ Gura_DeclareMethod(request, field)
 Gura_ImplementMethod(request, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetThisObj(args);
+	Object_request *pThis = Object_request::GetObjectThis(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetSessionObj()->GetRequest().
 				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
@@ -1710,7 +1710,7 @@ Gura_DeclareMethod(request, response)
 Gura_ImplementMethod(request, response)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetThisObj(args);
+	Object_request *pThis = Object_request::GetObjectThis(args);
 	if (!pThis->SendResponse(sig,
 			args.GetString(0), args.Is_string(1)? args.GetString(1) : nullptr,
 			args.Is_stream(2)? &args.GetStream(2) : nullptr, args.GetString(3),
@@ -1739,7 +1739,7 @@ Gura_DeclareMethod(request, respchunk)
 Gura_ImplementMethod(request, respchunk)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetThisObj(args);
+	Object_request *pThis = Object_request::GetObjectThis(args);
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
 			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
 			args.GetValueDictArg());
@@ -1759,7 +1759,7 @@ Gura_DeclareMethod(request, ismethod)
 
 Gura_ImplementMethod(request, ismethod)
 {
-	Object_request *pThis = Object_request::GetThisObj(args);
+	Object_request *pThis = Object_request::GetObjectThis(args);
 	const char *method = pThis->GetSessionObj()->GetRequest().GetMethod();
 	return Value(::strcasecmp(method, args.GetString(0)) == 0);
 }
@@ -1861,7 +1861,7 @@ Gura_DeclareMethod(response, field)
 Gura_ImplementMethod(response, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_response *pThis = Object_response::GetThisObj(args);
+	Object_response *pThis = Object_response::GetObjectThis(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
 	return pThis->GetClientObj()->GetStatus().
 				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
@@ -2079,7 +2079,7 @@ Gura_DeclareMethod(server, wait)
 Gura_ImplementMethod(server, wait)
 {
 	Signal &sig = env.GetSignal();
-	Object_server *pThis = Object_server::GetThisObj(args);
+	Object_server *pThis = Object_server::GetObjectThis(args);
 	if (!args.IsBlockSpecified()) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2301,7 +2301,7 @@ Gura_DeclareMethod(client, request)
 Gura_ImplementMethod(client, request)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetThisObj(args);
+	Object_client *pThis = Object_client::GetObjectThis(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
 			args.Is_stream(2)? &args.GetStream(2) : nullptr,
@@ -2329,7 +2329,7 @@ Gura_DeclareMethod(client, _request)
 Gura_ImplementMethod(client, _request)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetThisObj(args);
+	Object_client *pThis = Object_client::GetObjectThis(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
 			args.Is_stream(1)? &args.GetStream(1) : nullptr,
@@ -2350,7 +2350,7 @@ Gura_DeclareMethod(client, cleanup)
 Gura_ImplementMethod(client, cleanup)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetThisObj(args);
+	Object_client *pThis = Object_client::GetObjectThis(args);
 	if (!pThis->CleanupResponse(sig)) return Value::Nil;
 	return args.GetValueThis();
 }

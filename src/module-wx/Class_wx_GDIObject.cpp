@@ -49,7 +49,7 @@ Gura_ImplementFunction(GDIObjectEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GDIObject *pEntity = new wx_GDIObject();
-	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetThisObj(args);
+	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GDIObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

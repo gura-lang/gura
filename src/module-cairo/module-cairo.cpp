@@ -26,7 +26,7 @@ Gura_DeclareMethod(image, cairo)
 Gura_ImplementMethod(image, cairo)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetThisObj(args);
+	Object_image *pThis = Object_image::GetObjectThis(args);
 	Image *pImage = Image::Reference(pThis->GetImage());
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {

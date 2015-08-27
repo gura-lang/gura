@@ -42,7 +42,7 @@ Gura_DeclareMethod(svg_surface, restrict_to_version)
 Gura_ImplementMethod(svg_surface, restrict_to_version)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetThisObj(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
 	::cairo_svg_surface_restrict_to_version(surface, version);

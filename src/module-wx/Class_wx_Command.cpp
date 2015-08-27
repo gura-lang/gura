@@ -57,7 +57,7 @@ Gura_ImplementFunction(Command)
 	wxString name = nullptr;
 	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));
 	wx_Command *pEntity = new wx_Command(canUndo, name);
-	Object_wx_Command *pObj = Object_wx_Command::GetThisObj(args);
+	Object_wx_Command *pObj = Object_wx_Command::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Command(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_Command, CanUndo)
 Gura_ImplementMethod(wx_Command, CanUndo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanUndo();
 	return ReturnValue(env, args, Value(rtn));
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_Command, Do)
 Gura_ImplementMethod(wx_Command, Do)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Do();
 	return ReturnValue(env, args, Value(rtn));
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_Command, GetName)
 Gura_ImplementMethod(wx_Command, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
@@ -125,7 +125,7 @@ Gura_DeclareMethod(wx_Command, Undo)
 Gura_ImplementMethod(wx_Command, Undo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Undo();
 	return ReturnValue(env, args, Value(rtn));

@@ -51,7 +51,7 @@ Gura_ImplementFunction(PostScriptDC)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(*printData);
-	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
+	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
@@ -81,7 +81,7 @@ Gura_ImplementFunction(PostScriptDC_1)
 	if (args.IsValid(1)) interactive = args.GetBoolean(1);
 	wxWindow *parent = Object_wx_Window::GetObject(args, 2)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(output, interactive, parent);
-	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetThisObj(args);
+	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);

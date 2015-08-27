@@ -504,7 +504,7 @@ Gura_DeclareMethod(Canvas, width)
 
 Gura_ImplementMethod(Canvas, width)
 {
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	return Value(pObj->Device().GetWidth());
 }
 
@@ -516,7 +516,7 @@ Gura_DeclareMethod(Canvas, height)
 
 Gura_ImplementMethod(Canvas, height)
 {
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	return Value(pObj->Device().GetHeight());
 }
 
@@ -538,7 +538,7 @@ Gura_DeclareMethod(Canvas, setfont)
 Gura_ImplementMethod(Canvas, setfont)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().SetFont(sig, args.GetNumber(0),
 			args.GetSymbol(1), args.GetSymbol(2), args.GetSymbol(3),
 			args.Is_string(4)? args.GetString(4) : "");
@@ -555,7 +555,7 @@ Gura_DeclareMethod(Canvas, settextcolor)
 Gura_ImplementMethod(Canvas, settextcolor)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().SetTextColor(sig, args.GetValue(0));
 	return args.GetValueThis();
 }
@@ -574,7 +574,7 @@ Gura_DeclareMethod(Canvas, setpen)
 Gura_ImplementMethod(Canvas, setpen)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().SetPen(sig, args.GetValue(0),
 							args.GetNumber(1), args.GetSymbol(2));
 	return args.GetValueThis();
@@ -592,7 +592,7 @@ Gura_DeclareMethod(Canvas, setbrush)
 Gura_ImplementMethod(Canvas, setbrush)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().SetBrush(sig, args.GetValue(0), args.GetSymbol(1));
 	return args.GetValueThis();
 }
@@ -612,7 +612,7 @@ Gura_DeclareMethod(Canvas, text)
 Gura_ImplementMethod(Canvas, text)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Text(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetString(2),
 		args.Is_number(3)? args.GetNumber(3) : -1,
@@ -633,7 +633,7 @@ Gura_DeclareMethod(Canvas, textrot)
 Gura_ImplementMethod(Canvas, textrot)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().TextRot(sig, args.GetNumber(0), args.GetNumber(1),
 							args.GetString(2), args.GetNumber(3));
 	return args.GetValueThis();
@@ -652,7 +652,7 @@ Gura_DeclareMethod(Canvas, line)
 Gura_ImplementMethod(Canvas, line)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Line(sig, args.GetNumber(0), args.GetNumber(1),
 					args.GetNumber(2), args.GetNumber(3));
 	return args.GetValueThis();
@@ -672,7 +672,7 @@ Gura_DeclareMethod(Canvas, rectangle)
 Gura_ImplementMethod(Canvas, rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Rectangle(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
 	return args.GetValueThis();
@@ -692,7 +692,7 @@ Gura_DeclareMethod(Canvas, ellipse)
 Gura_ImplementMethod(Canvas, ellipse)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Ellipse(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
 	return args.GetValueThis();
@@ -714,7 +714,7 @@ Gura_DeclareMethod(Canvas, pie)
 Gura_ImplementMethod(Canvas, pie)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Pie(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetNumber(2), args.GetNumber(3),
 		args.GetNumber(4), args.GetNumber(5), GetAnchor(args.GetAttrs()));
@@ -732,7 +732,7 @@ Gura_DeclareMethod(Canvas, polyline)
 Gura_ImplementMethod(Canvas, polyline)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), false);
 	return args.GetValueThis();
 }
@@ -747,7 +747,7 @@ Gura_DeclareMethod(Canvas, polylinep)
 Gura_ImplementMethod(Canvas, polylinep)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Polygon(sig, args.GetList(0), false);
 	return args.GetValueThis();
 }
@@ -763,7 +763,7 @@ Gura_DeclareMethod(Canvas, polygon)
 Gura_ImplementMethod(Canvas, polygon)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), true);
 	return args.GetValueThis();
 }
@@ -778,7 +778,7 @@ Gura_DeclareMethod(Canvas, polygonp)
 Gura_ImplementMethod(Canvas, polygonp)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Polygon(sig, args.GetList(0), true);
 	return args.GetValueThis();
 }
@@ -791,7 +791,7 @@ Gura_DeclareMethod(Canvas, close)
 
 Gura_ImplementMethod(Canvas, close)
 {
-	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
 	pObj->Device().Close();
 	return Value::Nil;
 }

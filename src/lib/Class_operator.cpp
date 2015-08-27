@@ -171,7 +171,7 @@ Gura_DeclareMethod(operator_, assign)
 Gura_ImplementMethod(operator_, assign)
 {
 	Signal &sig = env.GetSignal();
-	Object_operator *pThis = Object_operator::GetThisObj(args);
+	Object_operator *pThis = Object_operator::GetObjectThis(args);
 	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	OperatorEntryCustom *pOperatorEntry = nullptr;
@@ -230,7 +230,7 @@ Gura_DeclareMethod(operator_, entries)
 Gura_ImplementMethod(operator_, entries)
 {
 	Signal &sig = env.GetSignal();
-	Object_operator *pThis = Object_operator::GetThisObj(args);
+	Object_operator *pThis = Object_operator::GetObjectThis(args);
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
 	if (args.IsInvalid(0) || args.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {

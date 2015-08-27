@@ -50,7 +50,7 @@ Gura_ImplementFunction(SocketInputStream)
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxSocketBase *s = Object_wx_SocketBase::GetObject(args, 0)->GetEntity();
 	wx_SocketInputStream *pEntity = new wx_SocketInputStream(*s);
-	Object_wx_SocketInputStream *pObj = Object_wx_SocketInputStream::GetThisObj(args);
+	Object_wx_SocketInputStream *pObj = Object_wx_SocketInputStream::GetObjectThis(args);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SocketInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
