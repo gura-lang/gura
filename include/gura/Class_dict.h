@@ -25,58 +25,54 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_dict : public Object {
 public:
-	class IteratorKeys : public Iterator {
-	private:
+	class IteratorEx : public Iterator {
+	protected:
 		AutoPtr<Object_dict> _pObj;
+		bool _validFlag;
+	public:
+		IteratorEx(bool infiniteFlag, Object_dict *pObj) :
+					Iterator(infiniteFlag), _pObj(pObj), _validFlag(true) {}
+		inline void Invalidate() { _validFlag = false; }
+	};
+	class IteratorKeys : public IteratorEx {
+	private:
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorKeys(Object_dict *pObj);
+		~IteratorKeys();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class IteratorValues : public Iterator {
+	class IteratorValues : public IteratorEx {
 	private:
-		AutoPtr<Object_dict> _pObj;
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorValues(Object_dict *pObj);
+		~IteratorValues();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class IteratorItems : public Iterator {
+	class IteratorItems : public IteratorEx {
 	private:
-		AutoPtr<Object_dict> _pObj;
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorItems(Object_dict *pObj);
+		~IteratorItems();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class IteratorGet : public Iterator {
-	private:
-		AutoPtr<Object_dict> _pObj;
-		AutoPtr<Iterator> _pIteratorKey;
-		Value _valDefault;
-		bool _raiseFlag;
-		bool _setDefaultFlag;
-	public:
-		IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
-					const Value &valDefault, bool raiseFlag, bool setDefaultFlag);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
+	typedef std::vector<IteratorEx *> IteratorExList;
 public:
 	Gura_DeclareObjectAccessor(dict)
 protected:
 	AutoPtr<ValueDict> _pValDict;
+	IteratorExList _iterList;
 	bool _writableFlag;
 public:
 	inline Object_dict(Class *pClass, ValueDict *pValDict, bool writableFlag) :
@@ -86,6 +82,10 @@ public:
 	inline Object_dict(const Object_dict &obj) :
 		Object(obj), _pValDict(new ValueDict(obj.GetDict())), _writableFlag(obj._writableFlag) {}
 	virtual Object *Clone() const;
+	inline void AddIterator(IteratorEx *pIterator) { _iterList.push_back(pIterator); }
+	inline void RemoveIterator(IteratorEx *pIterator) {
+		_iterList.erase(std::find(_iterList.begin(), _iterList.end(), pIterator));
+	}
 	inline ValueDict &GetDict() { return *_pValDict; }
 	inline const ValueDict &GetDict() const { return *_pValDict; }
 	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
@@ -95,6 +95,7 @@ public:
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
 	const Value *Find(Signal &sig, const Value &valueIdx) const;
+	void InvalidateIterators();
 	static void SetError_KeyNotFound(Signal &sig, const Value &valueIdx);
 };
 

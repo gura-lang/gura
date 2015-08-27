@@ -110,9 +110,17 @@ private:
 };
 
 //-----------------------------------------------------------------------------
+// IteratorList
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE IteratorList : public std::vector<Iterator *> {
+public:
+	inline IteratorList() {}
+};
+
+//-----------------------------------------------------------------------------
 // IteratorOwner
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE IteratorOwner : public std::vector<Iterator *> {
+class GURA_DLLDECLARE IteratorOwner : public IteratorList {
 public:
 	inline IteratorOwner() {}
 	IteratorOwner(const IteratorOwner &iterOwner);

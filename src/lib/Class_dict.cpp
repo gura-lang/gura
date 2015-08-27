@@ -37,12 +37,20 @@ void Object_dict::IndexSet(Environment &env, const Value &valueIdx, const Value 
 		ValueDict::SetError_InvalidKey(sig, valueIdx);
 		return;
 	}
+	InvalidateIterators();
 	GetDict()[valueIdx] = value;
 }
 
 Iterator *Object_dict::CreateIterator(Signal &sig)
 {
 	return new IteratorItems(Object_dict::Reference(this));
+}
+
+void Object_dict::InvalidateIterators()
+{
+	foreach (IteratorExList, ppIterator, _iterList) {
+		(*ppIterator)->Invalidate();
+	}
 }
 
 String Object_dict::ToString(bool exprFlag)
@@ -73,8 +81,14 @@ String Object_dict::ToString(bool exprFlag)
 // Object_dict::IteratorKeys
 //-----------------------------------------------------------------------------
 Object_dict::IteratorKeys::IteratorKeys(Object_dict *pObj) :
-				Iterator(false), _pObj(pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
 {
+	_pObj->AddIterator(this);
+}
+
+Object_dict::IteratorKeys::~IteratorKeys()
+{
+	_pObj->RemoveIterator(this);
 }
 
 Iterator *Object_dict::IteratorKeys::GetSource()
@@ -84,6 +98,11 @@ Iterator *Object_dict::IteratorKeys::GetSource()
 
 bool Object_dict::IteratorKeys::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
+	if (!_validFlag) {
+		ValueDict::SetError_InvalidIterator(sig);
+		return false;
+	}
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->first;
 	_pCur++;
@@ -103,8 +122,14 @@ void Object_dict::IteratorKeys::GatherFollower(Environment::Frame *pFrame, Envir
 // Object_dict::IteratorValues
 //-----------------------------------------------------------------------------
 Object_dict::IteratorValues::IteratorValues(Object_dict *pObj) :
-				Iterator(false), _pObj(pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
 {
+	_pObj->AddIterator(this);
+}
+
+Object_dict::IteratorValues::~IteratorValues()
+{
+	_pObj->RemoveIterator(this);
 }
 
 Iterator *Object_dict::IteratorValues::GetSource()
@@ -114,6 +139,11 @@ Iterator *Object_dict::IteratorValues::GetSource()
 
 bool Object_dict::IteratorValues::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
+	if (!_validFlag) {
+		ValueDict::SetError_InvalidIterator(sig);
+		return false;
+	}
 	if (_pCur == _pObj->GetDict().end()) return false;
 	value = _pCur->second;
 	_pCur++;
@@ -133,8 +163,14 @@ void Object_dict::IteratorValues::GatherFollower(Environment::Frame *pFrame, Env
 // Object_dict::IteratorItems
 //-----------------------------------------------------------------------------
 Object_dict::IteratorItems::IteratorItems(Object_dict *pObj) :
-				Iterator(false), _pObj(pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
 {
+	_pObj->AddIterator(this);
+}
+
+Object_dict::IteratorItems::~IteratorItems()
+{
+	_pObj->RemoveIterator(this);
 }
 
 Iterator *Object_dict::IteratorItems::GetSource()
@@ -144,6 +180,11 @@ Iterator *Object_dict::IteratorItems::GetSource()
 
 bool Object_dict::IteratorItems::DoNext(Environment &env, Value &value)
 {
+	Signal &sig = env.GetSignal();
+	if (!_validFlag) {
+		ValueDict::SetError_InvalidIterator(sig);
+		return false;
+	}
 	if (_pCur == _pObj->GetDict().end()) return false;
 	ValueList &valList = value.InitAsList(*_pObj);
 	valList.push_back(_pCur->first);
@@ -158,49 +199,6 @@ String Object_dict::IteratorItems::ToString() const
 }
 
 void Object_dict::IteratorItems::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Object_dict::IteratorGet
-//-----------------------------------------------------------------------------
-Object_dict::IteratorGet::IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
-					const Value &valDefault, bool raiseFlag, bool setDefaultFlag) :
-	Iterator(pIteratorKey->IsInfinite()), _pObj(pObj), _pIteratorKey(pIteratorKey),
-	_valDefault(valDefault), _raiseFlag(raiseFlag), _setDefaultFlag(setDefaultFlag)
-{
-}
-
-Iterator *Object_dict::IteratorGet::GetSource()
-{
-	return nullptr;
-}
-
-bool Object_dict::IteratorGet::DoNext(Environment &env, Value &value)
-{
-	Signal &sig = env.GetSignal();
-	Value valueIdx;
-	if (!_pIteratorKey->Next(env, valueIdx)) return false;
-	const Value *pValue = _pObj->GetDict().Find(sig, valueIdx);
-	if (pValue != nullptr) {
-		value = *pValue;
-	} else if (_raiseFlag) {
-		ValueDict::SetError_KeyNotFound(sig, valueIdx);
-		return false;
-	} else {
-		value = _valDefault;
-		if (_setDefaultFlag) _pObj->IndexSet(env, valueIdx, value);
-		if (sig.IsSignalled()) return false;
-	}
-	return true;
-}
-
-String Object_dict::IteratorGet::ToString() const
-{
-	return String("dict#get");
-}
-
-void Object_dict::IteratorGet::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
@@ -323,6 +321,7 @@ Gura_ImplementMethod(dict, append)
 		ValueDict::SetError_NotWritable(sig);
 		return Value::Nil;
 	}
+	pThis->InvalidateIterators();
 	ValueDict::StoreMode storeMode =
 		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
 		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
@@ -376,6 +375,7 @@ Gura_ImplementMethod(dict, clear)
 		ValueDict::SetError_NotWritable(sig);
 		return Value::Nil;
 	}
+	pThis->InvalidateIterators();
 	valDict.clear();
 	return Value::Nil;
 }
@@ -401,6 +401,7 @@ Gura_ImplementMethod(dict, erase)
 		ValueDict::SetError_NotWritable(sig);
 		return Value::Nil;
 	}
+	pThis->InvalidateIterators();
 	valDict.erase(args.GetValue(0));
 	return Value::Nil;
 }
@@ -562,6 +563,7 @@ Gura_ImplementMethod(dict, put)
 		ValueDict::SetError_NotWritable(sig);
 		return Value::Nil;
 	}
+	pThis->InvalidateIterators();
 	const Value &valueIdx = args.GetValue(0);
 	const Value &value = args.GetValue(1);
 	ValueDict::StoreMode storeMode =

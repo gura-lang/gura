@@ -1245,6 +1245,11 @@ void ValueDict::SetError_InvalidKey(Signal &sig, const Value &valueKey)
 	sig.SetError(ERR_KeyError, "invalid value type for key");
 }
 
+void ValueDict::SetError_InvalidIterator(Signal &sig)
+{
+	sig.SetError(ERR_KeyError, "invalid iterator of dict");
+}
+
 void ValueDict::SetError_KeyNotFound(Signal &sig, const Value &valueKey)
 {
 	sig.SetError(ERR_KeyError, "dictionary doesn't have a key '%s'", valueKey.ToString().c_str());

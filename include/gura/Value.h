@@ -593,6 +593,7 @@ public:
 	bool Serialize(Environment &env, Stream &stream) const;
 	bool Deserialize(Environment &env, Stream &stream);
 	static void SetError_InvalidKey(Signal &sig, const Value &valueKey);
+	static void SetError_InvalidIterator(Signal &sig);
 	static void SetError_KeyNotFound(Signal &sig, const Value &valueKey);
 	static void SetError_NotWritable(Signal &sig);
 };

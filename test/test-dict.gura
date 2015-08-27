@@ -198,4 +198,60 @@ testcase('readable dictionary') {
 	}
 	f(a => 1, b => 2, c => 3)
 }
-
+testcase('invalidated iterator of dict#keys()') {
+	x = %{'first' => 1, 'second' => 2, 'third' => 3}
+	i = x.keys()
+	println(i.next())
+	x['fourth'] = 4
+	try {
+		println(i.next())
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	i = x.keys()
+	println(i.next())
+	x.clear()
+	try {
+		println(i.next())
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+testcase('invalidated iterator of dict#values()') {
+	x = %{'first' => 1, 'second' => 2, 'third' => 3}
+	i = x.values()
+	println(i.next())
+	x['fourth'] = 4
+	try {
+		println(i.next())
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	i = x.values()
+	println(i.next())
+	x.clear()
+	try {
+		println(i.next())
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+testcase('invalidated iterator of dict#items()') {
+	x = %{'first' => 1, 'second' => 2, 'third' => 3}
+	i = x.items()
+	println(i.next()):nomap
+	x['fourth'] = 4
+	try {
+		println(i.next()):nomap
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	i = x.items()
+	println(i.next()):nomap
+	x.clear()
+	try {
+		println(i.next()):nomap
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
