@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_binary / Object_binary
+// Class_binary
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_binary : public Class {
 public:
@@ -21,6 +21,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_binary
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_binary : public Object {
 public:
 	class IteratorByte : public Iterator {

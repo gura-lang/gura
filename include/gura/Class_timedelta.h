@@ -10,7 +10,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_timedelta / Object_timedelta
+// Class_timedelta
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_timedelta : public Class {
 public:
@@ -19,6 +19,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_timedelta
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_timedelta : public Object {
 public:
 	Gura_DeclareObjectAccessor(timedelta)

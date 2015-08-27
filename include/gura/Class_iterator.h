@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object_iterator
+// Class_iterator
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_iterator : public Class {
 public:
@@ -19,6 +19,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_iterator
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_iterator : public Object {
 public:
 	Gura_DeclareObjectAccessor(iterator)

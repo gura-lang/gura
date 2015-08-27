@@ -10,7 +10,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_function / Object_function
+// Class_function
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_function : public Class {
 public:
@@ -22,6 +22,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_function
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_function : public Object {
 public:
 	Gura_DeclareObjectAccessor(function)

@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_pointer / Object_pointer
+// Class_pointer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_pointer : public Class {
 public:
@@ -18,6 +18,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_pointer
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_pointer : public Object {
 public:
 	Gura_DeclareObjectAccessor(pointer)

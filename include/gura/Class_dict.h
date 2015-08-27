@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_dict / Object_dict
+// Class_dict
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_dict : public Class {
 public:
@@ -20,6 +20,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_dict
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_dict : public Object {
 public:
 	class IteratorKeys : public Iterator {

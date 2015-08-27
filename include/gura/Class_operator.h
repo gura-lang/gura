@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_operator / Object_operator
+// Class_operator
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_operator : public Class {
 public:
@@ -18,6 +18,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_operator
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_operator : public Object {
 public:
 	Gura_DeclareObjectAccessor(operator)

@@ -10,7 +10,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_datetime / Object_datetime
+// Class_datetime
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_datetime : public Class {
 public:
@@ -19,6 +19,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_datetime
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_datetime : public Object {
 public:
 	Gura_DeclareObjectAccessor(datetime)

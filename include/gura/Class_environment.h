@@ -10,7 +10,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_environment / Object_environment
+// Class_environment
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_environment : public Class {
 public:
@@ -19,6 +19,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_environment
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_environment : public Object {
 public:
 	Gura_DeclareObjectAccessor(environment)

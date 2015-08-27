@@ -9,7 +9,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_error / Object_error
+// Class_error
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_error : public Class {
 public:
@@ -18,6 +18,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// Object_error
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_error : public Object {
 public:
 	Gura_DeclareObjectAccessor(error)
