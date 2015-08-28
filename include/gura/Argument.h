@@ -1,8 +1,8 @@
 //=============================================================================
-// Args
+// Argument
 //=============================================================================
-#ifndef __GURA_ARGS_H__
-#define __GURA_ARGS_H__
+#ifndef __GURA_ARGUMENT_H__
+#define __GURA_ARGUMENT_H__
 
 #include "Function.h"
 

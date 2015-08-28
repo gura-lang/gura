@@ -182,7 +182,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
-    <ClCompile Include="Args.cpp" />
+    <ClCompile Include="Argument.cpp" />
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
@@ -230,7 +230,7 @@
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_declaration.cpp" />
-    <ClCompile Include="Class_args.cpp" />
+    <ClCompile Include="Class_argument.cpp" />
     <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
@@ -307,7 +307,7 @@
     <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
-    <ClInclude Include="..\..\include\gura\Args.h" />
+    <ClInclude Include="..\..\include\gura\Argument.h" />
     <ClInclude Include="..\..\include\gura\Array.h" />
     <ClInclude Include="..\..\include\gura\Audio.h" />
     <ClInclude Include="..\..\include\gura\Binary.h" />
@@ -319,7 +319,7 @@
     <ClInclude Include="..\..\include\gura\Class_Module.h" />
     <ClInclude Include="..\..\include\gura\Class_Sequence.h" />
     <ClInclude Include="..\..\include\gura\Class_any.h" />
-    <ClInclude Include="..\..\include\gura\Class_args.h" />
+    <ClInclude Include="..\..\include\gura\Class_argument.h" />
     <ClInclude Include="..\..\include\gura\Class_array.h" />
     <ClInclude Include="..\..\include\gura\Class_audio.h" />
     <ClInclude Include="..\..\include\gura\Class_binary.h" />
