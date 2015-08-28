@@ -81,4 +81,19 @@ const Function *Args::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 	return _pFuncBlock.get();
 }
 
+//-----------------------------------------------------------------------------
+// Args::Slot
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Args::SlotList
+//-----------------------------------------------------------------------------
+Args::Slot *Args::SlotList::FindBySymbol(const Symbol *pSymbol)
+{
+	foreach (SlotList, pSlot, *this) {
+		if (pSlot->GetDeclaration().GetSymbol()->IsIdentical(pSymbol)) return &*pSlot;
+	}
+	return nullptr;
+}
+
 }

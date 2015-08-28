@@ -12,6 +12,27 @@ namespace Gura {
 // Args
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Args {
+public:
+	class GURA_DLLDECLARE Slot {
+	private:
+		AutoPtr<Declaration> _pDecl;
+		Value _value;
+	public:
+		inline Slot(Declaration *pDecl) : _pDecl(pDecl), _value(Value::Undefined) {}
+		inline Slot(const Slot &slot) : _pDecl(slot._pDecl->Reference()), _value(slot._value) {}
+		inline void operator=(const Slot &slot) {
+			_pDecl.reset(slot._pDecl->Reference());
+			_value = slot._value;
+		}
+		inline const Declaration &GetDeclaration() const { return *_pDecl; }
+		inline const Value &GetValue() const { return _value; }
+		inline void SetValue(const Value &value) { _value = value; }
+	};
+	class SlotList : public std::vector<Slot> {
+	public:
+		inline SlotList() {}
+		Slot *FindBySymbol(const Symbol *pSymbol);
+	};
 private:
 	int _cntRef;
 	ValueType _valTypeResult;
@@ -22,6 +43,7 @@ private:
 	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	Value _valueThis;
 	ValueList _valListArg;
+	SlotList _slotList;
 	AutoPtr<ValueDict> _pValDictArg;
 	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
@@ -45,6 +67,7 @@ public:
 		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
 		_valueThis(args._valueThis),
 		_valListArg(args._valListArg),
+		_slotList(args._slotList),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
@@ -60,6 +83,7 @@ public:
 		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
 		_valueThis(args._valueThis),
 		_valListArg(valListArg),
+		_slotList(args._slotList),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
