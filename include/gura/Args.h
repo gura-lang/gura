@@ -53,11 +53,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Args);
 public:
-	inline Args() : _cntRef(1),
-		_valTypeResult(VTYPE_any),
-		_resultMode(RSLTMODE_Normal),
-		_flags(FLAG_None),
-		_listThisFlag(false) {}
+	Args(const Function *pFunc);
 	inline Args(const Args &args) : _cntRef(1),
 		_valTypeResult(args._valTypeResult),
 		_resultMode(args._resultMode),

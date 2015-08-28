@@ -20,7 +20,7 @@ Gura_ImplementFunction(IMPLEMENT_APP)
 	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Nil;
 	const Function *pFunc = args.GetFunction(0);
-	AutoPtr<Args> pArgsSub(new Args());
+	AutoPtr<Args> pArgsSub(new Args(pFunc));
 	Value rtn = pFunc->Eval(env, *pArgsSub);
 	if (!rtn.IsInstanceOf(VTYPE_wx_App)) {
 		sig.SetError(ERR_ValueError,

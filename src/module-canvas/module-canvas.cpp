@@ -122,7 +122,7 @@ Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 	if (pFuncBlock != nullptr) {
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		//ValueList valList(result);
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(pFuncBlock));
 		pArgs->AddValue(result);
 		pFuncBlock->Eval(*pEnvBlock, *pArgs);
 		

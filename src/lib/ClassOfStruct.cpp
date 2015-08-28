@@ -108,7 +108,7 @@ bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *
 		if (pClass == nullptr) return false;
 		const Function *pConstructor = pClass->GetConstructor();
 		if (pConstructor == nullptr) return false;
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(pConstructor));
 		pArgs->SetValueListArg(value.GetList());
 		value = pConstructor->Eval(env, *pArgs);
 		return !sig.IsSignalled();

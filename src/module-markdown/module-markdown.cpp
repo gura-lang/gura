@@ -3007,7 +3007,7 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 		return false;
 	}
 	//ValueList valListArg;
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(g_pFunc_Presenter.get()));
 	if (title == nullptr) {
 		pArgs->AddValue(Value::Nil);
 	} else {

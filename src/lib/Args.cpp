@@ -8,6 +8,12 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Args
 //-----------------------------------------------------------------------------
+Args::Args(const Function *pFunc) :
+	_cntRef(1), _valTypeResult(VTYPE_any),
+	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false)
+{
+}
+
 Args::~Args()
 {
 }

@@ -1868,10 +1868,7 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 		AutoPtr<Object_audio> pObjAudio(new Object_audio(env,
 										fmt, _pAudioSpec->channels));
 		pObjAudio->ReferenceBuffer(nullptr, stream, len);
-		//ValueList valList;
-		//valList.reserve(1);
-		//valList.push_back(Value(pObjAudio.release()));
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(_pFuncCallback.get()));
 		pArgs->AddValue(Value(pObjAudio.release()));
 		_pFuncCallback->Eval(env, *pArgs);
 	} while (0);
@@ -3414,9 +3411,7 @@ static int EventFilter(const SDL_Event *event)
 	if (_pFuncEventFilter == nullptr) return 1;
 	Signal sig;
 	Environment &env = _pFuncEventFilter->GetEnvScope();
-	//ValueList valList;
-	//valList.push_back(Object_Event::CreateValue(*event));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(_pFuncEventFilter));
 	pArgs->AddValue(Object_Event::CreateValue(*event));
 	Value result = _pFuncEventFilter->Eval(env, *pArgs);
 	if (sig.IsSignalled()) return 0;

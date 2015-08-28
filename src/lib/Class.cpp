@@ -28,7 +28,7 @@ Object::~Object()
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
 	if (pFunc == nullptr) return;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
 }
@@ -61,7 +61,7 @@ Value Object::EmptyIndexGet(Environment &env)
 		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
 }
@@ -75,7 +75,7 @@ void Object::EmptyIndexSet(Environment &env, const Value &value)
 		return;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValue(value);
 	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
@@ -90,7 +90,7 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 		return Value::Nil;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValue(valueIdx);
 	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
@@ -105,7 +105,7 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 		return;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValues(valueIdx, value);
 	pArgs->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArgs);
@@ -127,7 +127,7 @@ bool Object::DirProp(Environment &env, SymbolSet &symbols)
 Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueList &valListArg)
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, *pArgs);
@@ -141,7 +141,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	if (pFunc == nullptr) return Value::Nil;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(valueThis);
 	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, *pArgs);
@@ -154,7 +154,7 @@ Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pFunc == nullptr) return Value::Nil;
 	evaluatedFlag = true;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValue(Value(pSymbol));
 	pArgs->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArgs);
@@ -166,7 +166,7 @@ Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &va
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Nil;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValues(Value(pSymbol), value);
 	pArgs->SetValueThis(valueThis);
 	Value result = pFunc->Eval(*this, *pArgs);

@@ -494,7 +494,7 @@ bool Object_list::Comparator_Custom::
 {
 	Signal &sig = _env.GetSignal();
 	if (sig.IsSignalled()) return false;
-	AutoPtr<Args> pArgsSub(new Args());
+	AutoPtr<Args> pArgsSub(new Args(_pFunc));
 	pArgsSub->SetValues(*pValue1, *pValue2);
 	Value value = _pFunc->Eval(_env, *pArgsSub);
 	return value.GetNumber() < 0;
@@ -726,7 +726,7 @@ Gura_ImplementFunction(ListInit)
 				sig.SetError(ERR_SyntaxError, "invalid format in list initializer");
 				return Value::Nil;
 			}
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValueListArg(value.GetList());
 			Value valueElem = pFunc->Eval(env, *pArgsSub);
 			if (sig.IsSignalled()) return Value::Nil;

@@ -372,7 +372,7 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 			}
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				AutoPtr<Args> pArgs(new Args());
+				AutoPtr<Args> pArgs(new Args(pFuncBlock));
 				pArgs->ReserveValueCount(idxList.size());
 				foreach (IntList, pIdxWk, idxList) {
 					pArgs->AddValue(Value(*pIdxWk));
@@ -897,7 +897,7 @@ Gura_ImplementFunction(catch_)
 						args.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	AutoPtr<Args> pArgsSub(new Args());
+	AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
 	pArgsSub->SetValue(Value(pObj));
 	return pFuncBlock->Eval(*pEnvBlock, *pArgsSub);
 }

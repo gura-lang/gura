@@ -311,7 +311,7 @@ extern "C" bool GuraStub_CallFunction(
 		const Function *pFunc = valueCar.GetFunction();
 		va_list vargs;
 		va_start(vargs, bridgeFuncBlock);
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(pFunc));
 		pArgs->SetThis(valueThis);
 		while (BridgeFunctionT bridgeFuncArg = va_arg(vargs, BridgeFunctionT)) {
 			Value valueResult;

@@ -123,7 +123,7 @@ Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFunc
 	}
 	Value value;
 	while (Next(env, value)) {
-		AutoPtr<Args> pArgsSub(new Args());
+		AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
 		pArgsSub->SetValues(value, valueAccum);
 		Value result = pFuncBlock->Eval(env, *pArgsSub);
 		if (!sig.IsSignalled()) {
@@ -442,7 +442,7 @@ size_t Iterator::Find(Environment &env, const Value &criteria, Value &value)
 		}
 		const Function *pFunc = criteria.GetFunction();
 		while (Next(env, value)) {
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(pFunc));
 			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, *pArgs);
 			if (sig.IsSignalled()) return InvalidSize;
@@ -498,7 +498,7 @@ size_t Iterator::Count(Environment &env, const Value &criteria)
 		const Function *pFunc = criteria.GetFunction();
 		Value value;
 		while (Next(env, value)) {
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(pFunc));
 			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, *pArgs);
 			if (sig.IsSignalled()) return 0;

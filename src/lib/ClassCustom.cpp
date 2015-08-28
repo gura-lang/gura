@@ -97,7 +97,7 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 	if (pFunc == nullptr) return false;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(valueThis);
 	pArgs->SetValue(value);
 	value = pFunc->Eval(*pEnvLocal, *pArgs);
@@ -112,7 +112,7 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(value);
 	pArgs->SetValue(Value(new Object_declaration(env, decl.Reference())));
 	value = pFunc->Eval(*pEnvLocal, *pArgs);
@@ -242,7 +242,7 @@ bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
 {
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(value);
 	pArgs->SetValue(Value(new Object_formatter(*pEnvLocal, flags)));
 	Value valueRtn = pFunc->Eval(*pEnvLocal, *pArgs);

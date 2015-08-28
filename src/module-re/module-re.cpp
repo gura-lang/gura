@@ -1145,9 +1145,7 @@ String DoSubWithFunc(Environment &env, Signal &sig, regex_t *pRegEx,
 				delete pObj;
 				goto error_done;
 			}
-			//Value value(pObj);
-			//ValueList valListArg(value);
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(pFunc));
 			pArgs->AddValue(Value(pObj));
 			Value resultFunc = pFunc->Eval(env, *pArgs);
 			if (sig.IsSignalled()) goto error_done;

@@ -1485,11 +1485,7 @@ public:
 
 int wxListCompareFunction::Body(long item1, long item2)
 {
-	//ValueList valList;
-	//valList.reserve(2);
-	//valList.push_back(Value(item1));
-	//valList.push_back(Value(item2));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(_pFunc));
 	pArgs->SetValues(Value(item1), Value(item2));
 	Value rtn = _pFunc->Eval(_env, *pArgs);
 	return rtn.GetInt();

@@ -126,7 +126,7 @@ Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 	Signal &sig = env.GetSignal();
 	GetFunction()->GetDeclOwner().Compensate(env, valListArg);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(GetFunction()));
 	pArgs->SetValueThis(_valueThis);
 	pArgs->SetValueListArg(valListArg);
 	return GetFunction()->Eval(env, *pArgs);

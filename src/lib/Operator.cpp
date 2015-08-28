@@ -618,7 +618,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				if (!pFunc->GetDeclOwner().Compensate(env, valListComp)) {
 					return Value::Nil;
 				}
-				AutoPtr<Args> pArgsSub(new Args());
+				AutoPtr<Args> pArgsSub(new Args(pFunc));
 				pArgsSub->SetValueListArg(valListComp);
 				return pFunc->Eval(env, *pArgsSub);
 			}
@@ -627,7 +627,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValues(valueLeft, valueRight);
 			return pIteratorFuncBinder->Eval(env, *pArgsSub);
 		} else if (valueRight.Is_iterator()) {
@@ -640,7 +640,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
-				AutoPtr<Args> pArgsSub(new Args());
+				AutoPtr<Args> pArgsSub(new Args(pFunc));
 				pArgsSub->SetValues(valueLeft, valueRight);
 				return pIteratorFuncBinder->Eval(env, *pArgsSub);
 			}
@@ -981,20 +981,20 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 		const Function *pFunc = valueLeft.GetFunction();
 		Value result;
 		if (!valueRight.Is_list()) {
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValue(valueRight);
 			result = pFunc->Eval(env, *pArgsSub);
 		} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
 				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValueListArg(valueRight.GetList());
 			result = pFunc->Eval(env, *pArgsSub);
 		} else if (pFunc->IsUnary()) {
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValue(valueRight);
 			result = pFunc->EvalMap(env, *pArgsSub);
 		} else {
-			AutoPtr<Args> pArgsSub(new Args());
+			AutoPtr<Args> pArgsSub(new Args(pFunc));
 			pArgsSub->SetValueListArg(valueRight.GetList());
 			result = pFunc->EvalMap(env, *pArgsSub);
 		}

@@ -354,95 +354,6 @@ void Iterator_Interval::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 {
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Iterator_Fork
-//-----------------------------------------------------------------------------
-Iterator_Fork::Iterator_Fork(Environment *pEnv,
-		Function *pFunc, const Value &valueThis, const ValueList &valListArg) :
-	Iterator(false), _pEnv(pEnv), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
-{
-	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
-	_pValListToWrite = &_valListA;
-	_pValListToRead = &_valListB;
-	_pValueRead = _pValListToRead->begin();
-	_readBlock.blockedFlag = false;
-	_writeBlock.blockedFlag = false;
-}
-
-Iterator *Iterator_Fork::GetSource()
-{
-	return nullptr;
-}
-
-bool Iterator_Fork::DoNext(Environment &env, Value &value)
-{
-	if (_pValueRead == _pValListToRead->end()) {
-		for (;;) {
-			SwapList();
-			if (_pValueRead != _pValListToRead->end()) {
-				break;
-			} else if (_doneFlag) {
-				return false;
-			} else {
-				_readBlock.blockedFlag = true;
-				_readBlock.event.Wait();
-			}
-		}
-	}
-	value = *_pValueRead++;
-	return true;
-}
-
-String Iterator_Fork::ToString() const
-{
-	String rtn;
-	rtn += "fork()";
-	return rtn;
-}
-
-void Iterator_Fork::SwapList()
-{
-	_semaphore.Wait();
-	ValueList *pValList = _pValListToWrite;
-	_pValListToWrite = _pValListToRead;
-	_pValListToRead = pValList;
-	_pValListToWrite->clear();
-	_pValueRead = _pValListToRead->begin();
-	if (_writeBlock.blockedFlag) {
-		_writeBlock.blockedFlag = false;
-		_writeBlock.event.Notify();
-	}
-	_semaphore.Release();
-}
-
-void Iterator_Fork::ForkProcess()
-{
-	Clone();
-	Start();
-}
-
-void Iterator_Fork::Run()
-{
-	Signal &sig;
-	ValueList valList;
-	while (_iterOwner.Next(env, valList)) {
-		AutoPtr<Args> pArgs(new Args(valList));
-		pArgs->SetValueThis(_valueThis);
-		Value value = _pFunc->Eval(*_pEnv, *pArgs);
-		if (sig.IsSignalled()) break;
-		_semaphore.Wait();
-		_pValListToWrite->push_back(value);
-		_semaphore.Release();
-		if (_readBlock.blockedFlag) {
-			_readBlock.blockedFlag = false;
-			_readBlock.event.Notify();
-		}
-	}
-	_doneFlag = true;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Iterator_ExplicitMap
 //-----------------------------------------------------------------------------
@@ -833,7 +744,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
 		pArgs->SetValueThis(_valueThis);
 		pArgs->SetValueListArg(valListComp);
 		value = _pFunc->Eval(*_pEnv, *pArgs);
@@ -843,7 +754,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
 		pArgs->SetValueThis(_valueThis);
 		pArgs->SetValueListArg(valListComp);
 		value = _pFunc->Eval(*_pEnv, *pArgs);
@@ -1954,7 +1865,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
 			// **** https://github.com/gura-lang/gura/issues/1 ****
 #if 0
 			pArgs->AddValue(valueSrc);
@@ -2042,7 +1953,7 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
 			_idx++;
@@ -2114,7 +2025,7 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			if (!_pExpr->Exec2(*_pEnv, pSeqPostHandler).GetBoolean()) return false;
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
 			_idx++;
@@ -2200,7 +2111,7 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
 			_idx++;
@@ -2297,7 +2208,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
-			AutoPtr<Args> pArgs(new Args());
+			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
 			pArgs->SetValueListArg(_valListArg);
 			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
 			_idx++;

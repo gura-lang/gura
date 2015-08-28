@@ -272,7 +272,7 @@ bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pD
 	} else if (value.Is_list()) {
 		const Function *pConstructor = GetConstructor();
 		if (pConstructor == nullptr) return false;
-		AutoPtr<Args> pArgs(new Args());
+		AutoPtr<Args> pArgs(new Args(pConstructor));
 		pArgs->SetValueListArg(value.GetList());
 		value = pConstructor->Eval(env, *pArgs);
 		return !sig.IsSignalled();

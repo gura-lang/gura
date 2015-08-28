@@ -221,7 +221,7 @@ Value Function::Call(
 	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(this));
 	pArgs->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
 	pArgs->SetAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared()));
 	pArgs->SetAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
@@ -524,7 +524,7 @@ Value Function::ReturnValue(Environment &env, Args &args, const Value &result) c
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
-	AutoPtr<Args> pArgsSub(new Args());
+	AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
 	pArgsSub->SetValue(result);
 	Value value = pFuncBlock->Eval(env, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
@@ -542,7 +542,7 @@ Value Function::ReturnValues(Environment &env, Args &args, const ValueList &valL
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
-	AutoPtr<Args> pArgsSub(new Args());
+	AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
 	pArgsSub->SetValueListArg(valListArg);
 	Value value = pFuncBlock->Eval(env, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {

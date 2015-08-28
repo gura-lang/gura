@@ -26,6 +26,30 @@ public:
 		}
 		return result;
 	}
+	inline Value Eval() {
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
+		return Eval(*pArgs);
+	}
+	inline Value Eval(const Value &v1) {
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
+		pArgs->SetValue(v1);
+		return Eval(*pArgs);
+	}
+	inline Value Eval(const Value &v1, const Value &v2) {
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
+		pArgs->SetValues(v1, v2);
+		return Eval(*pArgs);
+	}
+	inline Value Eval(const Value &v1, const Value &v2, const Value &v3) {
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
+		pArgs->SetValues(v1, v2, v3);
+		return Eval(*pArgs);
+	}
+	inline Value Eval(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
+		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
+		pArgs->SetValues(v1, v2, v3, v4);
+		return Eval(*pArgs);
+	}
 };
 
 struct Context {
@@ -65,9 +89,7 @@ Context *g_pContext = nullptr;
 
 template<int idx> void OnMenuTmpl(int value)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(value));
-	g_pContext->funcPackOnMenuTbl[idx].Eval(*pArgs);
+	g_pContext->funcPackOnMenuTbl[idx].Eval(Value(value));
 }
 
 typedef void (*OnMenuType)(int value);
@@ -109,189 +131,139 @@ OnMenuType g_OnMenus[] = {
 
 void OnWMClose()
 {
-	AutoPtr<Args> pArgs(new Args());
-	g_pContext->funcPackOnWMClose.Eval(*pArgs);
+	g_pContext->funcPackOnWMClose.Eval();
 }
 
 /*
 void OnMenu(int value)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(value));
-	g_pContext->funcPackOnMenu.Eval(*pArgs);
+	g_pContext->funcPackOnMenu.Eval(Value(value));
 }
 */
 
 void OnDisplay(void)
 {
-	AutoPtr<Args> pArgs(new Args());
-	g_pContext->funcPackOnDisplay.Eval(*pArgs);
+	g_pContext->funcPackOnDisplay.Eval();
 }
 
 void OnReshape(int width, int height)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(width), Value(height));
-	g_pContext->funcPackOnReshape.Eval(*pArgs);
+	g_pContext->funcPackOnReshape.Eval(Value(width), Value(height));
 }
 
 void OnKeyboard(unsigned char key, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(key), Value(x), Value(y));
-	g_pContext->funcPackOnKeyboard.Eval(*pArgs);
+	g_pContext->funcPackOnKeyboard.Eval(Value(key), Value(x), Value(y));
 }
 
 void OnMouse(int button, int state, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(button), Value(state), Value(x), Value(y));
-	g_pContext->funcPackOnMouse.Eval(*pArgs);
+	g_pContext->funcPackOnMouse.Eval(Value(button), Value(state), Value(x), Value(y));
 }
 
 void OnMotion(int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(x), Value(y));
-	g_pContext->funcPackOnMotion.Eval(*pArgs);
+	g_pContext->funcPackOnMotion.Eval(Value(x), Value(y));
 }
 
 void OnPassiveMotion(int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(x), Value(y));
-	g_pContext->funcPackOnPassiveMotion.Eval(*pArgs);
+	g_pContext->funcPackOnPassiveMotion.Eval(Value(x), Value(y));
 }
 
 void OnEntry(int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(state));
-	g_pContext->funcPackOnEntry.Eval(*pArgs);
+	g_pContext->funcPackOnEntry.Eval(Value(state));
 }
 
 void OnVisibility(int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(state));
-	g_pContext->funcPackOnVisibility.Eval(*pArgs);
+	g_pContext->funcPackOnVisibility.Eval(Value(state));
 }
 
 void OnIdle(void)
 {
-	AutoPtr<Args> pArgs(new Args());
-	g_pContext->funcPackOnIdle.Eval(*pArgs);
+	g_pContext->funcPackOnIdle.Eval();
 }
 
 void OnTimer(int value)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(value));
-	g_pContext->funcPackOnTimer.Eval(*pArgs);
+	g_pContext->funcPackOnTimer.Eval(Value(value));
 }
 
 void OnMenuState(int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(state));
-	g_pContext->funcPackOnMenuState.Eval(*pArgs);
+	g_pContext->funcPackOnMenuState.Eval(Value(state));
 }
 
 void OnSpecial(int key, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(key), Value(x), Value(y));
-	g_pContext->funcPackOnSpecial.Eval(*pArgs);
+	g_pContext->funcPackOnSpecial.Eval(Value(key), Value(x), Value(y));
 }
 
 void OnSpaceballMotion(int x, int y, int z)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(x), Value(y), Value(z));
-	g_pContext->funcPackOnSpaceballMotion.Eval(*pArgs);
+	g_pContext->funcPackOnSpaceballMotion.Eval(Value(x), Value(y), Value(z));
 }
 
 void OnSpaceballRotate(int x, int y, int z)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(x), Value(y), Value(z));
-	g_pContext->funcPackOnSpaceballRotate.Eval(*pArgs);
+	g_pContext->funcPackOnSpaceballRotate.Eval(Value(x), Value(y), Value(z));
 }
 
 void OnSpaceballButton(int button, int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(button), Value(state));
-	g_pContext->funcPackOnSpaceballButton.Eval(*pArgs);
+	g_pContext->funcPackOnSpaceballButton.Eval(Value(button), Value(state));
 }
 
 void OnButtonBox(int button, int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(button), Value(state));
-	g_pContext->funcPackOnButtonBox.Eval(*pArgs);
+	g_pContext->funcPackOnButtonBox.Eval(Value(button), Value(state));
 }
 
 void OnDials(int dial, int value)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(dial), Value(value));
-	g_pContext->funcPackOnDials.Eval(*pArgs);
+	g_pContext->funcPackOnDials.Eval(Value(dial), Value(value));
 }
 
 void OnTabletMotion(int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(x), Value(y));
-	g_pContext->funcPackOnTabletMotion.Eval(*pArgs);
+	g_pContext->funcPackOnTabletMotion.Eval(Value(x), Value(y));
 }
 
 void OnTabletButton(int button, int state, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(button), Value(state), Value(x), Value(y));
-	g_pContext->funcPackOnTabletButton.Eval(*pArgs);
+	g_pContext->funcPackOnTabletButton.Eval(Value(button), Value(state), Value(x), Value(y));
 }
 
 void OnMenuStatus(int status, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(status), Value(x), Value(y));
-	g_pContext->funcPackOnMenuStatus.Eval(*pArgs);
+	g_pContext->funcPackOnMenuStatus.Eval(Value(status), Value(x), Value(y));
 }
 
 void OnOverlayDisplay(void)
 {
-	AutoPtr<Args> pArgs(new Args());
-	g_pContext->funcPackOnOverlayDisplay.Eval(*pArgs);
+	g_pContext->funcPackOnOverlayDisplay.Eval();
 }
 
 void OnWindowStatus(int state)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(Value(state));
-	g_pContext->funcPackOnWindowStatus.Eval(*pArgs);
+	g_pContext->funcPackOnWindowStatus.Eval(Value(state));
 }
 
 void OnKeyboardUp(unsigned char key, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(key), Value(x), Value(y));
-	g_pContext->funcPackOnKeyboardUp.Eval(*pArgs);
+	g_pContext->funcPackOnKeyboardUp.Eval(Value(key), Value(x), Value(y));
 }
 
 void OnSpecialUp(int key, int x, int y)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(key), Value(x), Value(y));
-	g_pContext->funcPackOnSpecialUp.Eval(*pArgs);
+	g_pContext->funcPackOnSpecialUp.Eval(Value(key), Value(x), Value(y));
 }
 
 void OnJoystick(unsigned int buttonMask, int x, int y, int z)
 {
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(Value(buttonMask), Value(x), Value(y), Value(z));
-	g_pContext->funcPackOnJoystick.Eval(*pArgs);
+	g_pContext->funcPackOnJoystick.Eval(Value(buttonMask), Value(x), Value(y), Value(z));
 }
 
 // glut.glutInit

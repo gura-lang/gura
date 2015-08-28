@@ -2092,9 +2092,7 @@ Gura_ImplementMethod(server, wait)
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Nil;
-		//Value value(pObjRequest);
-		//ValueList valListArg(value);
-		AutoPtr<Args> pArgsSub(new Args());
+		AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
 		pArgsSub->AddValue(Value(pObjRequest));
 		pFuncBlock->Eval(env, *pArgsSub);
 		if (sig.IsBreak()) {
@@ -2397,8 +2395,7 @@ bool Object_proxy::IsResponsible(Environment &env, const char *addr) const
 {
 	Signal &sig = env.GetSignal();
 	if (_pFuncCriteria.IsNull()) return true;
-	//ValueList valListArg(Value(env, addr));
-	AutoPtr<Args> pArgs(new Args());
+	AutoPtr<Args> pArgs(new Args(_pFuncCriteria.get()));
 	pArgs->AddValue(Value(addr));
 	Value result = _pFuncCriteria->Eval(env, *pArgs);
 	if (sig.IsSignalled()) return false;

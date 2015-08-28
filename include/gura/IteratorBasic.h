@@ -217,43 +217,6 @@ protected:
 	}
 };
 
-#if 0
-//-----------------------------------------------------------------------------
-// Iterator_Fork
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_Fork : public Iterator, public OAL::Thread {
-private:
-	AutoPtr<Environment> _pEnv;
-	AutoPtr<Function> _pFunc;
-	Value _valueThis;
-	IteratorOwner _iterOwner;
-	ValueList _valListA;
-	ValueList _valListB;
-	ValueList *_pValListToWrite;
-	ValueList *_pValListToRead;
-	ValueList::iterator _pValueRead;
-	OAL::Semaphore _semaphore;
-	bool _doneFlag;
-	struct {
-		bool blockedFlag;
-		OAL::Event event;
-	} _readBlock;
-	struct {
-		bool blockedFlag;
-		OAL::Event event;
-	} _writeBlock;
-public:
-	Iterator_Fork(Environment *pEnv,
-		Function *pFunc, const Value &valueThis, const ValueList &valListArg);
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Value &value);
-	virtual String ToString() const;
-	virtual void Run();
-	void SwapList();
-	void ForkProcess();
-};
-#endif
-
 //-----------------------------------------------------------------------------
 // Iterator_ExplicitMap
 //-----------------------------------------------------------------------------

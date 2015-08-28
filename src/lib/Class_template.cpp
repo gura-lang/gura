@@ -227,9 +227,10 @@ Gura_ImplementMethod(template_, block)
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
-		AutoPtr<Args> pArgs(new Args());
+		const Function *pFunc = pValue->GetFunction();
+		AutoPtr<Args> pArgs(new Args(pFunc));
 		pArgs->SetValueThis(args.GetValueThis());
-		pValue->GetFunction()->Eval(env, *pArgs);
+		pFunc->Eval(env, *pArgs);
 	}
 	return Value::Nil;
 }
@@ -263,11 +264,12 @@ Gura_ImplementMethod(template_, call)
 	if (pValue == nullptr || !pValue->Is_function()) {
 		return Value::Nil;
 	}
-	AutoPtr<Args> pArgs(new Args());
+	const Function *pFunc = pValue->GetFunction();
+	AutoPtr<Args> pArgs(new Args(pFunc));
 	pArgs->SetValueThis(args.GetValueThis());
 	pArgs->SetValueListArg(args.GetList(1));
 	pTemplate->ClearLastChar();
-	pValue->GetFunction()->Eval(env, *pArgs);
+	pFunc->Eval(env, *pArgs);
 	return (pTemplate->GetLastChar() == '\n')? Value::Nil : Value("");
 }
 
@@ -419,9 +421,10 @@ Gura_ImplementMethod(template_, super)
 	if (pTemplateSuper == nullptr) return Value::Nil;
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
-		AutoPtr<Args> pArgs(new Args());
+		const Function *pFunc = pValue->GetFunction();
+		AutoPtr<Args> pArgs(new Args(pFunc));
 		pArgs->SetValueThis(args.GetValueThis());
-		pValue->GetFunction()->Eval(env, *pArgs);
+		pFunc->Eval(env, *pArgs);
 	}
 	return Value::Nil;
 }
