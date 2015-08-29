@@ -19,7 +19,7 @@ const char *Version::GetBanner(bool timeStampFlag)
 #if defined(_MSC_VER)
 	::sprintf(buff, "Gura %s [MSC v.%d, %s%s] %s",
 			  GURA_VERSION, _MSC_VER, __DATE__,
-			  timeStampFLag? " " __TIME__ : "", GURA_COPYRIGHT);
+			  timeStampFlag? " " __TIME__ : "", GURA_COPYRIGHT);
 #elif defined(__clang_major__) && defined(__clang_minor__)
 	::sprintf(buff, "Gura %s [clang v.%d.%d, %s%s] %s",
 			  GURA_VERSION, __clang_major__, __clang_minor__, __DATE__,
