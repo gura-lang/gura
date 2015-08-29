@@ -74,7 +74,8 @@ Gura_ModuleEntry()
 {
 	// value assignment
 	Gura_AssignValue(version,		Value(GURA_VERSION));
-	Gura_AssignValue(banner,		Value(Version::GetBanner()));
+	Gura_AssignValue(banner,		Value(Version::GetBanner(false)));
+	Gura_AssignValue(timestamp,		Value(Version::GetTimeStamp()));
 	Gura_AssignValue(build,			Value(Symbol::Add(GURA_HOST_COMPILER_NAME)));
 	Gura_AssignValue(platform,		Value(Symbol::Add(GURA_PLATFORM_NAME)));
 	Gura_AssignValue(ps1,			Value(">>> "));

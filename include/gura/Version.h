@@ -23,7 +23,8 @@ namespace Gura {
 class GURA_DLLDECLARE Version {
 public:
 	static const char *GetVersion();
-	static const char *GetBanner();
+	static const char *GetBanner(bool timeStampFlag);
+	static const char *GetTimeStamp();
 };
 
 }

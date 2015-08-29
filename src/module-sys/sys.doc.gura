@@ -14,6 +14,7 @@ This is a built-in module, so you can use it without being imported.
 - `sys.maindir`
 - `sys.version`
 - `sys.banner`
+- `sys.timestamp`
 - `sys.build`
 - `sys.platform`
 - `sys.ps1`

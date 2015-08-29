@@ -12,7 +12,7 @@
 
 namespace Gura {
 
-void PrintVersion(FILE *fp);
+void PrintVersion(FILE *fp, bool timeStampFlag);
 void PrintHelp(FILE *fp);
 
 void ReadEvalPrintLoop(Environment &env);
@@ -47,11 +47,11 @@ int Main(int argc, const char *argv[])
 	}
 	Option &opt = env.GetOption();
 	if (opt.IsSet("version")) {
-		PrintVersion(stderr);
+		PrintVersion(stderr, false);
 		return 0;
 	}
 	if (opt.IsSet("help")) {
-		PrintVersion(stderr);
+		PrintVersion(stderr, false);
 		PrintHelp(stderr);
 		return 0;
 	}
@@ -69,7 +69,7 @@ int Main(int argc, const char *argv[])
 	bool versionPrintedFlag = false;
 	bool quietFlag = opt.IsSet("quiet");
 	if (opt.IsSet("interactive") && !quietFlag) {
-		PrintVersion(stdout);
+		PrintVersion(stdout, false);
 		versionPrintedFlag = true;
 	}
 	if (opt.IsSet("debug")) {
@@ -164,16 +164,16 @@ int Main(int argc, const char *argv[])
 		interactiveFlag = false;
 	}
 	if (interactiveFlag || opt.IsSet("interactive")) {
-		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout);
+		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout, false);
 		env.GetGlobal()->SetEchoFlag(true);
 		ReadEvalPrintLoop(env);
 	}
 	return 0;
 }
 
-void PrintVersion(FILE *fp)
+void PrintVersion(FILE *fp, bool timeStampFlag)
 {
-	::fprintf(fp, "%s\n", Version::GetBanner());
+	::fprintf(fp, "%s\n", Version::GetBanner(timeStampFlag));
 }
 
 void PrintHelp(FILE *fp)
