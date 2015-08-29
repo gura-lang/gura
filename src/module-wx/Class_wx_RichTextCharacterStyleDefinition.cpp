@@ -49,17 +49,17 @@ Gura_ImplementFunction(RichTextCharacterStyleDefinition)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxEmptyString;
-	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) name = wxString::FromUTF8(arg.GetString(0));
 	wx_RichTextCharacterStyleDefinition *pEntity = new wx_RichTextCharacterStyleDefinition(name);
-	Object_wx_RichTextCharacterStyleDefinition *pObj = Object_wx_RichTextCharacterStyleDefinition::GetObjectThis(args);
+	Object_wx_RichTextCharacterStyleDefinition *pObj = Object_wx_RichTextCharacterStyleDefinition::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextCharacterStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

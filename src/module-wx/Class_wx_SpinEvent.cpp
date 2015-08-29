@@ -50,19 +50,19 @@ Gura_ImplementFunction(SpinEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType commandType = wxEVT_NULL;
-	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
+	if (arg.IsValid(0)) commandType = static_cast<wxEventType>(arg.GetInt(0));
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	wx_SpinEvent *pEntity = new wx_SpinEvent(commandType, id);
-	Object_wx_SpinEvent *pObj = Object_wx_SpinEvent::GetObjectThis(args);
+	Object_wx_SpinEvent *pObj = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SpinEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_SpinEvent, GetPosition)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_SpinEvent, GetPosition)
 Gura_ImplementMethod(wx_SpinEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(args);
+	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SpinEvent, SetPosition)
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_SpinEvent, SetPosition)
 Gura_ImplementMethod(wx_SpinEvent, SetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(args);
+	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int pos = args.GetInt(0);
+	int pos = arg.GetInt(0);
 	pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }

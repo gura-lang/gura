@@ -57,34 +57,34 @@ Gura_ImplementFunction(FilePickerCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString path = wxEmptyString;
-	if (args.IsValid(2)) path = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) path = wxString::FromUTF8(arg.GetString(2));
 	wxString message = wxT("Select a file");
-	if (args.IsValid(3)) message = wxString::FromUTF8(args.GetString(3));
+	if (arg.IsValid(3)) message = wxString::FromUTF8(arg.GetString(3));
 	wxString wildcard = wxT("*.*");
-	if (args.IsValid(4)) wildcard = wxString::FromUTF8(args.GetString(4));
+	if (arg.IsValid(4)) wildcard = wxString::FromUTF8(arg.GetString(4));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) pos = Object_wx_Point::GetObject(arg, 5)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(6)) size = Object_wx_Size::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) size = Object_wx_Size::GetObject(arg, 6)->GetEntity();
 	long style = wxFLP_DEFAULT_STYLE;
-	if (args.IsValid(7)) style = args.GetLong(7);
+	if (arg.IsValid(7)) style = arg.GetLong(7);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(8)) validator = Object_wx_Validator::GetObject(args, 8)->GetEntity();
+	if (arg.IsValid(8)) validator = Object_wx_Validator::GetObject(arg, 8)->GetEntity();
 	wxString name = wxT("filepickerctrl");
-	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
+	if (arg.IsValid(9)) name = wxString::FromUTF8(arg.GetString(9));
 	wx_FilePickerCtrl *pEntity = new wx_FilePickerCtrl(parent, id, path, message, wildcard, *pos, *size, style, *validator, name);
-	Object_wx_FilePickerCtrl *pObj = Object_wx_FilePickerCtrl::GetObjectThis(args);
+	Object_wx_FilePickerCtrl *pObj = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilePickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, Create)
@@ -106,28 +106,28 @@ Gura_DeclareMethod(wx_FilePickerCtrl, Create)
 Gura_ImplementMethod(wx_FilePickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(args);
+	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString path = wxEmptyString;
-	if (args.IsValid(2)) path = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) path = wxString::FromUTF8(arg.GetString(2));
 	wxString message = wxT("Select a file");
-	if (args.IsValid(3)) message = wxString::FromUTF8(args.GetString(3));
+	if (arg.IsValid(3)) message = wxString::FromUTF8(arg.GetString(3));
 	wxString wildcard = wxT("*.*");
-	if (args.IsValid(4)) wildcard = wxString::FromUTF8(args.GetString(4));
+	if (arg.IsValid(4)) wildcard = wxString::FromUTF8(arg.GetString(4));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) pos = Object_wx_Point::GetObject(arg, 5)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(6)) size = Object_wx_Size::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) size = Object_wx_Size::GetObject(arg, 6)->GetEntity();
 	long style = wxFLP_DEFAULT_STYLE;
-	if (args.IsValid(7)) style = args.GetLong(7);
+	if (arg.IsValid(7)) style = arg.GetLong(7);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(8)) validator = Object_wx_Validator::GetObject(args, 8)->GetEntity();
+	if (arg.IsValid(8)) validator = Object_wx_Validator::GetObject(arg, 8)->GetEntity();
 	wxString name = wxT("filepickerctrl");
-	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
+	if (arg.IsValid(9)) name = wxString::FromUTF8(arg.GetString(9));
 	bool rtn = pThis->GetEntity()->Create(parent, id, path, message, wildcard, *pos, *size, style, *validator, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, GetPath)
@@ -139,10 +139,10 @@ Gura_DeclareMethod(wx_FilePickerCtrl, GetPath)
 Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(args);
+	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FilePickerCtrl, SetPath)
@@ -154,9 +154,9 @@ Gura_DeclareMethod(wx_FilePickerCtrl, SetPath)
 Gura_ImplementMethod(wx_FilePickerCtrl, SetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(args);
+	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetPath(filename);
 	return Value::Nil;
 }

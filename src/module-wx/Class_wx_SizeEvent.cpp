@@ -49,19 +49,19 @@ Gura_ImplementFunction(SizeEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
+	wxSize *sz = Object_wx_Size::GetObject(arg, 0)->GetEntity();
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	wx_SizeEvent *pEntity = new wx_SizeEvent(*sz, id);
-	Object_wx_SizeEvent *pObj = Object_wx_SizeEvent::GetObjectThis(args);
+	Object_wx_SizeEvent *pObj = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_SizeEvent, GetSize)
@@ -73,10 +73,10 @@ Gura_DeclareMethod(wx_SizeEvent, GetSize)
 Gura_ImplementMethod(wx_SizeEvent, GetSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(args);
+	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, args, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Size(new wxSize(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

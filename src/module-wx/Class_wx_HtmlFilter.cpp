@@ -51,15 +51,15 @@ Gura_ImplementFunction(HtmlFilterEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlFilter *pEntity = new wx_HtmlFilter();
-	Object_wx_HtmlFilter *pObj = Object_wx_HtmlFilter::GetObjectThis(args);
+	Object_wx_HtmlFilter *pObj = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlFilter(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -75,11 +75,11 @@ Gura_DeclareMethod(wx_HtmlFilter, CanRead)
 Gura_ImplementMethod(wx_HtmlFilter, CanRead)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(args);
+	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFSFile *file = Object_wx_FSFile::GetObject(args, 0)->GetEntity();
+	wxFSFile *file = Object_wx_FSFile::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->CanRead(*file);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlFilter, ReadFile)
@@ -92,11 +92,11 @@ Gura_DeclareMethod(wx_HtmlFilter, ReadFile)
 Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(args);
+	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFSFile *file = Object_wx_FSFile::GetObject(args, 0)->GetEntity();
+	wxFSFile *file = Object_wx_FSFile::GetObject(arg, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->ReadFile(*file);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

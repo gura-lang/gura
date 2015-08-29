@@ -49,15 +49,15 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(DelegateRendererNative)
@@ -72,17 +72,17 @@ Gura_ImplementFunction(DelegateRendererNative)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
+	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(arg, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DelegateRendererNative, DrawXXX)
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawXXX)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(args);
+	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DrawXXX();
 	return Value::Nil;

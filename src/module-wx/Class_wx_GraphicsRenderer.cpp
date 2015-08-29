@@ -44,10 +44,10 @@ Gura_DeclareMethod(wx_GraphicsRenderer, GetDefaultRenderer)
 Gura_ImplementMethod(wx_GraphicsRenderer, GetDefaultRenderer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGraphicsRenderer *rtn = (wxGraphicsRenderer *)pThis->GetEntity()->GetDefaultRenderer();
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsRenderer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsRenderer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext)
@@ -60,11 +60,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateContext)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindowDC *dc = Object_wx_WindowDC::GetObject(args, 0)->GetEntity();
+	wxWindowDC *dc = Object_wx_WindowDC::GetObject(arg, 0)->GetEntity();
 	wxGraphicsContext *rtn = (wxGraphicsContext *)pThis->GetEntity()->CreateContext(*dc);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext_1)
@@ -77,11 +77,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateContext_1)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateContext_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxGraphicsContext *rtn = (wxGraphicsContext *)pThis->GetEntity()->CreateContext(window);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeContext)
@@ -94,11 +94,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeContext)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateContextFromNativeContext)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int context = args.GetInt(0);
+	int context = arg.GetInt(0);
 	wxGraphicsContext *rtn = (wxGraphicsContext *)pThis->GetEntity()->CreateContextFromNativeContext(context);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeWindow)
@@ -111,11 +111,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateContextFromNativeWindow)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateContextFromNativeWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int window = args.GetInt(0);
+	int window = arg.GetInt(0);
 	wxGraphicsContext *rtn = (wxGraphicsContext *)pThis->GetEntity()->CreateContextFromNativeWindow(window);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsContext(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreatePen)
@@ -128,11 +128,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreatePen)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreatePen)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxPen *pen = Object_wx_Pen::GetObject(args, 0)->GetEntity();
+	wxPen *pen = Object_wx_Pen::GetObject(arg, 0)->GetEntity();
 	wxGraphicsPen rtn = pThis->GetEntity()->CreatePen(*pen);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsPen(new wxGraphicsPen(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsPen(new wxGraphicsPen(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateBrush)
@@ -145,11 +145,11 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateBrush)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateBrush)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBrush *brush = Object_wx_Brush::GetObject(args, 0)->GetEntity();
+	wxBrush *brush = Object_wx_Brush::GetObject(arg, 0)->GetEntity();
 	wxGraphicsBrush rtn = pThis->GetEntity()->CreateBrush(*brush);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateLinearGradientBrush)
@@ -165,14 +165,14 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateLinearGradientBrush)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateLinearGradientBrush)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDouble *x1 = Object_wx_Double::GetObject(args, 0)->GetEntity();
-	wxDouble *y1 = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	wxDouble *x2 = Object_wx_Double::GetObject(args, 2)->GetEntity();
-	wxDouble *y2 = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *x1 = Object_wx_Double::GetObject(arg, 0)->GetEntity();
+	wxDouble *y1 = Object_wx_Double::GetObject(arg, 1)->GetEntity();
+	wxDouble *x2 = Object_wx_Double::GetObject(arg, 2)->GetEntity();
+	wxDouble *y2 = Object_wx_Double::GetObject(arg, 3)->GetEntity();
 	wxGraphicsBrush rtn = pThis->GetEntity()->CreateLinearGradientBrush(*x1, *y1, *x2, *y2, , );
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateRadialGradientBrush)
@@ -191,17 +191,17 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateRadialGradientBrush)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateRadialGradientBrush)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDouble *xo = Object_wx_Double::GetObject(args, 0)->GetEntity();
-	wxDouble *yo = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	wxDouble *xc = Object_wx_Double::GetObject(args, 2)->GetEntity();
-	wxDouble *yc = Object_wx_Double::GetObject(args, 3)->GetEntity();
-	wxDouble *radius = Object_wx_Double::GetObject(args, 4)->GetEntity();
-	wxColour *oColour = Object_wx_Colour::GetObject(args, 5)->GetEntity();
-	wxColour *cColour = Object_wx_Colour::GetObject(args, 6)->GetEntity();
+	wxDouble *xo = Object_wx_Double::GetObject(arg, 0)->GetEntity();
+	wxDouble *yo = Object_wx_Double::GetObject(arg, 1)->GetEntity();
+	wxDouble *xc = Object_wx_Double::GetObject(arg, 2)->GetEntity();
+	wxDouble *yc = Object_wx_Double::GetObject(arg, 3)->GetEntity();
+	wxDouble *radius = Object_wx_Double::GetObject(arg, 4)->GetEntity();
+	wxColour *oColour = Object_wx_Colour::GetObject(arg, 5)->GetEntity();
+	wxColour *cColour = Object_wx_Colour::GetObject(arg, 6)->GetEntity();
 	wxGraphicsBrush rtn = pThis->GetEntity()->CreateRadialGradientBrush(*xo, *yo, *xc, *yc, *radius, *oColour, *cColour);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateFont)
@@ -215,13 +215,13 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateFont)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
+	wxFont *font = Object_wx_Font::GetObject(arg, 0)->GetEntity();
 	wxColour *col = (wxColour *)(&*wxBLACK);
-	if (args.IsValid(1)) col = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) col = Object_wx_Colour::GetObject(arg, 1)->GetEntity();
 	wxGraphicsFont rtn = pThis->GetEntity()->CreateFont(*font, *col);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsFont(new wxGraphicsFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsFont(new wxGraphicsFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreateMatrix)
@@ -239,22 +239,22 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreateMatrix)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreateMatrix)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDouble *a = (wxDouble *)(&1.0);
-	if (args.IsValid(0)) a = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) a = Object_wx_Double::GetObject(arg, 0)->GetEntity();
 	wxDouble *b = (wxDouble *)(&0.0);
-	if (args.IsValid(1)) b = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) b = Object_wx_Double::GetObject(arg, 1)->GetEntity();
 	wxDouble *c = (wxDouble *)(&0.0);
-	if (args.IsValid(2)) c = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) c = Object_wx_Double::GetObject(arg, 2)->GetEntity();
 	wxDouble *d = (wxDouble *)(&1.0);
-	if (args.IsValid(3)) d = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) d = Object_wx_Double::GetObject(arg, 3)->GetEntity();
 	wxDouble *tx = (wxDouble *)(&0.0);
-	if (args.IsValid(4)) tx = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) tx = Object_wx_Double::GetObject(arg, 4)->GetEntity();
 	wxDouble *ty = (wxDouble *)(&0.0);
-	if (args.IsValid(5)) ty = Object_wx_Double::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) ty = Object_wx_Double::GetObject(arg, 5)->GetEntity();
 	wxGraphicsMatrix rtn = pThis->GetEntity()->CreateMatrix(*a, *b, *c, *d, *tx, *ty);
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsMatrix(new wxGraphicsMatrix(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsMatrix(new wxGraphicsMatrix(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GraphicsRenderer, CreatePath)
@@ -266,10 +266,10 @@ Gura_DeclareMethod(wx_GraphicsRenderer, CreatePath)
 Gura_ImplementMethod(wx_GraphicsRenderer, CreatePath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(args);
+	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGraphicsPath rtn = pThis->GetEntity()->CreatePath();
-	return ReturnValue(env, args, Value(new Object_wx_GraphicsPath(new wxGraphicsPath(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_GraphicsPath(new wxGraphicsPath(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

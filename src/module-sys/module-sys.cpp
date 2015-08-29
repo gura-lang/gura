@@ -21,7 +21,7 @@ Gura_DeclareFunction(echo)
 
 Gura_ImplementFunction(echo)
 {
-	env.GetGlobal()->SetEchoFlag(args.GetBoolean(0));
+	env.GetGlobal()->SetEchoFlag(arg.GetBoolean(0));
 	return Value::Nil;
 }
 
@@ -37,7 +37,7 @@ Gura_DeclareFunction(exit)
 
 Gura_ImplementFunction(exit)
 {
-	::exit(args.Is_number(0)? args.GetInt(0) : 0);
+	::exit(arg.Is_number(0)? arg.GetInt(0) : 0);
 	return Value::Nil;
 }
 
@@ -56,9 +56,9 @@ Gura_DeclareFunction(required_version)
 Gura_ImplementFunction(required_version)
 {
 	Signal &sig = env.GetSignal();
-	int verMajor = args.GetInt(0);
-	int verMinor = args.GetInt(1);
-	int verPatch = args.GetInt(2);
+	int verMajor = arg.GetInt(0);
+	int verMinor = arg.GetInt(1);
+	int verPatch = arg.GetInt(2);
 	int numReq = verMajor * 1000000 + verMinor * 1000 + verPatch;
 	int numSys = GURA_VERSION_MAJOR * 1000000 +
 				GURA_VERSION_MINOR * 1000 + GURA_VERSION_PATCH;

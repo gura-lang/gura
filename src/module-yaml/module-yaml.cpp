@@ -22,7 +22,7 @@ Gura_ImplementFunction(compose)
 {
 	Signal &sig = env.GetSignal();
 	String str;
-	WriterToString::Write(env, str, args.GetValue(0));
+	WriterToString::Write(env, str, arg.GetValue(0));
 	return Value(str);
 }
 
@@ -39,9 +39,9 @@ Gura_DeclareFunction(parse)
 Gura_ImplementFunction(parse)
 {
 	Signal &sig = env.GetSignal();
-	Iterator_FromString *pIterator = new Iterator_FromString(args.GetString(0));
-	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, args, pIterator);
+	Iterator_FromString *pIterator = new Iterator_FromString(arg.GetString(0));
+	if (arg.IsRsltMulti()) {
+		return ReturnIterator(env, arg, pIterator);
 	}
 	Value value;
 	pIterator->Next(env, value);
@@ -62,10 +62,10 @@ Gura_DeclareFunction(read)
 Gura_ImplementFunction(read)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = args.GetStream(0);
+	Stream &stream = arg.GetStream(0);
 	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
-	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, args, pIterator);
+	if (arg.IsRsltMulti()) {
+		return ReturnIterator(env, arg, pIterator);
 	}
 	Value value;
 	pIterator->Next(env, value);
@@ -87,10 +87,10 @@ Gura_DeclareFunction(write)
 Gura_ImplementFunction(write)
 {
 	Signal &sig = env.GetSignal();
-	if (!WriterToStream::Write(env, args.GetStream(0), args.GetValue(1))) {
+	if (!WriterToStream::Write(env, arg.GetStream(0), arg.GetValue(1))) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // Module entry

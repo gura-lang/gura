@@ -49,15 +49,15 @@ Gura_ImplementFunction(MiniFrameEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MiniFrame *pEntity = new wx_MiniFrame();
-	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetObjectThis(args);
+	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MiniFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(MiniFrame)
@@ -78,28 +78,28 @@ Gura_ImplementFunction(MiniFrame)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxCAPTION | wxRESIZE_BORDER;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("frame");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	wx_MiniFrame *pEntity = new wx_MiniFrame(parent, id, title, *pos, *size, style, name);
-	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetObjectThis(args);
+	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MiniFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_MiniFrame, Create)
@@ -118,22 +118,22 @@ Gura_DeclareMethod(wx_MiniFrame, Create)
 Gura_ImplementMethod(wx_MiniFrame, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(args);
+	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxCAPTION | wxRESIZE_BORDER;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("frame");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

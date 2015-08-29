@@ -44,10 +44,10 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetSelection)
@@ -59,10 +59,10 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, GetSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetOldSelection)
@@ -74,9 +74,9 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int page = args.GetInt(0);
+	int page = arg.GetInt(0);
 	pThis->GetEntity()->SetOldSelection(page);
 	return Value::Nil;
 }
@@ -90,9 +90,9 @@ Gura_DeclareMethod(wx_BookCtrlBaseEvent, SetSelection)
 Gura_ImplementMethod(wx_BookCtrlBaseEvent, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(args);
+	Object_wx_BookCtrlBaseEvent *pThis = Object_wx_BookCtrlBaseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int page = args.GetInt(0);
+	int page = arg.GetInt(0);
 	pThis->GetEntity()->SetSelection(page);
 	return Value::Nil;
 }

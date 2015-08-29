@@ -252,23 +252,23 @@ Gura_DeclareFunction(dict)
 Gura_ImplementFunction(dict)
 {
 	Signal &sig = env.GetSignal();
-	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))), true);
+	Object_dict *pObj = new Object_dict(env, new ValueDict(arg.IsSet(Gura_Symbol(icase))), true);
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Strict;
-	if (args.GetValue(0).Is_list()) {
-		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
+	if (arg.GetValue(0).Is_list()) {
+		if (!valDict.Store(sig, arg.GetList(0), storeMode)) {
 			return Value::Nil;
 		}
-	} else if (args.GetValue(0).Is_dict()) {
-		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
+	} else if (arg.GetValue(0).Is_dict()) {
+		if (!valDict.Store(sig, arg.GetDict(0), storeMode)) {
 			return Value::Nil;
 		}
-	} else if (args.IsValid(0)) {
+	} else if (arg.IsValid(0)) {
 		sig.SetError(ERR_ValueError, "invalid argument type");
 		return Value::Nil;
 	}
-	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	if (arg.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
@@ -314,7 +314,7 @@ Gura_DeclareMethod(dict, append)
 
 Gura_ImplementMethod(dict, append)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -323,23 +323,23 @@ Gura_ImplementMethod(dict, append)
 	}
 	pThis->InvalidateIterators();
 	ValueDict::StoreMode storeMode =
-		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
-		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
+		arg.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
+		arg.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
 		ValueDict::STORE_Overwrite;
-	if (args.GetValue(0).Is_list()) {
-		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
+	if (arg.GetValue(0).Is_list()) {
+		if (!valDict.Store(sig, arg.GetList(0), storeMode)) {
 			return Value::Nil;
 		}
-	} else if (args.GetValue(0).Is_dict()) {
-		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
+	} else if (arg.GetValue(0).Is_dict()) {
+		if (!valDict.Store(sig, arg.GetDict(0), storeMode)) {
 			return Value::Nil;
 		}
-	} else if (args.IsValid(0)) {
+	} else if (arg.IsValid(0)) {
 		sig.SetError(ERR_ValueError, "invalid argument type");
 		return Value::Nil;
 	}
-	if (args.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	if (arg.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
@@ -354,7 +354,7 @@ Gura_ImplementMethod(dict, append)
 		}
 		if (!valDict.Store(sig, valList, storeMode)) return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // dict#clear()
@@ -368,7 +368,7 @@ Gura_DeclareMethod(dict, clear)
 
 Gura_ImplementMethod(dict, clear)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -394,7 +394,7 @@ Gura_DeclareMethod(dict, erase)
 
 Gura_ImplementMethod(dict, erase)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -402,7 +402,7 @@ Gura_ImplementMethod(dict, erase)
 		return Value::Nil;
 	}
 	pThis->InvalidateIterators();
-	valDict.erase(args.GetValue(0));
+	valDict.erase(arg.GetValue(0));
 	return Value::Nil;
 }
 
@@ -438,9 +438,9 @@ Gura_DeclareMethod(dict, get)
 Gura_ImplementMethod(dict, get)
 {
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
-	const Value &valueIdx = args.GetValue(0);
-	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
+	ValueDict &valDict = Object_dict::GetObjectThis(arg)->GetDict();
+	const Value &valueIdx = arg.GetValue(0);
+	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	const Value *pValue = valDict.Find(sig, valueIdx);
 	if (pValue != nullptr) {
 		return *pValue;
@@ -448,7 +448,7 @@ Gura_ImplementMethod(dict, get)
 		ValueDict::SetError_KeyNotFound(sig, valueIdx);
 		return Value::Nil;
 	} else {
-		const Value &value = args.GetValue(1);
+		const Value &value = arg.GetValue(1);
 		return value;
 	}
 }
@@ -466,8 +466,8 @@ Gura_DeclareMethod(dict, haskey)
 Gura_ImplementMethod(dict, haskey)
 {
 	Signal &sig = env.GetSignal();
-	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
-	const Value &valueIdx = args.GetValue(0);
+	ValueDict &valDict = Object_dict::GetObjectThis(arg)->GetDict();
+	const Value &valueIdx = arg.GetValue(0);
 	const Value *pValue = valDict.Find(sig, valueIdx);
 	return Value(pValue != nullptr);
 }
@@ -486,9 +486,9 @@ Gura_DeclareMethod(dict, items)
 
 Gura_ImplementMethod(dict, items)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, args,
+	return ReturnIterator(env, arg,
 							new Object_dict::IteratorItems(pObj));
 }
 
@@ -506,9 +506,9 @@ Gura_DeclareMethod(dict, keys)
 
 Gura_ImplementMethod(dict, keys)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, args,
+	return ReturnIterator(env, arg,
 							new Object_dict::IteratorKeys(pObj));
 }
 
@@ -523,7 +523,7 @@ Gura_DeclareMethod(dict, len)
 
 Gura_ImplementMethod(dict, len)
 {
-	ValueDict &valDict = Object_dict::GetObjectThis(args)->GetDict();
+	ValueDict &valDict = Object_dict::GetObjectThis(arg)->GetDict();
 	return Value(static_cast<Number>(valDict.size()));
 }
 
@@ -556,7 +556,7 @@ Gura_DeclareMethod(dict, put)
 
 Gura_ImplementMethod(dict, put)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	ValueDict &valDict = pThis->GetDict();
 	Signal &sig = env.GetSignal();
 	if (!pThis->IsWritable()) {
@@ -564,14 +564,14 @@ Gura_ImplementMethod(dict, put)
 		return Value::Nil;
 	}
 	pThis->InvalidateIterators();
-	const Value &valueIdx = args.GetValue(0);
-	const Value &value = args.GetValue(1);
+	const Value &valueIdx = arg.GetValue(0);
+	const Value &value = arg.GetValue(1);
 	ValueDict::StoreMode storeMode =
-		args.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
-		args.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
+		arg.IsSet(Gura_Symbol(strict))? ValueDict::STORE_Strict :
+		arg.IsSet(Gura_Symbol(timid))? ValueDict::STORE_Timid :
 		ValueDict::STORE_Overwrite;
 	if (!valDict.Store(sig, valueIdx, value, storeMode)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // dict#values() {block?}
@@ -588,9 +588,9 @@ Gura_DeclareMethod(dict, values)
 
 Gura_ImplementMethod(dict, values)
 {
-	Object_dict *pThis = Object_dict::GetObjectThis(args);
+	Object_dict *pThis = Object_dict::GetObjectThis(arg);
 	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, args,
+	return ReturnIterator(env, arg,
 							new Object_dict::IteratorValues(pObj));
 }
 

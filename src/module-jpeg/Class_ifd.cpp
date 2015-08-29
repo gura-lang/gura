@@ -426,8 +426,8 @@ Gura_DeclareMethod(ifd, each)
 
 Gura_ImplementMethod(ifd, each)
 {
-	Object_ifd *pThis = Object_ifd::GetObjectThis(args);
-	return ReturnIterator(env, args,
+	Object_ifd *pThis = Object_ifd::GetObjectThis(arg);
+	return ReturnIterator(env, arg,
 						new IteratorTag(Object_ifd::Reference(pThis)));
 }
 

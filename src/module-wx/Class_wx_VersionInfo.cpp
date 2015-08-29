@@ -55,27 +55,27 @@ Gura_ImplementFunction(VersionInfo)
 	Signal &sig = env.GetSignal();
 	//if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name;
-	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) name = wxString::FromUTF8(arg.GetString(0));
 	int major = 0;
-	if (args.IsValid(1)) major = args.GetInt(1);
+	if (arg.IsValid(1)) major = arg.GetInt(1);
 	int minor = 0;
-	if (args.IsValid(2)) minor = args.GetInt(2);
+	if (arg.IsValid(2)) minor = arg.GetInt(2);
 	int micro = 0;
-	if (args.IsValid(3)) micro = args.GetInt(3);
+	if (arg.IsValid(3)) micro = arg.GetInt(3);
 	wxString description;
-	if (args.IsValid(4)) description = wxString::FromUTF8(args.GetString(4));
+	if (arg.IsValid(4)) description = wxString::FromUTF8(arg.GetString(4));
 	wxString copyright;
-	if (args.IsValid(5)) copyright = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) copyright = wxString::FromUTF8(arg.GetString(5));
 	wx_VersionInfo *pEntity = new wx_VersionInfo(name, major, minor, micro, description, copyright);
-	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetObjectThis(args);
+	Object_wx_VersionInfo *pObj = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_VersionInfo(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

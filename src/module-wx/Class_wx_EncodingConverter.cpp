@@ -48,15 +48,15 @@ Gura_ImplementFunction(EncodingConverterEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_EncodingConverter *pEntity = new wx_EncodingConverter();
-	Object_wx_EncodingConverter *pObj = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pObj = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_EncodingConverter(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_EncodingConverter, Init)
@@ -71,14 +71,14 @@ Gura_DeclareMethod(wx_EncodingConverter, Init)
 Gura_ImplementMethod(wx_EncodingConverter, Init)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFontEncoding input_enc = static_cast<wxFontEncoding>(args.GetInt(0));
-	wxFontEncoding output_enc = static_cast<wxFontEncoding>(args.GetInt(1));
+	wxFontEncoding input_enc = static_cast<wxFontEncoding>(arg.GetInt(0));
+	wxFontEncoding output_enc = static_cast<wxFontEncoding>(arg.GetInt(1));
 	int method = wxCONVERT_STRICT;
-	if (args.IsValid(2)) method = args.GetInt(2);
+	if (arg.IsValid(2)) method = arg.GetInt(2);
 	bool rtn = pThis->GetEntity()->Init(input_enc, output_enc, method);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_EncodingConverter, CanConvert)
@@ -93,10 +93,10 @@ Gura_ImplementClassMethod(wx_EncodingConverter, CanConvert)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxFontEncoding encIn = static_cast<wxFontEncoding>(args.GetInt(0));
-	wxFontEncoding encOut = static_cast<wxFontEncoding>(args.GetInt(1));
+	wxFontEncoding encIn = static_cast<wxFontEncoding>(arg.GetInt(0));
+	wxFontEncoding encOut = static_cast<wxFontEncoding>(arg.GetInt(1));
 	bool rtn = wxEncodingConverter::CanConvert(encIn, encOut);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert)
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	char input = args.GetChar(0);
-	char output = args.GetChar(1);
+	char input = arg.GetChar(0);
+	char output = arg.GetChar(1);
 	bool rtn = pThis->GetEntity()->Convert(input, output);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wchar_t input = static_cast<wchar_t>(args.GetUShort(0));
-	wchar_t output = static_cast<wchar_t>(args.GetUShort(1));
+	wchar_t input = static_cast<wchar_t>(arg.GetUShort(0));
+	wchar_t output = static_cast<wchar_t>(arg.GetUShort(1));
 	bool rtn = pThis->GetEntity()->Convert(input, output);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -163,12 +163,12 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_2)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	char input = args.GetChar(0);
-	wchar_t output = static_cast<wchar_t>(args.GetUShort(1));
+	char input = arg.GetChar(0);
+	wchar_t output = static_cast<wchar_t>(arg.GetUShort(1));
 	bool rtn = pThis->GetEntity()->Convert(input, output);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_3)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wchar_t input = static_cast<wchar_t>(args.GetUShort(0));
-	char output = args.GetChar(1);
+	wchar_t input = static_cast<wchar_t>(arg.GetUShort(0));
+	char output = arg.GetChar(1);
 	bool rtn = pThis->GetEntity()->Convert(input, output);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -210,11 +210,11 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_4)
 Gura_ImplementMethod(wx_EncodingConverter, Convert_4)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxString str = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Convert(str);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 #endif
 
@@ -231,11 +231,11 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_5)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wchar_t str = static_cast<wchar_t>(args.GetUShort(0));
+	wchar_t str = static_cast<wchar_t>(arg.GetUShort(0));
 	bool rtn = pThis->GetEntity()->Convert(str);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -251,11 +251,11 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_6)
 Gura_ImplementMethod(wx_EncodingConverter, Convert_6)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(args);
+	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString input = wxString::FromUTF8(args.GetString(0));
+	wxString input = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->Convert(input);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
@@ -273,11 +273,11 @@ Gura_ImplementClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
+	wxFontEncoding enc = static_cast<wxFontEncoding>(arg.GetInt(0));
 	int platform = wxPLATFORM_CURRENT;
-	if (args.IsValid(1)) platform = args.GetInt(1);
+	if (arg.IsValid(1)) platform = arg.GetInt(1);
 	wxFontEncodingArray rtn = wxEncodingConverter::GetPlatformEquivalents(enc, platform);
-	return ReturnValue(env, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -297,9 +297,9 @@ Gura_ImplementClassMethod(wx_EncodingConverter, GetAllEquivalents)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
+	wxFontEncoding enc = static_cast<wxFontEncoding>(arg.GetInt(0));
 	wxFontEncodingArray rtn = wxEncodingConverter::GetAllEquivalents(enc);
-	return ReturnValue(env, args, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_FontEncodingArray(new wxFontEncodingArray(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

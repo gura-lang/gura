@@ -5,7 +5,7 @@
 
 Gura_BeginModuleBody(midi)
 
-Value ActivatePlayer(Environment &env, Signal &sig, Args &args,
+Value ActivatePlayer(Environment &env, Signal &sig, Argument &arg,
 				Sequence &sequence, Port *pPort, double speed, int cntRepeat);
 
 //-----------------------------------------------------------------------------
@@ -437,18 +437,18 @@ Gura_DeclareMethod(track, seek)
 Gura_ImplementMethod(track, seek)
 {
 	Signal &sig = env.GetSignal();
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	if (!args.Is_symbol(1)) {
-		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Nil;
-	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
-		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Nil;
-	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(cur))) {
-		if (!pTrack->SeekCur(sig, args.GetLong(0))) return Value::Nil;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	if (!arg.Is_symbol(1)) {
+		if (!pTrack->SeekSet(sig, arg.GetLong(0))) return Value::Nil;
+	} else if (arg.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
+		if (!pTrack->SeekSet(sig, arg.GetLong(0))) return Value::Nil;
+	} else if (arg.GetSymbol(1)->IsIdentical(Gura_Symbol(cur))) {
+		if (!pTrack->SeekCur(sig, arg.GetLong(0))) return Value::Nil;
 	} else {
 		sig.SetError(ERR_ArgumentError, "invalid symbol");
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#tell()
@@ -462,7 +462,7 @@ Gura_DeclareMethod(track, tell)
 
 Gura_ImplementMethod(track, tell)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
 	return Value(pTrack->Tell());
 }
 
@@ -481,10 +481,10 @@ Gura_DeclareMethod(track, erase)
 Gura_ImplementMethod(track, erase)
 {
 	Signal &sig = env.GetSignal();
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	size_t cnt = args.Is_number(0)? args.GetSizeT(0) : 1;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	size_t cnt = arg.Is_number(0)? arg.GetSizeT(0) : 1;
 	if (!pTrack->Erase(sig, cnt)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#mml(str:string, max_velocity?:number):map:reduce
@@ -504,13 +504,13 @@ Gura_DeclareMethod(track, mml)
 Gura_ImplementMethod(track, mml)
 {
 	Signal &sig = env.GetSignal();
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	int velocityMax = arg.Is_number(1)? arg.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (mml.ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
+	if (mml.ParseString(sig, pTrack, arg.GetString(0)) == MML::RSLT_Error) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#note_off(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
@@ -528,14 +528,14 @@ Gura_DeclareMethod(track, note_off)
 
 Gura_ImplementMethod(track, note_off)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar velocity = args.GetUChar(2);
-	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar velocity = arg.GetUChar(2);
+	ULong deltaTime = arg.Is_number(3)? arg.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOff(0, channel, note, velocity));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#note_on(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
@@ -553,14 +553,14 @@ Gura_DeclareMethod(track, note_on)
 
 Gura_ImplementMethod(track, note_on)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar velocity = args.GetUChar(2);
-	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar velocity = arg.GetUChar(2);
+	ULong deltaTime = arg.Is_number(3)? arg.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOn(0, channel, note, velocity));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#poly_pressure(channel:number, note:number, value:number, deltaTime?:number):map:reduce
@@ -578,14 +578,14 @@ Gura_DeclareMethod(track, poly_pressure)
 
 Gura_ImplementMethod(track, poly_pressure)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar value = args.GetUChar(2);
-	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar value = arg.GetUChar(2);
+	ULong deltaTime = arg.Is_number(3)? arg.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PolyPressure(0, channel, note, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#control_change(channel:number, controller, value:number, deltaTime?:number):map:reduce
@@ -604,16 +604,16 @@ Gura_DeclareMethod(track, control_change)
 Gura_ImplementMethod(track, control_change)
 {
 	Signal &sig = env.GetSignal();
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
 	UChar controller = 0;
-	if (args.Is_number(1)) {
-		controller = args.GetUChar(1);
-	} else if (args.Is_symbol(1)) {
-		int n = ControllerIdBySymbol(args.GetSymbol(1));
+	if (arg.Is_number(1)) {
+		controller = arg.GetUChar(1);
+	} else if (arg.Is_symbol(1)) {
+		int n = ControllerIdBySymbol(arg.GetSymbol(1));
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid controller name '%s'",
-											args.GetSymbol(1)->GetName());
+											arg.GetSymbol(1)->GetName());
 			return Value::Nil;
 		}
 		controller = static_cast<UChar>(n);
@@ -621,11 +621,11 @@ Gura_ImplementMethod(track, control_change)
 		sig.SetError(ERR_TypeError, "controller must be specified by number or symbol");
 		return Value::Nil;
 	}
-	UChar value = args.GetUChar(2);
-	ULong deltaTime = args.Is_number(3)? args.GetULong(3) : 0;
+	UChar value = arg.GetUChar(2);
+	ULong deltaTime = arg.Is_number(3)? arg.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ControlChange(0, channel, controller, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#program_change(channel:number, program, deltaTime?:number):map:reduce
@@ -643,16 +643,16 @@ Gura_DeclareMethod(track, program_change)
 Gura_ImplementMethod(track, program_change)
 {
 	Signal &sig = env.GetSignal();
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
 	UChar program = 0;
-	if (args.Is_number(1)) {
-		program = args.GetUChar(1);
-	} else if (args.Is_symbol(1)) {
-		int n = ProgramIdBySymbol(args.GetSymbol(1));
+	if (arg.Is_number(1)) {
+		program = arg.GetUChar(1);
+	} else if (arg.Is_symbol(1)) {
+		int n = ProgramIdBySymbol(arg.GetSymbol(1));
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid program name '%s'",
-											args.GetSymbol(1)->GetName());
+											arg.GetSymbol(1)->GetName());
 			return Value::Nil;
 		}
 		program = static_cast<UChar>(n);
@@ -660,10 +660,10 @@ Gura_ImplementMethod(track, program_change)
 		sig.SetError(ERR_TypeError, "program must be specified by number or symbol");
 		return Value::Nil;
 	}
-	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
+	ULong deltaTime = arg.Is_number(2)? arg.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#channel_pressure(channel:number, pressure:number, deltaTime?:number):map:reduce
@@ -680,13 +680,13 @@ Gura_DeclareMethod(track, channel_pressure)
 
 Gura_ImplementMethod(track, channel_pressure)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar pressure = args.GetUChar(1);
-	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar pressure = arg.GetUChar(1);
+	ULong deltaTime = arg.Is_number(2)? arg.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ChannelPressure(0, channel, pressure));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#pitch_bend(channel:number, value:number, deltaTime?:number):map:reduce
@@ -703,13 +703,13 @@ Gura_DeclareMethod(track, pitch_bend)
 
 Gura_ImplementMethod(track, pitch_bend)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UShort value = args.GetUShort(1);
-	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UShort value = arg.GetUShort(1);
+	ULong deltaTime = arg.Is_number(2)? arg.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PitchBend(0, channel, value));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#sequence_number(number:number, deltaTime?:number):map:reduce
@@ -725,11 +725,11 @@ Gura_DeclareMethod(track, sequence_number)
 
 Gura_ImplementMethod(track, sequence_number)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, args.GetUShort(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, arg.GetUShort(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#text_event(text:string, deltaTime?:number):map:reduce
@@ -745,11 +745,11 @@ Gura_DeclareMethod(track, text_event)
 
 Gura_ImplementMethod(track, text_event)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#copyright_notice(text:string, deltaTime?:number):map:reduce
@@ -765,11 +765,11 @@ Gura_DeclareMethod(track, copyright_notice)
 
 Gura_ImplementMethod(track, copyright_notice)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#sequence_or_track_name(text:string, deltaTime?:number):map:reduce
@@ -785,11 +785,11 @@ Gura_DeclareMethod(track, sequence_or_track_name)
 
 Gura_ImplementMethod(track, sequence_or_track_name)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#instrument_name(text:string, deltaTime?:number):map:reduce
@@ -805,11 +805,11 @@ Gura_DeclareMethod(track, instrument_name)
 
 Gura_ImplementMethod(track, instrument_name)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#lyric_text(text:string, deltaTime?:number):map:reduce
@@ -825,11 +825,11 @@ Gura_DeclareMethod(track, lyric_text)
 
 Gura_ImplementMethod(track, lyric_text)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#marker_text(text:string, deltaTime?:number):map:reduce
@@ -845,11 +845,11 @@ Gura_DeclareMethod(track, marker_text)
 
 Gura_ImplementMethod(track, marker_text)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#cue_point(text:string, deltaTime?:number):map:reduce
@@ -865,11 +865,11 @@ Gura_DeclareMethod(track, cue_point)
 
 Gura_ImplementMethod(track, cue_point)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
-	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, args.GetStringSTL(0)));
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
+	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, arg.GetStringSTL(0)));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#midi_channel_prefix_assignment(channel:number, deltaTime?:number):map:reduce
@@ -885,12 +885,12 @@ Gura_DeclareMethod(track, midi_channel_prefix_assignment)
 
 Gura_ImplementMethod(track, midi_channel_prefix_assignment)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar channel = args.GetUChar(0);
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar channel = arg.GetUChar(0);
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_MIDIChannelPrefixAssignment(0, channel));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#end_of_track(deltaTime?:number):map:reduce
@@ -905,11 +905,11 @@ Gura_DeclareMethod(track, end_of_track)
 
 Gura_ImplementMethod(track, end_of_track)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong deltaTime = args.Is_number(0)? args.GetULong(0) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong deltaTime = arg.Is_number(0)? arg.GetULong(0) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(0));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#tempo_setting(mpqn:number, deltaTime?:number):map:reduce
@@ -925,12 +925,12 @@ Gura_DeclareMethod(track, tempo_setting)
 
 Gura_ImplementMethod(track, tempo_setting)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	ULong mpqn = args.GetULong(0);
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	ULong mpqn = arg.GetULong(0);
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TempoSetting(0, mpqn));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number, deltaTime?:number):map:reduce
@@ -950,16 +950,16 @@ Gura_DeclareMethod(track, smpte_offset)
 
 Gura_ImplementMethod(track, smpte_offset)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar hour = args.GetUChar(0);
-	UChar minute = args.GetUChar(1);
-	UChar second = args.GetUChar(2);
-	UChar frame = args.GetUChar(3);
-	UChar subFrame = args.GetUChar(4);
-	ULong deltaTime = args.Is_number(5)? args.GetULong(5) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar hour = arg.GetUChar(0);
+	UChar minute = arg.GetUChar(1);
+	UChar second = arg.GetUChar(2);
+	UChar frame = arg.GetUChar(3);
+	UChar subFrame = arg.GetUChar(4);
+	ULong deltaTime = arg.Is_number(5)? arg.GetULong(5) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SMPTEOffset(0, hour, minute, second, frame, subFrame));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number, deltaTime?:number):map:reduce
@@ -978,15 +978,15 @@ Gura_DeclareMethod(track, time_signature)
 
 Gura_ImplementMethod(track, time_signature)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar numerator = args.GetUChar(0);
-	UChar denominator = args.GetUChar(1);
-	UChar metronome = args.GetUChar(2);
-	UChar cnt32nd = args.GetUChar(3);
-	ULong deltaTime = args.Is_number(4)? args.GetULong(4) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar numerator = arg.GetUChar(0);
+	UChar denominator = arg.GetUChar(1);
+	UChar metronome = arg.GetUChar(2);
+	UChar cnt32nd = arg.GetUChar(3);
+	ULong deltaTime = arg.Is_number(4)? arg.GetULong(4) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TimeSignature(0, numerator, denominator, metronome, cnt32nd));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#key_signature(key:number, scale:number, deltaTime?:number):map:reduce
@@ -1003,13 +1003,13 @@ Gura_DeclareMethod(track, key_signature)
 
 Gura_ImplementMethod(track, key_signature)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	UChar key = args.GetUChar(0);
-	UChar scale = args.GetUChar(1);
-	ULong deltaTime = args.Is_number(2)? args.GetULong(2) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	UChar key = arg.GetUChar(0);
+	UChar scale = arg.GetUChar(1);
+	ULong deltaTime = arg.Is_number(2)? arg.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_KeySignature(0, key, scale));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.track#sequencer_specific_event(binary:binary, deltaTime?:number):map:reduce
@@ -1025,12 +1025,12 @@ Gura_DeclareMethod(track, sequencer_specific_event)
 
 Gura_ImplementMethod(track, sequencer_specific_event)
 {
-	Track *pTrack = Object_track::GetObjectThis(args)->GetTrack();
-	const Binary &binary = args.GetBinary(0);
-	ULong deltaTime = args.Is_number(1)? args.GetULong(1) : 0;
+	Track *pTrack = Object_track::GetObjectThis(arg)->GetTrack();
+	const Binary &binary = arg.GetBinary(0);
+	ULong deltaTime = arg.Is_number(1)? arg.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequencerSpecificEvent(0, binary));
 	pTrack->AddEvent(pEvent.release(), deltaTime);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1160,9 +1160,9 @@ Gura_DeclareMethod(sequence, read)
 Gura_ImplementMethod(sequence, read)
 {
 	Signal &sig = env.GetSignal();
-	Object_sequence *pThis = Object_sequence::GetObjectThis(args);
-	if (!pThis->GetSequence().Read(env, args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_sequence *pThis = Object_sequence::GetObjectThis(arg);
+	if (!pThis->GetSequence().Read(env, arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // midi.sequence#write(stream:stream:w):map:reduce
@@ -1178,9 +1178,9 @@ Gura_DeclareMethod(sequence, write)
 Gura_ImplementMethod(sequence, write)
 {
 	Signal &sig = env.GetSignal();
-	Object_sequence *pThis = Object_sequence::GetObjectThis(args);
-	if (!pThis->GetSequence().Write(env, args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_sequence *pThis = Object_sequence::GetObjectThis(arg);
+	if (!pThis->GetSequence().Write(env, arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // midi.sequence#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
@@ -1201,11 +1201,11 @@ Gura_DeclareMethod(sequence, play)
 Gura_ImplementMethod(sequence, play)
 {
 	Signal &sig = env.GetSignal();
-	Sequence &sequence = Object_sequence::GetObjectThis(args)->GetSequence();
-	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
-	double speed = args.Is_number(1)? args.GetDouble(1) : 1;
-	int cntRepeat = args.Is_number(2)? args.GetInt(2) : -1;
-	return ActivatePlayer(env, sig, args, sequence, pPort, speed, cntRepeat);
+	Sequence &sequence = Object_sequence::GetObjectThis(arg)->GetSequence();
+	Port *pPort = Object_port::GetObject(arg, 0)->GetPort();
+	double speed = arg.Is_number(1)? arg.GetDouble(1) : 1;
+	int cntRepeat = arg.Is_number(2)? arg.GetInt(2) : -1;
+	return ActivatePlayer(env, sig, arg, sequence, pPort, speed, cntRepeat);
 }
 
 // midi.sequence#track(index:number):map {block?}
@@ -1221,8 +1221,8 @@ Gura_DeclareMethod(sequence, track)
 
 Gura_ImplementMethod(sequence, track)
 {
-	Object_sequence *pThis = Object_sequence::GetObjectThis(args);
-	size_t index = args.GetSizeT(0);
+	Object_sequence *pThis = Object_sequence::GetObjectThis(arg);
+	size_t index = arg.GetSizeT(0);
 	TrackOwner &trackOwner = pThis->GetSequence().GetTrackOwner();
 	if (index >= trackOwner.size()) {
 		size_t n = index - trackOwner.size() + 1;
@@ -1232,7 +1232,7 @@ Gura_ImplementMethod(sequence, track)
 		}
 	}
 	Track *pTrack = trackOwner[index];
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
@@ -1250,11 +1250,11 @@ Gura_DeclareMethod(sequence, mml)
 Gura_ImplementMethod(sequence, mml)
 {
 	Signal &sig = env.GetSignal();
-	Object_sequence *pThis = Object_sequence::GetObjectThis(args);
-	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
+	Object_sequence *pThis = Object_sequence::GetObjectThis(arg);
+	int velocityMax = arg.Is_number(1)? arg.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseString(sig, pThis->GetSequence(), args.GetString(0))) return Value::Nil;
-	return args.GetValueThis();
+	if (!mml.ParseString(sig, pThis->GetSequence(), arg.GetString(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // midi.sequence#readmml(stream:stream, max_velocity?:number):reduce
@@ -1271,11 +1271,11 @@ Gura_DeclareMethod(sequence, readmml)
 Gura_ImplementMethod(sequence, readmml)
 {
 	Signal &sig = env.GetSignal();
-	Object_sequence *pThis = Object_sequence::GetObjectThis(args);
-	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
+	Object_sequence *pThis = Object_sequence::GetObjectThis(arg);
+	int velocityMax = arg.Is_number(1)? arg.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseStream(sig, pThis->GetSequence(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	if (!mml.ParseStream(sig, pThis->GetSequence(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1413,8 +1413,8 @@ Gura_DeclareMethod(port, send)
 Gura_ImplementMethod(port, send)
 {
 	Signal &sig = env.GetSignal();
-	Object_port *pThis = Object_port::GetObjectThis(args);
-	const ValueList &valList = args.GetList(0);
+	Object_port *pThis = Object_port::GetObjectThis(arg);
+	const ValueList &valList = arg.GetList(0);
 	size_t nArgs = valList.size();
 	if (nArgs == 1) {
 		pThis->GetPort()->Send(valList[0].GetUChar());
@@ -1430,7 +1430,7 @@ Gura_ImplementMethod(port, send)
 		sig.SetError(ERR_ArgumentError, "too many arguments");
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#play(sequence:midi.sequence, speed?:number, repeat:number:nil => 1):map:[background,player]
@@ -1451,11 +1451,11 @@ Gura_DeclareMethod(port, play)
 Gura_ImplementMethod(port, play)
 {
 	Signal &sig = env.GetSignal();
-	Object_port *pThis = Object_port::GetObjectThis(args);
-	Sequence &sequence = Object_sequence::GetObject(args, 0)->GetSequence();
-	double speed = args.Is_number(1)? args.GetDouble(1) : 1;
-	int cntRepeat = args.Is_number(2)? args.GetInt(2) : -1;
-	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
+	Object_port *pThis = Object_port::GetObjectThis(arg);
+	Sequence &sequence = Object_sequence::GetObject(arg, 0)->GetSequence();
+	double speed = arg.Is_number(1)? arg.GetDouble(1) : 1;
+	int cntRepeat = arg.Is_number(2)? arg.GetInt(2) : -1;
+	return ActivatePlayer(env, sig, arg, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#mml(str:string, max_velocity?:number):[background,player]
@@ -1474,14 +1474,14 @@ Gura_DeclareMethod(port, mml)
 Gura_ImplementMethod(port, mml)
 {
 	Signal &sig = env.GetSignal();
-	Object_port *pThis = Object_port::GetObjectThis(args);
+	Object_port *pThis = Object_port::GetObjectThis(arg);
 	Sequence sequence;
-	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
+	int velocityMax = arg.Is_number(1)? arg.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseString(sig, sequence, args.GetString(0))) return Value::Nil;
+	if (!mml.ParseString(sig, sequence, arg.GetString(0))) return Value::Nil;
 	double speed = 1;
 	int cntRepeat = 1;
-	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
+	return ActivatePlayer(env, sig, arg, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#readmml(stream:stream, max_velocity?:number):[background,player]
@@ -1500,14 +1500,14 @@ Gura_DeclareMethod(port, readmml)
 Gura_ImplementMethod(port, readmml)
 {
 	Signal &sig = env.GetSignal();
-	Object_port *pThis = Object_port::GetObjectThis(args);
+	Object_port *pThis = Object_port::GetObjectThis(arg);
 	Sequence sequence;
-	int velocityMax = args.Is_number(1)? args.GetInt(1) : 127;
+	int velocityMax = arg.Is_number(1)? arg.GetInt(1) : 127;
 	MML mml(velocityMax);
-	if (!mml.ParseStream(sig, sequence, args.GetStream(0))) return Value::Nil;
+	if (!mml.ParseStream(sig, sequence, arg.GetStream(0))) return Value::Nil;
 	double speed = 1;
 	int cntRepeat = 1;
-	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
+	return ActivatePlayer(env, sig, arg, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
@@ -1524,12 +1524,12 @@ Gura_DeclareMethod(port, note_off)
 
 Gura_ImplementMethod(port, note_off)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar velocity = args.GetUChar(2);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar velocity = arg.GetUChar(2);
 	pPort->Send(MIDIEvent_NoteOff::Status | channel, note, velocity);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#note_on(channel:number, note:number, velocity:number):map:reduce
@@ -1546,12 +1546,12 @@ Gura_DeclareMethod(port, note_on)
 
 Gura_ImplementMethod(port, note_on)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar velocity = args.GetUChar(2);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar velocity = arg.GetUChar(2);
 	pPort->Send(MIDIEvent_NoteOn::Status | channel, note, velocity);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#poly_pressure(channel:number, note:number, value:number):map:reduce
@@ -1568,12 +1568,12 @@ Gura_DeclareMethod(port, poly_pressure)
 
 Gura_ImplementMethod(port, poly_pressure)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar note = args.GetUChar(1);
-	UChar value = args.GetUChar(2);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar note = arg.GetUChar(1);
+	UChar value = arg.GetUChar(2);
 	pPort->Send(MIDIEvent_PolyPressure::Status | channel, note, value);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#control_change(channel:number, controller:number, value:number):map:reduce
@@ -1590,12 +1590,12 @@ Gura_DeclareMethod(port, control_change)
 
 Gura_ImplementMethod(port, control_change)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar controller = args.GetUChar(1);
-	UChar value = args.GetUChar(2);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar controller = arg.GetUChar(1);
+	UChar value = arg.GetUChar(2);
 	pPort->Send(MIDIEvent_ControlChange::Status | channel, controller, value);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#program_change(channel:number, program:number):map:reduce
@@ -1611,11 +1611,11 @@ Gura_DeclareMethod(port, program_change)
 
 Gura_ImplementMethod(port, program_change)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar program = args.GetUChar(1);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar program = arg.GetUChar(1);
 	pPort->Send(MIDIEvent_ProgramChange::Status | channel, program);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#channel_pressure(channel:number, pressure:number):map:reduce
@@ -1631,11 +1631,11 @@ Gura_DeclareMethod(port, channel_pressure)
 
 Gura_ImplementMethod(port, channel_pressure)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UChar pressure = args.GetUChar(1);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UChar pressure = arg.GetUChar(1);
 	pPort->Send(MIDIEvent_ChannelPressure::Status | channel, pressure);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // midi.port#pitch_bend(channel:number, value:number):map:reduce
@@ -1651,13 +1651,13 @@ Gura_DeclareMethod(port, pitch_bend)
 
 Gura_ImplementMethod(port, pitch_bend)
 {
-	Port *pPort = Object_port::GetObjectThis(args)->GetPort();
-	UChar channel = args.GetUChar(0) & 0x0f;
-	UShort value = args.GetUShort(1);
+	Port *pPort = Object_port::GetObjectThis(arg)->GetPort();
+	UChar channel = arg.GetUChar(0) & 0x0f;
+	UShort value = arg.GetUShort(1);
 	pPort->Send(MIDIEvent_PitchBend::Status | channel,
 			static_cast<UChar>((value >> 0) & 0x7f),
 			static_cast<UChar>((value >> 7) & 0x7f));
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1941,15 +1941,15 @@ Gura_DeclareMethod(soundfont, synthesizer)
 Gura_ImplementMethod(soundfont, synthesizer)
 {
 	Signal &sig = env.GetSignal();
-	SoundFont &soundFont = Object_soundfont::GetObjectThis(args)->GetSoundFont();
-	UShort wPreset = args.GetUShort(0);
-	UShort wBank = args.GetUShort(1);
-	UChar key = args.GetUChar(2);
-	UChar velocity = args.GetUChar(3);
+	SoundFont &soundFont = Object_soundfont::GetObjectThis(arg)->GetSoundFont();
+	UShort wPreset = arg.GetUShort(0);
+	UShort wBank = arg.GetUShort(1);
+	UChar key = arg.GetUChar(2);
+	UChar velocity = arg.GetUChar(3);
 	SoundFont::Synthesizer *pSynthesizer =
 				soundFont.CreateSynthesizer(sig, wPreset, wBank, key, velocity);
 	if (pSynthesizer == nullptr) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_synthesizer(env, pSynthesizer)));
+	return ReturnValue(env, arg, Value(new Object_synthesizer(env, pSynthesizer)));
 }
 
 // midi.soundfont#print():void
@@ -1963,7 +1963,7 @@ Gura_DeclareMethod(soundfont, print)
 
 Gura_ImplementMethod(soundfont, print)
 {
-	SoundFont &soundFont = Object_soundfont::GetObjectThis(args)->GetSoundFont();
+	SoundFont &soundFont = Object_soundfont::GetObjectThis(arg)->GetSoundFont();
 	soundFont.Print();
 	return Value::Nil;
 }
@@ -2153,10 +2153,10 @@ Gura_ImplementFunction(sequence)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 	Sequence &sequence = pObj->GetSequence();
-	if (args.Is_stream(0)) {
-		if (!sequence.Read(env, args.GetStream(0))) return Value::Nil;
+	if (arg.Is_stream(0)) {
+		if (!sequence.Read(env, arg.GetStream(0))) return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // midi.port(id?:number) {block?}
@@ -2174,13 +2174,13 @@ Gura_DeclareFunction(port)
 Gura_ImplementFunction(port)
 {
 	Signal &sig = env.GetSignal();
-	int id = args.Is_number(0)? args.GetInt(0) : 0;
+	int id = arg.Is_number(0)? arg.GetInt(0) : 0;
 	AutoPtr<Object_port> pObj(new Object_port(env));
 	if (!pObj->GetPort()->Open(id)) {
 		sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // midi.controller(symbol:symbol) {block?}
@@ -2198,13 +2198,13 @@ Gura_DeclareFunction(controller)
 Gura_ImplementFunction(controller)
 {
 	Signal &sig = env.GetSignal();
-	int controller = ControllerIdBySymbol(args.GetSymbol(0));
+	int controller = ControllerIdBySymbol(arg.GetSymbol(0));
 	if (controller < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi controller");
 		return Value::Nil;
 	}
 	AutoPtr<Object_controller> pObj(new Object_controller(env, controller));
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // midi.program(symbol:symbol) {block?}
@@ -2222,13 +2222,13 @@ Gura_DeclareFunction(program)
 Gura_ImplementFunction(program)
 {
 	Signal &sig = env.GetSignal();
-	int program = ProgramIdBySymbol(args.GetSymbol(0));
+	int program = ProgramIdBySymbol(arg.GetSymbol(0));
 	if (program < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for midi program");
 		return Value::Nil;
 	}
 	AutoPtr<Object_program> pObj(new Object_program(env, program));
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // midi.soundfont(stream:stream) {block?}
@@ -2246,9 +2246,9 @@ Gura_DeclareFunction(soundfont)
 Gura_ImplementFunction(soundfont)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, args.GetStream(0).Reference()));
+	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, arg.GetStream(0).Reference()));
 	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Nil;
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // midi.test(stream:stream)
@@ -2261,7 +2261,7 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Signal &sig = env.GetSignal();
-	SoundFont sf(args.GetStream(0).Reference());
+	SoundFont sf(arg.GetStream(0).Reference());
 	::printf("check\n");
 	sf.ReadChunks(env, sig);
 	sf.Print();
@@ -2477,17 +2477,17 @@ const ProgramInfo *ProgramInfoById(int program)
 	return nullptr;
 }
 
-Value ActivatePlayer(Environment &env, Signal &sig, Args &args,
+Value ActivatePlayer(Environment &env, Signal &sig, Argument &arg,
 					Sequence &sequence, Port *pPort, double speed, int cntRepeat)
 {
 	AutoPtr<Player> pPlayer(sequence.GeneratePlayer(sig, pPort, speed, cntRepeat));
 	if (sig.IsSignalled()) return Value::Nil;
-	if (args.IsSet(Gura_UserSymbol(background))) {
+	if (arg.IsSet(Gura_UserSymbol(background))) {
 		Value value(new Object_player(env, Player::Reference(pPlayer.get())));
 		pPlayer.release()->PlayBackground();
 		return value;
 	}
-	if (args.IsSet(Gura_UserSymbol(player))) {
+	if (arg.IsSet(Gura_UserSymbol(player))) {
 		Value value(new Object_player(env, Player::Reference(pPlayer.get())));
 		return value;
 	}

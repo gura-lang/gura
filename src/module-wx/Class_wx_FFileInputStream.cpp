@@ -54,23 +54,23 @@ Gura_ImplementFunction(FFileInputStream)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	wxString _mode;
 	const wxChar *mode = wxT("rb");
-	if (args.IsValid(1)) {
-		_mode = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) {
+		_mode = wxString::FromUTF8(arg.GetString(1));
 		mode = _mode;
 	}
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream(filename, mode);
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -91,17 +91,17 @@ Gura_ImplementFunction(FFileInputStream_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxFFile *file = Object_wx_FFile::GetObject(args, 0)->GetEntity();
+	wxFFile *file = Object_wx_FFile::GetObject(arg, 0)->GetEntity();
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream(*file);
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -122,15 +122,15 @@ Gura_ImplementFunction(FFileInputStream_2)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_FFileInputStream *pEntity = new wx_FFileInputStream();
-	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(args);
+	Object_wx_FFileInputStream *pObj = Object_wx_FFileInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FFileInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -145,10 +145,10 @@ Gura_DeclareMethod(wx_FFileInputStream, IsOk)
 Gura_ImplementMethod(wx_FFileInputStream, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetObjectThis(args);
+	Object_wx_FFileInputStream *pThis = Object_wx_FFileInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

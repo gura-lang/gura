@@ -54,27 +54,27 @@ Gura_ImplementFunction(AnimationCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxAnimation *anim = Object_wx_Animation::GetObject(args, 2)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxAnimation *anim = Object_wx_Animation::GetObject(arg, 2)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxAC_DEFAULT_STYLE;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("animationctrl");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	wx_AnimationCtrl *pEntity = new wx_AnimationCtrl(parent, id, *anim, *pos, *size, style, name);
-	Object_wx_AnimationCtrl *pObj = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pObj = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AnimationCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, Create)
@@ -93,21 +93,21 @@ Gura_DeclareMethod(wx_AnimationCtrl, Create)
 Gura_ImplementMethod(wx_AnimationCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxAnimation *anim = Object_wx_Animation::GetObject(args, 2)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxAnimation *anim = Object_wx_Animation::GetObject(arg, 2)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxAC_DEFAULT_STYLE;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("animationctrl");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *anim, *pos, *size, style, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
@@ -119,10 +119,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
 Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxAnimation rtn = pThis->GetEntity()->GetAnimation();
-	return ReturnValue(env, args, Value(new Object_wx_Animation(new wxAnimation(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Animation(new wxAnimation(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
@@ -134,10 +134,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
 Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap rtn = pThis->GetEntity()->GetInactiveBitmap();
-	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
@@ -149,10 +149,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
 Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsPlaying();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
@@ -166,13 +166,13 @@ Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
 Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString file = wxString::FromUTF8(args.GetString(0));
+	wxString file = wxString::FromUTF8(arg.GetString(0));
 	wxAnimationType animType = wxANIMATION_TYPE_ANY;
-	if (args.IsValid(1)) animType = static_cast<wxAnimationType>(args.GetInt(1));
+	if (arg.IsValid(1)) animType = static_cast<wxAnimationType>(arg.GetInt(1));
 	bool rtn = pThis->GetEntity()->LoadFile(file, animType);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, Play)
@@ -184,10 +184,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, Play)
 Gura_ImplementMethod(wx_AnimationCtrl, Play)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Play();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
 Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
+	wxAnimation *anim = Object_wx_Animation::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetAnimation(*anim);
 	return Value::Nil;
 }
@@ -215,9 +215,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetInactiveBitmap)
 Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+	wxBitmap *bmp = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetInactiveBitmap(*bmp);
 	return Value::Nil;
 }
@@ -230,7 +230,7 @@ Gura_DeclareMethod(wx_AnimationCtrl, Stop)
 Gura_ImplementMethod(wx_AnimationCtrl, Stop)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(args);
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Stop();
 	return Value::Nil;

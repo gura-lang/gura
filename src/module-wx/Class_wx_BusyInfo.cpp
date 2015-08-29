@@ -49,11 +49,11 @@ Gura_ImplementFunction(BusyInfo)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString msg = wxString::FromUTF8(args.GetString(0));
+	wxString msg = wxString::FromUTF8(arg.GetString(0));
 	wxWindow *parent = (wxWindow *)(nullptr);
-	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) parent = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	wx_BusyInfo busyInfo(msg, parent);
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);

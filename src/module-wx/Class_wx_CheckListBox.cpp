@@ -50,15 +50,15 @@ Gura_ImplementFunction(CheckListBoxEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_CheckListBox *pEntity = new wx_CheckListBox();
-	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetObjectThis(args);
+	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(CheckListBox)
@@ -80,34 +80,34 @@ Gura_ImplementFunction(CheckListBox)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	std::unique_ptr<wxArrayString> choices;
-	if (args.IsValid(4)) {
-		choices.reset(CreateArrayString(args.GetList(4)));
+	if (arg.IsValid(4)) {
+		choices.reset(CreateArrayString(arg.GetList(4)));
 	} else {
 		choices.reset(new wxArrayString());
 	}
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxT("listBox");
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	wx_CheckListBox *pEntity = new wx_CheckListBox(parent, id, *pos, *size, *choices, style, *validator, name);
-	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetObjectThis(args);
+	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CheckListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_CheckListBox, Check)
@@ -120,11 +120,11 @@ Gura_DeclareMethod(wx_CheckListBox, Check)
 Gura_ImplementMethod(wx_CheckListBox, Check)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(args);
+	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int item = args.GetInt(0);
+	int item = arg.GetInt(0);
 	bool check = true;
-	if (args.IsValid(1)) check = args.GetBoolean(1);
+	if (arg.IsValid(1)) check = arg.GetBoolean(1);
 	pThis->GetEntity()->Check(item, check);
 	return Value::Nil;
 }
@@ -139,11 +139,11 @@ Gura_DeclareMethod(wx_CheckListBox, IsChecked)
 Gura_ImplementMethod(wx_CheckListBox, IsChecked)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(args);
+	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned item = args.GetInt(0);
+	unsigned item = arg.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsChecked(item);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

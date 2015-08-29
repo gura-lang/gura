@@ -139,7 +139,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(Char_Inv,		"~");
 	Gura_RealizeSymbolAlias(Char_Not,		"!");
 	Gura_RealizeSymbolAlias(Str_Empty,		"");
-	Gura_RealizeSymbol(__args__);
+	Gura_RealizeSymbol(__arg__);
 	Gura_RealizeSymbol(__del__);
 	Gura_RealizeSymbol(__doc__);
 	Gura_RealizeSymbol(__getitem__);
@@ -176,7 +176,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(aqua);
 	Gura_RealizeSymbol(ar);
 	Gura_RealizeSymbol(arg);
-	Gura_RealizeSymbol(args);
+	Gura_RealizeSymbol(arg);
 	Gura_RealizeSymbol(argsymbols);
 	Gura_RealizeSymbol(ascend);
 	Gura_RealizeSymbol(ascii);

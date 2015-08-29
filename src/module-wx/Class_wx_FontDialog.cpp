@@ -50,15 +50,15 @@ Gura_ImplementFunction(FontDialogEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FontDialog *pEntity = new wx_FontDialog();
-	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetObjectThis(args);
+	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(FontDialog)
@@ -74,24 +74,24 @@ Gura_ImplementFunction(FontDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
 	wx_FontDialog *pEntity = nullptr;
-	if (args.IsValid(1)) {
-		wxFontData *data = Object_wx_FontData::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) {
+		wxFontData *data = Object_wx_FontData::GetObject(arg, 1)->GetEntity();
 		pEntity = new wx_FontDialog(parent, *data);
 	} else {
 		pEntity = new wx_FontDialog(parent);
 	}
-	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetObjectThis(args);
+	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FontDialog, Create)
@@ -105,18 +105,18 @@ Gura_DeclareMethod(wx_FontDialog, Create)
 Gura_ImplementMethod(wx_FontDialog, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(args);
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
 	bool rtn = false;
-	if (args.IsValid(1)) {
-		wxFontData *data = Object_wx_FontData::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) {
+		wxFontData *data = Object_wx_FontData::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->Create(parent, *data);
 	} else {
 		rtn = pThis->GetEntity()->Create(parent);
 	}
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FontDialog, GetFontData)
@@ -128,10 +128,10 @@ Gura_DeclareMethod(wx_FontDialog, GetFontData)
 Gura_ImplementMethod(wx_FontDialog, GetFontData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(args);
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxFontData &rtn = pThis->GetEntity()->GetFontData();
-	return ReturnValue(env, args, Value(new Object_wx_FontData(new wxFontData(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_FontData(new wxFontData(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontDialog, ShowModal)
@@ -143,10 +143,10 @@ Gura_DeclareMethod(wx_FontDialog, ShowModal)
 Gura_ImplementMethod(wx_FontDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(args);
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

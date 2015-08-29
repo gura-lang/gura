@@ -51,22 +51,22 @@ Gura_ImplementFunction(HtmlModalHelp)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString helpFile = wxString::FromUTF8(args.GetString(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxString helpFile = wxString::FromUTF8(arg.GetString(1));
 	wxString topic = wxEmptyString;
-	if (args.IsValid(2)) topic = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) topic = wxString::FromUTF8(arg.GetString(2));
 	int style = wxHF_DEFAULT_STYLE | wxHF_DIALOG | wxHF_MODAL;
-	if (args.IsValid(3)) style = args.GetInt(3);
+	if (arg.IsValid(3)) style = arg.GetInt(3);
 	wx_HtmlModalHelp *pEntity = new wx_HtmlModalHelp(parent, helpFile, topic, style);
-	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetObjectThis(args);
+	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlModalHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

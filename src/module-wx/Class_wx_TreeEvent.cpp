@@ -50,20 +50,20 @@ Gura_ImplementFunction(TreeEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxEventType commandType = static_cast<wxEventType>(args.GetInt(0));
-	wxTreeCtrl *tree = Object_wx_TreeCtrl::GetObject(args, 1)->GetEntity();
+	wxEventType commandType = static_cast<wxEventType>(arg.GetInt(0));
+	wxTreeCtrl *tree = Object_wx_TreeCtrl::GetObject(arg, 1)->GetEntity();
 	wxTreeItemId item = wxTreeItemId();
-	if (args.IsValid(2)) item = *Object_wx_TreeItemId::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) item = *Object_wx_TreeItemId::GetObject(arg, 2)->GetEntity();
 	wx_TreeEvent *pEntity = new wx_TreeEvent(commandType, tree, item);
-	Object_wx_TreeEvent *pObj = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pObj = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetKeyCode)
@@ -75,10 +75,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetKeyCode)
 Gura_ImplementMethod(wx_TreeEvent, GetKeyCode)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetKeyCode();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetItem)
@@ -90,10 +90,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetItem)
 Gura_ImplementMethod(wx_TreeEvent, GetItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId rtn = pThis->GetEntity()->GetItem();
-	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetKeyEvent)
@@ -105,10 +105,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetKeyEvent)
 Gura_ImplementMethod(wx_TreeEvent, GetKeyEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxKeyEvent &rtn = pThis->GetEntity()->GetKeyEvent();
-	return ReturnValue(env, args, Value(new Object_wx_KeyEvent(new wxKeyEvent(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_KeyEvent(new wxKeyEvent(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetLabel)
@@ -120,10 +120,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetLabel)
 Gura_ImplementMethod(wx_TreeEvent, GetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetOldItem)
@@ -135,10 +135,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetOldItem)
 Gura_ImplementMethod(wx_TreeEvent, GetOldItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTreeItemId rtn = pThis->GetEntity()->GetOldItem();
-	return ReturnValue(env, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, GetPoint)
@@ -150,10 +150,10 @@ Gura_DeclareMethod(wx_TreeEvent, GetPoint)
 Gura_ImplementMethod(wx_TreeEvent, GetPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, IsEditCancelled)
@@ -165,10 +165,10 @@ Gura_DeclareMethod(wx_TreeEvent, IsEditCancelled)
 Gura_ImplementMethod(wx_TreeEvent, IsEditCancelled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEditCancelled();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TreeEvent, SetToolTip)
@@ -180,9 +180,9 @@ Gura_DeclareMethod(wx_TreeEvent, SetToolTip)
 Gura_ImplementMethod(wx_TreeEvent, SetToolTip)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(args);
+	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString tooltip = wxString::FromUTF8(args.GetString(0));
+	wxString tooltip = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetToolTip(tooltip);
 	return Value::Nil;
 }

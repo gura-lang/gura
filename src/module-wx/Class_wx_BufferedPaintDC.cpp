@@ -51,20 +51,20 @@ Gura_ImplementFunction(BufferedPaintDC)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
+	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxBitmap *buffer = Object_wx_Bitmap::GetObject(arg, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
-	if (args.IsValid(2)) style = args.GetInt(2);
+	if (arg.IsValid(2)) style = arg.GetInt(2);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, *buffer, style);
-	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(args);
+	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(BufferedPaintDC_1)
@@ -80,19 +80,19 @@ Gura_ImplementFunction(BufferedPaintDC_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
-	if (args.IsValid(1)) style = args.GetInt(1);
+	if (arg.IsValid(1)) style = arg.GetInt(1);
 	wx_BufferedPaintDC *pEntity = new wx_BufferedPaintDC(window, style);
-	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(args);
+	Object_wx_BufferedPaintDC *pObj = Object_wx_BufferedPaintDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BufferedPaintDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

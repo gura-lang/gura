@@ -76,11 +76,11 @@ Gura_DeclareMethod(Outline, Translate)
 
 Gura_ImplementMethod(Outline, Translate)
 {
-	FT_Outline *outline = Object_Outline::GetObjectThis(args)->GetEntity();
-	FT_Pos xOffset = static_cast<FT_Pos>(args.GetInt(0));
-	FT_Pos yOffset = static_cast<FT_Pos>(args.GetInt(1));
+	FT_Outline *outline = Object_Outline::GetObjectThis(arg)->GetEntity();
+	FT_Pos xOffset = static_cast<FT_Pos>(arg.GetInt(0));
+	FT_Pos yOffset = static_cast<FT_Pos>(arg.GetInt(1));
 	::FT_Outline_Translate(outline, xOffset, yOffset);	// void function
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.Outline#Transform(matrix:freetype.Matrix):reduce
@@ -92,10 +92,10 @@ Gura_DeclareMethod(Outline, Transform)
 
 Gura_ImplementMethod(Outline, Transform)
 {
-	FT_Outline *outline = Object_Outline::GetObjectThis(args)->GetEntity();
-	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	FT_Outline *outline = Object_Outline::GetObjectThis(arg)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(arg, 0)->GetEntity();
 	::FT_Outline_Transform(outline, matrix);	// void function
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.Outline#Embolden(strength:number):reduce
@@ -108,14 +108,14 @@ Gura_DeclareMethod(Outline, Embolden)
 Gura_ImplementMethod(Outline, Embolden)
 {
 	Signal &sig = env.GetSignal();
-	FT_Outline *outline = Object_Outline::GetObjectThis(args)->GetEntity();
-	FT_Pos strength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Outline *outline = Object_Outline::GetObjectThis(arg)->GetEntity();
+	FT_Pos strength = static_cast<FT_Pos>(arg.GetDouble(0) * (1 << 6)); // 26.6
 	FT_Error err = ::FT_Outline_Embolden(outline, strength);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 #if FREETYPE_CHECK_VERSION(2, 4, 11)
@@ -130,15 +130,15 @@ Gura_DeclareMethod(Outline, EmboldenXY)
 Gura_ImplementMethod(Outline, EmboldenXY)
 {
 	Signal &sig = env.GetSignal();
-	FT_Outline *outline = Object_Outline::GetObjectThis(args)->GetEntity();
-	FT_Pos xstrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
-	FT_Pos ystrength = static_cast<FT_Pos>(args.GetDouble(1) * (1 << 6)); // 26.6
+	FT_Outline *outline = Object_Outline::GetObjectThis(arg)->GetEntity();
+	FT_Pos xstrength = static_cast<FT_Pos>(arg.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Pos ystrength = static_cast<FT_Pos>(arg.GetDouble(1) * (1 << 6)); // 26.6
 	FT_Error err = ::FT_Outline_EmboldenXY(outline, xstrength, ystrength);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 #endif
 
@@ -150,9 +150,9 @@ Gura_DeclareMethod(Outline, Reverse)
 
 Gura_ImplementMethod(Outline, Reverse)
 {
-	FT_Outline *outline = Object_Outline::GetObjectThis(args)->GetEntity();
+	FT_Outline *outline = Object_Outline::GetObjectThis(arg)->GetEntity();
 	::FT_Outline_Reverse(outline);	// void function
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 Gura_ImplementUserClass(Outline)

@@ -71,8 +71,8 @@ Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
 Gura_ImplementMethod(environment, getprop_X)
 {
 	Signal &sig = env.GetSignal();
-	Object_environment *pThis = Object_environment::GetObjectThis(args);
-	const Symbol *pSymbol = args.GetSymbol(0);
+	Object_environment *pThis = Object_environment::GetObjectThis(arg);
+	const Symbol *pSymbol = arg.GetSymbol(0);
 	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, ENVREF_NoEscalate);
 	if (pValue == nullptr) {
 		sig.SetError(ERR_ValueError,
@@ -100,9 +100,9 @@ Gura_DeclareMethod(environment, lookup)
 
 Gura_ImplementMethod(environment, lookup)
 {
-	Object_environment *pThis = Object_environment::GetObjectThis(args);
-	EnvRefMode envRefMode = args.GetBoolean(1)? ENVREF_Escalate : ENVREF_NoEscalate;
-	const Value *pValue = pThis->GetEnv().LookupValue(args.GetSymbol(0), envRefMode, 0);
+	Object_environment *pThis = Object_environment::GetObjectThis(arg);
+	EnvRefMode envRefMode = arg.GetBoolean(1)? ENVREF_Escalate : ENVREF_NoEscalate;
+	const Value *pValue = pThis->GetEnv().LookupValue(arg.GetSymbol(0), envRefMode, 0);
 	if (pValue == nullptr) return Value::Nil;
 	return *pValue;
 }
@@ -120,8 +120,8 @@ Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 
 Gura_ImplementMethod(environment, setprop_X)
 {
-	Object_environment *pThis = Object_environment::GetObjectThis(args);
-	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
+	Object_environment *pThis = Object_environment::GetObjectThis(arg);
+	pThis->GetEnv().AssignValue(arg.GetSymbol(0), arg.GetValue(1), EXTRA_Public);
 	return Value::Nil;
 }
 

@@ -51,17 +51,17 @@ Gura_ImplementFunction(RecursionGuard)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxRecursionGuardFlag *flag = Object_wx_RecursionGuardFlag::GetObject(args, 0)->GetEntity();
+	wxRecursionGuardFlag *flag = Object_wx_RecursionGuardFlag::GetObject(arg, 0)->GetEntity();
 	wx_RecursionGuard *pEntity = new wx_RecursionGuard(*flag);
-	Object_wx_RecursionGuard *pObj = Object_wx_RecursionGuard::GetObjectThis(args);
+	Object_wx_RecursionGuard *pObj = Object_wx_RecursionGuard::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RecursionGuard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -76,10 +76,10 @@ Gura_DeclareMethod(wx_RecursionGuard, IsInside)
 Gura_ImplementMethod(wx_RecursionGuard, IsInside)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(args);
+	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsInside();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

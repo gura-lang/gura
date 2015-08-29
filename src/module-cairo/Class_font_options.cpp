@@ -34,7 +34,7 @@ Gura_ImplementClassMethod(font_options, create)
 {
 	cairo_font_options_t *font_options = ::cairo_font_options_create();
 	Object_font_options *pObjFontOptions = new Object_font_options(font_options);
-	return ReturnValue(env, args, Value(pObjFontOptions));
+	return ReturnValue(env, arg, Value(pObjFontOptions));
 }
 
 //#cairo_font_options_t *cairo_font_options_copy(const cairo_font_options_t *original);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(font_options, status)
 
 Gura_ImplementMethod(font_options, status)
 {
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *font_options = pThis->GetEntity();
 	cairo_status_t rtn = ::cairo_font_options_status(font_options);
 	return Value(rtn);
@@ -66,10 +66,10 @@ Gura_DeclareMethod(font_options, merge)
 Gura_ImplementMethod(font_options, merge)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_font_options_t *other =
-					Object_font_options::GetObject(args, 0)->GetEntity();
+					Object_font_options::GetObject(arg, 0)->GetEntity();
 	::cairo_font_options_merge(options, other);
 	if (Is_error(sig, options)) return Value::Nil;
 	return Value::Nil;
@@ -84,7 +84,7 @@ Gura_DeclareMethod(font_options, hash)
 Gura_ImplementMethod(font_options, hash)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	unsigned long rtn = ::cairo_font_options_hash(options);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -101,10 +101,10 @@ Gura_DeclareMethod(font_options, equal)
 Gura_ImplementMethod(font_options, equal)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_font_options_t *other =
-					Object_font_options::GetObject(args, 0)->GetEntity();
+					Object_font_options::GetObject(arg, 0)->GetEntity();
 	cairo_bool_t rtn = ::cairo_font_options_equal(options, other);
 	if (Is_error(sig, options)) return Value::Nil;
 	return Value(rtn);
@@ -120,9 +120,9 @@ Gura_DeclareMethod(font_options, set_antialias)
 Gura_ImplementMethod(font_options, set_antialias)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
-	cairo_antialias_t antialias = static_cast<cairo_antialias_t>(args.GetInt(0));
+	cairo_antialias_t antialias = static_cast<cairo_antialias_t>(arg.GetInt(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_font_options_set_antialias(options, antialias);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -138,7 +138,7 @@ Gura_DeclareMethod(font_options, get_antialias)
 Gura_ImplementMethod(font_options, get_antialias)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_antialias_t antialias = ::cairo_font_options_get_antialias(options);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -155,9 +155,9 @@ Gura_DeclareMethod(font_options, set_subpixel_order)
 Gura_ImplementMethod(font_options, set_subpixel_order)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
-	cairo_subpixel_order_t subpixel_order = static_cast<cairo_subpixel_order_t>(args.GetInt(0));
+	cairo_subpixel_order_t subpixel_order = static_cast<cairo_subpixel_order_t>(arg.GetInt(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_font_options_set_subpixel_order(options, subpixel_order);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -173,7 +173,7 @@ Gura_DeclareMethod(font_options, get_subpixel_order)
 Gura_ImplementMethod(font_options, get_subpixel_order)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_subpixel_order_t subpixel_order = ::cairo_font_options_get_subpixel_order(options);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -190,9 +190,9 @@ Gura_DeclareMethod(font_options, set_hint_style)
 Gura_ImplementMethod(font_options, set_hint_style)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
-	cairo_hint_style_t hint_style = static_cast<cairo_hint_style_t>(args.GetInt(0));
+	cairo_hint_style_t hint_style = static_cast<cairo_hint_style_t>(arg.GetInt(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_font_options_set_hint_style(options, hint_style);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -208,7 +208,7 @@ Gura_DeclareMethod(font_options, get_hint_style)
 Gura_ImplementMethod(font_options, get_hint_style)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_hint_style_t hint_style = ::cairo_font_options_get_hint_style(options);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -225,9 +225,9 @@ Gura_DeclareMethod(font_options, set_hint_metrics)
 Gura_ImplementMethod(font_options, set_hint_metrics)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
-	cairo_hint_metrics_t hint_metrics = static_cast<cairo_hint_metrics_t>(args.GetInt(0));
+	cairo_hint_metrics_t hint_metrics = static_cast<cairo_hint_metrics_t>(arg.GetInt(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	::cairo_font_options_set_hint_metrics(options, hint_metrics);
 	if (Is_error(sig, options)) return Value::Nil;
@@ -243,7 +243,7 @@ Gura_DeclareMethod(font_options, get_hint_metrics)
 Gura_ImplementMethod(font_options, get_hint_metrics)
 {
 	Signal &sig = env.GetSignal();
-	Object_font_options *pThis = Object_font_options::GetObjectThis(args);
+	Object_font_options *pThis = Object_font_options::GetObjectThis(arg);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_hint_metrics_t hint_metrics = ::cairo_font_options_get_hint_metrics(options);
 	if (Is_error(sig, options)) return Value::Nil;

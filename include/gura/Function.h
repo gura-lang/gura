@@ -17,7 +17,7 @@ class Func_##name : public Function {
 #define Gura_DeclareFunctionEnd(name) \
 public: \
 	Func_##name(Environment &env, const char *name = #name); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -26,7 +26,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -38,7 +38,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 	virtual Expr *MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
@@ -52,7 +52,7 @@ Gura_DeclareFunctionWithMathDiffAlias(name, #name)
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -65,7 +65,7 @@ Gura_DeclareFunctionTrailerAlias(name, #name)
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Instance, FLAG_None)
@@ -77,7 +77,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -89,7 +89,7 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 class Func_##className##__##name : public Function { \
 public: \
 	Func_##className##__##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Args &args) const; \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
@@ -97,13 +97,13 @@ Func_##className##__##name::Func_##className##__##name(Environment &env, const c
 #define Gura_DeclareClassMethod(className, name) Gura_DeclareClassMethodAlias(className, name, #name)
 
 #define Gura_ImplementFunction(name) \
-Value Func_##name::DoEval(Environment &env, Args &args) const
+Value Func_##name::DoEval(Environment &env, Argument &arg) const
 
 #define Gura_ImplementMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
 
 #define Gura_ImplementClassMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Args &args) const
+Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
 
 #define Gura_ImplementMathDiff(name) \
 Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
@@ -115,7 +115,7 @@ Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol
 namespace Gura {
 
 class CallerInfo;
-class Args;
+class Argument;
 class ExprList;
 class Expr_Block;
 class Expr_Caller;
@@ -156,14 +156,14 @@ public:
 	};
 	class GURA_DLLDECLARE ResultComposer {
 	private:
-		Args &_args;
+		Argument &_arg;
 		Value &_result;
 		ValueList *_pValList;
 		size_t _cnt;
 		bool _excludeNilFlag;
 		bool _setFlag;
 	public:
-		ResultComposer(Environment &env, Args &args, Value &result);
+		ResultComposer(Environment &env, Argument &arg, Value &result);
 		bool Store(Environment &env, const Value &value);
 	};
 	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
@@ -217,8 +217,8 @@ public:
 		Environment &env, const CallerInfo &callerInfo,
 		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
 		const TrailCtrlHolder *pTrailCtrlHolder) const;
-	Value Eval(Environment &env, Args &args) const;
-	Value EvalMap(Environment &env, Args &args) const;
+	Value Eval(Environment &env, Argument &arg) const;
+	Value EvalMap(Environment &env, Argument &arg) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
@@ -290,7 +290,7 @@ public:
 	void SetError_DivideByZero(Signal &sig) const;
 	void SetError_UnsupportedAttr(Signal &sig, const SymbolSet &attrs) const;
 	void SetError_NotConstructor(Signal &sig) const;
-	void SetError_ArgumentTypeByIndex(Signal &sig, Args &args, size_t idxArg) const;
+	void SetError_ArgumentTypeByIndex(Signal &sig, Argument &arg, size_t idxArg) const;
 	void SetError_InvalidValue(Signal &sig, const Value &value) const;
 	void SetError_InvalidValue(Signal &sig, const Value &value1, const Value &value2) const;
 	void SetError_InvalidValType(Signal &sig, const Value &value) const;
@@ -303,12 +303,12 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value ReturnValue(Environment &env, Args &args, const Value &result) const;
-	Value ReturnValues(Environment &env, Args &args, const ValueList &valListArg) const;
-	Value ReturnIterator(Environment &env, Args &args, Iterator *pIterator) const;
-	Environment *PrepareEnvironment(Environment &env, Args &args, bool thisAssignFlag) const;
+	Value ReturnValue(Environment &env, Argument &arg, const Value &result) const;
+	Value ReturnValues(Environment &env, Argument &arg, const ValueList &valListArg) const;
+	Value ReturnIterator(Environment &env, Argument &arg, Iterator *pIterator) const;
+	Environment *PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const;
 private:
-	virtual Value DoEval(Environment &env, Args &args) const = 0;
+	virtual Value DoEval(Environment &env, Argument &arg) const = 0;
 };
 
 }

@@ -48,15 +48,15 @@ Gura_ImplementFunction(PenListEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PenList *pEntity = new wx_PenList();
-	Object_wx_PenList *pObj = Object_wx_PenList::GetObjectThis(args);
+	Object_wx_PenList *pObj = Object_wx_PenList::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PenList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
@@ -71,13 +71,13 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(args);
+	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	int width = args.GetInt(1);
-	int style = args.GetInt(2);
+	wxColour *colour = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
+	int width = arg.GetInt(1);
+	int style = arg.GetInt(2);
 	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(*colour, width, style);
-	return ReturnValue(env, args, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
@@ -92,13 +92,13 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(args);
+	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString colourName = wxString::FromUTF8(args.GetString(0));
-	int width = args.GetInt(1);
-	int style = args.GetInt(2);
+	wxString colourName = wxString::FromUTF8(arg.GetString(0));
+	int width = arg.GetInt(1);
+	int style = arg.GetInt(2);
 	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(colourName, width, style);
-	return ReturnValue(env, args, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Pen(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

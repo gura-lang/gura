@@ -48,17 +48,17 @@ Gura_ImplementFunction(StringInputStream)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString s = wxString::FromUTF8(args.GetString(0));
+	wxString s = wxString::FromUTF8(arg.GetString(0));
 	wx_StringInputStream *pEntity = new wx_StringInputStream(s);
-	Object_wx_StringInputStream *pObj = Object_wx_StringInputStream::GetObjectThis(args);
+	Object_wx_StringInputStream *pObj = Object_wx_StringInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

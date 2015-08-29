@@ -119,10 +119,10 @@ Gura_ImplementFunction(uri)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_uri> pObj(new Object_uri(env));
-	if (args.Is_string(0)) {
-		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Nil;
+	if (arg.Is_string(0)) {
+		if (!pObj->GetUri().Parse(sig, arg.GetString(0))) return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -139,7 +139,7 @@ Gura_DeclareMethod(uri, getfragment)
 
 Gura_ImplementMethod(uri, getfragment)
 {
-	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(arg)->GetUri();
 	return Value(uri.ExtractFragment(uri.GetUrlPath()));
 }
 
@@ -154,7 +154,7 @@ Gura_DeclareMethod(uri, getpath)
 
 Gura_ImplementMethod(uri, getpath)
 {
-	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(arg)->GetUri();
 	return Value(uri.ExtractPath(uri.GetUrlPath()));
 }
 
@@ -169,7 +169,7 @@ Gura_DeclareMethod(uri, getquery)
 
 Gura_ImplementMethod(uri, getquery)
 {
-	const Uri &uri = Object_uri::GetObjectThis(args)->GetUri();
+	const Uri &uri = Object_uri::GetObjectThis(arg)->GetUri();
 	Value result;
 	ValueDict &valDict = result.InitAsDict(env, true);
 	Uri::ExtractQuery(uri.GetUrlPath(), valDict);
@@ -191,7 +191,7 @@ Gura_ImplementClassMethod(uri, parsequery)
 {
 	Value result;
 	ValueDict &valDict = result.InitAsDict(env, true);
-	Uri::ExtractQuery(args.GetString(0), valDict, false);
+	Uri::ExtractQuery(arg.GetString(0), valDict, false);
 	return result;
 }
 

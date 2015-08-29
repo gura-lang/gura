@@ -49,17 +49,17 @@ Gura_ImplementFunction(WindowCreateEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *win = (wxWindow *)(nullptr);
-	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) win = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wx_WindowCreateEvent *pEntity = new wx_WindowCreateEvent(win);
-	Object_wx_WindowCreateEvent *pObj = Object_wx_WindowCreateEvent::GetObjectThis(args);
+	Object_wx_WindowCreateEvent *pObj = Object_wx_WindowCreateEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowCreateEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

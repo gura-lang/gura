@@ -22,8 +22,8 @@ Gura_DeclareFunction(gcd)
 
 Gura_ImplementFunction(gcd)
 {
-	const mpz_class &num1 = Object_mpz::GetEntity(args, 0);
-	const mpz_class &num2 = Object_mpz::GetEntity(args, 1);
+	const mpz_class &num1 = Object_mpz::GetEntity(arg, 0);
+	const mpz_class &num2 = Object_mpz::GetEntity(arg, 1);
 	mpz_t num;
 	::mpz_init(num);
 	::mpz_gcd(num, num1.get_mpz_t(), num2.get_mpz_t());
@@ -44,8 +44,8 @@ Gura_DeclareFunction(lcm)
 
 Gura_ImplementFunction(lcm)
 {
-	const mpz_class &num1 = Object_mpz::GetEntity(args, 0);
-	const mpz_class &num2 = Object_mpz::GetEntity(args, 1);
+	const mpz_class &num1 = Object_mpz::GetEntity(arg, 0);
+	const mpz_class &num2 = Object_mpz::GetEntity(arg, 1);
 	mpz_t num;
 	::mpz_init(num);
 	::mpz_lcm(num, num1.get_mpz_t(), num2.get_mpz_t());
@@ -67,24 +67,24 @@ Gura_DeclareFunction(sqrt)
 Gura_ImplementFunction(sqrt)
 {
 	Signal &sig = env.GetSignal();
-	if (args.IsType(0, VTYPE_mpz)) {
-		mpf_class num(Object_mpz::GetEntity(args, 0));
+	if (arg.IsType(0, VTYPE_mpz)) {
+		mpf_class num(Object_mpz::GetEntity(arg, 0));
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
-	} else if (args.IsType(0, VTYPE_mpq)) {
-		mpf_class num(Object_mpq::GetEntity(args, 0));
+	} else if (arg.IsType(0, VTYPE_mpq)) {
+		mpf_class num(Object_mpq::GetEntity(arg, 0));
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
-	} else if (args.IsType(0, VTYPE_mpf)) {
-		const mpf_class &num = Object_mpf::GetEntity(args, 0);
+	} else if (arg.IsType(0, VTYPE_mpf)) {
+		const mpf_class &num = Object_mpf::GetEntity(arg, 0);
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
-	} else if (args.Is_number(0)) {
-		mpf_class num(args.GetDouble(0));
+	} else if (arg.Is_number(0)) {
+		mpf_class num(arg.GetDouble(0));
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
 	}
-	SetError_ArgumentTypeByIndex(sig, args, 0);
+	SetError_ArgumentTypeByIndex(sig, arg, 0);
 	return Value::Nil;
 }
 

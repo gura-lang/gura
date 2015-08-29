@@ -57,31 +57,31 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
-	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(args, 1)->GetEntity();
+	int flags = arg.GetInt(0);
+	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(arg, 1)->GetEntity();
 	wxRichTextCtrl *ctrl = nullptr;
-	if (args.IsValid(2)) ctrl = Object_wx_RichTextCtrl::GetObject(args, 2)->GetEntity();
-	wxWindow *parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(2)) ctrl = Object_wx_RichTextCtrl::GetObject(arg, 2)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 3)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(4)) id = static_cast<wxWindowID>(args.GetInt(4));
+	if (arg.IsValid(4)) id = static_cast<wxWindowID>(arg.GetInt(4));
 	wxString caption = _("Style Organiser");
-	if (args.IsValid(5)) caption = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) caption = wxString::FromUTF8(arg.GetString(5));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(6)) pos = Object_wx_Point::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) pos = Object_wx_Point::GetObject(arg, 6)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(7)) size = Object_wx_Size::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) size = Object_wx_Size::GetObject(arg, 7)->GetEntity();
 	long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX;
-	if (args.IsValid(8)) style = args.GetLong(8);
+	if (arg.IsValid(8)) style = arg.GetLong(8);
 	wx_RichTextStyleOrganiserDialog *pEntity = new wx_RichTextStyleOrganiserDialog(flags, sheet, ctrl, parent, id, caption, *pos, *size, style);
-	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleOrganiserDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(RichTextStyleOrganiserDialogEmpty)
@@ -96,15 +96,15 @@ Gura_ImplementFunction(RichTextStyleOrganiserDialogEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_RichTextStyleOrganiserDialog *pEntity = new wx_RichTextStyleOrganiserDialog();
-	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleOrganiserDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
@@ -117,12 +117,12 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextCtrl *ctrl = (wxRichTextCtrl *)(nullptr);
-	if (args.IsValid(0)) ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) ctrl = Object_wx_RichTextCtrl::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->ApplyStyle(ctrl);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, Create)
@@ -143,24 +143,24 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, Create)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
-	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(args, 1)->GetEntity();
-	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 2)->GetEntity();
-	wxWindow *parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
+	int flags = arg.GetInt(0);
+	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(arg, 1)->GetEntity();
+	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(arg, 2)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 3)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(4)) id = static_cast<wxWindowID>(args.GetInt(4));
+	if (arg.IsValid(4)) id = static_cast<wxWindowID>(arg.GetInt(4));
 	wxString caption = _("Style Organiser");
-	if (args.IsValid(5)) caption = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) caption = wxString::FromUTF8(arg.GetString(5));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(6)) pos = Object_wx_Point::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) pos = Object_wx_Point::GetObject(arg, 6)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(7)) size = Object_wx_Size::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) size = Object_wx_Size::GetObject(arg, 7)->GetEntity();
 	long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxSYSTEM_MENU|wxCLOSE_BOX;
-	if (args.IsValid(8)) style = args.GetLong(8);
+	if (arg.IsValid(8)) style = arg.GetLong(8);
 	bool rtn = pThis->GetEntity()->Create(flags, sheet, ctrl, parent, id, caption, *pos, *size, style);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
@@ -172,10 +172,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
@@ -187,10 +187,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetRestartNumbering();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
@@ -202,10 +202,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pThis->GetEntity()->GetRichTextCtrl();
-	return ReturnValue(env, args, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
@@ -217,10 +217,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetSelectedStyle();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
@@ -232,10 +232,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextStyleDefinition *rtn = (wxRichTextStyleDefinition *)pThis->GetEntity()->GetSelectedStyleDefinition();
-	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_RichTextStyleDefinition(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
@@ -247,10 +247,10 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
-	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
@@ -262,9 +262,9 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
+	int flags = arg.GetInt(0);
 	pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool restartNumbering = args.GetBoolean(0);
+	bool restartNumbering = arg.GetBoolean(0);
 	pThis->GetEntity()->SetRestartNumbering(restartNumbering);
 	return Value::Nil;
 }
@@ -294,9 +294,9 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
+	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetRichTextCtrl(ctrl);
 	return Value::Nil;
 }
@@ -310,9 +310,9 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool show = args.GetBoolean(0);
+	bool show = arg.GetBoolean(0);
 	pThis->GetEntity()->SetShowToolTips(show);
 	return Value::Nil;
 }
@@ -326,9 +326,9 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
 Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(args);
+	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
+	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetStyleSheet(sheet);
 	return Value::Nil;
 }

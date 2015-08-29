@@ -107,7 +107,7 @@ Gura_DeclareMethod(mysql, close)
 
 Gura_ImplementMethod(mysql, close)
 {
-	Object_mysql *pObj = Object_mysql::GetObjectThis(args);
+	Object_mysql *pObj = Object_mysql::GetObjectThis(arg);
 	pObj->Close();
 	return Value::Nil;
 }
@@ -125,11 +125,11 @@ Gura_DeclareMethod(mysql, query)
 Gura_ImplementMethod(mysql, query)
 {
 	Signal &sig = env.GetSignal();
-	Object_mysql *pObj = Object_mysql::GetObjectThis(args);
-	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
+	Object_mysql *pObj = Object_mysql::GetObjectThis(arg);
+	Iterator *pIterator = pObj->Query(sig, arg.GetString(0));
 	// Object_mysql::Query() may return nullptr even if no error occurs.
 	if (pIterator == nullptr) return Value::Nil;
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // assignment
@@ -158,10 +158,10 @@ Gura_DeclareFunction(connect)
 Gura_ImplementFunction(connect)
 {
 	Signal &sig = env.GetSignal();
-	const char *host = args.Is_string(0)? args.GetString(0) : nullptr;
-	const char *user = args.Is_string(1)? args.GetString(1) : nullptr;
-	const char *passwd = args.Is_string(2)? args.GetString(2) : nullptr;
-	const char *db = args.Is_string(3)? args.GetString(3) : nullptr;
+	const char *host = arg.Is_string(0)? arg.GetString(0) : nullptr;
+	const char *user = arg.Is_string(1)? arg.GetString(1) : nullptr;
+	const char *passwd = arg.Is_string(2)? arg.GetString(2) : nullptr;
+	const char *db = arg.Is_string(3)? arg.GetString(3) : nullptr;
 	unsigned int port = 0;
 	const char *unix_socket = nullptr;
 	unsigned long client_flag = 0;
@@ -171,9 +171,9 @@ Gura_ImplementFunction(connect)
 		return Value::Nil;
 	}
 	Value result(pObj);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		const Function *pFuncBlock =
-						args.GetBlockFunc(env, GetSymbolForBlock());
+						arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Nil;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);

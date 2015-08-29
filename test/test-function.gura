@@ -59,7 +59,7 @@ testcase {
 testcase {
 	f():[foo,bar,hoge] = {
 		printf('foo:%d bar:%d hoge:%d\n',
-			__args__.isset(`foo), __args__.isset(`bar), __args__.isset(`hoge))
+			__arg__.isset(`foo), __arg__.isset(`bar), __arg__.isset(`hoge))
 	}
 	f():foo
 	f():bar
@@ -407,7 +407,7 @@ testcase {
 }
 testcase {
 	f(a:number, b, c, d[]:number):map = {
-		println(__args__.values):nomap
+		println(__arg__.values):nomap
 	}
 	f(1, 2, 3, [4, 5, 6])
 }
@@ -415,7 +415,7 @@ testcase {
 	f(x:number) = {
 		if (x % 2 == 0) {
 			println('x is an even number, quit trailer')
-			__args__.quit_trailer()
+			__arg__.quit_trailer()
 		}
 	}
 	f(0) println('trailer')

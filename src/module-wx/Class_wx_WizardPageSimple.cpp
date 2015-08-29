@@ -52,23 +52,23 @@ Gura_ImplementFunction(WizardPageSimple)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWizard *parent = (wxWizard *)(nullptr);
-	if (args.IsValid(0)) parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) parent = Object_wx_Wizard::GetObject(arg, 0)->GetEntity();
 	wxWizardPage *prev = (wxWizardPage *)(nullptr);
-	if (args.IsValid(1)) prev = Object_wx_WizardPage::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) prev = Object_wx_WizardPage::GetObject(arg, 1)->GetEntity();
 	wxWizardPage *next = (wxWizardPage *)(nullptr);
-	if (args.IsValid(2)) next = Object_wx_WizardPage::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) next = Object_wx_WizardPage::GetObject(arg, 2)->GetEntity();
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
-	if (args.IsValid(3)) bitmap = Object_wx_Bitmap::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) bitmap = Object_wx_Bitmap::GetObject(arg, 3)->GetEntity();
 	wx_WizardPageSimple *pEntity = new wx_WizardPageSimple(parent, prev, next, *bitmap);
-	Object_wx_WizardPageSimple *pObj = Object_wx_WizardPageSimple::GetObjectThis(args);
+	Object_wx_WizardPageSimple *pObj = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardPageSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
 Gura_ImplementMethod(wx_WizardPageSimple, SetPrev)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(args);
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	Object_wx_WizardPage *prev = Object_wx_WizardPage::GetObject(args, 0);
+	Object_wx_WizardPage *prev = Object_wx_WizardPage::GetObject(arg, 0);
 	pThis->SetPrev(prev);
 	return Value::Nil;
 }
@@ -96,9 +96,9 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetNext)
 Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(args);
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	Object_wx_WizardPage *next = Object_wx_WizardPage::GetObject(args, 0);
+	Object_wx_WizardPage *next = Object_wx_WizardPage::GetObject(arg, 0);
 	pThis->SetNext(next);
 	return Value::Nil;
 }
@@ -112,12 +112,12 @@ Gura_DeclareMethod(wx_WizardPageSimple, Chain)
 Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(args);
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	Object_wx_WizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0);
+	Object_wx_WizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(arg, 0);
 	pThis->SetNext(next);
 	next->SetPrev(pThis);
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
@@ -131,8 +131,8 @@ Gura_ImplementClassMethod(wx_WizardPageSimple, ChainBoth)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	Object_wx_WizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0);
-	Object_wx_WizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1);
+	Object_wx_WizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(arg, 0);
+	Object_wx_WizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(arg, 1);
 	first->SetNext(second);
 	second->SetPrev(first);
 	return Value::Nil;

@@ -26,10 +26,10 @@ Gura_DeclareClassMethod(ft_font_face, create_for_ft_face)
 Gura_ImplementClassMethod(ft_font_face, create_for_ft_face)
 {
 	//FT_Face face = nullptr;
-	int load_flag = args.GetInt(1);
+	int load_flag = arg.GetInt(1);
 	cairo_font_face_t *font_face = ::cairo_ft_font_face_create_for_ft_face(face, load_flags);
 	Object_ft_font_face *pObjFontFace = new Object_ft_font_face(font_face);
-	return ReturnValue(env, args, Value(pObjFontFace));
+	return ReturnValue(env, arg, Value(pObjFontFace));
 }
 #endif
 

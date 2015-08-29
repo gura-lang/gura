@@ -17,9 +17,9 @@ public:
 		_pEnv.reset(nullptr);
 		_pFunc.reset(nullptr);
 	}
-	inline Value Eval(Args &args) {
+	inline Value Eval(Argument &arg) {
 		if (_pFunc.IsNull()) return Value::Nil;
-		Value result = _pFunc->Eval(*_pEnv, args);
+		Value result = _pFunc->Eval(*_pEnv, arg);
 		if (_pEnv->GetSignal().IsSignalled()) {
 			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);
@@ -27,28 +27,28 @@ public:
 		return result;
 	}
 	inline Value Eval() {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValue(v1);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValue(v1);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2, v3);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2, v3);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2, v3, v4);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2, v3, v4);
+		return Eval(*pArg);
 	}
 };
 
@@ -279,7 +279,7 @@ Gura_DeclareFunctionAlias(__glutInit, "glutInit")
 
 Gura_ImplementFunction(__glutInit)
 {
-	const ValueList &argv = args.GetList(0);
+	const ValueList &argv = arg.GetList(0);
 	int argc = static_cast<int>(argv.size());
 	char **_argv = nullptr;
 	if (argc > 0) {
@@ -300,7 +300,7 @@ Gura_ImplementFunction(__glutInit)
 		}
 		delete[] _argv;
 	}
-	return ReturnValue(env, args, _rtnVal);
+	return ReturnValue(env, arg, _rtnVal);
 }
 
 // glut.glutInitDisplayMode
@@ -315,7 +315,7 @@ Gura_DeclareFunctionAlias(__glutInitDisplayMode, "glutInitDisplayMode")
 
 Gura_ImplementFunction(__glutInitDisplayMode)
 {
-	unsigned int mode = args.GetUInt(0);
+	unsigned int mode = arg.GetUInt(0);
 	glutInitDisplayMode(mode);
 	return Value::Nil;
 }
@@ -332,7 +332,7 @@ Gura_DeclareFunctionAlias(__glutInitDisplayString, "glutInitDisplayString")
 
 Gura_ImplementFunction(__glutInitDisplayString)
 {
-	const char *string = args.GetString(0);
+	const char *string = arg.GetString(0);
 	glutInitDisplayString(string);
 	return Value::Nil;
 }
@@ -350,8 +350,8 @@ Gura_DeclareFunctionAlias(__glutInitWindowPosition, "glutInitWindowPosition")
 
 Gura_ImplementFunction(__glutInitWindowPosition)
 {
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
 	glutInitWindowPosition(x, y);
 	return Value::Nil;
 }
@@ -369,8 +369,8 @@ Gura_DeclareFunctionAlias(__glutInitWindowSize, "glutInitWindowSize")
 
 Gura_ImplementFunction(__glutInitWindowSize)
 {
-	int width = args.GetInt(0);
-	int height = args.GetInt(1);
+	int width = arg.GetInt(0);
+	int height = arg.GetInt(1);
 	glutInitWindowSize(width, height);
 	return Value::Nil;
 }
@@ -403,9 +403,9 @@ Gura_DeclareFunctionAlias(__glutCreateWindow, "glutCreateWindow")
 
 Gura_ImplementFunction(__glutCreateWindow)
 {
-	const char *title = args.GetString(0);
+	const char *title = arg.GetString(0);
 	int _rtn = glutCreateWindow(title);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutCreateSubWindow
@@ -425,13 +425,13 @@ Gura_DeclareFunctionAlias(__glutCreateSubWindow, "glutCreateSubWindow")
 
 Gura_ImplementFunction(__glutCreateSubWindow)
 {
-	int win = args.GetInt(0);
-	int x = args.GetInt(1);
-	int y = args.GetInt(2);
-	int width = args.GetInt(3);
-	int height = args.GetInt(4);
+	int win = arg.GetInt(0);
+	int x = arg.GetInt(1);
+	int y = arg.GetInt(2);
+	int width = arg.GetInt(3);
+	int height = arg.GetInt(4);
 	int _rtn = glutCreateSubWindow(win, x, y, width, height);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutDestroyWindow
@@ -446,7 +446,7 @@ Gura_DeclareFunctionAlias(__glutDestroyWindow, "glutDestroyWindow")
 
 Gura_ImplementFunction(__glutDestroyWindow)
 {
-	int win = args.GetInt(0);
+	int win = arg.GetInt(0);
 	glutDestroyWindow(win);
 	return Value::Nil;
 }
@@ -478,7 +478,7 @@ Gura_DeclareFunctionAlias(__glutPostWindowRedisplay, "glutPostWindowRedisplay")
 
 Gura_ImplementFunction(__glutPostWindowRedisplay)
 {
-	int win = args.GetInt(0);
+	int win = arg.GetInt(0);
 	glutPostWindowRedisplay(win);
 	return Value::Nil;
 }
@@ -511,7 +511,7 @@ Gura_DeclareFunctionAlias(__glutGetWindow, "glutGetWindow")
 Gura_ImplementFunction(__glutGetWindow)
 {
 	int _rtn = glutGetWindow();
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutSetWindow
@@ -526,7 +526,7 @@ Gura_DeclareFunctionAlias(__glutSetWindow, "glutSetWindow")
 
 Gura_ImplementFunction(__glutSetWindow)
 {
-	int win = args.GetInt(0);
+	int win = arg.GetInt(0);
 	glutSetWindow(win);
 	return Value::Nil;
 }
@@ -543,7 +543,7 @@ Gura_DeclareFunctionAlias(__glutSetWindowTitle, "glutSetWindowTitle")
 
 Gura_ImplementFunction(__glutSetWindowTitle)
 {
-	const char *title = args.GetString(0);
+	const char *title = arg.GetString(0);
 	glutSetWindowTitle(title);
 	return Value::Nil;
 }
@@ -560,7 +560,7 @@ Gura_DeclareFunctionAlias(__glutSetIconTitle, "glutSetIconTitle")
 
 Gura_ImplementFunction(__glutSetIconTitle)
 {
-	const char *title = args.GetString(0);
+	const char *title = arg.GetString(0);
 	glutSetIconTitle(title);
 	return Value::Nil;
 }
@@ -578,8 +578,8 @@ Gura_DeclareFunctionAlias(__glutPositionWindow, "glutPositionWindow")
 
 Gura_ImplementFunction(__glutPositionWindow)
 {
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
 	glutPositionWindow(x, y);
 	return Value::Nil;
 }
@@ -597,8 +597,8 @@ Gura_DeclareFunctionAlias(__glutReshapeWindow, "glutReshapeWindow")
 
 Gura_ImplementFunction(__glutReshapeWindow)
 {
-	int width = args.GetInt(0);
-	int height = args.GetInt(1);
+	int width = arg.GetInt(0);
+	int height = arg.GetInt(1);
 	glutReshapeWindow(width, height);
 	return Value::Nil;
 }
@@ -705,7 +705,7 @@ Gura_DeclareFunctionAlias(__glutSetCursor, "glutSetCursor")
 
 Gura_ImplementFunction(__glutSetCursor)
 {
-	int cursor = args.GetInt(0);
+	int cursor = arg.GetInt(0);
 	glutSetCursor(cursor);
 	return Value::Nil;
 }
@@ -723,8 +723,8 @@ Gura_DeclareFunctionAlias(__glutWarpPointer, "glutWarpPointer")
 
 Gura_ImplementFunction(__glutWarpPointer)
 {
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
 	glutWarpPointer(x, y);
 	return Value::Nil;
 }
@@ -771,7 +771,7 @@ Gura_DeclareFunctionAlias(__glutUseLayer, "glutUseLayer")
 
 Gura_ImplementFunction(__glutUseLayer)
 {
-	GLenum layer = static_cast<GLenum>(args.GetInt(0));
+	GLenum layer = static_cast<GLenum>(arg.GetInt(0));
 	glutUseLayer(layer);
 	return Value::Nil;
 }
@@ -803,7 +803,7 @@ Gura_DeclareFunctionAlias(__glutPostWindowOverlayRedisplay, "glutPostWindowOverl
 
 Gura_ImplementFunction(__glutPostWindowOverlayRedisplay)
 {
-	int win = args.GetInt(0);
+	int win = arg.GetInt(0);
 	glutPostWindowOverlayRedisplay(win);
 	return Value::Nil;
 }
@@ -852,7 +852,7 @@ Gura_DeclareFunctionAlias(__glutCreateMenu, "glutCreateMenu")
 Gura_ImplementFunction(__glutCreateMenu)
 {
 	Signal &sig = env.GetSignal();
-	const Function *func = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *func = Object_function::GetObject(arg, 0)->GetFunction();
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
 		sig.SetError(ERR_OutOfRangeError, "too many menus");
@@ -860,7 +860,7 @@ Gura_ImplementFunction(__glutCreateMenu)
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutDestroyMenu
@@ -875,7 +875,7 @@ Gura_DeclareFunctionAlias(__glutDestroyMenu, "glutDestroyMenu")
 
 Gura_ImplementFunction(__glutDestroyMenu)
 {
-	int menu = args.GetInt(0);
+	int menu = arg.GetInt(0);
 	glutDestroyMenu(menu);
 	return Value::Nil;
 }
@@ -893,7 +893,7 @@ Gura_DeclareFunctionAlias(__glutGetMenu, "glutGetMenu")
 Gura_ImplementFunction(__glutGetMenu)
 {
 	int _rtn = glutGetMenu();
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutSetMenu
@@ -908,7 +908,7 @@ Gura_DeclareFunctionAlias(__glutSetMenu, "glutSetMenu")
 
 Gura_ImplementFunction(__glutSetMenu)
 {
-	int menu = args.GetInt(0);
+	int menu = arg.GetInt(0);
 	glutSetMenu(menu);
 	return Value::Nil;
 }
@@ -926,8 +926,8 @@ Gura_DeclareFunctionAlias(__glutAddMenuEntry, "glutAddMenuEntry")
 
 Gura_ImplementFunction(__glutAddMenuEntry)
 {
-	const char *label = args.GetString(0);
-	int value = args.GetInt(1);
+	const char *label = arg.GetString(0);
+	int value = arg.GetInt(1);
 	glutAddMenuEntry(label, value);
 	return Value::Nil;
 }
@@ -945,8 +945,8 @@ Gura_DeclareFunctionAlias(__glutAddSubMenu, "glutAddSubMenu")
 
 Gura_ImplementFunction(__glutAddSubMenu)
 {
-	const char *label = args.GetString(0);
-	int submenu = args.GetInt(1);
+	const char *label = arg.GetString(0);
+	int submenu = arg.GetInt(1);
 	glutAddSubMenu(label, submenu);
 	return Value::Nil;
 }
@@ -965,9 +965,9 @@ Gura_DeclareFunctionAlias(__glutChangeToMenuEntry, "glutChangeToMenuEntry")
 
 Gura_ImplementFunction(__glutChangeToMenuEntry)
 {
-	int item = args.GetInt(0);
-	const char *label = args.GetString(1);
-	int value = args.GetInt(2);
+	int item = arg.GetInt(0);
+	const char *label = arg.GetString(1);
+	int value = arg.GetInt(2);
 	glutChangeToMenuEntry(item, label, value);
 	return Value::Nil;
 }
@@ -986,9 +986,9 @@ Gura_DeclareFunctionAlias(__glutChangeToSubMenu, "glutChangeToSubMenu")
 
 Gura_ImplementFunction(__glutChangeToSubMenu)
 {
-	int item = args.GetInt(0);
-	const char *label = args.GetString(1);
-	int submenu = args.GetInt(2);
+	int item = arg.GetInt(0);
+	const char *label = arg.GetString(1);
+	int submenu = arg.GetInt(2);
 	glutChangeToSubMenu(item, label, submenu);
 	return Value::Nil;
 }
@@ -1005,7 +1005,7 @@ Gura_DeclareFunctionAlias(__glutRemoveMenuItem, "glutRemoveMenuItem")
 
 Gura_ImplementFunction(__glutRemoveMenuItem)
 {
-	int item = args.GetInt(0);
+	int item = arg.GetInt(0);
 	glutRemoveMenuItem(item);
 	return Value::Nil;
 }
@@ -1022,7 +1022,7 @@ Gura_DeclareFunctionAlias(__glutAttachMenu, "glutAttachMenu")
 
 Gura_ImplementFunction(__glutAttachMenu)
 {
-	int button = args.GetInt(0);
+	int button = arg.GetInt(0);
 	glutAttachMenu(button);
 	return Value::Nil;
 }
@@ -1039,7 +1039,7 @@ Gura_DeclareFunctionAlias(__glutDetachMenu, "glutDetachMenu")
 
 Gura_ImplementFunction(__glutDetachMenu)
 {
-	int button = args.GetInt(0);
+	int button = arg.GetInt(0);
 	glutDetachMenu(button);
 	return Value::Nil;
 }
@@ -1056,7 +1056,7 @@ Gura_DeclareFunctionAlias(__glutDisplayFunc, "glutDisplayFunc")
 
 Gura_ImplementFunction(__glutDisplayFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnDisplay.ClearFunc();
 		glutDisplayFunc(nullptr);
@@ -1079,7 +1079,7 @@ Gura_DeclareFunctionAlias(__glutReshapeFunc, "glutReshapeFunc")
 
 Gura_ImplementFunction(__glutReshapeFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnReshape.ClearFunc();
 		glutReshapeFunc(nullptr);
@@ -1102,7 +1102,7 @@ Gura_DeclareFunctionAlias(__glutKeyboardFunc, "glutKeyboardFunc")
 
 Gura_ImplementFunction(__glutKeyboardFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnKeyboard.ClearFunc();
 		glutKeyboardFunc(nullptr);
@@ -1125,7 +1125,7 @@ Gura_DeclareFunctionAlias(__glutMouseFunc, "glutMouseFunc")
 
 Gura_ImplementFunction(__glutMouseFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnMouse.ClearFunc();
 		glutMouseFunc(nullptr);
@@ -1148,7 +1148,7 @@ Gura_DeclareFunctionAlias(__glutMotionFunc, "glutMotionFunc")
 
 Gura_ImplementFunction(__glutMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnMotion.ClearFunc();
 		glutMotionFunc(nullptr);
@@ -1171,7 +1171,7 @@ Gura_DeclareFunctionAlias(__glutPassiveMotionFunc, "glutPassiveMotionFunc")
 
 Gura_ImplementFunction(__glutPassiveMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnPassiveMotion.ClearFunc();
 		glutPassiveMotionFunc(nullptr);
@@ -1194,7 +1194,7 @@ Gura_DeclareFunctionAlias(__glutEntryFunc, "glutEntryFunc")
 
 Gura_ImplementFunction(__glutEntryFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnEntry.ClearFunc();
 		glutEntryFunc(nullptr);
@@ -1217,7 +1217,7 @@ Gura_DeclareFunctionAlias(__glutVisibilityFunc, "glutVisibilityFunc")
 
 Gura_ImplementFunction(__glutVisibilityFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnVisibility.ClearFunc();
 		glutVisibilityFunc(nullptr);
@@ -1240,7 +1240,7 @@ Gura_DeclareFunctionAlias(__glutIdleFunc, "glutIdleFunc")
 
 Gura_ImplementFunction(__glutIdleFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnIdle.ClearFunc();
 		glutIdleFunc(nullptr);
@@ -1265,9 +1265,9 @@ Gura_DeclareFunctionAlias(__glutTimerFunc, "glutTimerFunc")
 
 Gura_ImplementFunction(__glutTimerFunc)
 {
-	unsigned int millis = args.GetUInt(0);
-	const Function *func = args.IsValid(1)? Object_function::GetObject(args, 1)->GetFunction() : nullptr;
-	int value = args.GetInt(2);
+	unsigned int millis = arg.GetUInt(0);
+	const Function *func = arg.IsValid(1)? Object_function::GetObject(arg, 1)->GetFunction() : nullptr;
+	int value = arg.GetInt(2);
 	if (func == nullptr) {
 		g_pContext->funcPackOnTimer.ClearFunc();
 		glutTimerFunc(millis, nullptr, value);
@@ -1290,7 +1290,7 @@ Gura_DeclareFunctionAlias(__glutMenuStateFunc, "glutMenuStateFunc")
 
 Gura_ImplementFunction(__glutMenuStateFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnMenuState.ClearFunc();
 		glutMenuStateFunc(nullptr);
@@ -1313,7 +1313,7 @@ Gura_DeclareFunctionAlias(__glutSpecialFunc, "glutSpecialFunc")
 
 Gura_ImplementFunction(__glutSpecialFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnSpecial.ClearFunc();
 		glutSpecialFunc(nullptr);
@@ -1336,7 +1336,7 @@ Gura_DeclareFunctionAlias(__glutSpaceballMotionFunc, "glutSpaceballMotionFunc")
 
 Gura_ImplementFunction(__glutSpaceballMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballMotion.ClearFunc();
 		glutSpaceballMotionFunc(nullptr);
@@ -1359,7 +1359,7 @@ Gura_DeclareFunctionAlias(__glutSpaceballRotateFunc, "glutSpaceballRotateFunc")
 
 Gura_ImplementFunction(__glutSpaceballRotateFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballRotate.ClearFunc();
 		glutSpaceballRotateFunc(nullptr);
@@ -1382,7 +1382,7 @@ Gura_DeclareFunctionAlias(__glutSpaceballButtonFunc, "glutSpaceballButtonFunc")
 
 Gura_ImplementFunction(__glutSpaceballButtonFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnSpaceballButton.ClearFunc();
 		glutSpaceballButtonFunc(nullptr);
@@ -1405,7 +1405,7 @@ Gura_DeclareFunctionAlias(__glutButtonBoxFunc, "glutButtonBoxFunc")
 
 Gura_ImplementFunction(__glutButtonBoxFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnButtonBox.ClearFunc();
 		glutButtonBoxFunc(nullptr);
@@ -1428,7 +1428,7 @@ Gura_DeclareFunctionAlias(__glutDialsFunc, "glutDialsFunc")
 
 Gura_ImplementFunction(__glutDialsFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnDials.ClearFunc();
 		glutDialsFunc(nullptr);
@@ -1451,7 +1451,7 @@ Gura_DeclareFunctionAlias(__glutTabletMotionFunc, "glutTabletMotionFunc")
 
 Gura_ImplementFunction(__glutTabletMotionFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnTabletMotion.ClearFunc();
 		glutTabletMotionFunc(nullptr);
@@ -1474,7 +1474,7 @@ Gura_DeclareFunctionAlias(__glutTabletButtonFunc, "glutTabletButtonFunc")
 
 Gura_ImplementFunction(__glutTabletButtonFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnTabletButton.ClearFunc();
 		glutTabletButtonFunc(nullptr);
@@ -1497,7 +1497,7 @@ Gura_DeclareFunctionAlias(__glutMenuStatusFunc, "glutMenuStatusFunc")
 
 Gura_ImplementFunction(__glutMenuStatusFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnMenuStatus.ClearFunc();
 		glutMenuStatusFunc(nullptr);
@@ -1520,7 +1520,7 @@ Gura_DeclareFunctionAlias(__glutOverlayDisplayFunc, "glutOverlayDisplayFunc")
 
 Gura_ImplementFunction(__glutOverlayDisplayFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnOverlayDisplay.ClearFunc();
 		glutOverlayDisplayFunc(nullptr);
@@ -1543,7 +1543,7 @@ Gura_DeclareFunctionAlias(__glutWindowStatusFunc, "glutWindowStatusFunc")
 
 Gura_ImplementFunction(__glutWindowStatusFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnWindowStatus.ClearFunc();
 		glutWindowStatusFunc(nullptr);
@@ -1566,7 +1566,7 @@ Gura_DeclareFunctionAlias(__glutKeyboardUpFunc, "glutKeyboardUpFunc")
 
 Gura_ImplementFunction(__glutKeyboardUpFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnKeyboardUp.ClearFunc();
 		glutKeyboardUpFunc(nullptr);
@@ -1589,7 +1589,7 @@ Gura_DeclareFunctionAlias(__glutSpecialUpFunc, "glutSpecialUpFunc")
 
 Gura_ImplementFunction(__glutSpecialUpFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
 	if (func == nullptr) {
 		g_pContext->funcPackOnSpecialUp.ClearFunc();
 		glutSpecialUpFunc(nullptr);
@@ -1613,8 +1613,8 @@ Gura_DeclareFunctionAlias(__glutJoystickFunc, "glutJoystickFunc")
 
 Gura_ImplementFunction(__glutJoystickFunc)
 {
-	const Function *func = args.IsValid(0)? Object_function::GetObject(args, 0)->GetFunction() : nullptr;
-	int pollInterval = args.GetInt(1);
+	const Function *func = arg.IsValid(0)? Object_function::GetObject(arg, 0)->GetFunction() : nullptr;
+	int pollInterval = arg.GetInt(1);
 	if (func == nullptr) {
 		g_pContext->funcPackOnJoystick.ClearFunc();
 		glutJoystickFunc(nullptr, pollInterval);
@@ -1640,10 +1640,10 @@ Gura_DeclareFunctionAlias(__glutSetColor, "glutSetColor")
 
 Gura_ImplementFunction(__glutSetColor)
 {
-	int ndx = args.GetInt(0);
-	GLfloat red = args.GetFloat(1);
-	GLfloat green = args.GetFloat(2);
-	GLfloat blue = args.GetFloat(3);
+	int ndx = arg.GetInt(0);
+	GLfloat red = arg.GetFloat(1);
+	GLfloat green = arg.GetFloat(2);
+	GLfloat blue = arg.GetFloat(3);
 	glutSetColor(ndx, red, green, blue);
 	return Value::Nil;
 }
@@ -1662,10 +1662,10 @@ Gura_DeclareFunctionAlias(__glutGetColor, "glutGetColor")
 
 Gura_ImplementFunction(__glutGetColor)
 {
-	int ndx = args.GetInt(0);
-	int component = args.GetInt(1);
+	int ndx = arg.GetInt(0);
+	int component = arg.GetInt(1);
 	GLfloat _rtn = glutGetColor(ndx, component);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutCopyColormap
@@ -1680,7 +1680,7 @@ Gura_DeclareFunctionAlias(__glutCopyColormap, "glutCopyColormap")
 
 Gura_ImplementFunction(__glutCopyColormap)
 {
-	int win = args.GetInt(0);
+	int win = arg.GetInt(0);
 	glutCopyColormap(win);
 	return Value::Nil;
 }
@@ -1698,9 +1698,9 @@ Gura_DeclareFunctionAlias(__glutGet, "glutGet")
 
 Gura_ImplementFunction(__glutGet)
 {
-	GLenum type = static_cast<GLenum>(args.GetInt(0));
+	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 	int _rtn = glutGet(type);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutDeviceGet
@@ -1716,9 +1716,9 @@ Gura_DeclareFunctionAlias(__glutDeviceGet, "glutDeviceGet")
 
 Gura_ImplementFunction(__glutDeviceGet)
 {
-	GLenum type = static_cast<GLenum>(args.GetInt(0));
+	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 	int _rtn = glutDeviceGet(type);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutExtensionSupported
@@ -1734,9 +1734,9 @@ Gura_DeclareFunctionAlias(__glutExtensionSupported, "glutExtensionSupported")
 
 Gura_ImplementFunction(__glutExtensionSupported)
 {
-	const char *name = args.GetString(0);
+	const char *name = arg.GetString(0);
 	int _rtn = glutExtensionSupported(name);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutGetModifiers
@@ -1752,7 +1752,7 @@ Gura_DeclareFunctionAlias(__glutGetModifiers, "glutGetModifiers")
 Gura_ImplementFunction(__glutGetModifiers)
 {
 	int _rtn = glutGetModifiers();
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutLayerGet
@@ -1768,9 +1768,9 @@ Gura_DeclareFunctionAlias(__glutLayerGet, "glutLayerGet")
 
 Gura_ImplementFunction(__glutLayerGet)
 {
-	GLenum type = static_cast<GLenum>(args.GetInt(0));
+	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 	int _rtn = glutLayerGet(type);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutGetProcAddress
@@ -1788,7 +1788,7 @@ Gura_ImplementFunction(__glutGetProcAddress)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	const char *procName = args.GetString(0);
+	const char *procName = arg.GetString(0);
 	glutGetProcAddress(procName);
 	return Value::Nil;
 #endif
@@ -1809,8 +1809,8 @@ Gura_DeclareFunctionAlias(__glutBitmapCharacter, "glutBitmapCharacter")
 
 Gura_ImplementFunction(__glutBitmapCharacter)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	int character = args.GetInt(1);
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	int character = arg.GetInt(1);
 	glutBitmapCharacter(font, character);
 	return Value::Nil;
 }
@@ -1829,10 +1829,10 @@ Gura_DeclareFunctionAlias(__glutBitmapWidth, "glutBitmapWidth")
 
 Gura_ImplementFunction(__glutBitmapWidth)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	int character = args.GetInt(1);
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	int character = arg.GetInt(1);
 	int _rtn = glutBitmapWidth(font, character);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutStrokeCharacter
@@ -1848,8 +1848,8 @@ Gura_DeclareFunctionAlias(__glutStrokeCharacter, "glutStrokeCharacter")
 
 Gura_ImplementFunction(__glutStrokeCharacter)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	int character = args.GetInt(1);
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	int character = arg.GetInt(1);
 	glutStrokeCharacter(font, character);
 	return Value::Nil;
 }
@@ -1868,10 +1868,10 @@ Gura_DeclareFunctionAlias(__glutStrokeWidth, "glutStrokeWidth")
 
 Gura_ImplementFunction(__glutStrokeWidth)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	int character = args.GetInt(1);
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	int character = arg.GetInt(1);
 	int _rtn = glutStrokeWidth(font, character);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutBitmapLength
@@ -1888,10 +1888,10 @@ Gura_DeclareFunctionAlias(__glutBitmapLength, "glutBitmapLength")
 
 Gura_ImplementFunction(__glutBitmapLength)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	const unsigned char *string = reinterpret_cast<const unsigned char *>(arg.GetString(1));
 	int _rtn = glutBitmapLength(font, string);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutStrokeLength
@@ -1908,10 +1908,10 @@ Gura_DeclareFunctionAlias(__glutStrokeLength, "glutStrokeLength")
 
 Gura_ImplementFunction(__glutStrokeLength)
 {
-	void *font = Object_Font::GetObject(args, 0)->GetEntity();
-	const unsigned char *string = reinterpret_cast<const unsigned char *>(args.GetString(1));
+	void *font = Object_Font::GetObject(arg, 0)->GetEntity();
+	const unsigned char *string = reinterpret_cast<const unsigned char *>(arg.GetString(1));
 	int _rtn = glutStrokeLength(font, string);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutWireSphere
@@ -1928,9 +1928,9 @@ Gura_DeclareFunctionAlias(__glutWireSphere, "glutWireSphere")
 
 Gura_ImplementFunction(__glutWireSphere)
 {
-	GLdouble radius = args.GetDouble(0);
-	GLint slices = args.GetInt(1);
-	GLint stacks = args.GetInt(2);
+	GLdouble radius = arg.GetDouble(0);
+	GLint slices = arg.GetInt(1);
+	GLint stacks = arg.GetInt(2);
 	glutWireSphere(radius, slices, stacks);
 	return Value::Nil;
 }
@@ -1949,9 +1949,9 @@ Gura_DeclareFunctionAlias(__glutSolidSphere, "glutSolidSphere")
 
 Gura_ImplementFunction(__glutSolidSphere)
 {
-	GLdouble radius = args.GetDouble(0);
-	GLint slices = args.GetInt(1);
-	GLint stacks = args.GetInt(2);
+	GLdouble radius = arg.GetDouble(0);
+	GLint slices = arg.GetInt(1);
+	GLint stacks = arg.GetInt(2);
 	glutSolidSphere(radius, slices, stacks);
 	return Value::Nil;
 }
@@ -1971,10 +1971,10 @@ Gura_DeclareFunctionAlias(__glutWireCone, "glutWireCone")
 
 Gura_ImplementFunction(__glutWireCone)
 {
-	GLdouble base = args.GetDouble(0);
-	GLdouble height = args.GetDouble(1);
-	GLint slices = args.GetInt(2);
-	GLint stacks = args.GetInt(3);
+	GLdouble base = arg.GetDouble(0);
+	GLdouble height = arg.GetDouble(1);
+	GLint slices = arg.GetInt(2);
+	GLint stacks = arg.GetInt(3);
 	glutWireCone(base, height, slices, stacks);
 	return Value::Nil;
 }
@@ -1994,10 +1994,10 @@ Gura_DeclareFunctionAlias(__glutSolidCone, "glutSolidCone")
 
 Gura_ImplementFunction(__glutSolidCone)
 {
-	GLdouble base = args.GetDouble(0);
-	GLdouble height = args.GetDouble(1);
-	GLint slices = args.GetInt(2);
-	GLint stacks = args.GetInt(3);
+	GLdouble base = arg.GetDouble(0);
+	GLdouble height = arg.GetDouble(1);
+	GLint slices = arg.GetInt(2);
+	GLint stacks = arg.GetInt(3);
 	glutSolidCone(base, height, slices, stacks);
 	return Value::Nil;
 }
@@ -2014,7 +2014,7 @@ Gura_DeclareFunctionAlias(__glutWireCube, "glutWireCube")
 
 Gura_ImplementFunction(__glutWireCube)
 {
-	GLdouble size = args.GetDouble(0);
+	GLdouble size = arg.GetDouble(0);
 	glutWireCube(size);
 	return Value::Nil;
 }
@@ -2031,7 +2031,7 @@ Gura_DeclareFunctionAlias(__glutSolidCube, "glutSolidCube")
 
 Gura_ImplementFunction(__glutSolidCube)
 {
-	GLdouble size = args.GetDouble(0);
+	GLdouble size = arg.GetDouble(0);
 	glutSolidCube(size);
 	return Value::Nil;
 }
@@ -2051,10 +2051,10 @@ Gura_DeclareFunctionAlias(__glutWireTorus, "glutWireTorus")
 
 Gura_ImplementFunction(__glutWireTorus)
 {
-	GLdouble innerRadius = args.GetDouble(0);
-	GLdouble outerRadius = args.GetDouble(1);
-	GLint sides = args.GetInt(2);
-	GLint rings = args.GetInt(3);
+	GLdouble innerRadius = arg.GetDouble(0);
+	GLdouble outerRadius = arg.GetDouble(1);
+	GLint sides = arg.GetInt(2);
+	GLint rings = arg.GetInt(3);
 	glutWireTorus(innerRadius, outerRadius, sides, rings);
 	return Value::Nil;
 }
@@ -2074,10 +2074,10 @@ Gura_DeclareFunctionAlias(__glutSolidTorus, "glutSolidTorus")
 
 Gura_ImplementFunction(__glutSolidTorus)
 {
-	GLdouble innerRadius = args.GetDouble(0);
-	GLdouble outerRadius = args.GetDouble(1);
-	GLint sides = args.GetInt(2);
-	GLint rings = args.GetInt(3);
+	GLdouble innerRadius = arg.GetDouble(0);
+	GLdouble outerRadius = arg.GetDouble(1);
+	GLint sides = arg.GetInt(2);
+	GLint rings = arg.GetInt(3);
 	glutSolidTorus(innerRadius, outerRadius, sides, rings);
 	return Value::Nil;
 }
@@ -2124,7 +2124,7 @@ Gura_DeclareFunctionAlias(__glutWireTeapot, "glutWireTeapot")
 
 Gura_ImplementFunction(__glutWireTeapot)
 {
-	GLdouble size = args.GetDouble(0);
+	GLdouble size = arg.GetDouble(0);
 	glutWireTeapot(size);
 	return Value::Nil;
 }
@@ -2141,7 +2141,7 @@ Gura_DeclareFunctionAlias(__glutSolidTeapot, "glutSolidTeapot")
 
 Gura_ImplementFunction(__glutSolidTeapot)
 {
-	GLdouble size = args.GetDouble(0);
+	GLdouble size = arg.GetDouble(0);
 	glutSolidTeapot(size);
 	return Value::Nil;
 }
@@ -2249,9 +2249,9 @@ Gura_DeclareFunctionAlias(__glutVideoResizeGet, "glutVideoResizeGet")
 
 Gura_ImplementFunction(__glutVideoResizeGet)
 {
-	GLenum param = static_cast<GLenum>(args.GetInt(0));
+	GLenum param = static_cast<GLenum>(arg.GetInt(0));
 	int _rtn = glutVideoResizeGet(param);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutSetupVideoResizing
@@ -2299,10 +2299,10 @@ Gura_DeclareFunctionAlias(__glutVideoResize, "glutVideoResize")
 
 Gura_ImplementFunction(__glutVideoResize)
 {
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
-	int width = args.GetInt(2);
-	int height = args.GetInt(3);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
+	int width = arg.GetInt(2);
+	int height = arg.GetInt(3);
 	glutVideoResize(x, y, width, height);
 	return Value::Nil;
 }
@@ -2322,10 +2322,10 @@ Gura_DeclareFunctionAlias(__glutVideoPan, "glutVideoPan")
 
 Gura_ImplementFunction(__glutVideoPan)
 {
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
-	int width = args.GetInt(2);
-	int height = args.GetInt(3);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
+	int width = arg.GetInt(2);
+	int height = arg.GetInt(3);
 	glutVideoPan(x, y, width, height);
 	return Value::Nil;
 }
@@ -2357,7 +2357,7 @@ Gura_DeclareFunctionAlias(__glutIgnoreKeyRepeat, "glutIgnoreKeyRepeat")
 
 Gura_ImplementFunction(__glutIgnoreKeyRepeat)
 {
-	int ignore = args.GetInt(0);
+	int ignore = arg.GetInt(0);
 	glutIgnoreKeyRepeat(ignore);
 	return Value::Nil;
 }
@@ -2374,7 +2374,7 @@ Gura_DeclareFunctionAlias(__glutSetKeyRepeat, "glutSetKeyRepeat")
 
 Gura_ImplementFunction(__glutSetKeyRepeat)
 {
-	int repeatMode = args.GetInt(0);
+	int repeatMode = arg.GetInt(0);
 	glutSetKeyRepeat(repeatMode);
 	return Value::Nil;
 }
@@ -2406,7 +2406,7 @@ Gura_DeclareFunctionAlias(__glutGameModeString, "glutGameModeString")
 
 Gura_ImplementFunction(__glutGameModeString)
 {
-	const char *string = args.GetString(0);
+	const char *string = arg.GetString(0);
 	glutGameModeString(string);
 	return Value::Nil;
 }
@@ -2424,7 +2424,7 @@ Gura_DeclareFunctionAlias(__glutEnterGameMode, "glutEnterGameMode")
 Gura_ImplementFunction(__glutEnterGameMode)
 {
 	int _rtn = glutEnterGameMode();
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glut.glutLeaveGameMode
@@ -2455,9 +2455,9 @@ Gura_DeclareFunctionAlias(__glutGameModeGet, "glutGameModeGet")
 
 Gura_ImplementFunction(__glutGameModeGet)
 {
-	GLenum mode = static_cast<GLenum>(args.GetInt(0));
+	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
 	int _rtn = glutGameModeGet(mode);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 

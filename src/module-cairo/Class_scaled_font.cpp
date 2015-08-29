@@ -42,17 +42,17 @@ Gura_DeclareClassMethod(scaled_font, create)
 Gura_ImplementClassMethod(scaled_font, create)
 {
 	Signal &sig = env.GetSignal();
-	cairo_font_face_t *font_face = Object_font_face::GetObject(args, 0)->GetEntity();
+	cairo_font_face_t *font_face = Object_font_face::GetObject(arg, 0)->GetEntity();
 	cairo_matrix_t font_matrix;
 	cairo_matrix_t ctm;
 	if (!MatrixToCairo(sig, font_matrix,
-			Object_matrix::GetObject(args, 1)->GetMatrix())) return Value::Nil;
+			Object_matrix::GetObject(arg, 1)->GetMatrix())) return Value::Nil;
 	if (!MatrixToCairo(sig, ctm,
-			Object_matrix::GetObject(args, 2)->GetMatrix())) return Value::Nil;
-	cairo_font_options_t *options = Object_font_options::GetObject(args, 3)->GetEntity();
+			Object_matrix::GetObject(arg, 2)->GetMatrix())) return Value::Nil;
+	cairo_font_options_t *options = Object_font_options::GetObject(arg, 3)->GetEntity();
 	cairo_scaled_font_t *scaled_font = ::cairo_scaled_font_create(
 			::cairo_font_face_reference(font_face), &font_matrix, &ctm, options);
-	return ReturnValue(env, args, Value(new Object_scaled_font(scaled_font)));
+	return ReturnValue(env, arg, Value(new Object_scaled_font(scaled_font)));
 }
 
 //#cairo_scaled_font_t *cairo_scaled_font_reference(cairo_scaled_font_t *scaled_font);

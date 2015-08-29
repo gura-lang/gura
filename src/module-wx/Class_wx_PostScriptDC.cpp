@@ -49,17 +49,17 @@ Gura_ImplementFunction(PostScriptDC)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
+	wxPrintData *printData = Object_wx_PrintData::GetObject(arg, 0)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(*printData);
-	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(args);
+	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(PostScriptDC_1)
@@ -76,20 +76,20 @@ Gura_ImplementFunction(PostScriptDC_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString output = wxString::FromUTF8(args.GetString(0));
+	wxString output = wxString::FromUTF8(arg.GetString(0));
 	bool interactive = true;
-	if (args.IsValid(1)) interactive = args.GetBoolean(1);
-	wxWindow *parent = Object_wx_Window::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(1)) interactive = arg.GetBoolean(1);
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 2)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(output, interactive, parent);
-	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(args);
+	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PostScriptDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareClassMethod(wx_PostScriptDC, SetResolution)
@@ -102,7 +102,7 @@ Gura_ImplementClassMethod(wx_PostScriptDC, SetResolution)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int ppi = args.GetInt(0);
+	int ppi = arg.GetInt(0);
 	wxPostScriptDC::SetResolution(ppi);
 	return Value::Nil;
 }
@@ -118,7 +118,7 @@ Gura_ImplementClassMethod(wx_PostScriptDC, GetResolution)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int rtn = wxPostScriptDC::GetResolution();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

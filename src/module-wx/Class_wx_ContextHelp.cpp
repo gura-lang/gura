@@ -50,19 +50,19 @@ Gura_ImplementFunction(ContextHelp)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *window = (wxWindow *)(nullptr);
-	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	bool doNow = true;
-	if (args.IsValid(1)) doNow = args.GetBoolean(1);
+	if (arg.IsValid(1)) doNow = arg.GetBoolean(1);
 	wx_ContextHelp *pEntity = new wx_ContextHelp(window, doNow);
-	Object_wx_ContextHelp *pObj = Object_wx_ContextHelp::GetObjectThis(args);
+	Object_wx_ContextHelp *pObj = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ContextHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
@@ -75,12 +75,12 @@ Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
 Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(args);
+	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = (wxWindow *)(nullptr);
-	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->BeginContextHelp(window);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
 Gura_ImplementMethod(wx_ContextHelp, EndContextHelp)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(args);
+	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->EndContextHelp();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

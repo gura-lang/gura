@@ -100,15 +100,15 @@ Gura_ImplementFunction(TextCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TextCtrl *pEntity = new wx_TextCtrl();
-	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(TextCtrl)
@@ -130,30 +130,30 @@ Gura_ImplementFunction(TextCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString value = wxT("");
-	if (args.IsValid(2)) value = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) value = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxTextCtrlNameStr;
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	wx_TextCtrl *pEntity = new wx_TextCtrl(parent, id, value, *pos, *size, style, *validator, name);
-	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TextCtrl, AppendText)
@@ -165,9 +165,9 @@ Gura_DeclareMethod(wx_TextCtrl, AppendText)
 Gura_ImplementMethod(wx_TextCtrl, AppendText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxString text = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->AppendText(text);
 	return Value::Nil;
 }
@@ -181,10 +181,10 @@ Gura_DeclareMethod(wx_TextCtrl, CanCopy)
 Gura_ImplementMethod(wx_TextCtrl, CanCopy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanCopy();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, CanCut)
@@ -196,10 +196,10 @@ Gura_DeclareMethod(wx_TextCtrl, CanCut)
 Gura_ImplementMethod(wx_TextCtrl, CanCut)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanCut();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, CanPaste)
@@ -211,10 +211,10 @@ Gura_DeclareMethod(wx_TextCtrl, CanPaste)
 Gura_ImplementMethod(wx_TextCtrl, CanPaste)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanPaste();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, CanRedo)
@@ -226,10 +226,10 @@ Gura_DeclareMethod(wx_TextCtrl, CanRedo)
 Gura_ImplementMethod(wx_TextCtrl, CanRedo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanRedo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, CanUndo)
@@ -241,10 +241,10 @@ Gura_DeclareMethod(wx_TextCtrl, CanUndo)
 Gura_ImplementMethod(wx_TextCtrl, CanUndo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanUndo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, Clear)
@@ -255,7 +255,7 @@ Gura_DeclareMethod(wx_TextCtrl, Clear)
 Gura_ImplementMethod(wx_TextCtrl, Clear)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
 	return Value::Nil;
@@ -269,7 +269,7 @@ Gura_DeclareMethod(wx_TextCtrl, Copy)
 Gura_ImplementMethod(wx_TextCtrl, Copy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -292,24 +292,24 @@ Gura_DeclareMethod(wx_TextCtrl, Create)
 Gura_ImplementMethod(wx_TextCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString value = wxT("");
-	if (args.IsValid(2)) value = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) value = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxTextCtrlNameStr;
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, value, *pos, *size, style, *validator, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, Cut)
@@ -320,7 +320,7 @@ Gura_DeclareMethod(wx_TextCtrl, Cut)
 Gura_ImplementMethod(wx_TextCtrl, Cut)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Cut();
 	return Value::Nil;
@@ -334,7 +334,7 @@ Gura_DeclareMethod(wx_TextCtrl, DiscardEdits)
 Gura_ImplementMethod(wx_TextCtrl, DiscardEdits)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->DiscardEdits();
 	return Value::Nil;
@@ -350,11 +350,11 @@ Gura_DeclareMethod(wx_TextCtrl, EmulateKeyPress)
 Gura_ImplementMethod(wx_TextCtrl, EmulateKeyPress)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
+	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->EmulateKeyPress(*event);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetDefaultStyle)
@@ -366,10 +366,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetDefaultStyle)
 Gura_ImplementMethod(wx_TextCtrl, GetDefaultStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxTextAttr &rtn = pThis->GetEntity()->GetDefaultStyle();
-	return ReturnValue(env, args, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_TextAttr(new wxTextAttr(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetInsertionPoint)
@@ -381,10 +381,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetInsertionPoint)
 Gura_ImplementMethod(wx_TextCtrl, GetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetInsertionPoint();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetLastPosition)
@@ -396,10 +396,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetLastPosition)
 Gura_ImplementMethod(wx_TextCtrl, GetLastPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextPos rtn = pThis->GetEntity()->GetLastPosition();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetLineLength)
@@ -412,11 +412,11 @@ Gura_DeclareMethod(wx_TextCtrl, GetLineLength)
 Gura_ImplementMethod(wx_TextCtrl, GetLineLength)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long lineNo = args.GetLong(0);
+	long lineNo = arg.GetLong(0);
 	int rtn = pThis->GetEntity()->GetLineLength(lineNo);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetLineText)
@@ -429,11 +429,11 @@ Gura_DeclareMethod(wx_TextCtrl, GetLineText)
 Gura_ImplementMethod(wx_TextCtrl, GetLineText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long lineNo = args.GetLong(0);
+	long lineNo = arg.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetLineText(lineNo);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetNumberOfLines)
@@ -445,10 +445,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetNumberOfLines)
 Gura_ImplementMethod(wx_TextCtrl, GetNumberOfLines)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetNumberOfLines();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetRange)
@@ -462,12 +462,12 @@ Gura_DeclareMethod(wx_TextCtrl, GetRange)
 Gura_ImplementMethod(wx_TextCtrl, GetRange)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
 	wxString rtn = pThis->GetEntity()->GetRange(from, to);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetSelection)
@@ -479,12 +479,12 @@ Gura_DeclareMethod(wx_TextCtrl, GetSelection)
 Gura_ImplementMethod(wx_TextCtrl, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from;
 	long to;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, args, Value::CreateList(env, from, to));
+	return ReturnValue(env, arg, Value::CreateList(env, from, to));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetStringSelection)
@@ -496,10 +496,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetStringSelection)
 Gura_ImplementMethod(wx_TextCtrl, GetStringSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetStyle)
@@ -513,12 +513,12 @@ Gura_DeclareMethod(wx_TextCtrl, GetStyle)
 Gura_ImplementMethod(wx_TextCtrl, GetStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long position = args.GetLong(0);
-	wxTextAttr *style = Object_wx_TextAttr::GetObject(args, 1)->GetEntity();
+	long position = arg.GetLong(0);
+	wxTextAttr *style = Object_wx_TextAttr::GetObject(arg, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyle(position, *style);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetValue)
@@ -530,10 +530,10 @@ Gura_DeclareMethod(wx_TextCtrl, GetValue)
 Gura_ImplementMethod(wx_TextCtrl, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, HitTest)
@@ -546,13 +546,13 @@ Gura_DeclareMethod(wx_TextCtrl, HitTest)
 Gura_ImplementMethod(wx_TextCtrl, HitTest)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
+	wxPoint *pt = Object_wx_Point::GetObject(arg, 0)->GetEntity();
 	wxTextCoord col;
 	wxTextCoord row;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &col, &row);
-	return ReturnValue(env, args, Value::CreateList(env, rtn, col, row));
+	return ReturnValue(env, arg, Value::CreateList(env, rtn, col, row));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsEditable)
@@ -564,10 +564,10 @@ Gura_DeclareMethod(wx_TextCtrl, IsEditable)
 Gura_ImplementMethod(wx_TextCtrl, IsEditable)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEditable();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsEmpty)
@@ -579,10 +579,10 @@ Gura_DeclareMethod(wx_TextCtrl, IsEmpty)
 Gura_ImplementMethod(wx_TextCtrl, IsEmpty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsModified)
@@ -594,10 +594,10 @@ Gura_DeclareMethod(wx_TextCtrl, IsModified)
 Gura_ImplementMethod(wx_TextCtrl, IsModified)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsModified();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsMultiLine)
@@ -609,10 +609,10 @@ Gura_DeclareMethod(wx_TextCtrl, IsMultiLine)
 Gura_ImplementMethod(wx_TextCtrl, IsMultiLine)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsMultiLine();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsSingleLine)
@@ -624,10 +624,10 @@ Gura_DeclareMethod(wx_TextCtrl, IsSingleLine)
 Gura_ImplementMethod(wx_TextCtrl, IsSingleLine)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsSingleLine();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, LoadFile)
@@ -641,13 +641,13 @@ Gura_DeclareMethod(wx_TextCtrl, LoadFile)
 Gura_ImplementMethod(wx_TextCtrl, LoadFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	int fileType = wxTEXT_TYPE_ANY;
-	if (args.IsValid(1)) fileType = args.GetInt(1);
+	if (arg.IsValid(1)) fileType = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->LoadFile(filename, fileType);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, OnChar)
@@ -659,9 +659,9 @@ Gura_DeclareMethod(wx_TextCtrl, OnChar)
 Gura_ImplementMethod(wx_TextCtrl, OnChar)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
+	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnChar(*event);
 	return Value::Nil;
 }
@@ -674,7 +674,7 @@ Gura_DeclareMethod(wx_TextCtrl, MarkDirty)
 Gura_ImplementMethod(wx_TextCtrl, MarkDirty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->MarkDirty();
 	return Value::Nil;
@@ -689,9 +689,9 @@ Gura_DeclareMethod(wx_TextCtrl, OnDropFiles)
 Gura_ImplementMethod(wx_TextCtrl, OnDropFiles)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDropFilesEvent *event = Object_wx_DropFilesEvent::GetObject(args, 0)->GetEntity();
+	wxDropFilesEvent *event = Object_wx_DropFilesEvent::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnDropFiles(*event);
 	return Value::Nil;
 }
@@ -704,7 +704,7 @@ Gura_DeclareMethod(wx_TextCtrl, Paste)
 Gura_ImplementMethod(wx_TextCtrl, Paste)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Paste();
 	return Value::Nil;
@@ -720,14 +720,14 @@ Gura_DeclareMethod(wx_TextCtrl, PositionToXY)
 Gura_ImplementMethod(wx_TextCtrl, PositionToXY)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long pos = args.GetLong(0);
+	long pos = arg.GetLong(0);
 	long x;
 	long y;
 	bool rtn = pThis->GetEntity()->PositionToXY(pos, &x, &y);
 	if (!rtn) return Value::Nil;
-	return ReturnValue(env, args, Value::CreateList(env, x, y));
+	return ReturnValue(env, arg, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, Redo)
@@ -738,7 +738,7 @@ Gura_DeclareMethod(wx_TextCtrl, Redo)
 Gura_ImplementMethod(wx_TextCtrl, Redo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Redo();
 	return Value::Nil;
@@ -754,10 +754,10 @@ Gura_DeclareMethod(wx_TextCtrl, Remove)
 Gura_ImplementMethod(wx_TextCtrl, Remove)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
 	pThis->GetEntity()->Remove(from, to);
 	return Value::Nil;
 }
@@ -773,11 +773,11 @@ Gura_DeclareMethod(wx_TextCtrl, Replace)
 Gura_ImplementMethod(wx_TextCtrl, Replace)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
-	wxString value = wxString::FromUTF8(args.GetString(2));
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
+	wxString value = wxString::FromUTF8(arg.GetString(2));
 	pThis->GetEntity()->Replace(from, to, value);
 	return Value::Nil;
 }
@@ -793,13 +793,13 @@ Gura_DeclareMethod(wx_TextCtrl, SaveFile)
 Gura_ImplementMethod(wx_TextCtrl, SaveFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	int fileType = wxTEXT_TYPE_ANY;
-	if (args.IsValid(1)) fileType = args.GetInt(1);
+	if (arg.IsValid(1)) fileType = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->SaveFile(filename, fileType);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, SetDefaultStyle)
@@ -812,11 +812,11 @@ Gura_DeclareMethod(wx_TextCtrl, SetDefaultStyle)
 Gura_ImplementMethod(wx_TextCtrl, SetDefaultStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxTextAttr *style = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
+	wxTextAttr *style = Object_wx_TextAttr::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetDefaultStyle(*style);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, SetEditable)
@@ -828,9 +828,9 @@ Gura_DeclareMethod(wx_TextCtrl, SetEditable)
 Gura_ImplementMethod(wx_TextCtrl, SetEditable)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool editable = args.GetBoolean(0);
+	bool editable = arg.GetBoolean(0);
 	pThis->GetEntity()->SetEditable(editable);
 	return Value::Nil;
 }
@@ -844,9 +844,9 @@ Gura_DeclareMethod(wx_TextCtrl, SetInsertionPoint)
 Gura_ImplementMethod(wx_TextCtrl, SetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long pos = args.GetLong(0);
+	long pos = arg.GetLong(0);
 	pThis->GetEntity()->SetInsertionPoint(pos);
 	return Value::Nil;
 }
@@ -859,7 +859,7 @@ Gura_DeclareMethod(wx_TextCtrl, SetInsertionPointEnd)
 Gura_ImplementMethod(wx_TextCtrl, SetInsertionPointEnd)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetInsertionPointEnd();
 	return Value::Nil;
@@ -874,9 +874,9 @@ Gura_DeclareMethod(wx_TextCtrl, SetMaxLength)
 Gura_ImplementMethod(wx_TextCtrl, SetMaxLength)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned len = args.GetInt(0);
+	unsigned len = arg.GetInt(0);
 	pThis->GetEntity()->SetMaxLength(len);
 	return Value::Nil;
 }
@@ -890,9 +890,9 @@ Gura_DeclareMethod(wx_TextCtrl, SetModified)
 Gura_ImplementMethod(wx_TextCtrl, SetModified)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool modified = args.GetBoolean(0);
+	bool modified = arg.GetBoolean(0);
 	pThis->GetEntity()->SetModified(modified);
 	return Value::Nil;
 }
@@ -907,10 +907,10 @@ Gura_DeclareMethod(wx_TextCtrl, SetSelection)
 Gura_ImplementMethod(wx_TextCtrl, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
 	pThis->GetEntity()->SetSelection(from, to);
 	return Value::Nil;
 }
@@ -927,13 +927,13 @@ Gura_DeclareMethod(wx_TextCtrl, SetStyle)
 Gura_ImplementMethod(wx_TextCtrl, SetStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long start = args.GetLong(0);
-	long end = args.GetLong(1);
-	wxTextAttr *style = Object_wx_TextAttr::GetObject(args, 2)->GetEntity();
+	long start = arg.GetLong(0);
+	long end = arg.GetLong(1);
+	wxTextAttr *style = Object_wx_TextAttr::GetObject(arg, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->SetStyle(start, end, *style);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, SetValue)
@@ -945,9 +945,9 @@ Gura_DeclareMethod(wx_TextCtrl, SetValue)
 Gura_ImplementMethod(wx_TextCtrl, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString value = wxString::FromUTF8(args.GetString(0));
+	wxString value = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
@@ -961,9 +961,9 @@ Gura_DeclareMethod(wx_TextCtrl, ChangeValue)
 Gura_ImplementMethod(wx_TextCtrl, ChangeValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString value = wxString::FromUTF8(args.GetString(0));
+	wxString value = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->ChangeValue(value);
 	return Value::Nil;
 }
@@ -977,9 +977,9 @@ Gura_DeclareMethod(wx_TextCtrl, ShowPosition)
 Gura_ImplementMethod(wx_TextCtrl, ShowPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long pos = args.GetLong(0);
+	long pos = arg.GetLong(0);
 	pThis->GetEntity()->ShowPosition(pos);
 	return Value::Nil;
 }
@@ -992,7 +992,7 @@ Gura_DeclareMethod(wx_TextCtrl, Undo)
 Gura_ImplementMethod(wx_TextCtrl, Undo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Undo();
 	return Value::Nil;
@@ -1007,9 +1007,9 @@ Gura_DeclareMethod(wx_TextCtrl, WriteText)
 Gura_ImplementMethod(wx_TextCtrl, WriteText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxString text = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->WriteText(text);
 	return Value::Nil;
 }
@@ -1025,12 +1025,12 @@ Gura_DeclareMethod(wx_TextCtrl, XYToPosition)
 Gura_ImplementMethod(wx_TextCtrl, XYToPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(args);
+	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long x = args.GetLong(0);
-	long y = args.GetLong(1);
+	long x = arg.GetLong(0);
+	long y = arg.GetLong(1);
 	long rtn = pThis->GetEntity()->XYToPosition(x, y);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

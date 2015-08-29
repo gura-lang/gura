@@ -48,15 +48,15 @@ Gura_ImplementFunction(LogStream)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_LogStream *pEntity = new wx_LogStream();
-	Object_wx_LogStream *pObj = Object_wx_LogStream::GetObjectThis(args);
+	Object_wx_LogStream *pObj = Object_wx_LogStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

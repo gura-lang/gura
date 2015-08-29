@@ -53,19 +53,19 @@ Gura_ImplementFunction(MemoryOutputStream)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	char data = nullptr;
-	if (args.IsValid(0)) data = args.GetChar(0);
+	if (arg.IsValid(0)) data = arg.GetChar(0);
 	size_t length = 0;
-	if (args.IsValid(1)) length = args.GetSizeT(1);
+	if (arg.IsValid(1)) length = arg.GetSizeT(1);
 	wx_MemoryOutputStream *pEntity = new wx_MemoryOutputStream(data, length);
-	Object_wx_MemoryOutputStream *pObj = Object_wx_MemoryOutputStream::GetObjectThis(args);
+	Object_wx_MemoryOutputStream *pObj = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -85,12 +85,12 @@ Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(args);
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	char buffer = args.GetChar(0);
-	size_t len = args.GetSizeT(1);
+	char buffer = arg.GetChar(0);
+	size_t len = arg.GetSizeT(1);
 	size_t rtn = pThis->GetEntity()->CopyTo(buffer, len);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -105,10 +105,10 @@ Gura_DeclareMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(args);
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetOutputStreamBuffer();
-	return ReturnValue(env, args, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_StreamBuffer(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

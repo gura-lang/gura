@@ -48,17 +48,17 @@ Gura_ImplementFunction(TempFileOutputStream)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString fileName = wxString::FromUTF8(args.GetString(0));
+	wxString fileName = wxString::FromUTF8(arg.GetString(0));
 	wx_TempFileOutputStream *pEntity = new wx_TempFileOutputStream(fileName);
-	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetObjectThis(args);
+	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TempFileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
@@ -70,10 +70,10 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
 Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(args);
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Commit();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
 Gura_ImplementMethod(wx_TempFileOutputStream, Discard)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(args);
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Discard();
 	return Value::Nil;

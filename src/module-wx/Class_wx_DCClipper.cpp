@@ -51,18 +51,18 @@ Gura_ImplementFunction(DCClipper)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	wxRegion *r = Object_wx_Region::GetObject(args, 1)->GetEntity();
+	wxDC *dc = Object_wx_DC::GetObject(arg, 0)->GetEntity();
+	wxRegion *r = Object_wx_Region::GetObject(arg, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *r);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(DCClipper_1)
@@ -78,18 +78,18 @@ Gura_ImplementFunction(DCClipper_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
+	wxDC *dc = Object_wx_DC::GetObject(arg, 0)->GetEntity();
+	wxRect *rect = Object_wx_Rect::GetObject(arg, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *rect);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(DCClipper_2)
@@ -108,21 +108,21 @@ Gura_ImplementFunction(DCClipper_2)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	int x = args.GetInt(1);
-	int y = args.GetInt(2);
-	int w = args.GetInt(3);
-	int h = args.GetInt(4);
+	wxDC *dc = Object_wx_DC::GetObject(arg, 0)->GetEntity();
+	int x = arg.GetInt(1);
+	int y = arg.GetInt(2);
+	int w = arg.GetInt(3);
+	int h = arg.GetInt(4);
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, x, y, w, h);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

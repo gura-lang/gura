@@ -51,21 +51,21 @@ Gura_ImplementFunction(MenuEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE type = 0;
-	if (args.IsValid(0)) type = static_cast<WXTYPE>(args.GetInt(0));
+	if (arg.IsValid(0)) type = static_cast<WXTYPE>(arg.GetInt(0));
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	wxMenu *menu = (wxMenu *)(nullptr);
-	if (args.IsValid(2)) menu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) menu = Object_wx_Menu::GetObject(arg, 2)->GetEntity();
 	wx_MenuEvent *pEntity = new wx_MenuEvent(type, id, menu);
-	Object_wx_MenuEvent *pObj = Object_wx_MenuEvent::GetObjectThis(args);
+	Object_wx_MenuEvent *pObj = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MenuEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_MenuEvent, GetMenu)
@@ -77,10 +77,10 @@ Gura_DeclareMethod(wx_MenuEvent, GetMenu)
 Gura_ImplementMethod(wx_MenuEvent, GetMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(args);
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
-	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_MenuEvent, GetMenuId)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_MenuEvent, GetMenuId)
 Gura_ImplementMethod(wx_MenuEvent, GetMenuId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(args);
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMenuId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_MenuEvent, IsPopup)
@@ -107,10 +107,10 @@ Gura_DeclareMethod(wx_MenuEvent, IsPopup)
 Gura_ImplementMethod(wx_MenuEvent, IsPopup)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(args);
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsPopup();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

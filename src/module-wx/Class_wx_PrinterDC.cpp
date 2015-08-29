@@ -49,17 +49,17 @@ Gura_ImplementFunction(PrinterDC)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
+	wxPrintData *printData = Object_wx_PrintData::GetObject(arg, 0)->GetEntity();
 	wx_PrinterDC *pEntity = new wx_PrinterDC(*printData);
-	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetObjectThis(args);
+	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 #if 0
@@ -79,23 +79,23 @@ Gura_ImplementFunction(PrinterDC_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString driver = wxString::FromUTF8(args.GetString(0));
-	wxString device = wxString::FromUTF8(args.GetString(1));
-	wxString output = wxString::FromUTF8(args.GetString(2));
+	wxString driver = wxString::FromUTF8(arg.GetString(0));
+	wxString device = wxString::FromUTF8(arg.GetString(1));
+	wxString output = wxString::FromUTF8(arg.GetString(2));
 	bool interactive = true;
-	if (args.IsValid(3)) interactive = args.GetBoolean(3);
+	if (arg.IsValid(3)) interactive = arg.GetBoolean(3);
 	int orientation = wxPORTRAIT;
-	if (args.IsValid(4)) orientation = args.GetInt(4);
+	if (arg.IsValid(4)) orientation = arg.GetInt(4);
 	wx_PrinterDC *pEntity = new wx_PrinterDC(driver, device, output, interactive, orientation);
-	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetObjectThis(args);
+	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 #endif
 
@@ -108,10 +108,10 @@ Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
 Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(args);
+	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->wxPrinterDC::GetPaperRect();
-	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

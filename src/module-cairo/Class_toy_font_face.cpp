@@ -35,12 +35,12 @@ Gura_DeclareClassMethod(toy_font_face, create)
 
 Gura_ImplementClassMethod(toy_font_face, create)
 {
-	const char *family = args.GetString(0);
-	cairo_font_slant_t slant = static_cast<cairo_font_slant_t>(args.GetInt(1));
-	cairo_font_weight_t weight = static_cast<cairo_font_weight_t>(args.GetInt(2));
+	const char *family = arg.GetString(0);
+	cairo_font_slant_t slant = static_cast<cairo_font_slant_t>(arg.GetInt(1));
+	cairo_font_weight_t weight = static_cast<cairo_font_weight_t>(arg.GetInt(2));
 	cairo_font_face_t *font_face = ::cairo_toy_font_face_create(family, slant, weight);
 	Object_toy_font_face *pObjFontFace = new Object_toy_font_face(font_face);
-	return ReturnValue(env, args, Value(pObjFontFace));
+	return ReturnValue(env, arg, Value(pObjFontFace));
 }
 
 // cairo.toy_font_face#get_family()
@@ -54,7 +54,7 @@ Gura_DeclareMethod(toy_font_face, get_family)
 
 Gura_ImplementMethod(toy_font_face, get_family)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(arg);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	const char *rtn = ::cairo_toy_font_face_get_family(font_face);
 	return Value(rtn);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(toy_font_face, get_slant)
 
 Gura_ImplementMethod(toy_font_face, get_slant)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(arg);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_font_slant_t rtn = ::cairo_toy_font_face_get_slant(font_face);
 	return Value(rtn);
@@ -88,7 +88,7 @@ Gura_DeclareMethod(toy_font_face, get_weight)
 
 Gura_ImplementMethod(toy_font_face, get_weight)
 {
-	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(args);
+	Object_toy_font_face *pThis = Object_toy_font_face::GetObjectThis(arg);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_font_weight_t rtn = ::cairo_toy_font_face_get_weight(font_face);
 	return Value(rtn);

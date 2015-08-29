@@ -216,9 +216,9 @@ Gura_DeclareMethod(reader, entries)
 
 Gura_ImplementMethod(reader, entries)
 {
-	Object_reader *pThis = Object_reader::GetObjectThis(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(arg);
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // implementation of class reader
@@ -351,20 +351,20 @@ Gura_DeclareMethod(writer, add)
 Gura_ImplementMethod(writer, add)
 {
 	Signal &sig = env.GetSignal();
-	Object_writer *pThis = Object_writer::GetObjectThis(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(arg);
 	String fileName;
-	if (args.Is_string(1)) {
-		fileName = args.GetString(1);
+	if (arg.Is_string(1)) {
+		fileName = arg.GetString(1);
 	} else {
-		const char *identifier = args.GetStream(0).GetIdentifier();
+		const char *identifier = arg.GetStream(0).GetIdentifier();
 		if (identifier == nullptr) {
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Nil;
 		}
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
-	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Nil;
-	return args.GetValueThis();
+	if (!pThis->Add(arg.GetStream(0), fileName.c_str())) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // tar.writer#close():reduce
@@ -378,9 +378,9 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pThis = Object_writer::GetObjectThis(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(arg);
 	if (!pThis->Close()) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // implementation of class writer
@@ -752,9 +752,9 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	Signal &sig = env.GetSignal();
-	Stream &streamSrc = args.GetStream(0);
-	CompressionType compressionType = args.Is_symbol(1)?
-				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
+	Stream &streamSrc = arg.GetStream(0);
+	CompressionType compressionType = arg.Is_symbol(1)?
+				SymbolToCompressionType(arg.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");
 		return Value::Nil;
@@ -763,7 +763,7 @@ Gura_ImplementFunction(reader)
 	if (!pObj->Open(env, streamSrc.Reference(), compressionType)) {
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // tar.writer(stream:stream:w, compression?:symbol) {block?}
@@ -790,9 +790,9 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Signal &sig = env.GetSignal();
-	Stream &streamDst = args.GetStream(0);
-	CompressionType compressionType = args.Is_symbol(1)?
-				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
+	Stream &streamDst = arg.GetStream(0);
+	CompressionType compressionType = arg.Is_symbol(1)?
+				SymbolToCompressionType(arg.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");
 		return Value::Nil;
@@ -801,7 +801,7 @@ Gura_ImplementFunction(writer)
 	if (!pObj->Open(env, streamDst.Reference(), compressionType)) {
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // tar.test(stream:stream:r)
@@ -816,7 +816,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	Stream &stream = args.GetStream(0);
+	Stream &stream = arg.GetStream(0);
 	return Value::Nil;
 }
 

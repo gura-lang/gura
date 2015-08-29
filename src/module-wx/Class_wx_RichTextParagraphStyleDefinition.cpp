@@ -49,17 +49,17 @@ Gura_ImplementFunction(RichTextParagraphStyleDefinition)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxEmptyString;
-	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) name = wxString::FromUTF8(arg.GetString(0));
 	wx_RichTextParagraphStyleDefinition *pEntity = new wx_RichTextParagraphStyleDefinition(name);
-	Object_wx_RichTextParagraphStyleDefinition *pObj = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(args);
+	Object_wx_RichTextParagraphStyleDefinition *pObj = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextParagraphStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
@@ -71,10 +71,10 @@ Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
 Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(args);
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetNextStyle();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
 Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(args);
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetNextStyle(name);
 	return Value::Nil;
 }

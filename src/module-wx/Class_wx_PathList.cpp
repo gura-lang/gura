@@ -49,15 +49,15 @@ Gura_ImplementFunction(PathListEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_PathList *pEntity = new wx_PathList();
-	Object_wx_PathList *pObj = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pObj = Object_wx_PathList::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(PathList)
@@ -72,17 +72,17 @@ Gura_ImplementFunction(PathList)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> arr(CreateArrayString(arg.GetList(0)));
 	wx_PathList *pEntity = new wx_PathList(*arr);
-	Object_wx_PathList *pObj = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pObj = Object_wx_PathList::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_PathList, AddEnvList)
@@ -94,9 +94,9 @@ Gura_DeclareMethod(wx_PathList, AddEnvList)
 Gura_ImplementMethod(wx_PathList, AddEnvList)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString env_variable = wxString::FromUTF8(args.GetString(0));
+	wxString env_variable = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->AddEnvList(env_variable);
 	return Value::Nil;
 }
@@ -111,11 +111,11 @@ Gura_DeclareMethod(wx_PathList, Add)
 Gura_ImplementMethod(wx_PathList, Add)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString path = wxString::FromUTF8(args.GetString(0));
+	wxString path = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Add(path);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PathList, Add_1)
@@ -127,9 +127,9 @@ Gura_DeclareMethod(wx_PathList, Add_1)
 Gura_ImplementMethod(wx_PathList, Add_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> arr(CreateArrayString(arg.GetList(0)));
 	pThis->GetEntity()->Add(*arr);
 	return Value::Nil;
 }
@@ -144,11 +144,11 @@ Gura_DeclareMethod(wx_PathList, EnsureFileAccessible)
 Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->EnsureFileAccessible(filename);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
@@ -161,11 +161,11 @@ Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
 Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString file = wxString::FromUTF8(args.GetString(0));
+	wxString file = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindAbsoluteValidPath(file);
-	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_PathList, FindValidPath)
@@ -178,11 +178,11 @@ Gura_DeclareMethod(wx_PathList, FindValidPath)
 Gura_ImplementMethod(wx_PathList, FindValidPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(args);
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString file = wxString::FromUTF8(args.GetString(0));
+	wxString file = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindValidPath(file);
-	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

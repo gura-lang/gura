@@ -80,15 +80,15 @@ Gura_ImplementFunction(TextDropTarget)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
-	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetObjectThis(args);
+	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TextDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
@@ -107,14 +107,14 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(args);
+	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long x = args.GetLong(0);
-	long y = args.GetLong(1);
-	int *data = args.GetInt(2);
-	size_t size = args.GetSizeT(3);
+	long x = arg.GetLong(0);
+	long y = arg.GetLong(1);
+	int *data = arg.GetInt(2);
+	size_t size = arg.GetSizeT(3);
 	bool rtn = pThis->GetEntity()->OnDrop(x, y, *data, size);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -132,13 +132,13 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(args);
+	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
-	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
-	wxString data = wxString::FromUTF8(args.GetString(2));
+	wxCoord x = static_cast<wxCoord>(arg.GetInt(0));
+	wxCoord y = static_cast<wxCoord>(arg.GetInt(1));
+	wxString data = wxString::FromUTF8(arg.GetString(2));
 	bool rtn = pThis->GetEntity()->OnDropText(x, y, data);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

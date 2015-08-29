@@ -49,15 +49,15 @@ Gura_ImplementFunction(FindReplaceDialogEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FindReplaceDialog *pEntity = new wx_FindReplaceDialog();
-	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetObjectThis(args);
+	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(FindReplaceDialog)
@@ -75,22 +75,22 @@ Gura_ImplementFunction(FindReplaceDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(arg, 1)->GetEntity();
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	int style = 0;
-	if (args.IsValid(3)) style = args.GetInt(3);
+	if (arg.IsValid(3)) style = arg.GetInt(3);
 	wx_FindReplaceDialog *pEntity = new wx_FindReplaceDialog(parent, data, title, style);
-	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetObjectThis(args);
+	Object_wx_FindReplaceDialog *pObj = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FindReplaceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FindReplaceDialog, Create)
@@ -106,16 +106,16 @@ Gura_DeclareMethod(wx_FindReplaceDialog, Create)
 Gura_ImplementMethod(wx_FindReplaceDialog, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(args);
+	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(args, 1)->GetEntity();
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxFindReplaceData *data = Object_wx_FindReplaceData::GetObject(arg, 1)->GetEntity();
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	int style = 0;
-	if (args.IsValid(3)) style = args.GetInt(3);
+	if (arg.IsValid(3)) style = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->Create(parent, data, title, style);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FindReplaceDialog, GetData)
@@ -127,10 +127,10 @@ Gura_DeclareMethod(wx_FindReplaceDialog, GetData)
 Gura_ImplementMethod(wx_FindReplaceDialog, GetData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(args);
+	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFindReplaceData *rtn = (wxFindReplaceData *)pThis->GetEntity()->GetData();
-	return ReturnValue(env, args, Value(new Object_wx_FindReplaceData(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_FindReplaceData(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

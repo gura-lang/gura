@@ -240,10 +240,10 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal &sig,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 		if (err != 0) return err;
 	} else {
-		AutoPtr<Args> pArgs(new Args(pFuncDeco));
-		pArgs->AddValue(Value(codeUTF32));
-		pArgs->AddValue(Value(idx));
-		pFuncDeco->Eval(env, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pFuncDeco));
+		pArg->AddValue(Value(codeUTF32));
+		pArg->AddValue(Value(idx));
+		pFuncDeco->Eval(env, *pArg);
 	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_strength == 0.) {
@@ -406,10 +406,10 @@ Gura_DeclareFunction(font)
 
 Gura_ImplementFunction(font)
 {
-	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
+	Object_Face *pObjFace = Object_Face::GetObject(arg, 0);
 	AutoPtr<Object_font> pObjFont(
 		new Object_font(Object_Face::Reference(pObjFace), new Object_color(env)));
-	return ReturnValue(env, args, Value(pObjFont.release()));
+	return ReturnValue(env, arg, Value(pObjFont.release()));
 }
 
 // freetype.font#cleardeco()
@@ -420,9 +420,9 @@ Gura_DeclareMethod(font, cleardeco)
 
 Gura_ImplementMethod(font, cleardeco)
 {
-	Object_font *pThis = Object_font::GetObjectThis(args);
+	Object_font *pThis = Object_font::GetObjectThis(arg);
 	pThis->ClearDeco();
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce {block?}
@@ -440,18 +440,18 @@ Gura_DeclareMethod(font, drawtext)
 Gura_ImplementMethod(font, drawtext)
 {
 	Signal &sig = env.GetSignal();
-	Object_font *pThis = Object_font::GetObjectThis(args);
-	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
-	int x = args.GetInt(1);
-	int y = args.GetInt(2);
-	String str = args.GetStringSTL(3);
+	Object_font *pThis = Object_font::GetObjectThis(arg);
+	Image *pImage = Object_image::GetObject(arg, 0)->GetImage();
+	int x = arg.GetInt(1);
+	int y = arg.GetInt(2);
+	String str = arg.GetStringSTL(3);
 	const Function *pFuncDeco = nullptr;
-	if (args.IsBlockSpecified()) {
-		pFuncDeco = args.GetBlockFunc(env, GetSymbolForBlock());
+	if (arg.IsBlockSpecified()) {
+		pFuncDeco = arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncDeco == nullptr) return Value::Nil;
 	}
 	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.font#calcsize(str:string):map
@@ -464,8 +464,8 @@ Gura_DeclareMethod(font, calcsize)
 Gura_ImplementMethod(font, calcsize)
 {
 	const Function *pFuncDeco = nullptr;
-	Object_font *pThis = Object_font::GetObjectThis(args);
-	String str = args.GetStringSTL(0);
+	Object_font *pThis = Object_font::GetObjectThis(arg);
+	String str = arg.GetStringSTL(0);
 	size_t width, height;
 	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Nil;
 	return Value::CreateList(env, 
@@ -486,10 +486,10 @@ Gura_DeclareMethod(font, calcbbox)
 Gura_ImplementMethod(font, calcbbox)
 {
 	const Function *pFuncDeco = nullptr;
-	Object_font *pThis = Object_font::GetObjectThis(args);
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
-	String str = args.GetStringSTL(2);
+	Object_font *pThis = Object_font::GetObjectThis(arg);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
+	String str = arg.GetStringSTL(2);
 	size_t width, height;
 	if (!pThis->CalcSize(env, str, width, height, pFuncDeco)) return Value::Nil;
 	return Value::CreateList(env,

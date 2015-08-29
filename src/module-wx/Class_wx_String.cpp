@@ -54,17 +54,17 @@ Gura_ImplementFunction(String)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wx_String *pEntity = args.IsValid(0)?
-		new wx_String(wxString::FromUTF8(args.GetString(0))) : new wx_String();
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	wx_String *pEntity = arg.IsValid(0)?
+		new wx_String(wxString::FromUTF8(arg.GetString(0))) : new wx_String();
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(String_1)
@@ -83,19 +83,19 @@ Gura_ImplementFunction(String_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	size_t n = 1;
-	if (args.IsValid(1)) n = args.GetSizeT(1);
+	if (arg.IsValid(1)) n = arg.GetSizeT(1);
 	wx_String *pEntity = new wx_String(ch, n);
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -117,19 +117,19 @@ Gura_ImplementFunction(String_2)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxString psz = wxString::FromUTF8(args.GetString(0));
+	wxString psz = wxString::FromUTF8(arg.GetString(0));
 	size_t nLength = wxSTRING_MAXLEN;
-	if (args.IsValid(1)) nLength = args.GetSizeT(1);
+	if (arg.IsValid(1)) nLength = arg.GetSizeT(1);
 	wx_String *pEntity = new wx_String(psz, nLength);
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -151,19 +151,19 @@ Gura_ImplementFunction(String_3)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	unsigned char psz = args.GetUChar(0);
+	unsigned char psz = arg.GetUChar(0);
 	size_t nLength = wxSTRING_MAXLEN;
-	if (args.IsValid(1)) nLength = args.GetSizeT(1);
+	if (arg.IsValid(1)) nLength = arg.GetSizeT(1);
 	wx_String *pEntity = new wx_String(psz, nLength);
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -186,20 +186,20 @@ Gura_ImplementFunction(String_4)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wchar_t psz = static_cast<wchar_t>(args.GetUShort(0));
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	wchar_t psz = static_cast<wchar_t>(arg.GetUShort(0));
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	size_t nLength = wxSTRING_MAXLEN;
-	if (args.IsValid(2)) nLength = args.GetSizeT(2);
+	if (arg.IsValid(2)) nLength = arg.GetSizeT(2);
 	wx_String *pEntity = new wx_String(psz, *conv, nLength);
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -222,20 +222,20 @@ Gura_ImplementFunction(String_5)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	char psz = args.GetChar(0);
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	char psz = arg.GetChar(0);
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	size_t nLength = wxSTRING_MAXLEN;
-	if (args.IsValid(2)) nLength = args.GetSizeT(2);
+	if (arg.IsValid(2)) nLength = arg.GetSizeT(2);
 	wx_String *pEntity = new wx_String(psz, *conv, nLength);
-	Object_wx_String *pObj = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pObj = Object_wx_String::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_String(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -250,9 +250,9 @@ Gura_DeclareMethod(wx_String, Alloc)
 Gura_ImplementMethod(wx_String, Alloc)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t nLen = args.GetSizeT(0);
+	size_t nLen = arg.GetSizeT(0);
 	pThis->GetEntity()->Alloc(nLen);
 	return Value::Nil;
 }
@@ -267,11 +267,11 @@ Gura_DeclareMethod(wx_String, Append)
 Gura_ImplementMethod(wx_String, Append)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString psz = wxString::FromUTF8(args.GetString(0));
+	wxString psz = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->Append(psz);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Append_1)
@@ -288,13 +288,13 @@ Gura_ImplementMethod(wx_String, Append_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	int count = 1;
-	if (args.IsValid(1)) count = args.GetInt(1);
+	if (arg.IsValid(1)) count = arg.GetInt(1);
 	wxString rtn = pThis->GetEntity()->Append(ch, count);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -313,11 +313,11 @@ Gura_ImplementMethod(wx_String, AfterFirst)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	wxString rtn = pThis->GetEntity()->AfterFirst(ch);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -336,11 +336,11 @@ Gura_ImplementMethod(wx_String, AfterLast)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	wxString rtn = pThis->GetEntity()->AfterLast(ch);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -359,11 +359,11 @@ Gura_ImplementMethod(wx_String, BeforeFirst)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	wxString rtn = pThis->GetEntity()->BeforeFirst(ch);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -382,11 +382,11 @@ Gura_ImplementMethod(wx_String, BeforeLast)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	wxString rtn = pThis->GetEntity()->BeforeLast(ch);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -402,10 +402,10 @@ Gura_ImplementMethod(wx_String, c_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->c_str();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -424,12 +424,12 @@ Gura_ImplementMethod(wx_String, char_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMBConv *conv = (wxMBConv *)(&wxConvLibc);
-	if (args.IsValid(0)) conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) conv = Object_wx_MBConv::GetObject(arg, 0)->GetEntity();
 	wxWritableCharBuffer rtn = pThis->GetEntity()->char_str(*conv);
-	return ReturnValue(env, args, Value(new Object_wx_WritableCharBuffer(new wxWritableCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_WritableCharBuffer(new wxWritableCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -443,7 +443,7 @@ Gura_DeclareMethod(wx_String, Clear)
 Gura_ImplementMethod(wx_String, Clear)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
 	return Value::Nil;
@@ -459,11 +459,11 @@ Gura_DeclareMethod(wx_String, Cmp)
 Gura_ImplementMethod(wx_String, Cmp)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString s = wxString::FromUTF8(args.GetString(0));
+	wxString s = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->Cmp(s);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, CmpNoCase)
@@ -476,11 +476,11 @@ Gura_DeclareMethod(wx_String, CmpNoCase)
 Gura_ImplementMethod(wx_String, CmpNoCase)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString s = wxString::FromUTF8(args.GetString(0));
+	wxString s = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->CmpNoCase(s);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, CompareTo)
@@ -494,13 +494,13 @@ Gura_DeclareMethod(wx_String, CompareTo)
 Gura_ImplementMethod(wx_String, CompareTo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString psz = wxString::FromUTF8(args.GetString(0));
+	wxString psz = wxString::FromUTF8(arg.GetString(0));
 	wxString::caseCompare cmp = wxString::exact;
-	if (args.IsValid(1)) cmp = static_cast<wxString::caseCompare>(args.GetInt(1));
+	if (arg.IsValid(1)) cmp = static_cast<wxString::caseCompare>(arg.GetInt(1));
 	int rtn = pThis->GetEntity()->CompareTo(psz, cmp);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Contains)
@@ -513,11 +513,11 @@ Gura_DeclareMethod(wx_String, Contains)
 Gura_ImplementMethod(wx_String, Contains)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxString str = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Contains(str);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Empty)
@@ -528,7 +528,7 @@ Gura_DeclareMethod(wx_String, Empty)
 Gura_ImplementMethod(wx_String, Empty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Empty();
 	return Value::Nil;
@@ -548,13 +548,13 @@ Gura_ImplementMethod(wx_String, Find)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	bool fromEnd = false;
-	if (args.IsValid(1)) fromEnd = args.GetBoolean(1);
+	if (arg.IsValid(1)) fromEnd = arg.GetBoolean(1);
 	int rtn = pThis->GetEntity()->Find(ch, fromEnd);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -573,11 +573,11 @@ Gura_ImplementMethod(wx_String, Find_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString sz = wxString::FromUTF8(args.GetString(0));
+	wxString sz = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->Find(sz);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -596,11 +596,11 @@ Gura_ImplementMethod(wx_String, First)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar c = static_cast<wxChar>(args.GetInt(0));
+	wxChar c = static_cast<wxChar>(arg.GetInt(0));
 	int rtn = pThis->GetEntity()->First(c);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -619,11 +619,11 @@ Gura_ImplementMethod(wx_String, First_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString psz = wxString::FromUTF8(args.GetString(0));
+	wxString psz = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->First(psz);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -642,11 +642,11 @@ Gura_ImplementMethod(wx_String, First_2)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxString str = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->First(str);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -662,10 +662,10 @@ Gura_ImplementMethod(wx_String, fn_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wchar_t rtn = pThis->GetEntity()->fn_str();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -681,10 +681,10 @@ Gura_ImplementMethod(wx_String, fn_str_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char rtn = pThis->GetEntity()->fn_str();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -700,10 +700,10 @@ Gura_ImplementMethod(wx_String, fn_str_2)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCharBuffer rtn = pThis->GetEntity()->fn_str();
-	return ReturnValue(env, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -723,9 +723,9 @@ Gura_ImplementClassMethod(wx_String, Format)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxChar *format = static_cast<wxChar>(args.GetInt(0));
+	wxChar *format = static_cast<wxChar>(arg.GetInt(0));
 	wxString rtn = wxString::Format(*format, );
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -744,11 +744,11 @@ Gura_ImplementMethod(wx_String, Freq)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	int rtn = pThis->GetEntity()->Freq(ch);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -769,10 +769,10 @@ Gura_ImplementClassMethod(wx_String, From8BitData)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	char buf = args.GetChar(0);
-	size_t len = args.GetSizeT(1);
+	char buf = arg.GetChar(0);
+	size_t len = arg.GetSizeT(1);
 	wxString rtn = wxString::From8BitData(buf, len);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -792,9 +792,9 @@ Gura_ImplementClassMethod(wx_String, From8BitData_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	char buf = args.GetChar(0);
+	char buf = arg.GetChar(0);
 	wxString rtn = wxString::From8BitData(buf);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -814,9 +814,9 @@ Gura_ImplementClassMethod(wx_String, FromAscii)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	char s = args.GetChar(0);
+	char s = arg.GetChar(0);
 	wxString rtn = wxString::FromAscii(s);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -836,9 +836,9 @@ Gura_ImplementClassMethod(wx_String, FromAscii_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	char c = args.GetChar(0);
+	char c = arg.GetChar(0);
 	wxString rtn = wxString::FromAscii(c);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -854,11 +854,11 @@ Gura_DeclareMethod(wx_String, GetChar)
 Gura_ImplementMethod(wx_String, GetChar)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
+	size_t n = arg.GetSizeT(0);
 	wxChar rtn = pThis->GetEntity()->GetChar(n);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, GetData)
@@ -871,10 +871,10 @@ Gura_ImplementMethod(wx_String, GetData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->GetData();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -893,11 +893,11 @@ Gura_ImplementMethod(wx_String, GetWritableChar)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
+	size_t n = arg.GetSizeT(0);
 	wxChar rtn = pThis->GetEntity()->GetWritableChar(n);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -916,11 +916,11 @@ Gura_ImplementMethod(wx_String, GetWriteBuf)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t len = args.GetSizeT(0);
+	size_t len = arg.GetSizeT(0);
 	wxChar rtn = pThis->GetEntity()->GetWriteBuf(len);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -939,11 +939,11 @@ Gura_ImplementMethod(wx_String, Index)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar ch = static_cast<wxChar>(args.GetInt(0));
+	wxChar ch = static_cast<wxChar>(arg.GetInt(0));
 	size_t rtn = pThis->GetEntity()->Index(ch);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -962,11 +962,11 @@ Gura_ImplementMethod(wx_String, Index_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString sz = wxString::FromUTF8(args.GetString(0));
+	wxString sz = wxString::FromUTF8(arg.GetString(0));
 	size_t rtn = pThis->GetEntity()->Index(sz);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -982,10 +982,10 @@ Gura_ImplementMethod(wx_String, IsAscii)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsAscii();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1001,10 +1001,10 @@ Gura_ImplementMethod(wx_String, IsEmpty)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1020,10 +1020,10 @@ Gura_ImplementMethod(wx_String, IsNull)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsNull();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1039,10 +1039,10 @@ Gura_ImplementMethod(wx_String, Is_number)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Is_number();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1062,13 +1062,13 @@ Gura_ImplementMethod(wx_String, IsSameAs)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString psz = wxString::FromUTF8(args.GetString(0));
+	wxString psz = wxString::FromUTF8(arg.GetString(0));
 	bool caseSensitive = true;
-	if (args.IsValid(1)) caseSensitive = args.GetBoolean(1);
+	if (arg.IsValid(1)) caseSensitive = arg.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->IsSameAs(psz, caseSensitive);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1088,13 +1088,13 @@ Gura_ImplementMethod(wx_String, IsSameAs_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar c = static_cast<wxChar>(args.GetInt(0));
+	wxChar c = static_cast<wxChar>(arg.GetInt(0));
 	bool caseSensitive = true;
-	if (args.IsValid(1)) caseSensitive = args.GetBoolean(1);
+	if (arg.IsValid(1)) caseSensitive = arg.GetBoolean(1);
 	bool rtn = pThis->GetEntity()->IsSameAs(c, caseSensitive);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1110,10 +1110,10 @@ Gura_ImplementMethod(wx_String, IsWord)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsWord();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1129,10 +1129,10 @@ Gura_ImplementMethod(wx_String, Last)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->Last();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1148,10 +1148,10 @@ Gura_ImplementMethod(wx_String, Last_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->Last();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1167,11 +1167,11 @@ Gura_DeclareMethod(wx_String, Left)
 Gura_ImplementMethod(wx_String, Left)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t count = args.GetSizeT(0);
+	size_t count = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->Left(count);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Len)
@@ -1183,10 +1183,10 @@ Gura_DeclareMethod(wx_String, Len)
 Gura_ImplementMethod(wx_String, Len)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->Len();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Length)
@@ -1198,10 +1198,10 @@ Gura_DeclareMethod(wx_String, Length)
 Gura_ImplementMethod(wx_String, Length)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->Length();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Lower)
@@ -1213,10 +1213,10 @@ Gura_DeclareMethod(wx_String, Lower)
 Gura_ImplementMethod(wx_String, Lower)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->Lower();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, LowerCase)
@@ -1227,7 +1227,7 @@ Gura_DeclareMethod(wx_String, LowerCase)
 Gura_ImplementMethod(wx_String, LowerCase)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->LowerCase();
 	return Value::Nil;
@@ -1242,10 +1242,10 @@ Gura_DeclareMethod(wx_String, MakeLower)
 Gura_ImplementMethod(wx_String, MakeLower)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->MakeLower();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, MakeUpper)
@@ -1257,10 +1257,10 @@ Gura_DeclareMethod(wx_String, MakeUpper)
 Gura_ImplementMethod(wx_String, MakeUpper)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->MakeUpper();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Matches)
@@ -1273,11 +1273,11 @@ Gura_DeclareMethod(wx_String, Matches)
 Gura_ImplementMethod(wx_String, Matches)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString szMask = wxString::FromUTF8(args.GetString(0));
+	wxString szMask = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Matches(szMask);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, mb_str)
@@ -1293,11 +1293,11 @@ Gura_ImplementMethod(wx_String, mb_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 0)->GetEntity();
 	char rtn = pThis->GetEntity()->mb_str(*conv);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1316,11 +1316,11 @@ Gura_ImplementMethod(wx_String, mb_str_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 0)->GetEntity();
 	wxCharBuffer rtn = pThis->GetEntity()->mb_str(*conv);
-	return ReturnValue(env, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1337,13 +1337,13 @@ Gura_DeclareMethod(wx_String, Mid)
 Gura_ImplementMethod(wx_String, Mid)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t first = args.GetSizeT(0);
+	size_t first = arg.GetSizeT(0);
 	size_t count = wxString::npos;
-	if (args.IsValid(1)) count = args.GetSizeT(1);
+	if (arg.IsValid(1)) count = arg.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->Mid(first, count);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Pad)
@@ -1361,15 +1361,15 @@ Gura_ImplementMethod(wx_String, Pad)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t count = args.GetSizeT(0);
+	size_t count = arg.GetSizeT(0);
 	wxChar pad = ' ';
-	if (args.IsValid(1)) pad = static_cast<wxChar>(args.GetInt(1));
+	if (arg.IsValid(1)) pad = static_cast<wxChar>(arg.GetInt(1));
 	bool fromRight = true;
-	if (args.IsValid(2)) fromRight = args.GetBoolean(2);
+	if (arg.IsValid(2)) fromRight = arg.GetBoolean(2);
 	wxString rtn = pThis->GetEntity()->Pad(count, pad, fromRight);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1388,11 +1388,11 @@ Gura_ImplementMethod(wx_String, Prepend)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxString str = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->Prepend(str);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1411,11 +1411,11 @@ Gura_ImplementMethod(wx_String, Printf)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString pszFormat = wxString::FromUTF8(args.GetString(0));
+	wxString pszFormat = wxString::FromUTF8(arg.GetString(0));
 	int rtn = pThis->GetEntity()->Printf(pszFormat, );
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1431,11 +1431,11 @@ Gura_DeclareMethod(wx_String, Remove)
 Gura_ImplementMethod(wx_String, Remove)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t pos = args.GetSizeT(0);
+	size_t pos = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->Remove(pos);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Remove_1)
@@ -1452,12 +1452,12 @@ Gura_ImplementMethod(wx_String, Remove_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t pos = args.GetSizeT(0);
-	size_t len = args.GetSizeT(1);
+	size_t pos = arg.GetSizeT(0);
+	size_t len = arg.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->Remove(pos, len);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1472,10 +1472,10 @@ Gura_DeclareMethod(wx_String, RemoveLast)
 Gura_ImplementMethod(wx_String, RemoveLast)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->RemoveLast();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, Replace)
@@ -1490,14 +1490,14 @@ Gura_DeclareMethod(wx_String, Replace)
 Gura_ImplementMethod(wx_String, Replace)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString szOld = wxString::FromUTF8(args.GetString(0));
-	wxString szNew = wxString::FromUTF8(args.GetString(1));
+	wxString szOld = wxString::FromUTF8(arg.GetString(0));
+	wxString szNew = wxString::FromUTF8(arg.GetString(1));
 	bool replaceAll = true;
-	if (args.IsValid(2)) replaceAll = args.GetBoolean(2);
+	if (arg.IsValid(2)) replaceAll = arg.GetBoolean(2);
 	size_t rtn = pThis->GetEntity()->Replace(szOld, szNew, replaceAll);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Right)
@@ -1510,11 +1510,11 @@ Gura_DeclareMethod(wx_String, Right)
 Gura_ImplementMethod(wx_String, Right)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t count = args.GetSizeT(0);
+	size_t count = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->Right(count);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, SetChar)
@@ -1530,10 +1530,10 @@ Gura_ImplementMethod(wx_String, SetChar)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
-	wxChar ch = static_cast<wxChar>(args.GetInt(1));
+	size_t n = arg.GetSizeT(0);
+	wxChar ch = static_cast<wxChar>(arg.GetInt(1));
 	pThis->GetEntity()->SetChar(n, ch);
 	return Value::Nil;
 #endif
@@ -1549,7 +1549,7 @@ Gura_DeclareMethod(wx_String, Shrink)
 Gura_ImplementMethod(wx_String, Shrink)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Shrink();
 	return Value::Nil;
@@ -1569,13 +1569,13 @@ Gura_ImplementMethod(wx_String, StartsWith)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar *prefix = static_cast<wxChar>(args.GetInt(0));
+	wxChar *prefix = static_cast<wxChar>(arg.GetInt(0));
 	wxString *rest = nullptr;
-	if (args.IsValid(1)) *rest = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) *rest = wxString::FromUTF8(arg.GetString(1));
 	bool rtn = pThis->GetEntity()->StartsWith(*prefix, *rest);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1595,13 +1595,13 @@ Gura_ImplementMethod(wx_String, EndsWith)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxChar *suffix = static_cast<wxChar>(args.GetInt(0));
+	wxChar *suffix = static_cast<wxChar>(arg.GetInt(0));
 	wxString *rest = nullptr;
-	if (args.IsValid(1)) *rest = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) *rest = wxString::FromUTF8(arg.GetString(1));
 	bool rtn = pThis->GetEntity()->EndsWith(*suffix, *rest);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1619,10 +1619,10 @@ Gura_ImplementMethod(wx_String, Strip)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->Strip();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1639,12 +1639,12 @@ Gura_DeclareMethod(wx_String, SubString)
 Gura_ImplementMethod(wx_String, SubString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t from = args.GetSizeT(0);
-	size_t to = args.GetSizeT(1);
+	size_t from = arg.GetSizeT(0);
+	size_t to = arg.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->SubString(from, to);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, To8BitData)
@@ -1657,10 +1657,10 @@ Gura_ImplementMethod(wx_String, To8BitData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char rtn = pThis->GetEntity()->To8BitData();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1676,10 +1676,10 @@ Gura_ImplementMethod(wx_String, To8BitData_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCharBuffer rtn = pThis->GetEntity()->To8BitData();
-	return ReturnValue(env, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1695,10 +1695,10 @@ Gura_ImplementMethod(wx_String, ToAscii)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char rtn = pThis->GetEntity()->ToAscii();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1714,10 +1714,10 @@ Gura_ImplementMethod(wx_String, ToAscii_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCharBuffer rtn = pThis->GetEntity()->ToAscii();
-	return ReturnValue(env, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1736,11 +1736,11 @@ Gura_ImplementMethod(wx_String, ToDouble)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	double *val = args.GetDouble(0);
+	double *val = arg.GetDouble(0);
 	bool rtn = pThis->GetEntity()->ToDouble(*val);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1760,13 +1760,13 @@ Gura_ImplementMethod(wx_String, ToLong)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long *val = args.GetLong(0);
+	long *val = arg.GetLong(0);
 	int base = 10;
-	if (args.IsValid(1)) base = args.GetInt(1);
+	if (arg.IsValid(1)) base = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->ToLong(*val, base);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1786,13 +1786,13 @@ Gura_ImplementMethod(wx_String, ToLongLong)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxLongLong_t **val = Object_wx_LongLong_t::GetObject(args, 0)->GetEntity();
+	wxLongLong_t **val = Object_wx_LongLong_t::GetObject(arg, 0)->GetEntity();
 	int base = 10;
-	if (args.IsValid(1)) base = args.GetInt(1);
+	if (arg.IsValid(1)) base = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->ToLongLong(**val, base);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1812,13 +1812,13 @@ Gura_ImplementMethod(wx_String, ToULong)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned *val = args.GetInt(0);
+	unsigned *val = arg.GetInt(0);
 	int base = 10;
-	if (args.IsValid(1)) base = args.GetInt(1);
+	if (arg.IsValid(1)) base = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->ToULong(*val, base);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1838,13 +1838,13 @@ Gura_ImplementMethod(wx_String, ToULongLong)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxULongLong_t **val = Object_wx_ULongLong_t::GetObject(args, 0)->GetEntity();
+	wxULongLong_t **val = Object_wx_ULongLong_t::GetObject(arg, 0)->GetEntity();
 	int base = 10;
-	if (args.IsValid(1)) base = args.GetInt(1);
+	if (arg.IsValid(1)) base = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->ToULongLong(**val, base);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1859,10 +1859,10 @@ Gura_DeclareMethod(wx_String, ToUTF8)
 Gura_ImplementMethod(wx_String, ToUTF8)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCharBuffer rtn = pThis->GetEntity()->ToUTF8();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_String, Trim)
@@ -1878,12 +1878,12 @@ Gura_ImplementMethod(wx_String, Trim)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool fromRight = true;
-	if (args.IsValid(0)) fromRight = args.GetBoolean(0);
+	if (arg.IsValid(0)) fromRight = arg.GetBoolean(0);
 	wxString rtn = pThis->GetEntity()->Trim(fromRight);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1902,11 +1902,11 @@ Gura_ImplementMethod(wx_String, Truncate)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t len = args.GetSizeT(0);
+	size_t len = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->Truncate(len);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -1921,7 +1921,7 @@ Gura_ImplementMethod(wx_String, UngetWriteBuf)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->UngetWriteBuf();
 	return Value::Nil;
@@ -1942,9 +1942,9 @@ Gura_ImplementMethod(wx_String, UngetWriteBuf_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t len = args.GetSizeT(0);
+	size_t len = arg.GetSizeT(0);
 	pThis->GetEntity()->UngetWriteBuf(len);
 	return Value::Nil;
 #endif
@@ -1961,10 +1961,10 @@ Gura_DeclareMethod(wx_String, Upper)
 Gura_ImplementMethod(wx_String, Upper)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->Upper();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_String, UpperCase)
@@ -1975,7 +1975,7 @@ Gura_DeclareMethod(wx_String, UpperCase)
 Gura_ImplementMethod(wx_String, UpperCase)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->UpperCase();
 	return Value::Nil;
@@ -1991,10 +1991,10 @@ Gura_ImplementMethod(wx_String, utf8_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCharBuffer rtn = pThis->GetEntity()->utf8_str();
-	return ReturnValue(env, args, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_CharBuffer(new wxCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -2013,11 +2013,11 @@ Gura_ImplementMethod(wx_String, wc_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 0)->GetEntity();
 	wchar_t rtn = pThis->GetEntity()->wc_str(*conv);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -2036,11 +2036,11 @@ Gura_ImplementMethod(wx_String, wc_str_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 0)->GetEntity();
+	wxMBConv *conv = Object_wx_MBConv::GetObject(arg, 0)->GetEntity();
 	wxWCharBuffer rtn = pThis->GetEntity()->wc_str(*conv);
-	return ReturnValue(env, args, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_WCharBuffer(new wxWCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -2056,10 +2056,10 @@ Gura_ImplementMethod(wx_String, wchar_str)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_String *pThis = Object_wx_String::GetObjectThis(args);
+	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWritableWCharBuffer rtn = pThis->GetEntity()->wchar_str();
-	return ReturnValue(env, args, Value(new Object_wx_WritableWCharBuffer(new wxWritableWCharBuffer(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_WritableWCharBuffer(new wxWritableWCharBuffer(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

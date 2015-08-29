@@ -54,9 +54,9 @@ Gura_DeclareFunction(codec)
 Gura_ImplementFunction(codec)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, args.GetString(0), true, false));
+	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, arg.GetString(0), true, false));
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_codec(env, pCodec.release())));
+	return ReturnValue(env, arg, Value(new Object_codec(env, pCodec.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -80,10 +80,10 @@ Gura_DeclareMethod(codec, addcr)
 
 Gura_ImplementMethod(codec, addcr)
 {
-	Object_codec *pThis = Object_codec::GetObjectThis(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(arg);
 	Codec::Encoder *pEncoder = pThis->GetCodec()->GetEncoder();
-	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetValueThis();
+	pEncoder->SetAddcrFlag(arg.IsValid(0)? arg.GetBoolean(0) : true);
+	return arg.GetValueThis();
 }
 
 // codec#decode(buff:binary):map
@@ -99,9 +99,9 @@ Gura_DeclareMethod(codec, decode)
 Gura_ImplementMethod(codec, decode)
 {
 	Signal &sig = env.GetSignal();
-	Object_codec *pThis = Object_codec::GetObjectThis(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(arg);
 	String dst;
-	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
+	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, arg.GetBinary(0))) {
 		return Value::Nil;
 	}
 	return Value(dst);
@@ -125,10 +125,10 @@ Gura_DeclareMethod(codec, delcr)
 
 Gura_ImplementMethod(codec, delcr)
 {
-	Object_codec *pThis = Object_codec::GetObjectThis(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(arg);
 	Codec::Decoder *pDecoder = pThis->GetCodec()->GetDecoder();
-	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	return args.GetValueThis();
+	pDecoder->SetDelcrFlag(arg.IsValid(0)? arg.GetBoolean(0) : true);
+	return arg.GetValueThis();
 }
 
 // codec#encode(str:string):map
@@ -144,9 +144,9 @@ Gura_DeclareMethod(codec, encode)
 Gura_ImplementMethod(codec, encode)
 {
 	Signal &sig = env.GetSignal();
-	Object_codec *pThis = Object_codec::GetObjectThis(args);
+	Object_codec *pThis = Object_codec::GetObjectThis(arg);
 	Binary dst;
-	if (!pThis->GetCodec()->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
+	if (!pThis->GetCodec()->GetEncoder()->Encode(sig, dst, arg.GetString(0))) {
 		return Value::Nil;
 	}
 	return Value(new Object_binary(env, dst, true));

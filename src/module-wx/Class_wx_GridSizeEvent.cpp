@@ -49,15 +49,15 @@ Gura_ImplementFunction(GridSizeEventEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent();
-	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(GridSizeEvent)
@@ -81,33 +81,33 @@ Gura_ImplementFunction(GridSizeEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int id = args.GetInt(0);
-	wxEventType type = static_cast<wxEventType>(args.GetInt(1));
-	wxObject *obj = Object_wx_Object::GetObject(args, 2)->GetEntity();
+	int id = arg.GetInt(0);
+	wxEventType type = static_cast<wxEventType>(arg.GetInt(1));
+	wxObject *obj = Object_wx_Object::GetObject(arg, 2)->GetEntity();
 	int rowOrCol = -1;
-	if (args.IsValid(3)) rowOrCol = args.GetInt(3);
+	if (arg.IsValid(3)) rowOrCol = arg.GetInt(3);
 	int x = -1;
-	if (args.IsValid(4)) x = args.GetInt(4);
+	if (arg.IsValid(4)) x = arg.GetInt(4);
 	int y = -1;
-	if (args.IsValid(5)) y = args.GetInt(5);
+	if (arg.IsValid(5)) y = arg.GetInt(5);
 	bool control = false;
-	if (args.IsValid(6)) control = args.GetBoolean(6);
+	if (arg.IsValid(6)) control = arg.GetBoolean(6);
 	bool shift = false;
-	if (args.IsValid(7)) shift = args.GetBoolean(7);
+	if (arg.IsValid(7)) shift = arg.GetBoolean(7);
 	bool alt = false;
-	if (args.IsValid(8)) alt = args.GetBoolean(8);
+	if (arg.IsValid(8)) alt = arg.GetBoolean(8);
 	bool meta = false;
-	if (args.IsValid(9)) meta = args.GetBoolean(9);
+	if (arg.IsValid(9)) meta = arg.GetBoolean(9);
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent(id, type, obj, rowOrCol, x, y, control, shift, alt, meta);
-	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
@@ -119,10 +119,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
 Gura_ImplementMethod(wx_GridSizeEvent, AltDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->AltDown();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, ControlDown)
@@ -134,10 +134,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, ControlDown)
 Gura_ImplementMethod(wx_GridSizeEvent, ControlDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ControlDown();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, GetPosition)
@@ -149,10 +149,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetPosition)
 Gura_ImplementMethod(wx_GridSizeEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
@@ -164,10 +164,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
 Gura_ImplementMethod(wx_GridSizeEvent, GetRowOrCol)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetRowOrCol();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, MetaDown)
@@ -179,10 +179,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, MetaDown)
 Gura_ImplementMethod(wx_GridSizeEvent, MetaDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->MetaDown();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, ShiftDown)
@@ -194,10 +194,10 @@ Gura_DeclareMethod(wx_GridSizeEvent, ShiftDown)
 Gura_ImplementMethod(wx_GridSizeEvent, ShiftDown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(args);
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ShiftDown();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

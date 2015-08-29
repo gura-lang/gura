@@ -78,15 +78,15 @@ Gura_ImplementFunction(DataViewCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DataViewCtrl *pEntity = new wx_DataViewCtrl();
-	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(DataViewCtrl)
@@ -106,26 +106,26 @@ Gura_ImplementFunction(DataViewCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = 0;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(5)) validator = Object_wx_Validator::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) validator = Object_wx_Validator::GetObject(arg, 5)->GetEntity();
 	wx_DataViewCtrl *pEntity = new wx_DataViewCtrl(parent, id, *pos, *size, style, *validator);
-	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendColumn)
@@ -138,11 +138,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDataViewColumn *col = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
+	wxDataViewColumn *col = Object_wx_DataViewColumn::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AppendColumn(col);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn)
@@ -158,16 +158,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString label = wxString::FromUTF8(args.GetString(0));
-	unsigned model_column = args.GetInt(1);
+	wxString label = wxString::FromUTF8(arg.GetString(0));
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendBitmapColumn(label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
@@ -183,16 +183,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendBitmapColumn_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *label = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	unsigned model_column = args.GetInt(1);
+	wxBitmap *label = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendBitmapColumn(*label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn)
@@ -208,16 +208,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString label = wxString::FromUTF8(args.GetString(0));
-	unsigned model_column = args.GetInt(1);
+	wxString label = wxString::FromUTF8(arg.GetString(0));
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendDateColumn(label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn_1)
@@ -233,16 +233,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendDateColumn_1)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendDateColumn_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *label = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	unsigned model_column = args.GetInt(1);
+	wxBitmap *label = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendDateColumn(*label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn)
@@ -258,16 +258,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString label = wxString::FromUTF8(args.GetString(0));
-	unsigned model_column = args.GetInt(1);
+	wxString label = wxString::FromUTF8(arg.GetString(0));
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = 80;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendProgressColumn(label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn_1)
@@ -283,16 +283,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendProgressColumn_1)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendProgressColumn_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *label = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	unsigned model_column = args.GetInt(1);
+	wxBitmap *label = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = 80;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendProgressColumn(*label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn)
@@ -308,16 +308,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString label = wxString::FromUTF8(args.GetString(0));
-	unsigned model_column = args.GetInt(1);
+	wxString label = wxString::FromUTF8(arg.GetString(0));
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendTextColumn(label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn_1)
@@ -333,16 +333,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendTextColumn_1)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendTextColumn_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *label = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	unsigned model_column = args.GetInt(1);
+	wxBitmap *label = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = -1;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendTextColumn(*label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn)
@@ -358,16 +358,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString label = wxString::FromUTF8(args.GetString(0));
-	unsigned model_column = args.GetInt(1);
+	wxString label = wxString::FromUTF8(arg.GetString(0));
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = 30;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendToggleColumn(label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn_1)
@@ -383,16 +383,16 @@ Gura_DeclareMethod(wx_DataViewCtrl, AppendToggleColumn_1)
 Gura_ImplementMethod(wx_DataViewCtrl, AppendToggleColumn_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *label = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	unsigned model_column = args.GetInt(1);
+	wxBitmap *label = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
+	unsigned model_column = arg.GetInt(1);
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	int width = 30;
-	if (args.IsValid(3)) width = args.GetInt(3);
+	if (arg.IsValid(3)) width = arg.GetInt(3);
 	bool rtn = pThis->GetEntity()->AppendToggleColumn(*label, model_column, mode, width);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, AssociateModel)
@@ -405,11 +405,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, AssociateModel)
 Gura_ImplementMethod(wx_DataViewCtrl, AssociateModel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
+	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->AssociateModel(model);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, Create)
@@ -427,20 +427,20 @@ Gura_DeclareMethod(wx_DataViewCtrl, Create)
 Gura_ImplementMethod(wx_DataViewCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = 0;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(5)) validator = Object_wx_Validator::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) validator = Object_wx_Validator::GetObject(arg, 5)->GetEntity();
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, *validator);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearColumns)
@@ -452,10 +452,10 @@ Gura_DeclareMethod(wx_DataViewCtrl, ClearColumns)
 Gura_ImplementMethod(wx_DataViewCtrl, ClearColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ClearColumns();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, ClearSelection)
@@ -466,7 +466,7 @@ Gura_DeclareMethod(wx_DataViewCtrl, ClearSelection)
 Gura_ImplementMethod(wx_DataViewCtrl, ClearSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ClearSelection();
 	return Value::Nil;
@@ -482,11 +482,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, DeleteColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, DeleteColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned pos = args.GetInt(0);
+	unsigned pos = arg.GetInt(0);
 	bool rtn = pThis->GetEntity()->DeleteColumn(pos);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetColumn)
@@ -499,11 +499,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, GetColumn)
 Gura_ImplementMethod(wx_DataViewCtrl, GetColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned pos = args.GetInt(0);
+	unsigned pos = arg.GetInt(0);
 	wxDataViewColumn *rtn = (wxDataViewColumn *)pThis->GetEntity()->GetColumn(pos);
-	return ReturnValue(env, args, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_DataViewColumn(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetModel)
@@ -515,10 +515,10 @@ Gura_DeclareMethod(wx_DataViewCtrl, GetModel)
 Gura_ImplementMethod(wx_DataViewCtrl, GetModel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataViewListModel *rtn = (wxDataViewListModel *)pThis->GetEntity()->GetModel();
-	return ReturnValue(env, args, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_DataViewListModel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetNumberOfColumns)
@@ -530,10 +530,10 @@ Gura_DeclareMethod(wx_DataViewCtrl, GetNumberOfColumns)
 Gura_ImplementMethod(wx_DataViewCtrl, GetNumberOfColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetNumberOfColumns();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelection)
@@ -545,10 +545,10 @@ Gura_DeclareMethod(wx_DataViewCtrl, GetSelection)
 Gura_ImplementMethod(wx_DataViewCtrl, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelections)
@@ -561,11 +561,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, GetSelections)
 Gura_ImplementMethod(wx_DataViewCtrl, GetSelections)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(arg.GetList(0)));
 	int rtn = pThis->GetEntity()->GetSelections(*aSelections);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, IsSelected)
@@ -578,11 +578,11 @@ Gura_DeclareMethod(wx_DataViewCtrl, IsSelected)
 Gura_ImplementMethod(wx_DataViewCtrl, IsSelected)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned row = args.GetInt(0);
+	unsigned row = arg.GetInt(0);
 	bool rtn = pThis->GetEntity()->IsSelected(row);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelection)
@@ -594,9 +594,9 @@ Gura_DeclareMethod(wx_DataViewCtrl, SetSelection)
 Gura_ImplementMethod(wx_DataViewCtrl, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int row = args.GetInt(0);
+	int row = arg.GetInt(0);
 	pThis->GetEntity()->SetSelection(row);
 	return Value::Nil;
 }
@@ -611,10 +611,10 @@ Gura_DeclareMethod(wx_DataViewCtrl, SetSelectionRange)
 Gura_ImplementMethod(wx_DataViewCtrl, SetSelectionRange)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned from = args.GetInt(0);
-	unsigned to = args.GetInt(1);
+	unsigned from = arg.GetInt(0);
+	unsigned to = arg.GetInt(1);
 	pThis->GetEntity()->SetSelectionRange(from, to);
 	return Value::Nil;
 }
@@ -628,9 +628,9 @@ Gura_DeclareMethod(wx_DataViewCtrl, SetSelections)
 Gura_ImplementMethod(wx_DataViewCtrl, SetSelections)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(args.GetList(0)));
+	std::unique_ptr<wxArrayInt> aSelections(CreateArrayInt(arg.GetList(0)));
 	pThis->GetEntity()->SetSelections(*aSelections);
 	return Value::Nil;
 }
@@ -644,9 +644,9 @@ Gura_DeclareMethod(wx_DataViewCtrl, Unselect)
 Gura_ImplementMethod(wx_DataViewCtrl, Unselect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(args);
+	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned row = args.GetInt(0);
+	unsigned row = arg.GetInt(0);
 	pThis->GetEntity()->Unselect(row);
 	return Value::Nil;
 }

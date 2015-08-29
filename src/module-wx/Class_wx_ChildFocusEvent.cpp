@@ -49,17 +49,17 @@ Gura_ImplementFunction(ChildFocusEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindow *win = (wxWindow *)(nullptr);
-	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) win = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wx_ChildFocusEvent *pEntity = new wx_ChildFocusEvent(win);
-	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetObjectThis(args);
+	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ChildFocusEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

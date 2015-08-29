@@ -50,15 +50,15 @@ Gura_ImplementFunction(ChoiceEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Choice *pEntity = new wx_Choice();
-	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(Choice)
@@ -80,34 +80,34 @@ Gura_ImplementFunction(Choice)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	std::unique_ptr<wxArrayString> choices;
-	if (args.IsValid(4)) {
-		choices.reset(CreateArrayString(args.GetList(4)));
+	if (arg.IsValid(4)) {
+		choices.reset(CreateArrayString(arg.GetList(4)));
 	} else {
 		choices.reset(new wxArrayString());
 	}
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxT("choice");
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	wx_Choice *pEntity = new wx_Choice(parent, id, *pos, *size, *choices, style, *validator, name);
-	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_Choice, Create)
@@ -127,21 +127,21 @@ Gura_DeclareMethod(wx_Choice, Create)
 Gura_ImplementMethod(wx_Choice, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
-	wxSize *size = Object_wx_Size::GetObject(args, 3)->GetEntity();
-	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(4)));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxPoint *pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
+	wxSize *size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(arg.GetList(4)));
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxT("choice");
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, GetColumns)
@@ -153,10 +153,10 @@ Gura_DeclareMethod(wx_Choice, GetColumns)
 Gura_ImplementMethod(wx_Choice, GetColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColumns();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
@@ -168,10 +168,10 @@ Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
 Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Choice, SetColumns)
@@ -183,10 +183,10 @@ Gura_DeclareMethod(wx_Choice, SetColumns)
 Gura_ImplementMethod(wx_Choice, SetColumns)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(args);
+	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = 1;
-	if (args.IsValid(0)) n = args.GetInt(0);
+	if (arg.IsValid(0)) n = arg.GetInt(0);
 	pThis->GetEntity()->SetColumns(n);
 	return Value::Nil;
 }

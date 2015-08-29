@@ -49,12 +49,12 @@ Gura_DeclareFunction(directory)
 Gura_ImplementFunction(directory)
 {
 	Signal &sig = env.GetSignal();
-	const char *pathName = args.GetString(0);
+	const char *pathName = arg.GetString(0);
 	AutoPtr<Directory> pDirectory(Directory::Open(env,
 								pathName, PathMgr::NF_Signal));
 	if (sig.IsSignalled()) return Value::Nil;
 	Object_directory *pObj = new Object_directory(env, pDirectory.release());
-	return ReturnValue(env, args, Value(pObj));
+	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------

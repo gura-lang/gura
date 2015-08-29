@@ -108,7 +108,7 @@ Gura_ImplementFunction(audio)
 	Signal &sig = env.GetSignal();
 	size_t nChannels = 1;
 	size_t nSamplesPerSec = 10000;
-	ValueList valList = args.GetList(0);
+	ValueList valList = arg.GetList(0);
 	AutoPtr<Audio> pAudio;
 	if (valList[0].Is_symbol()) {
 		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
@@ -149,7 +149,7 @@ Gura_ImplementFunction(audio)
 		}
 		if (!pAudio->Read(env, stream, audioType)) return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_audio(env, pAudio.release())));
+	return ReturnValue(env, arg, Value(new Object_audio(env, pAudio.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ Gura_DeclareMethod(audio, each)
 Gura_ImplementMethod(audio, each)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
+	Audio *pAudio = Object_audio::GetObjectThis(arg)->GetAudio();
+	size_t iChannel = arg.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Nil;
 	}
-	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
+	size_t offset = arg.Is_number(1)? arg.GetSizeT(1) : 0;
 	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
 								pAudio->Reference(), iChannel, offset));
-	return ReturnIterator(env, args, pIterator.release());
+	return ReturnIterator(env, arg, pIterator.release());
 }
 
 // audio#get(channel:number, offset:number):map
@@ -196,13 +196,13 @@ Gura_DeclareMethod(audio, get)
 Gura_ImplementMethod(audio, get)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
+	Audio *pAudio = Object_audio::GetObjectThis(arg)->GetAudio();
+	size_t iChannel = arg.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Nil;
 	}
-	size_t offset = args.GetSizeT(1);
+	size_t offset = arg.GetSizeT(1);
 	int data = 0;
 	if (!pAudio->GetData(iChannel, offset, &data)) {
 		sig.SetError(ERR_IndexError, "offset is out of range");
@@ -226,19 +226,19 @@ Gura_DeclareMethod(audio, put)
 Gura_ImplementMethod(audio, put)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
+	Audio *pAudio = Object_audio::GetObjectThis(arg)->GetAudio();
+	size_t iChannel = arg.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Nil;
 	}
-	size_t offset = args.GetSizeT(1);
-	int data = args.GetInt(2);
+	size_t offset = arg.GetSizeT(1);
+	int data = arg.GetInt(2);
 	if (!pAudio->PutData(iChannel, offset, data)) {
 		sig.SetError(ERR_IndexError, "offset is out of range");
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
@@ -257,19 +257,19 @@ Gura_DeclareMethod(audio, sinewave)
 Gura_ImplementMethod(audio, sinewave)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
+	Audio *pAudio = Object_audio::GetObjectThis(arg)->GetAudio();
+	size_t iChannel = arg.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Nil;
 	}
-	double freq = args.GetDouble(1);
-	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
-	int amplitude = args.Is_number(3)? args.GetInt(3) : -1;
+	double freq = arg.GetDouble(1);
+	size_t nSamples = static_cast<size_t>(arg.GetDouble(2) * pAudio->GetSamplesPerSec());
+	int amplitude = arg.Is_number(3)? arg.GetInt(3) : -1;
 	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // audio#store(channel:number, offset:number, data:iterator):reduce
@@ -287,16 +287,16 @@ Gura_DeclareMethod(audio, store)
 Gura_ImplementMethod(audio, store)
 {
 	Signal &sig = env.GetSignal();
-	Audio *pAudio = Object_audio::GetObjectThis(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
+	Audio *pAudio = Object_audio::GetObjectThis(arg)->GetAudio();
+	size_t iChannel = arg.GetSizeT(0);
 	if (iChannel >= pAudio->GetChannels()) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Nil;
 	}
-	size_t offset = args.GetSizeT(1);
-	Iterator *pIterator = args.GetIterator(2);
+	size_t offset = arg.GetSizeT(1);
+	Iterator *pIterator = arg.GetIterator(2);
 	if (!pAudio->StoreData(env, iChannel, offset, pIterator)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

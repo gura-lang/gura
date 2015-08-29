@@ -21,11 +21,11 @@ Gura_DeclareFunctionAlias(__gluBeginCurve, "gluBeginCurve")
 Gura_ImplementFunction(__gluBeginCurve)
 {
 	Signal &sig = env.GetSignal();
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginCurve(nurb);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndCurve(nurb);
@@ -47,12 +47,12 @@ Gura_DeclareFunctionAlias(__gluBeginPolygon, "gluBeginPolygon")
 Gura_ImplementFunction(__gluBeginPolygon)
 {
 	Signal &sig = env.GetSignal();
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	tess->CreatePolygonPack(Value::Nil);
 	gluBeginPolygon(tess->GetTesselator());
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
@@ -75,11 +75,11 @@ Gura_DeclareFunctionAlias(__gluBeginSurface, "gluBeginSurface")
 Gura_ImplementFunction(__gluBeginSurface)
 {
 	Signal &sig = env.GetSignal();
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginSurface(nurb);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndSurface(nurb);
@@ -101,11 +101,11 @@ Gura_DeclareFunctionAlias(__gluBeginTrim, "gluBeginTrim")
 Gura_ImplementFunction(__gluBeginTrim)
 {
 	Signal &sig = env.GetSignal();
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginTrim(nurb);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndTrim(nurb);
@@ -131,12 +131,12 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 Gura_ImplementFunction(__gluBuild1DMipmaps)
 {
 	Signal &sig = env.GetSignal();
-	GLenum target = static_cast<GLenum>(args.GetInt(0));
-	GLint internalFormat = args.GetInt(1);
-	GLsizei width = args.GetInt(2);
-	GLenum format = static_cast<GLenum>(args.GetInt(3));
-	GLenum type = static_cast<GLenum>(args.GetInt(4));
-	Value data = args.GetValue(5);
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint internalFormat = arg.GetInt(1);
+	GLsizei width = arg.GetInt(2);
+	GLenum format = static_cast<GLenum>(arg.GetInt(3));
+	GLenum type = static_cast<GLenum>(arg.GetInt(4));
+	Value data = arg.GetValue(5);
 	const void *p = GetArrayPointer(sig, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
@@ -159,9 +159,9 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmapsFromImage, "gluBuild1DMipmapsFromIm
 Gura_ImplementFunction(__gluBuild1DMipmapsFromImage)
 {
 	Signal &sig = env.GetSignal();
-	GLenum target = static_cast<GLenum>(args.GetInt(0));
-	GLint internalFormat = args.GetInt(1);
-	Image *image = Object_image::GetObject(args, 2)->GetImage();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint internalFormat = arg.GetInt(1);
+	Image *image = Object_image::GetObject(arg, 2)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
 	if (sig.IsSignalled()) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 Gura_ImplementFunction(__gluBuild2DMipmaps)
 {
 	Signal &sig = env.GetSignal();
-	GLenum target = static_cast<GLenum>(args.GetInt(0));
-	GLint internalFormat = args.GetInt(1);
-	GLsizei width = args.GetInt(2);
-	GLsizei height = args.GetInt(3);
-	GLenum format = static_cast<GLenum>(args.GetInt(4));
-	GLenum type = static_cast<GLenum>(args.GetInt(5));
-	Value data = args.GetValue(6);
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint internalFormat = arg.GetInt(1);
+	GLsizei width = arg.GetInt(2);
+	GLsizei height = arg.GetInt(3);
+	GLenum format = static_cast<GLenum>(arg.GetInt(4));
+	GLenum type = static_cast<GLenum>(arg.GetInt(5));
+	Value data = arg.GetValue(6);
 	const void *p = GetArrayPointer(sig, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,
@@ -220,9 +220,9 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmapsFromImage, "gluBuild2DMipmapsFromIm
 Gura_ImplementFunction(__gluBuild2DMipmapsFromImage)
 {
 	Signal &sig = env.GetSignal();
-	GLenum target = static_cast<GLenum>(args.GetInt(0));
-	GLint internalFormat = args.GetInt(1);
-	Image *image = Object_image::GetObject(args, 2)->GetImage();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint internalFormat = arg.GetInt(1);
+	Image *image = Object_image::GetObject(arg, 2)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
@@ -251,12 +251,12 @@ Gura_DeclareFunctionAlias(__gluCylinder, "gluCylinder")
 
 Gura_ImplementFunction(__gluCylinder)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLdouble base = args.GetDouble(1);
-	GLdouble top = args.GetDouble(2);
-	GLdouble height = args.GetDouble(3);
-	GLint slices = args.GetInt(4);
-	GLint stacks = args.GetInt(5);
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLdouble base = arg.GetDouble(1);
+	GLdouble top = arg.GetDouble(2);
+	GLdouble height = arg.GetDouble(3);
+	GLint slices = arg.GetInt(4);
+	GLint stacks = arg.GetInt(5);
 	gluCylinder(quad, base, top, height, slices, stacks);
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_DeclareFunctionAlias(__gluDeleteNurbsRenderer, "gluDeleteNurbsRenderer")
 
 Gura_ImplementFunction(__gluDeleteNurbsRenderer)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluDeleteNurbsRenderer(nurb);
 	return Value::Nil;
 }
@@ -290,7 +290,7 @@ Gura_DeclareFunctionAlias(__gluDeleteQuadric, "gluDeleteQuadric")
 
 Gura_ImplementFunction(__gluDeleteQuadric)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
 	gluDeleteQuadric(quad);
 	return Value::Nil;
 }
@@ -307,7 +307,7 @@ Gura_DeclareFunctionAlias(__gluDeleteTess, "gluDeleteTess")
 
 Gura_ImplementFunction(__gluDeleteTess)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
 	gluDeleteTess(tess);
 	return Value::Nil;
 }
@@ -328,11 +328,11 @@ Gura_DeclareFunctionAlias(__gluDisk, "gluDisk")
 
 Gura_ImplementFunction(__gluDisk)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLdouble inner = args.GetDouble(1);
-	GLdouble outer = args.GetDouble(2);
-	GLint slices = args.GetInt(3);
-	GLint loops = args.GetInt(4);
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLdouble inner = arg.GetDouble(1);
+	GLdouble outer = arg.GetDouble(2);
+	GLint slices = arg.GetInt(3);
+	GLint loops = arg.GetInt(4);
 	gluDisk(quad, inner, outer, slices, loops);
 	return Value::Nil;
 }
@@ -349,7 +349,7 @@ Gura_DeclareFunctionAlias(__gluEndCurve, "gluEndCurve")
 
 Gura_ImplementFunction(__gluEndCurve)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluEndCurve(nurb);
 	return Value::Nil;
 }
@@ -366,7 +366,7 @@ Gura_DeclareFunctionAlias(__gluEndPolygon, "gluEndPolygon")
 
 Gura_ImplementFunction(__gluEndPolygon)
 {
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	gluEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
 	return Value::Nil;
@@ -384,7 +384,7 @@ Gura_DeclareFunctionAlias(__gluEndSurface, "gluEndSurface")
 
 Gura_ImplementFunction(__gluEndSurface)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluEndSurface(nurb);
 	return Value::Nil;
 }
@@ -401,7 +401,7 @@ Gura_DeclareFunctionAlias(__gluEndTrim, "gluEndTrim")
 
 Gura_ImplementFunction(__gluEndTrim)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluEndTrim(nurb);
 	return Value::Nil;
 }
@@ -418,9 +418,9 @@ Gura_DeclareFunctionAlias(__gluErrorString, "gluErrorString")
 
 Gura_ImplementFunction(__gluErrorString)
 {
-	GLenum error = static_cast<GLenum>(args.GetInt(0));
+	GLenum error = static_cast<GLenum>(arg.GetInt(0));
 	const GLubyte *_rtn = gluErrorString(error);
-	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // glu.gluGetNurbsProperty
@@ -437,9 +437,9 @@ Gura_DeclareFunctionAlias(__gluGetNurbsProperty, "gluGetNurbsProperty")
 
 Gura_ImplementFunction(__gluGetNurbsProperty)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	GLenum property = static_cast<GLenum>(args.GetInt(1));
-	Array<float> *_data = Object_array<float>::GetObject(args, 2)->GetArray();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	GLenum property = static_cast<GLenum>(arg.GetInt(1));
+	Array<float> *_data = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	gluGetNurbsProperty(nurb, property, data);
 	return Value::Nil;
@@ -457,9 +457,9 @@ Gura_DeclareFunctionAlias(__gluGetString, "gluGetString")
 
 Gura_ImplementFunction(__gluGetString)
 {
-	GLenum name = static_cast<GLenum>(args.GetInt(0));
+	GLenum name = static_cast<GLenum>(arg.GetInt(0));
 	const GLubyte *_rtn = gluGetString(name);
-	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
 }
 
 // glu.gluGetTessProperty
@@ -476,9 +476,9 @@ Gura_DeclareFunctionAlias(__gluGetTessProperty, "gluGetTessProperty")
 
 Gura_ImplementFunction(__gluGetTessProperty)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	Array<double> *_data = Object_array<double>::GetObject(args, 2)->GetArray();
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
+	GLenum which = static_cast<GLenum>(arg.GetInt(1));
+	Array<double> *_data = Object_array<double>::GetObject(arg, 2)->GetArray();
 	GLdouble *data = reinterpret_cast<GLdouble *>(_data->GetPointer());
 	gluGetTessProperty(tess, which, data);
 	return Value::Nil;
@@ -499,12 +499,12 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 
 Gura_ImplementFunction(__gluLoadSamplingMatrices)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	Array<float> *_model = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	Array<float> *_model = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *model = reinterpret_cast<GLfloat *>(_model->GetPointer());
-	Array<float> *_perspective = Object_array<float>::GetObject(args, 2)->GetArray();
+	Array<float> *_perspective = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *perspective = reinterpret_cast<GLfloat *>(_perspective->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(args, 3)->GetArray();
+	Array<int> *_view = Object_array<int>::GetObject(arg, 3)->GetArray();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
 	gluLoadSamplingMatrices(nurb, model, perspective, view);
 	return Value::Nil;
@@ -530,15 +530,15 @@ Gura_DeclareFunctionAlias(__gluLookAt, "gluLookAt")
 
 Gura_ImplementFunction(__gluLookAt)
 {
-	GLdouble eyeX = args.GetDouble(0);
-	GLdouble eyeY = args.GetDouble(1);
-	GLdouble eyeZ = args.GetDouble(2);
-	GLdouble centerX = args.GetDouble(3);
-	GLdouble centerY = args.GetDouble(4);
-	GLdouble centerZ = args.GetDouble(5);
-	GLdouble upX = args.GetDouble(6);
-	GLdouble upY = args.GetDouble(7);
-	GLdouble upZ = args.GetDouble(8);
+	GLdouble eyeX = arg.GetDouble(0);
+	GLdouble eyeY = arg.GetDouble(1);
+	GLdouble eyeZ = arg.GetDouble(2);
+	GLdouble centerX = arg.GetDouble(3);
+	GLdouble centerY = arg.GetDouble(4);
+	GLdouble centerZ = arg.GetDouble(5);
+	GLdouble upX = arg.GetDouble(6);
+	GLdouble upY = arg.GetDouble(7);
+	GLdouble upZ = arg.GetDouble(8);
 	gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 	return Value::Nil;
 }
@@ -555,7 +555,7 @@ Gura_DeclareFunctionAlias(__gluNewNurbsRenderer, "gluNewNurbsRenderer")
 Gura_ImplementFunction(__gluNewNurbsRenderer)
 {
 	GLUnurbs *_rtn = gluNewNurbsRenderer();
-	return ReturnValue(env, args, Value(new Object_Nurbs(_rtn)));
+	return ReturnValue(env, arg, Value(new Object_Nurbs(_rtn)));
 }
 
 // glu.gluNewQuadric
@@ -570,7 +570,7 @@ Gura_DeclareFunctionAlias(__gluNewQuadric, "gluNewQuadric")
 Gura_ImplementFunction(__gluNewQuadric)
 {
 	GLUquadric *_rtn = gluNewQuadric();
-	return ReturnValue(env, args, Value(new Object_Quadric(_rtn)));
+	return ReturnValue(env, arg, Value(new Object_Quadric(_rtn)));
 }
 
 // glu.gluNewTess
@@ -585,7 +585,7 @@ Gura_DeclareFunctionAlias(__gluNewTess, "gluNewTess")
 Gura_ImplementFunction(__gluNewTess)
 {
 	GLUtesselator *_rtn = gluNewTess();
-	return ReturnValue(env, args, Value(new Object_Tesselator(_rtn)));
+	return ReturnValue(env, arg, Value(new Object_Tesselator(_rtn)));
 }
 
 // glu.gluNextContour
@@ -601,8 +601,8 @@ Gura_DeclareFunctionAlias(__gluNextContour, "gluNextContour")
 
 Gura_ImplementFunction(__gluNextContour)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	GLenum type = static_cast<GLenum>(args.GetInt(1));
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
+	GLenum type = static_cast<GLenum>(arg.GetInt(1));
 	gluNextContour(tess, type);
 	return Value::Nil;
 }
@@ -622,9 +622,9 @@ Gura_DeclareFunctionAlias(__gluNurbsCallback, "gluNurbsCallback")
 Gura_ImplementFunction(__gluNurbsCallback)
 {
 	Signal &sig = env.GetSignal();
-	Object_Nurbs *nurbs = Object_Nurbs::GetObject(args, 0);
-	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	const Function *func = Object_function::GetObject(args, 2)->GetFunction();
+	Object_Nurbs *nurbs = Object_Nurbs::GetObject(arg, 0);
+	GLenum which = static_cast<GLenum>(arg.GetInt(1));
+	const Function *func = Object_function::GetObject(arg, 2)->GetFunction();
 	nurbs->SetCallback(sig, which, func);
 	return Value::Nil;
 }
@@ -643,8 +643,8 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackData, "gluNurbsCallbackData")
 Gura_ImplementFunction(__gluNurbsCallbackData)
 {
 	Signal &sig = env.GetSignal();
-	Object_Nurbs *nurb = Object_Nurbs::GetObject(args, 0);
-	Value userData = args.GetValue(1);
+	Object_Nurbs *nurb = Object_Nurbs::GetObject(arg, 0);
+	Value userData = arg.GetValue(1);
 #if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackData(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
@@ -670,8 +670,8 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackDataEXT, "gluNurbsCallbackDataEXT")
 Gura_ImplementFunction(__gluNurbsCallbackDataEXT)
 {
 	Signal &sig = env.GetSignal();
-	Object_Nurbs *nurb = Object_Nurbs::GetObject(args, 0);
-	Value userData = args.GetValue(1);
+	Object_Nurbs *nurb = Object_Nurbs::GetObject(arg, 0);
+	Value userData = arg.GetValue(1);
 #if defined(GLU_VERSION_1_3)
 	nurb->SetCallbackDataEXT(userData);
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
@@ -700,14 +700,14 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 
 Gura_ImplementFunction(__gluNurbsCurve)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	Array<float> *_knots = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	Array<float> *_knots = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *knots = reinterpret_cast<GLfloat *>(_knots->GetPointer());
-	GLint stride = args.GetInt(2);
-	Array<float> *_control = Object_array<float>::GetObject(args, 3)->GetArray();
+	GLint stride = arg.GetInt(2);
+	Array<float> *_control = Object_array<float>::GetObject(arg, 3)->GetArray();
 	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
-	GLint order = args.GetInt(4);
-	GLenum type = static_cast<GLenum>(args.GetInt(5));
+	GLint order = arg.GetInt(4);
+	GLenum type = static_cast<GLenum>(arg.GetInt(5));
 	GLint knotCount = static_cast<GLint>(_knots->GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Nil;
@@ -727,9 +727,9 @@ Gura_DeclareFunctionAlias(__gluNurbsProperty, "gluNurbsProperty")
 
 Gura_ImplementFunction(__gluNurbsProperty)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	GLenum property = static_cast<GLenum>(args.GetInt(1));
-	GLfloat value = args.GetFloat(2);
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	GLenum property = static_cast<GLenum>(arg.GetInt(1));
+	GLfloat value = arg.GetFloat(2);
 	gluNurbsProperty(nurb, property, value);
 	return Value::Nil;
 }
@@ -754,18 +754,18 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 
 Gura_ImplementFunction(__gluNurbsSurface)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	Array<float> *_sKnots = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	Array<float> *_sKnots = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *sKnots = reinterpret_cast<GLfloat *>(_sKnots->GetPointer());
-	Array<float> *_tKnots = Object_array<float>::GetObject(args, 2)->GetArray();
+	Array<float> *_tKnots = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *tKnots = reinterpret_cast<GLfloat *>(_tKnots->GetPointer());
-	GLint sStride = args.GetInt(3);
-	GLint tStride = args.GetInt(4);
-	Array<float> *_control = Object_array<float>::GetObject(args, 5)->GetArray();
+	GLint sStride = arg.GetInt(3);
+	GLint tStride = arg.GetInt(4);
+	Array<float> *_control = Object_array<float>::GetObject(arg, 5)->GetArray();
 	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
-	GLint sOrder = args.GetInt(6);
-	GLint tOrder = args.GetInt(7);
-	GLenum type = static_cast<GLenum>(args.GetInt(8));
+	GLint sOrder = arg.GetInt(6);
+	GLint tOrder = arg.GetInt(7);
+	GLenum type = static_cast<GLenum>(arg.GetInt(8));
 	GLint sKnotCount = static_cast<GLint>(_sKnots->GetSize());
 	GLint tKnotCount = static_cast<GLint>(_tKnots->GetSize());
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
@@ -788,10 +788,10 @@ Gura_DeclareFunctionAlias(__gluOrtho2D, "gluOrtho2D")
 
 Gura_ImplementFunction(__gluOrtho2D)
 {
-	GLdouble left = args.GetDouble(0);
-	GLdouble right = args.GetDouble(1);
-	GLdouble bottom = args.GetDouble(2);
-	GLdouble top = args.GetDouble(3);
+	GLdouble left = arg.GetDouble(0);
+	GLdouble right = arg.GetDouble(1);
+	GLdouble bottom = arg.GetDouble(2);
+	GLdouble top = arg.GetDouble(3);
 	gluOrtho2D(left, right, bottom, top);
 	return Value::Nil;
 }
@@ -814,13 +814,13 @@ Gura_DeclareFunctionAlias(__gluPartialDisk, "gluPartialDisk")
 
 Gura_ImplementFunction(__gluPartialDisk)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLdouble inner = args.GetDouble(1);
-	GLdouble outer = args.GetDouble(2);
-	GLint slices = args.GetInt(3);
-	GLint loops = args.GetInt(4);
-	GLdouble start = args.GetDouble(5);
-	GLdouble sweep = args.GetDouble(6);
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLdouble inner = arg.GetDouble(1);
+	GLdouble outer = arg.GetDouble(2);
+	GLint slices = arg.GetInt(3);
+	GLint loops = arg.GetInt(4);
+	GLdouble start = arg.GetDouble(5);
+	GLdouble sweep = arg.GetDouble(6);
 	gluPartialDisk(quad, inner, outer, slices, loops, start, sweep);
 	return Value::Nil;
 }
@@ -840,10 +840,10 @@ Gura_DeclareFunctionAlias(__gluPerspective, "gluPerspective")
 
 Gura_ImplementFunction(__gluPerspective)
 {
-	GLdouble fovy = args.GetDouble(0);
-	GLdouble aspect = args.GetDouble(1);
-	GLdouble zNear = args.GetDouble(2);
-	GLdouble zFar = args.GetDouble(3);
+	GLdouble fovy = arg.GetDouble(0);
+	GLdouble aspect = arg.GetDouble(1);
+	GLdouble zNear = arg.GetDouble(2);
+	GLdouble zFar = arg.GetDouble(3);
 	gluPerspective(fovy, aspect, zNear, zFar);
 	return Value::Nil;
 }
@@ -864,11 +864,11 @@ Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 
 Gura_ImplementFunction(__gluPickMatrix)
 {
-	GLdouble x = args.GetDouble(0);
-	GLdouble y = args.GetDouble(1);
-	GLdouble delX = args.GetDouble(2);
-	GLdouble delY = args.GetDouble(3);
-	Array<int> *_viewport = Object_array<int>::GetObject(args, 4)->GetArray();
+	GLdouble x = arg.GetDouble(0);
+	GLdouble y = arg.GetDouble(1);
+	GLdouble delX = arg.GetDouble(2);
+	GLdouble delY = arg.GetDouble(3);
+	Array<int> *_viewport = Object_array<int>::GetObject(arg, 4)->GetArray();
 	GLint *viewport = reinterpret_cast<GLint *>(_viewport->GetPointer());
 	gluPickMatrix(x, y, delX, delY, viewport);
 	return Value::Nil;
@@ -894,23 +894,23 @@ Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 
 Gura_ImplementFunction(__gluProject)
 {
-	GLdouble objX = args.GetDouble(0);
-	GLdouble objY = args.GetDouble(1);
-	GLdouble objZ = args.GetDouble(2);
-	Array<double> *_model = Object_array<double>::GetObject(args, 3)->GetArray();
+	GLdouble objX = arg.GetDouble(0);
+	GLdouble objY = arg.GetDouble(1);
+	GLdouble objZ = arg.GetDouble(2);
+	Array<double> *_model = Object_array<double>::GetObject(arg, 3)->GetArray();
 	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
-	Array<double> *_proj = Object_array<double>::GetObject(args, 4)->GetArray();
+	Array<double> *_proj = Object_array<double>::GetObject(arg, 4)->GetArray();
 	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(args, 5)->GetArray();
+	Array<int> *_view = Object_array<int>::GetObject(arg, 5)->GetArray();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
-	Array<double> *_winX = Object_array<double>::GetObject(args, 6)->GetArray();
+	Array<double> *_winX = Object_array<double>::GetObject(arg, 6)->GetArray();
 	GLdouble *winX = reinterpret_cast<GLdouble *>(_winX->GetPointer());
-	Array<double> *_winY = Object_array<double>::GetObject(args, 7)->GetArray();
+	Array<double> *_winY = Object_array<double>::GetObject(arg, 7)->GetArray();
 	GLdouble *winY = reinterpret_cast<GLdouble *>(_winY->GetPointer());
-	Array<double> *_winZ = Object_array<double>::GetObject(args, 8)->GetArray();
+	Array<double> *_winZ = Object_array<double>::GetObject(arg, 8)->GetArray();
 	GLdouble *winZ = reinterpret_cast<GLdouble *>(_winZ->GetPointer());
 	GLint _rtn = gluProject(objX, objY, objZ, model, proj, view, winX, winY, winZ);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // glu.gluPwlCurve
@@ -928,11 +928,11 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 
 Gura_ImplementFunction(__gluPwlCurve)
 {
-	GLUnurbs *nurb = Object_Nurbs::GetObject(args, 0)->GetNurbs();
-	Array<float> *_data = Object_array<float>::GetObject(args, 1)->GetArray();
+	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
+	Array<float> *_data = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
-	GLint stride = args.GetInt(2);
-	GLenum type = static_cast<GLenum>(args.GetInt(3));
+	GLint stride = arg.GetInt(2);
+	GLenum type = static_cast<GLenum>(arg.GetInt(3));
 	GLint count = static_cast<GLint>(_data->GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Nil;
@@ -953,9 +953,9 @@ Gura_DeclareFunctionAlias(__gluQuadricCallback, "gluQuadricCallback")
 Gura_ImplementFunction(__gluQuadricCallback)
 {
 	Signal &sig = env.GetSignal();
-	Object_Quadric *quad = Object_Quadric::GetObject(args, 0);
-	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	const Function *func = args.IsValid(2)? Object_function::GetObject(args, 2)->GetFunction() : nullptr;
+	Object_Quadric *quad = Object_Quadric::GetObject(arg, 0);
+	GLenum which = static_cast<GLenum>(arg.GetInt(1));
+	const Function *func = arg.IsValid(2)? Object_function::GetObject(arg, 2)->GetFunction() : nullptr;
 	quad->SetCallback(sig, which, func);
 	return Value::Nil;
 }
@@ -973,8 +973,8 @@ Gura_DeclareFunctionAlias(__gluQuadricDrawStyle, "gluQuadricDrawStyle")
 
 Gura_ImplementFunction(__gluQuadricDrawStyle)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLenum draw = static_cast<GLenum>(args.GetInt(1));
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLenum draw = static_cast<GLenum>(arg.GetInt(1));
 	gluQuadricDrawStyle(quad, draw);
 	return Value::Nil;
 }
@@ -992,8 +992,8 @@ Gura_DeclareFunctionAlias(__gluQuadricNormals, "gluQuadricNormals")
 
 Gura_ImplementFunction(__gluQuadricNormals)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLenum normal = static_cast<GLenum>(args.GetInt(1));
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLenum normal = static_cast<GLenum>(arg.GetInt(1));
 	gluQuadricNormals(quad, normal);
 	return Value::Nil;
 }
@@ -1011,8 +1011,8 @@ Gura_DeclareFunctionAlias(__gluQuadricOrientation, "gluQuadricOrientation")
 
 Gura_ImplementFunction(__gluQuadricOrientation)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLenum orientation = static_cast<GLenum>(args.GetInt(1));
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLenum orientation = static_cast<GLenum>(arg.GetInt(1));
 	gluQuadricOrientation(quad, orientation);
 	return Value::Nil;
 }
@@ -1030,8 +1030,8 @@ Gura_DeclareFunctionAlias(__gluQuadricTexture, "gluQuadricTexture")
 
 Gura_ImplementFunction(__gluQuadricTexture)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLboolean texture = (args.GetBoolean(1)? GL_TRUE : GL_FALSE);
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLboolean texture = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
 	gluQuadricTexture(quad, texture);
 	return Value::Nil;
 }
@@ -1051,9 +1051,9 @@ Gura_DeclareFunctionAlias(__gluScaleImage, "gluScaleImage")
 Gura_ImplementFunction(__gluScaleImage)
 {
 	Signal &sig = env.GetSignal();
-	Image *imageIn = Object_image::GetObject(args, 0)->GetImage();
-	GLsizei wOut = args.GetInt(1);
-	GLsizei hOut = args.GetInt(2);
+	Image *imageIn = Object_image::GetObject(arg, 0)->GetImage();
+	GLsizei wOut = arg.GetInt(1);
+	GLsizei hOut = arg.GetInt(2);
 	GLenum format = GetImageFormat(sig, imageIn);
 	if (sig.IsSignalled()) return Value::Nil;
 	GLsizei wIn = static_cast<GLsizei>(imageIn->GetWidth());
@@ -1091,10 +1091,10 @@ Gura_DeclareFunctionAlias(__gluSphere, "gluSphere")
 
 Gura_ImplementFunction(__gluSphere)
 {
-	GLUquadric *quad = Object_Quadric::GetObject(args, 0)->GetQuadric();
-	GLdouble radius = args.GetDouble(1);
-	GLint slices = args.GetInt(2);
-	GLint stacks = args.GetInt(3);
+	GLUquadric *quad = Object_Quadric::GetObject(arg, 0)->GetQuadric();
+	GLdouble radius = arg.GetDouble(1);
+	GLint slices = arg.GetInt(2);
+	GLint stacks = arg.GetInt(3);
 	gluSphere(quad, radius, slices, stacks);
 	return Value::Nil;
 }
@@ -1113,11 +1113,11 @@ Gura_DeclareFunctionAlias(__gluTessBeginContour, "gluTessBeginContour")
 Gura_ImplementFunction(__gluTessBeginContour)
 {
 	Signal &sig = env.GetSignal();
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
 	gluTessBeginContour(tess);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndContour(tess);
@@ -1140,13 +1140,13 @@ Gura_DeclareFunctionAlias(__gluTessBeginPolygon, "gluTessBeginPolygon")
 Gura_ImplementFunction(__gluTessBeginPolygon)
 {
 	Signal &sig = env.GetSignal();
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
-	Value polygon_data = args.GetValue(1);
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
+	Value polygon_data = arg.GetValue(1);
 	PolygonPack *pPolygonPack = tess->CreatePolygonPack(polygon_data);
 	gluTessBeginPolygon(tess->GetTesselator(), pPolygonPack);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
@@ -1170,9 +1170,9 @@ Gura_DeclareFunctionAlias(__gluTessCallback, "gluTessCallback")
 Gura_ImplementFunction(__gluTessCallback)
 {
 	Signal &sig = env.GetSignal();
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
-	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	const Function *func = Object_function::GetObject(args, 2)->GetFunction();
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
+	GLenum which = static_cast<GLenum>(arg.GetInt(1));
+	const Function *func = Object_function::GetObject(arg, 2)->GetFunction();
 	tess->SetCallback(sig, which, func);
 	return Value::Nil;
 }
@@ -1189,7 +1189,7 @@ Gura_DeclareFunctionAlias(__gluTessEndContour, "gluTessEndContour")
 
 Gura_ImplementFunction(__gluTessEndContour)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
 	gluTessEndContour(tess);
 	return Value::Nil;
 }
@@ -1206,7 +1206,7 @@ Gura_DeclareFunctionAlias(__gluTessEndPolygon, "gluTessEndPolygon")
 
 Gura_ImplementFunction(__gluTessEndPolygon)
 {
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	gluTessEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
 	return Value::Nil;
@@ -1227,10 +1227,10 @@ Gura_DeclareFunctionAlias(__gluTessNormal, "gluTessNormal")
 
 Gura_ImplementFunction(__gluTessNormal)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	GLdouble valueX = args.GetDouble(1);
-	GLdouble valueY = args.GetDouble(2);
-	GLdouble valueZ = args.GetDouble(3);
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
+	GLdouble valueX = arg.GetDouble(1);
+	GLdouble valueY = arg.GetDouble(2);
+	GLdouble valueZ = arg.GetDouble(3);
 	gluTessNormal(tess, valueX, valueY, valueZ);
 	return Value::Nil;
 }
@@ -1249,9 +1249,9 @@ Gura_DeclareFunctionAlias(__gluTessProperty, "gluTessProperty")
 
 Gura_ImplementFunction(__gluTessProperty)
 {
-	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
-	GLenum which = static_cast<GLenum>(args.GetInt(1));
-	GLdouble data = args.GetDouble(2);
+	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
+	GLenum which = static_cast<GLenum>(arg.GetInt(1));
+	GLdouble data = arg.GetDouble(2);
 	gluTessProperty(tess, which, data);
 	return Value::Nil;
 }
@@ -1271,10 +1271,10 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 Gura_ImplementFunction(__gluTessVertex)
 {
 	Signal &sig = env.GetSignal();
-	Object_Tesselator *tess = Object_Tesselator::GetObject(args, 0);
-	Array<double> *_location = Object_array<double>::GetObject(args, 1)->GetArray();
+	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
+	Array<double> *_location = Object_array<double>::GetObject(arg, 1)->GetArray();
 	GLdouble *location = reinterpret_cast<GLdouble *>(_location->GetPointer());
-	Value vertex_data = args.GetValue(2);
+	Value vertex_data = arg.GetValue(2);
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
 	if (pPolygonPack == nullptr) {
 		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
@@ -1305,23 +1305,23 @@ Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 
 Gura_ImplementFunction(__gluUnProject)
 {
-	GLdouble winX = args.GetDouble(0);
-	GLdouble winY = args.GetDouble(1);
-	GLdouble winZ = args.GetDouble(2);
-	Array<double> *_model = Object_array<double>::GetObject(args, 3)->GetArray();
+	GLdouble winX = arg.GetDouble(0);
+	GLdouble winY = arg.GetDouble(1);
+	GLdouble winZ = arg.GetDouble(2);
+	Array<double> *_model = Object_array<double>::GetObject(arg, 3)->GetArray();
 	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
-	Array<double> *_proj = Object_array<double>::GetObject(args, 4)->GetArray();
+	Array<double> *_proj = Object_array<double>::GetObject(arg, 4)->GetArray();
 	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(args, 5)->GetArray();
+	Array<int> *_view = Object_array<int>::GetObject(arg, 5)->GetArray();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
-	Array<double> *_objX = Object_array<double>::GetObject(args, 6)->GetArray();
+	Array<double> *_objX = Object_array<double>::GetObject(arg, 6)->GetArray();
 	GLdouble *objX = reinterpret_cast<GLdouble *>(_objX->GetPointer());
-	Array<double> *_objY = Object_array<double>::GetObject(args, 7)->GetArray();
+	Array<double> *_objY = Object_array<double>::GetObject(arg, 7)->GetArray();
 	GLdouble *objY = reinterpret_cast<GLdouble *>(_objY->GetPointer());
-	Array<double> *_objZ = Object_array<double>::GetObject(args, 8)->GetArray();
+	Array<double> *_objZ = Object_array<double>::GetObject(arg, 8)->GetArray();
 	GLdouble *objZ = reinterpret_cast<GLdouble *>(_objZ->GetPointer());
 	GLint _rtn = gluUnProject(winX, winY, winZ, model, proj, view, objX, objY, objZ);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 

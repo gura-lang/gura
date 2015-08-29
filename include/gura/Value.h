@@ -212,7 +212,7 @@ public:
 	// object types
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);			}
 	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);			}
-	inline bool Is_args() const				{ return IsType(VTYPE_args);			}
+	inline bool Is_argument() const			{ return IsType(VTYPE_argument);		}
 	inline bool Is_audio() const			{ return IsType(VTYPE_audio);			}
 	inline bool Is_binary() const			{ return IsType(VTYPE_binary);			}
 	inline bool Is_codec() const			{ return IsType(VTYPE_codec);			}
@@ -263,7 +263,7 @@ public:
 	// object types
 	inline bool MustBeGenericObject(Signal &sig) const	{ return MustBe(sig, IsGenericObject(), "generic object");	}
 	inline bool MustBeStruct(Signal &sig) const			{ return MustBe(sig, IsStruct(), 		"struct");			}
-	inline bool MustBe_args(Signal &sig) const			{ return MustBe(sig, Is_args(), 		"args");			}
+	inline bool MustBe_argument(Signal &sig) const		{ return MustBe(sig, Is_argument(), 	"argument");		}
 	inline bool MustBe_audio(Signal &sig) const			{ return MustBe(sig, Is_audio(), 		"audio");			}
 	inline bool MustBe_binary(Signal &sig) const		{ return MustBe(sig, Is_binary(), 		"binary");			}
 	inline bool MustBe_codec(Signal &sig) const			{ return MustBe(sig, Is_codec(), 		"codec");			}

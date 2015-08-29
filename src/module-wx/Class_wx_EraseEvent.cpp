@@ -50,19 +50,19 @@ Gura_ImplementFunction(EraseEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int id = 0;
-	if (args.IsValid(0)) id = args.GetInt(0);
+	if (arg.IsValid(0)) id = arg.GetInt(0);
 	wxDC *dc = (wxDC *)(nullptr);
-	if (args.IsValid(1)) dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) dc = Object_wx_DC::GetObject(arg, 1)->GetEntity();
 	wx_EraseEvent *pEntity = new wx_EraseEvent(id, dc);
-	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetObjectThis(args);
+	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_EraseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_EraseEvent, GetDC)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_EraseEvent, GetDC)
 Gura_ImplementMethod(wx_EraseEvent, GetDC)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(args);
+	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
-	return ReturnValue(env, args, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_DC(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

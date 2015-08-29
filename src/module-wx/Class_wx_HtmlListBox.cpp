@@ -60,27 +60,27 @@ Gura_ImplementFunction(HtmlListBox)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = 0;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxString name = wxHtmlListBoxNameStr;
-	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) name = wxString::FromUTF8(arg.GetString(5));
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox(parent, id, *pos, *size, style, name);
-	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -101,15 +101,15 @@ Gura_ImplementFunction(HtmlListBoxEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox();
-	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -130,21 +130,21 @@ Gura_DeclareMethod(wx_HtmlListBox, Create)
 Gura_ImplementMethod(wx_HtmlListBox, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = 0;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxString name = wxHtmlListBoxNameStr;
-	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) name = wxString::FromUTF8(arg.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem)
@@ -157,10 +157,10 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileSystem &rtn = pThis->GetEntity()->GetFileSystem();
-	return ReturnValue(env, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -176,10 +176,10 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxFileSystem &rtn = pThis->GetEntity()->GetFileSystem();
-	return ReturnValue(env, args, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_FileSystem(new wxFileSystem(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -198,11 +198,11 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colBg = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *colBg = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetSelectedTextBgColour(*colBg);
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -221,11 +221,11 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colFg = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *colFg = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	wxColour rtn = pThis->GetEntity()->GetSelectedTextColour(*colFg);
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -244,11 +244,11 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItem)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
+	size_t n = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->OnGetItem(n);
-	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -267,11 +267,11 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItemMarkup)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
+	size_t n = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->OnGetItemMarkup(n);
-	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -290,10 +290,10 @@ Gura_ImplementMethod(wx_HtmlListBox, OnLinkClicked)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(args);
+	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t n = args.GetSizeT(0);
-	wxHtmlLinkInfo *link = Object_wx_HtmlLinkInfo::GetObject(args, 1)->GetEntity();
+	size_t n = arg.GetSizeT(0);
+	wxHtmlLinkInfo *link = Object_wx_HtmlLinkInfo::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->OnLinkClicked(n, *link);
 	return Value::Nil;
 #endif

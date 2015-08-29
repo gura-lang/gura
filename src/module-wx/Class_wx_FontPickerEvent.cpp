@@ -50,19 +50,19 @@ Gura_ImplementFunction(FontPickerEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
-	int id = args.GetInt(1);
-	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();
+	wxObject *generator = Object_wx_Object::GetObject(arg, 0)->GetEntity();
+	int id = arg.GetInt(1);
+	wxFont *font = Object_wx_Font::GetObject(arg, 2)->GetEntity();
 	wx_FontPickerEvent *pEntity = new wx_FontPickerEvent(generator, id, *font);
-	Object_wx_FontPickerEvent *pObj = Object_wx_FontPickerEvent::GetObjectThis(args);
+	Object_wx_FontPickerEvent *pObj = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FontPickerEvent, GetFont)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_FontPickerEvent, GetFont)
 Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(args);
+	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_FontPickerEvent, SetFont)
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_FontPickerEvent, SetFont)
 Gura_ImplementMethod(wx_FontPickerEvent, SetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(args);
+	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFont *f = Object_wx_Font::GetObject(args, 0)->GetEntity();
+	wxFont *f = Object_wx_Font::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetFont(*f);
 	return Value::Nil;
 }

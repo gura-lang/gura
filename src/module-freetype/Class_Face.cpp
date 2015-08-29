@@ -191,10 +191,10 @@ Gura_DeclareFunction(Face)
 Gura_ImplementFunction(Face)
 {
 	Signal &sig = env.GetSignal();
-	int index = args.GetInt(1);
+	int index = arg.GetInt(1);
 	AutoPtr<Object_Face> pObjFace(new Object_Face());
-	if (!pObjFace->Initialize(env, sig, &args.GetStream(0), index)) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjFace.release()));
+	if (!pObjFace->Initialize(env, sig, &arg.GetStream(0), index)) return Value::Nil;
+	return ReturnValue(env, arg, Value(pObjFace.release()));
 }
 
 // freetype.Face#CheckTrueTypePatents()
@@ -205,7 +205,7 @@ Gura_DeclareMethod(Face, CheckTrueTypePatents)
 
 Gura_ImplementMethod(Face, CheckTrueTypePatents)
 {
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
 	return Value(::FT_Face_CheckTrueTypePatents(face));
 }
 
@@ -220,9 +220,9 @@ Gura_DeclareMethod(Face, Get_Advance)
 Gura_ImplementMethod(Face, Get_Advance)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
-	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetLong(1));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(arg.GetUInt(0));
+	FT_Int32 load_flags = static_cast<FT_Int32>(arg.GetLong(1));
 	FT_Fixed advance = 0;
 	FT_Error err = ::FT_Get_Advance(face, glyph_index, load_flags, &advance);
 	if (err != 0) {
@@ -244,10 +244,10 @@ Gura_DeclareMethod(Face, Get_Advances)
 Gura_ImplementMethod(Face, Get_Advances)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt glyph_index_start = static_cast<FT_UInt>(args.GetUInt(0));
-	FT_UInt count = static_cast<FT_UInt>(args.GetUInt(1));
-	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetLong(2));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt glyph_index_start = static_cast<FT_UInt>(arg.GetUInt(0));
+	FT_UInt count = static_cast<FT_UInt>(arg.GetUInt(1));
+	FT_Int32 load_flags = static_cast<FT_Int32>(arg.GetLong(2));
 	FT_Fixed *advances = new FT_Fixed[count];
 	FT_Error err = ::FT_Get_Advances(face, glyph_index_start, count, load_flags, advances);
 	if (err != 0) {
@@ -274,8 +274,8 @@ Gura_DeclareMethod(Face, Get_Glyph_Name)
 Gura_ImplementMethod(Face, Get_Glyph_Name)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(arg.GetUInt(0));
 	char buffer[256];
 	FT_Error err = ::FT_Get_Glyph_Name(face, glyph_index, buffer, sizeof(buffer));
 	if (err != 0) {
@@ -293,7 +293,7 @@ Gura_DeclareMethod(Face, Get_Postscript_Name)
 
 Gura_ImplementMethod(Face, Get_Postscript_Name)
 {
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
 	const char *rtn = ::FT_Get_Postscript_Name(face);
 	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
@@ -311,10 +311,10 @@ Gura_DeclareMethod(Face, Get_Kerning)
 Gura_ImplementMethod(Face, Get_Kerning)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt left_glyph = static_cast<FT_UInt>(args.GetUInt(0));
-	FT_UInt right_glyph = static_cast<FT_UInt>(args.GetUInt(1));
-	FT_UInt kern_mode = static_cast<FT_UInt>(args.GetUInt(2));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt left_glyph = static_cast<FT_UInt>(arg.GetUInt(0));
+	FT_UInt right_glyph = static_cast<FT_UInt>(arg.GetUInt(1));
+	FT_UInt kern_mode = static_cast<FT_UInt>(arg.GetUInt(2));
 	FT_Vector akerning;
 	FT_Error err = ::FT_Get_Kerning(face, left_glyph, right_glyph, kern_mode, &akerning);
 	if (err != 0) {
@@ -337,15 +337,15 @@ Gura_DeclareMethod(Face, Load_Char)
 Gura_ImplementMethod(Face, Load_Char)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_ULong char_code = static_cast<FT_ULong>(args.GetULong(0));
-	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetInt(1));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_ULong char_code = static_cast<FT_ULong>(arg.GetULong(0));
+	FT_Int32 load_flags = static_cast<FT_Int32>(arg.GetInt(1));
 	FT_Error err = ::FT_Load_Char(face, char_code, load_flags);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.Face#Load_Glyph(glyph_index:number, load_flags:number):reduce
@@ -359,15 +359,15 @@ Gura_DeclareMethod(Face, Load_Glyph)
 Gura_ImplementMethod(Face, Load_Glyph)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
-	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetInt(1));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(arg.GetUInt(0));
+	FT_Int32 load_flags = static_cast<FT_Int32>(arg.GetInt(1));
 	FT_Error err = ::FT_Load_Glyph(face, glyph_index, load_flags);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 #if 0
@@ -381,13 +381,13 @@ Gura_DeclareMethod(Face, Select_Charmap)
 Gura_ImplementMethod(Face, Select_Charmap)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
 	FT_Error err = ::FT_Select_Charmap(face, encoding);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 #endif
 
@@ -401,14 +401,14 @@ Gura_DeclareMethod(Face, Set_Charmap)
 Gura_ImplementMethod(Face, Set_Charmap)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_CharMap charmap = Object_CharMap::GetObject(args, 0)->GetEntity();
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_CharMap charmap = Object_CharMap::GetObject(arg, 0)->GetEntity();
 	FT_Error err = ::FT_Set_Charmap(face, charmap);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce
@@ -422,15 +422,15 @@ Gura_DeclareMethod(Face, Set_Pixel_Sizes)
 Gura_ImplementMethod(Face, Set_Pixel_Sizes)
 {
 	Signal &sig = env.GetSignal();
-	FT_Face face = Object_Face::GetObjectThis(args)->GetEntity();
-	FT_UInt pixel_width = static_cast<FT_UInt>(args.GetULong(0));
-	FT_UInt pixel_height = static_cast<FT_UInt>(args.GetULong(1));
+	FT_Face face = Object_Face::GetObjectThis(arg)->GetEntity();
+	FT_UInt pixel_width = static_cast<FT_UInt>(arg.GetULong(0));
+	FT_UInt pixel_height = static_cast<FT_UInt>(arg.GetULong(1));
 	FT_Error err = ::FT_Set_Pixel_Sizes(face, pixel_width, pixel_height);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

@@ -50,19 +50,19 @@ Gura_ImplementFunction(FileHistory)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	size_t maxFiles = 9;
-	if (args.IsValid(0)) maxFiles = args.GetSizeT(0);
+	if (arg.IsValid(0)) maxFiles = arg.GetSizeT(0);
 	wxWindowID idBase = wxID_FILE1;
-	if (args.IsValid(1)) idBase = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) idBase = static_cast<wxWindowID>(arg.GetInt(1));
 	wx_FileHistory *pEntity = new wx_FileHistory(maxFiles, idBase);
-	Object_wx_FileHistory *pObj = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pObj = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileHistory(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FileHistory, AddFileToHistory)
@@ -74,9 +74,9 @@ Gura_DeclareMethod(wx_FileHistory, AddFileToHistory)
 Gura_ImplementMethod(wx_FileHistory, AddFileToHistory)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->AddFileToHistory(filename);
 	return Value::Nil;
 }
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu)
 Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->AddFilesToMenu();
 	return Value::Nil;
@@ -104,9 +104,9 @@ Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu_1)
 Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
+	wxMenu *menu = Object_wx_Menu::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->AddFilesToMenu(menu);
 	return Value::Nil;
 }
@@ -120,10 +120,10 @@ Gura_DeclareMethod(wx_FileHistory, GetBaseId)
 Gura_ImplementMethod(wx_FileHistory, GetBaseId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindowID rtn = pThis->GetEntity()->GetBaseId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileHistory, GetCount)
@@ -135,10 +135,10 @@ Gura_DeclareMethod(wx_FileHistory, GetCount)
 Gura_ImplementMethod(wx_FileHistory, GetCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->GetCount();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileHistory, GetHistoryFile)
@@ -151,11 +151,11 @@ Gura_DeclareMethod(wx_FileHistory, GetHistoryFile)
 Gura_ImplementMethod(wx_FileHistory, GetHistoryFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t index = args.GetSizeT(0);
+	size_t index = arg.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetHistoryFile(index);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileHistory, GetMaxFiles)
@@ -167,10 +167,10 @@ Gura_DeclareMethod(wx_FileHistory, GetMaxFiles)
 Gura_ImplementMethod(wx_FileHistory, GetMaxFiles)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMaxFiles();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileHistory, GetMenus)
@@ -183,10 +183,10 @@ Gura_ImplementMethod(wx_FileHistory, GetMenus)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxList &rtn = pThis->GetEntity()->GetMenus();
-	return ReturnValue(env, args, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_List(new wxList(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -201,9 +201,9 @@ Gura_DeclareMethod(wx_FileHistory, Load)
 Gura_ImplementMethod(wx_FileHistory, Load)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
+	wxConfigBase *config = Object_wx_ConfigBase::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->Load(*config);
 	return Value::Nil;
 }
@@ -217,9 +217,9 @@ Gura_DeclareMethod(wx_FileHistory, RemoveFileFromHistory)
 Gura_ImplementMethod(wx_FileHistory, RemoveFileFromHistory)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t i = args.GetSizeT(0);
+	size_t i = arg.GetSizeT(0);
 	pThis->GetEntity()->RemoveFileFromHistory(i);
 	return Value::Nil;
 }
@@ -233,9 +233,9 @@ Gura_DeclareMethod(wx_FileHistory, RemoveMenu)
 Gura_ImplementMethod(wx_FileHistory, RemoveMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
+	wxMenu *menu = Object_wx_Menu::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->RemoveMenu(menu);
 	return Value::Nil;
 }
@@ -249,9 +249,9 @@ Gura_DeclareMethod(wx_FileHistory, Save)
 Gura_ImplementMethod(wx_FileHistory, Save)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
+	wxConfigBase *config = Object_wx_ConfigBase::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->Save(*config);
 	return Value::Nil;
 }
@@ -265,9 +265,9 @@ Gura_DeclareMethod(wx_FileHistory, SetBaseId)
 Gura_ImplementMethod(wx_FileHistory, SetBaseId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindowID baseId = static_cast<wxWindowID>(args.GetInt(0));
+	wxWindowID baseId = static_cast<wxWindowID>(arg.GetInt(0));
 	pThis->GetEntity()->SetBaseId(baseId);
 	return Value::Nil;
 }
@@ -281,9 +281,9 @@ Gura_DeclareMethod(wx_FileHistory, UseMenu)
 Gura_ImplementMethod(wx_FileHistory, UseMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(args);
+	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
+	wxMenu *menu = Object_wx_Menu::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->UseMenu(menu);
 	return Value::Nil;
 }

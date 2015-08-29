@@ -11,7 +11,7 @@ Gura_DeclareMethod(expr, is##symbol) { \
 		"Returns `true` if expr is an expression of " #symbol "."); \
 } \
 Gura_ImplementMethod(expr, is##symbol) { \
-	return Value(Object_expr::GetObjectThis(args)->GetExpr()->func()); \
+	return Value(Object_expr::GetObjectThis(arg)->GetExpr()->func()); \
 }
 
 namespace Gura {
@@ -292,11 +292,11 @@ Gura_DeclareFunction(expr)
 
 Gura_ImplementFunction(expr)
 {
-	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
+	Stream &stream = Object_stream::GetObject(arg, 0)->GetStream();
 	Parser parser(stream.GetName());
 	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
 	if (pExprRoot.IsNull()) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_expr(env, pExprRoot.release())));
+	return ReturnValue(env, arg, Value(new Object_expr(env, pExprRoot.release())));
 }
 
 // expr#eval(env?:environment)
@@ -315,9 +315,9 @@ Gura_DeclareMethod(expr, eval)
 Gura_ImplementMethod(expr, eval)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
-	Environment *pEnv = args.Is_environment(0)?
-			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
+	const Expr *pExpr = Object_expr::GetObjectThis(arg)->GetExpr();
+	Environment *pEnv = arg.Is_environment(0)?
+			Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
 			new Environment(&env, ENVTYPE_block);
 	return Processor::Run(pEnv, sig, pExpr);
 }
@@ -341,8 +341,8 @@ Gura_ImplementClassMethod(expr, parse)
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
 	Parser parser(SRCNAME_string);
 	if (!parser.ParseString(env, pExpr->GetExprOwner(),
-								args.GetString(0), true)) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_expr(env, pExpr.release())));
+								arg.GetString(0), true)) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_expr(env, pExpr.release())));
 }
 
 // expr#textize(style?:symbol, indent?:string)
@@ -369,10 +369,10 @@ Gura_DeclareMethod(expr, textize)
 Gura_ImplementMethod(expr, textize)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(arg)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
-	if (args.Is_symbol(0)) {
-		const Symbol *pSymbol = args.GetSymbol(0);
+	if (arg.Is_symbol(0)) {
+		const Symbol *pSymbol = arg.GetSymbol(0);
 		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
 		if (scriptStyle == Expr::SCRSTYLE_None) {
 			sig.SetError(ERR_ValueError,
@@ -380,7 +380,7 @@ Gura_ImplementMethod(expr, textize)
 			return Value::Nil;
 		}
 	}
-	const char *strIndent = args.Is_string(1)? args.GetString(1) : Expr::IndentDefault;
+	const char *strIndent = arg.Is_string(1)? arg.GetString(1) : Expr::IndentDefault;
 	String strDst;
 	SimpleStream_StringWriter streamDst(strDst);
 	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0, strIndent)) return Value::Nil;
@@ -406,22 +406,22 @@ Gura_DeclareMethod(expr, tofunction)
 Gura_ImplementMethod(expr, tofunction)
 {
 	Signal &sig = env.GetSignal();
-	Expr_Block *pExprBlock = Object_expr::GetObjectThis(args)->GetExpr()->ToExprBlock();
+	Expr_Block *pExprBlock = Object_expr::GetObjectThis(arg)->GetExpr()->ToExprBlock();
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 	if (sig.IsSignalled()) return Value::Nil;
-	const ValueList &valListArg = args.GetList(0);
+	const ValueList &valListArg = arg.GetList(0);
 	if (!valListArg.empty()) {
 		if (!pFunc->GetDeclOwner().empty()) {
 			sig.SetError(ERR_TypeError, "argument declaration conflicts");
 			return Value::Nil;
 		}
 		ExprList exprListArg;
-		exprListArg.reserve(args.GetList(0).size());
+		exprListArg.reserve(arg.GetList(0).size());
 		foreach_const (ValueList, pValue, valListArg) {
 			exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
 		}
-		CallerInfo callerInfo(exprListArg, nullptr, args.GetAttrsShared(), nullptr);
+		CallerInfo callerInfo(exprListArg, nullptr, arg.GetAttrsShared(), nullptr);
 		if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	}
 	return Value(new Object_function(env, pFunc.release()));
@@ -438,7 +438,7 @@ Gura_DeclareMethod(expr, unquote)
 
 Gura_ImplementMethod(expr, unquote)
 {
-	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(arg)->GetExpr();
 	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->Unquote()));
 	return Value(pObj);
 }
@@ -468,10 +468,10 @@ Gura_DeclareMethod(expr, write)
 Gura_ImplementMethod(expr, write)
 {
 	Signal &sig = env.GetSignal();
-	const Expr *pExpr = Object_expr::GetObjectThis(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetObjectThis(arg)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
-	if (args.Is_symbol(1)) {
-		const Symbol *pSymbol = args.GetSymbol(1);
+	if (arg.Is_symbol(1)) {
+		const Symbol *pSymbol = arg.GetSymbol(1);
 		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
 		if (scriptStyle == Expr::SCRSTYLE_None) {
 			sig.SetError(ERR_ValueError,
@@ -479,8 +479,8 @@ Gura_ImplementMethod(expr, write)
 			return Value::Nil;
 		}
 	}
-	const char *strIndent = args.Is_string(2)? args.GetString(2) : Expr::IndentDefault;
-	pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0, strIndent);
+	const char *strIndent = arg.Is_string(2)? arg.GetString(2) : Expr::IndentDefault;
+	pExpr->GenerateScript(sig, arg.GetStream(0), scriptStyle, 0, strIndent);
 	return Value::Nil;
 }
 

@@ -51,15 +51,15 @@ Gura_ImplementFunction(DataViewModelEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_DataViewModel *pEntity = new wx_DataViewModel();
-	Object_wx_DataViewModel *pObj = Object_wx_DataViewModel::GetObjectThis(args);
+	Object_wx_DataViewModel *pObj = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

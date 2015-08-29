@@ -26,7 +26,7 @@ Gura_DeclareMethod(image, cairo)
 Gura_ImplementMethod(image, cairo)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Image *pImage = Image::Reference(pThis->GetImage());
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
@@ -35,7 +35,7 @@ Gura_ImplementMethod(image, cairo)
 	}
 	Object_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	cairo_t *cr = ::cairo_create(surface);
-	return ReturnValue(env, args, Value(new Object_context(cr, pObjSurface)));
+	return ReturnValue(env, arg, Value(new Object_context(cr, pObjSurface)));
 }
 
 //-----------------------------------------------------------------------------
@@ -51,9 +51,9 @@ Gura_DeclareFunction(create)
 
 Gura_ImplementFunction(create)
 {
-	Object_surface *pObjSurface = Object_surface::GetObject(args, 0);
+	Object_surface *pObjSurface = Object_surface::GetObject(arg, 0);
 	cairo_t *cr = ::cairo_create(pObjSurface->GetEntity());
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 		Value(new Object_context(cr, Object_surface::Reference(pObjSurface))));
 }
 
@@ -112,7 +112,7 @@ Gura_DeclareFunction(ps_level_to_string)
 
 Gura_ImplementFunction(ps_level_to_string)
 {
-	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
+	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(arg.GetInt(0));
 	const char *rtn = ::cairo_ps_level_to_string(level);
 	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
@@ -150,7 +150,7 @@ Gura_DeclareFunction(pdf_version_to_string)
 
 Gura_ImplementFunction(pdf_version_to_string)
 {
-	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
+	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(arg.GetInt(0));
 	const char *rtn = ::cairo_pdf_version_to_string(version);
 	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
@@ -165,7 +165,7 @@ Gura_DeclareFunction(svg_version_to_string)
 
 Gura_ImplementFunction(svg_version_to_string)
 {
-	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
+	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(arg.GetInt(0));
 	const char *rtn = ::cairo_svg_version_to_string(version);
 	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
@@ -180,7 +180,7 @@ Gura_DeclareFunction(status_to_string)
 
 Gura_ImplementFunction(status_to_string)
 {
-	cairo_status_t status = static_cast<cairo_status_t>(args.GetInt(0));
+	cairo_status_t status = static_cast<cairo_status_t>(arg.GetInt(0));
 	const char *rtn = ::cairo_status_to_string(status);
 	if (rtn == nullptr) return Value::Nil;
 	return Value(rtn);
@@ -196,8 +196,8 @@ Gura_DeclareFunction(format_stride_for_width)
 
 Gura_ImplementFunction(format_stride_for_width)
 {
-	cairo_format_t format = static_cast<cairo_format_t>(args.GetInt(0));
-	int width = args.GetInt(1);
+	cairo_format_t format = static_cast<cairo_format_t>(arg.GetInt(0));
+	int width = arg.GetInt(1);
 	int rtn = ::cairo_format_stride_for_width(format, width);
 	return Value(rtn);
 }

@@ -51,15 +51,15 @@ Gura_ImplementFunction(OutputStreamEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_OutputStream *pEntity = new wx_OutputStream();
-	Object_wx_OutputStream *pObj = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pObj = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_OutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -75,10 +75,10 @@ Gura_ImplementMethod(wx_OutputStream, Close)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Close();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -93,10 +93,10 @@ Gura_DeclareMethod(wx_OutputStream, LastWrite)
 Gura_ImplementMethod(wx_OutputStream, LastWrite)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t rtn = pThis->GetEntity()->LastWrite();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_OutputStream, PutC)
@@ -111,9 +111,9 @@ Gura_ImplementMethod(wx_OutputStream, PutC)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	char c = args.GetChar(0);
+	char c = arg.GetChar(0);
 	pThis->GetEntity()->PutC(c);
 	return Value::Nil;
 #endif
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_OutputStream, SeekO)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	off_t pos = static_cast<off_t>(args.GetLong(0));
+	off_t pos = static_cast<off_t>(arg.GetLong(0));
 	wxSeekMode mode = wxFromStart;
-	if (args.IsValid(1)) mode = static_cast<wxSeekMode>(args.GetInt(1));
+	if (arg.IsValid(1)) mode = static_cast<wxSeekMode>(arg.GetInt(1));
 	off_t rtn = pThis->GetEntity()->SeekO(pos, mode);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -156,10 +156,10 @@ Gura_DeclareMethod(wx_OutputStream, TellO)
 Gura_ImplementMethod(wx_OutputStream, TellO)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	off_t rtn = pThis->GetEntity()->TellO();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_OutputStream, Write)
@@ -176,12 +176,12 @@ Gura_ImplementMethod(wx_OutputStream, Write)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int buffer = args.GetInt(0);
-	size_t size = args.GetSizeT(1);
+	int buffer = arg.GetInt(0);
+	size_t size = arg.GetSizeT(1);
 	wxOutputStream &rtn = pThis->GetEntity()->Write(buffer, size);
-	return ReturnValue(env, args, Value(new Object_wx_OutputStream(new wxOutputStream(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_OutputStream(new wxOutputStream(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -200,11 +200,11 @@ Gura_ImplementMethod(wx_OutputStream, Write_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(args);
+	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxInputStream *stream_in = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream_in = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wxOutputStream &rtn = pThis->GetEntity()->Write(*stream_in);
-	return ReturnValue(env, args, Value(new Object_wx_OutputStream(new wxOutputStream(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_OutputStream(new wxOutputStream(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

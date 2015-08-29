@@ -50,19 +50,19 @@ Gura_ImplementFunction(MouseCaptureChangedEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindowID windowId = 0;
-	if (args.IsValid(0)) windowId = static_cast<wxWindowID>(args.GetInt(0));
+	if (arg.IsValid(0)) windowId = static_cast<wxWindowID>(arg.GetInt(0));
 	wxWindow *gainedCapture = (wxWindow *)(nullptr);
-	if (args.IsValid(1)) gainedCapture = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) gainedCapture = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	wx_MouseCaptureChangedEvent *pEntity = new wx_MouseCaptureChangedEvent(windowId, gainedCapture);
-	Object_wx_MouseCaptureChangedEvent *pObj = Object_wx_MouseCaptureChangedEvent::GetObjectThis(args);
+	Object_wx_MouseCaptureChangedEvent *pObj = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MouseCaptureChangedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(args);
+	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCapturedWindow();
-	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

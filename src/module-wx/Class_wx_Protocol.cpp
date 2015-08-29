@@ -44,10 +44,10 @@ Gura_DeclareMethod(wx_Protocol, Reconnect)
 Gura_ImplementMethod(wx_Protocol, Reconnect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Reconnect();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetInputStream)
@@ -60,11 +60,11 @@ Gura_DeclareMethod(wx_Protocol, GetInputStream)
 Gura_ImplementMethod(wx_Protocol, GetInputStream)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString path = wxString::FromUTF8(args.GetString(0));
+	wxString path = wxString::FromUTF8(arg.GetString(0));
 	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetInputStream(path);
-	return ReturnValue(env, args, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_InputStream(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Protocol, Abort)
@@ -76,10 +76,10 @@ Gura_DeclareMethod(wx_Protocol, Abort)
 Gura_ImplementMethod(wx_Protocol, Abort)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Abort();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetError)
@@ -91,10 +91,10 @@ Gura_DeclareMethod(wx_Protocol, GetError)
 Gura_ImplementMethod(wx_Protocol, GetError)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxProtocolError rtn = pThis->GetEntity()->GetError();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Protocol, GetContentType)
@@ -106,10 +106,10 @@ Gura_DeclareMethod(wx_Protocol, GetContentType)
 Gura_ImplementMethod(wx_Protocol, GetContentType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetContentType();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Protocol, SetUser)
@@ -121,9 +121,9 @@ Gura_DeclareMethod(wx_Protocol, SetUser)
 Gura_ImplementMethod(wx_Protocol, SetUser)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString user = wxString::FromUTF8(args.GetString(0));
+	wxString user = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetUser(user);
 	return Value::Nil;
 }
@@ -137,9 +137,9 @@ Gura_DeclareMethod(wx_Protocol, SetPassword)
 Gura_ImplementMethod(wx_Protocol, SetPassword)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(args);
+	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString user = wxString::FromUTF8(args.GetString(0));
+	wxString user = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetPassword(user);
 	return Value::Nil;
 }

@@ -51,15 +51,15 @@ Gura_ImplementFunction(DDEServerEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DDEServer *pEntity = new wx_DDEServer();
-	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetObjectThis(args);
+	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DDEServer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DDEServer, Create)
@@ -72,11 +72,11 @@ Gura_DeclareMethod(wx_DDEServer, Create)
 Gura_ImplementMethod(wx_DDEServer, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(args);
+	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString service = wxString::FromUTF8(args.GetString(0));
+	wxString service = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Create(service);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DDEServer, OnAcceptConnection)
@@ -89,11 +89,11 @@ Gura_DeclareMethod(wx_DDEServer, OnAcceptConnection)
 Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(args);
+	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString topic = wxString::FromUTF8(args.GetString(0));
+	wxString topic = wxString::FromUTF8(arg.GetString(0));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnAcceptConnection(topic);
-	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

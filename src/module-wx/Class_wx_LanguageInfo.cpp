@@ -64,20 +64,20 @@ Gura_ImplementFunction(LanguageInfo)
 	pEntity->Language = 0;
 _MS(pEntity->WinLang = 0);
 _MS(pEntity->WinSublang = 0);
-	if (args.IsValid(0)) pEntity->Language = args.GetInt(0);
-	if (args.IsValid(1)) pEntity->CanonicalName = wxString::FromUTF8(args.GetString(1));
-	if (args.IsValid(2)) pEntity->Description = wxString::FromUTF8(args.GetString(2));
-_MS(if (args.IsValid(3)) pEntity->WinLang = args.GetInt(3));
-_MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
-	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetObjectThis(args);
+	if (arg.IsValid(0)) pEntity->Language = arg.GetInt(0);
+	if (arg.IsValid(1)) pEntity->CanonicalName = wxString::FromUTF8(arg.GetString(1));
+	if (arg.IsValid(2)) pEntity->Description = wxString::FromUTF8(arg.GetString(2));
+_MS(if (arg.IsValid(3)) pEntity->WinLang = arg.GetInt(3));
+_MS(if (arg.IsValid(4)) pEntity->WinSublang = arg.GetInt(4));
+	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LanguageInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -88,9 +88,9 @@ Gura_DeclareFunction(Color)
 Gura_ImplementFunction(Color)
 {
 	SDL_Color color;
-	color.r = args.IsValid(0)? args.GetInt(0) : 0;
-	color.g = args.IsValid(1)? args.GetInt(1) : 0;
-	color.b = args.IsValid(2)? args.GetInt(2) : 0;
+	color.r = arg.IsValid(0)? arg.GetInt(0) : 0;
+	color.g = arg.IsValid(1)? arg.GetInt(1) : 0;
+	color.b = arg.IsValid(2)? arg.GetInt(2) : 0;
 	return Value(new Object_Color(color));
 }
 

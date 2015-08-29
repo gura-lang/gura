@@ -49,19 +49,19 @@ Gura_ImplementFunction(StreamToTextRedirector)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxTextCtrl **text = Object_wx_TextCtrl::GetObject(args, 0)->GetEntity();
+	wxTextCtrl **text = Object_wx_TextCtrl::GetObject(arg, 0)->GetEntity();
 	Stream & ostr = nullptr;
-	if (args.IsValid(1)) ostr = args.GetStream(1);
+	if (arg.IsValid(1)) ostr = arg.GetStream(1);
 	wx_StreamToTextRedirector *pEntity = new wx_StreamToTextRedirector(**text, ostr);
-	Object_wx_StreamToTextRedirector *pObj = Object_wx_StreamToTextRedirector::GetObjectThis(args);
+	Object_wx_StreamToTextRedirector *pObj = Object_wx_StreamToTextRedirector::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StreamToTextRedirector(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

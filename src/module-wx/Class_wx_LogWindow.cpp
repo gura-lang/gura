@@ -61,22 +61,22 @@ Gura_ImplementFunction(LogWindow)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxFrame **parent = Object_wx_Frame::GetObject(args, 0)->GetEntity();
-	wxChar *title = static_cast<wxChar>(args.GetInt(1));
+	wxFrame **parent = Object_wx_Frame::GetObject(arg, 0)->GetEntity();
+	wxChar *title = static_cast<wxChar>(arg.GetInt(1));
 	bool show = true;
-	if (args.IsValid(2)) show = args.GetBoolean(2);
+	if (arg.IsValid(2)) show = arg.GetBoolean(2);
 	bool passToOld = true;
-	if (args.IsValid(3)) passToOld = args.GetBoolean(3);
+	if (arg.IsValid(3)) passToOld = arg.GetBoolean(3);
 	wx_LogWindow *pEntity = new wx_LogWindow(**parent, *title, show, passToOld);
-	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pObj = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -94,10 +94,10 @@ Gura_ImplementMethod(wx_LogWindow, Show)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool show = true;
-	if (args.IsValid(0)) show = args.GetBoolean(0);
+	if (arg.IsValid(0)) show = arg.GetBoolean(0);
 	pThis->GetEntity()->Show(show);
 	return Value::Nil;
 #endif
@@ -114,10 +114,10 @@ Gura_DeclareMethod(wx_LogWindow, GetFrame)
 Gura_ImplementMethod(wx_LogWindow, GetFrame)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFrame *rtn = (wxFrame *)pThis->GetEntity()->GetFrame();
-	return ReturnValue(env, args, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Frame(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_LogWindow, OnFrameCreate)
@@ -132,9 +132,9 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameCreate)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
+	wxFrame **frame = Object_wx_Frame::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnFrameCreate(**frame);
 	return Value::Nil;
 #endif
@@ -155,11 +155,11 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
+	wxFrame **frame = Object_wx_Frame::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->OnFrameClose(**frame);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -177,9 +177,9 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameDelete)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(args);
+	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFrame **frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
+	wxFrame **frame = Object_wx_Frame::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnFrameDelete(**frame);
 	return Value::Nil;
 #endif

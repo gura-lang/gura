@@ -97,10 +97,10 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 	if (pFunc == nullptr) return false;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args(pFunc));
-	pArgs->SetValueThis(valueThis);
-	pArgs->SetValue(value);
-	value = pFunc->Eval(*pEnvLocal, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	pArg->SetValueThis(valueThis);
+	pArg->SetValue(value);
+	value = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -112,10 +112,10 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args(pFunc));
-	pArgs->SetValueThis(value);
-	pArgs->SetValue(Value(new Object_declaration(env, decl.Reference())));
-	value = pFunc->Eval(*pEnvLocal, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	pArg->SetValueThis(value);
+	pArg->SetValue(Value(new Object_declaration(env, decl.Reference())));
+	value = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -242,10 +242,10 @@ bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
 {
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
-	AutoPtr<Args> pArgs(new Args(pFunc));
-	pArgs->SetValueThis(value);
-	pArgs->SetValue(Value(new Object_formatter(*pEnvLocal, flags)));
-	Value valueRtn = pFunc->Eval(*pEnvLocal, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	pArg->SetValueThis(value);
+	pArg->SetValue(Value(new Object_formatter(*pEnvLocal, flags)));
+	Value valueRtn = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	if (!valueRtn.MustBe_string(sig)) return false;
 	return pFormatter->PutString(sig, valueRtn.GetString());
@@ -261,12 +261,12 @@ ClassCustom::Constructor::Constructor(Environment &envScope,
 {
 }
 
-Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
+Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, args, false));
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, arg, false));
 	if (pEnvLocal.IsNull()) return Value::Nil;
-	Value valueRtn(args.GetValueThis());
+	Value valueRtn(arg.GetValueThis());
 	if (!valueRtn.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, _pClassToConstruct);
 		valueRtn.InitAsObject(pObj);
@@ -294,7 +294,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Args &args) const
 	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	GetExprBody()->Exec2(*pEnvLocal, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, valueRtn);
+	return ReturnValue(env, arg, valueRtn);
 }
 
 }

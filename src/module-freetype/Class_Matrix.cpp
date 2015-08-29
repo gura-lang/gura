@@ -108,10 +108,10 @@ Gura_DeclareFunction(Matrix)
 Gura_ImplementFunction(Matrix)
 {
 	Signal &sig = env.GetSignal();
-	const Gura::Matrix *pMat = Object_matrix::GetObject(args, 0)->GetMatrix();
+	const Gura::Matrix *pMat = Object_matrix::GetObject(arg, 0)->GetMatrix();
 	AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
 	if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
-	return ReturnValue(env, args, Value(pObjRtn.release()));
+	return ReturnValue(env, arg, Value(pObjRtn.release()));
 }
 
 // freetype.Matrix#Multiply(matrix:freetype.Matrix):reduce
@@ -123,10 +123,10 @@ Gura_DeclareMethod(Matrix, Multiply)
 
 Gura_ImplementMethod(Matrix, Multiply)
 {
-	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(args)->GetEntity();
-	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(arg)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(arg, 0)->GetEntity();
 	::FT_Matrix_Multiply(matrix, matrixThis);	// void function
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // freetype.Matrix#Invert():reduce
@@ -138,13 +138,13 @@ Gura_DeclareMethod(Matrix, Invert)
 Gura_ImplementMethod(Matrix, Invert)
 {
 	Signal &sig = env.GetSignal();
-	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(args)->GetEntity();
+	FT_Matrix *matrixThis = Object_Matrix::GetObjectThis(arg)->GetEntity();
 	FT_Error err = ::FT_Matrix_Invert(matrixThis);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

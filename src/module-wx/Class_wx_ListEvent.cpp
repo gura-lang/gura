@@ -50,19 +50,19 @@ Gura_ImplementFunction(ListEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE commandType = 0;
-	if (args.IsValid(0)) commandType = static_cast<WXTYPE>(args.GetInt(0));
+	if (arg.IsValid(0)) commandType = static_cast<WXTYPE>(arg.GetInt(0));
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	wx_ListEvent *pEntity = new wx_ListEvent(commandType, id);
-	Object_wx_ListEvent *pObj = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pObj = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheFrom)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_ListEvent, GetCacheFrom)
 Gura_ImplementMethod(wx_ListEvent, GetCacheFrom)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetCacheFrom();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetCacheTo)
@@ -89,10 +89,10 @@ Gura_DeclareMethod(wx_ListEvent, GetCacheTo)
 Gura_ImplementMethod(wx_ListEvent, GetCacheTo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetCacheTo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetKeyCode)
@@ -104,10 +104,10 @@ Gura_DeclareMethod(wx_ListEvent, GetKeyCode)
 Gura_ImplementMethod(wx_ListEvent, GetKeyCode)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetKeyCode();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetIndex)
@@ -119,10 +119,10 @@ Gura_DeclareMethod(wx_ListEvent, GetIndex)
 Gura_ImplementMethod(wx_ListEvent, GetIndex)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetIndex();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetColumn)
@@ -134,10 +134,10 @@ Gura_DeclareMethod(wx_ListEvent, GetColumn)
 Gura_ImplementMethod(wx_ListEvent, GetColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColumn();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetPoint)
@@ -149,10 +149,10 @@ Gura_DeclareMethod(wx_ListEvent, GetPoint)
 Gura_ImplementMethod(wx_ListEvent, GetPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetLabel)
@@ -164,10 +164,10 @@ Gura_DeclareMethod(wx_ListEvent, GetLabel)
 Gura_ImplementMethod(wx_ListEvent, GetLabel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetText)
@@ -179,10 +179,10 @@ Gura_DeclareMethod(wx_ListEvent, GetText)
 Gura_ImplementMethod(wx_ListEvent, GetText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetImage)
@@ -194,10 +194,10 @@ Gura_DeclareMethod(wx_ListEvent, GetImage)
 Gura_ImplementMethod(wx_ListEvent, GetImage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetImage();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetData)
@@ -209,10 +209,10 @@ Gura_DeclareMethod(wx_ListEvent, GetData)
 Gura_ImplementMethod(wx_ListEvent, GetData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetData();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetMask)
@@ -224,10 +224,10 @@ Gura_DeclareMethod(wx_ListEvent, GetMask)
 Gura_ImplementMethod(wx_ListEvent, GetMask)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetMask();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListEvent, GetItem)
@@ -239,10 +239,10 @@ Gura_DeclareMethod(wx_ListEvent, GetItem)
 Gura_ImplementMethod(wx_ListEvent, GetItem)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxListItem &rtn = pThis->GetEntity()->GetItem();
-	return ReturnValue(env, args, Value(new Object_wx_ListItem(new wxListItem(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_ListItem(new wxListItem(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
@@ -254,10 +254,10 @@ Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
 Gura_ImplementMethod(wx_ListEvent, IsEditCancelled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(args);
+	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEditCancelled();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

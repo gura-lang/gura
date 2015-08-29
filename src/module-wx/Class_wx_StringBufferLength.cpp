@@ -49,18 +49,18 @@ Gura_ImplementFunction(StringBufferLength)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
-	size_t len = args.GetSizeT(1);
+	wxString str = wxString::FromUTF8(arg.GetString(0));
+	size_t len = arg.GetSizeT(1);
 	wx_StringBufferLength *pEntity = new wx_StringBufferLength(str, len);
-	Object_wx_StringBufferLength *pObj = Object_wx_StringBufferLength::GetObjectThis(args);
+	Object_wx_StringBufferLength *pObj = Object_wx_StringBufferLength::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringBufferLength(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_StringBufferLength, SetLength)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_StringBufferLength, SetLength)
 Gura_ImplementMethod(wx_StringBufferLength, SetLength)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetObjectThis(args);
+	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	size_t nLength = args.GetSizeT(0);
+	size_t nLength = arg.GetSizeT(0);
 	pThis->GetEntity()->SetLength(nLength);
 	return Value::Nil;
 }

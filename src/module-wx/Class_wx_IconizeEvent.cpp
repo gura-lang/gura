@@ -50,19 +50,19 @@ Gura_ImplementFunction(IconizeEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int id = 0;
-	if (args.IsValid(0)) id = args.GetInt(0);
+	if (arg.IsValid(0)) id = arg.GetInt(0);
 	bool iconized = true;
-	if (args.IsValid(1)) iconized = args.GetBoolean(1);
+	if (arg.IsValid(1)) iconized = arg.GetBoolean(1);
 	wx_IconizeEvent *pEntity = new wx_IconizeEvent(id, iconized);
-	Object_wx_IconizeEvent *pObj = Object_wx_IconizeEvent::GetObjectThis(args);
+	Object_wx_IconizeEvent *pObj = Object_wx_IconizeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_IconizeEvent, Iconized)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_IconizeEvent, Iconized)
 Gura_ImplementMethod(wx_IconizeEvent, Iconized)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(args);
+	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Iconized();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

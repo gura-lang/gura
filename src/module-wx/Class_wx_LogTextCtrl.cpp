@@ -48,17 +48,17 @@ Gura_ImplementFunction(LogTextCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxTextCtrl *textctrl = Object_wx_TextCtrl::GetObject(args, 0)->GetEntity();
+	wxTextCtrl *textctrl = Object_wx_TextCtrl::GetObject(arg, 0)->GetEntity();
 	wx_LogTextCtrl *pEntity = new wx_LogTextCtrl(textctrl);
-	Object_wx_LogTextCtrl *pObj = Object_wx_LogTextCtrl::GetObjectThis(args);
+	Object_wx_LogTextCtrl *pObj = Object_wx_LogTextCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_LogTextCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

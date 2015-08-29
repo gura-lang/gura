@@ -695,16 +695,16 @@ Gura_DeclareMethod(diff_at_line, eachhunk)
 Gura_ImplementMethod(diff_at_line, eachhunk)
 {
 	Signal &sig = env.GetSignal();
-	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(arg)->GetDiffLine();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
-	if (args.IsValid(0)) {
-		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(0));
+	if (arg.IsValid(0)) {
+		format = DiffLine::SymbolToFormat(sig, arg.GetSymbol(0));
 		if (format == DiffLine::FORMAT_None) return Value::Nil;
 	}
-	size_t nLinesCommon = args.IsValid(1)? args.GetSizeT(1) : 3;
+	size_t nLinesCommon = arg.IsValid(1)? arg.GetSizeT(1) : 3;
 	AutoPtr<DiffLine::IteratorHunk> pIterator(
 		new DiffLine::IteratorHunk(pDiffLine->Reference(), format, nLinesCommon));
-	return ReturnIterator(env, args, pIterator.release());
+	return ReturnIterator(env, arg, pIterator.release());
 }
 
 // diff.diff@line#render(out?:stream:w, format?:symbol, lines?:number)
@@ -735,15 +735,15 @@ Gura_DeclareMethodAlias(diff_at_line, render, "render")
 Gura_ImplementMethod(diff_at_line, render)
 {
 	Signal &sig = env.GetSignal();
-	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(args)->GetDiffLine();
+	DiffLine *pDiffLine = Object_diff_at_line::GetObjectThis(arg)->GetDiffLine();
 	DiffLine::Format format = DiffLine::FORMAT_Unified;
-	if (args.IsValid(1)) {
-		format = DiffLine::SymbolToFormat(sig, args.GetSymbol(1));
+	if (arg.IsValid(1)) {
+		format = DiffLine::SymbolToFormat(sig, arg.GetSymbol(1));
 		if (format == DiffLine::FORMAT_None) return Value::Nil;
 	}
-	size_t nLinesCommon = args.IsValid(2)? args.GetSizeT(2) : 3;
-	if (args.IsValid(0)) {
-		Stream &streamOut = args.GetStream(0);
+	size_t nLinesCommon = arg.IsValid(2)? arg.GetSizeT(2) : 3;
+	if (arg.IsValid(0)) {
+		Stream &streamOut = arg.GetStream(0);
 		pDiffLine->PrintHunks(sig, streamOut, format, nLinesCommon);
 		return Value::Nil;
 	} else {
@@ -849,8 +849,8 @@ Gura_DeclareMethod(hunk_at_line, print)
 Gura_ImplementMethod(hunk_at_line, print)
 {
 	Signal &sig = env.GetSignal();
-	Object_hunk_at_line *pThis = Object_hunk_at_line::GetObjectThis(args);
-	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	Object_hunk_at_line *pThis = Object_hunk_at_line::GetObjectThis(arg);
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	pThis->GetDiffLine()->PrintHunk(sig, stream, pThis->GetHunk());
 	return Value::Nil;
 }
@@ -952,8 +952,8 @@ Gura_DeclareMethod(edit_at_line, print)
 Gura_ImplementMethod(edit_at_line, print)
 {
 	Signal &sig = env.GetSignal();
-	Object_edit_at_line *pThis = Object_edit_at_line::GetObjectThis(args);
-	Stream &stream = args.IsValid(0)? args.GetStream(0) : *env.GetConsole();
+	Object_edit_at_line *pThis = Object_edit_at_line::GetObjectThis(arg);
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	stream.Println(sig, DiffLine::TextizeEdit_Unified(pThis->GetEdit()).c_str());
 	return Value::Nil;
 }
@@ -1243,23 +1243,23 @@ Gura_DeclareFunction(compose)
 Gura_ImplementFunction(compose)
 {
 	Signal &sig = env.GetSignal();
-	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-	bool syncFlag = args.IsSet(Gura_UserSymbol(sync));
+	bool ignoreCaseFlag = arg.IsSet(Gura_Symbol(icase));
+	bool syncFlag = arg.IsSet(Gura_UserSymbol(sync));
 	AutoPtr<DiffLine> pDiffLine(new DiffLine(ignoreCaseFlag));
 	for (size_t i = 0; i < 2; i++) {
-		if (args.IsType(i, VTYPE_string)) {
-			pDiffLine->FeedString(i, args.GetString(i));
-		} else if (args.IsType(i, VTYPE_stream)) {
-			if (!pDiffLine->FeedStream(sig, i, args.GetStream(i))) {
+		if (arg.IsType(i, VTYPE_string)) {
+			pDiffLine->FeedString(i, arg.GetString(i));
+		} else if (arg.IsType(i, VTYPE_stream)) {
+			if (!pDiffLine->FeedStream(sig, i, arg.GetStream(i))) {
 				return Value::Nil;
 			}
-		} else if (args.IsType(i, VTYPE_iterator)) {
-			AutoPtr<Iterator> pIterator(args.GetIterator(i)->Clone());
+		} else if (arg.IsType(i, VTYPE_iterator)) {
+			AutoPtr<Iterator> pIterator(arg.GetIterator(i)->Clone());
 			if (!pDiffLine->FeedIterator(env, sig, i, pIterator.get())) {
 				return Value::Nil;
 			}				
-		} else if (args.IsType(i, VTYPE_list)) {
-			pDiffLine->FeedList(i, args.GetList(i));
+		} else if (arg.IsType(i, VTYPE_list)) {
+			pDiffLine->FeedList(i, arg.GetList(i));
 		} else {
 			sig.SetError(ERR_TypeError, "difference source must be string or stream");
 			return Value::Nil;
@@ -1274,7 +1274,7 @@ Gura_ImplementFunction(compose)
 	} else {
 		value = Value(new Object_diff_at_line(pDiffLine.release()));
 	}
-	return ReturnValue(env, args, value);
+	return ReturnValue(env, arg, value);
 }
 
 // diff.compose@char(src1:string, src2:string):[icase] {block?}
@@ -1298,12 +1298,12 @@ Gura_DeclareFunctionAlias(compose_at_char, "compose@char")
 
 Gura_ImplementFunction(compose_at_char)
 {
-	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	bool ignoreCaseFlag = arg.IsSet(Gura_Symbol(icase));
 	AutoPtr<DiffChar> pDiffChar(new DiffChar(ignoreCaseFlag));
-	pDiffChar->FeedString(0, args.GetString(0));
-	pDiffChar->FeedString(1, args.GetString(1));
+	pDiffChar->FeedString(0, arg.GetString(0));
+	pDiffChar->FeedString(1, arg.GetString(1));
 	pDiffChar->Compose();
-	return ReturnValue(env, args, Value(new Object_diff_at_char(pDiffChar.release())));
+	return ReturnValue(env, arg, Value(new Object_diff_at_char(pDiffChar.release())));
 }
 
 //-----------------------------------------------------------------------------

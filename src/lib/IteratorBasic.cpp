@@ -416,14 +416,14 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
 Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv,
-										   Function *pFunc, Args *pArgs, bool skipInvalidFlag) :
+										   Function *pFunc, Argument *pArg, bool skipInvalidFlag) :
 	Iterator(false, skipInvalidFlag), _pEnv(pEnv),
-	_pFunc(pFunc), _pArgs(pArgs), _doneThisFlag(false)
+	_pFunc(pFunc), _pArg(pArg), _doneThisFlag(false)
 {
 	Signal &sig = pEnv->GetSignal();
-	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), pArgs->GetValueListArg());
+	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), pArg->GetValueListArg());
 	if (sig.IsSignalled()) return;
-	Iterator *pIteratorThis = _pArgs->GetIteratorThis();
+	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	SetInfiniteFlag(_iterOwner.IsInfinite() &&
 				(pIteratorThis == nullptr || pIteratorThis->IsInfinite()));
 }
@@ -435,7 +435,7 @@ Iterator_ImplicitMap::~Iterator_ImplicitMap()
 
 Iterator *Iterator_ImplicitMap::GetSource()
 {
-	return _pArgs->GetIteratorThis();
+	return _pArg->GetIteratorThis();
 }
 
 bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
@@ -443,15 +443,15 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
 	Signal &sig = env.GetSignal();
 	ValueList valList;
 	if (_doneThisFlag || !_iterOwner.Next(env, valList)) return false;
-	AutoPtr<Args> pArgsEach(new Args(*_pArgs, valList));
-	value = _pFunc->Eval(*_pEnv, *pArgsEach);
+	AutoPtr<Argument> pArgEach(new Argument(*_pArg, valList));
+	value = _pFunc->Eval(*_pEnv, *pArgEach);
 	if (sig.IsSignalled()) return false;
-	Iterator *pIteratorThis = _pArgs->GetIteratorThis();
+	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	if (pIteratorThis != nullptr) {
 		Value valueThis;
 		_doneThisFlag = !pIteratorThis->Next(env, valueThis);
 		if (sig.IsSignalled()) return false;
-		_pArgs->SetValueThis(valueThis);
+		_pArg->SetValueThis(valueThis);
 	}
 	return true;
 }
@@ -475,7 +475,7 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 {
 	if (_cntRef == 1) {
 		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
-		Iterator *pIteratorThis = _pArgs->GetIteratorThis();
+		Iterator *pIteratorThis = _pArg->GetIteratorThis();
 		if (pIteratorThis != nullptr) {
 			pIteratorThis->GatherFollower(pFrame, envSet);
 		}
@@ -744,20 +744,20 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValueThis(_valueThis);
-		pArgs->SetValueListArg(valListComp);
-		value = _pFunc->Eval(*_pEnv, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValueThis(_valueThis);
+		pArg->SetValueListArg(valListComp);
+		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 	} else {
 		ValueList valListComp(valueArg);
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValueThis(_valueThis);
-		pArgs->SetValueListArg(valListComp);
-		value = _pFunc->Eval(*_pEnv, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValueThis(_valueThis);
+		pArg->SetValueListArg(valListComp);
+		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
 		//return false;
@@ -1865,25 +1865,25 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
-			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
+			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
 			// **** https://github.com/gura-lang/gura/issues/1 ****
 #if 0
-			pArgs->AddValue(valueSrc);
+			pArg->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexNext())));
+				pArg->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexNext())));
 			}
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
-			pArgs->GetValueListArg()[0] = valueSrc;
+			pArg->GetValueListArg()[0] = valueSrc;
 #else
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
-			pArgs->AddValue(valueSrc);
+			pArg->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexCur())));
+				pArg->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexCur())));
 			}
 #endif
-			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
+			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -1953,9 +1953,9 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
-			pArgs->SetValue(Value(static_cast<Number>(_idx)));
-			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -2025,9 +2025,9 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			if (!_pExpr->Exec2(*_pEnv, pSeqPostHandler).GetBoolean()) return false;
-			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
-			pArgs->SetValue(Value(static_cast<Number>(_idx)));
-			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -2111,9 +2111,9 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
-			pArgs->SetValue(Value(static_cast<Number>(_idx)));
-			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -2208,9 +2208,9 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
-			AutoPtr<Args> pArgs(new Args(_pFuncBlock.get()));
-			pArgs->SetValueListArg(_valListArg);
-			value = _pFuncBlock->Eval(*_pEnv, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			pArg->SetValueListArg(_valListArg);
+			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();

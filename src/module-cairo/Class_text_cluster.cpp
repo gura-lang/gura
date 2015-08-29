@@ -33,10 +33,10 @@ Gura_DeclareClassMethod(text_cluster, allocate)
 
 Gura_ImplementClassMethod(text_cluster, allocate)
 {
-	int num_clusters = args.GetInt(0);
+	int num_clusters = arg.GetInt(0);
 	cairo_text_cluster_t *clusters = ::cairo_text_cluster_allocate(num_clusters);
 	Object_text_cluster *pObjCluster = new Object_text_cluster(clusters, num_clusters);
-	return ReturnValue(env, args, Value(pObjCluster));
+	return ReturnValue(env, arg, Value(pObjCluster));
 }
 
 // implementation of class text_cluster

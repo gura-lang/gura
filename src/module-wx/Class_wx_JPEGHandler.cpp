@@ -46,15 +46,15 @@ Gura_ImplementFunction(JPEGHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_JPEGHandler *pEntity = new wx_JPEGHandler();
-	Object_wx_JPEGHandler *pObj = Object_wx_JPEGHandler::GetObjectThis(args);
+	Object_wx_JPEGHandler *pObj = Object_wx_JPEGHandler::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_JPEGHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -115,7 +115,7 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 Gura_ImplementFunction(operator_)
 {
 	Signal &sig = env.GetSignal();
-	const Symbol *pSymbolOp = args.GetSymbol(0);
+	const Symbol *pSymbolOp = arg.GetSymbol(0);
 	OpType opTypeUnary = Operator::LookupUnaryOpType(pSymbolOp->GetName());
 	OpType opTypeBinary = Operator::LookupBinaryOpType(pSymbolOp->GetName());
 	if (opTypeUnary == OPTYPE_None && opTypeBinary == OPTYPE_None) {
@@ -124,7 +124,7 @@ Gura_ImplementFunction(operator_)
 		return Value::Nil;
 	}
 	Object_operator *pObj = new Object_operator(env, opTypeUnary, opTypeBinary);
-	return ReturnValue(env, args, Value(pObj));
+	return ReturnValue(env, arg, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
@@ -171,11 +171,11 @@ Gura_DeclareMethod(operator_, assign)
 Gura_ImplementMethod(operator_, assign)
 {
 	Signal &sig = env.GetSignal();
-	Object_operator *pThis = Object_operator::GetObjectThis(args);
-	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
+	Object_operator *pThis = Object_operator::GetObjectThis(arg);
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	OperatorEntryCustom *pOperatorEntry = nullptr;
-	if (args.IsValid(1)) {
+	if (arg.IsValid(1)) {
 		// assign binary operator
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
@@ -183,9 +183,9 @@ Gura_ImplementMethod(operator_, assign)
 				"operator '%s' is not a binary one", pThis->GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(0));
+		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, arg.GetExpr(0));
 		if (pValueTypeInfoL == nullptr) return Value::Nil;
-		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(1));
+		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, arg.GetExpr(1));
 		if (pValueTypeInfoR == nullptr) return Value::Nil;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(),
@@ -198,7 +198,7 @@ Gura_ImplementMethod(operator_, assign)
 				"operator '%s' is not a unary one", pThis->GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
+		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetExpr(0));
 		if (pValueTypeInfo == nullptr) return Value::Nil;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfo->GetValueType(), VTYPE_undefined,
@@ -230,10 +230,10 @@ Gura_DeclareMethod(operator_, entries)
 Gura_ImplementMethod(operator_, entries)
 {
 	Signal &sig = env.GetSignal();
-	Object_operator *pThis = Object_operator::GetObjectThis(args);
+	Object_operator *pThis = Object_operator::GetObjectThis(arg);
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
-	if (args.IsInvalid(0) || args.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {
+	if (arg.IsInvalid(0) || arg.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
@@ -251,7 +251,7 @@ Gura_ImplementMethod(operator_, entries)
 			valList.push_back(Value::CreateList(env,
 				Value(new Object_expr(env, pExprLeft)), Value(new Object_expr(env, pExprRight))));
 		}
-	} else if (args.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {
+	} else if (arg.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {
 		OpType opType = pThis->GetUnaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
@@ -267,7 +267,7 @@ Gura_ImplementMethod(operator_, entries)
 			valList.push_back(Value(new Object_expr(env, pExpr)));
 		}
 	} else {
-		sig.SetError(ERR_ValueError, "invalid symbol: %s", args.GetSymbol(0)->GetName());
+		sig.SetError(ERR_ValueError, "invalid symbol: %s", arg.GetSymbol(0)->GetName());
 		return Value::Nil;
 	}
 	return rtn;

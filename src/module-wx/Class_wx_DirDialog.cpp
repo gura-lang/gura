@@ -54,30 +54,30 @@ Gura_ImplementFunction(DirDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
 	wxString message = wxT("Choose a directory");
-	if (args.IsValid(1)) message = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) message = wxString::FromUTF8(arg.GetString(1));
 	wxString defaultPath = wxT("");
-	if (args.IsValid(2)) defaultPath = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) defaultPath = wxString::FromUTF8(arg.GetString(2));
 	long style = wxDD_DEFAULT_STYLE;
-	if (args.IsValid(3)) style = args.GetLong(3);
+	if (arg.IsValid(3)) style = arg.GetLong(3);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) pos = Object_wx_Point::GetObject(arg, 4)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(5)) size = Object_wx_Size::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) size = Object_wx_Size::GetObject(arg, 5)->GetEntity();
 	wxString name = wxT("wxDirCtrl");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	wx_DirDialog *pEntity = new wx_DirDialog(parent, message, defaultPath, style, *pos, *size, name);
-	Object_wx_DirDialog *pObj = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pObj = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DirDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DirDialog, GetPath)
@@ -89,10 +89,10 @@ Gura_DeclareMethod(wx_DirDialog, GetPath)
 Gura_ImplementMethod(wx_DirDialog, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DirDialog, GetMessage)
@@ -104,10 +104,10 @@ Gura_DeclareMethod(wx_DirDialog, GetMessage)
 Gura_ImplementMethod(wx_DirDialog, GetMessage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetMessage();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DirDialog, SetMessage)
@@ -119,9 +119,9 @@ Gura_DeclareMethod(wx_DirDialog, SetMessage)
 Gura_ImplementMethod(wx_DirDialog, SetMessage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString message = wxString::FromUTF8(args.GetString(0));
+	wxString message = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetMessage(message);
 	return Value::Nil;
 }
@@ -135,9 +135,9 @@ Gura_DeclareMethod(wx_DirDialog, SetPath)
 Gura_ImplementMethod(wx_DirDialog, SetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString path = wxString::FromUTF8(args.GetString(0));
+	wxString path = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetPath(path);
 	return Value::Nil;
 }
@@ -151,10 +151,10 @@ Gura_DeclareMethod(wx_DirDialog, ShowModal)
 Gura_ImplementMethod(wx_DirDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(args);
+	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

@@ -51,21 +51,21 @@ Gura_ImplementFunction(DataViewProgressRenderer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString label = wxEmptyString;
-	if (args.IsValid(0)) label = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) label = wxString::FromUTF8(arg.GetString(0));
 	wxString varianttype = wxT("long");
-	if (args.IsValid(1)) varianttype = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) varianttype = wxString::FromUTF8(arg.GetString(1));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
+	if (arg.IsValid(2)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(2));
 	wx_DataViewProgressRenderer *pEntity = new wx_DataViewProgressRenderer(label, varianttype, mode);
-	Object_wx_DataViewProgressRenderer *pObj = Object_wx_DataViewProgressRenderer::GetObjectThis(args);
+	Object_wx_DataViewProgressRenderer *pObj = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewProgressRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

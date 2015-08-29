@@ -33,7 +33,7 @@ Gura_DeclareMethod(foo, test)
 
 Gura_ImplementMethod(foo, test)
 {
-	Object_foo *pThis = Object_foo::GetObjectThis(args);
+	Object_foo *pThis = Object_foo::GetObjectThis(arg);
 	return Value("foo object");
 }
 
@@ -67,7 +67,7 @@ Gura_DeclareFunction(adder)
 
 Gura_ImplementFunction(adder)
 {
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	return Value(arg.GetNumber(0) + arg.GetNumber(1));
 }
 
 // Module entry

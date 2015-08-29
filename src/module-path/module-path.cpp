@@ -21,8 +21,8 @@ Gura_DeclareFunction(absname)
 
 Gura_ImplementFunction(absname)
 {
-	char chSeparator = args.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
-	return Value(OAL::MakeAbsPathName(chSeparator, args.GetString(0)));
+	char chSeparator = arg.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
+	return Value(OAL::MakeAbsPathName(chSeparator, arg.GetString(0)));
 }
 
 // path.basename(pathname:string):map
@@ -37,7 +37,7 @@ Gura_DeclareFunction(basename)
 
 Gura_ImplementFunction(basename)
 {
-	const char *pathName = args.GetString(0);
+	const char *pathName = arg.GetString(0);
 	const char *p = PathMgr::SeekExtName(pathName);
 	size_t lenLeft = p - pathName;
 	return Value(pathName, lenLeft);
@@ -56,7 +56,7 @@ Gura_DeclareFunction(bottom)
 Gura_ImplementFunction(bottom)
 {
 	String bottom;
-	PathMgr::SplitBottom(args.GetString(0), nullptr, &bottom);
+	PathMgr::SplitBottom(arg.GetString(0), nullptr, &bottom);
 	return Value(bottom);
 }
 
@@ -73,7 +73,7 @@ Gura_DeclareFunction(cutbottom)
 Gura_ImplementFunction(cutbottom)
 {
 	String top;
-	PathMgr::SplitBottom(args.GetString(0), &top, nullptr);
+	PathMgr::SplitBottom(arg.GetString(0), &top, nullptr);
 	return Value(top);
 }
 
@@ -98,16 +98,16 @@ Gura_ImplementFunction(dir)
 {
 	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
-	bool statFlag = args.IsSet(Gura_Symbol(stat));
+	bool statFlag = arg.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
-	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
-	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
+	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
+	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	int depthMax = 0;
 	StringList patterns;
-	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Nil;
+	if (!arg.GetList(1).ToStringList(sig, patterns)) return Value::Nil;
 	AutoPtr<Directory> pDirectory;
-	if (args.Is_directory(0)) {
-		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
+	if (arg.Is_directory(0)) {
+		pDirectory.reset(Directory::Reference(Object_directory::GetObject(arg, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementFunction(dir)
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // path.dirname(pathname:string):map
@@ -131,7 +131,7 @@ Gura_DeclareFunction(dirname)
 Gura_ImplementFunction(dirname)
 {
 	String dirName;
-	PathMgr::SplitFileName(args.GetString(0), &dirName, nullptr);
+	PathMgr::SplitFileName(arg.GetString(0), &dirName, nullptr);
 	return Value(dirName);
 }
 
@@ -148,7 +148,7 @@ Gura_DeclareFunction(exists)
 Gura_ImplementFunction(exists)
 {
 	Signal &sig = env.GetSignal();
-	bool existFlag = PathMgr::DoesExist(env, args.GetString(0));
+	bool existFlag = PathMgr::DoesExist(env, arg.GetString(0));
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(existFlag);
 }
@@ -165,7 +165,7 @@ Gura_DeclareFunction(extname)
 
 Gura_ImplementFunction(extname)
 {
-	const char *pathName = args.GetString(0);
+	const char *pathName = arg.GetString(0);
 	const char *p = PathMgr::SeekExtName(pathName);
 	return Value((*p == '.')? p + 1 : p);
 }
@@ -183,7 +183,7 @@ Gura_DeclareFunction(filename)
 Gura_ImplementFunction(filename)
 {
 	String fileName;
-	PathMgr::SplitFileName(args.GetString(0), nullptr, &fileName);
+	PathMgr::SplitFileName(arg.GetString(0), nullptr, &fileName);
 	return Value(fileName);
 }
 
@@ -206,16 +206,16 @@ Gura_DeclareFunction(glob)
 Gura_ImplementFunction(glob)
 {
 	bool addSepFlag = true;
-	bool statFlag = args.IsSet(Gura_Symbol(stat));
+	bool statFlag = arg.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
-	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
-	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
+	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
+	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
-	if (!pIterator->Init(env, args.GetString(0))) {
+	if (!pIterator->Init(env, arg.GetString(0))) {
 		return Value::Nil;
 	}
-	return ReturnIterator(env, args, pIterator.release());
+	return ReturnIterator(env, arg, pIterator.release());
 }
 
 // path.join(paths+:string):map:[uri]
@@ -232,8 +232,8 @@ Gura_DeclareFunction(join)
 Gura_ImplementFunction(join)
 {
 	String str;
-	const ValueList &valList = args.GetList(0);
-	char chSeparator = args.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
+	const ValueList &valList = arg.GetList(0);
+	char chSeparator = arg.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
 	foreach_const (ValueList, pValue, valList) {
 		str = OAL::JoinPathName(chSeparator, str.c_str(), pValue->GetString());
 	}
@@ -254,8 +254,8 @@ Gura_DeclareFunction(match)
 
 Gura_ImplementFunction(match)
 {
-	const char *pattern = args.GetString(0);
-	const char *name = args.GetString(1);
+	const char *pattern = arg.GetString(0);
+	const char *name = arg.GetString(1);
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
 	return Value(PathMgr::DoesMatchName(pattern, name, ignoreCaseFlag));
 }
@@ -273,10 +273,10 @@ Gura_DeclareFunction(regulate)
 
 Gura_ImplementFunction(regulate)
 {
-	char chSeparator = args.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
+	char chSeparator = arg.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
 	bool cutLastSepFlag = false;
 	return Value(OAL::RegulatePathName(chSeparator,
-								args.GetString(0), cutLastSepFlag));
+								arg.GetString(0), cutLastSepFlag));
 }
 
 // path.split(pathname:string):map:[bottom]
@@ -295,10 +295,10 @@ Gura_DeclareFunction(split)
 Gura_ImplementFunction(split)
 {
 	String first, second;
-	if (args.IsSet(Gura_Symbol(bottom))) {
-		PathMgr::SplitBottom(args.GetString(0), &first, &second);
+	if (arg.IsSet(Gura_Symbol(bottom))) {
+		PathMgr::SplitBottom(arg.GetString(0), &first, &second);
 	} else {
-		PathMgr::SplitFileName(args.GetString(0), &first, &second);
+		PathMgr::SplitFileName(arg.GetString(0), &first, &second);
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -321,7 +321,7 @@ Gura_DeclareFunction(splitext)
 
 Gura_ImplementFunction(splitext)
 {
-	const char *pathName = args.GetString(0);
+	const char *pathName = arg.GetString(0);
 	const char *p = PathMgr::SeekExtName(pathName);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -344,7 +344,7 @@ Gura_DeclareFunction(stat)
 Gura_ImplementFunction(stat)
 {
 	Signal &sig = env.GetSignal();
-	Directory *pDirectory = Object_directory::GetObject(args, 0)->GetDirectory();
+	Directory *pDirectory = Object_directory::GetObject(arg, 0)->GetDirectory();
 	AutoPtr<Object> pObj(pDirectory->GetStatObj(sig));
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj.release());
@@ -372,16 +372,16 @@ Gura_ImplementFunction(walk)
 {
 	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
-	bool statFlag = args.IsSet(Gura_Symbol(stat));
+	bool statFlag = arg.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
-	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
-	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	int depthMax = args.Is_number(1)? args.GetInt(1) : -1;
+	bool fileFlag = arg.IsSet(Gura_Symbol(file)) || !arg.IsSet(Gura_Symbol(dir));
+	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
+	int depthMax = arg.Is_number(1)? arg.GetInt(1) : -1;
 	StringList patterns;
-	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Nil;
+	if (!arg.GetList(2).ToStringList(sig, patterns)) return Value::Nil;
 	AutoPtr<Directory> pDirectory;
-	if (args.Is_directory(0)) {
-		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
+	if (arg.Is_directory(0)) {
+		pDirectory.reset(Directory::Reference(Object_directory::GetObject(arg, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Nil;
@@ -389,7 +389,7 @@ Gura_ImplementFunction(walk)
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // Module entry

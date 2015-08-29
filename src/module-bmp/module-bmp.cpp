@@ -24,9 +24,9 @@ Gura_DeclareMethodAlias(image, read_bmp, "read@bmp")
 Gura_ImplementMethod(image, read_bmp)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
-	if (!ImageStreamer_BMP::ReadStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	if (!ImageStreamer_BMP::ReadStream(env, pThis->GetImage(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // image#write@bmp(stream:stream:w):reduce
@@ -44,9 +44,9 @@ Gura_DeclareMethodAlias(image, write_bmp, "write@bmp")
 Gura_ImplementMethod(image, write_bmp)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
-	if (!ImageStreamer_BMP::WriteStream(env, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	if (!ImageStreamer_BMP::WriteStream(env, pThis->GetImage(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

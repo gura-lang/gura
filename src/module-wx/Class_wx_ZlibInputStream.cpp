@@ -49,19 +49,19 @@ Gura_ImplementFunction(ZlibInputStream)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	int flags = wxZLIB_AUTO;
-	if (args.IsValid(1)) flags = args.GetInt(1);
+	if (arg.IsValid(1)) flags = arg.GetInt(1);
 	wx_ZlibInputStream *pEntity = new wx_ZlibInputStream(stream, flags);
-	Object_wx_ZlibInputStream *pObj = Object_wx_ZlibInputStream::GetObjectThis(args);
+	Object_wx_ZlibInputStream *pObj = Object_wx_ZlibInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ZlibInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareClassMethod(wx_ZlibInputStream, CanHandleGZip)
@@ -75,7 +75,7 @@ Gura_ImplementClassMethod(wx_ZlibInputStream, CanHandleGZip)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	bool rtn = wxZlibInputStream::CanHandleGZip();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

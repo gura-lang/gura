@@ -20,9 +20,9 @@ Gura_DeclareMethodPrimitive(number, roundoff)
 
 Gura_ImplementMethod(number, roundoff)
 {
-	double num = args.GetValueThis().GetDouble();
+	double num = arg.GetValueThis().GetDouble();
 	double numAbs = (num >= 0)? num : -num;
-	if (numAbs < args.GetDouble(0)) num = 0;
+	if (numAbs < arg.GetDouble(0)) num = 0;
 	return Value(num);
 }
 

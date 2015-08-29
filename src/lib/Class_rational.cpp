@@ -28,8 +28,8 @@ Gura_DeclareFunction(rational)
 Gura_ImplementFunction(rational)
 {
 	Signal &sig = env.GetSignal();
-	int numer = args.GetInt(0);
-	int denom = args.Is_number(1)? args.GetInt(1) : 1;
+	int numer = arg.GetInt(0);
+	int denom = arg.Is_number(1)? arg.GetInt(1) : 1;
 	if (denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Nil;
@@ -37,7 +37,7 @@ Gura_ImplementFunction(rational)
 	if (denom < 0) {
 		numer = -numer, denom = -denom;
 	}
-	return ReturnValue(env, args, Value(Rational(numer, denom)));
+	return ReturnValue(env, arg, Value(Rational(numer, denom)));
 }
 
 //-----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Gura_DeclareMethodPrimitive(rational, reduce)
 
 Gura_ImplementMethod(rational, reduce)
 {
-	const Rational &num = args.GetValueThis().GetRational();
+	const Rational &num = arg.GetValueThis().GetRational();
 	return Value(num.Reduce());
 }
 

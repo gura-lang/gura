@@ -164,7 +164,7 @@ Gura_DeclareFunction(version)
 Gura_ImplementFunction(version)
 {
 	const char *rtn = ::curl_version();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 // curl.easy_init() {block?}
@@ -180,7 +180,7 @@ Gura_DeclareFunction(easy_init)
 Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
-	return ReturnValue(env, args, Value(new Object_easy_handle(curl)));
+	return ReturnValue(env, arg, Value(new Object_easy_handle(curl)));
 }
 
 // curl.test()
@@ -866,8 +866,8 @@ Gura_DeclareMethod(easy_handle, escape)
 
 Gura_ImplementMethod(easy_handle, escape)
 {
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	const String str = args.GetStringSTL(0);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	const String str = arg.GetStringSTL(0);
 	const char *rtn = ::curl_easy_escape(pThis->GetEntity(),
 								str.c_str(), static_cast<int>(str.size()));
 	return Value(rtn);
@@ -886,10 +886,10 @@ Gura_DeclareMethod(easy_handle, getinfo)
 Gura_ImplementMethod(easy_handle, getinfo)
 {
 	Signal &sig = env.GetSignal();
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
 	CURLcode code;
-	CURLINFO info = static_cast<CURLINFO>(args.GetInt(0));
-	int infoType = args.GetInt(0) & CURLINFO_TYPEMASK;
+	CURLINFO info = static_cast<CURLINFO>(arg.GetInt(0));
+	int infoType = arg.GetInt(0) & CURLINFO_TYPEMASK;
 	if (infoType == CURLINFO_STRING) {
 		const char *rtn = nullptr;
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
@@ -933,8 +933,8 @@ Gura_DeclareMethod(easy_handle, pause)
 
 Gura_ImplementMethod(easy_handle, pause)
 {
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	int bitmask = args.GetInt(0);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	int bitmask = arg.GetInt(0);
 	CURLcode code = ::curl_easy_pause(pThis->GetEntity(), bitmask);
 	
 	return Value::Nil;
@@ -953,9 +953,9 @@ Gura_DeclareMethod(easy_handle, perform)
 Gura_ImplementMethod(easy_handle, perform)
 {
 	Signal &sig = env.GetSignal();
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	Stream *pStreamOut = args.Is_stream(0)?
-			&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	Stream *pStreamOut = arg.Is_stream(0)?
+			&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
 	std::unique_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
@@ -977,8 +977,8 @@ Gura_DeclareMethod(easy_handle, recv)
 Gura_ImplementMethod(easy_handle, recv)
 {
 	Signal &sig = env.GetSignal();
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	size_t buflen = args.GetSizeT(0);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	size_t buflen = arg.GetSizeT(0);
 	if (buflen == 0) return Value::Nil;
 	AutoPtr<Memory> pMemory(new MemoryHeap(buflen));
 	size_t n = 0;
@@ -1001,7 +1001,7 @@ Gura_DeclareMethod(easy_handle, reset)
 
 Gura_ImplementMethod(easy_handle, reset)
 {
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
 	::curl_easy_reset(pThis->GetEntity());
 	return Value::Nil;
 }
@@ -1019,8 +1019,8 @@ Gura_DeclareMethod(easy_handle, send)
 Gura_ImplementMethod(easy_handle, send)
 {
 	Signal &sig = env.GetSignal();
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	const Binary &buffer = args.GetBinary(0);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	const Binary &buffer = arg.GetBinary(0);
 	size_t n = 0;
 	CURLcode code = ::curl_easy_send(pThis->GetEntity(), buffer.data(), buffer.size(), &n);
 	if (code != CURLE_OK) {
@@ -1044,21 +1044,21 @@ Gura_DeclareMethod(easy_handle, setopt)
 Gura_ImplementMethod(easy_handle, setopt)
 {
 	Signal &sig = env.GetSignal();
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
 	CURLcode code;
-	CURLoption option = static_cast<CURLoption>(args.GetInt(0));
-	if (args.Is_number(1)) {
+	CURLoption option = static_cast<CURLoption>(arg.GetInt(0));
+	if (arg.Is_number(1)) {
 		if (!(option < CURLOPTTYPE_OBJECTPOINT || CURLOPTTYPE_OFF_T <= option)) {
 			sig.SetError(ERR_TypeError, "number cannot be specified for the option");
 			return Value::Nil;
 		}
-		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetInt(1));
-	} else if (args.Is_string(1)) {
+		code = ::curl_easy_setopt(pThis->GetEntity(), option, arg.GetInt(1));
+	} else if (arg.Is_string(1)) {
 		if (!(CURLOPTTYPE_OBJECTPOINT <= option && option < CURLOPTTYPE_FUNCTIONPOINT)) {
 			sig.SetError(ERR_TypeError, "string cannot be specified for the option");
 			return Value::Nil;
 		}
-		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetString(1));
+		code = ::curl_easy_setopt(pThis->GetEntity(), option, arg.GetString(1));
 	} else {
 		Declaration::SetError_InvalidArgument(sig);
 		return Value::Nil;
@@ -1079,8 +1079,8 @@ Gura_DeclareMethod(easy_handle, unescape)
 
 Gura_ImplementMethod(easy_handle, unescape)
 {
-	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(args);
-	const String str = args.GetStringSTL(0);
+	Object_easy_handle *pThis = Object_easy_handle::GetObjectThis(arg);
+	const String str = arg.GetStringSTL(0);
 	int outlength = 0;
 	const char *rtn = ::curl_easy_unescape(pThis->GetEntity(),
 					str.c_str(), static_cast<int>(str.size()), &outlength);

@@ -48,15 +48,15 @@ Gura_ImplementFunction(ScopedTiedPtr)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ScopedTiedPtr *pEntity = new wx_ScopedTiedPtr(, );
-	Object_wx_ScopedTiedPtr *pObj = Object_wx_ScopedTiedPtr::GetObjectThis(args);
+	Object_wx_ScopedTiedPtr *pObj = Object_wx_ScopedTiedPtr::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedTiedPtr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

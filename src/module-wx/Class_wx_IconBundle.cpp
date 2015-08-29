@@ -51,15 +51,15 @@ Gura_ImplementFunction(IconBundleEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_IconBundle *pEntity = new wx_IconBundle();
-	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconBundle(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(IconBundle)
@@ -75,18 +75,18 @@ Gura_ImplementFunction(IconBundle)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString file = wxString::FromUTF8(args.GetString(0));
-	long type = args.GetLong(1);
+	wxString file = wxString::FromUTF8(arg.GetString(0));
+	long type = arg.GetLong(1);
 	wx_IconBundle *pEntity = new wx_IconBundle(file, type);
-	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconBundle(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(IconBundle_1)
@@ -101,17 +101,17 @@ Gura_ImplementFunction(IconBundle_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
+	wxIcon *icon = Object_wx_Icon::GetObject(arg, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*icon);
-	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconBundle(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(IconBundle_2)
@@ -126,17 +126,17 @@ Gura_ImplementFunction(IconBundle_2)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxIconBundle *ic = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
+	wxIconBundle *ic = Object_wx_IconBundle::GetObject(arg, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*ic);
-	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_IconBundle(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_IconBundle, AddIcon)
@@ -149,10 +149,10 @@ Gura_DeclareMethod(wx_IconBundle, AddIcon)
 Gura_ImplementMethod(wx_IconBundle, AddIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString file = wxString::FromUTF8(args.GetString(0));
-	long type = args.GetLong(1);
+	wxString file = wxString::FromUTF8(arg.GetString(0));
+	long type = arg.GetLong(1);
 	pThis->GetEntity()->AddIcon(file, type);
 	return Value::Nil;
 }
@@ -166,9 +166,9 @@ Gura_DeclareMethod(wx_IconBundle, AddIcon_1)
 Gura_ImplementMethod(wx_IconBundle, AddIcon_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
+	wxIcon *icon = Object_wx_Icon::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->AddIcon(*icon);
 	return Value::Nil;
 }
@@ -183,11 +183,11 @@ Gura_DeclareMethod(wx_IconBundle, GetIcon)
 Gura_ImplementMethod(wx_IconBundle, GetIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
+	wxSize *size = Object_wx_Size::GetObject(arg, 0)->GetEntity();
 	const wxIcon &rtn = pThis->GetEntity()->GetIcon(*size);
-	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_IconBundle, GetIcon_1)
@@ -200,12 +200,12 @@ Gura_DeclareMethod(wx_IconBundle, GetIcon_1)
 Gura_ImplementMethod(wx_IconBundle, GetIcon_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(args);
+	Object_wx_IconBundle *pThis = Object_wx_IconBundle::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord size = -1;
-	if (args.IsValid(0)) size = static_cast<wxCoord>(args.GetInt(0));
+	if (arg.IsValid(0)) size = static_cast<wxCoord>(arg.GetInt(0));
 	const wxIcon &rtn = pThis->GetEntity()->GetIcon(size);
-	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

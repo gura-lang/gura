@@ -49,17 +49,17 @@ Gura_ImplementFunction(HtmlPrintout)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString title = wxT("Printout");
-	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) title = wxString::FromUTF8(arg.GetString(0));
 	wx_HtmlPrintout *pEntity = new wx_HtmlPrintout(title);
-	Object_wx_HtmlPrintout *pObj = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pObj = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlPrintout(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareClassMethod(wx_HtmlPrintout, AddFilter)
@@ -72,7 +72,7 @@ Gura_ImplementClassMethod(wx_HtmlPrintout, AddFilter)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxHtmlFilter *filter = Object_wx_HtmlFilter::GetObject(args, 0)->GetEntity();
+	wxHtmlFilter *filter = Object_wx_HtmlFilter::GetObject(arg, 0)->GetEntity();
 	wxHtmlPrintout::AddFilter(filter);
 	return Value::Nil;
 }
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFonts)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString normal_face = wxString::FromUTF8(args.GetString(0));
-	wxString fixed_face = wxString::FromUTF8(args.GetString(1));
+	wxString normal_face = wxString::FromUTF8(arg.GetString(0));
+	wxString fixed_face = wxString::FromUTF8(arg.GetString(1));
 	int *sizes = nullptr;
-	if (args.IsValid(2)) *sizes = args.GetInt(2);
+	if (arg.IsValid(2)) *sizes = arg.GetInt(2);
 	pThis->GetEntity()->SetFonts(normal_face, fixed_face, *sizes);
 	return Value::Nil;
 #endif
@@ -114,11 +114,11 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetFooter)
 Gura_ImplementMethod(wx_HtmlPrintout, SetFooter)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString footer = wxString::FromUTF8(args.GetString(0));
+	wxString footer = wxString::FromUTF8(arg.GetString(0));
 	int pg = wxPAGE_ALL;
-	if (args.IsValid(1)) pg = args.GetInt(1);
+	if (arg.IsValid(1)) pg = arg.GetInt(1);
 	pThis->GetEntity()->SetFooter(footer, pg);
 	return Value::Nil;
 }
@@ -133,11 +133,11 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetHeader)
 Gura_ImplementMethod(wx_HtmlPrintout, SetHeader)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString header = wxString::FromUTF8(args.GetString(0));
+	wxString header = wxString::FromUTF8(arg.GetString(0));
 	int pg = wxPAGE_ALL;
-	if (args.IsValid(1)) pg = args.GetInt(1);
+	if (arg.IsValid(1)) pg = arg.GetInt(1);
 	pThis->GetEntity()->SetHeader(header, pg);
 	return Value::Nil;
 }
@@ -151,9 +151,9 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlFile)
 Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlFile)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString htmlfile = wxString::FromUTF8(args.GetString(0));
+	wxString htmlfile = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetHtmlFile(htmlfile);
 	return Value::Nil;
 }
@@ -169,13 +169,13 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlText)
 Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString html = wxString::FromUTF8(args.GetString(0));
+	wxString html = wxString::FromUTF8(arg.GetString(0));
 	wxString basepath = wxEmptyString;
-	if (args.IsValid(1)) basepath = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) basepath = wxString::FromUTF8(arg.GetString(1));
 	bool isdir = true;
-	if (args.IsValid(2)) isdir = args.GetBoolean(2);
+	if (arg.IsValid(2)) isdir = arg.GetBoolean(2);
 	pThis->GetEntity()->SetHtmlText(html, basepath, isdir);
 	return Value::Nil;
 }
@@ -193,18 +193,18 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetMargins)
 Gura_ImplementMethod(wx_HtmlPrintout, SetMargins)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(args);
+	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	float top = 25.2;
-	if (args.IsValid(0)) top = args.GetFloat(0);
+	if (arg.IsValid(0)) top = arg.GetFloat(0);
 	float bottom = 25.2;
-	if (args.IsValid(1)) bottom = args.GetFloat(1);
+	if (arg.IsValid(1)) bottom = arg.GetFloat(1);
 	float left = 25.2;
-	if (args.IsValid(2)) left = args.GetFloat(2);
+	if (arg.IsValid(2)) left = arg.GetFloat(2);
 	float right = 25.2;
-	if (args.IsValid(3)) right = args.GetFloat(3);
+	if (arg.IsValid(3)) right = arg.GetFloat(3);
 	float spaces = 5;
-	if (args.IsValid(4)) spaces = args.GetFloat(4);
+	if (arg.IsValid(4)) spaces = arg.GetFloat(4);
 	pThis->GetEntity()->SetMargins(top, bottom, left, right, spaces);
 	return Value::Nil;
 }

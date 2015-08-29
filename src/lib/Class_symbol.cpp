@@ -20,10 +20,10 @@ Gura_DeclareMethod(symbol, eval)
 Gura_ImplementMethod(symbol, eval)
 {
 	Signal &sig = env.GetSignal();
-	const Symbol *pSymbol = args.GetValueThis().GetSymbol();
+	const Symbol *pSymbol = arg.GetValueThis().GetSymbol();
 	AutoPtr<Expr> pExpr(new Expr_Identifier(pSymbol));
-	Environment *pEnv = args.Is_environment(0)?
-			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
+	Environment *pEnv = arg.Is_environment(0)?
+			Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
 			new Environment(&env, ENVTYPE_block);
 	return Processor::Run(pEnv, sig, pExpr.get());
 }

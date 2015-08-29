@@ -48,15 +48,15 @@ Gura_ImplementFunction(TCPClientEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TCPClient *pEntity = new wx_TCPClient();
-	Object_wx_TCPClient *pObj = Object_wx_TCPClient::GetObjectThis(args);
+	Object_wx_TCPClient *pObj = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TCPClient(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TCPClient, MakeConnection)
@@ -71,13 +71,13 @@ Gura_DeclareMethod(wx_TCPClient, MakeConnection)
 Gura_ImplementMethod(wx_TCPClient, MakeConnection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(args);
+	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString host = wxString::FromUTF8(args.GetString(0));
-	wxString service = wxString::FromUTF8(args.GetString(1));
-	wxString topic = wxString::FromUTF8(args.GetString(2));
+	wxString host = wxString::FromUTF8(arg.GetString(0));
+	wxString service = wxString::FromUTF8(arg.GetString(1));
+	wxString topic = wxString::FromUTF8(arg.GetString(2));
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->MakeConnection(host, service, topic);
-	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TCPClient, OnMakeConnection)
@@ -89,10 +89,10 @@ Gura_DeclareMethod(wx_TCPClient, OnMakeConnection)
 Gura_ImplementMethod(wx_TCPClient, OnMakeConnection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(args);
+	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnMakeConnection();
-	return ReturnValue(env, args, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_ConnectionBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TCPClient, ValidHost)
@@ -105,11 +105,11 @@ Gura_DeclareMethod(wx_TCPClient, ValidHost)
 Gura_ImplementMethod(wx_TCPClient, ValidHost)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(args);
+	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString host = wxString::FromUTF8(args.GetString(0));
+	wxString host = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->ValidHost(host);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

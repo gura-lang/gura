@@ -50,18 +50,18 @@ Gura_ImplementFunction(StaticBoxSizer)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxStaticBox *box = Object_wx_StaticBox::GetObject(args, 0)->GetEntity();
-	int orient = args.GetInt(1);
+	wxStaticBox *box = Object_wx_StaticBox::GetObject(arg, 0)->GetEntity();
+	int orient = arg.GetInt(1);
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(box, orient);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(StaticBoxSizerAuto)
@@ -78,20 +78,20 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int orient = args.GetInt(0);
-	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	int orient = arg.GetInt(0);
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	wxString label = wxEmptyString;
-	if (args.IsValid(2)) label = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) label = wxString::FromUTF8(arg.GetString(2));
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(orient, parent, label);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
@@ -103,10 +103,10 @@ Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
 Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(args);
+	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxStaticBox *rtn = (wxStaticBox *)pThis->GetEntity()->GetStaticBox();
-	return ReturnValue(env, args, Value(new Object_wx_StaticBox(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_StaticBox(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

@@ -126,10 +126,10 @@ Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 	Signal &sig = env.GetSignal();
 	GetFunction()->GetDeclOwner().Compensate(env, valListArg);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Args> pArgs(new Args(GetFunction()));
-	pArgs->SetValueThis(_valueThis);
-	pArgs->SetValueListArg(valListArg);
-	return GetFunction()->Eval(env, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(GetFunction()));
+	pArg->SetValueThis(_valueThis);
+	pArg->SetValueListArg(valListArg);
+	return GetFunction()->Eval(env, *pArg);
 }
 
 Object *Object_function::Clone() const
@@ -172,19 +172,19 @@ Gura_DeclareFunction(function)
 Gura_ImplementFunction(function)
 {
 	Signal &sig = env.GetSignal();
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	AutoPtr<ExprOwner> pExprOwnerArg;
 	if (pExprOwnerParam == nullptr) {
 		pExprOwnerArg.reset(new ExprOwner());
-		foreach_const (ValueList, pValue, args.GetList(0)) {
+		foreach_const (ValueList, pValue, arg.GetList(0)) {
 			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
 		if (pExprOwnerArg->empty()) {
 			pExprBlock->GatherSimpleLambdaArgs(*pExprOwnerArg);
 		}
-	} else if (!args.GetList(0).empty()) {
+	} else if (!arg.GetList(0).empty()) {
 		sig.SetError(ERR_SyntaxError, "argument list conflicts with block parameter.");
 		return Value::Nil;
 	} else {
@@ -192,9 +192,9 @@ Gura_ImplementFunction(function)
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	CallerInfo callerInfo(*pExprOwnerArg, nullptr, args.GetAttrsShared(), nullptr);
-	callerInfo.SetFlagsToSet(args.GetFlags());
-	callerInfo.SetResultMode(args.GetResultMode());
+	CallerInfo callerInfo(*pExprOwnerArg, nullptr, arg.GetAttrsShared(), nullptr);
+	callerInfo.SetFlagsToSet(arg.GetFlags());
+	callerInfo.SetResultMode(arg.GetResultMode());
 	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
 	return Value(new Object_function(env, pFunc.release()));
 }
@@ -245,8 +245,8 @@ Gura_DeclareClassMethod(function, addhelp)
 
 Gura_ImplementClassMethod(function, addhelp)
 {
-	Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
-	pFunc->AddHelp(args.GetSymbol(1), args.GetString(2), args.GetString(3));
+	Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
+	pFunc->AddHelp(arg.GetSymbol(1), arg.GetString(2), arg.GetString(3));
 	return Value::Nil;
 }
 
@@ -265,7 +265,7 @@ Gura_DeclareClassMethod(function, getdecls)
 
 Gura_ImplementClassMethod(function, getdecls)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	Iterator *pIterator = new Iterator_declaration(pFunc->GetDeclOwner().Reference());
 	return Value(new Object_iterator(env, pIterator));
 }
@@ -286,7 +286,7 @@ Gura_DeclareClassMethod(function, getexpr)
 
 Gura_ImplementClassMethod(function, getexpr)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	if (!pFunc->IsCustom()) return Value::Nil;
 	const FunctionCustom *pFuncCustom =
 					dynamic_cast<const FunctionCustom *>(pFunc);
@@ -307,7 +307,7 @@ Gura_DeclareClassMethod(function, getformat)
 
 Gura_ImplementClassMethod(function, getformat)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	return Value(pFunc->ToString());
 }
 
@@ -326,7 +326,7 @@ Gura_DeclareClassMethod(function, getfullname)
 
 Gura_ImplementClassMethod(function, getfullname)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	return Value(pFunc->MakeFullName());
 }
 
@@ -349,8 +349,8 @@ Gura_DeclareClassMethod(function, gethelp)
 
 Gura_ImplementClassMethod(function, gethelp)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
-	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : env.GetLangCode();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
+	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
 	if (pHelp == nullptr) return Value::Nil;
 	return Value(new Object_help(env, pHelp->Reference()));
@@ -370,7 +370,7 @@ Gura_DeclareClassMethod(function, getname)
 
 Gura_ImplementClassMethod(function, getname)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	return Value(pFunc->GetName());
 }
 
@@ -388,7 +388,7 @@ Gura_DeclareClassMethod(function, getsymbol)
 
 Gura_ImplementClassMethod(function, getsymbol)
 {
-	const Function *pFunc = Object_function::GetObject(args, 0)->GetFunction();
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	return Value(pFunc->GetSymbol());
 }
 
@@ -422,12 +422,12 @@ Gura_DeclareMethod(function, mathdiff)
 Gura_ImplementMethod(function, mathdiff)
 {
 	Signal &sig = env.GetSignal();
-	Object_function *pThis = Object_function::GetObjectThis(args);
+	Object_function *pThis = Object_function::GetObjectThis(arg);
 	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
 	const Symbol *pSymbol = nullptr;
-	if (args.Is_symbol(0)) {
-		pSymbol = args.GetSymbol(0);
+	if (arg.Is_symbol(0)) {
+		pSymbol = arg.GetSymbol(0);
 	} else if (declOwner.empty()) {
 		sig.SetError(ERR_ValueError, "variable symbol must be specified");
 		return Value::Nil;

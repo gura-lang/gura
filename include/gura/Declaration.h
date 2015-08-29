@@ -12,7 +12,7 @@ class Class;
 class Expr;
 class ExprList;
 class Environment;
-class Args;
+class Argument;
 class CallerInfo;
 
 //-----------------------------------------------------------------------------
@@ -95,7 +95,7 @@ public:
 	void SetAsLoose();
 	bool Compensate(Environment &env, ValueList &valList) const;
 	bool ShouldImplicitMap(const ValueList &valList) const;
-	bool ShouldImplicitMap(const Args &args) const;
+	bool ShouldImplicitMap(const Argument &arg) const;
 	String ToString() const;
 };
 

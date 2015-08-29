@@ -53,26 +53,26 @@ Gura_ImplementFunction(SingleChoiceDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxString message = wxString::FromUTF8(args.GetString(1));
-	wxString caption = wxString::FromUTF8(args.GetString(2));
-	std::unique_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxString message = wxString::FromUTF8(arg.GetString(1));
+	wxString caption = wxString::FromUTF8(arg.GetString(2));
+	std::unique_ptr<wxArrayString> choices(CreateArrayString(arg.GetList(3)));
 	char **clientData = nullptr;
 	long style = wxCHOICEDLG_STYLE;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) pos = Object_wx_Point::GetObject(arg, 5)->GetEntity();
 	wx_SingleChoiceDialog *pEntity = new wx_SingleChoiceDialog(parent, message, caption, *choices, clientData, style, *pos);
-	Object_wx_SingleChoiceDialog *pObj = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pObj = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SingleChoiceDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
@@ -84,10 +84,10 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
 Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionClientData)
@@ -100,10 +100,10 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionClientData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	char rtn = pThis->GetEntity()->GetSelectionClientData();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -118,10 +118,10 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, GetStringSelection)
 Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
@@ -133,9 +133,9 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
 Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int selection = args.GetInt(0);
+	int selection = arg.GetInt(0);
 	pThis->GetEntity()->SetSelection(selection);
 	return Value::Nil;
 }
@@ -149,10 +149,10 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, ShowModal)
 Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(args);
+	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->ShowModal();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

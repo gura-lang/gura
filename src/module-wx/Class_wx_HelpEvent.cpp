@@ -51,21 +51,21 @@ Gura_ImplementFunction(HelpEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE eventType = 0;
-	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
+	if (arg.IsValid(0)) eventType = static_cast<WXTYPE>(arg.GetInt(0));
 	wxWindowID id = 0;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint point;
-	if (args.IsValid(2)) point = *Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) point = *Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wx_HelpEvent *pEntity = new wx_HelpEvent(eventType, id, point);
-	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetObjectThis(args);
+	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HelpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
 Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
@@ -90,10 +90,10 @@ Gura_DeclareMethod(wx_HelpEvent, GetPosition)
 Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HelpEvent, SetOrigin)
@@ -108,9 +108,9 @@ Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 0)->GetEntity();
+	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetOrigin(*origin);
 	return Value::Nil;
 #endif
@@ -127,9 +127,9 @@ Gura_DeclareMethod(wx_HelpEvent, SetPosition)
 Gura_ImplementMethod(wx_HelpEvent, SetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(args);
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
+	wxPoint *pt = Object_wx_Point::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetPosition(*pt);
 	return Value::Nil;
 }

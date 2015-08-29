@@ -48,15 +48,15 @@ Gura_ImplementFunction(MemoryFSHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_MemoryFSHandler *pEntity = new wx_MemoryFSHandler();
-	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetObjectThis(args);
+	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MemoryFSHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 #if 0
@@ -72,9 +72,9 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
-	wxImage *image = Object_wx_Image::GetObject(args, 1)->GetEntity();
-	long type = args.GetLong(2);
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
+	wxImage *image = Object_wx_Image::GetObject(arg, 1)->GetEntity();
+	long type = arg.GetLong(2);
 	wxMemoryFSHandler::AddFile(filename, *image, type);
 	return Value::Nil;
 }
@@ -93,9 +93,9 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
-	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
-	long type = args.GetLong(2);
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
+	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(arg, 1)->GetEntity();
+	long type = arg.GetLong(2);
 	wxMemoryFSHandler::AddFile(filename, *bitmap, type);
 	return Value::Nil;
 }
@@ -113,9 +113,9 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
-	wxString textdata = wxString::FromUTF8(args.GetString(1));
-	wxString mimetype = wxString::FromUTF8(args.GetString(2));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
+	wxString textdata = wxString::FromUTF8(arg.GetString(1));
+	wxString mimetype = wxString::FromUTF8(arg.GetString(2));
 	wxMemoryFSHandler::AddFileWithMimeType(filename, textdata, mimetype);
 	return Value::Nil;
 }
@@ -136,10 +136,10 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxString filename = wxString::FromUTF8(args.GetString(0));
-	int binarydata = args.GetInt(1);
-	size_t size = args.GetSizeT(2);
-	wxString mimetype = wxString::FromUTF8(args.GetString(3));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
+	int binarydata = arg.GetInt(1);
+	size_t size = arg.GetSizeT(2);
+	wxString mimetype = wxString::FromUTF8(arg.GetString(3));
 	wxMemoryFSHandler::AddFileWithMimeType(filename, binarydata, size, mimetype);
 	return Value::Nil;
 #endif
@@ -157,7 +157,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, RemoveFile)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	wxMemoryFSHandler::RemoveFile(filename);
 	return Value::Nil;
 }

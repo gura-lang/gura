@@ -49,18 +49,18 @@ Gura_ImplementFunction(StringBuffer)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
-	size_t len = args.GetSizeT(1);
+	wxString str = wxString::FromUTF8(arg.GetString(0));
+	size_t len = arg.GetSizeT(1);
 	wx_StringBuffer *pEntity = new wx_StringBuffer(str, len);
-	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetObjectThis(args);
+	Object_wx_StringBuffer *pObj = Object_wx_StringBuffer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StringBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -52,21 +52,21 @@ Gura_ImplementFunction(TarEntry)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxEmptyString;
-	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) name = wxString::FromUTF8(arg.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
-	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) dt = *Object_wx_DateTime::GetObject(arg, 1)->GetEntity();
 	wxFileOffset size = wxInvalidOffset;
-	if (args.IsValid(2)) size = static_cast<wxFileOffset>(args.GetInt64(2));
+	if (arg.IsValid(2)) size = static_cast<wxFileOffset>(arg.GetInt64(2));
 	wx_TarEntry *pEntity = new wx_TarEntry(name, dt, size);
-	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(TarEntry_1)
@@ -81,17 +81,17 @@ Gura_ImplementFunction(TarEntry_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
+	wxTarEntry *entry = Object_wx_TarEntry::GetObject(arg, 0)->GetEntity();
 	wx_TarEntry *pEntity = new wx_TarEntry(*entry);
-	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TarEntry, GetAccessTime)
@@ -103,10 +103,10 @@ Gura_DeclareMethod(wx_TarEntry, GetAccessTime)
 Gura_ImplementMethod(wx_TarEntry, GetAccessTime)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetAccessTime();
-	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetAccessTime)
@@ -118,9 +118,9 @@ Gura_DeclareMethod(wx_TarEntry, SetAccessTime)
 Gura_ImplementMethod(wx_TarEntry, SetAccessTime)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
+	wxDateTime *dt = Object_wx_DateTime::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetAccessTime(*dt);
 	return Value::Nil;
 }
@@ -134,10 +134,10 @@ Gura_DeclareMethod(wx_TarEntry, GetCreateTime)
 Gura_ImplementMethod(wx_TarEntry, GetCreateTime)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDateTime rtn = pThis->GetEntity()->GetCreateTime();
-	return ReturnValue(env, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_DateTime(new wxDateTime(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetCreateTime)
@@ -149,9 +149,9 @@ Gura_DeclareMethod(wx_TarEntry, SetCreateTime)
 Gura_ImplementMethod(wx_TarEntry, SetCreateTime)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDateTime *dt = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
+	wxDateTime *dt = Object_wx_DateTime::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetCreateTime(*dt);
 	return Value::Nil;
 }
@@ -165,10 +165,10 @@ Gura_DeclareMethod(wx_TarEntry, GetDevMajor)
 Gura_ImplementMethod(wx_TarEntry, GetDevMajor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetDevMajor();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, GetDevMinor)
@@ -180,10 +180,10 @@ Gura_DeclareMethod(wx_TarEntry, GetDevMinor)
 Gura_ImplementMethod(wx_TarEntry, GetDevMinor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetDevMinor();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetDevMajor)
@@ -195,9 +195,9 @@ Gura_DeclareMethod(wx_TarEntry, SetDevMajor)
 Gura_ImplementMethod(wx_TarEntry, SetDevMajor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int dev = args.GetInt(0);
+	int dev = arg.GetInt(0);
 	pThis->GetEntity()->SetDevMajor(dev);
 	return Value::Nil;
 }
@@ -211,9 +211,9 @@ Gura_DeclareMethod(wx_TarEntry, SetDevMinor)
 Gura_ImplementMethod(wx_TarEntry, SetDevMinor)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int dev = args.GetInt(0);
+	int dev = arg.GetInt(0);
 	pThis->GetEntity()->SetDevMinor(dev);
 	return Value::Nil;
 }
@@ -227,10 +227,10 @@ Gura_DeclareMethod(wx_TarEntry, GetGroupId)
 Gura_ImplementMethod(wx_TarEntry, GetGroupId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetGroupId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, GetUserId)
@@ -242,10 +242,10 @@ Gura_DeclareMethod(wx_TarEntry, GetUserId)
 Gura_ImplementMethod(wx_TarEntry, GetUserId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetUserId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetGroupId)
@@ -257,9 +257,9 @@ Gura_DeclareMethod(wx_TarEntry, SetGroupId)
 Gura_ImplementMethod(wx_TarEntry, SetGroupId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int id = args.GetInt(0);
+	int id = arg.GetInt(0);
 	pThis->GetEntity()->SetGroupId(id);
 	return Value::Nil;
 }
@@ -273,9 +273,9 @@ Gura_DeclareMethod(wx_TarEntry, SetUserId)
 Gura_ImplementMethod(wx_TarEntry, SetUserId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int id = args.GetInt(0);
+	int id = arg.GetInt(0);
 	pThis->GetEntity()->SetUserId(id);
 	return Value::Nil;
 }
@@ -289,10 +289,10 @@ Gura_DeclareMethod(wx_TarEntry, GetGroupName)
 Gura_ImplementMethod(wx_TarEntry, GetGroupName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetGroupName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, GetUserName_, "GetUserName")
@@ -304,10 +304,10 @@ Gura_DeclareMethodAlias(wx_TarEntry, GetUserName_, "GetUserName")
 Gura_ImplementMethod(wx_TarEntry, GetUserName_)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetUserName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetGroupName)
@@ -319,9 +319,9 @@ Gura_DeclareMethod(wx_TarEntry, SetGroupName)
 Gura_ImplementMethod(wx_TarEntry, SetGroupName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString group = wxString::FromUTF8(args.GetString(0));
+	wxString group = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetGroupName(group);
 	return Value::Nil;
 }
@@ -335,9 +335,9 @@ Gura_DeclareMethod(wx_TarEntry, SetUserName)
 Gura_ImplementMethod(wx_TarEntry, SetUserName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString user = wxString::FromUTF8(args.GetString(0));
+	wxString user = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetUserName(user);
 	return Value::Nil;
 }
@@ -352,10 +352,10 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetInternalName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -376,15 +376,15 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxPathFormat format = wxPATH_NATIVE;
-	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
+	if (arg.IsValid(1)) format = static_cast<wxPathFormat>(arg.GetInt(1));
 	bool pIsDir = nullptr;
-	if (args.IsValid(2)) pIsDir = args.GetBoolean(2);
+	if (arg.IsValid(2)) pIsDir = arg.GetBoolean(2);
 	wxString rtn = pThis->GetEntity()->GetInternalName(name, format, pIsDir);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -399,10 +399,10 @@ Gura_DeclareMethod(wx_TarEntry, GetLinkName)
 Gura_ImplementMethod(wx_TarEntry, GetLinkName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLinkName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetLinkName)
@@ -417,9 +417,9 @@ Gura_ImplementMethod(wx_TarEntry, SetLinkName)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString link = wxString::FromUTF8(args.GetString(0));
+	wxString link = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetLinkName(link);
 	return Value::Nil;
 #endif
@@ -436,10 +436,10 @@ Gura_DeclareMethod(wx_TarEntry, GetMode)
 Gura_ImplementMethod(wx_TarEntry, GetMode)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetMode();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, SetMode_, "SetMode")
@@ -451,9 +451,9 @@ Gura_DeclareMethodAlias(wx_TarEntry, SetMode_, "SetMode")
 Gura_ImplementMethod(wx_TarEntry, SetMode_)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int mode = args.GetInt(0);
+	int mode = arg.GetInt(0);
 	pThis->GetEntity()->SetMode(mode);
 	return Value::Nil;
 }
@@ -467,9 +467,9 @@ Gura_DeclareMethod(wx_TarEntry, SetSize)
 Gura_ImplementMethod(wx_TarEntry, SetSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFileOffset size = static_cast<wxFileOffset>(args.GetInt64(0));
+	wxFileOffset size = static_cast<wxFileOffset>(arg.GetInt64(0));
 	pThis->GetEntity()->SetSize(size);
 	return Value::Nil;
 }
@@ -483,10 +483,10 @@ Gura_DeclareMethod(wx_TarEntry, GetSize)
 Gura_ImplementMethod(wx_TarEntry, GetSize)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset rtn = pThis->GetEntity()->GetSize();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, GetTypeFlag)
@@ -498,10 +498,10 @@ Gura_DeclareMethod(wx_TarEntry, GetTypeFlag)
 Gura_ImplementMethod(wx_TarEntry, GetTypeFlag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetTypeFlag();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetTypeFlag)
@@ -513,9 +513,9 @@ Gura_DeclareMethod(wx_TarEntry, SetTypeFlag)
 Gura_ImplementMethod(wx_TarEntry, SetTypeFlag)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(args);
+	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int type = args.GetInt(0);
+	int type = arg.GetInt(0);
 	pThis->GetEntity()->SetTypeFlag(type);
 	return Value::Nil;
 }

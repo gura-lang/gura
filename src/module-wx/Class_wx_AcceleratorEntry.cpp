@@ -6,7 +6,7 @@
 
 Gura_BeginModuleScope(wx)
 
-int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg);
+int ArgToKeyCode(const Function *pFunc, Signal &sig, Argument &arg, size_t iArg);
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -51,15 +51,15 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry();
-	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(AcceleratorEntry)
@@ -76,20 +76,20 @@ Gura_ImplementFunction(AcceleratorEntry)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
-	int keyCode = ArgToKeyCode(this, sig, args, 1);
+	int flags = arg.GetInt(0);
+	int keyCode = ArgToKeyCode(this, sig, arg, 1);
 	if (sig.IsSignalled()) return Value::Nil;
-	int cmd = args.GetInt(2);
+	int cmd = arg.GetInt(2);
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry(flags, keyCode, cmd);
-	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
@@ -101,10 +101,10 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
 Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCommand();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
@@ -116,10 +116,10 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
 Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
@@ -131,10 +131,10 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
 Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetKeyCode();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, Set)
@@ -148,12 +148,12 @@ Gura_DeclareMethod(wx_AcceleratorEntry, Set)
 Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(args);
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
-	int keyCode = ArgToKeyCode(this, sig, args, 1);
+	int flags = arg.GetInt(0);
+	int keyCode = ArgToKeyCode(this, sig, arg, 1);
 	if (sig.IsSignalled()) return Value::Nil;
-	int cmd = args.GetInt(2);
+	int cmd = arg.GetInt(2);
 	pThis->GetEntity()->Set(flags, keyCode, cmd);
 	return Value::Nil;
 }
@@ -204,13 +204,13 @@ Gura_ImplementDescendantCreator(wx_AcceleratorEntry)
 	return new Object_wx_AcceleratorEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
-int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg)
+int ArgToKeyCode(const Function *pFunc, Signal &sig, Argument &arg, size_t iArg)
 {
 	int keyCode = 0;
-	if (args.IsInstanceOf(iArg, VTYPE_number)) {
-		keyCode = args.GetInt(iArg);
-	} else if (args.IsInstanceOf(iArg, VTYPE_string)) {
-		const char *str = args.GetString(iArg);
+	if (arg.IsInstanceOf(iArg, VTYPE_number)) {
+		keyCode = arg.GetInt(iArg);
+	} else if (arg.IsInstanceOf(iArg, VTYPE_string)) {
+		const char *str = arg.GetString(iArg);
 		size_t len = ::strlen(str);
 		if (len != 1) {
 			sig.SetError(ERR_ValueError,
@@ -219,7 +219,7 @@ int ArgToKeyCode(const Function *pFunc, Signal &sig, Args &args, size_t iArg)
 		}
 		keyCode = str[0];
 	} else {
-		pFunc->SetError_ArgumentTypeByIndex(sig, args, iArg);
+		pFunc->SetError_ArgumentTypeByIndex(sig, arg, iArg);
 	}
 	return keyCode;
 }

@@ -46,15 +46,15 @@ Gura_ImplementFunction(TGAHandler)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TGAHandler *pEntity = new wx_TGAHandler();
-	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetObjectThis(args);
+	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TGAHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

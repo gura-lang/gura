@@ -24,9 +24,9 @@ Gura_DeclareMethodAlias(image, read_xpm, "read@xpm")
 Gura_ImplementMethod(image, read_xpm)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
-	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 #endif
 
@@ -43,9 +43,9 @@ Gura_DeclareMethodAlias(image, write_xpm, "write@xpm")
 Gura_ImplementMethod(image, write_xpm)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
-	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // image#xpmdata(xpm[]:string):reduce
@@ -62,10 +62,10 @@ Gura_ImplementMethod(image, xpmdata)
 {
 	Signal &sig = env.GetSignal();
 	typedef std::map<String, Color> ColorMap;
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Nil;
-	const ValueList &valList = args.GetList(0);
+	const ValueList &valList = arg.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	if (pValue == valList.end()) {
 		sig.SetError(ERR_FormatError, "can't find XPM header");
@@ -259,7 +259,7 @@ Gura_ImplementMethod(image, xpmdata)
 			}
 		}
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

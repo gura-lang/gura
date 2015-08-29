@@ -49,17 +49,17 @@ Gura_ImplementFunction(Metafile)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString filename = wxT("");
-	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) filename = wxString::FromUTF8(arg.GetString(0));
 	wx_Metafile *pEntity = new wx_Metafile(filename);
-	Object_wx_Metafile *pObj = Object_wx_Metafile::GetObjectThis(args);
+	Object_wx_Metafile *pObj = Object_wx_Metafile::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Metafile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_Metafile, Ok)
@@ -71,10 +71,10 @@ Gura_DeclareMethod(wx_Metafile, Ok)
 Gura_ImplementMethod(wx_Metafile, Ok)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(args);
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Ok();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Metafile, Play)
@@ -87,11 +87,11 @@ Gura_DeclareMethod(wx_Metafile, Play)
 Gura_ImplementMethod(wx_Metafile, Play)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(args);
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
+	wxDC *dc = Object_wx_DC::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->Play(dc);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Metafile, SetClipboard)
@@ -105,14 +105,14 @@ Gura_DeclareMethod(wx_Metafile, SetClipboard)
 Gura_ImplementMethod(wx_Metafile, SetClipboard)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(args);
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int width = 0;
-	if (args.IsValid(0)) width = args.GetInt(0);
+	if (arg.IsValid(0)) width = arg.GetInt(0);
 	int height = 0;
-	if (args.IsValid(1)) height = args.GetInt(1);
+	if (arg.IsValid(1)) height = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->SetClipboard(width, height);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

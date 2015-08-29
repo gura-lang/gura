@@ -1150,13 +1150,13 @@ Gura_DeclareMethod(content, write)
 Gura_ImplementMethod(content, write)
 {
 	Signal &sig = env.GetSignal();
-	GIF &gif = Object_content::GetObjectThis(args)->GetGIF();
-	Stream &stream = args.GetStream(0);
+	GIF &gif = Object_content::GetObjectThis(arg)->GetGIF();
+	Stream &stream = arg.GetStream(0);
 	UShort loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // gif.content#addimage(image:image, delayTime:number => 0, 
@@ -1197,12 +1197,12 @@ Gura_DeclareMethod(content, addimage)
 Gura_ImplementMethod(content, addimage)
 {
 	Signal &sig = env.GetSignal();
-	GIF &gif = Object_content::GetObjectThis(args)->GetGIF();
-	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
+	GIF &gif = Object_content::GetObjectThis(arg)->GetGIF();
+	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, arg.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Nil;
-	gif.AddImage(args.GetValue(0), args.GetUShort(1),
-					args.GetUShort(2), args.GetUShort(3), disposalMethod);
-	return args.GetValueThis();
+	gif.AddImage(arg.GetValue(0), arg.GetUShort(1),
+					arg.GetUShort(2), arg.GetUShort(3), disposalMethod);
+	return arg.GetValueThis();
 }
 
 // implementation of class GIF
@@ -1399,14 +1399,14 @@ Gura_DeclareMethodAlias(image, read_gif, "read@gif")
 Gura_ImplementMethod(image, read_gif)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckEmpty(sig)) return Value::Nil;
-	Stream &stream = args.GetStream(0);
+	Stream &stream = arg.GetStream(0);
 	if (!GIF().Read(env, stream, pImage, pImage->GetFormat())) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // image#write@gif(stream:stream:w):reduce
@@ -1424,17 +1424,17 @@ Gura_DeclareMethodAlias(image, write_gif, "write@gif")
 Gura_ImplementMethod(image, write_gif)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Image *pImage = pThis->GetImage();
 	if (!pImage->CheckValid(sig)) return Value::Nil;
-	Stream &stream = args.GetStream(0);
+	Stream &stream = arg.GetStream(0);
 	GIF gif;
-	gif.AddImage(args.GetValueThis(), 0, 0, 0, 1);
+	gif.AddImage(arg.GetValueThis(), 0, 0, 0, 1);
 	UShort loopCount = 0;
 	if (!gif.Write(env, stream, Color::zero, false, loopCount)) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1461,9 +1461,9 @@ Gura_ImplementFunction(content)
 {
 	Signal &sig = env.GetSignal();
 	Object_content *pObjContent = new Object_content();
-	if (args.Is_stream(0)) {
-		Stream &stream = args.GetStream(0);
-		const Symbol *pSymbol = args.GetSymbol(1);
+	if (arg.Is_stream(0)) {
+		Stream &stream = arg.GetStream(0);
+		const Symbol *pSymbol = arg.GetSymbol(1);
 		Image::Format format = Image::FORMAT_None;
 		if (!pSymbol->IsIdentical(Gura_UserSymbol(noimage))) {
 			format = Image::SymbolToFormat(sig, pSymbol);
@@ -1473,7 +1473,7 @@ Gura_ImplementFunction(content)
 			return Value::Nil;
 		}
 	}
-	return ReturnValue(env, args, Value(pObjContent));
+	return ReturnValue(env, arg, Value(pObjContent));
 }
 
 // Module entry

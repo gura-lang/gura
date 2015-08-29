@@ -85,8 +85,8 @@ Gura_DeclareMethod(declaration, istype)
 Gura_ImplementMethod(declaration, istype)
 {
 	Signal &sig = env.GetSignal();
-	const Declaration *pDeclaration = Object_declaration::GetObjectThis(args)->GetDeclaration();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
+	const Declaration *pDeclaration = Object_declaration::GetObjectThis(arg)->GetDeclaration();
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = pDeclaration->GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();

@@ -43,7 +43,7 @@ public:
 	virtual String ToString(bool exprFlag);
 	bool Open(Signal &sig, const char *fileName);
 	void Close();
-	Value Exec(Signal &sig, const char *sql, Args &args);
+	Value Exec(Signal &sig, const char *sql, Argument &arg);
 	bool ExecNoResult(Signal &sig, const char *sql);
 	IteratorQuery *Query(Signal &sig, const char *sql);
 	Value GetColumnNames(Signal &sig, const char *sql);
@@ -61,8 +61,8 @@ private:
 	Environment &_env;
 	Signal &_sig;
 public:
-	inline ResultComposerEx(Environment &env, Signal &sig, Args &args, Value &result) :
-					ResultComposer(env, args, result), _env(env), _sig(sig) {}
+	inline ResultComposerEx(Environment &env, Signal &sig, Argument &arg, Value &result) :
+					ResultComposer(env, arg, result), _env(env), _sig(sig) {}
 	inline Environment &GetEnv() { return _env; }
 	inline Signal &GetSignal() { return _sig; }
 };

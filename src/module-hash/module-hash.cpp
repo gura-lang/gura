@@ -81,9 +81,9 @@ Gura_DeclareMethod(accumulator, init)
 
 Gura_ImplementMethod(accumulator, init)
 {
-	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(args)->GetAccumulator();
+	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(arg)->GetAccumulator();
 	accumulator.Init();
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // accumulator#update(stream:stream:r):reduce
@@ -99,9 +99,9 @@ Gura_DeclareMethod(accumulator, update)
 Gura_ImplementMethod(accumulator, update)
 {
 	Signal &sig = env.GetSignal();
-	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(args)->GetAccumulator();
-	args.GetStream(0).ReadToStream(env, accumulator, 0x10000, false);
-	return args.GetValueThis();
+	AccumulatorBase &accumulator = Object_accumulator::GetObjectThis(arg)->GetAccumulator();
+	arg.GetStream(0).ReadToStream(env, accumulator, 0x10000, false);
+	return arg.GetValueThis();
 }
 
 // implementation of class Accumulator
@@ -280,10 +280,10 @@ Gura_DeclareFunction(md5)
 Gura_ImplementFunction(md5)
 {
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_MD5(env), "md5");
-	if (args.Is_stream(0)) {
-		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
+	if (arg.Is_stream(0)) {
+		arg.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, args, Value(pObj));
+	return ReturnValue(env, arg, Value(pObj));
 }
 
 // hash.sha1(stream?:stream:r) {block?}
@@ -301,10 +301,10 @@ Gura_DeclareFunction(sha1)
 Gura_ImplementFunction(sha1)
 {
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_SHA1(env), "sha1");
-	if (args.Is_stream(0)) {
-		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
+	if (arg.Is_stream(0)) {
+		arg.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, args, Value(pObj));
+	return ReturnValue(env, arg, Value(pObj));
 }
 
 // hash.crc32(stream?:stream:r) {block?}
@@ -322,10 +322,10 @@ Gura_DeclareFunction(crc32)
 Gura_ImplementFunction(crc32)
 {
 	Object_accumulator *pObj = new Object_accumulator(env, new Accumulator_CRC32(env), "crc32");
-	if (args.Is_stream(0)) {
-		args.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
+	if (arg.Is_stream(0)) {
+		arg.GetStream(0).ReadToStream(env, pObj->GetAccumulator(), 0x10000, false);
 	}
-	return ReturnValue(env, args, Value(pObj));
+	return ReturnValue(env, arg, Value(pObj));
 }
 
 // Module entry

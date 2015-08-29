@@ -34,7 +34,7 @@ Gura_DeclareMethod(font_face, status)
 
 Gura_ImplementMethod(font_face, status)
 {
-	Object_font_face *pThis = Object_font_face::GetObjectThis(args);
+	Object_font_face *pThis = Object_font_face::GetObjectThis(arg);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_status_t rtn = cairo_font_face_status(font_face);
 	return Value(rtn);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(font_face, get_type)
 
 Gura_ImplementMethod(font_face, get_type)
 {
-	Object_font_face *pThis = Object_font_face::GetObjectThis(args);
+	Object_font_face *pThis = Object_font_face::GetObjectThis(arg);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	cairo_font_type_t rtn = cairo_font_face_get_type(font_face);
 	return Value(rtn);

@@ -52,25 +52,25 @@ Gura_ImplementFunction(RichTextStyleComboCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = 0;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wx_RichTextStyleComboCtrl *pEntity = new wx_RichTextStyleComboCtrl(parent, id, *pos, *size, style);
-	Object_wx_RichTextStyleComboCtrl *pObj = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pObj = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_RichTextStyleComboCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pThis->GetEntity()->GetRichTextCtrl();
-	return ReturnValue(env, args, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_RichTextCtrl(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
@@ -97,10 +97,10 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
-	return ReturnValue(env, args, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_RichTextStyleSheet(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
@@ -112,9 +112,9 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
+	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetRichTextCtrl(ctrl);
 	return Value::Nil;
 }
@@ -128,9 +128,9 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxRichTextStyleSheet *styleSheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
+	wxRichTextStyleSheet *styleSheet = Object_wx_RichTextStyleSheet::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetStyleSheet(styleSheet);
 	return Value::Nil;
 }
@@ -143,7 +143,7 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(args);
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->UpdateStyles();
 	return Value::Nil;

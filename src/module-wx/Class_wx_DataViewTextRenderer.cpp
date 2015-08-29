@@ -50,19 +50,19 @@ Gura_ImplementFunction(DataViewTextRenderer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString varianttype = wxT("string");
-	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));
+	if (arg.IsValid(0)) varianttype = wxString::FromUTF8(arg.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
-	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
+	if (arg.IsValid(1)) mode = static_cast<wxDataViewCellMode>(arg.GetInt(1));
 	wx_DataViewTextRenderer *pEntity = new wx_DataViewTextRenderer(varianttype, mode);
-	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetObjectThis(args);
+	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DataViewTextRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -100,12 +100,12 @@ Gura_DeclareFunction(rectangle_int)
 Gura_ImplementFunction(rectangle_int)
 {
 	cairo_rectangle_int_t rectangle;
-	rectangle.x = args.Is_number(0)? args.GetInt(0) : 0;
-	rectangle.y = args.Is_number(1)? args.GetInt(1) : 0;
-	rectangle.width = args.Is_number(2)? args.GetInt(2) : 0;
-	rectangle.height = args.Is_number(3)? args.GetInt(3) : 0;
+	rectangle.x = arg.Is_number(0)? arg.GetInt(0) : 0;
+	rectangle.y = arg.Is_number(1)? arg.GetInt(1) : 0;
+	rectangle.width = arg.Is_number(2)? arg.GetInt(2) : 0;
+	rectangle.height = arg.Is_number(3)? arg.GetInt(3) : 0;
 	AutoPtr<Object_rectangle_int> pObj(new Object_rectangle_int(rectangle));
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // implementation of class rectangle_int

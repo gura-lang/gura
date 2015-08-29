@@ -88,34 +88,34 @@ Gura_ImplementFunction(mpf)
 {
 	Signal &sig = env.GetSignal();
 	Value value;
-	ULong prec = args.Is_number(1)? args.GetInt(1) : ::mpf_get_default_prec();
-	if (args.IsInvalid(0)) {
+	ULong prec = arg.Is_number(1)? arg.GetInt(1) : ::mpf_get_default_prec();
+	if (arg.IsInvalid(0)) {
 		value = Value(new Object_mpf(mpf_class(0, prec)));
-	} else if (args.Is_number(0)) {
-		value = Value(new Object_mpf(mpf_class(args.GetDouble(0), prec)));
-	} else if (args.Is_string(0)) {
+	} else if (arg.Is_number(0)) {
+		value = Value(new Object_mpf(mpf_class(arg.GetDouble(0), prec)));
+	} else if (arg.Is_string(0)) {
 		mpf_class num;
 		num.set_prec(prec);
-		if (num.set_str(args.GetString(0), 0) < 0) {
+		if (num.set_str(arg.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
 			return Value::Nil;
 		}
 		value = Value(new Object_mpf(num));
-	} else if (args.IsType(0, VTYPE_mpf)) {
-		value = args.GetValue(0); // no change
-	} else if (args.IsType(0, VTYPE_mpz)) {
-		mpf_class num(Object_mpz::GetEntity(args, 0), prec);
+	} else if (arg.IsType(0, VTYPE_mpf)) {
+		value = arg.GetValue(0); // no change
+	} else if (arg.IsType(0, VTYPE_mpz)) {
+		mpf_class num(Object_mpz::GetEntity(arg, 0), prec);
 		value = Value(new Object_mpf(num));
-	} else if (args.IsType(0, VTYPE_mpq)) {
-		mpq_class num(Object_mpq::GetEntity(args, 0));
+	} else if (arg.IsType(0, VTYPE_mpq)) {
+		mpq_class num(Object_mpq::GetEntity(arg, 0));
 		mpf_class numResult = MpfFromMpq(sig, num);
 		if (sig.IsSignalled()) return Value::Nil;
 		value = Value(new Object_mpf(numResult));
 	} else {
-		SetError_ArgumentTypeByIndex(sig, args, 0);
+		SetError_ArgumentTypeByIndex(sig, arg, 0);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, value);
+	return ReturnValue(env, arg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -148,7 +148,7 @@ Gura_DeclareClassMethod(mpf, set_default_prec)
 
 Gura_ImplementClassMethod(mpf, set_default_prec)
 {
-	ULong prec = args.GetULong(0);
+	ULong prec = arg.GetULong(0);
 	::mpf_set_default_prec(prec);
 	return Value::Nil;
 }
@@ -165,9 +165,9 @@ Gura_DeclareMethodAlias(mpf, cast_mpz, "cast@mpz")
 
 Gura_ImplementMethod(mpf, cast_mpz)
 {
-	const mpf_class &num = Object_mpf::GetThisEntity(args);
+	const mpf_class &num = Object_mpf::GetThisEntity(arg);
 	mpz_class numCasted(num);
-	return ReturnValue(env, args, Value(new Object_mpz(numCasted)));
+	return ReturnValue(env, arg, Value(new Object_mpz(numCasted)));
 }
 
 // string#cast@mpf(prec?:number) {block?}
@@ -188,16 +188,16 @@ Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 Gura_ImplementMethod(string, cast_mpf)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetValueThis().GetString();
+	const char *strThis = arg.GetValueThis().GetString();
 	int base = 0;
-	ULong prec = args.Is_number(0)? args.GetInt(0) : ::mpf_get_default_prec();
+	ULong prec = arg.Is_number(0)? arg.GetInt(0) : ::mpf_get_default_prec();
 	mpf_class num;
 	num.set_prec(prec);
 	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_mpf(num)));
+	return ReturnValue(env, arg, Value(new Object_mpf(num)));
 }
 
 //-----------------------------------------------------------------------------

@@ -14,7 +14,7 @@
 
 namespace Gura {
 
-class Args;
+class Argument;
 class Object_function;
 
 //-----------------------------------------------------------------------------
@@ -244,12 +244,12 @@ class GURA_DLLDECLARE Iterator_ImplicitMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFunc;
-	AutoPtr<Args> _pArgs;
+	AutoPtr<Argument> _pArg;
 	IteratorOwner _iterOwner;
 	bool _doneThisFlag;
 public:
 	Iterator_ImplicitMap(Environment *pEnv,
-					Function *pFunc, Args *pArgs, bool skipInvalidFlag);
+					Function *pFunc, Argument *pArg, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

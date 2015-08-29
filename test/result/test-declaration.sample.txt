@@ -15,7 +15,7 @@
 @ulong() {block}
 @ushort() {block}
 __name__:string = __main__
-args:class = <class:args>
+argument:class = <class:argument>
 array@char(arg, init?:number) {block?}
 array@double(arg, init?:number) {block?}
 array@float(arg, init?:number) {block?}
@@ -279,10 +279,10 @@ while (`cond) {block}
 xlist(value+)
 xset(iter+:iterator):[and,or,xor]
 any
-args
-  args#finalize_trailer():void
-  args#isset(symbol:symbol)
-  args#quit_trailer():void
+argument
+  argument#finalize_trailer():void
+  argument#isset(symbol:symbol)
+  argument#quit_trailer():void
 array@char
   array@char#dump(stream?:stream):void:[upper]
   array@char#each() {block?}

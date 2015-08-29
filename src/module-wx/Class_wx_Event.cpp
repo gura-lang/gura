@@ -56,19 +56,19 @@ Gura_ImplementFunction(Event)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	int id = 0;
-	if (args.IsValid(0)) id = args.GetInt(0);
+	if (arg.IsValid(0)) id = arg.GetInt(0);
 	wxEventType eventType = wxEVT_NULL;
-	if (args.IsValid(1)) eventType = static_cast<wxEventType>(args.GetInt(1));
+	if (arg.IsValid(1)) eventType = static_cast<wxEventType>(arg.GetInt(1));
 	wx_Event *pEntity = new wx_Event(id, eventType);
-	Object_wx_Event *pObj = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pObj = Object_wx_Event::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Event(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -83,10 +83,10 @@ Gura_DeclareMethod(wx_Event, Clone)
 Gura_ImplementMethod(wx_Event, Clone)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEvent *rtn = (wxEvent *)pThis->GetEntity()->Clone();
-	return ReturnValue(env, args, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Event(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventObject)
@@ -98,10 +98,10 @@ Gura_DeclareMethod(wx_Event, GetEventObject)
 Gura_ImplementMethod(wx_Event, GetEventObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxObject *rtn = (wxObject *)pThis->GetEntity()->GetEventObject();
-	return ReturnValue(env, args, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Object(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_Event, GetEventType)
@@ -113,10 +113,10 @@ Gura_DeclareMethod(wx_Event, GetEventType)
 Gura_ImplementMethod(wx_Event, GetEventType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxEventType rtn = pThis->GetEntity()->GetEventType();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetId)
@@ -128,10 +128,10 @@ Gura_DeclareMethod(wx_Event, GetId)
 Gura_ImplementMethod(wx_Event, GetId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetSkipped)
@@ -143,10 +143,10 @@ Gura_DeclareMethod(wx_Event, GetSkipped)
 Gura_ImplementMethod(wx_Event, GetSkipped)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetSkipped();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, GetTimestamp)
@@ -158,10 +158,10 @@ Gura_DeclareMethod(wx_Event, GetTimestamp)
 Gura_ImplementMethod(wx_Event, GetTimestamp)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetTimestamp();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, IsCommandEvent)
@@ -173,10 +173,10 @@ Gura_DeclareMethod(wx_Event, IsCommandEvent)
 Gura_ImplementMethod(wx_Event, IsCommandEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsCommandEvent();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, ResumePropagation)
@@ -188,9 +188,9 @@ Gura_DeclareMethod(wx_Event, ResumePropagation)
 Gura_ImplementMethod(wx_Event, ResumePropagation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int propagationLevel = args.GetInt(0);
+	int propagationLevel = arg.GetInt(0);
 	pThis->GetEntity()->ResumePropagation(propagationLevel);
 	return Value::Nil;
 }
@@ -204,9 +204,9 @@ Gura_DeclareMethod(wx_Event, SetEventObject)
 Gura_ImplementMethod(wx_Event, SetEventObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxObject *object = Object_wx_Object::GetObject(args, 0)->GetEntity();
+	wxObject *object = Object_wx_Object::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetEventObject(object);
 	return Value::Nil;
 }
@@ -220,9 +220,9 @@ Gura_DeclareMethod(wx_Event, SetEventType)
 Gura_ImplementMethod(wx_Event, SetEventType)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxEventType type = static_cast<wxEventType>(args.GetInt(0));
+	wxEventType type = static_cast<wxEventType>(arg.GetInt(0));
 	pThis->GetEntity()->SetEventType(type);
 	return Value::Nil;
 }
@@ -236,9 +236,9 @@ Gura_DeclareMethod(wx_Event, SetId)
 Gura_ImplementMethod(wx_Event, SetId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int id = args.GetInt(0);
+	int id = arg.GetInt(0);
 	pThis->GetEntity()->SetId(id);
 	return Value::Nil;
 }
@@ -252,9 +252,9 @@ Gura_DeclareMethod(wx_Event, SetTimestamp)
 Gura_ImplementMethod(wx_Event, SetTimestamp)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long timeStamp = args.GetLong(0);
+	long timeStamp = arg.GetLong(0);
 	pThis->GetEntity()->SetTimestamp(timeStamp);
 	return Value::Nil;
 }
@@ -268,10 +268,10 @@ Gura_DeclareMethod(wx_Event, ShouldPropagate)
 Gura_ImplementMethod(wx_Event, ShouldPropagate)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->ShouldPropagate();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Event, Skip)
@@ -283,10 +283,10 @@ Gura_DeclareMethod(wx_Event, Skip)
 Gura_ImplementMethod(wx_Event, Skip)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool skip = true;
-	if (args.IsValid(0)) skip = args.GetBoolean(0);
+	if (arg.IsValid(0)) skip = arg.GetBoolean(0);
 	pThis->GetEntity()->Skip(skip);
 	return Value::Nil;
 }
@@ -300,10 +300,10 @@ Gura_DeclareMethod(wx_Event, StopPropagation)
 Gura_ImplementMethod(wx_Event, StopPropagation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(args);
+	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->StopPropagation();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

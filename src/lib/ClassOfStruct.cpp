@@ -73,7 +73,7 @@ Gura_DeclareMethod(Struct, tolist)
 
 Gura_ImplementMethod(Struct, tolist)
 {
-	ObjectOfStruct *pThis = ObjectOfStruct::GetObjectThis(args);
+	ObjectOfStruct *pThis = ObjectOfStruct::GetObjectThis(arg);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();
@@ -108,9 +108,9 @@ bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *
 		if (pClass == nullptr) return false;
 		const Function *pConstructor = pClass->GetConstructor();
 		if (pConstructor == nullptr) return false;
-		AutoPtr<Args> pArgs(new Args(pConstructor));
-		pArgs->SetValueListArg(value.GetList());
-		value = pConstructor->Eval(env, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pConstructor));
+		pArg->SetValueListArg(value.GetList());
+		value = pConstructor->Eval(env, *pArg);
 		return !sig.IsSignalled();
 	}
 	return false;
@@ -131,24 +131,24 @@ ClassOfStruct::Constructor::Constructor(Environment &env) :
 {
 }
 
-Value ClassOfStruct::Constructor::DoEval(Environment &env, Args &args) const
+Value ClassOfStruct::Constructor::DoEval(Environment &env, Argument &arg) const
 {
 	Object *pObjThis = nullptr;
-	Value valueRtn(args.GetValueThis());
+	Value valueRtn(arg.GetValueThis());
 	if (valueRtn.IsObject()) {
 		pObjThis = valueRtn.GetObject();
 	} else {
 		pObjThis = _pClassToConstruct->CreateDescendant(env, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);
 	}
-	ValueList::const_iterator pValue = args.GetValueListArg().begin();
+	ValueList::const_iterator pValue = arg.GetValueListArg().begin();
 	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
-	for ( ; pValue != args.GetValueListArg().end() && ppDecl != GetDeclOwner().end();
+	for ( ; pValue != arg.GetValueListArg().end() && ppDecl != GetDeclOwner().end();
 														pValue++, ppDecl++) {
 		const Declaration *pDecl = *ppDecl;
 		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	return ReturnValue(env, args, valueRtn);
+	return ReturnValue(env, arg, valueRtn);
 }
 
 }

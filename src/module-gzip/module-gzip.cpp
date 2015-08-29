@@ -22,11 +22,11 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = args.GetStream(0);
+	Stream &stream = arg.GetStream(0);
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjStream));
+	return ReturnValue(env, arg, Value(pObjStream));
 }
 
 // gzip.writer(stream:stream:w, level?:number) {block?}
@@ -44,12 +44,12 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = args.GetStream(0);
-	int level = args.Is_number(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
+	Stream &stream = arg.GetStream(0);
+	int level = arg.Is_number(1)? arg.GetInt(1) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjStream));
+	return ReturnValue(env, arg, Value(pObjStream));
 }
 
 //-----------------------------------------------------------------------------
@@ -68,11 +68,11 @@ Gura_DeclareMethodAlias(stream, reader_gzip, "reader@gzip")
 Gura_ImplementMethod(stream, reader_gzip)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
+	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjStream));
+	return ReturnValue(env, arg, Value(pObjStream));
 }
 
 // stream#writer@gzip(level?:number) {block?}
@@ -89,12 +89,12 @@ Gura_DeclareMethodAlias(stream, writer_gzip, "writer@gzip")
 Gura_ImplementMethod(stream, writer_gzip)
 {
 	Signal &sig = env.GetSignal();
-	Stream &stream = Object_stream::GetObjectThis(args)->GetStream();
-	int level = args.Is_number(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
+	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
+	int level = arg.Is_number(0)? arg.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjStream));
+	return ReturnValue(env, arg, Value(pObjStream));
 }
 
 // Module entry

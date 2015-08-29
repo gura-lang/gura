@@ -683,19 +683,19 @@ Gura_DeclareFunction(chdir)
 Gura_ImplementFunction(chdir)
 {
 	Signal &sig = env.GetSignal();
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		String pathNameOrg = OAL::GetCurDir();
-		if (!OAL::ChangeCurDir(args.GetString(0))) {
+		if (!OAL::ChangeCurDir(arg.GetString(0))) {
 			sig.SetError(ERR_IOError, "failed to change current directory");
 			return Value::Nil;
 		}
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
 		OAL::ChangeCurDir(pathNameOrg.c_str());
 		return rtn;
-	} else if (!OAL::ChangeCurDir(args.GetString(0))) {
+	} else if (!OAL::ChangeCurDir(arg.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to change current directory");
 		return Value::Nil;
 	}
@@ -756,11 +756,11 @@ Gura_ImplementFunction(chmod)
 {
 	Signal &sig = env.GetSignal();
 	bool rtn = false;
-	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
-	if (args.Is_string(0)) {
-		rtn = OAL::ChangeMode(args.GetString(0), args.GetString(1), followLinkFlag);
-	} else if (args.Is_number(0)) {
-		rtn = OAL::ChangeMode(args.GetInt(0), args.GetString(1), followLinkFlag);
+	bool followLinkFlag = arg.IsSet(Gura_UserSymbol(follow_link));
+	if (arg.Is_string(0)) {
+		rtn = OAL::ChangeMode(arg.GetString(0), arg.GetString(1), followLinkFlag);
+	} else if (arg.Is_number(0)) {
+		rtn = OAL::ChangeMode(arg.GetInt(0), arg.GetString(1), followLinkFlag);
 	} else {
 		sig.SetError(ERR_ValueError, "number or string must be specified as mode");
 		return Value::Nil;
@@ -795,10 +795,10 @@ Gura_DeclareFunction(copy)
 Gura_ImplementFunction(copy)
 {
 	Signal &sig = env.GetSignal();
-	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
-	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
-	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag, followLinkFlag)) {
-		sig.SetError(ERR_IOError, "failed to copy a file %s", args.GetString(0));
+	bool failIfExistsFlag = !arg.IsSet(Gura_Symbol(overwrite));
+	bool followLinkFlag = arg.IsSet(Gura_UserSymbol(follow_link));
+	if (!OAL::Copy(arg.GetString(0), arg.GetString(1), failIfExistsFlag, followLinkFlag)) {
+		sig.SetError(ERR_IOError, "failed to copy a file %s", arg.GetString(0));
 	}
 	return Value::Nil;
 }
@@ -822,9 +822,9 @@ Gura_DeclareFunction(cpdir)
 Gura_ImplementFunction(cpdir)
 {
 	Signal &sig = env.GetSignal();
-	const char *dirNameSrc = args.GetString(0);
-	const char *dirNameDst = args.GetString(1);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+	const char *dirNameSrc = arg.GetString(0);
+	const char *dirNameDst = arg.GetString(1);
+	bool rtn = arg.IsSet(Gura_UserSymbol(tree))?
 				OAL::CopyDirTree(dirNameSrc, dirNameDst) :
 				OAL::CopyDir(dirNameSrc, dirNameDst);
 	if (!rtn) {
@@ -866,8 +866,8 @@ Gura_DeclareFunction(mkdir)
 Gura_ImplementFunction(mkdir)
 {
 	Signal &sig = env.GetSignal();
-	const char *pathName = args.GetString(0);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+	const char *pathName = arg.GetString(0);
+	bool rtn = arg.IsSet(Gura_UserSymbol(tree))?
 				OAL::MakeDirTree(pathName) :
 				OAL::MakeDir(pathName);
 	if (!rtn) {
@@ -889,7 +889,7 @@ Gura_DeclareFunction(remove)
 Gura_ImplementFunction(remove)
 {
 	Signal &sig = env.GetSignal();
-	if (!OAL::Remove(args.GetString(0))) {
+	if (!OAL::Remove(arg.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to remove a file");
 	}
 	return Value::Nil;
@@ -909,7 +909,7 @@ Gura_DeclareFunction(rename)
 Gura_ImplementFunction(rename)
 {
 	Signal &sig = env.GetSignal();
-	if (!OAL::Rename(args.GetString(0), args.GetString(1))) {
+	if (!OAL::Rename(arg.GetString(0), arg.GetString(1))) {
 		sig.SetError(ERR_IOError, "failed to rename a file or directory");
 	}
 	return Value::Nil;
@@ -932,8 +932,8 @@ Gura_DeclareFunction(rmdir)
 Gura_ImplementFunction(rmdir)
 {
 	Signal &sig = env.GetSignal();
-	const char *pathName = args.GetString(0);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+	const char *pathName = arg.GetString(0);
+	bool rtn = arg.IsSet(Gura_UserSymbol(tree))?
 				OAL::RemoveDirTree(pathName) :
 				OAL::RemoveDir(pathName);
 	if (!rtn) {

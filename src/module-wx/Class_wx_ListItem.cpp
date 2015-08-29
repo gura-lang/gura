@@ -48,15 +48,15 @@ Gura_ImplementFunction(ListItem)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ListItem *pEntity = new wx_ListItem();
-	Object_wx_ListItem *pObj = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pObj = Object_wx_ListItem::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ListItem(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ListItem, Clear)
@@ -67,7 +67,7 @@ Gura_DeclareMethod(wx_ListItem, Clear)
 Gura_ImplementMethod(wx_ListItem, Clear)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
 	return Value::Nil;
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_ListItem, GetAlign)
 Gura_ImplementMethod(wx_ListItem, GetAlign)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxListColumnFormat rtn = pThis->GetEntity()->GetAlign();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetBackgroundColour)
@@ -97,10 +97,10 @@ Gura_DeclareMethod(wx_ListItem, GetBackgroundColour)
 Gura_ImplementMethod(wx_ListItem, GetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour rtn = pThis->GetEntity()->GetBackgroundColour();
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetColumn)
@@ -112,10 +112,10 @@ Gura_DeclareMethod(wx_ListItem, GetColumn)
 Gura_ImplementMethod(wx_ListItem, GetColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColumn();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetData)
@@ -127,10 +127,10 @@ Gura_DeclareMethod(wx_ListItem, GetData)
 Gura_ImplementMethod(wx_ListItem, GetData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetData();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetFont)
@@ -142,10 +142,10 @@ Gura_DeclareMethod(wx_ListItem, GetFont)
 Gura_ImplementMethod(wx_ListItem, GetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFont rtn = pThis->GetEntity()->GetFont();
-	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetId)
@@ -157,10 +157,10 @@ Gura_DeclareMethod(wx_ListItem, GetId)
 Gura_ImplementMethod(wx_ListItem, GetId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetId();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetImage)
@@ -172,10 +172,10 @@ Gura_DeclareMethod(wx_ListItem, GetImage)
 Gura_ImplementMethod(wx_ListItem, GetImage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetImage();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetMask)
@@ -187,10 +187,10 @@ Gura_DeclareMethod(wx_ListItem, GetMask)
 Gura_ImplementMethod(wx_ListItem, GetMask)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetMask();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetState)
@@ -202,10 +202,10 @@ Gura_DeclareMethod(wx_ListItem, GetState)
 Gura_ImplementMethod(wx_ListItem, GetState)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetState();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetText)
@@ -217,10 +217,10 @@ Gura_DeclareMethod(wx_ListItem, GetText)
 Gura_ImplementMethod(wx_ListItem, GetText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetText();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetTextColour)
@@ -232,10 +232,10 @@ Gura_DeclareMethod(wx_ListItem, GetTextColour)
 Gura_ImplementMethod(wx_ListItem, GetTextColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxColour rtn = pThis->GetEntity()->GetTextColour();
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ListItem, GetWidth)
@@ -247,10 +247,10 @@ Gura_DeclareMethod(wx_ListItem, GetWidth)
 Gura_ImplementMethod(wx_ListItem, GetWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetWidth();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ListItem, SetAlign)
@@ -262,9 +262,9 @@ Gura_DeclareMethod(wx_ListItem, SetAlign)
 Gura_ImplementMethod(wx_ListItem, SetAlign)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxListColumnFormat align = static_cast<wxListColumnFormat>(args.GetInt(0));
+	wxListColumnFormat align = static_cast<wxListColumnFormat>(arg.GetInt(0));
 	pThis->GetEntity()->SetAlign(align);
 	return Value::Nil;
 }
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_ListItem, SetBackgroundColour)
 Gura_ImplementMethod(wx_ListItem, SetBackgroundColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colBack = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *colBack = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetBackgroundColour(*colBack);
 	return Value::Nil;
 }
@@ -294,9 +294,9 @@ Gura_DeclareMethod(wx_ListItem, SetColumn)
 Gura_ImplementMethod(wx_ListItem, SetColumn)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int col = args.GetInt(0);
+	int col = arg.GetInt(0);
 	pThis->GetEntity()->SetColumn(col);
 	return Value::Nil;
 }
@@ -310,9 +310,9 @@ Gura_DeclareMethod(wx_ListItem, SetData)
 Gura_ImplementMethod(wx_ListItem, SetData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long data = args.GetLong(0);
+	long data = arg.GetLong(0);
 	pThis->GetEntity()->SetData(data);
 	return Value::Nil;
 }
@@ -326,9 +326,9 @@ Gura_DeclareMethod(wx_ListItem, SetData_1)
 Gura_ImplementMethod(wx_ListItem, SetData_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int data = args.GetInt(0);
+	int data = arg.GetInt(0);
 	pThis->GetEntity()->SetData(data);
 	return Value::Nil;
 }
@@ -342,9 +342,9 @@ Gura_DeclareMethod(wx_ListItem, SetFont)
 Gura_ImplementMethod(wx_ListItem, SetFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
+	wxFont *font = Object_wx_Font::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetFont(*font);
 	return Value::Nil;
 }
@@ -358,9 +358,9 @@ Gura_DeclareMethod(wx_ListItem, SetId)
 Gura_ImplementMethod(wx_ListItem, SetId)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long id = args.GetLong(0);
+	long id = arg.GetLong(0);
 	pThis->GetEntity()->SetId(id);
 	return Value::Nil;
 }
@@ -374,9 +374,9 @@ Gura_DeclareMethod(wx_ListItem, SetImage)
 Gura_ImplementMethod(wx_ListItem, SetImage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int image = args.GetInt(0);
+	int image = arg.GetInt(0);
 	pThis->GetEntity()->SetImage(image);
 	return Value::Nil;
 }
@@ -390,9 +390,9 @@ Gura_DeclareMethod(wx_ListItem, SetMask)
 Gura_ImplementMethod(wx_ListItem, SetMask)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long mask = args.GetLong(0);
+	long mask = arg.GetLong(0);
 	pThis->GetEntity()->SetMask(mask);
 	return Value::Nil;
 }
@@ -406,9 +406,9 @@ Gura_DeclareMethod(wx_ListItem, SetState)
 Gura_ImplementMethod(wx_ListItem, SetState)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long state = args.GetLong(0);
+	long state = arg.GetLong(0);
 	pThis->GetEntity()->SetState(state);
 	return Value::Nil;
 }
@@ -422,9 +422,9 @@ Gura_DeclareMethod(wx_ListItem, SetStateMask)
 Gura_ImplementMethod(wx_ListItem, SetStateMask)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long stateMask = args.GetLong(0);
+	long stateMask = arg.GetLong(0);
 	pThis->GetEntity()->SetStateMask(stateMask);
 	return Value::Nil;
 }
@@ -438,9 +438,9 @@ Gura_DeclareMethod(wx_ListItem, SetText)
 Gura_ImplementMethod(wx_ListItem, SetText)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxString text = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetText(text);
 	return Value::Nil;
 }
@@ -454,9 +454,9 @@ Gura_DeclareMethod(wx_ListItem, SetTextColour)
 Gura_ImplementMethod(wx_ListItem, SetTextColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *colText = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetTextColour(*colText);
 	return Value::Nil;
 }
@@ -470,9 +470,9 @@ Gura_DeclareMethod(wx_ListItem, SetWidth)
 Gura_ImplementMethod(wx_ListItem, SetWidth)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(args);
+	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int width = args.GetInt(0);
+	int width = arg.GetInt(0);
 	pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }

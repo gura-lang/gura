@@ -42,10 +42,10 @@ Gura_DeclareFunction(exec)
 Gura_ImplementFunction(exec)
 {
 	Signal &sig = env.GetSignal();
-	bool forkFlag = args.IsSet(Gura_Symbol(fork));
-	const char *pathName = args.GetString(0);
+	bool forkFlag = arg.IsSet(Gura_Symbol(fork));
+	const char *pathName = arg.GetString(0);
 	if (forkFlag) {
-		OAL::ExecProgram(env, pathName, args.GetList(1),
+		OAL::ExecProgram(env, pathName, arg.GetList(1),
 						 nullptr, nullptr, nullptr, forkFlag);
 		return Value::Nil;
 	}
@@ -59,7 +59,7 @@ Gura_ImplementFunction(exec)
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 	Stream *pStreamStderr = (pValue != nullptr && pValue->Is_stream())?
 										&pValue->GetStream() : nullptr;
-	int rtn = OAL::ExecProgram(env, pathName, args.GetList(1),
+	int rtn = OAL::ExecProgram(env, pathName, arg.GetList(1),
 					   pStreamStdin, pStreamStdout, pStreamStderr, forkFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(rtn);
@@ -77,7 +77,7 @@ Gura_DeclareFunction(fromnative)
 
 Gura_ImplementFunction(fromnative)
 {
-	const Binary &buff = args.GetBinary(0);
+	const Binary &buff = arg.GetBinary(0);
 	String str = OAL::FromNativeString(buff.data(), static_cast<int>(buff.size()));
 	return Value(str);
 }
@@ -96,8 +96,8 @@ Gura_DeclareFunction(getenv)
 Gura_ImplementFunction(getenv)
 {
 	bool foundFlag = false;
-	String str = OAL::GetEnv(args.GetString(0), &foundFlag);
-	if (!foundFlag) return args.IsValid(1)? args.GetValue(1) : Value::Nil;
+	String str = OAL::GetEnv(arg.GetString(0), &foundFlag);
+	if (!foundFlag) return arg.IsValid(1)? arg.GetValue(1) : Value::Nil;
 	return Value(str);
 }
 
@@ -114,7 +114,7 @@ Gura_DeclareFunction(putenv)
 
 Gura_ImplementFunction(putenv)
 {
-	OAL::PutEnv(args.GetString(0), args.GetString(1));
+	OAL::PutEnv(arg.GetString(0), arg.GetString(1));
 	return Value::Nil;
 }
 
@@ -146,18 +146,18 @@ Gura_ImplementFunction(redirect)
 	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != nullptr) {
 		value_stderr = *pValue;
 	}
-	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), EXTRA_Public);
-	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1), EXTRA_Public);
-	if (args.IsDefined(2)) {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2), EXTRA_Public);
+	_pEnvThis->AssignValue(Gura_Symbol(stdin), arg.GetValue(0), EXTRA_Public);
+	_pEnvThis->AssignValue(Gura_Symbol(stdout), arg.GetValue(1), EXTRA_Public);
+	if (arg.IsDefined(2)) {
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), arg.GetValue(2), EXTRA_Public);
 	} else {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1), EXTRA_Public);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), arg.GetValue(1), EXTRA_Public);
 	}
 	Value result;
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-		const Expr_Block *pExprBlock = args.GetBlockCooked(*pEnvBlock);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
 		result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
 		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
@@ -179,7 +179,7 @@ Gura_DeclareFunction(sleep)
 
 Gura_ImplementFunction(sleep)
 {
-	OAL::Sleep(args.GetNumber(0));
+	OAL::Sleep(arg.GetNumber(0));
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementFunction(symlink)
 	sig.SetError(ERR_NotImplementedError, "unsupported function");
 	return Value::Nil;
 #else
-	if (::symlink(args.GetString(0), args.GetString(1)) < 0) {
+	if (::symlink(arg.GetString(0), arg.GetString(1)) < 0) {
 		sig.SetError(ERR_IOError, "failed to create a symbolic link");
 		return Value::Nil;
 	}
@@ -221,7 +221,7 @@ Gura_DeclareFunction(tonative)
 
 Gura_ImplementFunction(tonative)
 {
-	const char *str = args.GetString(0);
+	const char *str = arg.GetString(0);
 	String buff = OAL::ToNativeString(str);
 	return Value(new Object_binary(env, buff.data(), buff.size(), true));
 }
@@ -238,7 +238,7 @@ Gura_DeclareFunction(unsetenv)
 
 Gura_ImplementFunction(unsetenv)
 {
-	OAL::UnsetEnv(args.GetString(0));
+	OAL::UnsetEnv(arg.GetString(0));
 	return Value::Nil;
 }
 

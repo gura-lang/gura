@@ -43,12 +43,12 @@ Gura_DeclareMethod(regkey, createkey)
 Gura_ImplementMethod(regkey, createkey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpSubKey = args.GetString(0);
-	DWORD dwOptions = args.Is_number(1)? args.GetULong(1) : REG_OPTION_NON_VOLATILE;
+	const char *lpSubKey = arg.GetString(0);
+	DWORD dwOptions = arg.Is_number(1)? arg.GetULong(1) : REG_OPTION_NON_VOLATILE;
 	if (sig.IsSignalled()) return Value::Nil;
-	REGSAM samDesired = args.Is_number(2)? args.GetULong(2) : KEY_ALL_ACCESS;
+	REGSAM samDesired = arg.Is_number(2)? arg.GetULong(2) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwDisposition;
 	DWORD dwErrCode = ::RegCreateKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
@@ -58,7 +58,7 @@ Gura_ImplementMethod(regkey, createkey)
 		return Value::Nil;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
-	return ReturnValue(env, args, result);
+	return ReturnValue(env, arg, result);
 }
 
 // mswin.regkey#openkey(subkey:string, samDesired?:number):map {block?}
@@ -76,11 +76,11 @@ Gura_DeclareMethod(regkey, openkey)
 Gura_ImplementMethod(regkey, openkey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpSubKey = args.GetString(0);
+	const char *lpSubKey = arg.GetString(0);
 	if (sig.IsSignalled()) return Value::Nil;
-	REGSAM samDesired = args.Is_number(1)? args.GetULong(1) : KEY_ALL_ACCESS;
+	REGSAM samDesired = arg.Is_number(1)? arg.GetULong(1) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwErrCode = ::RegOpenKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
 												0, samDesired, &hKeyResult);
@@ -89,7 +89,7 @@ Gura_ImplementMethod(regkey, openkey)
 		return Value::Nil;
 	}
 	Value result(new Object_regkey(hKeyResult, true));
-	return ReturnValue(env, args, result);
+	return ReturnValue(env, arg, result);
 }
 
 // mswin.regkey#deletekey(subkey:string):map:void
@@ -105,9 +105,9 @@ Gura_DeclareMethod(regkey, deletekey)
 Gura_ImplementMethod(regkey, deletekey)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpSubKey = args.GetString(0);
+	const char *lpSubKey = arg.GetString(0);
 	DWORD dwErrCode = ::RegDeleteKey(hKey, OAL::ToNativeString(lpSubKey).c_str());
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
@@ -130,16 +130,16 @@ Gura_DeclareMethod(regkey, enumkey)
 
 Gura_ImplementMethod(regkey, enumkey)
 {
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	REGSAM samDesired = 0;
-	if (!args.IsSet(Gura_UserSymbol(openkey))) {
+	if (!arg.IsSet(Gura_UserSymbol(openkey))) {
 		// nothing to do
 	} else {
-		samDesired = args.Is_number(0)? args.GetULong(0) : KEY_ALL_ACCESS;
+		samDesired = arg.Is_number(0)? arg.GetULong(0) : KEY_ALL_ACCESS;
 	}
 	Iterator *pIterator =
 			new Iterator_RegEnumKey(Object_regkey::Reference(pThis), samDesired);
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // mswin.regkey#setvalue(valueName:string, data:nomap):map
@@ -156,13 +156,13 @@ Gura_DeclareMethod(regkey, setvalue)
 Gura_ImplementMethod(regkey, setvalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpValueName = args.GetString(0);
+	const char *lpValueName = arg.GetString(0);
 	DWORD dwType = 0;
 	BYTE *lpData = nullptr;
 	DWORD cbData = 0;
-	if (!ValueToRegData(env, sig, args.GetValue(1), &dwType, &lpData, &cbData)) {
+	if (!ValueToRegData(env, sig, arg.GetValue(1), &dwType, &lpData, &cbData)) {
 		return Value::Nil;
 	}
 	DWORD dwErrCode = ::RegSetValueEx(hKey,
@@ -188,9 +188,9 @@ Gura_DeclareMethod(regkey, deletevalue)
 Gura_ImplementMethod(regkey, deletevalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpValueName = args.GetString(0);
+	const char *lpValueName = arg.GetString(0);
 	DWORD dwErrCode = ::RegDeleteValue(hKey, OAL::ToNativeString(lpValueName).c_str());
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
@@ -212,9 +212,9 @@ Gura_DeclareMethod(regkey, queryvalue)
 Gura_ImplementMethod(regkey, queryvalue)
 {
 	Signal &sig = env.GetSignal();
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
-	const char *lpValueName = args.Is_string(0)? args.GetString(0) : nullptr;
+	const char *lpValueName = arg.Is_string(0)? arg.GetString(0) : nullptr;
 	DWORD dwType;
 	DWORD cbData;
 	DWORD dwErrCode = ::RegQueryValueEx(hKey,
@@ -250,11 +250,11 @@ Gura_DeclareMethod(regkey, enumvalue)
 
 Gura_ImplementMethod(regkey, enumvalue)
 {
-	Object_regkey *pThis = Object_regkey::GetObjectThis(args);
+	Object_regkey *pThis = Object_regkey::GetObjectThis(arg);
 	HKEY hKey = pThis->GetKey();
 	Iterator *pIterator =
 			new Iterator_RegEnumValue(Object_regkey::Reference(pThis));
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // implementation of class RegKey
@@ -1022,16 +1022,16 @@ Gura_ImplementFunction(ole)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_ole> pObj(new Object_ole(env));
-	if (args.IsSet(Gura_UserSymbol(connect))) {
-		if (!pObj->Connect(sig, args.GetString(0))) return Value::Nil;
+	if (arg.IsSet(Gura_UserSymbol(connect))) {
+		if (!pObj->Connect(sig, arg.GetString(0))) return Value::Nil;
 	} else {
-		if (!pObj->Create(sig, args.GetString(0))) return Value::Nil;
+		if (!pObj->Create(sig, arg.GetString(0))) return Value::Nil;
 	}
-	if (!args.IsSet(Gura_UserSymbol(no_const))) {
+	if (!arg.IsSet(Gura_UserSymbol(no_const))) {
 		pObj->ImportConstant(*pObj, sig);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 Gura_DeclareFunction(GetACP)

@@ -50,19 +50,19 @@ Gura_ImplementFunction(HyperlinkEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
-	int id = args.GetInt(1);
-	wxString url = wxString::FromUTF8(args.GetString(2));
+	wxObject *generator = Object_wx_Object::GetObject(arg, 0)->GetEntity();
+	int id = arg.GetInt(1);
+	wxString url = wxString::FromUTF8(arg.GetString(2));
 	wx_HyperlinkEvent *pEntity = new wx_HyperlinkEvent(generator, id, url);
-	Object_wx_HyperlinkEvent *pObj = Object_wx_HyperlinkEvent::GetObjectThis(args);
+	Object_wx_HyperlinkEvent *pObj = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HyperlinkEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
@@ -74,10 +74,10 @@ Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
 Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(args);
+	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetURL();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)
 Gura_ImplementMethod(wx_HyperlinkEvent, SetURL)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(args);
+	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString url = wxString::FromUTF8(args.GetString(0));
+	wxString url = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetURL(url);
 	return Value::Nil;
 }

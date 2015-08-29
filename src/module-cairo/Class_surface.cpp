@@ -80,13 +80,13 @@ Gura_DeclareClassMethod(surface, create_similar)
 
 Gura_ImplementClassMethod(surface, create_similar)
 {
-	cairo_surface_t *other = Object_surface::GetObject(args, 0)->GetEntity();
-	cairo_content_t content = static_cast<cairo_content_t>(args.GetInt(1));
-	int width = args.GetInt(2);
-	int height = args.GetInt(3);
+	cairo_surface_t *other = Object_surface::GetObject(arg, 0)->GetEntity();
+	cairo_content_t content = static_cast<cairo_content_t>(arg.GetInt(1));
+	int width = arg.GetInt(2);
+	int height = arg.GetInt(3);
 	cairo_surface_t *surface = ::cairo_surface_create_similar(other, content, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, args, Value(pObjSurface));
+	return ReturnValue(env, arg, Value(pObjSurface));
 }
 
 // cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
@@ -112,13 +112,13 @@ Gura_ImplementClassMethod(surface, create_similar_image)
 {
 	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
-	cairo_surface_t *other = Object_surface::GetObject(args, 0)->GetEntity();
-	cairo_format_t format = static_cast<cairo_format_t>(args.GetInt(1));
-	int width = args.GetInt(2);
-	int height = args.GetInt(3);
+	cairo_surface_t *other = Object_surface::GetObject(arg, 0)->GetEntity();
+	cairo_format_t format = static_cast<cairo_format_t>(arg.GetInt(1));
+	int width = arg.GetInt(2);
+	int height = arg.GetInt(3);
 	cairo_surface_t *surface = ::cairo_surface_create_similar_image(other, format, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, args, Value(pObjSurface));
+	return ReturnValue(env, arg, Value(pObjSurface));
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
 	return Value::Nil;
@@ -148,14 +148,14 @@ Gura_DeclareClassMethod(surface, create_for_rectangle)
 
 Gura_ImplementClassMethod(surface, create_for_rectangle)
 {
-	cairo_surface_t *target = Object_surface::GetObject(args, 0)->GetEntity();
-	double x = args.GetDouble(1);
-	double y = args.GetDouble(2);
-	double width = args.GetDouble(3);
-	double height = args.GetDouble(4);
+	cairo_surface_t *target = Object_surface::GetObject(arg, 0)->GetEntity();
+	double x = arg.GetDouble(1);
+	double y = arg.GetDouble(2);
+	double width = arg.GetDouble(3);
+	double height = arg.GetDouble(4);
 	cairo_surface_t *surface = ::cairo_surface_create_for_rectangle(target, x, y, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
-	return ReturnValue(env, args, Value(pObjSurface));
+	return ReturnValue(env, arg, Value(pObjSurface));
 }
 
 //#cairo_surface_t *cairo_surface_reference(cairo_surface_t *surface);
@@ -172,7 +172,7 @@ Gura_DeclareMethod(surface, status)
 
 Gura_ImplementMethod(surface, status)
 {
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_status_t rtn = ::cairo_surface_status(surface);
 	return Value(rtn);
@@ -197,11 +197,11 @@ Gura_DeclareMethod(surface, finish)
 Gura_ImplementMethod(surface, finish)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_finish(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#flush():reduce
@@ -218,11 +218,11 @@ Gura_DeclareMethod(surface, flush)
 Gura_ImplementMethod(surface, flush)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_flush(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#get_device()
@@ -237,7 +237,7 @@ Gura_DeclareMethod(surface, get_device)
 Gura_ImplementMethod(surface, get_device)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_device_t *device = ::cairo_surface_get_device(surface);
 	if (Is_error(sig, surface) || device == nullptr) return Value::Nil;
@@ -260,7 +260,7 @@ Gura_DeclareMethod(surface, get_font_options)
 Gura_ImplementMethod(surface, get_font_options)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_font_options_t *options = ::cairo_font_options_create();
 	::cairo_surface_get_font_options(surface, options);
@@ -285,7 +285,7 @@ Gura_DeclareMethod(surface, get_content)
 Gura_ImplementMethod(surface, get_content)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_content_t content = ::cairo_surface_get_content(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -305,11 +305,11 @@ Gura_DeclareMethod(surface, mark_dirty)
 Gura_ImplementMethod(surface, mark_dirty)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_mark_dirty(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#mark_dirty_rectangle(x:number, y:number, width:number, height:number):reduce
@@ -331,12 +331,12 @@ Gura_DeclareMethod(surface, mark_dirty_rectangle)
 Gura_ImplementMethod(surface, mark_dirty_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_mark_dirty_rectangle(surface,
-			args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetInt(3));
+			arg.GetInt(0), arg.GetInt(1), arg.GetInt(2), arg.GetInt(3));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#set_device_offset(x_offset:number, y_offset:number):reduce
@@ -360,11 +360,11 @@ Gura_DeclareMethod(surface, set_device_offset)
 Gura_ImplementMethod(surface, set_device_offset)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
-	::cairo_surface_set_device_offset(surface, args.GetDouble(0), args.GetDouble(1));
+	::cairo_surface_set_device_offset(surface, arg.GetDouble(0), arg.GetDouble(1));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#get_device_offset()
@@ -379,7 +379,7 @@ Gura_DeclareMethod(surface, get_device_offset)
 Gura_ImplementMethod(surface, get_device_offset)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	double x_offset, y_offset;
 	::cairo_surface_get_device_offset(surface, &x_offset, &y_offset);
@@ -416,11 +416,11 @@ Gura_DeclareMethod(surface, set_fallback_resolution)
 Gura_ImplementMethod(surface, set_fallback_resolution)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
-	::cairo_surface_set_fallback_resolution(surface, args.GetDouble(0), args.GetDouble(1));
+	::cairo_surface_set_fallback_resolution(surface, arg.GetDouble(0), arg.GetDouble(1));
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#get_fallback_resolution()
@@ -435,7 +435,7 @@ Gura_DeclareMethod(surface, get_fallback_resolution)
 Gura_ImplementMethod(surface, get_fallback_resolution)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	double x_pixels_per_inch, y_pixels_per_inch;
 	::cairo_surface_get_fallback_resolution(surface, &x_pixels_per_inch, &y_pixels_per_inch);
@@ -455,7 +455,7 @@ Gura_DeclareMethod(surface, get_type)
 Gura_ImplementMethod(surface, get_type)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_surface_type_t rtn = ::cairo_surface_get_type(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -474,7 +474,7 @@ Gura_DeclareMethod(surface, get_reference_count)
 Gura_ImplementMethod(surface, get_reference_count)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	unsigned int rtn = cairo_surface_get_reference_count(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -500,11 +500,11 @@ Gura_DeclareMethod(surface, copy_page)
 Gura_ImplementMethod(surface, copy_page)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_copy_page(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#show_page():reduce
@@ -522,11 +522,11 @@ Gura_DeclareMethod(surface, show_page)
 Gura_ImplementMethod(surface, show_page)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_show_page(surface);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // cairo.surface#has_show_text_glyphs()
@@ -546,7 +546,7 @@ Gura_DeclareMethod(surface, has_show_text_glyphs)
 Gura_ImplementMethod(surface, has_show_text_glyphs)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	bool rtn = ::cairo_surface_has_show_text_glyphs(surface)? true : false;
 	if (Is_error(sig, surface)) return Value::Nil;
@@ -565,7 +565,7 @@ Gura_DeclareMethod(surface, set_mime_data)
 Gura_ImplementMethod(surface, set_mime_data)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -585,7 +585,7 @@ Gura_DeclareMethod(surface, get_mime_data)
 Gura_ImplementMethod(surface, get_mime_data)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -605,7 +605,7 @@ Gura_DeclareMethod(surface, supports_mime_type)
 Gura_ImplementMethod(surface, supports_mime_type)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -627,9 +627,9 @@ Gura_ImplementMethod(surface, map_to_image)
 {
 	Signal &sig = env.GetSignal();
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
-	cairo_rectangle_int_t &extents = Object_rectangle_int::GetObject(args, 0)->GetEntity();
+	cairo_rectangle_int_t &extents = Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_surface_t *rtn = ::cairo_surface_map_to_image(surface, &extents);
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -653,7 +653,7 @@ Gura_DeclareMethod(surface, unmap_image)
 Gura_ImplementMethod(surface, unmap_image)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
@@ -674,13 +674,13 @@ Gura_DeclareMethod(surface, write_to_png)
 Gura_ImplementMethod(surface, write_to_png)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
 	std::unique_ptr<Writer_Stream> pWriter(new Writer_Stream(sig, 0, 0,
-											args.GetStream(0).Reference()));
+											arg.GetStream(0).Reference()));
 	::cairo_surface_write_to_png_stream(surface, Writer_Stream::write_func, pWriter.get());
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // implementation of class surface

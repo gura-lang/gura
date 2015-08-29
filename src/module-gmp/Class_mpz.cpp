@@ -59,27 +59,27 @@ Gura_ImplementFunction(mpz)
 {
 	Signal &sig = env.GetSignal();
 	Value value;
-	if (args.IsInvalid(0)) {
+	if (arg.IsInvalid(0)) {
 		value = Value(new Object_mpz(mpz_class(0)));
-	} else if (args.Is_number(0)) {
-		value = Value(new Object_mpz(mpz_class(args.GetDouble(0))));
-	} else if (args.Is_string(0)) {
+	} else if (arg.Is_number(0)) {
+		value = Value(new Object_mpz(mpz_class(arg.GetDouble(0))));
+	} else if (arg.Is_string(0)) {
 		mpz_class num;
-		if (num.set_str(args.GetString(0), 0) < 0) {
+		if (num.set_str(arg.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 			return Value::Nil;
 		}
 		value = Value(new Object_mpz(num));
-	} else if (args.IsType(0, VTYPE_mpz)) {
-		value = args.GetValue(0); // no change
-	} else if (args.IsType(0, VTYPE_mpf)) {
-		mpz_class num(Object_mpf::GetEntity(args, 0));
+	} else if (arg.IsType(0, VTYPE_mpz)) {
+		value = arg.GetValue(0); // no change
+	} else if (arg.IsType(0, VTYPE_mpf)) {
+		mpz_class num(Object_mpf::GetEntity(arg, 0));
 		value = Value(new Object_mpz(num));
 	} else {
-		SetError_ArgumentTypeByIndex(sig, args, 0);
+		SetError_ArgumentTypeByIndex(sig, arg, 0);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, value);
+	return ReturnValue(env, arg, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -104,14 +104,14 @@ Gura_DeclareMethodAlias(string, cast_mpz, "cast@mpz")
 Gura_ImplementMethod(string, cast_mpz)
 {
 	Signal &sig = env.GetSignal();
-	const char *strThis = args.GetValueThis().GetString();
-	int base = args.Is_number(0)? args.GetInt(0) : 0;
+	const char *strThis = arg.GetValueThis().GetString();
+	int base = arg.Is_number(0)? arg.GetInt(0) : 0;
 	mpz_class num;
 	if (num.set_str(strThis, base) < 0) {
 		sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 		return false;
 	}
-	return ReturnValue(env, args, Value(new Object_mpz(num)));
+	return ReturnValue(env, arg, Value(new Object_mpz(num)));
 }
 
 

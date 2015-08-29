@@ -51,21 +51,21 @@ Gura_ImplementFunction(ActivateEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE eventType = 0;
-	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
+	if (arg.IsValid(0)) eventType = static_cast<WXTYPE>(arg.GetInt(0));
 	bool active = true;
-	if (args.IsValid(1)) active = args.GetBoolean(1);
+	if (arg.IsValid(1)) active = arg.GetBoolean(1);
 	int id = 0;
-	if (args.IsValid(2)) id = args.GetInt(2);
+	if (arg.IsValid(2)) id = arg.GetInt(2);
 	wx_ActivateEvent *pEntity = new wx_ActivateEvent(eventType, active, id);
-	Object_wx_ActivateEvent *pObj = Object_wx_ActivateEvent::GetObjectThis(args);
+	Object_wx_ActivateEvent *pObj = Object_wx_ActivateEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ActivateEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ActivateEvent, GetActive)
@@ -77,10 +77,10 @@ Gura_DeclareMethod(wx_ActivateEvent, GetActive)
 Gura_ImplementMethod(wx_ActivateEvent, GetActive)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ActivateEvent *pThis = Object_wx_ActivateEvent::GetObjectThis(args);
+	Object_wx_ActivateEvent *pThis = Object_wx_ActivateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetActive();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

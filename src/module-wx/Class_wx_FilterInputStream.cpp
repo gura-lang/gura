@@ -52,17 +52,17 @@ Gura_ImplementFunction(FilterInputStream)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wx_FilterInputStream *pEntity = new wx_FilterInputStream(*stream);
-	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(args);
+	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -83,17 +83,17 @@ Gura_ImplementFunction(FilterInputStream_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wx_FilterInputStream *pEntity = new wx_FilterInputStream(stream);
-	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(args);
+	Object_wx_FilterInputStream *pObj = Object_wx_FilterInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

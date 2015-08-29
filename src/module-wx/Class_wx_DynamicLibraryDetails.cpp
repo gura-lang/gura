@@ -44,10 +44,10 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetName)
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(args);
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
@@ -59,10 +59,10 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(args);
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DynamicLibraryDetails, GetAddress)
@@ -79,12 +79,12 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(args);
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int addr = args.GetInt(0);
-	size_t *len = args.GetSizeT(1);
+	int addr = arg.GetInt(0);
+	size_t *len = arg.GetSizeT(1);
 	bool rtn = pThis->GetEntity()->GetAddress(addr, *len);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -99,10 +99,10 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetVersion)
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(args);
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetVersion();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

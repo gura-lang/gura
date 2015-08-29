@@ -49,15 +49,15 @@ Gura_ImplementFunction(ObjectRefDataEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
-	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetObjectThis(args);
+	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(ObjectRefDataEmpty_1)
@@ -72,15 +72,15 @@ Gura_ImplementFunction(ObjectRefDataEmpty_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
-	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetObjectThis(args);
+	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
 Gura_ImplementMethod(wx_ObjectRefData, GetRefCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ObjectRefData *pThis = Object_wx_ObjectRefData::GetObjectThis(args);
+	Object_wx_ObjectRefData *pThis = Object_wx_ObjectRefData::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetRefCount();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

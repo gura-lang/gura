@@ -98,7 +98,7 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 	return result;
 }
 
-Value Iterator::Eval(Environment &env, Args &args)
+Value Iterator::Eval(Environment &env, Argument &arg)
 {
 	Signal &sig = env.GetSignal();
 	if (IsInfinite()) {
@@ -106,7 +106,7 @@ Value Iterator::Eval(Environment &env, Args &args)
 		return Value::Nil;
 	}
 	Value value, result;
-	Function::ResultComposer resultComposer(env, args, result);
+	Function::ResultComposer resultComposer(env, arg, result);
 	while (Next(env, value)) {
 		if (!resultComposer.Store(env, value)) return Value::Nil;
 	}
@@ -123,9 +123,9 @@ Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFunc
 	}
 	Value value;
 	while (Next(env, value)) {
-		AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
-		pArgsSub->SetValues(value, valueAccum);
-		Value result = pFuncBlock->Eval(env, *pArgsSub);
+		AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
+		pArgSub->SetValues(value, valueAccum);
+		Value result = pFuncBlock->Eval(env, *pArgSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
 		} else if (sig.IsBreak()) {
@@ -442,9 +442,9 @@ size_t Iterator::Find(Environment &env, const Value &criteria, Value &value)
 		}
 		const Function *pFunc = criteria.GetFunction();
 		while (Next(env, value)) {
-			AutoPtr<Args> pArgs(new Args(pFunc));
-			pArgs->SetValue(value);
-			Value valueFlag = pFunc->Eval(env, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(pFunc));
+			pArg->SetValue(value);
+			Value valueFlag = pFunc->Eval(env, *pArg);
 			if (sig.IsSignalled()) return InvalidSize;
 			if (valueFlag.GetBoolean()) return GetIndexCur();
 		}
@@ -498,9 +498,9 @@ size_t Iterator::Count(Environment &env, const Value &criteria)
 		const Function *pFunc = criteria.GetFunction();
 		Value value;
 		while (Next(env, value)) {
-			AutoPtr<Args> pArgs(new Args(pFunc));
-			pArgs->SetValue(value);
-			Value valueFlag = pFunc->Eval(env, *pArgs);
+			AutoPtr<Argument> pArg(new Argument(pFunc));
+			pArg->SetValue(value);
+			Value valueFlag = pFunc->Eval(env, *pArg);
 			if (sig.IsSignalled()) return 0;
 			if (valueFlag.GetBoolean()) cnt++;
 		}

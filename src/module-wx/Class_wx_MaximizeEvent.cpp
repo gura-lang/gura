@@ -49,17 +49,17 @@ Gura_ImplementFunction(MaximizeEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int id = 0;
-	if (args.IsValid(0)) id = args.GetInt(0);
+	if (arg.IsValid(0)) id = arg.GetInt(0);
 	wx_MaximizeEvent *pEntity = new wx_MaximizeEvent(id);
-	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetObjectThis(args);
+	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MaximizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -80,8 +80,8 @@ Gura_DeclareFunction(Point)
 Gura_ImplementFunction(Point)
 {
 	SDL_Point point;
-	point.x = args.IsValid(0)? args.GetInt(0) : 0;
-	point.y = args.IsValid(1)? args.GetInt(1) : 0;
+	point.x = arg.IsValid(0)? arg.GetInt(0) : 0;
+	point.y = arg.IsValid(1)? arg.GetInt(1) : 0;
 	return Value(new Object_Point(point));
 }
 

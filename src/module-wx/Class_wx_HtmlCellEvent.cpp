@@ -54,20 +54,20 @@ Gura_ImplementFunction(HtmlCellEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxEventType commandType = static_cast<wxEventType>(args.GetInt(0));
-	int id = args.GetInt(1);
-	wxHtmlCell *cell = Object_wx_HtmlCell::GetObject(args, 2)->GetEntity();
-	wxPoint *point = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	wxEventType commandType = static_cast<wxEventType>(arg.GetInt(0));
+	int id = arg.GetInt(1);
+	wxHtmlCell *cell = Object_wx_HtmlCell::GetObject(arg, 2)->GetEntity();
+	wxPoint *point = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wx_HtmlCellEvent *pEntity = new wx_HtmlCellEvent(commandType, id, cell, *point);
-	Object_wx_HtmlCellEvent *pObj = Object_wx_HtmlCellEvent::GetObjectThis(args);
+	Object_wx_HtmlCellEvent *pObj = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlCellEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetCell)
 Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(args);
+	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetCell();
-	return ReturnValue(env, args, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_HtmlCell(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
@@ -97,10 +97,10 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
 Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(args);
+	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPoint();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
@@ -116,11 +116,11 @@ Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(args);
+	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool linkclicked = args.GetBoolean(0);
+	bool linkclicked = arg.GetBoolean(0);
 	bool rtn = pThis->GetEntity()->SetLinkClicked(linkclicked);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -135,10 +135,10 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetLinkClicked)
 Gura_ImplementMethod(wx_HtmlCellEvent, GetLinkClicked)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(args);
+	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetLinkClicked();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

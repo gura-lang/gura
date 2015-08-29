@@ -49,19 +49,19 @@ Gura_ImplementFunction(FileConfig)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxInputStream *is = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *is = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
-	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	wx_FileConfig *pEntity = new wx_FileConfig(*is, *conv);
-	Object_wx_FileConfig *pObj = Object_wx_FileConfig::GetObjectThis(args);
+	Object_wx_FileConfig *pObj = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileConfig(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FileConfig, Save)
@@ -75,13 +75,13 @@ Gura_DeclareMethod(wx_FileConfig, Save)
 Gura_ImplementMethod(wx_FileConfig, Save)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(args);
+	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxOutputStream *os = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
+	wxOutputStream *os = Object_wx_OutputStream::GetObject(arg, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
-	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Save(*os, *conv);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileConfig, SetUmask)
@@ -93,9 +93,9 @@ Gura_DeclareMethod(wx_FileConfig, SetUmask)
 Gura_ImplementMethod(wx_FileConfig, SetUmask)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(args);
+	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int mode = args.GetInt(0);
+	int mode = arg.GetInt(0);
 	pThis->GetEntity()->SetUmask(mode);
 	return Value::Nil;
 }

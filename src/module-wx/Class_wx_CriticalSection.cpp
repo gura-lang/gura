@@ -48,15 +48,15 @@ Gura_ImplementFunction(CriticalSectionEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_CriticalSection *pEntity = new wx_CriticalSection();
-	Object_wx_CriticalSection *pObj = Object_wx_CriticalSection::GetObjectThis(args);
+	Object_wx_CriticalSection *pObj = Object_wx_CriticalSection::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CriticalSection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_CriticalSection, Enter)
@@ -67,7 +67,7 @@ Gura_DeclareMethod(wx_CriticalSection, Enter)
 Gura_ImplementMethod(wx_CriticalSection, Enter)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(args);
+	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Enter();
 	return Value::Nil;
@@ -81,7 +81,7 @@ Gura_DeclareMethod(wx_CriticalSection, Leave)
 Gura_ImplementMethod(wx_CriticalSection, Leave)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(args);
+	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Leave();
 	return Value::Nil;

@@ -1,30 +1,30 @@
 //=============================================================================
-// Args
+// Argument
 //=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Args
+// Argument
 //-----------------------------------------------------------------------------
-Args::Args(const Function *pFunc) :
+Argument::Argument(const Function *pFunc) :
 	_cntRef(1), _valTypeResult(VTYPE_any),
 	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false)
 {
 }
 
-Args::~Args()
+Argument::~Argument()
 {
 }
 
-bool Args::AddValue(Environment &env, const Declaration *pDecl, const Value &value)
+bool Argument::AddValue(Environment &env, const Declaration *pDecl, const Value &value)
 {
 	_valListArg.push_back(value);
 	return true;
 }
 
-bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
+bool Argument::ShouldGenerateIterator(const DeclarationList &declList) const
 {
 	if (IsThisIterator()) return true;
 	ValueList::const_iterator pValue = _valListArg.begin();
@@ -38,7 +38,7 @@ bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 	return false;
 }
 
-const Expr_Block *Args::GetBlockCooked(Environment &env) const
+const Expr_Block *Argument::GetBlockCooked(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	// check if the block parameter specifies a delegated block information
@@ -76,7 +76,7 @@ const Expr_Block *Args::GetBlockCooked(Environment &env) const
 }
 
 // return nullptr without error if block is not specified
-const Function *Args::GetBlockFunc(Environment &env, const Symbol *pSymbol)
+const Function *Argument::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 {
 	const Expr_Block *pExprBlock = GetBlockCooked(env);
 	if (pExprBlock == nullptr || pSymbol == nullptr) return nullptr;
@@ -88,13 +88,13 @@ const Function *Args::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 }
 
 //-----------------------------------------------------------------------------
-// Args::Slot
+// Argument::Slot
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Args::SlotList
+// Argument::SlotList
 //-----------------------------------------------------------------------------
-Args::Slot *Args::SlotList::FindBySymbol(const Symbol *pSymbol)
+Argument::Slot *Argument::SlotList::FindBySymbol(const Symbol *pSymbol)
 {
 	foreach (SlotList, pSlot, *this) {
 		if (pSlot->GetDeclaration().GetSymbol()->IsIdentical(pSymbol)) return &*pSlot;

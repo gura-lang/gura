@@ -37,8 +37,8 @@ public:
 	inline static const mpz_class &GetEntity(const Value &value) {
 		return GetObject(value)->GetEntity();
 	}
-	inline static const mpz_class &GetEntity(Args &args, size_t idx) {
-		return GetObject(args, idx)->GetEntity();
+	inline static const mpz_class &GetEntity(Argument &arg, size_t idx) {
+		return GetObject(arg, idx)->GetEntity();
 	}
 };
 

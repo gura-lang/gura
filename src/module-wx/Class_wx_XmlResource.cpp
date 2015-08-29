@@ -51,21 +51,21 @@ Gura_ImplementFunction(XmlResource)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString filemask = wxString::FromUTF8(args.GetString(0));
+	wxString filemask = wxString::FromUTF8(arg.GetString(0));
 	int flags = wxXRC_USE_LOCALE;
-	if (args.IsValid(1)) flags = args.GetInt(1);
+	if (arg.IsValid(1)) flags = arg.GetInt(1);
 	wxString domain = wxEmptyString;
-	if (args.IsValid(2)) domain = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) domain = wxString::FromUTF8(arg.GetString(2));
 	wx_XmlResource *pEntity = new wx_XmlResource(filemask, flags, domain);
-	Object_wx_XmlResource *pObj = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pObj = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlResource(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(XmlResource_1)
@@ -82,19 +82,19 @@ Gura_ImplementFunction(XmlResource_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int flags = wxXRC_USE_LOCALE;
-	if (args.IsValid(0)) flags = args.GetInt(0);
+	if (arg.IsValid(0)) flags = arg.GetInt(0);
 	wxString domain = wxEmptyString;
-	if (args.IsValid(1)) domain = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) domain = wxString::FromUTF8(arg.GetString(1));
 	wx_XmlResource *pEntity = new wx_XmlResource(flags, domain);
-	Object_wx_XmlResource *pObj = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pObj = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_XmlResource(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_XmlResource, AddHandler)
@@ -106,9 +106,9 @@ Gura_DeclareMethod(wx_XmlResource, AddHandler)
 Gura_ImplementMethod(wx_XmlResource, AddHandler)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxXmlResourceHandler *handler = Object_wx_XmlResourceHandler::GetObject(args, 0)->GetEntity();
+	wxXmlResourceHandler *handler = Object_wx_XmlResourceHandler::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->AddHandler(handler);
 	return Value::Nil;
 }
@@ -125,14 +125,14 @@ Gura_DeclareMethod(wx_XmlResource, AttachUnknownControl)
 Gura_ImplementMethod(wx_XmlResource, AttachUnknownControl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxWindow *control = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(0));
+	wxWindow *control = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	wxWindow *parent = (wxWindow *)(nullptr);
-	if (args.IsValid(2)) parent = Object_wx_Window::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) parent = Object_wx_Window::GetObject(arg, 2)->GetEntity();
 	bool rtn = pThis->GetEntity()->AttachUnknownControl(name, control, parent);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, ClearHandlers)
@@ -143,7 +143,7 @@ Gura_DeclareMethod(wx_XmlResource, ClearHandlers)
 Gura_ImplementMethod(wx_XmlResource, ClearHandlers)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->ClearHandlers();
 	return Value::Nil;
@@ -162,14 +162,14 @@ Gura_DeclareMethod(wx_XmlResource, CompareVersion)
 Gura_ImplementMethod(wx_XmlResource, CompareVersion)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int major = args.GetInt(0);
-	int minor = args.GetInt(1);
-	int release = args.GetInt(2);
-	int revision = args.GetInt(3);
+	int major = arg.GetInt(0);
+	int minor = arg.GetInt(1);
+	int release = arg.GetInt(2);
+	int revision = arg.GetInt(3);
 	int rtn = pThis->GetEntity()->CompareVersion(major, minor, release, revision);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, Get)
@@ -181,10 +181,10 @@ Gura_DeclareMethod(wx_XmlResource, Get)
 Gura_ImplementMethod(wx_XmlResource, Get)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlResource *rtn = (wxXmlResource *)pThis->GetEntity()->Get();
-	return ReturnValue(env, args, Value(new Object_wx_XmlResource(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_XmlResource(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, GetFlags)
@@ -196,10 +196,10 @@ Gura_DeclareMethod(wx_XmlResource, GetFlags)
 Gura_ImplementMethod(wx_XmlResource, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, GetVersion)
@@ -211,10 +211,10 @@ Gura_DeclareMethod(wx_XmlResource, GetVersion)
 Gura_ImplementMethod(wx_XmlResource, GetVersion)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetVersion();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, GetXRCID)
@@ -228,13 +228,13 @@ Gura_DeclareMethod(wx_XmlResource, GetXRCID)
 Gura_ImplementMethod(wx_XmlResource, GetXRCID)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str_id = wxString::FromUTF8(args.GetString(0));
+	wxString str_id = wxString::FromUTF8(arg.GetString(0));
 	int value_if_not_found = -2;
-	if (args.IsValid(1)) value_if_not_found = args.GetInt(1);
+	if (arg.IsValid(1)) value_if_not_found = arg.GetInt(1);
 	int rtn = pThis->GetEntity()->GetXRCID(str_id, value_if_not_found);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, InitAllHandlers)
@@ -245,7 +245,7 @@ Gura_DeclareMethod(wx_XmlResource, InitAllHandlers)
 Gura_ImplementMethod(wx_XmlResource, InitAllHandlers)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->InitAllHandlers();
 	return Value::Nil;
@@ -261,11 +261,11 @@ Gura_DeclareMethod(wx_XmlResource, Load)
 Gura_ImplementMethod(wx_XmlResource, Load)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filemask = wxString::FromUTF8(args.GetString(0));
+	wxString filemask = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Load(filemask);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadBitmap)
@@ -278,11 +278,11 @@ Gura_DeclareMethod(wx_XmlResource, LoadBitmap)
 Gura_ImplementMethod(wx_XmlResource, LoadBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxBitmap rtn = pThis->GetEntity()->LoadBitmap(name);
-	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadDialog)
@@ -296,12 +296,12 @@ Gura_DeclareMethod(wx_XmlResource, LoadDialog)
 Gura_ImplementMethod(wx_XmlResource, LoadDialog)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(1));
 	wxDialog *rtn = (wxDialog *)pThis->GetEntity()->LoadDialog(parent, name);
-	return ReturnValue(env, args, Value(new Object_wx_Dialog(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Dialog(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadDialog_1)
@@ -316,13 +316,13 @@ Gura_DeclareMethod(wx_XmlResource, LoadDialog_1)
 Gura_ImplementMethod(wx_XmlResource, LoadDialog_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDialog *dlg = Object_wx_Dialog::GetObject(args, 0)->GetEntity();
-	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(2));
+	wxDialog *dlg = Object_wx_Dialog::GetObject(arg, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 1)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(2));
 	bool rtn = pThis->GetEntity()->LoadDialog(dlg, parent, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadFrame)
@@ -337,13 +337,13 @@ Gura_DeclareMethod(wx_XmlResource, LoadFrame)
 Gura_ImplementMethod(wx_XmlResource, LoadFrame)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
-	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(2));
+	wxFrame *frame = Object_wx_Frame::GetObject(arg, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 1)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(2));
 	bool rtn = pThis->GetEntity()->LoadFrame(frame, parent, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadIcon)
@@ -356,11 +356,11 @@ Gura_DeclareMethod(wx_XmlResource, LoadIcon)
 Gura_ImplementMethod(wx_XmlResource, LoadIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxIcon rtn = pThis->GetEntity()->LoadIcon(name);
-	return ReturnValue(env, args, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Icon(new wxIcon(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenu)
@@ -373,11 +373,11 @@ Gura_DeclareMethod(wx_XmlResource, LoadMenu)
 Gura_ImplementMethod(wx_XmlResource, LoadMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->LoadMenu(name);
-	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenuBar)
@@ -391,12 +391,12 @@ Gura_DeclareMethod(wx_XmlResource, LoadMenuBar)
 Gura_ImplementMethod(wx_XmlResource, LoadMenuBar)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(1));
 	wxMenuBar *rtn = (wxMenuBar *)pThis->GetEntity()->LoadMenuBar(parent, name);
-	return ReturnValue(env, args, Value(new Object_wx_MenuBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_MenuBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadMenuBar_1)
@@ -409,11 +409,11 @@ Gura_DeclareMethod(wx_XmlResource, LoadMenuBar_1)
 Gura_ImplementMethod(wx_XmlResource, LoadMenuBar_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxMenuBar *rtn = (wxMenuBar *)pThis->GetEntity()->LoadMenuBar(name);
-	return ReturnValue(env, args, Value(new Object_wx_MenuBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_MenuBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadPanel)
@@ -427,12 +427,12 @@ Gura_DeclareMethod(wx_XmlResource, LoadPanel)
 Gura_ImplementMethod(wx_XmlResource, LoadPanel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(1));
 	wxPanel *rtn = (wxPanel *)pThis->GetEntity()->LoadPanel(parent, name);
-	return ReturnValue(env, args, Value(new Object_wx_Panel(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Panel(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadPanel_1)
@@ -447,13 +447,13 @@ Gura_DeclareMethod(wx_XmlResource, LoadPanel_1)
 Gura_ImplementMethod(wx_XmlResource, LoadPanel_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxPanel *panel = Object_wx_Panel::GetObject(args, 0)->GetEntity();
-	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(2));
+	wxPanel *panel = Object_wx_Panel::GetObject(arg, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 1)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(2));
 	bool rtn = pThis->GetEntity()->LoadPanel(panel, parent, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, LoadToolBar)
@@ -467,12 +467,12 @@ Gura_DeclareMethod(wx_XmlResource, LoadToolBar)
 Gura_ImplementMethod(wx_XmlResource, LoadToolBar)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString name = wxString::FromUTF8(args.GetString(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxString name = wxString::FromUTF8(arg.GetString(1));
 	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->LoadToolBar(parent, name);
-	return ReturnValue(env, args, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_ToolBar(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, Set)
@@ -485,11 +485,11 @@ Gura_DeclareMethod(wx_XmlResource, Set)
 Gura_ImplementMethod(wx_XmlResource, Set)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxXmlResource *res = Object_wx_XmlResource::GetObject(args, 0)->GetEntity();
+	wxXmlResource *res = Object_wx_XmlResource::GetObject(arg, 0)->GetEntity();
 	wxXmlResource *rtn = (wxXmlResource *)pThis->GetEntity()->Set(res);
-	return ReturnValue(env, args, Value(new Object_wx_XmlResource(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_XmlResource(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_XmlResource, SetFlags)
@@ -501,9 +501,9 @@ Gura_DeclareMethod(wx_XmlResource, SetFlags)
 Gura_ImplementMethod(wx_XmlResource, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
+	int flags = arg.GetInt(0);
 	pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
@@ -518,11 +518,11 @@ Gura_DeclareMethod(wx_XmlResource, Unload)
 Gura_ImplementMethod(wx_XmlResource, Unload)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Unload(filename);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_XmlResource, GetDomain)
@@ -535,10 +535,10 @@ Gura_ImplementMethod(wx_XmlResource, GetDomain)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxChar rtn = pThis->GetEntity()->GetDomain();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -557,11 +557,11 @@ Gura_ImplementMethod(wx_XmlResource, SetDomain)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(args);
+	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString domain = wxString::FromUTF8(args.GetString(0));
+	wxString domain = wxString::FromUTF8(arg.GetString(0));
 	wxChar rtn = pThis->GetEntity()->SetDomain(domain);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

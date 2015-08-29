@@ -1422,9 +1422,9 @@ Gura_DeclareMethod(stat, field)
 Gura_ImplementMethod(stat, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_stat *pThis = Object_stat::GetObjectThis(args);
-	bool signalFlag = args.IsSet(Gura_Symbol(raise));
-	return pThis->GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
+	Object_stat *pThis = Object_stat::GetObjectThis(arg);
+	bool signalFlag = arg.IsSet(Gura_Symbol(raise));
+	return pThis->GetHeader().GetField(env, sig, arg.GetString(0), signalFlag);
 }
 
 // implementation of class Stat
@@ -1685,10 +1685,10 @@ Gura_DeclareMethod(request, field)
 Gura_ImplementMethod(request, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetObjectThis(args);
-	bool signalFlag = args.IsSet(Gura_Symbol(raise));
+	Object_request *pThis = Object_request::GetObjectThis(arg);
+	bool signalFlag = arg.IsSet(Gura_Symbol(raise));
 	return pThis->GetSessionObj()->GetRequest().
-				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
+				GetHeader().GetField(env, sig, arg.GetString(0), signalFlag);
 }
 
 // http.request#response(code:string, reason?:string, body?:stream:r,
@@ -1710,14 +1710,14 @@ Gura_DeclareMethod(request, response)
 Gura_ImplementMethod(request, response)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetObjectThis(args);
+	Object_request *pThis = Object_request::GetObjectThis(arg);
 	if (!pThis->SendResponse(sig,
-			args.GetString(0), args.Is_string(1)? args.GetString(1) : nullptr,
-			args.Is_stream(2)? &args.GetStream(2) : nullptr, args.GetString(3),
-			args.GetValueDictArg())) {
+			arg.GetString(0), arg.Is_string(1)? arg.GetString(1) : nullptr,
+			arg.Is_stream(2)? &arg.GetStream(2) : nullptr, arg.GetString(3),
+			arg.GetValueDictArg())) {
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // http.request#respchunk(code:string, reason?:string,
@@ -1739,12 +1739,12 @@ Gura_DeclareMethod(request, respchunk)
 Gura_ImplementMethod(request, respchunk)
 {
 	Signal &sig = env.GetSignal();
-	Object_request *pThis = Object_request::GetObjectThis(args);
-	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
-			args.Is_string(1)? args.GetString(1) : nullptr, args.GetString(2),
-			args.GetValueDictArg());
+	Object_request *pThis = Object_request::GetObjectThis(arg);
+	Stream *pStream = pThis->SendRespChunk(sig, arg.GetString(0),
+			arg.Is_string(1)? arg.GetString(1) : nullptr, arg.GetString(2),
+			arg.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
 // http.request#ismethod(method:string)
@@ -1759,9 +1759,9 @@ Gura_DeclareMethod(request, ismethod)
 
 Gura_ImplementMethod(request, ismethod)
 {
-	Object_request *pThis = Object_request::GetObjectThis(args);
+	Object_request *pThis = Object_request::GetObjectThis(arg);
 	const char *method = pThis->GetSessionObj()->GetRequest().GetMethod();
-	return Value(::strcasecmp(method, args.GetString(0)) == 0);
+	return Value(::strcasecmp(method, arg.GetString(0)) == 0);
 }
 
 // implementation of class Request
@@ -1861,10 +1861,10 @@ Gura_DeclareMethod(response, field)
 Gura_ImplementMethod(response, field)
 {
 	Signal &sig = env.GetSignal();
-	Object_response *pThis = Object_response::GetObjectThis(args);
-	bool signalFlag = args.IsSet(Gura_Symbol(raise));
+	Object_response *pThis = Object_response::GetObjectThis(arg);
+	bool signalFlag = arg.IsSet(Gura_Symbol(raise));
 	return pThis->GetClientObj()->GetStatus().
-				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
+				GetHeader().GetField(env, sig, arg.GetString(0), signalFlag);
 }
 
 // implementation of class Response
@@ -2079,22 +2079,22 @@ Gura_DeclareMethod(server, wait)
 Gura_ImplementMethod(server, wait)
 {
 	Signal &sig = env.GetSignal();
-	Object_server *pThis = Object_server::GetObjectThis(args);
-	if (!args.IsBlockSpecified()) {
+	Object_server *pThis = Object_server::GetObjectThis(arg);
+	if (!arg.IsBlockSpecified()) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Nil;
 		return Value(pObjRequest);
 	}
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Nil;
-		AutoPtr<Args> pArgsSub(new Args(pFuncBlock));
-		pArgsSub->AddValue(Value(pObjRequest));
-		pFuncBlock->Eval(env, *pArgsSub);
+		AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
+		pArgSub->AddValue(Value(pObjRequest));
+		pFuncBlock->Eval(env, *pArgSub);
 		if (sig.IsBreak()) {
 			sig.ClearSignal();
 			break;
@@ -2299,13 +2299,13 @@ Gura_DeclareMethod(client, request)
 Gura_ImplementMethod(client, request)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetObjectThis(args);
+	Object_client *pThis = Object_client::GetObjectThis(arg);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
-			args.GetString(0), args.GetString(1),
-			args.Is_stream(2)? &args.GetStream(2) : nullptr,
-			args.GetString(3), args.GetValueDictArg());
+			arg.GetString(0), arg.GetString(1),
+			arg.Is_stream(2)? &arg.GetStream(2) : nullptr,
+			arg.GetString(3), arg.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjResponse));
+	return ReturnValue(env, arg, Value(pObjResponse));
 }
 
 // http.client#_request(uri:string, body?:stream:r,
@@ -2327,13 +2327,13 @@ Gura_DeclareMethod(client, _request)
 Gura_ImplementMethod(client, _request)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetObjectThis(args);
+	Object_client *pThis = Object_client::GetObjectThis(arg);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
-			Upper(GetName()).c_str(), args.GetString(0),
-			args.Is_stream(1)? &args.GetStream(1) : nullptr,
-			args.GetString(2), args.GetValueDictArg());
+			Upper(GetName()).c_str(), arg.GetString(0),
+			arg.Is_stream(1)? &arg.GetStream(1) : nullptr,
+			arg.GetString(2), arg.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjResponse));
+	return ReturnValue(env, arg, Value(pObjResponse));
 }
 
 // http.client#cleanup()
@@ -2348,9 +2348,9 @@ Gura_DeclareMethod(client, cleanup)
 Gura_ImplementMethod(client, cleanup)
 {
 	Signal &sig = env.GetSignal();
-	Object_client *pThis = Object_client::GetObjectThis(args);
+	Object_client *pThis = Object_client::GetObjectThis(arg);
 	if (!pThis->CleanupResponse(sig)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // implementation of class Client
@@ -2395,9 +2395,9 @@ bool Object_proxy::IsResponsible(Environment &env, const char *addr) const
 {
 	Signal &sig = env.GetSignal();
 	if (_pFuncCriteria.IsNull()) return true;
-	AutoPtr<Args> pArgs(new Args(_pFuncCriteria.get()));
-	pArgs->AddValue(Value(addr));
-	Value result = _pFuncCriteria->Eval(env, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(_pFuncCriteria.get()));
+	pArg->AddValue(Value(addr));
+	Value result = _pFuncCriteria->Eval(env, *pArg);
 	if (sig.IsSignalled()) return false;
 	return result.GetBoolean();
 }
@@ -2439,10 +2439,10 @@ Gura_ImplementFunction(addproxy)
 	} else {
 		pValList = &pValue->GetList();
 	}
-	const Function *pFuncCriteria = args.GetBlockFunc(env, GetSymbolForBlock());
-	Value value(new Object_proxy(args.GetString(0), args.GetShort(1),
-				args.Is_string(2)? args.GetString(2) : "",
-				args.Is_string(3)? args.GetString(3) : "",
+	const Function *pFuncCriteria = arg.GetBlockFunc(env, GetSymbolForBlock());
+	Value value(new Object_proxy(arg.GetString(0), arg.GetShort(1),
+				arg.Is_string(2)? arg.GetString(2) : "",
+				arg.Is_string(3)? arg.GetString(3) : "",
 				Function::Reference(pFuncCriteria)));
 	pValList->push_back(value);
 	return Value::Nil;
@@ -2467,10 +2467,10 @@ Gura_ImplementFunction(server)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_server> pObjServer(new Object_server());
 	if (!pObjServer->Prepare(sig,
-				args.Is_string(0)? args.GetString(0) : nullptr, args.GetShort(1))) {
+				arg.Is_string(0)? arg.GetString(0) : nullptr, arg.GetShort(1))) {
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObjServer.release()));
+	return ReturnValue(env, arg, Value(pObjServer.release()));
 }
 
 // http.client(addr:string, port:number => 80,
@@ -2501,21 +2501,21 @@ Gura_ImplementFunction(client)
 	short portProxy = 0;
 	const char *userIdProxy = "";
 	const char *passwordProxy = "";
-	if (args.Is_string(2)) {
-		if (!args.Is_number(3)) {
+	if (arg.Is_string(2)) {
+		if (!arg.Is_number(3)) {
 			Declaration::SetError_NotEnoughArguments(sig);
 			return Value::Nil;
 		}
-		addrProxy = args.GetString(2);
-		portProxy = args.GetShort(3);
-		if (args.Is_string(4)) userIdProxy = args.GetString(4);
-		if (args.Is_string(5)) passwordProxy = args.GetString(5);
+		addrProxy = arg.GetString(2);
+		portProxy = arg.GetShort(3);
+		if (arg.Is_string(4)) userIdProxy = arg.GetString(4);
+		if (arg.Is_string(5)) passwordProxy = arg.GetString(5);
 	}
-	if (!pObjClient->Prepare(sig, args.GetString(0), args.GetShort(1),
+	if (!pObjClient->Prepare(sig, arg.GetString(0), arg.GetShort(1),
 							addrProxy, portProxy, userIdProxy, passwordProxy)) {
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObjClient.release()));
+	return ReturnValue(env, arg, Value(pObjClient.release()));
 }
 
 //-----------------------------------------------------------------------------

@@ -196,19 +196,19 @@ Gura_DeclareFunction(datetime)
 
 Gura_ImplementFunction(datetime)
 {
-	short year = static_cast<short>(args.GetLong(0));
-	char month = static_cast<char>(args.GetLong(1));
-	char day = static_cast<char>(args.GetLong(2));
-	long sec = static_cast<long>(args.GetLong(3) * 3600 +
-								args.GetLong(4) * 60 + args.GetLong(5));
-	long usec = args.GetLong(6);
+	short year = static_cast<short>(arg.GetLong(0));
+	char month = static_cast<char>(arg.GetLong(1));
+	char day = static_cast<char>(arg.GetLong(2));
+	long sec = static_cast<long>(arg.GetLong(3) * 3600 +
+								arg.GetLong(4) * 60 + arg.GetLong(5));
+	long usec = arg.GetLong(6);
 	long secsOffset = 0;
-	if (args.Is_number(7)) {
-		secsOffset = args.GetLong(7) * 60;
+	if (arg.Is_number(7)) {
+		secsOffset = arg.GetLong(7) * 60;
 	} else {
 		secsOffset = OAL::GetSecsOffsetTZ();
 	}
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
@@ -226,9 +226,9 @@ Gura_DeclareMethod(datetime, clrtzoff)
 
 Gura_ImplementMethod(datetime, clrtzoff)
 {
-	DateTime &dateTime = Object_datetime::GetObjectThis(args)->GetDateTime();
+	DateTime &dateTime = Object_datetime::GetObjectThis(arg)->GetDateTime();
 	dateTime.ClearTZOffset();
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // datetime#format(format => `w3c)
@@ -273,11 +273,11 @@ Gura_ImplementMethod(datetime, format)
 		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 	};
-	const DateTime &dateTime = Object_datetime::GetObjectThis(args)->GetDateTime();
-	if (args.Is_string(0)) {
-		return Value(dateTime.ToString(args.GetString(0)));
-	} else if (args.Is_symbol(0)) {
-		const Symbol *pSymbol = args.GetSymbol(0);
+	const DateTime &dateTime = Object_datetime::GetObjectThis(arg)->GetDateTime();
+	if (arg.Is_string(0)) {
+		return Value(dateTime.ToString(arg.GetString(0)));
+	} else if (arg.Is_symbol(0)) {
+		const Symbol *pSymbol = arg.GetSymbol(0);
 		char str[64];
 		if (pSymbol->IsIdentical(Gura_Symbol(w3c))) {
 			::sprintf(str, "%04d-%02d-%02dT%02d:%02d:%02d%s",
@@ -312,7 +312,7 @@ Gura_ImplementMethod(datetime, format)
 		}
 		return Value(str);
 	}
-	SetError_InvalidValType(sig, args.GetValue(0));
+	SetError_InvalidValType(sig, arg.GetValue(0));
 	return Value::Nil;
 }
 
@@ -328,7 +328,7 @@ Gura_DeclareClassMethod(datetime, isleap)
 
 Gura_ImplementClassMethod(datetime, isleap)
 {
-	return Value(DateTime::IsLeapYear(args.GetShort(0)));
+	return Value(DateTime::IsLeapYear(arg.GetShort(0)));
 }
 
 // datetime.monthdays(year:number, month:number):map {block?}
@@ -347,9 +347,9 @@ Gura_DeclareClassMethod(datetime, monthdays)
 
 Gura_ImplementClassMethod(datetime, monthdays)
 {
-	int year = args.GetInt(0);
-	int month = args.GetInt(1);
-	return ReturnValue(env, args,
+	int year = arg.GetInt(0);
+	int month = arg.GetInt(1);
+	return ReturnValue(env, arg,
 			Value(static_cast<Number>(DateTime::GetDaysOfMonth(year, month))));
 }
 
@@ -371,8 +371,8 @@ Gura_DeclareClassMethod(datetime, now)
 
 Gura_ImplementClassMethod(datetime, now)
 {
-	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
-	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
+	DateTime dateTime = OAL::GetCurDateTime(arg.IsSet(Gura_Symbol(utc)));
+	return ReturnValue(env, arg, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime.parse(str:string):map {block?}
@@ -401,11 +401,11 @@ Gura_ImplementClassMethod(datetime, parse)
 {
 	Signal &sig = env.GetSignal();
 	DateTime dateTime;
-	if (!dateTime.Parse(args.GetString(0))) {
+	if (!dateTime.Parse(arg.GetString(0))) {
 		sig.SetError(ERR_FormatError, "invalid time format");
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
+	return ReturnValue(env, arg, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime#settzoff(mins:number):reduce
@@ -420,9 +420,9 @@ Gura_DeclareMethod(datetime, settzoff)
 
 Gura_ImplementMethod(datetime, settzoff)
 {
-	DateTime &dateTime = Object_datetime::GetObjectThis(args)->GetDateTime();
-	dateTime.SetTZOffset(args.GetLong(0) * 60);
-	return args.GetValueThis();
+	DateTime &dateTime = Object_datetime::GetObjectThis(arg)->GetDateTime();
+	dateTime.SetTZOffset(arg.GetLong(0) * 60);
+	return arg.GetValueThis();
 }
 
 // datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map {block?}
@@ -447,11 +447,11 @@ Gura_ImplementClassMethod(datetime, time)
 	short year = 0;
 	char month = 1;
 	char day = 1;
-	long sec = static_cast<long>(args.GetNumber(0) * 3600 +
-						args.GetNumber(1) * 60 + args.GetNumber(2));
-	long usec = args.GetLong(3);
+	long sec = static_cast<long>(arg.GetNumber(0) * 3600 +
+						arg.GetNumber(1) * 60 + arg.GetNumber(2));
+	long usec = arg.GetLong(3);
 	long secsOffset = OAL::GetSecsOffsetTZ();
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
@@ -473,9 +473,9 @@ Gura_DeclareClassMethod(datetime, today)
 
 Gura_ImplementClassMethod(datetime, today)
 {
-	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
+	DateTime dateTime = OAL::GetCurDateTime(arg.IsSet(Gura_Symbol(utc)));
 	dateTime.ClearTime();
-	return ReturnValue(env, args, Value(new Object_datetime(env, dateTime)));
+	return ReturnValue(env, arg, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime#utc()
@@ -491,7 +491,7 @@ Gura_DeclareMethod(datetime, utc)
 Gura_ImplementMethod(datetime, utc)
 {
 	Signal &sig = env.GetSignal();
-	const DateTime &dateTime = Object_datetime::GetObjectThis(args)->GetDateTime();
+	const DateTime &dateTime = Object_datetime::GetObjectThis(arg)->GetDateTime();
 	if (!dateTime.HasTZOffset()) {
 		sig.SetError(ERR_ValueError, "datetime has no timezone offset");
 		return Value::Nil;
@@ -513,9 +513,9 @@ Gura_DeclareClassMethod(datetime, weekday)
 
 Gura_ImplementClassMethod(datetime, weekday)
 {
-	int year = args.GetInt(0);
-	int month = args.GetInt(1);
-	int day = args.GetInt(2);
+	int year = arg.GetInt(0);
+	int month = arg.GetInt(1);
+	int day = arg.GetInt(2);
 	return Value(static_cast<Number>(DateTime::GetDayOfWeek(year, month, day)));
 }
 

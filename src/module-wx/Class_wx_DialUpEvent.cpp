@@ -49,18 +49,18 @@ Gura_ImplementFunction(DialUpEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	bool isConnected = args.GetBoolean(0);
-	bool isOwnEvent = args.GetBoolean(1);
+	bool isConnected = arg.GetBoolean(0);
+	bool isOwnEvent = arg.GetBoolean(1);
 	wx_DialUpEvent *pEntity = new wx_DialUpEvent(isConnected, isOwnEvent);
-	Object_wx_DialUpEvent *pObj = Object_wx_DialUpEvent::GetObjectThis(args);
+	Object_wx_DialUpEvent *pObj = Object_wx_DialUpEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DialUpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
@@ -72,10 +72,10 @@ Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
 Gura_ImplementMethod(wx_DialUpEvent, IsConnectedEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(args);
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsConnectedEvent();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
@@ -87,10 +87,10 @@ Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
 Gura_ImplementMethod(wx_DialUpEvent, IsOwnEvent)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(args);
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOwnEvent();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

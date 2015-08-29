@@ -53,19 +53,19 @@ Gura_ImplementFunction(Command)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	bool canUndo = false;
-	if (args.IsValid(0)) canUndo = args.GetBoolean(0);
+	if (arg.IsValid(0)) canUndo = arg.GetBoolean(0);
 	wxString name = nullptr;
-	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));
+	if (arg.IsValid(1)) name = wxString::FromUTF8(arg.GetString(1));
 	wx_Command *pEntity = new wx_Command(canUndo, name);
-	Object_wx_Command *pObj = Object_wx_Command::GetObjectThis(args);
+	Object_wx_Command *pObj = Object_wx_Command::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Command(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -80,10 +80,10 @@ Gura_DeclareMethod(wx_Command, CanUndo)
 Gura_ImplementMethod(wx_Command, CanUndo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanUndo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Command, Do)
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_Command, Do)
 Gura_ImplementMethod(wx_Command, Do)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Do();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Command, GetName)
@@ -110,10 +110,10 @@ Gura_DeclareMethod(wx_Command, GetName)
 Gura_ImplementMethod(wx_Command, GetName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Command, Undo)
@@ -125,10 +125,10 @@ Gura_DeclareMethod(wx_Command, Undo)
 Gura_ImplementMethod(wx_Command, Undo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(args);
+	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Undo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

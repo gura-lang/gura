@@ -59,28 +59,28 @@ Gura_ImplementFunction(PropertySheetDialog)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxDEFAULT_DIALOG_STYLE;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("dialogBox");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	wx_PropertySheetDialog *pEntity = new wx_PropertySheetDialog(parent, id, title, *pos, *size, style, name);
-	Object_wx_PropertySheetDialog *pObj = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pObj = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_PropertySheetDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, AddBookCtrl)
@@ -92,9 +92,9 @@ Gura_DeclareMethod(wx_PropertySheetDialog, AddBookCtrl)
 Gura_ImplementMethod(wx_PropertySheetDialog, AddBookCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
+	wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->AddBookCtrl(sizer);
 	return Value::Nil;
 }
@@ -115,22 +115,22 @@ Gura_DeclareMethod(wx_PropertySheetDialog, Create)
 Gura_ImplementMethod(wx_PropertySheetDialog, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = args.IsValid(0)?
-			Object_wx_Window::GetObject(args, 0)->GetEntity() : nullptr;
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
-	wxString title = wxString::FromUTF8(args.GetString(2));
+	wxWindow *parent = arg.IsValid(0)?
+			Object_wx_Window::GetObject(arg, 0)->GetEntity() : nullptr;
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
+	wxString title = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = wxDEFAULT_DIALOG_STYLE;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("dialogBox");
-	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, CreateBookCtrl)
@@ -142,10 +142,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, CreateBookCtrl)
 Gura_ImplementMethod(wx_PropertySheetDialog, CreateBookCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBookCtrlBase *rtn = (wxBookCtrlBase *)pThis->GetEntity()->CreateBookCtrl();
-	return ReturnValue(env, args, Value(new Object_wx_BookCtrlBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_BookCtrlBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, CreateButtons)
@@ -157,10 +157,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, CreateButtons)
 Gura_ImplementMethod(wx_PropertySheetDialog, CreateButtons)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = wxOK|wxCANCEL;
-	if (args.IsValid(0)) flags = args.GetInt(0);
+	if (arg.IsValid(0)) flags = arg.GetInt(0);
 	pThis->GetEntity()->CreateButtons(flags);
 	return Value::Nil;
 }
@@ -174,10 +174,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, GetBookCtrl)
 Gura_ImplementMethod(wx_PropertySheetDialog, GetBookCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBookCtrlBase *rtn = (wxBookCtrlBase *)pThis->GetEntity()->GetBookCtrl();
-	return ReturnValue(env, args, Value(new Object_wx_BookCtrlBase(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_BookCtrlBase(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, GetInnerSizer)
@@ -189,10 +189,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, GetInnerSizer)
 Gura_ImplementMethod(wx_PropertySheetDialog, GetInnerSizer)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetInnerSizer();
-	return ReturnValue(env, args, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Sizer(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, GetSheetStyle)
@@ -204,10 +204,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, GetSheetStyle)
 Gura_ImplementMethod(wx_PropertySheetDialog, GetSheetStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetSheetStyle();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_PropertySheetDialog, LayoutDialog)
@@ -219,10 +219,10 @@ Gura_DeclareMethod(wx_PropertySheetDialog, LayoutDialog)
 Gura_ImplementMethod(wx_PropertySheetDialog, LayoutDialog)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int centreFlags = wxBOTH;
-	if (args.IsValid(0)) centreFlags = args.GetInt(0);
+	if (arg.IsValid(0)) centreFlags = arg.GetInt(0);
 	pThis->GetEntity()->LayoutDialog(centreFlags);
 	return Value::Nil;
 }
@@ -236,9 +236,9 @@ Gura_DeclareMethod(wx_PropertySheetDialog, SetBookCtrl)
 Gura_ImplementMethod(wx_PropertySheetDialog, SetBookCtrl)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBookCtrlBase *bookCtrl = Object_wx_BookCtrlBase::GetObject(args, 0)->GetEntity();
+	wxBookCtrlBase *bookCtrl = Object_wx_BookCtrlBase::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetBookCtrl(bookCtrl);
 	return Value::Nil;
 }
@@ -255,9 +255,9 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetInnerSizer)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
+	wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetInnerSizer(sizer);
 	return Value::Nil;
 #endif
@@ -274,9 +274,9 @@ Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetStyle)
 Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetStyle)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long style = args.GetLong(0);
+	long style = arg.GetLong(0);
 	pThis->GetEntity()->SetSheetStyle(style);
 	return Value::Nil;
 }
@@ -290,9 +290,9 @@ Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
 Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int border = args.GetInt(0);
+	int border = arg.GetInt(0);
 	pThis->GetEntity()->SetSheetOuterBorder(border);
 	return Value::Nil;
 }
@@ -306,9 +306,9 @@ Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetInnerBorder)
 Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetInnerBorder)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(args);
+	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int border = args.GetInt(0);
+	int border = arg.GetInt(0);
 	pThis->GetEntity()->SetSheetInnerBorder(border);
 	return Value::Nil;
 }

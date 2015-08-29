@@ -38,7 +38,7 @@ Gura_ImplementClassMethod(region, create)
 		::cairo_region_destroy(region);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_region(region)));
+	return ReturnValue(env, arg, Value(new Object_region(region)));
 }
 
 // cairo.region.create_rectangle(rectangle:cairo.rectangle_int) {block?}
@@ -53,13 +53,13 @@ Gura_ImplementClassMethod(region, create_rectangle)
 {
 	Signal &sig = env.GetSignal();
 	cairo_rectangle_int_t rectangle =
-				Object_rectangle_int::GetObject(args, 0)->GetEntity();
+				Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_region_t *region = ::cairo_region_create_rectangle(&rectangle);
 	if (Is_error(sig, region)) {
 		::cairo_region_destroy(region);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_region(region)));
+	return ReturnValue(env, arg, Value(new Object_region(region)));
 }
 
 // cairo.region.create_rectangles(rectangle[]:cairo.rectangle_int) {block?}
@@ -73,7 +73,7 @@ Gura_DeclareClassMethod(region, create_rectangles)
 Gura_ImplementClassMethod(region, create_rectangles)
 {
 	Signal &sig = env.GetSignal();
-	const ValueList &valList = args.GetList(0);
+	const ValueList &valList = arg.GetList(0);
 	int count = static_cast<int>(valList.size());
 	cairo_rectangle_int_t *rects = new cairo_rectangle_int_t[count];
 	size_t i = 0;
@@ -86,7 +86,7 @@ Gura_ImplementClassMethod(region, create_rectangles)
 		::cairo_region_destroy(region);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_region(region)));
+	return ReturnValue(env, arg, Value(new Object_region(region)));
 }
 
 // cairo.region#copy() {block?}
@@ -99,14 +99,14 @@ Gura_DeclareMethod(region, copy)
 Gura_ImplementMethod(region, copy)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *original = pThis->GetEntity();
 	cairo_region_t *region = ::cairo_region_copy(original);
 	if (Is_error(sig, region)) {
 		::cairo_region_destroy(region);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_region(region)));
+	return ReturnValue(env, arg, Value(new Object_region(region)));
 }
 
 //#cairo_region_t *cairo_region_reference(cairo_region_t *region);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(region, status)
 
 Gura_ImplementMethod(region, status)
 {
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_status_t rtn = ::cairo_region_status(region);
 	return Value(rtn);
@@ -135,7 +135,7 @@ Gura_DeclareMethod(region, get_extents)
 Gura_ImplementMethod(region, get_extents)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_rectangle_int_t extents;
 	::cairo_region_get_extents(region, &extents);
@@ -152,7 +152,7 @@ Gura_DeclareMethod(region, num_rectangles)
 Gura_ImplementMethod(region, num_rectangles)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	int rtn = ::cairo_region_num_rectangles(region);
 	if (Is_error(sig, region)) return Value::Nil;
@@ -169,9 +169,9 @@ Gura_DeclareMethod(region, get_rectangle)
 Gura_ImplementMethod(region, get_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
-	int nth = args.GetInt(0);
+	int nth = arg.GetInt(0);
 	cairo_rectangle_int_t rectangle;
 	::cairo_region_get_rectangle(region, nth, &rectangle);
 	if (Is_error(sig, region)) return Value::Nil;
@@ -187,7 +187,7 @@ Gura_DeclareMethod(region, is_empty)
 Gura_ImplementMethod(region, is_empty)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	bool rtn = ::cairo_region_is_empty(region)? true : false;
 	if (Is_error(sig, region)) return Value::Nil;
@@ -205,9 +205,9 @@ Gura_DeclareMethod(region, contains_point)
 Gura_ImplementMethod(region, contains_point)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
-	bool rtn = ::cairo_region_contains_point(region, args.GetInt(0), args.GetInt(1))? true : false;
+	bool rtn = ::cairo_region_contains_point(region, arg.GetInt(0), arg.GetInt(1))? true : false;
 	if (Is_error(sig, region)) return Value::Nil;
 	return Value(rtn);
 }
@@ -222,10 +222,10 @@ Gura_DeclareMethod(region, contains_rectangle)
 Gura_ImplementMethod(region, contains_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_rectangle_int_t &rectangle =
-					Object_rectangle_int::GetObject(args, 0)->GetEntity();
+					Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_region_overlap_t region_overlap =
 					::cairo_region_contains_rectangle(region, &rectangle);
 	if (Is_error(sig, region)) return Value::Nil;
@@ -242,8 +242,8 @@ Gura_DeclareMethod(region, equal)
 Gura_ImplementMethod(region, equal)
 {
 	Signal &sig = env.GetSignal();
-	cairo_region_t *a = Object_region::GetObjectThis(args)->GetEntity();
-	cairo_region_t *b = Object_region::GetObject(args, 0)->GetEntity();
+	cairo_region_t *a = Object_region::GetObjectThis(arg)->GetEntity();
+	cairo_region_t *b = Object_region::GetObject(arg, 0)->GetEntity();
 	bool rtn = ::cairo_region_equal(a, b)? true : false;
 	if (Is_error(sig, a)) return Value::Nil;
 	return Value(rtn);
@@ -260,9 +260,9 @@ Gura_DeclareMethod(region, translate)
 Gura_ImplementMethod(region, translate)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
-	::cairo_region_translate(region, args.GetInt(0), args.GetInt(1));
+	::cairo_region_translate(region, arg.GetInt(0), arg.GetInt(1));
 	if (Is_error(sig, region)) return Value::Nil;
 	return Value::Nil;
 }
@@ -277,14 +277,14 @@ Gura_DeclareMethod(region, intersect)
 Gura_ImplementMethod(region, intersect)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
 		::cairo_region_destroy(dst);
 		return Value::Nil;
 	}
-	cairo_region_t *other = Object_region::GetObject(args, 0)->GetEntity();
+	cairo_region_t *other = Object_region::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_intersect(dst, other);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -304,7 +304,7 @@ Gura_DeclareMethod(region, intersect_rectangle)
 Gura_ImplementMethod(region, intersect_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
@@ -312,7 +312,7 @@ Gura_ImplementMethod(region, intersect_rectangle)
 		return Value::Nil;
 	}
 	cairo_rectangle_int_t &rectangle =
-					Object_rectangle_int::GetObject(args, 0)->GetEntity();
+					Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_intersect_rectangle(dst, &rectangle);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -332,14 +332,14 @@ Gura_DeclareMethod(region, subtract)
 Gura_ImplementMethod(region, subtract)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
 		::cairo_region_destroy(dst);
 		return Value::Nil;
 	}
-	cairo_region_t *other = Object_region::GetObject(args, 0)->GetEntity();
+	cairo_region_t *other = Object_region::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_subtract(dst, other);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -359,7 +359,7 @@ Gura_DeclareMethod(region, subtract_rectangle)
 Gura_ImplementMethod(region, subtract_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
@@ -367,7 +367,7 @@ Gura_ImplementMethod(region, subtract_rectangle)
 		return Value::Nil;
 	}
 	cairo_rectangle_int_t &rectangle =
-					Object_rectangle_int::GetObject(args, 0)->GetEntity();
+					Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_subtract_rectangle(dst, &rectangle);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -387,14 +387,14 @@ Gura_DeclareMethodAlias(region, union_, "union")
 Gura_ImplementMethod(region, union_)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
 		::cairo_region_destroy(dst);
 		return Value::Nil;
 	}
-	cairo_region_t *other = Object_region::GetObject(args, 0)->GetEntity();
+	cairo_region_t *other = Object_region::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_union(dst, other);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -414,7 +414,7 @@ Gura_DeclareMethod(region, union_rectangle)
 Gura_ImplementMethod(region, union_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
@@ -422,7 +422,7 @@ Gura_ImplementMethod(region, union_rectangle)
 		return Value::Nil;
 	}
 	cairo_rectangle_int_t &rectangle =
-					Object_rectangle_int::GetObject(args, 0)->GetEntity();
+					Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_union_rectangle(dst, &rectangle);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -442,14 +442,14 @@ Gura_DeclareMethodAlias(region, xor_, "xor")
 Gura_ImplementMethod(region, xor_)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
 		::cairo_region_destroy(dst);
 		return Value::Nil;
 	}
-	cairo_region_t *other = Object_region::GetObject(args, 0)->GetEntity();
+	cairo_region_t *other = Object_region::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_xor(dst, other);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);
@@ -469,7 +469,7 @@ Gura_DeclareMethod(region, xor_rectangle)
 Gura_ImplementMethod(region, xor_rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_region *pThis = Object_region::GetObjectThis(args);
+	Object_region *pThis = Object_region::GetObjectThis(arg);
 	cairo_region_t *region = pThis->GetEntity();
 	cairo_region_t *dst = ::cairo_region_copy(region);
 	if (Is_error(sig, dst)) {
@@ -477,7 +477,7 @@ Gura_ImplementMethod(region, xor_rectangle)
 		return Value::Nil;
 	}
 	cairo_rectangle_int_t &rectangle =
-					Object_rectangle_int::GetObject(args, 0)->GetEntity();
+					Object_rectangle_int::GetObject(arg, 0)->GetEntity();
 	cairo_status_t status = ::cairo_region_xor_rectangle(dst, &rectangle);
 	if (Is_error(sig, status)) {
 		::cairo_region_destroy(dst);

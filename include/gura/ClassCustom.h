@@ -23,7 +23,7 @@ public:
 														FunctionType funcType);
 		inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	private:
-		virtual Value DoEval(Environment &env, Args &args) const;
+		virtual Value DoEval(Environment &env, Argument &arg) const;
 	};
 private:
 	AutoPtr<Expr_Block> _pExprContent;

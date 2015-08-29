@@ -48,17 +48,17 @@ Gura_ImplementFunction(WindowDC)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wx_WindowDC *pEntity = new wx_WindowDC(window);
-	Object_wx_WindowDC *pObj = Object_wx_WindowDC::GetObjectThis(args);
+	Object_wx_WindowDC *pObj = Object_wx_WindowDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

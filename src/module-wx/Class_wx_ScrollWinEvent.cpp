@@ -51,21 +51,21 @@ Gura_ImplementFunction(ScrollWinEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	WXTYPE commandType = 0;
-	if (args.IsValid(0)) commandType = static_cast<WXTYPE>(args.GetInt(0));
+	if (arg.IsValid(0)) commandType = static_cast<WXTYPE>(arg.GetInt(0));
 	int pos = 0;
-	if (args.IsValid(1)) pos = args.GetInt(1);
+	if (arg.IsValid(1)) pos = arg.GetInt(1);
 	int orientation = 0;
-	if (args.IsValid(2)) orientation = args.GetInt(2);
+	if (arg.IsValid(2)) orientation = arg.GetInt(2);
 	wx_ScrollWinEvent *pEntity = new wx_ScrollWinEvent(commandType, pos, orientation);
-	Object_wx_ScrollWinEvent *pObj = Object_wx_ScrollWinEvent::GetObjectThis(args);
+	Object_wx_ScrollWinEvent *pObj = Object_wx_ScrollWinEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScrollWinEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ScrollWinEvent, GetOrientation)
@@ -77,10 +77,10 @@ Gura_DeclareMethod(wx_ScrollWinEvent, GetOrientation)
 Gura_ImplementMethod(wx_ScrollWinEvent, GetOrientation)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(args);
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOrientation();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ScrollWinEvent, GetPosition)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_ScrollWinEvent, GetPosition)
 Gura_ImplementMethod(wx_ScrollWinEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(args);
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

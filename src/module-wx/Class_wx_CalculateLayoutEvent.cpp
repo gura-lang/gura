@@ -49,17 +49,17 @@ Gura_ImplementFunction(CalculateLayoutEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxWindowID id = 0;
-	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
+	if (arg.IsValid(0)) id = static_cast<wxWindowID>(arg.GetInt(0));
 	wx_CalculateLayoutEvent *pEntity = new wx_CalculateLayoutEvent(id);
-	Object_wx_CalculateLayoutEvent *pObj = Object_wx_CalculateLayoutEvent::GetObjectThis(args);
+	Object_wx_CalculateLayoutEvent *pObj = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_CalculateLayoutEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
@@ -71,10 +71,10 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(args);
+	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
@@ -86,10 +86,10 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(args);
+	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxRect rtn = pThis->GetEntity()->GetRect();
-	return ReturnValue(env, args, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Rect(new wxRect(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
@@ -101,9 +101,9 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(args);
+	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int flags = args.GetInt(0);
+	int flags = arg.GetInt(0);
 	pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
@@ -117,9 +117,9 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetRect)
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetRect)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(args);
+	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
+	wxRect *rect = Object_wx_Rect::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetRect(*rect);
 	return Value::Nil;
 }

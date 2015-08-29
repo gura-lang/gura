@@ -62,15 +62,15 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SearchCtrl *pEntity = new wx_SearchCtrl();
-	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(SearchCtrl)
@@ -92,30 +92,30 @@ Gura_ImplementFunction(SearchCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString value = wxT("");
-	if (args.IsValid(2)) value = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) value = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = 0;
-	if (args.IsValid(5)) style = args.GetLong(5);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
+	if (arg.IsValid(6)) validator = Object_wx_Validator::GetObject(arg, 6)->GetEntity();
 	wxString name = wxSearchCtrlNameStr;
-	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
+	if (arg.IsValid(7)) name = wxString::FromUTF8(arg.GetString(7));
 	wx_SearchCtrl *pEntity = new wx_SearchCtrl(parent, id, value, *pos, *size, style, *validator, name);
-	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
@@ -127,9 +127,9 @@ Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
 Gura_ImplementMethod(wx_SearchCtrl, SetMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
+	wxMenu *menu = Object_wx_Menu::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetMenu(menu);
 	return Value::Nil;
 }
@@ -143,10 +143,10 @@ Gura_DeclareMethod(wx_SearchCtrl, GetMenu)
 Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
-	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
@@ -158,9 +158,9 @@ Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
 Gura_ImplementMethod(wx_SearchCtrl, ShowSearchButton)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool show = args.GetBoolean(0);
+	bool show = arg.GetBoolean(0);
 	pThis->GetEntity()->ShowSearchButton(show);
 	return Value::Nil;
 }
@@ -174,10 +174,10 @@ Gura_DeclareMethod(wx_SearchCtrl, IsSearchButtonVisible)
 Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsSearchButtonVisible();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
 Gura_ImplementMethod(wx_SearchCtrl, ShowCancelButton)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool show = args.GetBoolean(0);
+	bool show = arg.GetBoolean(0);
 	pThis->GetEntity()->ShowCancelButton(show);
 	return Value::Nil;
 }
@@ -205,10 +205,10 @@ Gura_DeclareMethod(wx_SearchCtrl, IsCancelButtonVisible)
 Gura_ImplementMethod(wx_SearchCtrl, IsCancelButtonVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(args);
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsCancelButtonVisible();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

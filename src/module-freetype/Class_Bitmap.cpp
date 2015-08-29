@@ -87,7 +87,7 @@ Gura_ImplementFunction(Bitmap)
 	FT_Bitmap *pBitmap = new FT_Bitmap;
 	::FT_Bitmap_New(pBitmap);
 	AutoPtr<Object_Bitmap> pObjRtn(new Object_Bitmap(nullptr, pBitmap));
-	return ReturnValue(env, args, Value(pObjRtn.release()));
+	return ReturnValue(env, arg, Value(pObjRtn.release()));
 }
 
 // freetype.Bitmap#Embolden(xStrength:number, yStrength:number):reduce
@@ -100,15 +100,15 @@ Gura_DeclareMethod(Bitmap, Embolden)
 Gura_ImplementMethod(Bitmap, Embolden)
 {
 	Signal &sig = env.GetSignal();
-	FT_Bitmap *bitmap = Object_Bitmap::GetObjectThis(args)->GetEntity();
-	FT_Pos xStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
-	FT_Pos yStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Bitmap *bitmap = Object_Bitmap::GetObjectThis(arg)->GetEntity();
+	FT_Pos xStrength = static_cast<FT_Pos>(arg.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Pos yStrength = static_cast<FT_Pos>(arg.GetDouble(0) * (1 << 6)); // 26.6
 	FT_Error err = ::FT_Bitmap_Embolden(g_lib, bitmap, xStrength, yStrength);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 Gura_ImplementUserClass(Bitmap)

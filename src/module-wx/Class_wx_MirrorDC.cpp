@@ -49,18 +49,18 @@ Gura_ImplementFunction(MirrorDC)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	bool mirror = args.GetBoolean(1);
+	wxDC *dc = Object_wx_DC::GetObject(arg, 0)->GetEntity();
+	bool mirror = arg.GetBoolean(1);
 	wx_MirrorDC *pEntity = new wx_MirrorDC(*dc, mirror);
-	Object_wx_MirrorDC *pObj = Object_wx_MirrorDC::GetObjectThis(args);
+	Object_wx_MirrorDC *pObj = Object_wx_MirrorDC::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MirrorDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

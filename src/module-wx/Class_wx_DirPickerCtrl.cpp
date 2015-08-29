@@ -56,32 +56,32 @@ Gura_ImplementFunction(DirPickerCtrl)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString path = wxEmptyString;
-	if (args.IsValid(2)) path = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) path = wxString::FromUTF8(arg.GetString(2));
 	wxString message = wxT("Select a folder");
-	if (args.IsValid(3)) message = wxString::FromUTF8(args.GetString(3));
+	if (arg.IsValid(3)) message = wxString::FromUTF8(arg.GetString(3));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) pos = Object_wx_Point::GetObject(arg, 4)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(5)) size = Object_wx_Size::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) size = Object_wx_Size::GetObject(arg, 5)->GetEntity();
 	long style = wxDIRP_DEFAULT_STYLE;
-	if (args.IsValid(6)) style = args.GetLong(6);
+	if (arg.IsValid(6)) style = arg.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) validator = Object_wx_Validator::GetObject(arg, 7)->GetEntity();
 	wxString name = wxT("dirpickerctrl");
-	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	if (arg.IsValid(8)) name = wxString::FromUTF8(arg.GetString(8));
 	wx_DirPickerCtrl *pEntity = new wx_DirPickerCtrl(parent, id, path, message, *pos, *size, style, *validator, name);
-	Object_wx_DirPickerCtrl *pObj = Object_wx_DirPickerCtrl::GetObjectThis(args);
+	Object_wx_DirPickerCtrl *pObj = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DirPickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DirPickerCtrl, Create)
@@ -102,26 +102,26 @@ Gura_DeclareMethod(wx_DirPickerCtrl, Create)
 Gura_ImplementMethod(wx_DirPickerCtrl, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(args);
+	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString path = wxEmptyString;
-	if (args.IsValid(2)) path = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) path = wxString::FromUTF8(arg.GetString(2));
 	wxString message = wxT("Select a folder");
-	if (args.IsValid(3)) message = wxString::FromUTF8(args.GetString(3));
+	if (arg.IsValid(3)) message = wxString::FromUTF8(arg.GetString(3));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) pos = Object_wx_Point::GetObject(arg, 4)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(5)) size = Object_wx_Size::GetObject(args, 5)->GetEntity();
+	if (arg.IsValid(5)) size = Object_wx_Size::GetObject(arg, 5)->GetEntity();
 	long style = wxDIRP_DEFAULT_STYLE;
-	if (args.IsValid(6)) style = args.GetLong(6);
+	if (arg.IsValid(6)) style = arg.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) validator = Object_wx_Validator::GetObject(arg, 7)->GetEntity();
 	wxString name = wxT("dirpickerctrl");
-	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	if (arg.IsValid(8)) name = wxString::FromUTF8(arg.GetString(8));
 	bool rtn = pThis->GetEntity()->Create(parent, id, path, message, *pos, *size, style, *validator, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DirPickerCtrl, GetPath)
@@ -133,10 +133,10 @@ Gura_DeclareMethod(wx_DirPickerCtrl, GetPath)
 Gura_ImplementMethod(wx_DirPickerCtrl, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(args);
+	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DirPickerCtrl, SetPath)
@@ -148,9 +148,9 @@ Gura_DeclareMethod(wx_DirPickerCtrl, SetPath)
 Gura_ImplementMethod(wx_DirPickerCtrl, SetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(args);
+	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString dirname = wxString::FromUTF8(args.GetString(0));
+	wxString dirname = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetPath(dirname);
 	return Value::Nil;
 }

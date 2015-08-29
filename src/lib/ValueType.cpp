@@ -28,7 +28,7 @@ ValueType VTYPE_Class			= static_cast<ValueType>(0);
 ValueType VTYPE_Sequence		= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
-ValueType VTYPE_args			= static_cast<ValueType>(0);
+ValueType VTYPE_argument		= static_cast<ValueType>(0);
 ValueType VTYPE_array_char		= static_cast<ValueType>(0);
 ValueType VTYPE_array_uchar		= static_cast<ValueType>(0);
 ValueType VTYPE_array_short		= static_cast<ValueType>(0);
@@ -151,7 +151,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(Sequence);
 	// object types
 	Gura_RealizeVTYPE(object);
-	Gura_RealizeVTYPE(args);
+	Gura_RealizeVTYPE(argument);
 	Gura_RealizeVTYPEAlias(array_char,		"array@char");
 	Gura_RealizeVTYPEAlias(array_uchar,		"array@uchar");
 	Gura_RealizeVTYPEAlias(array_short,		"array@short");
@@ -212,7 +212,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	// sequence
 	Gura_VTYPEInfo(Sequence		)->SetClass(new Class_Sequence(pClass));
 	// other built-in object classes
-	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
+	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
 		new Class_array<char>(pClass, VTYPE_array_char, "char"));
 	Gura_VTYPEInfo(array_uchar	)->SetClass(
@@ -281,7 +281,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_quote			)->Prepare(env);
 	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// object types
-	env.LookupClass(VTYPE_args			)->Prepare(env);
+	env.LookupClass(VTYPE_argument		)->Prepare(env);
 	env.LookupClass(VTYPE_array_char	)->Prepare(env);
 	env.LookupClass(VTYPE_array_uchar	)->Prepare(env);
 	env.LookupClass(VTYPE_array_short	)->Prepare(env);

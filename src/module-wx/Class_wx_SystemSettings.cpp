@@ -48,15 +48,15 @@ Gura_ImplementFunction(SystemSettings)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SystemSettings *pEntity = new wx_SystemSettings();
-	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetObjectThis(args);
+	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SystemSettings(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetColour)
@@ -70,9 +70,9 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetColour)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxSystemColour index = static_cast<wxSystemColour>(args.GetInt(0));
+	wxSystemColour index = static_cast<wxSystemColour>(arg.GetInt(0));
 	wxColour rtn = wxSystemSettings::GetColour(index);
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetFont)
@@ -86,9 +86,9 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetFont)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxSystemFont index = static_cast<wxSystemFont>(args.GetInt(0));
+	wxSystemFont index = static_cast<wxSystemFont>(arg.GetInt(0));
 	wxFont rtn = wxSystemSettings::GetFont(index);
-	return ReturnValue(env, args, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Font(new wxFont(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetMetric)
@@ -103,11 +103,11 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetMetric)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxSystemMetric index = static_cast<wxSystemMetric>(args.GetInt(0));
+	wxSystemMetric index = static_cast<wxSystemMetric>(arg.GetInt(0));
 	wxWindow *win = (wxWindow *)(nullptr);
-	if (args.IsValid(1)) win = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) win = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	int rtn = wxSystemSettings::GetMetric(index, win);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetScreenType)
@@ -121,7 +121,7 @@ Gura_ImplementClassMethod(wx_SystemSettings, GetScreenType)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxSystemScreenType rtn = wxSystemSettings::GetScreenType();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

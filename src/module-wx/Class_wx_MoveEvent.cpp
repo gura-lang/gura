@@ -49,19 +49,19 @@ Gura_ImplementFunction(MoveEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
+	wxPoint *pt = Object_wx_Point::GetObject(arg, 0)->GetEntity();
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	wx_MoveEvent *pEntity = new wx_MoveEvent(*pt, id);
-	Object_wx_MoveEvent *pObj = Object_wx_MoveEvent::GetObjectThis(args);
+	Object_wx_MoveEvent *pObj = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_MoveEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_MoveEvent, GetPosition)
@@ -73,10 +73,10 @@ Gura_DeclareMethod(wx_MoveEvent, GetPosition)
 Gura_ImplementMethod(wx_MoveEvent, GetPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(args);
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxPoint rtn = pThis->GetEntity()->GetPosition();
-	return ReturnValue(env, args, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Point(new wxPoint(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

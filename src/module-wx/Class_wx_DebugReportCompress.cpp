@@ -48,15 +48,15 @@ Gura_ImplementFunction(DebugReportCompressEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_DebugReportCompress *pEntity = new wx_DebugReportCompress();
-	Object_wx_DebugReportCompress *pObj = Object_wx_DebugReportCompress::GetObjectThis(args);
+	Object_wx_DebugReportCompress *pObj = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportCompress(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
@@ -68,10 +68,10 @@ Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
 Gura_ImplementMethod(wx_DebugReportCompress, GetCompressedFileName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(args);
+	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetCompressedFileName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

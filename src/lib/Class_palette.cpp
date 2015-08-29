@@ -120,10 +120,10 @@ Gura_ImplementFunction(palette)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Palette> pPalette(new Palette());
-	if (args.Is_symbol(0)) {
-		if (!pPalette->Prepare(sig, args.GetSymbol(0))) return Value::Nil;
-	} else if (args.Is_number(0)) {
-		size_t nEntries = args.GetSizeT(0);
+	if (arg.Is_symbol(0)) {
+		if (!pPalette->Prepare(sig, arg.GetSymbol(0))) return Value::Nil;
+	} else if (arg.Is_number(0)) {
+		size_t nEntries = arg.GetSizeT(0);
 		if (nEntries > 0xffff) {
 			sig.SetError(ERR_ValueError, "too large palette size");
 			return Value::Nil;
@@ -133,7 +133,7 @@ Gura_ImplementFunction(palette)
 		sig.SetError(ERR_ValueError, "number or symbol must be specified");
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(new Object_palette(env, pPalette.release())));
+	return ReturnValue(env, arg, Value(new Object_palette(env, pPalette.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -153,9 +153,9 @@ Gura_DeclareMethod(palette, each)
 
 Gura_ImplementMethod(palette, each)
 {
-	Object_palette *pThis = Object_palette::GetObjectThis(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(arg);
 	Iterator *pIterator = new Palette::IteratorEach(Palette::Reference(pThis->GetPalette()));
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // palette#nearest(color:color):map:[index]
@@ -174,9 +174,9 @@ Gura_DeclareMethod(palette, nearest)
 
 Gura_ImplementMethod(palette, nearest)
 {
-	Object_palette *pThis = Object_palette::GetObjectThis(args);
-	size_t idx = pThis->GetPalette()->LookupNearest(Object_color::GetObject(args, 0)->GetColor());
-	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
+	Object_palette *pThis = Object_palette::GetObjectThis(arg);
+	size_t idx = pThis->GetPalette()->LookupNearest(Object_color::GetObject(arg, 0)->GetColor());
+	if (arg.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return pThis->GetPalette()->GetColorValue(env, idx);
 }
 
@@ -194,9 +194,9 @@ Gura_DeclareMethod(palette, shrink)
 
 Gura_ImplementMethod(palette, shrink)
 {
-	Object_palette *pThis = Object_palette::GetObjectThis(args);
-	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
-	return args.GetValueThis();
+	Object_palette *pThis = Object_palette::GetObjectThis(arg);
+	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), arg.IsSet(Gura_Symbol(align)));
+	return arg.GetValueThis();
 }
 
 // palette#updateby(image_or_palette):reduce:[shrink,align]
@@ -218,27 +218,27 @@ Gura_DeclareMethod(palette, updateby)
 Gura_ImplementMethod(palette, updateby)
 {
 	Signal &sig = env.GetSignal();
-	Object_palette *pThis = Object_palette::GetObjectThis(args);
+	Object_palette *pThis = Object_palette::GetObjectThis(arg);
 	Palette::ShrinkMode shrinkMode = Palette::ShrinkNone;
-	if (args.IsSet(Gura_Symbol(shrink))) {
-		shrinkMode = args.IsSet(Gura_Symbol(align))?
+	if (arg.IsSet(Gura_Symbol(shrink))) {
+		shrinkMode = arg.IsSet(Gura_Symbol(align))?
 					Palette::ShrinkAlign : Palette::ShrinkMinimum;
 	}
-	if (args.Is_image(0)) {
+	if (arg.Is_image(0)) {
 		if (!pThis->GetPalette()->UpdateByImage(sig,
-				Object_image::GetObject(args, 0)->GetImage(), shrinkMode)) {
+				Object_image::GetObject(arg, 0)->GetImage(), shrinkMode)) {
 			return Value::Nil;
 		}
-	} else if (args.Is_palette(0)) {
+	} else if (arg.Is_palette(0)) {
 		if (!pThis->GetPalette()->UpdateByPalette(sig,
-				Object_palette::GetObject(args, 0)->GetPalette(), shrinkMode)) {
+				Object_palette::GetObject(arg, 0)->GetPalette(), shrinkMode)) {
 			return Value::Nil;
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "image or palette must be specified");
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

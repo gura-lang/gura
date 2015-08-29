@@ -36,11 +36,11 @@ public:
 	inline static const mpf_class &GetEntity(const Value &value) {
 		return GetObject(value)->GetEntity();
 	}
-	inline static const mpf_class &GetEntity(Args &args, size_t idx) {
-		return GetObject(args, idx)->GetEntity();
+	inline static const mpf_class &GetEntity(Argument &arg, size_t idx) {
+		return GetObject(arg, idx)->GetEntity();
 	}
-	inline static const mpf_class &GetThisEntity(Args &args) {
-		return GetObjectThis(args)->GetEntity();
+	inline static const mpf_class &GetThisEntity(Argument &arg) {
+		return GetObjectThis(arg)->GetEntity();
 	}
 };
 

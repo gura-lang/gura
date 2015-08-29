@@ -22,9 +22,9 @@ Gura_DeclareMethodAlias(audio, read_wav, "read@wav")
 Gura_ImplementMethod(audio, read_wav)
 {
 	Signal &sig = env.GetSignal();
-	Object_audio *pThis = Object_audio::GetObjectThis(args);
-	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_audio *pThis = Object_audio::GetObjectThis(arg);
+	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // audio#write@wav(stream:stream:w):reduce
@@ -40,9 +40,9 @@ Gura_DeclareMethodAlias(audio, write_wav, "write@wav")
 Gura_ImplementMethod(audio, write_wav)
 {
 	Signal &sig = env.GetSignal();
-	Object_audio *pThis = Object_audio::GetObjectThis(args);
-	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Nil;
-	return args.GetValueThis();
+	Object_audio *pThis = Object_audio::GetObjectThis(arg);
+	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), arg.GetStream(0))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -63,8 +63,8 @@ Gura_ImplementFunction(test)
 {
 	Signal &sig = env.GetSignal();
 	std::unique_ptr<Wave> pWave(new Wave());
-	pWave->Read(sig, args.GetStream(0));
-	pWave->Write(sig, args.GetStream(1));
+	pWave->Read(sig, arg.GetStream(0));
+	pWave->Write(sig, arg.GetStream(1));
 	pWave->Print();
 	return Value::Nil;
 }

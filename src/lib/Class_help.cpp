@@ -81,7 +81,7 @@ Gura_DeclareClassMethod(help, gettext_iterator_en)
 
 Gura_ImplementClassMethod(help, gettext_iterator_en)
 {
-	return ReturnValue(env, args, Value(GURA_HELPTEXT_ITERATOR_en()));
+	return ReturnValue(env, arg, Value(GURA_HELPTEXT_ITERATOR_en()));
 }
 
 // help.gettext_block_en(varname:string, typename:string) {block?}
@@ -101,12 +101,12 @@ Gura_DeclareClassMethod(help, gettext_block_en)
 Gura_ImplementClassMethod(help, gettext_block_en)
 {
 	Signal &sig = env.GetSignal();
-	const char *varName = args.GetString(0);
-	const char *typeName = args.GetString(1);
+	const char *varName = arg.GetString(0);
+	const char *typeName = arg.GetString(1);
 	String buff = Formatter::Format(
 		sig, GURA_HELPTEXT_BLOCK_en("%s", "%s"), varName, typeName, varName);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(buff));
+	return ReturnValue(env, arg, Value(buff));
 }
 
 //-----------------------------------------------------------------------------

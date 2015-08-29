@@ -51,15 +51,15 @@ Gura_ImplementFunction(StackWalkerEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_StackWalker *pEntity = new wx_StackWalker();
-	Object_wx_StackWalker *pObj = Object_wx_StackWalker::GetObjectThis(args);
+	Object_wx_StackWalker *pObj = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_StackWalker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -77,9 +77,9 @@ Gura_ImplementMethod(wx_StackWalker, OnStackFrame)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(args);
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxStackFrame *frame = Object_wx_StackFrame::GetObject(args, 0)->GetEntity();
+	wxStackFrame *frame = Object_wx_StackFrame::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnStackFrame(*frame);
 	return Value::Nil;
 #endif
@@ -97,12 +97,12 @@ Gura_DeclareMethod(wx_StackWalker, Walk)
 Gura_ImplementMethod(wx_StackWalker, Walk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(args);
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t skip = 1;
-	if (args.IsValid(0)) skip = args.GetSizeT(0);
+	if (arg.IsValid(0)) skip = arg.GetSizeT(0);
 	size_t maxDepth = 200;
-	if (args.IsValid(1)) maxDepth = args.GetSizeT(1);
+	if (arg.IsValid(1)) maxDepth = arg.GetSizeT(1);
 	pThis->GetEntity()->Walk(skip, maxDepth);
 	return Value::Nil;
 }
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_StackWalker, WalkFromException)
 Gura_ImplementMethod(wx_StackWalker, WalkFromException)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(args);
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->WalkFromException();
 	return Value::Nil;

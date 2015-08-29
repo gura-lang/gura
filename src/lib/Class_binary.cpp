@@ -215,7 +215,7 @@ Gura_ImplementFunction(binary)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &binary = pObjBinary->GetBinary();
-	foreach_const (ValueList, pValue, args.GetList(0)) {
+	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		if (pValue->Is_string()) {
 			binary += pValue->GetString();
 		} else if (pValue->Is_binary()) {
@@ -225,7 +225,7 @@ Gura_ImplementFunction(binary)
 			return Value::Nil;
 		}
 	}
-	return ReturnValue(env, args, Value(pObjBinary.release()));
+	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -244,15 +244,15 @@ Gura_DeclareMethod(binary, add)
 Gura_ImplementMethod(binary, add)
 {
 	Signal &sig = env.GetSignal();
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
-	foreach_const (ValueList, pValue, args.GetList(0)) {
+	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		pThis->GetBinary() += pValue->GetBinary();
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // binary.alloc(bytes:number, data?:number):map {block?}
@@ -271,11 +271,11 @@ Gura_ImplementClassMethod(binary, alloc)
 {
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &buff = pObjBinary->GetBinary();
-	size_t bytes = args.GetSizeT(0);
-	UChar data = args.IsValid(1)? args.GetUChar(1) : 0;
+	size_t bytes = arg.GetSizeT(0);
+	UChar data = arg.IsValid(1)? arg.GetUChar(1) : 0;
 	buff.reserve(bytes);
 	buff.insert(0, bytes, static_cast<char>(data));
-	return ReturnValue(env, args, Value(pObjBinary.release()));
+	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
 
 // binary#decode(codec:codec)
@@ -291,8 +291,8 @@ Gura_DeclareMethodPrimitive(binary, decode)
 Gura_ImplementMethod(binary, decode)
 {
 	Signal &sig = env.GetSignal();
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
-	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
+	Codec *pCodec = Object_codec::GetObject(arg, 0)->GetCodec();
 	String str;
 	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
 		return Value::Nil;
@@ -314,11 +314,11 @@ Gura_DeclareMethod(binary, dump)
 Gura_ImplementMethod(binary, dump)
 {
 	Signal &sig = env.GetSignal();
-	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
-								&args.GetStream(0) : env.GetConsole();
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Stream *pStream = arg.IsInstanceOf(0, VTYPE_stream)?
+								&arg.GetStream(0) : env.GetConsole();
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	const Binary &buff = pThis->GetBinary();
-	pStream->Dump(sig, buff.data(), buff.size(), args.IsSet(Gura_Symbol(upper)));
+	pStream->Dump(sig, buff.data(), buff.size(), arg.IsSet(Gura_Symbol(upper)));
 	return Value::Nil;
 }
 
@@ -334,10 +334,10 @@ Gura_DeclareMethod(binary, each)
 
 Gura_ImplementMethod(binary, each)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Object_binary *pObj = Object_binary::Reference(pThis);
 	Iterator *pIterator = new Object_binary::IteratorByte(pObj, -1);
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // binary#encodeuri()
@@ -351,7 +351,7 @@ Gura_DeclareMethod(binary, encodeuri)
 
 Gura_ImplementMethod(binary, encodeuri)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	const Binary &binary = pThis->GetBinary();
 	return Value(EncodeURI(binary.data(), binary.size()));
 }
@@ -370,13 +370,13 @@ Gura_DeclareMethod(binary, hex)
 
 Gura_ImplementMethod(binary, hex)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	String rtn;
-	bool upperFlag = args.IsSet(Gura_Symbol(upper));
-	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : nullptr;
+	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
+	const char *sep = arg.IsSet(Gura_Symbol(carray))? ", " : nullptr;
 	const char *format =
-		args.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
-		args.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
+		arg.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
+		arg.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
 		(upperFlag? "%02X" : "%02x");
 	const Binary &buff = pThis->GetBinary();
 	foreach_const (Binary, p, buff) {
@@ -400,7 +400,7 @@ Gura_DeclareMethod(binary, len)
 
 Gura_ImplementMethod(binary, len)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
@@ -481,9 +481,9 @@ Gura_ImplementClassMethod(binary, pack)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
-	pObjBinary->GetBinary().Pack(env, offset, args.GetString(0), args.GetList(1));
+	pObjBinary->GetBinary().Pack(env, offset, arg.GetString(0), arg.GetList(1));
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(pObjBinary.release()));
+	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
 
 // binary#pointer(offset:number => 0) {block?}
@@ -500,10 +500,10 @@ Gura_DeclareMethod(binary, pointer)
 
 Gura_ImplementMethod(binary, pointer)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Object_binary *pObjBinary = Object_binary::Reference(pThis);
-	size_t offset = args.GetSizeT(0);
-	return ReturnValue(env, args, Value(new Object_pointer(env, pObjBinary, offset)));
+	size_t offset = arg.GetSizeT(0);
+	return ReturnValue(env, arg, Value(new Object_pointer(env, pObjBinary, offset)));
 }
 
 // binary#reader() {block?}
@@ -518,9 +518,9 @@ Gura_DeclareMethod(binary, reader)
 
 Gura_ImplementMethod(binary, reader)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
-	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
 // binary#store(offset:number, buff+:binary):map:reduce
@@ -537,17 +537,17 @@ Gura_DeclareMethod(binary, store)
 Gura_ImplementMethod(binary, store)
 {
 	Signal &sig = env.GetSignal();
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
-	size_t offset = args.GetSizeT(0);
+	size_t offset = arg.GetSizeT(0);
 	Binary &binary = pThis->GetBinary();
 	if (offset > binary.size()) {
 		binary.append(offset - binary.size(), '\0');
 	}
-	foreach_const (ValueList, pValue, args.GetList(1)) {
+	foreach_const (ValueList, pValue, arg.GetList(1)) {
 		size_t sizeEach = pValue->GetBinary().size();
 		if (offset >= binary.size()) {
 			binary += pValue->GetBinary();
@@ -556,7 +556,7 @@ Gura_ImplementMethod(binary, store)
 		}
 		offset += sizeEach;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // binary#unpack(format:string, values*:number):[nil]
@@ -573,11 +573,11 @@ Gura_DeclareMethod(binary, unpack)
 
 Gura_ImplementMethod(binary, unpack)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	size_t offset = 0;
-	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));
+	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
 	return pThis->GetBinary().Unpack(env, offset,
-						args.GetString(0), args.GetList(1), exceedErrorFlag);
+						arg.GetString(0), arg.GetList(1), exceedErrorFlag);
 }
 
 // binary#unpacks(format:string, values*:number) {block?}
@@ -594,12 +594,12 @@ Gura_DeclareMethod(binary, unpacks)
 
 Gura_ImplementMethod(binary, unpacks)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Object_binary *pObj = Object_binary::Reference(pThis);
 	size_t offset = 0;
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
-							args.GetString(0), args.GetList(1), offset);
-	return ReturnIterator(env, args, pIterator);
+							arg.GetString(0), arg.GetList(1), offset);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // binary#writer() {block?}
@@ -614,9 +614,9 @@ Gura_DeclareMethod(binary, writer)
 
 Gura_ImplementMethod(binary, writer)
 {
-	Object_binary *pThis = Object_binary::GetObjectThis(args);
+	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), true);
-	return ReturnValue(env, args, Value(new Object_stream(env, pStream)));
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
 //-----------------------------------------------------------------------------

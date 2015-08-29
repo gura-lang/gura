@@ -48,15 +48,15 @@ Gura_ImplementFunction(FontListEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_FontList *pEntity = new wx_FontList();
-	Object_wx_FontList *pObj = Object_wx_FontList::GetObjectThis(args);
+	Object_wx_FontList *pObj = Object_wx_FontList::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FontList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
@@ -75,20 +75,20 @@ Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
 Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(args);
+	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int point_size = args.GetInt(0);
-	int family = args.GetInt(1);
-	int style = args.GetInt(2);
-	int weight = args.GetInt(3);
+	int point_size = arg.GetInt(0);
+	int family = arg.GetInt(1);
+	int style = arg.GetInt(2);
+	int weight = arg.GetInt(3);
 	bool underline = false;
-	if (args.IsValid(4)) underline = args.GetBoolean(4);
+	if (arg.IsValid(4)) underline = arg.GetBoolean(4);
 	wxString facename = nullptr;
-	if (args.IsValid(5)) facename = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) facename = wxString::FromUTF8(arg.GetString(5));
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
-	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
+	if (arg.IsValid(6)) encoding = static_cast<wxFontEncoding>(arg.GetInt(6));
 	wxFont *rtn = (wxFont *)pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
-	return ReturnValue(env, args, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Font(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

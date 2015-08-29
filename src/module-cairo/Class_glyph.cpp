@@ -33,10 +33,10 @@ Gura_DeclareClassMethod(glyph, allocate)
 
 Gura_ImplementClassMethod(glyph, allocate)
 {
-	int num_glyphs = args.GetInt(0);
+	int num_glyphs = arg.GetInt(0);
 	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
 	Object_glyph *pObjGlyph = new Object_glyph(glyphs, num_glyphs);
-	return ReturnValue(env, args, Value(pObjGlyph));
+	return ReturnValue(env, arg, Value(pObjGlyph));
 }
 
 // implementation of class glyph

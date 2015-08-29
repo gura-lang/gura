@@ -110,7 +110,7 @@ Gura_DeclareMethod(postgresql, close)
 
 Gura_ImplementMethod(postgresql, close)
 {
-	Object_postgresql *pObj = Object_postgresql::GetObjectThis(args);
+	Object_postgresql *pObj = Object_postgresql::GetObjectThis(arg);
 	pObj->Close();
 	return Value::Nil;
 }
@@ -128,11 +128,11 @@ Gura_DeclareMethod(postgresql, query)
 Gura_ImplementMethod(postgresql, query)
 {
 	Signal &sig = env.GetSignal();
-	Object_postgresql *pObj = Object_postgresql::GetObjectThis(args);
-	Iterator *pIterator = pObj->Exec(sig, args.GetString(0));
+	Object_postgresql *pObj = Object_postgresql::GetObjectThis(arg);
+	Iterator *pIterator = pObj->Exec(sig, arg.GetString(0));
 	// Object_postgresql::Exec() may return nullptr even if no error occurs.
 	if (pIterator == nullptr) return Value::Nil;
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // assignment
@@ -161,10 +161,10 @@ Gura_DeclareFunction(connect)
 Gura_ImplementFunction(connect)
 {
 	Signal &sig = env.GetSignal();
-	const char *pghost = args.Is_string(0)? args.GetString(0) : nullptr;
-	const char *login = args.Is_string(1)? args.GetString(1) : nullptr;
-	const char *pwd = args.Is_string(2)? args.GetString(2) : nullptr;
-	const char *dbName = args.Is_string(3)? args.GetString(3) : nullptr;
+	const char *pghost = arg.Is_string(0)? arg.GetString(0) : nullptr;
+	const char *login = arg.Is_string(1)? arg.GetString(1) : nullptr;
+	const char *pwd = arg.Is_string(2)? arg.GetString(2) : nullptr;
+	const char *dbName = arg.Is_string(3)? arg.GetString(3) : nullptr;
 	const char *pgport = nullptr;
 	const char *pgoptions = nullptr;
 	const char *pgtty = nullptr;
@@ -174,9 +174,9 @@ Gura_ImplementFunction(connect)
 		return Value::Nil;
 	}
 	Value result(pObj);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		const Function *pFuncBlock =
-						args.GetBlockFunc(env, GetSymbolForBlock());
+						arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Nil;
 		ValueList valListArg(result);
 		Args argsSub(valListArg);

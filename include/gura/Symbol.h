@@ -144,7 +144,7 @@ public:
 	Gura_DeclareSymbol(Char_Inv);
 	Gura_DeclareSymbol(Char_Not);
 	Gura_DeclareSymbol(Str_Empty);
-	Gura_DeclareSymbol(__args__);
+	Gura_DeclareSymbol(__arg__);
 	Gura_DeclareSymbol(__del__);
 	Gura_DeclareSymbol(__doc__);
 	Gura_DeclareSymbol(__getitem__);

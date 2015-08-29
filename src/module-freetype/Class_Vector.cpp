@@ -88,10 +88,10 @@ Gura_DeclareFunction(Vector)
 Gura_ImplementFunction(Vector)
 {
 	FT_Vector vector;
-	vector.x = static_cast<FT_Pos>(args.GetInt(0));
-	vector.y = static_cast<FT_Pos>(args.GetInt(1));
+	vector.x = static_cast<FT_Pos>(arg.GetInt(0));
+	vector.y = static_cast<FT_Pos>(arg.GetInt(1));
 	AutoPtr<Object_Vector> pObjRtn(new Object_Vector(vector));
-	return ReturnValue(env, args, Value(pObjRtn.release()));
+	return ReturnValue(env, arg, Value(pObjRtn.release()));
 }
 
 // freetype.Vector#Length()
@@ -102,7 +102,7 @@ Gura_DeclareMethod(Vector, Length)
 
 Gura_ImplementMethod(Vector, Length)
 {
-	FT_Vector *vec = Object_Vector::GetObjectThis(args)->GetEntity();
+	FT_Vector *vec = Object_Vector::GetObjectThis(arg)->GetEntity();
 	FT_Fixed rtn = ::FT_Vector_Length(vec);
 	//return Value(static_cast<double>(rtn) / (1 << 16));
 	return Value(rtn);
@@ -117,10 +117,10 @@ Gura_DeclareMethod(Vector, Transform)
 
 Gura_ImplementMethod(Vector, Transform)
 {
-	FT_Vector *vec = Object_Vector::GetObjectThis(args)->GetEntity();
-	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	FT_Vector *vec = Object_Vector::GetObjectThis(arg)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(arg, 0)->GetEntity();
 	::FT_Vector_Transform(vec, matrix);	// void function
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------

@@ -51,21 +51,21 @@ Gura_ImplementFunction(DebugReportUpload)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString url = wxString::FromUTF8(args.GetString(0));
-	wxString input = wxString::FromUTF8(args.GetString(1));
-	wxString action = wxString::FromUTF8(args.GetString(2));
+	wxString url = wxString::FromUTF8(arg.GetString(0));
+	wxString input = wxString::FromUTF8(arg.GetString(1));
+	wxString action = wxString::FromUTF8(arg.GetString(2));
 	wxString curl = _T("curl");
-	if (args.IsValid(3)) curl = wxString::FromUTF8(args.GetString(3));
+	if (arg.IsValid(3)) curl = wxString::FromUTF8(arg.GetString(3));
 	wx_DebugReportUpload *pEntity = new wx_DebugReportUpload(url, input, action, curl);
-	Object_wx_DebugReportUpload *pObj = Object_wx_DebugReportUpload::GetObjectThis(args);
+	Object_wx_DebugReportUpload *pObj = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DebugReportUpload(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DebugReportUpload, OnServerReply)
@@ -81,11 +81,11 @@ Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(args);
+	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> WXUNUSED(reply)(CreateArrayString(arg.GetList(0)));
 	bool rtn = pThis->GetEntity()->OnServerReply(*WXUNUSED(reply));
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

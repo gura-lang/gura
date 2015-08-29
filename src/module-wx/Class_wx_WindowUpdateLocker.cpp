@@ -48,17 +48,17 @@ Gura_ImplementFunction(WindowUpdateLocker)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *win = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wx_WindowUpdateLocker *pEntity = new wx_WindowUpdateLocker(win);
-	Object_wx_WindowUpdateLocker *pObj = Object_wx_WindowUpdateLocker::GetObjectThis(args);
+	Object_wx_WindowUpdateLocker *pObj = Object_wx_WindowUpdateLocker::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WindowUpdateLocker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

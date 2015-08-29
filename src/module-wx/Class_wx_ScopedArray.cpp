@@ -48,15 +48,15 @@ Gura_ImplementFunction(ScopedArray)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ScopedArray *pEntity = new wx_ScopedArray();
-	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetObjectThis(args);
+	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ScopedArray(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ScopedArray, reset)
@@ -67,7 +67,7 @@ Gura_DeclareMethod(wx_ScopedArray, reset)
 Gura_ImplementMethod(wx_ScopedArray, reset)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(args);
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->reset();
 	return Value::Nil;
@@ -82,7 +82,7 @@ Gura_DeclareMethod(wx_ScopedArray, get)
 Gura_ImplementMethod(wx_ScopedArray, get)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(args);
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 }
 
@@ -95,9 +95,9 @@ Gura_DeclareMethod(wx_ScopedArray, swap)
 Gura_ImplementMethod(wx_ScopedArray, swap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(args);
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxScopedPtr *& ot = Object_wx_ScopedPtr::GetObject(args, 0)->GetEntity();
+	wxScopedPtr *& ot = Object_wx_ScopedPtr::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->swap(*& ot);
 	return Value::Nil;
 }

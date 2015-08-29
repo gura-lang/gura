@@ -66,10 +66,10 @@ Gura_DeclareMethod(pointer, forward)
 Gura_ImplementMethod(pointer, forward)
 {
 	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(args);
+	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
 	bool exeedErrorFlag = true;
-	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
-	return args.GetValueThis();
+	pThis->UnpackForward(sig, arg.GetInt(0), exeedErrorFlag);
+	return arg.GetValueThis();
 }
 
 // pointer#pack(format:string, value+):reduce:[stay]
@@ -87,14 +87,14 @@ Gura_DeclareMethod(pointer, pack)
 Gura_ImplementMethod(pointer, pack)
 {
 	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(args);
+	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
 	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
-	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
-	return args.GetValueThis();
+	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
+	pThis->Pack(sig, forwardFlag, arg.GetString(0), arg.GetList(1));
+	return arg.GetValueThis();
 }
 
 // pointer#reset()
@@ -108,7 +108,7 @@ Gura_DeclareMethod(pointer, reset)
 
 Gura_ImplementMethod(pointer, reset)
 {
-	Object_pointer *pThis = Object_pointer::GetObjectThis(args);
+	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
 	pThis->Reset();
 	return Value::Nil;
 }
@@ -129,11 +129,11 @@ Gura_DeclareMethod(pointer, unpack)
 Gura_ImplementMethod(pointer, unpack)
 {
 	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(args);
-	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));
+	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
+	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
+	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
 	return pThis->Unpack(sig, forwardFlag,
-					args.GetString(0), args.GetList(1), exceedErrorFlag);
+					arg.GetString(0), arg.GetList(1), exceedErrorFlag);
 }
 
 // pointer#unpacks(format:string, values*:number)
@@ -149,11 +149,11 @@ Gura_DeclareMethod(pointer, unpacks)
 
 Gura_ImplementMethod(pointer, unpacks)
 {
-	Object_pointer *pThis = Object_pointer::GetObjectThis(args);
+	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
-						args.GetString(0), args.GetList(1), pThis->GetOffset());
-	return ReturnIterator(env, args, pIterator);
+						arg.GetString(0), arg.GetList(1), pThis->GetOffset());
+	return ReturnIterator(env, arg, pIterator);
 }
 
 //-----------------------------------------------------------------------------

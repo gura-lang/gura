@@ -118,7 +118,7 @@ Gura_DeclareFunction(color)
 Gura_ImplementFunction(color)
 {
 	Signal &sig = env.GetSignal();
-	const ValueList &valList = args.GetList(0);
+	const ValueList &valList = arg.GetList(0);
 	if (valList[0].Is_string() || valList[0].Is_symbol()) {
 		UChar a = 255;
 		if (valList.size() < 2) {
@@ -133,7 +133,7 @@ Gura_ImplementFunction(color)
 			valList[0].GetString() : valList[0].GetSymbol()->GetName();
 		Color color = Color::CreateNamedColor(sig, name, a);
 		if (sig.IsSignalled()) return Value::Nil;
-		return ReturnValue(env, args, Value(new Object_color(env, color)));
+		return ReturnValue(env, arg, Value(new Object_color(env, color)));
 	} else if (valList[0].Is_number()) {
 		UChar r = valList[0].GetUChar();
 		if (valList.size() < 3) {
@@ -143,7 +143,7 @@ Gura_ImplementFunction(color)
 		UChar g = valList[1].GetUChar();
 		UChar b = valList[2].GetUChar();
 		UChar a = (valList.size() < 4)? 255 : valList[3].GetUChar();
-		return ReturnValue(env, args,
+		return ReturnValue(env, arg,
 					Value(new Object_color(env, r, g, b, a)));
 	}
 	Declaration::SetError_InvalidArgument(sig);
@@ -166,7 +166,7 @@ Gura_DeclareMethod(color, getgray)
 
 Gura_ImplementMethod(color, getgray)
 {
-	const Color &color = Object_color::GetObjectThis(args)->GetColor();
+	const Color &color = Object_color::GetObjectThis(arg)->GetColor();
 	return Value(color.GetGray());
 }
 
@@ -181,7 +181,7 @@ Gura_DeclareMethod(color, html)
 
 Gura_ImplementMethod(color, html)
 {
-	const Color &color = Object_color::GetObjectThis(args)->GetColor();
+	const Color &color = Object_color::GetObjectThis(arg)->GetColor();
 	return Value(color.GetHTML());
 }
 
@@ -199,8 +199,8 @@ Gura_DeclareMethod(color, tolist)
 
 Gura_ImplementMethod(color, tolist)
 {
-	const Color &color = Object_color::GetObjectThis(args)->GetColor();
-	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
+	const Color &color = Object_color::GetObjectThis(arg)->GetColor();
+	bool alphaIncludeFlag = arg.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
 		return Value::CreateList(env,
 					Value(color.GetR()), Value(color.GetG()),
@@ -272,9 +272,9 @@ bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pD
 	} else if (value.Is_list()) {
 		const Function *pConstructor = GetConstructor();
 		if (pConstructor == nullptr) return false;
-		AutoPtr<Args> pArgs(new Args(pConstructor));
-		pArgs->SetValueListArg(value.GetList());
-		value = pConstructor->Eval(env, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pConstructor));
+		pArg->SetValueListArg(value.GetList());
+		value = pConstructor->Eval(env, *pArg);
 		return !sig.IsSignalled();
 	}
 	return false;

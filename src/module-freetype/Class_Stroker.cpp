@@ -88,7 +88,7 @@ Gura_ImplementFunction(Stroker)
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce
@@ -102,15 +102,15 @@ Gura_DeclareMethod(Stroker, BeginSubPath)
 Gura_ImplementMethod(Stroker, BeginSubPath)
 {
 	Signal &sig = env.GetSignal();
-	FT_Stroker stroker = Object_Stroker::GetObjectThis(args)->GetEntity();
-	FT_Vector *to = Object_Vector::GetObject(args, 0)->GetEntity();
-	bool open = args.GetBoolean(1);
+	FT_Stroker stroker = Object_Stroker::GetObjectThis(arg)->GetEntity();
+	FT_Vector *to = Object_Vector::GetObject(arg, 0)->GetEntity();
+	bool open = arg.GetBoolean(1);
 	FT_Error err = ::FT_Stroker_BeginSubPath(stroker, to, open);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Nil;
 	}
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 Gura_ImplementUserClass(Stroker)

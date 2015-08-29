@@ -125,7 +125,7 @@ Parser = class {
 	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true):[linefeed] = {
 		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
 		str = format('%-*s  %s%s', helpIndices:*len().max(), helpIndices,
-					this.entries:*help, cond(__args__.isset(`linefeed), '\n', ''))
+					this.entries:*help, cond(__arg__.isset(`linefeed), '\n', ''))
 	} % {`en, 'markdown', R'''
 	'''}
 }

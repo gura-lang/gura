@@ -15,7 +15,7 @@
 
 Gura_BeginModuleHeader(opengl)
 
-bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage);
+bool DoGLSection(Environment &env, Signal &sig, Argument &args, Image *pImage);
 
 //-----------------------------------------------------------------------------
 // helper

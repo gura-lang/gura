@@ -48,15 +48,15 @@ Gura_ImplementFunction(ColourDatabaseEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ColourDatabase *pEntity = new wx_ColourDatabase();
-	Object_wx_ColourDatabase *pObj = Object_wx_ColourDatabase::GetObjectThis(args);
+	Object_wx_ColourDatabase *pObj = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ColourDatabase(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ColourDatabase, AddColour)
@@ -69,10 +69,10 @@ Gura_DeclareMethod(wx_ColourDatabase, AddColour)
 Gura_ImplementMethod(wx_ColourDatabase, AddColour)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString colourName = wxString::FromUTF8(args.GetString(0));
-	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	wxString colourName = wxString::FromUTF8(arg.GetString(0));
+	wxColour *colour = Object_wx_Colour::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->AddColour(colourName, *colour);
 	return Value::Nil;
 }
@@ -87,10 +87,10 @@ Gura_DeclareMethod(wx_ColourDatabase, AddColour_1)
 Gura_ImplementMethod(wx_ColourDatabase, AddColour_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString colourName = wxString::FromUTF8(args.GetString(0));
-	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	wxString colourName = wxString::FromUTF8(arg.GetString(0));
+	wxColour *colour = Object_wx_Colour::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->AddColour(colourName, *colour);
 	return Value::Nil;
 }
@@ -105,11 +105,11 @@ Gura_DeclareMethod(wx_ColourDatabase, Find)
 Gura_ImplementMethod(wx_ColourDatabase, Find)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString colourName = wxString::FromUTF8(args.GetString(0));
+	wxString colourName = wxString::FromUTF8(arg.GetString(0));
 	wxColour rtn = pThis->GetEntity()->Find(colourName);
-	return ReturnValue(env, args, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Colour(new wxColour(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_ColourDatabase, FindName)
@@ -122,11 +122,11 @@ Gura_DeclareMethod(wx_ColourDatabase, FindName)
 Gura_ImplementMethod(wx_ColourDatabase, FindName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(args);
+	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *colour = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->FindName(*colour);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

@@ -122,9 +122,9 @@ Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 	if (pFuncBlock != nullptr) {
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		//ValueList valList(result);
-		AutoPtr<Args> pArgs(new Args(pFuncBlock));
-		pArgs->AddValue(result);
-		pFuncBlock->Eval(*pEnvBlock, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pFuncBlock));
+		pArg->AddValue(result);
+		pFuncBlock->Eval(*pEnvBlock, *pArg);
 		
 		// temporary handling before GC is correctly implemented
 		pObj->Device().Close();
@@ -504,7 +504,7 @@ Gura_DeclareMethod(Canvas, width)
 
 Gura_ImplementMethod(Canvas, width)
 {
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
 	return Value(pObj->Device().GetWidth());
 }
 
@@ -516,7 +516,7 @@ Gura_DeclareMethod(Canvas, height)
 
 Gura_ImplementMethod(Canvas, height)
 {
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
 	return Value(pObj->Device().GetHeight());
 }
 
@@ -538,11 +538,11 @@ Gura_DeclareMethod(Canvas, setfont)
 Gura_ImplementMethod(Canvas, setfont)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().SetFont(sig, args.GetNumber(0),
-			args.GetSymbol(1), args.GetSymbol(2), args.GetSymbol(3),
-			args.Is_string(4)? args.GetString(4) : "");
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().SetFont(sig, arg.GetNumber(0),
+			arg.GetSymbol(1), arg.GetSymbol(2), arg.GetSymbol(3),
+			arg.Is_string(4)? arg.GetString(4) : "");
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#settextcolor(color):reduce
@@ -555,9 +555,9 @@ Gura_DeclareMethod(Canvas, settextcolor)
 Gura_ImplementMethod(Canvas, settextcolor)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().SetTextColor(sig, args.GetValue(0));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().SetTextColor(sig, arg.GetValue(0));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#setpen(color, width:number => 1, style:symbol => `solid):reduce
@@ -574,10 +574,10 @@ Gura_DeclareMethod(Canvas, setpen)
 Gura_ImplementMethod(Canvas, setpen)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().SetPen(sig, args.GetValue(0),
-							args.GetNumber(1), args.GetSymbol(2));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().SetPen(sig, arg.GetValue(0),
+							arg.GetNumber(1), arg.GetSymbol(2));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#setbrush(color, style:symbol => `solid):reduce
@@ -592,9 +592,9 @@ Gura_DeclareMethod(Canvas, setbrush)
 Gura_ImplementMethod(Canvas, setbrush)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().SetBrush(sig, args.GetValue(0), args.GetSymbol(1));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().SetBrush(sig, arg.GetValue(0), arg.GetSymbol(1));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#text(x:number, y:number, text:string, width_bound?:number, height_bound?:number):reduce:[n,ne,e,se,s,sw,w,nw,c]
@@ -612,12 +612,12 @@ Gura_DeclareMethod(Canvas, text)
 Gura_ImplementMethod(Canvas, text)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Text(sig, args.GetNumber(0), args.GetNumber(1),
-		args.GetString(2),
-		args.Is_number(3)? args.GetNumber(3) : -1,
-		args.Is_number(4)? args.GetNumber(4) : -1, GetAnchor(args.GetAttrs()));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Text(sig, arg.GetNumber(0), arg.GetNumber(1),
+		arg.GetString(2),
+		arg.Is_number(3)? arg.GetNumber(3) : -1,
+		arg.Is_number(4)? arg.GetNumber(4) : -1, GetAnchor(arg.GetAttrs()));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#textrot(x:number, y:number, text:string, angle:number):reduce
@@ -633,10 +633,10 @@ Gura_DeclareMethod(Canvas, textrot)
 Gura_ImplementMethod(Canvas, textrot)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().TextRot(sig, args.GetNumber(0), args.GetNumber(1),
-							args.GetString(2), args.GetNumber(3));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().TextRot(sig, arg.GetNumber(0), arg.GetNumber(1),
+							arg.GetString(2), arg.GetNumber(3));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#line(x1:number, y1:number, x2:number, y2:number):map:reduce
@@ -652,10 +652,10 @@ Gura_DeclareMethod(Canvas, line)
 Gura_ImplementMethod(Canvas, line)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Line(sig, args.GetNumber(0), args.GetNumber(1),
-					args.GetNumber(2), args.GetNumber(3));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Line(sig, arg.GetNumber(0), arg.GetNumber(1),
+					arg.GetNumber(2), arg.GetNumber(3));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#rectangle(x:number, y:number, width:number, height:number):map:reduce
@@ -672,10 +672,10 @@ Gura_DeclareMethod(Canvas, rectangle)
 Gura_ImplementMethod(Canvas, rectangle)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Rectangle(sig, args.GetNumber(0), args.GetNumber(1),
-		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Rectangle(sig, arg.GetNumber(0), arg.GetNumber(1),
+		arg.GetNumber(2), arg.GetNumber(3), GetAnchor(arg.GetAttrs()));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#ellipse(x:number, y:number, width:number, height:number):map:reduce
@@ -692,10 +692,10 @@ Gura_DeclareMethod(Canvas, ellipse)
 Gura_ImplementMethod(Canvas, ellipse)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Ellipse(sig, args.GetNumber(0), args.GetNumber(1),
-		args.GetNumber(2), args.GetNumber(3), GetAnchor(args.GetAttrs()));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Ellipse(sig, arg.GetNumber(0), arg.GetNumber(1),
+		arg.GetNumber(2), arg.GetNumber(3), GetAnchor(arg.GetAttrs()));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#pie(x:number, y:number, width:number, height:number, start_degree:number, end_degree:number):map:reduce
@@ -714,11 +714,11 @@ Gura_DeclareMethod(Canvas, pie)
 Gura_ImplementMethod(Canvas, pie)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Pie(sig, args.GetNumber(0), args.GetNumber(1),
-		args.GetNumber(2), args.GetNumber(3),
-		args.GetNumber(4), args.GetNumber(5), GetAnchor(args.GetAttrs()));
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Pie(sig, arg.GetNumber(0), arg.GetNumber(1),
+		arg.GetNumber(2), arg.GetNumber(3),
+		arg.GetNumber(4), arg.GetNumber(5), GetAnchor(arg.GetAttrs()));
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#polyline(xs[]:number, ys[]:number):reduce
@@ -732,9 +732,9 @@ Gura_DeclareMethod(Canvas, polyline)
 Gura_ImplementMethod(Canvas, polyline)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), false);
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Polygon(sig, arg.GetList(0), arg.GetList(1), false);
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#polylinep(pts[]:List):reduce
@@ -747,9 +747,9 @@ Gura_DeclareMethod(Canvas, polylinep)
 Gura_ImplementMethod(Canvas, polylinep)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Polygon(sig, args.GetList(0), false);
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Polygon(sig, arg.GetList(0), false);
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#polygon(xs[]:number, ys[]:number):reduce
@@ -763,9 +763,9 @@ Gura_DeclareMethod(Canvas, polygon)
 Gura_ImplementMethod(Canvas, polygon)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Polygon(sig, args.GetList(0), args.GetList(1), true);
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Polygon(sig, arg.GetList(0), arg.GetList(1), true);
+	return arg.GetValueThis();
 }
 
 // canvas.canvas#polygonp(pts[]:List):reduce
@@ -778,9 +778,9 @@ Gura_DeclareMethod(Canvas, polygonp)
 Gura_ImplementMethod(Canvas, polygonp)
 {
 	Signal &sig = env.GetSignal();
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
-	pObj->Device().Polygon(sig, args.GetList(0), true);
-	return args.GetValueThis();
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
+	pObj->Device().Polygon(sig, arg.GetList(0), true);
+	return arg.GetValueThis();
 }
 
 // str = canvas.canvas#close()
@@ -791,7 +791,7 @@ Gura_DeclareMethod(Canvas, close)
 
 Gura_ImplementMethod(Canvas, close)
 {
-	Object_Canvas *pObj = Object_Canvas::GetObjectThis(args);
+	Object_Canvas *pObj = Object_Canvas::GetObjectThis(arg);
 	pObj->Device().Close();
 	return Value::Nil;
 }
@@ -837,15 +837,15 @@ Gura_ImplementFunction(create_emf)
 {
 	Signal &sig = env.GetSignal();
 	Device *pDevice = new Device_EnhMetaFile(sig,
-		args.GetString(0), args.GetNumber(1), args.GetNumber(2),
-		args.Is_string(3)? args.GetString(3) : nullptr,
-		args.Is_string(4)? args.GetString(4) : nullptr);
+		arg.GetString(0), arg.GetNumber(1), arg.GetNumber(2),
+		arg.Is_string(3)? arg.GetString(3) : nullptr,
+		arg.Is_string(4)? arg.GetString(4) : nullptr);
 	if (sig.IsSignalled()) {
 		delete pDevice;
 		return Value::Nil;
 	}
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, GetSymbolForBlock());
+						arg.GetBlockFunc(env, GetSymbolForBlock());
 	return pDevice->Initialize(env, pFuncBlock);
 }
 

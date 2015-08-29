@@ -51,21 +51,21 @@ Gura_ImplementFunction(WizardEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType type = wxEVT_NULL;
-	if (args.IsValid(0)) type = static_cast<wxEventType>(args.GetInt(0));
+	if (arg.IsValid(0)) type = static_cast<wxEventType>(arg.GetInt(0));
 	int id = -1;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	bool direction = true;
-	if (args.IsValid(2)) direction = args.GetBoolean(2);
+	if (arg.IsValid(2)) direction = arg.GetBoolean(2);
 	wx_WizardEvent *pEntity = new wx_WizardEvent(type, id, direction);
-	Object_wx_WizardEvent *pObj = Object_wx_WizardEvent::GetObjectThis(args);
+	Object_wx_WizardEvent *pObj = Object_wx_WizardEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_WizardEvent, GetDirection)
@@ -77,10 +77,10 @@ Gura_DeclareMethod(wx_WizardEvent, GetDirection)
 Gura_ImplementMethod(wx_WizardEvent, GetDirection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(args);
+	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetDirection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_WizardEvent, GetPage)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_WizardEvent, GetPage)
 Gura_ImplementMethod(wx_WizardEvent, GetPage)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(args);
+	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetPage();
-	return ReturnValue(env, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

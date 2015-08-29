@@ -21,7 +21,7 @@ Gura_DeclareFunction(real)
 Gura_ImplementFunction(real)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber());
@@ -46,7 +46,7 @@ Gura_DeclareFunction(imag)
 Gura_ImplementFunction(imag)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(0.);
@@ -72,7 +72,7 @@ Gura_DeclareFunction(arg)
 Gura_ImplementFunction(arg)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	double result = 0;
 	if (value.Is_number()) {
 		// nothing to do
@@ -82,7 +82,7 @@ Gura_ImplementFunction(arg)
 		SetError_InvalidValType(sig, value);
 		return Value::Nil;
 	}
-	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
 }
 
@@ -99,7 +99,7 @@ Gura_DeclareFunction(norm)
 Gura_ImplementFunction(norm)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber() * value.GetNumber());
@@ -124,7 +124,7 @@ Gura_DeclareFunction(conj)
 Gura_ImplementFunction(conj)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber());
@@ -150,7 +150,7 @@ Gura_DeclareFunctionWithMathDiff(acos)
 Gura_ImplementFunction(acos)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	double result = 0;
 	if (value.Is_number()) {
 		result = ::acos(value.GetNumber());
@@ -158,7 +158,7 @@ Gura_ImplementFunction(acos)
 		SetError_InvalidValType(sig, value);
 		return Value::Nil;
 	}
-	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
 }
 
@@ -193,7 +193,7 @@ Gura_DeclareFunctionWithMathDiff(asin)
 Gura_ImplementFunction(asin)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	double result = 0;
 	if (value.Is_number()) {
 		result = ::asin(value.GetNumber());
@@ -201,7 +201,7 @@ Gura_ImplementFunction(asin)
 		SetError_InvalidValType(sig, value);
 		return Value::Nil;
 	}
-	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
 }
 
@@ -236,7 +236,7 @@ Gura_DeclareFunctionWithMathDiff(atan)
 Gura_ImplementFunction(atan)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	double result = 0;
 	if (value.Is_number()) {
 		result = ::atan(value.GetNumber());
@@ -244,7 +244,7 @@ Gura_ImplementFunction(atan)
 		SetError_InvalidValType(sig, value);
 		return Value::Nil;
 	}
-	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
 }
 
@@ -278,8 +278,8 @@ Gura_DeclareFunction(atan2)
 Gura_ImplementFunction(atan2)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value1 = args.GetValue(0);
-	const Value &value2 = args.GetValue(1);
+	const Value &value1 = arg.GetValue(0);
+	const Value &value2 = arg.GetValue(1);
 	double result = 0;
 	if (value1.Is_number() && value2.Is_number()) {
 		result = ::atan2(value1.GetNumber(), value2.GetNumber());
@@ -287,7 +287,7 @@ Gura_ImplementFunction(atan2)
 		SetError_InvalidValType(sig, value1, value2);
 		return Value::Nil;
 	}
-	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	if (arg.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
 	return Value(result);
 }
 
@@ -304,7 +304,7 @@ Gura_DeclareFunction(ceil)
 Gura_ImplementFunction(ceil)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::ceil(value.GetNumber()));
@@ -328,11 +328,11 @@ Gura_DeclareFunctionWithMathDiff(cos)
 Gura_ImplementFunction(cos)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		double num = value.GetNumber();
-		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::cos(num));
 	} else if (value.Is_complex()) {
 		result.SetComplex(std::cos(value.GetComplex()));
@@ -366,7 +366,7 @@ Gura_DeclareFunction(cosh)
 Gura_ImplementFunction(cosh)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::cosh(value.GetNumber()));
@@ -391,7 +391,7 @@ Gura_DeclareFunctionWithMathDiff(exp)
 Gura_ImplementFunction(exp)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::exp(value.GetNumber()));
@@ -424,7 +424,7 @@ Gura_DeclareFunction(abs)
 Gura_ImplementFunction(abs)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::fabs(value.GetNumber()));
@@ -449,7 +449,7 @@ Gura_DeclareFunction(floor)
 Gura_ImplementFunction(floor)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::floor(value.GetNumber()));
@@ -472,7 +472,7 @@ Gura_DeclareFunctionWithMathDiff(log)
 Gura_ImplementFunction(log)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		if (value.GetNumber() > 0.) {
@@ -510,7 +510,7 @@ Gura_DeclareFunctionWithMathDiff(log10)
 Gura_ImplementFunction(log10)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		if (value.GetNumber() > 0.) {
@@ -553,11 +553,11 @@ Gura_DeclareFunctionWithMathDiff(sin)
 Gura_ImplementFunction(sin)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		double num = value.GetNumber();
-		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::sin(num));
 	} else if (value.Is_complex()) {
 		result.SetComplex(std::sin(value.GetComplex()));
@@ -588,7 +588,7 @@ Gura_DeclareFunction(sinh)
 Gura_ImplementFunction(sinh)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::sinh(value.GetNumber()));
@@ -613,7 +613,7 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 Gura_ImplementFunction(sqrt)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		if (value.GetNumber() >= 0) {
@@ -657,11 +657,11 @@ Gura_DeclareFunctionWithMathDiff(tan)
 Gura_ImplementFunction(tan)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		double num = value.GetNumber();
-		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		if (arg.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::tan(num));
 	} else if (value.Is_complex()) {
 		result.SetComplex(std::tan(value.GetComplex()));
@@ -698,7 +698,7 @@ Gura_DeclareFunction(tanh)
 Gura_ImplementFunction(tanh)
 {
 	Signal &sig = env.GetSignal();
-	const Value &value = args.GetValue(0);
+	const Value &value = arg.GetValue(0);
 	Value result;
 	if (value.Is_number()) {
 		result.SetNumber(::tanh(value.GetNumber()));
@@ -724,8 +724,8 @@ Gura_DeclareFunction(hypot)
 Gura_ImplementFunction(hypot)
 {
 	Signal &sig = env.GetSignal();
-	const Value &x = args.GetValue(0);
-	const Value &y = args.GetValue(1);
+	const Value &x = arg.GetValue(0);
+	const Value &y = arg.GetValue(1);
 	Value result;
 	if (x.Is_number() && y.Is_number()) {
 		result.SetNumber(::hypot(x.GetNumber(), y.GetNumber()));
@@ -754,16 +754,16 @@ Gura_DeclareFunction(least_square)
 Gura_ImplementFunction(least_square)
 {
 	Signal &sig = env.GetSignal();
-	size_t nDim = args.GetSizeT(2);
+	size_t nDim = arg.GetSizeT(2);
 	if (nDim == 0) {
 		sig.SetError(ERR_ValueError, "invalid dimension");
 		return Value::Nil;
 	}
 	size_t nCols = nDim + 1;
 	size_t nRows = nCols;
-	Iterator *pIterX = args.GetIterator(0);
-	Iterator *pIterY = args.GetIterator(1);
-	const Symbol *pSymbolVar = args.GetSymbol(3);
+	Iterator *pIterX = arg.GetIterator(0);
+	Iterator *pIterY = arg.GetIterator(1);
+	const Symbol *pSymbolVar = arg.GetSymbol(3);
 	NumberList sumListXX(nCols * 2, 0), sumListXY(nCols, 0);
 	bool flagX = false, flagY = false;
 	for (;;) {
@@ -863,7 +863,7 @@ private:
 	NumberList _nums;
 public:
 	Func_BezierPrototype(Environment &env, const ValueList &nums);
-	virtual Value DoEval(Environment &env, Args &args) const;
+	virtual Value DoEval(Environment &env, Argument &arg) const;
 };
 
 Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nums) :
@@ -893,9 +893,9 @@ Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nu
 	}
 }
 
-Value Func_BezierPrototype::DoEval(Environment &env, Args &args) const
+Value Func_BezierPrototype::DoEval(Environment &env, Argument &arg) const
 {
-	Number t = args.GetNumber(0);
+	Number t = arg.GetNumber(0);
 	if (_nums.size() == 2) {
 		return Value(_nums[0] * (1 - t) + _nums[1] * t);
 	} else if (_nums.size() == 3) {
@@ -950,7 +950,7 @@ Gura_ImplementFunction(bezier)
 {
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	foreach_const (ValueList, pValue, args.GetList(0)) {
+	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		Function *pFunc = new Func_BezierPrototype(env, pValue->GetList());
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, "t", VTYPE_number);
@@ -977,9 +977,9 @@ Gura_DeclareFunction(diff)
 Gura_ImplementFunction(diff)
 {
 	Signal &sig = env.GetSignal();
-	Expr *pExprDiff = args.GetExpr(0)->MathDiff(env, args.GetSymbol(1));
+	Expr *pExprDiff = arg.GetExpr(0)->MathDiff(env, arg.GetSymbol(1));
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_expr(env, pExprDiff)));
+	return ReturnValue(env, arg, Value(new Object_expr(env, pExprDiff)));
 }
 
 // math.optimize(expr:expr):map {block?}
@@ -996,9 +996,9 @@ Gura_DeclareFunction(optimize)
 Gura_ImplementFunction(optimize)
 {
 	Signal &sig = env.GetSignal();
-	Expr *pExprOpt = args.GetExpr(0)->MathOptimize(env);
+	Expr *pExprOpt = arg.GetExpr(0)->MathOptimize(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_expr(env, pExprOpt)));
+	return ReturnValue(env, arg, Value(new Object_expr(env, pExprOpt)));
 }
 
 // math.fft(seq[])
@@ -1045,8 +1045,8 @@ Gura_DeclareFunction(dot_product)
 Gura_ImplementFunction(dot_product)
 {
 	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = args.GetList(0);
-	const ValueList &valList2 = args.GetList(1);
+	const ValueList &valList1 = arg.GetList(0);
+	const ValueList &valList2 = arg.GetList(1);
 	if (valList1.size() != valList2.size()) {
 		sig.SetError(ERR_ValueError, "different length of lists");
 		return Value::Nil;
@@ -1085,8 +1085,8 @@ Gura_DeclareFunction(cross_product)
 Gura_ImplementFunction(cross_product)
 {
 	Signal &sig = env.GetSignal();
-	const ValueList &valList1 = args.GetList(0);
-	const ValueList &valList2 = args.GetList(1);
+	const ValueList &valList1 = arg.GetList(0);
+	const ValueList &valList2 = arg.GetList(1);
 	if (valList1.size() != valList2.size()) {
 		sig.SetError(ERR_ValueError, "different length of lists");
 		return Value::Nil;
@@ -1152,8 +1152,8 @@ Gura_ImplementFunction(covariance)
 {
 	Signal &sig = env.GetSignal();
 	size_t cntA, cntB;
-	Iterator *pIteratorA = args.GetIterator(0);
-	Iterator *pIteratorB = args.GetIterator(1);
+	Iterator *pIteratorA = arg.GetIterator(0);
+	Iterator *pIteratorB = arg.GetIterator(1);
 	Value valueAveA = pIteratorA->Clone()->Average(env, cntA);
 	if (!valueAveA.Is_number()) return Value::Nil;
 	Value valueAveB = pIteratorB->Clone()->Average(env, cntB);
@@ -1192,9 +1192,9 @@ Gura_DeclareFunction(gcd)
 
 Gura_ImplementFunction(gcd)
 {
-	const ValueList &valList = args.GetList(1);
+	const ValueList &valList = arg.GetList(1);
 	ValueList::const_iterator pValue = valList.begin();
-	int gcd = CalcGCD(args.GetInt(0), pValue->GetInt());
+	int gcd = CalcGCD(arg.GetInt(0), pValue->GetInt());
 	pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		gcd = CalcGCD(gcd, pValue->GetInt());
@@ -1215,9 +1215,9 @@ Gura_DeclareFunction(lcm)
 
 Gura_ImplementFunction(lcm)
 {
-	const ValueList &valList = args.GetList(1);
+	const ValueList &valList = arg.GetList(1);
 	ValueList::const_iterator pValue = valList.begin();
-	int lcm = CalcLCM(args.GetInt(0), pValue->GetInt());
+	int lcm = CalcLCM(arg.GetInt(0), pValue->GetInt());
 	pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		lcm = CalcLCM(lcm, pValue->GetInt());

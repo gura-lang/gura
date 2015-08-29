@@ -437,9 +437,9 @@ bool Stream::ReadToStream(Environment &env, Stream &streamDst,
 		if (bytesRead == 0) break;
 		if (pFuncFilter != nullptr) {
 			Value value(new Object_binary(env, buff, bytesUnit, false));
-			AutoPtr<Args> pArgsSub(new Args(pFuncFilter));
-			pArgsSub->SetValue(value);
-			Value rtn = pFuncFilter->Eval(env, *pArgsSub);
+			AutoPtr<Argument> pArgSub(new Argument(pFuncFilter));
+			pArgSub->SetValue(value);
+			Value rtn = pFuncFilter->Eval(env, *pArgSub);
 			if (sig.IsSignalled()) return false;
 			if (rtn.Is_binary()) {
 				const Binary &buffRtn = rtn.GetBinary();

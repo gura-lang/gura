@@ -71,14 +71,14 @@ Gura_DeclareFunctionAlias(template_, "template")
 
 Gura_ImplementFunction(template_)
 {
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	bool autoIndentFlag = !arg.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = arg.IsSet(Gura_Symbol(lasteol));
 	AutoPtr<Template> pTemplate(new Template());
-	if (args.Is_stream(0)) {
-		if (!pTemplate->Read(env, args.GetStream(0),
+	if (arg.Is_stream(0)) {
+		if (!pTemplate->Read(env, arg.GetStream(0),
 					autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
 	}
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 					Value(new Object_template(env, pTemplate.release())));
 }
 
@@ -104,12 +104,12 @@ Gura_DeclareMethod(template_, parse)
 
 Gura_ImplementMethod(template_, parse)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	//SimpleStream_CStringReader streamSrc(args.GetString(0));
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	bool autoIndentFlag = !arg.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = arg.IsSet(Gura_Symbol(lasteol));
+	//SimpleStream_CStringReader streamSrc(arg.GetString(0));
 	//pTemplate->Read(env, streamSrc, autoIndentFlag, appendLastEOLFlag);
-	pTemplate->Parse(env, args.GetString(0), nullptr, autoIndentFlag, appendLastEOLFlag);
+	pTemplate->Parse(env, arg.GetString(0), nullptr, autoIndentFlag, appendLastEOLFlag);
 	return Value::Nil;
 }
 
@@ -132,10 +132,10 @@ Gura_DeclareMethod(template_, read)
 
 Gura_ImplementMethod(template_, read)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	pTemplate->Read(env, args.GetStream(0), autoIndentFlag, appendLastEOLFlag);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	bool autoIndentFlag = !arg.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = arg.IsSet(Gura_Symbol(lasteol));
+	pTemplate->Read(env, arg.GetStream(0), autoIndentFlag, appendLastEOLFlag);
 	return Value::Nil;
 }
 
@@ -153,9 +153,9 @@ Gura_DeclareMethod(template_, render)
 
 Gura_ImplementMethod(template_, render)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	if (args.Is_stream(0)) {
-		Stream &streamDst = args.GetStream(0);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	if (arg.Is_stream(0)) {
+		Stream &streamDst = arg.GetStream(0);
 		pTemplate->Render(env, &streamDst);
 		return Value::Nil;
 	} else {
@@ -223,14 +223,14 @@ Gura_DeclareMethod(template_, block)
 
 Gura_ImplementMethod(template_, block)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	const Symbol *pSymbol = arg.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		const Function *pFunc = pValue->GetFunction();
-		AutoPtr<Args> pArgs(new Args(pFunc));
-		pArgs->SetValueThis(args.GetValueThis());
-		pFunc->Eval(env, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		pArg->SetValueThis(arg.GetValueThis());
+		pFunc->Eval(env, *pArg);
 	}
 	return Value::Nil;
 }
@@ -258,18 +258,18 @@ Gura_DeclareMethod(template_, call)
 
 Gura_ImplementMethod(template_, call)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	const Symbol *pSymbol = arg.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
 	if (pValue == nullptr || !pValue->Is_function()) {
 		return Value::Nil;
 	}
 	const Function *pFunc = pValue->GetFunction();
-	AutoPtr<Args> pArgs(new Args(pFunc));
-	pArgs->SetValueThis(args.GetValueThis());
-	pArgs->SetValueListArg(args.GetList(1));
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	pArg->SetValueThis(arg.GetValueThis());
+	pArg->SetValueListArg(arg.GetList(1));
 	pTemplate->ClearLastChar();
-	pFunc->Eval(env, *pArgs);
+	pFunc->Eval(env, *pArg);
 	return (pTemplate->GetLastChar() == '\n')? Value::Nil : Value("");
 }
 
@@ -327,8 +327,8 @@ Gura_DeclareMethod(template_, embed)
 
 Gura_ImplementMethod(template_, embed)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	Template *pTemplateEmbedded = Object_template::GetObject(args, 0)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	Template *pTemplateEmbedded = Object_template::GetObject(arg, 0)->GetTemplate();
 	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
 	pTemplateEmbedded->ClearLastChar();
 	pTemplateEmbedded->Render(env, pStreamDst);
@@ -415,16 +415,16 @@ Gura_DeclareMethod(template_, super)
 
 Gura_ImplementMethod(template_, super)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	const Symbol *pSymbol = arg.GetSymbol(0);
 	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
 	if (pTemplateSuper == nullptr) return Value::Nil;
 	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
 	if (pValue != nullptr && pValue->Is_function()) {
 		const Function *pFunc = pValue->GetFunction();
-		AutoPtr<Args> pArgs(new Args(pFunc));
-		pArgs->SetValueThis(args.GetValueThis());
-		pFunc->Eval(env, *pArgs);
+		AutoPtr<Argument> pArg(new Argument(pFunc));
+		pArg->SetValueThis(arg.GetValueThis());
+		pFunc->Eval(env, *pArg);
 	}
 	return Value::Nil;
 }
@@ -441,9 +441,9 @@ Gura_DeclareMethod(template_, init_block)
 Gura_ImplementMethod(template_, init_block)
 {
 	Signal &sig = env.GetSignal();
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
@@ -485,15 +485,15 @@ Gura_DeclareMethod(template_, init_define)
 Gura_ImplementMethod(template_, init_define)
 {
 	Signal &sig = env.GetSignal();
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
 	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-	foreach_const (ValueList, pValue, args.GetList(1)) {
+	foreach_const (ValueList, pValue, arg.GetList(1)) {
 		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 	}
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, nullptr, nullptr);
@@ -531,8 +531,8 @@ Gura_DeclareMethod(template_, init_extends)
 
 Gura_ImplementMethod(template_, init_extends)
 {
-	Template *pTemplate = Object_template::GetObjectThis(args)->GetTemplate();
-	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
+	Template *pTemplate = Object_template::GetObjectThis(arg)->GetTemplate();
+	Template *pTemplateSuper = Object_template::GetObject(arg, 0)->GetTemplate();
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
 	return Value::Nil;
 }

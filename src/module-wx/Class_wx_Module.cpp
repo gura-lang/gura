@@ -56,15 +56,15 @@ Gura_ImplementFunction(ModuleEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_Module *pEntity = new wx_Module();
-	Object_wx_Module *pObj = Object_wx_Module::GetObjectThis(args);
+	Object_wx_Module *pObj = Object_wx_Module::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Module(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -82,9 +82,9 @@ Gura_ImplementMethod(wx_Module, AddDependency)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxClassInfo *dep = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
+	wxClassInfo *dep = Object_wx_ClassInfo::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->AddDependency(dep);
 	return Value::Nil;
 #endif
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_Module, OnExit)
 Gura_ImplementMethod(wx_Module, OnExit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->OnExit();
 	return Value::Nil;
@@ -115,10 +115,10 @@ Gura_DeclareMethod(wx_Module, OnInit)
 Gura_ImplementMethod(wx_Module, OnInit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(args);
+	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->OnInit();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

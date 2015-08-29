@@ -52,17 +52,17 @@ Gura_ImplementFunction(DatagramSocket)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxSocketFlags flags = wxSOCKET_NONE;
-	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
+	if (arg.IsValid(0)) flags = static_cast<wxSocketFlags>(arg.GetInt(0));
 	wx_DatagramSocket *pEntity = new wx_DatagramSocket(flags);
-	Object_wx_DatagramSocket *pObj = Object_wx_DatagramSocket::GetObjectThis(args);
+	Object_wx_DatagramSocket *pObj = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DatagramSocket(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_DatagramSocket, ReceiveFrom)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(args);
+	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
-	int buffer = args.GetInt(1);
-	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
+	wxSockAddress *address = Object_wx_SockAddress::GetObject(arg, 0)->GetEntity();
+	int buffer = arg.GetInt(1);
+	wxUint32 nbytes = static_cast<wxUint32>(arg.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->ReceiveFrom(*address, buffer, nbytes);
-	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(args);
+	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
-	int buffer = args.GetInt(1);
-	wxUint32 nbytes = static_cast<wxUint32>(args.GetULong(2));
+	wxSockAddress *address = Object_wx_SockAddress::GetObject(arg, 0)->GetEntity();
+	int buffer = arg.GetInt(1);
+	wxUint32 nbytes = static_cast<wxUint32>(arg.GetULong(2));
 	wxDatagramSocket &rtn = pThis->GetEntity()->SendTo(*address, buffer, nbytes);
-	return ReturnValue(env, args, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_DatagramSocket(new wxDatagramSocket(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

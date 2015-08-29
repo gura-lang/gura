@@ -71,15 +71,15 @@ Gura_ImplementFunction(GridCellStringRenderer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellStringRenderer *pEntity = new wx_GridCellStringRenderer();
-	Object_wx_GridCellStringRenderer *pObj = Object_wx_GridCellStringRenderer::GetObjectThis(args);
+	Object_wx_GridCellStringRenderer *pObj = Object_wx_GridCellStringRenderer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellStringRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_GridCellStringRenderer, Draw)
@@ -97,15 +97,15 @@ Gura_DeclareMethod(wx_GridCellStringRenderer, Draw)
 Gura_ImplementMethod(wx_GridCellStringRenderer, Draw)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(args);
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
-	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
-	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
-	wxRect *rect = Object_wx_Rect::GetObject(args, 3)->GetEntity();
-	int row = args.GetInt(4);
-	int col = args.GetInt(5);
-	bool isSelected = args.GetBoolean(6);
+	wxGrid *grid = Object_wx_Grid::GetObject(arg, 0)->GetEntity();
+	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(arg, 1)->GetEntity();
+	wxDC *dc = Object_wx_DC::GetObject(arg, 2)->GetEntity();
+	wxRect *rect = Object_wx_Rect::GetObject(arg, 3)->GetEntity();
+	int row = arg.GetInt(4);
+	int col = arg.GetInt(5);
+	bool isSelected = arg.GetBoolean(6);
 	dynamic_cast<wx_GridCellStringRenderer *>(pThis->GetEntity())->
 		_Draw(*grid, *attr, *dc, *rect, row, col, isSelected);
 	return Value::Nil;

@@ -49,15 +49,15 @@ Gura_ImplementFunction(TempFileEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TempFile *pEntity = new wx_TempFile();
-	Object_wx_TempFile *pObj = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pObj = Object_wx_TempFile::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TempFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(TempFile)
@@ -72,17 +72,17 @@ Gura_ImplementFunction(TempFile)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString strName = wxString::FromUTF8(args.GetString(0));
+	wxString strName = wxString::FromUTF8(arg.GetString(0));
 	wx_TempFile *pEntity = new wx_TempFile(strName);
-	Object_wx_TempFile *pObj = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pObj = Object_wx_TempFile::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TempFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TempFile, Open)
@@ -95,11 +95,11 @@ Gura_DeclareMethod(wx_TempFile, Open)
 Gura_ImplementMethod(wx_TempFile, Open)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString strName = wxString::FromUTF8(args.GetString(0));
+	wxString strName = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Open(strName);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, IsOpened)
@@ -111,10 +111,10 @@ Gura_DeclareMethod(wx_TempFile, IsOpened)
 Gura_ImplementMethod(wx_TempFile, IsOpened)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOpened();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Length)
@@ -126,10 +126,10 @@ Gura_DeclareMethod(wx_TempFile, Length)
 Gura_ImplementMethod(wx_TempFile, Length)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset rtn = pThis->GetEntity()->Length();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Seek)
@@ -143,13 +143,13 @@ Gura_DeclareMethod(wx_TempFile, Seek)
 Gura_ImplementMethod(wx_TempFile, Seek)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxFileOffset ofs = static_cast<wxFileOffset>(args.GetInt64(0));
+	wxFileOffset ofs = static_cast<wxFileOffset>(arg.GetInt64(0));
 	wxSeekMode mode = wxFromStart;
-	if (args.IsValid(1)) mode = static_cast<wxSeekMode>(args.GetInt(1));
+	if (arg.IsValid(1)) mode = static_cast<wxSeekMode>(arg.GetInt(1));
 	wxFileOffset rtn = pThis->GetEntity()->Seek(ofs, mode);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Tell)
@@ -161,10 +161,10 @@ Gura_DeclareMethod(wx_TempFile, Tell)
 Gura_ImplementMethod(wx_TempFile, Tell)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxFileOffset rtn = pThis->GetEntity()->Tell();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Write)
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_TempFile, Write)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int *p = args.GetInt(0);
-	size_t n = args.GetSizeT(1);
+	int *p = arg.GetInt(0);
+	size_t n = arg.GetSizeT(1);
 	bool rtn = pThis->GetEntity()->Write(*p, n);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -203,13 +203,13 @@ Gura_DeclareMethod(wx_TempFile, Write_1)
 Gura_ImplementMethod(wx_TempFile, Write_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxString str = wxString::FromUTF8(arg.GetString(0));
 	wxMBConv *conv = (wxMBConv *)(&wxConvLibc);
-	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->Write(str, *conv);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Commit)
@@ -221,10 +221,10 @@ Gura_DeclareMethod(wx_TempFile, Commit)
 Gura_ImplementMethod(wx_TempFile, Commit)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->Commit();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TempFile, Discard)
@@ -235,7 +235,7 @@ Gura_DeclareMethod(wx_TempFile, Discard)
 Gura_ImplementMethod(wx_TempFile, Discard)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(args);
+	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Discard();
 	return Value::Nil;

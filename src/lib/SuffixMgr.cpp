@@ -17,9 +17,9 @@ SuffixMgrEntry::~SuffixMgrEntry()
 //-----------------------------------------------------------------------------
 Value SuffixMgrEntryCustom::DoEval(Environment &env, const char *body) const
 {
-	AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-	pArgs->SetValue(Value(body));
-	return _pFunc->Eval(env, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+	pArg->SetValue(Value(body));
+	return _pFunc->Eval(env, *pArg);
 }
 
 //-----------------------------------------------------------------------------

@@ -57,29 +57,29 @@ Gura_ImplementFunction(DocTemplate)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
-	wxString descr = wxString::FromUTF8(args.GetString(1));
-	wxString filter = wxString::FromUTF8(args.GetString(2));
-	wxString dir = wxString::FromUTF8(args.GetString(3));
-	wxString ext = wxString::FromUTF8(args.GetString(4));
-	wxString docTypeName = wxString::FromUTF8(args.GetString(5));
-	wxString viewTypeName = wxString::FromUTF8(args.GetString(6));
+	wxDocManager *manager = Object_wx_DocManager::GetObject(arg, 0)->GetEntity();
+	wxString descr = wxString::FromUTF8(arg.GetString(1));
+	wxString filter = wxString::FromUTF8(arg.GetString(2));
+	wxString dir = wxString::FromUTF8(arg.GetString(3));
+	wxString ext = wxString::FromUTF8(arg.GetString(4));
+	wxString docTypeName = wxString::FromUTF8(arg.GetString(5));
+	wxString viewTypeName = wxString::FromUTF8(arg.GetString(6));
 	wxClassInfo *docClassInfo = (wxClassInfo *)(nullptr);
-	if (args.IsValid(7)) docClassInfo = Object_wx_ClassInfo::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) docClassInfo = Object_wx_ClassInfo::GetObject(arg, 7)->GetEntity();
 	wxClassInfo *viewClassInfo = (wxClassInfo *)(nullptr);
-	if (args.IsValid(8)) viewClassInfo = Object_wx_ClassInfo::GetObject(args, 8)->GetEntity();
+	if (arg.IsValid(8)) viewClassInfo = Object_wx_ClassInfo::GetObject(arg, 8)->GetEntity();
 	long flags = wxDEFAULT_TEMPLATE_FLAGS;
-	if (args.IsValid(9)) flags = args.GetLong(9);
+	if (arg.IsValid(9)) flags = arg.GetLong(9);
 	wx_DocTemplate *pEntity = new wx_DocTemplate(manager, descr, filter, dir, ext, docTypeName, viewTypeName, docClassInfo, viewClassInfo, flags);
-	Object_wx_DocTemplate *pObj = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pObj = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DocTemplate(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_DocTemplate, CreateDocument)
@@ -93,13 +93,13 @@ Gura_DeclareMethod(wx_DocTemplate, CreateDocument)
 Gura_ImplementMethod(wx_DocTemplate, CreateDocument)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString path = wxString::FromUTF8(args.GetString(0));
+	wxString path = wxString::FromUTF8(arg.GetString(0));
 	long flags = 0;
-	if (args.IsValid(1)) flags = args.GetLong(1);
+	if (arg.IsValid(1)) flags = arg.GetLong(1);
 	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->CreateDocument(path, flags);
-	return ReturnValue(env, args, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Document(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, CreateView)
@@ -113,13 +113,13 @@ Gura_DeclareMethod(wx_DocTemplate, CreateView)
 Gura_ImplementMethod(wx_DocTemplate, CreateView)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
+	wxDocument *doc = Object_wx_Document::GetObject(arg, 0)->GetEntity();
 	long flags = 0;
-	if (args.IsValid(1)) flags = args.GetLong(1);
+	if (arg.IsValid(1)) flags = arg.GetLong(1);
 	wxView *rtn = (wxView *)pThis->GetEntity()->CreateView(doc, flags);
-	return ReturnValue(env, args, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_View(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDefaultExtension)
@@ -131,10 +131,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetDefaultExtension)
 Gura_ImplementMethod(wx_DocTemplate, GetDefaultExtension)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetDefaultExtension();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDescription)
@@ -146,10 +146,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetDescription)
 Gura_ImplementMethod(wx_DocTemplate, GetDescription)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetDescription();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDirectory)
@@ -161,10 +161,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetDirectory)
 Gura_ImplementMethod(wx_DocTemplate, GetDirectory)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetDirectory();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDocumentManager)
@@ -176,10 +176,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetDocumentManager)
 Gura_ImplementMethod(wx_DocTemplate, GetDocumentManager)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
-	return ReturnValue(env, args, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_DocManager(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetDocumentName)
@@ -191,10 +191,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetDocumentName)
 Gura_ImplementMethod(wx_DocTemplate, GetDocumentName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetDocumentName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetFileFilter)
@@ -206,10 +206,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetFileFilter)
 Gura_ImplementMethod(wx_DocTemplate, GetFileFilter)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetFileFilter();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetFlags)
@@ -221,10 +221,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetFlags)
 Gura_ImplementMethod(wx_DocTemplate, GetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetFlags();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, GetViewName)
@@ -236,10 +236,10 @@ Gura_DeclareMethod(wx_DocTemplate, GetViewName)
 Gura_ImplementMethod(wx_DocTemplate, GetViewName)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetViewName();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, InitDocument)
@@ -254,14 +254,14 @@ Gura_DeclareMethod(wx_DocTemplate, InitDocument)
 Gura_ImplementMethod(wx_DocTemplate, InitDocument)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
-	wxString path = wxString::FromUTF8(args.GetString(1));
+	wxDocument *doc = Object_wx_Document::GetObject(arg, 0)->GetEntity();
+	wxString path = wxString::FromUTF8(arg.GetString(1));
 	long flags = 0;
-	if (args.IsValid(2)) flags = args.GetLong(2);
+	if (arg.IsValid(2)) flags = arg.GetLong(2);
 	bool rtn = pThis->GetEntity()->InitDocument(doc, path, flags);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, IsVisible)
@@ -273,10 +273,10 @@ Gura_DeclareMethod(wx_DocTemplate, IsVisible)
 Gura_ImplementMethod(wx_DocTemplate, IsVisible)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsVisible();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_DocTemplate, SetDefaultExtension)
@@ -288,9 +288,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetDefaultExtension)
 Gura_ImplementMethod(wx_DocTemplate, SetDefaultExtension)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString ext = wxString::FromUTF8(args.GetString(0));
+	wxString ext = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetDefaultExtension(ext);
 	return Value::Nil;
 }
@@ -304,9 +304,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetDescription)
 Gura_ImplementMethod(wx_DocTemplate, SetDescription)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString descr = wxString::FromUTF8(args.GetString(0));
+	wxString descr = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetDescription(descr);
 	return Value::Nil;
 }
@@ -320,9 +320,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetDirectory)
 Gura_ImplementMethod(wx_DocTemplate, SetDirectory)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString dir = wxString::FromUTF8(args.GetString(0));
+	wxString dir = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetDirectory(dir);
 	return Value::Nil;
 }
@@ -336,9 +336,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetDocumentManager)
 Gura_ImplementMethod(wx_DocTemplate, SetDocumentManager)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
+	wxDocManager *manager = Object_wx_DocManager::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetDocumentManager(manager);
 	return Value::Nil;
 }
@@ -352,9 +352,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetFileFilter)
 Gura_ImplementMethod(wx_DocTemplate, SetFileFilter)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filter = wxString::FromUTF8(args.GetString(0));
+	wxString filter = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetFileFilter(filter);
 	return Value::Nil;
 }
@@ -368,9 +368,9 @@ Gura_DeclareMethod(wx_DocTemplate, SetFlags)
 Gura_ImplementMethod(wx_DocTemplate, SetFlags)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(args);
+	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long flags = args.GetLong(0);
+	long flags = arg.GetLong(0);
 	pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }

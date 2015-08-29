@@ -54,17 +54,17 @@ Gura_ImplementFunction(BitmapDataObject)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
-	if (args.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
 	wx_BitmapDataObject *pEntity = new wx_BitmapDataObject(*bitmap);
-	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetObjectThis(args);
+	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_BitmapDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
@@ -76,10 +76,10 @@ Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
 Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(args);
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
-	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
@@ -91,9 +91,9 @@ Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
 Gura_ImplementMethod(wx_BitmapDataObject, SetBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(args);
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetBitmap(*bitmap);
 	return Value::Nil;
 }

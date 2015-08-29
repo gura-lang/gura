@@ -180,7 +180,7 @@ Gura_ImplementFunction(clear)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : nullptr;
+	const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
 	COORD coordStart = { 0, 0 };
 	COORD coordHome = { 0, 0 };
 	DWORD dwConSize = 0;
@@ -233,7 +233,7 @@ Gura_ImplementFunction(getwinsize)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 		Value::CreateList(env,
 				Value(csbi.srWindow.Right + 1 - csbi.srWindow.Left),
 				Value(csbi.srWindow.Bottom + 1 - csbi.srWindow.Top)));
@@ -247,16 +247,16 @@ Gura_ImplementFunction(setcolor)
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
 	int fg = csbi.wAttributes & 0x000f;
 	int bg = (csbi.wAttributes & 0x00f0) >> 4;
-	if (args.Is_symbol(0) && !SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
+	if (arg.Is_symbol(0) && !SymbolToNumber(sig, arg.GetSymbol(0), &fg)) {
 		return Value::Nil;
 	}
-	if (args.Is_symbol(1) && !SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
+	if (arg.Is_symbol(1) && !SymbolToNumber(sig, arg.GetSymbol(1), &bg)) {
 		return Value::Nil;
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
@@ -270,13 +270,13 @@ Gura_ImplementFunction(moveto)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
 	COORD pos = { x, y };
 	::SetConsoleCursorPosition(hConsole, pos);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
@@ -287,7 +287,7 @@ Gura_ImplementFunction(moveto)
 Gura_ImplementFunction(waitkey)
 {
 	Signal &sig = env.GetSignal();
-	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
+	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	int chRtn = 0;
 	enum {
 		STAT_None, STAT_Special,
@@ -353,7 +353,7 @@ Gura_ImplementFunction(waitkey)
 Gura_ImplementFunction(clear)
 {
 	Signal &sig = env.GetSignal();
-	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : nullptr;
+	const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
 	if (pSymbol == nullptr) {
 		::printf("\033[2J");
 		::printf("\033[H");
@@ -379,7 +379,7 @@ Gura_ImplementFunction(getwinsize)
 {
 	struct winsize ws;
 	::ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-	return ReturnValue(env, args,
+	return ReturnValue(env, arg,
 		Value::CreateList(env, Value(ws.ws_col), Value(ws.ws_row)));
 }
 
@@ -390,9 +390,9 @@ Gura_ImplementFunction(setcolor)
 	Signal &sig = env.GetSignal();
 	int fg = 0, bg = 0;
 	String str;
-	if (!args.Is_symbol(0)) {
+	if (!arg.Is_symbol(0)) {
 		// nothing to do
-	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
+	} else if (!SymbolToNumber(sig, arg.GetSymbol(0), &fg)) {
 		return Value::Nil;
 	} else {
 		if (fg & 8) {
@@ -403,9 +403,9 @@ Gura_ImplementFunction(setcolor)
 		str += '3';
 		str += ('0' + (fg & 7));
 	}
-	if (!args.Is_symbol(1)) {
+	if (!arg.Is_symbol(1)) {
 		// nothing to do
-	} else if (!SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
+	} else if (!SymbolToNumber(sig, arg.GetSymbol(1), &bg)) {
 		return Value::Nil;
 	} else {
 		if (!str.empty()) str += ';';
@@ -415,9 +415,9 @@ Gura_ImplementFunction(setcolor)
 	if (!str.empty()) {
 		::printf("\033[%sm", str.c_str());
 	}
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		g_attrStack.push_back(str);
 		pExprBlock->Exec2(env, pSeqPostHandler);
@@ -437,13 +437,13 @@ Gura_ImplementFunction(setcolor)
 Gura_ImplementFunction(moveto)
 {
 	Signal &sig = env.GetSignal();
-	int x = args.GetInt(0);
-	int y = args.GetInt(1);
-	if (args.IsBlockSpecified()) {
+	int x = arg.GetInt(0);
+	int y = arg.GetInt(1);
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		::printf("\033[u");
@@ -456,7 +456,7 @@ Gura_ImplementFunction(moveto)
 Gura_ImplementFunction(waitkey)
 {
 	Signal &sig = env.GetSignal();
-	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
+	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	struct termios termios_org, termios_new;
 	::tcgetattr(STDIN_FILENO, &termios_org);
 	termios_new = termios_org;

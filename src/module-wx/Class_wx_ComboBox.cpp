@@ -53,15 +53,15 @@ Gura_ImplementFunction(ComboBoxEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_ComboBox *pEntity = new wx_ComboBox();
-	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(ComboBox)
@@ -84,36 +84,36 @@ Gura_ImplementFunction(ComboBox)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString value = wxEmptyString;
-	if (args.IsValid(2)) value = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) value = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	std::unique_ptr<wxArrayString> choices;
-	if (args.IsValid(5)) {
-		choices.reset(CreateArrayString(args.GetList(5)));
+	if (arg.IsValid(5)) {
+		choices.reset(CreateArrayString(arg.GetList(5)));
 	} else {
 		choices.reset(new wxArrayString());
 	}
 	long style = 0;
-	if (args.IsValid(6)) style = args.GetLong(6);
+	if (arg.IsValid(6)) style = arg.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) validator = Object_wx_Validator::GetObject(arg, 7)->GetEntity();
 	wxString name = wxT("comboBox");
-	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	if (arg.IsValid(8)) name = wxString::FromUTF8(arg.GetString(8));
 	wx_ComboBox *pEntity = new wx_ComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
-	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ComboBox, Create)
@@ -134,30 +134,30 @@ Gura_DeclareMethod(wx_ComboBox, Create)
 Gura_ImplementMethod(wx_ComboBox, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxString value = wxEmptyString;
-	if (args.IsValid(2)) value = wxString::FromUTF8(args.GetString(2));
+	if (arg.IsValid(2)) value = wxString::FromUTF8(arg.GetString(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(3)) pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(4)) size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	std::unique_ptr<wxArrayString> choices;
-	if (args.IsValid(5)) {
-		choices.reset(CreateArrayString(args.GetList(5)));
+	if (arg.IsValid(5)) {
+		choices.reset(CreateArrayString(arg.GetList(5)));
 	} else {
 		choices.reset(new wxArrayString());
 	}
 	long style = 0;
-	if (args.IsValid(6)) style = args.GetLong(6);
+	if (arg.IsValid(6)) style = arg.GetLong(6);
 	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
-	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	if (arg.IsValid(7)) validator = Object_wx_Validator::GetObject(arg, 7)->GetEntity();
 	wxString name = wxT("comboBox");
-	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	if (arg.IsValid(8)) name = wxString::FromUTF8(arg.GetString(8));
 	bool rtn = pThis->GetEntity()->Create(parent, id, value, *pos, *size, *choices, style, *validator, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, CanCopy)
@@ -169,10 +169,10 @@ Gura_DeclareMethod(wx_ComboBox, CanCopy)
 Gura_ImplementMethod(wx_ComboBox, CanCopy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanCopy();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, CanCut)
@@ -184,10 +184,10 @@ Gura_DeclareMethod(wx_ComboBox, CanCut)
 Gura_ImplementMethod(wx_ComboBox, CanCut)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanCut();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, CanPaste)
@@ -199,10 +199,10 @@ Gura_DeclareMethod(wx_ComboBox, CanPaste)
 Gura_ImplementMethod(wx_ComboBox, CanPaste)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanPaste();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, CanRedo)
@@ -214,10 +214,10 @@ Gura_DeclareMethod(wx_ComboBox, CanRedo)
 Gura_ImplementMethod(wx_ComboBox, CanRedo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanRedo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, CanUndo)
@@ -229,10 +229,10 @@ Gura_DeclareMethod(wx_ComboBox, CanUndo)
 Gura_ImplementMethod(wx_ComboBox, CanUndo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CanUndo();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, Copy)
@@ -243,7 +243,7 @@ Gura_DeclareMethod(wx_ComboBox, Copy)
 Gura_ImplementMethod(wx_ComboBox, Copy)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -257,7 +257,7 @@ Gura_DeclareMethod(wx_ComboBox, Cut)
 Gura_ImplementMethod(wx_ComboBox, Cut)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Cut();
 	return Value::Nil;
@@ -272,10 +272,10 @@ Gura_DeclareMethod(wx_ComboBox, GetCurrentSelection)
 Gura_ImplementMethod(wx_ComboBox, GetCurrentSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetCurrentSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetInsertionPoint)
@@ -287,10 +287,10 @@ Gura_DeclareMethod(wx_ComboBox, GetInsertionPoint)
 Gura_ImplementMethod(wx_ComboBox, GetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long rtn = pThis->GetEntity()->GetInsertionPoint();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetLastPosition)
@@ -302,10 +302,10 @@ Gura_DeclareMethod(wx_ComboBox, GetLastPosition)
 Gura_ImplementMethod(wx_ComboBox, GetLastPosition)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTextPos rtn = pThis->GetEntity()->GetLastPosition();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetMark)
@@ -317,12 +317,12 @@ Gura_DeclareMethod(wx_ComboBox, GetMark)
 Gura_ImplementMethod(wx_ComboBox, GetMark)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	long from;
 	long to;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, args, Value::CreateList(env, from, to));
+	return ReturnValue(env, arg, Value::CreateList(env, from, to));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetValue)
@@ -334,10 +334,10 @@ Gura_DeclareMethod(wx_ComboBox, GetValue)
 Gura_ImplementMethod(wx_ComboBox, GetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ComboBox, Paste)
@@ -348,7 +348,7 @@ Gura_DeclareMethod(wx_ComboBox, Paste)
 Gura_ImplementMethod(wx_ComboBox, Paste)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Paste();
 	return Value::Nil;
@@ -362,7 +362,7 @@ Gura_DeclareMethod(wx_ComboBox, Redo)
 Gura_ImplementMethod(wx_ComboBox, Redo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Redo();
 	return Value::Nil;
@@ -379,11 +379,11 @@ Gura_DeclareMethod(wx_ComboBox, Replace)
 Gura_ImplementMethod(wx_ComboBox, Replace)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
-	wxString text = wxString::FromUTF8(args.GetString(2));
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
+	wxString text = wxString::FromUTF8(arg.GetString(2));
 	pThis->GetEntity()->Replace(from, to, text);
 	return Value::Nil;
 }
@@ -398,10 +398,10 @@ Gura_DeclareMethod(wx_ComboBox, Remove)
 Gura_ImplementMethod(wx_ComboBox, Remove)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
 	pThis->GetEntity()->Remove(from, to);
 	return Value::Nil;
 }
@@ -415,9 +415,9 @@ Gura_DeclareMethod(wx_ComboBox, SetInsertionPoint)
 Gura_ImplementMethod(wx_ComboBox, SetInsertionPoint)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long pos = args.GetLong(0);
+	long pos = arg.GetLong(0);
 	pThis->GetEntity()->SetInsertionPoint(pos);
 	return Value::Nil;
 }
@@ -430,7 +430,7 @@ Gura_DeclareMethod(wx_ComboBox, SetInsertionPointEnd)
 Gura_ImplementMethod(wx_ComboBox, SetInsertionPointEnd)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetInsertionPointEnd();
 	return Value::Nil;
@@ -446,10 +446,10 @@ Gura_DeclareMethod(wx_ComboBox, SetMark)
 Gura_ImplementMethod(wx_ComboBox, SetMark)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
+	long from = arg.GetLong(0);
+	long to = arg.GetLong(1);
 	pThis->GetEntity()->SetSelection(from, to);
 	return Value::Nil;
 }
@@ -463,9 +463,9 @@ Gura_DeclareMethod(wx_ComboBox, SetValue)
 Gura_ImplementMethod(wx_ComboBox, SetValue)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxString text = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetValue(text);
 	return Value::Nil;
 }
@@ -478,7 +478,7 @@ Gura_DeclareMethod(wx_ComboBox, Undo)
 Gura_ImplementMethod(wx_ComboBox, Undo)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Undo();
 	return Value::Nil;
@@ -495,17 +495,17 @@ Gura_DeclareMethod(wx_ComboBox, Append)
 Gura_ImplementMethod(wx_ComboBox, Append)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString item = wxString::FromUTF8(args.GetString(0));
+	wxString item = wxString::FromUTF8(arg.GetString(0));
 	int rtn = 0;
-	if (args.IsValid(1)) {
-		wx_ClientData *clientData = Object_wx_ClientData::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) {
+		wx_ClientData *clientData = Object_wx_ClientData::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->Append(item, new wx_ClientData(*clientData));
 	} else {
 		rtn = pThis->GetEntity()->Append(item);
 	}
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, Clear)
@@ -516,7 +516,7 @@ Gura_DeclareMethod(wx_ComboBox, Clear)
 Gura_ImplementMethod(wx_ComboBox, Clear)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->Clear();
 	return Value::Nil;
@@ -531,9 +531,9 @@ Gura_DeclareMethod(wx_ComboBox, Delete)
 Gura_ImplementMethod(wx_ComboBox, Delete)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
+	unsigned n = arg.GetInt(0);
 	pThis->GetEntity()->Delete(n);
 	return Value::Nil;
 }
@@ -549,13 +549,13 @@ Gura_DeclareMethod(wx_ComboBox, FindString)
 Gura_ImplementMethod(wx_ComboBox, FindString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString string = wxString::FromUTF8(args.GetString(0));
+	wxString string = wxString::FromUTF8(arg.GetString(0));
 	bool caseSensitive = false;
-	if (args.IsValid(1)) caseSensitive = args.GetBoolean(1);
+	if (arg.IsValid(1)) caseSensitive = arg.GetBoolean(1);
 	int rtn = pThis->GetEntity()->FindString(string, caseSensitive);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetClientData)
@@ -567,9 +567,9 @@ Gura_DeclareMethod(wx_ComboBox, GetClientData)
 Gura_ImplementMethod(wx_ComboBox, GetClientData)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
+	unsigned n = arg.GetInt(0);
 	pThis->GetEntity()->GetClientData(n);
 	return Value::Nil;
 }
@@ -584,12 +584,12 @@ Gura_DeclareMethod(wx_ComboBox, GetClientObject)
 Gura_ImplementMethod(wx_ComboBox, GetClientObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
+	unsigned n = arg.GetInt(0);
 	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject(n));
 	if (rtn == nullptr) return Value::Nil;
-	return ReturnValue(env, args, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_ClientData(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetCount)
@@ -601,10 +601,10 @@ Gura_DeclareMethod(wx_ComboBox, GetCount)
 Gura_ImplementMethod(wx_ComboBox, GetCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->GetCount();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetSelection)
@@ -616,10 +616,10 @@ Gura_DeclareMethod(wx_ComboBox, GetSelection)
 Gura_ImplementMethod(wx_ComboBox, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetString)
@@ -632,11 +632,11 @@ Gura_DeclareMethod(wx_ComboBox, GetString)
 Gura_ImplementMethod(wx_ComboBox, GetString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
+	unsigned n = arg.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetString(n);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetStrings)
@@ -648,10 +648,10 @@ Gura_DeclareMethod(wx_ComboBox, GetStrings)
 Gura_ImplementMethod(wx_ComboBox, GetStrings)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxArrayString rtn = pThis->GetEntity()->GetStrings();
-	return ReturnValue(env, args, ArrayStringToValue(env, rtn));
+	return ReturnValue(env, arg, ArrayStringToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetStringSelection)
@@ -663,10 +663,10 @@ Gura_DeclareMethod(wx_ComboBox, GetStringSelection)
 Gura_ImplementMethod(wx_ComboBox, GetStringSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ComboBox, Insert)
@@ -681,18 +681,18 @@ Gura_DeclareMethod(wx_ComboBox, Insert)
 Gura_ImplementMethod(wx_ComboBox, Insert)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString item = wxString::FromUTF8(args.GetString(0));
-	unsigned pos = args.GetInt(1);
+	wxString item = wxString::FromUTF8(arg.GetString(0));
+	unsigned pos = arg.GetInt(1);
 	int rtn = 0;
-	if (args.IsValid(2)) {
-		wx_ClientData *clientData = Object_wx_ClientData::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) {
+		wx_ClientData *clientData = Object_wx_ClientData::GetObject(arg, 2)->GetEntity();
 		rtn = pThis->GetEntity()->Insert(item, pos, new wx_ClientData(clientData));
 	} else {
 		rtn = pThis->GetEntity()->Insert(item, pos);
 	}
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 #if 0
@@ -705,10 +705,10 @@ Gura_DeclareMethod(wx_ComboBox, IsEmpty)
 Gura_ImplementMethod(wx_ComboBox, IsEmpty)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsEmpty();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 #endif
 
@@ -721,9 +721,9 @@ Gura_DeclareMethod(wx_ComboBox, Select)
 Gura_ImplementMethod(wx_ComboBox, Select)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int n = args.GetInt(0);
+	int n = arg.GetInt(0);
 	pThis->GetEntity()->Select(n);
 	return Value::Nil;
 }
@@ -738,10 +738,10 @@ Gura_DeclareMethod(wx_ComboBox, SetClientObject)
 Gura_ImplementMethod(wx_ComboBox, SetClientObject)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
-	wx_ClientData *data = Object_wx_ClientData::GetObject(args, 1)->GetEntity();
+	unsigned n = arg.GetInt(0);
+	wx_ClientData *data = Object_wx_ClientData::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->SetClientObject(n, new wx_ClientData(*data));
 	return Value::Nil;
 }
@@ -755,9 +755,9 @@ Gura_DeclareMethod(wx_ComboBox, SetSelection)
 Gura_ImplementMethod(wx_ComboBox, SetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int n = args.GetInt(0);
+	int n = arg.GetInt(0);
 	pThis->GetEntity()->SetSelection(n);
 	return Value::Nil;
 }
@@ -772,10 +772,10 @@ Gura_DeclareMethod(wx_ComboBox, SetString)
 Gura_ImplementMethod(wx_ComboBox, SetString)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned n = args.GetInt(0);
-	wxString string = wxString::FromUTF8(args.GetString(1));
+	unsigned n = arg.GetInt(0);
+	wxString string = wxString::FromUTF8(arg.GetString(1));
 	pThis->GetEntity()->SetString(n, string);
 	return Value::Nil;
 }
@@ -790,11 +790,11 @@ Gura_DeclareMethod(wx_ComboBox, SetStringSelection)
 Gura_ImplementMethod(wx_ComboBox, SetStringSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(args);
+	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString string = wxString::FromUTF8(args.GetString(0));
+	wxString string = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->SetStringSelection(string);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

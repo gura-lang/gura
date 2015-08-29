@@ -50,19 +50,19 @@ Gura_ImplementFunction(TarInputStream)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
-	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	wx_TarInputStream *pEntity = new wx_TarInputStream(*stream, *conv);
-	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetObjectThis(args);
+	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(TarInputStream_1)
@@ -78,19 +78,19 @@ Gura_ImplementFunction(TarInputStream_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
+	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
-	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) conv = Object_wx_MBConv::GetObject(arg, 1)->GetEntity();
 	wx_TarInputStream *pEntity = new wx_TarInputStream(stream, *conv);
-	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetObjectThis(args);
+	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
@@ -102,10 +102,10 @@ Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
 Gura_ImplementMethod(wx_TarInputStream, CloseEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(args);
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->CloseEntry();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
@@ -117,10 +117,10 @@ Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
 Gura_ImplementMethod(wx_TarInputStream, GetNextEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(args);
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxTarEntry *rtn = (wxTarEntry *)pThis->GetEntity()->GetNextEntry();
-	return ReturnValue(env, args, Value(new Object_wx_TarEntry(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_TarEntry(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
@@ -133,11 +133,11 @@ Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
 Gura_ImplementMethod(wx_TarInputStream, OpenEntry)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(args);
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
+	wxTarEntry *entry = Object_wx_TarEntry::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->OpenEntry(*entry);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

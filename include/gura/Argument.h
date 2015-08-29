@@ -9,9 +9,9 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Args
+// Argument
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Args {
+class GURA_DLLDECLARE Argument {
 public:
 	class GURA_DLLDECLARE Slot {
 	private:
@@ -51,43 +51,43 @@ private:
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
-	Gura_DeclareReferenceAccessor(Args);
+	Gura_DeclareReferenceAccessor(Argument);
 public:
-	Args(const Function *pFunc);
-	inline Args(const Args &args) : _cntRef(1),
-		_valTypeResult(args._valTypeResult),
-		_resultMode(args._resultMode),
-		_flags(args._flags),
-		_listThisFlag(args._listThisFlag),
-		_pAttrsShared(SymbolSetShared::Reference(args._pAttrsShared.get())),
-		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
-		_valueThis(args._valueThis),
-		_valListArg(args._valListArg),
-		_slotList(args._slotList),
-		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
-		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
-		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
-		_valTypeResult(args._valTypeResult),
-		_resultMode(args._resultMode),
-		_flags(args._flags),
-		_listThisFlag(args._listThisFlag),
-		_pAttrsShared(SymbolSetShared::Reference(args._pAttrsShared.get())),
-		_pAttrsOptShared(SymbolSetShared::Reference(args._pAttrsOptShared.get())),
-		_valueThis(args._valueThis),
+	Argument(const Function *pFunc);
+	inline Argument(const Argument &arg) : _cntRef(1),
+		_valTypeResult(arg._valTypeResult),
+		_resultMode(arg._resultMode),
+		_flags(arg._flags),
+		_listThisFlag(arg._listThisFlag),
+		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
+		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
+		_valueThis(arg._valueThis),
+		_valListArg(arg._valListArg),
+		_slotList(arg._slotList),
+		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
+		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
+		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
+		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
+		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())) {}
+	inline Argument(const Argument &arg, const ValueList &valListArg) : _cntRef(1),
+		_valTypeResult(arg._valTypeResult),
+		_resultMode(arg._resultMode),
+		_flags(arg._flags),
+		_listThisFlag(arg._listThisFlag),
+		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
+		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
+		_valueThis(arg._valueThis),
 		_valListArg(valListArg),
-		_slotList(args._slotList),
-		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
-		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
-		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
+		_slotList(arg._slotList),
+		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
+		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
+		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
+		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
+		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())) {}
 protected:
-	virtual ~Args();
+	virtual ~Argument();
 public:
 	inline bool IsSet(const Symbol *pSymbol) const { return GetAttrs().IsSet(pSymbol); }
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
@@ -224,7 +224,7 @@ public:
 	// object types
 	inline bool IsGenericObject(size_t idxArg) const	{ return GetValue(idxArg).IsGenericObject();	}
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
-	inline bool Is_args(size_t idxArg) const			{ return GetValue(idxArg).Is_args();			}
+	inline bool Is_argument(size_t idxArg) const		{ return GetValue(idxArg).Is_argument();		}
 	inline bool Is_audio(size_t idxArg) const			{ return GetValue(idxArg).Is_audio();			}
 	inline bool Is_binary(size_t idxArg) const			{ return GetValue(idxArg).Is_binary();			}
 	inline bool Is_codec(size_t idxArg) const			{ return GetValue(idxArg).Is_codec();			}
@@ -282,7 +282,7 @@ public:
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}
 	inline Stream &GetStream(size_t idxArg)				{ return GetValue(idxArg).GetStream();	}
 	inline Stream &GetStream(size_t idxArg) const		{
-		return const_cast<Args *>(this)->GetValue(idxArg).GetStream();
+		return const_cast<Argument *>(this)->GetValue(idxArg).GetStream();
 	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }

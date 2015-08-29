@@ -49,17 +49,17 @@ Gura_ImplementFunction(FilterOutputStream)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
+	wxOutputStream *stream = Object_wx_OutputStream::GetObject(arg, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(*stream);
-	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetObjectThis(args);
+	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(FilterOutputStream_1)
@@ -74,17 +74,17 @@ Gura_ImplementFunction(FilterOutputStream_1)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
+	wxOutputStream *stream = Object_wx_OutputStream::GetObject(arg, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(stream);
-	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetObjectThis(args);
+	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

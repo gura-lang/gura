@@ -50,15 +50,15 @@ Gura_ImplementFunction(PaletteEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Palette *pEntity = new wx_Palette();
-	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(Palette)
@@ -73,17 +73,17 @@ Gura_ImplementFunction(Palette)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
+	wxPalette *palette = Object_wx_Palette::GetObject(arg, 0)->GetEntity();
 	wx_Palette *pEntity = new wx_Palette(*palette);
-	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(Palette_1)
@@ -104,20 +104,20 @@ Gura_ImplementFunction(Palette_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	int n = args.GetInt(0);
-	unsigned char red = args.GetUChar(1);
-	unsigned char green = args.GetUChar(2);
-	unsigned char blue = args.GetUChar(3);
+	int n = arg.GetInt(0);
+	unsigned char red = arg.GetUChar(1);
+	unsigned char green = arg.GetUChar(2);
+	unsigned char blue = arg.GetUChar(3);
 	wx_Palette *pEntity = new wx_Palette(n, red, green, blue);
-	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -139,14 +139,14 @@ Gura_ImplementMethod(wx_Palette, Create)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int n = args.GetInt(0);
-	unsigned char red = args.GetUChar(1);
-	unsigned char green = args.GetUChar(2);
-	unsigned char blue = args.GetUChar(3);
+	int n = arg.GetInt(0);
+	unsigned char red = arg.GetUChar(1);
+	unsigned char green = arg.GetUChar(2);
+	unsigned char blue = arg.GetUChar(3);
 	bool rtn = pThis->GetEntity()->Create(n, red, green, blue);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -161,10 +161,10 @@ Gura_DeclareMethod(wx_Palette, GetColoursCount)
 Gura_ImplementMethod(wx_Palette, GetColoursCount)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetColoursCount();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Palette, GetPixel)
@@ -179,13 +179,13 @@ Gura_DeclareMethod(wx_Palette, GetPixel)
 Gura_ImplementMethod(wx_Palette, GetPixel)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned red = args.GetInt(0);
-	unsigned green = args.GetInt(1);
-	unsigned blue = args.GetInt(2);
+	unsigned red = arg.GetInt(0);
+	unsigned green = arg.GetInt(1);
+	unsigned blue = arg.GetInt(2);
 	int rtn = pThis->GetEntity()->GetPixel(red, green, blue);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Palette, GetRGB)
@@ -204,14 +204,14 @@ Gura_ImplementMethod(wx_Palette, GetRGB)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	int pixel = args.GetInt(0);
-	unsigned char red = args.GetUChar(1);
-	unsigned char green = args.GetUChar(2);
-	unsigned char blue = args.GetUChar(3);
+	int pixel = arg.GetInt(0);
+	unsigned char red = arg.GetUChar(1);
+	unsigned char green = arg.GetUChar(2);
+	unsigned char blue = arg.GetUChar(3);
 	bool rtn = pThis->GetEntity()->GetRGB(pixel, red, green, blue);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -226,10 +226,10 @@ Gura_DeclareMethod(wx_Palette, IsOk)
 Gura_ImplementMethod(wx_Palette, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(args);
+	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

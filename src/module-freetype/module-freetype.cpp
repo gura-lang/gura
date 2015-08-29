@@ -77,19 +77,19 @@ Gura_DeclareMethod(image, drawtext)
 Gura_ImplementMethod(image, drawtext)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pObjImage = Object_image::GetObjectThis(args);
-	Object_font *pObjFont = Object_font::GetObject(args, 0);
-	int x = args.GetInt(1);
-	int y = args.GetInt(2);
-	String str = args.GetStringSTL(3);
+	Object_image *pObjImage = Object_image::GetObjectThis(arg);
+	Object_font *pObjFont = Object_font::GetObject(arg, 0);
+	int x = arg.GetInt(1);
+	int y = arg.GetInt(2);
+	String str = arg.GetStringSTL(3);
 	const Function *pFuncDeco = nullptr;
-	if (args.IsBlockSpecified()) {
-		pFuncDeco = args.GetBlockFunc(env, GetSymbolForBlock());
+	if (arg.IsBlockSpecified()) {
+		pFuncDeco = arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncDeco == nullptr) return Value::Nil;
 	}
 	if (pObjFont->DrawOnImage(env, sig, pObjImage->GetImage(),
 								x, y, str, pFuncDeco)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ Gura_ImplementFunction(test)
 	
 	FT_Stream streamFT = new FT_StreamRec;
 	
-	Handler handler(sig, args.GetStream(0));
+	Handler handler(sig, arg.GetStream(0));
 	::memset(streamFT, 0x00, sizeof(*streamFT));
 	streamFT->descriptor.pointer = &handler;
 	streamFT->size = 0x7fffffffL;
@@ -190,7 +190,7 @@ Gura_DeclareFunction(sysfontpath)
 
 Gura_ImplementFunction(sysfontpath)
 {
-	const char *name = args.Is_string(0)? args.GetString(0) : "";
+	const char *name = arg.Is_string(0)? arg.GetString(0) : "";
 	return Value(OAL::JoinPathName(GetSysFontPathName().c_str(), name));
 }
 

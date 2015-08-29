@@ -1872,17 +1872,17 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 //-----------------------------------------------------------------------------
 Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
 {
-	AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-	pArgs->SetValue(value);
-	return _pFunc->Eval(env, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+	pArg->SetValue(value);
+	return _pFunc->Eval(env, *pArg);
 }
 
 Value OperatorEntryCustom::DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const
 {
-	AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-	pArgs->SetValues(valueLeft, valueRight);
-	return _pFunc->Eval(env, *pArgs);
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+	pArg->SetValues(valueLeft, valueRight);
+	return _pFunc->Eval(env, *pArg);
 }
 
 //-----------------------------------------------------------------------------

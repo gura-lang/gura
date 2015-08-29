@@ -48,15 +48,15 @@ Gura_ImplementFunction(GridCellTextEditor)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_GridCellTextEditor *pEntity = new wx_GridCellTextEditor();
-	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetObjectThis(args);
+	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GridCellTextEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
 Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(args);
+	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString params = wxString::FromUTF8(args.GetString(0));
+	wxString params = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }

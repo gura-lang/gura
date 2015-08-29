@@ -2757,8 +2757,8 @@ Gura_DeclareMethod(document, parse)
 Gura_ImplementMethod(document, parse)
 {
 	Signal &sig = env.GetSignal();
-	Document *pDocument = Object_document::GetObjectThis(args)->GetDocument();
-	pDocument->ParseString(sig, args.GetString(0));
+	Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
+	pDocument->ParseString(sig, arg.GetString(0));
 	return Value::Nil;
 }
 
@@ -2775,8 +2775,8 @@ Gura_DeclareMethod(document, read)
 Gura_ImplementMethod(document, read)
 {
 	Signal &sig = env.GetSignal();
-	Document *pDocument = Object_document::GetObjectThis(args)->GetDocument();
-	pDocument->ParseStream(sig, args.GetStream(0));
+	Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
+	pDocument->ParseStream(sig, arg.GetStream(0));
 	return Value::Nil;
 }
 
@@ -2881,8 +2881,8 @@ Gura_DeclareMethod(item, print)
 Gura_ImplementMethod(item, print)
 {
 	Signal &sig = env.GetSignal();
-	Item *pItem = Object_item::GetObjectThis(args)->GetItem();
-	int indentLevel = args.Is_number(0)? args.GetInt(0) : 0;
+	Item *pItem = Object_item::GetObjectThis(arg)->GetItem();
+	int indentLevel = arg.Is_number(0)? arg.GetInt(0) : 0;
 	pItem->Print(sig, *env.GetConsole(), indentLevel);
 	return Value::Nil;
 }
@@ -2917,11 +2917,11 @@ Gura_ImplementFunction(document)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Document> pDocument(new Document());
-	if (args.Is_stream(0)) {
-		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Nil;
+	if (arg.Is_stream(0)) {
+		if (!pDocument->ParseStream(sig, arg.GetStream(0))) return Value::Nil;
 	}
 	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
-	return ReturnValue(env, args, Value(pObj.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 // markdown.setpresenter():void {block}
@@ -2941,7 +2941,7 @@ Gura_ImplementFunction(setpresenter)
 {
 	Signal &sig = env.GetSignal();
 	const Function *pFuncBlock =
-						args.GetBlockFunc(env, GetSymbolForBlock());
+						arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
 	g_pFunc_Presenter.reset(pFuncBlock->Reference());
 	return Value::Nil;
@@ -3007,21 +3007,21 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 		return false;
 	}
 	//ValueList valListArg;
-	AutoPtr<Args> pArgs(new Args(g_pFunc_Presenter.get()));
+	AutoPtr<Argument> pArg(new Argument(g_pFunc_Presenter.get()));
 	if (title == nullptr) {
-		pArgs->AddValue(Value::Nil);
+		pArg->AddValue(Value::Nil);
 	} else {
-		pArgs->AddValue(Value(title));
+		pArg->AddValue(Value(title));
 	}
 	if (pHelp == nullptr) {
-		pArgs->AddValue(Value::Nil);
+		pArg->AddValue(Value::Nil);
 	} else {
 		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CStringReader streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
-		pArgs->AddValue(Value(new Object_document(pDocument->Reference())));
+		pArg->AddValue(Value(new Object_document(pDocument->Reference())));
 	}
-	g_pFunc_Presenter->Eval(env, *pArgs);
+	g_pFunc_Presenter->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }
 

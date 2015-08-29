@@ -51,21 +51,21 @@ Gura_ImplementFunction(ProcessEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int id = 0;
-	if (args.IsValid(0)) id = args.GetInt(0);
+	if (arg.IsValid(0)) id = arg.GetInt(0);
 	int pid = 0;
-	if (args.IsValid(1)) pid = args.GetInt(1);
+	if (arg.IsValid(1)) pid = arg.GetInt(1);
 	int exitcode = 0;
-	if (args.IsValid(2)) exitcode = args.GetInt(2);
+	if (arg.IsValid(2)) exitcode = arg.GetInt(2);
 	wx_ProcessEvent *pEntity = new wx_ProcessEvent(id, pid, exitcode);
-	Object_wx_ProcessEvent *pObj = Object_wx_ProcessEvent::GetObjectThis(args);
+	Object_wx_ProcessEvent *pObj = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ProcessEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ProcessEvent, GetPid)
@@ -77,10 +77,10 @@ Gura_DeclareMethod(wx_ProcessEvent, GetPid)
 Gura_ImplementMethod(wx_ProcessEvent, GetPid)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(args);
+	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetPid();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
@@ -92,10 +92,10 @@ Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
 Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(args);
+	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetExitCode();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

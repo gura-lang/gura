@@ -61,23 +61,23 @@ Gura_ImplementFunction(DropSource)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wxWindow *win = (wxWindow *)(nullptr);
-	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	if (arg.IsValid(0)) win = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxIconOrCursor *iconCopy = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(1)) iconCopy = Object_wx_IconOrCursor::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) iconCopy = Object_wx_IconOrCursor::GetObject(arg, 1)->GetEntity();
 	wxIconOrCursor *iconMove = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(2)) iconMove = Object_wx_IconOrCursor::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) iconMove = Object_wx_IconOrCursor::GetObject(arg, 2)->GetEntity();
 	wxIconOrCursor *iconNone = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(3)) iconNone = Object_wx_IconOrCursor::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) iconNone = Object_wx_IconOrCursor::GetObject(arg, 3)->GetEntity();
 	wx_DropSource *pEntity = new wx_DropSource(win, *iconCopy, *iconMove, *iconNone);
-	Object_wx_DropSource *pObj = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pObj = Object_wx_DropSource::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropSource(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -102,25 +102,25 @@ Gura_ImplementFunction(DropSource_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
+	wxDataObject *data = Object_wx_DataObject::GetObject(arg, 0)->GetEntity();
 	wxWindow *win = (wxWindow *)(nullptr);
-	if (args.IsValid(1)) win = Object_wx_Window::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) win = Object_wx_Window::GetObject(arg, 1)->GetEntity();
 	wxIconOrCursor *iconCopy = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(2)) iconCopy = Object_wx_IconOrCursor::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) iconCopy = Object_wx_IconOrCursor::GetObject(arg, 2)->GetEntity();
 	wxIconOrCursor *iconMove = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(3)) iconMove = Object_wx_IconOrCursor::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) iconMove = Object_wx_IconOrCursor::GetObject(arg, 3)->GetEntity();
 	wxIconOrCursor *iconNone = (wxIconOrCursor *)(&wxNullIconOrCursor);
-	if (args.IsValid(4)) iconNone = Object_wx_IconOrCursor::GetObject(args, 4)->GetEntity();
+	if (arg.IsValid(4)) iconNone = Object_wx_IconOrCursor::GetObject(arg, 4)->GetEntity();
 	wx_DropSource *pEntity = new wx_DropSource(*data, win, *iconCopy, *iconMove, *iconNone);
-	Object_wx_DropSource *pObj = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pObj = Object_wx_DropSource::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_DropSource(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -138,9 +138,9 @@ Gura_ImplementMethod(wx_DropSource, SetData)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
+	wxDataObject *data = Object_wx_DataObject::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetData(*data);
 	return Value::Nil;
 #endif
@@ -161,12 +161,12 @@ Gura_ImplementMethod(wx_DropSource, DoDragDrop)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = wxDrag_CopyOnly;
-	if (args.IsValid(0)) flags = args.GetInt(0);
+	if (arg.IsValid(0)) flags = arg.GetInt(0);
 	wxDragResult rtn = pThis->GetEntity()->DoDragDrop(flags);
-	return ReturnValue(env, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_DragResult(new wxDragResult(rtn), nullptr, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -182,10 +182,10 @@ Gura_ImplementMethod(wx_DropSource, GetDataObject)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxDataObject *rtn = (wxDataObject *)pThis->GetEntity()->GetDataObject();
-	return ReturnValue(env, args, Value(new Object_wx_DataObject(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_DataObject(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -204,11 +204,11 @@ Gura_ImplementMethod(wx_DropSource, GiveFeedback)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDragResult *effect = Object_wx_DragResult::GetObject(args, 0)->GetEntity();
+	wxDragResult *effect = Object_wx_DragResult::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GiveFeedback(*effect);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -227,10 +227,10 @@ Gura_ImplementMethod(wx_DropSource, SetCursor)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(args);
+	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxDragResult *res = Object_wx_DragResult::GetObject(args, 0)->GetEntity();
-	wxCursor *cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
+	wxDragResult *res = Object_wx_DragResult::GetObject(arg, 0)->GetEntity();
+	wxCursor *cursor = Object_wx_Cursor::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->SetCursor(*res, *cursor);
 	return Value::Nil;
 #endif

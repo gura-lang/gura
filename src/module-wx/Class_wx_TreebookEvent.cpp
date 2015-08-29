@@ -52,23 +52,23 @@ Gura_ImplementFunction(TreebookEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxEventType commandType = wxEVT_NULL;
-	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
+	if (arg.IsValid(0)) commandType = static_cast<wxEventType>(arg.GetInt(0));
 	int id = 0;
-	if (args.IsValid(1)) id = args.GetInt(1);
+	if (arg.IsValid(1)) id = arg.GetInt(1);
 	int nSel = wxNOT_FOUND;
-	if (args.IsValid(2)) nSel = args.GetInt(2);
+	if (arg.IsValid(2)) nSel = arg.GetInt(2);
 	int nOldSel = wxNOT_FOUND;
-	if (args.IsValid(3)) nOldSel = args.GetInt(3);
+	if (arg.IsValid(3)) nOldSel = arg.GetInt(3);
 	wx_TreebookEvent *pEntity = new wx_TreebookEvent(commandType, id, nSel, nOldSel);
-	Object_wx_TreebookEvent *pObj = Object_wx_TreebookEvent::GetObjectThis(args);
+	Object_wx_TreebookEvent *pObj = Object_wx_TreebookEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TreebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TreebookEvent, GetOldSelection)
@@ -80,10 +80,10 @@ Gura_DeclareMethod(wx_TreebookEvent, GetOldSelection)
 Gura_ImplementMethod(wx_TreebookEvent, GetOldSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(args);
+	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetOldSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TreebookEvent, GetSelection)
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_TreebookEvent, GetSelection)
 Gura_ImplementMethod(wx_TreebookEvent, GetSelection)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(args);
+	Object_wx_TreebookEvent *pThis = Object_wx_TreebookEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetSelection();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

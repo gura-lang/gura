@@ -266,12 +266,12 @@ Gura_ImplementFunction(exif)
 {
 	Signal &sig = env.GetSignal();
 	Value value;
-	if (args.Is_stream(0)) {
-		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
+	if (arg.Is_stream(0)) {
+		Object_exif *pObj = Object_exif::ReadStream(env, sig, arg.GetStream(0));
 		if (sig.IsSignalled()) return Value::Nil;
 		if (pObj != nullptr) {
 			value = Value(pObj);
-		} else if (args.IsSet(Gura_Symbol(raise))) {
+		} else if (arg.IsSet(Gura_Symbol(raise))) {
 			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
 			return Value::Nil;
 		}
@@ -279,7 +279,7 @@ Gura_ImplementFunction(exif)
 		Object_exif *pObj = new Object_exif();
 		value = Value(pObj);
 	}
-	return ReturnValue(env, args, value);
+	return ReturnValue(env, arg, value);
 }
 
 // jpeg.exif#each() {block?}
@@ -297,9 +297,9 @@ Gura_DeclareMethod(exif, each)
 
 Gura_ImplementMethod(exif, each)
 {
-	Object_exif *pThis = Object_exif::GetObjectThis(args);
+	Object_exif *pThis = Object_exif::GetObjectThis(arg);
 	Object_ifd *pObj0thIFD = pThis->GetObj0thIFD();
-	return ReturnIterator(env, args,
+	return ReturnIterator(env, arg,
 					new IteratorTag(Object_ifd::Reference(pObj0thIFD)));
 }
 

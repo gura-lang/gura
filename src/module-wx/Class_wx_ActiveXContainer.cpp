@@ -51,17 +51,17 @@ Gura_ImplementFunction(ActiveXContainer)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wx_ActiveXContainer *pEntity = new wx_ActiveXContainer(parent, , );
-	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetObjectThis(args);
+	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ActiveXContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

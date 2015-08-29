@@ -50,19 +50,19 @@ Gura_ImplementFunction(ShowEvent)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int winid = 0;
-	if (args.IsValid(0)) winid = args.GetInt(0);
+	if (arg.IsValid(0)) winid = arg.GetInt(0);
 	bool show = false;
-	if (args.IsValid(1)) show = args.GetBoolean(1);
+	if (arg.IsValid(1)) show = arg.GetBoolean(1);
 	wx_ShowEvent *pEntity = new wx_ShowEvent(winid, show);
-	Object_wx_ShowEvent *pObj = Object_wx_ShowEvent::GetObjectThis(args);
+	Object_wx_ShowEvent *pObj = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ShowEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ShowEvent, SetShow)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_ShowEvent, SetShow)
 Gura_ImplementMethod(wx_ShowEvent, SetShow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(args);
+	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool show = args.GetBoolean(0);
+	bool show = arg.GetBoolean(0);
 	pThis->GetEntity()->SetShow(show);
 	return Value::Nil;
 }
@@ -91,10 +91,10 @@ Gura_DeclareMethod(wx_ShowEvent, IsShown)
 Gura_ImplementMethod(wx_ShowEvent, IsShown)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(args);
+	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsShown();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ShowEvent, GetShow)
@@ -106,10 +106,10 @@ Gura_DeclareMethod(wx_ShowEvent, GetShow)
 Gura_ImplementMethod(wx_ShowEvent, GetShow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(args);
+	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetShow();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

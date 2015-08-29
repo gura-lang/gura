@@ -1416,10 +1416,10 @@ Gura_DeclareMethod(image, opengl)
 Gura_ImplementMethod(image, opengl)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
-	if (!DoGLSection(env, sig, args, pThis->GetImage())) return Value::Nil;
-	return args.GetValueThis();
+	if (!DoGLSection(env, sig, arg, pThis->GetImage())) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -1441,7 +1441,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
+bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 {
 #if GURA_USE_MSWIN_DIB
 	PIXELFORMATDESCRIPTOR pfd = { 
@@ -1457,7 +1457,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 	::SetPixelFormat(hdc, iPixelFormat, &pfd);
 	HGLRC hglrc = ::wglCreateContext(hdc);
 	::wglMakeCurrent(hdc, hglrc);
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (!sig.IsSignalled()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		pExprBlock->Exec2(env, pSeqPostHandler);
@@ -1497,7 +1497,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texOut, 0);
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (status == GL_FRAMEBUFFER_COMPLETE) {
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (!sig.IsSignalled()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			pExprBlock->Exec2(env, pSeqPostHandler);
@@ -1523,7 +1523,7 @@ bool DoGLSection(Environment &env, Signal &sig, Args &args, Image *pImage)
 	GLXPixmap xid = ::glXCreatePixmap(nullptr, config, pixmap, nullptr);
 	GLXContext ctx;
 	::glXMakeCurrent(nullptr, xid, ctx);
-	const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (!sig.IsSignalled()) {
 		pExprBlock->Exec2(env);
 	}

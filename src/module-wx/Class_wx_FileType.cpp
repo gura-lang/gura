@@ -51,15 +51,15 @@ Gura_ImplementFunction(FileTypeEmpty)
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
 	wx_FileType *pEntity = new wx_FileType();
-	Object_wx_FileType *pObj = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pObj = Object_wx_FileType::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileType(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -78,11 +78,11 @@ Gura_ImplementMethod(wx_FileType, GetMimeType)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString mimeType = wxString::FromUTF8(args.GetString(0));
+	wxString mimeType = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->GetMimeType(mimeType);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -101,11 +101,11 @@ Gura_ImplementMethod(wx_FileType, GetMimeType_1)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayString> mimeTypes(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> mimeTypes(CreateArrayString(arg.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetMimeType(*mimeTypes);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -121,11 +121,11 @@ Gura_DeclareMethod(wx_FileType, GetExtensions)
 Gura_ImplementMethod(wx_FileType, GetExtensions)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	std::unique_ptr<wxArrayString> extensions(CreateArrayString(args.GetList(0)));
+	std::unique_ptr<wxArrayString> extensions(CreateArrayString(arg.GetList(0)));
 	bool rtn = pThis->GetEntity()->GetExtensions(*extensions);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileType, GetIcon)
@@ -138,11 +138,11 @@ Gura_DeclareMethod(wx_FileType, GetIcon)
 Gura_ImplementMethod(wx_FileType, GetIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxIconLocation *iconLoc = Object_wx_IconLocation::GetObject(args, 0)->GetEntity();
+	wxIconLocation *iconLoc = Object_wx_IconLocation::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetIcon(iconLoc);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_FileType, GetDescription)
@@ -158,11 +158,11 @@ Gura_ImplementMethod(wx_FileType, GetDescription)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString desc = wxString::FromUTF8(args.GetString(0));
+	wxString desc = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->GetDescription(desc);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -181,11 +181,11 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString command = wxString::FromUTF8(args.GetString(0));
+	wxString command = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->GetOpenCommand(command, );
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -201,11 +201,11 @@ Gura_DeclareMethod(wx_FileType, GetOpenCommand_1)
 Gura_ImplementMethod(wx_FileType, GetOpenCommand_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxString filename = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOpenCommand(filename);
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileType, GetPrintCommand)
@@ -221,11 +221,11 @@ Gura_ImplementMethod(wx_FileType, GetPrintCommand)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(args);
+	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString command = wxString::FromUTF8(args.GetString(0));
+	wxString command = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->GetPrintCommand(command, );
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -245,9 +245,9 @@ Gura_ImplementClassMethod(wx_FileType, ExpandCommand)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 #if 0
-	wxString command = wxString::FromUTF8(args.GetString(0));
+	wxString command = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = wxFileType::ExpandCommand(command, );
-	return ReturnValue(env, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;

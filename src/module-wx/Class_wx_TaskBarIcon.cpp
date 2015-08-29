@@ -51,15 +51,15 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_TaskBarIcon *pEntity = new wx_TaskBarIcon();
-	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_TaskBarIcon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
@@ -72,10 +72,10 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 {
 	Signal &sig = env.GetSignal();
 #if 0
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->CreatePopupMenu();
-	return ReturnValue(env, args, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Menu(rtn, nullptr, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Nil;
@@ -90,10 +90,10 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsIconInstalled)
 Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsIconInstalled();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
@@ -105,10 +105,10 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
 Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsOk();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
@@ -121,11 +121,11 @@ Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
 Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
+	wxMenu *menu = Object_wx_Menu::GetObject(arg, 0)->GetEntity();
 	bool rtn = pThis->GetEntity()->PopupMenu(menu);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
@@ -137,10 +137,10 @@ Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
 Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->RemoveIcon();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
@@ -154,12 +154,12 @@ Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
 Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(args);
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
-	wxString tooltip = wxString::FromUTF8(args.GetString(1));
+	wxIcon *icon = Object_wx_Icon::GetObject(arg, 0)->GetEntity();
+	wxString tooltip = wxString::FromUTF8(arg.GetString(1));
 	bool rtn = pThis->GetEntity()->SetIcon(*icon, tooltip);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

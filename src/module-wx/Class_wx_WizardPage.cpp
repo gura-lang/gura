@@ -74,19 +74,19 @@ Gura_ImplementFunction(WizardPage)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWizard *parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
+	wxWizard *parent = Object_wx_Wizard::GetObject(arg, 0)->GetEntity();
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
-	if (args.IsValid(1)) bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
+	if (arg.IsValid(1)) bitmap = Object_wx_Bitmap::GetObject(arg, 1)->GetEntity();
 	wx_WizardPage *pEntity = new wx_WizardPage(parent, *bitmap);
-	Object_wx_WizardPage *pObj = Object_wx_WizardPage::GetObjectThis(args);
+	Object_wx_WizardPage *pObj = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_WizardPage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_WizardPage, GetPrev)
@@ -98,10 +98,10 @@ Gura_DeclareMethod(wx_WizardPage, GetPrev)
 Gura_ImplementMethod(wx_WizardPage, GetPrev)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(args);
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetPrev();
-	return ReturnValue(env, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_WizardPage, GetNext)
@@ -113,10 +113,10 @@ Gura_DeclareMethod(wx_WizardPage, GetNext)
 Gura_ImplementMethod(wx_WizardPage, GetNext)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(args);
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetNext();
-	return ReturnValue(env, args, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_WizardPage(rtn, nullptr, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_WizardPage, GetBitmap)
@@ -128,10 +128,10 @@ Gura_DeclareMethod(wx_WizardPage, GetBitmap)
 Gura_ImplementMethod(wx_WizardPage, GetBitmap)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(args);
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
-	return ReturnValue(env, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
+	return ReturnValue(env, arg, Value(new Object_wx_Bitmap(new wxBitmap(rtn), nullptr, OwnerTrue)));
 }
 
 //----------------------------------------------------------------------------

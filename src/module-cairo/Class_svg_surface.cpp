@@ -22,14 +22,14 @@ Gura_DeclareClassMethod(svg_surface, create)
 Gura_ImplementClassMethod(svg_surface, create)
 {
 	Signal &sig = env.GetSignal();
-	double width = args.GetDouble(1);
-	double height = args.GetDouble(2);
+	double width = arg.GetDouble(1);
+	double height = arg.GetDouble(2);
 	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									args.GetStream(0).Reference());
+									arg.GetStream(0).Reference());
 	cairo_surface_t *surface = ::cairo_svg_surface_create_for_stream(
 					Writer_Stream::write_func, pWriter, width, height);
 	Object_surface *pObjSurface = new Object_svg_surface(surface, pWriter);
-	return ReturnValue(env, args, Value(pObjSurface));
+	return ReturnValue(env, arg, Value(pObjSurface));
 }
 
 // cairo.svg_surface#restrict_to_version(version:number):reduce
@@ -42,12 +42,12 @@ Gura_DeclareMethod(svg_surface, restrict_to_version)
 Gura_ImplementMethod(svg_surface, restrict_to_version)
 {
 	Signal &sig = env.GetSignal();
-	Object_surface *pThis = Object_surface::GetObjectThis(args);
+	Object_surface *pThis = Object_surface::GetObjectThis(arg);
 	cairo_surface_t *surface = pThis->GetEntity();
-	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
+	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(arg.GetInt(0));
 	::cairo_svg_surface_restrict_to_version(surface, version);
 	if (Is_error(sig, surface)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 Gura_ImplementUserClass(svg_surface)

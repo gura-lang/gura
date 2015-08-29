@@ -40,7 +40,7 @@ glutInit(argv[]:string) {block?} = R'''
 		}
 		delete[] _argv;
 	}
-	return ReturnValue(env, args, _rtnVal);
+	return ReturnValue(env, arg, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
 	`glutInit` is used to initialize the GLUT library.
@@ -249,7 +249,7 @@ glutCreateMenu(func:function):int {block?} = R'''
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
-	return ReturnValue(env, args, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -685,7 +685,7 @@ cbridge_glcmn.AddTypeConvs {
 	'Font' => cbridge.TypeConv(
 			'Font', 'Once', [],
 			R'''
-			void *${arg.name} = Object_Font::GetObject(args, ${idx})->GetEntity();
+			void *${arg.name} = Object_Font::GetObject(arg, ${idx})->GetEntity();
 			''',
 			nil,
 			nil)
@@ -711,9 +711,9 @@ public:
 		_pEnv.reset(nullptr);
 		_pFunc.reset(nullptr);
 	}
-	inline Value Eval(Args &args) {
+	inline Value Eval(Argument &arg) {
 		if (_pFunc.IsNull()) return Value::Nil;
-		Value result = _pFunc->Eval(*_pEnv, args);
+		Value result = _pFunc->Eval(*_pEnv, arg);
 		if (_pEnv->GetSignal().IsSignalled()) {
 			_pEnv->GetSignal().PrintSignal(*_pEnv->GetConsoleErr());
 			exit(1);
@@ -721,28 +721,28 @@ public:
 		return result;
 	}
 	inline Value Eval() {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValue(v1);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValue(v1);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2, v3);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2, v3);
+		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
-		AutoPtr<Args> pArgs(new Args(_pFunc.get()));
-		pArgs->SetValues(v1, v2, v3, v4);
-		return Eval(*pArgs);
+		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+		pArg->SetValues(v1, v2, v3, v4);
+		return Eval(*pArg);
 	}
 };
 

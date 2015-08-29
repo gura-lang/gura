@@ -47,15 +47,15 @@ Gura_ImplementFunction(SimpleHelpProvider)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_SimpleHelpProvider *pEntity = new wx_SimpleHelpProvider();
-	Object_wx_SimpleHelpProvider *pObj = Object_wx_SimpleHelpProvider::GetObjectThis(args);
+	Object_wx_SimpleHelpProvider *pObj = Object_wx_SimpleHelpProvider::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_SimpleHelpProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

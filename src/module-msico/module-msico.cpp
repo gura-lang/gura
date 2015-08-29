@@ -194,10 +194,10 @@ Gura_DeclareMethod(content, write)
 Gura_ImplementMethod(content, write)
 {
 	Signal &sig = env.GetSignal();
-	Object_content *pThis = Object_content::GetObjectThis(args);
-	Stream &stream = args.GetStream(0);
+	Object_content *pThis = Object_content::GetObjectThis(arg);
+	Stream &stream = arg.GetStream(0);
 	if (!pThis->Write(env, stream)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // msico.content#addimage(image:image):map:reduce
@@ -212,9 +212,9 @@ Gura_DeclareMethod(content, addimage)
 
 Gura_ImplementMethod(content, addimage)
 {
-	Object_content *pThis = Object_content::GetObjectThis(args);
-	pThis->AddImage(args.GetValue(0));
-	return args.GetValueThis();
+	Object_content *pThis = Object_content::GetObjectThis(arg);
+	pThis->AddImage(arg.GetValue(0));
+	return arg.GetValueThis();
 }
 
 // implementation of class msico
@@ -243,10 +243,10 @@ Gura_DeclareMethodAlias(image, read_msico, "read@msico")
 Gura_ImplementMethod(image, read_msico)
 {
 	Signal &sig = env.GetSignal();
-	Object_image *pThis = Object_image::GetObjectThis(args);
+	Object_image *pThis = Object_image::GetObjectThis(arg);
 	if (!ImageStreamer_ICO::ReadStream(env, pThis->GetImage(),
-					args.GetStream(0), args.GetInt(1))) return Value::Nil;
-	return args.GetValueThis();
+					arg.GetStream(0), arg.GetInt(1))) return Value::Nil;
+	return arg.GetValueThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -270,14 +270,14 @@ Gura_ImplementFunction(content)
 {
 	Signal &sig = env.GetSignal();
 	Object_content *pObj = new Object_content();
-	if (args.Is_stream(0)) {
-		Stream &stream = args.GetStream(0);
-		Image::Format format = Image::SymbolToFormat(sig, args.GetSymbol(1));
+	if (arg.Is_stream(0)) {
+		Stream &stream = arg.GetStream(0);
+		Image::Format format = Image::SymbolToFormat(sig, arg.GetSymbol(1));
 		if (sig.IsSignalled()) return Value::Nil;
 		if (!pObj->Read(env, stream, format)) return Value::Nil;
 	}
 	Value result(pObj);
-	return ReturnValue(env, args, result);
+	return ReturnValue(env, arg, result);
 }
 
 // Module entry

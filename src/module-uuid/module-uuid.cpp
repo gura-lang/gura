@@ -21,7 +21,7 @@ Gura_DeclareFunction(generate)
 
 Gura_ImplementFunction(generate)
 {
-	bool upperFlag = args.IsSet(Gura_Symbol(upper));
+	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
 	char str[64];
 #ifdef GURA_ON_MSWIN
 	const char *format = upperFlag?

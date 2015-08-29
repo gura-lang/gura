@@ -49,19 +49,19 @@ Gura_ImplementFunction(HtmlColourCell)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxColour *clr = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	wxColour *clr = Object_wx_Colour::GetObject(arg, 0)->GetEntity();
 	int flags = wxHTML_CLR_FOREGROUND;
-	if (args.IsValid(1)) flags = args.GetInt(1);
+	if (arg.IsValid(1)) flags = arg.GetInt(1);
 	wx_HtmlColourCell *pEntity = new wx_HtmlColourCell(*clr, flags);
-	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetObjectThis(args);
+	Object_wx_HtmlColourCell *pObj = Object_wx_HtmlColourCell::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlColourCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------

@@ -73,7 +73,7 @@ Gura_DeclareFunction(suffixmgr)
 Gura_ImplementFunction(suffixmgr)
 {
 	Signal &sig = env.GetSignal();
-	const Symbol *pSymbol = args.GetSymbol(0);
+	const Symbol *pSymbol = arg.GetSymbol(0);
 	AutoPtr<Object_suffixmgr> pObj;
 	if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		pObj.reset(new Object_suffixmgr(env,
@@ -111,11 +111,11 @@ Gura_DeclareMethod(suffixmgr, assign)
 Gura_ImplementMethod(suffixmgr, assign)
 {
 	Signal &sig = env.GetSignal();
-	SuffixMgr &suffixMgr = Object_suffixmgr::GetObjectThis(args)->GetSuffixMgr();
-	const Function *pFuncBlock = args.GetBlockFunc(env, GetSymbolForBlock());
+	SuffixMgr &suffixMgr = Object_suffixmgr::GetObjectThis(arg)->GetSuffixMgr();
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
-	const Symbol *pSymbol = args.GetSymbol(0);
-	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != nullptr) {
+	const Symbol *pSymbol = arg.GetSymbol(0);
+	if (!arg.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != nullptr) {
 		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
 		return Value::Nil;
 	}

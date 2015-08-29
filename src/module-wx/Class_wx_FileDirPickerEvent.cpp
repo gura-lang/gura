@@ -51,20 +51,20 @@ Gura_ImplementFunction(FileDirPickerEvent)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxEventType type = static_cast<wxEventType>(args.GetInt(0));
-	wxObject *generator = Object_wx_Object::GetObject(args, 1)->GetEntity();
-	int id = args.GetInt(2);
-	wxString path = wxString::FromUTF8(args.GetString(3));
+	wxEventType type = static_cast<wxEventType>(arg.GetInt(0));
+	wxObject *generator = Object_wx_Object::GetObject(arg, 1)->GetEntity();
+	int id = arg.GetInt(2);
+	wxString path = wxString::FromUTF8(arg.GetString(3));
 	wx_FileDirPickerEvent *pEntity = new wx_FileDirPickerEvent(type, generator, id, path);
-	Object_wx_FileDirPickerEvent *pObj = Object_wx_FileDirPickerEvent::GetObjectThis(args);
+	Object_wx_FileDirPickerEvent *pObj = Object_wx_FileDirPickerEvent::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_FileDirPickerEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, GetPath)
@@ -76,10 +76,10 @@ Gura_DeclareMethod(wx_FileDirPickerEvent, GetPath)
 Gura_ImplementMethod(wx_FileDirPickerEvent, GetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(args);
+	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDirPickerEvent, SetPath)
@@ -91,9 +91,9 @@ Gura_DeclareMethod(wx_FileDirPickerEvent, SetPath)
 Gura_ImplementMethod(wx_FileDirPickerEvent, SetPath)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(args);
+	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString path = wxString::FromUTF8(args.GetString(0));
+	wxString path = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetPath(path);
 	return Value::Nil;
 }

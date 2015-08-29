@@ -1,8 +1,8 @@
 //=============================================================================
-// Gura class: args
+// Gura class: argument
 //=============================================================================
-#ifndef __GURA_CLASS_ARGS_H__
-#define __GURA_CLASS_ARGS_H__
+#ifndef __GURA_CLASS_ARGUMENT_H__
+#define __GURA_CLASS_ARGUMENT_H__
 
 #include "Class.h"
 #include "OAL.h"
@@ -10,34 +10,34 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_args
+// Class_argument
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_args : public Class {
+class GURA_DLLDECLARE Class_argument : public Class {
 public:
-	Class_args(Environment *pEnvOuter);
+	Class_argument(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 
 //-----------------------------------------------------------------------------
-// Object_args
+// Object_argument
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Object_args : public Object {
+class GURA_DLLDECLARE Object_argument : public Object {
 private:
-	AutoPtr<Args> _pArgs;
+	AutoPtr<Argument> _pArg;
 public:
-	Gura_DeclareObjectAccessor(args)
+	Gura_DeclareObjectAccessor(argument)
 public:
-	inline Object_args(Environment &env, Args *pArgs) :
-					Object(env.LookupClass(VTYPE_args)), _pArgs(pArgs) {}
-	inline Object_args(Class *pClass, Args *pArgs) :
-					Object(pClass), _pArgs(pArgs) {}
+	inline Object_argument(Environment &env, Argument *pArg) :
+					Object(env.LookupClass(VTYPE_argument)), _pArg(pArg) {}
+	inline Object_argument(Class *pClass, Argument *pArg) :
+					Object(pClass), _pArg(pArg) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Args *GetArgs() { return _pArgs.get(); }
+	inline Argument *GetArgument() { return _pArg.get(); }
 };
 
 }

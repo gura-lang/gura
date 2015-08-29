@@ -46,7 +46,7 @@ Gura_ImplementClassMethod(wx_ToolTip, Enable)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	bool flag = args.GetBoolean(0);
+	bool flag = arg.GetBoolean(0);
 	wxToolTip::Enable(flag);
 	return Value::Nil;
 }
@@ -61,7 +61,7 @@ Gura_ImplementClassMethod(wx_ToolTip, SetDelay)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	long msecs = args.GetLong(0);
+	long msecs = arg.GetLong(0);
 	wxToolTip::SetDelay(msecs);
 	return Value::Nil;
 }
@@ -78,17 +78,17 @@ Gura_ImplementFunction(ToolTip)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxString tip = wxString::FromUTF8(args.GetString(0));
+	wxString tip = wxString::FromUTF8(arg.GetString(0));
 	wx_ToolTip *pEntity = new wx_ToolTip(tip);
-	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetObjectThis(args);
+	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_ToolTip(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_ToolTip, SetTip)
@@ -100,9 +100,9 @@ Gura_DeclareMethod(wx_ToolTip, SetTip)
 Gura_ImplementMethod(wx_ToolTip, SetTip)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(args);
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString tip = wxString::FromUTF8(args.GetString(0));
+	wxString tip = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetTip(tip);
 	return Value::Nil;
 }
@@ -116,10 +116,10 @@ Gura_DeclareMethod(wx_ToolTip, GetTip)
 Gura_ImplementMethod(wx_ToolTip, GetTip)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(args);
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetTip();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ToolTip, GetWindow)
@@ -131,10 +131,10 @@ Gura_DeclareMethod(wx_ToolTip, GetWindow)
 Gura_ImplementMethod(wx_ToolTip, GetWindow)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(args);
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
-	return ReturnValue(env, args, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
+	return ReturnValue(env, arg, Value(new Object_wx_Window(rtn, nullptr, OwnerFalse)));
 }
 
 //----------------------------------------------------------------------------

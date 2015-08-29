@@ -64,11 +64,11 @@ Gura_DeclareMethod(wx_IPaddress, Hostname)
 Gura_ImplementMethod(wx_IPaddress, Hostname)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString hostname = wxString::FromUTF8(args.GetString(0));
+	wxString hostname = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Hostname(hostname);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, Hostname_1)
@@ -80,10 +80,10 @@ Gura_DeclareMethod(wx_IPaddress, Hostname_1)
 Gura_ImplementMethod(wx_IPaddress, Hostname_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->Hostname();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPaddress, IPAddress)
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_IPaddress, IPAddress)
 Gura_ImplementMethod(wx_IPaddress, IPAddress)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->IPAddress();
-	return ReturnValue(env, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPaddress, Service)
@@ -111,11 +111,11 @@ Gura_DeclareMethod(wx_IPaddress, Service)
 Gura_ImplementMethod(wx_IPaddress, Service)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxString service = wxString::FromUTF8(args.GetString(0));
+	wxString service = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->Service(service);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, Service_1)
@@ -128,11 +128,11 @@ Gura_DeclareMethod(wx_IPaddress, Service_1)
 Gura_ImplementMethod(wx_IPaddress, Service_1)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned service = args.GetInt(0);
+	unsigned service = arg.GetInt(0);
 	bool rtn = pThis->GetEntity()->Service(service);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, Service_2)
@@ -144,10 +144,10 @@ Gura_DeclareMethod(wx_IPaddress, Service_2)
 Gura_ImplementMethod(wx_IPaddress, Service_2)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	unsigned rtn = pThis->GetEntity()->Service();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, AnyAddress)
@@ -159,10 +159,10 @@ Gura_DeclareMethod(wx_IPaddress, AnyAddress)
 Gura_ImplementMethod(wx_IPaddress, AnyAddress)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->AnyAddress();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, LocalHost)
@@ -174,10 +174,10 @@ Gura_DeclareMethod(wx_IPaddress, LocalHost)
 Gura_ImplementMethod(wx_IPaddress, LocalHost)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->LocalHost();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_IPaddress, IsLocalHost)
@@ -189,10 +189,10 @@ Gura_DeclareMethod(wx_IPaddress, IsLocalHost)
 Gura_ImplementMethod(wx_IPaddress, IsLocalHost)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(args);
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->IsLocalHost();
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 //----------------------------------------------------------------------------

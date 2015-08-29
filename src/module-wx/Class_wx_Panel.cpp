@@ -54,15 +54,15 @@ Gura_ImplementFunction(PanelEmpty)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wx_Panel *pEntity = new wx_Panel();
-	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareFunction(Panel)
@@ -82,27 +82,27 @@ Gura_ImplementFunction(Panel)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = wxTAB_TRAVERSAL;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxString name = wxT("panel");
-	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) name = wxString::FromUTF8(arg.GetString(5));
 	wx_Panel *pEntity = new wx_Panel(parent, id, *pos, *size, style, name);
-	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 Gura_DeclareMethod(wx_Panel, Create)
@@ -120,21 +120,21 @@ Gura_DeclareMethod(wx_Panel, Create)
 Gura_ImplementMethod(wx_Panel, Create)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
-	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
 	long style = wxTAB_TRAVERSAL;
-	if (args.IsValid(4)) style = args.GetLong(4);
+	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxString name = wxT("panel");
-	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
+	if (arg.IsValid(5)) name = wxString::FromUTF8(arg.GetString(5));
 	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
-	return ReturnValue(env, args, Value(rtn));
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Panel, InitDialog)
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_Panel, InitDialog)
 Gura_ImplementMethod(wx_Panel, InitDialog)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->InitDialog();
 	return Value::Nil;
@@ -160,9 +160,9 @@ Gura_DeclareMethod(wx_Panel, OnSysColourChanged)
 Gura_ImplementMethod(wx_Panel, OnSysColourChanged)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
+	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->OnSysColourChanged(*event);
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_DeclareMethod(wx_Panel, SetFocus)
 Gura_ImplementMethod(wx_Panel, SetFocus)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocus();
 	return Value::Nil;
@@ -189,7 +189,7 @@ Gura_DeclareMethod(wx_Panel, SetFocusIgnoringChildren)
 Gura_ImplementMethod(wx_Panel, SetFocusIgnoringChildren)
 {
 	Signal &sig = env.GetSignal();
-	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(args);
+	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	pThis->GetEntity()->SetFocusIgnoringChildren();
 	return Value::Nil;

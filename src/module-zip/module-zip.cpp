@@ -112,14 +112,14 @@ Gura_DeclareMethod(reader, entry)
 Gura_ImplementMethod(reader, entry)
 {
 	Signal &sig = env.GetSignal();
-	Object_reader *pThis = Object_reader::GetObjectThis(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(arg);
 	Stream *pStreamSrc = pThis->GetStreamSrc();
 	if (pStreamSrc == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Nil;
 	}
 	AutoPtr<Object_stream> pObjStream;
-	const char *name = args.GetString(0);
+	const char *name = arg.GetString(0);
 	foreach (CentralFileHeaderList, ppHdr, pThis->GetHeaderList()) {
 		const CentralFileHeader *pHdr = *ppHdr;
 		const CentralFileHeader::Fields &fields = pHdr->GetFields();
@@ -135,7 +135,7 @@ Gura_ImplementMethod(reader, entry)
 		sig.SetError(ERR_NameError, "entry not found");
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(pObjStream.release()));
+	return ReturnValue(env, arg, Value(pObjStream.release()));
 }
 
 // zip.reader#entries() {block?}
@@ -151,13 +151,13 @@ Gura_DeclareMethod(reader, entries)
 Gura_ImplementMethod(reader, entries)
 {
 	Signal &sig = env.GetSignal();
-	Object_reader *pThis = Object_reader::GetObjectThis(args);
+	Object_reader *pThis = Object_reader::GetObjectThis(arg);
 	if (pThis->GetStreamSrc() == nullptr) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Nil;
 	}
 	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
-	return ReturnIterator(env, args, pIterator);
+	return ReturnIterator(env, arg, pIterator);
 }
 
 // implementation of class zip.reader
@@ -399,28 +399,28 @@ Gura_DeclareMethod(writer, add)
 Gura_ImplementMethod(writer, add)
 {
 	Signal &sig = env.GetSignal();
-	Object_writer *pThis = Object_writer::GetObjectThis(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(arg);
 	String fileName;
-	if (args.Is_string(1)) {
-		fileName = args.GetString(1);
+	if (arg.Is_string(1)) {
+		fileName = arg.GetString(1);
 	} else {
-		const char *identifier = args.GetStream(0).GetIdentifier();
+		const char *identifier = arg.GetStream(0).GetIdentifier();
 		if (identifier == nullptr) {
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Nil;
 		}
 		PathMgr::SplitFileName(identifier, nullptr, &fileName);
 	}
-	UShort compressionMethod = args.Is_symbol(2)?
-						SymbolToCompressionMethod(args.GetSymbol(2)) :
+	UShort compressionMethod = arg.Is_symbol(2)?
+						SymbolToCompressionMethod(arg.GetSymbol(2)) :
 						pThis->GetCompressionMethod();
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
 		return Value::Nil;
 	}
-	if (!pThis->Add(env, args.GetStream(0),
+	if (!pThis->Add(env, arg.GetStream(0),
 					fileName.c_str(), compressionMethod)) return Value::Nil;
-	return args.GetValueThis();
+	return arg.GetValueThis();
 }
 
 // zip.writer#close():void
@@ -434,7 +434,7 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pThis = Object_writer::GetObjectThis(args);
+	Object_writer *pThis = Object_writer::GetObjectThis(arg);
 	if (!pThis->Finish()) return Value::Nil;
 	return Value::Nil;
 }
@@ -510,11 +510,11 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	Signal &sig = env.GetSignal();
-	Stream &streamSrc = args.GetStream(0);
+	Stream &streamSrc = arg.GetStream(0);
 	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
 	if (!pObjZipR->ReadDirectory(env)) return Value::Nil;
 	Value result(pObjZipR.release());
-	return ReturnValue(env, args, result);
+	return ReturnValue(env, arg, result);
 }
 
 // zip.writer(stream:stream:w, compression?:symbol) {block?}
@@ -539,16 +539,16 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Signal &sig = env.GetSignal();
-	Stream &streamDst = args.GetStream(0);
-	UShort compressionMethod = args.Is_symbol(1)?
-			SymbolToCompressionMethod(args.GetSymbol(1)) : METHOD_Deflate;
+	Stream &streamDst = arg.GetStream(0);
+	UShort compressionMethod = arg.Is_symbol(1)?
+			SymbolToCompressionMethod(arg.GetSymbol(1)) : METHOD_Deflate;
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
 		return Value::Nil;
 	}
 	Object_writer *pObjZipW = new Object_writer(sig, streamDst.Reference(), compressionMethod);
 	Value result(pObjZipW);
-	return ReturnValue(env, args, result);
+	return ReturnValue(env, arg, result);
 }
 
 // zip.test(stream:stream:r)

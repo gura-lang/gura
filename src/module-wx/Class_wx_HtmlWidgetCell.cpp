@@ -49,19 +49,19 @@ Gura_ImplementFunction(HtmlWidgetCell)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	wxWindow *wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindow *wnd = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	int w = 0;
-	if (args.IsValid(1)) w = args.GetInt(1);
+	if (arg.IsValid(1)) w = arg.GetInt(1);
 	wx_HtmlWidgetCell *pEntity = new wx_HtmlWidgetCell(wnd, w);
-	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetObjectThis(args);
+	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_HtmlWidgetCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(pObj);
-		return ReturnValue(env, args, Value(pObj));
+		return ReturnValue(env, arg, Value(pObj));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
-	return ReturnValue(env, args, args.GetValueThis());
+	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------
