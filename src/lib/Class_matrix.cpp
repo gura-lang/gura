@@ -753,8 +753,7 @@ Gura_ImplementMethod(matrix, tolist)
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	pThis->GetMatrix()->ToList(env, valList,
-			arg.IsSet(Gura_Symbol(transpose)),
-			arg.GetFlatFlag());
+		arg.IsSet(Gura_Symbol(transpose)), arg.GetFlag(FLAG_Flat));
 	return result;
 }
 

@@ -40,7 +40,7 @@ Gura_ImplementFunction(parse)
 {
 	Signal &sig = env.GetSignal();
 	Iterator_FromString *pIterator = new Iterator_FromString(arg.GetString(0));
-	if (arg.IsRsltMulti()) {
+	if (arg.IsResultMulti()) {
 		return ReturnIterator(env, arg, pIterator);
 	}
 	Value value;
@@ -64,7 +64,7 @@ Gura_ImplementFunction(read)
 	Signal &sig = env.GetSignal();
 	Stream &stream = arg.GetStream(0);
 	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
-	if (arg.IsRsltMulti()) {
+	if (arg.IsResultMulti()) {
 		return ReturnIterator(env, arg, pIterator);
 	}
 	Value value;

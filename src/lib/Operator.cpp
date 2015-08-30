@@ -636,8 +636,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
-			if (pFunc->IsRsltNormal() ||
-						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
+			if (pFunc->IsResultNormal() ||
+						pFunc->IsResultIterator() || pFunc->IsResultXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));

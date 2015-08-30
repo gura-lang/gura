@@ -198,7 +198,6 @@ public:
 	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType, ULong flags);
 	virtual ~Function();
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
-	//inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline void SetSymbol(const Symbol *pSymbol) { _pSymbol = pSymbol; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
@@ -231,16 +230,16 @@ public:
 	}
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
-	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
-	inline bool IsRsltIterator() const { return _resultMode == RSLTMODE_Iterator; }
-	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
-	inline bool IsRsltReduce() const { return _resultMode == RSLTMODE_Reduce; }
-	inline bool IsRsltSet() const { return _resultMode == RSLTMODE_Set; }
-	inline bool IsRsltVoid() const { return _resultMode == RSLTMODE_Void; }
-	inline bool IsRsltXIterator() const { return _resultMode == RSLTMODE_XIterator; }
-	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
-	inline bool IsRsltXReduce() const { return _resultMode == RSLTMODE_XReduce; }
-	inline bool IsRsltXSet() const { return _resultMode == RSLTMODE_XSet; }
+	inline bool IsResultNormal() const { return _resultMode == RSLTMODE_Normal; }
+	inline bool IsResultIterator() const { return _resultMode == RSLTMODE_Iterator; }
+	inline bool IsResultList() const { return _resultMode == RSLTMODE_List; }
+	inline bool IsResultReduce() const { return _resultMode == RSLTMODE_Reduce; }
+	inline bool IsResultSet() const { return _resultMode == RSLTMODE_Set; }
+	inline bool IsResultVoid() const { return _resultMode == RSLTMODE_Void; }
+	inline bool IsResultXIterator() const { return _resultMode == RSLTMODE_XIterator; }
+	inline bool IsResultXList() const { return _resultMode == RSLTMODE_XList; }
+	inline bool IsResultXReduce() const { return _resultMode == RSLTMODE_XReduce; }
+	inline bool IsResultXSet() const { return _resultMode == RSLTMODE_XSet; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env,

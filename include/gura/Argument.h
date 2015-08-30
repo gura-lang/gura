@@ -44,6 +44,7 @@ private:
 	Value _valueThis;
 	ValueList _valListArg;
 	Slots _slots;
+	const Symbol *_pSymbolDict;
 	AutoPtr<ValueDict> _pValDictArg;
 	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
@@ -64,6 +65,7 @@ public:
 		_valueThis(arg._valueThis),
 		_valListArg(arg._valListArg),
 		_slots(arg._slots),
+		_pSymbolDict(arg._pSymbolDict),
 		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
@@ -80,6 +82,7 @@ public:
 		_valueThis(arg._valueThis),
 		_valListArg(valListArg),
 		_slots(arg._slots),
+		_pSymbolDict(arg._pSymbolDict),
 		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
@@ -111,6 +114,7 @@ public:
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
 	inline ULong GetFlags() const { return _flags; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag)? true : false; }
 	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value &GetValueThis() { return _valueThis; }
 	inline const Value &GetValueThis() const { return _valueThis; }
@@ -127,20 +131,22 @@ public:
 	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }
 	inline bool IsThisIterator() const { return !_pIteratorThis.IsNull() && !_listThisFlag; }
 	inline bool IsBlockSpecified() const { return !_pExprBlock.IsNull(); }
-	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
-	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
-	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
-	inline bool IsRsltSet() const { return _resultMode == RSLTMODE_Set; }
-	inline bool IsRsltXSet() const { return _resultMode == RSLTMODE_XSet; }
-	inline bool IsRsltIterator() const { return _resultMode == RSLTMODE_Iterator; }
-	inline bool IsRsltXIterator() const { return _resultMode == RSLTMODE_XIterator; }
-	inline bool IsRsltVoid() const { return _resultMode == RSLTMODE_Void; }
-	inline bool IsRsltReduce() const { return _resultMode == RSLTMODE_Reduce; }
-	inline bool IsRsltXReduce() const { return _resultMode == RSLTMODE_XReduce; }
-	inline bool IsRsltMulti() const {
-		return IsRsltList() || IsRsltXList() ||
-			IsRsltSet() || IsRsltXSet() || IsRsltIterator() || IsRsltXIterator();
+	inline bool IsResultIterator() const { return _resultMode == RSLTMODE_Iterator; }
+	inline bool IsResultList() const { return _resultMode == RSLTMODE_List; }
+	inline bool IsResultMulti() const {
+		return IsResultList() || IsResultXList() ||
+			IsResultSet() || IsResultXSet() || IsResultIterator() || IsResultXIterator();
 	}
+	inline bool IsResultNormal() const { return _resultMode == RSLTMODE_Normal; }
+	inline bool IsResultReduce() const { return _resultMode == RSLTMODE_Reduce; }
+	inline bool IsResultSet() const { return _resultMode == RSLTMODE_Set; }
+	inline bool IsResultVoid() const { return _resultMode == RSLTMODE_Void; }
+	inline bool IsResultXIterator() const { return _resultMode == RSLTMODE_XIterator; }
+	inline bool IsResultXList() const { return _resultMode == RSLTMODE_XList; }
+	inline bool IsResultXReduce() const { return _resultMode == RSLTMODE_XReduce; }
+	inline bool IsResultXSet() const { return _resultMode == RSLTMODE_XSet; }
+	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
+	/*
 	inline bool GetMapFlag() const { return (_flags & FLAG_Map)? true : false; }
 	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
 	inline bool GetForkFlag() const { return (_flags & FLAG_Fork)? true : false; }
@@ -153,6 +159,7 @@ public:
 	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
 	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
+	*/
 	inline void SetTrailCtrlHolder(TrailCtrlHolder *pTrailCtrlHolder) {
 		_pTrailCtrlHolder.reset(pTrailCtrlHolder);
 	}

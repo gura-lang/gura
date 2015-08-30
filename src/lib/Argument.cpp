@@ -10,7 +10,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Argument::Argument(const Function *pFunc) :
 	_cntRef(1), _valTypeResult(VTYPE_any),
-	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false)
+	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false),
+	_pSymbolDict(pFunc->GetSymbolDict())
 {
 }
 

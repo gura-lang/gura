@@ -305,7 +305,7 @@ Value Function::Call(
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
 	ValueDict *pValDictArg = nullptr;
-	bool namedArgFlag = !pArg->GetNoNamedFlag();
+	bool namedArgFlag = !pArg->GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if (namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
@@ -456,7 +456,7 @@ Value Function::Call(
 	}
 	//-------------------------------------------------------------------------
 	pArg->SetValueDictArg(pValDictArg);
-	return (pArg->GetMapFlag() && _pDeclOwner->ShouldImplicitMap(*pArg))?
+	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }
 
@@ -561,7 +561,7 @@ Value Function::Eval(Environment &env, Argument &arg) const
 	}
 	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
 	Value value = DoEval(env, *pArgCasted);
-	if (arg.IsRsltVoid()) return Value::Undefined;
+	if (arg.IsResultVoid()) return Value::Undefined;
 	return value;
 }
 
@@ -572,9 +572,9 @@ Value Function::EvalMap(Environment &env, Argument &arg) const
 				new Environment(env),
 				Function::Reference(this), arg.Reference(), false));
 	if (sig.IsSignalled()) return Value::Nil;
-	if (arg.IsRsltIterator() || arg.IsRsltXIterator() ||
-			 (arg.IsRsltNormal() && arg.ShouldGenerateIterator(GetDeclOwner()))) {
-		pIterator->SetSkipInvalidFlag(arg.IsRsltXIterator());
+	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
+			 (arg.IsResultNormal() && arg.ShouldGenerateIterator(GetDeclOwner()))) {
+		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	Value result;
@@ -584,7 +584,7 @@ Value Function::EvalMap(Environment &env, Argument &arg) const
 	for ( ; pIterator->Next(env, value); n++) {
 		if (!resultComposer.Store(env, value)) return Value::Nil;
 	}
-	if (n == 0 && !arg.IsRsltVoid() && !arg.IsRsltReduce() && !arg.IsRsltXReduce()) {
+	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
 		result.InitAsList(env);
 	}
 	return result;
@@ -641,17 +641,17 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 			const Function *pFuncBlock =
 								arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 			if (pFuncBlock == nullptr) return Value::Nil;
-			bool genIterFlag = arg.IsRsltIterator() || arg.IsRsltXIterator();
+			bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
 			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
 								false, genIterFlag, pIterator);
 		}
-		bool skipInvalidFlag = arg.IsRsltXList() || arg.IsRsltXSet() || arg.IsRsltXIterator();
+		bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
 	}
-	if (arg.IsRsltIterator() || arg.IsRsltXIterator()) {
+	if (arg.IsResultIterator() || arg.IsResultXIterator()) {
 		result = Value(new Object_iterator(env, pIterator));
-	} else if (arg.IsRsltList() || arg.IsRsltXList() ||
-									arg.IsRsltSet() || arg.IsRsltXSet()) {
+	} else if (arg.IsResultList() || arg.IsResultXList() ||
+									arg.IsResultSet() || arg.IsResultXSet()) {
 		result = pIterator->Eval(env, arg);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -835,11 +835,11 @@ void Function::SetError_MathOptimizeError(Signal &sig) const
 //-----------------------------------------------------------------------------
 Function::ResultComposer::ResultComposer(Environment &env, Argument &arg, Value &result) :
 	_arg(arg), _result(result), _pValList(nullptr), _cnt(0),
-	_excludeNilFlag(arg.IsRsltXList() || arg.IsRsltXSet()),
-	_setFlag(arg.IsRsltSet() || arg.IsRsltXSet())
+	_excludeNilFlag(arg.IsResultXList() || arg.IsResultXSet()),
+	_setFlag(arg.IsResultSet() || arg.IsResultXSet())
 {
-	if (_arg.IsRsltList() || _arg.IsRsltXList() ||
-							_arg.IsRsltSet() || _arg.IsRsltXSet()) {
+	if (_arg.IsResultList() || _arg.IsResultXList() ||
+							_arg.IsResultSet() || _arg.IsResultXSet()) {
 		_pValList = &_result.InitAsList(env);
 	}
 }
@@ -847,18 +847,18 @@ Function::ResultComposer::ResultComposer(Environment &env, Argument &arg, Value 
 bool Function::ResultComposer::Store(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
-	if (_arg.IsRsltVoid()) {
+	if (_arg.IsResultVoid()) {
 		// nothing to do
-	} else if (_arg.IsRsltReduce()) {
+	} else if (_arg.IsResultReduce()) {
 		_result = value;
-	} else if (_arg.IsRsltXReduce()) {
+	} else if (_arg.IsResultXReduce()) {
 		if (value.IsValid()) _result = value;
-	} else if (_arg.GetFlatFlag() && value.Is_list()) {
+	} else if (_arg.GetFlag(FLAG_Flat) && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
 			if (!Store(env, *pValue)) return false;
 		}
 	} else {
-		if (_arg.IsRsltList()) {
+		if (_arg.IsResultList()) {
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
 			if (_pValList == nullptr) {
