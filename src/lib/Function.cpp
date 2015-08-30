@@ -524,10 +524,6 @@ Value Function::Eval(Environment &env, Argument &arg) const
 	Signal &sig = env.GetSignal();
 	ValueList valListCasted;
 	const ValueList &valList = arg.GetValueListArg();
-	//if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(),
-	//								  valListCasted, _allowTooManyArgsFlag)) {
-	//	return Value::Nil;
-	//}
 	ValueList::const_iterator pValue = valList.begin();
 	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
 	for ( ; ppDecl != _pDeclOwner->end(); ppDecl++) {
