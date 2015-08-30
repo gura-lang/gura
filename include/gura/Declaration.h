@@ -111,25 +111,18 @@ public:
 	Gura_DeclareReferenceAccessor(DeclarationOwner)
 public:
 	inline DeclarationOwner() : _cntRef(1), _pSymbolDict(nullptr), _allowTooManyArgsFlag(false) {}
+private:
 	DeclarationOwner(const DeclarationOwner &declOwner);
+	inline void operator=(const DeclarationOwner &declOwner) {}
 private:
 	~DeclarationOwner();
 public:
 	void Clear();
-	void operator=(const DeclarationOwner &declOwner);
+	inline DeclarationOwner *Clone() const { return new DeclarationOwner(*this); }
 	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
 	inline void SetSymbolDict(const Symbol *pSymbol) { _pSymbolDict = pSymbol; }
 	inline void AllowTooManyArgs(bool flag) { _allowTooManyArgsFlag = flag; }
 	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
-	Declaration *Declare(Environment &env, const Symbol *pSymbol, ValueType valType,
-				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-				Expr *pExprDefault = nullptr);
-	inline Declaration *Declare(Environment &env, const char *name, ValueType valType,
-				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-				Expr *pExprDefault = nullptr) {
-		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
-	}
-	bool Declare(Environment &env, const CallerInfo &callerInfo);
 	bool ValidateAndCast(Environment &env,
 						 const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;

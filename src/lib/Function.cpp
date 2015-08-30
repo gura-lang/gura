@@ -36,7 +36,7 @@ Function::Function(const Function &func) :
 	_pSymbol(func._pSymbol),
 	_pClassToConstruct(func._pClassToConstruct),
 	_pEnvScope(new Environment(func.GetEnvScope())),
-	_pDeclOwner(new DeclarationOwner(func.GetDeclOwner())),
+	_pDeclOwner(func.GetDeclOwner().Clone()),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode),
 	_flags(func._flags),
@@ -86,7 +86,39 @@ bool Function::CustomDeclare(Environment &env,
 {
 	Signal &sig = env.GetSignal();
 	// declaration of arguments
-	if (!GetDeclOwner().Declare(env, callerInfo)) return false;
+	foreach_const (ExprList, ppExpr, callerInfo.GetExprListArg()) {
+		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsUnaryOpSuffix()) {
+			const Expr_UnaryOp *pExprUnaryOp =
+									dynamic_cast<const Expr_UnaryOp *>(pExpr);
+			const Symbol *pSymbol = pExprUnaryOp->GetOperator()->GetSymbol();
+			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
+				const Expr *pExprChild = pExprUnaryOp->GetChild();
+				if (!pExprChild->IsIdentifier()) {
+					sig.SetError(ERR_SyntaxError,
+									"invalid expression for declaration");
+					return false;
+				}
+				_pDeclOwner->SetSymbolDict(
+						dynamic_cast<const Expr_Identifier *>(pExprChild)->GetSymbol());
+				continue;
+			}
+		}
+		AutoPtr<Declaration> pDecl(Declaration::Create(env, pExpr));
+		if (pDecl.IsNull()) return false;
+		if (_pDeclOwner->IsVariableLength()) {
+			sig.SetError(ERR_TypeError,
+				"any parameters cannot follow after a parameter with variable length");
+			return false;
+		}
+		if (pDecl->IsMandatory() && pDecl->GetExprDefault() == nullptr &&
+				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()) {
+			sig.SetError(ERR_TypeError,
+				"mandatory parameters cannot follow after a parameter with variable length");
+			return false;
+		}
+		_pDeclOwner->push_back(pDecl.release());
+	}
 	// declaration of attributes
 	foreach_const (SymbolSet, ppSymbol, callerInfo.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
@@ -152,7 +184,7 @@ bool Function::CustomDeclare(Environment &env,
 
 void Function::CopyDeclare(const Function &func)
 {
-	_pDeclOwner.reset(new DeclarationOwner(func.GetDeclOwner()));
+	_pDeclOwner.reset(func.GetDeclOwner().Clone());
 	_resultMode	= func._resultMode;	// :list, :xlist, :set, :xset, :iter, :xiter, :void
 	_flags		= func._flags;		// :map, :nomap, :nonamed, :flat, :noflat
 	_pAttrsOptShared.reset(func._pAttrsOptShared.IsNull()?
@@ -163,7 +195,13 @@ void Function::CopyDeclare(const Function &func)
 Declaration *Function::DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 				OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
 {
-	return GetDeclOwner().Declare(env, pSymbol, valType, occurPattern, flags, pExprDefault);
+	Declaration *pDecl =
+			new Declaration(pSymbol, valType, occurPattern, flags, pExprDefault);
+	GURA_ASSUME(env, !_pDeclOwner->IsVariableLength());
+	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
+				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()));
+	_pDeclOwner->push_back(pDecl);
+	return pDecl;
 }
 
 void Function::DeclareBlock(OccurPattern occurPattern,
@@ -316,13 +354,13 @@ Value Function::Call(
 			}
 		}
 	}
-	DeclarationOwner::const_iterator ppDecl = GetDeclOwner().begin();
+	DeclarationOwner::const_iterator ppDecl = _pDeclOwner->begin();
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
-		if (ppDecl == GetDeclOwner().end()) {
-			if (GetDeclOwner().IsAllowTooManyArgs()) break;
+		if (ppDecl == _pDeclOwner->end()) {
+			if (_pDeclOwner->IsAllowTooManyArgs()) break;
 			Declaration::SetError_TooManyArguments(sig);
 			return Value::Nil;
 		}
@@ -365,7 +403,7 @@ Value Function::Call(
 		}
 	}
 	//-------------------------------------------------------------------------
-	for ( ; !stayDeclPointerFlag && ppDecl != GetDeclOwner().end(); ppDecl++) {
+	for ( ; !stayDeclPointerFlag && ppDecl != _pDeclOwner->end(); ppDecl++) {
 		// handling named arguments and arguments with a default value
 		const Expr *pExprArg = (*ppDecl)->GetExprDefault();
 		Function::ExprMap::iterator iter = exprMap.find((*ppDecl)->GetSymbol());
@@ -396,7 +434,7 @@ Value Function::Call(
 	//-------------------------------------------------------------------------
 	if (exprMap.empty()) {
 		// nothing to do
-	} else if (GetDeclOwner().GetSymbolDict() == nullptr) {
+	} else if (_pDeclOwner->GetSymbolDict() == nullptr) {
 		String str;
 		str = "invalid argument named ";
 		foreach_const (Function::ExprMap, iter, exprMap) {
@@ -417,7 +455,7 @@ Value Function::Call(
 	}
 	//-------------------------------------------------------------------------
 	pArg->SetValueDictArg(pValDictArg);
-	return (pArg->GetMapFlag() && GetDeclOwner().ShouldImplicitMap(*pArg))?
+	return (pArg->GetMapFlag() && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }
 
@@ -435,14 +473,14 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 	}
 	const ValueList &valListArg = arg.GetValueListArg();
 	ValueList::const_iterator pValue = valListArg.begin();
-	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
-	for ( ; pValue != valListArg.end() && ppDecl != GetDeclOwner().end();
+	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
+	for ( ; pValue != valListArg.end() && ppDecl != _pDeclOwner->end();
 														pValue++, ppDecl++) {
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	if (GetDeclOwner().GetSymbolDict() != nullptr) {
+	if (_pDeclOwner->GetSymbolDict() != nullptr) {
 		const ValueDict &valDictArg = arg.GetValueDictArg();
-		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
+		pEnvLocal->AssignValue(_pDeclOwner->GetSymbolDict(),
 			   Value(new Object_dict(env, valDictArg.Reference(), false)), EXTRA_Public);
 	}
 	const ValueMap *pValMapHiddenArg = arg.GetValueMapHiddenArg();
@@ -481,7 +519,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 Value Function::Eval(Environment &env, Argument &arg) const
 {
 	ValueList valListCasted;
-	if (!GetDeclOwner().ValidateAndCast(env, arg.GetValueListArg(), valListCasted)) {
+	if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(), valListCasted)) {
 		return Value::Nil;
 	}
 	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
@@ -639,7 +677,7 @@ String Function::ToString() const
 		str += " ";
 	}
 	str += "(";
-	str += GetDeclOwner().ToString();
+	str += _pDeclOwner->ToString();
 	str += ")";
 	if (_funcType == FUNCTYPE_Class) {
 		str += ":";
@@ -701,7 +739,7 @@ void Function::SetError_NotConstructor(Signal &sig) const
 
 void Function::SetError_ArgumentTypeByIndex(Signal &sig, Argument &arg, size_t idxArg) const
 {
-	if (idxArg < GetDeclOwner().size()) {
+	if (idxArg < _pDeclOwner->size()) {
 		const Declaration *pDecl = GetDeclOwner()[idxArg];
 		pDecl->SetError_ArgumentType(sig, arg.GetValue(idxArg));
 	} else {

@@ -382,67 +382,6 @@ void DeclarationOwner::Clear()
 	clear();
 }
 
-void DeclarationOwner::operator=(const DeclarationOwner &declOwner)
-{
-	_pSymbolDict = declOwner._pSymbolDict;
-	_allowTooManyArgsFlag = declOwner._allowTooManyArgsFlag;
-	Clear();
-	foreach_const (DeclarationList, ppDecl, declOwner) {
-		push_back((*ppDecl)->Clone());
-	}
-}
-
-Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
-{
-	Declaration *pDecl =
-			new Declaration(pSymbol, valType, occurPattern, flags, pExprDefault);
-	GURA_ASSUME(env, !IsVariableLength());
-	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
-				!empty() && back()->IsOptional()));
-	push_back(pDecl);
-	return pDecl;
-}
-
-bool DeclarationOwner::Declare(Environment &env, const CallerInfo &callerInfo)
-{
-	Signal &sig = env.GetSignal();
-	foreach_const (ExprList, ppExpr, callerInfo.GetExprListArg()) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsUnaryOpSuffix()) {
-			const Expr_UnaryOp *pExprUnaryOp =
-									dynamic_cast<const Expr_UnaryOp *>(pExpr);
-			const Symbol *pSymbol = pExprUnaryOp->GetOperator()->GetSymbol();
-			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
-				const Expr *pExprChild = pExprUnaryOp->GetChild();
-				if (!pExprChild->IsIdentifier()) {
-					sig.SetError(ERR_SyntaxError,
-									"invalid expression for declaration");
-					return false;
-				}
-				SetSymbolDict(
-						dynamic_cast<const Expr_Identifier *>(pExprChild)->GetSymbol());
-				continue;
-			}
-		}
-		AutoPtr<Declaration> pDecl(Declaration::Create(env, pExpr));
-		if (pDecl.IsNull()) return false;
-		if (IsVariableLength()) {
-			sig.SetError(ERR_TypeError,
-				"any parameters cannot follow after a parameter with variable length");
-			return false;
-		}
-		if (pDecl->IsMandatory() && pDecl->GetExprDefault() == nullptr &&
-											!empty() && back()->IsOptional()) {
-			sig.SetError(ERR_TypeError,
-				"mandatory parameters cannot follow after a parameter with variable length");
-			return false;
-		}
-		push_back(pDecl.release());
-	}
-	return true;
-}
-
 bool DeclarationOwner::ValidateAndCast(Environment &env,
 						const ValueList &valList, ValueList &valListCasted) const
 {
