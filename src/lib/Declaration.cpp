@@ -380,48 +380,4 @@ void DeclarationOwner::Clear()
 	clear();
 }
 
-bool DeclarationOwner::ValidateAndCast(Environment &env, const ValueList &valList,
-									   ValueList &valListCasted, bool allowTooManyArgsFlag) const
-{
-	Signal &sig = env.GetSignal();
-	ValueList::const_iterator pValue = valList.begin();
-	DeclarationList::const_iterator ppDecl = begin();
-	for ( ; ppDecl != end(); ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		OccurPattern occurPattern = pDecl->GetOccurPattern();
-		if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
-			Value value;
-			ValueList &valListElem = value.InitAsList(env);
-			valListCasted.push_back(value);
-			for ( ; pValue != valList.end(); pValue++) {
-				Value value = *pValue;
-				if (!pDecl->ValidateAndCast(env, value)) return false;
-				valListElem.push_back(value);
-			}
-			if (occurPattern == OCCUR_OnceOrMore && valListElem.empty()) {
-				Declaration::SetError_NotEnoughArguments(sig);
-				return false;
-			}
-			break;
-		} else if (pValue == valList.end()) {
-			if (occurPattern == OCCUR_ZeroOrOnce) {
-				valListCasted.push_back(Value::Undefined);
-			} else {
-				Declaration::SetError_NotEnoughArguments(sig);
-				return false;
-			}
-		} else {
-			Value value = *pValue;
-			if (!pDecl->ValidateAndCast(env, value)) return false;
-			valListCasted.push_back(value);
-			pValue++;
-		}
-	}
-	if (pValue != valList.end() && !allowTooManyArgsFlag) {
-		Declaration::SetError_TooManyArguments(sig);
-		return false;
-	}
-	return true;
-}
-
 }

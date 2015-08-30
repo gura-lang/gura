@@ -117,8 +117,6 @@ private:
 public:
 	void Clear();
 	inline DeclarationOwner *Clone() const { return new DeclarationOwner(*this); }
-	bool ValidateAndCast(Environment &env, const ValueList &valList,
-						 ValueList &valListCasted, bool allowTooManyArgaFlag) const;
 };
 
 }

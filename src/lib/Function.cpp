@@ -521,9 +521,48 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 
 Value Function::Eval(Environment &env, Argument &arg) const
 {
+	Signal &sig = env.GetSignal();
 	ValueList valListCasted;
-	if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(),
-									  valListCasted, _allowTooManyArgsFlag)) {
+	const ValueList &valList = arg.GetValueListArg();
+	//if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(),
+	//								  valListCasted, _allowTooManyArgsFlag)) {
+	//	return Value::Nil;
+	//}
+	ValueList::const_iterator pValue = valList.begin();
+	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
+	for ( ; ppDecl != _pDeclOwner->end(); ppDecl++) {
+		const Declaration *pDecl = *ppDecl;
+		OccurPattern occurPattern = pDecl->GetOccurPattern();
+		if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
+			Value value;
+			ValueList &valListElem = value.InitAsList(env);
+			valListCasted.push_back(value);
+			for ( ; pValue != valList.end(); pValue++) {
+				Value value = *pValue;
+				if (!pDecl->ValidateAndCast(env, value)) return Value::Nil;
+				valListElem.push_back(value);
+			}
+			if (occurPattern == OCCUR_OnceOrMore && valListElem.empty()) {
+				Declaration::SetError_NotEnoughArguments(sig);
+				return Value::Nil;
+			}
+			break;
+		} else if (pValue == valList.end()) {
+			if (occurPattern == OCCUR_ZeroOrOnce) {
+				valListCasted.push_back(Value::Undefined);
+			} else {
+				Declaration::SetError_NotEnoughArguments(sig);
+				return Value::Nil;
+			}
+		} else {
+			Value value = *pValue;
+			if (!pDecl->ValidateAndCast(env, value)) return Value::Nil;
+			valListCasted.push_back(value);
+			pValue++;
+		}
+	}
+	if (pValue != valList.end() && !_allowTooManyArgsFlag) {
+		Declaration::SetError_TooManyArguments(sig);
 		return Value::Nil;
 	}
 	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
