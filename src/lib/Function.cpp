@@ -43,8 +43,7 @@ Function::Function(const Function &func) :
 	_pAttrsOptShared(func._pAttrsOptShared.IsNull()?
 					 nullptr : new SymbolSetShared(*func._pAttrsOptShared)),
 	_blockInfo(func._blockInfo),
-	_pSymbolDict(func._pSymbolDict),
-	_allowTooManyArgsFlag(func._allowTooManyArgsFlag)
+	_pSymbolDict(func._pSymbolDict)
 {
 }
 
@@ -59,8 +58,7 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 	_resultMode(RSLTMODE_Normal),
 	_flags(flags),
 	_pAttrsOptShared(nullptr),
-	_pSymbolDict(nullptr),
-	_allowTooManyArgsFlag(false)
+	_pSymbolDict(nullptr)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
 	_blockInfo.pSymbol = nullptr;
@@ -363,7 +361,7 @@ Value Function::Call(
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
 		if (ppDecl == _pDeclOwner->end()) {
-			if (_allowTooManyArgsFlag) break;
+			if (GetFlag(FLAG_CutExtraArgs)) break;
 			Declaration::SetError_TooManyArguments(sig);
 			return Value::Nil;
 		}
@@ -466,7 +464,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 {
 	Signal &sig = env.GetSignal();
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
-	Environment *pEnvOuter = GetDynamicScopeFlag()?
+	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)?
 							&env : const_cast<Environment *>(_pEnvScope.get());
 	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
 	if (thisAssignFlag) {
@@ -557,7 +555,7 @@ Value Function::Eval(Environment &env, Argument &arg) const
 			pValue++;
 		}
 	}
-	if (pValue != valList.end() && !_allowTooManyArgsFlag) {
+	if (pValue != valList.end() && !GetFlag(FLAG_CutExtraArgs)) {
 		Declaration::SetError_TooManyArguments(sig);
 		return Value::Nil;
 	}

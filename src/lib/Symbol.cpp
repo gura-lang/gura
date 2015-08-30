@@ -241,6 +241,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(cs);
 	Gura_RealizeSymbol(cstr);
 	Gura_RealizeSymbol(cur);
+	Gura_RealizeSymbol(cut_extra_args);
 	Gura_RealizeSymbol(cyan);
 	Gura_RealizeSymbol(d);
 	Gura_RealizeSymbol(darwin);

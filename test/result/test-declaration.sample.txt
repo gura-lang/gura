@@ -85,12 +85,12 @@ directory(pathname:string):map {block?}
 dirtype(obj?):[noesc]
 else():trailer {block}
 elsif (`cond):leader:trailer {block}
-end(dummy*):symbol_func:trailer:end_marker:void
+end(dummy*):end_marker:symbol_func:trailer:void
 environment:class = <class:environment>
 error:class = <class:error>
 expr(src:stream:r):map {block?}
 false:boolean = false
-finally():trailer:finalizer {block}
+finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
 formatter:class = <class:formatter>
@@ -219,19 +219,19 @@ path:module = <module:path:<integrated>>
   path.basename(pathname:string):map
   path.bottom(pathname:string):map
   path.cutbottom(pathname:string):map
-  path.dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}
+  path.dir(directory?:directory, pattern*:string):flat:map:[dir,file,stat] {block?}
   path.dirname(pathname:string):map
   path.exists(pathname:string):map
   path.extname(pathname:string):map
   path.filename(pathname:string):map
-  path.glob(pattern:string):map:flat:[dir,file,stat] {block?}
+  path.glob(pattern:string):flat:map:[dir,file,stat] {block?}
   path.join(paths+:string):map:[uri]
   path.match(pattern:string, name:string):map
   path.regulate(name:string):map:[uri]
   path.split(pathname:string):map:[bottom]
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
-  path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}
+  path.walk(directory?:directory, maxdepth?:number, pattern*:string):flat:map:[dir,file,stat] {block?}
 pointer:class = <class:pointer>
 print(values*):map:void
 printf(format:string, values*):map:void
@@ -599,7 +599,7 @@ list
   list#flat():[bfs,dfs] {block?}
   list#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
   list#format(format:string):map {block?}
-  list#get(index:number):map:flat
+  list#get(index:number):flat:map
   list#head(n:number):map {block?}
   list#insert(idx:number, elem+):reduce
   list#isempty()

@@ -92,11 +92,11 @@ const Function *Argument::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Argument::SlotList
+// Argument::Slots
 //-----------------------------------------------------------------------------
-Argument::Slot *Argument::SlotList::FindBySymbol(const Symbol *pSymbol)
+Argument::Slot *Argument::Slots::FindBySymbol(const Symbol *pSymbol)
 {
-	foreach (SlotList, pSlot, *this) {
+	foreach (Slots, pSlot, *this) {
 		if (pSlot->GetDeclaration().GetSymbol()->IsIdentical(pSymbol)) return &*pSlot;
 	}
 	return nullptr;

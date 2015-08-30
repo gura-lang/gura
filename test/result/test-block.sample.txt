@@ -6,15 +6,15 @@ hello world 2
 
 ======== #2 ========
 
-*anonymous*() = { x + y + z + 2 }
-f(x, y, z) = { x + y + z + 2 }
-*anonymous*() = { x + y + z + 2 }
-f(x:number, y:number, z:number) = { x + y + z + 2 }
-*anonymous*(x, y, z) = { x + y + y + 2 }
-f(x, y, z) = { x + y + y + 2 }
-*anonymous*(x:number, y:number, z:number) = { x + y + y + 2 }
-f(x:number, y:number, z:number) = { x + y + y + 2 }
-*anonymous*(x, y, z) = { x + y + y + 2 }
+*anonymous*():cut_extra_args = { x + y + z + 2 }
+f(x, y, z):cut_extra_args = { x + y + z + 2 }
+*anonymous*():cut_extra_args = { x + y + z + 2 }
+f(x:number, y:number, z:number):cut_extra_args = { x + y + z + 2 }
+*anonymous*(x, y, z):cut_extra_args = { x + y + y + 2 }
+f(x, y, z):cut_extra_args = { x + y + y + 2 }
+*anonymous*(x:number, y:number, z:number):cut_extra_args = { x + y + y + 2 }
+f(x:number, y:number, z:number):cut_extra_args = { x + y + y + 2 }
+*anonymous*(x, y, z):cut_extra_args = { x + y + y + 2 }
 expected error occurs: TypeError: argument declaration conflicts
 
 ======== #3 ========

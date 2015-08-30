@@ -246,6 +246,7 @@ public:
 	Gura_DeclareSymbol(cs);
 	Gura_DeclareSymbol(cstr);
 	Gura_DeclareSymbol(cur);
+	Gura_DeclareSymbol(cut_extra_args);
 	Gura_DeclareSymbol(cyan);
 	Gura_DeclareSymbol(d);
 	Gura_DeclareSymbol(darwin);

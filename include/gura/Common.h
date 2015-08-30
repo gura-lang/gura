@@ -219,15 +219,15 @@ enum OccurPattern {
 //-----------------------------------------------------------------------------
 enum ResultMode {
 	RSLTMODE_Normal,
-	RSLTMODE_List,			// :list
-	RSLTMODE_XList,			// :xlist
-	RSLTMODE_Set,			// :set
-	RSLTMODE_XSet,			// :xset
 	RSLTMODE_Iterator,		// :iter
-	RSLTMODE_XIterator,		// :xiter
-	RSLTMODE_Void,			// :void
+	RSLTMODE_List,			// :list
 	RSLTMODE_Reduce,		// :reduce
+	RSLTMODE_Set,			// :set
+	RSLTMODE_Void,			// :void
+	RSLTMODE_XIterator,		// :xiter
+	RSLTMODE_XList,			// :xlist
 	RSLTMODE_XReduce,		// :xreduce
+	RSLTMODE_XSet,			// :xset
 };
 
 //-----------------------------------------------------------------------------
@@ -235,25 +235,26 @@ enum ResultMode {
 //-----------------------------------------------------------------------------
 enum {
 	FLAG_None			= 0,
-	FLAG_Map			= (1 << 0),		// :map
-	FLAG_NoMap			= (1 << 1),		// :nomap
-	FLAG_Flat			= (1 << 2),		// :flat
-	FLAG_Fork			= (1 << 3),		// :fork
-	FLAG_DynamicScope	= (1 << 4),		// :dynamic_scope
-	FLAG_SymbolFunc		= (1 << 5),		// :symbol_func
-	FLAG_List			= (1 << 6),		// :list
-	FLAG_Nil			= (1 << 7),		// :nil
-	FLAG_Read			= (1 << 8),		// :r
-	FLAG_Write			= (1 << 9),		// :w
+	FLAG_CutExtraArgs	= (1 << 0),		// :cut_extra_args
+	FLAG_DynamicScope	= (1 << 1),		// :dynamic_scope
+	FLAG_EndMarker		= (1 << 2),		// :end_marker
+	FLAG_Finalizer		= (1 << 3),		// :finalizer
+	FLAG_Flat			= (1 << 4),		// :flat
+	FLAG_Fork			= (1 << 5),		// :fork
+	FLAG_Leader			= (1 << 6),		// :leader
+	FLAG_List			= (1 << 7),		// :list
+	FLAG_Map			= (1 << 8),		// :map
+	FLAG_Nil			= (1 << 9),		// :nil
 	FLAG_NoCast			= (1 << 10),	// :nocast
-	FLAG_Leader			= (1 << 11),	// :leader
-	FLAG_Trailer		= (1 << 12),	// :trailer
-	FLAG_Finalizer		= (1 << 13),	// :finalizer
-	FLAG_EndMarker		= (1 << 14),	// :end_marker
+	FLAG_NoMap			= (1 << 11),	// :nomap
+	FLAG_NoNamed		= (1 << 12),	// :nonamed
+	FLAG_Private		= (1 << 13),	// :private
+	FLAG_Privileged		= (1 << 14),	// :privileged
 	FLAG_Public			= (1 << 15),	// :public
-	FLAG_Private		= (1 << 16),	// :private
-	FLAG_Privileged		= (1 << 17),	// :privileged
-	FLAG_NoNamed		= (1 << 18),	// :nonamed
+	FLAG_Read			= (1 << 16),	// :r
+	FLAG_SymbolFunc		= (1 << 17),	// :symbol_func
+	FLAG_Trailer		= (1 << 18),	// :trailer
+	FLAG_Write			= (1 << 19),	// :w
 };
 
 //-----------------------------------------------------------------------------

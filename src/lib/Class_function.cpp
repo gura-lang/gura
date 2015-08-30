@@ -87,22 +87,22 @@ Value Object_function::DoSetProp(Environment &env, const Symbol *pSymbol, const 
 
 bool Object_function::IsLeader() const
 {
-	return GetFunction()->GetLeaderFlag();
+	return GetFunction()->GetFlag(FLAG_Leader);
 }
 
 bool Object_function::IsTrailer() const
 {
-	return GetFunction()->GetTrailerFlag();
+	return GetFunction()->GetFlag(FLAG_Trailer);
 }
 
 bool Object_function::IsFinalizer() const
 {
-	return GetFunction()->GetFinalizerFlag();
+	return GetFunction()->GetFlag(FLAG_Finalizer);
 }
 
 bool Object_function::IsEndMarker() const
 {
-	return GetFunction()->GetEndMarkerFlag();
+	return GetFunction()->GetFlag(FLAG_EndMarker);
 }
 
 OccurPattern Object_function::GetBlockOccurPattern() const

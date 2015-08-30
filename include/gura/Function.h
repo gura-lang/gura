@@ -191,7 +191,6 @@ protected:
 	HelpOwner _helpOwner;
 	BlockInfo _blockInfo;
 	const Symbol *_pSymbolDict;
-	bool _allowTooManyArgsFlag;
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
@@ -199,7 +198,7 @@ public:
 	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType, ULong flags);
 	virtual ~Function();
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
-	inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
+	//inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline void SetSymbol(const Symbol *pSymbol) { _pSymbol = pSymbol; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
@@ -225,33 +224,23 @@ public:
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ULong GetFlags() const { return _flags; }
+	inline void SetFlag(ULong flag) { _flags |= flag; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag)? true : false; }
 	inline const SymbolSet &GetAttrsOpt() const {
 		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
 	}
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
-	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
-	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
-	inline bool IsRsltSet() const { return _resultMode == RSLTMODE_Set; }
-	inline bool IsRsltXSet() const { return _resultMode == RSLTMODE_XSet; }
 	inline bool IsRsltIterator() const { return _resultMode == RSLTMODE_Iterator; }
-	inline bool IsRsltXIterator() const { return _resultMode == RSLTMODE_XIterator; }
-	inline bool IsRsltVoid() const { return _resultMode == RSLTMODE_Void; }
+	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
 	inline bool IsRsltReduce() const { return _resultMode == RSLTMODE_Reduce; }
+	inline bool IsRsltSet() const { return _resultMode == RSLTMODE_Set; }
+	inline bool IsRsltVoid() const { return _resultMode == RSLTMODE_Void; }
+	inline bool IsRsltXIterator() const { return _resultMode == RSLTMODE_XIterator; }
+	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
 	inline bool IsRsltXReduce() const { return _resultMode == RSLTMODE_XReduce; }
-	inline bool GetMapFlag() const { return (_flags & FLAG_Map)? true : false; }
-	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
-	inline bool GetForkFlag() const { return (_flags & FLAG_Fork)? true : false; }
-	inline bool GetDynamicScopeFlag() const { return (_flags & FLAG_DynamicScope)? true : false; }
-	inline bool GetSymbolFuncFlag() const { return (_flags & FLAG_SymbolFunc)? true : false; }
-	inline bool GetLeaderFlag() const { return (_flags & FLAG_Leader)? true : false; }
-	inline bool GetTrailerFlag() const { return (_flags & FLAG_Trailer)? true : false; }
-	inline bool GetFinalizerFlag() const { return (_flags & FLAG_Finalizer)? true : false; }
-	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
-	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
-	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
-	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
+	inline bool IsRsltXSet() const { return _resultMode == RSLTMODE_XSet; }
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env,
@@ -281,10 +270,6 @@ public:
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
 	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
 	inline void SetSymbolDict(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
-	inline void AllowTooManyArgs(bool allowTooManyArgsFlag) {
-		_allowTooManyArgsFlag = allowTooManyArgsFlag;
-	}
-	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);

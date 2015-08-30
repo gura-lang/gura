@@ -90,7 +90,7 @@ Value Expr::Exec(Environment &env,
 		sig.AddExprCause(this);
 		return Value::Nil;
 	}
-	if (evalSymFuncFlag && result.Is_function() && result.GetFunction()->IsSymbolFunc()) {
+	if (evalSymFuncFlag && result.Is_function() && result.GetFunction()->GetFlag(FLAG_SymbolFunc)) {
 		// symbol functions are only evaluated by a sequence of block.
 		// in the folloiwng example, "return" shall be evaluated by a block
 		// of "if" function.
@@ -809,7 +809,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}
-		if (!pFunc->GetPrivateFlag()) extra = EXTRA_Public;
+		if (!pFunc->GetFlag(FLAG_Private)) extra = EXTRA_Public;
 	}
 	if (valTypeCast != VTYPE_any) {
 		AutoPtr<Declaration> pDecl(
@@ -2034,7 +2034,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	Value valueFunc(new Object_function(env, pFunc));
 	GetCar()->Assign(env, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Nil;
-	if (pFunc->GetSymbolFuncFlag()) return Value::Nil;
+	if (pFunc->GetFlag(FLAG_SymbolFunc)) return Value::Nil;
 	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
 		pFunc->AddHelp((*ppHelp)->Reference());
 	}

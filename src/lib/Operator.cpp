@@ -984,7 +984,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
 			pArgSub->SetValue(valueRight);
 			result = pFunc->Eval(env, *pArgSub);
-		} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
+		} else if (!pFunc->GetFlag(FLAG_Map) ||
 				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
 			pArgSub->SetValueListArg(valueRight.GetList());

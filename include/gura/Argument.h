@@ -28,9 +28,9 @@ public:
 		inline const Value &GetValue() const { return _value; }
 		inline void SetValue(const Value &value) { _value = value; }
 	};
-	class SlotList : public std::vector<Slot> {
+	class Slots : public std::vector<Slot> {
 	public:
-		inline SlotList() {}
+		inline Slots() {}
 		Slot *FindBySymbol(const Symbol *pSymbol);
 	};
 private:
@@ -43,7 +43,7 @@ private:
 	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	Value _valueThis;
 	ValueList _valListArg;
-	SlotList _slotList;
+	Slots _slots;
 	AutoPtr<ValueDict> _pValDictArg;
 	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
@@ -63,7 +63,7 @@ public:
 		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
 		_valueThis(arg._valueThis),
 		_valListArg(arg._valListArg),
-		_slotList(arg._slotList),
+		_slots(arg._slots),
 		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
@@ -79,7 +79,7 @@ public:
 		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
 		_valueThis(arg._valueThis),
 		_valListArg(valListArg),
-		_slotList(arg._slotList),
+		_slots(arg._slots),
 		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
 		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
