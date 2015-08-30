@@ -97,7 +97,7 @@ for %%C in (%cases%) do (
 )
 goto timestamp
 :timestamp
-%PROGRAM_GURA% -c "printf('%s\nBuilt at %s\n', sys.executable, sys.timestamp)"
+%PROGRAM_GURA% -c "printf('%%s\nBuilt at %%s\n', sys.executable, sys.timestamp)"
 goto done
 rem --------
 :usage
