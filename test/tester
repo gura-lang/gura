@@ -93,3 +93,4 @@ elif [ "$2" = "update" ]; then
 		gura test-$case.gura > result/test-$case.sample.txt
 	done
 fi
+gura -c "printf('%s\nBuilt at %s\n', sys.executable, sys.timestamp)"

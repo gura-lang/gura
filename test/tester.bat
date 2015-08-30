@@ -80,7 +80,7 @@ for %%C in (%cases%) do (
 	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.result.txt
 	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
 )
-goto done
+goto timestamp
 rem --------
 :genscript
 for %%C in (%cases%) do (
@@ -88,13 +88,16 @@ for %%C in (%cases%) do (
 	%PROGRAM_GURA% genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
 	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
 )
-goto done
+goto timestamp
 rem --------
 :update
 for %%C in (%cases%) do (
 	echo update: %%C
 	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.sample.txt
 )
+goto timestamp
+:timestamp
+%PROGRAM_GURA% -c "printf('%s\nBuilt at %s\n', sys.executable, sys.timestamp)"
 goto done
 rem --------
 :usage
