@@ -78,7 +78,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env,
 {
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env, pSymbol,
 		new Expr_Block(pExprBlock->GetExprOwner().Reference(), nullptr), funcType));
-	pFunc->GetDeclOwner().AllowTooManyArgs(true);
+	pFunc->AllowTooManyArgs(true);
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	if (pExprOwnerParam != nullptr) {
 		CallerInfo callerInfo(*pExprOwnerParam, nullptr, nullptr, nullptr);

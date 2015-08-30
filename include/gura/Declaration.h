@@ -105,12 +105,10 @@ public:
 class GURA_DLLDECLARE DeclarationOwner : public DeclarationList {
 private:
 	int _cntRef;
-	const Symbol *_pSymbolDict;
-	bool _allowTooManyArgsFlag;
 public:
 	Gura_DeclareReferenceAccessor(DeclarationOwner)
 public:
-	inline DeclarationOwner() : _cntRef(1), _pSymbolDict(nullptr), _allowTooManyArgsFlag(false) {}
+	inline DeclarationOwner() : _cntRef(1) {}
 private:
 	DeclarationOwner(const DeclarationOwner &declOwner);
 	inline void operator=(const DeclarationOwner &declOwner) {}
@@ -119,13 +117,8 @@ private:
 public:
 	void Clear();
 	inline DeclarationOwner *Clone() const { return new DeclarationOwner(*this); }
-	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
-	inline void SetSymbolDict(const Symbol *pSymbol) { _pSymbolDict = pSymbol; }
-	inline void AllowTooManyArgs(bool flag) { _allowTooManyArgsFlag = flag; }
-	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
-	bool ValidateAndCast(Environment &env,
-						 const ValueList &valList, ValueList &valListCasted) const;
-	String ToString() const;
+	bool ValidateAndCast(Environment &env, const ValueList &valList,
+						 ValueList &valListCasted, bool allowTooManyArgaFlag) const;
 };
 
 }

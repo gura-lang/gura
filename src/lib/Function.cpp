@@ -42,7 +42,9 @@ Function::Function(const Function &func) :
 	_flags(func._flags),
 	_pAttrsOptShared(func._pAttrsOptShared.IsNull()?
 					 nullptr : new SymbolSetShared(*func._pAttrsOptShared)),
-	_blockInfo(func._blockInfo)
+	_blockInfo(func._blockInfo),
+	_pSymbolDict(func._pSymbolDict),
+	_allowTooManyArgsFlag(func._allowTooManyArgsFlag)
 {
 }
 
@@ -56,7 +58,9 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 	_funcType(funcType),
 	_resultMode(RSLTMODE_Normal),
 	_flags(flags),
-	_pAttrsOptShared(nullptr)
+	_pAttrsOptShared(nullptr),
+	_pSymbolDict(nullptr),
+	_allowTooManyArgsFlag(false)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
 	_blockInfo.pSymbol = nullptr;
@@ -99,8 +103,7 @@ bool Function::CustomDeclare(Environment &env,
 									"invalid expression for declaration");
 					return false;
 				}
-				_pDeclOwner->SetSymbolDict(
-						dynamic_cast<const Expr_Identifier *>(pExprChild)->GetSymbol());
+				_pSymbolDict = dynamic_cast<const Expr_Identifier *>(pExprChild)->GetSymbol();
 				continue;
 			}
 		}
@@ -360,7 +363,7 @@ Value Function::Call(
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
 		if (ppDecl == _pDeclOwner->end()) {
-			if (_pDeclOwner->IsAllowTooManyArgs()) break;
+			if (_allowTooManyArgsFlag) break;
 			Declaration::SetError_TooManyArguments(sig);
 			return Value::Nil;
 		}
@@ -434,7 +437,7 @@ Value Function::Call(
 	//-------------------------------------------------------------------------
 	if (exprMap.empty()) {
 		// nothing to do
-	} else if (_pDeclOwner->GetSymbolDict() == nullptr) {
+	} else if (_pSymbolDict == nullptr) {
 		String str;
 		str = "invalid argument named ";
 		foreach_const (Function::ExprMap, iter, exprMap) {
@@ -478,9 +481,9 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 														pValue++, ppDecl++) {
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	if (_pDeclOwner->GetSymbolDict() != nullptr) {
+	if (_pSymbolDict != nullptr) {
 		const ValueDict &valDictArg = arg.GetValueDictArg();
-		pEnvLocal->AssignValue(_pDeclOwner->GetSymbolDict(),
+		pEnvLocal->AssignValue(_pSymbolDict,
 			   Value(new Object_dict(env, valDictArg.Reference(), false)), EXTRA_Public);
 	}
 	const ValueMap *pValMapHiddenArg = arg.GetValueMapHiddenArg();
@@ -519,7 +522,8 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 Value Function::Eval(Environment &env, Argument &arg) const
 {
 	ValueList valListCasted;
-	if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(), valListCasted)) {
+	if (!_pDeclOwner->ValidateAndCast(env, arg.GetValueListArg(),
+									  valListCasted, _allowTooManyArgsFlag)) {
 		return Value::Nil;
 	}
 	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
@@ -678,6 +682,11 @@ String Function::ToString() const
 	}
 	str += "(";
 	str += _pDeclOwner->ToString();
+	if (_pSymbolDict != nullptr) {
+		if (!_pDeclOwner->empty()) str += ", ";
+		str += _pSymbolDict->GetName();
+		str += Gura_Symbol(Char_Mod)->GetName();
+	}
 	str += ")";
 	if (_funcType == FUNCTYPE_Class) {
 		str += ":";

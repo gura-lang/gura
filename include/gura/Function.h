@@ -190,12 +190,13 @@ protected:
 	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	HelpOwner _helpOwner;
 	BlockInfo _blockInfo;
+	const Symbol *_pSymbolDict;
+	bool _allowTooManyArgsFlag;
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
 	Function(const Function &func);
-	Function(Environment &envScope, const Symbol *pSymbol,
-								FunctionType funcType, ULong flags);
+	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType, ULong flags);
 	virtual ~Function();
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
@@ -264,7 +265,7 @@ public:
 			Expr *pExprDefault = nullptr) {
 		return DeclareArg(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
-	inline void DeclareDictArg(const Symbol *pSymbol) { GetDeclOwner().SetSymbolDict(pSymbol); }
+	inline void DeclareDictArg(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
 	inline void DeclareDictArg(const char *name) { DeclareDictArg(Symbol::Add(name)); }
 	inline void DeclareAttr(const Symbol *pSymbol) {
 		// Use this function only in a constructor of a derived class from Function.
@@ -278,6 +279,12 @@ public:
 	}
 	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
+	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
+	inline void SetSymbolDict(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
+	inline void AllowTooManyArgs(bool allowTooManyArgsFlag) {
+		_allowTooManyArgsFlag = allowTooManyArgsFlag;
+	}
+	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);

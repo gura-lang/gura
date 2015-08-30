@@ -360,9 +360,7 @@ void Declaration::SetError_TooManyArguments(Signal &sig)
 //-----------------------------------------------------------------------------
 // DeclarationOwner
 //-----------------------------------------------------------------------------
-DeclarationOwner::DeclarationOwner(const DeclarationOwner &declOwner) : _cntRef(1),
-			_pSymbolDict(declOwner._pSymbolDict),
-			_allowTooManyArgsFlag(declOwner._allowTooManyArgsFlag)
+DeclarationOwner::DeclarationOwner(const DeclarationOwner &declOwner) : _cntRef(1)
 {
 	foreach_const (DeclarationList, ppDecl, declOwner) {
 		push_back((*ppDecl)->Clone());
@@ -382,8 +380,8 @@ void DeclarationOwner::Clear()
 	clear();
 }
 
-bool DeclarationOwner::ValidateAndCast(Environment &env,
-						const ValueList &valList, ValueList &valListCasted) const
+bool DeclarationOwner::ValidateAndCast(Environment &env, const ValueList &valList,
+									   ValueList &valListCasted, bool allowTooManyArgsFlag) const
 {
 	Signal &sig = env.GetSignal();
 	ValueList::const_iterator pValue = valList.begin();
@@ -419,22 +417,11 @@ bool DeclarationOwner::ValidateAndCast(Environment &env,
 			pValue++;
 		}
 	}
-	if (pValue != valList.end() && !IsAllowTooManyArgs()) {
+	if (pValue != valList.end() && !allowTooManyArgsFlag) {
 		Declaration::SetError_TooManyArguments(sig);
 		return false;
 	}
 	return true;
-}
-
-String DeclarationOwner::ToString() const
-{
-	String str = DeclarationList::ToString();
-	if (_pSymbolDict != nullptr) {
-		if (!empty()) str += ", ";
-		str += _pSymbolDict->GetName();
-		str += Gura_Symbol(Char_Mod)->GetName();
-	}
-	return str;
 }
 
 }
