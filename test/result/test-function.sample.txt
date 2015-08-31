@@ -1,4 +1,4 @@
-======== #1 ========
+======== #1 :nocast attribute in argument list ========
 
 expected error occured:TypeError: variable 'x' cannot take number value in 'x:string:nocast'
 expected error occured:TypeError: variable 'x' cannot take list value in 'x:string:nocast'
@@ -6,22 +6,22 @@ first
 second
 third
 
-======== #2 ========
+======== #2 implicit-mapping and member-mapping ========
 
 filterNames(['aaaa', 'bbb', 'ccccc'], 4).join(',') .. AAAA,CCCCC
 
-======== #3 ========
+======== #3 block parameter in a different line from that of opening brace ========
 
 0
 1
 2
 
-======== #4 ========
+======== #4 destructor order ========
 
 this must be first
 this must be second
 
-======== #5 ========
+======== #5 variable expansion by asterisk operator ========
 
 a=1 b=[2,3,4]
 a=1 b=2 c=3 d=4 e=[]
@@ -32,7 +32,7 @@ a=1 b=2 c=3 d=4 e=[5,6]
 a=1 b=[2,3,4,5,6,7,8,9,10]
 a=1 b=2 c=3 d=4 e=[5,6,7,8,9,10]
 
-======== #6 ========
+======== #6 optional attribute ========
 
 foo:1 bar:0 hoge:0
 foo:0 bar:1 hoge:0
@@ -42,17 +42,17 @@ foo:1 bar:0 hoge:1
 foo:0 bar:1 hoge:1
 foo:1 bar:1 hoge:1
 
-======== #7 ========
+======== #7 expr#eval() ========
 
 hello world
 
-======== #8 ========
+======== #8 ampasand operator creates functions that come along with arguments ========
 
 f(x, y, z) = {|x, y, z| x * y * z }
 f(5, 7, 8) .. 280
 expected error occurs: TypeError: variable 'x' cannot take string value in 'x:number'
 
-======== #9 ========
+======== #9 giving argument values by asterisk operator ========
 
 1
 2
@@ -74,11 +74,11 @@ ccccdddd
 eeeeffff
 str.mid * [[0, 1], [0, 2], [0, 5], [6, -1]] .. ['H', 'He', 'Hello', 'World']
 
-======== #10 ========
+======== #10 :reduce attribute ========
 
 f(1 .. 10) .. 55
 
-======== #11 ========
+======== #11 calls methods of instances that have been created in a different module ========
 
 message from object-1
 message from object-2
@@ -90,21 +90,21 @@ message from object-1
 message from object-2
 message from object-3
 
-======== #12 ========
+======== #12 blocks that take quoted value ========
 
 nil
 expr
 
-======== #13 ========
+======== #13 dictionary argument ========
 
 %{a => `println('hello')}
 %{a => `println('hello')}
 
-======== #14 ========
+======== #14 blocks that take function instance ========
 
 3
 
-======== #15 ========
+======== #15 giving functions a dictionary as their arguments ========
 
 f(% { `a => 1, `b => 2, `c => 3, `d => 4 }%) .. a=1 b=2 c=3 d=4 %{}
 f(% { `a => 1, `b => 2 }%, % { `c => 3, `d => 4 }%) .. a=1 b=2 c=3 d=4 %{}
@@ -113,13 +113,13 @@ expected error occured:ValueError: argument confliction
 f(1, 2, 3, 4, % { 'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4 }%) .. a=1 b=2 c=3 d=4 %{'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4}
 expected error occured:ValueError: argument confliction
 
-======== #16 ========
+======== #16 modifies function symbol ========
 
 funcorg() = {}
 funcnew() = {}
 funcnew1() = {}
 
-======== #17 ========
+======== #17 test of switch-case ========
 
 [a, b] = [1, 1]
 [a, b] = [1, 2]
