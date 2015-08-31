@@ -791,7 +791,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal &sig, Environment *pEnv
 		return nullptr;
 	}
 	if (!(*moduleValidate)()) {
-		sig.SetError(ERR_ImportError, "unacceptable version of module");
+		sig.SetError(ERR_VersionError, "unacceptable version of module");
 		return nullptr;
 	}
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, nullptr, moduleTerminate);
