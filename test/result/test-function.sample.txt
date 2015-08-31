@@ -305,3 +305,10 @@ a => 3
 a => 3
 b => 2
 c => 1
+
+======== #43 :cut_extra_args attribute ========
+
+f() a=1, b=2, c=3
+g() a=1, b=2, c=3
+expected error occurs: TypeError: too many arguments
+g() a=1, b=2, c=3

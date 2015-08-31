@@ -444,3 +444,19 @@ testcase(':nonamed attribute') {
 	f(a => 3)
 	g(a => 3, b => 2, c => 1)
 }
+testcase(':cut_extra_args attribute') {
+	f(a, b, c) = {printf('f() a=%d, b=%d, c=%d\n', a, b, c)}
+	g(a, b, c):cut_extra_args = {printf('g() a=%d, b=%d, c=%d\n', a, b, c)}
+	f(1, 2, 3)
+	g(1, 2, 3)
+	try {
+		f(1, 2, 3, 4)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		g(1, 2, 3, 4)
+	} catch {|e|
+		println('*** NG ***')
+	}
+}
