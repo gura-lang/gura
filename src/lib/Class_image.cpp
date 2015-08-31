@@ -528,9 +528,9 @@ Gura_ImplementMethod(image, grayscale)
 Gura_DeclareMethod(image, mapcolorlevel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "map@r", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "map@g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
-	DeclareArg(env, "map@b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "map@r", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "map@g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
+	DeclareArg(env, "map@b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

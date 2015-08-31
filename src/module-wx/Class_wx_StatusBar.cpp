@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusText)
 Gura_DeclareMethod(wx_StatusBar, SetStatusWidths)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_StatusBar, SetStatusWidths)
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusWidths)
 Gura_DeclareMethod(wx_StatusBar, SetStatusStyles)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "styles", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "styles", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_StatusBar, SetStatusStyles)

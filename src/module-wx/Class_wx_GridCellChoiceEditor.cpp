@@ -41,7 +41,7 @@ Gura_DeclareFunction(GridCellChoiceEditor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "allowOthers", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

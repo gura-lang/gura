@@ -967,7 +967,7 @@ Gura_ImplementMethod(Surface, UpdateRect)
 Gura_DeclareMethod(Surface, UpdateRects)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Makes sure the given list of rectangles is updated on the given screen.\n"
@@ -1025,7 +1025,7 @@ Gura_ImplementMethod(Surface, Flip)
 Gura_DeclareMethod(Surface, SetColors)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
 	AddHelp(
@@ -1071,7 +1071,7 @@ Gura_DeclareMethod(Surface, SetPalette)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
-	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
 	AddHelp(
@@ -2651,9 +2651,9 @@ Gura_ImplementFunction(GetGammaRamp)
 Gura_DeclareFunction(SetGammaRamp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "redtable", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "greentable", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "bluetable", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "redtable", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "greentable", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "bluetable", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Sets the gamma lookup tables for the display for each color component.\n"
@@ -3237,7 +3237,7 @@ Gura_ImplementFunction(PumpEvents)
 Gura_DeclareFunction(AddEvents)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

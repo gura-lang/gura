@@ -52,7 +52,7 @@ Gura_ImplementMethod(image, write_xpm)
 Gura_DeclareMethod(image, xpmdata)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "xpm", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "xpm", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Read xpm data from a string list.");

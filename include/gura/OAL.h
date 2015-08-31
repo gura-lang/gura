@@ -150,13 +150,13 @@ public:
 	inline long GetUid() const { return _uid; }
 	inline long GetGid() const { return _gid; }
 	inline long GetMode() const { return _attr & 0777; }
-	inline bool IsDir() const { return (_attr & ATTR_Dir)? true : false; }
-	inline bool IsChr() const { return (_attr & ATTR_Chr)? true : false; }
-	inline bool IsBlk() const { return (_attr & ATTR_Blk)? true : false; }
-	inline bool IsReg() const { return (_attr & ATTR_Reg)? true : false; }
-	inline bool IsFifo() const { return (_attr & ATTR_Fifo)? true : false; }
-	inline bool IsLnk() const { return (_attr & ATTR_Lnk)? true : false; }
-	inline bool IsSock() const { return (_attr & ATTR_Sock)? true : false; }
+	inline bool IsDir() const { return (_attr & ATTR_Dir) != 0; }
+	inline bool IsChr() const { return (_attr & ATTR_Chr) != 0; }
+	inline bool IsBlk() const { return (_attr & ATTR_Blk) != 0; }
+	inline bool IsReg() const { return (_attr & ATTR_Reg) != 0; }
+	inline bool IsFifo() const { return (_attr & ATTR_Fifo) != 0; }
+	inline bool IsLnk() const { return (_attr & ATTR_Lnk) != 0; }
+	inline bool IsSock() const { return (_attr & ATTR_Sock) != 0; }
 	static FileStat *Generate(Signal &sig, const char *fileName);
 };
 

@@ -106,7 +106,7 @@ Gura_DeclareClassMethod(wx_Dir, GetAllFiles)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "dirname", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "filespec", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 #endif

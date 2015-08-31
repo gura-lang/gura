@@ -51,7 +51,7 @@ Gura_DeclareFunction(GLCanvas)
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "attribList", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "attribList", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "palette", VTYPE_wx_Palette, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

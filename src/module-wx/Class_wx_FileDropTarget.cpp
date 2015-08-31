@@ -125,7 +125,7 @@ Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "filenames", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "filenames", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

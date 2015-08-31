@@ -90,7 +90,7 @@ Gura_DeclareFunction(MultiChoiceDialog_1)
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "selections", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "selections", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)

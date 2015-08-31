@@ -725,8 +725,8 @@ Gura_ImplementMethod(Canvas, pie)
 Gura_DeclareMethod(Canvas, polyline)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(Canvas, polyline)
@@ -741,7 +741,7 @@ Gura_ImplementMethod(Canvas, polyline)
 Gura_DeclareMethod(Canvas, polylinep)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(Canvas, polylinep)
@@ -756,8 +756,8 @@ Gura_ImplementMethod(Canvas, polylinep)
 Gura_DeclareMethod(Canvas, polygon)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "xs", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "ys", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(Canvas, polygon)
@@ -772,7 +772,7 @@ Gura_ImplementMethod(Canvas, polygon)
 Gura_DeclareMethod(Canvas, polygonp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "pts", VTYPE_list, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(Canvas, polygonp)

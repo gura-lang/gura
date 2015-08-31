@@ -655,7 +655,7 @@ Gura_ImplementMethod(string, replace)
 Gura_DeclareMethod(string, replaces)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "map",		VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "map",		VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);

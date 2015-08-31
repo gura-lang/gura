@@ -79,7 +79,7 @@ Gura_DeclareFunction(RadioBox)
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "majorDimension", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_RadioBox, Create)
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_Once);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "majorDimension", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);

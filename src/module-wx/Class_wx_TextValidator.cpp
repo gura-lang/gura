@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_TextValidator, OnChar)
 Gura_DeclareMethod(wx_TextValidator, SetExcludes)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_TextValidator, SetExcludes)
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_TextValidator, SetExcludes)
 Gura_DeclareMethod(wx_TextValidator, SetIncludes)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "stringList", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_TextValidator, SetIncludes)

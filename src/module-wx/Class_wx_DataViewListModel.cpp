@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_DataViewListModel, RowPrepended)
 Gura_DeclareMethod(wx_DataViewListModel, RowsReordered)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "new_order", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "new_order", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

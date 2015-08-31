@@ -105,11 +105,11 @@ public:
 	virtual Object *DoGetStatObj(Signal &sig);
 	inline int GetRefCount() const { return _cntRef; }
 	inline ULong GetAttr() const { return _attr; }
-	inline bool IsInfinite() const { return (_attr & ATTR_Infinite)? true : false; }
-	inline bool IsReadable() const { return (_attr & ATTR_Readable)? true : false; }
-	inline bool IsWritable() const { return (_attr & ATTR_Writable)? true : false; }
-	inline bool IsAppend() const { return (_attr & ATTR_Append)? true : false; }
-	inline bool IsBwdSeekable() const { return (_attr & ATTR_BwdSeekable)? true : false; }
+	inline bool IsInfinite() const { return (_attr & ATTR_Infinite) != 0; }
+	inline bool IsReadable() const { return (_attr & ATTR_Readable) != 0; }
+	inline bool IsWritable() const { return (_attr & ATTR_Writable) != 0; }
+	inline bool IsAppend() const { return (_attr & ATTR_Append) != 0; }
+	inline bool IsBwdSeekable() const { return (_attr & ATTR_BwdSeekable) != 0; }
 	inline void SetReadable(bool flag) {
 		_attr = (_attr & ~ATTR_Readable) | (flag? ATTR_Readable : 0);
 	}

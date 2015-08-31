@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, AddTranslator)
 Gura_DeclareMethod(wx_AboutDialogInfo, SetArtists)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "artists", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "artists", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, SetArtists)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDescription)
 Gura_DeclareMethod(wx_AboutDialogInfo, SetDevelopers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "developers", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "developers", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, SetDevelopers)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetDevelopers)
 Gura_DeclareMethod(wx_AboutDialogInfo, SetDocWriters)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "docwriters", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "docwriters", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, SetDocWriters)
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, SetName)
 Gura_DeclareMethod(wx_AboutDialogInfo, SetTranslators)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "translators", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "translators", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, SetTranslators)

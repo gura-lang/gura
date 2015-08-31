@@ -69,7 +69,7 @@ Gura_DeclareFunction(ListBox)
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -117,7 +117,7 @@ Gura_DeclareMethod(wx_ListBox, Create)
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_ListBox, GetSelections)
 Gura_DeclareMethod(wx_ListBox, InsertItems)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_ListBox, IsSelected)
 Gura_DeclareMethod(wx_ListBox, Set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 

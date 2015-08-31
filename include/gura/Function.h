@@ -224,7 +224,7 @@ public:
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ULong GetFlags() const { return _flags; }
 	inline void SetFlag(ULong flag) { _flags |= flag; }
-	inline bool GetFlag(ULong flag) const { return (_flags & flag)? true : false; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
 	inline const SymbolSet &GetAttrsOpt() const {
 		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
 	}

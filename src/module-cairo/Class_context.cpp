@@ -561,7 +561,7 @@ Gura_ImplementMethod(context, get_antialias)
 Gura_DeclareMethod(context, set_dash)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "offset", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the dash pattern to be used by `cairo.context#stroke()`.\n"

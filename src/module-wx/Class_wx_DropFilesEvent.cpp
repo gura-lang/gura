@@ -42,7 +42,7 @@ Gura_DeclareFunction(DropFilesEvent)
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropFilesEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "files", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "files", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 #endif
 }

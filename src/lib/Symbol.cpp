@@ -64,7 +64,7 @@ void Symbol::Initialize()
 			{ Gura_Symbol(flat),			FLAG_Flat			},
 			{ Gura_Symbol(fork),			FLAG_Fork			},
 			{ Gura_Symbol(leader),			FLAG_Leader			},
-			{ Gura_Symbol(list),			FLAG_List			},
+			{ Gura_Symbol(listvar),			FLAG_ListVar		},
 			{ Gura_Symbol(map),				FLAG_Map			},
 			{ Gura_Symbol(nil),				FLAG_Nil			},
 			{ Gura_Symbol(nocast),			FLAG_NoCast			},
@@ -452,6 +452,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(linux);
 	Gura_RealizeSymbol(list);
 	Gura_RealizeSymbol(listitem);
+	Gura_RealizeSymbol(listvar);
 	Gura_RealizeSymbol(local);
 	Gura_RealizeSymbol(log);
 	Gura_RealizeSymbol(loose);

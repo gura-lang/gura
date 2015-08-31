@@ -443,7 +443,7 @@ Gura_DeclareFunction(Execute_2)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -464,8 +464,8 @@ Gura_DeclareFunction(Execute_3)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "command", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "errors", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "output", VTYPE_string, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "errors", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -1125,8 +1125,8 @@ Gura_DeclareFunction(ParseCommonDialogsFilter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "wildCard", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "descriptions", VTYPE_string, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "filters", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "descriptions", VTYPE_string, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "filters", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2056,7 +2056,7 @@ Gura_DeclareFunction(GetMultipleChoices)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2197,7 +2197,7 @@ Gura_DeclareFunction(GetSingleChoice)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2235,7 +2235,7 @@ Gura_DeclareFunction(GetSingleChoiceIndex)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -2273,7 +2273,7 @@ Gura_DeclareFunction(GetSingleChoiceData)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aChoices", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "client_data[]", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);

@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_DialUpManager, IsOk)
 Gura_DeclareMethod(wx_DialUpManager, GetISPNames)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "names", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "names", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

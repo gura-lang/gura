@@ -271,7 +271,7 @@ Gura_DeclareFunctionAlias(__glutInit, "glutInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "argv", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "argv", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"`glutInit` is used to initialize the GLUT library.\n");

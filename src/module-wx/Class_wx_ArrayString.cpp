@@ -66,7 +66,7 @@ Gura_DeclareFunction(ArrayString)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
-	DeclareArg(env, "array", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "array", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

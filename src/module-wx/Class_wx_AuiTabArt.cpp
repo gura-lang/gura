@@ -338,7 +338,7 @@ Gura_DeclareMethod(wx_AuiTabArt, ShowWindowList)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	DeclareArg(env, "wnd", VTYPE_wx_Window, OCCUR_Once);
-	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "items", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "active_idx", VTYPE_number, OCCUR_Once);
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);

@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, GetSelection)
 Gura_DeclareMethod(wx_DataViewCtrl, GetSelections)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -622,7 +622,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, SetSelectionRange)
 Gura_DeclareMethod(wx_DataViewCtrl, SetSelections)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "aSelections", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_DataViewCtrl, SetSelections)

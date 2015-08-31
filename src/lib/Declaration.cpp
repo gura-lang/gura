@@ -66,7 +66,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 	}
 	if (pExpr->IsIndexer()) {
 		pExpr = dynamic_cast<const Expr_Indexer *>(pExpr)->GetCar();
-		flags |= FLAG_List;
+		flags |= FLAG_ListVar;
 	}
 	if (!pExpr->IsIdentifier()) {
 		sig.SetError(ERR_SyntaxError, "invalid argument expression");
@@ -113,7 +113,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemFlag) const
 {
 	Signal &sig = env.GetSignal();
-	if (!listElemFlag && GetListFlag()) {
+	if (!listElemFlag && GetFlag(FLAG_ListVar)) {
 		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
 		if (sig.IsSignalled()) return false;
 		if (value.Is_list()) {
@@ -131,7 +131,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			return false;
 		}
 	}
-	if (((IsOptional() || GetNilFlag()) && value.IsInvalid()) ||
+	if (((IsOptional() || GetFlag(FLAG_Nil)) && value.IsInvalid()) ||
 												GetValueType() == VTYPE_quote) {
 		goto done;
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {
@@ -152,7 +152,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 		value = Value(pClass);
 		goto done;
 	}
-	if (!GetNoCastFlag()) {
+	if (!GetFlag(FLAG_NoCast)) {
 		Class *pClass = env.LookupClass(GetValueType());
 		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
 			if (pClass->GetValueType() == VTYPE_undefined) {
@@ -171,7 +171,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 	SetError_ArgumentType(sig, value);
 	return false;
 done:
-	if (GetPrivilegedFlag()) value.AddFlags(VFLAG_Privileged);
+	if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
 	return true;
 }
 
@@ -194,34 +194,34 @@ String Declaration::ToString() const
 		str += "`";
 	}
 	str += _pSymbol->GetName();
-	if (GetListFlag()) str += "[]";
+	if (GetFlag(FLAG_ListVar)) str += "[]";
 	str += Symbol::FromOccurPattern(_occurPattern)->GetName();
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&
 					_valType != VTYPE_any && _valType != VTYPE_quote) {
 		str += ":";
 		str += ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
-	if (GetNoMapFlag()) {
+	if (GetFlag(FLAG_NoMap)) {
 		str += ":";
 		str += Gura_Symbol(nomap)->GetName();
 	}
-	if (GetNilFlag()) {
+	if (GetFlag(FLAG_Nil)) {
 		str += ":";
 		str += Gura_Symbol(nil)->GetName();
 	}
-	if (GetReadFlag()) {
+	if (GetFlag(FLAG_Read)) {
 		str += ":";
 		str += Gura_Symbol(r)->GetName();
 	}
-	if (GetWriteFlag()) {
+	if (GetFlag(FLAG_Write)) {
 		str += ":";
 		str += Gura_Symbol(w)->GetName();
 	}
-	if (GetNoCastFlag()) {
+	if (GetFlag(FLAG_NoCast)) {
 		str += ":";
 		str += Gura_Symbol(nocast)->GetName();
 	}
-	if (GetPrivilegedFlag()) {
+	if (GetFlag(FLAG_Privileged)) {
 		str += ":";
 		str += Gura_Symbol(privileged)->GetName();
 	}

@@ -114,7 +114,7 @@ public:
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
 	inline ULong GetFlags() const { return _flags; }
-	inline bool GetFlag(ULong flag) const { return (_flags & flag)? true : false; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
 	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value &GetValueThis() { return _valueThis; }
 	inline const Value &GetValueThis() const { return _valueThis; }
@@ -146,20 +146,6 @@ public:
 	inline bool IsResultXReduce() const { return _resultMode == RSLTMODE_XReduce; }
 	inline bool IsResultXSet() const { return _resultMode == RSLTMODE_XSet; }
 	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
-	/*
-	inline bool GetMapFlag() const { return (_flags & FLAG_Map)? true : false; }
-	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
-	inline bool GetForkFlag() const { return (_flags & FLAG_Fork)? true : false; }
-	inline bool GetDynamicScopeFlag() const { return (_flags & FLAG_DynamicScope)? true : false; }
-	inline bool GetSymbolFuncFlag() const { return (_flags & FLAG_SymbolFunc)? true : false; }
-	inline bool GetLeaderFlag() const { return (_flags & FLAG_Leader)? true : false; }
-	inline bool GetTrailerFlag() const { return (_flags & FLAG_Trailer)? true : false; }
-	inline bool GetFinalizerFlag() const { return (_flags & FLAG_Finalizer)? true : false; }
-	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
-	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
-	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
-	inline bool GetNoNamedFlag() const { return (_flags & FLAG_NoNamed)? true : false; }
-	*/
 	inline void SetTrailCtrlHolder(TrailCtrlHolder *pTrailCtrlHolder) {
 		_pTrailCtrlHolder.reset(pTrailCtrlHolder);
 	}

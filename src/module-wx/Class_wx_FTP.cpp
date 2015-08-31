@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_FTP, GetFileSize)
 Gura_DeclareMethod(wx_FTP, GetDirList)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_FTP, GetDirList)
 Gura_DeclareMethod(wx_FTP, GetFilesList)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "files", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "wildcard", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

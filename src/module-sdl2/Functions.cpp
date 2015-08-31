@@ -2307,9 +2307,9 @@ Gura_DeclareFunctionAlias(__SetWindowGammaRamp, "SetWindowGammaRamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2600,7 +2600,7 @@ Gura_DeclareFunctionAlias(__UpdateWindowSurfaceRects, "UpdateWindowSurfaceRects"
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3296,7 +3296,7 @@ Gura_DeclareFunctionAlias(__RenderDrawLines, "RenderDrawLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3348,7 +3348,7 @@ Gura_DeclareFunctionAlias(__RenderDrawPoints, "RenderDrawPoints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3398,7 +3398,7 @@ Gura_DeclareFunctionAlias(__RenderDrawRects, "RenderDrawRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3448,7 +3448,7 @@ Gura_DeclareFunctionAlias(__RenderFillRects, "RenderFillRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4252,7 +4252,7 @@ Gura_DeclareFunctionAlias(__SetPaletteColors, "SetPaletteColors")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ncolors", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -4310,7 +4310,7 @@ Gura_DeclareFunctionAlias(__EnclosePoints, "EnclosePoints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "clip", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -4781,7 +4781,7 @@ Gura_DeclareFunctionAlias(__FillRects, "FillRects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -5661,7 +5661,7 @@ Gura_DeclareFunctionAlias(__AddEvents, "AddEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

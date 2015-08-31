@@ -66,7 +66,7 @@ Gura_ImplementClassMethod(region, create_rectangle)
 Gura_DeclareClassMethod(region, create_rectangles)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_rectangle_int, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "rects", VTYPE_rectangle_int, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

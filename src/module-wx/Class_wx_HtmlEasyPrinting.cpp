@@ -203,7 +203,7 @@ Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFonts)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "normal_face", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "fixed_face", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "sizes", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "sizes", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)

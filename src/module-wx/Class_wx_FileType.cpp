@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_FileType, GetMimeType_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
-	DeclareArg(env, "mimeTypes", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "mimeTypes", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_FileType, GetMimeType_1)
 Gura_DeclareMethod(wx_FileType, GetExtensions)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "extensions", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "extensions", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

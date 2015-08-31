@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_TextAttr, SetRightIndent)
 Gura_DeclareMethod(wx_TextAttr, SetTabs)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "tabs", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "tabs", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_TextAttr, SetTabs)

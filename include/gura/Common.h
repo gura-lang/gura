@@ -214,7 +214,7 @@ enum {
 	FLAG_Flat			= (1 << 4),		// :flat
 	FLAG_Fork			= (1 << 5),		// :fork
 	FLAG_Leader			= (1 << 6),		// :leader
-	FLAG_List			= (1 << 7),		// :list
+	FLAG_ListVar		= (1 << 7),		// :listvar
 	FLAG_Map			= (1 << 8),		// :map
 	FLAG_Nil			= (1 << 9),		// :nil
 	FLAG_NoCast			= (1 << 10),	// :nocast

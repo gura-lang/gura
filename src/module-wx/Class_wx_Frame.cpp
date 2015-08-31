@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_Frame, SetStatusText)
 Gura_DeclareMethod(wx_Frame, SetStatusWidths)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_Frame, SetStatusWidths)

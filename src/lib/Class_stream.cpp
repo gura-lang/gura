@@ -896,8 +896,8 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
 		if (pDecl != nullptr) {
-			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
-			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
+			if (pDecl->GetFlag(FLAG_Write)) attr = Stream::ATTR_Writable;
+			if (pDecl->GetFlag(FLAG_Read)) attr |= Stream::ATTR_Readable;
 		}
 		Stream *pStream = Stream::Open(env, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
@@ -906,7 +906,7 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 	} else if (value.Is_binary()) {
 		Object_binary *pObjBinary = Object_binary::Reference(
 						dynamic_cast<Object_binary *>(value.GetObject()));
-		bool seekEndFlag = pDecl->GetWriteFlag();
+		bool seekEndFlag = pDecl->GetFlag(FLAG_Write);
 		Object *pObj = new Object_stream(env,
 					new Stream_Binary(env, pObjBinary, seekEndFlag));
 		value = Value(pObj);

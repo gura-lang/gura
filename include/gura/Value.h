@@ -171,10 +171,10 @@ public:
 	inline UShort GetFlags() const { return _valFlags; }
 	inline void SetFlags(UShort valFlags) { _valFlags = valFlags; }
 	inline void AddFlags(UShort valFlags) { _valFlags |= valFlags; }
-	inline bool IsOwner() const { return (_valFlags & VFLAG_Owner)? true : false; }
-	inline bool IsPrivileged() const { return (_valFlags & VFLAG_Privileged)? true : false; }
-	inline bool GetTinyBuffFlag() const { return (_valFlags & VFLAG_TinyBuff)? true : false; }
-	inline bool GetNoMapFlag() const { return (_valFlags & VFLAG_NoMap)? true : false; }
+	inline bool IsOwner() const { return (_valFlags & VFLAG_Owner) != 0; }
+	inline bool IsPrivileged() const { return (_valFlags & VFLAG_Privileged) != 0; }
+	inline bool GetTinyBuffFlag() const { return (_valFlags & VFLAG_TinyBuff) != 0; }
+	inline bool GetNoMapFlag() const { return (_valFlags & VFLAG_NoMap) != 0; }
 	inline int GetSuperSkipCount() const { return (_valFlags >> 8) & 0xff; }
 	inline void SetSuperSkipCount(int cntSuperSkip) {
 		_valFlags = (_valFlags & 0x00ff) | (static_cast<UShort>(cntSuperSkip & 0xff) << 8);

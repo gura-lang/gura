@@ -153,7 +153,7 @@ Gura_DeclareFunction(RegionPoints)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
-	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

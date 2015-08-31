@@ -68,7 +68,7 @@ Gura_DeclareFunction(AcceleratorTable)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
-	DeclareArg(env, "entries", VTYPE_wx_AcceleratorEntry, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "entries", VTYPE_wx_AcceleratorEntry, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

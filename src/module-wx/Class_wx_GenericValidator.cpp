@@ -170,7 +170,7 @@ Gura_DeclareFunction(GenericValidator_4)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
-	DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 #endif
 }

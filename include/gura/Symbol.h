@@ -363,6 +363,7 @@ public:
 	Gura_DeclareSymbol(linux);
 	Gura_DeclareSymbol(list);
 	Gura_DeclareSymbol(listitem);
+	Gura_DeclareSymbol(listvar);
 	Gura_DeclareSymbol(local);
 	Gura_DeclareSymbol(log);
 	Gura_DeclareSymbol(loose);

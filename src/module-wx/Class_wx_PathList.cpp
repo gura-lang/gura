@@ -64,7 +64,7 @@ Gura_DeclareFunction(PathList)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_PathList));
-	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_PathList, Add)
 Gura_DeclareMethod(wx_PathList, Add_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "arr", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_PathList, Add_1)

@@ -937,7 +937,7 @@ Value Func_BezierPrototype::DoEval(Environment &env, Argument &arg) const
 Gura_DeclareFunction(bezier)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "nums", VTYPE_number, OCCUR_OnceOrMore, FLAG_List);
+	DeclareArg(env, "nums", VTYPE_number, OCCUR_OnceOrMore, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a list that consists of functions that generate coordinates of bezier\n"
@@ -1005,7 +1005,7 @@ Gura_ImplementFunction(optimize)
 Gura_DeclareFunction(fft)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "seq", VTYPE_any, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "seq", VTYPE_any, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1035,8 +1035,8 @@ Gura_ImplementFunction(integral)
 Gura_DeclareFunction(dot_product)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1075,8 +1075,8 @@ static Value CalcCrossElem(Environment &env,
 Gura_DeclareFunction(cross_product)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

@@ -41,13 +41,7 @@ public:
 	inline Declaration *Clone() const { return new Declaration(*this); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
-	inline bool GetListFlag() const { return (_flags & FLAG_List)? true : false; }
-	inline bool GetNoMapFlag() const { return (_flags & FLAG_NoMap)? true : false; }
-	inline bool GetNilFlag() const { return (_flags & FLAG_Nil)? true : false; }
-	inline bool GetReadFlag() const { return (_flags & FLAG_Read)? true : false; }
-	inline bool GetWriteFlag() const { return (_flags & FLAG_Write)? true : false; }
-	inline bool GetNoCastFlag() const { return (_flags & FLAG_NoCast)? true : false; }
-	inline bool GetPrivilegedFlag() const { return (_flags & FLAG_Privileged)? true : false; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
 	inline void SetOccurPattern(OccurPattern occurPattern) { _occurPattern = occurPattern; }
 	inline OccurPattern GetOccurPattern() const { return _occurPattern; }
 	inline const Expr *GetExprDefault() const { return _pExprDefault.get(); }
@@ -65,11 +59,12 @@ public:
 	inline bool IsQuote() const { return IsType(VTYPE_quote); }
 	inline bool IsAlwaysMappable() const {
 		return (_occurPattern == OCCUR_Once || _occurPattern == OCCUR_ZeroOrOnce) &&
-				!IsType(VTYPE_any) && !IsType(VTYPE_list) && !GetListFlag();
+				!IsType(VTYPE_any) && !IsType(VTYPE_list) && !GetFlag(FLAG_ListVar);
 	}
 	inline bool ShouldImplicitMap(const Value &value) const {
-		return (value.Is_list() || value.Is_iterator()) && !value.GetNoMapFlag() && !GetNoMapFlag() &&
-				!((IsType(VTYPE_list) || GetListFlag()) && value.IsFlatList());
+		return (value.Is_list() || value.Is_iterator()) &&
+			!value.GetNoMapFlag() && !GetFlag(FLAG_NoMap) &&
+			!((IsType(VTYPE_list) || GetFlag(FLAG_ListVar)) && value.IsFlatList());
 	}
 	String ToString() const;
 	void SetError_ArgumentType(Signal &sig, const Value &value) const;

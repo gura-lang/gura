@@ -104,7 +104,7 @@ Gura_DeclareFunction(BitmapFromXPMData)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
-	DeclareArg(env, "bits", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "bits", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

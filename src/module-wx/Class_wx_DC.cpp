@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_DC, DrawLine)
 Gura_DeclareMethod(wx_DC, DrawLines)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -593,7 +593,7 @@ Gura_ImplementMethod(wx_DC, DrawLines)
 Gura_DeclareMethod(wx_DC, DrawPolygon)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "fill_style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_DC, DrawPolygon)
 Gura_DeclareMethod(wx_DC, DrawPolyPolygon)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "points", VTYPE_list, OCCUR_Once, FLAG_List | FLAG_NoMap);
+	DeclareArg(env, "points", VTYPE_list, OCCUR_Once, FLAG_ListVar | FLAG_NoMap);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "fill_style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -824,7 +824,7 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangleRect)
 Gura_DeclareMethod(wx_DC, DrawSpline)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_DC, DrawSpline)
@@ -1111,7 +1111,7 @@ Gura_DeclareMethod(wx_DC, GetPartialTextExtents)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
-	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "widths", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

@@ -101,7 +101,7 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "imageLocations", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "imageLocations", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFileCounter)
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "fontSizeMapping", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "fontSizeMapping", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTempDir)
 Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "locations", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "locations", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)

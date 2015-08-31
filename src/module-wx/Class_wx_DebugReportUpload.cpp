@@ -72,7 +72,7 @@ Gura_DeclareMethod(wx_DebugReportUpload, OnServerReply)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 #if 0
-	DeclareArg(env, "WXUNUSED(reply)", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "WXUNUSED(reply)", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 #endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

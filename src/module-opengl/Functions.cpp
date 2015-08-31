@@ -214,7 +214,7 @@ Gura_DeclareFunctionAlias(__glCallLists, "glCallLists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "lists", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "lists", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1593,7 +1593,7 @@ Gura_ImplementFunction(__glEdgeFlag)
 Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7393,7 +7393,7 @@ Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxCount", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "shaders", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -7423,7 +7423,7 @@ Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "infoLog", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -7453,7 +7453,7 @@ Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "infoLog", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -7510,9 +7510,9 @@ Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -7601,7 +7601,7 @@ Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "source", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -7659,9 +7659,9 @@ Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "size", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
