@@ -1476,7 +1476,14 @@ Gura_ImplementFunction(content)
 	return ReturnValue(env, arg, Value(pObjContent));
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

@@ -97,7 +97,14 @@ Gura_ImplementMethod(stream, writer_gzip)
 	return ReturnValue(env, arg, Value(pObjStream));
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// value assignment

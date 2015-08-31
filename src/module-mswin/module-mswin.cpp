@@ -1048,6 +1048,14 @@ Gura_ImplementFunction(GetACP)
 	return Value(rtn);
 }
 
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	::CoInitialize(0);

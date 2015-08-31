@@ -392,7 +392,14 @@ Gura_ImplementFunction(walk)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// value assignment

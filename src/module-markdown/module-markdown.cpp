@@ -3026,8 +3026,13 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
-// Module entry
+// Module Entries
 //-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

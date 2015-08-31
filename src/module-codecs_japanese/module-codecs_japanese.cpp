@@ -196,9 +196,13 @@ Codec::Result Codec_JIS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: japanese
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_EUCJP>("euc-jp"));

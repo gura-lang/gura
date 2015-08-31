@@ -93,7 +93,14 @@ Gura_ImplementFunction(write)
 	return arg.GetValueThis();
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// function assignment

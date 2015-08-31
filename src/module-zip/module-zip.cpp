@@ -566,7 +566,14 @@ Gura_ImplementFunction(test)
 	return Value::Nil;
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

@@ -49,6 +49,11 @@ namespace ModuleNS_##name {
 #if defined(GURA_MODULE_SEPARATED)
 #define Gura_RegisterModule(name) \
 extern "C" GURA_DLLEXPORT \
+bool GuraModuleValidate() \
+{ \
+	return Gura::ModuleNS_##name::Validate(); \
+} \
+extern "C" GURA_DLLEXPORT \
 bool GuraModuleEntry(Gura::Environment &env) \
 { \
 	return Gura::ModuleNS_##name::MixIn(env); \
@@ -65,7 +70,8 @@ namespace ModuleNS_##name { \
 } }
 #endif
 
-//ModuleIntegrator s_integrator(#name, MixIn, Terminate);
+#define Gura_ModuleValidate() \
+GURA_DLLEXPORT bool Validate()
 
 #define Gura_ModuleEntry() \
 GURA_DLLEXPORT bool MixIn(Environment &env)

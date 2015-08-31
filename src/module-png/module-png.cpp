@@ -48,9 +48,13 @@ Gura_ImplementMethod(image, write_png)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: png
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	Gura_AssignMethodTo(VTYPE_image, image, read_png);

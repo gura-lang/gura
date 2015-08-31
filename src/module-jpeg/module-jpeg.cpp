@@ -241,9 +241,13 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: jpeg
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

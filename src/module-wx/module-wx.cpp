@@ -48,9 +48,13 @@ static bool g_wxReadyFlag = false;
 void RegisterFunctions(Environment &env);
 
 //-----------------------------------------------------------------------------
-// Gura module functions: wx
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	RealizeBaseClass(EventFactory);

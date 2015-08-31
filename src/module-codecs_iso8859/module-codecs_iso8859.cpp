@@ -696,9 +696,13 @@ Codec_ISO8859_16::Encoder::Encoder(bool addcrFlag) :
 	Codec_SBCS::Encoder(addcrFlag, _codeTbl_ISO8859_16, _pMapShared) {}
 
 //-----------------------------------------------------------------------------
-// Gura module functions: iso8859
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_1>("iso-8859-1"));

@@ -328,7 +328,14 @@ Gura_ImplementFunction(crc32)
 	return ReturnValue(env, arg, Value(pObj));
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	Gura_RealizeUserSymbol(digest);

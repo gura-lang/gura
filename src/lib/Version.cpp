@@ -40,4 +40,17 @@ const char *Version::GetTimeStamp()
 	return __DATE__ " " __TIME__;
 }
 
+bool Version::CheckCoreVersion(const char *strVer, ...)
+{
+	const char *strCoreVer = GetVersion();
+	if (::strcmp(strCoreVer, strVer) == 0) return true;
+	va_list vargs;
+	va_start(vargs, strVer);
+	while (const char *strVerOther = va_arg(vargs, const char *)) {
+		if (::strcmp(strCoreVer, strVerOther) == 0) return true;
+	}
+	va_end(vargs);
+	return false;
+}
+
 }

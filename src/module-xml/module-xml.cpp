@@ -1456,9 +1456,13 @@ Gura_ImplementFunction(document)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_stream
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

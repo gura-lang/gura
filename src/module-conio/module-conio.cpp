@@ -553,8 +553,13 @@ Gura_ImplementFunction(waitkey)
 #endif
 
 //-----------------------------------------------------------------------------
-// Module entry
+// Module Entries
 //-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// function assignment

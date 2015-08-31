@@ -34,8 +34,13 @@ Gura_AssignValue(K_##name, Value(SDLK_##name))
 Gura_BeginModuleBody(sdl2)
 
 //-----------------------------------------------------------------------------
-// Module entry
+// Module Entries
 //-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 void AssignValues(Environment &env);
 void AssignFunctions(Environment &env);
 

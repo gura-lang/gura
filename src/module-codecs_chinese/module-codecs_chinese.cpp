@@ -37,9 +37,13 @@ UShort Codec_CP950::Encoder::UTF16ToDBCS(UShort codeUTF16)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: chinese
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP936>("cp936"));

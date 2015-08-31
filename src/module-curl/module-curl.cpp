@@ -225,8 +225,13 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
-// Module entry
+// Module Entries
 //-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// class realization

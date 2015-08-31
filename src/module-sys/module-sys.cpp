@@ -70,6 +70,14 @@ Gura_ImplementFunction(required_version)
 	return Value::Nil;
 }
 
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// value assignment

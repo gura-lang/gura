@@ -70,7 +70,14 @@ Gura_ImplementFunction(adder)
 	return Value(arg.GetNumber(0) + arg.GetNumber(1));
 }
 
-// Module entry
+//-----------------------------------------------------------------------------
+// Module Entries
+//-----------------------------------------------------------------------------
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	// symbol realization

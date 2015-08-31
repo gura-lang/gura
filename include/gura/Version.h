@@ -25,6 +25,7 @@ public:
 	static const char *GetVersion();
 	static const char *GetBanner(bool timeStampFlag);
 	static const char *GetTimeStamp();
+	static bool CheckCoreVersion(const char *strCoreVer, ...);
 };
 
 }

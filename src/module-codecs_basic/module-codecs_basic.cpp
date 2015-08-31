@@ -88,9 +88,13 @@ Codec::Result Codec_UTF8::Encoder::FeedChar(char ch, char &chConv)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: codecs.basic
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_USASCII>("us-ascii"));

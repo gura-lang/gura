@@ -263,9 +263,13 @@ Gura_ImplementMethod(image, xpmdata)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: xpm
+// Module Entries
 //-----------------------------------------------------------------------------
-// Module entry
+Gura_ModuleValidate()
+{
+	return Version::CheckCoreVersion(GURA_VERSION, nullptr);
+}
+
 Gura_ModuleEntry()
 {
 	//Gura_AssignMethodTo(VTYPE_image, image, read_xpm);
