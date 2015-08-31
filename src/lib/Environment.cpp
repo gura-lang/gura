@@ -778,15 +778,22 @@ Module *Environment::ImportSeparatedModule_Binary(Signal &sig, Environment *pEnv
 {
 	OAL::DynamicLibrary dynamicLibrary;
 	if (!dynamicLibrary.Open(sig, pathName)) return nullptr;
-	void *pFunc = nullptr;
-	pFunc = dynamicLibrary.GetEntry(sig, "GuraModuleEntry");
-	if (pFunc == nullptr) return nullptr;
 	// gcc of a certain version such as 3.4.6 may cause an error when trying to
 	// cast between pointer-to-function and pointer-to-using with reinterpret_cast.
-	ModuleEntryType moduleEntry = (ModuleEntryType)(pFunc);
-	pFunc = dynamicLibrary.GetEntry(sig, "GuraModuleTerminate");
-	if (pFunc == nullptr) return nullptr;
-	ModuleTerminateType moduleTerminate = (ModuleTerminateType)(pFunc);
+	ModuleValidateType moduleValidate =
+		(ModuleValidateType)dynamicLibrary.GetEntry(sig, "GuraModuleValidate");
+	ModuleEntryType moduleEntry =
+		(ModuleEntryType)dynamicLibrary.GetEntry(sig, "GuraModuleEntry");
+	ModuleTerminateType moduleTerminate =
+		(ModuleTerminateType)dynamicLibrary.GetEntry(sig, "GuraModuleTerminate");
+	if (moduleValidate == nullptr || moduleEntry == nullptr || moduleTerminate == nullptr) {
+		sig.SetError(ERR_ImportError, "can't find necessary entry functions");
+		return nullptr;
+	}
+	if (!(*moduleValidate)()) {
+		sig.SetError(ERR_ImportError, "unacceptable version of module");
+		return nullptr;
+	}
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, nullptr, moduleTerminate);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	if (!(*moduleEntry)(*pModule)) {

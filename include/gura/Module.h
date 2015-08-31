@@ -83,6 +83,14 @@ namespace Gura {
 
 class Environment;
 class Signal;
+class Module;
+
+//-----------------------------------------------------------------------------
+// Module Entry Type
+//-----------------------------------------------------------------------------
+typedef bool (*ModuleValidateType)();
+typedef bool (*ModuleEntryType)(Environment &env);
+typedef void (*ModuleTerminateType)(Module *pModule);
 
 //-----------------------------------------------------------------------------
 // Module

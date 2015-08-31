@@ -113,12 +113,6 @@ GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 typedef std::map<String, Module *> ModuleMap;
 
 //-----------------------------------------------------------------------------
-// Module Entry Type
-//-----------------------------------------------------------------------------
-typedef bool (*ModuleEntryType)(Environment &env);
-typedef void (*ModuleTerminateType)(Module *pModule);
-
-//-----------------------------------------------------------------------------
 // PathMgrOwner
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE PathMgrOwner : public std::vector<PathMgr *> {
