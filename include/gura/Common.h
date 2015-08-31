@@ -203,34 +203,6 @@ typedef std::deque<ULong>	ULongDeque;
 typedef std::deque<Number>	NumberDeque;
 
 //-----------------------------------------------------------------------------
-// OccurPattern
-//-----------------------------------------------------------------------------
-enum OccurPattern {
-	OCCUR_Invalid,
-	OCCUR_Zero,			// (none)
-	OCCUR_Once,			// 1
-	OCCUR_ZeroOrOnce,	// ?
-	OCCUR_ZeroOrMore,	// *
-	OCCUR_OnceOrMore,	// +
-};
-
-//-----------------------------------------------------------------------------
-// ResultMode
-//-----------------------------------------------------------------------------
-enum ResultMode {
-	RSLTMODE_Normal,
-	RSLTMODE_Iterator,		// :iter
-	RSLTMODE_List,			// :list
-	RSLTMODE_Reduce,		// :reduce
-	RSLTMODE_Set,			// :set
-	RSLTMODE_Void,			// :void
-	RSLTMODE_XIterator,		// :xiter
-	RSLTMODE_XList,			// :xlist
-	RSLTMODE_XReduce,		// :xreduce
-	RSLTMODE_XSet,			// :xset
-};
-
-//-----------------------------------------------------------------------------
 // Flag
 //-----------------------------------------------------------------------------
 enum {
@@ -255,6 +227,34 @@ enum {
 	FLAG_SymbolFunc		= (1 << 17),	// :symbol_func
 	FLAG_Trailer		= (1 << 18),	// :trailer
 	FLAG_Write			= (1 << 19),	// :w
+};
+
+//-----------------------------------------------------------------------------
+// OccurPattern
+//-----------------------------------------------------------------------------
+enum OccurPattern {
+	OCCUR_Invalid,
+	OCCUR_Zero,							// (none)
+	OCCUR_Once,							// 1
+	OCCUR_ZeroOrOnce,					// ?
+	OCCUR_ZeroOrMore,					// *
+	OCCUR_OnceOrMore,					// +
+};
+
+//-----------------------------------------------------------------------------
+// ResultMode
+//-----------------------------------------------------------------------------
+enum ResultMode {
+	RSLTMODE_Normal,
+	RSLTMODE_Iterator,					// :iter
+	RSLTMODE_List,						// :list
+	RSLTMODE_Reduce,					// :reduce
+	RSLTMODE_Set,						// :set
+	RSLTMODE_Void,						// :void
+	RSLTMODE_XIterator,					// :xiter
+	RSLTMODE_XList,						// :xlist
+	RSLTMODE_XReduce,					// :xreduce
+	RSLTMODE_XSet,						// :xset
 };
 
 //-----------------------------------------------------------------------------

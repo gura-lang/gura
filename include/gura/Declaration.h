@@ -77,7 +77,6 @@ public:
 	static void SetError_InvalidArgument(Signal &sig);
 	static void SetError_NotEnoughArguments(Signal &sig);
 	static void SetError_TooManyArguments(Signal &sig);
-	static OccurPattern SymbolToOccurPattern(const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------

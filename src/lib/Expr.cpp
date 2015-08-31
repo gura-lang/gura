@@ -1337,8 +1337,8 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 				const Expr_UnaryOp *pExprUnaryOp =
 										dynamic_cast<const Expr_UnaryOp *>(pExpr);
 				pExpr = pExprUnaryOp->GetChild();
-				occurPattern = Declaration::SymbolToOccurPattern(
-										pExprUnaryOp->GetOperator()->GetSymbol());
+				occurPattern = Symbol::ToOccurPattern(
+									pExprUnaryOp->GetOperator()->GetSymbol());
 				if (occurPattern == OCCUR_Invalid) {
 					SetError(sig, ERR_SyntaxError,
 								"invalid expression of array assignment");
@@ -1364,8 +1364,8 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 				const Expr_UnaryOp *pExprUnaryOp =
 								dynamic_cast<const Expr_UnaryOp *>(pExpr);
 				pExpr = pExprUnaryOp->GetChild();
-				occurPattern = Declaration::SymbolToOccurPattern(
-										pExprUnaryOp->GetOperator()->GetSymbol());
+				occurPattern = Symbol::ToOccurPattern(
+									pExprUnaryOp->GetOperator()->GetSymbol());
 			}
 			if (occurPattern == OCCUR_ZeroOrMore) {
 				Value value;

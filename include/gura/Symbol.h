@@ -54,9 +54,23 @@ public:
 			return ::strcmp(pSymbol1->GetName(), pSymbol2->GetName()) < 0;
 		}
 	};
+public:
+	typedef std::map<ULong, const Symbol *> MapFromFlag;
+	typedef std::map<const Symbol *, ULong, KeyCompare_UniqNumber> MapToFlag;
+	typedef std::map<OccurPattern, const Symbol *> MapFromOccurPattern;
+	typedef std::map<const Symbol *, OccurPattern, KeyCompare_UniqNumber> MapToOccurPattern;
+	typedef std::map<ResultMode, const Symbol *> MapFromResultMode;
+	typedef std::map<const Symbol *, ResultMode, KeyCompare_UniqNumber> MapToResultMode;
 private:
 	UniqNumber _uniqNum;
 	char *_name;
+private:
+	static MapFromFlag _mapFromFlag;
+	static MapToFlag _mapToFlag;
+	static MapFromOccurPattern _mapFromOccurPattern;
+	static MapToOccurPattern _mapToOccurPattern;
+	static MapFromResultMode _mapFromResultMode;
+	static MapToResultMode _mapToResultMode;
 public:
 	Symbol(UniqNumber uniqNum, const char *name);
 	~Symbol();
@@ -70,6 +84,14 @@ public:
 	inline bool IsNone() const { return _name[0] == '\0'; }
 	inline bool IsPrivateName() const { return _name[0] == '_' && _name[1] == '_'; }
 	static const Symbol *Add(const char *name);
+public:
+	static void Initialize();
+	static const Symbol *FromFlag(ULong flag);
+	static ULong ToFlag(const Symbol *pSymbol);
+	static const Symbol *FromOccurPattern(OccurPattern occurPattern);
+	static OccurPattern ToOccurPattern(const Symbol *pSymbol);
+	static const Symbol *FromResultMode(ResultMode resultMode);
+	static ResultMode ToResultMode(const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------
@@ -567,11 +589,6 @@ private:
 	inline SymbolPool(const SymbolPool &symbolPool) {}
 	inline void operator=(const SymbolPool &symbolPool) {}
 };
-
-//-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-const Symbol *GetOccurPatternSymbol(OccurPattern occurPattern);
 
 }
 

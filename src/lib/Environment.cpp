@@ -91,7 +91,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 #if defined(_MSC_VER)
 	::_set_output_format(_TWO_DIGIT_EXPONENT);
 #endif
-	SymbolPool::Initialize();
+	Symbol::Initialize();
 	Codec::Initialize();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
 	Random::Initialize(1234);	// initialize random generator SFMT

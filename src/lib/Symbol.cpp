@@ -15,6 +15,13 @@ const SymbolSet SymbolSet::Empty;
 //-----------------------------------------------------------------------------
 // Symbol
 //-----------------------------------------------------------------------------
+Symbol::MapFromFlag Symbol::_mapFromFlag;
+Symbol::MapToFlag Symbol::_mapToFlag;
+Symbol::MapFromOccurPattern Symbol::_mapFromOccurPattern;
+Symbol::MapToOccurPattern Symbol::_mapToOccurPattern;
+Symbol::MapFromResultMode Symbol::_mapFromResultMode;
+Symbol::MapToResultMode Symbol::_mapToResultMode;
+
 Symbol::Symbol(UniqNumber uniqNum, const char *name) : _uniqNum(uniqNum)
 {
 	_name = new char[::strlen(name) + 1];
@@ -40,6 +47,115 @@ bool Symbol::IsFlowControlSymbol() const
 		IsIdentical(Gura_Symbol(while_)) ||
 		IsIdentical(Gura_Symbol(for_)) ||
 		IsIdentical(Gura_Symbol(cross));
+}
+
+void Symbol::Initialize()
+{
+	SymbolPool::Initialize();
+	do {
+		struct {
+			const Symbol *pSymbol;
+			ULong flag;
+		} tbl[] = {
+			{ Gura_Symbol(cut_extra_args),	FLAG_CutExtraArgs	},
+			{ Gura_Symbol(dynamic_scope),	FLAG_DynamicScope	},
+			{ Gura_Symbol(end_marker),		FLAG_EndMarker		},
+			{ Gura_Symbol(finalizer),		FLAG_Finalizer		},
+			{ Gura_Symbol(flat),			FLAG_Flat			},
+			{ Gura_Symbol(fork),			FLAG_Fork			},
+			{ Gura_Symbol(leader),			FLAG_Leader			},
+			{ Gura_Symbol(list),			FLAG_List			},
+			{ Gura_Symbol(map),				FLAG_Map			},
+			{ Gura_Symbol(nil),				FLAG_Nil			},
+			{ Gura_Symbol(nocast),			FLAG_NoCast			},
+			{ Gura_Symbol(nomap),			FLAG_NoMap			},
+			{ Gura_Symbol(nonamed),			FLAG_NoNamed		},
+			{ Gura_Symbol(private_),		FLAG_Private		},
+			{ Gura_Symbol(privileged),		FLAG_Privileged		},
+			{ Gura_Symbol(public_),			FLAG_Public			},
+			{ Gura_Symbol(r),				FLAG_Read			},
+			{ Gura_Symbol(symbol_func),		FLAG_SymbolFunc		},
+			{ Gura_Symbol(trailer),			FLAG_Trailer		},
+			{ Gura_Symbol(w),				FLAG_Write			},
+		};
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
+			_mapFromFlag[tbl[i].flag] = tbl[i].pSymbol;
+			_mapToFlag[tbl[i].pSymbol] = tbl[i].flag;
+		}
+	} while (0);
+	do {
+		struct {
+			const Symbol *pSymbol;
+			OccurPattern occurPattern;
+		} tbl[] = {
+			{ Gura_Symbol(Char_Mul),		OCCUR_ZeroOrMore	},
+			{ Gura_Symbol(Char_Add),		OCCUR_OnceOrMore	},
+			{ Gura_Symbol(Char_Question),	OCCUR_ZeroOrOnce	},
+		};
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
+			_mapFromOccurPattern[tbl[i].occurPattern] = tbl[i].pSymbol;
+			_mapToOccurPattern[tbl[i].pSymbol] = tbl[i].occurPattern;
+		}
+	} while (0);
+	do {
+		struct {
+			const Symbol *pSymbol;
+			ResultMode resultMode;
+		} tbl[] = {
+			{ Gura_Symbol(iter),			RSLTMODE_Iterator	},
+			{ Gura_Symbol(list),			RSLTMODE_List		},
+			{ Gura_Symbol(reduce),			RSLTMODE_Reduce		},
+			{ Gura_Symbol(set),				RSLTMODE_Set		},
+			{ Gura_Symbol(void_),			RSLTMODE_Void		},
+			{ Gura_Symbol(xiter),			RSLTMODE_XIterator	},
+			{ Gura_Symbol(xlist),			RSLTMODE_XList		},
+			{ Gura_Symbol(xreduce),			RSLTMODE_XReduce	},
+			{ Gura_Symbol(xset),			RSLTMODE_XSet		},
+		};
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
+			_mapFromResultMode[tbl[i].resultMode] = tbl[i].pSymbol;
+			_mapToResultMode[tbl[i].pSymbol] = tbl[i].resultMode;
+		}
+	} while(0);
+
+}
+
+const Symbol *Symbol::FromFlag(ULong flag)
+{
+	return Gura_Symbol(Str_Empty);
+}
+
+ULong Symbol::ToFlag(const Symbol *pSymbol)
+{
+	return FLAG_None;
+}
+
+const Symbol *Symbol::FromOccurPattern(OccurPattern occurPattern)
+{
+	return
+		(occurPattern == OCCUR_ZeroOrOnce)? Gura_Symbol(Char_Question) :
+		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Mul) :
+		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Add) :
+		Gura_Symbol(Str_Empty);
+}
+
+OccurPattern Symbol::ToOccurPattern(const Symbol *pSymbol)
+{
+	return
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?		OCCUR_ZeroOrMore :
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?		OCCUR_OnceOrMore :
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
+		OCCUR_Invalid;
+}
+
+const Symbol *Symbol::FromResultMode(ResultMode resultMode)
+{
+	return Gura_Symbol(Str_Empty);
+}
+
+ResultMode Symbol::ToResultMode(const Symbol *pSymbol)
+{
+	return RSLTMODE_Normal;
 }
 
 //-----------------------------------------------------------------------------
@@ -561,18 +677,6 @@ const Symbol *SymbolPool::Add(const char *name)
 SymbolPool *SymbolPool::GetInstance()
 {
 	return _pInst;
-}
-
-//-----------------------------------------------------------------------------
-// OccurPattern
-//-----------------------------------------------------------------------------
-const Symbol *GetOccurPatternSymbol(OccurPattern occurPattern)
-{
-	return
-		(occurPattern == OCCUR_ZeroOrOnce)? Gura_Symbol(Char_Question) :
-		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Mul) :
-		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Add) :
-		Gura_Symbol(Str_Empty);
 }
 
 }

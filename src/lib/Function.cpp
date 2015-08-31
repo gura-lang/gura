@@ -146,8 +146,7 @@ bool Function::CustomDeclare(Environment &env,
 	if (pExpr->IsUnaryOpSuffix()) {
 		const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		pExpr = pExprUnaryOp->GetChild();
-		occurPattern = Declaration::SymbolToOccurPattern(
-							pExprUnaryOp->GetOperator()->GetSymbol());
+		occurPattern = Symbol::ToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			SetError_InvalidFunctionExpression(sig);
 			return false;
@@ -743,7 +742,7 @@ String Function::ToString() const
 		str += " {";
 		if (_blockInfo.quoteFlag) str += "`";
 		str += _blockInfo.pSymbol->GetName();
-		str += GetOccurPatternSymbol(_blockInfo.occurPattern)->GetName();
+		str += Symbol::FromOccurPattern(_blockInfo.occurPattern)->GetName();
 		if (_blockInfo.blockScope == BLKSCOPE_Inside) {
 			str += ":inside_scope";
 		} else if (_blockInfo.blockScope == BLKSCOPE_SameAsFunc) {

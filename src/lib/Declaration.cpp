@@ -50,7 +50,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 	if (pExpr->IsUnaryOpSuffix()) {
 		const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		pExpr = pExprUnaryOp->GetChild();
-		occurPattern = SymbolToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
+		occurPattern = Symbol::ToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			sig.SetError(ERR_SyntaxError, "invalid argument expression");
 			return nullptr;
@@ -195,7 +195,7 @@ String Declaration::ToString() const
 	}
 	str += _pSymbol->GetName();
 	if (GetListFlag()) str += "[]";
-	str += GetOccurPatternSymbol(_occurPattern)->GetName();
+	str += Symbol::FromOccurPattern(_occurPattern)->GetName();
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&
 					_valType != VTYPE_any && _valType != VTYPE_quote) {
 		str += ":";
@@ -232,15 +232,6 @@ String Declaration::ToString() const
 		str += _pExprDefault->ToString(Expr::SCRSTYLE_OneLine);
 	}
 	return str;
-}
-
-OccurPattern Declaration::SymbolToOccurPattern(const Symbol *pSymbol)
-{
-	return
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?		OCCUR_ZeroOrMore :
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?		OCCUR_OnceOrMore :
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
-		OCCUR_Invalid;
 }
 
 //-----------------------------------------------------------------------------
