@@ -26,7 +26,7 @@ glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
 	for (GLsizei i = 0; i < n; i++) {
 		valList.push_back(residences[i] != 0);
 	}
-	return ReturnValue(env, args, _rtnVal);
+	return ReturnValue(env, arg, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
 	determine if textures are loaded in texture memory
@@ -41,9 +41,9 @@ glArrayElement(i:GLint):void:map = `auto % {`en, 'markdown',
 
 glBegin(mode:GLenum):void:map {block?} = R'''
 	glBegin(mode);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
@@ -107,7 +107,7 @@ glCallList(list:GLuint):void:map = `auto % {`en, 'markdown',
 }
 
 glCallLists(type:GLenum, lists[]:number):void:map = R'''
-	const ValueList &lists_in = args.GetList(1);
+	const ValueList &lists_in = arg.GetList(1);
 	GLsizei n = static_cast<GLsizei>(lists.size());
 	AutoPtr<Memory> pListsBuff;
 	if (type == GL_BYTE) {
@@ -749,7 +749,7 @@ glGetBooleanv(pname:GLenum):map {block?} = R'''
 	for (GLsizei i = 0; i < n; i++) {
 		valList.push_back(params[i] != 0);
 	}
-	return ReturnValue(env, args, _rtnVal);
+	return ReturnValue(env, arg, _rtnVal);
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -758,7 +758,7 @@ glGetBooleanv(pname:GLenum):map {block?} = R'''
 glGetClipPlane(plane:GLenum):map = R'''
 	GLdouble equation[4];
 	glGetClipPlane(plane, equation);
-	return ReturnValue(env, args, Value::CreateList(env, equation, ArraySizeOf(equation)));
+	return ReturnValue(env, arg, Value::CreateList(env, equation, ArraySizeOf(equation)));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -772,7 +772,7 @@ glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -785,7 +785,7 @@ glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -800,7 +800,7 @@ glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -813,7 +813,7 @@ glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -825,7 +825,7 @@ glGetDoublev(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -841,7 +841,7 @@ glGetFloatv(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -855,7 +855,7 @@ glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetHistogramParameterfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -868,7 +868,7 @@ glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetHistogramParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -880,7 +880,7 @@ glGetIntegerv(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -891,7 +891,7 @@ glGetLightfv(light:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -902,7 +902,7 @@ glGetLightiv(light:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -928,7 +928,7 @@ glGetMaterialfv(face:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -939,7 +939,7 @@ glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -953,7 +953,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMinmaxParameterfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -964,7 +964,7 @@ glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMinmaxParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1001,7 +1001,7 @@ glGetString(name:GLenum):map {block?} = R'''
 		sig.SetError(ERR_ValueError, "invalid name");
 		return Value::Nil;
 	}
-	return ReturnValue(env, args, Value(reinterpret_cast<const char *>(_rtn)));
+	return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1012,7 +1012,7 @@ glGetTexEnvfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1023,7 +1023,7 @@ glGetTexEnviv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1034,7 +1034,7 @@ glGetTexGendv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1045,7 +1045,7 @@ glGetTexGenfv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1056,7 +1056,7 @@ glGetTexGeniv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1069,7 +1069,7 @@ glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum):map {block?} 
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1080,7 +1080,7 @@ glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum):map {block?} 
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1091,7 +1091,7 @@ glGetTexParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1102,7 +1102,7 @@ glGetTexParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1375,9 +1375,9 @@ glMultMatrixf(m:GLfloat@matrix:const):void = `auto % {`en, 'markdown',
 
 glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	glNewList(list, mode);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
@@ -1552,9 +1552,9 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:ma
 
 glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushAttrib(mask);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
@@ -1567,9 +1567,9 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 
 glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushClientAttrib(mask);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
@@ -1582,9 +1582,9 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 
 glPushMatrix():void {block?} = R'''
 	glPushMatrix();
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
@@ -1597,9 +1597,9 @@ glPushMatrix():void {block?} = R'''
 
 glPushName(name:GLuint):void:map {block?} = R'''
 	glPushName(name);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
@@ -1744,7 +1744,7 @@ glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol):map
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
-	return ReturnValue(env, args, Value(new Object_image(env, pImage.release())));
+	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2879,7 +2879,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
-	return ReturnValue(env, args, Value::CreateList(env, ids, n));
+	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2901,9 +2901,9 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	glBeginQuery(target, id);
-	if (args.IsBlockSpecified()) {
+	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
-		const Expr_Block *pExprBlock = args.GetBlockCooked(env);
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndQuery(target);
@@ -2924,7 +2924,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryiv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2935,7 +2935,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryObjectiv(id, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2946,7 +2946,7 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
 	glGetQueryObjectuiv(id, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3001,7 +3001,7 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):void:map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetBufferParameteriv(target, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3217,7 +3217,7 @@ glGetVertexAttribdv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetVertexAttribdv(index, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3228,7 +3228,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetVertexAttribfv(index, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3239,7 +3239,7 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetVertexAttribiv(index, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3430,7 +3430,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetShaderiv(shader, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3441,7 +3441,7 @@ glGetProgramiv(program:GLuint, pname:GLenum):void:map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetProgramiv(program, pname, params);
-	return ReturnValue(env, args, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''

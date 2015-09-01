@@ -90,7 +90,8 @@ const Function *Argument::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 
 bool Argument::IsSet(const Symbol *pSymbol) const
 {
-	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0;
+	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0 ||
+		(_resultMode != RSLTMODE_Normal && _resultMode == Symbol::ToResultMode(pSymbol));
 }
 
 //-----------------------------------------------------------------------------
