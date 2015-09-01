@@ -92,7 +92,7 @@ public:
 protected:
 	virtual ~Argument();
 public:
-	inline bool IsSet(const Symbol *pSymbol) const { return GetAttrs().IsSet(pSymbol); }
+	bool IsSet(const Symbol *pSymbol) const;
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
 	inline void SetAttrsShared(SymbolSetShared *pAttrsShared) {
 		_pAttrsShared.reset(pAttrsShared);

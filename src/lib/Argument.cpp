@@ -88,6 +88,11 @@ const Function *Argument::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 	return _pFuncBlock.get();
 }
 
+bool Argument::IsSet(const Symbol *pSymbol) const
+{
+	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0;
+}
+
 //-----------------------------------------------------------------------------
 // Argument::Slot
 //-----------------------------------------------------------------------------

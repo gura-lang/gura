@@ -12,7 +12,7 @@ const CallerInfo CallerInfo::Empty(ExprList::Empty, nullptr, nullptr, nullptr);
 
 bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 {
-#if 0
+#if 1
 	/*
 	const ULong flagsAcceptable =
 		FLAG_CutExtraArgs |
@@ -155,14 +155,16 @@ bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 
 String CallerInfo::MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear)
 {
-#if 0
+#if 1
 	String str;
 	ULong flag = 1;
 	for (ULong flags = flagsToSet; flags != 0; flags >>= 1, flag <<= 1) {
-		const Symbol *pSymbol = Symbol::FromFlag(flag);
-		if (pSymbol != nullptr) {
-			str += ":";
-			str += pSymbol->GetName();
+		if (flags & 1) {
+			const Symbol *pSymbol = Symbol::FromFlag(flag);
+			if (pSymbol != nullptr) {
+				str += ":";
+				str += pSymbol->GetName();
+			}
 		}
 	}
 	if (flagsToClear & FLAG_Flat) {
